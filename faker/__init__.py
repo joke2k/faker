@@ -1,3 +1,5 @@
+__version__ = '0.1'
+
 from faker import providers
 
 PROVIDERS_PACKAGE = providers.__package__
