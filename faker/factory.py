@@ -1,5 +1,7 @@
-import importlib
-from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, PROVIDERS_PACKAGE, Generator
+import sys
+from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS
+from faker import Generator
+from faker import providers
 
 class Factory(object):
 
@@ -38,15 +40,15 @@ class Factory(object):
     @classmethod
     def _findProviderClass(cls, provider, locale=''):
 
-        providerModulename = '.'
-        if locale :
-            providerModulename += '%s.%s' % (locale, provider)
-        else:
-            providerModulename += provider
+        path = "{providers}{lang}.{provider}".format(
+            providers=providers.__package__,
+            lang='.' + locale if locale else '',
+            provider=provider
+        )
 
         try:
-            module = importlib.import_module( providerModulename, package= PROVIDERS_PACKAGE )
-        except ImportError as e:
+            __import__(path)
+        except ImportError:
             return None
 
-        return getattr(module, 'Provider', None)
+        return sys.modules[path].Provider

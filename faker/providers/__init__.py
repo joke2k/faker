@@ -10,6 +10,10 @@ class BaseProvider(object):
         self.generator = generator
 
     @classmethod
+    def randomInt(cls,min=0,max=9999):
+        return random.randint(min,max)
+
+    @classmethod
     def randomDigit(cls):
         """ Returns a random number between 0 and 9 """
         return random.randint(0,9)

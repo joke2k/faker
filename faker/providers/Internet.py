@@ -1,11 +1,16 @@
 from . import BaseProvider
 import random
+import re
 
 class Provider(BaseProvider):
 
     safeEmailTlds = ('org','com','net')
     freeEmailDomains = ('gmail.com','yahoo.com','hotmail.com')
     tlds = ('com','com','com','com','com','com','biz','info','net','org')
+
+    uriPages = ('index','home','search','main','post','homepage','category','register','login','faq','about','terms','privacy', 'author')
+    uriPaths = ('app','main','wp-content','search','category','tag','categories','tags','blog','posts','list','explore')
+    uriExtensions = ('.html','.html','.html','.htm','.htm','.php','.php','.jsp','','','.asp')
 
     userNameFormats = (
         '{{lastName}}.{{firstName}}',
@@ -20,6 +25,13 @@ class Provider(BaseProvider):
     urlFormats = (
         'http://www.{{domainName}}/',
         'http://{{domainName}}/',
+    )
+    uriFormats = (
+        '{{url}}',
+        '{{url}}{{uriPage}}/',
+        '{{url}}{{uriPage}}{{uriExtension}}',
+        '{{url}}{{uriPath}}/{{uriPage}}/',
+        '{{url}}{{uriPath}}/{{uriPage}}{{uriExtension}}',
     )
 
     def email(self):
@@ -50,7 +62,7 @@ class Provider(BaseProvider):
         company = self.generator.format('company')()
         companyElements = company.split(' ')
         company = companyElements.pop(0)
-        return company.replace(r'\W','').lower()
+        return re.sub(r'\W', '', company).lower()
 
     def tld(self):
         return self.randomElement( self.tlds )
@@ -68,5 +80,22 @@ class Provider(BaseProvider):
         for i in range(0,8):
             res.append( hex(random.randint(0,65535))[2:].zfill(4) )
         return ":".join(res)
+
+
+
+    @classmethod
+    def uriPage(cls): return cls.randomElement( cls.uriPages )
+
+    @classmethod
+    def uriPath(cls, deep=None):
+        deep = deep if deep else random.randint(1,3)
+        return "/".join([cls.randomElement( cls.uriPaths ) for x in range(0,deep)])
+
+    @classmethod
+    def uriExtension(cls): return cls.randomElement( cls.uriExtensions )
+
+    def uri(self):
+        format = self.randomElement( self.uriFormats )
+        return self.generator.parse( format )
 
 

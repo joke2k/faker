@@ -79,7 +79,7 @@ class Provider( BaseProvider ):
 
     @classmethod
     def geo_coordinate(cls):
-        return Decimal( random.randint(-180000000,180000000)/1000000 ).quantize(Decimal('.000001'))
+        return Decimal( random.randint(-180000000,180000000)/1000000.0 ).quantize(Decimal('.000001'))
 
     @classmethod
     def latitude(cls): return cls.geo_coordinate()

@@ -1,17 +1,15 @@
 __version__ = '0.1'
 
-from faker import providers
-
-PROVIDERS_PACKAGE = providers.__package__
-
 DEFAULT_LOCALE = 'en_US'
 
 DEFAULT_PROVIDERS = (
-    'Lorem', 'Address', 'Person', 'DateTime', 'Company', 'Internet', 'Miscelleneous', 'PhoneNumber', 'UserAgent'
+    'Lorem', 'Address', 'Person', 'DateTime', 'Company', 'Internet', 'Miscelleneous', 'PhoneNumber', 'UserAgent', 'File'
     )
 
 from faker.generator import  Generator
 from faker.factory import  Factory
 
-faker = Factory.create()
+def Faker(*args,**kwargs):
+    return Factory.create(*args,**kwargs)
 
+fake = Faker()

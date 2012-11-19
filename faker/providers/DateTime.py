@@ -2,7 +2,9 @@ from . import BaseProvider
 import random
 import re
 from time import time, mktime
-from datetime import datetime, timedelta, date
+#from datetime import datetime, timedelta, date
+from datetime import timedelta
+from ..utils.datetime_safe import date, datetime, real_date, real_datetime
 
 
 
@@ -270,12 +272,12 @@ class Provider( BaseProvider ):
 
     @classmethod
     def _parseDateTime(cls, text ):
-        if isinstance(text, (datetime,date)):
+        if isinstance(text, (datetime,date,real_datetime,real_date)):
             return datetime_to_timestamp(text)
         now = datetime.now()
         if isinstance(text ,timedelta ):
             return datetime_to_timestamp(now - text)
-        if isinstance(text, str):
+        if isinstance(text, (str,unicode)):
             if text == 'now':
                 return datetime_to_timestamp(datetime.now())
             parts = cls.regex.match(text)
