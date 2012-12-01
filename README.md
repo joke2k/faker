@@ -216,16 +216,57 @@ The localization of Faker is an ongoing process, for which we need your help.
 Don't hesitate to create localized providers to your own locale and submit a PR!
 
 
+# Using from shell
+
+In a python environment with faker installed you can use it with:
+
+    python -m faker [option] [*args]
+
+option:
+    - formatter name as `text`, `address`: display result of fake
+    - Provider name as `Lorem`: display all Provider's fakes
+*args: pass value to formatter (actually only strings)
+
+    $ python -m faker address
+    968 Bahringer Garden Apt. 722
+    Kristinaland, NJ 09890
+
+
 # Seeding the Generator
 
 You may want to get always the same generated data - for instance when using Faker for unit testing purposes.
 The generator offers a `seed()` method, which seeds the random number generator.
 Calling the same script twice with the same seed produces the same results.
 
-    from faker import fake
+    from faker import Faker
+    fake = Faker()
     fake.seed(4321)
 
     print fake.name()   # Margaret Boehm
+
+
+
+# Tests
+
+Run tests:
+
+    $ python setup.py test
+
+or
+
+    $ python -m unittest -v faker.tests.test_generator
+
+Run django tests in a django environment:
+
+    $ python runtests.py
+
+or if you have 'faker.django_faker' in INSTALLED_APPS:
+
+    $ python manage.py test faker.django_faker
+
+Write documentation for providers:
+
+    $ python -m faker > docs.txt
 
 
 
