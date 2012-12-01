@@ -113,6 +113,9 @@ class Provider(BaseProvider):
 
     @classmethod
     def mimeType(cls, type=None):
+        """
+        :param type: application|audio|image|message|model|multipart|text|video
+        """
         type = type if type else cls.randomElement( cls.mimeTypes.keys() )
         return cls.randomElement( cls.mimeTypes[type]  )
 

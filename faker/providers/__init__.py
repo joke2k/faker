@@ -2,7 +2,6 @@ import re
 import random
 import string
 
-
 class BaseProvider(object):
 
     def __init__(self, generator ):
@@ -39,6 +38,17 @@ class BaseProvider(object):
     def randomElement( cls,array=('a','b','b') ):
         """ Returns a random element from a passed array """
         return array[ random.randint(0, len(array)-1) ]
+
+    @classmethod
+    def randomizeNbElements(cls, nbElements=10, le=False, gt=False ):
+        """
+        Returns a random value near to nbElements
+        :param le: lower or equals to nbElements
+        :param gt: greater or equals to nbElements
+        :returns: a random int near to nbElements
+        """
+        if le and gt: return nbElements
+        return int( nbElements * random.randint(100 if gt else 60,100 if le else 140) / 100 ) + 1
 
     @classmethod
     def numerify( cls,text = '###' ):

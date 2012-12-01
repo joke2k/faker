@@ -167,9 +167,3 @@ class Provider(BaseProvider):
                 text.pop()
 
         return "".join(text)
-
-
-    @classmethod
-    def randomizeNbElements(cls, nbElements ):
-
-        return int( nbElements * random.randint(60,140) / 100 ) + 1

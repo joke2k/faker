@@ -13,8 +13,8 @@ class Provider( BaseProvider ):
     streetNameFormats = ['{{lastName}} {{streetSuffix}}',]
     streetAddressFormats = ['{{buildingNumber}} {{streetName}}',]
     addressFormats = ['{{streetAddress}} {{postcode}} {{city}}',]
-    buildingNumbers = ['##',]
-    postcodes = ['#####',]
+    buildingNumberFormats = ['##',]
+    postcodeFormats = ['#####',]
     countries = [tz['name'] for tz in DateTime.Provider.countries]
 
     @classmethod
@@ -36,7 +36,7 @@ class Provider( BaseProvider ):
         """
         :example '791'
         """
-        return cls.numerify( cls.randomElement( cls.buildingNumbers ) )
+        return cls.numerify( cls.randomElement( cls.buildingNumberFormats ) )
 
     def city(self):
         """
@@ -64,7 +64,7 @@ class Provider( BaseProvider ):
         """
         :example 86039-9874
         """
-        return cls.bothify( cls.randomElement( cls.postcodes ) ).upper()
+        return cls.bothify( cls.randomElement( cls.postcodeFormats ) ).upper()
 
     def address(self):
         """
