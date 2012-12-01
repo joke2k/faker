@@ -36,7 +36,7 @@ setup(name='faker',
     packages=find_packages('./'),
     entry_points={
         'console_scripts':
-            ['mock=faker:faker']
+            ['mock=faker:fake']
     },
     platforms=["any"],
 
