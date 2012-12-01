@@ -256,14 +256,6 @@ or
 
     $ python -m unittest -v faker.tests.test_generator
 
-Run django tests in a django environment:
-
-    $ python runtests.py
-
-or if you have 'faker.django_faker' in INSTALLED_APPS:
-
-    $ python manage.py test faker.django_faker
-
 Write documentation for providers:
 
     $ python -m faker > docs.txt
