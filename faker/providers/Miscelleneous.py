@@ -14,9 +14,11 @@ class Provider(BaseProvider):
 
     @classmethod
     def nullBoolean(cls):
-        roll = random.randint(1,90)
-        if roll <= 60: return cls.boolean()
-        return None
+        return {
+            0: None,
+            1: True,
+            -1: False
+        }[random.randint(-1,1)]
 
     @classmethod
     def md5(cls, raw_output=False):
