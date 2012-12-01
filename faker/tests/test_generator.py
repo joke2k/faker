@@ -16,7 +16,7 @@ class FooProvider(object):
         return 'baz' + param + append
 
 
-class FactoryTest(unittest.TestCase):
+class FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.generator = Generator()
         self.provider = FooProvider()
