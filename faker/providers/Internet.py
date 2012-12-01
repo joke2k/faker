@@ -10,7 +10,7 @@ class Provider(BaseProvider):
 
     uriPages = ('index','home','search','main','post','homepage','category','register','login','faq','about','terms','privacy', 'author')
     uriPaths = ('app','main','wp-content','search','category','tag','categories','tags','blog','posts','list','explore')
-    uriExtensions = ('.html','.html','.html','.htm','.htm','.php','.php','.jsp','','','.asp')
+    uriExtensions = ('.html','.html','.html','.htm','.htm','.php','.php','.jsp','.asp')
 
     userNameFormats = (
         '{{lastName}}.{{firstName}}',
@@ -59,7 +59,7 @@ class Provider(BaseProvider):
         return self.domainWord() + '.' + self.tld()
 
     def domainWord(self):
-        company = self.generator.format('company')()
+        company = self.generator.format('company')
         companyElements = company.split(' ')
         company = companyElements.pop(0)
         return re.sub(r'\W', '', company).lower()
@@ -97,5 +97,17 @@ class Provider(BaseProvider):
     def uri(self):
         format = self.randomElement( self.uriFormats )
         return self.generator.parse( format )
+
+
+    @classmethod
+    def slug(cls, value=None):
+        """
+        Django algorithm
+        """
+        import unicodedata
+        value = value or cls.uriPath(3)
+        value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+        value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
+        return re.sub('[-\s]+', '-', value)
 
 

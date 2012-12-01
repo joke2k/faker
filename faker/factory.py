@@ -8,6 +8,9 @@ class Factory(object):
     @classmethod
     def create(cls, locale=DEFAULT_LOCALE ):
 
+        # fix locale to package name
+        locale = locale.replace('-','_')
+
         generator = Generator()
         for provider in DEFAULT_PROVIDERS:
 
