@@ -40,6 +40,5 @@ setup(name='faker',
     },
     platforms=["any"],
 
-    tests_require = ( 'django', ),
-    test_suite='faker.tests.runtests.runtests',
+    
 )
