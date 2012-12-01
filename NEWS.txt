@@ -1,6 +1,17 @@
 News
 ====
 
+0.2
+---
+
+*Release date: 30-Nov-2012*
+
+* New providers: Python, File
+* Providers imported with __import__
+* Module is runnable with python -m faker [name] [*args]
+* Rewrite fake generator system (allow autocompletation)
+* New language: Franch
+
 0.1
 ---
 
