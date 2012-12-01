@@ -9,10 +9,10 @@ README = open(os.path.join(here, 'README.md')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.1'
+version = __version__
 
 setup(name='faker',
-    version=__version__,
+    version=version,
     description="faker is a Python package that generates fake data for you.",
     long_description=README + '\n\n' + NEWS,
     classifiers=[
@@ -39,4 +39,7 @@ setup(name='faker',
             ['mock=faker:faker']
     },
     platforms=["any"],
+
+    tests_require = ( 'django', ),
+    test_suite='faker.tests.runtests.runtests',
 )
