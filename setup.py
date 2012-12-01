@@ -18,13 +18,13 @@ setup(name='faker',
     classifiers=[
         # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Information Technology',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Testing',
-        'Topic :: Software Development :: Widget Sets',
         'Topic :: Utilities',
         'License :: OSI Approved :: MIT License'
     ],
@@ -40,5 +40,5 @@ setup(name='faker',
     },
     platforms=["any"],
 
-    
+    test_suite='faker.tests.test_all',
 )
