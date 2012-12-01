@@ -9,8 +9,14 @@ class Provider(BaseProvider):
     languageCodes = ('cn','de','en','es','fr','it','pt','ru')
 
     @classmethod
-    def boolean(cls, changeOfGettingTrue=50):
-        return random.randint(1,100) <= changeOfGettingTrue
+    def boolean(cls, chanceOfGettingTrue=50):
+        return random.randint(1,100) <= chanceOfGettingTrue
+
+    @classmethod
+    def nullBoolean(cls):
+        roll = random.randint(1,90)
+        if roll <= 60: return cls.boolean()
+        return None
 
     @classmethod
     def md5(cls, raw_output=False):
