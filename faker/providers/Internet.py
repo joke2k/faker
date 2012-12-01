@@ -1,6 +1,7 @@
 from . import BaseProvider
 import random
 import re
+from faker.providers.Lorem import Provider as Lorem
 
 class Provider(BaseProvider):
 
@@ -98,14 +99,13 @@ class Provider(BaseProvider):
         format = self.randomElement( self.uriFormats )
         return self.generator.parse( format )
 
-
     @classmethod
     def slug(cls, value=None):
         """
         Django algorithm
         """
         import unicodedata
-        value = value or cls.uriPath(3)
+        value = unicode(value or Lorem.text(20))
         value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
         value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
         return re.sub('[-\s]+', '-', value)
