@@ -2,7 +2,7 @@
 
 Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database, create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service, Faker is for you.
 
-Faker is heavily inspired by PHP's [Faker](http://github.com/fzaninotto/Faker), Perl's [Data::Faker](http://search.cpan.org/~jasonk/Data-Faker-0.07/), and by ruby's [Faker](http://faker.rubyforge.org/).
+Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl-faker], and by ruby's [Faker][ruby-faker].
 
 ## Basic Usage
 
@@ -222,10 +222,12 @@ In a python environment with faker installed you can use it with:
 
     python -m faker [option] [*args]
 
-option:
-    - formatter name as `text`, `address`: display result of fake
-    - Provider name as `Lorem`: display all Provider's fakes
-*args: pass value to formatter (actually only strings)
+[option]:
+
+*  formatter name as `text`, `address`: display result of fake
+*  Provider name as `Lorem`: display all Provider's fakes
+
+[*args]: pass value to formatter (actually only strings)
 
     $ python -m faker address
     968 Bahringer Garden Apt. 722
@@ -269,13 +271,15 @@ Faker is released under the MIT Licence. See the bundled LICENSE file for detail
 
 Credits
 -------
-- [FZaninotto][fzaninotto] / [Faker][faker]
+- [FZaninotto][fzaninotto] / [Faker][php-faker]
 - [Distribute][distribute]
 - [Buildout][buildout]
 - [modern-package-template][modern-package-template]
 
 [fzaninotto]: https://github.com/fzaninotto  "F.Zaninotto"
-[faker]: https://github.com/fzaninotto/Faker "Php faker"
+[php-faker]: https://github.com/fzaninotto/Faker "Php faker"
+[perl-faker]: http://search.cpan.org/~jasonk/Data-Faker-0.07/ "Perl faker"
+[ruby-faker]: http://faker.rubyforge.org/ "Ruby faker"
 [buildout]: http://www.buildout.org/
 [distribute]:  http://pypi.python.org/pypi/distribute
 [modern-package-template]: http://pypi.python.org/pypi/modern-package-template

@@ -9,7 +9,7 @@ class Factory(object):
     def create(cls, locale=DEFAULT_LOCALE, providers=None ):
 
         # fix locale to package name
-        locale = locale.replace('-','_')
+        locale = locale.replace('-','_') if locale else DEFAULT_LOCALE
         if '_' in locale:
             locale = locale[:2] + locale[2:].upper()
         if locale not in AVAILABLE_LOCALES:
