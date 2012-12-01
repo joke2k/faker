@@ -1,18 +1,24 @@
 import sys
-from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS
+from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
 from faker import providers
 
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=DEFAULT_LOCALE ):
+    def create(cls, locale=DEFAULT_LOCALE, providers=None ):
 
         # fix locale to package name
         locale = locale.replace('-','_')
+        if '_' in locale:
+            locale = locale[:2] + locale[2:].upper()
+        if locale not in AVAILABLE_LOCALES:
+            raise AttributeError('Invalid configuration for faker locale "%s"' % locale)
+
+        providers = providers or DEFAULT_PROVIDERS
 
         generator = Generator()
-        for provider in DEFAULT_PROVIDERS:
+        for provider in providers:
 
             providerClass = cls._getProviderClass( provider, locale )
             generator.addProvider( providerClass(generator) )

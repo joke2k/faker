@@ -2,7 +2,8 @@ import sys
 
 
 def main(provider_or_field=None, *args):
-    from faker import fake, documentor
+    from faker import Faker, documentor
+    fake = Faker()
 
     doc = documentor.Documentor(fake)
 

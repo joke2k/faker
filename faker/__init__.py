@@ -1,6 +1,8 @@
 __version__ = '0.2'
 
-DEFAULT_LOCALE = 'en_US'
+AVAILABLE_LOCALES = ['en_US','it_IT','fr_FR']
+
+DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
 DEFAULT_PROVIDERS = (
     'Lorem',
@@ -21,5 +23,3 @@ from faker.factory import  Factory
 
 def Faker(*args,**kwargs):
     return Factory.create(*args,**kwargs)
-
-fake = Faker()
