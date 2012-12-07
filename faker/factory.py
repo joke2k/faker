@@ -6,7 +6,7 @@ from faker import providers
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=DEFAULT_LOCALE, providers=None ):
+    def create(cls, locale=None, providers=None ):
 
         # fix locale to package name
         locale = locale.replace('-','_') if locale else DEFAULT_LOCALE
