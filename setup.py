@@ -11,9 +11,9 @@ NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 version = __version__
 
-setup(name='faker',
+setup(name='fake-factory',
     version=version,
-    description="faker is a Python package that generates fake data for you.",
+    description="Faker is a Python package that generates fake data for you.",
     long_description=README + '\n\n' + NEWS,
     classifiers=[
         # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -28,17 +28,12 @@ setup(name='faker',
         'Topic :: Utilities',
         'License :: OSI Approved :: MIT License'
     ],
-    keywords='faker fixtures data test',
+    keywords='faker fixtures data test mock generator',
     author='joke2k',
     author_email='joke2k@gmail.com',
     url='http://github.com/joke2k/faker',
     license='MIT License',
     packages=find_packages('./'),
-    entry_points={
-        'console_scripts':
-            ['mock=faker:fake']
-    },
     platforms=["any"],
-
-    test_suite='faker.tests.test_all',
+    test_suite='faker.tests',
 )

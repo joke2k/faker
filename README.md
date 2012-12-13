@@ -1,10 +1,22 @@
+    _|_|_|_|          _|
+    _|        _|_|_|  _|  _|      _|_|    _|  _|_|
+    _|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
+    _|      _|    _|  _|  _|    _|        _|
+    _|        _|_|_|  _|    _|    _|_|_|  _|
+
 # Faker #
 
-Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database, create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service, Faker is for you.
+Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database,
+create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
+Faker is for you.
 
 Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl-faker], and by ruby's [Faker][ruby-faker].
 
 ## Basic Usage
+
+Install with pip:
+
+    pip install fake-factory
 
 Use `faker.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
 
@@ -256,7 +268,7 @@ Run tests:
 
 or
 
-    $ python -m unittest -v faker.tests.test_generator
+    $ python -m unittest -v faker.tests
 
 Write documentation for providers:
 
