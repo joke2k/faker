@@ -1,16 +1,16 @@
 from . import BaseProvider
-from . import DateTime
+from . import Date_Time
 import random
 import hashlib
 
 
 class Provider(BaseProvider):
 
-    languageCodes = ('cn','de','en','es','fr','it','pt','ru')
+    languageCodes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
     def boolean(cls, chanceOfGettingTrue=50):
-        return random.randint(1,100) <= chanceOfGettingTrue
+        return random.randint(1, 100) <= chanceOfGettingTrue
 
     @classmethod
     def nullBoolean(cls):
@@ -18,7 +18,7 @@ class Provider(BaseProvider):
             0: None,
             1: True,
             -1: False
-        }[random.randint(-1,1)]
+        }[random.randint(-1, 1)]
 
     @classmethod
     def md5(cls, raw_output=False):
@@ -56,12 +56,10 @@ class Provider(BaseProvider):
     def locale(self):
         return self.languageCode() + '_' + self.countryCode()
 
-
     @classmethod
     def countryCode(cls):
-        return cls.randomElement( DateTime.Provider.countries )['code']
+        return cls.randomElement(Date_Time.Provider.countries)['code']
 
     @classmethod
     def languageCode(cls):
-        return cls.randomElement( cls.languageCodes )
-
+        return cls.randomElement(cls.languageCodes)

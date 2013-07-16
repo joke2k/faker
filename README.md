@@ -131,7 +131,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
     fake.company()                     # Stanton-Luettgen
     fake.companySuffix()               # Group
 
-### faker.providers.DateTime:
+### faker.providers.Date_Time:
 
     fake.amPm()                        # AM
     fake.century()                     # IX
