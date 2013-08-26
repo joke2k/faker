@@ -19,9 +19,9 @@ class Provider(AddressProvider):
         '{{lastName}}',
         '{{lastName}}',
         '{{lastName}}',
-        '{{lastName}}{{citySuffix}}',
-        '{{lastName}}{{citySuffix}}',
-        '{{lastName}}{{citySuffix}}',
+        '{{lastName}} {{citySuffix}}',
+        '{{lastName}} {{citySuffix}}',
+        '{{lastName}} {{citySuffix}}',
         '{{lastName}} de {{lastName}}',
     )
     streetNameFormats = (
@@ -32,19 +32,50 @@ class Provider(AddressProvider):
 
     streetAddressFormats = (
         '{{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
+        '{{streetName}}, {{buildingNumber}}',
+        '{{streetName}}, {{buildingNumber}}',
+        '{{streetName}}, {{buildingNumber}}',
+        '{{streetName}}, {{buildingNumber}}',
+        '{{streetName}}, {{buildingNumber}}',
+        '{{streetName}}, {{buildingNumber}}',
     )
 
     addressFormats = (
-        "{{streetAddress}}\n{{postcode}} {{city}}",
+        "{{streetAddress}}\n{{bairro}}\n{{postcode}} {{city}} / {{estadoSigla}}",
     )
 
     buildingNumberFormats = ('%', '%#', '%#', '%#', '%##')
-    postcodeFormats = ('#####', '## ###')
+
+    postcodeFormats = ('########', '#####-###')
+
+    bairros = ('Aarão Reis', 'Acaba Mundo', 'Acaiaca', 'Ademar Maldonado', 'Aeroporto', 'Aguas Claras', 'Alípio De Melo', 'Alpes', 'Alta Tensão 1ª Seção', 'Alta Tensão 2ª Seção', 'Alto Caiçaras', 'Alto Das Antenas', 'Alto Dos Pinheiros', 'Alto Vera Cruz',
+               'Álvaro Camargos', 'Ambrosina', 'Andiroba', 'Antonio Ribeiro De Abreu 1ª Seção', 'Aparecida 7ª Seção', 'Ápia', 'Apolonia', 'Araguaia', 'Atila De Paiva', 'Bacurau', 'Bairro Das Indústrias Ii', 'Baleia', 'Barão Homem De Melo 1ª Seção', 'Barão Homem De Melo 2ª Seção', 'Barão Homem De Melo 3ª Seção',
+               'Barreiro',  'Beija Flor', 'Beira Linha', 'Bela Vitoria', 'Belmonte', 'Bernadete', 'Betânia', 'Biquinhas', 'Boa Esperança', 'Boa União 1ª Seção', 'Boa União 2ª Seção', 'Boa Viagem', 'Boa Vista', 'Bom Jesus', 'Bonfim', 'Bonsucesso', 'Brasil Industrial', 'Braúnas', 'Buraco Quente', 'Cabana Do Pai Tomás',
+               'Cachoeirinha', 'Caetano Furquim', 'Caiçara - Adelaide', 'Calafate', 'Califórnia', 'Camargos', 'Campo Alegre', 'Camponesa 1ª Seção', 'Camponesa 2ª Seção', 'Canaa', 'Canadá', 'Candelaria', 'Capitão Eduardo', 'Cardoso', 'Casa Branca', 'Castanheira', 'Cdi Jatoba', 'Cenaculo', 'Céu Azul', 'Chácara Leonina',
+               'Cidade Jardim Taquaril', 'Cinquentenário', 'Colégio Batista', 'Comiteco', 'Concórdia', 'Cônego Pinheiro 1ª Seção', 'Cônego Pinheiro 2ª Seção', 'Confisco', 'Conjunto Bonsucesso', 'Conjunto Califórnia I', 'Conjunto Califórnia Ii', 'Conjunto Capitão Eduardo', 'Conjunto Celso Machado', 'Conjunto Floramar',
+               'Conjunto Jardim Filadélfia', 'Conjunto Jatoba', 'Conjunto Lagoa', 'Conjunto Minas Caixa', 'Conjunto Novo Dom Bosco', 'Conjunto Paulo Vi', 'Conjunto Providencia', 'Conjunto Santa Maria', 'Conjunto São Francisco De Assis', 'Conjunto Serra Verde', 'Conjunto Taquaril', 'Copacabana', 'Coqueiros', 'Corumbiara',
+               'Custodinha',  'Das Industrias I', 'Delta', 'Diamante', 'Distrito Industrial Do Jatoba', 'Dom Bosco', 'Dom Cabral', 'Dom Joaquim', 'Dom Silverio', 'Dona Clara', 'Embaúbas', 'Engenho Nogueira', 'Ermelinda', 'Ernesto Nascimento', 'Esperança', 'Estrela', 'Estrela Do Oriente', 'Etelvina Carneiro', 'Europa',
+               'Eymard', 'Fazendinha', 'Flamengo', 'Flavio De Oliveira', 'Flavio Marques Lisboa', 'Floramar', 'Frei Leopoldo', 'Gameleira', 'Garças', 'Glória', 'Goiania', 'Graça', 'Granja De Freitas', 'Granja Werneck', 'Grota', 'Grotinha', 'Guarani', 'Guaratã', 'Havaí', 'Heliopolis', 'Horto Florestal', 'Inconfidência',
+               'Indaiá',  'Independência', 'Ipe', 'Itapoa', 'Itatiaia', 'Jaqueline', 'Jaraguá', 'Jardim Alvorada', 'Jardim Atlântico', 'Jardim Do Vale', 'Jardim Dos Comerciarios', 'Jardim Felicidade', 'Jardim Guanabara', 'Jardim Leblon', 'Jardim Montanhês', 'Jardim São José', 'Jardim Vitoria', 'Jardinópolis', 'Jatobá',
+               'João Alfredo', 'João Paulo Ii', 'Jonas Veiga', 'Juliana', 'Lagoa', 'Lagoinha', 'Lagoinha Leblon', 'Lajedo', 'Laranjeiras', 'Leonina', 'Leticia', 'Liberdade', 'Lindéia', 'Lorena', 'Madre Gertrudes', 'Madri', 'Mala E Cuia', 'Manacas', 'Mangueiras', 'Mantiqueira', 'Marajó', 'Maravilha', 'Marçola', 'Maria Goretti',
+               'Maria Helena', 'Maria Tereza', 'Maria Virgínia', 'Mariano De Abreu', 'Marieta 1ª Seção', 'Marieta 2ª Seção', 'Marieta 3ª Seção', 'Marilandia', 'Mariquinhas', 'Marmiteiros', 'Milionario', 'Minas Brasil', 'Minas Caixa', 'Minaslandia', 'Mineirão', 'Miramar', 'Mirante', 'Mirtes', 'Monsenhor Messias', 'Monte Azul',
+               'Monte São José', 'Morro Dos Macacos', 'Nazare', 'Nossa Senhora Aparecida', 'Nossa Senhora Da Aparecida', 'Nossa Senhora Da Conceição', 'Nossa Senhora De Fátima', 'Nossa Senhora Do Rosário', 'Nova America', 'Nova Cachoeirinha', 'Nova Cintra', 'Nova Esperança', 'Nova Floresta', 'Nova Gameleira', 'Nova Pampulha',
+               'Novo Aarão Reis', 'Novo Das Industrias', 'Novo Glória', 'Novo Santa Cecilia', 'Novo Tupi', 'Oeste', 'Olaria', "Olhos D'água", 'Ouro Minas', 'Pantanal', 'Paquetá', 'Paraíso', 'Parque São José', 'Parque São Pedro', 'Paulo Vi', 'Pedreira Padro Lopes', 'Penha', 'Petropolis', 'Pilar', 'Pindorama', 'Pindura Saia',
+               'Piraja',  'Piratininga', 'Pirineus', 'Pompéia', 'Pongelupe', 'Pousada Santo Antonio', 'Primeiro De Maio', 'Providencia', 'Ribeiro De Abreu', 'Rio Branco', 'Salgado Filho', 'Santa Amelia', 'Santa Branca', 'Santa Cecilia', 'Santa Cruz', 'Santa Helena', 'Santa Inês', 'Santa Isabel', 'Santa Margarida', 'Santa Maria',
+               'Santa Rita', 'Santa Rita De Cássia', 'Santa Sofia', 'Santa Terezinha', 'Santana Do Cafezal', 'Santo André', 'São Benedito', 'São Bernardo', 'São Cristóvão', 'São Damião', 'São Francisco', 'São Francisco Das Chagas', 'São Gabriel', 'São Geraldo', 'São Gonçalo', 'São João', 'São João Batista', 'São Jorge 1ª Seção',
+               'São Jorge 2ª Seção', 'São Jorge 3ª Seção', 'São José', 'São Marcos', 'São Paulo', 'São Salvador', 'São Sebastião', 'São Tomaz', 'São Vicente', 'Satelite', 'Saudade', 'Senhor Dos Passos', 'Serra Do Curral', 'Serra Verde', 'Serrano', 'Solar Do Barreiro', 'Solimoes', 'Sport Club', 'Suzana', 'Taquaril',
+               'Teixeira Dias', 'Tiradentes', 'Tirol', 'Tres Marias', 'Trevo', 'Túnel De Ibirité', 'Tupi A', 'Tupi B', 'União', 'Unidas', 'Universitário', 'Universo', 'Urca', 'Vale Do Jatoba', 'Varzea Da Palma', 'Venda Nova', 'Ventosa', 'Vera Cruz', 'Vila Aeroporto', 'Vila Aeroporto Jaraguá', 'Vila Antena', 'Vila Antena Montanhês',
+               'Vila Atila De Paiva', 'Vila Bandeirantes', 'Vila Barragem Santa Lúcia', 'Vila Batik', 'Vila Betânia', 'Vila Boa Vista', 'Vila Calafate', 'Vila Califórnia', 'Vila Canto Do Sabiá', 'Vila Cemig', 'Vila Cloris', 'Vila Copacabana', 'Vila Copasa', 'Vila Coqueiral', 'Vila Da Amizade', 'Vila Da Ária', 'Vila Da Luz',
+               'Vila Da Paz', 'Vila Das Oliveiras', 'Vila Do Pombal', 'Vila Dos Anjos', 'Vila Ecológica', 'Vila Engenho Nogueira', 'Vila Esplanada', 'Vila Formosa', 'Vila Fumec', 'Vila Havaí', 'Vila Independencia 1ª Seção', 'Vila Independencia 2ª Seção', 'Vila Independencia 3ª Seção', 'Vila Inestan', 'Vila Ipiranga',
+               'Vila Jardim Alvorada', 'Vila Jardim Leblon', 'Vila Jardim São José', 'Vila Madre Gertrudes 1ª Seção', 'Vila Madre Gertrudes 2ª Seção', 'Vila Madre Gertrudes 3ª Seção', 'Vila Madre Gertrudes 4ª Seção', 'Vila Maloca', 'Vila Mangueiras', 'Vila Mantiqueira', 'Vila Maria', 'Vila Minaslandia', 'Vila Nossa Senhora Do Rosário',
+               'Vila Nova', 'Vila Nova Cachoeirinha 1ª Seção', 'Vila Nova Cachoeirinha 2ª Seção', 'Vila Nova Cachoeirinha 3ª Seção', 'Vila Nova Dos Milionarios', 'Vila Nova Gameleira 1ª Seção', 'Vila Nova Gameleira 2ª Seção', 'Vila Nova Gameleira 3ª Seção', 'Vila Nova Paraíso', 'Vila Novo São Lucas', 'Vila Oeste', "Vila Olhos D'água",
+               'Vila Ouro Minas', 'Vila Paquetá', 'Vila Paraíso', 'Vila Petropolis', 'Vila Pilar', 'Vila Pinho', 'Vila Piratininga', 'Vila Piratininga Venda Nova', 'Vila Primeiro De Maio', 'Vila Puc', 'Vila Real 1ª Seção', 'Vila Real 2ª Seção', 'Vila Rica', 'Vila Santa Monica 1ª Seção', 'Vila Santa Monica 2ª Seção', 'Vila Santa Rosa',
+               'Vila Santo Antônio', 'Vila Santo Antônio Barroquinha', 'Vila São Dimas', 'Vila São Francisco', 'Vila São Gabriel', 'Vila São Gabriel Jacui', 'Vila São Geraldo', 'Vila São João Batista', 'Vila São Paulo', 'Vila São Rafael', 'Vila Satélite', 'Vila Sesc', 'Vila Sumaré', 'Vila Suzana Primeira Seção', 'Vila Suzana Segunda Seção',
+               'Vila Tirol', 'Vila Trinta E Um De Março', 'Vila União', 'Vila Vista Alegre', 'Virgínia', 'Vista Alegre', 'Vista Do Sol', 'Vitoria', 'Vitoria Da Conquista', 'Xangri-Lá', 'Xodo-Marize', 'Zilah Sposito', 'Outro', 'Novo São Lucas', 'Esplanada', 'Estoril', 'Novo Ouro Preto', 'Ouro Preto', 'Padre Eustáquio', 'Palmares',
+               'Palmeiras', 'Vila De Sá', 'Floresta', 'Anchieta', 'Aparecida', 'Grajaú', 'Planalto', 'Bandeirantes', 'Gutierrez', 'Jardim América', 'Renascença', 'Barro Preto', 'Barroca', 'Sagrada Família', 'Ipiranga', 'Belvedere', 'Santa Efigênia', 'Santa Lúcia', 'Santa Monica', 'Vila Jardim Montanhes', 'Santa Rosa', 'Santa Tereza',
+               'Buritis', 'Vila Paris', 'Santo Agostinho', 'Santo Antônio', 'Caiçaras', 'São Bento', 'Prado', 'Lourdes', 'Fernão Dias', 'Carlos Prates', 'Carmo', 'Luxemburgo', 'São Lucas', 'São Luiz', 'Mangabeiras', 'São Pedro', 'Horto', 'Cidade Jardim', 'Castelo', 'Cidade Nova', 'Savassi', 'Serra', 'Silveira', 'Sion', 'Centro',
+               'Alto Barroca', 'Nova Vista', 'Coração De Jesus', 'Coração Eucarístico', 'Funcionários', 'Cruzeiro', 'João Pinheiro', 'Nova Granada', 'Nova Suíça', 'Itaipu'
+    )
     countries = ('Afeganistão', 'África do Sul', 'Akrotiri', 'Albânia', 'Alemanha', 'Andorra', 'Angola', 'Anguila',
                  'Antártica', 'Antígua e Barbuda', 'Antilhas Holandesas', 'Arábia Saudita', 'Argélia', 'Argentina',
                  'Armênia', 'Aruba', 'Ashmore and Cartier Islands', 'Austrália', 'Áustria', 'Azerbaijão', 'Bahamas',
@@ -53,6 +84,7 @@ class Provider(AddressProvider):
                  'Burquina Faso', 'Burundi', 'Butão', 'Cabo Verde', 'Camarões', 'Camboja', 'Canadá', 'Catar',
                  'Cazaquistão', 'Chade', 'Chile', 'China', 'Chipre', 'Clipperton Island', 'Colômbia', 'Comores',
                  'Congo-Brazzaville', 'Congo-Kinshasa', 'Coral Sea Islands', 'Coreia do Norte', 'Coreia do Sul',
+                 'Costa do Marfim', 'Costa Rica', 'Croácia', 'Cuba', 'Dhekelia', 'Dinamarca', 'Domínica', 'Egito',
                  'Costa do Marfim', 'Costa Rica', 'Croácia', 'Cuba', 'Dhekelia', 'Dinamarca', 'Domínica', 'Egito',
                  'Emirados Árabes Unidos', 'Equador', 'Eritreia', 'Eslováquia', 'Eslovênia', 'Espanha', 'Estados Unidos',
                  'Estônia', 'Etiópia', 'Faroé', 'Fiji', 'Filipinas', 'Finlândia', 'França', 'Gabão', 'Gâmbia', 'Gana',
@@ -95,34 +127,43 @@ class Provider(AddressProvider):
     @classmethod
     def streetPrefix(cls):
         """
-        :example 'rue'
+        :example 'rua'
         """
         return cls.randomElement( cls.streetPrefixes )
 
     @classmethod
     def estado(cls):
         """
-        Randomly returns a french department ('departmentNumber' , 'departmentName').
-        :example ('2B' . 'Haute-Corse')
+        Randomly returns a Brazilian State  ('sigla' , 'nome').
+        :example ('MG' . 'Minas Gerais')
         """
         return cls.randomElement( cls.estados )
 
     @classmethod
     def estadoNome(cls):
         """
-        Randomly returns a french department name.
-        :example 'Ardèche'
+        Randomly returns a Brazilian State Name
+        :example 'Minas Gerais'
         """
         return cls.estado()[1]
 
     @classmethod
     def estadoSigla(cls):
         """
-        Randomly returns a french department number.
+        Randomly returns the abbreviation of a Brazilian State
 
-        :example '59'
+        :example 'MG'
         """
         return cls.estado()[0]
+
+    @classmethod
+    def bairro(cls):
+        """
+        Randomly returns a bairro (neighborhood) name. The names were taken from the city of Belo Horizonte - Minas Gerais
+
+        :example 'Serra'
+        """
+        return cls.randomElement( cls.bairros )
 
 
 
