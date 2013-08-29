@@ -28,8 +28,326 @@
         </ul>
       </header>
       <section>
-        <h3>
-<img src="images/salvador-rosa-allegoria-della-menzogna.jpg" alt="L'allegoria della menzogna. Salvador Rosa">
+        <p><img src="images/salvador-rosa-allegoria-della-menzogna.jpg" alt="L'allegoria della menzogna. Salvador Rosa"></p>
+
+<pre><code>_|_|_|_|          _|
+_|        _|_|_|  _|  _|      _|_|    _|  _|_|
+_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
+_|      _|    _|  _|  _|    _|        _|
+_|        _|_|_|  _|    _|    _|_|_|  _|
+</code></pre>
+
+<h1>
+<a name="faker" class="anchor" href="#faker"><span class="octicon octicon-link"></span></a>Faker</h1>
+
+<p>Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database,
+create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
+Faker is for you.</p>
+
+<p>Faker is heavily inspired by PHP's <a href="https://github.com/fzaninotto/Faker" title="Php faker">Faker</a>, Perl's <a href="http://search.cpan.org/%7Ejasonk/Data-Faker-0.07/" title="Perl faker">Data::Faker</a>, and by ruby's <a href="http://faker.rubyforge.org/" title="Ruby faker">Faker</a>.</p>
+
+<h2>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic Usage</h2>
+
+<p>Install with pip:</p>
+
+<pre><code>pip install fake-factory
+</code></pre>
+
+<p>Use <code>faker.Factory.create()</code> to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.</p>
+
+<div class="highlight"><pre>
+    <span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Factory</span>
+
+    <span class="n">faker</span> <span class="o">=</span> <span class="n">Factory</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+    <span class="n">faker</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+    <span class="c"># 'Lucy Cechtelar'</span>
+
+    <span class="n">faker</span><span class="o">.</span><span class="n">address</span><span class="p">()</span>
+    <span class="c"># "426 Jordy Lodge</span>
+    <span class="c">#  Cartwrightshire, SC 88120-6700"</span>
+
+    <span class="n">faker</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+    <span class="c"># Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi</span>
+    <span class="c"># beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt</span>
+    <span class="c"># amet quidem. Iusto deleniti cum autem ad quia aperiam.</span>
+    <span class="c"># A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui</span>
+    <span class="c"># quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur</span>
+    <span class="c"># voluptatem sit aliquam. Dolores voluptatum est.</span>
+    <span class="c"># Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.</span>
+    <span class="c"># Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.</span>
+    <span class="c"># Et sint et. Ut ducimus quod nemo ab voluptatum.</span>
+</pre></div>
+
+<p>Each call to method <code>faker.name()</code> yealds a different (random) result. This is because faker uses <code>__getattr__</code> magic, and forwards <code>faker.Genarator.method_name()' calls to</code>faker.Generator.format(method_name)`.</p>
+
+<div class="highlight"><pre>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+  <span class="k">print</span> <span class="n">faker</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+
+    <span class="c"># Adaline Reichel</span>
+    <span class="c"># Dr. Santa Prosacco DVM</span>
+    <span class="c"># Noemy Vandervort V</span>
+    <span class="c"># Lexi O'Conner</span>
+    <span class="c"># Gracie Weber</span>
+    <span class="c"># Roscoe Johns</span>
+    <span class="c"># Emmett Lebsack</span>
+    <span class="c"># Keegan Thiel</span>
+    <span class="c"># Wellington Koelpin II</span>
+    <span class="c"># Ms. Karley Kiehn V</span>
+</pre></div>
+
+<h2>
+<a name="formatters" class="anchor" href="#formatters"><span class="octicon octicon-link"></span></a>Formatters</h2>
+
+<p>Each of the generator properties (like <code>name</code>, <code>address</code>, and <code>lorem</code>) are called "formatters".
+A faker generator has many of them, packaged in "providers". Here is a list of the bundled formatters in the default locale.</p>
+
+<h3>
+<a name="fakerprovidersfile" class="anchor" href="#fakerprovidersfile"><span class="octicon octicon-link"></span></a>faker.providers.File:</h3>
+
+<pre><code>fake.mimeType()                    # video/webm
+</code></pre>
+
+<h3>
+<a name="fakerprovidersuseragent" class="anchor" href="#fakerprovidersuseragent"><span class="octicon octicon-link"></span></a>faker.providers.UserAgent:</h3>
+
+<pre><code>fake.chrome()                      # Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_8_4) AppleWebKit/5341 (KHTML, like Gecko) Chrome/13.0.803.0 Safari/5341
+fake.firefox()                     # Mozilla/5.0 (Windows 95; sl-SI; rv:1.9.1.20) Gecko/2012-01-06 22:35:05 Firefox/3.8
+fake.internetExplorer()            # Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.1)
+fake.linuxPlatformToken()          # X11; Linux x86_64
+fake.linuxProcessor()              # x86_64
+fake.macPlatformToken()            # Macintosh; U; PPC Mac OS X 10_7_6
+fake.macProcessor()                # U; PPC
+fake.opera()                       # Opera/9.41 (Windows CE; it-IT) Presto/2.9.168 Version/12.00
+fake.safari()                      # Mozilla/5.0 (Windows; U; Windows NT 5.1) AppleWebKit/534.34.4 (KHTML, like Gecko) Version/5.0 Safari/534.34.4
+fake.userAgent()                   # Mozilla/5.0 (iPod; U; CPU iPhone OS 3_2 like Mac OS X; en-US) AppleWebKit/531.15.3 (KHTML, like Gecko) Version/4.0.5 Mobile/8B119 Safari/6531.15.3
+fake.windowsPlatformToken()        # Windows 98; Win 9x 4.90
+</code></pre>
+
+<h3>
+<a name="fakerprovidersphonenumber" class="anchor" href="#fakerprovidersphonenumber"><span class="octicon octicon-link"></span></a>faker.providers.PhoneNumber:</h3>
+
+<pre><code>fake.phoneNumber()                 # (593)652-1880
+</code></pre>
+
+<h3>
+<a name="fakerprovidersmiscelleneous" class="anchor" href="#fakerprovidersmiscelleneous"><span class="octicon octicon-link"></span></a>faker.providers.Miscelleneous:</h3>
+
+<pre><code>fake.boolean()                     # True
+fake.countryCode()                 # BB
+fake.languageCode()                # fr
+fake.locale()                      # pt_GN
+fake.md5()                         # ab9d3552b5c6e68714c04c35725ba73c
+fake.nullBoolean()                 # True
+fake.sha1()                        # 3fc2ede28f2596050f9a94c15c59b800175409d0
+fake.sha256()                      # f06561a971d6b1306ecef60be336556d6de2540c2d0d2158f4d0ea3f212cd740
+</code></pre>
+
+<h3>
+<a name="fakerprovidersinternet" class="anchor" href="#fakerprovidersinternet"><span class="octicon octicon-link"></span></a>faker.providers.Internet:</h3>
+
+<pre><code>fake.companyEmail()                # ggreenfelder@ortizmedhurst.com
+fake.domainName()                  # mayer.com
+fake.domainWord()                  # gusikowski
+fake.email()                       # gbrakus@johns.net
+fake.freeEmail()                   # abbey60@yahoo.com
+fake.freeEmailDomain()             # hotmail.com
+fake.ipv4()                        # 81.132.249.71
+fake.ipv6()                        # 4c55:8c8b:54b5:746d:44ed:c7ab:486a:a50e
+fake.safeEmail()                   # amalia49@example.com
+fake.slug()                        # TypeError
+fake.tld()                         # net
+fake.uri()                         # http://www.parker.com/
+fake.uriExtension()                # .asp
+fake.uriPage()                     # terms
+fake.uriPath()                     # explore/list/app
+fake.url()                         # http://dubuque.info/
+fake.userName()                    # goodwin.edwin
+</code></pre>
+
+<h3>
+<a name="fakerproviderscompany" class="anchor" href="#fakerproviderscompany"><span class="octicon octicon-link"></span></a>faker.providers.Company:</h3>
+
+<pre><code>fake.bs()                          # maximize end-to-end infrastructures
+fake.catchPhrase()                 # Multi-tiered analyzing instructionset
+fake.company()                     # Stanton-Luettgen
+fake.companySuffix()               # Group
+</code></pre>
+
+<h3>
+<a name="fakerprovidersdatetime" class="anchor" href="#fakerprovidersdatetime"><span class="octicon octicon-link"></span></a>faker.providers.DateTime:</h3>
+
+<pre><code>fake.amPm()                        # AM
+fake.century()                     # IX
+fake.date()                        # 1985-02-17
+fake.dateTime()                    # 1995-06-08 14:46:50
+fake.dateTimeAD()                  # 1927-12-17 23:08:46
+fake.dateTimeBetween()             # 1999-08-22 22:49:52
+fake.dateTimeThisCentury()         # 1999-07-24 23:35:49
+fake.dateTimeThisDecade()          # 2008-01-27 01:08:37
+fake.dateTimeThisMonth()           # 2012-11-12 14:13:04
+fake.dateTimeThisYear()            # 2012-05-19 00:40:00
+fake.dayOfMonth()                  # 23
+fake.dayOfWeek()                   # Friday
+fake.iso8601()                     # 2009-04-09T21:30:02
+fake.month()                       # 03
+fake.monthName()                   # April
+fake.time()                        # 06:16:50
+fake.timezone()                    # America/Noronha
+fake.unixTime()                    # 275630166
+fake.year()                        # 2002
+</code></pre>
+
+<h3>
+<a name="fakerprovidersperson" class="anchor" href="#fakerprovidersperson"><span class="octicon octicon-link"></span></a>faker.providers.Person:</h3>
+
+<pre><code>fake.firstName()                   # Elton
+fake.lastName()                    # Schowalter
+fake.name()                        # Susan Pagac III
+fake.prefix()                      # Ms.
+fake.suffix()                      # V
+</code></pre>
+
+<h3>
+<a name="fakerprovidersaddress" class="anchor" href="#fakerprovidersaddress"><span class="octicon octicon-link"></span></a>faker.providers.Address:</h3>
+
+<pre><code>fake.address()                     # 044 Watsica Brooks
+                                     West Cedrickfort, SC 35023-5157
+fake.buildingNumber()              # 319
+fake.city()                        # Kovacekfort
+fake.cityPrefix()                  # New
+fake.citySuffix()                  # ville
+fake.country()                     # Monaco
+fake.geo_coordinate()              # 148.031951
+fake.latitude()                    # 154.248666
+fake.longitude()                   # 109.920335
+fake.postcode()                    # 82402-3206
+fake.secondaryAddress()            # Apt. 230
+fake.state()                       # Nevada
+fake.stateAbbr()                   # NC
+fake.streetAddress()               # 793 Haskell Stravenue
+fake.streetName()                  # Arvilla Valley
+fake.streetSuffix()                # Crescent
+</code></pre>
+
+<h3>
+<a name="fakerproviderslorem" class="anchor" href="#fakerproviderslorem"><span class="octicon octicon-link"></span></a>faker.providers.Lorem:</h3>
+
+<pre><code>fake.paragraph()                   # Itaque quia harum est autem inventore quisquam eaque. Facere mollitia repudiandae
+                                     qui et voluptas. Consequatur sunt ullam blanditiis aliquam veniam illum voluptatem.
+fake.paragraphs()                  # ['Alias porro soluta eum voluptate. Iste consequatur qui non nam.',
+                                        'Id eum sint eius earum veniam fugiat ipsum et. Et et occaecati at labore
+                                        amet et. Rem velit inventore consequatur facilis. Eum consequatur consequatur
+                                        quis nobis.', 'Harum autem autem totam ex rerum adipisci magnam adipisci.
+                                        Qui modi eos eum vel quisquam. Tempora quas eos dolorum sint voluptatem
+                                        tenetur cum. Recusandae ducimus deleniti magnam ullam adipisci ipsa.']
+fake.sentence()                    # Eum magni soluta unde minus nobis.
+fake.sentences()                   # ['Ipsam eius aut veritatis iusto.',
+                                        'Occaecati libero a aut debitis sunt quas deserunt aut.',
+                                        'Culpa dolor voluptatum laborum at et enim.']
+fake.text()                        # Dicta quo eius possimus quae eveniet cum nihil. Saepe sint non nostrum.
+                                     Sequi est sit voluptate et eos eum et. Pariatur non sunt distinctio magnam.
+fake.word()                        # voluptas
+fake.words()                       # ['optio', 'et', 'voluptatem']
+</code></pre>
+
+<h2>
+<a name="localization" class="anchor" href="#localization"><span class="octicon octicon-link"></span></a>Localization</h2>
+
+<p><code>faker.Factory</code> can take a locale as an argument, to return localized data.
+If no localized provider is found, the factory fallbacks to the default locale (en_EN).</p>
+
+<pre><code>from faker import Factory
+fake = Factory.create('it_IT')
+for i in range(0,10):
+    print fake.name()
+
+# Elda Palumbo
+# Pacifico Giordano
+# Sig. Avide Guerra
+# Yago Amato
+# Eustachio Messina
+# Dott. Violante Lombardo
+# Sig. Alighieri Monti
+# Costanzo Costa
+# Nazzareno Barbieri
+# Max Coppola
+</code></pre>
+
+<p>You can check available Faker locales in the source code, under the providers package.
+The localization of Faker is an ongoing process, for which we need your help.
+Don't hesitate to create localized providers to your own locale and submit a PR!</p>
+
+<h1>
+<a name="using-from-shell" class="anchor" href="#using-from-shell"><span class="octicon octicon-link"></span></a>Using from shell</h1>
+
+<p>In a python environment with faker installed you can use it with:</p>
+
+<pre><code>python -m faker [option] [*args]
+</code></pre>
+
+<p>[option]:</p>
+
+<ul>
+<li> formatter name as <code>text</code>, <code>address</code>: display result of fake</li>
+<li> Provider name as <code>Lorem</code>: display all Provider's fakes</li>
+</ul><p>[*args]: pass value to formatter (actually only strings)</p>
+
+<pre><code>$ python -m faker address
+968 Bahringer Garden Apt. 722
+Kristinaland, NJ 09890
+</code></pre>
+
+<h1>
+<a name="seeding-the-generator" class="anchor" href="#seeding-the-generator"><span class="octicon octicon-link"></span></a>Seeding the Generator</h1>
+
+<p>You may want to get always the same generated data - for instance when using Faker for unit testing purposes.
+The generator offers a <code>seed()</code> method, which seeds the random number generator.
+Calling the same script twice with the same seed produces the same results.</p>
+
+<pre><code>from faker import Faker
+fake = Faker()
+fake.seed(4321)
+
+print fake.name()   # Margaret Boehm
+</code></pre>
+
+<h1>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h1>
+
+<p>Run tests:</p>
+
+<pre><code>$ python setup.py test
+</code></pre>
+
+<p>or</p>
+
+<pre><code>$ python -m unittest -v faker.tests
+</code></pre>
+
+<p>Write documentation for providers:</p>
+
+<pre><code>$ python -m faker &gt; docs.txt
+</code></pre>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Faker is released under the MIT Licence. See the bundled LICENSE file for details.</p>
+
+<h2>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h2>
+
+<ul>
+<li>
+<a href="https://github.com/fzaninotto" title="F.Zaninotto">FZaninotto</a> / <a href="https://github.com/fzaninotto/Faker" title="Php faker">Faker</a>
+</li>
+<li><a href="http://pypi.python.org/pypi/distribute">Distribute</a></li>
+<li><a href="http://www.buildout.org/">Buildout</a></li>
+<li><a href="http://pypi.python.org/pypi/modern-package-template">modern-package-template</a></li>
+</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/joke2k">joke2k</a></p>
@@ -37,6 +355,16 @@
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-43608299-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
