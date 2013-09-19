@@ -295,3 +295,7 @@ Credits
 [buildout]: http://www.buildout.org/
 [distribute]:  http://pypi.python.org/pypi/distribute
 [modern-package-template]: http://pypi.python.org/pypi/modern-package-template
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
