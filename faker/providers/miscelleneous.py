@@ -1,5 +1,5 @@
 from . import BaseProvider
-from . import DateTime
+from . import date_time
 import random
 import hashlib
 
@@ -59,7 +59,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def countryCode(cls):
-        return cls.randomElement( DateTime.Provider.countries )['code']
+        return cls.randomElement( date_time.Provider.countries )['code']
 
     @classmethod
     def languageCode(cls):

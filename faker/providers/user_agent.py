@@ -1,5 +1,5 @@
 from . import BaseProvider
-from . import DateTime
+from . import date_time
 from datetime import datetime
 import random
 
@@ -48,9 +48,9 @@ class Provider(BaseProvider):
     @classmethod
     def firefox(cls):
         ver = (
-            'Gecko/%s Firefox/%s.0' % (DateTime.Provider.dateTimeBetween(datetime(2011,1,1)), random.randint(4,15)),
-            'Gecko/%s Firefox/3.6.%s' % (DateTime.Provider.dateTimeBetween(datetime(2010,1,1)), random.randint(1,20)),
-            'Gecko/%s Firefox/3.8' % (DateTime.Provider.dateTimeBetween(datetime(2010,1,1)), ),
+            'Gecko/%s Firefox/%s.0' % (date_time.Provider.dateTimeBetween(datetime(2011,1,1)), random.randint(4,15)),
+            'Gecko/%s Firefox/3.6.%s' % (date_time.Provider.dateTimeBetween(datetime(2010,1,1)), random.randint(1,20)),
+            'Gecko/%s Firefox/3.8' % (date_time.Provider.dateTimeBetween(datetime(2010,1,1)), ),
         )
 
         platforms = (

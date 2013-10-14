@@ -1,6 +1,6 @@
 from . import BaseProvider
 from decimal import Decimal
-from .Lorem import Provider as Lorem
+from .lorem import Provider as Lorem
 import sys
 
 class Provider(BaseProvider):
