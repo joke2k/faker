@@ -1,23 +1,21 @@
 from . import BaseProvider
 
 
+class Provider(BaseProvider):
+    formats = ['{{last_name}} {{company_suffix}}', ]
 
-class Provider( BaseProvider ):
-
-    formats = ['{{lastName}} {{companySuffix}}',]
-
-    companySuffixes = ['Ltd',]
+    company_suffixes = ['Ltd', ]
 
     def company(self):
         """
         :example 'Acme Ltd'
         """
-        format = self.randomElement( self.formats )
-        return self.generator.parse( format )
+        pattern = self.randomElement(self.formats)
+        return self.generator.parse(pattern)
 
     @classmethod
-    def companySuffix(cls):
+    def company_suffix(cls):
         """
         :example 'Ltd'
         """
-        return cls.randomElement( cls.companySuffixes )
+        return cls.randomElement(cls.company_suffixes)

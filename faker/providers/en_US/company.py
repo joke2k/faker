@@ -3,12 +3,12 @@ from ..company import Provider as CompanyProvider
 
 class Provider(CompanyProvider):
     formats = (
-        '{{lastName}} {{companySuffix}}',
-        '{{lastName}}-{{lastName}}',
-        '{{lastName}}, {{lastName}} and {{lastName}}'
+        '{{last_name}} {{company_suffix}}',
+        '{{last_name}}-{{last_name}}',
+        '{{last_name}}, {{last_name}} and {{last_name}}'
     )
 
-    catchPhraseWords = (
+    catch_phrase_words = (
         (
             'Adaptive', 'Advanced', 'Ameliorated', 'Assimilated', 'Automated', 'Balanced', 'Business-focused',
             'Centralized', 'Cloned', 'Compatible', 'Configurable', 'Cross-group', 'Cross-platform', 'Customer-focused',
@@ -93,14 +93,14 @@ class Provider(CompanyProvider):
         )
     )
 
-    companySuffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
+    company_suffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
 
-    def catchPhrase(self):
+    def catch_phrase(self):
         """
         :example 'Robust full-range hub'
         """
         result = []
-        for word_list in self.catchPhraseWords:
+        for word_list in self.catch_phrase_words:
             result.append(self.randomElement(word_list))
 
         return " ".join(result)

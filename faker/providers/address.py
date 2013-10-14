@@ -5,71 +5,71 @@ from . import date_time
 
 
 class Provider(BaseProvider):
-    citySuffixes = ['Ville', ]
-    streetSuffixes = ['Street', ]
-    cityFormats = ['{{firstName}} {{citySuffix}}', ]
-    streetNameFormats = ['{{lastName}} {{streetSuffix}}', ]
-    streetAddressFormats = ['{{buildingNumber}} {{streetName}}', ]
-    addressFormats = ['{{streetAddress}} {{postcode}} {{city}}', ]
-    buildingNumberFormats = ['##', ]
-    postcodeFormats = ['#####', ]
+    city_suffixes = ['Ville', ]
+    street_suffixes = ['Street', ]
+    city_formats = ['{{first_name}} {{city_suffix}}', ]
+    street_name_formats = ['{{last_name}} {{street_suffix}}', ]
+    street_address_formats = ['{{building_number}} {{street_name}}', ]
+    address_formats = ['{{street_address}} {{postcode}} {{city}}', ]
+    building_number_formats = ['##', ]
+    postcode_formats = ['#####', ]
     countries = [tz['name'] for tz in date_time.Provider.countries]
 
     @classmethod
-    def citySuffix(cls):
+    def city_suffix(cls):
         """
         :example 'town'
         """
-        return cls.randomElement(cls.citySuffixes)
+        return cls.randomElement(cls.city_suffixes)
 
     @classmethod
-    def streetSuffix(cls):
+    def street_suffix(cls):
         """
         :example 'Avenue'
         """
-        return cls.randomElement(cls.streetSuffixes)
+        return cls.randomElement(cls.street_suffixes)
 
     @classmethod
-    def buildingNumber(cls):
+    def building_number(cls):
         """
         :example '791'
         """
-        return cls.numerify(cls.randomElement(cls.buildingNumberFormats))
+        return cls.numerify(cls.randomElement(cls.building_number_formats))
 
     def city(self):
         """
         :example 'Sashabury'
         """
-        format = self.randomElement(self.cityFormats)
-        return self.generator.parse(format)
+        pattern = self.randomElement(self.city_formats)
+        return self.generator.parse(pattern)
 
-    def streetName(self):
+    def street_name(self):
         """
         :example 'Crist Parks'
         """
-        format = self.randomElement(self.streetNameFormats)
-        return self.generator.parse(format)
+        pattern = self.randomElement(self.street_name_formats)
+        return self.generator.parse(pattern)
 
-    def streetAddress(self):
+    def street_address(self):
         """
         :example '791 Crist Parks'
         """
-        format = self.randomElement(self.streetAddressFormats)
-        return self.generator.parse(format)
+        pattern = self.randomElement(self.street_address_formats)
+        return self.generator.parse(pattern)
 
     @classmethod
     def postcode(cls):
         """
         :example 86039-9874
         """
-        return cls.bothify(cls.randomElement(cls.postcodeFormats)).upper()
+        return cls.bothify(cls.randomElement(cls.postcode_formats)).upper()
 
     def address(self):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        format = self.randomElement(self.addressFormats)
-        return self.generator.parse(format)
+        pattern = self.randomElement(self.address_formats)
+        return self.generator.parse(pattern)
 
     @classmethod
     def country(cls):
@@ -80,7 +80,9 @@ class Provider(BaseProvider):
         return Decimal(random.randint(-180000000, 180000000) / 1000000.0).quantize(Decimal('.000001'))
 
     @classmethod
-    def latitude(cls): return cls.geo_coordinate()
+    def latitude(cls):
+        return cls.geo_coordinate()
 
     @classmethod
-    def longitude(cls): return cls.geo_coordinate()
+    def longitude(cls):
+        return cls.geo_coordinate()

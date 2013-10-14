@@ -22,6 +22,8 @@ class Factory(object):
         for provider in providers:
 
             provider_class = cls._get_provider_class(provider, locale)
+            if not hasattr(provider_class, '__provider__'):
+                provider_class.__provider__ = provider
             generator.add_provider(provider_class(generator))
 
         return generator

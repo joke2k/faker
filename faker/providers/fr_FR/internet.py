@@ -3,12 +3,14 @@ from ..internet import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-    safeEmailTlds = ('com', 'net', 'fr', 'fr')
-    freeEmailDomains = ('voila.fr', 'gmail.com', 'hotmail.fr', 'yahoo.fr', 'laposte.net', 'free.fr', 'sfr.fr', 'orange.fr', 'bouygtel.fr', 'club-internet.fr', 'dbmail.com', 'live.com', 'ifrance.com', 'noos.fr', 'tele2.fr', 'tiscali.fr', 'wanadoo.fr')
+    safe_email_tlds = ('com', 'net', 'fr', 'fr')
+    free_email_domains = (
+    'voila.fr', 'gmail.com', 'hotmail.fr', 'yahoo.fr', 'laposte.net', 'free.fr', 'sfr.fr', 'orange.fr', 'bouygtel.fr',
+    'club-internet.fr', 'dbmail.com', 'live.com', 'ifrance.com', 'noos.fr', 'tele2.fr', 'tiscali.fr', 'wanadoo.fr')
     tlds = ('com', 'com', 'com', 'net', 'org', 'fr', 'fr', 'fr')
 
     @staticmethod
-    def _toAscii(string):
+    def _to_ascii(string):
         replacements = (
             (u'à', u'a'), (u'À', u'A'), (u'ç', u'c'), (u'Ç', u'c'), (u'é', u'e'), (u'É', u'E'), (u'è', u'e'),
             (u'È', u'E'), (u'ë', u'e'), (u'Ë', u'E'), (u'ï', u'i'), (u'Ï', u'I'), (u'î', u'i'), (u'Î', u'I'),
@@ -19,14 +21,14 @@ class Provider(InternetProvider):
 
         return string
 
-    def userName(self):
-        format = self.randomElement(self.userNameFormats)
-        return self._toAscii(self.bothify(self.generator.parse(format))).lower()
+    def user_name(self):
+        pattern = self.randomElement(self.user_name_formats)
+        return self._to_ascii(self.bothify(self.generator.parse(pattern))).lower()
 
-    def domainWord(self):
+    def domain_word(self):
         company = self.generator.format('company')
-        companyElements = company.split(' ')
-        company = companyElements[0]
+        company_elements = company.split(' ')
+        company = company_elements[0]
         company = company.replace(" ", "")
 
-        return self._toAscii(company).lower()
+        return self._to_ascii(company).lower()

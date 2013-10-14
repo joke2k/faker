@@ -3,8 +3,8 @@ from ..internet import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-    safeEmailTlds = ('com', 'net', 'br', 'br')
-    freeEmailDomains = ('gmail.com', 'hotmail.com', 'yahoo.com.br', 'uol.com.br', 'bol.com.br', 'ig.com.br')
+    safe_email_tlds = ('com', 'net', 'br', 'br')
+    free_email_domains = ('gmail.com', 'hotmail.com', 'yahoo.com.br', 'uol.com.br', 'bol.com.br', 'ig.com.br')
     tlds = ('com', 'com', 'com', 'net', 'org', 'br', 'br', 'br')
 
     @staticmethod
@@ -19,14 +19,5 @@ class Provider(InternetProvider):
 
         return string
 
-    def userName(self):
-        format = self.randomElement(self.userNameFormats)
-        return self._toAscii(self.bothify(self.generator.parse(format))).lower()
-
-    def domainWord(self):
-        company = self.generator.format('company')
-        companyElements = company.split(' ')
-        company = companyElements[0]
-        company = company.replace(" ", "")
-
-        return self._toAscii(company).lower()
+    def user_name(self):
+        return self._toAscii(super(Provider, self).user_name())

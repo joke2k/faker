@@ -3,39 +3,39 @@ from ..address import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    citySuffixes = ('Ville', 'Bourg', '-les-Bains', '-sur-Mer', '-la-Forêt', 'boeuf', 'nec', 'dan')
-    streetPrefixes = ('rue', 'rue', 'chemin', 'avenue', 'boulevard')
-    cityFormats = (
-        '{{lastName}}',
-        '{{lastName}}',
-        '{{lastName}}',
-        '{{lastName}}',
-        '{{lastName}}{{citySuffix}}',
-        '{{lastName}}{{citySuffix}}',
-        '{{lastName}}{{citySuffix}}',
-        '{{lastName}}-sur-{{lastName}}',
+    city_suffixes = ('Ville', 'Bourg', '-les-Bains', '-sur-Mer', '-la-Forêt', 'boeuf', 'nec', 'dan')
+    street_prefixes = ('rue', 'rue', 'chemin', 'avenue', 'boulevard')
+    city_formats = (
+        '{{last_name}}',
+        '{{last_name}}',
+        '{{last_name}}',
+        '{{last_name}}',
+        '{{last_name}}{{city_suffix}}',
+        '{{last_name}}{{city_suffix}}',
+        '{{last_name}}{{city_suffix}}',
+        '{{last_name}}-sur-{{last_name}}',
     )
-    streetNameFormats = (
-        '{{streetPrefix}} {{lastName}}',
-        '{{streetPrefix}} {{firstName}} {{lastName}}',
-        '{{streetPrefix}} de {{lastName}}',
-    )
-
-    streetAddressFormats = (
-        '{{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
-        '{{buildingNumber}}, {{streetName}}',
+    street_name_formats = (
+        '{{street_prefix}} {{last_name}}',
+        '{{street_prefix}} {{first_name}} {{last_name}}',
+        '{{street_prefix}} de {{last_name}}',
     )
 
-    addressFormats = (
-        "{{streetAddress}}\n{{postcode}} {{city}}",
+    street_address_formats = (
+        '{{street_name}}',
+        '{{building_number}}, {{street_name}}',
+        '{{building_number}}, {{street_name}}',
+        '{{building_number}}, {{street_name}}',
+        '{{building_number}}, {{street_name}}',
+        '{{building_number}}, {{street_name}}',
     )
 
-    buildingNumberFormats = ('%', '%#', '%#', '%#', '%##')
-    postcodeFormats = ('#####', '## ###')
+    address_formats = (
+        "{{street_address}}\n{{postcode}} {{city}}",
+    )
+
+    building_number_formats = ('%', '%#', '%#', '%#', '%##')
+    postcode_formats = ('#####', '## ###')
     countries = (
         'Afghanistan', 'Afrique du sud', 'Albanie', 'Algérie', 'Allemagne', 'Andorre', 'Angola', 'Anguilla',
         'Antarctique', 'Antigua et Barbuda', 'Antilles néerlandaises', 'Arabie saoudite', 'Argentine', 'Arménie',
@@ -106,13 +106,12 @@ class Provider(AddressProvider):
         ('971', 'Guadeloupe'), ('972', 'Martinique'), ('973', 'Guyane'), ('974', 'La Réunion'), ('976', 'Mayotte')
     )
 
-
     @classmethod
-    def streetPrefix(cls):
+    def street_prefix(cls):
         """
         :example 'rue'
         """
-        return cls.randomElement(cls.streetPrefixes)
+        return cls.randomElement(cls.street_prefixes)
 
     @classmethod
     def region(cls):
@@ -130,7 +129,7 @@ class Provider(AddressProvider):
         return cls.randomElement(cls.departments)
 
     @classmethod
-    def departmentName(cls):
+    def department_name(cls):
         """
         Randomly returns a french department name.
         :example 'Ardèche'
@@ -138,7 +137,7 @@ class Provider(AddressProvider):
         return cls.department()[1]
 
     @classmethod
-    def departmentNumber(cls):
+    def department_number(cls):
         """
         Randomly returns a french department number.
 

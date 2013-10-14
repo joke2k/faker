@@ -4,14 +4,14 @@ from ..company import Provider as CompanyProvider
 
 class Provider(CompanyProvider):
     formats = (
-        '{{lastName}} {{companySuffix}}',
-        '{{lastName}} {{lastName}} {{companySuffix}}',
-        '{{lastName}}',
-        '{{lastName}}',
+        '{{last_name}} {{company_suffix}}',
+        '{{last_name}} {{last_name}} {{company_suffix}}',
+        '{{last_name}}',
+        '{{last_name}}',
     )
 
-    catchPhraseFormats = (
-        '{{catchPhraseNoun}} {{catchPhraseVerb}} {{catchPhraseAttribute}}',
+    catch_phrase_formats = (
+        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}',
     )
 
     nouns = (
@@ -30,60 +30,58 @@ class Provider(CompanyProvider):
         'à sa source', 'de manière sûre', 'en toute sécurité'
     )
 
-    companySuffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
+    company_suffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
-    sirenFormat = "### ### ###"
+    siren_format = "### ### ###"
 
     @classmethod
-    def catchPhraseNoun(cls):
+    def catch_phrase_noun(cls):
         """
         Returns a random catch phrase noun.
         """
         return cls.randomElement(cls.nouns)
 
     @classmethod
-    def catchPhraseAttribute(cls):
+    def catch_phrase_attribute(cls):
         """
         Returns a random catch phrase attribute.
         """
         return cls.randomElement(cls.attributes)
 
     @classmethod
-    def catchPhraseVerb(cls):
+    def catch_phrase_verb(cls):
         """
         Returns a random catch phrase verb.
         """
         return cls.randomElement(cls.verbs)
 
-
-    def catchPhrase(self):
+    def catch_phrase(self):
         """
         :example 'integrate extensible convergence'
         """
-        catchPhrase = u""
+        catch_phrase = u""
         while True:
 
-            format = self.randomElement(self.catchPhraseFormats)
-            catchPhrase = self.generator.parse(format)
-            catchPhrase = catchPhrase[0].upper() + catchPhrase[1:]
+            pattern = self.randomElement(self.catch_phrase_formats)
+            catch_phrase = self.generator.parse(pattern)
+            catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
 
-            if self._isCatchPhraseValid(catchPhrase):
+            if self._is_catch_phrase_valid(catch_phrase):
                 break
 
-        return catchPhrase
-
+        return catch_phrase
 
     # An array containing string which should not appear twice in a catch phrase
-    wordsWhichShouldNotAppearTwice = ('sécurité', 'simpl')
+    words_which_should_not_appear_twice = ('sécurité', 'simpl')
 
     @classmethod
-    def _isCatchPhraseValid(cls, catchPhrase):
+    def _is_catch_phrase_valid(cls, catchPhrase):
         """
         Validates a french catch phrase.
 
         :param catchPhrase: The catch phrase to validate.
         """
-        for word in cls.wordsWhichShouldNotAppearTwice:
+        for word in cls.words_which_should_not_appear_twice:
             # Fastest way to check if a piece of word does not appear twice.
             beginPos = catchPhrase.find(word)
             endPos = catchPhrase.find(word, beginPos + 1)
@@ -97,8 +95,7 @@ class Provider(CompanyProvider):
         """
         Generates a siren number (9 digits).
         """
-        return cls.numerify(cls.sirenFormat)
-
+        return cls.numerify(cls.siren_format)
 
     @classmethod
     def siret(cls, maxSequentialDigits=2):

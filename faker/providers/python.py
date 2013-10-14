@@ -64,7 +64,7 @@ class Provider(BaseProvider):
                       # avoid recursion
                       if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
         if not valueTypes:
-            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'dateTime', 'uri', 'email']
+            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
         if variableNbElements:
             nbElements = self.randomizeNbElements(nbElements)
@@ -94,7 +94,7 @@ class Provider(BaseProvider):
                       # avoid recursion
                       if t != 'struct']
         if not valueTypes:
-            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'dateTime', 'uri', 'email']
+            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
         l = [];
         d = {};

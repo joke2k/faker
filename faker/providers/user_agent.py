@@ -5,32 +5,32 @@ import random
 
 
 class Provider(BaseProvider):
-    userAgents = ('firefox', 'chrome', 'internetExplorer', 'opera', 'safari')
+    user_agents = ('firefox', 'chrome', 'internet_explorer', 'opera', 'safari')
 
-    windowsPlatformTokens = (
+    windows_platform_tokens = (
         'Windows NT 6.2', 'Windows NT 6.1', 'Windows NT 6.0', 'Windows NT 5.2', 'Windows NT 5.1',
         'Windows NT 5.01', 'Windows NT 5.0', 'Windows NT 4.0', 'Windows 98; Win 9x 4.90',
         'Windows 98', 'Windows 95', 'Windows CE'
     )
 
-    linuxProcessors = ('i686', 'x86_64',)
+    linux_processors = ('i686', 'x86_64',)
 
-    macProcessors = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
+    mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
 
     langs = ('en-US', 'sl-SI', 'it-IT')
 
     @classmethod
-    def macProcessor(cls):
-        return cls.randomElement(cls.macProcessors)
+    def mac_processor(cls):
+        return cls.randomElement(cls.mac_processors)
 
     @classmethod
-    def linuxProcessor(cls):
-        return cls.randomElement(cls.linuxProcessors)
+    def linux_processor(cls):
+        return cls.randomElement(cls.linux_processors)
 
     @classmethod
-    def userAgent(cls):
-        userAgentName = cls.randomElement(cls.userAgents)
-        return getattr(cls, userAgentName)()
+    def user_agent(cls):
+        name = cls.randomElement(cls.user_agents)
+        return getattr(cls, name)()
 
     @classmethod
     def chrome(cls):
@@ -38,11 +38,11 @@ class Provider(BaseProvider):
 
         platforms = (
             "(%s) AppleWebKit/%s (KHTML, like Gecko) Chrome/%s.0.%s.0 Safari/%s" % (
-            cls.linuxPlatformToken(), saf, random.randint(13, 15), random.randint(800, 899), saf),
+                cls.linux_platform_token(), saf, random.randint(13, 15), random.randint(800, 899), saf),
             "(%s) AppleWebKit/%s (KHTML, like Gecko) Chrome/%s.0.%s.0 Safari/%s" % (
-            cls.windowsPlatformToken(), saf, random.randint(13, 15), random.randint(800, 899), saf),
+                cls.windows_platform_token(), saf, random.randint(13, 15), random.randint(800, 899), saf),
             "(%s) AppleWebKit/%s (KHTML, like Gecko) Chrome/%s.0.%s.0 Safari/%s" % (
-            cls.macPlatformToken(), saf, random.randint(13, 15), random.randint(800, 899), saf),
+                cls.mac_platform_token(), saf, random.randint(13, 15), random.randint(800, 899), saf),
         )
 
         return 'Mozilla/5.0 ' + cls.randomElement(platforms)
@@ -50,17 +50,18 @@ class Provider(BaseProvider):
     @classmethod
     def firefox(cls):
         ver = (
-            'Gecko/%s Firefox/%s.0' % (date_time.Provider.dateTimeBetween(datetime(2011, 1, 1)), random.randint(4, 15)),
+            'Gecko/%s Firefox/%s.0' % (
+            date_time.Provider.date_time_between(datetime(2011, 1, 1)), random.randint(4, 15)),
             'Gecko/%s Firefox/3.6.%s' % (
-            date_time.Provider.dateTimeBetween(datetime(2010, 1, 1)), random.randint(1, 20)),
-            'Gecko/%s Firefox/3.8' % (date_time.Provider.dateTimeBetween(datetime(2010, 1, 1)), ),
+                date_time.Provider.date_time_between(datetime(2010, 1, 1)), random.randint(1, 20)),
+            'Gecko/%s Firefox/3.8' % (date_time.Provider.date_time_between(datetime(2010, 1, 1)), ),
         )
 
         platforms = (
             "(%s; %s; rv:1.9.%s.20) %s" % (
-            cls.windowsPlatformToken(), cls.randomElement(cls.langs), random.randint(0, 2), random.choice(ver)),
-            "(%s; rv:1.9.%s.20) %s" % (cls.linuxPlatformToken(), random.randint(5, 7), random.choice(ver)),
-            "(%s; rv:1.9.%s.20) %s" % (cls.macPlatformToken(), random.randint(2, 6), random.choice(ver)),
+                cls.windows_platform_token(), cls.randomElement(cls.langs), random.randint(0, 2), random.choice(ver)),
+            "(%s; rv:1.9.%s.20) %s" % (cls.linux_platform_token(), random.randint(5, 7), random.choice(ver)),
+            "(%s; rv:1.9.%s.20) %s" % (cls.mac_platform_token(), random.randint(2, 6), random.choice(ver)),
         )
 
         return 'Mozilla/5.0 ' + cls.randomElement(platforms)
@@ -75,9 +76,9 @@ class Provider(BaseProvider):
 
         platforms = (
             '(Windows; U; %s) AppleWebKit/%s (KHTML, like Gecko) Version/%s Safari/%s' % (
-            cls.windowsPlatformToken(), saf, ver, saf),
+                cls.windows_platform_token(), saf, ver, saf),
             '(%s rv:%s.0; %s) AppleWebKit/%s (KHTML, like Gecko) Version/%s Safari/%s' % (
-            cls.macPlatformToken(), random.randint(2, 6), cls.randomElement(cls.langs), saf, ver, saf),
+                cls.mac_platform_token(), random.randint(2, 6), cls.randomElement(cls.langs), saf, ver, saf),
             '(iPod; U; CPU iPhone OS %s_%s like Mac OS X; %s) AppleWebKit/%s (KHTML, like Gecko) Version/%s.0.5 Mobile/8B%s Safari/6%s' % (
                 random.randint(3, 4), random.randint(0, 3), cls.randomElement(cls.langs), saf, random.randint(3, 4),
                 random.randint(111, 119), saf
@@ -91,32 +92,34 @@ class Provider(BaseProvider):
 
         platforms = (
             '(%s; %s) Presto/2.9.%s Version/%s.00' % (
-            cls.linuxPlatformToken(), cls.randomElement(cls.langs), random.randint(160, 190), random.randint(10, 12)),
+                cls.linux_platform_token(), cls.randomElement(cls.langs), random.randint(160, 190),
+                random.randint(10, 12)),
             '(%s; %s) Presto/2.9.%s Version/%s.00' % (
-            cls.windowsPlatformToken(), cls.randomElement(cls.langs), random.randint(160, 190), random.randint(10, 12)),
+                cls.windows_platform_token(), cls.randomElement(cls.langs), random.randint(160, 190),
+                random.randint(10, 12)),
         )
 
         return 'Opera/%s.%s %s' % (random.randint(8, 9), random.randint(10, 99), cls.randomElement(platforms))
 
     @classmethod
-    def internetExplorer(cls):
+    def internet_explorer(cls):
         return 'Mozilla/5.0 (compatible; MSIE %s.0; %s; Trident/%s.%s)' % (
             random.randint(5, 9),
-            cls.windowsPlatformToken(),
+            cls.windows_platform_token(),
             random.randint(3, 5),
             random.randint(0, 1)
         )
 
     @classmethod
-    def windowsPlatformToken(cls):
-        return cls.randomElement(cls.windowsPlatformTokens)
+    def windows_platform_token(cls):
+        return cls.randomElement(cls.windows_platform_tokens)
 
     @classmethod
-    def linuxPlatformToken(cls):
-        return 'X11; Linux %s' % cls.randomElement(cls.linuxProcessors)
+    def linux_platform_token(cls):
+        return 'X11; Linux %s' % cls.randomElement(cls.linux_processors)
 
     @classmethod
-    def macPlatformToken(cls):
+    def mac_platform_token(cls):
         return 'Macintosh; %s Mac OS X 10_%s_%s' % (
-            cls.randomElement(cls.macProcessors), random.randint(5, 8), random.randint(0, 9))
+            cls.randomElement(cls.mac_processors), random.randint(5, 8), random.randint(0, 9))
 

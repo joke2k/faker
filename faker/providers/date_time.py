@@ -218,25 +218,24 @@ class Provider(BaseProvider):
     regex = re.compile(timedelta_pattern)
 
     @classmethod
-    def unixTime(cls):
+    def unix_time(cls):
         """
         Get a timestamp between January 1, 1970 and now
         :example 1061306726
         """
         return random.randint(0, int(time()))
 
-
     @classmethod
-    def dateTime(cls):
+    def date_time(cls):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :example DateTime('2005-08-16 20:39:21')
         :return datetime
         """
-        return datetime.fromtimestamp(cls.unixTime())
+        return datetime.fromtimestamp(cls.unix_time())
 
     @classmethod
-    def dateTimeAD(cls):
+    def date_time_ad(cls):
         """
         Get a datetime object for a date between January 1, 001 and now
         :example DateTime('1265-03-22 21:15:52')
@@ -249,28 +248,28 @@ class Provider(BaseProvider):
         """
         :example '2003-10-21T16:05:52+0000'
         """
-        return cls.dateTime().isoformat()
+        return cls.date_time().isoformat()
 
     @classmethod
-    def date(cls, format='%Y-%m-%d'):
+    def date(cls, pattern='%Y-%m-%d'):
         """
         Get a date string between January 1, 1970 and now
         :param string $format
         :example '2008-11-27'
         """
-        return cls.dateTime().strftime(format)
+        return cls.date_time().strftime(pattern)
 
     @classmethod
-    def time(cls, format='%H:%M:%S'):
+    def time(cls, pattern='%H:%M:%S'):
         """
         Get a time string (24h format by default)
         :param string $format
         :example '15:02:34'
         """
-        return cls.dateTime().time().strftime(format)
+        return cls.date_time().time().strftime(pattern)
 
     @classmethod
-    def _parseDateTime(cls, text):
+    def _parse_date_time(cls, text):
         if isinstance(text, (datetime, date, real_datetime, real_date)):
             return datetime_to_timestamp(text)
         now = datetime.now()
@@ -297,9 +296,8 @@ class Provider(BaseProvider):
             return datetime_to_timestamp(now + timedelta(text))
         raise ValueError("Invalid format for date '%s'" % text)
 
-
     @classmethod
-    def dateTimeBetween(cls, startDate='-30y', endDate='now'):
+    def date_time_between(cls, startDate='-30y', endDate='now'):
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -309,49 +307,49 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        startDate = cls._parseDateTime(startDate)
-        endDate = cls._parseDateTime(endDate)
+        startDate = cls._parse_date_time(startDate)
+        endDate = cls._parse_date_time(endDate)
         timestamp = random.randint(startDate, endDate)
         return datetime.fromtimestamp(timestamp)
 
     @classmethod
-    def dateTimeThisCentury(cls):
+    def date_time_this_century(cls):
         """
         :example DateTime('1964-04-04 11:02:02')
         """
-        return cls.dateTimeBetween('-100y')
+        return cls.date_time_between('-100y')
 
     @classmethod
-    def dateTimeThisDecade(cls):
+    def date_time_this_decade(cls):
         """
         :example DateTime('2004-04-04 11:02:02')
         """
-        return cls.dateTimeBetween('-10y')
+        return cls.date_time_between('-10y')
 
     @classmethod
-    def dateTimeThisYear(cls):
+    def date_time_this_year(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.dateTimeBetween('-1y')
+        return cls.date_time_between('-1y')
 
     @classmethod
-    def dateTimeThisMonth(cls):
+    def date_time_this_month(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.dateTimeBetween('-30d')
+        return cls.date_time_between('-30d')
 
     @classmethod
-    def amPm(cls):
+    def am_pm(cls):
         return cls.date('%p')
 
     @classmethod
-    def dayOfMonth(cls):
+    def day_of_month(cls):
         return cls.date('%d')
 
     @classmethod
-    def dayOfWeek(cls):
+    def day_of_week(cls):
         return cls.date('%A')
 
     @classmethod
@@ -359,7 +357,7 @@ class Provider(BaseProvider):
         return cls.date('%m')
 
     @classmethod
-    def monthName(cls):
+    def month_name(cls):
         return cls.date('%B')
 
     @classmethod

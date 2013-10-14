@@ -2,23 +2,23 @@ from . import BaseProvider
 
 
 class Provider(BaseProvider):
-    formats = ['{{firstName}} {{lastName}}', ]
+    formats = ['{{first_name}} {{last_name}}', ]
 
-    firstNames = ['John', 'Jane']
+    first_names = ['John', 'Jane']
 
-    lastNames = ['Doe', ]
+    last_names = ['Doe', ]
 
     def name(self):
         """
         :example 'Jhon Doe'
         """
-        format = self.randomElement(self.formats)
-        return self.generator.parse(format)
+        pattern = self.randomElement(self.formats)
+        return self.generator.parse(pattern)
 
     @classmethod
-    def firstName(cls):
-        return cls.randomElement(cls.firstNames)
+    def first_name(cls):
+        return cls.randomElement(cls.first_names)
 
     @classmethod
-    def lastName(cls):
-        return cls.randomElement(cls.lastNames)
+    def last_name(cls):
+        return cls.randomElement(cls.last_names)

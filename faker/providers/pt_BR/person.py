@@ -4,19 +4,19 @@ from ..person import Provider as PersonProvider
 
 class Provider(PersonProvider):
     formats = (
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{prefix}} {{lastName}}',
-        '{{firstName}} {{lastName}}-{{lastName}}',
-        '{{firstName}}-{{firstName}} {{lastName}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{prefix}} {{last_name}}',
+        '{{first_name}} {{last_name}}-{{last_name}}',
+        '{{first_name}}-{{first_name}} {{last_name}}',
     )
 
-    firstNames = (
+    first_names = (
         'Sofia', 'Julia', 'Isabella', 'Alice', 'Manuela', 'Maria Eduarda', 'Giovanna', 'Laura', 'Luiza', 'Beatriz',
         'Mariana',
         'Ana Clara', 'Maria Clara', 'Maria Luiza', 'Yasmin', 'Rafaela', 'Gabriela', 'Isabelly', 'Ana Julia',
@@ -54,7 +54,7 @@ class Provider(PersonProvider):
 
     )
 
-    lastNames = (
+    last_names = (
         'Silva', 'Santos', 'Oliveira', 'Souza', 'Pereira', 'Costela', 'Carvalho', 'Almeida', 'Ferreira', 'Ribeiro',
         'Rodrigues',
         'Gomes', 'Lima', 'Martins', 'Rocha', 'Alves', 'Araújo', 'Pinto', 'Barbosa', 'Castro', 'Fernandes', 'Melo',

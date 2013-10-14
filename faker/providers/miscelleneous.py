@@ -5,14 +5,14 @@ import hashlib
 
 
 class Provider(BaseProvider):
-    languageCodes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
+    language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
     def boolean(cls, chanceOfGettingTrue=50):
         return random.randint(1, 100) <= chanceOfGettingTrue
 
     @classmethod
-    def nullBoolean(cls):
+    def null_boolean(cls):
         return {
             0: None,
             1: True,
@@ -53,14 +53,13 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def locale(self):
-        return self.languageCode() + '_' + self.countryCode()
-
+        return self.language_code() + '_' + self.country_code()
 
     @classmethod
-    def countryCode(cls):
+    def country_code(cls):
         return cls.randomElement(date_time.Provider.countries)['code']
 
     @classmethod
-    def languageCode(cls):
-        return cls.randomElement(cls.languageCodes)
+    def language_code(cls):
+        return cls.randomElement(cls.language_codes)
 

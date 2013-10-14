@@ -5,5 +5,5 @@ class Provider(BaseProvider):
     formats = ('###-###-###',)
 
     @classmethod
-    def phoneNumber(cls):
+    def phone_number(cls):
         return cls.numerify(cls.randomElement(cls.formats))

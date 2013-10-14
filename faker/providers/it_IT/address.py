@@ -3,14 +3,14 @@ from ..address import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    cityPrefixes = ('San', 'Borgo', 'Sesto', 'Quarto', 'Settimo')
-    citySuffixes = (
-    'a mare', 'lido', 'ligure', 'del friuli', 'salentino', 'calabro', 'veneto', 'nell\'emilia', 'umbro', 'laziale',
-    'terme', 'sardo')
-    buildingNumberFormats = ('###', '##', '#')
-    streetSuffixes = (
-    'Piazza', 'Strada', 'Via', 'Borgo', 'Contrada', 'Rotonda', 'Incrocio', 'Viale', 'Stretto', 'Vicolo', 'Canale')
-    postcodeFormats = ('#####',)
+    city_prefixes = ('San', 'Borgo', 'Sesto', 'Quarto', 'Settimo')
+    city_suffixes = (
+        'a mare', 'lido', 'ligure', 'del friuli', 'salentino', 'calabro', 'veneto', 'nell\'emilia', 'umbro', 'laziale',
+        'terme', 'sardo')
+    building_number_formats = ('###', '##', '#')
+    street_suffixes = (
+        'Piazza', 'Strada', 'Via', 'Borgo', 'Contrada', 'Rotonda', 'Incrocio', 'Viale', 'Stretto', 'Vicolo', 'Canale')
+    postcode_formats = ('#####',)
     states = ('Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Arezzo', 'Ascoli Piceno', 'Asti', 'Avellino', 'Bari',
               'Barletta-Andria-Trani', 'Belluno', 'Benevento', 'Bergamo', 'Biella', 'Bologna', 'Bolzano', 'Brescia',
               'Brindisi', 'Cagliari', 'Caltanissetta', 'Campobasso', 'Carbonia-Iglesias', 'Caserta', 'Catania',
@@ -24,13 +24,18 @@ class Provider(AddressProvider):
               'Sassari', 'Savona', 'Siena', 'Siracusa', 'Sondrio', 'Taranto', 'Teramo', 'Terni', 'Torino', 'Ogliastra',
               'Trapani', 'Trento', 'Treviso', 'Trieste', 'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola',
               'Vercelli', 'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo' )
-    statesAbbr = (
-    'AG', 'AL', 'AN', 'AO', 'AR', 'AP', 'AT', 'AV', 'BA', 'BT', 'BL', 'BN', 'BG', 'BI', 'BO', 'BZ', 'BS', 'BR', 'CA',
-    'CL', 'CB', 'CI', 'CE', 'CT', 'CZ', 'CH', 'CO', 'CS', 'CR', 'KR', 'CN', 'EN', 'FM', 'FE', 'FI', 'FG', 'FC', 'FR',
-    'GE', 'GO', 'GR', 'IM', 'IS', 'SP', 'AQ', 'LT', 'LE', 'LC', 'LI', 'LO', 'LU', 'MC', 'MN', 'MS', 'MT', 'ME', 'MI',
-    'MO', 'MB', 'NA', 'NO', 'NU', 'OT', 'OR', 'PD', 'PA', 'PR', 'PV', 'PG', 'PU', 'PE', 'PC', 'PI', 'PT', 'PN', 'PZ',
-    'PO', 'RG', 'RA', 'RC', 'RE', 'RI', 'RN', 'RM', 'RO', 'SA', 'VS', 'SS', 'SV', 'SI', 'SR', 'SO', 'TA', 'TE', 'TR',
-    'TO', 'OG', 'TP', 'TN', 'TV', 'TS', 'UD', 'VA', 'VE', 'VB', 'VC', 'VR', 'VV', 'VI', 'VT' )
+    states_abbr = (
+        'AG', 'AL', 'AN', 'AO', 'AR', 'AP', 'AT', 'AV', 'BA', 'BT', 'BL', 'BN', 'BG', 'BI', 'BO', 'BZ', 'BS', 'BR',
+        'CA',
+        'CL', 'CB', 'CI', 'CE', 'CT', 'CZ', 'CH', 'CO', 'CS', 'CR', 'KR', 'CN', 'EN', 'FM', 'FE', 'FI', 'FG', 'FC',
+        'FR',
+        'GE', 'GO', 'GR', 'IM', 'IS', 'SP', 'AQ', 'LT', 'LE', 'LC', 'LI', 'LO', 'LU', 'MC', 'MN', 'MS', 'MT', 'ME',
+        'MI',
+        'MO', 'MB', 'NA', 'NO', 'NU', 'OT', 'OR', 'PD', 'PA', 'PR', 'PV', 'PG', 'PU', 'PE', 'PC', 'PI', 'PT', 'PN',
+        'PZ',
+        'PO', 'RG', 'RA', 'RC', 'RE', 'RI', 'RN', 'RM', 'RO', 'SA', 'VS', 'SS', 'SV', 'SI', 'SR', 'SO', 'TA', 'TE',
+        'TR',
+        'TO', 'OG', 'TP', 'TN', 'TV', 'TS', 'UD', 'VA', 'VE', 'VB', 'VC', 'VR', 'VV', 'VI', 'VT' )
     countries = (
         'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla',
         'Antartide (territori a sud del 60° parallelo)', 'Antigua e Barbuda', 'Argentina', 'Armenia', 'Aruba',
@@ -79,37 +84,37 @@ class Provider(AddressProvider):
         'Zambia', 'Zimbabwe'
     )
 
-    cityFormats = (
-        '{{cityPrefix}} {{firstName}} {{citySuffix}}',
-        '{{cityPrefix}} {{firstName}}',
-        '{{firstName}} {{citySuffix}}',
-        '{{lastName}} {{citySuffix}}',
+    city_formats = (
+        '{{city_prefix}} {{first_name}} {{city_suffix}}',
+        '{{city_prefix}} {{first_name}}',
+        '{{first_name}} {{city_suffix}}',
+        '{{last_name}} {{city_suffix}}',
     )
-    streetNameFormats = (
-        '{{streetSuffix}} {{firstName}}',
-        '{{streetSuffix}} {{lastName}}'
+    street_name_formats = (
+        '{{street_suffix}} {{first_name}}',
+        '{{street_suffix}} {{last_name}}'
     )
-    streetAddressFormats = (
-        '{{streetName}} {{buildingNumber}}',
-        '{{streetName}} {{buildingNumber}} {{secondaryAddress}}',
+    street_address_formats = (
+        '{{street_name}} {{building_number}}',
+        '{{street_name}} {{building_number}} {{secondary_address}}',
     )
-    addressFormats = (
-        "{{streetAddress}}\n{{city}}, {{postcode}} {{state}} ({{stateAbbr}})",
+    address_formats = (
+        "{{street_address}}\n{{city}}, {{postcode}} {{state}} ({{state_abbr}})",
     )
-    secondaryAddressFormats = ('Appartamento ##', 'Piano #')
+    secondary_address_formats = ('Appartamento ##', 'Piano #')
 
     @classmethod
-    def cityPrefix(cls):
-        return cls.randomElement(cls.cityPrefixes)
+    def city_prefix(cls):
+        return cls.randomElement(cls.city_prefixes)
 
     @classmethod
-    def secondaryAddress(cls):
-        return cls.numerify(cls.randomElement(cls.secondaryAddressFormats))
+    def secondary_address(cls):
+        return cls.numerify(cls.randomElement(cls.secondary_address_formats))
 
     @classmethod
     def state(cls):
         return cls.randomElement(cls.states)
 
     @classmethod
-    def stateAbbr(cls):
-        return cls.randomElement(cls.statesAbbr)
+    def state_abbr(cls):
+        return cls.randomElement(cls.states_abbr)

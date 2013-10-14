@@ -2,10 +2,9 @@ from . import BaseProvider
 
 
 class Provider(BaseProvider):
-
-    wordList = (
+    word_list = (
         'alias', 'consequatur', 'aut', 'perferendis', 'sit', 'voluptatem',
-        'accusantium', 'doloremque', 'aperiam', 'eaque','ipsa', 'quae', 'ab',
+        'accusantium', 'doloremque', 'aperiam', 'eaque', 'ipsa', 'quae', 'ab',
         'illo', 'inventore', 'veritatis', 'et', 'quasi', 'architecto',
         'beatae', 'vitae', 'dicta', 'sunt', 'explicabo', 'aspernatur', 'aut',
         'odit', 'aut', 'fugit', 'sed', 'quia', 'consequuntur', 'magni',
@@ -48,7 +47,7 @@ class Provider(BaseProvider):
         """
         :example 'Lorem'
         """
-        return cls.randomElement( cls.wordList )
+        return cls.randomElement(cls.word_list)
 
     @classmethod
     def words(cls, nb=3):
@@ -60,7 +59,7 @@ class Provider(BaseProvider):
         return [cls.word() for x in range(0, nb)]
 
     @classmethod
-    def sentence(cls, nbWords=6, variableNbWords=True ):
+    def sentence(cls, nbWords=6, variableNbWords=True):
         """
         Generate a random sentence
         :example 'Lorem ipsum dolor sit amet.'
@@ -72,15 +71,15 @@ class Provider(BaseProvider):
             return ''
 
         if variableNbWords:
-            nbWords = cls.randomizeNbElements( nbWords )
+            nbWords = cls.randomizeNbElements(nbWords)
 
-        words = cls.words( nbWords )
+        words = cls.words(nbWords)
         words[0] = words[0].title()
 
-        return " ".join( words ) + '.'
+        return " ".join(words) + '.'
 
     @classmethod
-    def sentences(cls, nb=3 ):
+    def sentences(cls, nb=3):
         """
         Generate an array of sentences
         :example array('Lorem ipsum dolor sit amet.', 'Consectetur adipisicing eli.')
@@ -90,7 +89,7 @@ class Provider(BaseProvider):
         return [cls.sentence() for x in range(0, nb)]
 
     @classmethod
-    def paragraph(cls, nbSentences=3, variablenbSentences=True ):
+    def paragraph(cls, nbSentences=3, variablenbSentences=True):
         """
         Generate a single paragraph
         :example 'Sapiente sunt omnis. Ut pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
@@ -99,16 +98,16 @@ class Provider(BaseProvider):
             otherwise $nbSentences may vary by +/-40% with a minimum of 1
         :return string
         """
-        if nbSentences <= 0 :
+        if nbSentences <= 0:
             return ''
 
         if variablenbSentences:
-            nbSentences = cls.randomizeNbElements( nbSentences )
+            nbSentences = cls.randomizeNbElements(nbSentences)
 
-        return " ".join( cls.sentences(nbSentences) )
+        return " ".join(cls.sentences(nbSentences))
 
     @classmethod
-    def paragraphs(cls, nb=3 ):
+    def paragraphs(cls, nb=3):
         """
         Generate an array of paragraphs
         :example array($paragraph1, $paragraph2, $paragraph3)
@@ -118,7 +117,7 @@ class Provider(BaseProvider):
         return [cls.paragraph() for x in range(0, nb)]
 
     @classmethod
-    def text(cls, maxNbChars=200 ):
+    def text(cls, maxNbChars=200):
         """
         Generate a text string.
         Depending on the $maxNbChars, returns a string made of words, sentences, or paragraphs.
@@ -137,20 +136,20 @@ class Provider(BaseProvider):
                 # determine how many words are needed to reach the $maxNbChars once;
                 while size < maxNbChars:
                     word = (' ' if size else '') + cls.word()
-                    text.append( word )
+                    text.append(word)
                     size += len(word)
                 text.pop()
             text[0] = text[0][0].upper() + text[0][1:]
-            last_index = len(text)-1
-            text[ last_index ] = text[ last_index ] + '.'
-        elif maxNbChars < 100 :
+            last_index = len(text) - 1
+            text[last_index] = text[last_index] + '.'
+        elif maxNbChars < 100:
             # join sentences
             while not text:
                 size = 0
                 # determine how many sentences are needed to reach the $maxNbChars once
                 while size < maxNbChars:
                     sentence = (' ' if size else '') + cls.sentence()
-                    text.append( sentence )
+                    text.append(sentence)
                     size += len(sentence)
                 text.pop()
         else:
@@ -160,7 +159,7 @@ class Provider(BaseProvider):
                 # determine how many paragraphs are needed to reach the $maxNbChars once
                 while ( size < maxNbChars ):
                     paragraph = ('\n' if size else '') + cls.paragraph()
-                    text.append( paragraph )
+                    text.append(paragraph)
                     size += len(paragraph)
                 text.pop()
 

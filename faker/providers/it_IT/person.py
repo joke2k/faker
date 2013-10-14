@@ -3,17 +3,17 @@ from ..person import Provider as PersonProvider
 
 class Provider(PersonProvider):
     formats = (
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{prefix}} {{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{prefix}} {{firstName}} {{lastName}}'
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{prefix}} {{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{prefix}} {{first_name}} {{last_name}}'
     )
 
-    firstNames = (
+    first_names = (
         'Aaron', 'Akira', 'Alberto', 'Alessandro', 'Alighieri', 'Amedeo', 'Amos', 'Anselmo', 'Antonino', 'Arcibaldo',
         'Armando', 'Artes',
         'Audenico', 'Ausonio', 'Bacchisio', 'Battista', 'Bernardo', 'Boris', 'Caio', 'Carlo', 'Cecco', 'Cirino',
@@ -72,7 +72,7 @@ class Provider(PersonProvider):
         'Vienna', 'Violante', 'Vitalba', 'Zelida'
     )
 
-    lastNames = (
+    last_names = (
         'Rossi', 'Russo', 'Ferrari', 'Esposito', 'Bianchi', 'Romano', 'Colombo', 'Ricci', 'Marino', 'Greco', 'Bruno',
         'Gallo', 'Conti',
         'De luca', 'Mancini', 'Costa', 'Giordano', 'Rizzo', 'Lombardi', 'Moretti', 'Barbieri', 'Fontana', 'Santoro',

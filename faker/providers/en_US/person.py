@@ -3,17 +3,17 @@ from ..person import Provider as PersonProvider
 
 class Provider(PersonProvider):
     formats = (
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}}',
-        '{{prefix}} {{firstName}} {{lastName}}',
-        '{{firstName}} {{lastName}} {{suffix}}',
-        '{{prefix}} {{firstName}} {{lastName}} {{suffix}}'
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}}',
+        '{{prefix}} {{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}} {{suffix}}',
+        '{{prefix}} {{first_name}} {{last_name}} {{suffix}}'
     )
 
-    firstNames = (
+    first_names = (
         'Aaliyah', 'Aaron', 'Abagail', 'Abbey', 'Abbie', 'Abbigail', 'Abby', 'Abdiel', 'Abdul', 'Abdullah', 'Abe',
         'Abel', 'Abelardo', 'Abigail', 'Abigale', 'Abigayle', 'Abner', 'Abraham', 'Ada', 'Adah', 'Adalberto', 'Adaline',
         'Adam', 'Adan', 'Addie', 'Addison', 'Adela', 'Adelbert', 'Adele', 'Adelia', 'Adeline', 'Adell', 'Adella',
@@ -307,7 +307,7 @@ class Provider(PersonProvider):
         'Zora', 'Zula'
     )
 
-    lastNames = (
+    last_names = (
         'Abbott', 'Abernathy', 'Abshire', 'Adams', 'Altenwerth', 'Anderson', 'Ankunding', 'Armstrong', 'Auer',
         'Aufderhar',
         'Bahringer', 'Bailey', 'Balistreri', 'Barrows', 'Bartell', 'Bartoletti', 'Barton', 'Bashirian', 'Batz', 'Bauch',

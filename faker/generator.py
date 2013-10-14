@@ -25,6 +25,12 @@ class Generator(object):
                 # add all faker method to generator
                 setattr(self, method_name, faker_function)
 
+    def provider(self, name):
+        try:
+            return filter(lambda p: p.__provider__ == name.lower(), self.get_providers())[0]
+        except IndexError:
+            return None
+
     def get_providers(self):
         """
         returns added providers
