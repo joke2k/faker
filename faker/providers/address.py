@@ -1,7 +1,7 @@
 from decimal import Decimal
 import random
 from . import BaseProvider
-from . import DateTime
+from . import date_time
 
 
 
@@ -15,7 +15,7 @@ class Provider( BaseProvider ):
     addressFormats = ['{{streetAddress}} {{postcode}} {{city}}',]
     buildingNumberFormats = ['##',]
     postcodeFormats = ['#####',]
-    countries = [tz['name'] for tz in DateTime.Provider.countries]
+    countries = [tz['name'] for tz in date_time.Provider.countries]
 
     @classmethod
     def citySuffix(cls):

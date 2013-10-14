@@ -1,7 +1,7 @@
 from . import BaseProvider
 import random
 import re
-from faker.providers.Lorem import Provider as Lorem
+from faker.providers.lorem import Provider as Lorem
 
 class Provider(BaseProvider):
 
