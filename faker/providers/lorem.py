@@ -1,6 +1,4 @@
-import random
 from . import BaseProvider
-
 
 
 class Provider(BaseProvider):

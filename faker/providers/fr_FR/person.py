@@ -1,6 +1,6 @@
 # coding=utf-8
+from ..person import Provider as PersonProvider
 
-from ..person import  Provider as PersonProvider
 
 class Provider(PersonProvider):
 

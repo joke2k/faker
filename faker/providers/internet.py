@@ -3,6 +3,7 @@ import random
 import re
 from faker.providers.lorem import Provider as Lorem
 
+
 class Provider(BaseProvider):
 
     safeEmailTlds = ('org','com','net')

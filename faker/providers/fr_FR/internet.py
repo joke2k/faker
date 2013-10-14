@@ -1,8 +1,8 @@
 # coding=utf-8
 from ..internet import Provider as InternetProvider
 
-class Provider(InternetProvider):
 
+class Provider(InternetProvider):
     safeEmailTlds = ('com', 'net', 'fr', 'fr')
     freeEmailDomains = ('voila.fr', 'gmail.com', 'hotmail.fr', 'yahoo.fr', 'laposte.net', 'free.fr', 'sfr.fr', 'orange.fr', 'bouygtel.fr', 'club-internet.fr', 'dbmail.com', 'live.com', 'ifrance.com', 'noos.fr', 'tele2.fr', 'tiscali.fr', 'wanadoo.fr')
     tlds = ('com', 'com', 'com', 'net', 'org', 'fr', 'fr', 'fr')
@@ -15,19 +15,18 @@ class Provider(InternetProvider):
             (u'ô', u'o'), (u'Ô', u'O'), (u'ù', u'u'), (u'Ù', u'U'),
         )
         for search, replace in replacements:
-            string = string.replace(search,replace)
+            string = string.replace(search, replace)
 
         return string
 
     def userName(self):
-        format = self.randomElement( self.userNameFormats )
-        return self._toAscii( self.bothify( self.generator.parse(format) ) ).lower()
+        format = self.randomElement(self.userNameFormats)
+        return self._toAscii(self.bothify(self.generator.parse(format))).lower()
 
     def domainWord(self):
-
         company = self.generator.format('company')
         companyElements = company.split(' ')
         company = companyElements[0]
-        company = company.replace(" ","")
+        company = company.replace(" ", "")
 
         return self._toAscii(company).lower()

@@ -1,9 +1,8 @@
 # coding=utf-8
+from ..company import Provider as CompanyProvider
 
-from ..company import  Provider as CompanyProvider
 
 class Provider(CompanyProvider):
-
     formats = (
         '{{lastName}} {{companySuffix}}',
         '{{lastName}} {{lastName}} {{companySuffix}}',
@@ -64,7 +63,7 @@ class Provider(CompanyProvider):
         catchPhrase = u""
         while True:
 
-            format= self.randomElement(self.catchPhraseFormats)
+            format = self.randomElement(self.catchPhraseFormats)
             catchPhrase = self.generator.parse(format)
             catchPhrase = catchPhrase[0].upper() + catchPhrase[1:]
 
@@ -87,7 +86,7 @@ class Provider(CompanyProvider):
         for word in cls.wordsWhichShouldNotAppearTwice:
             # Fastest way to check if a piece of word does not appear twice.
             beginPos = catchPhrase.find(word)
-            endPos = catchPhrase.find(word,beginPos+1)
+            endPos = catchPhrase.find(word, beginPos + 1)
 
             if beginPos != -1 and beginPos != endPos: return False
 
@@ -114,7 +113,7 @@ class Provider(CompanyProvider):
             maxSequentialDigits = 2
 
         sequentialNumber = str(cls.randomNumber(maxSequentialDigits)).zfill(4)
-        return cls.numerify( cls.siren() + ' ' + sequentialNumber + '#' )
+        return cls.numerify(cls.siren() + ' ' + sequentialNumber + '#')
 
 
 

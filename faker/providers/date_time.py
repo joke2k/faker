@@ -2,23 +2,22 @@ from . import BaseProvider
 import random
 import re
 from time import time, mktime
-#from datetime import datetime, timedelta, date
 from datetime import timedelta
 from ..utils.datetime_safe import date, datetime, real_date, real_datetime
-
 
 
 def datetime_to_timestamp(dt):
     return mktime(dt.timetuple())
 
+
 timedelta_pattern = r''
-for name, sym in [('years','y'),('weeks','w'),('days','d'),('hours','h'),('minutes','m'),('seconds','s')]:
-    timedelta_pattern += r'((?P<%s>(?:\+|-)\d+?)%s)?' % ( name, sym)
+for name, sym in [('years', 'y'), ('weeks', 'w'), ('days', 'd'), ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
+    timedelta_pattern += r'((?P<%s>(?:\+|-)\d+?)%s)?' % (name, sym)
 
 
-class Provider( BaseProvider ):
-
-    centuries = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI']
+class Provider(BaseProvider):
+    centuries = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI',
+                 'XVII', 'XVIII', 'XIX', 'XX', 'XXI']
 
     countries = [
         {'timezones': ['Europe/Andorra'], 'code': 'AD', 'continent': 'Europe', 'name': 'Andorra', 'capital': 'Andorra la Vella'},
@@ -216,7 +215,7 @@ class Provider( BaseProvider ):
         {'timezones': ['Europe/London'], 'code': 'GB', 'continent': 'Europe', 'name': 'United Kingdom', 'capital': 'London'},
     ]
 
-    regex = re.compile( timedelta_pattern )
+    regex = re.compile(timedelta_pattern)
 
     @classmethod
     def unixTime(cls):
@@ -234,7 +233,7 @@ class Provider( BaseProvider ):
         :example DateTime('2005-08-16 20:39:21')
         :return datetime
         """
-        return datetime.fromtimestamp( cls.unixTime() )
+        return datetime.fromtimestamp(cls.unixTime())
 
     @classmethod
     def dateTimeAD(cls):
@@ -243,7 +242,7 @@ class Provider( BaseProvider ):
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
-        return datetime.fromtimestamp( random.randint(-62135600400,int(time())) )
+        return datetime.fromtimestamp(random.randint(-62135600400, int(time())))
 
     @classmethod
     def iso8601(cls):
@@ -253,7 +252,7 @@ class Provider( BaseProvider ):
         return cls.dateTime().isoformat()
 
     @classmethod
-    def date(cls, format = '%Y-%m-%d'):
+    def date(cls, format='%Y-%m-%d'):
         """
         Get a date string between January 1, 1970 and now
         :param string $format
@@ -262,22 +261,22 @@ class Provider( BaseProvider ):
         return cls.dateTime().strftime(format)
 
     @classmethod
-    def time(cls, format= '%H:%M:%S'):
+    def time(cls, format='%H:%M:%S'):
         """
         Get a time string (24h format by default)
         :param string $format
         :example '15:02:34'
         """
-        return cls.dateTime().time().strftime( format )
+        return cls.dateTime().time().strftime(format)
 
     @classmethod
-    def _parseDateTime(cls, text ):
-        if isinstance(text, (datetime,date,real_datetime,real_date)):
+    def _parseDateTime(cls, text):
+        if isinstance(text, (datetime, date, real_datetime, real_date)):
             return datetime_to_timestamp(text)
         now = datetime.now()
-        if isinstance(text ,timedelta ):
+        if isinstance(text, timedelta):
             return datetime_to_timestamp(now - text)
-        if isinstance(text, (str,unicode)):
+        if isinstance(text, (str, unicode)):
             if text == 'now':
                 return datetime_to_timestamp(datetime.now())
             parts = cls.regex.match(text)
@@ -293,14 +292,14 @@ class Provider( BaseProvider ):
                 if 'days' not in time_params: time_params['days'] = 0
                 time_params['days'] += 365.24 * time_params.pop('years')
 
-            return datetime_to_timestamp( now + timedelta(**time_params) )
+            return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(text, int):
             return datetime_to_timestamp(now + timedelta(text))
         raise ValueError("Invalid format for date '%s'" % text)
 
 
     @classmethod
-    def dateTimeBetween(cls, startDate = '-30y', endDate = 'now'):
+    def dateTimeBetween(cls, startDate='-30y', endDate='now'):
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -313,7 +312,7 @@ class Provider( BaseProvider ):
         startDate = cls._parseDateTime(startDate)
         endDate = cls._parseDateTime(endDate)
         timestamp = random.randint(startDate, endDate)
-        return datetime.fromtimestamp( timestamp )
+        return datetime.fromtimestamp(timestamp)
 
     @classmethod
     def dateTimeThisCentury(cls):
@@ -344,33 +343,39 @@ class Provider( BaseProvider ):
         return cls.dateTimeBetween('-30d')
 
     @classmethod
-    def amPm(cls): return cls.date('%p')
+    def amPm(cls):
+        return cls.date('%p')
 
     @classmethod
-    def dayOfMonth(cls): return cls.date('%d')
+    def dayOfMonth(cls):
+        return cls.date('%d')
 
     @classmethod
-    def dayOfWeek(cls): return cls.date('%A')
+    def dayOfWeek(cls):
+        return cls.date('%A')
 
     @classmethod
-    def month(cls): return cls.date('%m')
+    def month(cls):
+        return cls.date('%m')
 
     @classmethod
-    def monthName(cls): return cls.date('%B')
+    def monthName(cls):
+        return cls.date('%B')
 
     @classmethod
-    def year(cls): return cls.date('%Y')
+    def year(cls):
+        return cls.date('%Y')
 
     @classmethod
     def century(cls):
         """
         :example 'XVII'
         """
-        return cls.randomElement( cls.centuries )
+        return cls.randomElement(cls.centuries)
 
     @classmethod
     def timezone(cls):
-        return cls.randomElement( cls.countries )['timezones'].pop(0)
+        return cls.randomElement(cls.countries)['timezones'].pop(0)
 
 
 
