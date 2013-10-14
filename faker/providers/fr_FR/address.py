@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from ..Address import Provider as AddressProvider
+from ..address import Provider as AddressProvider
 
 class Provider(AddressProvider):
 

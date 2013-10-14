@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from ..Company import  Provider as CompanyProvider
+from ..company import  Provider as CompanyProvider
 
 class Provider(CompanyProvider):
 
@@ -16,22 +16,22 @@ class Provider(CompanyProvider):
     )
 
     nouns = (
-        'a segurança', 'o prazer', 'o conforto', 'a simplicidade', 'a certeza', 'a arte', 'o poder', 'o direito',
-        'a possibilidade', 'a vantagem', 'a liberdade'
+        'la sécurité', 'le plaisir', 'le confort', 'la simplicité', "l'assurance", "l'art", 'le pouvoir', 'le droit',
+        'la possibilité', "l'avantage", 'la liberté'
     )
 
     verbs = (
-        'de conseguir', 'de avançar', 'de evoluir', 'de mudar', 'de inovar', 'de ganhar', 'de atingir seus objetivos',
-        'de concretizar seus projetos', 'de realizar seus sonhos'
+        'de rouler', "d'avancer", "d'évoluer", 'de changer', "d'innover", 'de louer', "d'atteindre vos buts",
+        'de concrétiser vos projets'
     )
 
     attributes = (
-        'de maneira eficaz', 'mais rapidamentet', 'mais facilmente', 'simplesmente', 'com toda a tranquilidade',
-        'antes de tudo', 'naturellemente', 'sem preocupação', 'em estado puro', 'com força total',
-        'direto da fonte', 'com confiança'
+        'de manière efficace', 'plus rapidement', 'plus facilement', 'plus simplement', 'en toute tranquilité',
+        'avant-tout', 'autrement', 'naturellement', 'à la pointe', 'sans soucis', "à l'état pur",
+        'à sa source', 'de manière sûre', 'en toute sécurité'
     )
 
-    companySuffixes = ('S/A', 'S.A.', 'Ltda.', '- ME', '- EI', 'e Filhos')
+    companySuffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
     sirenFormat = "### ### ###"
 
@@ -75,7 +75,7 @@ class Provider(CompanyProvider):
 
 
     # An array containing string which should not appear twice in a catch phrase
-    wordsWhichShouldNotAppearTwice = ('segurança')
+    wordsWhichShouldNotAppearTwice = ('sécurité', 'simpl')
 
     @classmethod
     def _isCatchPhraseValid(cls, catchPhrase):

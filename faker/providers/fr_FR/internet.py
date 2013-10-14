@@ -1,11 +1,11 @@
 # coding=utf-8
-from ..Internet import Provider as InternetProvider
+from ..internet import Provider as InternetProvider
 
 class Provider(InternetProvider):
 
-    safeEmailTlds = ('com', 'net', 'br', 'br')
-    freeEmailDomains = ('gmail.com', 'hotmail.com', 'yahoo.com.br', 'uol.com.br', 'bol.com.br', 'ig.com.br')
-    tlds = ('com', 'com', 'com', 'net', 'org', 'br', 'br', 'br')
+    safeEmailTlds = ('com', 'net', 'fr', 'fr')
+    freeEmailDomains = ('voila.fr', 'gmail.com', 'hotmail.fr', 'yahoo.fr', 'laposte.net', 'free.fr', 'sfr.fr', 'orange.fr', 'bouygtel.fr', 'club-internet.fr', 'dbmail.com', 'live.com', 'ifrance.com', 'noos.fr', 'tele2.fr', 'tiscali.fr', 'wanadoo.fr')
+    tlds = ('com', 'com', 'com', 'net', 'org', 'fr', 'fr', 'fr')
 
     @staticmethod
     def _toAscii(string):

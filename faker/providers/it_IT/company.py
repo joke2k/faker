@@ -1,7 +1,7 @@
 # coding=utf-8
 
 
-from ..Company import  Provider as CompanyProvider
+from ..company import  Provider as CompanyProvider
 
 class Provider(CompanyProvider):
 
