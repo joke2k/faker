@@ -1,6 +1,14 @@
 News
 ====
 
+0.3
+---
+
+*Release date: 01-Dic-2012*
+
+* PEP8 style conversion (old camelCased methods are deprecated!)
+
+
 0.2
 ---
 

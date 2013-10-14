@@ -1,6 +1,7 @@
 import unittest
 from faker import Generator
 
+
 class BarProvider(object):
 
     def fooFormatter(self):
@@ -20,26 +21,26 @@ class FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.generator = Generator()
         self.provider = FooProvider()
-        self.generator.addProvider(self.provider)
+        self.generator.add_provider(self.provider)
 
 
     def testAddProviderGivesPriorityToNewlyAddedProvider(self):
-        self.generator.addProvider(BarProvider())
+        self.generator.add_provider(BarProvider())
         self.assertEqual('barfoo', self.generator.format('fooFormatter'))
 
 
-    def testGetFormatterReturnsCallable(self):
-        formatter = self.generator.getFormatter('fooFormatter')
+    def testget_formatterReturnsCallable(self):
+        formatter = self.generator.get_formatter('fooFormatter')
         self.assertTrue( hasattr(formatter, '__call__') or isinstance(formatter,(classmethod,staticmethod)) )
 
 
-    def testGetFormatterReturnsCorrectFormatter(self):
-        self.assertEqual(self.provider.fooFormatter, self.generator.getFormatter('fooFormatter') )
+    def testget_formatterReturnsCorrectFormatter(self):
+        self.assertEqual(self.provider.fooFormatter, self.generator.get_formatter('fooFormatter') )
 
 
-    def testGetFormatterThrowsExceptionOnIncorrectFormatter(self):
+    def testget_formatterThrowsExceptionOnIncorrectFormatter(self):
         with self.assertRaises(AttributeError):
-            self.generator.getFormatter('barFormatter')
+            self.generator.get_formatter('barFormatter')
 
 
     def testFormatCallsFormatterOnProvider(self):

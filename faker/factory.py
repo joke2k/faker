@@ -1,15 +1,16 @@
 import sys
 from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
-from faker import providers
+from faker import providers as providers_mod
+
 
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=None, providers=None ):
+    def create(cls, locale=None, providers=None):
 
         # fix locale to package name
-        locale = locale.replace('-','_') if locale else DEFAULT_LOCALE
+        locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
         if '_' in locale:
             locale = locale[:2] + locale[2:].upper()
         if locale not in AVAILABLE_LOCALES:
@@ -20,37 +21,37 @@ class Factory(object):
         generator = Generator()
         for provider in providers:
 
-            providerClass = cls._getProviderClass( provider, locale )
-            generator.addProvider( providerClass(generator) )
+            provider_class = cls._get_provider_class(provider, locale)
+            generator.add_provider(provider_class(generator))
 
         return generator
 
     @classmethod
-    def _getProviderClass(cls, provider, locale=''):
+    def _get_provider_class(cls, provider, locale=''):
 
-        providerClass = cls._findProviderClass( provider, locale )
+        provider_class = cls._find_provider_class(provider, locale)
 
-        if providerClass:
-            return providerClass
+        if provider_class:
+            return provider_class
 
         if locale and locale != DEFAULT_LOCALE:
             # fallback to default locale
-            providerClass = cls._findProviderClass( provider, DEFAULT_LOCALE )
-            if providerClass:
-                return providerClass
+            provider_class = cls._find_provider_class(provider, DEFAULT_LOCALE)
+            if provider_class:
+                return provider_class
 
         # fallback to no locale
-        providerClass = cls._findProviderClass( provider )
-        if providerClass:
-            return providerClass
+        provider_class = cls._find_provider_class(provider)
+        if provider_class:
+            return provider_class
 
         raise ValueError('Unable to find provider "%s" with locale "%s"' % (provider, locale))
 
     @classmethod
-    def _findProviderClass(cls, provider, locale=''):
+    def _find_provider_class(cls, provider, locale=''):
 
         path = "{providers}{lang}.{provider}".format(
-            providers=providers.__package__,
+            providers=providers_mod.__package__,
             lang='.' + locale if locale else '',
             provider=provider
         )
