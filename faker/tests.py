@@ -3,17 +3,16 @@ from faker import Generator
 
 
 class BarProvider(object):
-
-    def fooFormatter(self):
+    def foo_formatter(self):
         return 'barfoo'
 
 
 class FooProvider(object):
 
-    def fooFormatter(self):
+    def foo_formatter(self):
         return 'foobar'
 
-    def fooFormatterWithArguments(self, param='', append=''):
+    def foo_formatter_with_arguments(self, param='', append=''):
         return 'baz' + param + append
 
 
@@ -26,46 +25,47 @@ class FactoryTestCase(unittest.TestCase):
 
     def testAddProviderGivesPriorityToNewlyAddedProvider(self):
         self.generator.add_provider(BarProvider())
-        self.assertEqual('barfoo', self.generator.format('fooFormatter'))
+        self.assertEqual('barfoo', self.generator.format('foo_formatter'))
 
 
-    def testget_formatterReturnsCallable(self):
-        formatter = self.generator.get_formatter('fooFormatter')
-        self.assertTrue( hasattr(formatter, '__call__') or isinstance(formatter,(classmethod,staticmethod)) )
+    def testGetFormatterReturnsCallable(self):
+        formatter = self.generator.get_formatter('foo_formatter')
+        self.assertTrue(hasattr(formatter, '__call__') or isinstance(formatter, (classmethod, staticmethod)))
 
 
-    def testget_formatterReturnsCorrectFormatter(self):
-        self.assertEqual(self.provider.fooFormatter, self.generator.get_formatter('fooFormatter') )
+    def testGetFormatterReturnsCorrectFormatter(self):
+        self.assertEqual(self.provider.foo_formatter, self.generator.get_formatter('foo_formatter'))
 
 
-    def testget_formatterThrowsExceptionOnIncorrectFormatter(self):
+    def testGetFormatterThrowsExceptionOnIncorrectFormatter(self):
         with self.assertRaises(AttributeError):
             self.generator.get_formatter('barFormatter')
 
 
     def testFormatCallsFormatterOnProvider(self):
-        self.assertEqual('foobar', self.generator.format('fooFormatter'))
+        self.assertEqual('foobar', self.generator.format('foo_formatter'))
 
 
     def testFormatTransfersArgumentsToFormatter(self):
-        self.assertEqual('bazfoo!', self.generator.format('fooFormatterWithArguments', 'foo', append='!'))
+        self.assertEqual('bazfoo!', self.generator.format('foo_formatter_with_arguments', 'foo', append='!'))
 
 
     def testParseReturnsSameStringWhenItContainsNoCurlyBraces(self):
         self.assertEqual('fooBar#?', self.generator.parse('fooBar#?'))
 
-
     def testParseReturnsStringWithTokensReplacedByFormatters(self):
-        self.assertEqual('This is foobar a text with foobar',
-            self.generator.parse('This is {{fooFormatter}} a text with {{ fooFormatter }}'))
+        self.assertEqual('This is foobar a text with " foobar "',
+                         self.generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"'))
 
+    #def testParseReturnsStringWithTokensReplacedByFormattersWithArguments(self):
+    #    self.assertEqual('This is foobar',
+    #                     self.generator.parse('This is {{foo_formatter_with_arguments:bar}}'))
 
     def testMagicCallCallsFormat(self):
-        self.assertEqual('foobar', self.generator.fooFormatter())
-
+        self.assertEqual('foobar', self.generator.foo_formatter())
 
     def testMagicCallCallsFormatWithArguments(self):
-        self.assertEqual('bazfoo', self.generator.fooFormatterWithArguments('foo'))
+        self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
 
 
 

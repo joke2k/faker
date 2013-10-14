@@ -17,8 +17,8 @@ def main(provider_or_field=None, *args):
             if not providers:
                 return 'No faker found for "%s"' % provider_or_field
             from faker.providers import BaseProvider
-            doc.already_generated = [fake for fake in dir(BaseProvider)]
-            formatters = [(providers[0],doc.get_provider_formatters(providers[0]))]
+            doc.already_generated = [f for f in dir(BaseProvider)]
+            formatters = [(providers[0], doc.get_provider_formatters(providers[0]))]
     else:
         formatters = doc.get_formatters(with_args='first', with_defaults=True)
 

@@ -61,4 +61,15 @@ class Generator(object):
         """
         Replaces tokens ('{{ tokenName }}') with the result from the token method call
         """
-        return re.sub( r'\{\{\s?(\w+)\s?\}\}', lambda matches: ( self.format( matches.group(1) ) ) , text )
+        return re.sub(r'\{\{(\s?)(\w+)(\s?)\}\}', self.__format_token, text)
+        #return re.sub( r'\{\{\s?(\w+)\s?\}\}', lambda matches: ( self.format( matches.group(1) ) ) , text )
+
+    def __format_token(self, matches):
+        formatter = list(matches.groups())
+        #args = []
+        #if ':' in formatter[1]:
+        #    formatter[1], args = formatter[1].split(":")
+        #    args = args.split(",")
+        formatter[1] = self.format(formatter[1])
+
+        return u"".join(formatter)
