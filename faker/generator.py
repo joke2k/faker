@@ -9,6 +9,9 @@ class Generator(object):
 
     def add_provider(self, provider):
 
+        if type(provider) is type:
+            provider = provider(self)
+
         self.providers.insert(0, provider)
 
         for method_name in dir(provider):

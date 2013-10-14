@@ -22,16 +22,19 @@ def main(provider_or_field=None, *args):
     else:
         formatters = doc.get_formatters(with_args='first', with_defaults=True)
 
-
     for provider, fakers in formatters:
 
         print
-        print "### %s" % documentor.Documentor.get_provider_name(provider)
+        print "### faker.providers.%s" % documentor.Documentor.get_provider_name(provider)
         print
 
         for signature, example in fakers.items():
 
-            print u"{fake:<{margin}}# {example}".format(fake=signature, example=example, margin=max(30,doc.max_name_len+1))
+            print u"{fake:<{margin}}# {example}".format(
+                fake=signature,
+                example=example,
+                margin=max(30, doc.max_name_len+1)
+            )
 
 
 if __name__ == "__main__":

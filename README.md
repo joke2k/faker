@@ -1,12 +1,10 @@
-    _|_|_|_|          _|
-    _|        _|_|_|  _|  _|      _|_|    _|  _|_|
-    _|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
-    _|      _|    _|  _|  _|    _|        _|
-    _|        _|_|_|  _|    _|    _|_|_|  _|
+_|_|_|_|          _|
+_|        _|_|_|  _|  _|      _|_|    _|  _|_|
+_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
+_|      _|    _|  _|  _|    _|        _|
+_|        _|_|_|  _|    _|    _|_|_|  _|
 
-# Faker #
-
-Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database,
+*Faker* is a Python package that generates fake data for you. Whether you need to bootstrap your database,
 create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
 Faker is for you.
 
@@ -18,22 +16,25 @@ Install with pip:
 
     pip install fake-factory
 
-Use `faker.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
+Use `fake.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
 
 ```python
 
     from faker import Factory
+    fake = Factory.create()
 
-    faker = Factory.create()
+    # OR
+    from faker import Faker
+    fake = Faker()
 
-    faker.name()
+    fake.name()
     # 'Lucy Cechtelar'
 
-    faker.address()
+    fake.address()
     # "426 Jordy Lodge
     #  Cartwrightshire, SC 88120-6700"
 
-    faker.text()
+    fake.text()
     # Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
     # beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
     # amet quidem. Iusto deleniti cum autem ad quia aperiam.
@@ -45,12 +46,13 @@ Use `faker.Factory.create()` to create and initialize a faker generator, which c
     # Et sint et. Ut ducimus quod nemo ab voluptatum.
 ```
 
-Each call to method `faker.name()` yealds a different (random) result. This is because faker uses `__getattr__` magic, and forwards `faker.Genarator.method_name()' calls to `faker.Generator.format(method_name)`.
+Each call to method `fake.name()` yealds a different (random) result.
+This is because faker forwards `faker.Genarator.method_name()' calls to `faker.Generator.format(method_name)`.
 
 ```python
 
 for i in range(0,10):
-  print faker.name()
+  print fake.name()
 
 	# Adaline Reichel
 	# Dr. Santa Prosacco DVM
@@ -212,16 +214,16 @@ If no localized provider is found, the factory fallbacks to the default locale (
     for i in range(0,10):
         print fake.name()
 
-    # Elda Palumbo
-    # Pacifico Giordano
-    # Sig. Avide Guerra
-    # Yago Amato
-    # Eustachio Messina
-    # Dott. Violante Lombardo
-    # Sig. Alighieri Monti
-    # Costanzo Costa
-    # Nazzareno Barbieri
-    # Max Coppola
+    > Elda Palumbo
+    > Pacifico Giordano
+    > Sig. Avide Guerra
+    > Yago Amato
+    > Eustachio Messina
+    > Dott. Violante Lombardo
+    > Sig. Alighieri Monti
+    > Costanzo Costa
+    > Nazzareno Barbieri
+    > Max Coppola
 
 You can check available Faker locales in the source code, under the providers package.
 The localization of Faker is an ongoing process, for which we need your help.
@@ -244,6 +246,27 @@ In a python environment with faker installed you can use it with:
     $ python -m faker address
     968 Bahringer Garden Apt. 722
     Kristinaland, NJ 09890
+
+
+# How to create a Provider
+
+    from faker import Faker
+    fake = Faker()
+
+    # first, import a similar Provider or use the default one
+    from faker.providers import BaseProvider
+
+    # create new provider class
+    class MyProvider(BaseProvider):
+        def foo(self):
+            return 'bar'
+
+    # then add new provider to faker instance
+    fake.add_provider(MyProvider)
+
+    # now you can use:
+    fake.foo()
+    > 'bar'
 
 
 # Seeding the Generator
