@@ -7,6 +7,8 @@
 **We are working to rewrite the entire library aligning the specific PEP8.
 The old versions will be discarded.**
 
+[![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
+
 # Faker #
 
 Faker is a Python package that generates fake data for you. Whether you need to bootstrap your database,
