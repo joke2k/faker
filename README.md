@@ -3,6 +3,9 @@
     _|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
     _|      _|    _|  _|  _|    _|        _|
     _|        _|_|_|  _|    _|    _|_|_|  _|
+    
+**We are working to rewrite the entire library aligning the specific PEP8.
+The old versions will be discarded.**
 
 # Faker #
 
