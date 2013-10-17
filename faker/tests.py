@@ -39,8 +39,7 @@ class FactoryTestCase(unittest.TestCase):
 
 
     def testGetFormatterThrowsExceptionOnIncorrectFormatter(self):
-        with self.assertRaises(AttributeError):
-            self.generator.get_formatter('barFormatter')
+        self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
 
 
     def testFormatCallsFormatterOnProvider(self):
