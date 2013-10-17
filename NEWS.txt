@@ -7,7 +7,10 @@ News
 *Release date: Oct-2014*
 
 * PEP8 style conversion (old camelCased methods are deprecated!)
-* pt_BR translation added (thanks to @rvnovaes)
+* New language: pt_BR (thanks to @rvnovaes)
+* all localized provider now uses `from __future__ import unicode_literals`
+* documentor prints localized provider after all defaults
+* FIX tests for python 2.6
 
 
 0.2
