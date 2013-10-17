@@ -76,18 +76,18 @@ class Provider(CompanyProvider):
     words_which_should_not_appear_twice = ('sécurité', 'simpl')
 
     @classmethod
-    def _is_catch_phrase_valid(cls, catchPhrase):
+    def _is_catch_phrase_valid(cls, catch_phrase):
         """
         Validates a french catch phrase.
 
-        :param catchPhrase: The catch phrase to validate.
+        :param catch_phrase: The catch phrase to validate.
         """
         for word in cls.words_which_should_not_appear_twice:
             # Fastest way to check if a piece of word does not appear twice.
-            beginPos = catchPhrase.find(word)
-            endPos = catchPhrase.find(word, beginPos + 1)
+            begin_pos = catch_phrase.find(word)
+            end_pos = catch_phrase.find(word, begin_pos + 1)
 
-            if beginPos != -1 and beginPos != endPos: return False
+            if begin_pos != -1 and begin_pos != end_pos: return False
 
         return True
 
@@ -99,19 +99,19 @@ class Provider(CompanyProvider):
         return cls.numerify(cls.siren_format)
 
     @classmethod
-    def siret(cls, maxSequentialDigits=2):
+    def siret(cls, max_sequential_digits=2):
         """
         Generates a siret number (14 digits).
         It is in fact the result of the concatenation of a siren number (9 digits),
         a sequential number (4 digits) and a control number (1 digit) concatenation.
-        If $maxSequentialDigits is invalid, it is set to 2.
-        :param maxSequentialDigits The maximum number of digits for the sequential number (> 0 && <= 4).
+        If $max_sequential_digits is invalid, it is set to 2.
+        :param max_sequential_digits The maximum number of digits for the sequential number (> 0 && <= 4).
         """
-        if maxSequentialDigits > 4 or maxSequentialDigits <= 0:
-            maxSequentialDigits = 2
+        if max_sequential_digits > 4 or max_sequential_digits <= 0:
+            max_sequential_digits = 2
 
-        sequentialNumber = str(cls.random_number(maxSequentialDigits)).zfill(4)
-        return cls.numerify(cls.siren() + ' ' + sequentialNumber + '#')
+        sequential_number = str(cls.random_number(max_sequential_digits)).zfill(4)
+        return cls.numerify(cls.siren() + ' ' + sequential_number + '#')
 
 
 

@@ -8,8 +8,8 @@ class Provider(BaseProvider):
     language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
-    def boolean(cls, chanceOfGettingTrue=50):
-        return random.randint(1, 100) <= chanceOfGettingTrue
+    def boolean(cls, chance_of_getting_true=50):
+        return random.randint(1, 100) <= chance_of_getting_true
 
     @classmethod
     def null_boolean(cls):

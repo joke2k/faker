@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 import inspect
-from faker.providers import BaseProvider
 
 
 class Documentor(object):

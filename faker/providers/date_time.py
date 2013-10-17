@@ -254,7 +254,7 @@ class Provider(BaseProvider):
     def date(cls, pattern='%Y-%m-%d'):
         """
         Get a date string between January 1, 1970 and now
-        :param string $format
+        :param pattern format
         :example '2008-11-27'
         """
         return cls.date_time().strftime(pattern)
@@ -263,7 +263,7 @@ class Provider(BaseProvider):
     def time(cls, pattern='%H:%M:%S'):
         """
         Get a time string (24h format by default)
-        :param string $format
+        :param pattern format
         :example '15:02:34'
         """
         return cls.date_time().time().strftime(pattern)
@@ -283,7 +283,7 @@ class Provider(BaseProvider):
                 return
             parts = parts.groupdict()
             time_params = {}
-            for (name, param) in parts.iteritems():
+            for (name, param) in parts.items():
                 if param:
                     time_params[name] = int(param)
 
@@ -297,19 +297,19 @@ class Provider(BaseProvider):
         raise ValueError("Invalid format for date '%s'" % text)
 
     @classmethod
-    def date_time_between(cls, startDate='-30y', endDate='now'):
+    def date_time_between(cls, start_date='-30y', end_date='now'):
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
-        :param string $startDate Defaults to 30 years ago
-        :param string $endDate Defaults to "now"
+        :param start_date Defaults to 30 years ago
+        :param end_date Defaults to "now"
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        startDate = cls._parse_date_time(startDate)
-        endDate = cls._parse_date_time(endDate)
-        timestamp = random.randint(startDate, endDate)
+        start_date = cls._parse_date_time(start_date)
+        end_date = cls._parse_date_time(end_date)
+        timestamp = random.randint(start_date, end_date)
         return datetime.fromtimestamp(timestamp)
 
     @classmethod

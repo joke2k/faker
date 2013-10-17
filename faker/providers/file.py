@@ -119,7 +119,7 @@ class Provider(BaseProvider):
     @classmethod
     def mime_type(cls, category=None):
         """
-        :param type: application|audio|image|message|model|multipart|text|video
+        :param category: application|audio|image|message|model|multipart|text|video
         """
         category = category if category else cls.random_element(cls.mime_types.keys())
         return cls.random_element(cls.mime_types[category])

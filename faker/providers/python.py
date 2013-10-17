@@ -10,17 +10,17 @@ class Provider(BaseProvider):
         return cls.random_int(0, 1) == 1
 
     @classmethod
-    def pystr(cls, maxChars=20):
-        return Lorem.text(maxChars)
+    def pystr(cls, max_chars=20):
+        return Lorem.text(max_chars)
 
     @classmethod
-    def pyfloat(cls, leftDigits=None, rightDigits=None, positive=False):
-        leftDigits = leftDigits or cls.random_int(1, sys.float_info.dig)
-        rightDigits = rightDigits or cls.random_int(0, sys.float_info.dig - leftDigits)
+    def pyfloat(cls, left_digits=None, right_digits=None, positive=False):
+        left_digits = left_digits or cls.random_int(1, sys.float_info.dig)
+        right_digits = right_digits or cls.random_int(0, sys.float_info.dig - left_digits)
         sign = 1 if positive or cls.random_int(0, 1) else -1
 
         return float("{}.{}".format(
-            sign * cls.random_number(leftDigits), cls.random_number(rightDigits)
+            sign * cls.random_number(left_digits), cls.random_number(right_digits)
         ))
 
 
@@ -29,88 +29,88 @@ class Provider(BaseProvider):
         return cls.random_int()
 
     @classmethod
-    def pyunicode(cls, maxChars=20):
-        return unicode(Lorem.text(maxChars))
+    def pyunicode(cls, max_chars=20):
+        return unicode(Lorem.text(max_chars))
 
     @classmethod
-    def pydecimal(cls, leftDigits=None, rightDigits=None, positive=False):
-        return Decimal(str(cls.pyfloat(leftDigits, rightDigits, positive)))
+    def pydecimal(cls, left_digits=None, right_digits=None, positive=False):
+        return Decimal(str(cls.pyfloat(left_digits, right_digits, positive)))
 
-    def pytuple(self, nbElements=10, variableNbElements=True, *valueTypes):
-        return tuple(self.pyset(nbElements, variableNbElements, *valueTypes))
+    def pytuple(self, nb_elements=10, variable_nb_elements=True, *value_types):
+        return tuple(self.pyset(nb_elements, variable_nb_elements, *value_types))
 
-    def pyset(self, nbElements=10, variableNbElements=True, *valueTypes):
-        return set(self._pyiterable(nbElements, variableNbElements, *valueTypes))
+    def pyset(self, nb_elements=10, variable_nb_elements=True, *value_types):
+        return set(self._pyiterable(nb_elements, variable_nb_elements, *value_types))
 
-    def pylist(self, nbElements=10, variableNbElements=True, *valueTypes):
-        return list(self._pyiterable(nbElements, variableNbElements, *valueTypes))
+    def pylist(self, nb_elements=10, variable_nb_elements=True, *value_types):
+        return list(self._pyiterable(nb_elements, variable_nb_elements, *value_types))
 
-    def pyiterable(self, nbElements=10, variableNbElements=True, *valueTypes):
-        return self.random_element([self.pylist, self.pytuple, self.pyset])(nbElements, variableNbElements, *valueTypes)
+    def pyiterable(self, nb_elements=10, variable_nb_elements=True, *value_types):
+        return self.random_element([self.pylist, self.pytuple, self.pyset])(nb_elements, variable_nb_elements, *value_types)
 
-    def _randomType(self, typesList):
-        valueType = self.random_element(typesList)
+    def _random_type(self, type_list):
+        value_type = self.random_element(type_list)
 
-        methodName = "py%s" % valueType
-        if hasattr(self, methodName):
-            valueType = methodName
+        method_name = "py%s" % value_type
+        if hasattr(self, method_name):
+            value_type = method_name
 
-        return self.generator.format(valueType)
+        return self.generator.format(value_type)
 
-    def _pyiterable(self, nbElements=10, variableNbElements=True, *valueTypes):
+    def _pyiterable(self, nb_elements=10, variable_nb_elements=True, *value_types):
 
-        valueTypes = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
-                      for t in valueTypes
+        value_types = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
+                      for t in value_types
                       # avoid recursion
                       if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
-        if not valueTypes:
-            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
+        if not value_types:
+            value_types = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
-        if variableNbElements:
-            nbElements = self.randomize_nb_elements(nbElements)
+        if variable_nb_elements:
+            nb_elements = self.randomize_nb_elements(nb_elements)
 
-        for f in range(nbElements):
-            yield self._randomType(valueTypes)
+        for f in range(nb_elements):
+            yield self._random_type(value_types)
 
 
-    def pydict(self, nbElements=10, variableNbElements=True, *valueTypes):
+    def pydict(self, nb_elements=10, variable_nb_elements=True, *value_types):
         """
          Use this function to generate data, returns a touple containing
          a list, a dictionary and a nested dictionary.
          """
-        if variableNbElements:
-            nbElements = self.randomize_nb_elements(nbElements)
+        if variable_nb_elements:
+            nb_elements = self.randomize_nb_elements(nb_elements)
 
         return dict(zip(
-            Lorem.words(nbElements),
-            self._pyiterable(nbElements, False, *valueTypes)
+            Lorem.words(nb_elements),
+            self._pyiterable(nb_elements, False, *value_types)
         ))
 
 
-    def pystruct(self, count=10, *valueTypes):
+    def pystruct(self, count=10, *value_types):
 
-        valueTypes = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
-                      for t in valueTypes
+        value_types = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
+                      for t in value_types
                       # avoid recursion
                       if t != 'struct']
-        if not valueTypes:
-            valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
+        if not value_types:
+            value_types = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
-        l = [];
-        d = {};
+        l = []
+        d = {}
         nd = {}
         for i in range(count):
-            d[Lorem.word()] = self._randomType(valueTypes)
-            l.append(self._randomType(valueTypes))
+            d[Lorem.word()] = self._random_type(value_types)
+            l.append(self._random_type(value_types))
             nd[Lorem.word()] = {
-                i: self._randomType(valueTypes),
-                i + 1: [self._randomType(valueTypes), self._randomType(valueTypes), self._randomType(valueTypes)],
+                i: self._random_type(value_types),
+                i + 1: [self._random_type(value_types), self._random_type(value_types), self._random_type(value_types)],
                 i + 2: {
-                    i: self._randomType(valueTypes),
-                    i + 1: self._randomType(valueTypes),
+                    i: self._random_type(value_types),
+                    i + 1: self._random_type(value_types),
                     i + 2: [
-                        self._randomType(valueTypes),
-                        self._randomType(valueTypes)
+                        self._random_type(value_types),
+                        self._random_type(value_types)
                     ]
                 }
             }

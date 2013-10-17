@@ -9,7 +9,7 @@ class Provider(InternetProvider):
     tlds = ('com', 'com', 'com', 'net', 'org', 'br', 'br', 'br')
 
     @staticmethod
-    def _toAscii(string):
+    def _to_ascii(string):
         replacements = (
             (u'à', u'a'), (u'À', u'A'), (u'ç', u'c'), (u'Ç', u'c'), (u'é', u'e'), (u'É', u'E'), (u'è', u'e'),
             (u'È', u'E'), (u'ë', u'e'), (u'Ë', u'E'), (u'ï', u'i'), (u'Ï', u'I'), (u'î', u'i'), (u'Î', u'I'),
@@ -21,4 +21,4 @@ class Provider(InternetProvider):
         return string
 
     def user_name(self):
-        return self._toAscii(super(Provider, self).user_name())
+        return self._to_ascii(super(Provider, self).user_name())

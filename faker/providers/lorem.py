@@ -54,26 +54,26 @@ class Provider(BaseProvider):
         """
         Generate an array of random words
         :example array('Lorem', 'ipsum', 'dolor')
-        :param integer $nb how many words to return
+        :param nb how many words to return
         """
-        return [cls.word() for x in range(0, nb)]
+        return [cls.word() for _ in range(0, nb)]
 
     @classmethod
-    def sentence(cls, nbWords=6, variableNbWords=True):
+    def sentence(cls, nb_words=6, variable_nb_words=True):
         """
         Generate a random sentence
         :example 'Lorem ipsum dolor sit amet.'
-        :param integer $nbWords around how many words the sentence should contain
-        :param boolean $variableNbWords set to false if you want exactly $nbWords returned,
+        :param nb_words around how many words the sentence should contain
+        :param variable_nb_words set to false if you want exactly $nbWords returned,
             otherwise $nbWords may vary by +/-40% with a minimum of 1
         """
-        if nbWords <= 0:
+        if nb_words <= 0:
             return ''
 
-        if variableNbWords:
-            nbWords = cls.randomize_nb_elements(nbWords)
+        if variable_nb_words:
+            nb_words = cls.randomize_nb_elements(nb_words)
 
-        words = cls.words(nbWords)
+        words = cls.words(nb_words)
         words[0] = words[0].title()
 
         return " ".join(words) + '.'
@@ -83,71 +83,71 @@ class Provider(BaseProvider):
         """
         Generate an array of sentences
         :example array('Lorem ipsum dolor sit amet.', 'Consectetur adipisicing eli.')
-        :param integer $nb how many sentences to return
-        :return array
+        :param nb how many sentences to return
+        :return list
         """
-        return [cls.sentence() for x in range(0, nb)]
+        return [cls.sentence() for _ in range(0, nb)]
 
     @classmethod
-    def paragraph(cls, nbSentences=3, variablenbSentences=True):
+    def paragraph(cls, nb_sentences=3, variable_nb_sentences=True):
         """
         Generate a single paragraph
         :example 'Sapiente sunt omnis. Ut pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
-        :param integer $nbSentences around how many sentences the paragraph should contain
-        :param boolean $variableNbSentences set to false if you want exactly $nbSentences returned,
+        :param nb_sentences around how many sentences the paragraph should contain
+        :param variable_nb_sentences set to false if you want exactly $nbSentences returned,
             otherwise $nbSentences may vary by +/-40% with a minimum of 1
         :return string
         """
-        if nbSentences <= 0:
+        if nb_sentences <= 0:
             return ''
 
-        if variablenbSentences:
-            nbSentences = cls.randomize_nb_elements(nbSentences)
+        if variable_nb_sentences:
+            nb_sentences = cls.randomize_nb_elements(nb_sentences)
 
-        return " ".join(cls.sentences(nbSentences))
+        return " ".join(cls.sentences(nb_sentences))
 
     @classmethod
     def paragraphs(cls, nb=3):
         """
         Generate an array of paragraphs
         :example array($paragraph1, $paragraph2, $paragraph3)
-        :param integer $nb how many paragraphs to return
+        :param nb how many paragraphs to return
         :return array
         """
-        return [cls.paragraph() for x in range(0, nb)]
+        return [cls.paragraph() for _ in range(0, nb)]
 
     @classmethod
-    def text(cls, maxNbChars=200):
+    def text(cls, max_nb_chars=200):
         """
         Generate a text string.
         Depending on the $maxNbChars, returns a string made of words, sentences, or paragraphs.
         :example 'Sapiente sunt omnis. Ut pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
-        :param integer $maxNbChars Maximum number of characters the text should contain (minimum 5)
+        :param max_nb_chars Maximum number of characters the text should contain (minimum 5)
         :return string
         """
         text = []
-        if maxNbChars < 5:
+        if max_nb_chars < 5:
             raise ValueError('text() can only generate text of at least 5 characters')
 
-        if maxNbChars < 25:
+        if max_nb_chars < 25:
             # join words
             while not text:
                 size = 0
-                # determine how many words are needed to reach the $maxNbChars once;
-                while size < maxNbChars:
+                # determine how many words are needed to reach the $max_nb_chars once;
+                while size < max_nb_chars:
                     word = (' ' if size else '') + cls.word()
                     text.append(word)
                     size += len(word)
                 text.pop()
             text[0] = text[0][0].upper() + text[0][1:]
             last_index = len(text) - 1
-            text[last_index] = text[last_index] + '.'
-        elif maxNbChars < 100:
+            text[last_index] += '.'
+        elif max_nb_chars < 100:
             # join sentences
             while not text:
                 size = 0
-                # determine how many sentences are needed to reach the $maxNbChars once
-                while size < maxNbChars:
+                # determine how many sentences are needed to reach the $max_nb_chars once
+                while size < max_nb_chars:
                     sentence = (' ' if size else '') + cls.sentence()
                     text.append(sentence)
                     size += len(sentence)
@@ -156,8 +156,8 @@ class Provider(BaseProvider):
             # join paragraphs
             while not text:
                 size = 0
-                # determine how many paragraphs are needed to reach the $maxNbChars once
-                while ( size < maxNbChars ):
+                # determine how many paragraphs are needed to reach the $max_nb_chars once
+                while size < max_nb_chars:
                     paragraph = ('\n' if size else '') + cls.paragraph()
                     text.append(paragraph)
                     size += len(paragraph)

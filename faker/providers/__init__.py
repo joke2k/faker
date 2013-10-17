@@ -79,7 +79,7 @@ class BaseProvider(object):
     def bothify(cls, text='## ??'):
         """
         Replaces hash signs and question marks with random numbers and letters
-        :param string text that needs to bet parsed
+        :param text that needs to bet parsed
         """
 
         return BaseProvider.lexify(BaseProvider.numerify(text))

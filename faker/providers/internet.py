@@ -94,7 +94,7 @@ class Provider(BaseProvider):
     @classmethod
     def uri_path(cls, deep=None):
         deep = deep if deep else random.randint(1, 3)
-        return "/".join([cls.random_element(cls.uri_paths) for x in range(0, deep)])
+        return "/".join([cls.random_element(cls.uri_paths) for _ in range(0, deep)])
 
     @classmethod
     def uri_extension(cls):

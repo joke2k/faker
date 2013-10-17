@@ -19,6 +19,4 @@ DEFAULT_PROVIDERS = (
 from faker.generator import Generator
 from faker.factory import Factory
 
-
-def Faker(*args, **kwargs):
-    return Factory.create(*args, **kwargs)
+Faker = Factory.create
