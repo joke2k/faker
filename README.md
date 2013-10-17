@@ -4,11 +4,15 @@ _|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
 _|      _|    _|  _|  _|    _|        _|
 _|        _|_|_|  _|    _|    _|_|_|  _|
 
+
 *Faker* is a Python package that generates fake data for you. Whether you need to bootstrap your database,
 create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
 Faker is for you.
 
 Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl-faker], and by ruby's [Faker][ruby-faker].
+
+[![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## Basic Usage
 
@@ -379,6 +383,4 @@ Credits
 [distribute]:  http://pypi.python.org/pypi/distribute
 [modern-package-template]: http://pypi.python.org/pypi/modern-package-template
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
