@@ -32,7 +32,7 @@ setup(name='fake-factory',
       author_email='joke2k@gmail.com',
       url='http://github.com/joke2k/faker',
       license='MIT License',
-      packages=find_packages('./'),
+      packages=find_packages(exclude='*.tests'),
       platforms=["any"],
       test_suite='faker.tests',
       )
