@@ -10,7 +10,7 @@ class Provider(BaseProvider):
         """
         :example 'Acme Ltd'
         """
-        pattern = self.randomElement(self.formats)
+        pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
     @classmethod
@@ -18,4 +18,4 @@ class Provider(BaseProvider):
         """
         :example 'Ltd'
         """
-        return cls.randomElement(cls.company_suffixes)
+        return cls.random_element(cls.company_suffixes)

@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..internet import Provider as InternetProvider
 
 
@@ -22,7 +23,7 @@ class Provider(InternetProvider):
         return string
 
     def user_name(self):
-        pattern = self.randomElement(self.user_name_formats)
+        pattern = self.random_element(self.user_name_formats)
         return self._to_ascii(self.bothify(self.generator.parse(pattern))).lower()
 
     def domain_word(self):

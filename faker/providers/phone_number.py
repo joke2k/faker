@@ -6,4 +6,4 @@ class Provider(BaseProvider):
 
     @classmethod
     def phone_number(cls):
-        return cls.numerify(cls.randomElement(cls.formats))
+        return cls.numerify(cls.random_element(cls.formats))

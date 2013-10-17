@@ -7,7 +7,7 @@ import sys
 class Provider(BaseProvider):
     @classmethod
     def pybool(cls):
-        return cls.randomInt(0, 1) == 1
+        return cls.random_int(0, 1) == 1
 
     @classmethod
     def pystr(cls, maxChars=20):
@@ -15,18 +15,18 @@ class Provider(BaseProvider):
 
     @classmethod
     def pyfloat(cls, leftDigits=None, rightDigits=None, positive=False):
-        leftDigits = leftDigits or cls.randomInt(1, sys.float_info.dig)
-        rightDigits = rightDigits or cls.randomInt(0, sys.float_info.dig - leftDigits)
-        sign = 1 if positive or cls.randomInt(0, 1) else -1
+        leftDigits = leftDigits or cls.random_int(1, sys.float_info.dig)
+        rightDigits = rightDigits or cls.random_int(0, sys.float_info.dig - leftDigits)
+        sign = 1 if positive or cls.random_int(0, 1) else -1
 
         return float("{}.{}".format(
-            sign * cls.randomNumber(leftDigits), cls.randomNumber(rightDigits)
+            sign * cls.random_number(leftDigits), cls.random_number(rightDigits)
         ))
 
 
     @classmethod
     def pyint(cls):
-        return cls.randomInt()
+        return cls.random_int()
 
     @classmethod
     def pyunicode(cls, maxChars=20):
@@ -46,10 +46,10 @@ class Provider(BaseProvider):
         return list(self._pyiterable(nbElements, variableNbElements, *valueTypes))
 
     def pyiterable(self, nbElements=10, variableNbElements=True, *valueTypes):
-        return self.randomElement([self.pylist, self.pytuple, self.pyset])(nbElements, variableNbElements, *valueTypes)
+        return self.random_element([self.pylist, self.pytuple, self.pyset])(nbElements, variableNbElements, *valueTypes)
 
     def _randomType(self, typesList):
-        valueType = self.randomElement(typesList)
+        valueType = self.random_element(typesList)
 
         methodName = "py%s" % valueType
         if hasattr(self, methodName):
@@ -67,7 +67,7 @@ class Provider(BaseProvider):
             valueTypes = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
         if variableNbElements:
-            nbElements = self.randomizeNbElements(nbElements)
+            nbElements = self.randomize_nb_elements(nbElements)
 
         for f in range(nbElements):
             yield self._randomType(valueTypes)
@@ -79,7 +79,7 @@ class Provider(BaseProvider):
          a list, a dictionary and a nested dictionary.
          """
         if variableNbElements:
-            nbElements = self.randomizeNbElements(nbElements)
+            nbElements = self.randomize_nb_elements(nbElements)
 
         return dict(zip(
             Lorem.words(nbElements),

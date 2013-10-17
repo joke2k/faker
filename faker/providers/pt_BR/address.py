@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..address import Provider as AddressProvider
 
 
@@ -204,7 +205,7 @@ class Provider(AddressProvider):
         """
         :example 'rua'
         """
-        return cls.randomElement(cls.street_prefixes)
+        return cls.random_element(cls.street_prefixes)
 
     @classmethod
     def estado(cls):
@@ -212,7 +213,7 @@ class Provider(AddressProvider):
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example ('MG' . 'Minas Gerais')
         """
-        return cls.randomElement(cls.estados)
+        return cls.random_element(cls.estados)
 
     @classmethod
     def estado_nome(cls):
@@ -238,7 +239,7 @@ class Provider(AddressProvider):
 
         :example 'Serra'
         """
-        return cls.randomElement(cls.bairros)
+        return cls.random_element(cls.bairros)
 
 
 

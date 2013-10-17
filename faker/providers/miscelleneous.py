@@ -57,9 +57,9 @@ class Provider(BaseProvider):
 
     @classmethod
     def country_code(cls):
-        return cls.randomElement(date_time.Provider.countries)['code']
+        return cls.random_element(date_time.Provider.countries)['code']
 
     @classmethod
     def language_code(cls):
-        return cls.randomElement(cls.language_codes)
+        return cls.random_element(cls.language_codes)
 

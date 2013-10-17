@@ -39,11 +39,11 @@ class Provider(BaseProvider):
     )
 
     def email(self):
-        pattern = self.randomElement(self.email_formats)
+        pattern = self.random_element(self.email_formats)
         return "".join(self.generator.parse(pattern).split(" "))
 
     def safe_email(self):
-        return self.user_name() + '@example.' + self.randomElement(self.safe_email_tlds)
+        return self.user_name() + '@example.' + self.random_element(self.safe_email_tlds)
 
     def free_email(self):
         return self.user_name() + '@' + self.free_email_domain()
@@ -53,10 +53,10 @@ class Provider(BaseProvider):
 
     @classmethod
     def free_email_domain(cls):
-        return cls.randomElement(cls.free_email_domains)
+        return cls.random_element(cls.free_email_domains)
 
     def user_name(self):
-        pattern = self.randomElement(self.user_name_formats)
+        pattern = self.random_element(self.user_name_formats)
         return self.bothify(self.generator.parse(pattern)).lower()
 
     def domain_name(self):
@@ -69,10 +69,10 @@ class Provider(BaseProvider):
         return re.sub(r'\W', '', company).lower()
 
     def tld(self):
-        return self.randomElement(self.tlds)
+        return self.random_element(self.tlds)
 
     def url(self):
-        pattern = self.randomElement(self.url_formats)
+        pattern = self.random_element(self.url_formats)
         return self.generator.parse(pattern)
 
     def ipv4(self):
@@ -89,19 +89,19 @@ class Provider(BaseProvider):
 
     @classmethod
     def uri_page(cls):
-        return cls.randomElement(cls.uri_pages)
+        return cls.random_element(cls.uri_pages)
 
     @classmethod
     def uri_path(cls, deep=None):
         deep = deep if deep else random.randint(1, 3)
-        return "/".join([cls.randomElement(cls.uri_paths) for x in range(0, deep)])
+        return "/".join([cls.random_element(cls.uri_paths) for x in range(0, deep)])
 
     @classmethod
     def uri_extension(cls):
-        return cls.randomElement(cls.uri_extensions)
+        return cls.random_element(cls.uri_extensions)
 
     def uri(self):
-        pattern = self.randomElement(self.uri_formats)
+        pattern = self.random_element(self.uri_formats)
         return self.generator.parse(pattern)
 
     @classmethod

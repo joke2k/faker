@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..company import Provider as CompanyProvider
 
 
@@ -80,7 +81,7 @@ class Provider(CompanyProvider):
         """
         result = []
         for word_list in self.catch_phrase_words:
-            result.append(self.randomElement(word_list))
+            result.append(self.random_element(word_list))
 
         return " ".join(result)
 
@@ -90,6 +91,6 @@ class Provider(CompanyProvider):
         """
         result = []
         for word_list in self.bsWords:
-            result.append(self.randomElement(word_list))
+            result.append(self.random_element(word_list))
 
         return " ".join(result)

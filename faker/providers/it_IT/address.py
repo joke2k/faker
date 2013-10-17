@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..address import Provider as AddressProvider
 
 
@@ -105,16 +106,16 @@ class Provider(AddressProvider):
 
     @classmethod
     def city_prefix(cls):
-        return cls.randomElement(cls.city_prefixes)
+        return cls.random_element(cls.city_prefixes)
 
     @classmethod
     def secondary_address(cls):
-        return cls.numerify(cls.randomElement(cls.secondary_address_formats))
+        return cls.numerify(cls.random_element(cls.secondary_address_formats))
 
     @classmethod
     def state(cls):
-        return cls.randomElement(cls.states)
+        return cls.random_element(cls.states)
 
     @classmethod
     def state_abbr(cls):
-        return cls.randomElement(cls.states_abbr)
+        return cls.random_element(cls.states_abbr)

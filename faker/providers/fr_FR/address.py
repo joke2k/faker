@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..address import Provider as AddressProvider
 
 
@@ -111,14 +112,14 @@ class Provider(AddressProvider):
         """
         :example 'rue'
         """
-        return cls.randomElement(cls.street_prefixes)
+        return cls.random_element(cls.street_prefixes)
 
     @classmethod
     def region(cls):
         """
         :example 'Guadeloupe'
         """
-        return cls.randomElement(cls.regions)
+        return cls.random_element(cls.regions)
 
     @classmethod
     def department(cls):
@@ -126,7 +127,7 @@ class Provider(AddressProvider):
         Randomly returns a french department ('departmentNumber' , 'departmentName').
         :example ('2B' . 'Haute-Corse')
         """
-        return cls.randomElement(cls.departments)
+        return cls.random_element(cls.departments)
 
     @classmethod
     def department_name(cls):

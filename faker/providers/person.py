@@ -12,13 +12,13 @@ class Provider(BaseProvider):
         """
         :example 'Jhon Doe'
         """
-        pattern = self.randomElement(self.formats)
+        pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
     @classmethod
     def first_name(cls):
-        return cls.randomElement(cls.first_names)
+        return cls.random_element(cls.first_names)
 
     @classmethod
     def last_name(cls):
-        return cls.randomElement(cls.last_names)
+        return cls.random_element(cls.last_names)

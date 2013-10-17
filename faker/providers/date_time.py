@@ -369,11 +369,11 @@ class Provider(BaseProvider):
         """
         :example 'XVII'
         """
-        return cls.randomElement(cls.centuries)
+        return cls.random_element(cls.centuries)
 
     @classmethod
     def timezone(cls):
-        return cls.randomElement(cls.countries)['timezones'].pop(0)
+        return cls.random_element(cls.countries)['timezones'].pop(0)
 
 
 

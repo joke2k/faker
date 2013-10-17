@@ -47,7 +47,7 @@ class Provider(BaseProvider):
         """
         :example 'Lorem'
         """
-        return cls.randomElement(cls.word_list)
+        return cls.random_element(cls.word_list)
 
     @classmethod
     def words(cls, nb=3):
@@ -71,7 +71,7 @@ class Provider(BaseProvider):
             return ''
 
         if variableNbWords:
-            nbWords = cls.randomizeNbElements(nbWords)
+            nbWords = cls.randomize_nb_elements(nbWords)
 
         words = cls.words(nbWords)
         words[0] = words[0].title()
@@ -102,7 +102,7 @@ class Provider(BaseProvider):
             return ''
 
         if variablenbSentences:
-            nbSentences = cls.randomizeNbElements(nbSentences)
+            nbSentences = cls.randomize_nb_elements(nbSentences)
 
         return " ".join(cls.sentences(nbSentences))
 

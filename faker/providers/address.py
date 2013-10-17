@@ -20,41 +20,41 @@ class Provider(BaseProvider):
         """
         :example 'town'
         """
-        return cls.randomElement(cls.city_suffixes)
+        return cls.random_element(cls.city_suffixes)
 
     @classmethod
     def street_suffix(cls):
         """
         :example 'Avenue'
         """
-        return cls.randomElement(cls.street_suffixes)
+        return cls.random_element(cls.street_suffixes)
 
     @classmethod
     def building_number(cls):
         """
         :example '791'
         """
-        return cls.numerify(cls.randomElement(cls.building_number_formats))
+        return cls.numerify(cls.random_element(cls.building_number_formats))
 
     def city(self):
         """
         :example 'Sashabury'
         """
-        pattern = self.randomElement(self.city_formats)
+        pattern = self.random_element(self.city_formats)
         return self.generator.parse(pattern)
 
     def street_name(self):
         """
         :example 'Crist Parks'
         """
-        pattern = self.randomElement(self.street_name_formats)
+        pattern = self.random_element(self.street_name_formats)
         return self.generator.parse(pattern)
 
     def street_address(self):
         """
         :example '791 Crist Parks'
         """
-        pattern = self.randomElement(self.street_address_formats)
+        pattern = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
     @classmethod
@@ -62,18 +62,18 @@ class Provider(BaseProvider):
         """
         :example 86039-9874
         """
-        return cls.bothify(cls.randomElement(cls.postcode_formats)).upper()
+        return cls.bothify(cls.random_element(cls.postcode_formats)).upper()
 
     def address(self):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        pattern = self.randomElement(self.address_formats)
+        pattern = self.random_element(self.address_formats)
         return self.generator.parse(pattern)
 
     @classmethod
     def country(cls):
-        return cls.randomElement(cls.countries)
+        return cls.random_element(cls.countries)
 
     @classmethod
     def geo_coordinate(cls):

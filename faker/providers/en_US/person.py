@@ -375,8 +375,8 @@ class Provider(PersonProvider):
 
     @classmethod
     def prefix(cls):
-        return cls.randomElement(cls.prefixes)
+        return cls.random_element(cls.prefixes)
 
     @classmethod
     def suffix(cls):
-        return cls.randomElement(cls.suffixes)
+        return cls.random_element(cls.suffixes)

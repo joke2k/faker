@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals
 from ..company import Provider as CompanyProvider
 
 
@@ -39,21 +40,21 @@ class Provider(CompanyProvider):
         """
         Returns a random catch phrase noun.
         """
-        return cls.randomElement(cls.nouns)
+        return cls.random_element(cls.nouns)
 
     @classmethod
     def catch_phrase_attribute(cls):
         """
         Returns a random catch phrase attribute.
         """
-        return cls.randomElement(cls.attributes)
+        return cls.random_element(cls.attributes)
 
     @classmethod
     def catch_phrase_verb(cls):
         """
         Returns a random catch phrase verb.
         """
-        return cls.randomElement(cls.verbs)
+        return cls.random_element(cls.verbs)
 
     def catch_phrase(self):
         """
@@ -62,7 +63,7 @@ class Provider(CompanyProvider):
         catch_phrase = u""
         while True:
 
-            pattern = self.randomElement(self.catch_phrase_formats)
+            pattern = self.random_element(self.catch_phrase_formats)
             catch_phrase = self.generator.parse(pattern)
             catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
 
@@ -109,7 +110,7 @@ class Provider(CompanyProvider):
         if maxSequentialDigits > 4 or maxSequentialDigits <= 0:
             maxSequentialDigits = 2
 
-        sequentialNumber = str(cls.randomNumber(maxSequentialDigits)).zfill(4)
+        sequentialNumber = str(cls.random_number(maxSequentialDigits)).zfill(4)
         return cls.numerify(cls.siren() + ' ' + sequentialNumber + '#')
 
 
