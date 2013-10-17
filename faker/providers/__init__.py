@@ -4,51 +4,55 @@ import string
 
 
 class BaseProvider(object):
+
+    __provider__ = 'base'
+    __lang__ = None
+
     def __init__(self, generator):
 
         self.generator = generator
 
     @classmethod
-    def randomInt(cls, min=0, max=9999):
+    def random_int(cls, min=0, max=9999):
         return random.randint(min, max)
 
     @classmethod
-    def randomDigit(cls):
+    def random_digit(cls):
         """ Returns a random number between 0 and 9 """
         return random.randint(0, 9)
 
     @classmethod
-    def randomDigitNotNull(cls):
+    def random_digit_not_null(cls):
         """ Returns a random number between 1 and 9 """
         return random.randint(1, 9)
 
     @classmethod
-    def randomNumber(cls, nbDigits=None):
-        """ Returns a random number with 0 to $nbDigits digits """
-        if nbDigits is None:
-            nbDigits = BaseProvider.randomDigit()
-        return random.randint(0, pow(10, nbDigits) - 1)
+    def random_number(cls, digits=None):
+        """ Returns a random number with 0 to $digits digits """
+        if digits is None:
+            digits = BaseProvider.random_digit()
+        return random.randint(0, pow(10, digits) - 1)
 
     @classmethod
-    def randomLetter(cls):
+    def random_letter(cls):
         """ Returns a random letter from a to z """
         return random.choice(string.letters)
 
     @classmethod
-    def randomElement(cls, array=('a', 'b', 'b')):
+    def random_element(cls, array=('a', 'b', 'b')):
         """ Returns a random element from a passed array """
         return array[random.randint(0, len(array) - 1)]
 
     @classmethod
-    def randomizeNbElements(cls, nbElements=10, le=False, gt=False):
+    def randomize_nb_elements(cls, number=10, le=False, gt=False):
         """
-        Returns a random value near to nbElements
-        :param le: lower or equals to nbElements
-        :param gt: greater or equals to nbElements
-        :returns: a random int near to nbElements
+        Returns a random value near to number
+        :param le: lower or equals to number
+        :param gt: greater or equals to number
+        :returns: a random int near to number
         """
-        if le and gt: return nbElements
-        return int(nbElements * random.randint(100 if gt else 60, 100 if le else 140) / 100) + 1
+        if le and gt: return number
+        return int(number * random.randint(100 if gt else 60, 100 if le else 140) / 100) + 1
 
     @classmethod
     def numerify(cls, text='###'):
@@ -56,10 +60,10 @@ class BaseProvider(object):
         Replaces all hash sign ('#') occurrences with a random number
         Replaces all percentage sign ('%') occurrences with a not null number
 
-        :param string text that needs to bet parsed
+        :param text that needs to bet parsed
         """
-        text = re.sub(r'#', lambda x: str(BaseProvider.randomDigit()), text)
-        text = re.sub(r'%', lambda x: str(BaseProvider.randomDigitNotNull()), text)
+        text = re.sub(r'#', lambda x: str(BaseProvider.random_digit()), text)
+        text = re.sub(r'%', lambda x: str(BaseProvider.random_digit_not_null()), text)
 
         return text
 
@@ -67,10 +71,9 @@ class BaseProvider(object):
     def lexify(cls, text='????'):
         """
         Replaces all question mark ('?') occurrences with a random letter
-        :param string text that needs to bet parsed
+        :param text that needs to bet parsed
         """
-        return re.sub(r'\?', lambda x: BaseProvider.randomLetter(), text)
-
+        return re.sub(r'\?', lambda x: BaseProvider.random_letter(), text)
 
     @classmethod
     def bothify(cls, text='## ??'):

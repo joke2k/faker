@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 import random
 
@@ -52,7 +53,7 @@ class Generator(object):
         return self.get_formatter(formatter)(*args, **kwargs)
 
     def get_formatter(self, formatter):
-        try :
+        try:
             return getattr(self, formatter)
         except AttributeError:
             raise AttributeError('Unknown formatter "{0}"'.format(formatter))
