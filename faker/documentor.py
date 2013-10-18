@@ -2,6 +2,13 @@ from __future__ import unicode_literals
 import inspect
 
 
+def is_string(var):
+    try:
+        return isinstance(var, basestring)
+    except NameError:
+        return isinstance(var, str)
+
+
 class Documentor(object):
 
     def __init__(self, generator):
@@ -49,7 +56,7 @@ class Documentor(object):
 
                         try:
                             default = argspec.defaults[-1 * (i+1)]
-                            if isinstance(default, basestring):
+                            if is_string(default):
                                 default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
                             else:
                                 # TODO check default type
@@ -66,9 +73,9 @@ class Documentor(object):
 
                 if with_args != 'first':
                     if argspec.varargs:
-                        arguments.append(u'*' + argspec.varargs)
+                        arguments.append('*' + argspec.varargs)
                     if argspec.keywords:
-                        arguments.append(u'**' + argspec.keywords)
+                        arguments.append('**' + argspec.keywords)
 
             # build fake method signature
             signature = "{0}{1}({2})".format(prefix, name, ", ".join(arguments))

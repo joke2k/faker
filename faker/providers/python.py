@@ -19,7 +19,7 @@ class Provider(BaseProvider):
         right_digits = right_digits or cls.random_int(0, sys.float_info.dig - left_digits)
         sign = 1 if positive or cls.random_int(0, 1) else -1
 
-        return float("{}.{}".format(
+        return float("{0}.{1}".format(
             sign * cls.random_number(left_digits), cls.random_number(right_digits)
         ))
 
