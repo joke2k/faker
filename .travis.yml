@@ -2,11 +2,14 @@ language: python
 python:
   - 2.6
   - 2.7
-  - 3.2
+  - 3.3
 install:
   - python setup.py install
   - pip install coverage
-script: coverage run setup.py test
+script:
+  - coverage run setup.py test
+  - coverage run python -m faker
+  - coverage run python -m faker address
 after_success:
   - pip install coveralls
   - coveralls
