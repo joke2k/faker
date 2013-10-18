@@ -73,4 +73,4 @@ class Generator(object):
         #    args = args.split(",")
         formatter[1] = self.format(formatter[1])
 
-        return u"".join(formatter)
+        return "".join(formatter)

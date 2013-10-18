@@ -26,6 +26,9 @@ def main(provider_or_field=None, *args):
 
     doc = documentor.Documentor(fake)
 
+    from faker.providers import BaseProvider
+    base_provider_formatters = [f for f in dir(BaseProvider)]
+
     if provider_or_field:
         try:
 
@@ -35,8 +38,8 @@ def main(provider_or_field=None, *args):
             providers = [p for p in fake.providers if doc.get_provider_name(p) == provider_or_field]
             if not providers:
                 return 'No faker found for "%s"' % provider_or_field
-            from faker.providers import BaseProvider
-            doc.already_generated = [f for f in dir(BaseProvider)]
+
+            doc.already_generated = base_provider_formatters
             print_provider(doc, providers[0], doc.get_provider_formatters(providers[0]))
     else:
         formatters = doc.get_formatters(with_args='first', with_defaults=True)
@@ -53,7 +56,8 @@ def main(provider_or_field=None, *args):
             fake = Faker(locale=lang)
             d = documentor.Documentor(fake)
 
-            for p, fs in d.get_formatters(with_args='first', with_defaults=True, locale=lang):
+            for p, fs in d.get_formatters(with_args='first', with_defaults=True, locale=lang,
+                                          excludes=base_provider_formatters):
                 print_provider(d, p, fs)
 
 

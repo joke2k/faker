@@ -14,10 +14,10 @@ class Documentor(object):
         self.max_name_len = 0
         self.already_generated = []
 
-    def get_formatters(self, locale=None, **kwargs):
+    def get_formatters(self, locale=None, excludes=None, **kwargs):
 
         self.max_name_len = 0
-        self.already_generated = []
+        self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
         providers = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
