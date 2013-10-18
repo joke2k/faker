@@ -13,6 +13,7 @@ Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl
 
 [![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Coverage Status](https://coveralls.io/repos/joke2k/faker/badge.png)](https://coveralls.io/r/joke2k/faker)
 
 ## Basic Usage
 
@@ -391,7 +392,7 @@ Some example of included localized providers:
 
 	fake.phone_number()                 # +33 4 80 14 46 78
 
-############### LANGUAGE pt_BR
+## LANGUAGE pt_BR
 
 ### faker.providers.address
 
