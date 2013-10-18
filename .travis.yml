@@ -8,8 +8,8 @@ install:
   - pip install coverage
 script:
   - coverage run setup.py test
-  - coverage run -m faker
-  - coverage run -m faker address
+  - coverage run -m faker.__main__
+  - coverage run -m faker.__main__ address
 after_success:
   - pip install coveralls
   - coveralls
