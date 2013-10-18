@@ -7,7 +7,7 @@ def print_provider(doc, provider, formatters, excludes=None):
         excludes = []
 
     print
-    print "### faker.providers.%s" % doc.get_provider_name(provider)
+    print "### faker.providers.{0}".format(doc.get_provider_name(provider))
     print
 
     for signature, example in formatters.items():
@@ -37,7 +37,7 @@ def main(provider_or_field=None, *args):
         except AttributeError:
             providers = [p for p in fake.providers if doc.get_provider_name(p) == provider_or_field]
             if not providers:
-                return 'No faker found for "%s"' % provider_or_field
+                return 'No faker found for "{0}"'.format(provider_or_field)
 
             doc.already_generated = base_provider_formatters
             print_provider(doc, providers[0], doc.get_provider_formatters(providers[0]))

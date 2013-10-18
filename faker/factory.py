@@ -15,7 +15,7 @@ class Factory(object):
         if '_' in locale:
             locale = locale[:2] + locale[2:].upper()
         if locale not in AVAILABLE_LOCALES:
-            raise AttributeError('Invalid configuration for faker locale "%s"' % locale)
+            raise AttributeError('Invalid configuration for faker locale "{0}"'.format(locale))
 
         providers = providers or DEFAULT_PROVIDERS
 
@@ -50,7 +50,7 @@ class Factory(object):
         if provider_class:
             return provider_class, None
 
-        raise ValueError('Unable to find provider "%s" with locale "%s"' % (provider, locale))
+        raise ValueError('Unable to find provider "{0}" with locale "{1}"'.format(provider, locale))
 
     @classmethod
     def _find_provider_class(cls, provider, locale=''):

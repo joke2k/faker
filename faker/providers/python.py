@@ -51,7 +51,7 @@ class Provider(BaseProvider):
     def _random_type(self, type_list):
         value_type = self.random_element(type_list)
 
-        method_name = "py%s" % value_type
+        method_name = "py{0}".format(value_type)
         if hasattr(self, method_name):
             value_type = method_name
 

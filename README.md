@@ -14,6 +14,7 @@ Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl
 [![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Coverage Status](https://coveralls.io/repos/joke2k/faker/badge.png)](https://coveralls.io/r/joke2k/faker)
+[![PyPI version](https://badge.fury.io/py/fake-factory.png)](http://badge.fury.io/py/fake-factory)
 
 ## Basic Usage
 

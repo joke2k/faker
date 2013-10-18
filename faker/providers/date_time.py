@@ -12,7 +12,7 @@ def datetime_to_timestamp(dt):
 
 timedelta_pattern = r''
 for name, sym in [('years', 'y'), ('weeks', 'w'), ('days', 'd'), ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
-    timedelta_pattern += r'((?P<%s>(?:\+|-)\d+?)%s)?' % (name, sym)
+    timedelta_pattern += r'((?P<{0}>(?:\+|-)\d+?){1})?'.format(name, sym)
 
 
 class Provider(BaseProvider):
@@ -294,7 +294,7 @@ class Provider(BaseProvider):
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(text, int):
             return datetime_to_timestamp(now + timedelta(text))
-        raise ValueError("Invalid format for date '%s'" % text)
+        raise ValueError("Invalid format for date '{0}'".format(text))
 
     @classmethod
     def date_time_between(cls, start_date='-30y', end_date='now'):

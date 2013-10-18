@@ -50,12 +50,12 @@ class Documentor(object):
                         try:
                             default = argspec.defaults[-1 * (i+1)]
                             if isinstance(default, basestring):
-                                default = ('"{}"' if '"' not in default else '"{}"').format(default)
+                                default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
                             else:
                                 # TODO check default type
-                                default = "{}".format(default)
+                                default = "{0}".format(default)
 
-                            arg = "{}={}".format(arg, default)
+                            arg = "{0}={1}".format(arg, default)
 
                         except IndexError:
                             pass
@@ -71,7 +71,7 @@ class Documentor(object):
                         arguments.append(u'**' + argspec.keywords)
 
             # build fake method signature
-            signature = "{}{}({})".format(prefix, name, ", ".join(arguments))
+            signature = "{0}{1}({2})".format(prefix, name, ", ".join(arguments))
 
             # make a fake example
             example = self.generator.format(name)
