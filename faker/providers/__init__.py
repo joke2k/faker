@@ -36,7 +36,7 @@ class BaseProvider(object):
     @classmethod
     def random_letter(cls):
         """ Returns a random letter from a to z """
-        return random.choice(string.letters)
+        return random.choice(string.letters if hasattr(string, 'letters') else string.ascii_lowercase)
 
     @classmethod
     def random_element(cls, array=('a', 'b', 'b')):

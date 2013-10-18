@@ -121,6 +121,6 @@ class Provider(BaseProvider):
         """
         :param category: application|audio|image|message|model|multipart|text|video
         """
-        category = category if category else cls.random_element(cls.mime_types.keys())
+        category = category if category else cls.random_element(list(cls.mime_types.keys()))
         return cls.random_element(cls.mime_types[category])
 

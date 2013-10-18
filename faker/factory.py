@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from __future__ import absolute_import
 import sys
 from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
@@ -56,7 +57,7 @@ class Factory(object):
     def _find_provider_class(cls, provider, locale=''):
 
         path = "{providers}{lang}.{provider}".format(
-            providers=providers_mod.__package__,
+            providers=providers_mod.__package__ or providers_mod.__name__,
             lang='.' + locale if locale else '',
             provider=provider
         )

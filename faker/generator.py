@@ -28,7 +28,7 @@ class Generator(object):
 
     def provider(self, name):
         try:
-            return filter(lambda p: p.__provider__ == name.lower(), self.get_providers())[0]
+            return list(filter(lambda p: p.__provider__ == name.lower(), self.get_providers()))[0]
         except IndexError:
             return None
 

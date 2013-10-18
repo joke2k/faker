@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from . import BaseProvider
 import random
 import re
@@ -111,9 +112,12 @@ class Provider(BaseProvider):
         """
         import unicodedata
 
-        value = unicode(value or Lorem.text(20))
-        value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
-        value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
+        #value = unicode(value or Lorem.text(20))
+        #value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+        #value = unicode(re.sub(r'[^\w\s-]', '', value).strip().lower())
+        #return re.sub('[-\s]+', '-', value)
+        value = unicodedata.normalize('NFKD', value or Lorem.text(20)).encode('ascii', 'ignore').decode('ascii')
+        value = re.sub('[^\w\s-]', '', value).strip().lower()
         return re.sub('[-\s]+', '-', value)
 
 

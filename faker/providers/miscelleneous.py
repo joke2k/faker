@@ -25,7 +25,7 @@ class Provider(BaseProvider):
         Calculates the md5 hash of a given string
         :example 'cfcd208495d565ef66e7dff9f98764da'
         """
-        res = hashlib.md5(str(random.random()))
+        res = hashlib.md5(str(random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -36,7 +36,7 @@ class Provider(BaseProvider):
         Calculates the sha1 hash of a given string
         :example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
         """
-        res = hashlib.sha1(str(random.random()))
+        res = hashlib.sha1(str(random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -47,7 +47,7 @@ class Provider(BaseProvider):
         Calculates the sha256 hash of a given string
         :example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
         """
-        res = hashlib.sha256(str(random.random()))
+        res = hashlib.sha256(str(random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()

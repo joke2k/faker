@@ -3,7 +3,8 @@ import random
 import re
 from time import time, mktime
 from datetime import timedelta
-from ..utils.datetime_safe import date, datetime, real_date, real_datetime
+from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
+from faker.utils import is_string
 
 
 def datetime_to_timestamp(dt):
@@ -275,7 +276,7 @@ class Provider(BaseProvider):
         now = datetime.now()
         if isinstance(text, timedelta):
             return datetime_to_timestamp(now - text)
-        if isinstance(text, (str, unicode)):
+        if is_string(text):
             if text == 'now':
                 return datetime_to_timestamp(datetime.now())
             parts = cls.regex.match(text)

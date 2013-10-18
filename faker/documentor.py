@@ -1,12 +1,6 @@
 from __future__ import unicode_literals
 import inspect
-
-
-def is_string(var):
-    try:
-        return isinstance(var, basestring)
-    except NameError:
-        return isinstance(var, str)
+from faker import utils
 
 
 class Documentor(object):
@@ -56,7 +50,7 @@ class Documentor(object):
 
                         try:
                             default = argspec.defaults[-1 * (i+1)]
-                            if is_string(default):
+                            if utils.is_string(default):
                                 default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
                             else:
                                 # TODO check default type

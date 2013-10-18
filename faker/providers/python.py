@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from . import BaseProvider
 from decimal import Decimal
 from .lorem import Provider as Lorem
@@ -23,14 +24,9 @@ class Provider(BaseProvider):
             sign * cls.random_number(left_digits), cls.random_number(right_digits)
         ))
 
-
     @classmethod
     def pyint(cls):
         return cls.random_int()
-
-    @classmethod
-    def pyunicode(cls, max_chars=20):
-        return unicode(Lorem.text(max_chars))
 
     @classmethod
     def pydecimal(cls, left_digits=None, right_digits=None, positive=False):

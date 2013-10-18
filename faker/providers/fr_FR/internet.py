@@ -13,9 +13,9 @@ class Provider(InternetProvider):
     @staticmethod
     def _to_ascii(string):
         replacements = (
-            (u'à', u'a'), (u'À', u'A'), (u'ç', u'c'), (u'Ç', u'c'), (u'é', u'e'), (u'É', u'E'), (u'è', u'e'),
-            (u'È', u'E'), (u'ë', u'e'), (u'Ë', u'E'), (u'ï', u'i'), (u'Ï', u'I'), (u'î', u'i'), (u'Î', u'I'),
-            (u'ô', u'o'), (u'Ô', u'O'), (u'ù', u'u'), (u'Ù', u'U'),
+            ('à', 'a'), ('À', 'A'), ('ç', 'c'), ('Ç', 'c'), ('é', 'e'), ('É', 'E'), ('è', 'e'),
+            ('È', 'E'), ('ë', 'e'), ('Ë', 'E'), ('ï', 'i'), ('Ï', 'I'), ('î', 'i'), ('Î', 'I'),
+            ('ô', 'o'), ('Ô', 'O'), ('ù', ''), ('Ù', 'U'),
         )
         for search, replace in replacements:
             string = string.replace(search, replace)

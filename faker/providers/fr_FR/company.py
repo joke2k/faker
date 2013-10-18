@@ -60,7 +60,7 @@ class Provider(CompanyProvider):
         """
         :example 'integrate extensible convergence'
         """
-        catch_phrase = u""
+        catch_phrase = ""
         while True:
 
             pattern = self.random_element(self.catch_phrase_formats)
