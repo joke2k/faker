@@ -1,8 +1,8 @@
-_|_|_|_|          _|
-_|        _|_|_|  _|  _|      _|_|    _|  _|_|
-_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
-_|      _|    _|  _|  _|    _|        _|
-_|        _|_|_|  _|    _|    _|_|_|  _|
+	_|_|_|_|          _|
+	_|        _|_|_|  _|  _|      _|_|    _|  _|_|
+	_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
+	_|      _|    _|  _|  _|    _|        _|
+	_|        _|_|_|  _|    _|    _|_|_|  _|
 
 
 *Faker* is a Python package that generates fake data for you. Whether you need to bootstrap your database,
@@ -293,6 +293,157 @@ You can check available Faker locales in the source code, under the providers pa
 The localization of Faker is an ongoing process, for which we need your help.
 Don't hesitate to create localized providers to your own locale and submit a PR!
 
+Some example of included localized providers:
+
+## LANGUAGE it_IT
+
+### faker.providers.address
+
+	fake.street_name()            # Contrada Genziana
+	fake.address()                # Stretto Noemi 006 Piano 3
+									Flavio laziale, 27476 Mantova (LU)
+	fake.street_address()         # Stretto Lombardo 8 Piano 6
+	fake.postcode()               # 94032
+	fake.longitude()              # 92.051838
+	fake.country()                # Germania
+	fake.street_suffix()          # Rotonda
+	fake.city_prefix()            # Quarto
+	fake.city_suffix()            # calabro
+	fake.building_number()        # 81
+	fake.secondary_address()      # Appartamento 65
+	fake.city()                   # Sesto Filomena
+	fake.state()                  # Carbonia-Iglesias
+
+### faker.providers.person
+
+	fake.name()                   # Gaetano Silvestri
+	fake.last_name()              # Gentile
+	fake.first_name()             # Costanzo
+	fake.prefix()                 # Dott.
+
+### faker.providers.company
+	
+	fake.company()                # D'angelo-Vitali s.r.l.
+	fake.company_suffix()         # Group
+	fake.catch_phrase()           # Utilizzazione polarizzata stabile
+	fake.bs()                     # tecnologie utilizzo B2B
+
+### faker.providers.phone_number
+
+	fake.phone_number()           # +16 2658 2544588
+
+## LANGUAGE fr_FR
+
+### faker.providers.address
+
+	fake.address()                      # 14, rue Grégoire Hebert
+					      				  27681 Lejeune
+	fake.department_number()            # 57
+	fake.street_name()                  # chemin de Grenier
+	fake.department()                   # (u'80', u'Somme')
+	fake.department_name()              # Aude
+	fake.street_address()               # rue de Besnard
+	fake.postcode()                     # 23 699
+	fake.longitude()                    # 61.773719
+	fake.country()                      # Macau
+	fake.street_prefix()                # rue
+	fake.street_suffix()                # Street
+	fake.city_suffix()                  # -les-Bains
+	fake.building_number()              # 81
+	fake.region()                       # Alsace
+	fake.city()                         # DenisBourg
+
+### faker.providers.person
+
+	fake.name()                         # Julie Bailly
+	fake.last_name()                    # Bertrand
+	fake.first_name()                   # Marguerite
+	fake.prefix()                       # Le
+
+### faker.providers.company
+
+	fake.company()                      # Gautier
+	fake.company_suffix()               # SARL
+	fake.catch_phrase_verb()            # d'atteindre vos buts
+	fake.catch_phrase()                 # La liberté de rouler naturellement
+	fake.catch_phrase_noun()            # le confort
+	fake.siren()                        # 596 679 375
+	fake.siret(max_sequential_digits=2) # 291 991 838 00804
+	fake.catch_phrase_attribute()       # de manière sûre
+
+### faker.providers.internet
+
+	fake.url()                          # http://delorme.com/
+	fake.company_email()                # olivier.besnard@andre.fr
+	fake.uri()                          # http://www.lebrun.fr/faq.html
+	fake.tld()                          # fr
+	fake.free_email()                   # elodie.gillet@live.com
+	fake.user_name()                    # jean.rossi
+	fake.free_email_domain()            # orange.fr
+	fake.domain_name()                  # dumont.net
+	fake.safe_email()                   # lmarchand@example.com
+	fake.uri_page()                     # register
+	fake.email()                        # ncamus@noos.fr
+	fake.domain_word()                  # gallet
+	fake.slug(value=None)               # voluptas
+
+### faker.providers.phone_number
+
+	fake.phone_number()                 # +33 4 80 14 46 78
+
+############### LANGUAGE pt_BR
+
+### faker.providers.address
+
+	fake.estado_nome()            # Ceará
+	fake.latitude()               # -42.176024
+	fake.street_name()            # Colônia Emanuel Pereira
+	fake.street_prefix()          # Aeroporto
+	fake.address()                # Ladeira Nicole Silva, 40
+									Flamengo
+									51586-187 Santos / CE
+	fake.street_address()         # Recanto Correia, 34
+	fake.bairro()                 # Dom Joaquim
+	fake.longitude()              # 92.773043
+	fake.country()                # Geórgia
+	fake.estado_sigla()           # PA
+	fake.street_suffix()          # Street
+	fake.city_suffix()            # da Serra
+	fake.building_number()        # 907
+	fake.estado()                 # (u'PB', u'Para\xedba')
+	fake.city()                   # Barbosa das Pedras
+	fake.postcode()               # 45376684
+
+### faker.providers.person
+
+	fake.name()                   # Igor-Gustavo Ferreira
+	fake.last_name()              # Santos
+	fake.first_name()             # Maria
+	fake.prefix()                 # de
+
+### faker.providers.company
+
+	fake.company()                # Gomes e Filhos
+	fake.company_suffix()         # - ME
+
+### faker.providers.internet
+
+	fake.url()                    # http://www.almeida.com/
+	fake.company_email()          # bruna.souza@alves.br
+	fake.uri()                    # http://carvalho.com/main/tags/category/category/
+	fake.free_email()             # melo.bárbara@uol.com.br
+	fake.user_name()              # heloísa17
+	fake.free_email_domain()      # ig.com.br
+	fake.domain_name()            # martins.br
+	fake.safe_email()             # rodrigues.antonio@example.com
+	fake.email()                  # andre.dias@silva.br
+	fake.domain_word()            # ribeiro
+	fake.slug(value=None)         # debitis-quo-sit
+
+### faker.providers.phone_number
+
+	fake.phone_number()           # +55 (081) 9413-8074
+
 
 # Using from shell
 
@@ -303,7 +454,7 @@ In a python environment with faker installed you can use it with:
 [option]:
 
 *  formatter name as `text`, `address`: display result of fake
-*  Provider name as `Lorem`: display all Provider's fakes
+*  Provider name as `lorem`: display all Provider's fakes
 
 [*args]: pass value to formatter (actually only strings)
 
