@@ -118,7 +118,6 @@ class Provider(BaseProvider):
     def credit_card_security_code(cls, card_type=None):
         return cls.random_number(cls._credit_card_type(card_type).security_code_length)
 
-
     @classmethod
     def _credit_card_type(cls, card_type=None):
         """returns a random credit card type instance"""
