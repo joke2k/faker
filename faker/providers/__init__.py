@@ -41,6 +41,7 @@ class BaseProvider(object):
     @classmethod
     def random_element(cls, array=('a', 'b', 'b')):
         """ Returns a random element from a passed array """
+        array = list(array)
         return array[random.randint(0, len(array) - 1)]
 
     @classmethod
