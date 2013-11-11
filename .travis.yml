@@ -9,7 +9,7 @@ install:
 script:
   - coverage run setup.py test
   - coverage run -m faker.__main__
-  - coverage run -m faker.__main__ person
+  - coverage run -m faker.__main__ address
   - coverage run -m faker.__main__ faker.providers.it_IT.person
 after_success:
   - pip install coveralls
