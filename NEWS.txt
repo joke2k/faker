@@ -1,10 +1,23 @@
 News
 ====
 
+0.3.2
+---
+
+* New provider: Credit card generator
+* Improved Documentor
+
+
+0.3.1
+---
+
+* FIX setup.py
+
+
 0.3
 ---
 
-*Release date: Oct-2014*
+*Release date: 18-Oct-2014*
 
 * PEP8 style conversion (old camelCased methods are deprecated!)
 * New language: pt_BR (thanks to @rvnovaes)

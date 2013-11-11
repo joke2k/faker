@@ -1,3 +1,4 @@
+
 	_|_|_|_|          _|
 	_|        _|_|_|  _|  _|      _|_|    _|  _|_|
 	_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
@@ -82,194 +83,224 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 
 ### faker.providers.base
 
-    fake.random_digit_not_null()               # 8
-    fake.random_int(min=9999)                  # 5447
-    fake.random_letter()                       # W
-    fake.random_digit()                        # 6
-    fake.bothify(text="## ??")                 # 10 lz
-    fake.random_element(array=('a', 'b', 'b')) # b
-    fake.random_number(digits=None)            # 38541
-    fake.lexify(text="????")                   # MYQL
-    fake.randomize_nb_elements(number=False)   # 12
-    fake.numerify(text="###")                  # 323
+	fake.random_digit_not_null()                                             # 1
+	fake.randomize_nb_elements(number=10, le=False, ge=False)                # 13
+	fake.random_letter()                                                     # S
+	fake.random_digit()                                                      # 6
+	fake.bothify(text="## ??")                                               # 05 Gm
+	fake.random_element(array=('a', 'b', 'b'))                               # b
+	fake.random_number(digits=None)                                          # 38
+	fake.lexify(text="????")                                                 # gJPH
+	fake.random_int(min=0, max=9999)                                         # 2355
+	fake.numerify(text="###")                                                # 646
 
 ### faker.providers.lorem
 
-    fake.sentence(nbWords=True)                # Totam non non consequuntur reprehenderit quia expedita.
-    fake.word()                                # aut
-    fake.paragraph(nbSentences=True)           # Dolore necessitatibus aut temporibus et dolorum corporis.
-                                                 Ullam et sit provident rem. Culpa aut modi ut in asperiores.
-                                                 Iste quis quam rem non facere.
-    fake.paragraphs(nb=3)                      # ['Est nemo culpa velit aspernatur. Voluptatibus et velit consectetur
-                                                      cum molestias assumenda molestiae. Pariatur voluptatum dignissimos
-                                                      accusantium doloremque.',
-                                                  'Iusto amet qui iusto minima dolor sint ipsum. Et ipsum qui aut at
-                                                      dolor id et. Earum fugit deleniti eos distinctio eos libero vitae.
-                                                      Atque animi commodi architecto. Aut rerum possimus nemo est ullam
-                                                      tempora distinctio.',
-                                                  'Dicta voluptatibus est voluptas doloribus. Reiciendis sed possimus
-                                                      qui rerum et. Nisi ut optio nemo reprehenderit. Labore sed quia
-                                                      reprehenderit ex incidunt soluta praesentium.']
-    fake.words(nb=3)                           # ['voluptas', 'et', 'aut']
-    fake.text(maxNbChars=200)                  # Sed et recusandae id enim sed soluta fugit. Optio minus qui dolore
-                                                 eligendi veniam porro iste. Enim natus adipisci sit accusantium.
-                                                 Vitae rerum nesciunt et et odit dolorum.
-    fake.sentences(nb=3)                       # ['Cupiditate et et qui dolorem ea ut.',
-                                                 'Esse itaque quos excepturi quis temporibus iusto ducimus.',
-                                                 'Quae id quaerat deleniti quaerat.']
+	fake.text(max_nb_chars=200)                                              # Quam quibusdam iusto commodi velit. Earum voluptatibus officiis suscipit. Sed
+	                                                                            ut nesciunt iste.
+	fake.sentence(nb_words=6, variable_nb_words=True)                        # Ut beatae distinctio aliquid placeat mollitia.
+	fake.word()                                                              # rem
+	fake.paragraphs(nb=3)                                                    # [u'Aliquid repellat dolores sed autem et. Voluptatem nisi sint quae aut autem
+	                                                                            cupiditate. Delectus ullam nemo tempore et ab aut fuga molestias.', u'Blandi
+	                                                                           tiis sint enim id est nostrum aliquid molestiae. Eius sint tempore autem atqu
+	                                                                           e consequatur assumenda. Et voluptatem sunt fugiat sunt et.', u'Voluptate lab
+	                                                                           orum maiores veniam saepe. Beatae ipsam quam nihil qui qui asperiores. Enim c
+	                                                                           ulpa laudantium temporibus quibusdam aliquid. Corporis ut nostrum voluptate e
+	                                                                           t sit tempore.']
+	fake.words(nb=3)                                                         # [u'consectetur', u'est', u'rerum']
+	fake.paragraph(nb_sentences=3, variable_nb_sentences=True)               # Perferendis placeat dolores exercitationem quae ducimus. Magnam debitis eum e
+	                                                                           xcepturi at quidem qui. Animi ad cupiditate in.
+	fake.sentences(nb=3)                                                     # [u'Accusantium molestiae ut exercitationem voluptatem.', u'Fuga consequatur c
+	                                                                           onsequuntur quam molestiae nam.', u'Dolor omnis hic perferendis aut itaque si
+	                                                                           t.']
 
 ### faker.providers.address
 
-    fake.state_abbr()                          # PW
-    fake.latitude()                            # -171.819862
-    fake.street_name()                         # Weimann Oval
-    fake.address()                             # 979 Luettgen Highway
-                                               # East Miltonmouth, ID 41175-2736
-    fake.street_address()                      # 25627 Stephen Trafficway Suite 021
-    fake.postcode()                            # 37602
-    fake.longitude()                           # 46.335322
-    fake.country()                             # Belarus
-    fake.geo_coordinate()                      # 85.943588
-    fake.street_suffix()                       # Summit
-    fake.city_prefix()                         # East
-    fake.city_suffix()                         # berg
-    fake.building_number()                     # 89215
-    fake.secondary_address()                   # Suite 810
-    fake.city()                                # Sauertown
-    fake.state()                               # SouthDakota
+	fake.state_abbr()                                                        # ID
+	fake.latitude()                                                          # 176.060836
+	fake.street_name()                                                       # Bernadine Vista
+	fake.address()                                                           # 59802 Kohler Gateway
+	                                                                           Keeblertown, CA 89092
+	fake.street_address()                                                    # 39719 Klein Mews
+	fake.postcode()                                                          # 97628
+	fake.longitude()                                                         # -80.950377
+	fake.country()                                                           # Palau
+	fake.geo_coordinate()                                                    # 8.572122
+	fake.street_suffix()                                                     # Corners
+	fake.city_prefix()                                                       # West
+	fake.city_suffix()                                                       # burgh
+	fake.building_number()                                                   # 26481
+	fake.secondary_address()                                                 # Apt. 399
+	fake.city()                                                              # East Noemie
+	fake.state()                                                             # Kansas
 
 ### faker.providers.person
 
-    fake.name()                                # Dorian Berge
-    fake.suffix()                              # V
-    fake.last_name()                           # Parisian
-    fake.first_name()                          # Margot
-    fake.prefix()                              # Mr.
+	fake.name()                                                              # Deborah Johnston
+	fake.suffix()                                                            # I
+	fake.last_name()                                                         # Cummings
+	fake.first_name()                                                        # Violet
+	fake.prefix()                                                            # Miss
 
 ### faker.providers.date_time
 
-    fake.date_time_ad()                        # 1628-01-22 16:14:56
-    fake.month()                               # 02
-    fake.am_pm()                               # PM
-    fake.date_time_this_century()              # 1920-05-02 08:11:48
-    fake.date_time()                           # 1987-05-05 19:59:49
-    fake.date_time_between(startDate="now")    # 2010-09-18 21:26:53
-    fake.date_time_this_month()                # 2013-09-25 19:50:12
-    fake.date_time_this_decade()               # 2009-09-27 21:29:58
-    fake.day_of_week()                         # Friday
-    fake.day_of_month()                        # 17
-    fake.time(pattern="%H:%M:%S")              # 19:51:16
-    fake.iso8601()                             # 2002-04-11T09:11:42
-    fake.month_name()                          # December
-    fake.unix_time()                           # 768637430
-    fake.date_time_this_year()                 # 2012-12-18 06:20:08
-    fake.timezone()                            # Africa/Cairo
-    fake.century()                             # XVIII
-    fake.date(pattern="%Y-%m-%d")              # 1972-04-10
-    fake.year()                                # 1972
+	fake.date_time_ad()                                                      # 0335-11-13 23:08:35
+	fake.month()                                                             # 11
+	fake.am_pm()                                                             # PM
+	fake.iso8601()                                                           # 1988-03-30T13:39:34
+	fake.date_time_this_century()                                            # 1930-10-08 21:49:52
+	fake.date_time()                                                         # 1997-03-13 02:03:24
+	fake.month_name()                                                        # June
+	fake.date_time_this_month()                                              # 2013-11-04 18:41:20
+	fake.date_time_this_decade()                                             # 2010-12-11 02:32:12
+	fake.day_of_week()                                                       # Wednesday
+	fake.day_of_month()                                                      # 16
+	fake.time(pattern="%H:%M:%S")                                            # 11:30:21
+	fake.date_time_between(start_date="-30y", end_date="now")                # 2002-10-11 14:57:38
+	fake.unix_time()                                                         # 763964108
+	fake.date_time_this_year()                                               # 2012-12-11 07:09:57
+	fake.timezone()                                                          # Europe/Zurich
+	fake.century()                                                           # XVII
+	fake.date(pattern="%Y-%m-%d")                                            # 1982-04-26
+	fake.year()                                                              # 2000
 
 ### faker.providers.company
 
-    fake.company()                             # Mills Ltd
-    fake.company_suffix()                      # Inc
-    fake.catch_phrase()                        # Front-line bifurcated definition
-    fake.bs()                                  # visualize ubiquitous ROI
+	fake.company()                                                           # Funk and Sons
+	fake.company_suffix()                                                    # and Sons
+	fake.catch_phrase()                                                      # Triple-buffered executive focusgroup
+	fake.bs()                                                                # brand proactive communities
 
 ### faker.providers.internet
 
-    fake.ipv4()                                # 43.46.102.99
-    fake.url()                                 # http://www.cronin.com/
-    fake.company_email()                       # batz.shad@windlerbrakus.biz
-    fake.uri()                                 # http://greenfelder.net/explore/category/faq/
-    fake.tld()                                 # biz
-    fake.uri_path(deep=None)                   # blog
-    fake.free_email()                          # schamberger.asia@hotmail.com
-    fake.user_name()                           # leopold.feest
-    fake.free_email_domain()                   # gmail.com
-    fake.domain_name()                         # schmittbeahan.com
-    fake.uri_extension()                       # .html
-    fake.ipv6()                                # 6829:509b:713a:977f:1f7c:9d4b:a4e3:fa86
-    fake.safe_email()                          # beatty.frida@example.net
-    fake.uri_page()                            # search
-    fake.email()                               # dgorczany@yahoo.com
-    fake.domain_word()                         # jenkins
-    fake.slug(value=None)                      # non-dolor
+	fake.ipv4()                                                              # 131.175.254.102
+	fake.url()                                                               # http://www.bernier.com/
+	fake.company_email()                                                     # barrows.brandyn@altenwerth.org
+	fake.uri()                                                               # http://www.murray.net/about.html
+	fake.tld()                                                               # info
+	fake.uri_path(deep=None)                                                 # search/main
+	fake.free_email()                                                        # gmccullough@gmail.com
+	fake.user_name()                                                         # wiza.johnathon
+	fake.free_email_domain()                                                 # hotmail.com
+	fake.domain_name()                                                       # mertz.com
+	fake.uri_extension()                                                     # .jsp
+	fake.ipv6()                                                              # 6a67:a71f:ec3c:f641:177f:f33f:fb11:e27b
+	fake.safe_email()                                                        # greinger@example.org
+	fake.uri_page()                                                          # login
+	fake.email()                                                             # dorcas53@hotmail.com
+	fake.domain_word()                                                       # bahringer
+	fake.slug(value=None)                                                    # maxime-ea-omnis
 
 ### faker.providers.miscelleneous
 
-    fake.locale()                              # en_BZ
-    fake.md5(raw_output=False)                 # 2fcd9e5a6a44b0a83da7894e64371ca3
-    fake.sha1(raw_output=False)                # a80d378c0d790786d4691cf4fda96435d7ac8254
-    fake.null_boolean()                        # None
-    fake.sha256(raw_output=False)              # f16e5780cc183f8db22b650efe63798d3a2a293b4f6cbf91cc18294f0e03b2d9
-    fake.country_code()                        # SR
-    fake.boolean(chanceOfGettingTrue=50)       # True
-    fake.language_code()                       # de
+	fake.locale()                                                            # cn_TJ
+	fake.md5(raw_output=False)                                               # 98063a4419ebc124a94a0fe9411d95ba
+	fake.sha1(raw_output=False)                                              # 910aa38699b69228fee09ca0f2fb6e65f987ebd4
+	fake.null_boolean()                                                      # False
+	fake.sha256(raw_output=False)                                            # 0aed69e82a0abfa4c03dcf17e212c5b0ac08f12751b1acac96553c1abc3352b5
+	fake.country_code()                                                      # TG
+	fake.language_code()                                                     # pt
+	fake.boolean(chance_of_getting_true=50)                                  # True
 
 ### faker.providers.phone_number
 
-    fake.phone_number()                        # +61(4)9107201136
+	fake.phone_number()                                                      # +94(1)6262568403
 
 ### faker.providers.user_agent
 
-    fake.mac_processor()                       # U; Intel
-    fake.firefox()                             # Mozilla/5.0 (X11; Linux x86_64; rv:1.9.5.20) Gecko/2011-10-31 06:51:36 Firefox/3.8
-    fake.linux_platform_token()                # X11; Linux i686
-    fake.opera()                               # Opera/8.71 (X11; Linux i686; it-IT) Presto/2.9.175 Version/10.00
-    fake.windows_platform_token()              # Windows NT 5.01
-    fake.internet_explorer()                   # Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.0; Trident/4.1)
-    fake.user_agent()                          # Opera/9.60 (Windows NT 6.2; it-IT) Presto/2.9.172 Version/11.00
-    fake.chrome()                              # Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_6_7) AppleWebKit/5331 (KHTML, like Gecko) Chrome/14.0.897.0 Safari/5331
-    fake.linux_processor()                     # i686
-    fake.mac_platform_token()                  # Macintosh; U; Intel Mac OS X 10_5_7
-    fake.safari()                              # Mozilla/5.0 (iPod; U; CPU iPhone OS 4_2 like Mac OS X; sl-SI) AppleWebKit/531.13.1 (KHTML, like Gecko) Version/3.0.5 Mobile/8B113 Safari/6531.13.1
+	fake.mac_processor()                                                     # U; Intel
+	fake.firefox()                                                           # Mozilla/5.0 (X11; Linux i686; rv:1.9.6.20) Gecko/2012-01-08 15:31:21 Firefox/
+	                                                                           3.8
+	fake.linux_platform_token()                                              # X11; Linux x86_64
+	fake.opera()                                                             # Opera/8.46.(Windows NT 5.2; it-IT) Presto/2.9.161 Version/11.00
+	fake.windows_platform_token()                                            # Windows 95
+	fake.internet_explorer()                                                 # Mozilla/5.0 (compatible; MSIE 5.0; Windows NT 6.1; Trident/3.1)
+	fake.user_agent()                                                        # Mozilla/5.0 (X11; Linux i686; rv:1.9.6.20) Gecko/2010-12-19 10:41:34 Firefox/
+	                                                                           3.6.17
+	fake.chrome()                                                            # Mozilla/5.0 (Windows 98) AppleWebKit/5332 (KHTML, like Gecko) Chrome/15.0.849
+	                                                                           .0 Safari/5332
+	fake.linux_processor()                                                   # i686
+	fake.mac_platform_token()                                                # Macintosh; U; Intel Mac OS X 10_7_4
+	fake.safari()                                                            # Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:2.0; it-IT) AppleWebKit/532
+	                                                                           .47.1 (KHTML, like Gecko) Version/5.0.5 Safari/532.47.1
 
 ### faker.providers.file
 
-    fake.mime_type(category=None)              # application/xhtml+xml
+	fake.mime_type(category=None)                                            # video/mpeg
 
 ### faker.providers.python
 
-    fake.pyunicode(maxChars=20)                # Reprehenderit.
-    fake.pystr(maxChars=20)                    # Ullam quia ut.
-    fake.pytuple(nbElements=True)              # ('Delectus iure et.', u'xbogan@hotmail.com', 4996, 'Impedit ducimus.',
-                                                    datetime(2001, 11, 17, 7, 12, 24), 'Id adipisci veniam.', 4858)
-    fake.pydecimal(leftDigits=False)           # -43.5720326077
-    fake.pystruct(count=10)                    # (['Accusantium est.', Decimal('3.08377127009E+12'),
-                                                    datetime(1988, 10, 16, 17, 54, 4), 6350, -33.46725636,
-                                                    'Dolores ut et.', 3748, 7235, datetime(1986, 10, 19, 11, 25, 40),
-                                                    'Voluptatum.'], {'eum': 'Animi et et.', 'est': u'albert22@yost.com',
-                                                    'quis': datetime(1973, 1, 16, 15, 39, 36),
-                                                    'sit': u'pansy11@torphyoconnell.biz', 'voluptas': 8007,
-                                                    'eveniet': 'Optio enim autem.', 'aliquid': 'Quo accusamus est.',
-                                                    'voluptatem': 2923, 'aspernatur': u'wiley.morar@hotmail.com',
-                                                    'cupiditate': 'Consequatur.'}, {'dolorum': {9: Decimal('-44997.5'),
-                                                    10: [6251, 'Quia dolor.', u'http://pacocha.info/index/'],
-                                                    11: {9: -4721.3736, 10: 220821631732559.0, 11: [
-                                                    u'http://turcotte.info/home/', 3345]}}, 'ad': {2: 6306,
-                                                    3: ['Sint unde ducimus.', datetime(1974, 3, 12, 7, 21), .... removed for brevity
-    fake.pyfloat(leftDigits=False)             # -83.39386328
-    fake.pyset(nbElements=True)                # set(['Voluptate nostrum.', u'http://jenkins.com/', u'lmckenzie@gmail.com',
-                                                    'Delectus magnam.', 'Earum ut deleniti.', datetime(1976, 1, 10, 6, 9, 44),
-                                                    u'hudson.deshaun@gmail.com', Decimal('1.7686'), 6836,
-                                                    u'http://schuster.com/wp-content/posts/posts/register/',
-                                                    datetime(1983, 6, 4, 15, 35, 41)])
-    fake.pydict(nbElements=True)               # {'quo': datetime(2005, 6, 10, 18, 56, 16),
-                                                    'adipisci': datetime(1970, 5, 17, 3, 12, 38), 'ut': 1485,
-                                                    'dignissimos': 'Asperiores.', 'facilis': 'Qui perferendis.',
-                                                    'distinctio': u'http://www.moenblock.biz/categories/wp-content/',
-                                                    'et': Decimal('-66087.540101'), 'cupiditate': datetime(1978, 7, 14, 17, 20, 5)}
-    fake.pybool()                              # False
-    fake.pyiterable(nbElements=True)           # (u'http://www.corwinswaniawski.com/app/blog/post/', 9.69637877268032,
-                                                    'Ut sed et est.', 5352, u'http://www.konopelski.com/list/search.php',
-                                                    'Excepturi itaque.', 8663, 'Itaque voluptatem.', 'Voluptatem omnis.',
-                                                    u'http://www.borer.com/tag/app/about/', 'Veritatis et.', 'Aut deleniti.')
-    fake.pylist(nbElements=True)               # [1396, u'luis68@streich.com', u'http://www.strosin.com/', 'Atque accusamus.',
-                                                    'Exercitationem sint.', 3545, u'http://www.okunevamurazik.com/', u'mraz.ernestina@rowe.info',
-                                                    Decimal('-1131032.90283'), Decimal('89.2089'), 'Est alias error.']
-    fake.pyint()                               # 7920
+	fake.pyiterable(nb_elements=10, variable_nb_elements=True, *value_types) # set([Decimal('7.2022029784E+11'), Decimal('7.80290776173E+12'), u'Dolor imped
+	                                                                           it quia.', 3014507.7827, u'ramiro.carter@schumm.org', 4443, u'Sed iusto magna
+	                                                                           m.'])
+	fake.pystr(max_chars=20)                                                 # Nulla odit ex fuga.
+	fake.pyfloat(left_digits=None, right_digits=None, positive=False)        # 69950445.94
+	fake.pystruct(count=10, *value_types)                                    # ([u'Corporis excepturi.', -6.3746979, 8874, 641.670735144, u'Dolores ut aut v
+	                                                                           el.', u'Non cumque.', datetime(1988, 1, 10, 18, 20, 26), u'http://cronin.info
+	                                                                           /search/category/search.htm', -543720939267106.0, u'Est dignissimos et.'], {u
+	                                                                           'neque': datetime(2002, 10, 12, 1, 41, 44), u'sit': u'Et sed ut nisi.', u'arc
+	                                                                           hitecto': u'Minus sunt quos.', u'numquam': u'Officiis in.', u'esse': Decimal(
+	                                                                           '851592439.65'), u'ex': 55651.0, u'praesentium': u'Beatae excepturi.', u'dolo
+	                                                                           rem': Decimal('-3.49169242935E+13'), u'vel': u'Exercitationem.', u'quo': date
+	                                                                           time(2003, 2, 7, 2, 16, 28)}, {u'consequuntur': {9: u'Eaque quis autem.', 10:
+	                                                                            [-922275532.2, u'Incidunt aut.', u'Et sint excepturi.'], 11: {9: datetime(19
+	                                                                           77, 9, 27, 4, 49, 32), 10: u'Est sunt.', 11: [u'victoria.blick@littel.info',
+	                                                                           u'Quos aut quo.']}}, u'non': {2: 6716, 3: [29014.550976, u'Praesentium.', 870
+	                                                                           4], 4: {2: 3649, 3: datetime(1979, 11, 8, 9, 59, 37), 4: [u'http://langworthr
+	                                                                           osenbaum.org/register/', Decimal('62790.0')]}}, u'est': {5: u'Maxime incidunt
+	                                                                           .', 6: [-9.5832, u'http://www.nitzsche.biz/search/search/author.htm', u'Cum s
+	                                                                           uscipit dolor.'], 7: {5: u'Consequuntur autem.', 6: 1684, 7: [u'http://rath.c
+	                                                                           om/posts/homepage/', u'Ea sit error.']}}, u'voluptatum': {4: u'Omnis omnis op
+	                                                                           tio.', 5: [u'Voluptatibus.', u'Numquam qui qui.', u'http://bahringer.com/auth
+	                                                                           or/'], 6: {4: datetime(1976, 6, 3, 20, 42, 52), 5: Decimal('12939334042.1'),
+	                                                                           6: [u'Vel sed similique.', Decimal('-968.39980246')]}}, u'voluptas': {8: {8:
+	                                                                           [u'Vel rerum quia.', u'Aperiam officiis in.'], 6: u'Ipsa non beatae.', 7: u'h
+	                                                                           ttp://donnelly.com/terms/'}, 6: Decimal('-35.6'), 7: [9534, 1605, Decimal('-4
+	                                                                           .21540418737E+12')]}, u'molestiae': {0: -811865398.937, 1: [u'Ipsum quos in o
+	                                                                           mnis.', 4467, u'Nobis.'], 2: {0: u'Rerum alias dolorem.', 1: u'http://pfanner
+	                                                                           still.com/home.html', 2: [u'Aut et officiis.', u'jackie.gottlieb@hotmail.com'
+	                                                                           ]}}, u'enim': {1: u'Beatae nam ut odio.', 2: [u'Et aut aut quasi.', u'Saepe o
+	                                                                           fficiis.', u'http://gusikowski.biz/'], 3: {1: 7259, 2: u'alex.farrell@walker.
+	                                                                           com', 3: [u'http://www.tromp.com/blog/tags/privacy.php', Decimal('57290273.37
+	                                                                           2')]}}, u'molestias': {8: datetime(1978, 1, 10, 19, 59, 3), 9: [52692718.897,
+	                                                                            u'http://www.quitzon.com/', 113896345221807.0], 10: {8: u'mariane50@hotmail.
+	                                                                           com', 9: u'eric.emmerich@hand.biz', 10: [4015, 1200]}}, u'et': {8: [u'Est dig
+	                                                                           nissimos.', -582365.7420196, u'Et odit laborum ut.'], 9: {8: Decimal('-1.9923
+	                                                                           2256052E+13'), 9: [u'Enim consequatur.', u'http://www.huels.com/tag/main/tags
+	                                                                           /index.asp'], 7: u'Praesentium.'}, 7: 1035}, u'atque': {3: u'Repellendus fugi
+	                                                                           t.', 4: [u'kvolkman@bodejast.com', u'Nam saepe nihil et.', u'Officiis quo.'],
+	                                                                            5: {3: 7778, 4: 4111, 5: [u'reichel.katharina@schulist.com', datetime(1984,
+	                                                                           12, 22, 6, 38, 11)]}}})
+	fake.pydecimal(left_digits=None, right_digits=None, positive=False)      # 813138968.731
+	fake.pylist(nb_elements=10, variable_nb_elements=True, *value_types)     # [u'Dignissimos.', u'http://www.boganhintz.com/categories/categories/homepage.
+	                                                                           php', u'sanford.magnolia@hotmail.com', u'At non aliquid.', 7741, 87500826857.
+	                                                                           2962, u'ralph02@aufderharpollich.com', 7686, u'http://koelpindouglas.org/tags
+	                                                                           /blog/terms.html', u'Voluptas ea natus.', 7165, u'Doloremque earum.', 1823]
+	fake.pytuple(nb_elements=10, variable_nb_elements=True, *value_types)    # (u'tokuneva@kling.org', u'A dolorem.', 6377, u'Ullam corrupti.', u'Eos deseru
+	                                                                           nt.', u'Nihil quia.', 5019)
+	fake.pybool()                                                            # True
+	fake.pyset(nb_elements=10, variable_nb_elements=True, *value_types)      # set([u'osvaldo06@gmail.com', 4298, datetime(1977, 6, 8, 5, 15, 47), u'rempel.
+	                                                                           eliezer@rutherford.com', u'Velit quae.', u'Temporibus.', u'Aut accusantium.']
+	                                                                           )
+	fake.pydict(nb_elements=10, variable_nb_elements=True, *value_types)     # {u'eum': u'Repudiandae.', u'velit': u'Aliquam optio ut.', u'commodi': u'Moles
+	                                                                           tiae autem.', u'quis': u'quigley.christian@gmail.com', u'accusamus': Decimal(
+	                                                                           '-14.48787'), u'ut': 61715747966374.0, u'error': u'Occaecati explicabo.', u'f
+	                                                                           acilis': u'Et vitae totam.', u'enim': u'Quam repellat.', u'explicabo': dateti
+	                                                                           me(1985, 2, 23, 1, 28, 19), u'officiis': u'Et id culpa sequi.', u'labore': u'
+	                                                                           Aut tempore culpa.'}
+	fake.pyint()                                                             # 4166
 
+### faker.providers.credit_card
 
+	fake.credit_card_security_code(card_type=None)                           # 816
+	fake.credit_card_full(card_type=None, validate=False, max_check=10)      #
+	                                                                           American Express
+	                                                                           Ralph Bartoletti
+	                                                                           379037504006334  12/18
+	                                                                           CVC: 686
+	fake.credit_card_expire(start="now", end="+10y", date_format="%m/%y")    # 06/15
+	fake.credit_card_number(card_type=None, validate=False, max_check=10)    # 201493034311625
+	fake.credit_card_provider(card_type=None)                                # VISA 13 digit
 
 ## Localization
 
@@ -302,150 +333,166 @@ Some example of included localized providers:
 
 ### faker.providers.address
 
-	fake.street_name()            # Contrada Genziana
-	fake.address()                # Stretto Noemi 006 Piano 3
-									Flavio laziale, 27476 Mantova (LU)
-	fake.street_address()         # Stretto Lombardo 8 Piano 6
-	fake.postcode()               # 94032
-	fake.longitude()              # 92.051838
-	fake.country()                # Germania
-	fake.street_suffix()          # Rotonda
-	fake.city_prefix()            # Quarto
-	fake.city_suffix()            # calabro
-	fake.building_number()        # 81
-	fake.secondary_address()      # Appartamento 65
-	fake.city()                   # Sesto Filomena
-	fake.state()                  # Carbonia-Iglesias
+	fake.state_abbr()             # RA
+	fake.latitude()               # -99.579871
+	fake.street_name()            # Canale Conti
+	fake.address()                # Borgo Nabil 59 Appartamento 21
+	                                Quarto Brigitta ligure, 36534 Pavia (VR)
+	fake.street_address()         # Canale Gianriccardo 743
+	fake.postcode()               # 61219
+	fake.longitude()              # -4.116482
+	fake.country()                # Isole Falkland (Malvinas)
+	fake.geo_coordinate()         # -46.328470
+	fake.street_suffix()          # Borgo
+	fake.city_prefix()            # San
+	fake.city_suffix()            # sardo
+	fake.building_number()        # 06
+	fake.secondary_address()      # Piano 7
+	fake.city()                   # Borgo Tristano umbro
+	fake.state()                  # Terni
 
 ### faker.providers.person
 
-	fake.name()                   # Gaetano Silvestri
-	fake.last_name()              # Gentile
-	fake.first_name()             # Costanzo
+	fake.name()                   # Sig. Cesidia De Angelis
+	fake.last_name()              # Neri
+	fake.first_name()             # Gianmarco
 	fake.prefix()                 # Dott.
 
 ### faker.providers.company
-	
-	fake.company()                # D'angelo-Vitali s.r.l.
-	fake.company_suffix()         # Group
-	fake.catch_phrase()           # Utilizzazione polarizzata stabile
-	fake.bs()                     # tecnologie utilizzo B2B
+
+	fake.company()                # Bianchi SPA
+	fake.company_suffix()         # e figli
+	fake.catch_phrase()           # Migrazione stand-alone logistica
+	fake.bs()                     # webservices evolutive verticalizzate
 
 ### faker.providers.phone_number
 
-	fake.phone_number()           # +16 2658 2544588
+	fake.phone_number()           # +23 42 2530333
 
 ## LANGUAGE fr_FR
 
 ### faker.providers.address
 
-	fake.address()                      # 14, rue Grégoire Hebert
-					      				  27681 Lejeune
-	fake.department_number()            # 57
-	fake.street_name()                  # chemin de Grenier
-	fake.department()                   # (u'80', u'Somme')
-	fake.department_name()              # Aude
-	fake.street_address()               # rue de Besnard
-	fake.postcode()                     # 23 699
-	fake.longitude()                    # 61.773719
-	fake.country()                      # Macau
-	fake.street_prefix()                # rue
+	fake.address()                      # 87, boulevard de Nguyen
+	                                      18 421 Bernier
+	fake.latitude()                     # 18.516947
+	fake.department_number()            # 81
+	fake.street_name()                  # boulevard de Herve
+	fake.department()                   # (u'38', u'Is\xe8re')
+	fake.department_name()              # Finistère
+	fake.street_address()               # 26, rue René Ribeiro
+	fake.postcode()                     # 86 828
+	fake.longitude()                    # -98.262211
+	fake.country()                      # Guatemala
+	fake.geo_coordinate()               # 111.305524
+	fake.street_prefix()                # boulevard
 	fake.street_suffix()                # Street
-	fake.city_suffix()                  # -les-Bains
-	fake.building_number()              # 81
-	fake.region()                       # Alsace
-	fake.city()                         # DenisBourg
+	fake.city_suffix()                  # -la-Forêt
+	fake.building_number()              # 621
+	fake.region()                       # Wallis-et-Futuna
+	fake.city()                         # Rodrigues
 
 ### faker.providers.person
 
-	fake.name()                         # Julie Bailly
-	fake.last_name()                    # Bertrand
-	fake.first_name()                   # Marguerite
-	fake.prefix()                       # Le
+	fake.name()                         # Léon Thierry
+	fake.last_name()                    # Jourdan
+	fake.first_name()                   # Isaac
+	fake.prefix()                       # de
 
 ### faker.providers.company
 
-	fake.company()                      # Gautier
-	fake.company_suffix()               # SARL
+	fake.company()                      # Colas Grondin et Fils
+	fake.company_suffix()               # S.A.
 	fake.catch_phrase_verb()            # d'atteindre vos buts
-	fake.catch_phrase()                 # La liberté de rouler naturellement
-	fake.catch_phrase_noun()            # le confort
-	fake.siren()                        # 596 679 375
-	fake.siret(max_sequential_digits=2) # 291 991 838 00804
-	fake.catch_phrase_attribute()       # de manière sûre
+	fake.catch_phrase()                 # L'avantage de rouler autrement
+	fake.catch_phrase_noun()            # le droit
+	fake.siren()                        # 575 730 129
+	fake.siret(max_sequential_digits=2) # 205 560 539 00917
+	fake.catch_phrase_attribute()       # plus facilement
 
 ### faker.providers.internet
 
-	fake.url()                          # http://delorme.com/
-	fake.company_email()                # olivier.besnard@andre.fr
-	fake.uri()                          # http://www.lebrun.fr/faq.html
-	fake.tld()                          # fr
-	fake.free_email()                   # elodie.gillet@live.com
-	fake.user_name()                    # jean.rossi
-	fake.free_email_domain()            # orange.fr
-	fake.domain_name()                  # dumont.net
-	fake.safe_email()                   # lmarchand@example.com
+	fake.ipv4()                         # 6.14.119.96
+	fake.url()                          # http://www.langlois.com/
+	fake.company_email()                # michaud.honore@fontaine.com
+	fake.uri()                          # http://www.navarro.com/index.htm
+	fake.tld()                          # com
+	fake.uri_path(deep=None)            # blog/wp-content
+	fake.free_email()                   # guerin.daniel@ifrance.com
+	fake.user_name()                    # vincent53
+	fake.free_email_domain()            # live.com
+	fake.domain_name()                  # monnier.com
+	fake.uri_extension()                # .htm
+	fake.ipv6()                         # c578:0382:cf59:46e8:98e3:7c13:c5b6:91a6
+	fake.safe_email()                   # josephine.guilbert@example.net
 	fake.uri_page()                     # register
-	fake.email()                        # ncamus@noos.fr
-	fake.domain_word()                  # gallet
-	fake.slug(value=None)               # voluptas
+	fake.email()                        # martine74@caron.fr
+	fake.domain_word()                  # bodin
+	fake.slug(value=None)               # voluptas-ut-autem
 
 ### faker.providers.phone_number
 
-	fake.phone_number()                 # +33 4 80 14 46 78
+	fake.phone_number()                 # +33 4 38 41 91 92
 
 ## LANGUAGE pt_BR
 
 ### faker.providers.address
 
-	fake.estado_nome()            # Ceará
-	fake.latitude()               # -42.176024
-	fake.street_name()            # Colônia Emanuel Pereira
-	fake.street_prefix()          # Aeroporto
-	fake.address()                # Ladeira Nicole Silva, 40
-									Flamengo
-									51586-187 Santos / CE
-	fake.street_address()         # Recanto Correia, 34
-	fake.bairro()                 # Dom Joaquim
-	fake.longitude()              # 92.773043
-	fake.country()                # Geórgia
-	fake.estado_sigla()           # PA
+	fake.estado_nome()            # Rio de Janeiro
+	fake.latitude()               # -106.011949
+	fake.street_name()            # Vereda Ribeiro
+	fake.street_prefix()          # Rodovia
+	fake.address()                # Conjunto Pereira, 775
+	                                Acaiaca
+	                                08618559 Barbosa de Cunha / RS
+	fake.street_address()         # Praça Martins, 48
+	fake.bairro()                 # São João Batista
+	fake.longitude()              # -160.626433
+	fake.country()                # Sudão
+	fake.geo_coordinate()         # 21.660349
+	fake.estado_sigla()           # PI
 	fake.street_suffix()          # Street
-	fake.city_suffix()            # da Serra
-	fake.building_number()        # 907
-	fake.estado()                 # (u'PB', u'Para\xedba')
-	fake.city()                   # Barbosa das Pedras
-	fake.postcode()               # 45376684
+	fake.city_suffix()            # de Minas
+	fake.building_number()        # 94
+	fake.estado()                 # (u'MA', u'Maranh\xe3o')
+	fake.city()                   # Cunha
+	fake.postcode()               # 92673-460
 
 ### faker.providers.person
 
-	fake.name()                   # Igor-Gustavo Ferreira
-	fake.last_name()              # Santos
-	fake.first_name()             # Maria
-	fake.prefix()                 # de
+	fake.name()                   # Sabrina Martins
+	fake.last_name()              # Rocha
+	fake.first_name()             # Maitê
+	fake.prefix()                 # do
 
 ### faker.providers.company
 
-	fake.company()                # Gomes e Filhos
-	fake.company_suffix()         # - ME
+	fake.company()                # Lima Azevedo e Filhos
+	fake.company_suffix()         # - EI
 
 ### faker.providers.internet
 
-	fake.url()                    # http://www.almeida.com/
-	fake.company_email()          # bruna.souza@alves.br
-	fake.uri()                    # http://carvalho.com/main/tags/category/category/
-	fake.free_email()             # melo.bárbara@uol.com.br
-	fake.user_name()              # heloísa17
-	fake.free_email_domain()      # ig.com.br
-	fake.domain_name()            # martins.br
-	fake.safe_email()             # rodrigues.antonio@example.com
-	fake.email()                  # andre.dias@silva.br
-	fake.domain_word()            # ribeiro
-	fake.slug(value=None)         # debitis-quo-sit
+	fake.ipv4()                   # 221.193.94.76
+	fake.url()                    # http://www.carvalho.com/
+	fake.company_email()          # thiago.gomes@costela.br
+	fake.uri()                    # http://www.souza.com/search/author/
+	fake.tld()                    # br
+	fake.uri_path(deep=None)      # explore/tags/category
+	fake.free_email()             # rafaela04@gmail.com
+	fake.user_name()              # alexia.pinto
+	fake.free_email_domain()      # uol.com.br
+	fake.domain_name()            # ferreira.com
+	fake.uri_extension()          # .jsp
+	fake.ipv6()                   # 5f15:bd2b:fa0f:0d20:4e4d:3ab6:7eb7:0904
+	fake.safe_email()             # vitor38@example.br
+	fake.uri_page()               # author
+	fake.email()                  # bianca.dias@dias.com
+	fake.domain_word()            # castro
+	fake.slug(value=None)         # magnam-consequatur
 
 ### faker.providers.phone_number
 
-	fake.phone_number()           # +55 (081) 9413-8074
+	fake.phone_number()           # +55 71 8130 0097
 
 
 # Using from shell

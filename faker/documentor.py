@@ -49,7 +49,7 @@ class Documentor(object):
                     if argspec.defaults and with_defaults:
 
                         try:
-                            default = argspec.defaults[-1 * (i+1)]
+                            default = argspec.defaults[i]
                             if utils.is_string(default):
                                 default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
                             else:

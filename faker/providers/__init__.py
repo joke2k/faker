@@ -44,15 +44,15 @@ class BaseProvider(object):
         return array[random.randint(0, len(array) - 1)]
 
     @classmethod
-    def randomize_nb_elements(cls, number=10, le=False, gt=False):
+    def randomize_nb_elements(cls, number=10, le=False, ge=False):
         """
         Returns a random value near to number
         :param le: lower or equals to number
-        :param gt: greater or equals to number
+        :param ge: greater or equals to number
         :returns: a random int near to number
         """
-        if le and gt: return number
-        return int(number * random.randint(100 if gt else 60, 100 if le else 140) / 100) + 1
+        if le and ge: return number
+        return int(number * random.randint(100 if ge else 60, 100 if le else 140) / 100) + 1
 
     @classmethod
     def numerify(cls, text='###'):

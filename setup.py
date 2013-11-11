@@ -8,7 +8,7 @@ README = open(os.path.join(here, 'README.md')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.3.1'
+version = '0.3.2'
 
 setup(name='fake-factory',
       version=version,
