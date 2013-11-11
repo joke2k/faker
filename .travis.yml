@@ -4,12 +4,9 @@ python:
   - 2.7
   - 3.3
 install:
-  - python setup.py install
-  - pip install coverage coveralls
+  - pip install -e .
+  - pip install coveralls
 script:
   - coverage run setup.py test
-  - coverage run -m faker.__main__
-  - coverage run -m faker.__main__ address
-  - coverage run -m faker.__main__ faker.providers.it_IT.person
 after_success:
   - coveralls

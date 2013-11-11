@@ -60,6 +60,13 @@ class FactoryTestCase(unittest.TestCase):
     def test_magic_call_calls_format_with_arguments(self):
         self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
 
+    def test_documentor(self):
+        from .__main__ import main
+        main()
+        main('address')
+        main('faker.providers.it_IT.person')
+        self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
+
 
 if __name__ == '__main__':
     unittest.main()
