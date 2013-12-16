@@ -82,7 +82,8 @@ class Provider(BaseProvider):
 
     @classmethod
     def latitude(cls):
-        return cls.geo_coordinate()
+        # Latitude has a range of -90 to 90, so divide by two.
+        return cls.geo_coordinate() / 2
 
     @classmethod
     def longitude(cls):
