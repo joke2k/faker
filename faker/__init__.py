@@ -9,7 +9,7 @@ DEFAULT_PROVIDERS = (
     'date_time',
     'company',
     'internet',
-    'miscelleneous',
+    'misc',
     'phone_number',
     'user_agent',
     'file',
