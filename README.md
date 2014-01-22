@@ -1,4 +1,3 @@
-
 	_|_|_|_|          _|
 	_|        _|_|_|  _|  _|      _|_|    _|  _|_|
 	_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
@@ -55,7 +54,7 @@ Use `fake.Factory.create()` to create and initialize a faker generator, which ca
 ```
 
 Each call to method `fake.name()` yealds a different (random) result.
-This is because faker forwards `faker.Genarator.method_name()' calls to `faker.Generator.format(method_name)`.
+This is because faker forwards `faker.Genarator.method_name()` calls to `faker.Generator.format(method_name)`.
 
 ```python
 
