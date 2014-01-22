@@ -125,7 +125,7 @@ class Provider(AddressProvider):
         '{{building_number}} {{street_name}} {{secondary_address}}',
     )
     address_formats = (
-        "{{street_address}}\n{{city}}, {{province_abbr}} {{postcode}}",
+        "{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",
     )
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
