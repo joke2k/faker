@@ -3,7 +3,7 @@ from . import BaseProvider
 from . import date_time
 import random
 import hashlib
-import string
+
 
 class Provider(BaseProvider):
     language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
