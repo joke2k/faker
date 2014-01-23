@@ -190,7 +190,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.domain_word()                                                       # bahringer
 	fake.slug(value=None)                                                    # maxime-ea-omnis
 
-### faker.providers.miscelleneous
+### faker.providers.misc
 
 	fake.locale()                                                            # cn_TJ
 	fake.md5(raw_output=False)                                               # 98063a4419ebc124a94a0fe9411d95ba
