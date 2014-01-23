@@ -53,8 +53,8 @@ Use `faker.Factory.create()` to create and initialize a faker generator, which c
     # Et sint et. Ut ducimus quod nemo ab voluptatum.
 ```
 
-Each call to method `fake.name()` yealds a different (random) result.
-This is because faker forwards `faker.Genarator.method_name()` calls to `faker.Generator.format(method_name)`.
+Each call to method `fake.name()` yields a different (random) result.
+This is because faker forwards `faker.Generator.method_name()` calls to `faker.Generator.format(method_name)`.
 
 ```python
 
