@@ -1,4 +1,3 @@
-﻿
 	_|_|_|_|          _|
 	_|        _|_|_|  _|  _|      _|_|    _|  _|_|
 	_|_|_|  _|    _|  _|_|      _|_|_|_|  _|_|
@@ -24,7 +23,7 @@ Install with pip:
 
     pip install fake-factory
 
-Use `fake.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
+Use `faker.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
 
 ```python
 
@@ -55,7 +54,7 @@ Use `fake.Factory.create()` to create and initialize a faker generator, which ca
 ```
 
 Each call to method `fake.name()` yealds a different (random) result.
-This is because faker forwards `faker.Genarator.method_name()' calls to `faker.Generator.format(method_name)`.
+This is because faker forwards `faker.Genarator.method_name()` calls to `faker.Generator.format(method_name)`.
 
 ```python
 
@@ -191,7 +190,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.domain_word()                                                       # bahringer
 	fake.slug(value=None)                                                    # maxime-ea-omnis
 
-### faker.providers.miscelleneous
+### faker.providers.misc
 
 	fake.locale()                                                            # cn_TJ
 	fake.md5(raw_output=False)                                               # 98063a4419ebc124a94a0fe9411d95ba
@@ -202,7 +201,6 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.language_code()                                                     # pt
 	fake.boolean(chance_of_getting_true=50)                                  # True
 	fake.password(length=10)                                                 # XS29cOMgXp
-
 ### faker.providers.phone_number
 
 	fake.phone_number()                                                      # +94(1)6262568403

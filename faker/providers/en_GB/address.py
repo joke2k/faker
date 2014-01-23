@@ -1,64 +1,46 @@
-from __future__ import unicode_literals
-import re
+from __future__ import unicode_literals 
 from ..address import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
-    postal_code_letters = ('A','B','C','E','G','H','J',
-        'K','L','M','N','P','R','S','T','V','X','Y')
-
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
-
     city_suffixes = (
         'town', 'ton', 'land', 'ville', 'berg', 'burgh', 'borough', 'bury', 'view', 'port', 'mouth', 'stad', 'furt',
         'chester', 'mouth', 'fort', 'haven', 'side', 'shire')
-
-    building_number_formats = ('#####', '####', '###')
-
+    building_number_formats = ('#', '##', '###')
     street_suffixes = (
-        'Alley', 'Avenue', 'Branch', 'Bridge', 'Brook', 'Brooks', 'Burg', 'Burgs', 'Bypass', 'Camp', 'Canyon', 'Cape',
-        'Causeway', 'Center', 'Centers', 'Circle', 'Circles', 'Cliff', 'Cliffs', 'Club', 'Common', 'Corner', 'Corners',
-        'Course', 'Court', 'Courts', 'Cove', 'Coves', 'Creek', 'Crescent', 'Crest', 'Crossing', 'Crossroad', 'Curve',
-        'Dale', 'Dam', 'Divide', 'Drive', 'Drive', 'Drives', 'Estate', 'Estates', 'Expressway', 'Extension',
-        'Extensions',
-        'Fall', 'Falls', 'Ferry', 'Field', 'Fields', 'Flat', 'Flats', 'Ford', 'Fords', 'Forest', 'Forge', 'Forges',
-        'Fork',
-        'Forks', 'Fort', 'Freeway', 'Garden', 'Gardens', 'Gateway', 'Glen', 'Glens', 'Green', 'Greens', 'Grove',
-        'Groves',
-        'Harbor', 'Harbors', 'Haven', 'Heights', 'Highway', 'Hill', 'Hills', 'Hollow', 'Inlet', 'Inlet', 'Island',
-        'Island',
-        'Islands', 'Islands', 'Isle', 'Isle', 'Junction', 'Junctions', 'Key', 'Keys', 'Knoll', 'Knolls', 'Lake',
-        'Lakes',
-        'Land', 'Landing', 'Lane', 'Light', 'Lights', 'Loaf', 'Lock', 'Locks', 'Locks', 'Lodge', 'Lodge', 'Loop',
-        'Mall',
-        'Manor', 'Manors', 'Meadow', 'Meadows', 'Mews', 'Mill', 'Mills', 'Mission', 'Mission', 'Motorway', 'Mount',
-        'Mountain', 'Mountain', 'Mountains', 'Mountains', 'Neck', 'Orchard', 'Oval', 'Overpass', 'Park', 'Parks',
-        'Parkway',
-        'Parkways', 'Pass', 'Passage', 'Path', 'Pike', 'Pine', 'Pines', 'Place', 'Plain', 'Plains', 'Plains', 'Plaza',
-        'Plaza', 'Point', 'Points', 'Port', 'Port', 'Ports', 'Ports', 'Prairie', 'Prairie', 'Radial', 'Ramp', 'Ranch',
-        'Rapid', 'Rapids', 'Rest', 'Ridge', 'Ridges', 'River', 'Road', 'Road', 'Roads', 'Roads', 'Route', 'Row', 'Rue',
-        'Run', 'Shoal', 'Shoals', 'Shore', 'Shores', 'Skyway', 'Spring', 'Springs', 'Springs', 'Spur', 'Spurs',
-        'Square',
-        'Square', 'Squares', 'Squares', 'Station', 'Station', 'Stravenue', 'Stravenue', 'Stream', 'Stream', 'Street',
-        'Street', 'Streets', 'Summit', 'Summit', 'Terrace', 'Throughway', 'Trace', 'Track', 'Trafficway', 'Trail',
-        'Trail',
-        'Tunnel', 'Tunnel', 'Turnpike', 'Turnpike', 'Underpass', 'Union', 'Unions', 'Valley', 'Valleys', 'Via',
-        'Viaduct',
-        'View', 'Views', 'Village', 'Village', 'Villages', 'Ville', 'Vista', 'Vista', 'Walk', 'Walks', 'Wall', 'Way',
-        'Ways', 'Well', 'Wells')
+        'alley', 'avenue', 'branch', 'bridge', 'brook', 'brooks', 'burg', 'burgs', 'bypass', 'camp', 'canyon', 'cape',
+        'causeway', 'center', 'centers', 'circle', 'circles', 'cliff', 'cliffs', 'club', 'common', 'corner', 'corners',
+        'course', 'court', 'courts', 'cove', 'coves', 'creek', 'crescent', 'crest', 'crossing', 'crossroad', 'curve',
+        'dale', 'dam', 'divide', 'drive', 'drive', 'drives', 'estate', 'estates', 'expressway', 'extension',
+        'extensions',
+        'fall', 'falls', 'ferry', 'field', 'fields', 'flat', 'flats', 'ford', 'fords', 'forest', 'forge', 'forges',
+        'fork',
+        'forks', 'fort', 'freeway', 'garden', 'gardens', 'gateway', 'glen', 'glens', 'green', 'greens', 'grove',
+        'groves',
+        'harbor', 'harbors', 'haven', 'heights', 'highway', 'hill', 'hills', 'hollow', 'inlet', 'inlet', 'island',
+        'island',
+        'islands', 'islands', 'isle', 'isle', 'junction', 'junctions', 'key', 'keys', 'knoll', 'knolls', 'lake',
+        'lakes',
+        'land', 'landing', 'lane', 'light', 'lights', 'loaf', 'lock', 'locks', 'locks', 'lodge', 'lodge', 'loop',
+        'mall',
+        'manor', 'manors', 'meadow', 'meadows', 'mews', 'mill', 'mills', 'mission', 'mission', 'motorway', 'mount',
+        'mountain', 'mountain', 'mountains', 'mountains', 'neck', 'orchard', 'oval', 'overpass', 'park', 'parks',
+        'parkway',
+        'parkways', 'pass', 'passage', 'path', 'pike', 'pine', 'pines', 'place', 'plain', 'plains', 'plains', 'plaza',
+        'plaza', 'point', 'points', 'port', 'port', 'ports', 'ports', 'prairie', 'prairie', 'radial', 'ramp', 'ranch',
+        'rapid', 'rapids', 'rest', 'ridge', 'ridges', 'river', 'road', 'road', 'roads', 'roads', 'route', 'row', 'rue',
+        'run', 'shoal', 'shoals', 'shore', 'shores', 'skyway', 'spring', 'springs', 'springs', 'spur', 'spurs',
+        'square',
+        'square', 'squares', 'squares', 'station', 'station', 'stravenue', 'stravenue', 'stream', 'stream', 'street',
+        'street', 'streets', 'summit', 'summit', 'terrace', 'throughway', 'trace', 'track', 'trafficway', 'trail',
+        'trail',
+        'tunnel', 'tunnel', 'turnpike', 'turnpike', 'underpass', 'union', 'unions', 'valley', 'valleys', 'via',
+        'viaduct',
+        'view', 'views', 'village', 'village', 'villages', 'ville', 'vista', 'vista', 'walk', 'walks', 'wall', 'way',
+        'ways', 'well', 'wells')
 
-    postal_code_formats = ('?%? %?%', '?%?-%?%', '?%?%?%')
-
-    provinces = (
-        'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
-        'Newfoundland and Labrador', 'Northwest Territories',
-        'New Brunswick',  'Nova Scotia', 'Nunavut', 'Ontario',
-        'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory')
-
-    provinces_abbr = (
-        'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS',
-        'NV', 'ON', 'PE', 'QC', 'SK', 'YT')
+    postcode_formats = ('??#? #??', '?#? #??', '?# #??', '?## #??', '??# #??', '??## #??',)
 
     countries = (
         'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla',
@@ -122,22 +104,12 @@ class Provider(AddressProvider):
     )
     street_address_formats = (
         '{{building_number}} {{street_name}}',
-        '{{building_number}} {{street_name}} {{secondary_address}}',
+        '{{secondary_address}}\n{{street_name}}',
     )
     address_formats = (
-        "{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",
+        "{{street_address}}\n{{city}}\n{{postcode}}",
     )
-    secondary_address_formats = ('Apt. ###', 'Suite ###')
-
-    @classmethod
-    def province(cls):
-        """
-        """
-        return cls.random_element(cls.provinces)
-
-    @classmethod
-    def province_abbr(cls):
-        return cls.random_element(cls.provinces_abbr)
+    secondary_address_formats = ('Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
 
     @classmethod
     def city_prefix(cls):
@@ -145,25 +117,4 @@ class Provider(AddressProvider):
 
     @classmethod
     def secondary_address(cls):
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
-
-    @classmethod
-    def postal_code_letter(cls):
-        """
-        Returns a random letter from the list of allowable
-        letters in a canadian postal code
-        """
-        return cls.random_element(cls.postal_code_letters)
-
-    @classmethod
-    def postalcode(cls):
-        """
-        Replaces all question mark ('?') occurrences with a random letter
-        from postal_code_formats then passes result to
-        numerify to insert numbers
-        """
-        temp = re.sub(r'\?',
-            lambda x: cls.postal_code_letter(),
-            cls.random_element(cls.postal_code_formats))
-        return cls.numerify(temp)
-
+        return cls.bothify(cls.random_element(cls.secondary_address_formats))
