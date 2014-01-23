@@ -23,7 +23,7 @@ Install with pip:
 
     pip install fake-factory
 
-Use `fake.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
+Use `faker.Factory.create()` to create and initialize a faker generator, which can generate data by accessing properties named after the type of data you want.
 
 ```python
 
