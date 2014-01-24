@@ -10,11 +10,11 @@ class CreditCard(object):
     valid_characters_pattern = re.compile('^[0-9 ]*$')
 
     def __init__(self, name, prefixes, length=16, security_code='CVC', security_code_length=3):
-        self.name = name
-        self.prefixes = prefixes
-        self.length = length
-        self.security_code = security_code
-        self.security_code_length = security_code_length
+        self._name = name
+        self._prefixes = prefixes
+        self._length = length
+        self._security_code = security_code
+        self._security_code_length = security_code_length
 
 
 class Provider(BaseProvider):
