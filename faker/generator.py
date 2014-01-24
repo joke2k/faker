@@ -6,14 +6,14 @@ import random
 class Generator(object):
 
     def __init__(self):
-        self.providers = []
+        self._providers = []
 
     def add_provider(self, provider):
 
         if type(provider) is type:
             provider = provider(self)
 
-        self.providers.insert(0, provider)
+        self._providers.insert(0, provider)
 
         for method_name in dir(provider):
             # skip 'private' method
@@ -36,7 +36,7 @@ class Generator(object):
         """
         returns added providers
         """
-        return self.providers
+        return self._providers
 
     def seed(self, seed=None):
         """
