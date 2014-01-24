@@ -493,6 +493,62 @@ Some example of included localized providers:
 
 	fake.phone_number()           # +55 71 8130 0097
 
+## LANGUAGE de_DE
+
+### faker.providers.address
+
+	fake.address()              # Rosenowring 437
+	                              43872 Regen
+	fake.latitude()             # 42.7075055
+	fake.street_name()          # Hanne-Faust-Straße
+	fake.street_address()       # Sonya-Ullmann-Weg 8/3
+	fake.postcode()             # 40685
+	fake.longitude()            # 70.895020
+	fake.country()              # Guinea
+	fake.geo_coordinate()       # 75.306346
+	fake.building_number()      # 5
+	fake.state()                # Saarland
+	fake.city()                 # Wolgast
+
+### faker.providers.person
+
+	fake.name()                 # Herr Falk Blümel
+	fake.last_name()            # Rose
+	fake.first_name()           # Erika
+	fake.prefix()               # Ing.
+	fake.prefix_male()          # Prof.
+	fake.prefix_female()        # Univ.Prof.
+	fake.suffix()               # B.Sc.
+
+### faker.providers.company
+
+	fake.company()              # Barth Ruppersberger GmbH
+	fake.company_suffix()       # AG & Co. OHG
+
+### faker.providers.internet
+
+	fake.ipv4()                 # 84.192.240.173
+	fake.url()                  # http://www.loewer.com/
+	fake.company_email()        # hornich.berthold@albers.com
+	fake.uri()                  # http://www.trubin.org/wp-content/app/home/
+	fake.tld()                  # net
+	fake.uri_path(deep=None)    # posts/tag
+	fake.free_email()           # cweimer@gmx.de
+	fake.user_name()            # zsteckel
+	fake.free_email_domain()    # gmx.de
+	fake.domain_name()          # lehmann.com
+	fake.uri_extension()        # .jsp
+	fake.ipv6()                 # ad0b:fa6d:d23f:af56:48a8:68d4:97f0:7cb8
+	fake.safe_email()           # tfreudenberger@example.com
+	fake.uri_page()             # register
+	fake.email()                # zaenker.gisbert@kensy.org
+	fake.domain_word()          # salz
+	fake.slug(value=None)       # cupiditate-officia
+
+### faker.providers.phone_number
+
+	fake.phone_number()         # +49 (0) 8561 046769
+
 
 # Using from shell
 
