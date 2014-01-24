@@ -27,6 +27,15 @@ class BaseProvider(object):
         return random.randint(1, 9)
 
     @classmethod
+    def random_digit_or_empty(cls):
+        """ Returns a random number or empty """
+        empty = random.randint(0, 1)
+        if not empty:
+            return random.randint(0, 9)
+        else:
+            return ''
+
+    @classmethod
     def random_number(cls, digits=None):
         """ Returns a random number with 0 to $digits digits """
         if digits is None:
@@ -65,6 +74,7 @@ class BaseProvider(object):
         """
         text = re.sub(r'#', lambda x: str(BaseProvider.random_digit()), text)
         text = re.sub(r'%', lambda x: str(BaseProvider.random_digit_not_null()), text)
+        text = re.sub(r'!', lambda x: str(BaseProvider.random_digit_or_empty()), text)
 
         return text
 
