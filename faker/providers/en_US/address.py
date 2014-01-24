@@ -7,7 +7,7 @@ class Provider(AddressProvider):
     city_suffixes = (
         'town', 'ton', 'land', 'ville', 'berg', 'burgh', 'borough', 'bury', 'view', 'port', 'mouth', 'stad', 'furt',
         'chester', 'mouth', 'fort', 'haven', 'side', 'shire')
-    building_number_formats = ('#####', '####', '###')
+    building_number_formats = ('###!!')
     street_suffixes = (
         'Alley', 'Avenue', 'Branch', 'Bridge', 'Brook', 'Brooks', 'Burg', 'Burgs', 'Bypass', 'Camp', 'Canyon', 'Cape',
         'Causeway', 'Center', 'Centers', 'Circle', 'Circles', 'Cliff', 'Cliffs', 'Club', 'Common', 'Corner', 'Corners',
