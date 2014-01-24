@@ -1,0 +1,2 @@
+class Profile(object):
+	pass
