@@ -43,7 +43,7 @@ class Provider(BaseProvider):
 		d= dict(d,**self.generator.simple_profile())
 		#field selection
 		if len(fields)>0:
-			d={i:j for i,j in d.items() if i in fields}
+			d=dict((k,v) for (k,v) in d.items() if k in fields)
 
 		return d
 
