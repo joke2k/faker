@@ -11,6 +11,7 @@ AVAILABLE_LOCALES = [
 DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
 DEFAULT_PROVIDERS = (
+
     'lorem',
     'address',
     'person',
@@ -23,6 +24,8 @@ DEFAULT_PROVIDERS = (
     'file',
     'python',
     'credit_card',
+    'profile',
+    'job',
 )
 
 from faker.generator import Generator
