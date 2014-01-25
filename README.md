@@ -549,6 +549,19 @@ Some example of included localized providers:
 
 	fake.phone_number()         # +49 (0) 8561 046769
 
+## LANGUAGE ru_RU
+
+### faker.providers.person
+	fake.name()                   # тов. Агафон Корнилов
+	fake.last_name()              # Белов
+	fake.first_name()             # Богдан
+	fake.prefix()                 # г-н.
+
+### faker.providers.phone_number
+
+	fake.phone_number()           # +7 948 512 7518
+
+## 
 
 # Using from shell
 
