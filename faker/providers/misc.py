@@ -3,7 +3,7 @@ from . import BaseProvider
 from . import date_time
 import random
 import hashlib
-
+import string
 
 class Provider(BaseProvider):
     language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
@@ -64,3 +64,7 @@ class Provider(BaseProvider):
     def language_code(cls):
         return cls.random_element(cls.language_codes)
 
+    @classmethod
+    def password(cls,length=10):
+        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+        return ''.join(random.choice(chars) for x in range(length))
