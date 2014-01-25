@@ -26,6 +26,7 @@ DEFAULT_PROVIDERS = (
     'credit_card',
     'profile',
     'job',
+    'color',
 )
 
 from faker.generator import Generator
