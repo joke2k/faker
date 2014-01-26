@@ -133,7 +133,8 @@ class Provider(BaseProvider):
         'prefix' is the start of the CC number as a string, any number of digits.
         'length' is the length of the CC number to generate. Typically 13 or 16
         """
-        number = prefix
+        # add list() to copy prefixes
+        number = list(prefix)
         # generate digits
         while len(number) < (length - 1):
             number.append(str(cls.random_digit()))
