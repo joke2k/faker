@@ -7,7 +7,7 @@ AVAILABLE_LOCALES = [
     'en_GB',
     'de_DE',
     'ru_RU'
-] 
+]
 DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
 DEFAULT_PROVIDERS = (
@@ -26,6 +26,7 @@ DEFAULT_PROVIDERS = (
     'credit_card',
     'profile',
     'job',
+    'color',
 )
 
 from faker.generator import Generator
