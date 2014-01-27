@@ -53,6 +53,10 @@ class Provider(PersonProvider):
         return cls.random_element((cls.first_name_male(), cls.first_name_female()))
 
     @classmethod
+    def last_name(cls):
+        return cls.random_element((cls.last_name_male(), cls.last_name_female()))
+
+    @classmethod
     def first_name_male(cls):
         return cls.random_element(cls.first_names_male)
 
@@ -61,12 +65,12 @@ class Provider(PersonProvider):
         return cls.random_element(cls.first_names_female)
 
     @classmethod
-    def last_name_female(cls):
-        return cls.random_element(cls.last_names_female)
-
-    @classmethod
     def last_name_male(cls):
         return cls.random_element(cls.last_names_male)
+
+    @classmethod
+    def last_name_female(cls):
+        return cls.random_element(cls.last_names_female)
 
     @classmethod
     def prefix(cls):
