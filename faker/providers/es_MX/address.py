@@ -40,24 +40,21 @@ class Provider(AddressProvider):
         'View', 'Views', 'Village', 'Village', 'Villages', 'Ville', 'Vista', 'Vista', 'Walk', 'Walks', 'Wall', 'Way',
         'Ways', 'Well', 'Wells')
     postcode_formats = ('#####', '#####-####')
+    ## States and abbrs from Mexico from INEGI
+    ## http://www.inegi.org.mx/geo/contenidos/geoestadistica/CatalogoClaves.aspx
     states = (
-        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
-        'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-        'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
-        'NewHampshire', 'NewJersey', 'NewMexico', 'NewYork', 'NorthCarolina', 'NorthDakota', 'Ohio', 'Oklahoma',
-        'Oregon',
-        'Pennsylvania', 'RhodeIsland', 'SouthCarolina', 'SouthDakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia',
-        'Washington', 'WestVirginia', 'Wisconsin', 'Wyoming' )
+        'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
+        'Coahuila de Zaragoza', 'Colima', 'Chiapas', 'Chihuahua',
+        'Distrito Federal', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo',
+        'Jalisco', 'México', 'Michoacán de Ocampo', 'Morelos', 'Nayarit',
+        'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo',
+        'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas',
+        'Tlaxcala', 'Veracruz de Ignacio de la Llave', 'Yucatán', 'Zacatecas')
     states_abbr = (
-        'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN',
-        'IA',
-        'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
-        'NC',
-        'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA',
-        'WV',
-        'WI', 'WY', 'AE', 'AA', 'AP' )
+        'AGS', 'BC', 'BCS', 'CAMP', 'COAH', 'COL', 'CHIS', 'CHIH', 'DF',
+        'DGO', 'GTO', 'GRO', 'HGO', 'JAL', 'MEX', 'MICH', 'MOR', 'NAY',
+        'NL', 'OAX', 'PUE', 'QRO', 'Q. ROO', 'SLP', 'SIN', 'SON', 'TAB',
+        'TAMPS', 'TLAX', 'VER', 'YUC', 'ZAC')
     countries = (
         'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla',
         'Antarctica (the territory South of 60 deg S)', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba',
