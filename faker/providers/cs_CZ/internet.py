@@ -12,7 +12,7 @@ class Provider(InternetProvider):
         '{{last_name_female}}.{{first_name_female}}',
         '{{last_name_male}}.{{first_name_male}}',
         '{{last_name_male}}.{{first_name_male}}',
-        '{{first_name_female}}.{{last_name_fexmale}}',
+        '{{first_name_female}}.{{last_name_female}}',
         '{{first_name_male}}.{{last_name_male}}',
         '{{first_name}}##',
         '?{{last_name}}',
