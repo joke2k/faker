@@ -560,9 +560,19 @@ Some example of included localized providers:
 
 ### faker.providers.phone_number
 
-	fake.phone_number()           # +7 948 512 7518
+	fake.phone_number()           # +7 948 512 7518 
 
-## 
+## LANGUAGE dk_DK
+
+### faker.provider.person
+	fake.name()                 # Hr Lucas Østergaard
+	fake.last_name()            # Overgaard
+	fake.first_name()           # Julius
+	fake.prefix()               # Dr.
+	fake.prefix_male()          # Prof.
+	fake.prefix_female()        # Univ.Prof.
+
+##
 
 # Using from shell
 
