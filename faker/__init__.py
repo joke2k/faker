@@ -3,6 +3,7 @@ AVAILABLE_LOCALES = [
     'it_IT',
     'fr_FR',
     'pt_BR',
+    'el_GR',
     'en_CA',
     'en_GB',
     'de_DE',
