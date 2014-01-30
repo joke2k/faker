@@ -65,6 +65,14 @@ class Provider(BaseProvider):
         return cls.random_element(cls.language_codes)
 
     @classmethod
-    def password(cls,length=10):
-        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+    def password(cls,length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
+        chars = ""
+        if special_chars:
+            chars += "!@#$%^&*()_+"
+        if digits:
+            chars += string.digits
+        if upper_case:
+            chars += string.ascii_uppercase
+        if lower_case:
+            chars += string.ascii_lowercase
         return ''.join(random.choice(chars) for x in range(length))
