@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 from ..company import Provider as CompanyProvider
 
@@ -6,95 +7,147 @@ class Provider(CompanyProvider):
     formats = (
         '{{last_name}} {{company_suffix}}',
         '{{last_name}}-{{last_name}}',
-        '{{last_name}}, {{last_name}} and {{last_name}}'
+        '{{company_prefix}} {{last_name}}-{{last_name}}',
+        '{{company_prefix}} {{last_name}} y {{last_name}}',
+        '{{company_prefix}} {{last_name}}, {{last_name}} y {{last_name}}',
+        '{{last_name}}-{{last_name}} {{company_suffix}}',
+        '{{last_name}}, {{last_name}} y {{last_name}}',
+        '{{last_name}} y {{last_name}} {{company_suffix}}'
     )
 
     catch_phrase_words = (
         (
-            'Adaptive', 'Advanced', 'Ameliorated', 'Assimilated', 'Automated', 'Balanced', 'Business-focused',
-            'Centralized', 'Cloned', 'Compatible', 'Configurable', 'Cross-group', 'Cross-platform', 'Customer-focused',
-            'Customizable', 'Decentralized', 'De-engineered', 'Devolved', 'Digitized', 'Distributed', 'Diverse',
-            'Down-sized', 'Enhanced', 'Enterprise-wide', 'Ergonomic', 'Exclusive', 'Expanded', 'Extended', 'Facetoface',
-            'Focused', 'Front-line', 'Fully-configurable', 'Function-based', 'Fundamental', 'Future-proofed',
-            'Grass-roots', 'Horizontal', 'Implemented', 'Innovative', 'Integrated', 'Intuitive', 'Inverse', 'Managed',
-            'Mandatory', 'Monitored', 'Multi-channelled', 'Multi-lateral', 'Multi-layered', 'Multi-tiered', 'Networked',
-            'Object-based', 'Open-architected', 'Open-source', 'Operative', 'Optimized', 'Optional', 'Organic',
-            'Organized', 'Persevering', 'Persistent', 'Phased', 'Polarised', 'Pre-emptive', 'Proactive',
-            'Profit-focused', 'Profound', 'Programmable', 'Progressive', 'Public-key', 'Quality-focused', 'Reactive',
-            'Realigned', 'Re-contextualized', 'Re-engineered', 'Reduced', 'Reverse-engineered', 'Right-sized', 'Robust',
-            'Seamless', 'Secured', 'Self-enabling', 'Sharable', 'Stand-alone', 'Streamlined', 'Switchable',
-            'Synchronised', 'Synergistic', 'Synergized', 'Team-oriented', 'Total', 'Triple-buffered', 'Universal',
-            'Up-sized', 'Upgradable', 'User-centric', 'User-friendly', 'Versatile', 'Virtual', 'Visionary',
-            'Vision-oriented'
+           "habilidad", "acceso", "adaptador", "algoritmo", "alianza",
+           "analista", "aplicación", "enfoque", "arquitectura",
+           "archivo", "inteligencia artificial", "array", "actitud",
+           "medición", "gestión presupuestaria", "capacidad", "desafío",
+           "circuito", "colaboración", "complejidad", "concepto",
+           "conglomeración", "contingencia", "núcleo", "fidelidad",
+           "base de datos", "data-warehouse", "definición", "emulación",
+           "codificar", "encriptar", "extranet", "firmware",
+           "flexibilidad", "focus group", "previsión", "base de trabajo",
+           "función", "funcionalidad", "Interfaz Gráfica", "groupware",
+           "Interfaz gráfico de usuario", "hardware", "Soporte", "jerarquía",
+           "conjunto", "implementación", "infraestructura", "iniciativa",
+           "instalación", "conjunto de instrucciones", "interfaz",
+           "intranet", "base del conocimiento", "red de area local",
+           "aprovechar", "matrices", "metodologías", "middleware",
+           "migración", "modelo", "moderador", "monitorizar",
+           "arquitectura abierta", "sistema abierto", "orquestar",
+           "paradigma", "paralelismo", "política", "portal",
+           "estructura de precios", "proceso de mejora",
+           "producto", "productividad", "proyecto", "proyección",
+           "protocolo", "línea segura", "software", "solución",
+           "estandardización", "estrategia", "estructura", "éxito",
+           "superestructura", "soporte", "sinergia", "mediante",
+           "marco de tiempo", "caja de herramientas", "utilización",
+           "website", "fuerza de trabajo"),
+        (
+            "24 horas", "24/7", "3ra generación", "4ta generación",
+            "5ta generación", "6ta generación", "analizada",
+            "asimétrica", "asíncrona", "monitorizada por red",
+            "bidireccional", "bifurcada", "generada por el cliente",
+            "cliente servidor", "coherente", "cohesiva", "compuesto",
+            "sensible al contexto", "basado en el contexto",
+            "basado en contenido", "dedicada",
+            "generado por la demanda", "didactica", "direccional",
+            "discreta", "dinámica", "potenciada", "acompasada",
+            "ejecutiva", "explícita", "tolerante a fallos",
+            "innovadora", "amplio ábanico", "global", "heurística",
+            "alto nivel", "holística", "homogénea", "híbrida",
+            "incremental", "intangible", "interactiva", "intermedia",
+            "local", "logística", "maximizada", "metódica",
+            "misión crítica", "móbil", "modular", "motivadora",
+            "multimedia", "multiestado", "multitarea", "nacional",
+            "basado en necesidades", "neutral", "nueva generación",
+            "no-volátil", "orientado a objetos", "óptima", "optimizada",
+            "radical", "tiempo real", "recíproca", "regional",
+            "escalable", "secundaria", "orientada a soluciones",
+            "estable", "estatica", "sistemática", "sistémica",
+            "tangible", "terciaria", "transicional", "uniforme",
+            "valor añadido", "vía web", "defectos cero", "tolerancia cero"
         ),
         (
-            '24hour', '24/7', '3rdgeneration', '4thgeneration', '5thgeneration', '6thgeneration', 'actuating',
-            'analyzing', 'assymetric', 'asynchronous', 'attitude-oriented', 'background', 'bandwidth-monitored',
-            'bi-directional', 'bifurcated', 'bottom-line', 'clear-thinking', 'client-driven', 'client-server',
-            'coherent', 'cohesive', 'composite', 'context-sensitive', 'contextually-based', 'content-based',
-            'dedicated', 'demand-driven', 'didactic', 'directional', 'discrete', 'disintermediate', 'dynamic',
-            'eco-centric', 'empowering', 'encompassing', 'even-keeled', 'executive', 'explicit', 'exuding',
-            'fault-tolerant', 'foreground', 'fresh-thinking', 'full-range', 'global', 'grid-enabled', 'heuristic',
-            'high-level', 'holistic', 'homogeneous', 'human-resource', 'hybrid', 'impactful', 'incremental',
-            'intangible', 'interactive', 'intermediate', 'leadingedge', 'local', 'logistical', 'maximized',
-            'methodical', 'mission-critical', 'mobile', 'modular', 'motivating', 'multimedia', 'multi-state',
-            'multi-tasking', 'national', 'needs-based', 'neutral', 'nextgeneration', 'non-volatile', 'object-oriented',
-            'optimal', 'optimizing', 'radical', 'real-time', 'reciprocal', 'regional', 'responsive', 'scalable',
-            'secondary', 'solution-oriented', 'stable', 'static', 'systematic', 'systemic', 'system-worthy', 'tangible',
-            'tertiary', 'transitional', 'uniform', 'upward-trending', 'user-facing', 'value-added', 'web-enabled',
-            'well-modulated', 'zeroadministration', 'zerodefect', 'zerotolerance'
-        ),
-        (
-            'ability', 'access', 'adapter', 'algorithm', 'alliance', 'analyzer', 'application', 'approach',
-            'architecture', 'archive', 'artificialintelligence', 'array', 'attitude', 'benchmark',
-            'budgetarymanagement', 'capability', 'capacity', 'challenge', 'circuit', 'collaboration', 'complexity',
-            'concept', 'conglomeration', 'contingency', 'core', 'customerloyalty', 'database', 'data-warehouse',
-            'definition', 'emulation', 'encoding', 'encryption', 'extranet', 'firmware', 'flexibility', 'focusgroup',
-            'forecast', 'frame', 'framework', 'function', 'functionalities', 'GraphicInterface', 'groupware',
-            'GraphicalUserInterface', 'hardware', 'help-desk', 'hierarchy', 'hub', 'implementation', 'info-mediaries',
-            'infrastructure', 'initiative', 'installation', 'instructionset', 'interface', 'internetsolution',
-            'intranet', 'knowledgeuser', 'knowledgebase', 'localareanetwork', 'leverage', 'matrices', 'matrix',
-            'methodology', 'middleware', 'migration', 'model', 'moderator', 'monitoring', 'moratorium', 'neural-net',
-            'openarchitecture', 'opensystem', 'orchestration', 'paradigm', 'parallelism', 'policy', 'portal',
-            'pricingstructure', 'processimprovement', 'product', 'productivity', 'project', 'projection', 'protocol',
-            'securedline', 'service-desk', 'software', 'solution', 'standardization', 'strategy', 'structure',
-            'success', 'superstructure', 'support', 'synergy', 'systemengine', 'task-force', 'throughput', 'time-frame',
-            'toolset', 'utilisation', 'website', 'workforce'
+            'adaptivo', 'avanzado', 'asimilado', 'automatizado',
+            'balanceado', 'enfocado al negocio',
+            'centralizado', 'clonado', 'compatible', 'configurable',
+            'multiplataforma', 'enfocado al cliente', 'personalizable',
+            'descentralizado', 'digitizado', 'distribuido', 'diverso',
+            'mejorado', 'en toda la empresa', 'ergonómico', 'exclusivo',
+            'expandido', 'extendido', 'cara a cara', 'enfocado',
+            'de primera línea', 'totalmente configurable',
+            'basado en funcionalidad', 'fundamental', 'horizontal',
+            'implementado', 'innovador', 'integrado', 'intuitivo',
+            'inverso', 'administrado', 'mandatorio', 'monitoreado',
+            'multicanal', 'multilateral', 'multi-capas', 'en red',
+            'basado en objetos', 'de arquitectura abierta',
+            'Open-source', 'operativo', 'optimizado', 'opcional',
+            'orgánico', 'organizado', 'perseverante', 'persistente',
+            'polarizado', 'preventivo', 'proactivo', 'enfocado a ganancias',
+            'programable', 'progresivo', 'llave pública',
+            'enfocado a la calidad', 'reactivo', 'realineado',
+            're-contextualizado', 'reducido', 'con ingeniería inversa',
+            'de tamaño adecuado', 'robusto', 'seguro', 'compartible',
+            'sincronizado', 'orientado a equipos', 'total',
+            'universal', 'actualizable', 'centrado al usuario',
+            'versátil', 'virtual', 'visionario',
         )
     )
 
     bsWords = (
         (
-            'implement', 'utilize', 'integrate', 'streamline', 'optimize', 'evolve', 'transform', 'embrace', 'enable',
-            'orchestrate', 'leverage', 'reinvent', 'aggregate', 'architect', 'enhance', 'incentivize', 'morph',
-            'empower', 'envisioneer', 'monetize', 'harness', 'facilitate', 'seize', 'disintermediate', 'synergize',
-            'strategize', 'deploy', 'brand', 'grow', 'target', 'syndicate', 'synthesize', 'deliver', 'mesh', 'incubate',
-            'engage', 'maximize', 'benchmark', 'expedite', 'reintermediate', 'whiteboard', 'visualize', 'repurpose',
-            'innovate', 'scale', 'unleash', 'drive', 'extend', 'engineer', 'revolutionize', 'generate', 'exploit',
-            'transition', 'e-enable', 'iterate', 'cultivate', 'matrix', 'productize', 'redefine', 'recontextualize'
+            'implementa', 'utiliza', 'integrata', 'optimiza',
+            'evoluciona', 'transforma', 'abraza', 'habilia',
+            'orquesta', 'reinventa', 'agrega', 'mejora', 'incentiviza',
+            'modifica', 'empondera', 'monetiza', 'fortalece',
+            'facilita', 'synergiza',  'crear marca', 'crece',
+            'sintetiza', 'entrega', 'mezcla', 'incuba', 'compromete',
+            'maximiza', 'inmediata', 'visualiza', 'inova',
+            'escala', 'libera', 'maneja', 'extiende', 'revoluciona',
+            'genera', 'explota', 'transición', 'itera', 'cultiva',
+            'redefine', 'recontextualiza',
         ),
         (
-            'clicks-and-mortar', 'value-added', 'vertical', 'proactive', 'robust', 'revolutionary', 'scalable',
-            'leading-edge', 'innovative', 'intuitive', 'strategic', 'e-business', 'mission-critical', 'sticky',
-            'one-to-one', '24/7', 'end-to-end', 'global', 'B2B', 'B2C', 'granular', 'frictionless', 'virtual', 'viral',
-            'dynamic', '24/365', 'best-of-breed', 'killer', 'magnetic', 'bleeding-edge', 'web-enabled', 'interactive',
-            'dot-com', 'sexy', 'back-end', 'real-time', 'efficient', 'front-end', 'distributed', 'seamless',
-            'extensible', 'turn-key', 'world-class', 'open-source', 'cross-platform', 'cross-media', 'synergistic',
-            'bricks-and-clicks', 'out-of-the-box', 'enterprise', 'integrated', 'impactful', 'wireless', 'transparent',
-            'next-generation', 'cutting-edge', 'user-centric', 'visionary', 'customized', 'ubiquitous', 'plug-and-play',
-            'collaborative', 'compelling', 'holistic', 'rich'
+            'synergías', 'paradigmas', 'marcados', 'socios',
+            'infraestructuras', 'plataformas', 'iniciativas',
+            'chanales', 'communidades', 'ROI', 'soluciones',
+            'portales', 'nichos', 'tecnologías', 'contenido',
+            'cadena de producción', 'convergencia', 'relaciones',
+            'architecturas', 'interfaces', 'comercio electrónico',
+            'sistemas', 'ancho de banda', 'modelos', 'entregables',
+            'usuarios', 'esquemas', 'redes', 'aplicaciones', 'métricas',
+            'funcionalidades', 'experiencias', 'servicios web',
+            'metodologías'
         ),
         (
-            'synergies', 'web-readiness', 'paradigms', 'markets', 'partnerships', 'infrastructures', 'platforms',
-            'initiatives', 'channels', 'eyeballs', 'communities', 'ROI', 'solutions', 'e-tailers', 'e-services',
-            'action-items', 'portals', 'niches', 'technologies', 'content', 'vortals', 'supply-chains', 'convergence',
-            'relationships', 'architectures', 'interfaces', 'e-markets', 'e-commerce', 'systems', 'bandwidth',
-            'infomediaries', 'models', 'mindshare', 'deliverables', 'users', 'schemas', 'networks', 'applications',
-            'metrics', 'e-business', 'functionalities', 'experiences', 'webservices', 'methodologies'
-        )
+            'valor agregado', 'verticales', 'proactivas', 'robustas',
+            'revolucionarias', 'escalables', 'de punta', 'innovadoras',
+            'intuitivas', 'estratégicas', 'e-business', 'de misión crítica',
+            'uno-a-uno', '24/7', 'end-to-end', 'globales', 'B2B', 'B2C',
+            'granulares', 'sin fricciones', 'virtuales', 'virales',
+            'dinámicas', '24/365', 'magnéticas', 'listo para la web',
+            'interactivas', 'dot-com', 'sexi', 'en tiempo real',
+            'eficientes', 'front-end', 'distribuidas', 'extensibles',
+            'llave en mano', 'de clase mundial', 'open-source',
+            'plataforma cruzada', 'de paquete', 'empresariales',
+            'integrado', 'impacto total', 'inalámbrica', 'transparentes',
+            'de siguiente generación', 'lo último', 'centrado al usuario',
+            'visionarias', 'personalizado', 'ubicuas', 'plug-and-play',
+            'colaborativas', 'holísticas', 'ricas'
+        ),
     )
 
-    company_suffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
+    company_preffixes = ('Despacho', 'Grupo', 'Corporativo', 'Club',
+                         'Industrias', 'Laboratorios', 'Proyectos')
+
+    company_suffixes = ('A.C.', 'S.A.', 'S.A. de C.V.', 'S.C.',
+        'S. R.L. de C.V.','e Hijos', 'y Asociados')
+
+    def company_prefix(self):
+        """
+        Ejemplo: Grupo
+        """
+        return self.random_element(self.company_preffixes)
 
     def catch_phrase(self):
         """
