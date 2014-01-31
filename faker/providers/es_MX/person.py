@@ -174,10 +174,7 @@ class Provider(PersonProvider):
     prefixes = ('Sr(a).', 'Dr.', 'Mtro.', 'Lic.' ,
                 'Ing.')
 
+
     @classmethod
     def prefix(cls):
         return cls.random_element(cls.prefixes)
-
-    @classmethod
-    def suffix(cls):
-        return cls.random_element(cls.suffixes)
