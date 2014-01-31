@@ -1,4 +1,4 @@
-AVAILABLE_LOCALES = ['en_US', 'it_IT', 'fr_FR', 'pt_BR', 'en_CA']
+AVAILABLE_LOCALES = ['en_US', 'it_IT', 'fr_FR', 'pt_BR', 'en_CA', 'es_ES']
 
 DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
