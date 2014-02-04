@@ -430,6 +430,10 @@ Some example of included localized providers:
 	fake.domain_word()                  # bodin
 	fake.slug(value=None)               # voluptas-ut-autem
 
+### faker.providers.image_placeholder
+	
+	fake.image_placeholder(width=640, height=480)  # http://placekitten.com/640/480
+
 ### faker.providers.phone_number
 
 	fake.phone_number()                 # +33 4 38 41 91 92
