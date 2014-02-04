@@ -573,7 +573,6 @@ In a python environment with faker installed you can use it with:
 [option]:
 
 *  formatter name as `text`, `address`: display result of fake
-*  Provider name as `lorem`: display all Provider's fakes
 
 [*args]: pass value to formatter (actually only strings)
 
