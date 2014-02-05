@@ -27,6 +27,20 @@ class BaseProvider(object):
         return random.randint(1, 9)
 
     @classmethod
+    def random_digit_or_empty(cls):
+        if random.randint(0, 1):
+            return random.randint(0, 9)
+        else:
+            return ''
+
+    @classmethod
+    def random_digit_not_null_or_empty(cls):
+        if random.randint(0, 1):
+            return random.randint(1, 9)
+        else:
+            return ''
+
+    @classmethod
     def random_number(cls, digits=None):
         """ Returns a random number with 0 to $digits digits """
         if digits is None:
@@ -60,11 +74,15 @@ class BaseProvider(object):
         """
         Replaces all hash sign ('#') occurrences with a random number
         Replaces all percentage sign ('%') occurrences with a not null number
+        Replaces all exclamation mark ('!') occurrences with a random number from 0 to 9 or empty
+        Replaces all at symbol ('@') occurrences with a random number from 1 to 9 or empty
 
         :param text that needs to bet parsed
         """
         text = re.sub(r'#', lambda x: str(BaseProvider.random_digit()), text)
         text = re.sub(r'%', lambda x: str(BaseProvider.random_digit_not_null()), text)
+        text = re.sub(r'!', lambda x: str(BaseProvider.random_digit_or_empty()), text)
+        text = re.sub(r'@', lambda x: str(BaseProvider.random_digit_not_null_or_empty()), text)
 
         return text
 
