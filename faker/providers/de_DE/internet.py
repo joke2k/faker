@@ -17,7 +17,7 @@ class Provider(InternetProvider):
     def _to_ascii(string):
         replacements = (
             ('ä', 'ae'), ('Ä', 'Ae'),
-            ('ö', 'oe'), ('O', 'Oe'),
+            ('ö', 'oe'), ('Ö', 'Oe'),
             ('ü', 'ue'), ('Ü', 'Ue'),
             ('ß', 'ss')
         )
