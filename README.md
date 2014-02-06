@@ -687,6 +687,70 @@ Some example of included localized providers:
 
 	fake.phone_number()           # +34 971 78 60 60
 
+
+## LANGUAGE cs_CZ
+
+### faker.providers.address
+
+    fake.latitude()               # 31.819644
+    fake.street_name()            # Šůrova
+    fake.address()                # K Vodě 2
+                                    223 99 Králův Dvůr
+    fake.street_address()         # Pod Kostelem 5
+    fake.postcode()               # 585 77
+    fake.longitude()              # -123.137230
+    fake.country()                # Čad
+    fake.city_name()              # Bohušovice nad Ohří
+    fake.geo_coordinate()         # -76.679571
+    fake.building_number()        # 95
+    fake.street_suffix_long()     # náměstí
+    fake.street_suffix_short()    # nám.
+    fake.city()                   # Cvikov
+    fake.state()                  # Ústecký kraj
+
+### faker.providers.person
+
+    fake.last_name_male()         # Procházka
+    fake.prefix_male()            # JUDr.
+    fake.prefix()                 # Mgr.
+    fake.name()                   # Renáta Blažková
+    fake.first_name()             # Iveta
+    fake.suffix()                 # Ph.D.
+    fake.first_name_male()        # Alexandr
+    fake.first_name_female()      # Ludmila
+    fake.last_name_female()       # Křížová
+    fake.last_name()              # Dvořák
+    fake.prefix_female()          # JUDr.
+
+### faker.providers.company
+
+    fake.company()                # Čermák
+    fake.company_suffix()         # o.s.
+
+### faker.providers.internet
+
+    fake.ipv4()                   # 157.11.60.71
+    fake.url()                    # http://www.hajkova.cz/
+    fake.company_email()          # robert78@riha.cz
+    fake.uri()                    # http://benesova.cz/blog/login.html
+    fake.tld()                    # com
+    fake.uri_path(deep=None)      # app
+    fake.free_email()             # rostislav86@volny.cz
+    fake.user_name()              # maly.ivan
+    fake.free_email_domain()      # chello.cz
+    fake.domain_name()            # kral.cz
+    fake.uri_extension()          # .php
+    fake.ipv6()                   # 0d83:a564:52c3:3d28:606b:060e:7da4:b6ba
+    fake.safe_email()             # duskova.olga@example.org
+    fake.uri_page()               # privacy
+    fake.email()                  # kkrejci@email.cz
+    fake.domain_word()            # maskova
+    fake.slug(value=None)         # modi-porro-minima
+
+### faker.providers.phone_number
+
+    fake.phone_number()           # 738 361 445
+
 ##
 
 # Using from shell
