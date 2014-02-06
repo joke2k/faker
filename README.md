@@ -200,7 +200,8 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.country_code()                                                      # TG
 	fake.language_code()                                                     # pt
 	fake.boolean(chance_of_getting_true=50)                                  # True
-	fake.password(length=10)                                                 # XS29cOMgXp
+	fake.password(length=10, special_chars=True, digits=True,\
+	              upper_case=True, lower_case=True))                         # bLKB3ehb8@
 
 ### faker.providers.phone_number
 
