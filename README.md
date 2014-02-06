@@ -662,6 +662,30 @@ Some example of included localized providers:
 	fake.prefix_male()          # Prof.
 	fake.prefix_female()        # Univ.Prof.
 
+## LANGUAGE es_ES
+
+### faker.providers.person
+	fake.name()                   # Jorge Gil-Arellano
+	fake.last_name()              # Palmer
+	fake.first_name()             # Juliana
+	fake.prefix()                 # de
+
+### faker.providers.address
+    fake.street_name()            # Via de Arturo Cuadrado Pasaje de Samuel Mármol 88
+    fake.address()                # Girona, 13415
+    fake.street_address()         # Alameda Victoria Izquierdo 86 Apt. 17
+    fake.postcode()               # 41456
+    fake.country()                # Andorra
+    fake.street_prefix()          # Camino
+    fake.building_number()        # 6
+    fake.secondary_address()      # Puerta 4
+    fake.city()                   # Tarragona
+    fake.state()                  # Sevilla
+
+### faker.providers.phone_number
+
+	fake.phone_number()           # +34 971 78 60 60
+
 ##
 
 # Using from shell

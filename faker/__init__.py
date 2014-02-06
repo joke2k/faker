@@ -12,7 +12,8 @@ AVAILABLE_LOCALES = [
     'fi_FI',
     'dk_DK',
     'es_MX',
-] 
+    'es_ES',
+]
 
 DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
