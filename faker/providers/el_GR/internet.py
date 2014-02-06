@@ -37,7 +37,7 @@ def remove_accents(value):
             return replace[search.find(matched)]
         return matched
     
-    return re.sub(r'[{}]+'.format(search), replace_accented_character, value)
+    return re.sub(r'[{0}]+'.format(search), replace_accented_character, value)
 
 
 def latinize(value):
