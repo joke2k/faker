@@ -116,7 +116,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 ### faker.providers.address
 
 	fake.state_abbr()                                                        # ID
-	fake.latitude()                                                          # 176.060836
+	fake.latitude()                                                          # 76.060836
 	fake.street_name()                                                       # Bernadine Vista
 	fake.address()                                                           # 59802 Kohler Gateway
 	                                                                           Keeblertown, CA 89092
