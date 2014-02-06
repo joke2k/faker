@@ -6,8 +6,9 @@ AVAILABLE_LOCALES = [
     'en_CA',
     'en_GB',
     'de_DE',
-    'ru_RU'
-] 
+    'ru_RU',
+    'es_MX'
+]
 DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
 
 DEFAULT_PROVIDERS = (
