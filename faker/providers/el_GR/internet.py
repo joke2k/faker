@@ -68,7 +68,7 @@ def latinize(value):
         value = map(lambda l: replace[search.find(l)], matched)
         return ''.join(value)
     
-    return re.sub(r'[{}]+'.format(search),
+    return re.sub(r'[{0}]+'.format(search),
                   replace_greek_character, re.sub(
                         r'([ΘΧΨθχψ]+|ΟΥ|ΑΥ|ΕΥ|Ου|Αυ|Ευ|ου|αυ|ευ)',
                         replace_double_character,
