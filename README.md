@@ -550,6 +550,48 @@ Some example of included localized providers:
 
 	fake.phone_number()         # +49 (0) 8561 046769
 
+## LANGUAGE fi_FI
+
+### faker.providers.address
+
+	fake.address()             # Kirsikkatie 388
+	                           # 40559 Kiuruvesi     
+	fake.street_name()         # Banaanikuja
+	fake.country()             # Norsunluurannikko
+	fake.city()                # Kuusamo
+	fake.state()               # Savonlinnan ja Kymenkartanon lääni
+	fake.postcode()            # 29335
+
+### faker.providers.person
+
+	fake.name()                # Pirjo Vuoristo
+	fake.last_name()           # Nousiainen
+	fake.first_name()          # Anna-Leena
+	fake.prefix()              # arkkit.
+	fake.suffix()              # DI
+
+### faker.providers.company
+
+	fake.company()             # Hintikka Oy
+	fake.company_suffix()      # As Oy
+
+### faker.providers.internet
+	
+	fake.email()               # venalainen.kaija@nikkola.com
+	fake.safe_email()          # eveliina.tikkanen@example.net
+	fake.free_email()          # jalonen.jussi@kolumbus.fi
+	fake.company_email()       # uleino@tiilikainen.com
+	fake.url()                 # http://www.vaatainen.com/
+	fake.uri()                 # http://www.mikkola.com/author/
+	fake.domain_name()         # isomaki.fi
+	fake.user_name()           # hsaarinen
+	fake.uri_extension()       # .html
+	fake.tld()                 # fi
+
+### faker.providers.phone_number
+
+	fake.phone_number()        # +358415027958
+
 ## LANGUAGE ru_RU
 
 ### faker.providers.person
