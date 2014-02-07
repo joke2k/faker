@@ -77,8 +77,15 @@ class Provider(BaseProvider):
         return cls.random_element(cls.countries)
 
     @classmethod
-    def geo_coordinate(cls):
-        return Decimal(str(random.randint(-180000000, 180000000) / 1000000.0)).quantize(Decimal('.000001'))
+    def geo_coordinate(cls, center=None, radius=0.001):
+        """
+        Optionally center the coord and pick a point within radius.
+        """
+        if not center:
+            return Decimal(str(random.randint(-180000000, 180000000) / 1000000.0)).quantize(Decimal('.000001'))
+        else:
+            geo = random.uniform(center - radius, center + radius)
+            return Decimal(str(geo))
 
     @classmethod
     def latitude(cls):
