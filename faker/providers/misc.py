@@ -6,7 +6,7 @@ import hashlib
 import string
 
 class Provider(BaseProvider):
-    language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
+    language_codes = ('cn', 'de', 'el', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
     def boolean(cls, chance_of_getting_true=50):
@@ -64,7 +64,26 @@ class Provider(BaseProvider):
     def language_code(cls):
         return cls.random_element(cls.language_codes)
 
+
+
     @classmethod
-    def password(cls,length=10):
-        chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+    def password(cls,length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
+        """
+        Generates a random password.
+        @param length: Integer. Length of a password
+        @param special_chars: Boolean. Whether to use special characters !@#$%^&*()_+
+        @param digits: Boolean. Whether to use digits
+        @param upper_case: Boolean. Whether to use upper letters
+        @param lower_case: Boolean. Whether to use lower letters
+        @return: String. Random password
+        """
+        chars = ""
+        if special_chars:
+            chars += "!@#$%^&*()_+"
+        if digits:
+            chars += string.digits
+        if upper_case:
+            chars += string.ascii_uppercase
+        if lower_case:
+            chars += string.ascii_lowercase
         return ''.join(random.choice(chars) for x in range(length))

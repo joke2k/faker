@@ -4,22 +4,20 @@ from ..internet import Provider as InternetProvider
 
 import re
 
-
 class Provider(InternetProvider):
 
     free_email_domains = (
-        'web.de', 'gmail.com', 'hotmail.de', 'yahoo.de', 'googlemail.com',
-        'aol.de', 'gmx.de'
+        'gmail.com', 'googlemail.com', 'hotmail.com', 'suomi24.fi', 
+        'kolumbus.fi', 'luukku.com', 'surffi.net'
     )
-    tlds = ('com', 'com', 'com', 'net', 'org', 'de', 'de', 'de')
+    
+    tlds = ('com', 'com', 'com', 'fi', 'fi', 'net', 'org')
 
     @staticmethod
     def _to_ascii(string):
         replacements = (
-            ('ä', 'ae'), ('Ä', 'Ae'),
-            ('ö', 'oe'), ('Ö', 'Oe'),
-            ('ü', 'ue'), ('Ü', 'Ue'),
-            ('ß', 'ss')
+            ('ä', 'a'), ('Ä', 'A'),
+            ('ö', 'o'), ('O', 'O'),
         )
         for search, replace in replacements:
             string = string.replace(search, replace)

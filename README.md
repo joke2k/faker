@@ -116,7 +116,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 ### faker.providers.address
 
 	fake.state_abbr()                                                        # ID
-	fake.latitude()                                                          # 176.060836
+	fake.latitude()                                                          # 76.060836
 	fake.street_name()                                                       # Bernadine Vista
 	fake.address()                                                           # 59802 Kohler Gateway
 	                                                                           Keeblertown, CA 89092
@@ -200,7 +200,8 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.country_code()                                                      # TG
 	fake.language_code()                                                     # pt
 	fake.boolean(chance_of_getting_true=50)                                  # True
-	fake.password(length=10)                                                 # XS29cOMgXp
+	fake.password(length=10, special_chars=True, digits=True,\
+	              upper_case=True, lower_case=True))                         # bLKB3ehb8@
 
 ### faker.providers.phone_number
 
@@ -550,6 +551,48 @@ Some example of included localized providers:
 
 	fake.phone_number()         # +49 (0) 8561 046769
 
+## LANGUAGE fi_FI
+
+### faker.providers.address
+
+	fake.address()             # Kirsikkatie 388
+	                           # 40559 Kiuruvesi     
+	fake.street_name()         # Banaanikuja
+	fake.country()             # Norsunluurannikko
+	fake.city()                # Kuusamo
+	fake.state()               # Savonlinnan ja Kymenkartanon lääni
+	fake.postcode()            # 29335
+
+### faker.providers.person
+
+	fake.name()                # Pirjo Vuoristo
+	fake.last_name()           # Nousiainen
+	fake.first_name()          # Anna-Leena
+	fake.prefix()              # arkkit.
+	fake.suffix()              # DI
+
+### faker.providers.company
+
+	fake.company()             # Hintikka Oy
+	fake.company_suffix()      # As Oy
+
+### faker.providers.internet
+	
+	fake.email()               # venalainen.kaija@nikkola.com
+	fake.safe_email()          # eveliina.tikkanen@example.net
+	fake.free_email()          # jalonen.jussi@kolumbus.fi
+	fake.company_email()       # uleino@tiilikainen.com
+	fake.url()                 # http://www.vaatainen.com/
+	fake.uri()                 # http://www.mikkola.com/author/
+	fake.domain_name()         # isomaki.fi
+	fake.user_name()           # hsaarinen
+	fake.uri_extension()       # .html
+	fake.tld()                 # fi
+
+### faker.providers.phone_number
+
+	fake.phone_number()        # +358415027958
+
 ## LANGUAGE ru_RU
 
 ### faker.providers.person
@@ -560,9 +603,155 @@ Some example of included localized providers:
 
 ### faker.providers.phone_number
 
-	fake.phone_number()           # +7 948 512 7518
+	fake.phone_number()           # +7 948 512 7518 
 
-## 
+## LANGUAGE el_GR
+
+### faker.providers.person
+
+	fake.name():                # Θεοδώρα Αλεξανδράκη
+	fake.name_male():           # Σόλων-Αγγελής Πετράκης
+	fake.name_female():         # Μαρία Ξυγκάκου
+	fake.first_name():          # Μάριος
+	fake.first_name_male():     # Επαμεινώνδας
+	fake.first_name_female():   # Ρεβέκα
+	fake.last_name():           # Φραγκόπουλος
+	fake.last_name_male():      # Αποστολάκης
+	fake.last_name_female():    # Χαλκίδου
+
+### faker.providers.address
+
+	fake.address():             # Μαστρογιαννίδου 7,
+	                              ΤΚ 36777 Αλεξανδρούπολη
+	fake.line_address():        # Αργυροπούλου 3, 34924 Δράμα
+	fake.street_name():         # Αρδείας
+	fake.street_address():      # Λεωφ. Ευόσμου 44
+	fake.building_number():     # 131
+	fake.postcode():            # ΤΚ 991 51
+	fake.city():                # Καστοριά
+	fake.region():              # Πέλλα
+	fake.country():             # Μπρουνέι
+	fake.latitude():            # 38.818785
+	fake.longitude():           # 27.367441
+	fake.latlng():              # (36.706833, 28.523434)
+
+### faker.providers.lorem
+
+	fake.text():                # Πιο προγραμματιστής παραδώσεις γραμμή στη νιρβάνα
+	                              κι. Πολύ έγραψες ημέρα τι συνεντεύξεις. Γραμμής
+	                              βρίσκονται αποθηκευτικού από συνάδελφος μέχρι τα.
+
+### faker.providers.phone_number
+
+	fake.phone_number():        # 210 761 8331
+
+### faker.providers.internet
+
+	fake.email():               # aimilia.lioliopoulou@doukatziskapetanios.gr
+	fake.free_email():          # yzygouris@gmail.com
+	fake.company_email():       # eutychia.tsachaki@ioakeim.gr
+	fake.user_name():           # konstantina.maniotis
+	fake.url():                 # http://www.anastasiou.org/
+
+## LANGUAGE dk_DK
+
+### faker.provider.person
+	fake.name()                 # Hr Lucas Østergaard
+	fake.last_name()            # Overgaard
+	fake.first_name()           # Julius
+	fake.prefix()               # Dr.
+	fake.prefix_male()          # Prof.
+	fake.prefix_female()        # Univ.Prof.
+
+## LANGUAGE es_ES
+
+### faker.providers.person
+	fake.name()                   # Jorge Gil-Arellano
+	fake.last_name()              # Palmer
+	fake.first_name()             # Juliana
+	fake.prefix()                 # de
+
+### faker.providers.address
+    fake.street_name()            # Via de Arturo Cuadrado Pasaje de Samuel Mármol 88
+    fake.address()                # Girona, 13415
+    fake.street_address()         # Alameda Victoria Izquierdo 86 Apt. 17
+    fake.postcode()               # 41456
+    fake.country()                # Andorra
+    fake.street_prefix()          # Camino
+    fake.building_number()        # 6
+    fake.secondary_address()      # Puerta 4
+    fake.city()                   # Tarragona
+    fake.state()                  # Sevilla
+
+### faker.providers.phone_number
+
+	fake.phone_number()           # +34 971 78 60 60
+
+
+## LANGUAGE cs_CZ
+
+### faker.providers.address
+
+    fake.latitude()               # 31.819644
+    fake.street_name()            # Šůrova
+    fake.address()                # K Vodě 2
+                                    223 99 Králův Dvůr
+    fake.street_address()         # Pod Kostelem 5
+    fake.postcode()               # 585 77
+    fake.longitude()              # -123.137230
+    fake.country()                # Čad
+    fake.city_name()              # Bohušovice nad Ohří
+    fake.geo_coordinate()         # -76.679571
+    fake.building_number()        # 95
+    fake.street_suffix_long()     # náměstí
+    fake.street_suffix_short()    # nám.
+    fake.city()                   # Cvikov
+    fake.state()                  # Ústecký kraj
+
+### faker.providers.person
+
+    fake.last_name_male()         # Procházka
+    fake.prefix_male()            # JUDr.
+    fake.prefix()                 # Mgr.
+    fake.name()                   # Renáta Blažková
+    fake.first_name()             # Iveta
+    fake.suffix()                 # Ph.D.
+    fake.first_name_male()        # Alexandr
+    fake.first_name_female()      # Ludmila
+    fake.last_name_female()       # Křížová
+    fake.last_name()              # Dvořák
+    fake.prefix_female()          # JUDr.
+
+### faker.providers.company
+
+    fake.company()                # Čermák
+    fake.company_suffix()         # o.s.
+
+### faker.providers.internet
+
+    fake.ipv4()                   # 157.11.60.71
+    fake.url()                    # http://www.hajkova.cz/
+    fake.company_email()          # robert78@riha.cz
+    fake.uri()                    # http://benesova.cz/blog/login.html
+    fake.tld()                    # com
+    fake.uri_path(deep=None)      # app
+    fake.free_email()             # rostislav86@volny.cz
+    fake.user_name()              # maly.ivan
+    fake.free_email_domain()      # chello.cz
+    fake.domain_name()            # kral.cz
+    fake.uri_extension()          # .php
+    fake.ipv6()                   # 0d83:a564:52c3:3d28:606b:060e:7da4:b6ba
+    fake.safe_email()             # duskova.olga@example.org
+    fake.uri_page()               # privacy
+    fake.email()                  # kkrejci@email.cz
+    fake.domain_word()            # maskova
+    fake.slug(value=None)         # modi-porro-minima
+
+### faker.providers.phone_number
+
+    fake.phone_number()           # 738 361 445
+
+##
 
 # Using from shell
 
@@ -573,7 +762,6 @@ In a python environment with faker installed you can use it with:
 [option]:
 
 *  formatter name as `text`, `address`: display result of fake
-*  Provider name as `lorem`: display all Provider's fakes
 
 [*args]: pass value to formatter (actually only strings)
 
