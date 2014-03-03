@@ -1,4 +1,4 @@
-# _*_ coding: utf-8 _*_
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from ..person import Provider as PersonProvider
 
