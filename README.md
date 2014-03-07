@@ -605,6 +605,9 @@ Some example of included localized providers:
 
 	fake.phone_number()           # +7 948 512 7518 
 
+### faker.providers.job
+	fake.job()                    # Булочник
+
 ## LANGUAGE el_GR
 
 ### faker.providers.person
