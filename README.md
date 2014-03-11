@@ -74,9 +74,9 @@ for i in range(0,10):
 ```
 
 
-## Formatters
+## Providers
 
-Each of the generator properties (like `name`, `address`, and `lorem`) are called "formatters".
+Each of the generator properties (like `name`, `address`, and `lorem`) are called "providers".
 A faker generator has many of them, packaged in "providers". Here is a list of the bundled formatters in the default locale.
 
 
