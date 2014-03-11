@@ -19,7 +19,7 @@ Welcome to Faker's documentation!
 create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
 Faker is for you.
 
-Faker is heavily inspired by PHP's `Faker https://github.com/fzaninotto/Faker>`_, Perl's `Data::Faker <http://search.cpan.org/~jasonk/Data-Faker-0.07/>`_, and by ruby's `Faker <http://faker.rubyforge.org/>`_.
+Faker is heavily inspired by PHP's `Faker <https://github.com/fzaninotto/Faker>`_, Perl's `Data::Faker <http://search.cpan.org/~jasonk/Data-Faker-0.07/>`_, and by ruby's `Faker <http://faker.rubyforge.org/>`_.
 
 .. image:: https://travis-ci.org/joke2k/faker.png?branch=master 
 
