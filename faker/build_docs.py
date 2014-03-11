@@ -50,7 +50,7 @@ def print_provider(doc, provider, formatters, excludes=None, fh=None):
     write('\n')
 
 
-def main(app, provider_or_field=None, *args):
+def main(provider_or_field=None, *args):
     from faker import Faker, Factory, documentor, DEFAULT_LOCALE, AVAILABLE_LOCALES
     fake = Faker(locale=DEFAULT_LOCALE)
 
@@ -109,8 +109,12 @@ def main(app, provider_or_field=None, *args):
             [fh.write('   locales/%s\n' % lang) for lang in AVAILABLE_LOCALES]
 
 
+# wrappers for sphinx
+def _main(app, *args, **kwargs):
+    return main(*args, **kwargs)
+
 def setup(app):
-    app.connect('builder-inited', main)
+    app.connect('builder-inited', _main)
 
 
 if __name__ == "__main__":

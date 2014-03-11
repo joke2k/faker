@@ -61,7 +61,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
-        from faker.__main__ import main
+        from faker.build_docs import main
         main()
         main('address')
         main('faker.providers.it_IT.person')
