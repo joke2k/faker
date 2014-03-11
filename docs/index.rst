@@ -99,7 +99,7 @@ Localization
 ``faker.Factory`` can take a locale as an argument, to return localized data.
 If no localized provider is found, the factory fallbacks to the default locale (en_EN).
 
-See the fulllist of included :doc:`locales`.
+See the full list of included :doc:`locales`.
 
 Using from shell
 ----------------
