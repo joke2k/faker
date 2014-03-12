@@ -10,6 +10,8 @@ else:
     binary_type = bytes
 
 
+DOCS_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs')
+
 def print_provider(doc, provider, formatters, excludes=None, fh=None):
 
     if excludes is None:
@@ -18,7 +20,6 @@ def print_provider(doc, provider, formatters, excludes=None, fh=None):
     if fh:
         write = fh.write
     else:
-        import ipdb; ipdb.set_trace()
         write = print
 
     write('\n')
@@ -78,10 +79,10 @@ def main(provider_or_field=None, *args):
 
         for provider, fakers in formatters:
             provider_name = doc.get_provider_name(provider)
-            with open(os.path.join('providers', '%s.rst' % provider_name), 'wb') as fh:
+            with open(os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name), 'wb') as fh:
                 print_provider(doc, provider, fakers, fh=fh)
 
-        with open('providers.rst', 'wb') as fh:
+        with open(os.path.join(DOCS_ROOT, 'providers.rst'), 'wb') as fh:
             fh.write('Providers\n')
             fh.write('=========\n')
             fh.write('.. toctree::\n')
@@ -89,7 +90,7 @@ def main(provider_or_field=None, *args):
             [fh.write('   providers/%s\n' % doc.get_provider_name(provider)) for provider, fakers in formatters]
 
         for lang in AVAILABLE_LOCALES:
-            with open(os.path.join('locales', '%s.rst' % lang), 'wb') as fh:
+            with open(os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang), 'wb') as fh:
                 fh.write('\n')
                 title = 'Language {0}\n'.format(lang).encode('utf-8')
                 fh.write(title)
@@ -101,7 +102,7 @@ def main(provider_or_field=None, *args):
                 for p, fs in d.get_formatters(with_args=True, with_defaults=True, locale=lang,
                                               excludes=base_provider_formatters):
                     print_provider(d, p, fs, fh=fh)
-        with open('locales.rst', 'wb') as fh:
+        with open(os.path.join(DOCS_ROOT, 'locales.rst'), 'wb') as fh:
             fh.write('Locales\n')
             fh.write('=======\n')
             fh.write('.. toctree::\n')
