@@ -61,11 +61,14 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
-        from faker.build_docs import main
-        main()
+        from faker.__main__ import main
         main('address')
         main('faker.providers.it_IT.person')
         self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
+
+    def test_build_docs(self):
+        from faker.build_docs import write_docs
+        write_docs()
 
 
 if __name__ == '__main__':
