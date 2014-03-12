@@ -62,6 +62,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_documentor(self):
         from faker.__main__ import main
+        main()
         main('address')
         main('faker.providers.it_IT.person')
         self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')

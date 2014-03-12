@@ -39,25 +39,47 @@ def print_provider(doc, provider, formatters, excludes=None):
                 signature = separator = ' '
 
 
-def main(provider_or_field, *args):
+def main(provider_or_field=None, *args):
     from faker import Faker, Factory, documentor, DEFAULT_LOCALE, AVAILABLE_LOCALES
     fake = Faker(locale=DEFAULT_LOCALE)
 
     from faker.providers import BaseProvider
     base_provider_formatters = [f for f in dir(BaseProvider)]
 
-    if '.' in provider_or_field:
-        parts = provider_or_field.split('.')
-        locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else DEFAULT_LOCALE
-        fake = Factory.create(locale, providers=[parts[-1]])
-        doc = documentor.Documentor(fake)
-        doc.already_generated = base_provider_formatters
-        print_provider(doc, fake.get_providers()[0], doc.get_provider_formatters(fake.get_providers()[0]))
+    if provider_or_field:
+        if '.' in provider_or_field:
+            parts = provider_or_field.split('.')
+            locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else DEFAULT_LOCALE
+            fake = Factory.create(locale, providers=[parts[-1]])
+            doc = documentor.Documentor(fake)
+            doc.already_generated = base_provider_formatters
+            print_provider(doc, fake.get_providers()[0], doc.get_provider_formatters(fake.get_providers()[0]))
+        else:
+            try:
+                print(fake.format(provider_or_field, *args))
+            except AttributeError:
+                print('No faker found for "{0}({1})"'.format(provider_or_field, args))
+
     else:
-        try:
-            print(fake.format(provider_or_field, *args))
-        except AttributeError:
-            print('No faker found for "{0}({1})"'.format(provider_or_field, args))
+        doc = documentor.Documentor(fake)
+
+        formatters = doc.get_formatters(with_args=True, with_defaults=True)
+
+        for provider, fakers in formatters:
+
+            print_provider(doc, provider, fakers)
+
+        for lang in AVAILABLE_LOCALES:
+            if lang == DEFAULT_LOCALE:
+                continue
+            print()
+            print('## LANGUAGE {0}'.format(lang))
+            fake = Faker(locale=lang)
+            d = documentor.Documentor(fake)
+
+            for p, fs in d.get_formatters(with_args=True, with_defaults=True, locale=lang,
+                                          excludes=base_provider_formatters):
+                print_provider(d, p, fs)
 
 
 if __name__ == "__main__":
