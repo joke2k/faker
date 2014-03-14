@@ -27,12 +27,7 @@ class Provider(PersonProvider):
     )
 
     prefixes = ('جناب آقای', 'سرکار خانم', 'جناب آقای دکتر', 'سرکار خانم دکتر')
-    suffixes = ()
 
     @classmethod
     def prefix(cls):
         return cls.random_element(cls.prefixes)
-
-    @classmethod
-    def suffix(cls):
-        return cls.random_element(cls.suffixes)
