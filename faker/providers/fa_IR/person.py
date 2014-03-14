@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from ..person import Provider as PersonProvider
 
@@ -31,3 +33,7 @@ class Provider(PersonProvider):
     @classmethod
     def prefix(cls):
         return cls.random_element(cls.prefixes)
+
+    @classmethod
+    def suffix(cls):
+        return ''
