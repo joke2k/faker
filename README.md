@@ -229,6 +229,9 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 
 	fake.mime_type(category=None)                                            # video/mpeg
 
+### faker.providers.ssn
+	fake.ssn()                                                               # 856-98-8232
+
 ### faker.providers.python
 
 	fake.pyiterable(nb_elements=10, variable_nb_elements=True, *value_types) # set([Decimal('7.2022029784E+11'), Decimal('7.80290776173E+12'), u'Dolor imped
