@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from ..person import Provider as PersonProvider
 
@@ -27,7 +29,6 @@ class Provider(PersonProvider):
     )
 
     prefixes = ('جناب آقای', 'سرکار خانم', 'جناب آقای دکتر', 'سرکار خانم دکتر')
-    suffixes = ()
 
     @classmethod
     def prefix(cls):
@@ -35,4 +36,4 @@ class Provider(PersonProvider):
 
     @classmethod
     def suffix(cls):
-        return cls.random_element(cls.suffixes)
+        return ''
