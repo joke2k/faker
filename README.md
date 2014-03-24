@@ -758,6 +758,30 @@ Some example of included localized providers:
 
     fake.phone_number()           # 738 361 445
 
+## LANGUAGE hi_IN
+
+### faker.providers.address
+
+	fake.street_name()            #इन्दु श्रीविमल
+	fake.address()				  #6/0 श्यामा बालकृष्णन दादरा और नागर हवेली-729114
+	fake.street_address()         #572 अदिती महादेव
+	fake.postcode()				  #085442
+	fake.country()				  #आइलैंड
+	fake.geo_coordinate()         #102.979084
+	fake.building_number()		  #06
+	fake.city()                   #अहमदनगर
+	fake.state()				  #आंध्र प्रदेश
+	
+### faker.providers.person
+
+	fake.name()					  #निखिल भंडारी
+	fake.first_name() 		      #कैलाश
+	fake.last_name()              #बालासुब्रमणियम
+	
+###faker.providers.phone_number
+		
+	fake.phone_number() 		  #059-23435082
+
 ##
 
 # Using from shell
