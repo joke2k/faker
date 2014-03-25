@@ -88,6 +88,10 @@ class Provider(BaseProvider):
             res.append(hex(random.randint(0, 65535))[2:].zfill(4))
         return ":".join(res)
 
+    def mac_address(self):
+        mac = [random.randint(0x00, 0xff) for i in range(0, 6)]
+        return ":".join(map(lambda x: "%02x" % x, mac))
+
     @classmethod
     def uri_page(cls):
         return cls.random_element(cls.uri_pages)
@@ -119,5 +123,3 @@ class Provider(BaseProvider):
         value = unicodedata.normalize('NFKD', value or Lorem.text(20)).encode('ascii', 'ignore').decode('ascii')
         value = re.sub('[^\w\s-]', '', value).strip().lower()
         return re.sub('[-\s]+', '-', value)
-
-

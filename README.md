@@ -185,6 +185,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 	fake.domain_name()                                                       # mertz.com
 	fake.uri_extension()                                                     # .jsp
 	fake.ipv6()                                                              # 6a67:a71f:ec3c:f641:177f:f33f:fb11:e27b
+	fake.mac_address()                                                       # f1:cd:14:b3:71:18
 	fake.safe_email()                                                        # greinger@example.org
 	fake.uri_page()                                                          # login
 	fake.email()                                                             # dorcas53@hotmail.com
@@ -560,7 +561,7 @@ Some example of included localized providers:
 ### faker.providers.address
 
 	fake.address()             # Kirsikkatie 388
-	                           # 40559 Kiuruvesi     
+	                           # 40559 Kiuruvesi
 	fake.street_name()         # Banaanikuja
 	fake.country()             # Norsunluurannikko
 	fake.city()                # Kuusamo
@@ -581,7 +582,7 @@ Some example of included localized providers:
 	fake.company_suffix()      # As Oy
 
 ### faker.providers.internet
-	
+
 	fake.email()               # venalainen.kaija@nikkola.com
 	fake.safe_email()          # eveliina.tikkanen@example.net
 	fake.free_email()          # jalonen.jussi@kolumbus.fi
@@ -607,7 +608,7 @@ Some example of included localized providers:
 
 ### faker.providers.phone_number
 
-	fake.phone_number()           # +7 948 512 7518 
+	fake.phone_number()           # +7 948 512 7518
 
 ### faker.providers.job
 	fake.job()                    # Булочник
@@ -847,5 +848,3 @@ Credits
 [buildout]: http://www.buildout.org/
 [distribute]:  http://pypi.python.org/pypi/distribute
 [modern-package-template]: http://pypi.python.org/pypi/modern-package-template
-
-
