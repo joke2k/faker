@@ -1,5 +1,9 @@
 from __future__ import unicode_literals
 from __future__ import print_function
+
+from faker import Faker, Factory, documentor, AVAILABLE_LOCALES, DEFAULT_LOCALE
+
+import os
 import sys
 
 if sys.version < '3':
@@ -40,7 +44,6 @@ def print_provider(doc, provider, formatters, excludes=None):
 
 
 def main(provider_or_field=None, *args):
-    from faker import Faker, Factory, documentor, DEFAULT_LOCALE, AVAILABLE_LOCALES
     fake = Faker(locale=DEFAULT_LOCALE)
 
     from faker.providers import BaseProvider
@@ -80,6 +83,28 @@ def main(provider_or_field=None, *args):
             for p, fs in d.get_formatters(with_args=True, with_defaults=True, locale=lang,
                                           excludes=base_provider_formatters):
                 print_provider(d, p, fs)
+
+
+def command(*args):
+    try:
+        f = args[0]
+    except IndexError:
+        f = '--help'
+
+    if f in ["--help", "-h"]:
+        main()
+        sys.exit()
+
+    locale = os.environ['LANG'].split('.')[0]
+     
+    if locale not in AVAILABLE_LOCALES:
+        locale = DEFAULT_LOCALE
+    fake = Faker(locale=locale)
+
+    try:
+        print(fake.format(f, *args[1:]))
+    except AttributeError:
+        print('No faker found for "{0}"'.format(f))
 
 
 if __name__ == "__main__":

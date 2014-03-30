@@ -67,9 +67,9 @@ class FactoryTestCase(unittest.TestCase):
         main('faker.providers.it_IT.person')
         self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
 
-    def test_build_docs(self):
-        from faker.build_docs import write_docs
-        write_docs()
+    def test_command(self):
+        from faker.__main__ import command
+        command('address')
 
 
 if __name__ == '__main__':
