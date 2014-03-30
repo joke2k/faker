@@ -18,7 +18,7 @@ Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl
 [![PyPI version](https://badge.fury.io/py/fake-factory.png)](http://badge.fury.io/py/fake-factory)
 [![Downloads](https://pypip.in/d/fake-factory/badge.png)](https://crate.io/packages/fake-factory)
 
-For more details, see the [extended docs][http://fake-factory.readthedocs.org/en/latest/]
+For more details, see the [extended docs](http://fake-factory.readthedocs.org/en/latest/)
 
 ## Basic Usage
 
