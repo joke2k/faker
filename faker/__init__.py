@@ -1,3 +1,6 @@
+VERSION = '0.3.2'
+
+
 AVAILABLE_LOCALES = [
     'cs_CZ',
     'de_DE',

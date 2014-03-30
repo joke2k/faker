@@ -6,7 +6,7 @@ import os
 import sys
 import argparse
 
-from faker import Faker, documentor, get_version, AVAILABLE_LOCALES, DEFAULT_LOCALE, Factory
+from faker import Faker, documentor, VERSION, AVAILABLE_LOCALES, DEFAULT_LOCALE, Factory
 
 if sys.version < '3':
     text_type = unicode
@@ -67,7 +67,7 @@ def print_doc(provider_or_field=None, args=None, lang=DEFAULT_LOCALE, output=Non
             print_provider(doc, fake.get_providers()[0], doc.get_provider_formatters(fake.get_providers()[0]), output=output)
         else:
             try:
-                print(fake.format(provider_or_field, args), file=output)
+                print(fake.format(provider_or_field, *args), file=output)
             except AttributeError:
                 print('No faker found for "{0}({1})"'.format(provider_or_field, args), file=output)
 
@@ -104,19 +104,17 @@ class Command(object):
         Given the command-line arguments, this creates a parser appropriate to that command, and runs it.
         """
 
-        version = get_version()
-
         # retrieve default language from system environment
         default_locale = os.environ['LANG'].split('.')[0]
         if default_locale not in AVAILABLE_LOCALES:
             default_locale = DEFAULT_LOCALE
 
         formatter_class = argparse.RawDescriptionHelpFormatter
-        parser = argparse.ArgumentParser(description='Faker version {} (default lang: {})'.format(version, default_locale),
+        parser = argparse.ArgumentParser(description='Faker version {} (default lang: {})'.format(VERSION, default_locale),
                                          formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
-                            version="%(prog)s {}".format(version))
+                            version="%(prog)s {}".format(VERSION))
 
         parser.add_argument('-o', metavar="output",
                             type=argparse.FileType('w'), default=sys.stdout,
