@@ -61,15 +61,15 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
-        from faker.__main__ import main
-        main()
-        main('address')
-        main('faker.providers.it_IT.person')
+        from faker.cli import print_doc
+        print_doc()
+        print_doc('address')
+        print_doc('faker.providers.it_IT.person')
         self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
 
     def test_command(self):
-        from faker.__main__ import command
-        command('address')
+        from faker.cli import execute_from_command_line
+        execute_from_command_line(['faker', 'address'])
 
 
 if __name__ == '__main__':
