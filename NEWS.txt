@@ -6,6 +6,7 @@ News
 
 * Modified en_US person.py to ouput female and male names. Thanks Adrian Klaver.
 * Added SSN provider for en_US and en_CA. Thanks Scott (@milliquet).
+* Added hi_IN localized provider. Thanks Pratik Kabra.
 
 0.3.2
 ---
