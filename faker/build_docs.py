@@ -11,7 +11,7 @@ else:
     binary_type = bytes
 
 
-DOCS_ROOT = os.path.abspath(os.path.join('docs'))
+DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
 
 def write(fh, s):
     return fh.write(s.encode('utf-8'))

@@ -10,6 +10,9 @@ NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 version = '0.3.2'
 
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+zip_safe = not on_rtd
+
 setup(name='fake-factory',
       version=version,
       description="Faker is a Python package that generates fake data for you.",
@@ -36,4 +39,5 @@ setup(name='fake-factory',
       packages=find_packages(exclude=['*.tests']),
       platforms=["any"],
       test_suite='faker.tests',
-      )
+      zip_safe=zip_safe,
+)
