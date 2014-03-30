@@ -9,7 +9,7 @@ from faker import providers as providers_mod
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=None, providers=None):
+    def create(cls, locale=None, providers=None, generator=None, **config):
 
         # fix locale to package name
         locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
@@ -20,17 +20,17 @@ class Factory(object):
 
         providers = providers or DEFAULT_PROVIDERS
 
-        generator = Generator()
-        generator.add_provider(providers_mod.BaseProvider)
+        faker = generator or Generator(**config)
+        faker.add_provider(providers_mod.BaseProvider)
         for provider_name in providers:
 
             provider_class, lang_found = cls._get_provider_class(provider_name, locale)
-            provider = provider_class(generator)
+            provider = provider_class(faker)
             provider.__provider__ = provider_name
             provider.__lang__ = lang_found
-            generator.add_provider(provider)
+            faker.add_provider(provider)
 
-        return generator
+        return faker
 
     @classmethod
     def _get_provider_class(cls, provider, locale=''):

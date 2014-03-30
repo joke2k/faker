@@ -5,8 +5,11 @@ import random
 
 class Generator(object):
 
-    def __init__(self):
+    __config = {}
+
+    def __init__(self, **config):
         self.providers = []
+        self.__config = dict(list(self.__config.items()) + list(config.items()))
 
     def add_provider(self, provider):
 
@@ -24,7 +27,7 @@ class Generator(object):
 
             if hasattr(faker_function, '__call__') or isinstance(faker_function, (classmethod, staticmethod)):
                 # add all faker method to generator
-                setattr(self, method_name, faker_function)
+                self.set_formatter(method_name, faker_function)
 
     def provider(self, name):
         try:
@@ -57,6 +60,13 @@ class Generator(object):
             return getattr(self, formatter)
         except AttributeError:
             raise AttributeError('Unknown formatter "{0}"'.format(formatter))
+
+    def set_formatter(self, name, method):
+        """
+        This method adds a provider method to generator.
+        Override this method to add some decoration or logging stuff.
+        """
+        setattr(self, name, method)
 
     def parse(self, text):
         """
