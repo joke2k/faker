@@ -110,7 +110,7 @@ class Command(object):
             default_locale = DEFAULT_LOCALE
 
         formatter_class = argparse.RawDescriptionHelpFormatter
-        parser = argparse.ArgumentParser(description='Faker version {} (default lang: {})'.format(VERSION, default_locale),
+        parser = argparse.ArgumentParser(description='Faker version %s (default lang: %s)' % (VERSION, default_locale),
                                          formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
