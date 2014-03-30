@@ -10,7 +10,7 @@ class BaseProvider(object):
 
     def __init__(self, generator):
 
-        self.generator = generator
+        self._generator = generator
 
     @classmethod
     def random_int(cls, min=0, max=9999):
