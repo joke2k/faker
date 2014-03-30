@@ -11,7 +11,7 @@ else:
     binary_type = bytes
 
 
-DOCS_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'docs')
+DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
 
 def write(fh, s):
     return fh.write(s.encode('utf-8'))
@@ -74,6 +74,7 @@ def write_docs(*args, **kwargs):
         write(fh, '   :maxdepth: 2\n\n')
         [write(fh, '   providers/%s\n' % doc.get_provider_name(provider)) for provider, fakers in formatters]
 
+    AVAILABLE_LOCALES.sort()
     for lang in AVAILABLE_LOCALES:
         with open(os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang), 'wb') as fh:
             write(fh, '\n')

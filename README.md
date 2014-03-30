@@ -18,7 +18,7 @@ Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl
 [![PyPI version](https://badge.fury.io/py/fake-factory.png)](http://badge.fury.io/py/fake-factory)
 [![Downloads](https://pypip.in/d/fake-factory/badge.png)](https://crate.io/packages/fake-factory)
 
-For more details, see the [extended docs][http://fake-factory.readthedocs.org/en/latest/]
+For more details, see the [extended docs](http://fake-factory.readthedocs.org/en/latest/).
 
 ## Basic Usage
 
@@ -108,24 +108,25 @@ Don't hesitate to create localized providers to your own locale and submit a PR!
 
 Included localized providers:
 
-* cs_CZ
-* de_DE
-* dk_DK
-* el_GR
-* en_CA
-* en_GB
-* en_US
-* es_ES
-* es_MX
-* fa_IR
-* fi_FI
-* fr_FR
-* it_IT
-* ko_KR
-* pl_PL
-* pt_BR
-* ru_RU
-* zh_CN
+* [cs_CZ](http://fake-factory.readthedocs.org/en/latest/locales/cs_CZ.html)
+* [de_DE](http://fake-factory.readthedocs.org/en/latest/locales/de_DE.html)
+* [dk_DK](http://fake-factory.readthedocs.org/en/latest/locales/dk_DK.html)
+* [el_GR](http://fake-factory.readthedocs.org/en/latest/locales/el_GR.html)
+* [en_CA](http://fake-factory.readthedocs.org/en/latest/locales/en_CA.html)
+* [en_GB](http://fake-factory.readthedocs.org/en/latest/locales/en_GB.html)
+* [en_US](http://fake-factory.readthedocs.org/en/latest/locales/en_US.html)
+* [es_ES](http://fake-factory.readthedocs.org/en/latest/locales/es_ES.html)
+* [es_MX](http://fake-factory.readthedocs.org/en/latest/locales/es_MX.html)
+* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
+* [fi_FI](http://fake-factory.readthedocs.org/en/latest/locales/fi_FI.html)
+* [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
+* [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
+* [it_IT](http://fake-factory.readthedocs.org/en/latest/locales/it_IT.html)
+* [ko_KR](http://fake-factory.readthedocs.org/en/latest/locales/ko_KR.html)
+* [pl_PL](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
+* [pt_BR](http://fake-factory.readthedocs.org/en/latest/locales/pt_BR.html)
+* [ru_RU](http://fake-factory.readthedocs.org/en/latest/locales/ru_RU.html)
+* [zh_CN](http://fake-factory.readthedocs.org/en/latest/locales/zh_CN.html)
 
 # Using from shell
 
