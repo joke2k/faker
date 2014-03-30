@@ -120,7 +120,7 @@ Included localized providers:
 * [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
 * [fi_FI](http://fake-factory.readthedocs.org/en/latest/locales/fi_FI.html)
 * [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
-* hi_IN
+* [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
 * [it_IT](http://fake-factory.readthedocs.org/en/latest/locales/it_IT.html)
 * [ko_KR](http://fake-factory.readthedocs.org/en/latest/locales/ko_KR.html)
 * [pl_PL](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
