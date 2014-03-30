@@ -8,7 +8,7 @@ README = open(os.path.join(here, 'README.md')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.3.2'
+version = '0.4.0'
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 zip_safe = not on_rtd
