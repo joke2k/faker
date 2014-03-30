@@ -14,7 +14,7 @@ setup(name='fake-factory',
       version=version,
       description="Faker is a Python package that generates fake data for you.",
       long_description=README + '\n\n' + NEWS,
-      scripts=['bin/faker'],
+      scripts=['faker/bin/faker'],
       classifiers=[
           # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
           'Development Status :: 3 - Alpha',
