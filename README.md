@@ -120,6 +120,7 @@ Included localized providers:
 * fa_IR
 * fi_FI
 * fr_FR
+* hi_IN
 * it_IT
 * ko_KR
 * pl_PL
