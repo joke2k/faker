@@ -110,11 +110,13 @@ class Command(object):
             default_locale = DEFAULT_LOCALE
 
         formatter_class = argparse.RawDescriptionHelpFormatter
-        parser = argparse.ArgumentParser(description='Faker version %s (default lang: %s)' % (VERSION, default_locale),
-                                         formatter_class=formatter_class)
+        parser = argparse.ArgumentParser(
+            prog=self.prog_name,
+            description='{0} version {1}'.format(self.prog_name, VERSION),
+            formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
-                            version="%(prog)s {}".format(VERSION))
+                            version="%(prog)s {0}".format(VERSION))
 
         parser.add_argument('-o', metavar="output",
                             type=argparse.FileType('w'), default=sys.stdout,
