@@ -83,9 +83,7 @@ class Provider(BaseProvider):
         return ".".join(map(lambda n: str(random.randint(-2147483648, 2147483647) >> n & 0xFF), [24, 16, 8, 0]))
 
     def ipv6(self):
-        res = []
-        for i in range(0, 8):
-            res.append(hex(random.randint(0, 65535))[2:].zfill(4))
+        res = [hex(random.randint(0, 65535))[2:].zfill(4) for i in range(0, 8)]
         return ":".join(res)
 
     @classmethod
