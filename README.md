@@ -166,7 +166,7 @@ In a python environment with faker installed you can use it with:
     > 'bar'
 
 
-# Use with factory-boy
+# How to use with factory-boy
 
     import factory
     from faker import Factory as FakerFactory

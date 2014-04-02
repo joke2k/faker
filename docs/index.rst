@@ -145,8 +145,8 @@ How to create a Provider
     > 'bar'
 
 
-Use with factory-boy
---------------------
+How to use with factory-boy
+---------------------------
 
 ::
 
