@@ -166,6 +166,22 @@ In a python environment with faker installed you can use it with:
     > 'bar'
 
 
+# Use with factory-boy
+
+    import factory
+    from faker import Factory as FakerFactory
+    from myapp.models import Book
+
+    faker = FakerFactory.create()
+
+
+    class Book(factory.Factory):
+        FACTORY_FOR = Book
+
+        title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
+        author_name = factory.LazyAttribute(lambda x: faker.name())
+
+
 # Seeding the Generator
 
 You may want to get always the same generated data - for instance when using Faker for unit testing purposes.
@@ -177,7 +193,6 @@ Calling the same script twice with the same seed produces the same results.
     fake.seed(4321)
 
     print fake.name()   # Margaret Boehm
-
 
 
 # Tests
@@ -193,7 +208,6 @@ or
 Write documentation for providers:
 
     $ python -m faker > docs.txt
-
 
 
 ## License

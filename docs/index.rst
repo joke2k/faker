@@ -145,6 +145,25 @@ How to create a Provider
     > 'bar'
 
 
+Use with factory-boy
+--------------------
+
+::
+
+    import factory
+    from faker import Factory as FakerFactory
+    from myapp.models import Book
+
+    faker = FakerFactory.create()
+
+
+    class Book(factory.Factory):
+        FACTORY_FOR = Book
+
+        title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
+        author_name = factory.LazyAttribute(lambda x: faker.name())
+
+
 Seeding the Generator
 ---------------------
 
