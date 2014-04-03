@@ -1,6 +1,11 @@
 News
 ====
 
+0.4dev
+------
+
+* Added MAC address provider. Thanks Sébastien Béal.
+
 0.4
 ---
 
