@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.md')).read()
-NEWS = open(os.path.join(here, 'NEWS.txt')).read()
+NEWS = open(os.path.join(here, 'CHANGELOG.rst')).read()
 
 
 version = '0.4.0'
