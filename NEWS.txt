@@ -43,7 +43,7 @@ News
 * Providers imported with __import__
 * Module is runnable with python -m faker [name] [*args]
 * Rewrite fake generator system (allow autocompletation)
-* New language: Franch
+* New language: French
 * Rewrite module __main__ and new Documentor class
 
 0.1
