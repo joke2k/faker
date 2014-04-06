@@ -5,6 +5,7 @@ Changelog
 ------
 
 * Added MAC address provider. Thanks Sébastien Béal.
+* Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
 
 0.4
 ---

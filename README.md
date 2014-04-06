@@ -122,6 +122,8 @@ Included localized providers:
 * [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
 * [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
 * [it_IT](http://fake-factory.readthedocs.org/en/latest/locales/it_IT.html)
+* [lt_LT](http://fake-factory.readthedocs.org/en/latest/locales/lt_LT.html)
+* [lv_LV](http://fake-factory.readthedocs.org/en/latest/locales/lv_LV.html)
 * [ko_KR](http://fake-factory.readthedocs.org/en/latest/locales/ko_KR.html)
 * [pl_PL](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
 * [pt_BR](http://fake-factory.readthedocs.org/en/latest/locales/pt_BR.html)
