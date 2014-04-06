@@ -55,11 +55,3 @@ class Provider(PersonProvider):
         'Vilciņš', 'Vilks', 'Vītoliņš', 'Vītols', 'Zaķis', 'Zālītis', 'Zariņš', 'Zeltiņš', 'Ziemelis', 'Zirnis', 
         'Zvaigzne', 'Zvirbulis'
     )
-
-    @classmethod
-    def prefix(cls):
-        return cls.random_element(cls.prefixes)
-
-    @classmethod
-    def suffix(cls):
-        return cls.random_element(cls.suffixes)

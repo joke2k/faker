@@ -52,11 +52,3 @@ class Provider(PersonProvider):
             'Gintalas', 'Ginzburgas', 'Grinius', 'Gronskis', 'Nagys', 'Naujokas',
             'Narušis', 'Nausėda', 'Poška', 'Povilonis'
     )
-
-    @classmethod
-    def prefix(cls):
-        return cls.random_element(cls.prefixes)
-
-    @classmethod
-    def suffix(cls):
-        return cls.random_element(cls.suffixes)
