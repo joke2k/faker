@@ -117,7 +117,7 @@ Included localized providers:
 * [en_US](http://fake-factory.readthedocs.org/en/latest/locales/en_US.html)
 * [es_ES](http://fake-factory.readthedocs.org/en/latest/locales/es_ES.html)
 * [es_MX](http://fake-factory.readthedocs.org/en/latest/locales/es_MX.html)
-* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
+* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/fa_IR.html)
 * [fi_FI](http://fake-factory.readthedocs.org/en/latest/locales/fi_FI.html)
 * [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
 * [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
