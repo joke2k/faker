@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+import random
+
 from ..address import Provider as AddressProvider
 
 
@@ -142,3 +144,20 @@ class Provider(AddressProvider):
     @classmethod
     def state_abbr(cls):
         return cls.random_element(cls.states_abbr)
+
+    @classmethod
+    def zipcode(cls):
+        return "%05d" % random.randint(501, 99950)
+
+    @classmethod
+    def zipcode_plus4(cls):
+        return "%s-%04d" % (cls.zipcode(), random.randint(1, 9999))
+
+    # Aliases
+    @classmethod
+    def postalcode(cls):
+        return cls.zipcode()
+
+    @classmethod
+    def postalcode_plus4(cls):
+        return cls.zipcode_plus4()
