@@ -33,7 +33,7 @@ class Provider(CompanyProvider):
         "台灣生資堂", "鮮爭", "達台電子", "聯燁鋼鐵", "華聯電子",
         "瑞輝大藥廠", "隆豐大飯店（北台君悅）", "資華粧業（生資堂）")
 
-    company_suffixes = (n + "有限公司" for n in ("", "股份", "資訊"))
+    company_suffixes = ("", "有限公司", "股份有限公司", "資訊有限公司")
 
     @classmethod
     def company_prefix(cls):
