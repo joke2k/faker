@@ -129,6 +129,7 @@ Included localized providers:
 * [pt_BR](http://fake-factory.readthedocs.org/en/latest/locales/pt_BR.html)
 * [ru_RU](http://fake-factory.readthedocs.org/en/latest/locales/ru_RU.html)
 * [zh_CN](http://fake-factory.readthedocs.org/en/latest/locales/zh_CN.html)
+* [zh_TW](http://fake-factory.readthedocs.org/en/latest/locales/zh_TW.html)
 
 # Using from shell
 

@@ -23,6 +23,7 @@ AVAILABLE_LOCALES = [
     'pt_BR',
     'ru_RU',
     'zh_CN',
+    'zh_TW',
 ]
 
 DEFAULT_LOCALE = 'en_US'
