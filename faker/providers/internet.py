@@ -3,7 +3,7 @@ from . import BaseProvider
 import random
 
 from faker.providers.lorem import Provider as Lorem
-from faker.utils.decorators import slugify
+from faker.utils.decorators import slugify, slugify_domain
 
 
 class Provider(BaseProvider):
@@ -57,7 +57,7 @@ class Provider(BaseProvider):
     def free_email_domain(cls):
         return cls.random_element(cls.free_email_domains)
 
-    @slugify
+    @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         return self.bothify(self.generator.parse(pattern))

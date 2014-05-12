@@ -81,12 +81,25 @@ class FactoryTestCase(unittest.TestCase):
         slug = text.slugify("àeìöú")
         self.assertEqual(slug, 'aeiou')
 
+        slug = text.slugify("àeì.öú")
+        self.assertEqual(slug, 'aeiou')
+
+        slug = text.slugify("àeì.öú", allow_dots=True)
+        self.assertEqual(slug, 'aei.ou')
+
         @decorators.slugify
         def fn(s):
             return s
 
         slug = fn("a'b/c")
         self.assertEqual(slug, 'abc')
+
+        @decorators.slugify_domain
+        def fn(s):
+            return s
+
+        slug = fn("a'b/.c")
+        self.assertEqual(slug, 'ab.c')
 
 if __name__ == '__main__':
     unittest.main()

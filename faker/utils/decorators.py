@@ -8,3 +8,10 @@ def slugify(fn):
     def wrapper(*args, **kwargs):
         return text.slugify(fn(*args, **kwargs))
     return wrapper
+
+
+def slugify_domain(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        return text.slugify(fn(*args, **kwargs), allow_dots=True)
+    return wrapper
