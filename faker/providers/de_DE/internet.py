@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 from ..internet import Provider as InternetProvider
 
-import re
-from faker.utils.decorators import slugify
+from faker.utils.decorators import slugify_domain
 
 
 class Provider(InternetProvider):
@@ -28,16 +27,16 @@ class Provider(InternetProvider):
 
         return string
 
-    @slugify
+    @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         return self._to_ascii(
             self.bothify(self.generator.parse(pattern)
         ))
 
-    @slugify
+    @slugify_domain
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = self._to_ascii(company_elements.pop(0))
-        return re.sub(r'\W', '', company)
+        return company

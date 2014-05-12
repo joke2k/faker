@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from ..internet import Provider as InternetProvider
 
 import re
-from faker.utils.decorators import slugify
+from faker.utils.decorators import slugify_domain
 
 
 class Provider(InternetProvider):
@@ -14,17 +14,17 @@ class Provider(InternetProvider):
     )
     tlds = ('com', 'com', 'com', 'net', 'org', 'gr', 'gr', 'gr')
 
-    @slugify
+    @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         return latinize(self.bothify(self.generator.parse(pattern)))
 
-    @slugify
+    @slugify_domain
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = latinize(company_elements.pop(0))
-        return re.sub(r'\W', '', company)
+        return company
 
 
 # ``slugify`` doesn't replace greek glyphs.
