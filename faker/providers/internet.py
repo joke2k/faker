@@ -65,6 +65,7 @@ class Provider(BaseProvider):
     def domain_name(self):
         return self.domain_word() + '.' + self.tld()
 
+    @slugify
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
