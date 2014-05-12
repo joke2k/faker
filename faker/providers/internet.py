@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from . import BaseProvider
 import random
-import re
 
 from faker.providers.lorem import Provider as Lorem
 from faker.utils.decorators import slugify
@@ -61,7 +60,7 @@ class Provider(BaseProvider):
     @slugify
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
-        return self.bothify(self.generator.parse(pattern)).lower()
+        return self.bothify(self.generator.parse(pattern))
 
     def domain_name(self):
         return self.domain_word() + '.' + self.tld()
@@ -70,7 +69,7 @@ class Provider(BaseProvider):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = company_elements.pop(0)
-        return re.sub(r'\W', '', company).lower()
+        return company
 
     def tld(self):
         return self.random_element(self.tlds)
