@@ -4,7 +4,7 @@ import random
 import re
 
 from faker.providers.lorem import Provider as Lorem
-from faker.utils import text
+from faker.utils.decorators import slugify
 
 
 class Provider(BaseProvider):
@@ -58,6 +58,7 @@ class Provider(BaseProvider):
     def free_email_domain(cls):
         return cls.random_element(cls.free_email_domains)
 
+    @slugify
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         return self.bothify(self.generator.parse(pattern)).lower()
@@ -110,10 +111,11 @@ class Provider(BaseProvider):
         return self.generator.parse(pattern)
 
     @classmethod
+    @slugify
     def slug(cls, value=None):
         """
         Django algorithm
         """
         if value is None:
             value = Lorem.text(20)
-        return text.slugify(value)
+        return value
