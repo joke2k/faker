@@ -117,16 +117,19 @@ Included localized providers:
 * [en_US](http://fake-factory.readthedocs.org/en/latest/locales/en_US.html)
 * [es_ES](http://fake-factory.readthedocs.org/en/latest/locales/es_ES.html)
 * [es_MX](http://fake-factory.readthedocs.org/en/latest/locales/es_MX.html)
-* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
+* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/fa_IR.html)
 * [fi_FI](http://fake-factory.readthedocs.org/en/latest/locales/fi_FI.html)
 * [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
 * [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
 * [it_IT](http://fake-factory.readthedocs.org/en/latest/locales/it_IT.html)
+* [lt_LT](http://fake-factory.readthedocs.org/en/latest/locales/lt_LT.html)
+* [lv_LV](http://fake-factory.readthedocs.org/en/latest/locales/lv_LV.html)
 * [ko_KR](http://fake-factory.readthedocs.org/en/latest/locales/ko_KR.html)
 * [pl_PL](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
 * [pt_BR](http://fake-factory.readthedocs.org/en/latest/locales/pt_BR.html)
 * [ru_RU](http://fake-factory.readthedocs.org/en/latest/locales/ru_RU.html)
 * [zh_CN](http://fake-factory.readthedocs.org/en/latest/locales/zh_CN.html)
+* [zh_TW](http://fake-factory.readthedocs.org/en/latest/locales/zh_TW.html)
 
 # Using from shell
 
@@ -166,6 +169,22 @@ In a python environment with faker installed you can use it with:
     > 'bar'
 
 
+# How to use with factory-boy
+
+    import factory
+    from faker import Factory as FakerFactory
+    from myapp.models import Book
+
+    faker = FakerFactory.create()
+
+
+    class Book(factory.Factory):
+        FACTORY_FOR = Book
+
+        title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
+        author_name = factory.LazyAttribute(lambda x: faker.name())
+
+
 # Seeding the Generator
 
 You may want to get always the same generated data - for instance when using Faker for unit testing purposes.
@@ -177,7 +196,6 @@ Calling the same script twice with the same seed produces the same results.
     fake.seed(4321)
 
     print fake.name()   # Margaret Boehm
-
 
 
 # Tests
@@ -193,7 +211,6 @@ or
 Write documentation for providers:
 
     $ python -m faker > docs.txt
-
 
 
 ## License

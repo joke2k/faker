@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.md')).read()
-NEWS = open(os.path.join(here, 'NEWS.txt')).read()
+NEWS = open(os.path.join(here, 'CHANGELOG.rst')).read()
 
 
 version = '0.4.0'
@@ -26,6 +26,7 @@ setup(name='fake-factory',
           'Programming Language :: Python',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.4',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Software Development :: Testing',
           'Topic :: Utilities',

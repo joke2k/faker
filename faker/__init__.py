@@ -16,11 +16,14 @@ AVAILABLE_LOCALES = [
     'fr_FR',
     'hi_IN',
     'it_IT',
+    'lt_LT',
+    'lv_LV',
     'ko_KR',
     'pl_PL',
     'pt_BR',
     'ru_RU',
     'zh_CN',
+    'zh_TW',
 ]
 
 DEFAULT_LOCALE = 'en_US'
