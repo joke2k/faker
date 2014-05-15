@@ -67,7 +67,7 @@ def print_doc(provider_or_field=None, args=None, lang=DEFAULT_LOCALE, output=Non
             print_provider(doc, fake.get_providers()[0], doc.get_provider_formatters(fake.get_providers()[0]), output=output)
         else:
             try:
-                print(fake.format(provider_or_field, *args), file=output)
+                print(fake.format(provider_or_field, *args), end='', file=output)
             except AttributeError:
                 print('No faker found for "{0}({1})"'.format(provider_or_field, args), file=output)
 
@@ -136,7 +136,7 @@ class Command(object):
 
             print_doc(fake, arguments.fake[1:], lang=arguments.lang, output=arguments.o)
 
-            print(arguments.sep, file=arguments.o)
+            print(arguments.sep, end='', file=arguments.o)
 
             if not fake:
                 # repeat not supported for all docs
