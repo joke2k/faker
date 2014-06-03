@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
+import locale as pylocale
 import sys
 from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
@@ -13,8 +14,7 @@ class Factory(object):
 
         # fix locale to package name
         locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
-        if '_' in locale:
-            locale = locale[:2] + locale[2:].upper()
+        locale = pylocale.normalize(locale).split('.')[0]
         if locale not in AVAILABLE_LOCALES:
             raise AttributeError('Invalid configuration for faker locale "{0}"'.format(locale))
 
