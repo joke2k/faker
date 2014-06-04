@@ -38,6 +38,12 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}/',
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
+    image_placeholder_services = (
+        'http://placekitten.com/{width}/{height}',
+        'http://placehold.it/{width}x{height}',
+        'http://www.lorempixum.com/{width}/{height}',
+        'http://dummyimage.com/{width}x{height}',
+     )
 
     def email(self):
         pattern = self.random_element(self.email_formats)
@@ -121,3 +127,15 @@ class Provider(BaseProvider):
         value = unicodedata.normalize('NFKD', value or Lorem.text(20)).encode('ascii', 'ignore').decode('ascii')
         value = re.sub('[^\w\s-]', '', value).strip().lower()
         return re.sub('[-\s]+', '-', value)
+
+    @classmethod
+    def image_url(cls, width=None, height=None):
+        """
+        Returns URL to placeholder image
+        Example: http://placehold.it/640x480
+        """
+        width_ = width or cls.random_int(max=1024)
+        height_ = height or cls.random_int(max=1024)
+        placeholder_url = cls.random_element(cls.image_placeholder_services)
+        return placeholder_url.format(width=width_, height=height_)
+
