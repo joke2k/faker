@@ -69,8 +69,14 @@ class Provider(BaseProvider):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        pattern = self.random_element(self.address_formats)
-        return self.generator.parse(pattern)
+        #if the format is not in the weighted format:
+        if isinstance(self.address_formats, tuple):
+            pattern = self.random_element(self.address_formats)
+            return self.generator.parse(pattern)
+        #if it is weighted:
+        elif isinstance(self.address_formats, list):
+            pattern = self.random_weighted_element(self.address_formats)
+            return self.generator.parse(pattern)
 
     @classmethod
     def country(cls):
