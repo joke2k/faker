@@ -38,6 +38,27 @@ class Generator(object):
         """
         return self.providers
 
+    def get_list_of(self, provider, amount, function=None):
+        elems = []
+        providers = self.get_providers()
+        data_provider = None
+        for p in providers:
+            if provider == p.__provider__:
+                data_provider = self.provider(p.__provider__)
+        if data_provider:
+            try:
+                if function:
+                    data_provider = getattr(data_provider, function)
+                else:
+                    data_provider = getattr(data_provider, provider)
+                for i in range(0,amount):
+                    elems.append(data_provider())
+                return elems
+            except Exception, e:
+                raise AttributeError('Uknown function "{0}"'.format(function))
+        else:
+            raise AttributeError('Uknown provider "{0}"'.format(provider))
+
     def seed(self, seed=None):
         """
         calls random.seed
