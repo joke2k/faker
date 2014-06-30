@@ -45,6 +45,7 @@ class Generator(object):
         for p in providers:
             if provider == p.__provider__:
                 data_provider = self.provider(p.__provider__)
+                break
         if data_provider:
             try:
                 if function:
@@ -54,7 +55,7 @@ class Generator(object):
                 for i in range(0,amount):
                     elems.append(data_provider())
                 return elems
-            except Exception, e:
+            except Exception as excpt:
                 raise AttributeError('Uknown function "{0}"'.format(function))
         else:
             raise AttributeError('Uknown provider "{0}"'.format(provider))
