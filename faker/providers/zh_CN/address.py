@@ -5,16 +5,16 @@ from ..address import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_suffixes = ["市", ]
-    city_formats = ["{{first_name}}{{city_suffix}}", ]
+    city_formats = ("{{first_name}}{{city_suffix}}", )
 
-    building_number_formats = ["?座", ]
+    building_number_formats = ("?座", )
     postcode_formats = ["%#####", ]
 
     street_suffixes = ["街", "路"]
-    street_name_formats = ["{{last_name}}{{street_suffix}}", ]
-    street_address_formats = ["{{street_name}}{{building_number}}", ]
+    street_name_formats = ("{{last_name}}{{street_suffix}}", )
+    street_address_formats = ("{{street_name}}{{building_number}}", )
 
-    address_formats = ["{{city}}{{street_address}} {{postcode}}", ]
+    address_formats = ("{{city}}{{street_address}} {{postcode}}", )
 
     states = ["西夏区", "永川区", "秀英区", "高港区", "清城区", "兴山区",
               "锡山区", "清河区", "龙潭区", "华龙区", "海陵区", "滨城区",
