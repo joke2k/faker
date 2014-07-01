@@ -8,12 +8,12 @@ from . import date_time
 class Provider(BaseProvider):
     city_suffixes = ['Ville', ]
     street_suffixes = ['Street', ]
-    city_formats = ['{{first_name}} {{city_suffix}}', ]
-    street_name_formats = ['{{last_name}} {{street_suffix}}', ]
-    street_address_formats = ['{{building_number}} {{street_name}}', ]
-    address_formats = ['{{street_address}} {{postcode}} {{city}}', ]
-    building_number_formats = ['##', ]
-    postcode_formats = ['#####', ]
+    city_formats = ('{{first_name}} {{city_suffix}}', )
+    street_name_formats = ('{{last_name}} {{street_suffix}}', )
+    street_address_formats = ('{{building_number}} {{street_name}}', )
+    address_formats = ('{{street_address}} {{postcode}} {{city}}',)
+    building_number_formats = ('##', )
+    postcode_formats = ('#####', )
     countries = [tz['name'] for tz in date_time.Provider.countries]
 
     @classmethod
@@ -69,8 +69,14 @@ class Provider(BaseProvider):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        pattern = self.random_element(self.address_formats)
-        return self.generator.parse(pattern)
+        #if the format is not in the weighted format:
+        if isinstance(self.address_formats, tuple):
+            pattern = self.random_element(self.address_formats)
+            return self.generator.parse(pattern)
+        #if it is weighted:
+        elif isinstance(self.address_formats, list):
+            pattern = self.random_weighted_element(self.address_formats)
+            return self.generator.parse(pattern)
 
     @classmethod
     def country(cls):
