@@ -8,12 +8,10 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
-        '{{first_name_male}} {{last_name}} {{last_name}}',
         '{{first_name_male}} {{last_name}}-{{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
-        '{{first_name_female}} {{last_name}} {{last_name}}',
         '{{first_name_female}} {{last_name}}-{{last_name}}',
     )
 
