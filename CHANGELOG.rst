@@ -43,7 +43,7 @@ Changelog
 0.2
 ---
 
-*Release date: 01-Dic-2012*
+*Release date: 01-Dec-2012*
 
 * New providers: ``Python``, ``File``
 * Providers imported with ``__import__``
