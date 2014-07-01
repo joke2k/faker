@@ -61,7 +61,6 @@ class BaseProvider(object):
     @classmethod
     def random_weighted_element(cls, array=[('a', 2), ('b', 2)]):
         """ Returns a random element from a passed weighted list in the format [('obj', num)] """
-        #array = list(array)
         population = [val for val, cnt in array for i in range(cnt)]
         return random.choice(population)
 

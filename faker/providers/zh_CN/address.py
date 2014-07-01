@@ -14,7 +14,7 @@ class Provider(AddressProvider):
     street_name_formats = ["{{last_name}}{{street_suffix}}", ]
     street_address_formats = ["{{street_name}}{{building_number}}", ]
 
-    address_formats = ["{{city}}{{street_address}} {{postcode}}", ]
+    address_formats = ("{{city}}{{street_address}} {{postcode}}", )
 
     states = ["西夏区", "永川区", "秀英区", "高港区", "清城区", "兴山区",
               "锡山区", "清河区", "龙潭区", "华龙区", "海陵区", "滨城区",
