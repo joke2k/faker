@@ -5,15 +5,17 @@ from ..person import Provider as PersonProvider
 
 class Provider(PersonProvider):
     formats = (
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}-{{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}-{{last_name}}',
     )
 
-    # males
-    first_names = (
+    first_names_male = (
         'Daan', 'Bram', 'Sem', 'Lucas', 'Milan', 'Levi', 'Luuk', 'Thijs', 'Jayden', 'Tim', 'Finn', 'Stijn', 'Thomas',
         'Lars', 'Ruben', 'Jesse', 'Noah', 'Julian', 'Max', 'Liam', 'Mees', 'Sam', 'Sven', 'Gijs', 'Luca', 'Teun',
         'Tijn', 'Siem', 'Mats', 'Jens', 'Benjamin', 'Adam', 'Ryan', 'Jan', 'Floris', 'David', 'Olivier', 'Cas', 'Tygo',
@@ -37,9 +39,8 @@ class Provider(PersonProvider):
         'Mart', 'Sten', 'Ivan', 'Philip', 'Giel', 'Lex', 'Rik', 'Tyler'
     )
 
-    # females
-    first_names += (
-         'Emma', 'Sophie', 'Julia', 'Anna', 'Lisa', 'Isa', 'Eva', 'Saar', 'Lotte', 'Tess', 'Lynn', 'Fleur', 'Sara',
+    first_names_female = (
+        'Emma', 'Sophie', 'Julia', 'Anna', 'Lisa', 'Isa', 'Eva', 'Saar', 'Lotte', 'Tess', 'Lynn', 'Fleur', 'Sara',
         'Lieke', 'Noa', 'Fenna', 'Sarah', 'Mila', 'Sanne', 'Roos', 'Elin', 'Zoë', 'Evi', 'Maud', 'Jasmijn', 'Femke',
         'Nina', 'Anne', 'Noor', 'Amy', 'Sofie', 'Olivia', 'Feline', 'Liv', 'Esmee', 'Nora', 'Iris', 'Lina', 'Luna',
         'Naomi', 'Elise', 'Amber', 'Yara', 'Charlotte', 'Lana', 'Milou', 'Isabel', 'Isabella', 'Eline', 'Floor', 'Lara',
@@ -199,3 +200,15 @@ class Provider(PersonProvider):
         'Wright', 'Wunderink', 'Wutke', 'Zaal', 'Zeemans', 'Zeldenrust', 'Zevenboom', 'van der Zijl', 'Zijlemans',
         'Zijlmans', 'Zuidweg', 'Zuijdveld', 'van Zwaben', 'Zwart', 'Zwijsen'
     )
+
+    @classmethod
+    def first_name(cls):
+        return cls.random_element((cls.first_name_male(), cls.first_name_female()))
+
+    @classmethod
+    def first_name_male(cls):
+        return cls.random_element(cls.first_names_male)
+
+    @classmethod
+    def first_name_female(cls):
+        return cls.random_element(cls.first_names_female)
