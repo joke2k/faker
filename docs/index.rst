@@ -220,6 +220,7 @@ Contents
 
    providers
    locales
+   coding_style
 
 
 
