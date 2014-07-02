@@ -33,5 +33,5 @@ class Provider(SsnProvider):
 
     @classmethod
     def ssn(cls):
-        code = cls.bothify(cls.fiscal_code_format).encode('ascii').upper()
+        code = cls.bothify(cls.fiscal_code_format).upper()
         return code + checksum(code)
