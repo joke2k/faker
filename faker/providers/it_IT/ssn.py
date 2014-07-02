@@ -19,7 +19,7 @@ CHECKSUM_TABLE = (
 def checksum(value):
     '''
     Calculates the checksum char used for the 16th char.
-    Autor: Vincenzo Palazzo
+    Author: Vincenzo Palazzo
     '''
     return chr(65 + sum(CHECKSUM_TABLE[index % 2][ALPHANUMERICS_DICT[char]]
                         for index, char in enumerate(value)) % 26)
