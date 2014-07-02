@@ -6,6 +6,10 @@ Changelog
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
+* Added nl_NL localized provider. Thanks @LolkeAB, @mdxs.
+* Added bg_BG loclaized provider. Thanks Bret B.
+* Fixed `date_time_ad` on 32bit Linux. Thanks @mdxs.
+* Fixed `domain_word` to output slugified strings.
 
 0.4
 ---
