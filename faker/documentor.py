@@ -86,8 +86,4 @@ class Documentor(object):
 
     @staticmethod
     def get_provider_name(provider_class):
-        name = provider_class.__module__.split('.')[-1]
-        if name == 'providers':
-            name = 'base'
-        return name
-
+        return provider_class.__provider__
