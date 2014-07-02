@@ -22,7 +22,7 @@ class Documentor(object):
         formatters = []
         providers = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
-            if locale and self.generator.provider(self.get_provider_name(provider)).__lang__ != locale:
+            if locale and provider.__lang__ != locale:
                 continue
             formatters.append(
                 (provider, self.get_provider_formatters(provider, **kwargs))
