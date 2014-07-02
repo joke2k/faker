@@ -84,7 +84,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 ## Localization
 
 `faker.Factory` can take a locale as an argument, to return localized data.
-If no localized provider is found, the factory falls back to the default en_EN locale.
+If no localized provider is found, the factory falls back to the default en_US locale.
 
     from faker import Factory
     fake = Factory.create('it_IT')
