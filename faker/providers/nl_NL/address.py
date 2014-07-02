@@ -9,7 +9,7 @@ class Provider(AddressProvider):
 
     street_suffixes = ('baan', 'boulevard', 'dreef', 'hof', 'laan', 'pad', 'ring', 'singel', 'steeg', 'straat', 'weg',)
 
-    postcode_formats = ('####??', '#### ??')
+    postcode_formats = ('%###??', '%### ??')
 
 
     city_formats = ('{{city}}')
