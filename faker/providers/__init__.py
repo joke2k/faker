@@ -116,8 +116,8 @@ class BaseProvider(object):
         """
         Replaces all placeholders in given text with randomized values,
         replacing: all hash sign ('#') occurrences with a random digit
-        between 0 and 9 inclusive; all percentage sign ('%') occurrences
-        with a random non-zero digit (from 1 to 9); all exclamation mark ('!')
+        (from 0 to 9); all percentage sign ('%') occurrences with a
+        random non-zero digit (from 1 to 9); all exclamation mark ('!')
         occurrences with a random digit (from 0 to 9) or an empty string;
         and all at symbol ('@') occurrences with a random non-zero digit
         (from 1 to 9) or an empty string.
