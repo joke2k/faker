@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from ..internet import Provider as InternetProvider
 
-import re
+from faker.utils.decorators import slugify_domain
 
 
 class Provider(InternetProvider):
@@ -15,6 +15,7 @@ class Provider(InternetProvider):
 
     @staticmethod
     def _to_ascii(string):
+        # ``slugify`` doesn't replace `ß` and normalize other glyphs as single letters.
         replacements = (
             ('ä', 'ae'), ('Ä', 'Ae'),
             ('ö', 'oe'), ('Ö', 'Oe'),
@@ -26,14 +27,16 @@ class Provider(InternetProvider):
 
         return string
 
+    @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         return self._to_ascii(
             self.bothify(self.generator.parse(pattern)
-        ).lower())
+        ))
 
+    @slugify_domain
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = self._to_ascii(company_elements.pop(0))
-        return re.sub(r'\W', '', company).lower()
+        return company
