@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from faker.providers import BaseProvider
 
 __author__ = 'joke2k'
