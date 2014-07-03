@@ -1,16 +1,21 @@
 # coding=utf-8
+
 from __future__ import unicode_literals
 from ..ssn import Provider as SsnProvider
 import random
 
 
 class Provider(SsnProvider):
-    
-    # the Dutch "burgerservicenummer (BSN)" needs to pass the "11-proef",
-    # which is a check digit approach; this function essentially reverses
-    # the checksum steps to create a random valid BSN (which is 9 digits)
+
     @classmethod
     def ssn(cls):
+        """
+        Returns a 9 digits Dutch SSN called "burgerservicenummer (BSN)".
+
+        the Dutch "burgerservicenummer (BSN)" needs to pass the "11-proef",
+        which is a check digit approach; this function essentially reverses
+        the checksum steps to create a random valid BSN (which is 9 digits).
+        """
         def _checksum(digits):
             factors = (9, 8, 7, 6, 5, 4, 3, 2, -1)
             s = 0
@@ -28,9 +33,8 @@ class Provider(SsnProvider):
             # repeat steps until it does qualify the test
             if (0 == (_checksum(digits) % 11)):
                 break
-        
+
         # build the resulting BSN
         bsn = "".join([str(e) for e in digits])
         # finally return our random but valid BSN
         return bsn
-  
