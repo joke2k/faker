@@ -69,13 +69,13 @@ class Provider(BaseProvider):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        #if the format is not in the weighted format:
-        if isinstance(self.address_formats, tuple):
-            pattern = self.random_element(self.address_formats)
-            return self.generator.parse(pattern)
-        #if it is weighted:
-        elif isinstance(self.address_formats, list):
+        #if the address_format is dictionary type, we run it through the weighted random element function.
+        if isinstance(self.address_formats, dict):
             pattern = self.random_weighted_element(self.address_formats)
+            return self.generator.parse(pattern)
+        #if address_format is in other type (list, tuple), assume it shouldn't be weighted.
+        else: 
+            pattern = self.random_element(self.address_formats)
             return self.generator.parse(pattern)
 
     @classmethod

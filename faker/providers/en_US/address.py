@@ -146,12 +146,13 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
     )
 
-    address_formats = [
-    ("{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}", 25),
+    address_formats = {
+    "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}": 25,
     #military address formatting.
-    ("{{military_apo}}\nAPO {{military_state}} {{postcode}}", 1),
-    ("{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}", 1),
-    ("{{military_dpo}}\nDPO {{military_state}} {{postcode}}", 1)]
+    "{{military_apo}}\nAPO {{military_state}} {{postcode}}": 1,
+    "{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}": 1,
+    "{{military_dpo}}\nDPO {{military_state}} {{postcode}}": 1
+    }
 
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
