@@ -53,17 +53,17 @@ class BaseProvider(object):
         return random.choice(string.letters if hasattr(string, 'letters') else string.ascii_lowercase)
 
     @classmethod
-    def random_element(cls, array=('a', 'b', 'b')):
-        """ Returns a random element from a passed array """
-        array = list(array)
-        return array[random.randint(0, len(array) - 1)]
-
-    @classmethod
-    def random_weighted_element(cls, elements = {'a': 1, 'b':2}):
-        """ Returns a random element from a passed weighted list in the format [('obj', num)] """
-        elements = elements.items()
-        population = [val for val, cnt in elements for i in range(cnt)]
-        return random.choice(population)
+    def random_element(cls, elements=('a', 'b', 'b')):
+        """ Returns a random element from a passed object. If object is a dictionary, the value will be used as
+        a weighting element. For example, {"{{variable}}": 2} will ensure that {{variable}} is weighted 
+        as two elements.) """
+        if isinstance(elements, dict):
+            elements = elements.items()
+            population = [val for val, cnt in elements for i in  range(cnt)]
+            return random.choice(population)
+        else:
+            elements = list(elements)
+            return elements[random.randint(0, len(elements) - 1)]
 
     @classmethod
     def randomize_nb_elements(cls, number=10, le=False, ge=False):

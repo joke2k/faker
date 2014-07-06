@@ -4,7 +4,7 @@ from ..address import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_formats = ("{{city_name}}", )
+    city_formats = ["{{city_name}}", ]
 
     building_number_formats = ("%號", "%#號", "%##號", )
     postcode_formats = ("%####", "%##", )
