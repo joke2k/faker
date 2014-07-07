@@ -119,8 +119,8 @@ class Command(object):
 
         # retrieve default language from system environment
         default_locale = os.environ['LANG'].split('.')[0]
-        if default_locale not in faker.AVAILABLE_LOCALES:
-            default_locale = faker.DEFAULT_LOCALE
+        if default_locale not in AVAILABLE_LOCALES:
+            default_locale = DEFAULT_LOCALE
 
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
