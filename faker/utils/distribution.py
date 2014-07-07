@@ -13,10 +13,6 @@ def cumsum(it):
         yield total
 
 
-def searchsorted_right(a, v):
-    return bisect.bisect_right(a, v)
-
-
 def choice_distribution(a, p):
     assert len(a) == len(p)
 
@@ -24,6 +20,6 @@ def choice_distribution(a, p):
     cdf2 = cdf[:]
     cdf = [i / cdf[-1] for i in cdf2]
     uniform_sample = random_sample()
-    idx = searchsorted_right(cdf, uniform_sample)
+    idx = bisect.bisect_right(cdf, uniform_sample)
 
     return a[idx]

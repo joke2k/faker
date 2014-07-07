@@ -27,20 +27,6 @@ class FooProvider(object):
 
 
 class UtilsTestCase(unittest.TestCase):
-    def test_searchsorted(self):
-        from faker.utils.distribution import searchsorted_right
-
-        a = (0, 3, 5, 7, 11)
-
-        idx = searchsorted_right(a, 2)
-        self.assertEqual(idx, 1)
-
-        idx = searchsorted_right(a, 6)
-        self.assertEqual(idx, 3)
-
-        idx = searchsorted_right(a, 9)
-        self.assertEqual(idx, 4)
-
     def test_choice_distribution(self):
         from faker.utils.distribution import choice_distribution
 
