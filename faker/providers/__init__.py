@@ -57,9 +57,17 @@ class BaseProvider(object):
 
     @classmethod
     def random_element(cls, elements=('a', 'b', 'b')):
-        """ Returns a random element from a passed object. If object is a dictionary, the value will be used as
-        a weighting element. For example, {"{{variable}}": 2} will ensure that {{variable}} is weighted 
-        as two elements.) """
+        """
+        Returns a random element from a passed object.
+
+        If `elements` is a dictionary, the value will be used as
+        a weighting element. For example::
+
+             random_element({"{{variable}}": 2})
+
+        will ensure that {{variable}} is weighted as two elements.)
+        """
+
         if isinstance(elements, dict):
             choices = elements.keys()
             probabilities = elements.values()
