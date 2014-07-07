@@ -63,9 +63,14 @@ class BaseProvider(object):
         If `elements` is a dictionary, the value will be used as
         a weighting element. For example::
 
-             random_element({"{{variable}}": 2})
+            random_element({"{{variable_1}}": 0.5, "{{variable_2}}": 0.2, "{{variable_3}}": 0.2, "{{variable_4}}": 0.1})
 
-        will ensure that {{variable}} is weighted as two elements.)
+        will have the following distribution:
+            * `variable_1`: 50% probability
+            * `variable_2`: 20% probability
+            * `variable_3`: 20% probability
+            * `variable_4`: 10% probability
+
         """
 
         if isinstance(elements, dict):
