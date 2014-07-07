@@ -3,6 +3,7 @@
 import re
 import random
 import string
+from faker.utils.distribution import choice_distribution
 
 
 class BaseProvider(object):
@@ -60,9 +61,9 @@ class BaseProvider(object):
         a weighting element. For example, {"{{variable}}": 2} will ensure that {{variable}} is weighted 
         as two elements.) """
         if isinstance(elements, dict):
-            elements = elements.items()
-            population = [val for val, cnt in elements for i in  range(cnt)]
-            return random.choice(population)
+            choices = elements.keys()
+            probabilities = elements.values()
+            return choice_distribution(choices, probabilities)
         else:
             return random.choice(list(elements))
 
