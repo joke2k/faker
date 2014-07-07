@@ -2,8 +2,10 @@
 
 from __future__ import print_function
 from __future__ import unicode_literals
+
 import os
 import sys
+
 
 if sys.version < '3':
     text_type = unicode
@@ -15,14 +17,15 @@ else:
 
 DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
 
+
 def write(fh, s):
     return fh.write(s.encode('utf-8'))
+
 
 def write_provider(fh, doc, provider, formatters, excludes=None):
 
     if excludes is None:
         excludes = []
-
 
     write(fh, '\n')
     title = "``faker.providers.{0}``".format(doc.get_provider_name(provider))
@@ -36,7 +39,8 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
         try:
             lines = text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
-            raise Exception('error on "{0}" with value "{1}"'.format(signature, example))
+            msg = 'error on "{0}" with value "{1}"'.format(signature, example)
+            raise Exception(msg)
         margin = max(30, doc.max_name_len+1)
         remains = 150 - margin
         separator = '#'
@@ -66,7 +70,8 @@ def write_docs(*args, **kwargs):
 
     for provider, fakers in formatters:
         provider_name = doc.get_provider_name(provider)
-        with open(os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name), 'wb') as fh:
+        fname = os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name)
+        with open(fname, 'wb') as fh:
             write_provider(fh, doc, provider, fakers)
 
     with open(os.path.join(DOCS_ROOT, 'providers.rst'), 'wb') as fh:
@@ -74,11 +79,13 @@ def write_docs(*args, **kwargs):
         write(fh, '=========\n')
         write(fh, '.. toctree::\n')
         write(fh, '   :maxdepth: 2\n\n')
-        [write(fh, '   providers/%s\n' % doc.get_provider_name(provider)) for provider, fakers in formatters]
+        [write(fh, '   providers/%s\n' % doc.get_provider_name(provider))
+         for provider, fakers in formatters]
 
     AVAILABLE_LOCALES.sort()
     for lang in AVAILABLE_LOCALES:
-        with open(os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang), 'wb') as fh:
+        fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
+        with open(fname, 'wb') as fh:
             write(fh, '\n')
             title = 'Language {0}\n'.format(lang)
             write(fh, title)
@@ -87,7 +94,8 @@ def write_docs(*args, **kwargs):
             fake = Faker(locale=lang)
             d = documentor.Documentor(fake)
 
-            for p, fs in d.get_formatters(with_args=True, with_defaults=True, locale=lang,
+            for p, fs in d.get_formatters(with_args=True, with_defaults=True,
+                                          locale=lang,
                                           excludes=base_provider_formatters):
                 write_provider(fh, d, p, fs)
 
@@ -102,6 +110,7 @@ def write_docs(*args, **kwargs):
 # wrappers for sphinx
 def _main(app, *args, **kwargs):
     return write_docs(*args, **kwargs)
+
 
 def setup(app):
     app.connect(str('builder-inited'), _main)
