@@ -57,6 +57,16 @@ class UtilsTestCase(unittest.TestCase):
         self.assertTrue(boundaries[2][0] > c_pop > boundaries[2][1])
         self.assertTrue(boundaries[3][0] > d_pop > boundaries[3][1])
 
+    def test_add_dicts(self):
+        from faker.utils.datasets import add_dicts
+
+        t1 = {'a':1, 'b':2}
+        t2 = {'b':1, 'c':3}
+        t3 = {'d':4}
+
+        result = add_dicts(t1, t2, t3)
+        self.assertEqual(result, {'a': 1, 'c': 3, 'b': 3, 'd': 4})
+
 
 class FactoryTestCase(unittest.TestCase):
 
