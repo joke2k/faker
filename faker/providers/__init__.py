@@ -85,7 +85,7 @@ class BaseProvider(object):
     @classmethod
     def random_letter(cls):
         """Returns a random letter (between a-z and A-Z)."""
-        return random.choice(getattr(string, 'letters', string.letters))
+        return random.choice(getattr(string, 'letters', string.ascii_letters))
 
     @classmethod
     def random_element(cls, array=('a', 'b', 'b')):
