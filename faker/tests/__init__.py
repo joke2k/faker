@@ -1,12 +1,13 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-import unittest
-from faker import Generator
-from faker.utils import text, decorators
+import json
 import os
 import random
-import json
+import unittest
+
+from faker import Generator
+from faker.utils import text, decorators
 
 
 TEST_DIR = os.path.dirname(__file__)
