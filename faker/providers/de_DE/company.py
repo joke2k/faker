@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 from ..company import Provider as CompanyProvider
 
@@ -10,9 +12,9 @@ class Provider(CompanyProvider):
     )
 
     company_suffixes = (
-    	'e.G.', 'e.V.', 'GbR', 'GbR', 'OHG mbH', 'GmbH & Co. OHG',
-    	'AG & Co. OHG', 'GmbH', 'GmbH', 'GmbH', 'GmbH', 'AG', 'AG', 'AG',
-    	'AG', 'KG', 'KG', 'KG', 'GmbH & Co. KG', 'GmbH & Co. KG',
-    	'AG & Co. KG', 'Stiftung & Co. KG', 'KGaA', 'GmbH & Co. KGaA',
-    	'AG & Co. KGaA', 'Stiftung & Co. KGaA'
+        'AG', 'AG', 'AG', 'AG', 'AG & Co. KG', 'AG & Co. KGaA', 'AG & Co. OHG',
+        'GbR', 'GbR', 'GmbH', 'GmbH', 'GmbH', 'GmbH', 'GmbH & Co. KG',
+        'GmbH & Co. KG', 'GmbH & Co. KGaA', 'GmbH & Co. OHG', 'KG', 'KG', 'KG',
+        'KGaA', 'OHG mbH', 'Stiftung & Co. KG', 'Stiftung & Co. KGaA', 'e.G.',
+        'e.V.',
     )
