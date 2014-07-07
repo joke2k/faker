@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# coding=utf-8
+
 from faker.cli import execute_from_command_line
 
 if __name__ == '__main__':

@@ -1,6 +1,10 @@
+# coding=utf-8
+
 from . import BaseProvider
 from .. import Generator
 import itertools
+
+
 class Provider(BaseProvider):
 	"""
 	This provider is a collection of functions to generate personal profiles and identities.

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 import inspect
 from faker import utils
@@ -22,7 +24,7 @@ class Documentor(object):
         formatters = []
         providers = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
-            if locale and self.generator.provider(self.get_provider_name(provider)).__lang__ != locale:
+            if locale and provider.__lang__ != locale:
                 continue
             formatters.append(
                 (provider, self.get_provider_formatters(provider, **kwargs))
@@ -86,8 +88,4 @@ class Documentor(object):
 
     @staticmethod
     def get_provider_name(provider_class):
-        name = provider_class.__module__.split('.')[-1]
-        if name == 'providers':
-            name = 'base'
-        return name
-
+        return provider_class.__provider__

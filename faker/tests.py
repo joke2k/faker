@@ -1,6 +1,9 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 import unittest
 from faker import Generator
+from faker.utils import text, decorators
 
 
 class BarProvider(object):
@@ -71,6 +74,32 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import execute_from_command_line
         execute_from_command_line(['faker', 'address'])
 
+    def test_slugify(self):
+        slug = text.slugify("a'b/c")
+        self.assertEqual(slug, 'abc')
+
+        slug = text.slugify("àeìöú")
+        self.assertEqual(slug, 'aeiou')
+
+        slug = text.slugify("àeì.öú")
+        self.assertEqual(slug, 'aeiou')
+
+        slug = text.slugify("àeì.öú", allow_dots=True)
+        self.assertEqual(slug, 'aei.ou')
+
+        @decorators.slugify
+        def fn(s):
+            return s
+
+        slug = fn("a'b/c")
+        self.assertEqual(slug, 'abc')
+
+        @decorators.slugify_domain
+        def fn(s):
+            return s
+
+        slug = fn("a'b/.c")
+        self.assertEqual(slug, 'ab.c')
 
 if __name__ == '__main__':
     unittest.main()

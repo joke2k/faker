@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import re
 import random
 import string
@@ -87,13 +89,8 @@ class BaseProvider(object):
 
     @classmethod
     def random_element(cls, array=('a', 'b', 'b')):
-        """
-        Returns a random element from non-empty sequence.
-
-        :param array: a non-empty sequence
-        :returns: random element from a sequence
-        """
-        return random.choice(array)
+        """ Returns a random element from a passed array """
+        return random.choice(list(array))
 
     @classmethod
     def randomize_nb_elements(cls, number=10, le=False, ge=False):
