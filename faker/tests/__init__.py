@@ -48,9 +48,9 @@ class UtilsTestCase(unittest.TestCase):
         d_pop = len([i for i in samples if i == 'd'])
 
         boundaries = []
-        tollerance = 5
+        tolerance = 5
         for probability in p:
-            boundaries.append([100 * probability + tollerance,  100 * probability - tollerance])
+            boundaries.append([100 * probability + tolerance,  100 * probability - tolerance])
 
         self.assertTrue(boundaries[0][0] > a_pop > boundaries[0][1])
         self.assertTrue(boundaries[1][0] > b_pop > boundaries[1][1])
