@@ -1,7 +1,9 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 import inspect
+
 from faker import utils
 
 
@@ -9,8 +11,8 @@ class Documentor(object):
 
     def __init__(self, generator):
         """
-        :param generator: a Generator localized and with providers already filled,
-                          that we want write documentation
+        :param generator: a localized Generator with providers filled,
+                          for which to write the documentation
         :type generator: faker.Generator()
         """
         self.generator = generator
@@ -31,14 +33,16 @@ class Documentor(object):
             )
         return formatters
 
-    def get_provider_formatters(self, provider, prefix='fake.', with_args=True, with_defaults=True):
+    def get_provider_formatters(self, provider, prefix='fake.',
+                                with_args=True, with_defaults=True):
 
         formatters = {}
 
         for name, method in inspect.getmembers(provider, inspect.ismethod):
 
             # skip 'private' method and inherited methods
-            if name.startswith('_') or name in self.already_generated: continue
+            if name.startswith('_') or name in self.already_generated:
+                continue
 
             arguments = []
 
@@ -46,13 +50,17 @@ class Documentor(object):
                 # retrieve all parameter
                 argspec = inspect.getargspec(method)
 
-                for i, arg in enumerate([x for x in argspec.args if x not in ['self', 'cls']]):
+                lst = [x for x in argspec.args if x not in ['self', 'cls']]
+                for i, arg in enumerate(lst):
 
                     if argspec.defaults and with_defaults:
 
                         try:
                             default = argspec.defaults[i]
                             if utils.is_string(default):
+                                # TODO check implementation; does this provide
+                                #      two options (A if check else B)?
+                                #      seems to be the same thing to me...
                                 default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
                             else:
                                 # TODO check default type
@@ -74,7 +82,9 @@ class Documentor(object):
                         arguments.append('**' + argspec.keywords)
 
             # build fake method signature
-            signature = "{0}{1}({2})".format(prefix, name, ", ".join(arguments))
+            signature = "{0}{1}({2})".format(prefix,
+                                             name,
+                                             ", ".join(arguments))
 
             # make a fake example
             example = self.generator.format(name)
