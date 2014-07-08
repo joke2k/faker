@@ -1,7 +1,9 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 import unittest
+
 from faker import Generator
 from faker.utils import text, decorators
 
@@ -32,43 +34,53 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_get_formatter_returns_callable(self):
         formatter = self.generator.get_formatter('foo_formatter')
-        self.assertTrue(hasattr(formatter, '__call__') or isinstance(formatter, (classmethod, staticmethod)))
+        self.assertTrue(hasattr(formatter, '__call__')
+                        or isinstance(formatter, (classmethod, staticmethod)))
 
     def test_get_formatter_returns_correct_formatter(self):
-        self.assertEqual(self.provider.foo_formatter, self.generator.get_formatter('foo_formatter'))
+        self.assertEqual(self.provider.foo_formatter,
+                         self.generator.get_formatter('foo_formatter'))
 
     def test_get_formatter_throws_exception_on_incorrect_formatter(self):
-        self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
+        self.assertRaises(AttributeError,
+                          self.generator.get_formatter, 'barFormatter')
 
     def test_format_calls_formatter_on_provider(self):
         self.assertEqual('foobar', self.generator.format('foo_formatter'))
 
     def test_format_transfers_arguments_to_formatter(self):
-        self.assertEqual('bazfoo!', self.generator.format('foo_formatter_with_arguments', 'foo', append='!'))
+        result = self.generator.format('foo_formatter_with_arguments',
+                                       'foo', append='!')
+        self.assertEqual('bazfoo!', result)
 
     def test_parse_returns_same_string_when_it_contains_no_curly_braces(self):
         self.assertEqual('fooBar#?', self.generator.parse('fooBar#?'))
 
     def test_parse_returns_string_with_tokens_replaced_by_formatters(self):
-        self.assertEqual('This is foobar a text with " foobar "',
-                         self.generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"'))
+        result = self.generator.parse(
+            'This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
+        self.assertEqual('This is foobar a text with " foobar "', result)
 
-    #def testParseReturnsStringWithTokensReplacedByFormattersWithArguments(self):
-    #    self.assertEqual('This is foobar',
-    #                     self.generator.parse('This is {{foo_formatter_with_arguments:bar}}'))
+#   def testParseReturnsStringWithTokensReplacedByFormatterWithArguments(self):
+#       result = self.generator.parse(
+#           'This is {{foo_formatter_with_arguments:bar}}')
+#       self.assertEqual('This is foobar', result)
 
     def test_magic_call_calls_format(self):
         self.assertEqual('foobar', self.generator.foo_formatter())
 
     def test_magic_call_calls_format_with_arguments(self):
-        self.assertEqual('bazfoo', self.generator.foo_formatter_with_arguments('foo'))
+        self.assertEqual('bazfoo',
+                         self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
         from faker.cli import print_doc
         print_doc()
         print_doc('address')
         print_doc('faker.providers.it_IT.person')
-        self.assertRaises(AttributeError, self.generator.get_formatter, 'barFormatter')
+        self.assertRaises(AttributeError,
+                          self.generator.get_formatter,
+                          'barFormatter')
 
     def test_command(self):
         from faker.cli import execute_from_command_line
@@ -100,6 +112,7 @@ class FactoryTestCase(unittest.TestCase):
 
         slug = fn("a'b/.c")
         self.assertEqual(slug, 'ab.c')
+
 
 if __name__ == '__main__':
     unittest.main()
