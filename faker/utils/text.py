@@ -4,6 +4,11 @@ import re
 import unicodedata
 
 
+_re_pattern = re.compile('[^\w\s-]')
+_re_pattern_allow_dots = re.compile('[^\.\w\s-]')
+_re_spaces = re.compile('[-\s]+')
+
+
 def slugify(value, allow_dots=False):
     """
     Converts to lowercase, removes non-word characters (alphanumerics and
@@ -12,10 +17,11 @@ def slugify(value, allow_dots=False):
 
     Copied from Django 1.7
     """
+    value = unicodedata.normalize('NFKD', value)
+    value = value.encode('ascii', 'ignore').decode('ascii')
+    value = value.strip().lower()
     if allow_dots:
-        pattern = '[^\.\w\s-]'
+        value = _re_pattern_allow_dots.sub('', value)
     else:
-        pattern = '[^\w\s-]'
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
-    value = re.sub(pattern, '', value).strip().lower()
-    return re.sub('[-\s]+', '-', value)
+        value = _re_pattern.sub('', value)
+    return _re_spaces.sub('-', value)
