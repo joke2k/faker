@@ -8,7 +8,9 @@ import random
 
 
 class Provider(BaseProvider):
-    user_agents = ('firefox', 'chrome', 'internet_explorer', 'opera', 'safari')
+    user_agents = (
+        'chrome', 'firefox', 'internet_explorer', 'opera', 'safari',
+    )
 
     windows_platform_tokens = (
         'Windows 95', 'Windows 98', 'Windows 98; Win 9x 4.90', 'Windows CE',
