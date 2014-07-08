@@ -115,12 +115,20 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
-        
+        # test using example provided in module
         result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
         self.assertEqual(result, '1850/08/02 was a Friday')
-
+        # test against certain formatting strings used on pre-1900 dates
+        with self.assertRaises(TypeError):
+            datetime_safe.date(1850, 8, 2).strftime('%s')
+        with self.assertRaises(TypeError):
+            datetime_safe.date(1850, 8, 2).strftime('%y')
+        # test using 29-Feb-2012 and escaped percentage sign
         result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
         self.assertEqual(result, r'2012-02-29 was a 100% Wednesday')
+        # test that certain formatting strings are allowed on post-1900 dates
+        result = datetime_safe.date(2008, 2, 29).strftime('%y')
+        self.assertEqual(result, r'08')
 
 
 if __name__ == '__main__':
