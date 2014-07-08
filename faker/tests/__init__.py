@@ -27,6 +27,29 @@ class FooProvider(object):
         return 'baz' + param + append
 
 
+class ShimsTestCase(unittest.TestCase):
+    def test_counter(self):
+        from faker.shims import Counter
+
+        result = Counter('abbb') + Counter('bcc')
+        self.assertEqual(result, Counter({'b': 4, 'c': 2, 'a': 1}))
+
+        result = Counter('abbbc') - Counter('bccd')
+        self.assertEqual(result, Counter({'b': 2, 'a': 1}))
+
+        result = Counter('abbb') | Counter('bcc')
+        self.assertEqual(result, Counter({'b': 3, 'c': 2, 'a': 1}))
+
+        result = Counter('abbb') & Counter('bcc')
+        self.assertEqual(result, Counter({'b': 1}))
+
+        counter = Counter('which')
+        counter.update('witch')
+        d = Counter('watch')
+        counter.update(d)
+        self.assertEqual(counter['h'], 4)
+
+
 class UtilsTestCase(unittest.TestCase):
     def test_choice_distribution(self):
         from faker.utils.distribution import choice_distribution
