@@ -382,7 +382,4 @@ class Provider(BaseProvider):
 
     @classmethod
     def timezone(cls):
-        return cls.random_element(cls.countries)['timezones'].pop(0)
-
-
-
+        return random.choice(cls.random_element(cls.countries)['timezones'])
