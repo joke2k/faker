@@ -113,6 +113,15 @@ class FactoryTestCase(unittest.TestCase):
         slug = fn("a'b/.c")
         self.assertEqual(slug, 'ab.c')
 
+    def test_datetime_safe(self):
+        from faker.utils import datetime_safe
+        
+        result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
+        self.assertEqual(result, '1850/08/02 was a Friday')
+
+        result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
+        self.assertEqual(result, r'2012-02-29 was a 100% Wednesday')
+
 
 if __name__ == '__main__':
     unittest.main()
