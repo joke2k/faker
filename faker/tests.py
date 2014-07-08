@@ -120,19 +120,16 @@ class FactoryTestCase(unittest.TestCase):
         result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
         self.assertEqual(result, '1850/08/02 was a Friday')
         # test against certain formatting strings used on pre-1900 dates
-        if sys.version > '2.6':
-            with self.assertRaises(TypeError):
-                datetime_safe.date(1850, 8, 2).strftime('%s')
-            with self.assertRaises(TypeError):
-                datetime_safe.date(1850, 8, 2).strftime('%y')
-        else:
-            # NOTE: lambda approach in assertRaises needed in Python 2.6
-            self.assertRaises(
-                TypeError,
-                lambda: datetime_safe.date(1850, 8, 2).strftime('%s'))
-            self.assertRaises(
-                TypeError,
-                lambda: datetime_safe.date(1850, 8, 2).strftime('%y'))
+        # NOTE: the lambda approach in assertRaises is needed for Python 2.6
+        #       in 2.7 and 3.x we could also use:
+        #           with self.assertRaises(TypeError):
+        #               datetime_safe.date(1850, 8, 2).strftime('%s')
+        self.assertRaises(
+            TypeError,
+            lambda: datetime_safe.date(1850, 8, 2).strftime('%s'))
+        self.assertRaises(
+            TypeError,
+            lambda: datetime_safe.date(1850, 8, 2).strftime('%y'))
         # test using 29-Feb-2012 and escaped percentage sign
         result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
         self.assertEqual(result, r'2012-02-29 was a 100% Wednesday')
