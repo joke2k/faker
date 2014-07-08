@@ -3,12 +3,13 @@
 from __future__ import unicode_literals
 from __future__ import print_function
 
-
 import os
 import sys
 import argparse
 
-from faker import Faker, documentor, VERSION, AVAILABLE_LOCALES, DEFAULT_LOCALE, Factory
+from faker import Faker, Factory, documentor
+from faker import VERSION, AVAILABLE_LOCALES, DEFAULT_LOCALE
+
 
 if sys.version < '3':
     text_type = unicode
@@ -27,7 +28,8 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         excludes = []
 
     print(file=output)
-    print("### faker.providers.{0}".format(doc.get_provider_name(provider)), file=output)
+    print("### faker.providers.{0}".format(
+          doc.get_provider_name(provider)), file=output)
     print(file=output)
 
     for signature, example in formatters.items():
@@ -36,7 +38,8 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         try:
             lines = text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
-            raise Exception('error on "{0}" with value "{1}"'.format(signature, example))
+            raise Exception('error on "{0}" with value "{1}"'.format(
+                            signature, example))
         margin = max(30, doc.max_name_len+1)
         remains = 150 - margin
         separator = '#'
@@ -51,7 +54,8 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
                 signature = separator = ' '
 
 
-def print_doc(provider_or_field=None, args=None, lang=DEFAULT_LOCALE, output=None):
+def print_doc(provider_or_field=None,
+              args=None, lang=DEFAULT_LOCALE, output=None):
     args = args or []
     output = output or sys.stdout
     fake = Faker(locale=lang)
@@ -66,12 +70,17 @@ def print_doc(provider_or_field=None, args=None, lang=DEFAULT_LOCALE, output=Non
             fake = Factory.create(locale, providers=[parts[-1]])
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
-            print_provider(doc, fake.get_providers()[0], doc.get_provider_formatters(fake.get_providers()[0]), output=output)
+            print_provider(
+                doc,
+                fake.get_providers()[0],
+                doc.get_provider_formatters(fake.get_providers()[0]),
+                output=output)
         else:
             try:
                 print(fake.format(provider_or_field, *args), file=output)
             except AttributeError:
-                print('No faker found for "{0}({1})"'.format(provider_or_field, args), file=output)
+                print('No faker found for "{0}({1})"'.format(
+                    provider_or_field, args), file=output)
 
     else:
         doc = documentor.Documentor(fake)
@@ -90,7 +99,8 @@ def print_doc(provider_or_field=None, args=None, lang=DEFAULT_LOCALE, output=Non
             fake = Faker(locale=language)
             d = documentor.Documentor(fake)
 
-            for p, fs in d.get_formatters(with_args=True, with_defaults=True, locale=language,
+            for p, fs in d.get_formatters(with_args=True, with_defaults=True,
+                                          locale=language,
                                           excludes=base_provider_formatters):
                 print_provider(d, p, fs, output=output)
 
@@ -103,7 +113,8 @@ class Command(object):
 
     def execute(self):
         """
-        Given the command-line arguments, this creates a parser appropriate to that command, and runs it.
+        Given the command-line arguments, this creates a parser appropriate
+        to that command, and runs it.
         """
 
         # retrieve default language from system environment
@@ -121,12 +132,17 @@ class Command(object):
                             version="%(prog)s {0}".format(VERSION))
 
         parser.add_argument('-o', metavar="output",
-                            type=argparse.FileType('w'), default=sys.stdout,
+                            type=argparse.FileType('w'),
+                            default=sys.stdout,
                             help="redirect output to a file")
 
-        parser.add_argument('-l', '--lang', choices=AVAILABLE_LOCALES, default=default_locale)
-        parser.add_argument('-r', '--repeat', default=1, type=int)
-        parser.add_argument('-s', '--sep', default='\n')
+        parser.add_argument('-l', '--lang',
+                            choices=AVAILABLE_LOCALES,
+                            default=default_locale)
+        parser.add_argument('-r', '--repeat',
+                            default=1, type=int)
+        parser.add_argument('-s', '--sep',
+                            default='\n')
 
         parser.add_argument('fake', action='store', nargs='*')
 
@@ -136,8 +152,10 @@ class Command(object):
 
             fake = arguments.fake[0] if len(arguments.fake) else None
 
-            print_doc(fake, arguments.fake[1:], lang=arguments.lang, output=arguments.o)
-
+            print_doc(fake,
+                      arguments.fake[1:],
+                      lang=arguments.lang,
+                      output=arguments.o)
             print(arguments.sep, file=arguments.o)
 
             if not fake:
@@ -146,12 +164,11 @@ class Command(object):
 
 
 def execute_from_command_line(argv=None):
-    """
-    A simple method that runs a Comand.
-    """
+    """A simple method that runs a Command."""
     if sys.stdout.encoding is None:
-        print("please set python env PYTHONIOENCODING=UTF-8, example: "
-              "export PYTHONIOENCODING=UTF-8, when write to stdout", file=sys.stderr)
+        print('please set python env PYTHONIOENCODING=UTF-8, example: '
+              'export PYTHONIOENCODING=UTF-8, when writing to stdout',
+              file=sys.stderr)
         exit(1)
 
     command = Command(argv)
