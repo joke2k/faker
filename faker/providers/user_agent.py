@@ -11,9 +11,10 @@ class Provider(BaseProvider):
     user_agents = ('firefox', 'chrome', 'internet_explorer', 'opera', 'safari')
 
     windows_platform_tokens = (
-        'Windows NT 6.2', 'Windows NT 6.1', 'Windows NT 6.0', 'Windows NT 5.2', 'Windows NT 5.1',
-        'Windows NT 5.01', 'Windows NT 5.0', 'Windows NT 4.0', 'Windows 98; Win 9x 4.90',
-        'Windows 98', 'Windows 95', 'Windows CE'
+        'Windows 95', 'Windows 98', 'Windows 98; Win 9x 4.90', 'Windows CE',
+        'Windows NT 4.0', 'Windows NT 5.0', 'Windows NT 5.01',
+        'Windows NT 5.1', 'Windows NT 5.2', 'Windows NT 6.0', 'Windows NT 6.1',
+        'Windows NT 6.2',
     )
 
     linux_processors = ('i686', 'x86_64',)
