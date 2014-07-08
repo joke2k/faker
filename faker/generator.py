@@ -39,8 +39,8 @@ class Generator(object):
 
     def provider(self, name):
         try:
-            return list(filter(lambda p: p.__provider__ == name.lower(),
-                               self.get_providers()))[0]
+            lst = [p for p in self.providers if p.__provider__ == name.lower()]
+            return lst[0]
         except IndexError:
             return None
 
