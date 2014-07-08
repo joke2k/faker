@@ -6,6 +6,9 @@ import re
 import random
 
 
+_re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
+
+
 class Generator(object):
 
     __config = {}
@@ -71,10 +74,10 @@ class Generator(object):
 
     def parse(self, text):
         """
-        Replaces tokens (like '{{ tokenName }}') with the result
-        from the token method call.
+        Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
+        with the result from the token method call.
         """
-        return re.sub(r'\{\{(\s?)(\w+)(\s?)\}\}', self.__format_token, text)
+        return _re_token.sub(self.__format_token, text)
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
