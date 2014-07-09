@@ -84,7 +84,7 @@ A faker generator has many of them, packaged in "providers". Here is a list of t
 ## Localization
 
 `faker.Factory` can take a locale as an argument, to return localized data.
-If no localized provider is found, the factory fallbacks to the default locale (en_EN).
+If no localized provider is found, the factory falls back to the default en_US locale.
 
     from faker import Factory
     fake = Factory.create('it_IT')
@@ -104,48 +104,89 @@ If no localized provider is found, the factory fallbacks to the default locale (
 
 You can check available Faker locales in the source code, under the providers package.
 The localization of Faker is an ongoing process, for which we need your help.
-Don't hesitate to create localized providers to your own locale and submit a PR!
+Please don't hesitate to create a localized provider for your own locale and submit
+a Pull Request (PR).
 
 Included localized providers:
 
-* [cs_CZ](http://fake-factory.readthedocs.org/en/latest/locales/cs_CZ.html)
-* [de_DE](http://fake-factory.readthedocs.org/en/latest/locales/de_DE.html)
-* [dk_DK](http://fake-factory.readthedocs.org/en/latest/locales/dk_DK.html)
-* [el_GR](http://fake-factory.readthedocs.org/en/latest/locales/el_GR.html)
-* [en_CA](http://fake-factory.readthedocs.org/en/latest/locales/en_CA.html)
-* [en_GB](http://fake-factory.readthedocs.org/en/latest/locales/en_GB.html)
-* [en_US](http://fake-factory.readthedocs.org/en/latest/locales/en_US.html)
-* [es_ES](http://fake-factory.readthedocs.org/en/latest/locales/es_ES.html)
-* [es_MX](http://fake-factory.readthedocs.org/en/latest/locales/es_MX.html)
-* [fa_IR](http://fake-factory.readthedocs.org/en/latest/locales/fa_IR.html)
-* [fi_FI](http://fake-factory.readthedocs.org/en/latest/locales/fi_FI.html)
-* [fr_FR](http://fake-factory.readthedocs.org/en/latest/locales/fr_FR.html)
-* [hi_IN](http://fake-factory.readthedocs.org/en/latest/locales/hi_IN.html)
-* [it_IT](http://fake-factory.readthedocs.org/en/latest/locales/it_IT.html)
-* [lt_LT](http://fake-factory.readthedocs.org/en/latest/locales/lt_LT.html)
-* [lv_LV](http://fake-factory.readthedocs.org/en/latest/locales/lv_LV.html)
-* [ko_KR](http://fake-factory.readthedocs.org/en/latest/locales/ko_KR.html)
-* [pl_PL](http://fake-factory.readthedocs.org/en/latest/locales/pl_PL.html)
-* [pt_BR](http://fake-factory.readthedocs.org/en/latest/locales/pt_BR.html)
-* [ru_RU](http://fake-factory.readthedocs.org/en/latest/locales/ru_RU.html)
-* [zh_CN](http://fake-factory.readthedocs.org/en/latest/locales/zh_CN.html)
-* [zh_TW](http://fake-factory.readthedocs.org/en/latest/locales/zh_TW.html)
+* [bg_BG](http://fake-factory.readthedocs.org/en/master/locales/bg_BG.html)
+* [cs_CZ](http://fake-factory.readthedocs.org/en/master/locales/cs_CZ.html)
+* [de_DE](http://fake-factory.readthedocs.org/en/master/locales/de_DE.html)
+* [dk_DK](http://fake-factory.readthedocs.org/en/master/locales/dk_DK.html)
+* [el_GR](http://fake-factory.readthedocs.org/en/master/locales/el_GR.html)
+* [en_CA](http://fake-factory.readthedocs.org/en/master/locales/en_CA.html)
+* [en_GB](http://fake-factory.readthedocs.org/en/master/locales/en_GB.html)
+* [en_US](http://fake-factory.readthedocs.org/en/master/locales/en_US.html)
+* [es_ES](http://fake-factory.readthedocs.org/en/master/locales/es_ES.html)
+* [es_MX](http://fake-factory.readthedocs.org/en/master/locales/es_MX.html)
+* [fa_IR](http://fake-factory.readthedocs.org/en/master/locales/fa_IR.html)
+* [fi_FI](http://fake-factory.readthedocs.org/en/master/locales/fi_FI.html)
+* [fr_FR](http://fake-factory.readthedocs.org/en/master/locales/fr_FR.html)
+* [hi_IN](http://fake-factory.readthedocs.org/en/master/locales/hi_IN.html)
+* [it_IT](http://fake-factory.readthedocs.org/en/master/locales/it_IT.html)
+* [ko_KR](http://fake-factory.readthedocs.org/en/master/locales/ko_KR.html)
+* [lt_LT](http://fake-factory.readthedocs.org/en/master/locales/lt_LT.html)
+* [lv_LV](http://fake-factory.readthedocs.org/en/master/locales/lv_LV.html)
+* [nl_NL](http://fake-factory.readthedocs.org/en/master/locales/nl_NL.html)
+* [pl_PL](http://fake-factory.readthedocs.org/en/master/locales/pl_PL.html)
+* [pt_BR](http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html)
+* [ru_RU](http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html)
+* [zh_CN](http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html)
+* [zh_TW](http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html)
 
-# Using from shell
 
-In a python environment with faker installed you can use it with:
+# Command line usage
 
-    python -m faker [option] [*args]
+When installed, you can invoke faker from the command-line:
 
-[option]:
+    faker [-h] [--version] [-o output]
+          [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
+          [-r REPEAT] [-s SEP]
+          [fake [fake ...]]
 
-*  formatter name as `text`, `address`: display result of fake
+Where:
 
-[*args]: pass value to formatter (actually only strings)
+* `faker`: is the script when installed in your environment,
+   in development you could use `python -m faker` instead
 
-    $ python -m faker address
+* `-h`, `--help`: shows a help message
+
+* `--version`: shows the program's version number
+
+* `-o FILENAME`: redirects the output to the specified filename
+
+* `-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}`: allows use of a localized provider
+
+* `-r REPEAT`: will generate a specified number of outputs
+
+* `-s SEP`: will generate the specified separator after each generated output
+
+* `fake`: is the name of the fake to generate an output for, 
+  such as `name`, `address`, or `text`
+
+* `[fake ...]`: is an optional comma-separated list of field names to pass to the fake,
+  such as `ssn,birthday` when the `profile` fake is used
+
+Examples:
+
+    $ faker address
     968 Bahringer Garden Apt. 722
     Kristinaland, NJ 09890
+    
+    $ faker -l de_DE address
+    Samira-Niemeier-Allee 56
+    94812 Biedenkopf
+    
+    $ faker profile ssn,birthdate
+    {'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}
+
+    $ faker -r=3 -s=";" name
+    Willam Kertzmann
+    ;
+    Josiah Maggio
+    ;
+    Gayla Schmitt
+    ;
 
 
 # How to create a Provider

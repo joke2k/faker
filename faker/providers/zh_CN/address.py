@@ -66,3 +66,4 @@ class Provider(AddressProvider):
     @classmethod
     def state(cls):
         return cls.random_element(cls.states)
+        

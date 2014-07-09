@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 from decimal import Decimal
 import random
@@ -8,12 +10,12 @@ from . import date_time
 class Provider(BaseProvider):
     city_suffixes = ['Ville', ]
     street_suffixes = ['Street', ]
-    city_formats = ['{{first_name}} {{city_suffix}}', ]
-    street_name_formats = ['{{last_name}} {{street_suffix}}', ]
-    street_address_formats = ['{{building_number}} {{street_name}}', ]
-    address_formats = ['{{street_address}} {{postcode}} {{city}}', ]
-    building_number_formats = ['##', ]
-    postcode_formats = ['#####', ]
+    city_formats = ('{{first_name}} {{city_suffix}}', )
+    street_name_formats = ('{{last_name}} {{street_suffix}}', )
+    street_address_formats = ('{{building_number}} {{street_name}}', )
+    address_formats = ('{{street_address}} {{postcode}} {{city}}', )
+    building_number_formats = ('##', )
+    postcode_formats = ('#####', )
     countries = [tz['name'] for tz in date_time.Provider.countries]
 
     @classmethod

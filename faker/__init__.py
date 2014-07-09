@@ -1,7 +1,10 @@
+# coding=utf-8
+
 VERSION = '0.4.0'
 
 
 AVAILABLE_LOCALES = [
+    'bg_BG',
     'cs_CZ',
     'de_DE',
     'dk_DK',
@@ -16,14 +19,15 @@ AVAILABLE_LOCALES = [
     'fr_FR',
     'hi_IN',
     'it_IT',
+    'ko_KR',
     'lt_LT',
     'lv_LV',
-    'ko_KR',
+    'nl_NL',
     'pl_PL',
     'pt_BR',
     'ru_RU',
     'zh_CN',
-    'zh_TW',
+    'zh_TW'
 ]
 
 DEFAULT_LOCALE = 'en_US'
