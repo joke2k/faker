@@ -326,28 +326,28 @@ class Provider(BaseProvider):
         """
         :example DateTime('1964-04-04 11:02:02')
         """
-        return cls.date_time_between('-100y')
+        return cls.date_time_between('-%dy') % (now.year % 100)
 
     @classmethod
     def date_time_this_decade(cls):
         """
         :example DateTime('2004-04-04 11:02:02')
         """
-        return cls.date_time_between('-10y')
+        return cls.date_time_between('-%dy') % (now.year % 10)
 
     @classmethod
     def date_time_this_year(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.date_time_between('-1y')
+        return cls.date_time_between('-%dm') % (now.month)
 
     @classmethod
     def date_time_this_month(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.date_time_between('-30d')
+        return cls.date_time_between('-%dd') % (now.day)
 
     @classmethod
     def am_pm(cls):
