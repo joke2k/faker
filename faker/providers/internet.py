@@ -124,11 +124,9 @@ class Provider(BaseProvider):
         """
         Django algorithm
         """
-        import unicodedata
-
-        value = unicodedata.normalize('NFKD', value or Lorem.text(20)).encode('ascii', 'ignore').decode('ascii')
-        value = re.sub('[^\w\s-]', '', value).strip().lower()
-        return re.sub('[-\s]+', '-', value)
+        if value is None:
+            value = Lorem.text(20)
+        return value
 
     @classmethod
     def image_url(cls, width=None, height=None):
