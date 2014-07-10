@@ -8,6 +8,8 @@ import requests
 
 _URL = 'http://nl.wikipedia.org/w/index.php?title=ISO_3166-1&printable=yes'
 
+_cols = {'code': 1, 'name': 0,
+         'iso3166-1-a2': 1, 'iso3166-1-a3': 2, 'iso3166-1-n3': 3,}
 
 def _replace_quotes(s):
     r = s
@@ -27,9 +29,11 @@ def get_address_countries(url):
         # get the text of all columns
         rec = [td.get_text(strip=True) for td in tr.find_all('td')]
         if len(rec) > 0:
-            # get the first column
-            txt = _replace_quotes(rec[0])
-            lst.append(txt)
+            # get the data
+            dct = {}
+            for k, col in _cols.items():
+                dct[k] = _replace_quotes(rec[col])
+            lst.append(dct)
     return lst
 
 
@@ -65,7 +69,7 @@ if __name__ == "__main__":
     print('')
     
     indent = 4
-    lst = get_address_countries(_URL)
+    lst = [e['name'] for e in get_address_countries(_URL)]
     lst.sort()
     print(indent*' ' + '# countries are from ' + _URL)
     print(indent*' ' + 'countries = (')
