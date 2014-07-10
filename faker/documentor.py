@@ -58,7 +58,7 @@ class Documentor(object):
                         try:
                             default = argspec.defaults[i]
                             if utils.is_string(default):
-                                default = ('"{0}"' if '"' not in default else "'{0}'").format(default)
+                                default = utils.quote(default)
                             else:
                                 # TODO check default type
                                 default = "{0}".format(default)
