@@ -5,10 +5,9 @@ from . import BaseProvider
 import random
 import re
 from time import time, mktime
-from datetime import timedelta
+from datetime import timedelta, datetime
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 from faker.utils import is_string
-
 
 def datetime_to_timestamp(dt):
     return mktime(dt.timetuple())
@@ -326,28 +325,28 @@ class Provider(BaseProvider):
         """
         :example DateTime('1964-04-04 11:02:02')
         """
-        return cls.date_time_between('-%dy') % (now.year % 100)
+        return cls.date_time_between('-%dy') % (datetime.now().year % 100)
 
     @classmethod
     def date_time_this_decade(cls):
         """
         :example DateTime('2004-04-04 11:02:02')
         """
-        return cls.date_time_between('-%dy') % (now.year % 10)
+        return cls.date_time_between('-%dy') % (datetime.now().year % 10)
 
     @classmethod
     def date_time_this_year(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.date_time_between('-%dm') % (now.month)
+        return cls.date_time_between('-%dm') % (datetime.now().month)
 
     @classmethod
     def date_time_this_month(cls):
         """
         :example DateTime('2012-04-04 11:02:02')
         """
-        return cls.date_time_between('-%dd') % (now.day)
+        return cls.date_time_between('-%dd') % (datetime.now().day)
 
     @classmethod
     def am_pm(cls):
