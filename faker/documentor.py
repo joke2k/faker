@@ -58,10 +58,7 @@ class Documentor(object):
                         try:
                             default = argspec.defaults[i]
                             if utils.is_string(default):
-                                # TODO check implementation; does this provide
-                                #      two options (A if check else B)?
-                                #      seems to be the same thing to me...
-                                default = ('"{0}"' if '"' not in default else '"{0}"').format(default)
+                                default = ('"{0}"' if '"' not in default else "'{0}'").format(default)
                             else:
                                 # TODO check default type
                                 default = "{0}".format(default)
