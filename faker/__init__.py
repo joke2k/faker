@@ -34,6 +34,7 @@ DEFAULT_LOCALE = 'en_US'
 
 DEFAULT_PROVIDERS = (
     'address',
+    'barcode',
     'color',
     'company',
     'credit_card',
