@@ -1,8 +1,13 @@
 Changelog
 =========
 
-0.4dev
-------
+0.4.1
+-----
+
+* Added sl_SI. Thanks to @janezkranjc
+
+0.4
+---
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
