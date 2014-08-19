@@ -6,3 +6,6 @@ def is_string(var):
         return isinstance(var, basestring)
     except NameError:
         return isinstance(var, str)
+
+def quote(var):
+    return ('"{0}"' if '"' not in var else "'{0}'").format(var)
