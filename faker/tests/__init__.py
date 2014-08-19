@@ -2,11 +2,16 @@
 
 from __future__ import unicode_literals
 
-import sys
+import json
+import os
+import random
 import unittest
 
 from faker import Generator
 from faker.utils import text, decorators
+
+
+TEST_DIR = os.path.dirname(__file__)
 
 
 class BarProvider(object):
@@ -20,6 +25,71 @@ class FooProvider(object):
 
     def foo_formatter_with_arguments(self, param='', append=''):
         return 'baz' + param + append
+
+
+class ShimsTestCase(unittest.TestCase):
+    def test_counter(self):
+        from faker.shims import Counter
+
+        result = Counter('abbb') + Counter('bcc')
+        self.assertEqual(result, Counter({'b': 4, 'c': 2, 'a': 1}))
+
+        result = Counter('abbbc') - Counter('bccd')
+        self.assertEqual(result, Counter({'b': 2, 'a': 1}))
+
+        result = Counter('abbb') | Counter('bcc')
+        self.assertEqual(result, Counter({'b': 3, 'c': 2, 'a': 1}))
+
+        result = Counter('abbb') & Counter('bcc')
+        self.assertEqual(result, Counter({'b': 1}))
+
+        counter = Counter('which')
+        counter.update('witch')
+        d = Counter('watch')
+        counter.update(d)
+        self.assertEqual(counter['h'], 4)
+
+
+class UtilsTestCase(unittest.TestCase):
+    def test_choice_distribution(self):
+        from faker.utils.distribution import choice_distribution
+
+        a = ('a', 'b', 'c', 'd')
+        p = (0.5, 0.2, 0.2, 0.1)
+
+        sample = choice_distribution(a, p)
+        self.assertTrue(sample in a)
+
+        with open(os.path.join(TEST_DIR, 'random_state.json'), 'r') as fh:
+            random_state = json.load(fh)
+        random_state[1] = tuple(random_state[1])
+
+        random.setstate(random_state)
+        samples = [choice_distribution(a, p) for i in range(100)]
+        a_pop = len([i for i in samples if i == 'a'])
+        b_pop = len([i for i in samples if i == 'b'])
+        c_pop = len([i for i in samples if i == 'c'])
+        d_pop = len([i for i in samples if i == 'd'])
+
+        boundaries = []
+        tolerance = 5
+        for probability in p:
+            boundaries.append([100 * probability + tolerance,  100 * probability - tolerance])
+
+        self.assertTrue(boundaries[0][0] > a_pop > boundaries[0][1])
+        self.assertTrue(boundaries[1][0] > b_pop > boundaries[1][1])
+        self.assertTrue(boundaries[2][0] > c_pop > boundaries[2][1])
+        self.assertTrue(boundaries[3][0] > d_pop > boundaries[3][1])
+
+    def test_add_dicts(self):
+        from faker.utils.datasets import add_dicts
+
+        t1 = {'a':1, 'b':2}
+        t2 = {'b':1, 'c':3}
+        t3 = {'d':4}
+
+        result = add_dicts(t1, t2, t3)
+        self.assertEqual(result, {'a': 1, 'c': 3, 'b': 3, 'd': 4})
 
 
 class FactoryTestCase(unittest.TestCase):
@@ -113,6 +183,23 @@ class FactoryTestCase(unittest.TestCase):
 
         slug = fn("a'b/.c")
         self.assertEqual(slug, 'ab.c')
+
+    def test_random_element(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider(None)
+
+        choices = ('a', 'b', 'c', 'd')
+        pick = provider.random_element(choices)
+        self.assertTrue(pick in choices)
+
+        choices = {'a': 5, 'b': 2, 'c': 2, 'd':1 }
+        pick = provider.random_element(choices)
+        self.assertTrue(pick in choices)
+
+
+        choices = {'a': 0.5, 'b': 0.2, 'c': 0.2, 'd':0.1}
+        pick = provider.random_element(choices)
+        self.assertTrue(pick in choices)
 
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
