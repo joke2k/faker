@@ -12,8 +12,6 @@ Faker is for you.
 Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl-faker], and by ruby's [Faker][ruby-faker].
 
 [![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
-[![Requirements Status](https://requires.io/github/joke2k/faker/requirements.png?branch=master)](https://requires.io/github/joke2k/faker/requirements/?branch=master)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joke2k/faker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Coverage Status](https://coveralls.io/repos/joke2k/faker/badge.png?branch=master)](https://coveralls.io/r/joke2k/faker?branch=master)
 [![PyPI version](https://badge.fury.io/py/fake-factory.png)](http://badge.fury.io/py/fake-factory)
 [![Downloads](https://pypip.in/d/fake-factory/badge.png)](https://crate.io/packages/fake-factory)
@@ -131,6 +129,7 @@ Included localized providers:
 * [pl_PL](http://fake-factory.readthedocs.org/en/master/locales/pl_PL.html)
 * [pt_BR](http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html)
 * [ru_RU](http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html)
+* [sl_SI](http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html)
 * [zh_CN](http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html)
 * [zh_TW](http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html)
 

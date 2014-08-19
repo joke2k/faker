@@ -1,18 +1,16 @@
 Changelog
 =========
 
-0.4.1
------
-
-* Added sl_SI. Thanks to @janezkranjc
-
-0.4
----
+0.4.1 - 20-Aug-2014
+-------------------
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
 * Added nl_NL localized providers. Thanks @LolkeAB, @mdxs.
 * Added bg_BG localized providers. Thanks Bret B.
+* Added sl_SI. Thanks to @janezkranjc
+* Added distribution feature. Thanks to @fcurella
+* Relative date time. Thanks to @soobrosa
 * Fixed `date_time_ad` on 32bit Linux. Thanks @mdxs.
 * Fixed `domain_word` to output slugified strings.
 
