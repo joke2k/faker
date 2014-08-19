@@ -1,8 +1,11 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 from . import BaseProvider
 import random
-import re
+
 from faker.providers.lorem import Provider as Lorem
+from faker.utils.decorators import slugify, slugify_domain
 
 
 class Provider(BaseProvider):
@@ -38,6 +41,12 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}/',
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
+    image_placeholder_services = (
+        'http://placekitten.com/{width}/{height}',
+        'http://placehold.it/{width}x{height}',
+        'http://www.lorempixum.com/{width}/{height}',
+        'http://dummyimage.com/{width}x{height}',
+     )
 
     def email(self):
         pattern = self.random_element(self.email_formats)
@@ -56,18 +65,20 @@ class Provider(BaseProvider):
     def free_email_domain(cls):
         return cls.random_element(cls.free_email_domains)
 
+    @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
-        return self.bothify(self.generator.parse(pattern)).lower()
+        return self.bothify(self.generator.parse(pattern))
 
     def domain_name(self):
         return self.domain_word() + '.' + self.tld()
 
+    @slugify
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = company_elements.pop(0)
-        return re.sub(r'\W', '', company).lower()
+        return company
 
     def tld(self):
         return self.random_element(self.tlds)
@@ -83,10 +94,12 @@ class Provider(BaseProvider):
         return ".".join(map(lambda n: str(random.randint(-2147483648, 2147483647) >> n & 0xFF), [24, 16, 8, 0]))
 
     def ipv6(self):
-        res = []
-        for i in range(0, 8):
-            res.append(hex(random.randint(0, 65535))[2:].zfill(4))
+        res = [hex(random.randint(0, 65535))[2:].zfill(4) for i in range(0, 8)]
         return ":".join(res)
+
+    def mac_address(self):
+        mac = [random.randint(0x00, 0xff) for i in range(0, 6)]
+        return ":".join(map(lambda x: "%02x" % x, mac))
 
     @classmethod
     def uri_page(cls):
@@ -106,18 +119,22 @@ class Provider(BaseProvider):
         return self.generator.parse(pattern)
 
     @classmethod
+    @slugify
     def slug(cls, value=None):
         """
         Django algorithm
         """
-        import unicodedata
+        if value is None:
+            value = Lorem.text(20)
+        return value
 
-        #value = unicode(value or Lorem.text(20))
-        #value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
-        #value = unicode(re.sub(r'[^\w\s-]', '', value).strip().lower())
-        #return re.sub('[-\s]+', '-', value)
-        value = unicodedata.normalize('NFKD', value or Lorem.text(20)).encode('ascii', 'ignore').decode('ascii')
-        value = re.sub('[^\w\s-]', '', value).strip().lower()
-        return re.sub('[-\s]+', '-', value)
-
-
+    @classmethod
+    def image_url(cls, width=None, height=None):
+        """
+        Returns URL to placeholder image
+        Example: http://placehold.it/640x480
+        """
+        width_ = width or cls.random_int(max=1024)
+        height_ = height or cls.random_int(max=1024)
+        placeholder_url = cls.random_element(cls.image_placeholder_services)
+        return placeholder_url.format(width=width_, height=height_)

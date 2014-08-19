@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # From django.utils.datetime_safe
 
 # Python's datetime strftime doesn't handle dates before 1900.
@@ -8,8 +10,10 @@
 #
 # >>> datetime_safe.date(1850, 8, 2).strftime("%Y/%m/%d was a %A")
 # '1850/08/02 was a Friday'
+
 from __future__ import unicode_literals
-from datetime import date as real_date, datetime as real_datetime
+from datetime import date as real_date
+from datetime import datetime as real_datetime
 import re
 import time
 
@@ -24,7 +28,9 @@ class datetime(real_datetime):
         return strftime(self, fmt)
 
     def combine(self, date, time):
-        return datetime(date.year, date.month, date.day, time.hour, time.minute, time.microsecond, time.tzinfo)
+        return datetime(date.year, date.month, date.day,
+                        time.hour, time.minute, time.microsecond,
+                        time.tzinfo)
 
     def date(self):
         return date(self.year, self.month, self.day)
@@ -43,6 +49,7 @@ def new_datetime(d):
     if isinstance(d, real_datetime):
         kw.extend([d.hour, d.minute, d.second, d.microsecond, d.tzinfo])
     return datetime(*kw)
+
 
 # This library does not support strftime's "%s" or "%y" format strings.
 # Allowed if there's an even number of "%"s because they are escaped.
@@ -67,16 +74,17 @@ def strftime(dt, fmt):
         return super(type(dt), dt).strftime(fmt)
     illegal_formatting = _illegal_formatting.search(fmt)
     if illegal_formatting:
-        raise TypeError("strftime of dates before 1900 does not handle" + illegal_formatting.group(0))
+        msg = 'strftime of dates before 1900 does not handle {0}'
+        raise TypeError(msg.format(illegal_formatting.group(0)))
 
     year = dt.year
-    # For every non-leap year century, advance by
+    # for every non-leap year century, advance by
     # 6 years to get into the 28-year repeat cycle
     delta = 2000 - year
     off = 6 * (delta // 100 + delta // 400)
     year += off
 
-    # Move to around the year 2000
+    # move to around the year 2000
     year += ((2000 - year) // 28) * 28
     timetuple = dt.timetuple()
     s1 = time.strftime(fmt, (year,) + timetuple[1:])

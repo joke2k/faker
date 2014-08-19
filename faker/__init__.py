@@ -1,32 +1,54 @@
+# coding=utf-8
+
+VERSION = '0.4.0'
+
+
 AVAILABLE_LOCALES = [
-    'en_US',
-    'it_IT',
-    'fr_FR',
-    'pt_BR',
+    'bg_BG',
+    'cs_CZ',
+    'de_DE',
+    'dk_DK',
+    'el_GR',
     'en_CA',
     'en_GB',
-    'de_DE',
-    'ru_RU'
-] 
-DEFAULT_LOCALE = AVAILABLE_LOCALES[0]
+    'en_US',
+    'es_ES',
+    'es_MX',
+    'fa_IR',
+    'fi_FI',
+    'fr_FR',
+    'hi_IN',
+    'it_IT',
+    'ko_KR',
+    'lt_LT',
+    'lv_LV',
+    'nl_NL',
+    'pl_PL',
+    'pt_BR',
+    'ru_RU',
+    'zh_CN',
+    'zh_TW'
+]
+
+DEFAULT_LOCALE = 'en_US'
 
 DEFAULT_PROVIDERS = (
-
-    'lorem',
     'address',
-    'person',
-    'date_time',
-    'company',
-    'internet',
-    'misc',
-    'phone_number',
-    'user_agent',
-    'file',
-    'python',
-    'credit_card',
-    'profile',
-    'job',
     'color',
+    'company',
+    'credit_card',
+    'date_time',
+    'file',
+    'internet',
+    'job',
+    'lorem',
+    'misc',
+    'person',
+    'profile',
+    'python',
+    'phone_number',
+    'ssn',
+    'user_agent',
 )
 
 from faker.generator import Generator

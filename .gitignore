@@ -8,9 +8,9 @@
 *.egg-info
 dist
 build
+docs/_build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
@@ -34,3 +34,5 @@ nosetests.xml
 .project
 .pydevproject
 .idea
+.projectile
+.ropeproject

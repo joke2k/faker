@@ -1,12 +1,22 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
+
 import re
 import random
 
 
+_re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
+
+
 class Generator(object):
 
-    def __init__(self):
+    __config = {}
+
+    def __init__(self, **config):
         self.providers = []
+        self.__config = dict(
+            list(self.__config.items()) + list(config.items()))
 
     def add_provider(self, provider):
 
@@ -22,34 +32,32 @@ class Generator(object):
 
             faker_function = getattr(provider, method_name)
 
-            if hasattr(faker_function, '__call__') or isinstance(faker_function, (classmethod, staticmethod)):
+            if hasattr(faker_function, '__call__') or \
+                    isinstance(faker_function, (classmethod, staticmethod)):
                 # add all faker method to generator
-                setattr(self, method_name, faker_function)
+                self.set_formatter(method_name, faker_function)
 
     def provider(self, name):
         try:
-            return list(filter(lambda p: p.__provider__ == name.lower(), self.get_providers()))[0]
+            lst = [p for p in self.get_providers()
+                   if p.__provider__ == name.lower()]
+            return lst[0]
         except IndexError:
             return None
 
     def get_providers(self):
-        """
-        returns added providers
-        """
+        """Returns added providers."""
         return self.providers
 
     def seed(self, seed=None):
-        """
-        calls random.seed
-        """
+        """Calls random.seed"""
         random.seed(seed)
 
     def format(self, formatter, *args, **kwargs):
         """
-        this is a secure way to make a fake
-        from other Provider
-        TODO: data export?
+        This is a secure way to make a fake from another Provider.
         """
+        # TODO: data export?
         return self.get_formatter(formatter)(*args, **kwargs)
 
     def get_formatter(self, formatter):
@@ -58,19 +66,21 @@ class Generator(object):
         except AttributeError:
             raise AttributeError('Unknown formatter "{0}"'.format(formatter))
 
+    def set_formatter(self, name, method):
+        """
+        This method adds a provider method to generator.
+        Override this method to add some decoration or logging stuff.
+        """
+        setattr(self, name, method)
+
     def parse(self, text):
         """
-        Replaces tokens ('{{ tokenName }}') with the result from the token method call
+        Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
+        with the result from the token method call.
         """
-        return re.sub(r'\{\{(\s?)(\w+)(\s?)\}\}', self.__format_token, text)
-        #return re.sub( r'\{\{\s?(\w+)\s?\}\}', lambda matches: ( self.format( matches.group(1) ) ) , text )
+        return _re_token.sub(self.__format_token, text)
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
-        #args = []
-        #if ':' in formatter[1]:
-        #    formatter[1], args = formatter[1].split(":")
-        #    args = args.split(",")
         formatter[1] = self.format(formatter[1])
-
-        return "".join(formatter)
+        return ''.join(formatter)

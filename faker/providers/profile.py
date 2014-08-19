@@ -1,6 +1,10 @@
+# coding=utf-8
+
 from . import BaseProvider
 from .. import Generator
 import itertools
+
+
 class Provider(BaseProvider):
 	"""
 	This provider is a collection of functions to generate personal profiles and identities.
@@ -32,8 +36,7 @@ class Provider(BaseProvider):
 		d={
 		"job":self.generator.job(),
 		"company":self.generator.company(),
-		#ssn is US only. It should be refactored to use the locale
-		"ssn":self.numerify("###-##-####"),
+		"ssn":self.generator.ssn(),
 		"residence":self.generator.address(),
 		"current_location":(self.generator.latitude(),self.generator.longitude()),
 		"blood_group":"".join(self.random_element(list(itertools.product(["A","B","AB","0"],["+","-"]))))

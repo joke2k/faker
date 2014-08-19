@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 from . import BaseProvider
 from . import date_time
@@ -6,7 +8,7 @@ import hashlib
 import string
 
 class Provider(BaseProvider):
-    language_codes = ('cn', 'de', 'en', 'es', 'fr', 'it', 'pt', 'ru')
+    language_codes = ('cn', 'de', 'el', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
     def boolean(cls, chance_of_getting_true=50):

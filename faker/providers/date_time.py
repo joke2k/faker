@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import unicode_literals
 from . import BaseProvider
 import random
@@ -243,7 +245,12 @@ class Provider(BaseProvider):
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
-        return datetime.fromtimestamp(random.randint(-62135600400, int(time())))
+        ts = random.randint(-62135600400, int(time()))
+        # NOTE: using datetime.fromtimestamp(ts) directly will raise
+        #       a "ValueError: timestamp out of range for platform time_t"
+        #       on some platforms due to system C functions;
+        #       see http://stackoverflow.com/a/10588133/2315612
+        return datetime.fromtimestamp(0) + timedelta(seconds=ts)
 
     @classmethod
     def iso8601(cls):
@@ -375,7 +382,4 @@ class Provider(BaseProvider):
 
     @classmethod
     def timezone(cls):
-        return cls.random_element(cls.countries)['timezones'].pop(0)
-
-
-
+        return random.choice(cls.random_element(cls.countries)['timezones'])

@@ -1,13 +1,18 @@
 from __future__ import unicode_literals
+import random
+
 from ..address import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
+    
     city_suffixes = (
         'town', 'ton', 'land', 'ville', 'berg', 'burgh', 'borough', 'bury', 'view', 'port', 'mouth', 'stad', 'furt',
         'chester', 'mouth', 'fort', 'haven', 'side', 'shire')
+    
     building_number_formats = ('#####', '####', '###')
+    
     street_suffixes = (
         'Alley', 'Avenue', 'Branch', 'Bridge', 'Brook', 'Brooks', 'Burg', 'Burgs', 'Bypass', 'Camp', 'Canyon', 'Cape',
         'Causeway', 'Center', 'Centers', 'Circle', 'Circles', 'Cliff', 'Cliffs', 'Club', 'Common', 'Corner', 'Corners',
@@ -39,7 +44,9 @@ class Provider(AddressProvider):
         'Viaduct',
         'View', 'Views', 'Village', 'Village', 'Villages', 'Ville', 'Vista', 'Vista', 'Walk', 'Walks', 'Wall', 'Way',
         'Ways', 'Well', 'Wells')
+    
     postcode_formats = ('#####', '#####-####')
+    
     states = (
         'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
         'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
@@ -50,6 +57,7 @@ class Provider(AddressProvider):
         'Pennsylvania', 'RhodeIsland', 'SouthCarolina', 'SouthDakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
         'Virginia',
         'Washington', 'WestVirginia', 'Wisconsin', 'Wyoming' )
+    
     states_abbr = (
         'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN',
         'IA',
@@ -57,7 +65,16 @@ class Provider(AddressProvider):
         'NC',
         'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA',
         'WV',
-        'WI', 'WY', 'AE', 'AA', 'AP' )
+        'WI', 'WY')
+
+    military_state_abbr = ('AE', 'AA', 'AP')
+
+    military_ship_prefix = ('USS', 'USNS', 'USNV', 'USCGC')
+
+    military_apo_format = ("PSC ####, Box ####")
+
+    military_dpo_format = ("Unit #### Box ####")
+    
     countries = (
         'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla',
         'Antarctica (the territory South of 60 deg S)', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba',
@@ -114,17 +131,29 @@ class Provider(AddressProvider):
         '{{first_name}}{{city_suffix}}',
         '{{last_name}}{{city_suffix}}',
     )
+
     street_name_formats = (
         '{{first_name}} {{street_suffix}}',
         '{{last_name}} {{street_suffix}}'
     )
+
     street_address_formats = (
         '{{building_number}} {{street_name}}',
         '{{building_number}} {{street_name}} {{secondary_address}}',
     )
+
     address_formats = (
         "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
     )
+
+    address_formats = {
+    "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}": 25,
+    #military address formatting.
+    "{{military_apo}}\nAPO {{military_state}} {{postcode}}": 1,
+    "{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}": 1,
+    "{{military_dpo}}\nDPO {{military_state}} {{postcode}}": 1
+    }
+
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
     @classmethod
@@ -142,3 +171,49 @@ class Provider(AddressProvider):
     @classmethod
     def state_abbr(cls):
         return cls.random_element(cls.states_abbr)
+
+    @classmethod
+    def zipcode(cls):
+        return "%05d" % random.randint(501, 99950)
+
+    @classmethod
+    def zipcode_plus4(cls):
+        return "%s-%04d" % (cls.zipcode(), random.randint(1, 9999))
+
+    @classmethod
+    def military_ship(cls):
+        """
+        :example 'USS'
+        """
+        return cls.random_element(cls.military_ship_prefix)
+
+    @classmethod
+    def military_state(cls):
+         """
+         :example 'APO'
+         """
+         return cls.random_element(cls.military_state_abbr)
+
+    @classmethod
+    def military_apo(cls):
+        """
+        :example 'PSC 5394 Box 3492
+        """
+        return cls.numerify(cls.military_apo_format)
+
+    @classmethod
+    def military_dpo(cls):
+        """
+        :example 'Unit 3333 Box 9342'
+        """
+        return cls.numerify(cls.military_dpo_format)
+ 
+
+    # Aliases
+    @classmethod
+    def postalcode(cls):
+        return cls.zipcode()
+
+    @classmethod
+    def postalcode_plus4(cls):
+        return cls.zipcode_plus4()

@@ -1,3 +1,6 @@
+# coding=utf-8
+
+
 def is_string(var):
     try:
         return isinstance(var, basestring)
