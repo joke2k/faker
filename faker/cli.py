@@ -118,7 +118,7 @@ class Command(object):
         """
 
         # retrieve default language from system environment
-        default_locale = os.environ['LANG'].split('.')[0]
+        default_locale = os.environ.get('LANG', 'en_US').split('.')[0]
         if default_locale not in AVAILABLE_LOCALES:
             default_locale = DEFAULT_LOCALE
 
