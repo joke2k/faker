@@ -1,6 +1,7 @@
 # https://ci.appveyor.com/project/joke2k/faker
 build: false
 environment:
+  PYTHONIOENCODING: "utf-8"
   matrix:
     - PYTHON: "C:/Python27"
     - PYTHON: "C:/Python34"
