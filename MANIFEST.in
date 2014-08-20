@@ -1,2 +1,3 @@
+include *.rst
 include *.md
 include *.txt
