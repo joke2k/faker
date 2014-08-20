@@ -9,7 +9,7 @@ README = open(os.path.join(here, 'README.md')).read()
 NEWS = open(os.path.join(here, 'CHANGELOG.rst')).read()
 
 
-version = '0.4.1'
+version = '0.4.2'
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 zip_safe = not on_rtd
