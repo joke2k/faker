@@ -12,6 +12,7 @@ Faker is for you.
 Faker is heavily inspired by PHP's [Faker][php-faker], Perl's [Data::Faker][perl-faker], and by ruby's [Faker][ruby-faker].
 
 [![Build Status](https://travis-ci.org/joke2k/faker.png)](https://travis-ci.org/joke2k/faker)
+[![Build status](https://ci.appveyor.com/api/projects/status/b8qg53rqmuag9o49/branch/master)](https://ci.appveyor.com/project/joke2k/faker/branch/master)
 [![Coverage Status](https://coveralls.io/repos/joke2k/faker/badge.png?branch=master)](https://coveralls.io/r/joke2k/faker?branch=master)
 [![PyPI version](https://badge.fury.io/py/fake-factory.png)](http://badge.fury.io/py/fake-factory)
 [![Downloads](https://pypip.in/d/fake-factory/badge.png)](https://crate.io/packages/fake-factory)
