@@ -35,7 +35,7 @@ Changelog
 * FIX setup.py
 
 
-0.3 - 18-Oct-2014
+0.3 - 18-Oct-2013
 -----------------
 
 * PEP8 style conversion (old camelCased methods are deprecated!)
