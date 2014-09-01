@@ -26,14 +26,39 @@ class Provider(CompanyProvider):
     )
 
     attributes = (
-        'de maneira eficaz', 'mais rapidamentet', 'mais facilmente', 'simplesmente', 'com toda a tranquilidade',
-        'antes de tudo', 'naturellemente', 'sem preocupação', 'em estado puro', 'com força total',
+        'de maneira eficaz', 'mais rapidamente', 'mais facilmente', 'simplesmente', 'com toda a tranquilidade',
+        'antes de tudo', 'naturalmente', 'sem preocupação', 'em estado puro', 'com força total',
         'direto da fonte', 'com confiança'
     )
 
     company_suffixes = ('S/A', 'S.A.', 'Ltda.', '- ME', '- EI', 'e Filhos')
 
+    @classmethod
+    def catch_phrase_noun(cls):
+        """
+        Returns a random catch phrase noun.
+        """
+        return cls.random_element(cls.nouns)
 
+    @classmethod
+    def catch_phrase_attribute(cls):
+        """
+        Returns a random catch phrase attribute.
+        """
+        return cls.random_element(cls.attributes)
 
+    @classmethod
+    def catch_phrase_verb(cls):
+        """
+        Returns a random catch phrase verb.
+        """
+        return cls.random_element(cls.verbs)
 
-
+    def catch_phrase(self):
+        """
+        :example 'a segurança de evoluir sem preocupação'
+        """
+        pattern = self.random_element(self.catch_phrase_formats)
+        catch_phrase = self.generator.parse(pattern)
+        catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
+        return catch_phrase
