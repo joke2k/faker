@@ -13,8 +13,8 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{prefix}} {{last_name}}',
-        '{{first_name}} {{last_name}}-{{last_name}}',
-        '{{first_name}}-{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}} {{last_name}}',
+        '{{first_name}} {{first_name}} {{last_name}}',
     )
 
     first_names = (
