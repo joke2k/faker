@@ -60,7 +60,7 @@ This is because faker forwards `faker.Generator.method_name()` calls to `faker.G
 
 ```python
 
-for i in range(0,10):
+for _ in range(0,10):
   print fake.name()
 
 	# Adaline Reichel
@@ -87,7 +87,7 @@ If no localized provider is found, the factory falls back to the default en_US l
 
     from faker import Factory
     fake = Factory.create('it_IT')
-    for i in range(0,10):
+    for _ in range(0,10):
         print fake.name()
 
     > Elda Palumbo
