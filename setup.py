@@ -2,11 +2,12 @@
 # coding=utf-8
 
 import os
+import io
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
-NEWS = open(os.path.join(here, 'CHANGELOG.rst')).read()
+README = io.open(os.path.join(here, 'README.md'), encoding="utf8").read()
+NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
 version = '0.4.2'
