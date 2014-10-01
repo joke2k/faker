@@ -152,6 +152,10 @@ class Provider(PersonProvider):
         return cls.random_element(cls.first_names_female)
 
     @classmethod
+    def first_name(cls):
+        return cls.random_element(cls.first_names_male)
+
+    @classmethod
     def prefix_male(cls):
         return 'пан'
 

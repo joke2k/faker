@@ -11,3 +11,7 @@ from ..ssn import Provider as SsnProvider
 
 class Provider(SsnProvider):
     ssn_formats = ("############",)
+
+    @classmethod
+    def ssn(cls):
+        return cls.numerify(cls.random_element(cls.ssn_formats))
