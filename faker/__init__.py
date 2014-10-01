@@ -27,6 +27,7 @@ AVAILABLE_LOCALES = [
     'pt_BR',
     'ru_RU',
     'sl_SI',
+    'uk_UA',
     'zh_CN',
     'zh_TW'
 ]
