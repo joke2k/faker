@@ -20,7 +20,7 @@ def choice_distribution(a, p):
 
     cdf = list(cumsum(p))
     normal = cdf[-1]
-    cdf2 = [i / normal for i in cdf]
+    cdf2 = [float(i) / float(normal) for i in cdf]
     uniform_sample = random_sample()
     idx = bisect.bisect_right(cdf2, uniform_sample)
 
