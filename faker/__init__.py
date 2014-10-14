@@ -38,6 +38,7 @@ DEFAULT_PROVIDERS = (
     'color',
     'company',
     'credit_card',
+    'currency',
     'date_time',
     'file',
     'internet',
