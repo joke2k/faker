@@ -14,22 +14,22 @@ class Provider(CompanyProvider):
             'Adaptive', 'Advanced', 'Ameliorated', 'Assimilated', 'Automated', 'Balanced', 'Business-focused',
             'Centralized', 'Cloned', 'Compatible', 'Configurable', 'Cross-group', 'Cross-platform', 'Customer-focused',
             'Customizable', 'Decentralized', 'De-engineered', 'Devolved', 'Digitized', 'Distributed', 'Diverse',
-            'Down-sized', 'Enhanced', 'Enterprise-wide', 'Ergonomic', 'Exclusive', 'Expanded', 'Extended', 'Facetoface',
+            'Down-sized', 'Enhanced', 'Enterprise-wide', 'Ergonomic', 'Exclusive', 'Expanded', 'Extended', 'Face-to-face',
             'Focused', 'Front-line', 'Fully-configurable', 'Function-based', 'Fundamental', 'Future-proofed',
             'Grass-roots', 'Horizontal', 'Implemented', 'Innovative', 'Integrated', 'Intuitive', 'Inverse', 'Managed',
-            'Mandatory', 'Monitored', 'Multi-channelled', 'Multi-lateral', 'Multi-layered', 'Multi-tiered', 'Networked',
+            'Mandatory', 'Monitored', 'Multi-channeled', 'Multi-lateral', 'Multi-layered', 'Multi-tiered', 'Networked',
             'Object-based', 'Open-architected', 'Open-source', 'Operative', 'Optimized', 'Optional', 'Organic',
-            'Organized', 'Persevering', 'Persistent', 'Phased', 'Polarised', 'Pre-emptive', 'Proactive',
+            'Organized', 'Persevering', 'Persistent', 'Phased', 'Polarized', 'Pre-emptive', 'Proactive',
             'Profit-focused', 'Profound', 'Programmable', 'Progressive', 'Public-key', 'Quality-focused', 'Reactive',
             'Realigned', 'Re-contextualized', 'Re-engineered', 'Reduced', 'Reverse-engineered', 'Right-sized', 'Robust',
             'Seamless', 'Secured', 'Self-enabling', 'Sharable', 'Stand-alone', 'Streamlined', 'Switchable',
-            'Synchronised', 'Synergistic', 'Synergized', 'Team-oriented', 'Total', 'Triple-buffered', 'Universal',
+            'Synchronized', 'Synergistic', 'Synergized', 'Team-oriented', 'Total', 'Triple-buffered', 'Universal',
             'Up-sized', 'Upgradable', 'User-centric', 'User-friendly', 'Versatile', 'Virtual', 'Visionary',
             'Vision-oriented'
         ),
         (
             '24hour', '24/7', '3rdgeneration', '4thgeneration', '5thgeneration', '6thgeneration', 'actuating',
-            'analyzing', 'assymetric', 'asynchronous', 'attitude-oriented', 'background', 'bandwidth-monitored',
+            'analyzing', 'asymmetric', 'asynchronous', 'attitude-oriented', 'background', 'bandwidth-monitored',
             'bi-directional', 'bifurcated', 'bottom-line', 'clear-thinking', 'client-driven', 'client-server',
             'coherent', 'cohesive', 'composite', 'context-sensitive', 'contextually-based', 'content-based',
             'dedicated', 'demand-driven', 'didactic', 'directional', 'discrete', 'disintermediate', 'dynamic',
@@ -38,28 +38,28 @@ class Provider(CompanyProvider):
             'high-level', 'holistic', 'homogeneous', 'human-resource', 'hybrid', 'impactful', 'incremental',
             'intangible', 'interactive', 'intermediate', 'leadingedge', 'local', 'logistical', 'maximized',
             'methodical', 'mission-critical', 'mobile', 'modular', 'motivating', 'multimedia', 'multi-state',
-            'multi-tasking', 'national', 'needs-based', 'neutral', 'nextgeneration', 'non-volatile', 'object-oriented',
+            'multi-tasking', 'national', 'needs-based', 'neutral', 'next generation', 'non-volatile', 'object-oriented',
             'optimal', 'optimizing', 'radical', 'real-time', 'reciprocal', 'regional', 'responsive', 'scalable',
             'secondary', 'solution-oriented', 'stable', 'static', 'systematic', 'systemic', 'system-worthy', 'tangible',
             'tertiary', 'transitional', 'uniform', 'upward-trending', 'user-facing', 'value-added', 'web-enabled',
-            'well-modulated', 'zeroadministration', 'zerodefect', 'zerotolerance'
+            'well-modulated', 'zero administration', 'zero-defect', 'zero tolerance'
         ),
         (
             'ability', 'access', 'adapter', 'algorithm', 'alliance', 'analyzer', 'application', 'approach',
-            'architecture', 'archive', 'artificialintelligence', 'array', 'attitude', 'benchmark',
-            'budgetarymanagement', 'capability', 'capacity', 'challenge', 'circuit', 'collaboration', 'complexity',
-            'concept', 'conglomeration', 'contingency', 'core', 'customerloyalty', 'database', 'data-warehouse',
-            'definition', 'emulation', 'encoding', 'encryption', 'extranet', 'firmware', 'flexibility', 'focusgroup',
-            'forecast', 'frame', 'framework', 'function', 'functionalities', 'GraphicInterface', 'groupware',
-            'GraphicalUserInterface', 'hardware', 'help-desk', 'hierarchy', 'hub', 'implementation', 'info-mediaries',
-            'infrastructure', 'initiative', 'installation', 'instructionset', 'interface', 'internetsolution',
-            'intranet', 'knowledgeuser', 'knowledgebase', 'localareanetwork', 'leverage', 'matrices', 'matrix',
+            'architecture', 'archive', 'artificial intelligence', 'array', 'attitude', 'benchmark',
+            'budgetary management', 'capability', 'capacity', 'challenge', 'circuit', 'collaboration', 'complexity',
+            'concept', 'conglomeration', 'contingency', 'core', 'customer loyalty', 'database', 'data-warehouse',
+            'definition', 'emulation', 'encoding', 'encryption', 'extranet', 'firmware', 'flexibility', 'focus group',
+            'forecast', 'frame', 'framework', 'function', 'functionalities', 'Graphic Interface', 'groupware',
+            'Graphical User Interface', 'hardware', 'help-desk', 'hierarchy', 'hub', 'implementation', 'info-mediaries',
+            'infrastructure', 'initiative', 'installation', 'instruction set', 'interface', 'Internet solution',
+            'intranet', 'knowledge user', 'knowledgebase', 'Local Area Network', 'leverage', 'matrices', 'matrix',
             'methodology', 'middleware', 'migration', 'model', 'moderator', 'monitoring', 'moratorium', 'neural-net',
-            'openarchitecture', 'opensystem', 'orchestration', 'paradigm', 'parallelism', 'policy', 'portal',
-            'pricingstructure', 'processimprovement', 'product', 'productivity', 'project', 'projection', 'protocol',
-            'securedline', 'service-desk', 'software', 'solution', 'standardization', 'strategy', 'structure',
-            'success', 'superstructure', 'support', 'synergy', 'systemengine', 'task-force', 'throughput', 'time-frame',
-            'toolset', 'utilisation', 'website', 'workforce'
+            'open architecture', 'open system', 'orchestration', 'paradigm', 'parallelism', 'policy', 'portal',
+            'pricing structure', 'process improvement', 'product', 'productivity', 'project', 'projection', 'protocol',
+            'secured line', 'service-desk', 'software', 'solution', 'standardization', 'strategy', 'structure',
+            'success', 'superstructure', 'support', 'synergy', 'system engine', 'task-force', 'throughput', 'time-frame',
+            'toolset', 'utilization', 'website', 'workforce'
         )
     )
 
@@ -69,9 +69,9 @@ class Provider(CompanyProvider):
             'orchestrate', 'leverage', 'reinvent', 'aggregate', 'architect', 'enhance', 'incentivize', 'morph',
             'empower', 'envisioneer', 'monetize', 'harness', 'facilitate', 'seize', 'disintermediate', 'synergize',
             'strategize', 'deploy', 'brand', 'grow', 'target', 'syndicate', 'synthesize', 'deliver', 'mesh', 'incubate',
-            'engage', 'maximize', 'benchmark', 'expedite', 'reintermediate', 'whiteboard', 'visualize', 'repurpose',
+            'engage', 'maximize', 'benchmark', 'expedite', 're-intermediate', 'whiteboard', 'visualize', 'repurpose',
             'innovate', 'scale', 'unleash', 'drive', 'extend', 'engineer', 'revolutionize', 'generate', 'exploit',
-            'transition', 'e-enable', 'iterate', 'cultivate', 'matrix', 'productize', 'redefine', 'recontextualize'
+            'transition', 'e-enable', 'iterate', 'cultivate', 'matrix', 'productize', 'redefine', 're-contextualize'
         ),
         (
             'clicks-and-mortar', 'value-added', 'vertical', 'proactive', 'robust', 'revolutionary', 'scalable',
@@ -89,8 +89,8 @@ class Provider(CompanyProvider):
             'initiatives', 'channels', 'eyeballs', 'communities', 'ROI', 'solutions', 'e-tailers', 'e-services',
             'action-items', 'portals', 'niches', 'technologies', 'content', 'vortals', 'supply-chains', 'convergence',
             'relationships', 'architectures', 'interfaces', 'e-markets', 'e-commerce', 'systems', 'bandwidth',
-            'infomediaries', 'models', 'mindshare', 'deliverables', 'users', 'schemas', 'networks', 'applications',
-            'metrics', 'e-business', 'functionalities', 'experiences', 'webservices', 'methodologies'
+            'info-mediaries', 'models', 'mindshare', 'deliverables', 'users', 'schemas', 'networks', 'applications',
+            'metrics', 'e-business', 'functionalities', 'experiences', 'web services', 'methodologies'
         )
     )
 
