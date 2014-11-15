@@ -224,13 +224,21 @@ class FactoryTestCase(unittest.TestCase):
         result = datetime_safe.date(2008, 2, 29).strftime('%y')
         self.assertEqual(result, r'08')
 
+    def test_no_words_sentence(self):
+        from faker.providers.lorem import Provider
 
-    def test_no_words(self):
-        from faker.providers import BaseProvider
-        provider = BaseProvider(None)
+        provider = Provider(None)
+
+        paragraph = provider.paragraph(0)
+        self.assertEqual(paragraph, '')
+
+    def test_no_words_paragraph(self):
+        from faker.providers.lorem import Provider
+
+        provider = Provider(None)
+
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
-        import ipdb; ipdb.set_trace()
 
 
 if __name__ == '__main__':
