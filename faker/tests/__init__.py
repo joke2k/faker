@@ -225,5 +225,13 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(result, r'08')
 
 
+    def test_no_words(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider(None)
+        sentence = provider.sentence(0)
+        self.assertEqual(sentence, '')
+        import ipdb; ipdb.set_trace()
+
+
 if __name__ == '__main__':
     unittest.main()
