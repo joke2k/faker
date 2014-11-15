@@ -6,6 +6,7 @@ VERSION = '0.4.2'
 AVAILABLE_LOCALES = [
     'bg_BG',
     'cs_CZ',
+    'de_AT',
     'de_DE',
     'dk_DK',
     'el_GR',
