@@ -132,6 +132,7 @@ Included localized providers:
 * [pt_BR](http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html)
 * [ru_RU](http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html)
 * [sl_SI](http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html)
+* [tr_TR](http://fake-factory.readthedocs.org/en/master/locales/tr_TR.html)
 * [zh_CN](http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html)
 * [zh_TW](http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html)
 
@@ -162,7 +163,7 @@ Where:
 
 * `-s SEP`: will generate the specified separator after each generated output
 
-* `fake`: is the name of the fake to generate an output for, 
+* `fake`: is the name of the fake to generate an output for,
   such as `name`, `address`, or `text`
 
 * `[fake ...]`: is an optional comma-separated list of field names to pass to the fake,
@@ -173,11 +174,11 @@ Examples:
     $ faker address
     968 Bahringer Garden Apt. 722
     Kristinaland, NJ 09890
-    
+
     $ faker -l de_DE address
     Samira-Niemeier-Allee 56
     94812 Biedenkopf
-    
+
     $ faker profile ssn,birthdate
     {'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}
 
