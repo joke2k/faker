@@ -22,6 +22,7 @@ AVAILABLE_LOCALES = [
     'ko_KR',
     'lt_LT',
     'lv_LV',
+    'ne_NP',
     'nl_NL',
     'pl_PL',
     'pt_BR',
