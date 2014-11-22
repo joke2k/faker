@@ -3,12 +3,13 @@
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
+from importlib import import_module
 import locale as pylocale
-import sys
 
 from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
 from faker import providers as providers_mod
+from faker.utils.loading import list_module
 
 
 class Factory(object):
@@ -61,17 +62,41 @@ class Factory(object):
         raise ValueError(msg)
 
     @classmethod
-    def _find_provider_class(cls, provider, locale=''):
-
-        path = "{providers}{lang}.{provider}".format(
-            providers=providers_mod.__package__ or providers_mod.__name__,
-            lang='.' + locale if locale else '',
+    def _find_provider_class(cls, provider, locale=None):
+        providers_mod_name = providers_mod.__package__ or providers_mod.__name__
+ 
+        path = "{providers}.{provider}".format(
+            providers=providers_mod_name,
             provider=provider
         )
 
-        try:
-            __import__(path)
-        except ImportError:
-            return None
+        provider_module = import_module(path)
+        if getattr(provider_module, 'localized', False):
+            available_locales = list_module(provider_module)
+            if not locale or locale not in available_locales:
+                locale = getattr(provider_module, 'default_locale', DEFAULT_LOCALE)
 
-        return sys.modules[path].Provider
+            path = "{providers}.{provider}.{locale}".format(
+                providers=providers_mod_name,
+                locale=locale,
+                provider=provider
+            )
+            provider_module = import_module(path)
+        else:
+            if locale is not None:
+
+                path = "{providers}.{locale}.{provider}".format(
+                    providers=providers_mod_name,
+                    locale=locale,
+                    provider=provider
+                )
+                try:
+                    provider_module = import_module(path)
+                except ImportError:
+                    path = "{providers}.{provider}".format(
+                        providers=providers_mod_name,
+                        provider=provider
+                    )
+                    provider_module = import_module(path)
+
+        return provider_module.Provider

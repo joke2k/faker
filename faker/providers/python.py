@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 from . import BaseProvider
 from decimal import Decimal
-from .lorem import Provider as Lorem
+from .lorem.la import Provider as Lorem
 import sys
 
 
