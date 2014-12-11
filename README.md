@@ -60,7 +60,7 @@ This is because faker forwards `faker.Generator.method_name()` calls to `faker.G
 
 ```python
 
-for i in range(0,10):
+for _ in range(0,10):
   print fake.name()
 
 	# Adaline Reichel
@@ -87,7 +87,7 @@ If no localized provider is found, the factory falls back to the default en_US l
 
     from faker import Factory
     fake = Factory.create('it_IT')
-    for i in range(0,10):
+    for _ in range(0,10):
         print fake.name()
 
     > Elda Palumbo
@@ -127,10 +127,12 @@ Included localized providers:
 * [lt_LT](http://fake-factory.readthedocs.org/en/master/locales/lt_LT.html)
 * [lv_LV](http://fake-factory.readthedocs.org/en/master/locales/lv_LV.html)
 * [nl_NL](http://fake-factory.readthedocs.org/en/master/locales/nl_NL.html)
+* [no_NO](http://fake-factory.readthedocs.org/en/master/locales/no_NO.html)
 * [pl_PL](http://fake-factory.readthedocs.org/en/master/locales/pl_PL.html)
 * [pt_BR](http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html)
 * [ru_RU](http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html)
 * [sl_SI](http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html)
+* [tr_TR](http://fake-factory.readthedocs.org/en/master/locales/tr_TR.html)
 * [zh_CN](http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html)
 * [zh_TW](http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html)
 
@@ -161,7 +163,7 @@ Where:
 
 * `-s SEP`: will generate the specified separator after each generated output
 
-* `fake`: is the name of the fake to generate an output for, 
+* `fake`: is the name of the fake to generate an output for,
   such as `name`, `address`, or `text`
 
 * `[fake ...]`: is an optional comma-separated list of field names to pass to the fake,
@@ -172,11 +174,11 @@ Examples:
     $ faker address
     968 Bahringer Garden Apt. 722
     Kristinaland, NJ 09890
-    
+
     $ faker -l de_DE address
     Samira-Niemeier-Allee 56
     94812 Biedenkopf
-    
+
     $ faker profile ssn,birthdate
     {'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}
 
