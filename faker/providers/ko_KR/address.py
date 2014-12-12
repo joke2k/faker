@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from ..address import Provider as AddressProvider
 
+
 class Provider(AddressProvider):
     city_suffixes = ('마을', '시', '군', '구')
     building_number_formats = ('#', '####', '###')
