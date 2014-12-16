@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from ..lorem import Provider as LoremProvider
+from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
