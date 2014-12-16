@@ -1,8 +1,10 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
+from .. import BaseProvider
 import random
+import re
+import unicodedata
 
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_domain
@@ -48,6 +50,15 @@ class Provider(BaseProvider):
         'http://dummyimage.com/{width}x{height}',
      )
 
+    replacements = tuple()
+
+
+    def _to_ascii(self, string):
+        for search, replace in self.replacements:
+            string = string.replace(search, replace)
+
+        return string
+
     def email(self):
         pattern = self.random_element(self.email_formats)
         return "".join(self.generator.parse(pattern).split(" "))
@@ -68,7 +79,9 @@ class Provider(BaseProvider):
     @slugify_domain
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
-        return self.bothify(self.generator.parse(pattern))
+        return self._to_ascii(
+            self.bothify(self.generator.parse(pattern)
+        ).lower())
 
     def domain_name(self):
         return self.domain_word() + '.' + self.tld()
@@ -77,8 +90,8 @@ class Provider(BaseProvider):
     def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
-        company = company_elements.pop(0)
-        return company
+        company = self._to_ascii(company_elements.pop(0))
+        return re.sub(r'\W', '', company).lower()
 
     def tld(self):
         return self.random_element(self.tlds)
