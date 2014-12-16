@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from ..company import Provider as CompanyProvider
+from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
@@ -11,13 +11,13 @@ class Provider(CompanyProvider):
     )
 
     company_suffixes = (
-    	'АД', 'AD',
-    	'ADSITz', 'АДСИЦ',
-    	'EAD', 'ЕАД',
-    	'EOOD', 'ЕООД',
-    	'ET', 'ET',
-    	'OOD', 'ООД',
-    	'KD', 'КД',
-    	'KDA', 'КДА',
-    	'SD', 'СД'
+        'АД', 'AD',
+        'ADSITz', 'АДСИЦ',
+        'EAD', 'ЕАД',
+        'EOOD', 'ЕООД',
+        'ET', 'ET',
+        'OOD', 'ООД',
+        'KD', 'КД',
+        'KDA', 'КДА',
+        'SD', 'СД'
     )
