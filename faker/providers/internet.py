@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from . import BaseProvider
 import random
 
-from faker.providers.lorem import Provider as Lorem
+from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_domain
 
 
