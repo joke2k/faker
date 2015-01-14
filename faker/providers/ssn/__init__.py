@@ -1,8 +1,11 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from ..ssn import Provider as SsnProvider
+localized = True
 
-class Provider(SsnProvider):
+from .. import BaseProvider
+
+
+class Provider(BaseProvider):
     ssn_formats = ("###-##-####",)
     
     @classmethod
