@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from .. import BaseProvider
+from .. import Provider as BaseProvider
 
 
 # Ukrainian job names taken from
@@ -63,7 +63,3 @@ class Provider(BaseProvider):
         # Ю
         'Ювелір', 'Юрист'
     ]
-
-    @classmethod
-    def job(cls):
-        return cls.random_element(cls.jobs)

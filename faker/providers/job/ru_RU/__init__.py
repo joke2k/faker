@@ -1,11 +1,11 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from .. import BaseProvider
+from .. import Provider as BaseProvider
 
 # Russian jobs taken from the Wikipedia page
 # https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BF%D1%80%D0%BE%D1%84%D0%B5%D1%81%D1%81%D0%B8%D0%B9
 class Provider(BaseProvider):
-	jobs=["Авиадиспетчер",
+    jobs=["Авиадиспетчер",
 "Авиатехник",
 "Авиационный техник",
 "Автогонщик",
@@ -545,6 +545,3 @@ class Provider(BaseProvider):
 "Ювелир",
 "Юрисконсульт",
 "Юрист"]
-	@classmethod
-	def job(cls):
-		return cls.random_element(cls.jobs)

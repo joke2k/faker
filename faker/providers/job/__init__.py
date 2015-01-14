@@ -1,7 +1,7 @@
 # coding=utf-8
+localized = True
 
-from . import BaseProvider
-from .. import Generator
+from .. import BaseProvider
 
 
 class Provider(BaseProvider):
@@ -629,6 +629,7 @@ class Provider(BaseProvider):
 "Wellsite geologist",
 "Writer",
 "Youth worker"]
+
 	@classmethod
 	def job(cls):
 		return cls.random_element(cls.jobs)
