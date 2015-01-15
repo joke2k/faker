@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from ..ssn import Provider as SsnProvider
+from .. import Provider as SsnProvider
 
 
 # Note: as there no SSN in Ukraine

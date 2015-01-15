@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 from string import ascii_uppercase, digits
-from ..ssn import Provider as SsnProvider
+from .. import Provider as SsnProvider
 
 
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
