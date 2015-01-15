@@ -1,13 +1,14 @@
 from __future__ import unicode_literals
-from ..company import Provider as CompanyProvider
+from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
     formats = (
         '{{last_name}} {{company_suffix}}',
-        '{{first_name}} {{last_name}} s.p.',
+        '{{last_name}} {{last_name}} {{company_suffix}}',
+        '{{last_name}}',
     )
 
     company_suffixes = (
-        'd.o.o.', 'd.d.',
+        's.r.o.', 'o.s.', 'a.s.',
     )

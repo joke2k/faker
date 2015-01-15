@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from ..company import Provider as CompanyProvider
+from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
