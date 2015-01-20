@@ -223,6 +223,45 @@ class FactoryTestCase(unittest.TestCase):
         # test that certain formatting strings are allowed on post-1900 dates
         result = datetime_safe.date(2008, 2, 29).strftime('%y')
         self.assertEqual(result, r'08')
+    
+    def test_date_time_between_dates(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        timestamp_start = random.randint(0,10000000000)
+        timestamp_end = timestamp_start+1
+
+        datetime_start = datetime.datetime.fromtimestamp(timestamp_start)
+        datetime_end = datetime.datetime.fromtimestamp(timestamp_end)
+
+        random_date = provider.date_time_between_dates(datetime_start, datetime_end)
+        self.assertLessEqual(datetime_start, random_date)
+        self.assertGreaterEqual(datetime_end, random_date)
+
+    def test_date_time_this_period(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+        now = datetime.datetime.now()
+        # test century
+        self.assertLessEqual(provider.date_time_this_century(after_now=False), now)
+        self.assertGreaterEqual(provider.date_time_this_century(before_now=False), now)
+        self.assertAlmostEqual(provider.date_time_this_century(before_now=False, after_now=False),
+                               now, delta=datetime.timedelta(seconds=1))
+        # test decade
+        self.assertLessEqual(provider.date_time_this_decade(after_now=False), now)
+        self.assertGreaterEqual(provider.date_time_this_decade(before_now=False), now)
+        self.assertAlmostEqual(provider.date_time_this_decade(before_now=False, after_now=False),
+                               now, delta=datetime.timedelta(seconds=1))
+        # test year
+        self.assertLessEqual(provider.date_time_this_year(after_now=False), now)
+        self.assertGreaterEqual(provider.date_time_this_year(before_now=False), now)
+        self.assertAlmostEqual(provider.date_time_this_year(before_now=False, after_now=False),
+                               now, delta=datetime.timedelta(seconds=1))
+        # test month
+        self.assertLessEqual(provider.date_time_this_month(after_now=False), now)
+        self.assertGreaterEqual(provider.date_time_this_month(before_now=False), now)
+        self.assertAlmostEqual(provider.date_time_this_month(before_now=False, after_now=False),
+                               now, delta=datetime.timedelta(seconds=1))
 
 
 if __name__ == '__main__':
