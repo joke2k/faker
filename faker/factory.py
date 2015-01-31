@@ -84,19 +84,10 @@ class Factory(object):
             provider_module = import_module(path)
         else:
             if locale is not None:
-
-                path = "{providers}.{locale}.{provider}".format(
+                path = "{providers}.{provider}".format(
                     providers=providers_mod_name,
-                    locale=locale,
                     provider=provider
                 )
-                try:
-                    provider_module = import_module(path)
-                except ImportError:
-                    path = "{providers}.{provider}".format(
-                        providers=providers_mod_name,
-                        provider=provider
-                    )
-                    provider_module = import_module(path)
+                provider_module = import_module(path)
 
         return provider_module.Provider
