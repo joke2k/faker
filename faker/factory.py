@@ -6,9 +6,9 @@ from __future__ import absolute_import
 from importlib import import_module
 import locale as pylocale
 
-from faker import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker import Generator
 from faker import providers as providers_mod
+from faker.config import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker.utils.loading import list_module
 
 

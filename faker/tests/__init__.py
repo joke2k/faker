@@ -92,6 +92,13 @@ class UtilsTestCase(unittest.TestCase):
         self.assertEqual(result, {'a': 1, 'c': 3, 'b': 3, 'd': 4})
 
 
+    def test_find_available_locales(self):
+        from faker.utils.loading import find_available_locales
+        from faker.config import DEFAULT_PROVIDERS
+
+        result = find_available_locales(DEFAULT_PROVIDERS)
+        self.assertNotEqual(len(result), 0)
+
 class FactoryTestCase(unittest.TestCase):
 
     def setUp(self):

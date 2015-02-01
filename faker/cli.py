@@ -8,7 +8,8 @@ import sys
 import argparse
 
 from faker import Faker, Factory, documentor
-from faker import VERSION, AVAILABLE_LOCALES, DEFAULT_LOCALE
+from faker import VERSION
+from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
 
 
 if sys.version < '3':
