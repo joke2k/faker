@@ -6,7 +6,7 @@ import io
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = io.open(os.path.join(here, 'README.md'), encoding="utf8").read()
+README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
 NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
