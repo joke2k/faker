@@ -302,8 +302,7 @@ Please see `CONTRIBUTING`_.
 License
 -------
 
-Faker is released under the MIT Licence. See the bundled LICENSE file
-for details.
+Faker is released under the MIT Licence. See the bundled `LICENSE`_ file for details.
 
 Credits
 -------
@@ -322,6 +321,7 @@ Credits
 .. _Buildout: http://www.buildout.org/
 .. _modern-package-template: http://pypi.python.org/pypi/modern-package-template
 .. _extended docs: http://fake-factory.readthedocs.org/en/latest/
+.. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 
 .. |pypi| image:: https://img.shields.io/pypi/v/fake-factory.svg?style=flat-square&label=version
