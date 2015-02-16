@@ -6,13 +6,13 @@ Changelog
 
 * Localized providers
 * Updated ko_KR provider. Thanks Lee Yeonjae.
-* Added pt_PT provider. Thanks JoÃ£o Delgado.
+* Added pt_PT provider. Thanks João Delgado.
 * Fixed mispellings for en_US company provider. Thanks Greg Meece.
-* Added currency provider. Thanks Wiktor ÅšlÄ™czka
+* Added currency provider. Thanks Wiktor Ślęczka
 * Ensure choice_distribution always uses floats. Thanks Katy Lavallee.
 * Added uk_UA provider. Thanks Cyril Tarasenko.
 * Fixed encoding issues with README, CHANGELOG and setup.py. Thanks Sven-Hendrik Haase.
-* Added Turkish person names and phone number patterns. Thanks Murat Ã‡orlu.
+* Added Turkish person names and phone number patterns. Thanks Murat Çorlu.
 * Added ne_NP provider. Thanks Sudip Kafle.
 * Added provider for Austria de_AT. Thanks Bernhard Essl.
 
