@@ -293,6 +293,12 @@ Write documentation for providers:
 
     $ python -m faker > docs.txt
 
+
+Contribute
+----------
+
+Please see `CONTRIBUTING`_.
+
 License
 -------
 
@@ -318,7 +324,7 @@ Credits
 .. _extended docs: http://fake-factory.readthedocs.org/en/latest/
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 
-.. |pypi| image:: https://img.shields.io/pypi/v/fake-factory.svg?style=flat-square&label=latest%20version
+.. |pypi| image:: https://img.shields.io/pypi/v/fake-factory.svg?style=flat-square&label=version
     :target: https://pypi.python.org/pypi/fake-factory
     :alt: Latest version released on PyPi
 
