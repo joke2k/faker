@@ -89,7 +89,7 @@ class BaseProvider(object):
         return random.choice(getattr(string, 'letters', string.ascii_letters))
 
     @classmethod
-    def random_element(cls, elements=('a', 'b', 'b')):
+    def random_element(cls, elements):
         """
         Returns a random element from a passed object.
 
