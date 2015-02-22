@@ -12,9 +12,6 @@ NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 version = '0.5.0'
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-zip_safe = not on_rtd
-
 setup(
     name='fake-factory',
     version=version,
@@ -43,5 +40,5 @@ setup(
     packages=find_packages(exclude=['*.tests']),
     platforms=["any"],
     test_suite='faker.tests',
-    zip_safe=zip_safe,
+    zip_safe=False,
 )
