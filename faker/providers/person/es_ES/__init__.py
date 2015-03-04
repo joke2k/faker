@@ -4,68 +4,65 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{prefix}} {{last_name}}',
-        '{{first_name}} {{last_name}}-{{last_name}}',
-        '{{first_name}} {{first_name}} {{last_name}} {{last_name}}',
+    formats_male = (
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{prefix}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}-{{last_name}}',
+        '{{first_name_male}} {{first_name_male}} {{last_name}} {{last_name}}',
     )
 
-    first_names = (
-        'Aaron', 'Abel', 'Abraham', 'Abram', 'Abril', 'Ada', 'Adam',
-        'Adria', 'Adrian', 'Adriana', 'Adrián', 'Adán', 'Africa', 'Aina',
-        'Ainara', 'Ainhoa', 'Aitana', 'Aitor', 'Alan', 'Alana', 'Alba',
-        'Alberto', 'Aleix', 'Alejandra', 'Alejandro', 'Alex', 'Alexa', 'Alexandra',
-        'Alexandría', 'Alexia', 'Alexis', 'Alfredo', 'Alicia', 'Alina', 'Alma',
-        'Alonso', 'Alonzo', 'Alvaro', 'Amanda', 'Amaya', 'Amelia', 'América',
-        'Ana', 'Ander', 'Andrea', 'Andres', 'Andrés', 'Ane', 'Angel',
-        'Angela', 'Angelina', 'Angélica', 'Anna', 'Antonio', 'Ariadna', 'Ariana',
-        'Arlet', 'Armando', 'Arnau', 'Aroa', 'Arturo', 'Asia', 'Asier',
-        'Aurora', 'Aya', 'Benjamín', 'Berta', 'Biel', 'Blanca', 'Brenda',
-        'Bruno', 'Camila', 'Candela', 'Carla', 'Carlos', 'Carlota', 'Carmen',
-        'Carolina', 'Cecilia', 'Celeste', 'Celia', 'Cesar', 'Chloe', 'Clara',
-        'Claudia', 'Cristian', 'Cristina', 'César', 'Daniel', 'Daniela', 'Daniella',
-        'Dario', 'David', 'Diana', 'Diego', 'Dulce', 'Eduardo', 'Elena',
-        'Eliana', 'Elisa', 'Elsa', 'Elías', 'Emanuel', 'Emilia', 'Emiliano',
-        'Emilio', 'Emma', 'Enrique', 'Eric', 'Erik', 'Erika', 'Ernesto',
-        'Esmeralda', 'Esteban', 'Estrella', 'Eva', 'Ezequiel', 'Fabián', 'Felipe',
-        'Fernanda', 'Fernando', 'Francisco', 'Francisco javier', 'Fátima', 'Gabriel', 'Gabriela',
-        'Gael', 'Gerard', 'Gerardo', 'Gloria', 'Gonzalo', 'Guadalupe', 'Guillem',
-        'Guillermo', 'Gustavo', 'Hector', 'Helena', 'Hugo', 'Héctor', 'Ian',
-        'Ignacio', 'Iker', 'Ines', 'Irati', 'Irene', 'Iria', 'Iris',
-        'Isaac', 'Isabel', 'Isabela', 'Isabella', 'Ismael', 'Israel', 'Ivan',
-        'Iván', 'Izan', 'Jaime', 'JairoJavier', 'Jan', 'Jana', 'Javier',
-        'Jazmín', 'Jesus', 'Jesús', 'Jimena', 'Joan', 'Joaquín', 'Joel',
-        'Jon', 'Jordi', 'Jorge', 'Jose', 'Jose antonio', 'Jose manuel', 'Josué',
-        'José', 'Juan', 'Judith', 'Julia', 'Juliana', 'Julio', 'Julián',
-        'Laia', 'Lara', 'Laura', 'Leila', 'Leire', 'Leo', 'Leonardo',
-        'Leyre', 'Lidia', 'Lila', 'Lilian', 'Liliana', 'Linda', 'Lola',
-        'Lorenzo', 'Lucas', 'Lucia', 'Lucián', 'Lucía', 'Luis', 'Luna',
-        'Lía', 'Malak', 'Manuel', 'Manuela', 'Mar', 'Mara', 'Marc',
-        'Marco', 'Marcos', 'Maria', 'Mariana', 'Marina', 'Mario', 'Marisol',
-        'Marta', 'Marti', 'Martin', 'Martina', 'Martín', 'María', 'Mateo',
-        'Matías', 'Mauricio', 'Max', 'Maximiliano', 'Maya', 'Melina', 'Mercedes',
-        'Miguel', 'Miguel angel', 'Mikel', 'Miranda', 'Mireia', 'Miriam', 'Mohamed',
-        'Mónica', 'Nadia', 'Nahia', 'Naia', 'Naiara', 'Natalia', 'Nayara',
-        'Nerea', 'Nicolas', 'Nicolás', 'Nil', 'Noa', 'Noelia', 'Nora',
-        'Noé', 'Nuria', 'Oliver', 'Olivia', 'Omar', 'Ona', 'Oriol',
-        'Orlando', 'Oscar', 'Pablo', 'Paola', 'Patricia', 'Pau', 'Paula',
-        'Paúl', 'Pedro', 'Penélope', 'Perla', 'Pol', 'Rafael', 'Ramón',
-        'Raquel', 'Raul', 'Rayan', 'Raúl', 'Regina', 'Ricardo', 'Roberto',
-        'Rocio', 'Rodrigo', 'Román', 'Rosa', 'Ruben', 'Rubén', 'Salma',
-        'Salvador', 'Samuel', 'Sandra', 'Santiago', 'Sara', 'Saul', 'Saúl',
-        'Sebastián', 'Selena', 'Serena', 'Sergio', 'Silvia', 'Simón', 'Sofia',
-        'Sofía', 'Talía', 'Tatiana', 'Tobías', 'Tomás', 'Unai', 'Valentina',
-        'Valeria', 'Vega', 'Vera', 'Verónica', 'Victor', 'Victoria', 'Virginia',
-        'Vivian', 'Viviana', 'Víctor', 'Xavier', 'Ximena', 'Yago', 'Yeray',
+    formats_female = (
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{prefix}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}-{{last_name}}',
+        '{{first_name_female}} {{first_name_female}} {{last_name}} {{last_name}}',
     )
 
+    formats = formats_male + formats_female
+
+    first_names_male = (
+        'Antonio', 'Jose', 'Manuel', 'Francisco', 'Juan', 'David', 'Jose Antonio', 'Jose Luis',
+        'Javier', 'Jesús', 'Francisco Javier', 'Daniel', 'Carlos', 'Miguel', 'Rafael', 'Jose Manuel',
+        'Alejandro', 'Pedro', 'Ángel', 'Miguel Ángel', 'Jose Maria', 'Fernando', 'Luís', 'Pablo',
+        'Sergio', 'Jorge', 'Alberto', 'Juan Carlos', 'Juan José', 'Diego', 'Alvaro', 'Adrián',
+        'Juan Antonio', 'Enrique', 'Raul', 'Ramon', 'Vicente', 'Ivan', 'Ruben', 'Andrés',
+        'Joaquin', 'Óscar', 'Juan Manuel', 'Santiago', 'Eduardo', 'Victor', 'Roberto', 'Jaime',
+        'Francisco Jose', 'Ignacio', 'Mario', 'Alfonso', 'Salvador', 'Ricardo', 'Jordi', 'Marcos',
+        'Emilio', 'Julian', 'Julio', 'Guillermo', 'Tomás', 'Gabriel', 'Agustín', 'Jose Miguel',
+        'Felix', 'Jose Ramon', 'Gonzalo', 'Marc', 'Mohamed', 'Joan', 'Hugo', 'Ismael', 'Cristian',
+        'Nicolás', 'Mariano', 'Josep', 'Domingo', 'Samuel', 'Juan Francisco', 'Alfredo', 'Sebastian',
+        'Aitor', 'Jose Carlos', 'Martin', 'Felipe', 'Cesar', 'Hector', 'Jose Angel', 'Jose Ignacio',
+        'Victor Manuel', 'Gregorio', 'Luis Miguel', 'Iker', 'Jose Francisco', 'Juan Luis', 'Albert',
+        'Lorenzo', 'Alex', 'Xavier', 'Rodrigo'
+    )
+
+    first_names_female = (
+        'María', 'Carmen', 'Ana', 'Isabel', 'Dolores', 'Pilar', 'Josefa', 'Teresa', 'Rosa', 'Cristina',
+        'Ángeles', 'Antonia', 'Laura', 'Francisca', 'Elena', 'Mercedes', 'Luisa', 'Marta', 'Concepción',
+        'Rosario', 'Lucía', 'Juana', 'Manuela', 'Sara', 'Paula', 'Raquel', 'Beatriz', 'Eva', 'Patricia',
+        'Victoria', 'Rocio', 'Encarnacion', 'Julia', 'Belen', 'Silvia', 'Esther', 'Andrea', 'Montserrat',
+        'Nuria', 'Angela', 'Irene', 'Inmaculada', 'Mónica', 'Sandra', 'Margarita', 'Yolanda', 'Alba',
+        'Sonia', 'Alicia', 'Mar', 'Susana', 'Marina', 'Amparo', 'Natalia', 'Nieves', 'Gloria', 'Claudia',
+        'Soledad', 'Ines', 'Lourdes', 'Verónica', 'Carolina', 'Luz', 'Consuelo', 'Noelia', 'Asunción',
+        'Lorena', 'Sofia', 'Milagros', 'Catalina', 'Esperanza', 'Olga', 'Alejandra', 'Carla', 'Emilia',
+        'Fátima', 'Aurora', 'Blanca', 'Magdalena', 'Miriam', 'Lidia', 'Nerea', 'Clara', 'Daniela',
+        'Anna', 'Celia', 'Elisa', 'Eugenia', 'Josefina', 'Virginia', 'Purificación', 'Vanesa',
+        'Remedios', 'Trinidad', 'Gema', 'Adriana', 'Vicenta', 'Mireia', 'Begoña'
+    )
+
+    first_names = first_names_male + first_names_female
 
     last_names = (
         'Abad', 'Abascal', 'Abella', 'Abellán', 'Abril', 'Acedo', 'Acero',
