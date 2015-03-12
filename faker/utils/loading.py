@@ -1,10 +1,20 @@
 import os
 from importlib import import_module
 
+try:
+    import pkgutil
 
-def list_module(module):
-    path = os.path.dirname(module.__file__)
-    return [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i)) and not i.startswith('_')]
+    iter_modules = pkgutil.iter_modules
+
+    def list_module(module):
+        path = os.path.dirname(module.__file__)
+        return [name for finder, name, is_pkg in iter_modules([path]) if is_pkg]
+
+except (ImportError, NameError):
+
+    def list_module(module):
+        path = os.path.dirname(module.__file__)
+        return [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i)) and not i.startswith('_')]
 
 
 def find_available_locales(providers):
