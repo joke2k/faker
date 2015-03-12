@@ -9,6 +9,13 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
 NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
+# this module can be zip-safe if pkgutil.iter_modules is available since it handles finding
+# modules in zipimporter.
+try:
+    import pkgutil
+    zip_safe = hasattr(pkgutil, "iter_modules")
+except ImportError:
+    zip_safe = False
 
 version = '0.5.0'
 
@@ -40,5 +47,5 @@ setup(
     packages=find_packages(exclude=['*.tests']),
     platforms=["any"],
     test_suite='faker.tests',
-    zip_safe=False,
+    zip_safe=zip_safe,
 )
