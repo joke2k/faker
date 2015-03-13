@@ -3,6 +3,7 @@
 
 import os
 import io
+import sys
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -11,6 +12,11 @@ NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
 version = '0.5.0'
+
+install_requires = []
+if ((sys.version_info[0] == 2 and sys.version_info[1] < 7) or
+        (sys.version_info[0] == 3 and sys.version_info[1] < 1)):
+    install_requires.append('importlib')
 
 setup(
     name='fake-factory',
@@ -41,5 +47,5 @@ setup(
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=False,
-    install_requires=map(lambda line: line.strip("\n"), open("requirements.txt", "r").readlines()),
+    install_requires=install_requires,
 )
