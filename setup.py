@@ -41,4 +41,5 @@ setup(
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=False,
+    install_requires=map(lambda line: line.strip("\n"), open("requirements.txt", "r").readlines()),
 )
