@@ -99,7 +99,6 @@ class UtilsTestCase(unittest.TestCase):
         result = find_available_locales(DEFAULT_PROVIDERS)
         self.assertNotEqual(len(result), 0)
 
-    @unittest.skipUnless(__import__("pkgutil") is not None)
     def test_find_available_locales_without_pkgutil_iter_modules(self):
         import pkgutil
         iter_modules = pkgutil.iter_modules
