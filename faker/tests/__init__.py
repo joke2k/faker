@@ -16,6 +16,11 @@ except ImportError:
 from faker import Generator, Factory
 from faker.utils import text, decorators
 
+try:
+    string_types = (basestring,)
+except NameError:
+    string_types = (str,)
+
 
 TEST_DIR = os.path.dirname(__file__)
 
@@ -245,6 +250,14 @@ class FactoryTestCase(unittest.TestCase):
         # test that certain formatting strings are allowed on post-1900 dates
         result = datetime_safe.date(2008, 2, 29).strftime('%y')
         self.assertEqual(result, r'08')
+
+    def test_prefix_suffix_always_string(self):
+        # Locales known to contain `*_male` and `*_female`.
+        for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
+            f = Factory.create(locale=locale)
+            for x in range(20):  # Probabilistic testing.
+                assert isinstance(f.prefix(), string_types)
+                assert isinstance(f.suffix(), string_types)
 
 
 if __name__ == '__main__':
