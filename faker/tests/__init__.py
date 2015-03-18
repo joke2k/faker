@@ -6,8 +6,14 @@ import json
 import os
 import random
 import unittest
+import sys
 
-from faker import Generator
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+from faker import Generator, Factory
 from faker.utils import text, decorators
 
 
@@ -153,16 +159,25 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_documentor(self):
         from faker.cli import print_doc
-        print_doc()
-        print_doc('address')
-        print_doc('faker.providers.it_IT.person')
+        output = StringIO()
+        print_doc(output=output)
+        print_doc('address', output=output)
+        print_doc('faker.providers.it_IT.person', output=output)
+        assert output.getvalue()
         self.assertRaises(AttributeError,
                           self.generator.get_formatter,
                           'barFormatter')
 
     def test_command(self):
-        from faker.cli import execute_from_command_line
-        execute_from_command_line(['faker', 'address'])
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            command = Command(['faker', 'address'])
+            command.execute()
+            assert sys.stdout.getvalue()
+        finally:
+            sys.stdout = orig_stdout
 
     def test_slugify(self):
         slug = text.slugify("a'b/c")
