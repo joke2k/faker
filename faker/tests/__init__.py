@@ -99,6 +99,18 @@ class UtilsTestCase(unittest.TestCase):
         result = find_available_locales(DEFAULT_PROVIDERS)
         self.assertNotEqual(len(result), 0)
 
+    def test_find_available_locales_without_pkgutil_iter_modules(self):
+        try:
+            import pkgutil
+            iter_modules = pkgutil.iter_modules
+            delattr(pkgutil, "iter_modules")
+            try:
+                self.test_find_available_locales()
+            finally:
+                setattr(pkgutil, "iter_modules", iter_modules)
+        except (ImportError, AttributeError):
+            pass
+
 class FactoryTestCase(unittest.TestCase):
 
     def setUp(self):
