@@ -1,16 +1,13 @@
 import os
 from importlib import import_module
+import pkgutil
 
 
 def list_module(module):
     path = os.path.dirname(module.__file__)
-    try:
-        import pkgutil
-        modules = [name for finder, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
-        if len(modules) > 0:
-            return modules
-    except (ImportError, AttributeError):
-        pass
+    modules = [name for finder, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
+    if len(modules) > 0:
+        return modules
     return [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i)) and not i.startswith('_')]
 
 
