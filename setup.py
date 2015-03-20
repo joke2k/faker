@@ -18,6 +18,16 @@ if ((sys.version_info[0] == 2 and sys.version_info[1] < 7) or
         (sys.version_info[0] == 3 and sys.version_info[1] < 1)):
     install_requires.append('importlib')
 
+# this module can be zip-safe if the zipimporter implements iter_modules or if
+# pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
+try:
+    import pkgutil
+    import zipimport
+    zip_safe = hasattr(zipimport.zipimporter, "iter_modules") or \
+        zipimport.zipimporter in pkgutil.iter_importer_modules.registry.keys()
+except (ImportError, AttributeError):
+    zip_safe = False
+
 setup(
     name='fake-factory',
     version=version,
@@ -46,6 +56,6 @@ setup(
     packages=find_packages(exclude=['*.tests']),
     platforms=["any"],
     test_suite='faker.tests',
-    zip_safe=False,
+    zip_safe=zip_safe,
     install_requires=install_requires,
 )
