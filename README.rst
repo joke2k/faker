@@ -123,35 +123,35 @@ provider for your own locale and submit a Pull Request (PR).
 
 Included localized providers:
 
--  `bg\_BG <http://fake-factory.readthedocs.org/en/master/locales/bg_BG.html>`__
--  `cs\_CZ <http://fake-factory.readthedocs.org/en/master/locales/cs_CZ.html>`__
--  `de\_DE <http://fake-factory.readthedocs.org/en/master/locales/de_DE.html>`__
--  `dk\_DK <http://fake-factory.readthedocs.org/en/master/locales/dk_DK.html>`__
--  `el\_GR <http://fake-factory.readthedocs.org/en/master/locales/el_GR.html>`__
--  `en\_CA <http://fake-factory.readthedocs.org/en/master/locales/en_CA.html>`__
--  `en\_GB <http://fake-factory.readthedocs.org/en/master/locales/en_GB.html>`__
--  `en\_US <http://fake-factory.readthedocs.org/en/master/locales/en_US.html>`__
--  `es\_ES <http://fake-factory.readthedocs.org/en/master/locales/es_ES.html>`__
--  `es\_MX <http://fake-factory.readthedocs.org/en/master/locales/es_MX.html>`__
--  `fa\_IR <http://fake-factory.readthedocs.org/en/master/locales/fa_IR.html>`__
--  `fi\_FI <http://fake-factory.readthedocs.org/en/master/locales/fi_FI.html>`__
--  `fr\_FR <http://fake-factory.readthedocs.org/en/master/locales/fr_FR.html>`__
--  `hi\_IN <http://fake-factory.readthedocs.org/en/master/locales/hi_IN.html>`__
--  `it\_IT <http://fake-factory.readthedocs.org/en/master/locales/it_IT.html>`__
--  `ko\_KR <http://fake-factory.readthedocs.org/en/master/locales/ko_KR.html>`__
--  `lt\_LT <http://fake-factory.readthedocs.org/en/master/locales/lt_LT.html>`__
--  `lv\_LV <http://fake-factory.readthedocs.org/en/master/locales/lv_LV.html>`__
--  `ne\_NP <http://fake-factory.readthedocs.org/en/master/locales/ne_NP.html>`__
--  `nl\_NL <http://fake-factory.readthedocs.org/en/master/locales/nl_NL.html>`__
--  `no\_NO <http://fake-factory.readthedocs.org/en/master/locales/no_NO.html>`__
--  `pl\_PL <http://fake-factory.readthedocs.org/en/master/locales/pl_PL.html>`__
--  `pt\_BR <http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html>`__
--  `pt\_PT <http://fake-factory.readthedocs.org/en/master/locales/pt_PT.html>`__
--  `ru\_RU <http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html>`__
--  `sl\_SI <http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html>`__
--  `tr\_TR <http://fake-factory.readthedocs.org/en/master/locales/tr_TR.html>`__
--  `zh\_CN <http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html>`__
--  `zh\_TW <http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html>`__
+-  `bg\_BG <http://fake-factory.readthedocs.org/en/master/locales/bg_BG.html>`__ Bulgarian
+-  `cs\_CZ <http://fake-factory.readthedocs.org/en/master/locales/cs_CZ.html>`__ Czech
+-  `de\_DE <http://fake-factory.readthedocs.org/en/master/locales/de_DE.html>`__ German
+-  `dk\_DK <http://fake-factory.readthedocs.org/en/master/locales/dk_DK.html>`__ Danish
+-  `el\_GR <http://fake-factory.readthedocs.org/en/master/locales/el_GR.html>`__ Greek
+-  `en\_CA <http://fake-factory.readthedocs.org/en/master/locales/en_CA.html>`__ English (Canada)
+-  `en\_GB <http://fake-factory.readthedocs.org/en/master/locales/en_GB.html>`__ English (Great Britain)
+-  `en\_US <http://fake-factory.readthedocs.org/en/master/locales/en_US.html>`__ English (United States)
+-  `es\_ES <http://fake-factory.readthedocs.org/en/master/locales/es_ES.html>`__ Spanish (Spain)
+-  `es\_MX <http://fake-factory.readthedocs.org/en/master/locales/es_MX.html>`__ Spanish (Mexico)
+-  `fa\_IR <http://fake-factory.readthedocs.org/en/master/locales/fa_IR.html>`__ Persian (Iran)
+-  `fi\_FI <http://fake-factory.readthedocs.org/en/master/locales/fi_FI.html>`__ Finnish
+-  `fr\_FR <http://fake-factory.readthedocs.org/en/master/locales/fr_FR.html>`__ French
+-  `hi\_IN <http://fake-factory.readthedocs.org/en/master/locales/hi_IN.html>`__ Hindi
+-  `it\_IT <http://fake-factory.readthedocs.org/en/master/locales/it_IT.html>`__ Italian
+-  `ko\_KR <http://fake-factory.readthedocs.org/en/master/locales/ko_KR.html>`__ Korean
+-  `lt\_LT <http://fake-factory.readthedocs.org/en/master/locales/lt_LT.html>`__ Lithuanian
+-  `lv\_LV <http://fake-factory.readthedocs.org/en/master/locales/lv_LV.html>`__ Latvian
+-  `ne\_NP <http://fake-factory.readthedocs.org/en/master/locales/ne_NP.html>`__ Nepali
+-  `nl\_NL <http://fake-factory.readthedocs.org/en/master/locales/nl_NL.html>`__ Dutch (Netherlands)
+-  `no\_NO <http://fake-factory.readthedocs.org/en/master/locales/no_NO.html>`__ Norwegian
+-  `pl\_PL <http://fake-factory.readthedocs.org/en/master/locales/pl_PL.html>`__ Polish
+-  `pt\_BR <http://fake-factory.readthedocs.org/en/master/locales/pt_BR.html>`__ Portuguese (Brazil)
+-  `pt\_PT <http://fake-factory.readthedocs.org/en/master/locales/pt_PT.html>`__ Portuguese (Portugal)
+-  `ru\_RU <http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html>`__ Russian
+-  `sl\_SI <http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html>`__ Slovene
+-  `tr\_TR <http://fake-factory.readthedocs.org/en/master/locales/tr_TR.html>`__ Turkish
+-  `zh\_CN <http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html>`__ Chinese (China)
+-  `zh\_TW <http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html>`__ Chinese (Taiwan)
 
 Command line usage
 ------------------
