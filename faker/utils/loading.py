@@ -28,3 +28,11 @@ def find_available_locales(providers):
             langs = list_module(provider_module)
             available_locales.update(langs)
     return available_locales
+
+
+def find_available_providers(modules):
+    available_providers = set()
+    for providers_mod in modules:
+        providers = list_module(providers_mod)
+        available_providers.update(providers)
+    return sorted(available_providers)
