@@ -1,14 +1,16 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
-from .date_time import Provider as DateTimeProvider
-import copy
+
 import re
+
+from .. import BaseProvider
+from ..date_time import Provider as DateTimeProvider
+
+localized = True
 
 
 class CreditCard(object):
-
     valid_characters_pattern = re.compile('^[0-9 ]*$')
 
     def __init__(self, name, prefixes, length=16, security_code='CVC', security_code_length=3):
