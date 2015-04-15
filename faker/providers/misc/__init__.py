@@ -1,11 +1,14 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
-from . import date_time
-import random
 import hashlib
+import random
 import string
+
+from faker.providers.date_time import Provider as DatetimeProvider
+
+from .. import BaseProvider
+
 
 class Provider(BaseProvider):
     language_codes = ('cn', 'de', 'el', 'en', 'es', 'fr', 'it', 'pt', 'ru')
@@ -60,16 +63,14 @@ class Provider(BaseProvider):
 
     @classmethod
     def country_code(cls):
-        return cls.random_element(date_time.Provider.countries)['code']
+        return cls.random_element(DatetimeProvider.countries)['code']
 
     @classmethod
     def language_code(cls):
         return cls.random_element(cls.language_codes)
 
-
-
     @classmethod
-    def password(cls,length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
+    def password(cls, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
         """
         Generates a random password.
         @param length: Integer. Length of a password
