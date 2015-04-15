@@ -1,10 +1,13 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
-from . import date_time
+
 from datetime import datetime
 import random
+
+from faker.providers.date_time import Provider as DatetimeProvider
+
+from .. import BaseProvider
 
 
 class Provider(BaseProvider):
@@ -67,13 +70,13 @@ class Provider(BaseProvider):
     def firefox(cls):
         ver = (
             'Gecko/{0} Firefox/{1}.0'.format(
-                date_time.Provider.date_time_between(
+                DatetimeProvider.date_time_between(
                     datetime(2011, 1, 1)), random.randint(4, 15)),
             'Gecko/{0} Firefox/3.6.{1}'.format(
-                date_time.Provider.date_time_between(
+                DatetimeProvider.date_time_between(
                     datetime(2010, 1, 1)), random.randint(1, 20)),
             'Gecko/{0} Firefox/3.8'.format(
-                date_time.Provider.date_time_between(
+                DatetimeProvider.date_time_between(
                     datetime(2010, 1, 1)), ),
         )
         tmplt_win = '({0}; {1}; rv:1.9.{2}.20) {3}'
