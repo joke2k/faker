@@ -1,10 +1,13 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
+
 from decimal import Decimal
-from .lorem.la import Provider as Lorem
 import sys
+
+from faker.providers.lorem.la import Provider as Lorem
+
+from .. import BaseProvider
 
 
 class Provider(BaseProvider):
@@ -70,7 +73,6 @@ class Provider(BaseProvider):
         for f in range(nb_elements):
             yield self._random_type(value_types)
 
-
     def pydict(self, nb_elements=10, variable_nb_elements=True, *value_types):
         """
          Use this function to generate data, returns a touple containing
@@ -83,7 +85,6 @@ class Provider(BaseProvider):
             Lorem.words(nb_elements),
             self._pyiterable(nb_elements, False, *value_types)
         ))
-
 
     def pystruct(self, count=10, *value_types):
 
