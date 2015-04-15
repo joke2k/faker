@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 import re
 
+from faker.providers.date_time import Provider as DateTimeProvider
 from .. import BaseProvider
-from ..date_time import Provider as DateTimeProvider
 
 localized = True
 
