@@ -1,13 +1,18 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from . import BaseProvider
+
 import random
 import re
 from time import time, mktime
-from datetime import timedelta, datetime
+
+from datetime import timedelta
+
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 from faker.utils import is_string
+
+from .. import BaseProvider
+
 
 def datetime_to_timestamp(dt):
     return mktime(dt.timetuple())
@@ -296,7 +301,8 @@ class Provider(BaseProvider):
                     time_params[name] = int(param)
 
             if 'years' in time_params:
-                if 'days' not in time_params: time_params['days'] = 0
+                if 'days' not in time_params:
+                    time_params['days'] = 0
                 time_params['days'] += 365.24 * time_params.pop('years')
 
             return datetime_to_timestamp(now + timedelta(**time_params))
