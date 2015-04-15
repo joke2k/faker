@@ -1,8 +1,9 @@
 # coding=utf-8
 
-from faker.providers import BaseProvider
+from __future__ import unicode_literals
+from .. import BaseProvider
 
-__author__ = 'joke2k'
+localized = True
 
 
 class Provider(BaseProvider):
