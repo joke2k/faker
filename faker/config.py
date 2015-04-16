@@ -1,27 +1,13 @@
 # coding=utf-8
-from faker.utils.loading import find_available_locales
+from importlib import import_module
+from faker.utils.loading import find_available_locales, find_available_providers
 
 DEFAULT_LOCALE = 'en_US'
 
-DEFAULT_PROVIDERS = (
-    'address',
-    'barcode',
-    'color',
-    'company',
-    'credit_card',
-    'currency',
-    'date_time',
-    'file',
-    'internet',
-    'job',
-    'lorem',
-    'misc',
-    'person',
-    'profile',
-    'python',
-    'phone_number',
-    'ssn',
-    'user_agent',
+DEFAULT_PROVIDERS_MODULES = (
+    'faker.providers',
 )
+
+DEFAULT_PROVIDERS = find_available_providers([import_module(path) for path in DEFAULT_PROVIDERS_MODULES])
 
 AVAILABLE_LOCALES = find_available_locales(DEFAULT_PROVIDERS)

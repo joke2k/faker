@@ -102,13 +102,44 @@ class UtilsTestCase(unittest.TestCase):
         result = add_dicts(t1, t2, t3)
         self.assertEqual(result, {'a': 1, 'c': 3, 'b': 3, 'd': 4})
 
-
     def test_find_available_locales(self):
         from faker.utils.loading import find_available_locales
         from faker.config import DEFAULT_PROVIDERS
 
         result = find_available_locales(DEFAULT_PROVIDERS)
         self.assertNotEqual(len(result), 0)
+
+    def test_find_available_providers(self):
+        from faker.utils.loading import find_available_providers
+        from faker.config import DEFAULT_PROVIDERS_MODULES
+        from importlib import import_module
+
+        modules = [import_module(path) for path in DEFAULT_PROVIDERS_MODULES]
+        providers = find_available_providers(modules)
+
+        expected_providers = list(map(str, [
+            'address',
+            'barcode',
+            'color',
+            'company',
+            'credit_card',
+            'currency',
+            'date_time',
+            'file',
+            'internet',
+            'job',
+            'lorem',
+            'misc',
+            'miscelleneous',
+            'person',
+            'phone_number',
+            'profile',
+            'python',
+            'ssn',
+            'user_agent',
+        ]))
+        self.assertEqual(providers, expected_providers)
+
 
 class FactoryTestCase(unittest.TestCase):
 
