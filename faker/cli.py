@@ -68,7 +68,7 @@ def print_doc(provider_or_field=None,
         if '.' in provider_or_field:
             parts = provider_or_field.split('.')
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
-            fake = Factory.create(locale, providers=[parts[-1]])
+            fake = Factory.create(locale, providers=[provider_or_field])
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
             print_provider(

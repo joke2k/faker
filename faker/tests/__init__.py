@@ -118,25 +118,25 @@ class UtilsTestCase(unittest.TestCase):
         providers = find_available_providers(modules)
 
         expected_providers = list(map(str, [
-            'address',
-            'barcode',
-            'color',
-            'company',
-            'credit_card',
-            'currency',
-            'date_time',
-            'file',
-            'internet',
-            'job',
-            'lorem',
-            'misc',
-            'miscelleneous',
-            'person',
-            'phone_number',
-            'profile',
-            'python',
-            'ssn',
-            'user_agent',
+            'faker.providers.address',
+            'faker.providers.barcode',
+            'faker.providers.color',
+            'faker.providers.company',
+            'faker.providers.credit_card',
+            'faker.providers.currency',
+            'faker.providers.date_time',
+            'faker.providers.file',
+            'faker.providers.internet',
+            'faker.providers.job',
+            'faker.providers.lorem',
+            'faker.providers.misc',
+            'faker.providers.miscelleneous',
+            'faker.providers.person',
+            'faker.providers.phone_number',
+            'faker.providers.profile',
+            'faker.providers.python',
+            'faker.providers.ssn',
+            'faker.providers.user_agent',
         ]))
         self.assertEqual(providers, expected_providers)
 
@@ -198,7 +198,7 @@ class FactoryTestCase(unittest.TestCase):
         output = StringIO()
         print_doc(output=output)
         print_doc('address', output=output)
-        print_doc('faker.providers.it_IT.person', output=output)
+        print_doc('faker.providers.person.it_IT', output=output)
         assert output.getvalue()
         self.assertRaises(AttributeError,
                           self.generator.get_formatter,
