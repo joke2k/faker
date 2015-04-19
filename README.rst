@@ -302,7 +302,7 @@ Please see `CONTRIBUTING`_.
 License
 -------
 
-Faker is released under the MIT Licence. See the bundled `LICENSE`_ file for details.
+Faker is released under the MIT License. See the bundled `LICENSE`_ file for details.
 
 Credits
 -------
