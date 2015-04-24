@@ -234,6 +234,14 @@ class Provider(BaseProvider):
         return random.randint(0, int(time()))
 
     @classmethod
+    def time_delta(cls):
+        """
+        Get a timedelta object
+        """
+        ts = random.randint(0, int(time()))
+        return timedelta(seconds=ts)
+
+    @classmethod
     def date_time(cls):
         """
         Get a datetime object for a date between January 1, 1970 and now
