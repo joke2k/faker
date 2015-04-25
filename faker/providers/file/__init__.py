@@ -123,7 +123,7 @@ class Provider(BaseProvider):
     audio_file_extenstions = (
         "flac",
         "mp3",
-        "wav"
+        "wav",
     )
 
     image_file_extenstions = (
@@ -137,7 +137,7 @@ class Provider(BaseProvider):
 
     text_file_extensions = (
         "css",
-        "csv"
+        "csv",
         "html",
         "js",
         "json",
@@ -148,14 +148,14 @@ class Provider(BaseProvider):
         "mp4",
         "avi",
         "mov",
-        "webm"
+        "webm",
     )
 
     file_extensions = {
         "audio": audio_file_extenstions,
         "image": image_file_extenstions,
         "text": text_file_extensions,
-        "video": video_file_extensions
+        "video": video_file_extensions,
     }
 
 
