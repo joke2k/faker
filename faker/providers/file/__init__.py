@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
-from ..lorem import word
+from ..lorem.la import Provider as WordProvider
 
 
 class Provider(BaseProvider):
@@ -173,7 +173,7 @@ class Provider(BaseProvider):
         :param category: audio|image|text|video
         """
         extension = extension if extension else cls.file_extension(category)
-        filename = word()
+        filename = WordProvider.word()
         return '{0}.{1}'.format(filename, extension)
 
     @classmethod
