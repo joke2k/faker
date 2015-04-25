@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
+from ..lorem import word
 
 
 class Provider(BaseProvider):
@@ -119,6 +120,45 @@ class Provider(BaseProvider):
         'video': video_mime_types
     }
 
+    audio_file_extenstions = (
+        "flac",
+        "mp3",
+        "wav"
+    )
+
+    image_file_extenstions = (
+        "bmp",
+        "gif",
+        "jpeg",
+        "jpg",
+        "png",
+        "tiff",
+    )
+
+    text_file_extensions = (
+        "css",
+        "csv"
+        "html",
+        "js",
+        "json",
+        "txt",
+    )
+
+    video_file_extensions = (
+        "mp4",
+        "avi",
+        "mov",
+        "webm"
+    )
+
+    file_extensions = {
+        "audio": audio_file_extenstions,
+        "image": image_file_extenstions,
+        "text": text_file_extensions,
+        "video": video_file_extensions
+    }
+
+
     @classmethod
     def mime_type(cls, category=None):
         """
@@ -127,3 +167,19 @@ class Provider(BaseProvider):
         category = category if category else cls.random_element(list(cls.mime_types.keys()))
         return cls.random_element(cls.mime_types[category])
 
+    @classmethod
+    def file_name(cls, category=None, extension=None):
+        """
+        :param category: audio|image|text|video
+        """
+        extension = extension if extension else cls.file_extension(category)
+        filename = word()
+        return '{0}.{1}'.format(filename, extension)
+
+    @classmethod
+    def file_extension(cls, category=None):
+        """
+        :param category: audio|image|text|video
+        """
+        category = category if category else cls.random_element(list(cls.file_extensions.keys()))
+        return cls.random_element(cls.file_extensions[category])
