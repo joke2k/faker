@@ -171,6 +171,7 @@ class Provider(BaseProvider):
     def file_name(cls, category=None, extension=None):
         """
         :param category: audio|image|text|video
+        :param extension: file extension
         """
         extension = extension if extension else cls.file_extension(category)
         filename = WordProvider.word()
