@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+__loader__ = None
+
 import json
 import os
 import random
