@@ -29,7 +29,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         excludes = []
 
     print(file=output)
-    print("### faker.providers.{0}".format(
+    print("### {0}".format(
           doc.get_provider_name(provider)), file=output)
     print(file=output)
 
