@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import unittest
+import re
 
 from faker import Factory
 from .. import string_types
@@ -15,11 +16,58 @@ class ja_JP_FactoryTestCase(unittest.TestCase):
     def test_ja_JP_address(self):
         from faker.providers.address.ja_JP import Provider
         countries = Provider.countries
-
-        country = self.factory.country()
+        country   = self.factory.country()
         assert country
         assert isinstance(country, string_types)
         assert country in countries
+
+        prefectures = Provider.prefectures
+        prefecture  = self.factory.prefecture()
+        assert prefecture
+        assert isinstance(prefecture, string_types)
+        assert prefecture in prefectures
+
+        cities = Provider.cities
+        city   = self.factory.city()
+        assert city
+        assert isinstance(city, string_types)
+        assert city in cities
+
+        towns = Provider.towns
+        town  = self.factory.town()
+        assert town
+        assert isinstance(town, string_types)
+        assert town in towns
+
+        chome = self.factory.chome()
+        assert chome
+        assert isinstance(chome, string_types)
+        assert re.match("\d{1,2}丁目", chome)
+
+        ban = self.factory.ban()
+        assert ban
+        assert isinstance(ban, string_types)
+        assert re.match("\d{1,2}番", ban)
+
+        gou = self.factory.gou()
+        assert gou
+        assert isinstance(gou, string_types)
+        assert re.match("\d{1,2}号", gou)
+
+        building_names = Provider.building_names
+        building_name  = self.factory.building_name()
+        assert building_name
+        assert isinstance(building_name, string_types)
+        assert building_name in building_names
+
+        zipcode = self.factory.zipcode()
+        assert zipcode
+        assert isinstance(zipcode, string_types)
+        assert re.match("\d{3}-\d{4}", zipcode)
+
+        address = self.factory.address()
+        assert address
+        assert isinstance(address, string_types)
 
     def test_ja_JP_company(self):
         from faker.providers.company.ja_JP import Provider
