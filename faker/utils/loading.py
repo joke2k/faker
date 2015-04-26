@@ -13,17 +13,10 @@ def list_module(module):
 
 def find_available_locales(providers):
     available_locales = set()
-    from faker import providers as providers_mod
 
-    for provider in providers:
-        providers_mod_name = providers_mod.__package__ or providers_mod.__name__
- 
-        path = "{providers}.{provider}".format(
-            providers=providers_mod_name,
-            provider=provider
-        )
+    for provider_path in providers:
 
-        provider_module = import_module(path)
+        provider_module = import_module(provider_path)
         if getattr(provider_module, 'localized', False):
             langs = list_module(provider_module)
             available_locales.update(langs)
@@ -33,6 +26,6 @@ def find_available_locales(providers):
 def find_available_providers(modules):
     available_providers = set()
     for providers_mod in modules:
-        providers = list_module(providers_mod)
+        providers = ['.'.join([providers_mod.__package__, mod]) for mod in list_module(providers_mod)]
         available_providers.update(providers)
     return sorted(available_providers)

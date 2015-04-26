@@ -7,7 +7,6 @@ from importlib import import_module
 import locale as pylocale
 
 from faker import Generator
-from faker import providers as providers_mod
 from faker.config import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
 from faker.utils.loading import list_module
 
@@ -27,7 +26,6 @@ class Factory(object):
         providers = providers or DEFAULT_PROVIDERS
 
         faker = generator or Generator(**config)
-        faker.add_provider(providers_mod.BaseProvider)
 
         for prov_name in providers:
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
@@ -62,32 +60,21 @@ class Factory(object):
         raise ValueError(msg)
 
     @classmethod
-    def _find_provider_class(cls, provider, locale=None):
-        providers_mod_name = providers_mod.__package__ or providers_mod.__name__
- 
-        path = "{providers}.{provider}".format(
-            providers=providers_mod_name,
-            provider=provider
-        )
+    def _find_provider_class(cls, provider_path, locale=None):
+        provider_module = import_module(provider_path)
 
-        provider_module = import_module(path)
         if getattr(provider_module, 'localized', False):
             available_locales = list_module(provider_module)
             if not locale or locale not in available_locales:
                 locale = getattr(provider_module, 'default_locale', DEFAULT_LOCALE)
 
-            path = "{providers}.{provider}.{locale}".format(
-                providers=providers_mod_name,
+            path = "{provider_path}.{locale}".format(
+                provider_path=provider_path,
                 locale=locale,
-                provider=provider
             )
             provider_module = import_module(path)
         else:
             if locale is not None:
-                path = "{providers}.{provider}".format(
-                    providers=providers_mod_name,
-                    provider=provider
-                )
-                provider_module = import_module(path)
+                provider_module = import_module(provider_path)
 
         return provider_module.Provider
