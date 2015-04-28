@@ -163,6 +163,7 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
+          [-i {module.containing.custom_provider othermodule.containing.custom_provider}]
           [fake [fake ...]]
 
 Where:
@@ -183,6 +184,9 @@ Where:
 
 -  ``-s SEP``: will generate the specified separator after each
    generated output
+
+-  ``-i {my.custom_provider other.custom_provider}`` list of additional custom providers to use. 
+   Note that is the import path of the module containing your Provider class, not the custom Provider class itself.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
