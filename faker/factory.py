@@ -32,6 +32,9 @@ class Factory(object):
         faker = generator or Generator(**config)
 
         for prov_name in providers:
+            if prov_name == 'faker.providers':
+                continue
+
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
             provider = prov_cls(faker)
             provider.__provider__ = prov_name
