@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from .. import Provider as PersonProvider
-import random
 
 
 class Provider(PersonProvider):
@@ -16,7 +15,7 @@ class Provider(PersonProvider):
         '{{prefix}} {{first_name}} {{last_name}}'
     )
 
-    male_first_names = (
+    first_names_male = (
         'Jakub', 'Jan', 'Mateusz', 'Bartek', 'Kacper', 'Michał', 'Szymon', 'Antoni', 'Filip',
         'Piotr', 'Maciej', 'Aleksander', 'Franciszek', 'Mikołaj', 'Adam', 'Stanisław', 'Wiktor',
         'Krzysztof', 'Wojciech', 'Igor', 'Maksymilian', 'Karol', 'Dawid', 'Tomasz', 'Patryk',
@@ -31,7 +30,7 @@ class Provider(PersonProvider):
         'Mariusz', 'Albert', 'Fryderyk', 'Ernest', 'Tobiasz'
     )
 
-    female_first_names = (
+    first_names_female = (
         'Kamila', 'Ewa', 'Blanka', 'Olga', 'Kalina', 'Klara', 'Urszula', 'Sandra', 'Kaja',
         'Marianna', 'Kornelia', 'Justyna', 'Monika', 'Sara', 'Adrianna', 'Aniela', 'Agnieszka',
         'Róża', 'Marcelina', 'Roksana', 'Natasza', 'Lidia', 'Malwina', 'Karina', 'Ada', 'Marika',
@@ -522,8 +521,7 @@ class Provider(PersonProvider):
 
     prefixes = ('pan', 'pani')
 
-    first_names = (female_first_names[:20] + male_first_names[:20]) + \
-                  (female_first_names + male_first_names)
+    first_names = first_names_male + first_names_female
 
     @classmethod
     def last_name(cls):
