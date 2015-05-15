@@ -9,10 +9,6 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
     )
 
-    # Prefixes and suffixes are never used in Sweden
-    prefixes = ()
-    suffixes = ()
-
     first_names = (
         'Erik', 'Maria', 'Karl', 'Margareta', 'Lars', 'Anna', 'Gunnar',
         'Elisabet', 'Nils', 'Kristina', 'Sven', 'Karin', 'Lennart', 'Eva',
