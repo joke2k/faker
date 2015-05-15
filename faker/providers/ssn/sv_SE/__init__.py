@@ -12,13 +12,10 @@ class Provider(SsnProvider):
     def ssn(cls):
         """
         Returns a 10 digit Swedish SSN, "Personnummer".
-        Age of person is between 18 and 90
-        years, based on local computer date. This function assigns random
-        sex to person.
 
-        It consists of 10 digits of the form YYMMDD-SSGQ, where
-        YYMMDD is the date of birth, SS the state, G the gender
-        number and Q the control character (Luhn checksum).
+        It consists of 10 digits in the form YYMMDD-SSGQ, where
+        YYMMDD is the date of birth, SSS is a serial number
+        and Q is a control character (Luhn checksum).
 
         http://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
         """
@@ -44,7 +41,7 @@ class Provider(SsnProvider):
         birthday = datetime.datetime.now() - age
         pnr_date = birthday.strftime('%y%m%d')
         suffix = str(random.randrange(0, 999)).zfill(3)
-        checksum = str(_calculate_luhn(pnr_date + suffix))
-        pnr = '{0}-{1}{2}'.format(pnr_date, suffix, checksum)
+        luhn_checksum = str(_calculate_luhn(pnr_date + suffix))
+        pnr = '{0}-{1}{2}'.format(pnr_date, suffix, luhn_checksum)
 
         return pnr
