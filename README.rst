@@ -149,6 +149,7 @@ Included localized providers:
 -  `pt\_PT <http://fake-factory.readthedocs.org/en/master/locales/pt_PT.html>`__ - Portuguese (Portugal)
 -  `ru\_RU <http://fake-factory.readthedocs.org/en/master/locales/ru_RU.html>`__ - Russian
 -  `sl\_SI <http://fake-factory.readthedocs.org/en/master/locales/sl_SI.html>`__ - Slovene
+-  `sv\_SE <http://fake-factory.readthedocs.org/en/master/locales/sv_SE.html>`__ - Swedish
 -  `tr\_TR <http://fake-factory.readthedocs.org/en/master/locales/tr_TR.html>`__ - Turkish
 -  `zh\_CN <http://fake-factory.readthedocs.org/en/master/locales/zh_CN.html>`__ - Chinese (China)
 -  `zh\_TW <http://fake-factory.readthedocs.org/en/master/locales/zh_TW.html>`__ - Chinese (Taiwan)
