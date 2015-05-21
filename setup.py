@@ -57,5 +57,5 @@ setup(
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=zip_safe,
-    install_requires=install_requires,
+    install_requires=install_requires
 )

@@ -335,7 +335,7 @@ class Provider(BaseProvider):
         return datetime.fromtimestamp(timestamp)
 
     @classmethod
-    def date_time_between_dates(cls, datetime_start=datetime.now(), datetime_end=datetime.now()):
+    def date_time_between_dates(cls, datetime_start=None, datetime_end=None):
         """
         Takes two DateTime objects and returns a random date between the two given dates.
         Accepts DateTime objects.
@@ -345,6 +345,12 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
+        if datetime_start is None:
+            datetime_start = datetime.now()
+
+        if datetime_end is None:
+            datetime_end = datetime.now()
+
         timestamp = random.randint(datetime_to_timestamp(datetime_start),
                                        datetime_to_timestamp(datetime_end))
         return datetime.fromtimestamp(timestamp)

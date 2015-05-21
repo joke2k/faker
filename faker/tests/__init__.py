@@ -8,6 +8,7 @@ import datetime
 import json
 import os
 import random
+import time
 import unittest
 import sys
 
@@ -296,33 +297,34 @@ class FactoryTestCase(unittest.TestCase):
         datetime_end = datetime.datetime.fromtimestamp(timestamp_end)
 
         random_date = provider.date_time_between_dates(datetime_start, datetime_end)
-        self.assertLessEqual(datetime_start, random_date)
-        self.assertGreaterEqual(datetime_end, random_date)
+        self.assertTrue(datetime_start <= random_date)
+        self.assertTrue(datetime_end >= random_date)
+
+    def _datetime_to_time(self, value):
+        return int(time.mktime(value.timetuple()))
 
     def test_date_time_this_period(self):
         from faker.providers.date_time import Provider
         provider = Provider
         now = datetime.datetime.now()
         # test century
-        self.assertLessEqual(provider.date_time_this_century(after_now=False), now)
-        self.assertGreaterEqual(provider.date_time_this_century(before_now=False), now)
-        self.assertAlmostEqual(provider.date_time_this_century(before_now=False, after_now=False),
-                               now, delta=datetime.timedelta(seconds=1))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(after_now=False)) <= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False)) >= self._datetime_to_time(now))
         # test decade
-        self.assertLessEqual(provider.date_time_this_decade(after_now=False), now)
-        self.assertGreaterEqual(provider.date_time_this_decade(before_now=False), now)
-        self.assertAlmostEqual(provider.date_time_this_decade(before_now=False, after_now=False),
-                               now, delta=datetime.timedelta(seconds=1))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False)) >= self._datetime_to_time(now))
+        self.assertEqual(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
+                               self._datetime_to_time(now))
         # test year
-        self.assertLessEqual(provider.date_time_this_year(after_now=False), now)
-        self.assertGreaterEqual(provider.date_time_this_year(before_now=False), now)
-        self.assertAlmostEqual(provider.date_time_this_year(before_now=False, after_now=False),
-                               now, delta=datetime.timedelta(seconds=1))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False)) >= self._datetime_to_time(now))
+        self.assertEqual(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
+                               self._datetime_to_time(now))
         # test month
-        self.assertLessEqual(provider.date_time_this_month(after_now=False), now)
-        self.assertGreaterEqual(provider.date_time_this_month(before_now=False), now)
-        self.assertAlmostEqual(provider.date_time_this_month(before_now=False, after_now=False),
-                               now, delta=datetime.timedelta(seconds=1))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False)) >= self._datetime_to_time(now))
+        self.assertEqual(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
+                               self._datetime_to_time(now))
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
