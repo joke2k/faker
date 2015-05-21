@@ -1,8 +1,29 @@
 Changelog
 =========
 
-0.5 - 16-Feb-2015
------------------
+0.5.1 - 21-May-2015
+-------------------
+
+* Fixed egg installation. Thanks David R. MacIver, @kecaps
+* Updated person names for ru_RU. Thanks @mousebaiker.
+* Updated ko_KR locale. Thanks Lee Yeonjae.
+* Fixed installation to install importlib on Python 2.6. Thanks Guillaume Thomas.
+* Improved tests. Thanks Aarni Koskela, @kecaps, @kaushal.
+* Made Person `prefixes`/`suffixes` always return strings. Thanks Aarni Koskela.
+* pl_PL jobs added. Thanks Dariusz Choruży.
+* Added ja_JP provider. Thanks Tatsuji Tsuchiya, Masato Ohba.
+* Localized remaining providers for consistency. Thanks Flavio Curella.
+* List of providers in compiled on runtime and is not hardcoded anymore. Thanks Flavio Curella.
+* Fixed State names in en_US. Thanks Greg Meece.
+* Added `time_delta` method to `date_time` provider. Thanks Tobin Brown.
+* Added filename and file extension methods to `file` provider. Thanks Tobin Brown.
+* Added Finnish ssn (HETU) provider. Thanks @kivipe.
+* Fixed person names for pl_PL. Thanks Marek Bleschke.
+* Added sv_SE locale providers. Thanks Tome Cvitan.
+
+
+0.5.0 - 16-Feb-2015
+-------------------
 
 * Localized providers
 * Updated ko_KR provider. Thanks Lee Yeonjae.
