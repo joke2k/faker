@@ -335,33 +335,112 @@ class Provider(BaseProvider):
         return datetime.fromtimestamp(timestamp)
 
     @classmethod
-    def date_time_this_century(cls):
+    def date_time_between_dates(cls, datetime_start=datetime.now(), datetime_end=datetime.now()):
         """
-        :example DateTime('1964-04-04 11:02:02')
+        Takes two DateTime objects and returns a random date between the two given dates.
+        Accepts DateTime objects.
+
+        :param datetime_start DateTime
+        :param datetime_end DateTime
+        :example DateTime('1999-02-02 11:42:52')
+        :return DateTime
         """
-        return cls.date_time_between('-%dy' % (datetime.now().year % 100))
+        timestamp = random.randint(datetime_to_timestamp(datetime_start),
+                                       datetime_to_timestamp(datetime_end))
+        return datetime.fromtimestamp(timestamp)
 
     @classmethod
-    def date_time_this_decade(cls):
+    def date_time_this_century(cls, before_now=True, after_now=False):
         """
-        :example DateTime('2004-04-04 11:02:02')
-        """
-        return cls.date_time_between('-%dy' % (datetime.now().year % 10))
-
-    @classmethod
-    def date_time_this_year(cls):
-        """
+        Gets a DateTime object for the decade year. 
+        
+        :param before_now: include days in current decade before today
+        :param after_now: include days in current decade after today
         :example DateTime('2012-04-04 11:02:02')
+        :return DateTime
         """
-        return cls.date_time_between('-%dm' % (datetime.now().month))
+        now = datetime.now()
+        this_century_start = datetime(now.year - (now.year % 10), 1, 1)
+        next_century_start = datetime(this_century_start.year + 10, 1, 1)
+
+        if before_now and after_now:
+            return cls.date_time_between_dates(this_century_start, next_century_start)
+        elif not before_now and after_now:
+            return cls.date_time_between_dates(now, next_century_start)
+        elif not after_now and before_now:
+            return cls.date_time_between_dates(this_century_start, now)
+        else:
+            return now
 
     @classmethod
-    def date_time_this_month(cls):
+    def date_time_this_decade(cls, before_now=True, after_now=False):
         """
+        Gets a DateTime object for the decade year. 
+        
+        :param before_now: include days in current decade before today
+        :param after_now: include days in current decade after today
         :example DateTime('2012-04-04 11:02:02')
+        :return DateTime
         """
-        return cls.date_time_between('-%dd' % (datetime.now().day))
+        now = datetime.now()
+        this_decade_start = datetime(now.year - (now.year % 10), 1, 1)
+        next_decade_start = datetime(this_decade_start.year + 10, 1, 1)
 
+        if before_now and after_now:
+            return cls.date_time_between_dates(this_decade_start, next_decade_start)
+        elif not before_now and after_now:
+            return cls.date_time_between_dates(now, next_decade_start)
+        elif not after_now and before_now:
+            return cls.date_time_between_dates(this_decade_start, now)
+        else:
+            return now
+
+    @classmethod
+    def date_time_this_year(cls, before_now=True, after_now=False):
+        """
+        Gets a DateTime object for the current year. 
+        
+        :param before_now: include days in current year before today
+        :param after_now: include days in current year after today
+        :example DateTime('2012-04-04 11:02:02')
+        :return DateTime
+        """
+        now = datetime.now()
+        this_year_start = now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+        next_year_start = datetime(now.year + 1, 1, 1)
+
+        if before_now and after_now:
+            return cls.date_time_between_dates(this_year_start, next_year_start)
+        elif not before_now and after_now:
+            return cls.date_time_between_dates(now, next_year_start)
+        elif not after_now and before_now:
+            return cls.date_time_between_dates(this_year_start, now)
+        else:
+            return now
+        
+    @classmethod
+    def date_time_this_month(cls, before_now=True, after_now=False):
+        """
+        Gets a DateTime object for the current month. 
+        
+        :param before_now: include days in current month before today
+        :param after_now: include days in current month after today
+        :example DateTime('2012-04-04 11:02:02')
+        :return DateTime
+        """
+        now = datetime.now()
+        this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        next_month_start = datetime(now.year, now.month + 1 % 12, 1)
+
+        if before_now and after_now:
+            return cls.date_time_between_dates(this_month_start, next_month_start)
+        elif not before_now and after_now:
+            return cls.date_time_between_dates(now, next_month_start)
+        elif not after_now and before_now:
+            return cls.date_time_between_dates(this_month_start, now)
+        else:
+            return now
+            
     @classmethod
     def am_pm(cls):
         return cls.date('%p')
