@@ -44,7 +44,7 @@ class FooProvider(object):
 
 class ShimsTestCase(unittest.TestCase):
     def test_counter(self):
-        from faker.shims.counter import Counter
+        from faker.shims import Counter
 
         result = Counter('abbb') + Counter('bcc')
         self.assertEqual(result, Counter({'b': 4, 'c': 2, 'a': 1}))
