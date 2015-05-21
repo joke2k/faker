@@ -1,8 +1,30 @@
 Changelog
 =========
 
-0.5 - 16-Feb-2015
------------------
+`0.5.1 - 21-May-2015 <http://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
+------------------------------------------------------------------------------
+
+* Fixed egg installation. Thanks David R. MacIver, @kecaps
+* Updated person names for ru_RU. Thanks @mousebaiker.
+* Updated ko_KR locale. Thanks Lee Yeonjae.
+* Fixed installation to install importlib on Python 2.6. Thanks Guillaume Thomas.
+* Improved tests. Thanks Aarni Koskela, @kecaps, @kaushal.
+* Made Person `prefixes`/`suffixes` always return strings. Thanks Aarni Koskela.
+* pl_PL jobs added. Thanks Dariusz Choruży.
+* Added ja_JP provider. Thanks Tatsuji Tsuchiya, Masato Ohba.
+* Localized remaining providers for consistency. Thanks Flavio Curella.
+* List of providers in compiled on runtime and is not hardcoded anymore. Thanks Flavio Curella.
+* Fixed State names in en_US. Thanks Greg Meece.
+* Added `time_delta` method to `date_time` provider. Thanks Tobin Brown.
+* Added filename and file extension methods to `file` provider. Thanks Tobin Brown.
+* Added Finnish ssn (HETU) provider. Thanks @kivipe.
+* Fixed person names for pl_PL. Thanks Marek Bleschke.
+* Added sv_SE locale providers. Thanks Tome Cvitan.
+* pt_BR Provider: Added `catch_phrase` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo. 
+* Added sk_SK localized providers. Thanks @viktormaruna.
+
+`0.5.0 - 16-Feb-2015 <http://github.com/joke2k/faker/compare/v0.4.2...v0.5>`__
+------------------------------------------------------------------------------
 
 * Localized providers
 * Updated ko_KR provider. Thanks Lee Yeonjae.
@@ -16,13 +38,13 @@ Changelog
 * Added ne_NP provider. Thanks Sudip Kafle.
 * Added provider for Austria de_AT. Thanks Bernhard Essl.
 
-0.4.2 - 20-Aug-2014
--------------------
+`0.4.2 - 20-Aug-2014 <http://github.com/joke2k/faker/compare/v0.4.1...v0.4.2>`__
+--------------------------------------------------------------------------------
 
 * Fixed setup
 
-0.4.1 - 20-Aug-2014
--------------------
+`0.4.1 - 20-Aug-2014 <http://github.com/joke2k/faker/compare/v0.4...v0.4.1>`__
+------------------------------------------------------------------------------
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
@@ -34,8 +56,8 @@ Changelog
 * Fixed `date_time_ad` on 32bit Linux. Thanks @mdxs.
 * Fixed `domain_word` to output slugified strings.
 
-0.4 - 30-Mar-2014
------------------
+`0.4 - 30-Mar-2014 <http://github.com/joke2k/faker/compare/v0.3.2...v0.4>`__
+----------------------------------------------------------------------------
 
 * Modified en_US ``person.py`` to ouput female and male names. Thanks Adrian Klaver.
 * Added SSN provider for ``en_US`` and ``en_CA``. Thanks Scott (@milliquet).
