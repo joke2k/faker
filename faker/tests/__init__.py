@@ -311,25 +311,24 @@ class FactoryTestCase(unittest.TestCase):
     def test_date_time_this_period(self):
         from faker.providers.date_time import Provider
         provider = Provider
-        now = datetime.datetime.now()
         # test century
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(after_now=False)) <= self._datetime_to_time(now))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False)) >= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
         # test decade
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(now))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False)) >= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
-                               self._datetime_to_time(now))
+                               self._datetime_to_time(datetime.datetime.now()))
         # test year
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(now))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False)) >= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
-                               self._datetime_to_time(now))
+                               self._datetime_to_time(datetime.datetime.now()))
         # test month
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(now))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False)) >= self._datetime_to_time(now))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
-                               self._datetime_to_time(now))
+                               self._datetime_to_time(datetime.datetime.now()))
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
