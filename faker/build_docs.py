@@ -28,7 +28,7 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
         excludes = []
 
     write(fh, '\n')
-    title = "``faker.providers.{0}``".format(doc.get_provider_name(provider))
+    title = "``{0}``".format(doc.get_provider_name(provider))
     write(fh, '%s\n' % title)
     write(fh, "-" * len(title))
     write(fh, '\n\n::\n')
