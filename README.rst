@@ -259,7 +259,7 @@ How to use with factory-boy
 Seeding the Generator
 ---------------------
 
-You may want to get always the same generated data - for instance when
+You may want to get the same generated data always - for instance when
 using Faker for unit testing purposes. The generator offers a ``seed()``
 method, which seeds the random number generator. Calling the same script
 twice with the same seed produces the same results.
