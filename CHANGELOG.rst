@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.5.1 - 21-May-2015
--------------------
+`0.5.1 - 21-May-2015 <http://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
+------------------------------------------------------------------------------
 
 * Fixed egg installation. Thanks David R. MacIver, @kecaps
 * Updated person names for ru_RU. Thanks @mousebaiker.
@@ -22,8 +22,8 @@ Changelog
 * Added sv_SE locale providers. Thanks Tome Cvitan.
 
 
-0.5.0 - 16-Feb-2015
--------------------
+`0.5.0 - 16-Feb-2015 <http://github.com/joke2k/faker/compare/v0.4.2...v0.5>`__
+------------------------------------------------------------------------------
 
 * Localized providers
 * Updated ko_KR provider. Thanks Lee Yeonjae.
@@ -37,13 +37,13 @@ Changelog
 * Added ne_NP provider. Thanks Sudip Kafle.
 * Added provider for Austria de_AT. Thanks Bernhard Essl.
 
-0.4.2 - 20-Aug-2014
--------------------
+`0.4.2 - 20-Aug-2014 <http://github.com/joke2k/faker/compare/v0.4.1...v0.4.2>`__
+--------------------------------------------------------------------------------
 
 * Fixed setup
 
-0.4.1 - 20-Aug-2014
--------------------
+`0.4.1 - 20-Aug-2014 <http://github.com/joke2k/faker/compare/v0.4...v0.4.1>`__
+------------------------------------------------------------------------------
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
@@ -55,8 +55,8 @@ Changelog
 * Fixed `date_time_ad` on 32bit Linux. Thanks @mdxs.
 * Fixed `domain_word` to output slugified strings.
 
-0.4 - 30-Mar-2014
------------------
+`0.4 - 30-Mar-2014 <http://github.com/joke2k/faker/compare/v0.3.2...v0.4>`__
+----------------------------------------------------------------------------
 
 * Modified en_US ``person.py`` to ouput female and male names. Thanks Adrian Klaver.
 * Added SSN provider for ``en_US`` and ``en_CA``. Thanks Scott (@milliquet).
