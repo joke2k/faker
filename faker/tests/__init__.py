@@ -44,7 +44,7 @@ class FooProvider(object):
 
 class ShimsTestCase(unittest.TestCase):
     def test_counter(self):
-        from faker.shims import Counter
+        from faker.shims.counter import Counter
 
         result = Counter('abbb') + Counter('bcc')
         self.assertEqual(result, Counter({'b': 4, 'c': 2, 'a': 1}))
@@ -57,6 +57,12 @@ class ShimsTestCase(unittest.TestCase):
 
         result = Counter('abbb') & Counter('bcc')
         self.assertEqual(result, Counter({'b': 1}))
+
+        result = Counter('abracadabra').most_common(3)
+        self.assertEqual(result, [('a', 5), ('r', 2), ('b', 2)])
+
+        result = sorted(Counter('ABCABC').elements())
+        self.assertEqual(result, ['A', 'A', 'B', 'B', 'C', 'C'])
 
         counter = Counter('which')
         counter.update('witch')
