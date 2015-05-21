@@ -21,7 +21,7 @@ Changelog
 * Fixed person names for pl_PL. Thanks Marek Bleschke.
 * Added sv_SE locale providers. Thanks Tome Cvitan.
 * pt_BR Provider: Added `catch_phrase` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo. 
-
+* Added sk_SK localized providers. Thanks @viktormaruna.
 
 `0.5.0 - 16-Feb-2015 <http://github.com/joke2k/faker/compare/v0.4.2...v0.5>`__
 ------------------------------------------------------------------------------
