@@ -9,6 +9,8 @@ import unicodedata
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_domain
 
+localized = True
+
 
 class Provider(BaseProvider):
     safe_email_tlds = ('org', 'com', 'net')
