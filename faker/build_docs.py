@@ -58,7 +58,9 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
 
 
 def write_docs(*args, **kwargs):
-    from faker import Faker, documentor, DEFAULT_LOCALE, AVAILABLE_LOCALES
+    from faker import Faker, documentor
+    from faker.config import DEFAULT_LOCALE, AVAILABLE_LOCALES
+
     fake = Faker(locale=DEFAULT_LOCALE)
 
     from faker.providers import BaseProvider
