@@ -84,6 +84,7 @@ def write_docs(*args, **kwargs):
         [write(fh, '   providers/%s\n' % doc.get_provider_name(provider))
          for provider, fakers in formatters]
 
+    AVAILABLE_LOCALES = list(AVAILABLE_LOCALES)
     AVAILABLE_LOCALES.sort()
     for lang in AVAILABLE_LOCALES:
         fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
