@@ -9,6 +9,10 @@
 dist
 build
 docs/_build
+docs/locales.rst
+docs/locales/*.rst
+docs/providers.rst
+docs/providers/*.rst
 eggs
 parts
 var
