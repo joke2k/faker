@@ -13,8 +13,8 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{prefix}} {{last_name}}',
-        '{{first_name}} {{last_name}}-{{last_name}}',
-        '{{first_name}}-{{first_name}} {{last_name}}',
+        '{{first_name}} {{last_name}} {{last_name}}',
+        '{{first_name}} {{first_name}} {{last_name}}',
     )
 
     first_names = (
@@ -64,3 +64,7 @@ class Provider(PersonProvider):
     )
 
     prefixes = ('de', 'da', 'do')
+
+    @classmethod
+    def prefix(cls):
+        return cls.random_element(cls.prefixes)
