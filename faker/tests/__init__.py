@@ -292,6 +292,22 @@ class FactoryTestCase(unittest.TestCase):
                 assert isinstance(f.prefix(), string_types)
                 assert isinstance(f.suffix(), string_types)
 
+    def test_no_words_sentence(self):
+        from faker.providers.lorem import Provider
+
+        provider = Provider(None)
+
+        paragraph = provider.paragraph(0)
+        self.assertEqual(paragraph, '')
+
+    def test_no_words_paragraph(self):
+        from faker.providers.lorem import Provider
+
+        provider = Provider(None)
+
+        sentence = provider.sentence(0)
+        self.assertEqual(sentence, '')
+
 
 if __name__ == '__main__':
     unittest.main()
