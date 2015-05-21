@@ -58,8 +58,8 @@ class ShimsTestCase(unittest.TestCase):
         result = Counter('abbb') & Counter('bcc')
         self.assertEqual(result, Counter({'b': 1}))
 
-        result = Counter('abracadabra').most_common(3)
-        self.assertEqual(result, [('a', 5), ('r', 2), ('b', 2)])
+        result = sorted(Counter('abracadabra').most_common(3))
+        self.assertEqual(result, [('a', 5), ('b', 2), ('r', 2)])
 
         result = sorted(Counter('ABCABC').elements())
         self.assertEqual(result, ['A', 'A', 'B', 'B', 'C', 'C'])
