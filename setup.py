@@ -11,7 +11,7 @@ README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
 NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
-version = '0.5.0'
+version = '0.5.1'
 
 install_requires = []
 if ((sys.version_info[0] == 2 and sys.version_info[1] < 7) or
