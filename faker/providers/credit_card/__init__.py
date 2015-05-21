@@ -7,8 +7,6 @@ import re
 from faker.providers.date_time import Provider as DateTimeProvider
 from .. import BaseProvider
 
-localized = True
-
 
 class CreditCard(object):
     valid_characters_pattern = re.compile('^[0-9 ]*$')
