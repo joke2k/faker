@@ -363,7 +363,6 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   index
    providers
    locales
    coding_style
