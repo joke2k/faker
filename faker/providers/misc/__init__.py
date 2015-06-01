@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import hashlib
 import random
 import string
+import uuid
 
 from faker.providers.date_time import Provider as DatetimeProvider
 
@@ -68,6 +69,13 @@ class Provider(BaseProvider):
     @classmethod
     def language_code(cls):
         return cls.random_element(cls.language_codes)
+
+    @classmethod
+    def uuid4(cls):
+        """
+        Generates a random UUID4 string.
+        """
+        return str(uuid.uuid4())
 
     @classmethod
     def password(cls, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
