@@ -65,10 +65,10 @@ class Provider(BaseProvider):
     voyager_prefix_list = [['8', '6', '9', '9']]
 
     credit_card_types = {
-        'mastercard':   CreditCard('Mastercard',        mastercard_prefix_list, 16, 'CVV', 4),
+        'mastercard':   CreditCard('Mastercard',        mastercard_prefix_list, 16, security_code='CVV'),
         'visa16':       CreditCard('VISA 16 digit',     visa_prefix_list),
         'visa13':       CreditCard('VISA 13 digit',     visa_prefix_list, 13),
-        'amex':         CreditCard('American Express',  amex_prefix_list, 15),
+        'amex':         CreditCard('American Express',  amex_prefix_list, 15, security_code='CID', security_code_length=4),
         'discover':     CreditCard('Discover',          discover_prefix_list),
         'diners':       CreditCard('Diners Club / Carte Blanche', diners_prefix_list, 14),
         'enroute':      CreditCard('enRoute',           enroute_prefix_list, 15),
