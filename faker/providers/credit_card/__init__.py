@@ -118,7 +118,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def credit_card_security_code(cls, card_type=None):
-        return ''.join(str(cls.random_digit()) for _ in xrange(cls._credit_card_type(card_type).security_code_length))
+        return ''.join(str(cls.random_digit()) for _ in range(cls._credit_card_type(card_type).security_code_length))
 
     @classmethod
     def _credit_card_type(cls, card_type=None):
