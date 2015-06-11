@@ -72,8 +72,8 @@ class Provider(BaseProvider):
         'discover':     CreditCard('Discover',          discover_prefix_list),
         'diners':       CreditCard('Diners Club / Carte Blanche', diners_prefix_list, 14),
         'enroute':      CreditCard('enRoute',           enroute_prefix_list, 15),
-        'jcb15':        CreditCard('JCB 15 digit',      jcb16_prefix_list, 15),
-        'jcb16':        CreditCard('JCB 16 digit',      jcb15_prefix_list),
+        'jcb15':        CreditCard('JCB 15 digit',      jcb15_prefix_list, 15),
+        'jcb16':        CreditCard('JCB 16 digit',      jcb16_prefix_list),
         'voyager':      CreditCard('Voyager',           voyager_prefix_list, 15),
     }
     credit_card_types['visa'] = credit_card_types['visa16']
