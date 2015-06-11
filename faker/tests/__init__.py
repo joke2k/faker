@@ -114,17 +114,17 @@ class UtilsTestCase(unittest.TestCase):
 
     def test_find_available_locales(self):
         from faker.utils.loading import find_available_locales
-        from faker.config import DEFAULT_PROVIDERS
+        from faker.config import PROVIDERS
 
-        result = find_available_locales(DEFAULT_PROVIDERS)
+        result = find_available_locales(PROVIDERS)
         self.assertNotEqual(len(result), 0)
 
     def test_find_available_providers(self):
         from faker.utils.loading import find_available_providers
-        from faker.config import DEFAULT_PROVIDERS_MODULES
+        from faker.config import META_PROVIDERS_MODULES
         from importlib import import_module
 
-        modules = [import_module(path) for path in DEFAULT_PROVIDERS_MODULES]
+        modules = [import_module(path) for path in META_PROVIDERS_MODULES]
         providers = find_available_providers(modules)
 
         expected_providers = list(map(str, [
@@ -219,6 +219,17 @@ class FactoryTestCase(unittest.TestCase):
         try:
             sys.stdout = StringIO()
             command = Command(['faker', 'address'])
+            command.execute()
+            assert sys.stdout.getvalue()
+        finally:
+            sys.stdout = orig_stdout
+
+    def test_command_custom_provider(self):
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
