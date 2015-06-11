@@ -8,6 +8,7 @@ Changelog
 * Fixed `jcb15` and `jcb16` in `credit_card` provider. Thanks Rodrigo Braz.
 * Fixed CVV and CID code generation in `credit_card` provider. Thanks Kevin Stone.
 * Added `--include` flag to command line tool. Thanks Flavio Curella.
+* Added `country_code` to `address` provider. Thanks @elad101 and Tobin Brown.
 
 
 `0.5.1 - 21-May-2015 <http://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
