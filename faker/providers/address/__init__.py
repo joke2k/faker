@@ -1,10 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from decimal import Decimal
-import random
 
 from .. import BaseProvider
 from .. import date_time
+from faker.generator import random
 
 localized = True
 

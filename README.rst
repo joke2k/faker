@@ -280,6 +280,11 @@ same results.
 
 Tests
 -----
+Installing dependencies:
+
+.. code:: bash
+
+    $ pip install -r faker/tests/requirements.txt
 
 Run tests:
 

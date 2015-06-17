@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
-import random
 import re
 import unicodedata
 
+from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_domain
 
