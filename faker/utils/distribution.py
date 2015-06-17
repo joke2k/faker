@@ -1,8 +1,7 @@
 # coding=utf-8
 
 import bisect
-import random
-
+from faker.generator import random
 
 def random_sample():
     return random.uniform(0.0, 1.0)

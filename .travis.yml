@@ -11,6 +11,7 @@ python:
   - "pypy3"
 install:
   - pip install -e .
+  - pip install -r faker/tests/requirements.txt
   - pip install coveralls
 script:
   - coverage run --source=faker setup.py test

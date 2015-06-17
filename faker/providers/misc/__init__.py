@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 import hashlib
-import random
 import string
 import uuid
 
+from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
 
 from .. import BaseProvider

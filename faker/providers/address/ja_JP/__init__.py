@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import random
+
 from .. import Provider as AddressProvider
+from faker.generator import random
 
 
 class Provider(AddressProvider):
