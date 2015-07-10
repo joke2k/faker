@@ -1,10 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from decimal import Decimal
-import random
 
 from .. import BaseProvider
 from .. import date_time
+from faker.generator import random
 
 localized = True
 
@@ -19,6 +19,7 @@ class Provider(BaseProvider):
     building_number_formats = ('##', )
     postcode_formats = ('#####', )
     countries = [tz['name'] for tz in date_time.Provider.countries]
+    country_codes = [tz['code'] for tz in date_time.Provider.countries]
 
     @classmethod
     def city_suffix(cls):
@@ -79,6 +80,10 @@ class Provider(BaseProvider):
     @classmethod
     def country(cls):
         return cls.random_element(cls.countries)
+
+    @classmethod
+    def country_code(cls):
+        return cls.random_element(cls.country_codes)
 
     @classmethod
     def geo_coordinate(cls, center=None, radius=0.001):

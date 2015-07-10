@@ -7,6 +7,7 @@ import random
 
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
+random = random.Random()
 
 
 class Generator(object):

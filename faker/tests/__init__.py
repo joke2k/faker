@@ -7,10 +7,14 @@ __loader__ = None
 import datetime
 import json
 import os
-import random
 import time
 import unittest
 import sys
+
+try:
+    from mock import patch
+except ImportError:
+    from unittest.mock import patch
 
 try:
     from StringIO import StringIO
@@ -18,6 +22,7 @@ except ImportError:
     from io import StringIO
 
 from faker import Generator, Factory
+from faker.generator import random
 from faker.utils import text, decorators
 
 try:
@@ -114,17 +119,17 @@ class UtilsTestCase(unittest.TestCase):
 
     def test_find_available_locales(self):
         from faker.utils.loading import find_available_locales
-        from faker.config import DEFAULT_PROVIDERS
+        from faker.config import PROVIDERS
 
-        result = find_available_locales(DEFAULT_PROVIDERS)
+        result = find_available_locales(PROVIDERS)
         self.assertNotEqual(len(result), 0)
 
     def test_find_available_providers(self):
         from faker.utils.loading import find_available_providers
-        from faker.config import DEFAULT_PROVIDERS_MODULES
+        from faker.config import META_PROVIDERS_MODULES
         from importlib import import_module
 
-        modules = [import_module(path) for path in DEFAULT_PROVIDERS_MODULES]
+        modules = [import_module(path) for path in META_PROVIDERS_MODULES]
         providers = find_available_providers(modules)
 
         expected_providers = list(map(str, [
@@ -224,6 +229,17 @@ class FactoryTestCase(unittest.TestCase):
         finally:
             sys.stdout = orig_stdout
 
+    def test_command_custom_provider(self):
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule.en_US'])
+            command.execute()
+            assert sys.stdout.getvalue()
+        finally:
+            sys.stdout = orig_stdout
+
     def test_slugify(self):
         slug = text.slugify("a'b/c")
         self.assertEqual(slug, 'abc')
@@ -313,20 +329,20 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider
         # test century
         self.assertTrue(self._datetime_to_time(provider.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
         # test decade
         self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
                                self._datetime_to_time(datetime.datetime.now()))
         # test year
         self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
                                self._datetime_to_time(datetime.datetime.now()))
         # test month
         self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False)) >= self._datetime_to_time(datetime.datetime.now()))
+        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
                                self._datetime_to_time(datetime.datetime.now()))
 
@@ -353,6 +369,30 @@ class FactoryTestCase(unittest.TestCase):
 
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
+
+    def test_us_ssn_valid(self):
+        from faker.providers.ssn.en_US import Provider
+
+        provider = Provider(None)
+        for i in range(1000):
+            ssn = provider.ssn()
+            self.assertEqual(len(ssn), 11)
+            self.assertNotEqual(ssn[0], '9')
+            self.assertNotEqual(ssn[0:3], '666')
+            self.assertNotEqual(ssn[0:3], '000')
+            self.assertNotEqual(ssn[4:6], '00')
+            self.assertNotEqual(ssn[7:11], '0000')
+
+
+class GeneratorTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.generator = Generator()
+
+    @patch('random.seed')
+    def test_random_seed_doesnt_seed_system_random(self, mock_system_random):
+        self.generator.seed(0)
+        self.assertFalse(mock_system_random.called)
 
 
 if __name__ == '__main__':

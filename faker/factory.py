@@ -7,14 +7,16 @@ from importlib import import_module
 import locale as pylocale
 
 from faker import Generator
-from faker.config import DEFAULT_LOCALE, DEFAULT_PROVIDERS, AVAILABLE_LOCALES
+from faker.config import DEFAULT_LOCALE, PROVIDERS, AVAILABLE_LOCALES
 from faker.utils.loading import list_module
 
 
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=None, providers=None, generator=None, **config):
+    def create(cls, locale=None, providers=None, generator=None, includes=None, **config):
+        if includes is None:
+            includes = []
 
         # fix locale to package name
         locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
@@ -23,11 +25,16 @@ class Factory(object):
             msg = 'Invalid configuration for faker locale "{0}"'.format(locale)
             raise AttributeError(msg)
 
-        providers = providers or DEFAULT_PROVIDERS
+        providers = providers or PROVIDERS
+
+        providers += includes
 
         faker = generator or Generator(**config)
 
         for prov_name in providers:
+            if prov_name == 'faker.providers':
+                continue
+
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
             provider = prov_cls(faker)
             provider.__provider__ = prov_name

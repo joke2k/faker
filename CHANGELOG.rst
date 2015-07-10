@@ -1,6 +1,23 @@
 Changelog
 =========
 
+`0.5.3 - TBD`__
+---------------
+
+* Added `company_vat` to company `fi_FI` provider. Thanks @kivipe.
+* Seed a Random instance instead of the module. Thanks Amy Hanlon.
+
+
+`0.5.2 - 11-June-2015 <http://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__
+---------------------------------------------------------------------------------
+
+* Added `uuid4` to `misc` provider. Thanks Jared Culp.
+* Fixed `jcb15` and `jcb16` in `credit_card` provider. Thanks Rodrigo Braz.
+* Fixed CVV and CID code generation in `credit_card` provider. Thanks Kevin Stone.
+* Added `--include` flag to command line tool. Thanks Flavio Curella.
+* Added `country_code` to `address` provider. Thanks @elad101 and Tobin Brown.
+
+
 `0.5.1 - 21-May-2015 <http://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
 ------------------------------------------------------------------------------
 

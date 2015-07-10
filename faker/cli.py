@@ -9,7 +9,7 @@ import argparse
 
 from faker import Faker, Factory, documentor
 from faker import VERSION
-from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
+from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
 
 if sys.version < '3':
@@ -56,10 +56,10 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
 
 
 def print_doc(provider_or_field=None,
-              args=None, lang=DEFAULT_LOCALE, output=None):
+              args=None, lang=DEFAULT_LOCALE, output=None, includes=None):
     args = args or []
     output = output or sys.stdout
-    fake = Faker(locale=lang)
+    fake = Faker(locale=lang, includes=includes)
 
     from faker.providers import BaseProvider
     base_provider_formatters = [f for f in dir(BaseProvider)]
@@ -68,7 +68,7 @@ def print_doc(provider_or_field=None,
         if '.' in provider_or_field:
             parts = provider_or_field.split('.')
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
-            fake = Factory.create(locale, providers=[provider_or_field])
+            fake = Factory.create(locale, providers=[provider_or_field], includes=includes)
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
             print_provider(
@@ -80,8 +80,8 @@ def print_doc(provider_or_field=None,
             try:
                 print(fake.format(provider_or_field, *args), end='', file=output)
             except AttributeError:
-                print('No faker found for "{0}({1})"'.format(
-                    provider_or_field, args), file=output)
+                raise ValueError('No faker found for "{0}({1})"'.format(
+                    provider_or_field, args))
 
     else:
         doc = documentor.Documentor(fake)
@@ -145,6 +145,8 @@ class Command(object):
         parser.add_argument('-s', '--sep',
                             default='\n')
 
+        parser.add_argument('-i', '--include', default=META_PROVIDERS_MODULES, nargs='*')
+
         parser.add_argument('fake', action='store', nargs='*')
 
         arguments = parser.parse_args(self.argv[1:])
@@ -156,7 +158,9 @@ class Command(object):
             print_doc(fake,
                       arguments.fake[1:],
                       lang=arguments.lang,
-                      output=arguments.o)
+                      output=arguments.o,
+                      includes=arguments.include
+                      )
             print(arguments.sep, file=arguments.o)
 
             if not fake:

@@ -138,6 +138,7 @@ Included localized providers:
 -  `fr\_FR <http://fake-factory.readthedocs.org/en/master/locales/fr_FR.html>`__ - French
 -  `hi\_IN <http://fake-factory.readthedocs.org/en/master/locales/hi_IN.html>`__ - Hindi
 -  `it\_IT <http://fake-factory.readthedocs.org/en/master/locales/it_IT.html>`__ - Italian
+-  `ja\_JP <http://fake-factory.readthedocs.org/en/master/locales/ja_JP.html>`__ - Japanese
 -  `ko\_KR <http://fake-factory.readthedocs.org/en/master/locales/ko_KR.html>`__ - Korean
 -  `lt\_LT <http://fake-factory.readthedocs.org/en/master/locales/lt_LT.html>`__ - Lithuanian
 -  `lv\_LV <http://fake-factory.readthedocs.org/en/master/locales/lv_LV.html>`__ - Latvian
@@ -164,6 +165,7 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
+          [-i {module.containing.custom_provider othermodule.containing.custom_provider}]
           [fake [fake ...]]
 
 Where:
@@ -184,6 +186,9 @@ Where:
 
 -  ``-s SEP``: will generate the specified separator after each
    generated output
+
+-  ``-i {my.custom_provider other.custom_provider}`` list of additional custom providers to use. 
+   Note that is the import path of the module containing your Provider class, not the custom Provider class itself.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
@@ -275,6 +280,11 @@ same results.
 
 Tests
 -----
+Installing dependencies:
+
+.. code:: bash
+
+    $ pip install -r faker/tests/requirements.txt
 
 Run tests:
 

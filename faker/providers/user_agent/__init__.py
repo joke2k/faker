@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from datetime import datetime
-import random
 
+from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
 
 from .. import BaseProvider
