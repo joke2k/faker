@@ -370,6 +370,19 @@ class FactoryTestCase(unittest.TestCase):
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
 
+    def test_us_ssn_valid(self):
+        from faker.providers.ssn.en_US import Provider
+
+        provider = Provider(None)
+        for i in range(1000):
+            ssn = provider.ssn()
+            self.assertEqual(len(ssn), 11)
+            self.assertNotEqual(ssn[0], '9')
+            self.assertNotEqual(ssn[0:3], '666')
+            self.assertNotEqual(ssn[0:3], '000')
+            self.assertNotEqual(ssn[4:6], '00')
+            self.assertNotEqual(ssn[7:11], '0000')
+
 
 class GeneratorTestCase(unittest.TestCase):
 
