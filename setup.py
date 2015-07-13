@@ -27,7 +27,9 @@ setup(
     version=version,
     description="Faker is a Python package that generates fake data for you.",
     long_description=README + '\n\n' + NEWS,
-    scripts=['faker/bin/faker'],
+    entry_points={
+        'console_scripts': ['faker=faker.cli:execute_from_command_line'],
+    },
     classifiers=[
         # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 3 - Alpha',
