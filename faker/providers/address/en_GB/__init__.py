@@ -40,7 +40,44 @@ class Provider(AddressProvider):
         'view', 'views', 'village', 'village', 'villages', 'ville', 'vista', 'vista', 'walk', 'walks', 'wall', 'way',
         'ways', 'well', 'wells')
 
-    postcode_formats = ('??#? #??', '?#? #??', '?# #??', '?## #??', '??# #??', '??## #??',)
+    POSTAL_ZONES = (
+        'AB', 'AL', 'B' , 'BA', 'BB', 'BD', 'BH', 'BL', 'BN', 'BR',
+        'BS', 'BT', 'CA', 'CB', 'CF', 'CH', 'CM', 'CO', 'CR', 'CT',
+        'CV', 'CW', 'DA', 'DD', 'DE', 'DG', 'DH', 'DL', 'DN', 'DT',
+        'DY', 'E' , 'EC', 'EH', 'EN', 'EX', 'FK', 'FY', 'G' , 'GL',
+        'GY', 'GU', 'HA', 'HD', 'HG', 'HP', 'HR', 'HS', 'HU', 'HX',
+        'IG', 'IM', 'IP', 'IV', 'JE', 'KA', 'KT', 'KW', 'KY', 'L' ,
+        'LA', 'LD', 'LE', 'LL', 'LN', 'LS', 'LU', 'M' , 'ME', 'MK',
+        'ML', 'N' , 'NE', 'NG', 'NN', 'NP', 'NR', 'NW', 'OL', 'OX',
+        'PA', 'PE', 'PH', 'PL', 'PO', 'PR', 'RG', 'RH', 'RM', 'S' ,
+        'SA', 'SE', 'SG', 'SK', 'SL', 'SM', 'SN', 'SO', 'SP', 'SR',
+        'SS', 'ST', 'SW', 'SY', 'TA', 'TD', 'TF', 'TN', 'TQ', 'TR',
+        'TS', 'TW', 'UB', 'W' , 'WA', 'WC', 'WD', 'WF', 'WN', 'WR',
+        'WS', 'WV', 'YO', 'ZE'
+    )
+
+    POSTAL_ZONES_ONE_CHAR = [zone for zone in POSTAL_ZONES if len(zone) == 1]
+    POSTAL_ZONES_TWO_CHARS = [zone for zone in POSTAL_ZONES if len(zone) == 2]
+
+    postcode_formats = (
+        'AN NEE',
+        'ANN NEE',
+        'PN NEE',
+        'PNN NEE',
+        'ANC NEE',
+        'PND NEE',
+    )
+
+    _postcode_sets = {
+        ' ': ' ',
+        'N': [str(i) for i in range(0, 10)],
+        'A': POSTAL_ZONES_ONE_CHAR,
+        'B': 'ABCDEFGHKLMNOPQRSTUVWXY',
+        'C': 'ABCDEFGHJKSTUW',
+        'D': 'ABEHMNPRVWXY',
+        'E': 'ABDEFGHJLNPQRSTUWXYZ',
+        'P': POSTAL_ZONES_TWO_CHARS,
+    }
 
     city_formats = (
         '{{city_prefix}} {{first_name}}{{city_suffix}}',
@@ -60,6 +97,17 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}\n{{postcode}}",
     )
     secondary_address_formats = ('Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
+
+    @classmethod
+    def postcode(cls):
+        """
+        See http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
+        """
+        postcode = ''
+        pattern = cls.random_element(cls.postcode_formats)
+        for placeholder in pattern:
+            postcode += cls.random_element(cls._postcode_sets[placeholder])
+        return postcode
 
     @classmethod
     def city_prefix(cls):
