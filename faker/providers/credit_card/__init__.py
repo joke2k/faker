@@ -79,6 +79,9 @@ class Provider(BaseProvider):
     credit_card_types['visa'] = credit_card_types['visa16']
     credit_card_types['jcb'] = credit_card_types['jcb16']
 
+    luhn_lookup = {'0': 0, '1': 2, '2': 4, '3': 6, '4': 8,
+                   '5': 1, '6': 3, '7': 5, '8': 7, '9': 9}
+
     @classmethod
     def credit_card_provider(cls, card_type=None):
         if card_type is None:
@@ -170,18 +173,14 @@ class Provider(BaseProvider):
 
     @staticmethod
     def _validate_luhn_checksum(number_as_string):
-        """ checks to make sure that the card passes a luhn mod-10 checksum """
+        """
+        Checks to make sure that the card passes a luhn mod-10 checksum.
+        """
 
-        number = 0
-        num_digits = len(number_as_string)
-        odd_even = num_digits & 1
+        s = number_as_string
+        digits = len(s)
+        number = int(s[0]) if digits & 1 else 0
 
-        for i in range(0, num_digits):
-            digit = int(number_as_string[i])
-
-            if not ((i & 1) ^ odd_even):
-                digit *= 2
-            if digit > 9:
-                digit -= 9
-            number += digit
+        for i in range(digits - 2, -1, -2):
+            number += Provider.luhn_lookup[s[i]] + int(s[i+1])
         return (number % 10) == 0
