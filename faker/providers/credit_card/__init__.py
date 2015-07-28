@@ -89,13 +89,10 @@ class Provider(BaseProvider):
         return cls._credit_card_type(card_type).name
 
     @classmethod
-    def credit_card_number(cls, card_type=None, validate=False, max_check=10):
+    def credit_card_number(cls, card_type=None):
+        """ Returns a valid credit card number. """
         card = cls._credit_card_type(card_type)
-        number = ''
-        for i in range(0, max_check):
-            number = cls._generate_number(cls.random_element(card.prefixes), card.length)
-            if not validate or cls._validate_credit_card_number(card, number):
-                break
+        number = cls._generate_number(cls.random_element(card.prefixes), card.length)
         return number
 
     @classmethod
@@ -103,7 +100,7 @@ class Provider(BaseProvider):
         expire_date = DateTimeProvider.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
-    def credit_card_full(self, card_type=None, validate=False, max_check=10):
+    def credit_card_full(self, card_type=None):
         card = self._credit_card_type(card_type)
         template = """
 {provider}
@@ -112,7 +109,7 @@ class Provider(BaseProvider):
 {security}: {security_nb}""".format(
             provider=card.name,
             owner=self.generator.parse("{{first_name}} {{last_name}}"),
-            number=self.credit_card_number(card, validate, max_check),
+            number=self.credit_card_number(card),
             expire_date=self.credit_card_expire(),
             security=card.security_code,
             security_nb=self.credit_card_security_code(card)
@@ -153,15 +150,12 @@ class Provider(BaseProvider):
         reversed_number.reverse()
 
         while pos < length - 1:
-            odd = int(reversed_number[pos]) * 2
-            if odd > 9:
-                odd -= 9
-            tot += odd
+            tot += Provider.luhn_lookup[reversed_number[pos]]
             if pos != (length - 2):
                 tot += int(reversed_number[pos+1])
             pos += 2
         # Calculate check digit
-        check_digit = ((tot / 10 + 1) * 10 - tot) % 10
+        check_digit = (10 - (tot % 10)) % 10
         number.append(str(check_digit))
         return ''.join(number)
 
