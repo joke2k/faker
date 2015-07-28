@@ -161,7 +161,7 @@ class Provider(BaseProvider):
                 tot += int(reversed_number[pos+1])
             pos += 2
         # Calculate check digit
-        check_digit = ((tot / 10 + 1) * 10 - tot) % 10
+        check_digit = (10 - (tot % 10)) % 10
         number.append(str(check_digit))
         return ''.join(number)
 
