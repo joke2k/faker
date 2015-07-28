@@ -150,10 +150,7 @@ class Provider(BaseProvider):
         reversed_number.reverse()
 
         while pos < length - 1:
-            odd = int(reversed_number[pos]) * 2
-            if odd > 9:
-                odd -= 9
-            tot += odd
+            tot += Provider.luhn_lookup[reversed_number[pos]]
             if pos != (length - 2):
                 tot += int(reversed_number[pos+1])
             pos += 2
