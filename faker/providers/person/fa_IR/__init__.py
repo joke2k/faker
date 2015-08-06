@@ -54,6 +54,8 @@ class Provider(PersonProvider):
         'علی اكبر', 'محمدجواد', 'بنیامین'
     )
 
+    first_names = first_names_female + first_names_male
+
     last_names = (
         'محمدی', 'محمد پور', 'اکبر پور', 'رضا زاده', 'مجتهدی', 'دایی', 'حمیدی',
         'کابلی', 'عبدالعلی', 'احمدی', 'اشرفی', 'علیجانی', 'ابوطالبی',
@@ -72,8 +74,8 @@ class Provider(PersonProvider):
         'نعمتی', 'عزیزی', 'رودگر',
     )
 
-    prefix_male = ('جناب آقای', 'جناب آقای دکتر')
-    prefix_female = ('سرکار خانم', 'سرکار خانم دکتر')
+    prefixes_male = ('جناب آقای', 'جناب آقای دکتر')
+    prefixes_female = ('سرکار خانم', 'سرکار خانم دکتر')
 
     @classmethod
     def suffix(cls):
