@@ -6,6 +6,10 @@ Changelog
 
 * Added `company_vat` to company `fi_FI` provider. Thanks @kivipe.
 * Seed a Random instance instead of the module. Thanks Amy Hanlon.
+* Fixed en_GB postcodes to be more realistic. Thanks @mapleoin for the report.
+* Fixed support for Python 3 in the python provider. Thanks @derekjamescurtis.
+* Fixed U.S. SSN generation. Thanks @jschaf.
+* Use environment markers for wheels. Thanks @RonnyPfannschmidt
 
 
 `0.5.2 - 11-June-2015 <http://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__

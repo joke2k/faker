@@ -10,6 +10,14 @@ from faker.providers.lorem.la import Provider as Lorem
 from .. import BaseProvider
 
 
+if sys.version_info[0] == 2:
+    string_types = (basestring,)
+elif sys.version_info[0] == 3:
+    string_types = (str, bytes)
+else:
+    raise SystemError("Unrecognized python version: {}".format(sys.version_info[0]))
+
+
 class Provider(BaseProvider):
     @classmethod
     def pybool(cls):
@@ -60,7 +68,7 @@ class Provider(BaseProvider):
 
     def _pyiterable(self, nb_elements=10, variable_nb_elements=True, *value_types):
 
-        value_types = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, string_types) else getattr(t, '__name__', type(t).__name__).lower()
                       for t in value_types
                       # avoid recursion
                       if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
@@ -88,7 +96,7 @@ class Provider(BaseProvider):
 
     def pystruct(self, count=10, *value_types):
 
-        value_types = [t if isinstance(t, basestring) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, string_types) else getattr(t, '__name__', type(t).__name__).lower()
                       for t in value_types
                       # avoid recursion
                       if t != 'struct']
