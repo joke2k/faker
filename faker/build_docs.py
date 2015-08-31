@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import pprint
 import sys
 
 
@@ -37,6 +38,9 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
         if signature in excludes:
             continue
         try:
+            # `pprint` can't format sets of heterogenous types.
+            if not isinstance(example, set):
+                example = pprint.pformat(example, indent=4)
             lines = text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
             msg = 'error on "{0}" with value "{1}"'.format(signature, example)
