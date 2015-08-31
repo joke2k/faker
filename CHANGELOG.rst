@@ -10,6 +10,14 @@ Changelog
 * Fixed support for Python 3 in the python provider. Thanks @derekjamescurtis.
 * Fixed U.S. SSN generation. Thanks @jschaf.
 * Use environment markers for wheels. Thanks @RonnyPfannschmidt
+* Fixed Python3 issue in `pyiterable` and `pystruct` providers. Thanks @derekjamescurtis.
+* Fixed `en_GB` postcodes to be more realistic. Thanks @mapleoin.
+* Fixed and improved performance of credit card number provider. Thanks @0x000.
+* Added Brazilian SSN, aka CPF. Thanks @ericchaves.
+* Added female and male names for `fa_IR`. Thanks @afshinrodgar.
+* Fixed issues with Decimal objects as input to geo_coordinate. Thanks @davy.
+* Fixed bug for `center` set to `None` in geo_coordinate. Thanks @davy.
+* Fixed deprecated image URL placeholder services.
 
 
 `0.5.2 - 11-June-2015 <http://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__
