@@ -128,6 +128,7 @@ Included localized providers:
 -  `de\_DE <http://fake-factory.readthedocs.org/en/master/locales/de_DE.html>`__ - German
 -  `dk\_DK <http://fake-factory.readthedocs.org/en/master/locales/dk_DK.html>`__ - Danish
 -  `el\_GR <http://fake-factory.readthedocs.org/en/master/locales/el_GR.html>`__ - Greek
+-  `en\_AU <http://fake-factory.readthedocs.org/en/master/locales/en_AU.html>`__ - English (Australia)
 -  `en\_CA <http://fake-factory.readthedocs.org/en/master/locales/en_CA.html>`__ - English (Canada)
 -  `en\_GB <http://fake-factory.readthedocs.org/en/master/locales/en_GB.html>`__ - English (Great Britain)
 -  `en\_US <http://fake-factory.readthedocs.org/en/master/locales/en_US.html>`__ - English (United States)
