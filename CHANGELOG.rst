@@ -35,7 +35,7 @@ Changelog
 ------------------------------------------------------------------------------
 
 * Fixed egg installation. Thanks David R. MacIver, @kecaps
-* Updated person names for ru_RU. Thanks @mousebaiker.
+* Updated person names for ``ru_RU``. Thanks @mousebaiker.
 * Updated ko_KR locale. Thanks Lee Yeonjae.
 * Fixed installation to install importlib on Python 2.6. Thanks Guillaume Thomas.
 * Improved tests. Thanks Aarni Koskela, @kecaps, @kaushal.
@@ -60,7 +60,7 @@ Changelog
 * Localized providers
 * Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
 * Added ``pt_PT`` provider. Thanks João Delgado.
-* Fixed mispellings for ``en_US` company provider. Thanks Greg Meece.
+* Fixed mispellings for ``en_US`` company provider. Thanks Greg Meece.
 * Added currency provider. Thanks Wiktor Ślęczka
 * Ensure choice_distribution always uses floats. Thanks Katy Lavallee.
 * Added ``uk_UA`` provider. Thanks Cyril Tarasenko.
