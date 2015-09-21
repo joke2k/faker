@@ -18,7 +18,8 @@ Changelog
 * Fixed issues with Decimal objects as input to geo_coordinate. Thanks @davy.
 * Fixed bug for `center` set to `None` in geo_coordinate. Thanks @davy.
 * Fixed deprecated image URL placeholder services.
-
+* Fixed provider's example formatting in documentation.
+* Added en_AU provider. Thanks @xfxf.
 
 `0.5.2 - 11-June-2015 <http://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__
 ---------------------------------------------------------------------------------
