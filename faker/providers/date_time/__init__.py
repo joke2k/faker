@@ -2,12 +2,12 @@
 
 from __future__ import unicode_literals
 
-import random
 import re
 from time import time, mktime
 
 from datetime import timedelta
 
+from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 from faker.utils import is_string
 

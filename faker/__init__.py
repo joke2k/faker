@@ -1,4 +1,4 @@
-VERSION = '0.5.2'
+VERSION = '0.5.3'
 
 from faker.generator import Generator
 from faker.factory import Factory

@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-import random
+from faker.generator import random
 
 
 class Provider(SsnProvider):

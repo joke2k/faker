@@ -1,8 +1,9 @@
 # coding=utf-8
 
 import re
-import random
 import string
+
+from faker.generator import random
 from faker.utils.distribution import choice_distribution
 
 

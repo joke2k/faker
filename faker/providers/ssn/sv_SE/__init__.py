@@ -2,8 +2,8 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
+from faker.generator import random
 import datetime
-import random
 
 
 class Provider(SsnProvider):

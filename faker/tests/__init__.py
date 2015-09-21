@@ -7,10 +7,14 @@ __loader__ = None
 import datetime
 import json
 import os
-import random
 import time
 import unittest
 import sys
+
+try:
+    from mock import patch
+except ImportError:
+    from unittest.mock import patch
 
 try:
     from StringIO import StringIO
@@ -18,6 +22,7 @@ except ImportError:
     from io import StringIO
 
 from faker import Generator, Factory
+from faker.generator import random
 from faker.utils import text, decorators
 
 try:
@@ -364,6 +369,30 @@ class FactoryTestCase(unittest.TestCase):
 
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
+
+    def test_us_ssn_valid(self):
+        from faker.providers.ssn.en_US import Provider
+
+        provider = Provider(None)
+        for i in range(1000):
+            ssn = provider.ssn()
+            self.assertEqual(len(ssn), 11)
+            self.assertNotEqual(ssn[0], '9')
+            self.assertNotEqual(ssn[0:3], '666')
+            self.assertNotEqual(ssn[0:3], '000')
+            self.assertNotEqual(ssn[4:6], '00')
+            self.assertNotEqual(ssn[7:11], '0000')
+
+
+class GeneratorTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.generator = Generator()
+
+    @patch('random.seed')
+    def test_random_seed_doesnt_seed_system_random(self, mock_system_random):
+        self.generator.seed(0)
+        self.assertFalse(mock_system_random.called)
 
 
 if __name__ == '__main__':

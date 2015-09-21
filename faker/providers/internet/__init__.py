@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
-import random
 import re
 import unicodedata
 
+from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_domain
 
@@ -46,9 +46,8 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'http://placekitten.com/{width}/{height}',
-        'http://placehold.it/{width}x{height}',
-        'http://www.lorempixum.com/{width}/{height}',
+        'https://placeholdit.imgix.net/~text?txtsize=55&txt={width}×{height}&w={width}&h={height}',
+        'http://www.lorempixel.com/{width}/{height}',
         'http://dummyimage.com/{width}x{height}',
      )
 

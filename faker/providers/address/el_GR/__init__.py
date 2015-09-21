@@ -1,8 +1,9 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from decimal import Decimal
-import random
+
 from .. import Provider as AddressProvider
+from faker.generator import random
 
 
 def contains_point(poly, point):
