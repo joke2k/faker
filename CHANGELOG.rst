@@ -2,7 +2,7 @@ Changelog
 =========
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
----------------
+--------------------------------------------------------------------------------------
 
 * Added `company_vat` to company `fi_FI` provider. Thanks @kivipe.
 * Seed a Random instance instead of the module. Thanks Amy Hanlon.
