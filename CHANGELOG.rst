@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`0.5.4`
+-------
+
+* Update de_DE first names. Thanks @WarrenFaith and @mschoebel.
+
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
 
