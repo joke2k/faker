@@ -18,6 +18,7 @@ class CreditCard(object):
 
 class Provider(BaseProvider):
 
+    prefix_maestro = ['5018', '5020', '5038', '5612', '5893', '6304', '6759', '6761', '6762', '6763', '0604', '6390']
     prefix_mastercard = ['51', '52', '53', '54', '55']
     prefix_visa = ['4']
     prefix_amex = ['34', '37']
@@ -28,6 +29,7 @@ class Provider(BaseProvider):
     prefix_voyager = ['8699']
 
     credit_card_types = {
+        'maestro':      CreditCard('Maestro',           prefix_maestro, 12, security_code='CVV'),
         'mastercard':   CreditCard('Mastercard',        prefix_mastercard, 16, security_code='CVV'),
         'visa16':       CreditCard('VISA 16 digit',     prefix_visa),
         'visa13':       CreditCard('VISA 13 digit',     prefix_visa, 13),
