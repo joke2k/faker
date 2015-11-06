@@ -151,13 +151,29 @@ class Provider(BaseProvider):
         "webm",
     )
 
+    office_file_extensions = (
+        "doc",  # legacy MS Word
+        "docx",  # MS Word
+        "xls",  # legacy MS Excel
+        "xlsx",  # MS Excel
+        "ppt",  # legacy MS PowerPoint
+        "pptx",  # MS PowerPoint
+        "odt",  # LibreOffice document
+        "ods",  # LibreOffice spreadsheet
+        "odp",  # LibreOffice presentation
+        "pages",  # Apple Pages
+        "numbers",  # Apple Numbers
+        "key",  # Apple Keynote
+        "pdf",  # Portable Document Format
+    )
+
     file_extensions = {
         "audio": audio_file_extenstions,
         "image": image_file_extenstions,
+        "office": office_file_extensions,
         "text": text_file_extensions,
         "video": video_file_extensions,
     }
-
 
     @classmethod
     def mime_type(cls, category=None):
@@ -170,7 +186,7 @@ class Provider(BaseProvider):
     @classmethod
     def file_name(cls, category=None, extension=None):
         """
-        :param category: audio|image|text|video
+        :param category: audio|image|office|text|video
         :param extension: file extension
         """
         extension = extension if extension else cls.file_extension(category)
@@ -180,7 +196,7 @@ class Provider(BaseProvider):
     @classmethod
     def file_extension(cls, category=None):
         """
-        :param category: audio|image|text|video
+        :param category: audio|image|office|text|video
         """
         category = category if category else cls.random_element(list(cls.file_extensions.keys()))
         return cls.random_element(cls.file_extensions[category])
