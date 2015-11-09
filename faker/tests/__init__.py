@@ -34,6 +34,25 @@ except NameError:
 TEST_DIR = os.path.dirname(__file__)
 
 
+class UTC(datetime.tzinfo):
+    """
+    UTC implementation taken from Python's docs.
+    """
+    def __repr__(self):
+        return "<UTC>"
+
+    def utcoffset(self, dt):
+        return datetime.timedelta(0)
+
+    def tzname(self, dt):
+        return "UTC"
+
+    def dst(self, dt):
+        return datetime.timedelta(0)
+
+utc = UTC()
+
+
 class BarProvider(object):
     def foo_formatter(self):
         return 'barfoo'
@@ -306,7 +325,20 @@ class FactoryTestCase(unittest.TestCase):
         # test that certain formatting strings are allowed on post-1900 dates
         result = datetime_safe.date(2008, 2, 29).strftime('%y')
         self.assertEqual(result, r'08')
-    
+
+    def test_datetimes_with_and_without_tzinfo(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        self.assertEqual(provider.date_time().tzinfo, None)
+        self.assertEqual(provider.date_time(utc).tzinfo, utc)
+
+        self.assertEqual(provider.date_time_ad().tzinfo, None)
+        self.assertEqual(provider.date_time_ad(utc).tzinfo, utc)
+
+        self.assertFalse(provider.iso8601().endswith('+00:00'))
+        self.assertTrue(provider.iso8601(utc).endswith('+00:00'))
+
     def test_date_time_between_dates(self):
         from faker.providers.date_time import Provider
         provider = Provider
@@ -318,6 +350,23 @@ class FactoryTestCase(unittest.TestCase):
         datetime_end = datetime.datetime.fromtimestamp(timestamp_end)
 
         random_date = provider.date_time_between_dates(datetime_start, datetime_end)
+        self.assertTrue(datetime_start <= random_date)
+        self.assertTrue(datetime_end >= random_date)
+
+    def test_date_time_between_dates_with_tzinfo(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        timestamp_start = random.randint(0, 10000000000)
+        timestamp_end = timestamp_start+1
+
+        datetime_start = datetime.datetime.fromtimestamp(timestamp_start, utc)
+        datetime_end = datetime.datetime.fromtimestamp(timestamp_end, utc)
+
+        random_date_naive = provider.date_time_between_dates(datetime_start, datetime_end)
+        self.assertRaises(TypeError, lambda: datetime_start <= random_date_naive)
+
+        random_date = provider.date_time_between_dates(datetime_start, datetime_end, utc)
         self.assertTrue(datetime_start <= random_date)
         self.assertTrue(datetime_end >= random_date)
 
@@ -345,6 +394,36 @@ class FactoryTestCase(unittest.TestCase):
         self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
         self.assertEqual(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
                                self._datetime_to_time(datetime.datetime.now()))
+
+    def test_date_time_this_period_with_tzinfo(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        # ensure all methods provide timezone aware datetimes
+        self.assertRaises(TypeError, lambda: provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now())
+        self.assertRaises(TypeError, lambda: provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.datetime.now())
+        self.assertRaises(TypeError, lambda: provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.datetime.now())
+        self.assertRaises(TypeError, lambda: provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.datetime.now())
+
+        # test century
+        self.assertTrue(provider.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
+        self.assertTrue(provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
+        # test decade
+        self.assertTrue(provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
+        self.assertTrue(provider.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
+
+        self.assertEqual(provider.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
+                               datetime.datetime.now(utc).replace(microsecond=0))
+        # test year
+        self.assertTrue(provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
+        self.assertTrue(provider.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
+        self.assertEqual(provider.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
+                               datetime.datetime.now(utc).replace(microsecond=0))
+        # test month
+        self.assertTrue(provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
+        self.assertTrue(provider.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
+        self.assertEqual(provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
+                               datetime.datetime.now(utc).replace(microsecond=0))
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
