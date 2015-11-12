@@ -81,6 +81,49 @@ class Provider(PersonProvider):
         'ワカマツ', 'ワタナベ',
     )
 
+    romanized_formats = (
+        '{{first_romanized_name_female}} {{last_romanized_name}}',
+        '{{first_romanized_name_male}} {{last_romanized_name}}',
+    )
+
+    first_romanized_names_female = (
+        'Akira', 'Akemi', 'Asuka',
+        'Kaori', 'Kana', 'Kumiko',
+        'Sayuri',
+        'Chiyo', 'Tsubasa', 'Tomomi',
+        'Naoko', 'Nanaka',
+        'Hanako', 'Haruka',
+        'Maaya', 'Mai', 'Miki', 'Momoko',
+        'Yui', 'Yoko', 'Yumiko',
+        'Rei', 'Rika',
+    )
+
+    first_romanized_names_male = (
+        'Akira', 'Atsushi', 'Osamu',
+        'Kyosuke', 'Kenichi',
+        'Jun', 'Sotaro',
+        'Taichi', 'Takuma', 'Taro', 'Tsubasa', 'Tomoya',
+        'Naoki', 'Naoto'
+        'Hideki', 'Hiroshi',
+        'Manabu', 'Mituru', 'Minoru', 'Hiroki',
+        'Yuta', 'Yasuhiro', 'Yoichi', 'Yosuke',
+        'Ryosuke', 'Ryohei',
+    )
+
+    first_romanized_names = first_romanized_names_male + first_romanized_names_female
+
+    last_romanized_names = (
+        'Aota', 'Aoyama', 'Ishida', 'Idaka', 'Ito', 'Uno', 'Ekoda', 'Ogaki',
+        'Kato', 'Kano', 'Kijima', 'Kimura', 'Kiriyama', 'Kudo', 'Koizumi', 'Kobayashi', 'Kondo',
+        'Saito', 'Sakamoto', 'Sasaki', 'Sato', 'Sasada', 'Suzuki', 'Sugiyama',
+        'Takahashi', 'Tanaka', 'Tanabe', 'Tsuda', 'Tsuchiya',
+        'Nakajima', 'Nakamura', 'Nagisa', 'Nakatsugawa', 'Nishinosono', 'Nomura',
+        'Harada', 'Hamada', 'Hirokawa', 'Fujimoto',
+        'Matsumoto', 'Miyake', 'Miyagawa', 'Murayama',
+        'Yamagishi', 'Yamaguchi', 'Yamada', 'Yamamoto', 'Yoshida', 'Yoshimoto',
+        'Wakamatsu', 'Watanabe',
+    )
+
     def kana_name(self):
         '''
         @example 'アオタ アキラ'
@@ -109,3 +152,32 @@ class Provider(PersonProvider):
         @example 'アオタ'
         '''
         return cls.random_element(cls.last_kana_names)
+
+    def romanized_name(self):
+        '''
+        @example 'Akira Aota'
+        '''
+        pattern = self.random_element(self.romanized_formats)
+        return self.generator.parse(pattern)
+
+    @classmethod
+    def first_romanized_name(cls):
+        '''
+        @example 'Akira'
+        '''
+        return cls.random_element(cls.first_romanized_names)
+
+    @classmethod
+    def first_romanized_name_female(cls):
+        return cls.random_element(cls.first_romanized_names_female)
+
+    @classmethod
+    def first_romanized_name_male(cls):
+        return cls.random_element(cls.first_romanized_names_male)
+
+    @classmethod
+    def last_romanized_name(cls):
+        '''
+        @example 'Aota'
+        '''
+        return cls.random_element(cls.last_romanized_names)
