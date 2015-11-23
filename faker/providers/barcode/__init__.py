@@ -9,6 +9,9 @@ class Provider(BaseProvider):
     def ean(self, length=13):
         code = [self.random_digit() for i in range(length - 1)]
 
+        if length not in (8, 13):
+            length = 13
+
         if length == 8:
             weights = [3,1,3,1,3,1,3]
         elif length == 13:
