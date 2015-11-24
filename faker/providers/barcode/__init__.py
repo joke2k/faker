@@ -10,7 +10,7 @@ class Provider(BaseProvider):
         code = [self.random_digit() for i in range(length - 1)]
 
         if length not in (8, 13):
-            length = 13
+            raise AssertionError("length can only be 8 or 13")
 
         if length == 8:
             weights = [3,1,3,1,3,1,3]
