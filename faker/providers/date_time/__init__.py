@@ -360,8 +360,10 @@ class Provider(BaseProvider):
         if datetime_end is None:
             datetime_end = datetime.now(tzinfo)
 
-        timestamp = random.randint(datetime_to_timestamp(datetime_start),
-                                       datetime_to_timestamp(datetime_end))
+        timestamp = random.randint(
+            datetime_to_timestamp(datetime_start),
+            datetime_to_timestamp(datetime_end),
+        )
         return datetime.fromtimestamp(timestamp, tzinfo)
 
     @classmethod
