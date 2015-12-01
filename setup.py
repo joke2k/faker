@@ -49,7 +49,7 @@ setup(
     author_email='joke2k@gmail.com',
     url='http://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=['*.tests']),
+    packages=find_packages(),
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=zip_safe,
