@@ -445,7 +445,10 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_month_start = datetime(now.year, now.month + 1 % 12, 1, tzinfo=tzinfo)
+
+        next_year = now.year + int(now.month == 12)
+        next_month = now.month % 12 + 1
+        next_month_start = datetime(next_year, next_month, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return cls.date_time_between_dates(this_month_start, next_month_start, tzinfo)
