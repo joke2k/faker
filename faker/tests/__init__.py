@@ -273,6 +273,12 @@ class FactoryTestCase(unittest.TestCase):
         slug = text.slugify("àeì.öú", allow_dots=True)
         self.assertEqual(slug, 'aei.ou')
 
+        slug = text.slugify("àeì.öú", allow_unicode=True)
+        self.assertEqual(slug, 'àeìöú')
+
+        slug = text.slugify("àeì.öú", allow_unicode=True, allow_dots=True)
+        self.assertEqual(slug, 'àeì.öú')
+
         @decorators.slugify
         def fn(s):
             return s
@@ -286,6 +292,13 @@ class FactoryTestCase(unittest.TestCase):
 
         slug = fn("a'b/.c")
         self.assertEqual(slug, 'ab.c')
+
+        @decorators.slugify_unicode
+        def fn(s):
+            return s
+
+        slug = fn("a'b/.cé")
+        self.assertEqual(slug, 'abcé')
 
     def test_random_element(self):
         from faker.providers import BaseProvider

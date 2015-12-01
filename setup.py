@@ -55,6 +55,7 @@ setup(
     zip_safe=zip_safe,
     install_requires=[
         "python-dateutil>=2.4",
+        "six",
     ],
     extras_require={
         ':python_version=="2.6"': ['importlib'],
