@@ -2,10 +2,12 @@
 
 from __future__ import unicode_literals
 
+from datetime import timedelta
 import re
 from time import time, mktime
 
-from datetime import timedelta
+from dateutil import relativedelta
+from dateutil.tz import tzlocal
 
 from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
@@ -15,6 +17,8 @@ from .. import BaseProvider
 
 
 def datetime_to_timestamp(dt):
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(tzlocal())
     return mktime(dt.timetuple())
 
 
@@ -356,8 +360,10 @@ class Provider(BaseProvider):
         if datetime_end is None:
             datetime_end = datetime.now(tzinfo)
 
-        timestamp = random.randint(datetime_to_timestamp(datetime_start),
-                                       datetime_to_timestamp(datetime_end))
+        timestamp = random.randint(
+            datetime_to_timestamp(datetime_start),
+            datetime_to_timestamp(datetime_end),
+        )
         return datetime.fromtimestamp(timestamp, tzinfo)
 
     @classmethod
@@ -445,8 +451,8 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_month_start = datetime(now.year, now.month + 1 % 12, 1, tzinfo=tzinfo)
 
+        next_month_start = this_month_start + relativedelta.relativedelta(months=1)
         if before_now and after_now:
             return cls.date_time_between_dates(this_month_start, next_month_start, tzinfo)
         elif not before_now and after_now:
