@@ -1,10 +1,24 @@
 Changelog
 =========
 
-`0.5.4`
--------
+`0.5.4` - TBD
+-------------
 
-* Update de_DE first names. Thanks @WarrenFaith and @mschoebel.
+* Allow unicode in emails and domains. Thanks @zdelagrange for the report.
+* Use ``dateutil`` for computing next_month. Thanks @mark-love, @rshk.
+* Fix tests module import. Thanks @jorti for the report.
+* Handle unexpected length in ``ean()``. Thanks @michaelcho.
+* Add internet provider for ``ja_JP``. Thanks @massa142.
+* Add Romanized Japanese person name. Thanks @massa142.
+* Add tzinfo support to datetime methods. Thanks @j0hnsmith.
+* Add an 'office' file extensions category. Thanks @j0hnsmith.
+* Generate name according to profile's sex. Thanks @Dutcho for the report.
+* Add ``bs_BA`` phone number and internet provider. Thanks @elahmo.
+* Add a SSN provider for ``zh_CN``. Thanks @felixonmars.
+* Differentiate male and female first names in ``fr_FR`` locale. Thanks @GregoryVds
+* Add Maestro credit card. Thanks @anthonylauzon.
+* Add ``hr_HR`` localization. Thanks @mislavcimpersak.
+* Update ``de_DE`` first names. Thanks @WarrenFaith and @mschoebel.
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
