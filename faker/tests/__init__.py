@@ -10,7 +10,6 @@ import os
 import time
 import unittest
 import sys
-from dateutil.tz import tzlocal
 
 try:
     from mock import patch
@@ -404,18 +403,24 @@ class FactoryTestCase(unittest.TestCase):
         # test decade
         self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
         self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
-        self.assertEqual(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
-                               self._datetime_to_time(datetime.datetime.now()))
+        self.assertEqual(
+            self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
+            self._datetime_to_time(datetime.datetime.now())
+        )
         # test year
         self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
         self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
-        self.assertEqual(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
-                               self._datetime_to_time(datetime.datetime.now()))
+        self.assertEqual(
+            self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
+            self._datetime_to_time(datetime.datetime.now())
+        )
         # test month
         self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.datetime.now()))
         self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.datetime.now()))
-        self.assertEqual(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
-                               self._datetime_to_time(datetime.datetime.now()))
+        self.assertEqual(
+            self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
+            self._datetime_to_time(datetime.datetime.now())
+        )
 
     def test_date_time_this_period_with_tzinfo(self):
         from faker.providers.date_time import Provider
@@ -434,18 +439,24 @@ class FactoryTestCase(unittest.TestCase):
         self.assertTrue(provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
         self.assertTrue(provider.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
 
-        self.assertEqual(provider.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
-                               datetime.datetime.now(utc).replace(microsecond=0))
+        self.assertEqual(
+            provider.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            datetime.datetime.now(utc).replace(second=0, microsecond=0)
+        )
         # test year
         self.assertTrue(provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
         self.assertTrue(provider.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
-        self.assertEqual(provider.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
-                               datetime.datetime.now(utc).replace(microsecond=0))
+        self.assertEqual(
+            provider.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            datetime.datetime.now(utc).replace(second=0, microsecond=0)
+        )
         # test month
         self.assertTrue(provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
         self.assertTrue(provider.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now(utc))
-        self.assertEqual(provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(microsecond=0),
-                               datetime.datetime.now(utc).replace(microsecond=0))
+        self.assertEqual(
+            provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            datetime.datetime.now(utc).replace(second=0, microsecond=0)
+        )
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
