@@ -10,6 +10,7 @@ import os
 import time
 import unittest
 import sys
+from dateutil.tz import tzlocal
 
 try:
     from mock import patch
@@ -302,6 +303,14 @@ class FactoryTestCase(unittest.TestCase):
         choices = {'a': 0.5, 'b': 0.2, 'c': 0.2, 'd':0.1}
         pick = provider.random_element(choices)
         self.assertTrue(pick in choices)
+
+    def test_timezone_conversion(self):
+        from faker.providers.date_time import datetime_to_timestamp
+
+        now = datetime.datetime.now(utc).replace(microsecond=0)
+        timestamp = datetime_to_timestamp(now)
+        now_back = datetime.datetime.fromtimestamp(timestamp, utc)
+        self.assertEqual(now, now_back)
 
     def test_datetime_safe(self):
         from faker.utils import datetime_safe

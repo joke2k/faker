@@ -53,6 +53,9 @@ setup(
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=zip_safe,
+    install_requires=[
+        "python-dateutil>=2.4",
+    ],
     extras_require={
         ':python_version=="2.6"': ['importlib'],
         ':python_version=="3.0"': ['importlib'],

@@ -2,10 +2,12 @@
 
 from __future__ import unicode_literals
 
+from datetime import timedelta
 import re
 from time import time, mktime
 
-from datetime import timedelta
+from dateutil import relativedelta
+from dateutil.tz import tzlocal
 
 from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
@@ -15,6 +17,8 @@ from .. import BaseProvider
 
 
 def datetime_to_timestamp(dt):
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(tzlocal())
     return mktime(dt.timetuple())
 
 
