@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import pprint
 import sys
 
 
@@ -37,24 +38,18 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
         if signature in excludes:
             continue
         try:
+            # `pprint` can't format sets of heterogenous types.
+            if not isinstance(example, set):
+                example = pprint.pformat(example, indent=4)
             lines = text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
             msg = 'error on "{0}" with value "{1}"'.format(signature, example)
             raise Exception(msg)
-        margin = max(30, doc.max_name_len+1)
-        remains = 150 - margin
-        separator = '#'
         write(fh, '\n')
-        for line in lines:
-            for i in range(0, (len(line) // remains) + 1):
-                write(fh, "\t{fake:<{margin}}{separator} {example}".format(
-                    fake=signature,
-                    separator=separator,
-                    example=line[i*remains:(i+1)*remains],
-                    margin=margin
-                ))
-                signature = separator = ' '
-    write(fh, '\n')
+        write(fh, "\t{fake}\n{example}\n".format(
+            fake=signature,
+            example='\n'.join(['\t# ' + line for line in lines]),
+        ))
 
 
 def write_docs(*args, **kwargs):

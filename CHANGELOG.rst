@@ -1,64 +1,78 @@
 Changelog
 =========
 
-`0.5.3 - TBD`__
----------------
+`0.5.4`
+-------
 
-* Added `company_vat` to company `fi_FI` provider. Thanks @kivipe.
+* Update de_DE first names. Thanks @WarrenFaith and @mschoebel.
+
+`0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
+--------------------------------------------------------------------------------------
+
+* Added ``company_vat`` to company ``fi_FI`` provider. Thanks @kivipe.
 * Seed a Random instance instead of the module. Thanks Amy Hanlon.
 * Fixed en_GB postcodes to be more realistic. Thanks @mapleoin for the report.
 * Fixed support for Python 3 in the python provider. Thanks @derekjamescurtis.
 * Fixed U.S. SSN generation. Thanks @jschaf.
 * Use environment markers for wheels. Thanks @RonnyPfannschmidt
-
+* Fixed Python3 issue in ``pyiterable`` and ``pystruct`` providers. Thanks @derekjamescurtis.
+* Fixed ``en_GB`` postcodes to be more realistic. Thanks @mapleoin.
+* Fixed and improved performance of credit card number provider. Thanks @0x000.
+* Added Brazilian SSN, aka CPF. Thanks @ericchaves.
+* Added female and male names for ``fa_IR``. Thanks @afshinrodgar.
+* Fixed issues with Decimal objects as input to geo_coordinate. Thanks @davy.
+* Fixed bug for ``center`` set to ``None`` in geo_coordinate. Thanks @davy.
+* Fixed deprecated image URL placeholder services.
+* Fixed provider's example formatting in documentation.
+* Added en_AU provider. Thanks @xfxf.
 
 `0.5.2 - 11-June-2015 <http://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__
 ---------------------------------------------------------------------------------
 
-* Added `uuid4` to `misc` provider. Thanks Jared Culp.
-* Fixed `jcb15` and `jcb16` in `credit_card` provider. Thanks Rodrigo Braz.
+* Added ``uuid4`` to ``misc`` provider. Thanks Jared Culp.
+* Fixed ``jcb15`` and ``jcb16`` in ``credit_card`` provider. Thanks Rodrigo Braz.
 * Fixed CVV and CID code generation in `credit_card` provider. Thanks Kevin Stone.
-* Added `--include` flag to command line tool. Thanks Flavio Curella.
-* Added `country_code` to `address` provider. Thanks @elad101 and Tobin Brown.
+* Added ``--include`` flag to command line tool. Thanks Flavio Curella.
+* Added ``country_code`` to `address`` provider. Thanks @elad101 and Tobin Brown.
 
 
 `0.5.1 - 21-May-2015 <http://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
 ------------------------------------------------------------------------------
 
 * Fixed egg installation. Thanks David R. MacIver, @kecaps
-* Updated person names for ru_RU. Thanks @mousebaiker.
+* Updated person names for ``ru_RU``. Thanks @mousebaiker.
 * Updated ko_KR locale. Thanks Lee Yeonjae.
 * Fixed installation to install importlib on Python 2.6. Thanks Guillaume Thomas.
 * Improved tests. Thanks Aarni Koskela, @kecaps, @kaushal.
-* Made Person `prefixes`/`suffixes` always return strings. Thanks Aarni Koskela.
-* pl_PL jobs added. Thanks Dariusz Choruży.
-* Added ja_JP provider. Thanks Tatsuji Tsuchiya, Masato Ohba.
+* Made Person ``prefixes``/``suffixes`` always return strings. Thanks Aarni Koskela.
+* ``pl_PL`` jobs added. Thanks Dariusz Choruży.
+* Added ``ja_JP`` provider. Thanks Tatsuji Tsuchiya, Masato Ohba.
 * Localized remaining providers for consistency. Thanks Flavio Curella.
 * List of providers in compiled on runtime and is not hardcoded anymore. Thanks Flavio Curella.
-* Fixed State names in en_US. Thanks Greg Meece.
-* Added `time_delta` method to `date_time` provider. Thanks Tobin Brown.
-* Added filename and file extension methods to `file` provider. Thanks Tobin Brown.
+* Fixed State names in ``en_US``. Thanks Greg Meece.
+* Added ``time_delta`` method to ``date_time`` provider. Thanks Tobin Brown.
+* Added filename and file extension methods to ``file`` provider. Thanks Tobin Brown.
 * Added Finnish ssn (HETU) provider. Thanks @kivipe.
-* Fixed person names for pl_PL. Thanks Marek Bleschke.
-* Added sv_SE locale providers. Thanks Tome Cvitan.
-* pt_BR Provider: Added `catch_phrase` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo. 
-* Added sk_SK localized providers. Thanks @viktormaruna.
-* Removed `miscelleneous` provider. It is superceded by the `misc` provider.
+* Fixed person names for ``pl_PL``. Thanks Marek Bleschke.
+* Added ``sv_SE`` locale providers. Thanks Tome Cvitan.
+* ``pt_BR`` Provider: Added ``catch_phrase`` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo. 
+* Added ``sk_SK`` localized providers. Thanks @viktormaruna.
+* Removed ``miscelleneous`` provider. It is superceded by the ``misc`` provider.
 
 `0.5.0 - 16-Feb-2015 <http://github.com/joke2k/faker/compare/v0.4.2...v0.5>`__
 ------------------------------------------------------------------------------
 
 * Localized providers
-* Updated ko_KR provider. Thanks Lee Yeonjae.
-* Added pt_PT provider. Thanks João Delgado.
-* Fixed mispellings for en_US company provider. Thanks Greg Meece.
+* Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
+* Added ``pt_PT`` provider. Thanks João Delgado.
+* Fixed mispellings for ``en_US`` company provider. Thanks Greg Meece.
 * Added currency provider. Thanks Wiktor Ślęczka
 * Ensure choice_distribution always uses floats. Thanks Katy Lavallee.
-* Added uk_UA provider. Thanks Cyril Tarasenko.
+* Added ``uk_UA`` provider. Thanks Cyril Tarasenko.
 * Fixed encoding issues with README, CHANGELOG and setup.py. Thanks Sven-Hendrik Haase.
 * Added Turkish person names and phone number patterns. Thanks Murat Çorlu.
-* Added ne_NP provider. Thanks Sudip Kafle.
-* Added provider for Austria de_AT. Thanks Bernhard Essl.
+* Added ``ne_NP`` provider. Thanks Sudip Kafle.
+* Added provider for Austrian ``de_AT``. Thanks Bernhard Essl.
 
 `0.4.2 - 20-Aug-2014 <http://github.com/joke2k/faker/compare/v0.4.1...v0.4.2>`__
 --------------------------------------------------------------------------------
@@ -69,14 +83,14 @@ Changelog
 ------------------------------------------------------------------------------
 
 * Added MAC address provider. Thanks Sébastien Béal.
-* Added lt_LT and lv_LV localized providers. Thanks Edgar Gavrik.
-* Added nl_NL localized providers. Thanks @LolkeAB, @mdxs.
-* Added bg_BG localized providers. Thanks Bret B.
-* Added sl_SI. Thanks to @janezkranjc
+* Added ``lt_LT`` and ``lv_LV`` localized providers. Thanks Edgar Gavrik.
+* Added ``nl_NL`` localized providers. Thanks @LolkeAB, @mdxs.
+* Added ``bg_BG`` localized providers. Thanks Bret B.
+* Added ``sl_SI``. Thanks to @janezkranjc
 * Added distribution feature. Thanks to @fcurella
 * Relative date time. Thanks to @soobrosa
-* Fixed `date_time_ad` on 32bit Linux. Thanks @mdxs.
-* Fixed `domain_word` to output slugified strings.
+* Fixed ``date_time_ad`` on 32bit Linux. Thanks @mdxs.
+* Fixed ``domain_word`` to output slugified strings.
 
 `0.4 - 30-Mar-2014 <http://github.com/joke2k/faker/compare/v0.3.2...v0.4>`__
 ----------------------------------------------------------------------------

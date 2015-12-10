@@ -4,20 +4,35 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{prefix}} {{last_name}}',
-        '{{first_name}} {{last_name}}-{{last_name}}',
-        '{{first_name}}-{{first_name}} {{last_name}}',
+    formats_female = (
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{prefix}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}-{{last_name}}',
+        '{{first_name_female}}-{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{prefix}} {{last_name}}',
     )
 
-    first_names = (
+    formats_male = (
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{prefix}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}-{{last_name}}',
+        '{{first_name_male}}-{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{prefix}} {{last_name}}',
+    )
+
+    formats = formats_male + formats_female
+
+    first_names_male = (
         'Adrien', 'Aimé', 'Alain', 'Alexandre', 'Alfred', 'Alphonse', 'André', 'Antoine', 'Arthur', 'Auguste',
         'Augustin', 'Benjamin', 'Benoît', 'Bernard', 'Bertrand', 'Charles', 'Christophe', 'Daniel', 'David', 'Denis',
         'Édouard', 'Émile', 'Emmanuel', 'Éric', 'Étienne', 'Eugène', 'François', 'Franck', 'Frédéric', 'Gabriel',
@@ -26,7 +41,10 @@ class Provider(PersonProvider):
         'Lucas', 'Marc', 'Marcel', 'Martin', 'Matthieu', 'Maurice', 'Michel', 'Nicolas', 'Noël', 'Olivier', 'Patrick',
         'Paul', 'Philippe', 'Pierre', 'Raymond', 'Rémy', 'René', 'Richard', 'Robert', 'Roger', 'Roland', 'Sébastien',
         'Stéphane', 'Théodore', 'Théophile', 'Thibaut', 'Thibault', 'Thierry', 'Thomas', 'Timothée', 'Tristan',
-        'Victor', 'Vincent', 'Xavier', 'Yves', 'Zacharie',
+        'Victor', 'Vincent', 'Xavier', 'Yves', 'Zacharie'
+    )
+
+    first_names_female = (
         'Adélaïde', 'Adèle', 'Adrienne', 'Agathe', 'Agnès', 'Aimée', 'Alexandrie', 'Alix', 'Alexandria', 'Alex',
         'Alice', 'Amélie', 'Anaïs', 'Anastasie', 'Andrée', 'Anne', 'Anouk', 'Antoinette', 'Arnaude', 'Astrid', 'Audrey',
         'Aurélie', 'Aurore', 'Bernadette', 'Brigitte', 'Capucine', 'Caroline', 'Catherine', 'Cécile', 'Céline',
@@ -43,6 +61,8 @@ class Provider(PersonProvider):
         'Virginie', 'Zoé',
         'Camille', 'Claude', 'Dominique'
     )
+
+    first_names = first_names_male + first_names_female
 
     last_names = (
         'Martin', 'Bernard', 'Thomas', 'Robert', 'Petit', 'Dubois', 'Richard', 'Garcia', 'Durand', 'Moreau', 'Lefebvre',
