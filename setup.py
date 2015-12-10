@@ -49,10 +49,14 @@ setup(
     author_email='joke2k@gmail.com',
     url='http://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=['*.tests']),
+    packages=find_packages(),
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=zip_safe,
+    install_requires=[
+        "python-dateutil>=2.4",
+        "six",
+    ],
     extras_require={
         ':python_version=="2.6"': ['importlib'],
         ':python_version=="3.0"': ['importlib'],
