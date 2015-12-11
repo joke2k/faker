@@ -248,6 +248,12 @@ class Provider(BaseProvider):
 
 	@classmethod
 	def course_subject(cls, subj_type=None):
+		"""
+		Returns a random subject.
+		
+		:param subj_type: Key of type to be returned. either 'Code' or 'Description'
+		:returns: a dict object of the subject code and description or string of the subj_type key.
+		"""
 		lv_rtn = cls.random_element(cls.subjects)
 		if subj_type not in lv_rtn:
 			return lv_rtn
@@ -255,8 +261,14 @@ class Provider(BaseProvider):
 	
 	@classmethod
 	def grade(cls):
+		"""
+		Returns a random letter grade, A thru F with '+' or '-'
+		"""
 		return cls.random_element(cls.grades)
 		
 	@classmethod
 	def course_title(cls):
+		"""
+		Returns a random title for a course.
+		"""
 		return cls.random_element(cls.titles)
