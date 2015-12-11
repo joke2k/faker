@@ -128,6 +128,7 @@ Included localized providers:
 -  `de\_DE <http://fake-factory.readthedocs.org/en/master/locales/de_DE.html>`__ - German
 -  `dk\_DK <http://fake-factory.readthedocs.org/en/master/locales/dk_DK.html>`__ - Danish
 -  `el\_GR <http://fake-factory.readthedocs.org/en/master/locales/el_GR.html>`__ - Greek
+-  `en\_AU <http://fake-factory.readthedocs.org/en/master/locales/en_AU.html>`__ - English (Australia)
 -  `en\_CA <http://fake-factory.readthedocs.org/en/master/locales/en_CA.html>`__ - English (Canada)
 -  `en\_GB <http://fake-factory.readthedocs.org/en/master/locales/en_GB.html>`__ - English (Great Britain)
 -  `en\_US <http://fake-factory.readthedocs.org/en/master/locales/en_US.html>`__ - English (United States)
@@ -137,6 +138,7 @@ Included localized providers:
 -  `fi\_FI <http://fake-factory.readthedocs.org/en/master/locales/fi_FI.html>`__ - Finnish
 -  `fr\_FR <http://fake-factory.readthedocs.org/en/master/locales/fr_FR.html>`__ - French
 -  `hi\_IN <http://fake-factory.readthedocs.org/en/master/locales/hi_IN.html>`__ - Hindi
+-  `hr\_HR <http://fake-factory.readthedocs.org/en/master/locales/hr_HR.html>`__ - Croatian
 -  `it\_IT <http://fake-factory.readthedocs.org/en/master/locales/it_IT.html>`__ - Italian
 -  `ja\_JP <http://fake-factory.readthedocs.org/en/master/locales/ja_JP.html>`__ - Japanese
 -  `ko\_KR <http://fake-factory.readthedocs.org/en/master/locales/ko_KR.html>`__ - Korean

@@ -2,10 +2,12 @@
 
 from __future__ import unicode_literals
 
+from datetime import timedelta
 import re
 from time import time, mktime
 
-from datetime import timedelta
+from dateutil import relativedelta
+from dateutil.tz import tzlocal
 
 from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
@@ -15,6 +17,8 @@ from .. import BaseProvider
 
 
 def datetime_to_timestamp(dt):
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(tzlocal())
     return mktime(dt.timetuple())
 
 
@@ -242,18 +246,20 @@ class Provider(BaseProvider):
         return timedelta(seconds=ts)
 
     @classmethod
-    def date_time(cls):
+    def date_time(cls, tzinfo=None):
         """
         Get a datetime object for a date between January 1, 1970 and now
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2005-08-16 20:39:21')
         :return datetime
         """
-        return datetime.fromtimestamp(cls.unix_time())
+        return datetime.fromtimestamp(cls.unix_time(), tzinfo)
 
     @classmethod
-    def date_time_ad(cls):
+    def date_time_ad(cls, tzinfo=None):
         """
         Get a datetime object for a date between January 1, 001 and now
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
@@ -262,14 +268,15 @@ class Provider(BaseProvider):
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
         #       see http://stackoverflow.com/a/10588133/2315612
-        return datetime.fromtimestamp(0) + timedelta(seconds=ts)
+        return datetime.fromtimestamp(0, tzinfo) + timedelta(seconds=ts)
 
     @classmethod
-    def iso8601(cls):
+    def iso8601(cls, tzinfo=None):
         """
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
         """
-        return cls.date_time().isoformat()
+        return cls.date_time(tzinfo).isoformat()
 
     @classmethod
     def date(cls, pattern='%Y-%m-%d'):
@@ -290,15 +297,15 @@ class Provider(BaseProvider):
         return cls.date_time().time().strftime(pattern)
 
     @classmethod
-    def _parse_date_time(cls, text):
+    def _parse_date_time(cls, text, tzinfo=None):
         if isinstance(text, (datetime, date, real_datetime, real_date)):
             return datetime_to_timestamp(text)
-        now = datetime.now()
+        now = datetime.now(tzinfo)
         if isinstance(text, timedelta):
             return datetime_to_timestamp(now - text)
         if is_string(text):
             if text == 'now':
-                return datetime_to_timestamp(datetime.now())
+                return datetime_to_timestamp(datetime.now(tzinfo))
             parts = cls.regex.match(text)
             if not parts:
                 return
@@ -319,134 +326,142 @@ class Provider(BaseProvider):
         raise ValueError("Invalid format for date '{0}'".format(text))
 
     @classmethod
-    def date_time_between(cls, start_date='-30y', end_date='now'):
+    def date_time_between(cls, start_date='-30y', end_date='now', tzinfo=None):
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date Defaults to 30 years ago
         :param end_date Defaults to "now"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
         start_date = cls._parse_date_time(start_date)
         end_date = cls._parse_date_time(end_date)
         timestamp = random.randint(start_date, end_date)
-        return datetime.fromtimestamp(timestamp)
+        return datetime.fromtimestamp(timestamp, tzinfo)
 
     @classmethod
-    def date_time_between_dates(cls, datetime_start=None, datetime_end=None):
+    def date_time_between_dates(cls, datetime_start=None, datetime_end=None, tzinfo=None):
         """
         Takes two DateTime objects and returns a random date between the two given dates.
         Accepts DateTime objects.
 
         :param datetime_start DateTime
         :param datetime_end DateTime
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
         if datetime_start is None:
-            datetime_start = datetime.now()
+            datetime_start = datetime.now(tzinfo)
 
         if datetime_end is None:
-            datetime_end = datetime.now()
+            datetime_end = datetime.now(tzinfo)
 
-        timestamp = random.randint(datetime_to_timestamp(datetime_start),
-                                       datetime_to_timestamp(datetime_end))
-        return datetime.fromtimestamp(timestamp)
+        timestamp = random.randint(
+            datetime_to_timestamp(datetime_start),
+            datetime_to_timestamp(datetime_end),
+        )
+        return datetime.fromtimestamp(timestamp, tzinfo)
 
     @classmethod
-    def date_time_this_century(cls, before_now=True, after_now=False):
+    def date_time_this_century(cls, before_now=True, after_now=False, tzinfo=None):
         """
-        Gets a DateTime object for the decade year. 
-        
+        Gets a DateTime object for the decade year.
+
         :param before_now: include days in current decade before today
         :param after_now: include days in current decade after today
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
-        now = datetime.now()
-        this_century_start = datetime(now.year - (now.year % 10), 1, 1)
-        next_century_start = datetime(this_century_start.year + 10, 1, 1)
+        now = datetime.now(tzinfo)
+        this_century_start = datetime(now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
+        next_century_start = datetime(this_century_start.year + 10, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_century_start, next_century_start)
+            return cls.date_time_between_dates(this_century_start, next_century_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_century_start)
+            return cls.date_time_between_dates(now, next_century_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_century_start, now)
+            return cls.date_time_between_dates(this_century_start, now, tzinfo)
         else:
             return now
 
     @classmethod
-    def date_time_this_decade(cls, before_now=True, after_now=False):
+    def date_time_this_decade(cls, before_now=True, after_now=False, tzinfo=None):
         """
-        Gets a DateTime object for the decade year. 
-        
+        Gets a DateTime object for the decade year.
+
         :param before_now: include days in current decade before today
         :param after_now: include days in current decade after today
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
-        now = datetime.now()
-        this_decade_start = datetime(now.year - (now.year % 10), 1, 1)
-        next_decade_start = datetime(this_decade_start.year + 10, 1, 1)
+        now = datetime.now(tzinfo)
+        this_decade_start = datetime(now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
+        next_decade_start = datetime(this_decade_start.year + 10, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_decade_start, next_decade_start)
+            return cls.date_time_between_dates(this_decade_start, next_decade_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_decade_start)
+            return cls.date_time_between_dates(now, next_decade_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_decade_start, now)
+            return cls.date_time_between_dates(this_decade_start, now, tzinfo)
         else:
             return now
 
     @classmethod
-    def date_time_this_year(cls, before_now=True, after_now=False):
+    def date_time_this_year(cls, before_now=True, after_now=False, tzinfo=None):
         """
-        Gets a DateTime object for the current year. 
-        
+        Gets a DateTime object for the current year.
+
         :param before_now: include days in current year before today
         :param after_now: include days in current year after today
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
-        now = datetime.now()
+        now = datetime.now(tzinfo)
         this_year_start = now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_year_start = datetime(now.year + 1, 1, 1)
+        next_year_start = datetime(now.year + 1, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_year_start, next_year_start)
+            return cls.date_time_between_dates(this_year_start, next_year_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_year_start)
+            return cls.date_time_between_dates(now, next_year_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_year_start, now)
+            return cls.date_time_between_dates(this_year_start, now, tzinfo)
         else:
             return now
-        
+
     @classmethod
-    def date_time_this_month(cls, before_now=True, after_now=False):
+    def date_time_this_month(cls, before_now=True, after_now=False, tzinfo=None):
         """
-        Gets a DateTime object for the current month. 
-        
+        Gets a DateTime object for the current month.
+
         :param before_now: include days in current month before today
         :param after_now: include days in current month after today
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
-        now = datetime.now()
+        now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_month_start = datetime(now.year, now.month + 1 % 12, 1)
 
+        next_month_start = this_month_start + relativedelta.relativedelta(months=1)
         if before_now and after_now:
-            return cls.date_time_between_dates(this_month_start, next_month_start)
+            return cls.date_time_between_dates(this_month_start, next_month_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_month_start)
+            return cls.date_time_between_dates(now, next_month_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_month_start, now)
+            return cls.date_time_between_dates(this_month_start, now, tzinfo)
         else:
             return now
-            
+
     @classmethod
     def am_pm(cls):
         return cls.date('%p')

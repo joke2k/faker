@@ -15,10 +15,15 @@ class Provider(BaseProvider):
         Generates a basic profile with personal informations
         """
 
+        sex = self.random_element(["F", "M"])
+        if sex == 'F':
+            name = self.generator.name_female()
+        elif sex == 'M':
+            name = self.generator.name_male()
         return {
             "username": self.generator.user_name(),
-            "name": self.generator.name(),
-            "sex": self.random_element(["M", "F"]),
+            "name": name,
+            "sex": sex,
             "address": self.generator.address(),
             "mail": self.generator.free_email(),
 

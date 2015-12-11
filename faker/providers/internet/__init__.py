@@ -2,12 +2,10 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
-import re
-import unicodedata
 
 from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
-from faker.utils.decorators import slugify, slugify_domain
+from faker.utils.decorators import slugify, slugify_unicode
 
 localized = True
 
@@ -46,14 +44,12 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'http://placekitten.com/{width}/{height}',
-        'http://placehold.it/{width}x{height}',
-        'http://www.lorempixum.com/{width}/{height}',
+        'https://placeholdit.imgix.net/~text?txtsize=55&txt={width}×{height}&w={width}&h={height}',
+        'http://www.lorempixel.com/{width}/{height}',
         'http://dummyimage.com/{width}x{height}',
      )
 
     replacements = tuple()
-
 
     def _to_ascii(self, string):
         for search, replace in self.replacements:
@@ -78,22 +74,23 @@ class Provider(BaseProvider):
     def free_email_domain(cls):
         return cls.random_element(cls.free_email_domains)
 
-    @slugify_domain
+    @slugify_unicode
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
-        return self._to_ascii(
+        username = self._to_ascii(
             self.bothify(self.generator.parse(pattern)
         ).lower())
+        return username
 
     def domain_name(self):
         return self.domain_word() + '.' + self.tld()
 
-    @slugify
-    def domain_word(self):
+    @slugify_unicode
+    def domain_word(self,):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = self._to_ascii(company_elements.pop(0))
-        return re.sub(r'\W', '', company).lower()
+        return company.lower()
 
     def tld(self):
         return self.random_element(self.tlds)

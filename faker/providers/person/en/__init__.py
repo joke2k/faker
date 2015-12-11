@@ -1119,7 +1119,7 @@ class Provider(PersonProvider):
         'Heller', 'Herman', 'Hermann', 'Hermiston', 'Herzog', 'Hessel', 'Hettinger', 'Hickle', 'Hilll', 'Hills',
         'Hilpert', 'Hintz', 'Hirthe', 'Hodkiewicz', 'Hoeger', 'Homenick', 'Hoppe', 'Howe', 'Howell', 'Hudson', 'Huel',
         'Huels', 'Hyatt',
-        'Jacobi', 'Jacobs', 'Jacobson', 'Jakubowski', 'Jaskolski', 'Jast', 'Jenkins', 'Jerde', 'Jewess', 'Johns',
+        'Jacobi', 'Jacobs', 'Jacobson', 'Jakubowski', 'Jaskolski', 'Jast', 'Jenkins', 'Jerde', 'Johns',
         'Johnson', 'Johnston', 'Jones',
         'Kassulke', 'Kautzer', 'Keebler', 'Keeling', 'Kemmer', 'Kerluke', 'Kertzmann', 'Kessler', 'Kiehn', 'Kihn',
         'Kilback', 'King', 'Kirlin', 'Klein', 'Kling', 'Klocko', 'Koch', 'Koelpin', 'Koepp', 'Kohler', 'Konopelski',
