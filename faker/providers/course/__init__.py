@@ -247,17 +247,31 @@ class Provider(BaseProvider):
 			"You and Your Money"]
 
 	@classmethod
-	def course_subject(cls, subj_type=None):
+	def course_subject(cls):
 		"""
-		Returns a random subject.
-		
-		:param subj_type: Key of type to be returned. either 'Code' or 'Description'
-		:returns: a dict object of the subject code and description or string of the subj_type key.
+		Returns a random subject dict object with the subject code and description.
 		"""
 		lv_rtn = cls.random_element(cls.subjects)
-		if subj_type not in lv_rtn:
-			return lv_rtn
-		return lv_rtn[subj_type]
+		return lv_rtn
+	
+	@classmethod
+	def course_subject_code(cls):
+		"""
+		Returns a random subject code.
+		"""
+		return cls.random_element(cls.subjects)["Code"]
+		
+	@classmethod
+	def course_subject_description(cls, code=None):
+		"""
+		Returns a random subject description or the description for the code passed in the parameter.
+		"""
+		if code is None:
+			return cls.random_element(cls.subjects)["Description"]
+		lv_rtn = next((item for item in cls.subjects if item["Code"].upper() == code.upper()), None)
+		if lv_rtn is None:
+			return None
+		return lv_rtn["Description"]
 	
 	@classmethod
 	def grade(cls):
