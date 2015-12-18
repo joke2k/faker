@@ -88,25 +88,25 @@ class Provider(BaseProvider):
         @param lower_case: Boolean. Whether to use lower letters
         @return: String. Random password
         """
-        chars = ""
+        choices = ""
         required_tokens = []
         if special_chars:
             required_tokens.append(random.choice("!@#$%^&*()_+"))
-            chars += "!@#$%^&*()_+"
+            choices += "!@#$%^&*()_+"
         if digits:
             required_tokens.append(random.choice(string.digits))
-            chars += string.digits
+            choices += string.digits
         if upper_case:
             required_tokens.append(random.choice(string.ascii_uppercase))
-            chars += string.ascii_uppercase
+            choices += string.ascii_uppercase
         if lower_case:
             required_tokens.append(random.choice(string.ascii_lowercase))
-            chars += string.ascii_lowercase
+            choices += string.ascii_lowercase
 
         assert len(required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
-        chars = [random.choice(chars) for x in range(length)]
+        chars = [random.choice(choices) for x in range(length)]
 
         # Pick some unique locations
         random_indexes = set()
