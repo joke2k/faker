@@ -103,6 +103,8 @@ class Provider(BaseProvider):
             required_tokens.append(random.choice(string.ascii_lowercase))
             chars += string.ascii_lowercase
 
+        assert len(required_tokens) <= length, "Required length is shorter than required characters"
+
         # Generate a first version of the password
         chars = [random.choice(chars) for x in range(length)]
 

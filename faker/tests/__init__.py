@@ -473,6 +473,8 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(any([in_string(char, password) for char in string.ascii_uppercase]))
             self.assertTrue(any([in_string(char, password) for char in string.ascii_lowercase]))
 
+        self.assertRaises(AssertionError, Provider.password, length=2)
+
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
         for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
