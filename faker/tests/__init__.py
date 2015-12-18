@@ -9,6 +9,7 @@ import json
 import os
 import time
 import unittest
+import string
 import sys
 
 try:
@@ -457,6 +458,22 @@ class FactoryTestCase(unittest.TestCase):
             provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.datetime.now(utc).replace(second=0, microsecond=0)
         )
+
+    def test_password(self):
+        from faker.providers.misc import Provider
+
+        def in_string(char, _str):
+            return char in _str
+
+        for _ in range(999):
+            password = Provider.password()
+
+            self.assertTrue(any([in_string(char, password) for char in "!@#$%^&*()_+"]))
+            self.assertTrue(any([in_string(char, password) for char in string.digits]))
+            self.assertTrue(any([in_string(char, password) for char in string.ascii_uppercase]))
+            self.assertTrue(any([in_string(char, password) for char in string.ascii_lowercase]))
+
+        self.assertRaises(AssertionError, Provider.password, length=2)
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
