@@ -89,12 +89,30 @@ class Provider(BaseProvider):
         @return: String. Random password
         """
         chars = ""
+        required_tokens = []
         if special_chars:
+            required_tokens.append(random.choice("!@#$%^&*()_+"))
             chars += "!@#$%^&*()_+"
         if digits:
+            required_tokens.append(random.choice(string.digits))
             chars += string.digits
         if upper_case:
+            required_tokens.append(random.choice(string.ascii_uppercase))
             chars += string.ascii_uppercase
         if lower_case:
+            required_tokens.append(random.choice(string.ascii_lowercase))
             chars += string.ascii_lowercase
-        return ''.join(random.choice(chars) for x in range(length))
+
+        # Generate a first version of the password
+        chars = [random.choice(chars) for x in range(length)]
+
+        # Pick some unique locations
+        random_indexes = set()
+        while len(random_indexes) < len(required_tokens):
+            random_indexes.add(random.randint(0, len(chars) - 1))
+
+        # Replace them with the required characters
+        for i, index in enumerate(random_indexes):
+            chars[index] = required_tokens[i]
+
+        return ''.join(chars)
