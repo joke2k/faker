@@ -4,6 +4,10 @@ Changelog
 `0.5.4` - TBD
 -------------
 
+* Make sure required characters are in the password. Thanks @craig552uk.
+* Add `internet` and `jobs` Providers for `fa_IR`. Thanks @hamidfzm.
+* Correct Poland phone numbers. Thanks @fizista.
+* Fix brittly tests due to seconds elapsed in-between comparison
 * Allow unicode in emails and domains. Thanks @zdelagrange for the report.
 * Use ``dateutil`` for computing next_month. Thanks @mark-love, @rshk.
 * Fix tests module import. Thanks @jorti for the report.
