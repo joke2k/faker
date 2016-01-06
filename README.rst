@@ -269,7 +269,7 @@ Accessing the `random` instance
 The ``.random`` property on the generator returns the instance of ``random.Random``
 used to generate the values:
 
-__ code:: python
+.. code:: python
 
     from faker import Faker
     fake = Faker()
