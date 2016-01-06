@@ -94,8 +94,10 @@ Providers
 
 Each of the generator properties (like ``name``, ``address``, and
 ``lorem``) are called "fake". A faker generator has many of them,
-packaged in "providers". Here is a list of the bundled formatters in the
-default locale.
+packaged in "providers". For a list of the bundled providers, see
+:doc:`providers`.
+
+For a list of third-party providers, see :doc:`communityproviders`.
 
 Localization
 ------------
@@ -389,6 +391,7 @@ Contents
    :maxdepth: 2
 
    providers
+   communityproviders
    locales
    coding_style
 

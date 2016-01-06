@@ -88,8 +88,10 @@ Providers
 
 Each of the generator properties (like ``name``, ``address``, and
 ``lorem``) are called "fake". A faker generator has many of them,
-packaged in "providers". Here is a list of the bundled formatters in the
-default locale.
+packaged in "providers".
+
+Check the `extended docs`_ for a list of `bundled providers`_ and a list of 
+`community providers`_.
 
 Localization
 ------------
@@ -359,6 +361,8 @@ Credits
 .. _Buildout: http://www.buildout.org/
 .. _modern-package-template: http://pypi.python.org/pypi/modern-package-template
 .. _extended docs: http://fake-factory.readthedocs.org/en/latest/
+.. _bundled providers: http://fake-factory.readthedocs.org/en/latest/providers.html
+.. _community providers: http://fake-factory.readthedocs.org/en/latest/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 
