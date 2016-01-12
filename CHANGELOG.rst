@@ -4,6 +4,7 @@ Changelog
 `0.5.4` - TBD
 -------------
 
+* Expose Provider's random instance. Thank @gsingers for the suggestion. 
 * Make sure required characters are in the password. Thanks @craig552uk.
 * Add `internet` and `jobs` Providers for `fa_IR`. Thanks @hamidfzm.
 * Correct Poland phone numbers. Thanks @fizista.
