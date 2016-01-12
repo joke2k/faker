@@ -512,6 +512,15 @@ class FactoryTestCase(unittest.TestCase):
             self.assertNotEqual(ssn[4:6], '00')
             self.assertNotEqual(ssn[7:11], '0000')
 
+    def test_email(self):
+        from faker import Factory
+
+        factory = Factory.create()
+
+        for _ in range(999):
+            email = factory.email()
+            self.assertTrue('@' in email)
+
 
 class GeneratorTestCase(unittest.TestCase):
 
