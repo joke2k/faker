@@ -264,19 +264,43 @@ How to use with factory-boy
         title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
         author_name = factory.LazyAttribute(lambda x: faker.name())
 
+Accessing the `random` instance
+-------------------------------
+
+The ``.random`` property on the generator returns the instance of ``random.Random``
+used to generate the values:
+
+.. code:: python
+
+    from faker import Faker
+    fake = Faker()
+    fake.random
+    fake.random.getstate()
+
 Seeding the Generator
 ---------------------
 
 When using Faker for unit testing, you will often want to generate the same
-data set. The generator offers a  ``seed()`` method, which seeds the random
-number generator. Calling the same script twice with the same seed produces the
-same results.
+data set. For convenience, the generator also provide a ``seed()`` method, which
+seeds the random number generator. Calling the same script twice with the same
+seed produces the same results.
 
 .. code:: python
 
     from faker import Faker
     fake = Faker()
     fake.seed(4321)
+
+    print fake.name()
+    > Margaret Boehm
+
+The code above is equivalent to the following:
+
+.. code:: python
+
+    from faker import Faker
+    fake = Faker()
+    faker.random.seed(4321)
 
     print fake.name()
     > Margaret Boehm

@@ -50,6 +50,10 @@ class Generator(object):
         """Returns added providers."""
         return self.providers
 
+    @property
+    def random(self):
+        return random
+
     def seed(self, seed=None):
         """Calls random.seed"""
         random.seed(seed)
