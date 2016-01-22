@@ -499,6 +499,30 @@ class FactoryTestCase(unittest.TestCase):
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
 
+    def test_lowercase_only_characters(self):
+        from faker.providers.lorem import Provider
+
+        provider = Provider(None)
+
+        characters = provider.characters(variable_case=False)
+        for char in characters:
+            self.assertTrue(char in string.ascii_lowercase)
+
+    def test_max_nb_characters(self):
+        from faker.providers.lorem import Provider
+
+        provider = Provider(None)
+
+        characters = provider.characters()
+        self.assertEqual(len(characters), 255)
+        characters = provider.characters(max_nb=10)
+        self.assertEqual(len(characters), 10)
+        characters = provider.characters(max_nb=0)
+        self.assertEqual(characters, '')
+        characters = provider.characters(max_nb=-10)
+        self.assertEqual(characters, '')
+
+
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 
