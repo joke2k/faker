@@ -6,20 +6,6 @@ from .. import BaseProvider
 
 class Provider(BaseProvider):
     @classmethod
-    def characters(cls, max_nb=255, variable_case=True):
-        """
-        Generate a random character string
-        :param max_nb number of characters the string should consist of
-        :param variable_case set to False to exclude uppercase characters
-        :example 'pmGYPlciRq'
-        """
-        characters = "".join(cls.random_letter() for i in range(max_nb))
-        if not variable_case:
-            return characters.lower()
-        else:
-            return characters
-
-    @classmethod
     def word(cls):
         """
         Generate a random word

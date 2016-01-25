@@ -499,27 +499,17 @@ class FactoryTestCase(unittest.TestCase):
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
 
-    def test_lowercase_only_characters(self):
-        from faker.providers.lorem import Provider
-
+    def test_random_pystr_characters(self):
+        from faker.providers.python import Provider
         provider = Provider(None)
 
-        characters = provider.characters(variable_case=False)
-        for char in characters:
-            self.assertTrue(char in string.ascii_lowercase)
-
-    def test_max_nb_characters(self):
-        from faker.providers.lorem import Provider
-
-        provider = Provider(None)
-
-        characters = provider.characters()
+        characters = provider.pystr()
+        self.assertEqual(len(characters), 20)
+        characters = provider.pystr(max_chars=255)
         self.assertEqual(len(characters), 255)
-        characters = provider.characters(max_nb=10)
-        self.assertEqual(len(characters), 10)
-        characters = provider.characters(max_nb=0)
+        characters = provider.pystr(max_chars=0)
         self.assertEqual(characters, '')
-        characters = provider.characters(max_nb=-10)
+        characters = provider.pystr(max_chars=-10)
         self.assertEqual(characters, '')
 
 
