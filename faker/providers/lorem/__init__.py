@@ -8,7 +8,8 @@ class Provider(BaseProvider):
     @classmethod
     def word(cls):
         """
-        :example 'Lorem'
+        Generate a random word
+        :example 'lorem'
         """
         return cls.random_element(cls.word_list)
 

@@ -25,7 +25,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def pystr(cls, max_chars=20):
-        return Lorem.text(max_chars)
+        return "".join(cls.random_letter() for i in range(max_chars))
 
     @classmethod
     def pyfloat(cls, left_digits=None, right_digits=None, positive=False):
