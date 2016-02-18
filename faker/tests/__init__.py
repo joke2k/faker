@@ -7,6 +7,7 @@ __loader__ = None
 import datetime
 import json
 import os
+import re
 import time
 import unittest
 import string
@@ -553,15 +554,17 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4()
-            self.assertGreaterEqual(len(address), 7)
-            self.assertLessEqual(len(address), 15)
-            self.assertRegexpMatches(address, '^(\d{1,3}\.){3}\d{1,3}$')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
         for _ in range(999):
             address = provider.ipv4(network=True)
-            self.assertGreaterEqual(len(address), 9)
-            self.assertLessEqual(len(address), 18)
-            self.assertRegexpMatches(address, '^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$')
+            self.assertTrue(len(address) >= 9)
+            self.assertTrue(len(address) <= 18)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
     def test_ipv6(self):
         from faker.providers.internet import Provider
@@ -571,13 +574,16 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(999):
             address = provider.ipv6()
             self.assertEqual(len(address), 39)
-            self.assertRegexpMatches(address, '^([0-9a-f]{4}:){7}[0-9a-f]{4}$')
+            self.assertTrue(
+                re.compile(r'^([0-9a-f]{4}:){7}[0-9a-f]{4}$').search(address))
 
         for _ in range(999):
             address = provider.ipv6(network=True)
-            self.assertGreaterEqual(len(address), 41)
-            self.assertLessEqual(len(address), 43)
-            self.assertRegexpMatches(address, '^([0-9a-f]{4}:){7}[0-9a-f]{4}/\d{1,3}$')
+            self.assertTrue(len(address) >= 41)
+            self.assertTrue(len(address) <= 43)
+            self.assertTrue(
+                re.compile(r'^([0-9a-f]{4}:){7}[0-9a-f]{4}/\d{1,3}$').search(
+                    address))
 
 
 class GeneratorTestCase(unittest.TestCase):
