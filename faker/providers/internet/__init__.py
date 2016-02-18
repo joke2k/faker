@@ -51,6 +51,9 @@ class Provider(BaseProvider):
 
     replacements = tuple()
 
+    IPV4LENGTH = 32
+    IPV6LENGTH = 128
+
     def _to_ascii(self, string):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
@@ -99,15 +102,39 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.url_formats)
         return self.generator.parse(pattern)
 
-    def ipv4(self):
-        """
-        Convert 32-bit integer to dotted IPv4 address.
-        """
-        return ".".join(map(lambda n: str(random.randint(-2147483648, 2147483647) >> n & 0xFF), [24, 16, 8, 0]))
+    def ipv4(self, network=False):
+        """ Produce a random IPv4 address or network with a valid CIDR.
 
-    def ipv6(self):
-        res = [hex(random.randint(0, 65535))[2:].zfill(4) for i in range(0, 8)]
-        return ":".join(res)
+        IP code generation inspired by ipaddress module: https://github.com/phihag/ipaddress
+        """
+        ip_int = random.randint(0, (2 ** self.IPV4LENGTH) - 1)
+        if network:
+            prefixlen = random.randint(0, self.IPV4LENGTH)
+            ALL_ONES = (2 ** self.IPV4LENGTH) - 1
+            netmask = ALL_ONES ^ (ALL_ONES >> prefixlen)
+            ip_int = int(ip_int) & int(netmask)
+        ip_str = '.'.join([str(ip_int >> n & 0xFF) for n in [24, 16, 8, 0]])
+        if network:
+            ip_str += '/' + str(prefixlen)
+        return ip_str
+
+    def ipv6(self, network=False):
+        """ Produce a random IPv6 address or network with a valid CIDR.
+
+        IP code generation inspired by ipaddress module: https://github.com/phihag/ipaddress
+        """
+        ip_int = random.randint(2 ** self.IPV4LENGTH, (2 ** self.IPV6LENGTH) - 1)
+        if network:
+            prefixlen = random.randint(0, self.IPV6LENGTH)
+            ALL_ONES = (2 ** self.IPV6LENGTH) - 1
+            netmask = ALL_ONES ^ (ALL_ONES >> prefixlen)
+            ip_int = int(ip_int) & int(netmask)
+        hex_str = '%032x' % ip_int
+        hextets = ['%x' % int(hex_str[x:x + 4], 16) for x in range(0, 32, 4)]
+        ip_str = ':'.join([h.zfill(4) for h in hextets])
+        if network:
+            ip_str += '/' + str(prefixlen)
+        return ip_str
 
     def mac_address(self):
         mac = [random.randint(0x00, 0xff) for i in range(0, 6)]

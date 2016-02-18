@@ -546,6 +546,39 @@ class FactoryTestCase(unittest.TestCase):
             email = factory.email()
             self.assertTrue('@' in email)
 
+    def test_ipv4(self):
+        from faker.providers.internet import Provider
+
+        provider = Provider(None)
+
+        for _ in range(999):
+            address = provider.ipv4()
+            self.assertGreaterEqual(len(address), 7)
+            self.assertLessEqual(len(address), 15)
+            self.assertRegexpMatches(address, '^(\d{1,3}\.){3}\d{1,3}$')
+
+        for _ in range(999):
+            address = provider.ipv4(network=True)
+            self.assertGreaterEqual(len(address), 9)
+            self.assertLessEqual(len(address), 18)
+            self.assertRegexpMatches(address, '^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$')
+
+    def test_ipv6(self):
+        from faker.providers.internet import Provider
+
+        provider = Provider(None)
+
+        for _ in range(999):
+            address = provider.ipv6()
+            self.assertEqual(len(address), 39)
+            self.assertRegexpMatches(address, '^([0-9a-f]{4}:){7}[0-9a-f]{4}$')
+
+        for _ in range(999):
+            address = provider.ipv6(network=True)
+            self.assertGreaterEqual(len(address), 41)
+            self.assertLessEqual(len(address), 43)
+            self.assertRegexpMatches(address, '^([0-9a-f]{4}:){7}[0-9a-f]{4}/\d{1,3}$')
+
 
 class GeneratorTestCase(unittest.TestCase):
 
