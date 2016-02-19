@@ -113,7 +113,7 @@ class Provider(BaseProvider):
             0, (2 ** IPV4LENGTH) - 1)))
         if network:
             address += '/' + str(random.randint(0, IPV4LENGTH))
-            address = str(ip_network(unicode(address), strict=False))
+            address = str(ip_network(address, strict=False))
         return address
 
     def ipv6(self, network=False):
@@ -122,7 +122,7 @@ class Provider(BaseProvider):
             2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network:
             address += '/' + str(random.randint(0, IPV6LENGTH))
-            address = str(ip_network(unicode(address), strict=False))
+            address = str(ip_network(address, strict=False))
         return address
 
     def mac_address(self):
