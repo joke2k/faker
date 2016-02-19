@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 from .. import BaseProvider
 
+from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
+
 from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_unicode
@@ -50,9 +52,6 @@ class Provider(BaseProvider):
      )
 
     replacements = tuple()
-
-    IPV4LENGTH = 32
-    IPV6LENGTH = 128
 
     def _to_ascii(self, string):
         for search, replace in self.replacements:
@@ -103,38 +102,22 @@ class Provider(BaseProvider):
         return self.generator.parse(pattern)
 
     def ipv4(self, network=False):
-        """ Produce a random IPv4 address or network with a valid CIDR.
-
-        IP code generation inspired by ipaddress module: https://github.com/phihag/ipaddress
-        """
-        ip_int = random.randint(0, (2 ** self.IPV4LENGTH) - 1)
+        """ Produce a random IPv4 address or network with a valid CIDR. """
+        address = str(ip_address(random.randint(
+            0, (2 ** IPV4LENGTH) - 1)))
         if network:
-            prefixlen = random.randint(0, self.IPV4LENGTH)
-            ALL_ONES = (2 ** self.IPV4LENGTH) - 1
-            netmask = ALL_ONES ^ (ALL_ONES >> prefixlen)
-            ip_int = int(ip_int) & int(netmask)
-        ip_str = '.'.join([str(ip_int >> n & 0xFF) for n in [24, 16, 8, 0]])
-        if network:
-            ip_str += '/' + str(prefixlen)
-        return ip_str
+            address += '/' + str(random.randint(0, IPV4LENGTH))
+            address = str(ip_network(unicode(address), strict=False))
+        return address
 
     def ipv6(self, network=False):
-        """ Produce a random IPv6 address or network with a valid CIDR.
-
-        IP code generation inspired by ipaddress module: https://github.com/phihag/ipaddress
-        """
-        ip_int = random.randint(2 ** self.IPV4LENGTH, (2 ** self.IPV6LENGTH) - 1)
+        """ Produce a random IPv6 address or network with a valid CIDR. """
+        address = str(ip_address(random.randint(
+            2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network:
-            prefixlen = random.randint(0, self.IPV6LENGTH)
-            ALL_ONES = (2 ** self.IPV6LENGTH) - 1
-            netmask = ALL_ONES ^ (ALL_ONES >> prefixlen)
-            ip_int = int(ip_int) & int(netmask)
-        hex_str = '%032x' % ip_int
-        hextets = ['%x' % int(hex_str[x:x + 4], 16) for x in range(0, 32, 4)]
-        ip_str = ':'.join([h.zfill(4) for h in hextets])
-        if network:
-            ip_str += '/' + str(prefixlen)
-        return ip_str
+            address += '/' + str(random.randint(0, IPV6LENGTH))
+            address = str(ip_network(unicode(address), strict=False))
+        return address
 
     def mac_address(self):
         mac = [random.randint(0x00, 0xff) for i in range(0, 6)]
