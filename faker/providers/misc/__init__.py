@@ -27,6 +27,15 @@ class Provider(BaseProvider):
         }[random.randint(-1, 1)]
 
     @classmethod
+    def binary(cls, length=(1 * 1024 * 1024)):
+        """ Returns random binary blob.
+
+        Default blob size is 1 Mb.
+        """
+        return bytes(bytearray([
+            random.randrange(0, 256) for _ in range(length)]))
+
+    @classmethod
     def md5(cls, raw_output=False):
         """
         Calculates the md5 hash of a given string

@@ -459,6 +459,16 @@ class FactoryTestCase(unittest.TestCase):
             datetime.datetime.now(utc).replace(second=0, microsecond=0)
         )
 
+    def test_binary(self):
+        from faker.providers.misc import Provider
+
+        for _ in range(999):
+            length = random.randint(0, 2 ** 10)
+            binary = Provider.binary(length)
+
+            self.assertTrue(isinstance(binary, bytes))
+            self.assertTrue(len(binary) == length)
+
     def test_password(self):
         from faker.providers.misc import Provider
 
