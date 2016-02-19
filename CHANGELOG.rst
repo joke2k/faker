@@ -24,8 +24,8 @@ Changelog
 * Add Maestro credit card. Thanks @anthonylauzon.
 * Add ``hr_HR`` localization. Thanks @mislavcimpersak.
 * Update ``de_DE`` first names. Thanks @WarrenFaith and @mschoebel.
-* Allow generation of IPv4 and IPv6 network address with valid CIDR.
-* Unittest IPv4 and IPv6 address and network generation.
+* Allow generation of IPv4 and IPv6 network address with valid CIDR. Thanks @kdeldycke.
+* Unittest IPv4 and IPv6 address and network generation. Thanks @kdeldycke.
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
