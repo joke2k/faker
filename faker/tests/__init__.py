@@ -562,16 +562,17 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv6()
-            self.assertEqual(len(address), 39)
+            self.assertTrue(len(address) >= 3)  # ::1
+            self.assertTrue(len(address) <= 39)
             self.assertTrue(
-                re.compile(r'^([0-9a-f]{4}:){7}[0-9a-f]{4}$').search(address))
+                re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$').search(address))
 
         for _ in range(999):
             address = provider.ipv6(network=True)
-            self.assertTrue(len(address) >= 41)
-            self.assertTrue(len(address) <= 43)
+            self.assertTrue(len(address) >= 4)  # ::/8
+            self.assertTrue(len(address) <= 39 + 4)
             self.assertTrue(
-                re.compile(r'^([0-9a-f]{4}:){7}[0-9a-f]{4}/\d{1,3}$').search(
+                re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$').search(
                     address))
 
 
