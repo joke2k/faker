@@ -66,7 +66,7 @@ setup(
         ':python_version=="3.0"': [
             'importlib',
         ],
-        ':python_version=="3.2"': [
+        ':python_version=<"3.3"': [
             'ipaddress',
         ],
     }
