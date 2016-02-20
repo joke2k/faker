@@ -62,11 +62,15 @@ setup(
     extras_require={
         ':python_version=="2.6"': [
             'importlib',
+            'ipaddress',
+        ],
+        ':python_version=="2.7"': [
+            'ipaddress',
         ],
         ':python_version=="3.0"': [
             'importlib',
         ],
-        ':python_version<="3.3"': [
+        ':python_version=="3.2"': [
             'ipaddress',
         ],
     }
