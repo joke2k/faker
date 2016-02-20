@@ -24,6 +24,7 @@ Changelog
 * Add Maestro credit card. Thanks @anthonylauzon.
 * Add ``hr_HR`` localization. Thanks @mislavcimpersak.
 * Update ``de_DE`` first names. Thanks @WarrenFaith and @mschoebel.
+* Add a new provider to generate random binary blob. Thanks @kdeldycke.
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
