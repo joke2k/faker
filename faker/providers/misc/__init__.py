@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import hashlib
 import string
 import uuid
+import os
 
 from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
@@ -32,8 +33,7 @@ class Provider(BaseProvider):
 
         Default blob size is 1 Mb.
         """
-        return bytes(bytearray([
-            random.randrange(0, 256) for _ in range(length)]))
+        return os.urandom(length)
 
     @classmethod
     def md5(cls, raw_output=False):
