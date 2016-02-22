@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import hashlib
 import string
 import uuid
+import os
 
 from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
@@ -25,6 +26,14 @@ class Provider(BaseProvider):
             1: True,
             -1: False
         }[random.randint(-1, 1)]
+
+    @classmethod
+    def binary(cls, length=(1 * 1024 * 1024)):
+        """ Returns random binary blob.
+
+        Default blob size is 1 Mb.
+        """
+        return os.urandom(length)
 
     @classmethod
     def md5(cls, raw_output=False):
