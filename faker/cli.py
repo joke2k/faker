@@ -38,6 +38,11 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
             continue
         try:
             lines = text_type(example).expandtabs().splitlines()
+        except UnicodeDecodeError:
+            # The example is actually made of bytes.
+            # We could coerce to bytes, but that would fail anyway when we wiil
+            # try to `print` the line.
+            lines = ["<bytes>"]
         except UnicodeEncodeError:
             raise Exception('error on "{0}" with value "{1}"'.format(
                             signature, example))
