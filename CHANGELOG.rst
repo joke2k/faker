@@ -4,7 +4,7 @@ Changelog
 `0.5.4` - TBD
 -------------
 
-* Expose Provider's random instance. Thank @gsingers for the suggestion. 
+* Expose Provider's random instance. Thank @gsingers for the suggestion.
 * Make sure required characters are in the password. Thanks @craig552uk.
 * Add `internet` and `jobs` Providers for `fa_IR`. Thanks @hamidfzm.
 * Correct Poland phone numbers. Thanks @fizista.
@@ -26,6 +26,7 @@ Changelog
 * Update ``de_DE`` first names. Thanks @WarrenFaith and @mschoebel.
 * Allow generation of IPv4 and IPv6 network address with valid CIDR. Thanks @kdeldycke.
 * Unittest IPv4 and IPv6 address and network generation. Thanks @kdeldycke.
+* Add a new provider to generate random binary blob. Thanks @kdeldycke.
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
@@ -76,7 +77,7 @@ Changelog
 * Added Finnish ssn (HETU) provider. Thanks @kivipe.
 * Fixed person names for ``pl_PL``. Thanks Marek Bleschke.
 * Added ``sv_SE`` locale providers. Thanks Tome Cvitan.
-* ``pt_BR`` Provider: Added ``catch_phrase`` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo. 
+* ``pt_BR`` Provider: Added ``catch_phrase`` to Company provider and fixed names in Person Provider. Thanks Marcelo Fonseca Tambalo.
 * Added ``sk_SK`` localized providers. Thanks @viktormaruna.
 * Removed ``miscelleneous`` provider. It is superceded by the ``misc`` provider.
 

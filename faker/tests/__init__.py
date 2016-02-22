@@ -11,6 +11,7 @@ import re
 import time
 import unittest
 import string
+import six
 import sys
 
 try:
@@ -459,6 +460,16 @@ class FactoryTestCase(unittest.TestCase):
             provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.datetime.now(utc).replace(second=0, microsecond=0)
         )
+
+    def test_binary(self):
+        from faker.providers.misc import Provider
+
+        for _ in range(999):
+            length = random.randint(0, 2 ** 10)
+            binary = Provider.binary(length)
+
+            self.assertTrue(isinstance(binary, six.binary_type))
+            self.assertTrue(len(binary) == length)
 
     def test_password(self):
         from faker.providers.misc import Provider
