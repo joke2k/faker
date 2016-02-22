@@ -3,9 +3,12 @@
 from __future__ import unicode_literals
 from .. import BaseProvider
 
+from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
+
 from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_unicode
+
 
 localized = True
 
@@ -99,15 +102,23 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.url_formats)
         return self.generator.parse(pattern)
 
-    def ipv4(self):
-        """
-        Convert 32-bit integer to dotted IPv4 address.
-        """
-        return ".".join(map(lambda n: str(random.randint(-2147483648, 2147483647) >> n & 0xFF), [24, 16, 8, 0]))
+    def ipv4(self, network=False):
+        """ Produce a random IPv4 address or network with a valid CIDR. """
+        address = str(ip_address(random.randint(
+            0, (2 ** IPV4LENGTH) - 1)))
+        if network:
+            address += '/' + str(random.randint(0, IPV4LENGTH))
+            address = str(ip_network(address, strict=False))
+        return address
 
-    def ipv6(self):
-        res = [hex(random.randint(0, 65535))[2:].zfill(4) for i in range(0, 8)]
-        return ":".join(res)
+    def ipv6(self, network=False):
+        """ Produce a random IPv6 address or network with a valid CIDR. """
+        address = str(ip_address(random.randint(
+            2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        if network:
+            address += '/' + str(random.randint(0, IPV6LENGTH))
+            address = str(ip_network(address, strict=False))
+        return address
 
     def mac_address(self):
         mac = [random.randint(0x00, 0xff) for i in range(0, 6)]
