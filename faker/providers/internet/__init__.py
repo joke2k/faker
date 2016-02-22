@@ -9,11 +9,6 @@ from faker.generator import random
 from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_unicode
 
-try:
-    unicode
-except NameError:  # pragma: no cover
-    unicode = str  # pylint: disable=W0622,C0103
-
 
 localized = True
 
