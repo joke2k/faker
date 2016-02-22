@@ -10,6 +10,7 @@ import os
 import time
 import unittest
 import string
+import six
 import sys
 
 try:
@@ -466,7 +467,7 @@ class FactoryTestCase(unittest.TestCase):
             length = random.randint(0, 2 ** 10)
             binary = Provider.binary(length)
 
-            self.assertTrue(isinstance(binary, bytes))
+            self.assertTrue(isinstance(binary, six.binary_type))
             self.assertTrue(len(binary) == length)
 
     def test_password(self):
