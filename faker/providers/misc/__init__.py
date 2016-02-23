@@ -13,7 +13,7 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
-    language_codes = ('cn', 'de', 'el', 'en', 'es', 'fr', 'it', 'pt', 'ru')
+    language_codes = ('zh', 'de', 'el', 'en', 'es', 'fr', 'it', 'pt', 'ru')
 
     @classmethod
     def boolean(cls, chance_of_getting_true=50):
