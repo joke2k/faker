@@ -27,6 +27,8 @@ Changelog
 * Allow generation of IPv4 and IPv6 network address with valid CIDR. Thanks @kdeldycke.
 * Unittest IPv4 and IPv6 address and network generation. Thanks @kdeldycke.
 * Add a new provider to generate random binary blob. Thanks @kdeldycke.
+* Check that randomly produced language codes are parseable as locale by the
+  factory constructor. Thanks @kdeldycke.
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------

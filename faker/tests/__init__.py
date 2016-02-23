@@ -471,6 +471,14 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(isinstance(binary, six.binary_type))
             self.assertTrue(len(binary) == length)
 
+    def test_language_code(self):
+        from faker.providers.misc import Provider
+
+        for _ in range(99):
+            language_code = Provider.language_code()
+            self.assertTrue(isinstance(language_code, string_types))
+            Factory.create(locale=language_code)
+
     def test_password(self):
         from faker.providers.misc import Provider
 
