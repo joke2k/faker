@@ -144,13 +144,26 @@ class Command(object):
 
         parser.add_argument('-l', '--lang',
                             choices=AVAILABLE_LOCALES,
-                            default=default_locale)
+                            default=default_locale,
+                            help="specify the language for a localized "
+                            "provider (e.g. de_DE)")
         parser.add_argument('-r', '--repeat',
-                            default=1, type=int)
+                            default=1,
+                            type=int,
+                            help="generate the specified number of outputs")
         parser.add_argument('-s', '--sep',
-                            default='\n')
+                            default='\n',
+                            help="use the specified separator after each "
+                            "output")
 
-        parser.add_argument('-i', '--include', default=META_PROVIDERS_MODULES, nargs='*')
+        parser.add_argument('-i',
+                            '--include',
+                            default=META_PROVIDERS_MODULES,
+                            nargs='*',
+                            help="list of additional custom providers to "
+                            "user, given as the import path of the module "
+                            "containing your Provider class (not the provider "
+                            "class itself)")
 
         parser.add_argument('fake',
                             action='store',
