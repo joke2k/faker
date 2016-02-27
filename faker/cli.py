@@ -152,23 +152,34 @@ class Command(object):
 
         parser.add_argument('-i', '--include', default=META_PROVIDERS_MODULES, nargs='*')
 
-        parser.add_argument('fake', action='store', nargs='*')
+        parser.add_argument('fake',
+                            action='store',
+                            nargs='?',
+                            help="name of the fake to generate output for "
+                                 "(e.g. profile)")
+
+        parser.add_argument('fake_args',
+                            metavar="fake argument",
+                            action='store',
+                            nargs='*',
+                            help="optional arguments to pass to the fake "
+                                 "(e.g. the profile fake takes an optional "
+                                 "list of comma separated field names as the "
+                                 "first argument)")
 
         arguments = parser.parse_args(self.argv[1:])
 
         for i in range(arguments.repeat):
 
-            fake = arguments.fake[0] if len(arguments.fake) else None
-
-            print_doc(fake,
-                      arguments.fake[1:],
+            print_doc(arguments.fake,
+                      arguments.fake_args,
                       lang=arguments.lang,
                       output=arguments.o,
                       includes=arguments.include
                       )
             print(arguments.sep, file=arguments.o)
 
-            if not fake:
+            if not arguments.fake:
                 # repeat not supported for all docs
                 break
 
