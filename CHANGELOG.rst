@@ -1,8 +1,8 @@
 Changelog
 =========
 
-`0.5.4` - TBD
--------------
+`0.5.4 - 29-February-2015 <http://github.com/joke2k/faker/compare/v0.5.3...v0.5.4>`__
+--------------------------------------------------------------------------------------
 
 * Expose Provider's random instance. Thank @gsingers for the suggestion.
 * Make sure required characters are in the password. Thanks @craig552uk.
