@@ -170,7 +170,7 @@ When installed, you can invoke faker from the command-line:
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
           [-i {module.containing.custom_provider othermodule.containing.custom_provider}]
-          [fake [fake ...]]
+          [fake] [fake argument [fake argument ...]]
 
 Where:
 
@@ -197,9 +197,7 @@ Where:
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
 
--  ``[fake ...]``: is an optional comma-separated list of field names to
-   pass to the fake, such as ``ssn,birthday`` when the ``profile`` fake
-   is used
+-  ``[fake argument ...]``: optional arguments to pass to the fake (e.g. the profile fake takes an optional list of comma separated field names as the first argument)
 
 Examples:
 
