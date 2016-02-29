@@ -30,6 +30,7 @@ Changelog
 * Check that randomly produced language codes are parseable as locale by the
   factory constructor. Thanks @kdeldycke.
 * Fix chinese random language code. Thanks @kdeldycke.
+* Remove duplicate words from Lorem provider. Thanks @jeffwidman. 
 
 `0.5.3 - 21-September-2015 <http://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
 --------------------------------------------------------------------------------------
