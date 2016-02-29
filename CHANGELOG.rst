@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`0.5.6 - 29-February-2015 <http://github.com/joke2k/faker/compare/v0.5.4...v0.5.6>`__
+--------------------------------------------------------------------------------------
+
+* Specify help text for command line. Thanks @cbaines.
+
 `0.5.4 - 29-February-2015 <http://github.com/joke2k/faker/compare/v0.5.3...v0.5.4>`__
 --------------------------------------------------------------------------------------
 
