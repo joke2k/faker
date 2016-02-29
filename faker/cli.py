@@ -144,31 +144,55 @@ class Command(object):
 
         parser.add_argument('-l', '--lang',
                             choices=AVAILABLE_LOCALES,
-                            default=default_locale)
+                            default=default_locale,
+                            help="specify the language for a localized "
+                            "provider (e.g. de_DE)")
         parser.add_argument('-r', '--repeat',
-                            default=1, type=int)
+                            default=1,
+                            type=int,
+                            help="generate the specified number of outputs")
         parser.add_argument('-s', '--sep',
-                            default='\n')
+                            default='\n',
+                            help="use the specified separator after each "
+                            "output")
 
-        parser.add_argument('-i', '--include', default=META_PROVIDERS_MODULES, nargs='*')
+        parser.add_argument('-i',
+                            '--include',
+                            default=META_PROVIDERS_MODULES,
+                            nargs='*',
+                            help="list of additional custom providers to "
+                            "user, given as the import path of the module "
+                            "containing your Provider class (not the provider "
+                            "class itself)")
 
-        parser.add_argument('fake', action='store', nargs='*')
+        parser.add_argument('fake',
+                            action='store',
+                            nargs='?',
+                            help="name of the fake to generate output for "
+                                 "(e.g. profile)")
+
+        parser.add_argument('fake_args',
+                            metavar="fake argument",
+                            action='store',
+                            nargs='*',
+                            help="optional arguments to pass to the fake "
+                                 "(e.g. the profile fake takes an optional "
+                                 "list of comma separated field names as the "
+                                 "first argument)")
 
         arguments = parser.parse_args(self.argv[1:])
 
         for i in range(arguments.repeat):
 
-            fake = arguments.fake[0] if len(arguments.fake) else None
-
-            print_doc(fake,
-                      arguments.fake[1:],
+            print_doc(arguments.fake,
+                      arguments.fake_args,
                       lang=arguments.lang,
                       output=arguments.o,
                       includes=arguments.include
                       )
             print(arguments.sep, file=arguments.o)
 
-            if not fake:
+            if not arguments.fake:
                 # repeat not supported for all docs
                 break
 
