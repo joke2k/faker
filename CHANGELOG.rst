@@ -1,12 +1,12 @@
 Changelog
 =========
 
-`0.5.5 - 29-February-2015 <http://github.com/joke2k/faker/compare/v0.5.4...v0.5.5>`__
+`0.5.5 - 29-February-2016 <http://github.com/joke2k/faker/compare/v0.5.4...v0.5.5>`__
 --------------------------------------------------------------------------------------
 
 * Specify help text for command line. Thanks @cbaines.
 
-`0.5.4 - 29-February-2015 <http://github.com/joke2k/faker/compare/v0.5.3...v0.5.4>`__
+`0.5.4 - 29-February-2016 <http://github.com/joke2k/faker/compare/v0.5.3...v0.5.4>`__
 --------------------------------------------------------------------------------------
 
 * Expose Provider's random instance. Thank @gsingers for the suggestion.
