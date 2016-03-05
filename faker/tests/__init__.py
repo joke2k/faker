@@ -327,6 +327,12 @@ class FactoryTestCase(unittest.TestCase):
         now_back = datetime.datetime.fromtimestamp(timestamp, utc)
         self.assertEqual(now, now_back)
 
+        today = datetime.date.today()
+        timestamp = datetime_to_timestamp(today)
+        today_as_dt = datetime.datetime.combine(today, datetime.time.min)
+        today_back = datetime.datetime.fromtimestamp(timestamp)
+        self.assertEqual(today_as_dt, today_back)
+
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
         # test using example provided in module
