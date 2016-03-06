@@ -47,7 +47,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
             raise Exception('error on "{0}" with value "{1}"'.format(
                             signature, example))
         margin = max(30, doc.max_name_len+1)
-        remains = 150 - margin
+        remains = 200 - margin
         separator = '#'
         for line in lines:
             for i in range(0, (len(line) // remains) + 1):
