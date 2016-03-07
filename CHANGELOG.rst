@@ -1,7 +1,7 @@
 Changelog
 =========
 
-`0.5.6 - 05-March-2016 <http://github.com/joke2k/faker/compare/v0.5.5...v0.5.6>`__
+`0.5.6 - 07-March-2016 <http://github.com/joke2k/faker/compare/v0.5.5...v0.5.6>`__
 ----------------------------------------------------------------------------------
 
 * Add date handling for datetime functions. Thanks @rpkilby.
