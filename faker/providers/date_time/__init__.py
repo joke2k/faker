@@ -17,7 +17,7 @@ from .. import BaseProvider
 
 
 def datetime_to_timestamp(dt):
-    if dt.tzinfo is not None:
+    if getattr(dt, 'tzinfo', None) is not None:
         dt = dt.astimezone(tzlocal())
     return mktime(dt.timetuple())
 
