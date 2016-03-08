@@ -19,10 +19,10 @@ class Provider(BaseProvider):
         :param max Maximum value for both X and Y. Defaults to 100.
         :param step Interval between possible values for both X and Y.
             Defaults to 1.
-        :param min_x Minimum value for X. Defauls to the `min` value.
+        :param min_x Minimum value for X. Defaults to the `min` value.
         :param max_x Maximum value for X. Defaults to the `max` value.
         :param step_x Step value for X. Defaults to the `step` value.
-        :param min_y Minimum value for Y. Defauls to the `min` value.
+        :param min_y Minimum value for Y. Defaults to the `min` value.
         :param max_y Maximum value for Y. Defaults to the `max` value.
         :param step_y Step value for Y. Defaults to the `step` value.
         :example (3, 7)
@@ -58,13 +58,13 @@ class Provider(BaseProvider):
         :param max Maximum value for X, Y, and Z. Defaults to 100
         :param step Interval between possible values for X, Y, and Z.
             Defaults to 1.
-        :param min_x Minimum value for X. Defauls to the `min` value.
+        :param min_x Minimum value for X. Defaults to the `min` value.
         :param max_x Maximum value for X. Defaults to the `max` value.
         :param step_x Step value for X. Defaults to the `step` value.
-        :param min_y Minimum value for Y. Defauls to the `min` value.
+        :param min_y Minimum value for Y. Defaults to the `min` value.
         :param max_y Maximum value for Y. Defaults to the `max` value.
         :param step_y Step value for Y. Defaults to the `step` value.
-        :param min_z Minimum value for Z. Defauls to the `min` value.
+        :param min_z Minimum value for Z. Defaults to the `min` value.
         :param max_z Maximum value for Z. Defaults to the `max` value.
         :param step_z Step value for Z. Defaults to the `step` value.
         :example (3, 7, 10)
