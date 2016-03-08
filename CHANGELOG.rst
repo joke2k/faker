@@ -5,6 +5,7 @@ Changelog
 ----------------------------------------------------------------------------------
 
 * Add date handling for datetime functions. Thanks @rpkilby.
+* Discern male and female first names in pt_BR. Thanks @gabrielusvicente.
 
 `0.5.5 - 29-February-2016 <http://github.com/joke2k/faker/compare/v0.5.4...v0.5.5>`__
 --------------------------------------------------------------------------------------
