@@ -30,6 +30,9 @@ Install with pip:
 
     pip install fake-factory
 
+NOTE: On Sept 15th, this package will be migrated to ``faker`` on Pypi. 
+For details, see this issue: https://github.com/joke2k/faker/issues/331
+
 Use ``faker.Factory.create()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
 the type of data you want.
