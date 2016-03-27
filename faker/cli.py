@@ -145,6 +145,7 @@ class Command(object):
         parser.add_argument('-l', '--lang',
                             choices=AVAILABLE_LOCALES,
                             default=default_locale,
+                            metavar='LOCALE',
                             help="specify the language for a localized "
                             "provider (e.g. de_DE)")
         parser.add_argument('-r', '--repeat',
