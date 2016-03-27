@@ -150,11 +150,9 @@ examples:
   {{'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}}
 
   $ faker -r=3 -s=";" name
-  Willam Kertzmann
-  ;
-  Josiah Maggio
-  ;
-  Gayla Schmitt
+  Willam Kertzmann;
+  Josiah Maggio;
+  Gayla Schmitt;
 
 """.format(', '.join(sorted(AVAILABLE_LOCALES)))
 
