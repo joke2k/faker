@@ -128,10 +128,39 @@ class Command(object):
         if default_locale not in AVAILABLE_LOCALES:
             default_locale = DEFAULT_LOCALE
 
+        epilog = """supported locales:
+
+  {0}
+
+  faker can take a locale as an argument, to return localized data. If no
+  localized provider is found, the factory falls back to the default en_US
+  locale.
+
+examples:
+
+  $ faker address
+  968 Bahringer Garden Apt. 722
+  Kristinaland, NJ 09890
+
+  $ faker -l de_DE address
+  Samira-Niemeier-Allee 56
+  94812 Biedenkopf
+
+  $ faker profile ssn,birthdate
+  {{'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}}
+
+  $ faker -r=3 -s=";" name
+  Willam Kertzmann;
+  Josiah Maggio;
+  Gayla Schmitt;
+
+""".format(', '.join(sorted(AVAILABLE_LOCALES)))
+
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
             prog=self.prog_name,
             description='{0} version {1}'.format(self.prog_name, VERSION),
+            epilog=epilog,
             formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
@@ -145,6 +174,7 @@ class Command(object):
         parser.add_argument('-l', '--lang',
                             choices=AVAILABLE_LOCALES,
                             default=default_locale,
+                            metavar='LOCALE',
                             help="specify the language for a localized "
                             "provider (e.g. de_DE)")
         parser.add_argument('-r', '--repeat',
