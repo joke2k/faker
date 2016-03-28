@@ -23,7 +23,7 @@ class BaseProvider(object):
         self.generator = generator
 
     @classmethod
-    def random_int(cls, min=0, max=9999, step=1):
+    def random_int(cls, min=0, max=9999):
         """
         Returns a random integer between two values.
 
@@ -31,7 +31,7 @@ class BaseProvider(object):
         :param max: upper bound value (inclusive; default=9999)
         :returns: random integer between min and max
         """
-        return random.randrange(min, max+1, step)
+        return random.randint(min, max)
 
     @classmethod
     def random_digit(cls):

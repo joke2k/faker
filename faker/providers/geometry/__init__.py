@@ -8,6 +8,17 @@ class Provider(BaseProvider):
     """Geometric objects"""
 
     @classmethod
+    def random_int(cls, min=0, max=9999, step=1):
+        """
+        Returns a random integer between two values.
+
+        :param min: lower bound value (inclusive; default=0)
+        :param max: upper bound value (inclusive; default=9999)
+        :returns: random integer between min and max
+        """
+        return random.randrange(min, max+1, step)
+
+    @classmethod
     def point(cls, min=0, max=100, step=1, dim=2,
             min_x=None, max_x=None, step_x=None,
             min_y=None, max_y=None, step_y=None,
