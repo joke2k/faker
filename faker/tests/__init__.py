@@ -163,6 +163,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.currency',
             'faker.providers.date_time',
             'faker.providers.file',
+            'faker.providers.geometry',
             'faker.providers.internet',
             'faker.providers.job',
             'faker.providers.lorem',
