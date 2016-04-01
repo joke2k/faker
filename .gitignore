@@ -40,3 +40,4 @@ nosetests.xml
 .idea
 .projectile
 .ropeproject
+.DS_Store
