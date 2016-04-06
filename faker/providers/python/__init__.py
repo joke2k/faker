@@ -6,6 +6,7 @@ from decimal import Decimal
 import sys
 
 from faker.providers.lorem.la import Provider as Lorem
+from faker.generator import random
 
 from .. import BaseProvider
 
@@ -24,8 +25,18 @@ class Provider(BaseProvider):
         return cls.random_int(0, 1) == 1
 
     @classmethod
-    def pystr(cls, max_chars=20):
-        return "".join(cls.random_letter() for i in range(max_chars))
+    def pystr(cls, min_chars=None, max_chars=20):
+        """
+        Generates a random string of upper and lowercase letters.
+        :type min_chars: int
+        :type max_chars: int
+        :return: String. Random of random length between min and max characters.
+        """
+        if min_chars is None:
+            return "".join(cls.random_letter() for i in range(max_chars))
+        else:
+            assert (max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
+            return "".join(cls.random_letter() for i in range(0, random.randint(min_chars, max_chars)))
 
     @classmethod
     def pyfloat(cls, left_digits=None, right_digits=None, positive=False):

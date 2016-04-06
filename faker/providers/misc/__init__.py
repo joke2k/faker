@@ -127,16 +127,3 @@ class Provider(BaseProvider):
             chars[index] = required_tokens[i]
 
         return ''.join(chars)
-
-    @classmethod
-    def string(cls, min_char=5, max_char=30):
-        """
-        Generates a random string of upper and lowercase letters.
-        :param min_char: Integer. Number of minimum characters
-        :param max_char: Integer. Number of maximum characters
-        :return: String. Random of random length between min and max characters.
-        """
-        assert (max_char >= min_char), "Maximum length must be greater than or equal to minium length"
-        return "".join(cls.random_letter() for i in range(0, random.randint(min_char, max_char)))
-
-
