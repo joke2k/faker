@@ -537,7 +537,8 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(characters, '')
         characters = provider.pystr(max_chars=-10)
         self.assertEqual(characters, '')
-
+        characters = provider.pystr(min_chars=10, max_chars=255)
+        self.assertTrue((len(characters) >= 10))
 
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
