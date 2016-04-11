@@ -1,3 +1,4 @@
+
 Changelog
 =========
 
@@ -6,6 +7,7 @@ Changelog
 
 * Improve CLI output and help. Thanks @cbaines.
 * Update ``en_US`` anmes to be more realistic. Thanks @dethpickle.
+* Modify pystr provider to accept a minimum number of characters. Thanks @tamarbuta.
 
 `0.5.7 - 07-March-2016 <http://github.com/joke2k/faker/compare/v0.5.6...v0.5.7>`__
 ----------------------------------------------------------------------------------
