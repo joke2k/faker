@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from ..fr_FR import Provider as AddressProvider
+from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
@@ -53,6 +53,13 @@ class Provider(AddressProvider):
         :example 'rue'
         """
         return cls.random_element(cls.street_prefixes)
+
+    @classmethod
+    def city_prefix(cls):
+        """
+        :example 'rue'
+        """
+        return cls.random_element(cls.city_prefixes)
 
     @classmethod
     def canton(cls):
