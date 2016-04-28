@@ -5,8 +5,11 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_suffixes = ('Ville', 'Bourg', '-les-Bains', '-sur-Mer', '-la-Forêt', 'boeuf', 'nec', 'dan')
+    city_prefixes = ('Saint', 'Sainte')
     street_prefixes = ('rue', 'rue', 'chemin', 'avenue', 'boulevard')
     city_formats = (
+        '{{city_prefix}} {{first_name}}',
+        '{{city_prefix}} {{first_name}}{{city_suffix}}',
         '{{last_name}}',
         '{{last_name}}',
         '{{last_name}}',
@@ -113,6 +116,13 @@ class Provider(AddressProvider):
         :example 'rue'
         """
         return cls.random_element(cls.street_prefixes)
+
+    @classmethod
+    def city_prefix(cls):
+        """
+        :example 'rue'
+        """
+        return cls.random_element(cls.city_prefixes)
 
     @classmethod
     def region(cls):
