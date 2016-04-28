@@ -16,8 +16,8 @@ class Provider(SsnProvider):
         See: http://www.bsv.admin.ch/themen/ahv/00011/02185/
         """
         def _checksum(digits):
-            evensum = reduce(lambda x, y: x + y, digits[:-1:2])
-            oddsum = reduce(lambda x, y: x + y, digits[1::2])
+            evensum = sum(digits[:-1:2])
+            oddsum = sum(digits[1::2])
             return (10 - ((evensum + oddsum * 3) % 10)) % 10
 
         digits = [7, 5, 6]
