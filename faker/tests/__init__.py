@@ -603,6 +603,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_lorem_text(self):
         from faker.providers import lorem, BaseProvider
+        from faker.providers.lorem import el_GR, la, ru_RU
 
         text_provider = eval("lorem." + lorem.default_locale + ".Provider(None)")
         int_provider = BaseProvider(None)
