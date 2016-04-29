@@ -601,6 +601,30 @@ class FactoryTestCase(unittest.TestCase):
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$').search(
                     address))
 
+    def test_lorem_text(self):
+        from faker.providers import lorem, BaseProvider
+
+        text_provider = eval("lorem." + lorem.default_locale + ".Provider(None)")
+        int_provider = BaseProvider(None)
+
+        for _ in range(999):
+            min_nb = int_provider.random_int(min=5, max=200)
+            max_nb = min_nb + int_provider.random_int(max=200)
+            lorem_text = text_provider.text(min_nb_chars=min_nb, max_nb_chars=max_nb)
+            self.assertTrue(max_nb >= len(lorem_text) >= min_nb)
+            self.assertTrue(lorem_text[-1] == '.')
+            self.assertFalse(re.findall(r'\.\s[A-Z][a-z]*[\.]*[\s]*$', lorem_text))
+            self.assertFalse(lorem_text[-2] == ' ')
+            self.assertTrue(all(map(lambda x: x[0].isupper(), lorem_text.split('. '))))
+        for _ in range(99):
+            min_nb = int_provider.random_int(min=5, max=200)
+            lorem_text = text_provider.text(min_nb_chars=min_nb, max_nb_chars=min_nb)
+            self.assertTrue(len(lorem_text) == min_nb)
+            self.assertTrue(lorem_text[-1] == '.')
+            self.assertFalse(re.findall(r'\.\s[A-Z][a-z]*[\.]*[\s]*$', lorem_text))
+            self.assertFalse(lorem_text[-2] == ' ')
+            self.assertTrue(all(map(lambda x: x[0].isupper(), lorem_text.split('. '))))
+
 
 class GeneratorTestCase(unittest.TestCase):
 

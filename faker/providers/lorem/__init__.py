@@ -2,6 +2,7 @@ localized = True
 default_locale = 'la'
 
 from .. import BaseProvider
+import re
 
 
 class Provider(BaseProvider):
@@ -81,50 +82,80 @@ class Provider(BaseProvider):
         return [cls.paragraph() for _ in range(0, nb)]
 
     @classmethod
-    def text(cls, max_nb_chars=200):
+    def text(cls, min_nb_chars=5, max_nb_chars=200):
         """
         Generate a text string.
         Depending on the $maxNbChars, returns a string made of words, sentences, or paragraphs.
         :example 'Sapiente sunt omnis. Ut pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
-        :param max_nb_chars Maximum number of characters the text should contain (minimum 5)
+        :param max_nb_chars Maximum number of characters the text should contain (inclusive; default=200)
+        :param min_nb_chars Minimum number of characters the text should contain (inclusive; default=0; minimum 5)
         :return string
         """
         text = []
-        if max_nb_chars < 5:
+        if max_nb_chars < min_nb_chars:
+            raise ValueError('minimum length cannot exceed maximum length')
+        if min_nb_chars < 5:
             raise ValueError('text() can only generate text of at least 5 characters')
+        text_len = cls.random_int(min=min_nb_chars, max=max_nb_chars)
+        size = 0
 
-        if max_nb_chars < 25:
+        if text_len < 25:
             # join words
             while not text:
-                size = 0
                 # determine how many words are needed to reach the $max_nb_chars once;
-                while size < max_nb_chars:
+                while text_len > size:
                     word = (' ' if size else '') + cls.word()
                     text.append(word)
                     size += len(word)
-                text.pop()
             text[0] = text[0][0].upper() + text[0][1:]
             last_index = len(text) - 1
             text[last_index] += '.'
-        elif max_nb_chars < 100:
+            size += 1
+        elif text_len < 100:
             # join sentences
             while not text:
-                size = 0
                 # determine how many sentences are needed to reach the $max_nb_chars once
-                while size < max_nb_chars:
+                while text_len > size:
                     sentence = (' ' if size else '') + cls.sentence()
                     text.append(sentence)
                     size += len(sentence)
-                text.pop()
         else:
             # join paragraphs
             while not text:
-                size = 0
                 # determine how many paragraphs are needed to reach the $max_nb_chars once
-                while size < max_nb_chars:
+                while text_len > size:
                     paragraph = ('\n' if size else '') + cls.paragraph()
                     text.append(paragraph)
                     size += len(paragraph)
-                text.pop()
 
-        return "".join(text)
+        if size > max_nb_chars:
+            if size - len(text[-1]) > min_nb_chars:
+                text.pop()
+                string = "".join(text)
+            else:
+                string = "".join(text)[0:text_len - 1]
+                # handle situations when the sliced text would end with ' ', '.', or other unnature ways
+                str2replace_len = 0
+                if re.findall(r'\.\s[A-Z][a-z]*[\.]*[\s]*$', string):
+                    str2replace_len = len(re.findall(r'\.\s[A-Z][a-z]*[\.]*[\s]*$', string)[0])
+                elif string[-1] == ' ':
+                    if string[-2].islower():
+                        str2replace_len = 1
+                    elif string[-2].isupper():
+                        str2replace_len = 4
+                    elif string[-2] == '.':
+                        str2replace_len = 2
+                elif string[-1] == '.':
+                    str2replace_len = 1
+                if str2replace_len > 0:
+                    word_stitch = cls.word()
+                    while len(word_stitch) < str2replace_len:
+                        word_stitch += cls.word()
+                    string = string[:-str2replace_len] + word_stitch[:str2replace_len] + '.'
+        else:
+            string = "".join(text)
+
+        if string[-1] != '.':
+            string += '.'
+
+        return string

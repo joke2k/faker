@@ -148,7 +148,7 @@ class Provider(BaseProvider):
         Django algorithm
         """
         if value is None:
-            value = Lorem.text(20)
+            value = Lorem.text(max_nb_chars=20)
         return value
 
     @classmethod
