@@ -120,13 +120,13 @@ class Provider(BaseProvider):
         'video': video_mime_types
     }
 
-    audio_file_extenstions = (
+    audio_file_extensions = (
         "flac",
         "mp3",
         "wav",
     )
 
-    image_file_extenstions = (
+    image_file_extensions = (
         "bmp",
         "gif",
         "jpeg",
@@ -168,8 +168,8 @@ class Provider(BaseProvider):
     )
 
     file_extensions = {
-        "audio": audio_file_extenstions,
-        "image": image_file_extenstions,
+        "audio": audio_file_extensions,
+        "image": image_file_extensions,
         "office": office_file_extensions,
         "text": text_file_extensions,
         "video": video_file_extensions,
