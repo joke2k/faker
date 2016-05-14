@@ -69,11 +69,17 @@ class Provider(PersonProvider):
     first_names = first_names_male + first_names_female
 
     last_names = (
-        'Almeida', 'Alves', 'Araújo', 'Azevedo', 'Barbosa', 'Barros',
-        'Cardoso', 'Carvalho', 'Castro', 'Correia', 'Costela', 'Cunha', 'Dias',
-        'Fernandes', 'Ferreira', 'Gomes', 'Lima', 'Martins', 'Melo',
-        'Oliveira', 'Pereira', 'Pinto', 'Ribeiro', 'Rocha', 'Rodrigues',
-        'Santos', 'Silva', 'Souza'
+        'Almeida', 'Alves', 'Aragão', 'Araújo', 'Azevedo', 'Barbosa', 'Barros',
+        'Caldeira', 'Campos', 'Cardoso', 'Cardoso,', 'Carvalho', 'Castro',
+        'Cavalcanti', 'Correia', 'Costa', 'Costela', 'Cunha', 'da Conceição',
+        'da Costa', 'da Cruz', 'da Cunha', 'da Luz', 'da Mata', 'da Mota',
+        'da Paz', 'da Rocha', 'da Rosa', 'das Neves', 'Dias', 'Duarte',
+        'Farias' 'Fernandes', 'Ferreira', 'Fogaça', 'Freitas', 'Gomes',
+        'Gonçalves', 'Jesus', 'Lima', 'Lopes', 'Martins', 'Melo', 'Mendes',
+        'Monteiro', 'Moraes', 'Moreira', 'Moura', 'Nascimento', 'Nogueira',
+        'Novaes', 'Nunes', 'Oliveira', 'Peixoto', 'Pereira', 'Pinto', 'Pires',
+        'Porto', 'Ramos', 'Rezende', 'Ribeiro', 'Rocha', 'Rodrigues', 'Sales',
+        'Santos', 'Silva', 'Silveira', 'Souza', 'Teixeira', 'Viana', 'Vieira'
     )
 
     prefixes_female = ('Srta.', 'Sra.', 'Dra.')
