@@ -27,22 +27,23 @@ class Provider(PersonProvider):
 
     first_names_female = (
         'Agatha', 'Alana', 'Alexia', 'Alice', 'Alícia', 'Amanda',
-        'Ana Beatriz', 'Ana Carolina', 'Ana Clara', 'Ana Julia', 'Ana Laura',
-        'Ana Luiza', 'Ana Lívia', 'Ana Sophia', 'Ana Vitória', 'Ana',
-        'Beatriz', 'Bianca', 'Brenda', 'Bruna', 'Bárbara', 'Camila',
+        'Ana Beatriz', 'Ana Carolina', 'Ana Clara', 'Ana Julia', 'Ana Júlia',
+        'Ana Laura', 'Ana Luiza', 'Ana Lívia', 'Ana Sophia', 'Ana Vitória',
+        'Ana', 'Beatriz', 'Bianca', 'Brenda', 'Bruna', 'Bárbara', 'Camila',
         'Carolina', 'Caroline', 'Catarina', 'Cecília', 'Clara', 'Clarice',
-        'Daniela', 'Eduarda', 'Elisa', 'Fernanda', 'Eloah', 'Emanuella',
-        'Emanuelly', 'Emilly', 'Esther', 'Evelyn', 'Gabriela', 'Gabrielly',
+        'Daniela', 'Eduarda', 'Elisa', 'Eloah', 'Emanuella', 'Emanuelly',
+        'Emilly', 'Esther', 'Evelyn', 'Fernanda', 'Gabriela', 'Gabrielly',
         'Giovanna', 'Helena', 'Heloísa', 'Isabel', 'Isabella', 'Isabelly',
-        'Isadora', 'Joana', 'Julia', 'Juliana', 'Kamilly', 'Lara', 'Larissa',
-        'Laura', 'Lavínia', 'Laís', 'Letícia', 'Lorena', 'Luana', 'Luiza',
-        'Luna', 'Lívia', 'Maitê', 'Manuela', 'Marcela', 'Maria Alice',
-        'Maria Cecília', 'Maria Clara', 'Maria Eduarda', 'Maria Fernanda',
-        'Maria Julia', 'Maria Luiza', 'Maria Sophia', 'Maria Vitória',
-        'Maria', 'Mariana', 'Mariane', 'Marina', 'Maysa', 'Melissa', 'Milena',
-        'Mirella', 'Natália', 'Nicole', 'Nina', 'Olivia', 'Pietra', 'Rafaela',
-        'Raquel', 'Rebeca', 'Sabrina', 'Sarah', 'Sofia', 'Sophie', 'Stella',
-        'Stephany', 'Valentina', 'Vitória', 'Yasmin'
+        'Isadora', 'Isis', 'Joana', 'Julia', 'Juliana', 'Júlia', 'Kamilly',
+        'Lara', 'Larissa', 'Laura', 'Lavínia', 'Laís', 'Letícia', 'Lorena',
+        'Luana', 'Luiza', 'Luna', 'Lívia', 'Maitê', 'Manuela', 'Marcela',
+        'Maria Alice', 'Maria Cecília', 'Maria Clara', 'Maria Eduarda',
+        'Maria Fernanda', 'Maria Julia', 'Maria Luiza', 'Maria Sophia',
+        'Maria Vitória', 'Maria', 'Mariana', 'Mariane', 'Marina', 'Maysa',
+        'Melissa', 'Milena', 'Mirella', 'Natália', 'Nicole', 'Nina', 'Olivia',
+        'Pietra', 'Rafaela', 'Raquel', 'Rebeca', 'Sabrina', 'Sarah', 'Sofia',
+        'Sophia', 'Sophie', 'Stella', 'Stephany', 'Valentina', 'Vitória',
+        'Yasmin'
     )
 
     first_names_male = (
