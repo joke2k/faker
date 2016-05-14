@@ -47,24 +47,24 @@ class Provider(PersonProvider):
     )
 
     first_names_male = (
-        'Alexandre', 'André', 'Anthony', 'Antonio', 'Arthur', 'Augusto',
+        'Alexandre', 'André', 'Anthony', 'Antônio', 'Arthur', 'Augusto',
         'Benjamin', 'Benício', 'Bernardo', 'Breno', 'Bruno', 'Bryan', 'Caio',
         'Calebe', 'Carlos Eduardo', 'Cauã', 'Cauê', 'Daniel', 'Danilo',
-        'Davi Lucas', 'Davi Lucca', 'Davi', 'Diego', 'Diogo', 'Eduardo',
-        'Emanuel', 'Enrico', 'Enzo Gabriel', 'Enzo', 'Erick', 'Felipe',
-        'Fernando', 'Francisco', 'Gabriel', 'Guilherme', 'Gustavo Henrique',
-        'Gustavo', 'Heitor', 'Henrique', 'Ian', 'Igor', 'Isaac', 'Joaquim',
-        'João Felipe', 'João Gabriel', 'João Guilherme', 'João Lucas',
-        'João Miguel', 'João Pedro', 'João Vitor', 'João', 'Juan', 'Kaique',
-        'Kevin', 'Leandro', 'Leonardo', 'Levi', 'Lorenzo', 'Lucas Gabriel',
-        'Lucas', 'Lucca', 'Luigi', 'Luiz Felipe', 'Luiz Fernando',
-        'Luiz Gustavo', 'Luiz Henrique', 'Luiz Miguel', 'Luiz Otávio',
-        'Marcelo', 'Marcos Vinicius', 'Matheus', 'Miguel', 'Murilo', 'Nathan',
-        'Nicolas', 'Noah', 'Otávio', 'Paulo', 'Pedro Henrique', 'Pedro Lucas',
-        'Pedro Miguel', 'Pedro', 'Pietro', 'Rafael', 'Raul', 'Renan',
-        'Rodrigo', 'Ryan', 'Samuel', 'Thales', 'Theo', 'Thiago', 'Thomas',
-        'Vicente', 'Vinicius', 'Vitor Gabriel', 'Vitor Hugo', 'Vitor', 'Yago',
-        'Yuri'
+        'Davi Lucas', 'Davi Lucca', 'Davi Luiz', 'Davi', 'Diego', 'Diogo',
+        'Eduardo', 'Emanuel', 'Enrico', 'Enzo Gabriel', 'Enzo', 'Erick',
+        'Felipe', 'Fernando', 'Francisco', 'Gabriel', 'Guilherme',
+        'Gustavo Henrique', 'Gustavo', 'Heitor', 'Henrique', 'Ian', 'Igor',
+        'Isaac', 'Joaquim', 'João Felipe', 'João Gabriel', 'João Guilherme',
+        'João Lucas', 'João Miguel', 'João Pedro', 'João Vitor', 'João',
+        'Juan', 'Kaique', 'Kevin', 'Leandro', 'Leonardo', 'Levi', 'Lorenzo',
+        'Lucas Gabriel', 'Lucas', 'Lucca', 'Luigi', 'Luiz Felipe',
+        'Luiz Fernando', 'Luiz Gustavo', 'Luiz Henrique', 'Luiz Miguel',
+        'Luiz Otávio', 'Marcelo', 'Marcos Vinicius', 'Matheus', 'Miguel',
+        'Murilo', 'Nathan', 'Nicolas', 'Noah', 'Otávio', 'Paulo',
+        'Pedro Henrique', 'Pedro Lucas', 'Pedro Miguel', 'Pedro', 'Pietro',
+        'Rafael', 'Raul', 'Renan', 'Rodrigo', 'Ryan', 'Samuel', 'Thales',
+        'Theo', 'Thiago', 'Thomas', 'Vicente', 'Vinicius', 'Vitor Gabriel',
+        'Vitor Hugo', 'Vitor', 'Yago', 'Yuri'
     )
 
     first_names = first_names_male + first_names_female
