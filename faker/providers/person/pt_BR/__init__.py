@@ -25,6 +25,12 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
+    """
+    To a previous (undocumented?) list of female given names was added the 100
+    most popular names in Brazil in 2014 and 2015 according to Exame magazine:
+    * http://exame.abril.com.br/brasil/noticias/os-100-nomes-mais-comuns-no-brasil-em-2014
+    * http://exame.abril.com.br/brasil/noticias/os-100-nomes-mais-comuns-no-brasil-em-2015
+    """
     first_names_female = (
         'Agatha', 'Alana', 'Alexia', 'Alice', 'Alícia', 'Amanda',
         'Ana Beatriz', 'Ana Carolina', 'Ana Clara', 'Ana Julia', 'Ana Júlia',
@@ -46,6 +52,12 @@ class Provider(PersonProvider):
         'Yasmin'
     )
 
+    """
+    To a previous (undocumented?) list of male given names was added the 100
+    most popular names in Brazil in 2014 and 2015 according to this blog post:
+    * http://exame.abril.com.br/brasil/noticias/os-100-nomes-mais-comuns-no-brasil-em-2014
+    * http://exame.abril.com.br/brasil/noticias/os-100-nomes-mais-comuns-no-brasil-em-2015
+    """
     first_names_male = (
         'Alexandre', 'André', 'Anthony', 'Antônio', 'Arthur', 'Augusto',
         'Benjamin', 'Benício', 'Bernardo', 'Breno', 'Bruno', 'Bryan', 'Caio',
@@ -69,6 +81,11 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
+    """
+    To a previous (undocumented?) list of family names was added the 70
+    most popular family names in Brazil according to this blog post:
+    * http://nomeschiques.com/os-70-sobrenomes-mais-comuns-e-famosos-do-brasil/
+    """
     last_names = (
         'Almeida', 'Alves', 'Aragão', 'Araújo', 'Azevedo', 'Barbosa', 'Barros',
         'Caldeira', 'Campos', 'Cardoso', 'Cardoso,', 'Carvalho', 'Castro',
