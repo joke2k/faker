@@ -8,6 +8,8 @@ Changelog
 * Improve CLI output and help. Thanks @cbaines.
 * Update ``en_US`` anmes to be more realistic. Thanks @dethpickle.
 * Modify pystr provider to accept a minimum number of characters. Thanks @tamarbuta.
+* Add `job` Provider for ``zh_TW``. Thanks @weihanglo.
+* Modify ``zh_TW`` phone number for a more valid format
 
 `0.5.7 - 07-March-2016 <http://github.com/joke2k/faker/compare/v0.5.6...v0.5.7>`__
 ----------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Changelog
 
 * Expose Provider's random instance. Thank @gsingers for the suggestion.
 * Make sure required characters are in the password. Thanks @craig552uk.
-* Add `internet` and `jobs` Providers for `fa_IR`. Thanks @hamidfzm.
+* Add ``internet`` and ``job`` Providers for ``fa_IR``. Thanks @hamidfzm.
 * Correct Poland phone numbers. Thanks @fizista.
 * Fix brittly tests due to seconds elapsed in-between comparison
 * Allow unicode in emails and domains. Thanks @zdelagrange for the report.
