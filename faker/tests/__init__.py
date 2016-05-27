@@ -373,7 +373,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.date_time import Provider
         provider = Provider
 
-        timestamp_start = random.randint(0,10000000000)
+        timestamp_start = random.randint(0,2000000000)
         timestamp_end = timestamp_start+1
 
         datetime_start = datetime.datetime.fromtimestamp(timestamp_start)
@@ -387,7 +387,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.date_time import Provider
         provider = Provider
 
-        timestamp_start = random.randint(0, 10000000000)
+        timestamp_start = random.randint(0, 2000000000)
         timestamp_end = timestamp_start+1
 
         datetime_start = datetime.datetime.fromtimestamp(timestamp_start, utc)
