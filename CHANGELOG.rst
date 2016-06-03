@@ -11,6 +11,7 @@ Changelog
 * Add `job` Provider for ``zh_TW``. Thanks @weihanglo.
 * Modify ``zh_TW`` phone number for a more valid format. Thanks @weihanglo.
 * Reduce the maximum value of start timestamps. Thanks @cbaines.
+* Add `random_sample` and `random_sample_unique`. Thanks @bengolder.
 
 `0.5.7 - 07-March-2016 <http://github.com/joke2k/faker/compare/v0.5.6...v0.5.7>`__
 ----------------------------------------------------------------------------------
