@@ -10,6 +10,7 @@ Changelog
 * Modify pystr provider to accept a minimum number of characters. Thanks @tamarbuta.
 * Add `job` Provider for ``zh_TW``. Thanks @weihanglo.
 * Modify ``zh_TW`` phone number for a more valid format. Thanks @weihanglo.
+* Reduce the maximum value of start timestamps. Thanks @cbaines.
 
 `0.5.7 - 07-March-2016 <http://github.com/joke2k/faker/compare/v0.5.6...v0.5.7>`__
 ----------------------------------------------------------------------------------
