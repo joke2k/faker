@@ -90,7 +90,7 @@ class BaseProvider(object):
         return random.choice(getattr(string, 'letters', string.ascii_letters))
 
     @classmethod
-    def random_element(cls, elements=('a', 'b', 'b')):
+    def random_element(cls, elements=('a', 'b', 'c')):
         """
         Returns a random element from a passed object.
 
@@ -113,6 +113,28 @@ class BaseProvider(object):
             return choice_distribution(list(choices), list(probabilities))
         else:
             return random.choice(list(elements))
+
+    @classmethod
+    def random_sample(cls, elements=('a', 'b', 'c'), length=None):
+        if length is None:
+            length = random.randint(1, len(elements))
+
+        return [cls.random_element(elements) for _ in range(length)]
+
+    @classmethod
+    def random_sample_unique(cls, elements=('a', 'b', 'c'), length=None):
+        """
+        Returns a `set` of random unique elements for the specified length.
+        """
+        if length is None:
+            length = random.randint(1, len(elements))
+
+        if length > len(elements):
+            raise ValueError("Sample length cannot be longer than the number of elements to pick from.")
+        sample = set()
+        while len(elements) < length:
+            sample.add(cls.random_element(elements))
+        return sample
 
     @classmethod
     def randomize_nb_elements(cls, number=10, le=False, ge=False):
