@@ -2,7 +2,7 @@
 Changelog
 =========
 
-0.5.8 - TBD
+`0.5.8 - 28-June-2016 <http://github.com/joke2k/faker/compare/v0.5.7...v0.5.8>`__
 -----------
 
 * Improve CLI output and help. Thanks @cbaines.
