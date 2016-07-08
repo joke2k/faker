@@ -2,8 +2,16 @@
 Changelog
 =========
 
+`0.5.9 - 08-July-2016 <http://github.com/joke2k/faker/compare/v0.5.8...v0.5.9>`__
+---------------------------------------------------------------------------------
+
+* Add more ``pt_BR`` names. Thanks @cuducos.
+* Added ``en_GB`` names. Thanks @jonny5532.
+* Add romanized internet provider for ``zh_CN``.
+* Add ``fr_CH`` providers. Thanks @gfavre.
+
 `0.5.8 - 28-June-2016 <http://github.com/joke2k/faker/compare/v0.5.7...v0.5.8>`__
------------
+---------------------------------------------------------------------------------
 
 * Improve CLI output and help. Thanks @cbaines.
 * Update ``en_US`` anmes to be more realistic. Thanks @dethpickle.
