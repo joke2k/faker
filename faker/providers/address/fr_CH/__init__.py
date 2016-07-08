@@ -4,12 +4,19 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_suffixes = ('Ville', 'Bourg', '-les-Bains', '-sur-Mer', '-la-Forêt', 'boeuf', 'nec', 'dan')
-    city_prefixes = ('Saint', 'Sainte')
+    city_suffixes = ('-des-Bois', '-les-Bains', '-la-Ville', '-Dessus', 
+        '-Dessous', ' am Rhein', ' am See', ' am Albis', ' an der Aare'
+    )
+    city_prefixes = ('Saint ', 'Sainte ', 'San ', 'Ober', 'Unter')
     street_prefixes = ('rue', 'rue', 'chemin', 'avenue', 'boulevard')
+
+    address_formats = (
+        "{{street_address}}\n{{postcode}} {{city}}",
+    )
+
+    building_number_formats = ('%', '%#', '%#', '%#', '%##')
+
     city_formats = (
-        '{{city_prefix}} {{first_name}}',
-        '{{city_prefix}} {{first_name}}{{city_suffix}}',
         '{{last_name}}',
         '{{last_name}}',
         '{{last_name}}',
@@ -17,7 +24,19 @@ class Provider(AddressProvider):
         '{{last_name}}{{city_suffix}}',
         '{{last_name}}{{city_suffix}}',
         '{{last_name}}{{city_suffix}}',
+        '{{last_name}}-près-{{last_name}}',
         '{{last_name}}-sur-{{last_name}}',
+        '{{city_prefix}}{{last_name}}',
+        '{{last_name}} ({{canton_code}})',
+    )
+
+    street_address_formats = (
+        '{{street_name}}',
+        '{{street_name}} {{building_number}}',
+        '{{street_name}} {{building_number}}',
+        '{{street_name}} {{building_number}}',
+        '{{street_name}} {{building_number}}',
+        '{{street_name}} {{building_number}}',
     )
     street_name_formats = (
         '{{street_prefix}} {{last_name}}',
@@ -25,21 +44,22 @@ class Provider(AddressProvider):
         '{{street_prefix}} de {{last_name}}',
     )
 
-    street_address_formats = (
-        '{{street_name}}',
-        '{{building_number}}, {{street_name}}',
-        '{{building_number}}, {{street_name}}',
-        '{{building_number}}, {{street_name}}',
-        '{{building_number}}, {{street_name}}',
-        '{{building_number}}, {{street_name}}',
+    postcode_formats = ('1###', '2###', '3###', '4###', '5###', '6###', '7###',
+        '8###', '9###'
     )
 
-    address_formats = (
-        "{{street_address}}\n{{postcode}} {{city}}",
+    cantons = (
+        ('AG', 'Argovie'), ('AI', 'Appenzell Rhodes-Intérieures'), 
+        ('AR', 'Appenzell Rhodes-Extérieures'), ('BE', 'Berne'), 
+        ('BL', 'Bâle-Campagne'), ('BS', 'Bâle-Ville'), ('FR', 'Fribourg'),
+        ('GE', 'Genève'), ('GL', 'Glaris'), ('GR', 'Grisons'), ('JU', 'Jura'),
+        ('LU', 'Lucerne'), ('NE', 'Neuchâtel'), ('NW', 'Nidwald'), 
+        ('OW', 'Obwald'), ('SG', 'Saint-Gall'), ('SH', 'Schaffhouse'), 
+        ('SO', 'Soleure'), ('SZ', 'Schwytz'), ('TG', 'Thurgovie'), 
+        ('TI', 'Tessin'), ('UR', 'Uri'), ('VD', 'Vaud'), ('VS', 'Valais'),
+        ('ZG', 'Zoug'), ('ZH', 'Zurich')
     )
 
-    building_number_formats = ('%', '%#', '%#', '%#', '%##')
-    postcode_formats = ('#####', '## ###')
     countries = (
         'Afghanistan', 'Afrique du sud', 'Albanie', 'Algérie', 'Allemagne', 'Andorre', 'Angola', 'Anguilla',
         'Antarctique', 'Antigua et Barbuda', 'Antilles néerlandaises', 'Arabie saoudite', 'Argentine', 'Arménie',
@@ -77,38 +97,6 @@ class Provider(AddressProvider):
         'Vierges britanniques (Îles)', 'Vietnam', 'Wallis et Futuna (Îles)', 'Yemen', 'Yougoslavie', 'Zambie', 'Zaïre',
         'Zimbabwe'
     )
-    regions = (
-        'Alsace', 'Aquitaine', 'Auvergne', 'Bourgogne', 'Bretagne', 'Centre', 'Champagne-Ardenne',
-        'Corse', 'Franche-Comté', 'Île-de-France', 'Languedoc-Roussillon', 'Limousin',
-        'Lorraine', 'Midi-Pyrénées', 'Nord-Pas-de-Calais', 'Basse-Normandie', 'Haute-Normandie',
-        'Pays-de-Loire', 'Picardie', 'Poitou-Charentes', "Province-Alpes-Côte d'Azur", 'Rhone-Alpes',
-        'Guadeloupe', 'Martinique', 'Guyane', 'Réunion', 'Saint-Pierre-et-Miquelon', 'Mayotte',
-        'Saint-Barthélémy', 'Saint-Martin', 'Wallis-et-Futuna', 'Polynésie française', 'Nouvelle-Calédonie'
-    )
-
-    departments = (
-        ('01', 'Ain'), ('02', 'Aisne'), ('03', 'Allier'), ('04', 'Alpes-de-Haute-Provence'), ('05', 'Hautes-Alpes'),
-        ('06', 'Alpes-Maritimes'), ('07', 'Ardèche'), ('08', 'Ardennes'), ('09', 'Ariège'), ('10', 'Aube'),
-        ('11', 'Aude'), ('12', 'Aveyron'), ('13', 'Bouches-du-Rhône'), ('14', 'Calvados'), ('15', 'Cantal'),
-        ('16', 'Charente'), ('17', 'Charente-Maritime'), ('18', 'Cher'), ('19', 'Corrèze'), ('2A', 'Corse-du-Sud'),
-        ('2B', 'Haute-Corse'), ('21', "Côte-d'Or"), ('22', "Côtes-d'Armor"), ('23', 'Creuse'), ('24', 'Dordogne'),
-        ('25', 'Doubs'), ('26', 'Drôme'), ('27', 'Eure'), ('28', 'Eure-et-Loir'), ('29', 'Finistère'), ('30', 'Gard'),
-        ('31', 'Haute-Garonne'), ('32', 'Gers'), ('33', 'Gironde'), ('34', 'Hérault'), ('35', 'Ille-et-Vilaine'),
-        ('36', 'Indre'), ('37', 'Indre-et-Loire'), ('38', 'Isère'), ('39', 'Jura'), ('40', 'Landes'),
-        ('41', 'Loir-et-Cher'),
-        ('42', 'Loire'), ('43', 'Haute-Loire'), ('44', 'Loire-Atlantique'), ('45', 'Loiret'), ('46', 'Lot'),
-        ('47', 'Lot-et-Garonne'), ('48', 'Lozère'), ('49', 'Maine-et-Loire'), ('50', 'Manche'), ('51', 'Marne'),
-        ('52', 'Haute-Marne'), ('53', 'Mayenne'), ('54', 'Meurthe-et-Moselle'), ('55', 'Meuse'), ('56', 'Morbihan'),
-        ('57', 'Moselle'), ('58', 'Nièvre'), ('59', 'Nord'), ('60', 'Oise'), ('61', 'Orne'), ('62', 'Pas-de-Calais'),
-        ('63', 'Puy-de-Dôme'), ('64', 'Pyrénées-Atlantiques'), ('65', 'Hautes-Pyrénées'), ('66', 'Pyrénées-Orientales'),
-        ('67', 'Bas-Rhin'), ('68', 'Haut-Rhin'), ('69', 'Rhône'), ('70', 'Haute-Saône'), ('71', 'Saône-et-Loire'),
-        ('72', 'Sarthe'), ('73', 'Savoie'), ('74', 'Haute-Savoie'), ('75', 'Paris'), ('76', 'Seine-Maritime'),
-        ('77', 'Seine-et-Marne'), ('78', 'Yvelines'), ('79', 'Deux-Sèvres'), ('80', 'Somme'), ('81', 'Tarn'),
-        ('82', 'Tarn-et-Garonne'), ('83', 'Var'), ('84', 'Vaucluse'), ('85', 'Vendée'), ('86', 'Vienne'),
-        ('87', 'Haute-Vienne'), ('88', 'Vosges'), ('89', 'Yonne'), ('90', 'Territoire de Belfort'), ('91', 'Essonne'),
-        ('92', 'Hauts-de-Seine'), ('93', 'Seine-Saint-Denis'), ('94', 'Val-de-Marne'), ('95', "Val-d'Oise"),
-        ('971', 'Guadeloupe'), ('972', 'Martinique'), ('973', 'Guyane'), ('974', 'La Réunion'), ('976', 'Mayotte')
-    )
 
     @classmethod
     def street_prefix(cls):
@@ -125,36 +113,25 @@ class Provider(AddressProvider):
         return cls.random_element(cls.city_prefixes)
 
     @classmethod
-    def region(cls):
+    def canton(cls):
         """
-        :example 'Guadeloupe'
+        Randomly returns a swiss canton ('Abbreviated' , 'Name').
+        :example ('VD' . 'Vaud')
         """
-        return cls.random_element(cls.regions)
+        return cls.random_element(cls.cantons)
 
     @classmethod
-    def department(cls):
+    def canton_name(cls):
         """
-        Randomly returns a french department ('departmentNumber' , 'departmentName').
-        :example ('2B' . 'Haute-Corse')
+        Randomly returns a Swiss canton name.
+        :example 'Vaud'
         """
-        return cls.random_element(cls.departments)
+        return cls.canton()[1]
 
     @classmethod
-    def department_name(cls):
+    def canton_code(cls):
         """
-        Randomly returns a french department name.
-        :example 'Ardèche'
+        Randomly returns a Swiss canton code.
+        :example 'VD'
         """
-        return cls.department()[1]
-
-    @classmethod
-    def department_number(cls):
-        """
-        Randomly returns a french department number.
-
-        :example '59'
-        """
-        return cls.department()[0]
-
-
-
+        return cls.canton()[0]
