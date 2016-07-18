@@ -3,6 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '387'
     formats = (
         '030 ### ###',
         '031 ### ###',
@@ -35,6 +36,6 @@ class Provider(PhoneNumberProvider):
         '066 ### ###',
         '067 ### ###',
         '070 20# ###',
-        '+387 61 ### ###',
-        '+387 (0)61 ### ###'
+        '61 ### ###',
+        '(0)61 ### ###'
     )

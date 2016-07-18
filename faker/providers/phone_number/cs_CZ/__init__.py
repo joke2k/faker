@@ -3,6 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '420'
     formats = (
         '601 ### ###',
         '603 ### ###',

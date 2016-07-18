@@ -3,9 +3,10 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '7'
     formats = (
-        '+7 ### ### ####',
-        '+7 ### ### ## ##',
-        '+7 (###) ###-##-##',
-        '+7 (###) ###-####'
+        '### ### ####',
+        '### ### ## ##',
+        '(###) ###-##-##',
+        '(###) ###-####'
     )
