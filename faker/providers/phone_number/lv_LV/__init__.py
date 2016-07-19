@@ -3,8 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '371'
     formats = (
-        '+371 ########',
-        '+(371) ########',
-        '+371########'
+        '########',
     )

@@ -91,4 +91,3 @@ class Provider(AddressProvider):
     @classmethod
     def city_name(cls):
         return cls.random_element(cls.cities)
-        

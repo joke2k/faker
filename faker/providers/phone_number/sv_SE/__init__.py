@@ -5,10 +5,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '46'
     formats = (
-        '+46 (0)8 ### ### ##',
-        '+46 (0)## ## ## ##',
-        '+46 (0)### ### ##',
         '08-### ### ##',
         '08-### ## ##',
         '08-## ## ##',
@@ -16,4 +14,7 @@ class Provider(PhoneNumberProvider):
         '0##-## ## ##',
         '0###-## ## ##',
         '0###-### ##',
+        '(0)8 ### ### ##',
+        '(0)## ## ## ##',
+        '(0)### ### ##',
     )

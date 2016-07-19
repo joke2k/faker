@@ -3,11 +3,9 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    country_code = '34'
     formats = (
-        '+34 ### ### ###',
-        '+34 #########',
-        '+34 ### ## ## ##',
-        '+34### ### ###',
-        '+34#########',
-        '+34### ## ## ##',
+        '### ## ## ##',
+        '### ### ###',
+        '#########',
     )
