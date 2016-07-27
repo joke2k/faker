@@ -94,9 +94,12 @@ class Provider(BaseProvider):
 
     def pydict(self, nb_elements=10, variable_nb_elements=True, *value_types):
         """
-         Use this function to generate data, returns a touple containing
-         a list, a dictionary and a nested dictionary.
-         """
+        construct and returns dictionary 
+
+        :nb_elements: number of elements for dictionary
+        :variable_nb_elements: is use variable number of elements for dictionary
+        :value_types: type of dictionary values
+        """
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements)
 
