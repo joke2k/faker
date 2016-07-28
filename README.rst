@@ -15,7 +15,7 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-|pypi| |unix_build| |windows_build| |coverage| |downloads| |license|
+|pypi| |unix_build| |windows_build| |coverage| |license|
 
 ----
 
@@ -379,10 +379,6 @@ Credits
 .. |windows_build|  image:: https://img.shields.io/appveyor/ci/joke2k/faker.svg?style=flat-square&label=windows%20build
     :target: https://ci.appveyor.com/project/joke2k/faker
     :alt: Build status of the master branch on Windows
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/fake-factory.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/fake-factory
-    :alt: Monthly downloads
 
 .. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://raw.githubusercontent.com/joke2k/faker/master/LICENSE.txt
