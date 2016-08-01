@@ -601,6 +601,31 @@ class FactoryTestCase(unittest.TestCase):
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$').search(
                     address))
 
+    def test_random_sample_unique(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider(None)
+
+        sample = provider.random_sample_unique('abcde', 3)
+        self.assertEqual(len(sample), 3)
+        self.assertTrue(sample.issubset({'a', 'b', 'c', 'd', 'e'}))
+
+        # Same length
+        sample = provider.random_sample_unique('abcde', 5)
+        self.assertEqual(sample, {'a', 'b', 'c', 'd', 'e'})
+
+        # Length = 1
+        sample = provider.random_sample_unique('abcde', 1)
+        self.assertEqual(len(sample), 1)
+        self.assertTrue(sample.issubset({'a', 'b', 'c', 'd', 'e'}))
+
+        # Length = 0
+        sample = provider.random_sample_unique('abcde', 0)
+        self.assertEqual(sample, set())
+
+        # Length = 0
+        with self.assertRaises(ValueError):
+            sample = provider.random_sample_unique('abcde', 6)
+
 
 class GeneratorTestCase(unittest.TestCase):
 
