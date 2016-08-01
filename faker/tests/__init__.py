@@ -607,16 +607,16 @@ class FactoryTestCase(unittest.TestCase):
 
         sample = provider.random_sample_unique('abcde', 3)
         self.assertEqual(len(sample), 3)
-        self.assertTrue(sample.issubset({'a', 'b', 'c', 'd', 'e'}))
+        self.assertTrue(sample.issubset(set('abcde')))
 
         # Same length
         sample = provider.random_sample_unique('abcde', 5)
-        self.assertEqual(sample, {'a', 'b', 'c', 'd', 'e'})
+        self.assertEqual(sample, set('abcde'))
 
         # Length = 1
         sample = provider.random_sample_unique('abcde', 1)
         self.assertEqual(len(sample), 1)
-        self.assertTrue(sample.issubset({'a', 'b', 'c', 'd', 'e'}))
+        self.assertTrue(sample.issubset(set('abcde')))
 
         # Length = 0
         sample = provider.random_sample_unique('abcde', 0)
