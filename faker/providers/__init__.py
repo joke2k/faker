@@ -132,7 +132,7 @@ class BaseProvider(object):
         if length > len(elements):
             raise ValueError("Sample length cannot be longer than the number of elements to pick from.")
         sample = set()
-        while len(elements) < length:
+        while len(sample) < length:
             sample.add(cls.random_element(elements))
         return sample
 
