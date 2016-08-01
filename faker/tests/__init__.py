@@ -623,8 +623,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(sample, set())
 
         # Length = 0
-        with self.assertRaises(ValueError):
-            sample = provider.random_sample_unique('abcde', 6)
+        self.assertRaises(ValueError, provider.random_sample_unique, 'abcde', 6)
 
 
 class GeneratorTestCase(unittest.TestCase):
