@@ -10,12 +10,13 @@ class Provider(BaseProvider):
 
     """
 
-    def simple_profile(self):
+    def simple_profile(self, sex=None):
         """
         Generates a basic profile with personal informations
         """
-
-        sex = self.random_element(["F", "M"])
+        SEX = ["F", "M"]
+        if sex not in SEX:
+            sex = self.random_element(SEX)
         if sex == 'F':
             name = self.generator.name_female()
         elif sex == 'M':
@@ -32,7 +33,7 @@ class Provider(BaseProvider):
 
         }
 
-    def profile(self, fields=None):
+    def profile(self, fields=None, sex=None):
         """
         Generates a complete profile.
         If "fields" is not empty, only the fields in the list will be returned
@@ -50,7 +51,7 @@ class Provider(BaseProvider):
             "website": [self.generator.url() for i in range(1, self.random_int(2, 5))]
         }
 
-        d = dict(d, **self.generator.simple_profile())
+        d = dict(d, **self.generator.simple_profile(sex))
         #field selection
         if len(fields) > 0:
             d = dict((k, v) for (k, v) in d.items() if k in fields)
