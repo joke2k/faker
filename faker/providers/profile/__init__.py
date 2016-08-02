@@ -33,7 +33,7 @@ class Provider(BaseProvider):
 
         }
 
-    def profile(self, sex=None, fields=None):
+    def profile(self, fields=None, sex=None):
         """
         Generates a complete profile.
         If "fields" is not empty, only the fields in the list will be returned
