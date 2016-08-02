@@ -2,6 +2,11 @@
 Changelog
 =========
 
+`0.5.11 -TBD <http://github.com/joke2k/faker/compare/v0.5.10...v0.5.11>`__
+---------------------------------------------------------------------------------
+
+* Add optional parameter `sex` to `profile` and `simple_profile`. Thanks @navyad.
+
 `0.5.10 - 01-August-2016 <http://github.com/joke2k/faker/compare/v0.5.9...v0.5.10>`__
 ---------------------------------------------------------------------------------
 
