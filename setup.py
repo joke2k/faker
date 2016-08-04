@@ -37,7 +37,6 @@ setup(
         'Intended Audience :: Developers',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
@@ -60,10 +59,6 @@ setup(
         "six",
     ],
     extras_require={
-        ':python_version=="2.6"': [
-            'importlib',
-            'ipaddress',
-        ],
         ':python_version=="2.7"': [
             'ipaddress',
         ],

@@ -1,7 +1,7 @@
 # coding=utf-8
 
+from collections import Counter
 from functools import reduce
-from faker.shims import Counter
 import operator
 
 
