@@ -69,35 +69,6 @@ class FooProvider(object):
         return 'baz' + param + append
 
 
-class ShimsTestCase(unittest.TestCase):
-    def test_counter(self):
-        from faker.shims import Counter
-
-        result = Counter('abbb') + Counter('bcc')
-        self.assertEqual(result, Counter({'b': 4, 'c': 2, 'a': 1}))
-
-        result = Counter('abbbc') - Counter('bccd')
-        self.assertEqual(result, Counter({'b': 2, 'a': 1}))
-
-        result = Counter('abbb') | Counter('bcc')
-        self.assertEqual(result, Counter({'b': 3, 'c': 2, 'a': 1}))
-
-        result = Counter('abbb') & Counter('bcc')
-        self.assertEqual(result, Counter({'b': 1}))
-
-        result = sorted(Counter('abracadabra').most_common(3))
-        self.assertEqual(result, [('a', 5), ('b', 2), ('r', 2)])
-
-        result = sorted(Counter('ABCABC').elements())
-        self.assertEqual(result, ['A', 'A', 'B', 'B', 'C', 'C'])
-
-        counter = Counter('which')
-        counter.update('witch')
-        d = Counter('watch')
-        counter.update(d)
-        self.assertEqual(counter['h'], 4)
-
-
 class UtilsTestCase(unittest.TestCase):
     def test_choice_distribution(self):
         from faker.utils.distribution import choice_distribution
@@ -198,8 +169,8 @@ class FactoryTestCase(unittest.TestCase):
                          self.generator.get_formatter('foo_formatter'))
 
     def test_get_formatter_throws_exception_on_incorrect_formatter(self):
-        self.assertRaises(AttributeError,
-                          self.generator.get_formatter, 'barFormatter')
+        with self.assertRaises(AttributeError):
+            self.generator.get_formatter('barFormatter')
 
     def test_format_calls_formatter_on_provider(self):
         self.assertEqual('foobar', self.generator.format('foo_formatter'))
@@ -236,9 +207,8 @@ class FactoryTestCase(unittest.TestCase):
         print_doc('address', output=output)
         print_doc('faker.providers.person.it_IT', output=output)
         assert output.getvalue()
-        self.assertRaises(AttributeError,
-                          self.generator.get_formatter,
-                          'barFormatter')
+        with self.assertRaises(AttributeError):
+            self.generator.get_formatter('barFormatter')
 
     def test_command(self):
         from faker.cli import Command
@@ -339,16 +309,10 @@ class FactoryTestCase(unittest.TestCase):
         result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
         self.assertEqual(result, '1850/08/02 was a Friday')
         # test against certain formatting strings used on pre-1900 dates
-        # NOTE: the lambda approach in assertRaises is needed for Python 2.6
-        #       in 2.7 and 3.x we could also use:
-        #           with self.assertRaises(TypeError):
-        #               datetime_safe.date(1850, 8, 2).strftime('%s')
-        self.assertRaises(
-            TypeError,
-            lambda: datetime_safe.date(1850, 8, 2).strftime('%s'))
-        self.assertRaises(
-            TypeError,
-            lambda: datetime_safe.date(1850, 8, 2).strftime('%y'))
+        with self.assertRaises(TypeError):
+            datetime_safe.date(1850, 8, 2).strftime('%s')
+        with self.assertRaises(TypeError):
+            datetime_safe.date(1850, 8, 2).strftime('%y')
         # test using 29-Feb-2012 and escaped percentage sign
         result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
         self.assertEqual(result, r'2012-02-29 was a 100% Wednesday')
@@ -394,7 +358,8 @@ class FactoryTestCase(unittest.TestCase):
         datetime_end = datetime.datetime.fromtimestamp(timestamp_end, utc)
 
         random_date_naive = provider.date_time_between_dates(datetime_start, datetime_end)
-        self.assertRaises(TypeError, lambda: datetime_start <= random_date_naive)
+        with self.assertRaises(TypeError):
+            datetime_start <= random_date_naive
 
         random_date = provider.date_time_between_dates(datetime_start, datetime_end, utc)
         self.assertTrue(datetime_start <= random_date)
@@ -436,10 +401,14 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider
 
         # ensure all methods provide timezone aware datetimes
-        self.assertRaises(TypeError, lambda: provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now())
-        self.assertRaises(TypeError, lambda: provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.datetime.now())
-        self.assertRaises(TypeError, lambda: provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.datetime.now())
-        self.assertRaises(TypeError, lambda: provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.datetime.now())
+        with self.assertRaises(TypeError):
+            provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.datetime.now()
+        with self.assertRaises(TypeError):
+            provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.datetime.now()
+        with self.assertRaises(TypeError):
+            provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.datetime.now()
+        with self.assertRaises(TypeError):
+            provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.datetime.now()
 
         # test century
         self.assertTrue(provider.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.datetime.now(utc))
@@ -499,7 +468,8 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(any([in_string(char, password) for char in string.ascii_uppercase]))
             self.assertTrue(any([in_string(char, password) for char in string.ascii_lowercase]))
 
-        self.assertRaises(AssertionError, Provider.password, length=2)
+        with self.assertRaises(AssertionError):
+            Provider.password(length=2)
 
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
@@ -623,7 +593,8 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(sample, set())
 
         # Length = 0
-        self.assertRaises(ValueError, provider.random_sample_unique, 'abcde', 6)
+        with self.assertRaises(ValueError):
+            provider.random_sample_unique('abcde', 6)
 
 
 class GeneratorTestCase(unittest.TestCase):
