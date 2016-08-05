@@ -6,6 +6,7 @@ Changelog
 ---------------------------------------------------------------------------------
 
 * Add optional parameter `sex` to `profile` and `simple_profile`. Thanks @navyad.
+* Fix whitespace in dk_DK provider last_names/last_name. Thanks @iAndriy.
 
 `0.5.10 - 01-August-2016 <http://github.com/joke2k/faker/compare/v0.5.9...v0.5.10>`__
 ---------------------------------------------------------------------------------
