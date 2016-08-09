@@ -2,11 +2,13 @@
 Changelog
 =========
 
-`0.5.11 -TBD <http://github.com/joke2k/faker/compare/v0.5.10...v0.5.11>`__
----------------------------------------------------------------------------------
+`0.5.11 - 01-August-2016 <http://github.com/joke2k/faker/compare/v0.5.10...v0.5.11>`__
+--------------------------------------------------------------------------------------
 
 * Add optional parameter `sex` to `profile` and `simple_profile`. Thanks @navyad.
 * Fix whitespace in dk_DK provider last_names/last_name. Thanks @iAndriy.
+* Fix utf8 coding issue with ``address/fi_FI`` provider. Thanks @delneg.
+* ! Latest version to support Python 2.6
 
 `0.5.10 - 01-August-2016 <http://github.com/joke2k/faker/compare/v0.5.9...v0.5.10>`__
 ---------------------------------------------------------------------------------
