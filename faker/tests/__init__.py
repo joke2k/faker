@@ -13,6 +13,7 @@ import unittest
 import string
 import six
 import sys
+from collections import OrderedDict
 
 try:
     from mock import patch
@@ -280,12 +281,16 @@ class FactoryTestCase(unittest.TestCase):
         pick = provider.random_element(choices)
         self.assertTrue(pick in choices)
 
-        choices = {'a': 5, 'b': 2, 'c': 2, 'd':1 }
+        # dicts not allowed because they introduce dependency on PYTHONHASHSEED
+        with self.assertRaises(ValueError):
+            provider.random_element({})
+
+        choices = OrderedDict([('a', 5), ('b', 2), ('c', 2), ('d', 1)])
         pick = provider.random_element(choices)
         self.assertTrue(pick in choices)
 
 
-        choices = {'a': 0.5, 'b': 0.2, 'c': 0.2, 'd':0.1}
+        choices = OrderedDict([('a', 0.5), ('b', 0.2), ('c', 0.2), ('d', 0.1)])
         pick = provider.random_element(choices)
         self.assertTrue(pick in choices)
 

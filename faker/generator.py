@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from collections import OrderedDict
 import re
 import random
 
@@ -16,7 +17,7 @@ class Generator(object):
 
     def __init__(self, **config):
         self.providers = []
-        self.__config = dict(
+        self.__config = OrderedDict(
             list(self.__config.items()) + list(config.items()))
 
     def add_provider(self, provider):
