@@ -3,6 +3,8 @@
 import re
 import string
 
+from collections import OrderedDict
+
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 
 
@@ -178,6 +180,9 @@ class BaseProvider(object):
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False):
+        if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
+            raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
+
         fn = choices_distribution_unique if unique else choices_distribution
 
         if length is None:
@@ -208,10 +213,15 @@ class BaseProvider(object):
         """
         Returns a list of random, non-unique elements from a passed object.
 
-        If `elements` is a dictionary, the value will be used as
-        a weighting element. For example::
+        If `elements` is an OrderedDict, the value will be used as a weighting
+        element. For example::
 
-            random_element({"{{variable_1}}": 0.5, "{{variable_2}}": 0.2, "{{variable_3}}": 0.2, "{{variable_4}}": 0.1})
+            random_element(OrderedDict([
+                ("{{variable_1}}", 0.5),
+                ("{{variable_2}}", 0.2),
+                ("{{variable_3}}", 0.2),
+                ("{{variable_4}}": 0.1)
+            ])
 
         will have the following distribution:
             * `variable_1`: 50% probability
@@ -226,10 +236,15 @@ class BaseProvider(object):
         """
         Returns a random element from a passed object.
 
-        If `elements` is a dictionary, the value will be used as
-        a weighting element. For example::
+        If `elements` is an OrderedDict, the value will be used as a weighting
+        element. For example::
 
-            random_element({"{{variable_1}}": 0.5, "{{variable_2}}": 0.2, "{{variable_3}}": 0.2, "{{variable_4}}": 0.1})
+            random_element(OrderedDict([
+                ("{{variable_1}}", 0.5),
+                ("{{variable_2}}", 0.2),
+                ("{{variable_3}}", 0.2),
+                ("{{variable_4}}": 0.1)
+            ])
 
         will have the following distribution:
             * `variable_1`: 50% probability
@@ -238,6 +253,7 @@ class BaseProvider(object):
             * `variable_4`: 10% probability
 
         """
+
         return self.random_elements(elements, length=1)[0]
 
     def random_sample(self, elements=('a', 'b', 'c'), length=None):

@@ -1,5 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
+from collections import OrderedDict
+
 from .. import Provider as PersonProvider
 
 
@@ -9,13 +12,20 @@ class Provider(PersonProvider):
     # About 70% of the population are Estonians and about 25% are Russians
     est_rat = 0.7
     rus_rat = 1.0 - est_rat
-    formats = {'{{first_name_est}} {{last_name_est}}': est_rat,
-               '{{first_name_rus}} {{last_name_rus}}': rus_rat}
+    formats = OrderedDict([
+        ('{{first_name_est}} {{last_name_est}}', est_rat),
+        ('{{first_name_rus}} {{last_name_rus}}', rus_rat),
+    ])
 
-    formats_male = {'{{first_name_male_est}} {{last_name_est}}': est_rat,
-                    '{{first_name_male_rus}} {{last_name_rus}}': rus_rat}
-    formats_female = {'{{first_name_female_est}} {{last_name_est}}': est_rat,
-                      '{{first_name_female_rus}} {{last_name_rus}}': rus_rat}
+    formats_male = OrderedDict([
+        ('{{first_name_male_est}} {{last_name_est}}', est_rat),
+        ('{{first_name_male_rus}} {{last_name_rus}}', rus_rat),
+    ])
+
+    formats_female = OrderedDict([
+        ('{{first_name_female_est}} {{last_name_est}}', est_rat),
+        ('{{first_name_female_rus}} {{last_name_rus}}', rus_rat),
+    ])
 
     prefixes_neutral = ('doktor', 'dr', 'prof')
     prefixes_male = ('härra', 'hr') + prefixes_neutral
