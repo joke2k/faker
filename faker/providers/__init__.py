@@ -2,6 +2,7 @@
 
 import re
 import string
+from collections import OrderedDict
 
 from faker.generator import random
 from faker.utils.distribution import choice_distribution
@@ -94,10 +95,15 @@ class BaseProvider(object):
         """
         Returns a random element from a passed object.
 
-        If `elements` is a dictionary, the value will be used as
-        a weighting element. For example::
+        If `elements` is an OrderedDict, the value will be used as a weighting
+        element. For example::
 
-            random_element({"{{variable_1}}": 0.5, "{{variable_2}}": 0.2, "{{variable_3}}": 0.2, "{{variable_4}}": 0.1})
+            random_element(OrderedDict([
+                ("{{variable_1}}", 0.5),
+                ("{{variable_2}}", 0.2),
+                ("{{variable_3}}", 0.2),
+                ("{{variable_4}}": 0.1)
+            ])
 
         will have the following distribution:
             * `variable_1`: 50% probability
@@ -107,7 +113,9 @@ class BaseProvider(object):
 
         """
 
-        if isinstance(elements, dict):
+        if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
+            raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
+        elif isinstance(elements, OrderedDict):
             choices = elements.keys()
             probabilities = elements.values()
             return choice_distribution(list(choices), list(probabilities))
