@@ -353,7 +353,7 @@ class Provider(PersonProvider):
         'Bloch', 'Blümel', 'Bohlander', 'Bonbach', 'Bolander', 'Bolnbach',
         'Bolzmann', 'Börner', 'Bohnbach', 'Boucsein', 'Briemer', 'Bruder',
         'Buchholz', 'Budig', 'Butte', 'Carsten', 'Caspar', 'Christoph',
-        'Cichorius', 'Conradi', 'Davids', 'Dehmel', 'Dickhard', 'Dietz',
+        'Cichorius', 'Conradi', 'Davids', 'Dehmel', 'Dietz',
         'Dippel', 'Ditschlerin', 'Dobes', 'Döhn', 'Döring', 'Dörr', 'Dörschner',
         'Dowerg', 'Drewes', 'Drub', 'Drubin', 'Dussen van', 'Eberhardt',
         'Ebert', 'Eberth', 'Eckbauer', 'Ehlert', 'Eigenwillig', 'Eimer',
