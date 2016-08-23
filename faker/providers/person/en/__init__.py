@@ -745,7 +745,7 @@ class Provider(PersonProvider):
         'Destin', 'Destry', 'Devan', 'Devante', 'Devaughn', 'Deven', 'Devin',
         'Devon', 'Devonta', 'Devontae', 'Devonte', 'Devyn', 'Deward',
         'Dewayne', 'Dewey', 'Dewitt', 'Dexter', 'Diallo', 'Diamond', 'Diane',
-        'Dick', 'Dickie', 'Diego', 'Dijon', 'Dilan', 'Dillan', 'Dillard',
+        'Dickie', 'Diego', 'Dijon', 'Dilan', 'Dillan', 'Dillard',
         'Dillion', 'Dillon', 'Dimitri', 'Dimitrios', 'Dink', 'Dino', 'Dion',
         'Dionicio', 'Dionte', 'Dirk', 'Dixon', 'Doc', 'Dock', 'Doctor', 'Doll',
         'Dolph', 'Dolphus', 'Domenic', 'Domenick', 'Domenico', 'Domingo',
