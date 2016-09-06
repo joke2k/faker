@@ -369,17 +369,17 @@ class Provider(BaseProvider):
     @classmethod
     def date_time_this_century(cls, before_now=True, after_now=False, tzinfo=None):
         """
-        Gets a DateTime object for the decade year.
+        Gets a DateTime object for the current century.
 
-        :param before_now: include days in current decade before today
-        :param after_now: include days in current decade after today
+        :param before_now: include days in current century before today
+        :param after_now: include days in current century after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
         now = datetime.now(tzinfo)
-        this_century_start = datetime(now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
-        next_century_start = datetime(this_century_start.year + 10, 1, 1, tzinfo=tzinfo)
+        this_century_start = datetime(now.year - (now.year % 100), 1, 1, tzinfo=tzinfo)
+        next_century_start = datetime(this_century_start.year + 100, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return cls.date_time_between_dates(this_century_start, next_century_start, tzinfo)
