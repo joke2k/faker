@@ -7,6 +7,7 @@ Changelog
 
 * `date_time_this_century` now returns ``datetime``s outside the current decade. Thanks @JarUrb.
 * Add support for localized jobs for ``hr_HR``. Thanks @mislavcimpersak.
+* Adding support for Croatian ``hr_HR`` ssn (oib). Thanks @mislavcimpersak.
 
 `0.6.0 - 09-August-2016 <http://github.com/joke2k/faker/compare/v0.5.11...v0.6.0>`__
 ------------------------------------------------------------------------------------
