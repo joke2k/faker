@@ -4,7 +4,8 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_suffixes = ('-des-Bois', '-les-Bains', '-la-Ville', '-Dessus', 
+    city_suffixes = (
+        '-des-Bois', '-les-Bains', '-la-Ville', '-Dessus',
         '-Dessous', ' am Rhein', ' am See', ' am Albis', ' an der Aare'
     )
     city_prefixes = ('Saint ', 'Sainte ', 'San ', 'Ober', 'Unter')
@@ -49,15 +50,15 @@ class Provider(AddressProvider):
     )
 
     cantons = (
-        ('AG', 'Argovie'), ('AI', 'Appenzell Rhodes-Intérieures'), 
-        ('AR', 'Appenzell Rhodes-Extérieures'), ('BE', 'Berne'), 
+        ('AG', 'Argovie'), ('AI', 'Appenzell Rhodes-Intérieures'),
+        ('AR', 'Appenzell Rhodes-Extérieures'), ('BE', 'Berne'),
         ('BL', 'Bâle-Campagne'), ('BS', 'Bâle-Ville'), ('FR', 'Fribourg'),
         ('GE', 'Genève'), ('GL', 'Glaris'), ('GR', 'Grisons'), ('JU', 'Jura'),
-        ('LU', 'Lucerne'), ('NE', 'Neuchâtel'), ('NW', 'Nidwald'), 
-        ('OW', 'Obwald'), ('SG', 'Saint-Gall'), ('SH', 'Schaffhouse'), 
-        ('SO', 'Soleure'), ('SZ', 'Schwytz'), ('TG', 'Thurgovie'), 
+        ('LU', 'Lucerne'), ('NE', 'Neuchâtel'), ('NW', 'Nidwald'),
+        ('OW', 'Obwald'), ('SG', 'Saint-Gall'), ('SH', 'Schaffhouse'),
+        ('SO', 'Soleure'), ('SZ', 'Schwytz'), ('TG', 'Thurgovie'),
         ('TI', 'Tessin'), ('UR', 'Uri'), ('VD', 'Vaud'), ('VS', 'Valais'),
-        ('ZG', 'Zoug'), ('ZH', 'Zurich')
+        ('ZG', 'Zoug'), ('ZH', 'Zurich'),
     )
 
     countries = (
@@ -95,7 +96,7 @@ class Provider(AddressProvider):
         'Tokelau', 'Tonga', 'Trinité et Tobago', 'Tunisie', 'Turkménistan', 'Turks et Caïques (Îles)', 'Turquie',
         'Tuvalu', 'Ukraine', 'Uruguay', 'Vanuatu', 'Vatican (Etat du)', 'Venezuela', 'Vierges (Îles)',
         'Vierges britanniques (Îles)', 'Vietnam', 'Wallis et Futuna (Îles)', 'Yemen', 'Yougoslavie', 'Zambie', 'Zaïre',
-        'Zimbabwe'
+        'Zimbabwe',
     )
 
     @classmethod

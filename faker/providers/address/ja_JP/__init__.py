@@ -36,9 +36,7 @@ class Provider(AddressProvider):
         '台湾', 'タジキスタン共和国', 'タンザニア', 'タイ', '東ティモール', 'トーゴ', 'トケラウ', 'トンガ', 'トリニダード・トバゴ', 'チュニジア', 'トルコ', 'トルクメニスタン', 'タークス・カイコス諸島', 'ツバル',
         'ウガンダ', 'ウクライナ', 'アラブ首長国連邦', 'イギリス', 'アメリカ合衆国', '合衆国領有小離島', 'アメリカ領ヴァージン諸島', 'ウルグアイ', 'ウズベキスタン',
         'バヌアツ', 'ベネズエラ', 'ベトナム',
-'ウォリス・フツナ', '西サハラ',
-        'イエメン',
-        'ザンビア', 'ジンバブエ'
+        'ウォリス・フツナ', '西サハラ', 'イエメン', 'ザンビア', 'ジンバブエ',
     )
 
     prefectures = (
@@ -84,7 +82,7 @@ class Provider(AddressProvider):
     )
 
     building_names = (
-        'パレス', 'ハイツ', 'コーポ', 'アーバン', 'クレスト' , 'パーク', 'シティ' , 'シャルム', 'コート'
+        'パレス', 'ハイツ', 'コーポ', 'アーバン', 'クレスト', 'パーク', 'シティ', 'シャルム', 'コート',
     )
 
     @classmethod
@@ -113,21 +111,21 @@ class Provider(AddressProvider):
         """
         :example '1丁目'
         """
-        return "%d丁目" % random.randint(1,42)
+        return "%d丁目" % random.randint(1, 42)
 
     @classmethod
     def ban(cls):
         """
         :example '3番'
         """
-        return "%d番" % random.randint(1,27)
+        return "%d番" % random.randint(1, 27)
 
     @classmethod
     def gou(cls):
         """
         :example '10号'
         """
-        return "%d号" % random.randint(1,20)
+        return "%d号" % random.randint(1, 20)
 
     @classmethod
     def building_name(cls):
@@ -141,4 +139,4 @@ class Provider(AddressProvider):
         """
         :example '101-1212'
         """
-        return "%03d-%04d" % (random.randint(0,999), random.randint(0,9999))
+        return "%03d-%04d" % (random.randint(0, 999), random.randint(0, 9999))

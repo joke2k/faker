@@ -16,7 +16,7 @@ class Provider(PersonProvider):
     )
 
     first_names = (
-        'Alexander', 'Alina', 'Andreas',  'Anna', 'Anton',
+        'Alexander', 'Alina', 'Andreas', 'Anna', 'Anton',
         'Benjamin', 'Bernhard',
         'Christian', 'Christop',
         'Daniel', 'David', 'Dominik',
@@ -55,7 +55,7 @@ class Provider(PersonProvider):
         'Pichler', 'Pucher',
         'Reiter', 'Riegler',
         'Schmid', 'Schneider', 'Schuster', 'Schwarz', 'Stadler', 'Steiner',
-        'Wallner',  'Weber', 'Weiss', 'Wieser', 'Wimmer', 'Winkler', 'Winter', 'Wolf',
+        'Wallner', 'Weber', 'Weiss', 'Wieser', 'Wimmer', 'Winkler', 'Winter', 'Wolf',
     )
 
     prefixes = ('Dr.', 'Mag.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.')

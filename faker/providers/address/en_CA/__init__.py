@@ -5,8 +5,10 @@ from ..en import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
-    postal_code_letters = ('A','B','C','E','G','H','J',
-        'K','L','M','N','P','R','S','T','V','X','Y')
+    postal_code_letters = (
+        'A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S',
+        'T', 'V', 'X', 'Y',
+    )
 
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
 

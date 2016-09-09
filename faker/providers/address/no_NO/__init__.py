@@ -21,12 +21,12 @@ class Provider(AddressProvider):
     city_formats = [
         '{{first_name}}{{city_suffix}}', '{{last_name}}']
     street_name_formats = [
-        '{{last_name}}{{street_suffix}}', 
+        '{{last_name}}{{street_suffix}}',
     ]
-    street_address_formats = ['{{street_name}} {{building_number}}',]
-    address_formats = ['{{street_address}}, {{postcode}} {{city}}', ]
-    building_number_formats = ['#', '#', '#', '#?', '##', '##', '##?']
-    postcode_formats = ['####', ]
+    street_address_formats = ('{{street_name}} {{building_number}}',)
+    address_formats = ('{{street_address}}, {{postcode}} {{city}}',)
+    building_number_formats = ('#', '#', '#', '#?', '##', '##', '##?')
+    postcode_formats = ('####',)
 
     @classmethod
     def postcode(cls):
@@ -34,4 +34,3 @@ class Provider(AddressProvider):
         :example 0234
         """
         return cls.random_element(cls.postcode_formats)
-

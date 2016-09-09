@@ -7,11 +7,11 @@ from faker.generator import random
 
 class Provider(SsnProvider):
     ssn_formats = ("###.####.####.##",)
-    
+
     @classmethod
     def ssn(cls):
         """
-        Returns a 13 digits Swiss SSN named AHV (German) or 
+        Returns a 13 digits Swiss SSN named AHV (German) or
                                             AVS (French and Italian)
         See: http://www.bsv.admin.ch/themen/ahv/00011/02185/
         """
@@ -26,7 +26,7 @@ class Provider(SsnProvider):
         # determine the last digit to make it qualify the test
         digits.append(_checksum(digits))
         # repeat steps until it does qualify the test
-        
+
         digits = ''.join([str(d) for d in digits])
         ssn = digits[:3] + '.' \
                          + digits[3:7] + '.' \

@@ -1,6 +1,6 @@
 # coding=utf-8
-
 from __future__ import unicode_literals
+from collections import OrderedDict
 
 from faker.providers.date_time import Provider as DateTimeProvider
 from .. import BaseProvider
@@ -28,18 +28,18 @@ class Provider(BaseProvider):
     prefix_jcb15 = ['2100', '1800']
     prefix_voyager = ['8699']
 
-    credit_card_types = {
-        'maestro':      CreditCard('Maestro',           prefix_maestro, 12, security_code='CVV'),
-        'mastercard':   CreditCard('Mastercard',        prefix_mastercard, 16, security_code='CVV'),
-        'visa16':       CreditCard('VISA 16 digit',     prefix_visa),
-        'visa13':       CreditCard('VISA 13 digit',     prefix_visa, 13),
-        'amex':         CreditCard('American Express',  prefix_amex, 15, security_code='CID', security_code_length=4),
-        'discover':     CreditCard('Discover',          prefix_discover),
-        'diners':       CreditCard('Diners Club / Carte Blanche', prefix_diners, 14),
-        'jcb15':        CreditCard('JCB 15 digit',      prefix_jcb15, 15),
-        'jcb16':        CreditCard('JCB 16 digit',      prefix_jcb16),
-        'voyager':      CreditCard('Voyager',           prefix_voyager, 15),
-    }
+    credit_card_types = OrderedDict((
+        ('maestro',      CreditCard('Maestro',           prefix_maestro, 12, security_code='CVV')),
+        ('mastercard',   CreditCard('Mastercard',        prefix_mastercard, 16, security_code='CVV')),
+        ('visa16',       CreditCard('VISA 16 digit',     prefix_visa)),
+        ('visa13',       CreditCard('VISA 13 digit',     prefix_visa, 13)),
+        ('amex',         CreditCard('American Express',  prefix_amex, 15, security_code='CID', security_code_length=4)),
+        ('discover',     CreditCard('Discover',          prefix_discover)),
+        ('diners',       CreditCard('Diners Club / Carte Blanche', prefix_diners, 14)),
+        ('jcb15',        CreditCard('JCB 15 digit',      prefix_jcb15, 15)),
+        ('jcb16',        CreditCard('JCB 16 digit',      prefix_jcb16)),
+        ('voyager',      CreditCard('Voyager',           prefix_voyager, 15)),
+    ))
     credit_card_types['visa'] = credit_card_types['visa16']
     credit_card_types['jcb'] = credit_card_types['jcb16']
 
@@ -115,10 +115,9 @@ class Provider(BaseProvider):
         while pos < length - 1:
             tot += Provider.luhn_lookup[reverse[pos]]
             if pos != (length - 2):
-                tot += int(reverse[pos+1])
+                tot += int(reverse[pos + 1])
             pos += 2
         # Calculate check digit
         check_digit = (10 - (tot % 10)) % 10
         number += str(check_digit)
         return number
-
