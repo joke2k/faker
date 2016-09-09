@@ -65,7 +65,6 @@ class Provider(BaseProvider):
             return cls.random_element(cls.last_names_female)
         return cls.last_name()
 
-
     @classmethod
     def prefix(cls):
         if hasattr(cls, 'prefixes'):

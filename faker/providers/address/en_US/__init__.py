@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from collections import OrderedDict
 
 from ..en import Provider as AddressProvider
 from faker.generator import random
@@ -6,13 +7,13 @@ from faker.generator import random
 
 class Provider(AddressProvider):
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
-    
+
     city_suffixes = (
         'town', 'ton', 'land', 'ville', 'berg', 'burgh', 'borough', 'bury', 'view', 'port', 'mouth', 'stad', 'furt',
         'chester', 'mouth', 'fort', 'haven', 'side', 'shire')
-    
+
     building_number_formats = ('#####', '####', '###')
-    
+
     street_suffixes = (
         'Alley', 'Avenue', 'Branch', 'Bridge', 'Brook', 'Brooks', 'Burg', 'Burgs', 'Bypass', 'Camp', 'Canyon', 'Cape',
         'Causeway', 'Center', 'Centers', 'Circle', 'Circles', 'Cliff', 'Cliffs', 'Club', 'Common', 'Corner', 'Corners',
@@ -44,28 +45,28 @@ class Provider(AddressProvider):
         'Viaduct',
         'View', 'Views', 'Village', 'Village', 'Villages', 'Ville', 'Vista', 'Vista', 'Walk', 'Walks', 'Wall', 'Way',
         'Ways', 'Well', 'Wells')
-    
+
     postcode_formats = ('#####', '#####-####')
-    
+
     states = (
-        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
-        'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-        'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
-        'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma',
-        'Oregon',
-        'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia',
-        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming' )
-    
+        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
+        'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
+        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
+        'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+        'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
+        'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+        'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
+        'West Virginia', 'Wisconsin', 'Wyoming',
+    )
     states_abbr = (
-        'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN',
-        'IA',
-        'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
-        'NC',
-        'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA',
-        'WV',
-        'WI', 'WY')
+        'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL',
+        'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH',
+        'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM',
+        'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC',
+        'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY',
+    )
 
     military_state_abbr = ('AE', 'AA', 'AP')
 
@@ -74,7 +75,7 @@ class Provider(AddressProvider):
     military_apo_format = ("PSC ####, Box ####")
 
     military_dpo_format = ("Unit #### Box ####")
-    
+
     city_formats = (
         '{{city_prefix}} {{first_name}}{{city_suffix}}',
         '{{city_prefix}} {{first_name}}',
@@ -96,13 +97,13 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
     )
 
-    address_formats = {
-    "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}": 25,
-    #military address formatting.
-    "{{military_apo}}\nAPO {{military_state}} {{postcode}}": 1,
-    "{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}": 1,
-    "{{military_dpo}}\nDPO {{military_state}} {{postcode}}": 1
-    }
+    address_formats = OrderedDict((
+        ("{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}", 25),
+        #  military address formatting.
+        ("{{military_apo}}\nAPO {{military_state}} {{postcode}}", 1),
+        ("{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}", 1),
+        ("{{military_dpo}}\nDPO {{military_state}} {{postcode}}", 1),
+    ))
 
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
@@ -139,10 +140,10 @@ class Provider(AddressProvider):
 
     @classmethod
     def military_state(cls):
-         """
-         :example 'APO'
-         """
-         return cls.random_element(cls.military_state_abbr)
+        """
+        :example 'APO'
+        """
+        return cls.random_element(cls.military_state_abbr)
 
     @classmethod
     def military_apo(cls):
@@ -157,7 +158,6 @@ class Provider(AddressProvider):
         :example 'Unit 3333 Box 9342'
         """
         return cls.numerify(cls.military_dpo_format)
- 
 
     # Aliases
     @classmethod

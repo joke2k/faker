@@ -13,11 +13,11 @@ class Provider(BaseProvider):
             raise AssertionError("length can only be 8 or 13")
 
         if length == 8:
-            weights = [3,1,3,1,3,1,3]
+            weights = [3, 1, 3, 1, 3, 1, 3]
         elif length == 13:
-            weights = [1,3,1,3,1,3,1,3,1,3,1,3]
+            weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
 
-        weighted_sum = sum([x*y for x,y in zip(code,weights)])
+        weighted_sum = sum([x * y for x, y in zip(code, weights)])
         check_digit = (10 - weighted_sum % 10) % 10
         code.append(check_digit)
 
@@ -28,4 +28,3 @@ class Provider(BaseProvider):
 
     def ean13(self):
         return self.ean(13)
-

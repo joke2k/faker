@@ -7,8 +7,9 @@ from ..es import Provider as AddressProvider
 class Provider(AddressProvider):
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
     street_prefixes = (
-        'Plaza', 'Calle', 'Avenida', 'Via', 'Vial', 'Rambla', 'Glorieta', 'Urbanización', 'Callejón', 'Cañada',
-        'Alameda', 'Acceso', 'C.', 'Ronda', 'Pasaje', 'Cuesta', 'Pasadizo', 'Paseo', 'Camino'
+        'Plaza', 'Calle', 'Avenida', 'Via', 'Vial', 'Rambla', 'Glorieta',
+        'Urbanización', 'Callejón', 'Cañada', 'Alameda', 'Acceso', 'C.',
+        'Ronda', 'Pasaje', 'Cuesta', 'Pasadizo', 'Paseo', 'Camino',
     )
     postcode_formats = ('#####', )
     states = (
@@ -55,4 +56,3 @@ class Provider(AddressProvider):
     @classmethod
     def state(cls):
         return cls.random_element(cls.states)
-

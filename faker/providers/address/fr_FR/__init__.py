@@ -155,6 +155,3 @@ class Provider(AddressProvider):
         :example '59'
         """
         return cls.department()[0]
-
-
-

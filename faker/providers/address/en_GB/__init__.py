@@ -1,4 +1,6 @@
-from __future__ import unicode_literals 
+from __future__ import unicode_literals
+from collections import OrderedDict
+
 from ..en import Provider as AddressProvider
 
 
@@ -6,7 +8,8 @@ class Provider(AddressProvider):
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
     city_suffixes = (
         'town', 'ton', 'land', 'ville', 'berg', 'burgh', 'borough', 'bury', 'view', 'port', 'mouth', 'stad', 'furt',
-        'chester', 'mouth', 'fort', 'haven', 'side', 'shire')
+        'chester', 'mouth', 'fort', 'haven', 'side', 'shire',
+    )
     building_number_formats = ('#', '##', '###')
     street_suffixes = (
         'alley', 'avenue', 'branch', 'bridge', 'brook', 'brooks', 'burg', 'burgs', 'bypass', 'camp', 'canyon', 'cape',
@@ -68,16 +71,16 @@ class Provider(AddressProvider):
         'PND NEE',
     )
 
-    _postcode_sets = {
-        ' ': ' ',
-        'N': [str(i) for i in range(0, 10)],
-        'A': POSTAL_ZONES_ONE_CHAR,
-        'B': 'ABCDEFGHKLMNOPQRSTUVWXY',
-        'C': 'ABCDEFGHJKSTUW',
-        'D': 'ABEHMNPRVWXY',
-        'E': 'ABDEFGHJLNPQRSTUWXYZ',
-        'P': POSTAL_ZONES_TWO_CHARS,
-    }
+    _postcode_sets = OrderedDict((
+        (' ', ' '),
+        ('N', [str(i) for i in range(0, 10)]),
+        ('A', POSTAL_ZONES_ONE_CHAR),
+        ('B', 'ABCDEFGHKLMNOPQRSTUVWXY'),
+        ('C', 'ABCDEFGHJKSTUW'),
+        ('D', 'ABEHMNPRVWXY'),
+        ('E', 'ABDEFGHJLNPQRSTUWXYZ'),
+        ('P', POSTAL_ZONES_TWO_CHARS),
+    ))
 
     city_formats = (
         '{{city_prefix}} {{first_name}}{{city_suffix}}',

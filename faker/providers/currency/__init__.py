@@ -4,7 +4,7 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
-    currencies = [
+    currencies = (
         "AED",
         "AFN",
         "ALL",
@@ -168,7 +168,7 @@ class Provider(BaseProvider):
         "ZAR",
         "ZMW",
         "ZWD"
-    ]
+    )
 
     @classmethod
     def currency_code(cls):

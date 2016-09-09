@@ -1,6 +1,7 @@
 # coding=utf-8
-
 from __future__ import unicode_literals
+from collections import OrderedDict
+
 from .. import BaseProvider
 from ..lorem.la import Provider as WordProvider
 
@@ -109,16 +110,16 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types = {
-        'application': application_mime_types,
-        'audio': audio_mime_types,
-        'image': image_mime_types,
-        'message': message_mime_types,
-        'model': model_mime_types,
-        'multipart': multipart_mime_types,
-        'text': text_mime_types,
-        'video': video_mime_types
-    }
+    mime_types = OrderedDict((
+        ('application', application_mime_types),
+        ('audio', audio_mime_types),
+        ('image', image_mime_types),
+        ('message', message_mime_types),
+        ('model', model_mime_types),
+        ('multipart', multipart_mime_types),
+        ('text', text_mime_types),
+        ('video', video_mime_types),
+    ))
 
     audio_file_extensions = (
         "flac",
@@ -167,13 +168,13 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions = {
-        "audio": audio_file_extensions,
-        "image": image_file_extensions,
-        "office": office_file_extensions,
-        "text": text_file_extensions,
-        "video": video_file_extensions,
-    }
+    file_extensions = OrderedDict((
+        ("audio", audio_file_extensions),
+        ("image", image_file_extensions),
+        ("office", office_file_extensions),
+        ("text", text_file_extensions),
+        ("video", video_file_extensions),
+    ))
 
     @classmethod
     def mime_type(cls, category=None):
