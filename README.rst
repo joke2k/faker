@@ -28,7 +28,7 @@ Install with pip:
 
 .. code:: bash
 
-    pip install fake-factory
+    pip install Faker
 
 NOTE: On Sept 15th 2016, this package will be migrated to ``faker`` on Pypi. 
 For details, see this issue: https://github.com/joke2k/faker/issues/331
