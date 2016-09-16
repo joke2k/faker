@@ -13,7 +13,7 @@ NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 version = '0.6.0'
 
-package_name = 'fake-factory'
+package_name = 'Faker'
 
 if package_name == 'fake-factory':
     print("""WARNING:
