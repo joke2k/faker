@@ -34,7 +34,7 @@ Install with pip:
 
 .. code:: bash
 
-    pip install fake-factory
+    pip install Faker
 
 Use ``faker.Factory.create()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
