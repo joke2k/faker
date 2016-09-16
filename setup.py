@@ -11,7 +11,7 @@ README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
 NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
-version = '0.6.0'
+version = '0.7.0'
 
 package_name = 'Faker'
 
