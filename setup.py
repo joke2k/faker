@@ -3,6 +3,7 @@
 
 import os
 import io
+
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -11,6 +12,13 @@ NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
 version = '0.6.0'
+
+package_name = 'fake-factory'
+
+if package_name == 'fake-factory':
+    print("""WARNING:
+    The `fake-factory` package is being deprecated on December 15th, 2016.
+    Use the `faker` package instead.""")
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
@@ -23,7 +31,7 @@ except (ImportError, AttributeError):
     zip_safe = False
 
 setup(
-    name='fake-factory',
+    name=package_name,
     version=version,
     description="Faker is a Python package that generates fake data for you.",
     long_description=README + '\n\n' + NEWS,
