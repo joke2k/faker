@@ -288,6 +288,14 @@ class Provider(BaseProvider):
         return cls.date_time().strftime(pattern)
 
     @classmethod
+    def date_object(cls):
+        """
+        Get a date object between January 1, 1970 and now
+        :example datetime.date(2016, 9, 20)
+        """
+        return cls.date_time().date()
+
+    @classmethod
     def time(cls, pattern='%H:%M:%S'):
         """
         Get a time string (24h format by default)
@@ -295,6 +303,14 @@ class Provider(BaseProvider):
         :example '15:02:34'
         """
         return cls.date_time().time().strftime(pattern)
+
+    @classmethod
+    def time_object(cls):
+        """
+        Get a time object
+        :example datetime.time(15, 56, 56, 772876)
+        """
+        return cls.date_time().time()
 
     @classmethod
     def _parse_date_time(cls, text, tzinfo=None):
