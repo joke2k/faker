@@ -522,6 +522,21 @@ class FactoryTestCase(unittest.TestCase):
         characters = provider.pystr(min_chars=10, max_chars=255)
         self.assertTrue((len(characters) >= 10))
 
+    def test_random_pystr_unicode_characters(self):
+        from faker.providers.python import Provider
+        provider = Provider(None)
+
+        characters = provider.pystr_unicode()
+        self.assertEqual(len(characters), 20)
+        characters = provider.pystr_unicode(max_chars=255)
+        self.assertEqual(len(characters), 255)
+        characters = provider.pystr_unicode(max_chars=0)
+        self.assertEqual(characters, '')
+        characters = provider.pystr_unicode(max_chars=-10)
+        self.assertEqual(characters, '')
+        characters = provider.pystr_unicode(min_chars=10, max_chars=255)
+        self.assertTrue(len(characters) >= 10)
+
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 

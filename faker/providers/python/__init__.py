@@ -39,6 +39,20 @@ class Provider(BaseProvider):
             return "".join(cls.random_letter() for i in range(0, random.randint(min_chars, max_chars)))
 
     @classmethod
+    def pystr_unicode(cls, min_chars=None, max_chars=20):
+        """
+        Generates a random string of unicode characters.
+        :type min_chars: int
+        :type max_chars: int
+        :return: String. Random of random length between min and max characters.
+        """
+        if min_chars is None:
+            return "".join(cls.random_unicode_character() for i in range(max_chars))
+        else:
+            assert (max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
+            return "".join(cls.random_unicode_character() for i in range(0, random.randint(min_chars, max_chars)))
+
+    @classmethod
     def pyfloat(cls, left_digits=None, right_digits=None, positive=False):
         left_digits = left_digits or cls.random_int(1, sys.float_info.dig)
         right_digits = right_digits or cls.random_int(0, sys.float_info.dig - left_digits)

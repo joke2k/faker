@@ -1,7 +1,10 @@
 # coding=utf-8
 
 import re
+import six
 import string
+import sys
+import unicodedata
 
 from faker.generator import random
 from faker.utils.distribution import choice_distribution
@@ -88,6 +91,14 @@ class BaseProvider(object):
     def random_letter(cls):
         """Returns a random letter (between a-z and A-Z)."""
         return random.choice(getattr(string, 'letters', string.ascii_letters))
+
+    @classmethod
+    def random_unicode_character(cls):
+        """Returns a random unicode character."""
+        while True:
+            character = six.unichr(random.randint(1, sys.maxunicode))
+            if not unicodedata.category(character).startswith('C'): # Ignore Other category
+                return character
 
     @classmethod
     def random_element(cls, elements=('a', 'b', 'c')):
