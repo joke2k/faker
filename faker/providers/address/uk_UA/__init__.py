@@ -55,10 +55,10 @@ class Provider(AddressProvider):
         'Центральноафриканська Республіка', 'Чад', 'Чехія', 'Чилі',
         'Чорногорія', 'Швейцарія', 'Швеція', 'Шрі-Ланка', 'Ямайка', 'Японія'
     ]
-    street_prefixes = ['узвіз']
-    street_suffixes = [
+    street_prefixes = [
         'вулиця', 'проспект', 'майдан', 'набережна', 'бульвар', 'провулок'
     ]
+    street_suffixes = ['узвіз']
 
     @classmethod
     def city_prefix(cls):
