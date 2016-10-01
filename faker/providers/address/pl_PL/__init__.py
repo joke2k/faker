@@ -49,6 +49,10 @@ class Provider(AddressProvider):
         'Płońsk', 'Reda', 'Łaziska Górne', 'Środa Wielkopolska'
     )
 
+    street_prefixes = (
+        'ulica', 'aleja', 'plac',
+    )
+
     streets = (
         'Polna', 'Lesna', 'Sloneczna', 'Krótka', 'Szkolna', 'Ogrodowa',
         'Lipowa', 'Brzozowa', 'Lakowa', 'Kwiatowa', 'Sosnowa', 'Koscielna',
@@ -133,7 +137,20 @@ class Provider(AddressProvider):
         'Floriana', 'Hutnicza', 'Kielecka'
     )
 
+    building_number_formats = ('##', '###', "##/##",)
     postcode_formats = ('##-###',)
+    street_address_formats = (
+        '{{street_prefix}} {{street_name}} {{building_number}}',
+        '{{street_prefix_short}} {{street_name}} {{building_number}}',
+    )
+
+    @classmethod
+    def street_prefix(cls):
+        return cls.random_element(cls.street_prefixes)
+
+    @classmethod
+    def street_prefix_short(cls):
+        return cls.random_element(cls.street_prefixes)[:2]+'.'
 
     @classmethod
     def street_name(cls):
