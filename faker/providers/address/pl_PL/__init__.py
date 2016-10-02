@@ -137,25 +137,58 @@ class Provider(AddressProvider):
         'Floriana', 'Hutnicza', 'Kielecka'
     )
 
+    regions = (
+        "Dolnośląskie", "Kujawsko - pomorskie", "Lubelskie", "Lubuskie",
+        "Łódzkie", "Małopolskie", "Mazowieckie", "Opolskie", "Podkarpackie",
+        "Podlaskie", "Pomorskie", "Śląskie", "Świętokrzyskie",
+        "Warmińsko - mazurskie", "Wielkopolskie", "Zachodniopomorskie",
+    )
+
     building_number_formats = ('##', '###', "##/##",)
     postcode_formats = ('##-###',)
     street_address_formats = (
         '{{street_prefix}} {{street_name}} {{building_number}}',
         '{{street_prefix_short}} {{street_name}} {{building_number}}',
     )
+    address_formats = (
+        "{{street_address}}\n{{postcode}} {{city}}",
+    )
 
     @classmethod
     def street_prefix(cls):
+        """
+        Randomly returns a street prefix
+        :example 'aleja'
+        """
         return cls.random_element(cls.street_prefixes)
 
     @classmethod
     def street_prefix_short(cls):
+        """
+        Randomly returns an abbreviation of the street prefix.
+        :example 'al.'
+        """
         return cls.random_element(cls.street_prefixes)[:2]+'.'
 
     @classmethod
     def street_name(cls):
+        """
+        Randomly returns a street name
+        :example 'Wróblewskiego'
+        """
         return cls.random_element(cls.streets)
 
     @classmethod
     def city(cls):
+        """
+        Randomly returns a street name
+        :example 'Konin'
+        """
         return cls.random_element(cls.cities)
+
+    @classmethod
+    def region(cls):
+        """
+        :example 'Wielkopolskie'
+        """
+        return cls.random_element(cls.regions)
