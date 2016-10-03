@@ -5,6 +5,8 @@ from collections import OrderedDict
 from .. import Provider as PersonProvider
 
 class Provider(PersonProvider):
+    middle_names = []
+
     formats_male = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.97),
         ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.03),
@@ -258,3 +260,19 @@ class Provider(PersonProvider):
     prefixes_male = ('г-н.', 'тов.')
 
     prefixes_female = ('г-жа', 'тов.')
+
+    @classmethod
+    def middle_name(cls):
+        return cls.random_element(cls.middle_names)
+
+    @classmethod
+    def middle_name_male(cls):
+        if hasattr(cls, 'middle_names_male'):
+            return cls.random_element(cls.middle_names_male)
+        return cls.middle_name()
+
+    @classmethod
+    def middle_name_female(cls):
+        if hasattr(cls, 'middle_names_female'):
+            return cls.random_element(cls.middle_names_female)
+        return cls.middle_name()

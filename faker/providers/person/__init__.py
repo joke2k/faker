@@ -10,8 +10,6 @@ class Provider(BaseProvider):
 
     last_names = ['Doe', ]
 
-    middle_names = []
-
     def name(self):
         """
         :example 'John Doe'
@@ -26,10 +24,6 @@ class Provider(BaseProvider):
     @classmethod
     def last_name(cls):
         return cls.random_element(cls.last_names)
-
-    @classmethod
-    def middle_name(cls):
-        return cls.random_element(cls.middle_names)
 
     def name_male(self):
         if hasattr(self, 'formats_male'):
@@ -70,18 +64,6 @@ class Provider(BaseProvider):
         if hasattr(cls, 'last_names_female'):
             return cls.random_element(cls.last_names_female)
         return cls.last_name()
-
-    @classmethod
-    def middle_name_male(cls):
-        if hasattr(cls, 'middle_names_male'):
-            return cls.random_element(cls.middle_names_male)
-        return cls.middle_name()
-
-    @classmethod
-    def middle_name_female(cls):
-        if hasattr(cls, 'middle_names_female'):
-            return cls.random_element(cls.middle_names_female)
-        return cls.middle_name()
 
     @classmethod
     def prefix(cls):
