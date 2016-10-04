@@ -5,8 +5,6 @@ from collections import OrderedDict
 from .. import Provider as PersonProvider
 
 class Provider(PersonProvider):
-    middle_names = []
-
     formats_male = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.97),
         ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.03),
