@@ -4,6 +4,30 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
+    """Korea has two address and postal code system.
+
+    ## Address
+
+    - Address based on land parcel numbers (지번 주소, OLD, but someone use consistently)
+    - Address based on road names and building numbers (도로명 주소, NEW)
+
+    :meth:`land_address` generate Address based on land parcel numbers and
+    :meth:`road_address` generate Address based on road names and building numbers.
+
+    ## Postal code
+
+    - Old postal code (6-digit, OLD and dead)
+    - New postal code (5-digit, New)
+
+    :meth:`old_postal_code` and :method:`postcode` generate old 6-digit code and
+    :meth:`postal_code` generate newer 5-digit code.
+
+    ## Reference
+
+    - [Official Confirmation Prividing that Old and New Addresses are Identical](https://www.juso.go.kr/addridentity/AddrIdentityHelp.htm) (warn: cert error)
+
+    """
+
     building_suffixes = (
         '빌라',
         '아파트',
