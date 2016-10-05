@@ -36,7 +36,7 @@ class Provider(AddressProvider):
         '타운',
         '타워',
     )
-    street_suffixes = ('로', '거리')
+    road_suffixes = ('로', '길', '거리')
     town_suffixes = ('동', '리', '마을')
     postcode_formats = ('###-###',)
     new_postal_code_formats = ('#####',)
@@ -114,29 +114,29 @@ class Provider(AddressProvider):
         '의정부시',
         '여주시',
     )
-    street_names = (
-        '압구정로',
-        '도산대로',
-        '학동로',
-        '봉은사로',
-        '테헤란로',
-        '역삼로',
-        '논현로',
-        '언주로',
-        '강남대로',
-        '양재천로',
-        '삼성로',
-        '영동대로',
-        '개포로',
-        '선릉로',
-        '반포대로',
-        '서초중앙로',
-        '서초대로',
-        '잠실로',
-        '석촌호수로',
-        '백제고분로',
-        '가락로',
-        '오금로',
+    road_names = (
+        '압구정',
+        '도산대',
+        '학동',
+        '봉은사',
+        '테헤란',
+        '역삼',
+        '논현',
+        '언주',
+        '강남대',
+        '양재천',
+        '삼성',
+        '영동대',
+        '개포',
+        '선릉',
+        '반포대',
+        '서초중앙',
+        '서초대',
+        '잠실',
+        '석촌호수',
+        '백제고분',
+        '가락',
+        '오금',
     )
     boroughs = (
         '종로구',
@@ -212,6 +212,11 @@ class Provider(AddressProvider):
         '###-#',
         '###-##',
     )
+    road_numbers = (
+        '#',
+        '##',
+        '###',
+    )
 
     town_formats = (
         '{{first_name}}{{last_name}}{{town_suffix}}',
@@ -226,14 +231,15 @@ class Provider(AddressProvider):
         '{{building_name}} ###호',
         '{{building_name}} {{building_dong}}동 ###호',
     )
-    street_name_formats = (
-        '{{street_names}}',
+    road_formats = (
+        '{{road_name}}{{road_suffix}}',
+        '{{road_name}}{{road_number}}{{road_suffix}}',
     )
     road_address_formats = (
-        '{{metropolitan_city}} {{borough}} {{street_name}}',
-        '{{province}} {{city}} {{street_name}}',
-        '{{metropolitan_city}} {{borough}} {{street_name}} ({{town}})',
-        '{{province}} {{city}} {{street_name}} ({{town}})',
+        '{{metropolitan_city}} {{borough}} {{road}}',
+        '{{province}} {{city}} {{road}}',
+        '{{metropolitan_city}} {{borough}} {{road}} ({{town}})',
+        '{{province}} {{city}} {{road}} ({{town}})',
     )
     land_address_formats = (
         '{{metropolitan_city}} {{borough}} {{town}} {{land_number}}',
@@ -255,6 +261,13 @@ class Provider(AddressProvider):
         pattern = self.random_element(self.land_address_formats)
         return self.generator.parse(pattern)
 
+    @classmethod
+    def road_number(cls):
+        """
+        :example 24
+        """
+        return cls.bothify(cls.random_element(cls.road_numbers))
+
     def road_address(self):
         """
         :example 세종특별자치시 도움5로 19 (어진동)
@@ -270,12 +283,26 @@ class Provider(AddressProvider):
             self.address_detail_formats))
         return self.generator.parse(pattern)
 
-    def street_name(self):
+    def road(self):
         """
         :example 도움5로
         """
-        pattern = self.random_element(self.street_names)
+        pattern = self.random_element(self.road_formats)
         return self.generator.parse(pattern)
+
+    @classmethod
+    def road_name(cls):
+        """
+        :example 압구정
+        """
+        return cls.random_element(cls.road_names)
+
+    @classmethod
+    def road_suffix(cls):
+        """
+        :example 길
+        """
+        return cls.random_element(cls.road_suffixes)
 
     @classmethod
     def metropolitan_city(cls):
