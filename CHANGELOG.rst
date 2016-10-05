@@ -2,6 +2,17 @@
 Changelog
 =========
 
+`0.7.4 - TBD <http://github.com/joke2k/faker/compare/v0.7.3...v0.7.4>`__
+------------------------------------------------------------------------
+
+* Add Ukrainian ``address`` provider. Thanks @illia-v.
+* Add Ukrainian ``internet`` provider. Thanks @illia-v.
+* Middle name support for ``person.ru_RU`` provider. Thanks @zeal18.
+* Add ``address``, ``company``, ``internet`` ans ``SSN`` provider for ``ru_RU``. Thanks @zeal18.
+* Improved ``address.pl_PL`` provider. Thanks @pkisztelinski.
+* Add date and time object providers. Thanks @jtojnar.
+* Refactor Korean address methods. Thanks @item4.
+
 `0.7.3 - 16-September-2016 <http://github.com/joke2k/faker/compare/v0.6.0...v0.7.3>`__
 --------------------------------------------------------------------------------------
 
