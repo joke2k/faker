@@ -333,6 +333,18 @@ class FactoryTestCase(unittest.TestCase):
         self.assertFalse(provider.iso8601().endswith('+00:00'))
         self.assertTrue(provider.iso8601(utc).endswith('+00:00'))
 
+    def test_date_object(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        self.assertIsInstance(provider.date_object(), datetime.date)
+
+    def test_time_object(self):
+        from faker.providers.date_time import Provider
+        provider = Provider
+
+        self.assertIsInstance(provider.time_object(), datetime.time)
+
     def test_date_time_between_dates(self):
         from faker.providers.date_time import Provider
         provider = Provider
