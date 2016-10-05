@@ -36,7 +36,7 @@ class Provider(AddressProvider):
         '타운',
         '타워',
     )
-    road_suffixes = ('로', '길', '거리')
+    road_suffixes = ('로', '길', '거리', '가')
     town_suffixes = ('동', '리', '마을')
     postcode_formats = ('###-###',)
     new_postal_code_formats = ('#####',)
