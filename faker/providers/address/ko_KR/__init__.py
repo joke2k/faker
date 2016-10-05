@@ -252,7 +252,6 @@ class Provider(AddressProvider):
         :example 507
         """
         return cls.bothify(cls.random_element(cls.land_numbers))
-        return self.generator.parse(pattern)
 
     def land_address(self):
         """
