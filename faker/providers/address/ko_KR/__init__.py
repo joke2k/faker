@@ -246,6 +246,13 @@ class Provider(AddressProvider):
         '{{province}} {{city}} {{town}} {{land_number}}',
     )
 
+    # Keep backward compatibility
+    city_suffixes = ('시',)
+    street_suffixes = road_suffixes
+    street_name_formats = ('{{road_name}}',)
+    street_address_formats = road_address_formats
+    address_formats = road_address_formats
+
     @classmethod
     def land_number(cls):
         """
