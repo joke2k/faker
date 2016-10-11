@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
 from faker.generator import random
-from __builtin__ import str
 from faker.providers.date_time import Provider as DateProvider
 from faker.providers import BaseProvider
 
