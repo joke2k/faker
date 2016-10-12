@@ -535,6 +535,34 @@ class FactoryTestCase(unittest.TestCase):
             self.assertNotEqual(ssn[4:6], '00')
             self.assertNotEqual(ssn[7:11], '0000')
 
+    def test_nl_BE_ssn_valid(self):
+        from faker.providers.ssn.nl_BE import Provider
+        
+        def own_checkdigit_calc(digits):
+            res = 97 - (digits % 97)
+            return res
+
+        provider = Provider(None)
+        
+        for i in range (1000):
+            ssn = provider.ssn()
+            self.assertEqual(len(ssn), 11)
+            generated_ssn_base = ssn[0:6]
+            generated_seq = ssn[6:9]
+            generated_chksum = ssn[9:10]
+            generated_ssn_base_as_int = int(generated_ssn_base)
+            generated_seq_as_int = int(generated_seq)
+            generated_chksum_as_int = int(generated_chksum)
+            # Check that the sequence nr is between 1 inclusive and 998 inclusive
+            self.assertGreaterThan(generated_seq_as_int,0)
+            self.assertLessEqual(generated_seq_as_int, 998)
+            # validate checksum calculation
+            if generated_ssn_base[0] in ('7','8','9'):
+                chksum = own_check_digit_calc(generated_ssn_base_as_int)
+            else:
+                chksum = own_check_digit_calc(generated_ssn_base_as_int + 2000000000)
+            self.assertEqual(chksum,generated_chksum_as_int)
+            
     def test_email(self):
         from faker import Factory
 
@@ -627,4 +655,5 @@ class GeneratorTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    print 'Starting the tests ...'
     unittest.main()
