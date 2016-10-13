@@ -44,9 +44,10 @@ class Provider(SsnProvider):
             above = False
         # Only keep the last 2 digits of the year
         elms[0] = elms[0][2:4]
-        # Simulate the gender/sequence
+        # Simulate the gender/sequence - should be 3 digits
         seq = BaseProvider.random_int(1,998)
-        elms.append(str(seq))
+        # Right justify sequence and append to list
+        elms.append(str(seq).rjust(3,0))
         date_as_int = int("".join(elms))
         if above:
             date_as_int += 2000000000
