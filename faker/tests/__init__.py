@@ -537,10 +537,6 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_nl_BE_ssn_valid(self):
         from faker.providers.ssn.nl_BE import Provider
-        
-        def own_checkdigit_calc(digits):
-            res = 97 - (digits % 97)
-            return res
 
         provider = Provider(None)
         
@@ -549,7 +545,7 @@ class FactoryTestCase(unittest.TestCase):
             self.assertEqual(len(ssn), 11)
             generated_ssn_base = ssn[0:6]
             generated_seq = ssn[6:9]
-            generated_chksum = ssn[9:10]
+            generated_chksum = ssn[9:11]
             generated_ssn_base_as_int = int(generated_ssn_base)
             generated_seq_as_int = int(generated_seq)
             generated_chksum_as_int = int(generated_chksum)
@@ -557,10 +553,9 @@ class FactoryTestCase(unittest.TestCase):
             self.assertGreaterThan(generated_seq_as_int,0)
             self.assertLessEqual(generated_seq_as_int, 998)
             # validate checksum calculation
-            if generated_ssn_base[0] in ('7','8','9'):
-                chksum = own_check_digit_calc(generated_ssn_base_as_int)
-            else:
-                chksum = own_check_digit_calc(generated_ssn_base_as_int + 2000000000)
+            if generated_ssn_base[0] not in ('7','8','9'):
+                generated_ssn_base_as_int += 2000000000
+            chksum = 97 - (generated_ssn_base_as_int % 97)
             self.assertEqual(chksum,generated_chksum_as_int)
             
     def test_email(self):
