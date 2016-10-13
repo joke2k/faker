@@ -47,7 +47,8 @@ class Provider(SsnProvider):
         # Simulate the gender/sequence - should be 3 digits
         seq = BaseProvider.random_int(1,998)
         # Right justify sequence and append to list
-        elms.append(str(seq).rjust(3,0))
+        seq_str = str(seq)
+        elms.append(seq_str.rjust(3,"0"))
         date_as_int = int("".join(elms))
         if above:
             date_as_int += 2000000000
