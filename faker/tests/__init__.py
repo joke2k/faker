@@ -550,7 +550,7 @@ class FactoryTestCase(unittest.TestCase):
             generated_seq_as_int = int(generated_seq)
             generated_chksum_as_int = int(generated_chksum)
             # Check that the sequence nr is between 1 inclusive and 998 inclusive
-            self.assertGreaterThan(generated_seq_as_int,0)
+            self.assertGreater(generated_seq_as_int,0)
             self.assertLessEqual(generated_seq_as_int, 998)
             # validate checksum calculation
             if generated_ssn_base[0] not in ('7','8','9'):
