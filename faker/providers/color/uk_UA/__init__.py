@@ -8,7 +8,7 @@ from .. import Provider as ColorProvider
 
 class Provider(ColorProvider):
     # Source: uk.wikipedia.org/wiki/Список_кольорів
-    all_colors = OrderedDict(
+    all_colors = OrderedDict((
         ('Абрикосовий', '#FBCEB1'),
         ('Аквамариновий', '#7FFFD4'),
         ('Алізариновий червоний', '#E32636'),
@@ -215,4 +215,4 @@ class Provider(ColorProvider):
         ('Ясно-вишневий', '#DE3163'),
         ('Ясно-лазуровий', '#007FFF'),
         ('Ясно-лазуровий (веб)', '#F0FFFF')
-    )
+    ))
