@@ -542,6 +542,9 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(None)
         
         logging.basicConfig(level=logging.INFO)
+        console = logging.StreamHandler()
+        console.setLevel(logging.INFO)
+        logging.getLogger('').addHandler(console)
         
         for i in range (1000):
             ssn = provider.ssn()
