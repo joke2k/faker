@@ -55,6 +55,7 @@ class Provider(SsnProvider):
             date_as_int += 2000000000
         # Generate checksum
         s = _checksum(date_as_int)
+        s_rjust = "{:0>2}".format(s)
         # return result as a string
-        elms += str(s)
+        elms.append(s_rjust)
         return "".join(elms)
