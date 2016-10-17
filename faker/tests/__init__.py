@@ -565,11 +565,11 @@ class FactoryTestCase(unittest.TestCase):
             
             # validate checksum calculation
             # Since the century is not part of ssn, try both below and above year 2000
-            ssn_below = gen_ssn_base_as_int + gen_seq_as_int
+            ssn_below = int(ssn[0:9])
             chksum_below = 97 - (ssn_below % 97)
             #logging.info("ssn below= {0}, chksum {1}".format(ssn_below,chksum_below))
             print ("ssn below %d, chksum %d", ssn_below, chksum_below)
-            ssn_above = gen_ssn_base_as_int + gen_seq_as_int + 2000000000
+            ssn_above = ssn_below + 2000000000
             chksum_above = 97 - (ssn_above % 97)
             #logging.info("ssn above= {0}, chksum {1}".format(ssn_above,chksum_above))
             print ("ssn above %d, chksum %d", ssn_above, chksum_above)
