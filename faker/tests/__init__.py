@@ -543,20 +543,26 @@ class FactoryTestCase(unittest.TestCase):
         for i in range (1000):
             ssn = provider.ssn()
             self.assertEqual(len(ssn), 11)
-            generated_ssn_base = ssn[0:6]
-            generated_seq = ssn[6:9]
-            generated_chksum = ssn[9:11]
-            generated_ssn_base_as_int = int(generated_ssn_base)
-            generated_seq_as_int = int(generated_seq)
-            generated_chksum_as_int = int(generated_chksum)
+            gen_ssn_base = ssn[0:6]
+            gen_seq = ssn[6:9]
+            gen_chksum = ssn[9:11]
+            gen_ssn_base_as_int = int(gen_ssn_base)
+            gen_seq_as_int = int(gen_seq)
+            gen_chksum_as_int = int(gen_chksum)
+            
             # Check that the sequence nr is between 1 inclusive and 998 inclusive
-            self.assertGreater(generated_seq_as_int,0)
-            self.assertLessEqual(generated_seq_as_int, 998)
+            self.assertGreater(gen_seq_as_int,0)
+            self.assertLessEqual(gen_seq_as_int, 998)
+            
             # validate checksum calculation
-            if generated_ssn_base[0] not in ('7','8','9'):
-                generated_ssn_base_as_int += 2000000000
-            chksum = 97 - (generated_ssn_base_as_int % 97)
-            self.assertEqual(chksum,generated_chksum_as_int)
+            # Since the century is not part of ssn, try both below and above year 2000
+            ssn_below = gen_ssn_base_as_int + gen_seq_as_int
+            chksum_below = 97 - (ssn_below % 97)
+            ssn_above = gen_ssn_base_as_int + gen_seq_as_int + 2000000000
+            chksum_above = 97 - (ssn_above % 97)
+            if not (gen_chksum_as_int == chksum_below or gen_chksum_as_int == chksum_above):
+                self.Fail("Checksum doesn't match. Got {1}, expected {2} or {3}".format(
+                    gen_chksum_as_int,chksum_above,chksum_below))
             
     def test_email(self):
         from faker import Factory
@@ -650,5 +656,4 @@ class GeneratorTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    print 'Starting the tests ...'
     unittest.main()
