@@ -541,15 +541,8 @@ class FactoryTestCase(unittest.TestCase):
 
         provider = Provider(None)
         
-        logging.basicConfig(level=logging.INFO)
-        console = logging.StreamHandler()
-        console.setLevel(logging.INFO)
-        logging.getLogger('').addHandler(console)
-        
         for i in range (1000):
             ssn = provider.ssn()
-            #logging.info("Generated ssn: {0}".format(ssn))
-            print(ssn)
             self.assertEqual(len(ssn), 11)
             gen_ssn_base = ssn[0:6]
             gen_seq = ssn[6:9]
@@ -557,8 +550,6 @@ class FactoryTestCase(unittest.TestCase):
             gen_ssn_base_as_int = int(gen_ssn_base)
             gen_seq_as_int = int(gen_seq)
             gen_chksum_as_int = int(gen_chksum)
-            #logging.info("base {0}, seq {1}".format(gen_ssn_base,gen_seq))
-            print ("base %s, seq %s ", gen_ssn_base, gen_seq)
             # Check that the sequence nr is between 1 inclusive and 998 inclusive
             self.assertGreater(gen_seq_as_int,0)
             self.assertLessEqual(gen_seq_as_int, 998)
@@ -567,12 +558,8 @@ class FactoryTestCase(unittest.TestCase):
             # Since the century is not part of ssn, try both below and above year 2000
             ssn_below = int(ssn[0:9])
             chksum_below = 97 - (ssn_below % 97)
-            #logging.info("ssn below= {0}, chksum {1}".format(ssn_below,chksum_below))
-            print ("ssn below %d, chksum %d", ssn_below, chksum_below)
             ssn_above = ssn_below + 2000000000
             chksum_above = 97 - (ssn_above % 97)
-            #logging.info("ssn above= {0}, chksum {1}".format(ssn_above,chksum_above))
-            print ("ssn above %d, chksum %d", ssn_above, chksum_above)
             results = [ chksum_above, chksum_below ]
             self.assertIn(gen_chksum_as_int,results)
             
