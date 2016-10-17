@@ -560,9 +560,8 @@ class FactoryTestCase(unittest.TestCase):
             chksum_below = 97 - (ssn_below % 97)
             ssn_above = gen_ssn_base_as_int + gen_seq_as_int + 2000000000
             chksum_above = 97 - (ssn_above % 97)
-            if not (gen_chksum_as_int == chksum_below or gen_chksum_as_int == chksum_above):
-                self.Fail("Checksum doesn't match. Got {1}, expected {2} or {3}".format(
-                    gen_chksum_as_int,chksum_above,chksum_below))
+            results = [ chksum_above, chksum_below ]
+            self.assertIn(gen_chksum_as_int,results)
             
     def test_email(self):
         from faker import Factory
