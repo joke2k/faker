@@ -363,8 +363,8 @@ Credits
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 
-.. |pypi| image:: https://img.shields.io/pypi/v/fake-factory.svg?style=flat-square&label=version
-    :target: https://pypi.python.org/pypi/fake-factory
+.. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
+    :target: https://pypi.python.org/pypi/Faker
     :alt: Latest version released on PyPi
 
 .. |coverage| image:: https://img.shields.io/coveralls/joke2k/faker/master.svg?style=flat-square
