@@ -5,8 +5,8 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     """
-    Koran Address Provider
-    ======================
+    Korean Address Provider
+    =======================
 
     Korea has two address and postal code system.
 
