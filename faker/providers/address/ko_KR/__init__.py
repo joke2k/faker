@@ -61,7 +61,7 @@ class Provider(AddressProvider):
         '대전광역시',
         '울산광역시',
         '세종특별자치시',
-    );
+    )
     provinces = (
         '경기도',
         '강원도',
