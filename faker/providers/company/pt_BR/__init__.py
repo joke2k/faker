@@ -1,6 +1,24 @@
 # coding=utf-8
 from __future__ import unicode_literals
+import random
 from .. import Provider as CompanyProvider
+
+
+def company_id_checksum(digits):
+    digits = list(digits)
+    weights = 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2
+
+    dv = sum(w * d for w, d in zip(weights[1:], digits))
+    dv = (11 - dv) % 11
+    dv = 0 if dv >= 10 else dv
+    digits.append(dv)
+
+    dv2 = sum(w * d for w, d in zip(weights, digits))
+    dv2 = (11 - dv2) % 11
+    dv2 = 0 if dv2 >= 10 else dv2
+    digits.append(dv2)
+
+    return digits[-2:]
 
 
 class Provider(CompanyProvider):
@@ -62,3 +80,15 @@ class Provider(CompanyProvider):
         catch_phrase = self.generator.parse(pattern)
         catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
         return catch_phrase
+
+    @classmethod
+    def company_id(cls):
+        digits = random.sample(range(10), 8) + [0, 0, 0, 1]
+        digits += company_id_checksum(digits)
+        return ''.join(str(d) for d in digits)
+
+    @classmethod
+    def cnpj(cls):
+        digits = cls.company_id()
+        return '{}.{}.{}/{}-{}'.format(digits[:2], digits[2:5], digits[5:8],
+                                       digits[8:12], digits[12:])
