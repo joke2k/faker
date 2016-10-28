@@ -1,6 +1,5 @@
 # coding=utf-8
 from __future__ import unicode_literals
-import random
 from .. import Provider as CompanyProvider
 
 
@@ -83,7 +82,7 @@ class Provider(CompanyProvider):
 
     @classmethod
     def company_id(cls):
-        digits = random.sample(range(10), 8) + [0, 0, 0, 1]
+        digits = cls.random_sample(range(10), 8) + [0, 0, 0, 1]
         digits += company_id_checksum(digits)
         return ''.join(str(d) for d in digits)
 
