@@ -38,6 +38,8 @@ class Provider(BaseProvider):
     url_formats = (
         'http://www.{{domain_name}}/',
         'http://{{domain_name}}/',
+        'https://www.{{domain_name}}/',
+        'https://{{domain_name}}/',
     )
     uri_formats = (
         '{{url}}',
