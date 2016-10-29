@@ -51,7 +51,7 @@ class Provider(BaseProvider):
     image_placeholder_services = (
         'https://placeholdit.imgix.net/~text?txtsize=55&txt={width}×{height}&w={width}&h={height}',
         'http://www.lorempixel.com/{width}/{height}',
-        'http://dummyimage.com/{width}x{height}',
+        'https://dummyimage.com/{width}x{height}',
      )
 
     replacements = tuple()
