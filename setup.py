@@ -15,11 +15,6 @@ version = '0.7.3'
 
 package_name = 'Faker'
 
-if package_name == 'fake-factory':
-    print("""WARNING:
-    The `fake-factory` package is being deprecated on December 15th, 2016.
-    Use the `faker` package instead.""")
-
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
 try:
