@@ -14,16 +14,16 @@ Welcome to Faker's documentation!
     _|      _|    _|  _|  _|    _|        _|
     _|        _|_|_|  _|    _|    _|_|_|  _|
 
+*Faker* is a Python package that generates fake data for you. Whether
+you need to bootstrap your database, create good-looking XML documents,
+fill-in your persistence to stress test it, or anonymize data taken from
+a production service, Faker is for you.
 
-*Faker* is a Python package that generates fake data for you. Whether you need to bootstrap your database,
-create good-looking XML documents, fill-in your persistence to stress test it, or anonymize data taken from a production service,
-Faker is for you.
-
-Faker is heavily inspired by PHP's `Faker <https://github.com/fzaninotto/Faker>`_, Perl's `Data::Faker <http://search.cpan.org/~jasonk/Data-Faker-0.07/>`_, and by ruby's `Faker <http://faker.rubyforge.org/>`_.
+Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-|pypi| |unix_build| |windows_build| |coverage| |downloads| |license|
+|pypi| |unix_build| |windows_build| |coverage| |license|
 
 ----
 
@@ -35,6 +35,7 @@ Install with pip:
 .. code:: bash
 
     pip install Faker
+
 
 Use ``faker.Factory.create()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
@@ -146,7 +147,9 @@ Included localized providers:
 -  `fi\_FI <https://faker.readthedocs.io/en/master/locales/fi_FI.html>`__ - Finnish
 -  `fr\_FR <https://faker.readthedocs.io/en/master/locales/fr_FR.html>`__ - French
 -  `hi\_IN <https://faker.readthedocs.io/en/master/locales/hi_IN.html>`__ - Hindi
+-  `hr\_HR <https://faker.readthedocs.io/en/master/locales/hr_HR.html>`__ - Croatian
 -  `it\_IT <https://faker.readthedocs.io/en/master/locales/it_IT.html>`__ - Italian
+-  `ja\_JP <https://faker.readthedocs.io/en/master/locales/ja_JP.html>`__ - Japanese
 -  `ko\_KR <https://faker.readthedocs.io/en/master/locales/ko_KR.html>`__ - Korean
 -  `lt\_LT <https://faker.readthedocs.io/en/master/locales/lt_LT.html>`__ - Lithuanian
 -  `lv\_LV <https://faker.readthedocs.io/en/master/locales/lv_LV.html>`__ - Latvian
@@ -157,10 +160,10 @@ Included localized providers:
 -  `pt\_BR <https://faker.readthedocs.io/en/master/locales/pt_BR.html>`__ - Portuguese (Brazil)
 -  `pt\_PT <https://faker.readthedocs.io/en/master/locales/pt_PT.html>`__ - Portuguese (Portugal)
 -  `ru\_RU <https://faker.readthedocs.io/en/master/locales/ru_RU.html>`__ - Russian
--  `sk\_SK <https://faker.readthedocs.io/en/master/locales/sk_SK.html>`__ - Slovak
 -  `sl\_SI <https://faker.readthedocs.io/en/master/locales/sl_SI.html>`__ - Slovene
 -  `sv\_SE <https://faker.readthedocs.io/en/master/locales/sv_SE.html>`__ - Swedish
 -  `tr\_TR <https://faker.readthedocs.io/en/master/locales/tr_TR.html>`__ - Turkish
+-  `uk\_UA <https://faker.readthedocs.io/en/master/locales/uk_UA.html>`__ - Ukrainian
 -  `zh\_CN <https://faker.readthedocs.io/en/master/locales/zh_CN.html>`__ - Chinese (China)
 -  `zh\_TW <https://faker.readthedocs.io/en/master/locales/zh_TW.html>`__ - Chinese (Taiwan)
 
@@ -174,7 +177,8 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
-          [fake [fake ...]]
+          [-i {module.containing.custom_provider othermodule.containing.custom_provider}]
+          [fake] [fake argument [fake argument ...]]
 
 Where:
 
@@ -195,12 +199,13 @@ Where:
 -  ``-s SEP``: will generate the specified separator after each
    generated output
 
+-  ``-i {my.custom_provider other.custom_provider}`` list of additional custom providers to use.
+   Note that is the import path of the module containing your Provider class, not the custom Provider class itself.
+
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
 
--  ``[fake ...]``: is an optional comma-separated list of field names to
-   pass to the fake, such as ``ssn,birthday`` when the ``profile`` fake
-   is used
+-  ``[fake argument ...]``: optional arguments to pass to the fake (e.g. the profile fake takes an optional list of comma separated field names as the first argument)
 
 Examples:
 
@@ -218,12 +223,9 @@ Examples:
     {'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}
 
     $ faker -r=3 -s=";" name
-    Willam Kertzmann
-    ;
-    Josiah Maggio
-    ;
-    Gayla Schmitt
-    ;
+    Willam Kertzmann;
+    Josiah Maggio;
+    Gayla Schmitt;
 
 How to create a Provider
 ------------------------
@@ -310,6 +312,12 @@ The code above is equivalent to the following:
 Tests
 -----
 
+Installing dependencies:
+
+.. code:: bash
+
+    $ pip install -r faker/tests/requirements.txt
+
 Run tests:
 
 .. code:: bash
@@ -356,11 +364,13 @@ Credits
 .. _Buildout: http://www.buildout.org/
 .. _modern-package-template: http://pypi.python.org/pypi/modern-package-template
 .. _extended docs: https://faker.readthedocs.io/en/latest/
+.. _bundled providers: https://faker.readthedocs.io/en/latest/providers.html
+.. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 
-.. |pypi| image:: https://img.shields.io/pypi/v/fake-factory.svg?style=flat-square&label=version
-    :target: https://pypi.python.org/pypi/fake-factory
+.. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
+    :target: https://pypi.python.org/pypi/Faker
     :alt: Latest version released on PyPi
 
 .. |coverage| image:: https://img.shields.io/coveralls/joke2k/faker/master.svg?style=flat-square
@@ -374,10 +384,6 @@ Credits
 .. |windows_build|  image:: https://img.shields.io/appveyor/ci/joke2k/faker.svg?style=flat-square&label=windows%20build
     :target: https://ci.appveyor.com/project/joke2k/faker
     :alt: Build status of the master branch on Windows
-
-.. |downloads| image:: https://img.shields.io/pypi/dm/fake-factory.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/fake-factory
-    :alt: Monthly downloads
 
 .. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://raw.githubusercontent.com/joke2k/faker/master/LICENSE.txt
