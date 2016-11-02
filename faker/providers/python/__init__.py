@@ -40,6 +40,12 @@ class Provider(BaseProvider):
 
     @classmethod
     def pyfloat(cls, left_digits=None, right_digits=None, positive=False):
+        if left_digits is not None and left_digits <= 0:
+            raise ValueError('A float number cannot have less than 1 digit in '
+                             'integer part')
+        if right_digits is not None and right_digits <= 0:
+            raise ValueError('A float number should have fractional part')
+
         left_digits = left_digits or cls.random_int(1, sys.float_info.dig)
         right_digits = right_digits or cls.random_int(0, sys.float_info.dig - left_digits)
         sign = 1 if positive or cls.random_int(0, 1) else -1
