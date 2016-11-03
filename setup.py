@@ -57,7 +57,7 @@ setup(
     keywords='faker fixtures data test mock generator',
     author='joke2k',
     author_email='joke2k@gmail.com',
-    url='http://github.com/joke2k/faker',
+    url='https://github.com/joke2k/faker',
     license='MIT License',
     packages=find_packages(),
     platforms=["any"],

@@ -26,5 +26,5 @@ Name Lists
 When you have long lists of names, please order them alphabetically. Keep the lines length as close as possible to 80 characters, without exceeding the limit.
 
 
-.. _`pep 8`: http://legacy.python.org/dev/peps/pep-0008/
-.. _`pep 263`: http://legacy.python.org/dev/peps/pep-0263/
+.. _`pep 8`: https://python.org/dev/peps/pep-0008
+.. _`pep 263`: https://python.org/dev/peps/pep-0263
