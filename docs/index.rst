@@ -360,9 +360,9 @@ Credits
 .. _PHP Faker: https://github.com/fzaninotto/Faker
 .. _Perl Faker: http://search.cpan.org/~jasonk/Data-Faker-0.07/
 .. _Ruby Faker: http://faker.rubyforge.org/
-.. _Distribute: http://pypi.python.org/pypi/distribute
+.. _Distribute: https://pypi.python.org/pypi/distribute
 .. _Buildout: http://www.buildout.org/
-.. _modern-package-template: http://pypi.python.org/pypi/modern-package-template
+.. _modern-package-template: https://pypi.python.org/pypi/modern-package-template
 .. _extended docs: https://faker.readthedocs.io/en/latest/
 .. _bundled providers: https://faker.readthedocs.io/en/latest/providers.html
 .. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html

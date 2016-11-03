@@ -54,7 +54,6 @@ Submitting Changes
 Additional Resources
 ====================
 
--  `General GitHub documentation <http://help.github.com/>`__
+-  `General GitHub documentation <https://help.github.com>`__
 -  `GitHub pull request
-   documentation <http://help.github.com/send-pull-requests/>`__
-
+   documentation <https://help.github.com/articles/about-pull-requests>`__
