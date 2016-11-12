@@ -11,8 +11,7 @@ class Provider(PersonProvider):
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
-    # got from
-    # http://uk.wikipedia.org/wiki/%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D1%96_%D1%96%D0%BC%D0%B5%D0%BD%D0%B0
+    # Source: uk.wikipedia.org/wiki/Українські_імена
     first_names_male = (
         'Аарон', 'Августин', 'Аврелій', 'Адам', 'Азар', 'Алевтин', 'Альберт', 'Амвросій', 'Андрій', 'Антон', 'Аркадій',
         'Арсен', 'Артем', 'Орхип', 'Богдан', 'Богодар', 'Богуслав', 'Болеслав', 'Борис', 'Борислав', 'Вадим',
@@ -40,8 +39,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    # Ukrainian last names are taken from
-    # http://uk.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D1%96%D1%8F:%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D1%96_%D0%BF%D1%80%D1%96%D0%B7%D0%B2%D0%B8%D1%89%D0%B0
+    # Source: uk.wikipedia.org/wiki/Категорія:Українські_прізвища
     last_names = (
         # А
         'Абрагамовський', 'Абраменко', 'Абрамчук', 'Авдєєнко', 'Аверченко', 'Авраменко', 'Аврамчук', 'Адаменко',
