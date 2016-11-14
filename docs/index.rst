@@ -43,31 +43,30 @@ the type of data you want.
 
 .. code:: python
 
+    from faker import Factory
+    fake = Factory.create()
 
-        from faker import Factory
-        fake = Factory.create()
+    # OR
+    from faker import Faker
+    fake = Faker()
 
-        # OR
-        from faker import Faker
-        fake = Faker()
+    fake.name()
+    # 'Lucy Cechtelar'
 
-        fake.name()
-        # 'Lucy Cechtelar'
+    fake.address()
+    # "426 Jordy Lodge
+    #  Cartwrightshire, SC 88120-6700"
 
-        fake.address()
-        # "426 Jordy Lodge
-        #  Cartwrightshire, SC 88120-6700"
-
-        fake.text()
-        # Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
-        # beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
-        # amet quidem. Iusto deleniti cum autem ad quia aperiam.
-        # A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
-        # quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
-        # voluptatem sit aliquam. Dolores voluptatum est.
-        # Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
-        # Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
-        # Et sint et. Ut ducimus quod nemo ab voluptatum.
+    fake.text()
+    # Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
+    # beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
+    # amet quidem. Iusto deleniti cum autem ad quia aperiam.
+    # A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
+    # quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
+    # voluptatem sit aliquam. Dolores voluptatum est.
+    # Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
+    # Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
+    # Et sint et. Ut ducimus quod nemo ab voluptatum.
 
 Each call to method ``fake.name()`` yields a different (random) result.
 This is because faker forwards ``faker.Generator.method_name()`` calls
@@ -75,20 +74,19 @@ to ``faker.Generator.format(method_name)``.
 
 .. code:: python
 
-
-    for _ in range(0,10):
+    for _ in range(0, 10):
       print fake.name()
 
-        # Adaline Reichel
-        # Dr. Santa Prosacco DVM
-        # Noemy Vandervort V
-        # Lexi O'Conner
-        # Gracie Weber
-        # Roscoe Johns
-        # Emmett Lebsack
-        # Keegan Thiel
-        # Wellington Koelpin II
-        # Ms. Karley Kiehn V
+    # Adaline Reichel
+    # Dr. Santa Prosacco DVM
+    # Noemy Vandervort V
+    # Lexi O'Conner
+    # Gracie Weber
+    # Roscoe Johns
+    # Emmett Lebsack
+    # Keegan Thiel
+    # Wellington Koelpin II
+    # Ms. Karley Kiehn V
 
 Providers
 ---------
@@ -111,7 +109,7 @@ default en\_US locale.
 
     from faker import Factory
     fake = Factory.create('it_IT')
-    for _ in range(0,10):
+    for _ in range(0, 10):
         print fake.name()
 
     > Elda Palumbo
@@ -256,17 +254,17 @@ How to use with factory-boy
 .. code:: python
 
     import factory
-    from faker import Factory as FakerFactory
+    from faker import Faker
     from myapp.models import Book
 
-    faker = FakerFactory.create()
+    fake = Faker()
 
 
     class Book(factory.Factory):
         FACTORY_FOR = Book
 
-        title = factory.LazyAttribute(lambda x: faker.sentence(nb_words=4))
-        author_name = factory.LazyAttribute(lambda x: faker.name())
+        title = factory.LazyAttribute(lambda x: fake.sentence(nb_words=4))
+        author_name = factory.LazyAttribute(lambda x: fake.name())
 
 Accessing the `random` instance
 -------------------------------
@@ -304,7 +302,7 @@ The code above is equivalent to the following:
 
     from faker import Faker
     fake = Faker()
-    faker.random.seed(4321)
+    fake.random.seed(4321)
 
     print fake.name()
     > Margaret Boehm
