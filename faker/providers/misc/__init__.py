@@ -86,8 +86,9 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
-    def locale(self):
-        return self.language_code() + '_' + self.country_code()
+    @classmethod
+    def locale(cls):
+        return cls.language_code() + '_' + cls.country_code()
 
     @classmethod
     def country_code(cls):
