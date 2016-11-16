@@ -13,25 +13,65 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
-    # Language codes from ISO 639-1
-    language_codes = (
-        'aa', 'ab', 'ae', 'af', 'ak', 'am', 'an', 'ar', 'as', 'av', 'ay', 'az',
-        'ba', 'be', 'bg', 'bh', 'bi', 'bm', 'bn', 'bo', 'br', 'bs', 'ca', 'ce',
-        'ch', 'co', 'cr', 'cs', 'cu', 'cv', 'cy', 'da', 'de', 'dv', 'dz', 'ee',
-        'el', 'en', 'eo', 'es', 'et', 'eu', 'fa', 'ff', 'fi', 'fj', 'fo', 'fr',
-        'fy', 'ga', 'gd', 'gl', 'gn', 'gu', 'gv', 'ha', 'he', 'hi', 'ho', 'hr',
-        'ht', 'hu', 'hy', 'hz', 'ia', 'id', 'ie', 'ig', 'ii', 'ik', 'io', 'is',
-        'it', 'iu', 'ja', 'jv', 'ka', 'kg', 'ki', 'kj', 'kk', 'kl', 'km', 'kn',
-        'ko', 'kr', 'ks', 'ku', 'kv', 'kw', 'ky', 'la', 'lb', 'lg', 'li', 'ln',
-        'lo', 'lt', 'lu', 'lv', 'mg', 'mh', 'mi', 'mk', 'ml', 'mn', 'mr', 'ms',
-        'mt', 'my', 'na', 'nb', 'nd', 'ne', 'ng', 'nl', 'nn', 'no', 'nr', 'nv',
-        'ny', 'oc', 'oj', 'om', 'or', 'os', 'pa', 'pi', 'pl', 'ps', 'pt', 'qu',
-        'rm', 'rn', 'ro', 'ru', 'rw', 'sa', 'sc', 'sd', 'se', 'sg', 'si', 'sk',
-        'sl', 'sm', 'sn', 'so', 'sq', 'sr', 'ss', 'st', 'su', 'sv', 'sw', 'ta',
-        'te', 'tg', 'th', 'ti', 'tk', 'tl', 'tn', 'to', 'tr', 'ts', 'tt', 'tw',
-        'ty', 'ug', 'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa', 'wo', 'xh', 'yi',
-        'yo', 'za', 'zh', 'zu'
-    )
+    # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`
+    language_locale_codes = {
+        'aa': ('DJ', 'ER', 'ET'), 'af': ('ZA',), 'ak': ('GH',), 'am': ('ET',),
+        'an': ('ES',), 'apn': ('IN',),
+        'ar': ('AE', 'BH', 'DZ', 'EG', 'IN', 'IQ', 'JO', 'KW', 'LB', 'LY',
+               'MA', 'OM', 'QA', 'SA', 'SD', 'SS', 'SY', 'TN', 'YE'),
+        'as': ('IN',), 'ast': ('ES',), 'ayc': ('PE',), 'az': ('AZ', 'IN'),
+        'be': ('BY',), 'bem': ('ZM',), 'ber': ('DZ', 'MA'), 'bg': ('BG',),
+        'bhb': ('IN',), 'bho': ('IN',), 'bn': ('BD', 'IN'), 'bo': ('CN', 'IN'),
+        'br': ('FR',), 'brx': ('IN',), 'bs': ('BA',), 'byn': ('ER',),
+        'ca': ('AD', 'ES', 'FR', 'IT'), 'ce': ('RU'), 'ckb': ('IQ',),
+        'cmn': ('TW',), 'crh': ('UA',), 'cs': ('CZ',), 'csb': ('PL',),
+        'cv': ('RU',), 'cy': ('GB',), 'da': ('DK',),
+        'de': ('AT', 'BE', 'CH', 'DE', 'LI', 'LU'), 'doi': ('IN',),
+        'dv': ('MV',), 'dz': ('BT',), 'el': ('GR', 'CY'),
+        'en': ('AG', 'AU', 'BW', 'CA', 'DK', 'GB', 'HK', 'IE', 'IN', 'NG',
+               'NZ', 'PH', 'SG', 'US', 'ZA', 'ZM', 'ZW'),
+        'eo': ('US',),
+        'es': ('AR', 'BO', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'ES', 'GT',
+               'HN', 'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'US', 'UY', 'VE'
+               ), 'et': ('EE',), 'eu': ('ES', 'FR'), 'fa': ('IR',),
+        'ff': ('SN',), 'fi': ('FI',), 'fil': ('PH',), 'fo': ('FO',),
+        'fr': ('CA', 'CH', 'FR', 'LU'), 'fur': ('IT'), 'fy': ('NL', 'DE'),
+        'ga': ('IE',), 'gd': ('GB',), 'gez': ('ER', 'ET'), 'gl': ('ES',),
+        'gu': ('IN',), 'gv': ('GB',), 'ha': ('NG',), 'hak': ('TW',),
+        'he': ('IL',), 'hi': ('IN',), 'hne': ('IN',), 'hr': ('hr',),
+        'hsb': ('DE',), 'ht': ('HT',), 'hu': ('HU',), 'hy': ('AM',),
+        'ia': ('FR',), 'id': ('ID',), 'ig': ('NG',), 'ik': ('CA',),
+        'is': ('IS',), 'it': ('CH', 'IT'), 'iu': ('CA',), 'iw': ('IL',),
+        'ja': ('JP',), 'ka': ('GE',), 'kk': ('KZ',), 'kl': ('GL',),
+        'km': ('KH',), 'kn': ('IN',), 'ko': ('KR',), 'kok': ('IN',),
+        'ks': ('IN',), 'ku': ('TR',), 'kw': ('GB',), 'ky': ('KG',),
+        'lb': ('LU',), 'lg': ('UG',), 'li': ('BE', 'NL'), 'lij': ('IT',),
+        'ln': ('CD',), 'lo': ('LA',), 'lt': ('LT',), 'lv': ('LV',),
+        'lzh': ('TW',), 'mag': ('IN',), 'mai': ('IN',), 'mg': ('MG',),
+        'mhr': ('RU',), 'mi': ('NZ',), 'mk': ('MK',), 'ml': ('IN',),
+        'mn': ('MN',), 'mni': ('IN',), 'mr': ('IN',), 'ms': ('MY',),
+        'mt': ('MT',), 'my': ('MM',), 'nan': ('TW',), 'nb': ('NO',),
+        'nds': ('DE', 'NL'), 'ne': ('NP',), 'nhn': ('MX',),
+        'niu': ('NU', 'NZ'), 'nl': ('AW', 'BE', 'NL'), 'nn': ('NO',),
+        'nr': ('ZA',), 'nso': ('ZA',), 'oc': ('FR',), 'om': ('ET', 'KE'),
+        'or': ('IN',), 'os': ('RU',), 'pa': ('IN', 'PK'),
+        'pap': ('AN', 'AW', 'CW'), 'pl': ('PL',), 'ps': ('AF',),
+        'pt': ('BR', 'PT'), 'quz': ('PE',), 'raj': ('IN',), 'ro': ('RO',),
+        'ru': ('RU', 'UA'), 'rw': ('RW',), 'sa': ('IN',), 'sat': ('IN',),
+        'sc': ('IT',), 'sd': ('IN', 'PK'), 'se': ('NO',), 'shs': ('CA',),
+        'si': ('LK',), 'sid': ('ET',), 'sk': ('SK',), 'sl': ('SI',),
+        'so': ('DJ', 'ET', 'KE', 'SO'), 'sq': ('AL', 'ML'), 'sr': ('ME', 'RS'),
+        'ss': ('ZA',), 'st': ('ZA',), 'sv': ('FI', 'SE'), 'sw': ('KE', 'TZ'),
+        'szl': ('PL',), 'ta': ('IN', 'LK'), 'tcy': ('IN',), 'te': ('IN',),
+        'tg': ('TJ',), 'th': ('TH',), 'the': ('NP',), 'ti': ('ER', 'ET'),
+        'tig': ('ER',), 'tk': ('TM',), 'tl': ('PH',), 'tn': ('ZA',),
+        'tr': ('CY', 'TR'), 'ts': ('ZA',), 'tt': ('RU',), 'ug': ('CN',),
+        'uk': ('UA',), 'unm': ('US',), 'ur': ('IN', 'PK'), 'uz': ('UZ',),
+        've': ('ZA',), 'vi': ('VN',), 'wa': ('BE',), 'wae': ('CH',),
+        'wal': ('ET',), 'wo': ('SN',), 'xh': ('ZA',), 'yi': ('US',),
+        'yo': ('NG',), 'yue': ('HK',), 'zh': ('CN', 'HK', 'SG', 'TW'),
+        'zu': ('ZA',)
+    }
 
     @classmethod
     def boolean(cls, chance_of_getting_true=50):
@@ -88,7 +128,10 @@ class Provider(BaseProvider):
 
     @classmethod
     def locale(cls):
-        return cls.language_code() + '_' + cls.country_code()
+        language_code = cls.language_code()
+        return language_code + '_' + cls.random_element(
+            cls.language_locale_codes[language_code]
+        )
 
     @classmethod
     def country_code(cls):
@@ -96,7 +139,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def language_code(cls):
-        return cls.random_element(cls.language_codes)
+        return cls.random_element(cls.language_locale_codes.keys())
 
     @classmethod
     def uuid4(cls):
