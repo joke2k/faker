@@ -465,7 +465,14 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             language_code = Provider.language_code()
             self.assertTrue(isinstance(language_code, string_types))
-            Factory.create(locale=language_code)
+            self.assertTrue(re.match(r'^[a-z]{2,3}$', language_code))
+
+    def test_locale(self):
+        from faker.providers.misc import Provider
+
+        for _ in range(99):
+            locale = Provider.locale()
+            self.assertTrue(re.match(r'^[a-z]{2,3}_[A-Z]{2}$', locale))
 
     def test_password(self):
         from faker.providers.misc import Provider
