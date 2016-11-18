@@ -12,6 +12,16 @@ Changelog
 * Improved ``address.pl_PL`` provider. Thanks @pkisztelinski.
 * Add date and time object providers. Thanks @jtojnar.
 * Refactor Korean address methods. Thanks @item4.
+* Add provider for locale `nl_BE` (address, phone, ssn). Thanks @vema.
+* Add additional job titles. Thanks @wontonst.
+* Add Ukrainian color provider. Thanks @illia-v.
+* Add support to brazilian company IDs (CNPJ). Thanks @lamenezes.
+* Improve the Internet provider. Thanks@illia-v.
+* Improve the Ukrainian person provider. Thanks @illia-v.
+* Improve some SSN providers. Thanks @illia-v.
+* Improve code samples in `README.rst` and `docs/index.rst`. Thanks @illia-v.
+* Improve the method `locale`. Thanks @illia-v.
+* Fix `pyfloat`. Thanks @illia-v.
 
 `0.7.3 - 16-September-2016 <https://github.com/joke2k/faker/compare/v0.6.0...v0.7.3>`__
 --------------------------------------------------------------------------------------
