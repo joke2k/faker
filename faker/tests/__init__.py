@@ -535,14 +535,13 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(None)
 
         self.assertTrue(0 <= abs(provider.pyfloat(left_digits=1)) < 10)
+        self.assertTrue(0 <= abs(provider.pyfloat(left_digits=0)) < 1)
+        x=abs(provider.pyfloat(right_digits=0))
+        self.assertTrue(x-int(x) == 0)
         with self.assertRaises(ValueError,
-                               msg='A float number cannot have less than 1 '
-                               'digit in integer part'):
-            provider.pyfloat(left_digits=0)
-        with self.assertRaises(ValueError,
-                               msg='A float number should have fractional '
-                               'part'):
-            provider.pyfloat(right_digits=0)
+                               msg='A float number cannot have 0 digits '
+                               'in total'):
+            provider.pyfloat(left_digits=0, right_digits=0)
 
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
