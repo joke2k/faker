@@ -31,7 +31,7 @@ class Provider(PersonProvider):
     ]
 
     first_names_female = [
-        "Nudžejma", "Amina", "Lamija", "Sara", "Asja", "Emina", "Lejla", 
+        "Aysel", "Nudžejma", "Amina", "Lamija", "Sara", "Asja", "Emina", "Lejla", 
         "Merjem", "Esma", "Ajla", "Nejla", "Adna", "Hana", "Ema", "Ajša", 
         "Ajna", "Amna", "Sajra", "Ilma", "Iman", "Lana", "Marija", "Amila", 
         "Nejra", "Ana", "Petra", "Ena", "Nedžla", "Mia", "Ajlin", "Dalila", 
