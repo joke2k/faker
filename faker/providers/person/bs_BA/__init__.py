@@ -4,13 +4,13 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = ['{{first_name}} {{last_name}}', ]
-    
-     """
+    """
     The names used here are the top 100 names released by the Federal statistics institute
     in Bosnia and Herzegovina, available at 
     * http://fzs.ba/index.php/2016/05/29/najcesca-dodjeljivana-imena-novorodene-djece-u-2015-godini/
     """
+
+    formats = ['{{first_name}} {{last_name}}', ]
 
     first_names_male = [
         "Ahmet", "Amar", "Alen", "Adin", "Vedad", "Ahmed", "Tarik", 
