@@ -8,7 +8,6 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
-NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
 version = '0.7.5'
@@ -34,7 +33,7 @@ setup(
     name=package_name,
     version=version,
     description="Faker is a Python package that generates fake data for you.",
-    long_description=README + '\n\n' + NEWS,
+    long_description=README,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
     },
