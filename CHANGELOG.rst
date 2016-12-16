@@ -2,8 +2,8 @@
 Changelog
 =========
 
-`0.7.4 - TBD <https://github.com/joke2k/faker/compare/v0.7.3...v0.7.4>`__
-------------------------------------------------------------------------
+`0.7.4 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.3...v0.7.4>`__
+--------------------------------------------------------------------------------------
 
 * Add Ukrainian ``address`` provider. Thanks @illia-v.
 * Add Ukrainian ``internet`` provider. Thanks @illia-v.
@@ -22,6 +22,8 @@ Changelog
 * Improve code samples in `README.rst` and `docs/index.rst`. Thanks @illia-v.
 * Improve the method `locale`. Thanks @illia-v.
 * Fix `pyfloat`. Thanks @illia-v.
+* Allow left/right_digits=0 for pyfloat. Thanks @mnalt.
+* update fa_IR person names and phone numbers. Thanks @aminalaee.
 
 `0.7.3 - 16-September-2016 <https://github.com/joke2k/faker/compare/v0.6.0...v0.7.3>`__
 --------------------------------------------------------------------------------------
