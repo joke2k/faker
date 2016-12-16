@@ -2,6 +2,11 @@
 Changelog
 =========
 
+`0.7.5 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.4...v0.7.5>`__
+--------------------------------------------------------------------------------------
+
+* Deprecate ``facke-factory`` package on PyPI.
+
 `0.7.4 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.3...v0.7.4>`__
 --------------------------------------------------------------------------------------
 
