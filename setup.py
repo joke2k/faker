@@ -12,13 +12,6 @@ README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
 
 version = '0.7.5'
 
-package_name = 'Faker'
-
-if package_name == 'fake-factory':
-    print("""WARNING:
-    The `fake-factory` package is being deprecated on December 15th, 2016.
-    Use the `faker` package instead.""")
-
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
 try:
@@ -30,7 +23,7 @@ except (ImportError, AttributeError):
     zip_safe = False
 
 setup(
-    name=package_name,
+    name='Faker',
     version=version,
     description="Faker is a Python package that generates fake data for you.",
     long_description=README,
