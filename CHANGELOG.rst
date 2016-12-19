@@ -2,6 +2,11 @@
 Changelog
 =========
 
+`0.7.6 - 19-December-2016 <https://github.com/joke2k/faker/compare/v0.7.5...v0.7.6>`__
+--------------------------------------------------------------------------------------
+
+* Fix packaging issue with `docs` directory. Thanks @wyattanderson.
+
 `0.7.5 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.4...v0.7.5>`__
 --------------------------------------------------------------------------------------
 
