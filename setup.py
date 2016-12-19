@@ -51,7 +51,7 @@ setup(
     author_email='joke2k@gmail.com',
     url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(),
+    packages=find_packages(exclude=("docs",)),
     platforms=["any"],
     test_suite='faker.tests',
     zip_safe=zip_safe,
