@@ -2,6 +2,12 @@
 Changelog
 =========
 
+`0.7.7 - 20-December-2016 <https://github.com/joke2k/faker/compare/v0.7.6...v0.7.7>`__
+--------------------------------------------------------------------------------------
+
+* Fix no_NO postcodes. Thanks @kdeldycke.
+* Fix fa_IR city generator. Thanks @kdeldycke.
+
 `0.7.6 - 19-December-2016 <https://github.com/joke2k/faker/compare/v0.7.5...v0.7.6>`__
 --------------------------------------------------------------------------------------
 
