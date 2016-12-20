@@ -27,10 +27,3 @@ class Provider(AddressProvider):
     address_formats = ('{{street_address}}, {{postcode}} {{city}}',)
     building_number_formats = ('#', '#', '#', '#?', '##', '##', '##?')
     postcode_formats = ('####',)
-
-    @classmethod
-    def postcode(cls):
-        """
-        :example 0234
-        """
-        return cls.random_element(cls.postcode_formats)
