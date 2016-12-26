@@ -39,7 +39,7 @@ class Provider(SsnProvider):
         if birthday.year < 2000:
             separator = '-'
         else:
-            separator += 'A'
+            separator = 'A'
         suffix = str(random.randrange(2, 899)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
         hetu = "".join([hetu_date, separator, suffix, checksum])
