@@ -21,7 +21,7 @@ class Provider(InternetProvider):
         'hotmail.com',
         'hotmail.it',
         'yahoo.com',
-        'tele2.it '
+        'tele2.it',
     )
     tlds = ('com', 'com', 'com', 'net', 'org', 'eu', 'it', 'it', 'it', 'it')
     replacements = (
