@@ -72,17 +72,24 @@ class BaseProvider(object):
             return ''
 
     @classmethod
-    def random_number(cls, digits=None):
+    def random_number(cls, digits=None, fix_len=False):
         """
         Returns a random number with 1 digit (default, when digits==None)
         or a random number with 0 to given number of digits.
+        And a random number with given number to given number of digits
+        (when fix_len==True).
 
         :param digits: maximum number of digits
-        :returns: random number with 0 to given number of digits
+        :param fix_len:  indicator of fixed length
+        :returns: random number with 0 to given number of digits or
+            fixed length number
         """
         if digits is None:
             digits = BaseProvider.random_digit()
-        return random.randint(0, pow(10, digits) - 1)
+        if fix_len:
+            return random.randint(pow(10, digits - 1), pow(10, digits) - 1)
+        else:
+            return random.randint(0, pow(10, digits) - 1)
 
     @classmethod
     def random_letter(cls):
