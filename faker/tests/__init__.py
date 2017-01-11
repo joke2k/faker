@@ -656,6 +656,13 @@ class FactoryTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             provider.random_sample_unique('abcde', 6)
 
+    def test_random_number(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider
+
+        number = provider.random_number(10, True)
+        self.assertEqual(len(str(number)), 10)
+
 
 class GeneratorTestCase(unittest.TestCase):
 
