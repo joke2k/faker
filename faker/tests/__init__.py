@@ -17,12 +17,12 @@ import logging
 
 try:
     from mock import patch
-except ImportError:
+except ImportError:  # pragma: no cover
     from unittest.mock import patch
 
 try:
     from StringIO import StringIO
-except ImportError:
+except ImportError:  # pragma: no cover
     from io import StringIO
 
 from faker import Generator, Factory
@@ -31,7 +31,7 @@ from faker.utils import text, decorators
 
 try:
     string_types = (basestring,)
-except NameError:
+except NameError:  # pragma: no cover
     string_types = (str,)
 
 
@@ -682,4 +682,4 @@ class GeneratorTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()  # pragma: no cover
