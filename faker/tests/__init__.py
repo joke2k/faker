@@ -17,12 +17,12 @@ import logging
 
 try:
     from mock import patch
-except ImportError:
+except ImportError:  # pragma: no cover
     from unittest.mock import patch
 
 try:
     from StringIO import StringIO
-except ImportError:
+except ImportError:  # pragma: no cover
     from io import StringIO
 
 from faker import Generator, Factory
@@ -31,7 +31,7 @@ from faker.utils import text, decorators
 
 try:
     string_types = (basestring,)
-except NameError:
+except NameError:  # pragma: no cover
     string_types = (str,)
 
 
@@ -656,6 +656,13 @@ class FactoryTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             provider.random_sample_unique('abcde', 6)
 
+    def test_random_number(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider
+
+        number = provider.random_number(10, True)
+        self.assertEqual(len(str(number)), 10)
+
 
 class GeneratorTestCase(unittest.TestCase):
 
@@ -675,4 +682,4 @@ class GeneratorTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()  # pragma: no cover
