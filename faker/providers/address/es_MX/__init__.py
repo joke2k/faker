@@ -74,6 +74,27 @@ class Provider(AddressProvider):
         ('ZAC', (98000, 99999)),
     ))
 
+    delegations = (
+        # Delegaciónes of Mexico City
+        ('Condesa'),
+        ('Álvaro Obregón'),
+        ('Azcapotzalco'),
+        ('Benito Juárez'),
+        ('Coyoacán'),
+        ('Cuajimalpa'),
+        ('Cuauhtémoc'),
+        ('Gustavo A.Madero'),
+        ('Iztacalco'),
+        ('Iztapalapa'),
+        ('La Magdalena Contreras'),
+        ('Miguel Hidalgo'),
+        ('Milpa Alta'),
+        ('Tláhuac'),
+        ('Tlalpan'),
+        ('Venustiano Carranza'),
+        ('Xochimilco'),
+    )
+
     city_formats = (
         '{{city_adjetive}} {{country}}',
         'San {{first_name}} {{city_suffix}}',
@@ -132,3 +153,10 @@ class Provider(AddressProvider):
         example: u'GRO'
         """
         return cls.random_element(cls.states)[0]
+
+    @classmethod
+    def delegation(cls):
+        """
+        example: u'Xochimilco'
+        """
+        return cls.random_element(cls.delegations)
