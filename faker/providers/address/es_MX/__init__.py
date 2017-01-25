@@ -87,7 +87,7 @@ class Provider(AddressProvider):
         ('Ecatepec de Morelos'), ('Tlalnepantla de Baz'),
         ('Ecatepec de Morelos'), ('Nezahualcóyotl'), ('La Paz'),
         ('Valle de Chalco Solidaridad'), ('Chalco'), ('Tenango del Aire'),
-        ('Juchitepec')
+        ('Juchitepec'),
         # Some municipalities of Morelos
         ('Tlalnepantla'), ('Tepoztlán'), ('Huitzilac')
     )
