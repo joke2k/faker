@@ -156,4 +156,4 @@ class Provider(AddressProvider):
         """
         example: u'Xochimilco'
         """
-        return cls.random_element(cls.delegations)
+        return cls.random_element(cls.municipalities)
