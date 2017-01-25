@@ -74,25 +74,22 @@ class Provider(AddressProvider):
         ('ZAC', (98000, 99999)),
     ))
 
-    delegations = (
-        # Delegaciónes of Mexico City
-        ('Condesa'),
-        ('Álvaro Obregón'),
-        ('Azcapotzalco'),
-        ('Benito Juárez'),
-        ('Coyoacán'),
-        ('Cuajimalpa'),
-        ('Cuauhtémoc'),
-        ('Gustavo A.Madero'),
-        ('Iztacalco'),
-        ('Iztapalapa'),
-        ('La Magdalena Contreras'),
-        ('Miguel Hidalgo'),
-        ('Milpa Alta'),
-        ('Tláhuac'),
-        ('Tlalpan'),
-        ('Venustiano Carranza'),
-        ('Xochimilco'),
+    municipalities = (
+        # Municipalities of Mexico City
+        ('Condesa'), ('Álvaro Obregón'), ('Azcapotzalco'), ('Benito Juárez'),
+        ('Coyoacán'), ('Cuajimalpa'), ('Cuauhtémoc'), ('Gustavo A.Madero'),
+        ('Iztacalco'), ('Iztapalapa'), ('La Magdalena Contreras'),
+        ('Miguel Hidalgo'), ('Milpa Alta'), ('Tláhuac'), ('Tlalpan'),
+        ('Venustiano Carranza'), ('Xochimilco'),
+        # Some municipalities of the State Of Mexico
+        ('Xalatlaco'), ('Ocoyoacac'), ('Huixquilucan'), ('Naucalpan'),
+        ('Tlalnepantla de Baz'), ('Tultitlán'), ('Coacalco de Berriozábal'),
+        ('Ecatepec de Morelos'), ('Tlalnepantla de Baz'),
+        ('Ecatepec de Morelos'), ('Nezahualcóyotl'), ('La Paz'),
+        ('Valle de Chalco Solidaridad'), ('Chalco'), ('Tenango del Aire'),
+        ('Juchitepec')
+        # Some municipalities of Morelos
+        ('Tlalnepantla'), ('Tepoztlán'), ('Huitzilac')
     )
 
     city_formats = (
@@ -155,7 +152,7 @@ class Provider(AddressProvider):
         return cls.random_element(cls.states)[0]
 
     @classmethod
-    def delegation(cls):
+    def municipality(cls):
         """
         example: u'Xochimilco'
         """
