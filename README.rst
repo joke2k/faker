@@ -246,20 +246,19 @@ How to create a Provider
 How to use with factory-boy
 ---------------------------
 
+`factory-boy`_ already ships with integration with ``Faker`. Simply use the
+``factory.Faker`` method of ``factory-boy``:
+
 .. code:: python
 
     import factory
-    from faker import Faker
-    from myapp.models import Book
+    from myapp.models import User
 
-    fake = Faker()
+    class UserFactory(factory.Factory):
+        class Meta:
+            model = User
 
-
-    class Book(factory.Factory):
-        FACTORY_FOR = Book
-
-        title = factory.LazyAttribute(lambda x: fake.sentence(nb_words=4))
-        author_name = factory.LazyAttribute(lambda x: fake.name())
+        name = factory.Faker('name')
 
 Accessing the `random` instance
 -------------------------------
@@ -361,6 +360,7 @@ Credits
 .. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
+.. _factory-boy: https://github.com/FactoryBoy/factory_boy
 
 .. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
     :target: https://pypi.python.org/pypi/Faker
