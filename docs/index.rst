@@ -248,22 +248,23 @@ How to create a Provider
     fake.foo()
     > 'bar'
 
-How to use with factory-boy
+How to use with Factory Boy
 ---------------------------
 
-`factory-boy`_ already ships with integration with ``Faker`. Simply use the
-``factory.Faker`` method of ``factory-boy``:
+`Factory Boy`_ already ships with integration with ``Faker`. Simply use the
+``factory.Faker`` method of ``factory_boy``:
 
 .. code:: python
 
     import factory
-    from myapp.models import User
+    from myapp.models import Book
 
-    class UserFactory(factory.Factory):
+    class BookFactory(factory.Factory):
         class Meta:
-            model = User
+            model = Book
 
-        name = factory.Faker('name')
+        title = factory.Faker('sentence', nb_words=4)
+        author_name = factory.Faker('name')
 
 Accessing the `random` instance
 -------------------------------
@@ -365,7 +366,7 @@ Credits
 .. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
-.. _factory-boy: https://github.com/FactoryBoy/factory_boy
+.. _Factory Boy: https://github.com/FactoryBoy/factory_boy
 
 .. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
     :target: https://pypi.python.org/pypi/Faker
