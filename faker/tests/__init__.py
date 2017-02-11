@@ -131,6 +131,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.barcode',
             'faker.providers.color',
             'faker.providers.company',
+			'faker.providers.course',
             'faker.providers.credit_card',
             'faker.providers.currency',
             'faker.providers.date_time',
