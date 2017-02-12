@@ -146,3 +146,16 @@ class Provider(PersonProvider):
     first_names.update(first_names_female)
 
     prefixes = OrderedDict((('Dr.', 0.95), ('Prof. Dr.', 0.05)))
+
+
+    @classmethod
+    def first_name_male_abbreviated(cls):
+        if hasattr(cls, 'first_names_male'):
+            return cls.random_element(cls.first_names_male)[0] + "."
+        return cls.first_name()[0]
+
+    @classmethod
+    def first_name_female_abbreviated(cls):
+        if hasattr(cls, 'first_names_female'):
+            return cls.random_element(cls.first_names_female)[0] + "."
+        return cls.first_name()[0]
