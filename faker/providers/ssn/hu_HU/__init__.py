@@ -12,7 +12,17 @@ def zfix(d):
 
 class Provider(BaseProvider):
     @classmethod
-    def ssn(cls, dob=None, ser=None, gender=None):
+    def ssn(cls, dob=None, gender=None):
+        """
+        Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
+
+        :param dob: date of birth as a "YYMMDD" string - this determines the checksum regime and is also encoded in the személyazonosító szám.
+        :type dob: str
+        :param gender: gender of the person - "F" for female, M for male.
+        :type gender: str
+        :return: személyazonosító szám in str format (11 digs)
+        :rtype: str
+        """
         # Hungarian SSNs consist of 11 decimal characters, of the following
         # schema:
         #
