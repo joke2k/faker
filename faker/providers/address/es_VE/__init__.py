@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 from ..es import Provider as AddressProvider
+from faker.generator import random
 
 
 class Provider(AddressProvider):
@@ -51,3 +52,11 @@ class Provider(AddressProvider):
     @classmethod
     def state(cls):
         return cls.random_element(cls.states)
+
+    @classmethod
+    def zipcode(cls):
+        return "%05d" % random.randint(501, 99950)
+
+    @classmethod
+    def zipcode_plus4(cls):
+        return "%s-%04d" % (cls.zipcode(), random.randint(1, 9999))
