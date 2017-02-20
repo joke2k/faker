@@ -14,20 +14,22 @@ class Provider(AddressProvider):
                            '{{city_part}}{{city_suffix}}i {{street_suffix}}',
                            '{{city_prefix}}{{city_part}}i {{street_suffix}}')
 
-#   Currently deprecated.
-#   secondary_address_formats = ("#.em #.", "##. em. #.")
+    #   Currently deprecated.
+    #   secondary_address_formats = ("#.em #.", "##. em. #.")
+
 
     city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}', '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
 
-    # street_address_with_county_formats = (
-    #     '{{street_name}} {{building_number}}\n{{county_name}} megye\n{{postcode}} {{city}}',)
+    street_address_with_county_formats = (
+        '{{street_name}} {{building_number}}\n{{county}} megye\n{{postcode}} {{city}}',)
 
     street_address_formats = ('{{street_name}} {{building_number}}',)
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
     frequent_street_names = (
-        'Ady Endre', 'Dózsa György', 'Petőfi', 'Petőfi Sándor', 'Arany János', 'Béke', 'Szabadság', 'Kossuth', 'József Attila')
+        'Ady Endre', 'Dózsa György', 'Petőfi', 'Petőfi Sándor', 'Arany János', 'Béke', 'Szabadság', 'Kossuth',
+        'József Attila')
 
     # The 'real city name' generator includes a number of real cities of
     # Hungary that no generator could feasibly dispense. Please note that the
@@ -100,6 +102,10 @@ class Provider(AddressProvider):
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
         "Zöld-foki szigetek",)
 
+    @classmethod
+    def county(cls):
+        return cls.random_element(cls.counties)
+
     def street_address_with_county(self):
         pattern = self.random_element(self.street_address_with_county_formats)
         return self.generator.parse(pattern)
@@ -129,16 +135,13 @@ class Provider(AddressProvider):
 
     @classmethod
     def postcode(cls):
-        return "H-{}{}{}{}".format(super().random_digit_not_null(), super().random_digit(), super().random_digit(), super().random_digit())
-
+        return "H-{}{}{}{}".format(super().random_digit_not_null(), super().random_digit(), super().random_digit(),
+                                   super().random_digit())
 
     def street_name(self):
-        return super().street_name().capitalize()
+        return super(Provider, self).street_name().upper()
 
     @classmethod
     def building_number(cls):
         numeric_part = super().random_int(1, 250)
         return str(numeric_part) + "."
-
-
-
