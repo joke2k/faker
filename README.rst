@@ -246,7 +246,7 @@ How to create a Provider
 How to use with Factory Boy
 ---------------------------
 
-`Factory Boy`_ already ships with integration with ``Faker`. Simply use the
+`Factory Boy` already ships with integration with ``Faker``. Simply use the
 ``factory.Faker`` method of ``factory_boy``:
 
 .. code:: python
