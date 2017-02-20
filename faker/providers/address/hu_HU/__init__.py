@@ -135,13 +135,14 @@ class Provider(AddressProvider):
 
     @classmethod
     def postcode(cls):
-        return "H-{}{}{}{}".format(super().random_digit_not_null(), super().random_digit(), super().random_digit(),
-                                   super().random_digit())
+        return "H-{}{}{}{}".format(super(Provider).random_digit_not_null(), super(Provider).random_digit(),
+                                   super(Provider).random_digit(),
+                                   super(Provider).random_digit())
 
     def street_name(self):
         return super(Provider, self).street_name().upper()
 
     @classmethod
     def building_number(cls):
-        numeric_part = super().random_int(1, 250)
+        numeric_part = super(Provider).random_int(1, 250)
         return str(numeric_part) + "."
