@@ -19,4 +19,4 @@ class hu_HU_FactoryTestCase(unittest.TestCase):
 
         for i in range(100):
             pcd = Provider.postcode()
-            assert pcd[2] > 0
+            assert pcd[2] > "0"
