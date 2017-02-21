@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-__loader__ = None
-
 import datetime
 import json
 import os
