@@ -70,14 +70,18 @@ class Factory(object):
     def _find_provider_class(cls, provider_path, locale=None):
         provider_module = import_module(provider_path)
 
-        available_locales = list_module(provider_module)
-        if not locale or locale not in available_locales:
-            locale = getattr(provider_module, 'default_locale', DEFAULT_LOCALE)
+        if getattr(provider_module, 'localized', False):
+            available_locales = list_module(provider_module)
+            if not locale or locale not in available_locales:
+                locale = getattr(provider_module, 'default_locale', DEFAULT_LOCALE)
 
-        path = "{provider_path}.{locale}".format(
-            provider_path=provider_path,
-            locale=locale,
-        )
-        provider_module = import_module(path)
+            path = "{provider_path}.{locale}".format(
+                provider_path=provider_path,
+                locale=locale,
+            )
+            provider_module = import_module(path)
+        else:
+            if locale is not None:
+                provider_module = import_module(provider_path)
 
         return provider_module.Provider
