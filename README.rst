@@ -309,7 +309,7 @@ Installing dependencies:
 
 .. code:: bash
 
-    $ pip install -r faker/tests/requirements.txt
+    $ pip install -r tests/requirements.txt
 
 Run tests:
 
@@ -321,7 +321,7 @@ or
 
 .. code:: bash
 
-    $ python -m unittest -v faker.tests
+    $ python -m unittest -v tests
 
 Write documentation for providers:
 

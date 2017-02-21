@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-__loader__ = None
-
 import datetime
 import json
 import os
@@ -227,7 +225,7 @@ class FactoryTestCase(unittest.TestCase):
         orig_stdout = sys.stdout
         try:
             sys.stdout = StringIO()
-            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule.en_US'])
+            command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
         finally:

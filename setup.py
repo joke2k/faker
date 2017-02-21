@@ -51,9 +51,9 @@ setup(
     author_email='joke2k@gmail.com',
     url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=("docs",)),
+    packages=find_packages(exclude=("docs", "tests",)),
     platforms=["any"],
-    test_suite='faker.tests',
+    test_suite='tests',
     zip_safe=zip_safe,
     install_requires=[
         "python-dateutil>=2.4",
