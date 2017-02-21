@@ -225,7 +225,7 @@ class FactoryTestCase(unittest.TestCase):
         orig_stdout = sys.stdout
         try:
             sys.stdout = StringIO()
-            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule'])
+            command = Command(['faker', 'foo', '-i', 'tests.mymodule'])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
