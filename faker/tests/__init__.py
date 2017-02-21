@@ -206,7 +206,7 @@ class FactoryTestCase(unittest.TestCase):
         output = StringIO()
         print_doc(output=output)
         print_doc('address', output=output)
-        print_doc('faker.providers.person.it_IT', output=output)
+        print_doc('faker.providers.person', output=output)
         assert output.getvalue()
         with self.assertRaises(AttributeError):
             self.generator.get_formatter('barFormatter')
@@ -227,7 +227,7 @@ class FactoryTestCase(unittest.TestCase):
         orig_stdout = sys.stdout
         try:
             sys.stdout = StringIO()
-            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule.en_US'])
+            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule'])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
