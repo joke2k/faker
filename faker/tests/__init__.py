@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 __loader__ = None
 
+import collections
 import datetime
 import json
 import os
@@ -272,6 +273,51 @@ class FactoryTestCase(unittest.TestCase):
 
         slug = fn("a'b/.cé")
         self.assertEqual(slug, 'abcé')
+
+    def test_martianify(self):
+        @decorators.martianify('item_list', 'item_tuple', 'item_dict',
+                               'item_set', 'item_ordered_dict',
+                               'item_tuple_of_tuples', 'item_list_of_dicts')
+        class TestProvider(object):
+            item_list = ['first', 'second', 'third']
+            item_tuple = ('first', 'second', 'third')
+            item_dict = {'first': 1, 'second': 2, 'third': 3}
+            item_set = {'first', 'second', 'third'}
+            item_ordered_dict = collections.OrderedDict((
+                ('first', 1),
+                ('second', 2),
+                ('third', 3)
+            ))
+            item_tuple_of_tuples = (
+                ('first', 1),
+                ('second', 2),
+                ('third', 3)
+            )
+            item_list_of_dicts = [
+                {'first': 1},
+                {'second': 2},
+                {'third': 3}
+            ]
+
+        mars_first, mars_second, mars_third = 'ḟīṝṧṯ', 'ŝêċóᵰɖ', 'ᵵɦíṝɖ'
+        mars_items = (mars_first, mars_second, mars_third)
+
+        self.assertListEqual(list(mars_items), TestProvider.item_list)
+        self.assertTupleEqual(mars_items, TestProvider.item_tuple)
+        self.assertDictEqual({mars_first: 1, mars_second: 2, mars_third: 3},
+                             TestProvider.item_dict)
+        self.assertSetEqual(set(mars_items), TestProvider.item_set)
+        self.assertTrue(isinstance(TestProvider.item_ordered_dict,
+                                   collections.OrderedDict))
+        self.assertDictEqual({mars_first: 1, mars_second: 2, mars_third: 3},
+                             TestProvider.item_ordered_dict)
+        self.assertTupleEqual(((mars_first, 1), (mars_second, 2),
+                               (mars_third, 3)),
+                              TestProvider.item_tuple_of_tuples)
+        self.assertTrue(isinstance(TestProvider.item_list_of_dicts, list))
+        for d, item, i in zip(TestProvider.item_list_of_dicts,
+                              mars_items, range(1, 4)):
+            self.assertDictEqual({item: i}, d)
 
     def test_random_element(self):
         from faker.providers import BaseProvider

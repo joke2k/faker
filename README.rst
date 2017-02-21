@@ -146,6 +146,7 @@ Included localized providers:
 -  `ko\_KR <https://faker.readthedocs.io/en/master/locales/ko_KR.html>`__ - Korean
 -  `lt\_LT <https://faker.readthedocs.io/en/master/locales/lt_LT.html>`__ - Lithuanian
 -  `lv\_LV <https://faker.readthedocs.io/en/master/locales/lv_LV.html>`__ - Latvian
+-  `ma\_MA <https://faker.readthedocs.io/en/master/locales/ma_MA.html>`__ - Martian (Mars)
 -  `ne\_NP <https://faker.readthedocs.io/en/master/locales/ne_NP.html>`__ - Nepali
 -  `nl\_NL <https://faker.readthedocs.io/en/master/locales/nl_NL.html>`__ - Dutch (Netherlands)
 -  `no\_NO <https://faker.readthedocs.io/en/master/locales/no_NO.html>`__ - Norwegian

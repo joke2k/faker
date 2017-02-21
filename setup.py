@@ -58,6 +58,7 @@ setup(
     install_requires=[
         "python-dateutil>=2.4",
         "six",
+        "deasciiify",
     ],
     extras_require={
         ':python_version=="2.7"': [
