@@ -2,8 +2,6 @@
 
 from __future__ import unicode_literals
 
-__loader__ = None
-
 import datetime
 import json
 import os
@@ -13,15 +11,16 @@ import unittest
 import string
 import six
 import sys
+import logging
 
 try:
     from mock import patch
-except ImportError:
+except ImportError:  # pragma: no cover
     from unittest.mock import patch
 
 try:
     from StringIO import StringIO
-except ImportError:
+except ImportError:  # pragma: no cover
     from io import StringIO
 
 from faker import Generator, Factory
@@ -30,7 +29,7 @@ from faker.utils import text, decorators
 
 try:
     string_types = (basestring,)
-except NameError:
+except NameError:  # pragma: no cover
     string_types = (str,)
 
 
@@ -226,7 +225,7 @@ class FactoryTestCase(unittest.TestCase):
         orig_stdout = sys.stdout
         try:
             sys.stdout = StringIO()
-            command = Command(['faker', 'foo', '-i', 'faker.tests.mymodule.en_US'])
+            command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
@@ -464,7 +463,14 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             language_code = Provider.language_code()
             self.assertTrue(isinstance(language_code, string_types))
-            Factory.create(locale=language_code)
+            self.assertTrue(re.match(r'^[a-z]{2,3}$', language_code))
+
+    def test_locale(self):
+        from faker.providers.misc import Provider
+
+        for _ in range(99):
+            locale = Provider.locale()
+            self.assertTrue(re.match(r'^[a-z]{2,3}_[A-Z]{2}$', locale))
 
     def test_password(self):
         from faker.providers.misc import Provider
@@ -522,6 +528,19 @@ class FactoryTestCase(unittest.TestCase):
         characters = provider.pystr(min_chars=10, max_chars=255)
         self.assertTrue((len(characters) >= 10))
 
+    def test_random_pyfloat(self):
+        from faker.providers.python import Provider
+        provider = Provider(None)
+
+        self.assertTrue(0 <= abs(provider.pyfloat(left_digits=1)) < 10)
+        self.assertTrue(0 <= abs(provider.pyfloat(left_digits=0)) < 1)
+        x=abs(provider.pyfloat(right_digits=0))
+        self.assertTrue(x-int(x) == 0)
+        with self.assertRaises(ValueError,
+                               msg='A float number cannot have 0 digits '
+                               'in total'):
+            provider.pyfloat(left_digits=0, right_digits=0)
+
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 
@@ -534,6 +553,33 @@ class FactoryTestCase(unittest.TestCase):
             self.assertNotEqual(ssn[0:3], '000')
             self.assertNotEqual(ssn[4:6], '00')
             self.assertNotEqual(ssn[7:11], '0000')
+
+    def test_nl_BE_ssn_valid(self):
+        from faker.providers.ssn.nl_BE import Provider
+
+        provider = Provider(None)
+
+        for i in range (1000):
+            ssn = provider.ssn()
+            self.assertEqual(len(ssn), 11)
+            gen_ssn_base = ssn[0:6]
+            gen_seq = ssn[6:9]
+            gen_chksum = ssn[9:11]
+            gen_ssn_base_as_int = int(gen_ssn_base)
+            gen_seq_as_int = int(gen_seq)
+            gen_chksum_as_int = int(gen_chksum)
+            # Check that the sequence nr is between 1 inclusive and 998 inclusive
+            self.assertGreater(gen_seq_as_int,0)
+            self.assertLessEqual(gen_seq_as_int, 998)
+
+            # validate checksum calculation
+            # Since the century is not part of ssn, try both below and above year 2000
+            ssn_below = int(ssn[0:9])
+            chksum_below = 97 - (ssn_below % 97)
+            ssn_above = ssn_below + 2000000000
+            chksum_above = 97 - (ssn_above % 97)
+            results = [ chksum_above, chksum_below ]
+            self.assertIn(gen_chksum_as_int,results)
 
     def test_email(self):
         from faker import Factory
@@ -608,6 +654,13 @@ class FactoryTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             provider.random_sample_unique('abcde', 6)
 
+    def test_random_number(self):
+        from faker.providers import BaseProvider
+        provider = BaseProvider
+
+        number = provider.random_number(10, True)
+        self.assertEqual(len(str(number)), 10)
+
 
 class GeneratorTestCase(unittest.TestCase):
 
@@ -627,4 +680,4 @@ class GeneratorTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()  # pragma: no cover

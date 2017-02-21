@@ -62,7 +62,7 @@ class Provider(AddressProvider):
     )
 
     city_formats = (
-        '{{city_prefix}} {{first_name}}'
+        '{{city_prefix}} {{first_name}}',
     )
     street_name_formats = (
         '{{first_name}} {{street_suffix}}',

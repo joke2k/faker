@@ -8,17 +8,9 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
-NEWS = io.open(os.path.join(here, 'CHANGELOG.rst'), encoding="utf8").read()
 
 
-version = '0.7.3'
-
-package_name = 'Faker'
-
-if package_name == 'fake-factory':
-    print("""WARNING:
-    The `fake-factory` package is being deprecated on December 15th, 2016.
-    Use the `faker` package instead.""")
+version = '0.7.7'
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
@@ -31,10 +23,10 @@ except (ImportError, AttributeError):
     zip_safe = False
 
 setup(
-    name=package_name,
+    name='Faker',
     version=version,
     description="Faker is a Python package that generates fake data for you.",
-    long_description=README + '\n\n' + NEWS,
+    long_description=README,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
     },
@@ -57,11 +49,11 @@ setup(
     keywords='faker fixtures data test mock generator',
     author='joke2k',
     author_email='joke2k@gmail.com',
-    url='http://github.com/joke2k/faker',
+    url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(),
+    packages=find_packages(exclude=("docs", "tests",)),
     platforms=["any"],
-    test_suite='faker.tests',
+    test_suite='tests',
     zip_safe=zip_safe,
     install_requires=[
         "python-dateutil>=2.4",

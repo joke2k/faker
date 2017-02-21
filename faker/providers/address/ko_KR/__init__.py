@@ -5,8 +5,8 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     """
-    Koran Address Provider
-    ======================
+    Korean Address Provider
+    =======================
 
     Korea has two address and postal code system.
 
@@ -61,7 +61,7 @@ class Provider(AddressProvider):
         '대전광역시',
         '울산광역시',
         '세종특별자치시',
-    );
+    )
     provinces = (
         '경기도',
         '강원도',

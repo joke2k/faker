@@ -1,5 +1,4 @@
 # coding=utf-8
-
 from __future__ import unicode_literals
 from .. import BaseProvider
 
@@ -16,14 +15,22 @@ localized = True
 class Provider(BaseProvider):
     safe_email_tlds = ('org', 'com', 'net')
     free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
-    tlds = ('com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org')
+    tlds = (
+        'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org'
+    )
 
     uri_pages = (
-    'index', 'home', 'search', 'main', 'post', 'homepage', 'category', 'register', 'login', 'faq', 'about', 'terms',
-    'privacy', 'author')
+        'index', 'home', 'search', 'main', 'post', 'homepage', 'category',
+        'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author'
+    )
     uri_paths = (
-    'app', 'main', 'wp-content', 'search', 'category', 'tag', 'categories', 'tags', 'blog', 'posts', 'list', 'explore')
-    uri_extensions = ('.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp', '.asp')
+        'app', 'main', 'wp-content', 'search', 'category', 'tag', 'categories',
+        'tags', 'blog', 'posts', 'list', 'explore'
+    )
+    uri_extensions = (
+        '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
+        '.asp'
+    )
 
     user_name_formats = (
         '{{last_name}}.{{first_name}}',
@@ -38,6 +45,8 @@ class Provider(BaseProvider):
     url_formats = (
         'http://www.{{domain_name}}/',
         'http://{{domain_name}}/',
+        'https://www.{{domain_name}}/',
+        'https://{{domain_name}}/',
     )
     uri_formats = (
         '{{url}}',
@@ -47,9 +56,10 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'https://placeholdit.imgix.net/~text?txtsize=55&txt={width}×{height}&w={width}&h={height}',
+        'https://placeholdit.imgix.net/~text'
+        '?txtsize=55&txt={width}×{height}&w={width}&h={height}',
         'http://www.lorempixel.com/{width}/{height}',
-        'http://dummyimage.com/{width}x{height}',
+        'https://dummyimage.com/{width}x{height}',
      )
 
     replacements = tuple()
@@ -65,7 +75,9 @@ class Provider(BaseProvider):
         return "".join(self.generator.parse(pattern).split(" "))
 
     def safe_email(self):
-        return self.user_name() + '@example.' + self.random_element(self.safe_email_tlds)
+        return '{}@example.{}'.format(
+            self.user_name(), self.random_element(self.safe_email_tlds)
+        )
 
     def free_email(self):
         return self.user_name() + '@' + self.free_email_domain()
@@ -81,8 +93,8 @@ class Provider(BaseProvider):
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         username = self._to_ascii(
-            self.bothify(self.generator.parse(pattern)
-        ).lower())
+            self.bothify(self.generator.parse(pattern)).lower()
+        )
         return username
 
     def domain_name(self):
@@ -103,7 +115,7 @@ class Provider(BaseProvider):
         return self.generator.parse(pattern)
 
     def ipv4(self, network=False):
-        """ Produce a random IPv4 address or network with a valid CIDR. """
+        """Produce a random IPv4 address or network with a valid CIDR"""
         address = str(ip_address(random.randint(
             0, (2 ** IPV4LENGTH) - 1)))
         if network:
@@ -112,7 +124,7 @@ class Provider(BaseProvider):
         return address
 
     def ipv6(self, network=False):
-        """ Produce a random IPv6 address or network with a valid CIDR. """
+        """Produce a random IPv6 address or network with a valid CIDR"""
         address = str(ip_address(random.randint(
             2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network:
@@ -131,7 +143,9 @@ class Provider(BaseProvider):
     @classmethod
     def uri_path(cls, deep=None):
         deep = deep if deep else random.randint(1, 3)
-        return "/".join([cls.random_element(cls.uri_paths) for _ in range(0, deep)])
+        return "/".join(
+            [cls.random_element(cls.uri_paths) for _ in range(0, deep)]
+        )
 
     @classmethod
     def uri_extension(cls):
@@ -144,9 +158,7 @@ class Provider(BaseProvider):
     @classmethod
     @slugify
     def slug(cls, value=None):
-        """
-        Django algorithm
-        """
+        """Django algorithm"""
         if value is None:
             value = Lorem.text(20)
         return value

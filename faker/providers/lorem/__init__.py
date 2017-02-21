@@ -5,6 +5,7 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    word_connector = ' '
     @classmethod
     def word(cls):
         """
@@ -40,7 +41,7 @@ class Provider(BaseProvider):
         words = cls.words(nb_words)
         words[0] = words[0].title()
 
-        return " ".join(words) + '.'
+        return cls.word_connector.join(words) + '.'
 
     @classmethod
     def sentences(cls, nb=3):
@@ -68,7 +69,7 @@ class Provider(BaseProvider):
         if variable_nb_sentences:
             nb_sentences = cls.randomize_nb_elements(nb_sentences)
 
-        return " ".join(cls.sentences(nb_sentences))
+        return cls.word_connector.join(cls.sentences(nb_sentences))
 
     @classmethod
     def paragraphs(cls, nb=3):
@@ -99,7 +100,7 @@ class Provider(BaseProvider):
                 size = 0
                 # determine how many words are needed to reach the $max_nb_chars once;
                 while size < max_nb_chars:
-                    word = (' ' if size else '') + cls.word()
+                    word = (cls.word_connector if size else '') + cls.word()
                     text.append(word)
                     size += len(word)
                 text.pop()
@@ -112,7 +113,7 @@ class Provider(BaseProvider):
                 size = 0
                 # determine how many sentences are needed to reach the $max_nb_chars once
                 while size < max_nb_chars:
-                    sentence = (' ' if size else '') + cls.sentence()
+                    sentence = (cls.word_connector if size else '') + cls.sentence()
                     text.append(sentence)
                     size += len(sentence)
                 text.pop()
