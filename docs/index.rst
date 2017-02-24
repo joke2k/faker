@@ -146,6 +146,7 @@ Included localized providers:
 -  `fr\_FR <https://faker.readthedocs.io/en/master/locales/fr_FR.html>`__ - French
 -  `hi\_IN <https://faker.readthedocs.io/en/master/locales/hi_IN.html>`__ - Hindi
 -  `hr\_HR <https://faker.readthedocs.io/en/master/locales/hr_HR.html>`__ - Croatian
+-  `hu\_HU <https://faker.readthedocs.io/en/master/locales/hu_HU.html>`__ - Hungarian
 -  `it\_IT <https://faker.readthedocs.io/en/master/locales/it_IT.html>`__ - Italian
 -  `ja\_JP <https://faker.readthedocs.io/en/master/locales/ja_JP.html>`__ - Japanese
 -  `ko\_KR <https://faker.readthedocs.io/en/master/locales/ko_KR.html>`__ - Korean
