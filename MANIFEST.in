@@ -1,3 +1,4 @@
 include *.rst
 include *.md
 include *.txt
+include *.json
