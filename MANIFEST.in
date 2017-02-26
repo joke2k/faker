@@ -2,3 +2,4 @@ include *.rst
 include *.md
 include *.txt
 include *.json
+graft tests
