@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 from .. import BaseProvider
-from .isbn import ISBN, ISBN13
+from .isbn import ISBN, ISBN10, ISBN13
 from .rules import RULES
 
 
@@ -64,4 +64,9 @@ class Provider(BaseProvider):
     def isbn13(self, separator='-'):
         ean, group, registrant, publication = self._body()
         isbn = ISBN13(ean, group, registrant, publication)
+        return isbn.format(separator)
+
+    def isbn10(self, separator='-'):
+        ean, group, registrant, publication = self._body()
+        isbn = ISBN10(ean, group, registrant, publication)
         return isbn.format(separator)

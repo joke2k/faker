@@ -1,7 +1,22 @@
 import unittest
 from faker.providers.isbn.en_US import Provider as ISBNProvider
-from faker.providers.isbn import ISBN13
+from faker.providers.isbn import ISBN10, ISBN13
 from faker.providers.isbn.rules import RegistrantRule
+
+
+class TestISBN10(unittest.TestCase):
+
+    def test_check_digit_is_correct(self):
+        isbn = ISBN10(group='1', registrant='4516', publication='7331')
+        assert isbn.check_digit == '0'
+        isbn = ISBN10(group='0', registrant='06', publication='230125')
+        assert isbn.check_digit == 'X'
+        isbn = ISBN10(group='1', registrant='4936', publication='8222')
+        assert isbn.check_digit == '9'
+
+    def test_format_length(self):
+        isbn = ISBN10(group='1', registrant='4516', publication='7331')
+        assert len(isbn.format()) == 10
 
 
 class TestISBN13(unittest.TestCase):
