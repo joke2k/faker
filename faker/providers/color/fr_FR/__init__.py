@@ -4,8 +4,6 @@ from collections import OrderedDict
 
 from .. import Provider as ColorProvider
 
-localized = True
-
 
 class Provider(ColorProvider):
     all_colors = OrderedDict((
