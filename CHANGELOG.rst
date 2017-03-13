@@ -2,6 +2,25 @@
 Changelog
 =========
 
+`0.7.9 - 24-February-2017 <https://github.com/joke2k/faker/compare/v0.7.8...v0.7.9>`__
+--------------------------------------------------------------------------------------
+
+* Fix packaging isssue. Thanks @jorti.
+
+`0.7.8 - 24-February-2017 <https://github.com/joke2k/faker/compare/v0.7.7...v0.7.8>`__
+--------------------------------------------------------------------------------------
+
+* Add a Russian language to color provider. Thanks @kotyara1005.
+* Correct UnboundLocalError in Finnish SSN generator. Thanks @lamby.
+* Create internet IT provider. Thanks @GlassGruber.
+* Add `fix_len` parameter to 'random_number'. Thanks @vlad-ki.
+* Support zh_CN lorem. Thanks @yihuang.
+* Customize chinese word connector. Thanks @yihuang.
+* Add more company data to `fa_IR`. Thanks @aminalaee.
+* Python 3.6 support. Thanks @stephane.
+* Add `hu_HU` providers. Thanks @chrisvoncsefalvay.
+* Fix tests failures.
+
 `0.7.7 - 20-December-2016 <https://github.com/joke2k/faker/compare/v0.7.6...v0.7.7>`__
 --------------------------------------------------------------------------------------
 

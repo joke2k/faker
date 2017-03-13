@@ -134,6 +134,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.date_time',
             'faker.providers.file',
             'faker.providers.internet',
+            'faker.providers.isbn',
             'faker.providers.job',
             'faker.providers.lorem',
             'faker.providers.misc',
@@ -142,7 +143,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.profile',
             'faker.providers.python',
             'faker.providers.ssn',
-            'faker.providers.user_agent',
+            'faker.providers.user_agent'
         ]))
         self.assertEqual(providers, expected_providers)
 
