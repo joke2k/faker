@@ -2,6 +2,12 @@
 Changelog
 =========
 
+`0.7.10 - 13-MArch-2017 <https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10>`__
+-------------------------------------------------------------------------------------
+
+* Add ISBN-10 and ISBN-13. Thanks @grantbachman.
+* Add colors for `fr_FR`. Thanks @sblondon.
+
 `0.7.9 - 24-February-2017 <https://github.com/joke2k/faker/compare/v0.7.8...v0.7.9>`__
 --------------------------------------------------------------------------------------
 
