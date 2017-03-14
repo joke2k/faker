@@ -9,11 +9,12 @@ from faker import Factory
 from ukpostcodeparser.parser import parse_uk_postcode
 
 
-class en_GB_FactoryTestCase(unittest.TestCase):
+class TestEnGB(unittest.TestCase):
+    """ Tests postcodes in the en_GB locale """
+
     def setUp(self):
         self.factory = Factory.create('en_GB')
 
-    def test_en_GB_postcode(self):
-        from faker.providers.address.en_GB import Provider
+    def test_en_gb_postcode(self):
         for i in range(100):
             assert isinstance(parse_uk_postcode(self.factory.postcode()), tuple)
