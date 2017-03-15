@@ -10,7 +10,7 @@ from faker.providers.address.hu_HU import Provider as HuProvider
 
 
 class TestEnGB(unittest.TestCase):
-    """ Tests postcodes in the en_GB locale """
+    """ Tests addresses in the en_GB locale """
 
     def setUp(self):
         self.factory = Factory.create('en_GB')
@@ -21,7 +21,7 @@ class TestEnGB(unittest.TestCase):
 
 
 class TestHuHU(unittest.TestCase):
-    """ Tests postcodes in the hu_HU locale """
+    """ Tests addresses in the hu_HU locale """
 
     def test_postcode_first_digit(self):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
