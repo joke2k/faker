@@ -15,6 +15,8 @@ from faker.utils import is_string
 
 from .. import BaseProvider
 
+localized = True
+
 
 def datetime_to_timestamp(dt):
     if getattr(dt, 'tzinfo', None) is not None:
