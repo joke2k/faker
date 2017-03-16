@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import unittest
 
+from email_validator import validate_email
+
 from faker import Factory
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
@@ -28,3 +30,13 @@ class TestJaJP(unittest.TestCase):
 
         tld = self.factory.tld()
         assert isinstance(tld, string_types)
+
+
+class TestZhCN(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create(locale='zh_CN')
+
+    def test_email(self):
+        email = self.factory.email()
+        validate_email(email, check_deliverability=False)
