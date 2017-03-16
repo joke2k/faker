@@ -14,18 +14,6 @@ class pt_BR_FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('pt_BR')
 
-    def test_pt_BR_ssn_checksum(self):
-        self.assertEqual(checksum([8, 8, 2, 8, 2, 1, 6, 5, 2]), 2)
-        self.assertEqual(checksum([8, 8, 2, 8, 2, 1, 6, 5, 2, 2]), 1)
-
-    def test_pt_BR_ssn(self):
-        for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', Provider.ssn()))
-
-    def test_pt_BR_cpf(self):
-        for _ in range(100):
-            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', Provider.cpf()))
-
     def test_pt_BR_company_id_checksum(self):
         self.assertEqual(company_id_checksum([9, 4, 9, 5, 3, 4, 4, 1, 0, 0, 0, 1]), [5, 1])
         self.assertEqual(company_id_checksum([1, 6, 0, 0, 4, 6, 3, 9, 0, 0, 0, 1]), [8, 5])
