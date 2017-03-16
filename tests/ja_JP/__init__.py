@@ -14,23 +14,6 @@ class ja_JP_FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('ja')
 
-    def test_ja_JP_internet(self):
-        from faker.providers.person.ja_JP import Provider
-        last_romanized_names = Provider.last_romanized_names
-
-        domain_word = self.factory.domain_word()
-        assert domain_word
-        assert isinstance(domain_word, string_types)
-        assert any(domain_word == text.slugify(last_romanized_name) for last_romanized_name in last_romanized_names)
-
-        user_name = self.factory.user_name()
-        assert user_name
-        assert isinstance(user_name, string_types)
-
-        tld = self.factory.tld()
-        assert tld
-        assert isinstance(tld, string_types)
-
     def test_ja_JP_person(self):
         name = self.factory.name()
         assert name
