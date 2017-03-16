@@ -3,24 +3,20 @@
 from __future__ import unicode_literals
 
 import unittest
-import re
 
 from faker import Factory
-from faker.utils import text
 from .. import string_types
 
 
-class ja_JP_FactoryTestCase(unittest.TestCase):
+class TestJaJP(unittest.TestCase):
+    """ Tests phone_number in the ja_JP locale """
+
     def setUp(self):
         self.factory = Factory.create('ja')
 
-    def test_ja_JP_phone_number(self):
+    def test_phone_number(self):
         pn = self.factory.phone_number()
-        formats = (
-            '070',
-            '080',
-            '090',
-        )
+        formats = ('070', '080', '090')
 
         assert pn
         assert isinstance(pn, string_types)
