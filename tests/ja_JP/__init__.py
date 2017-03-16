@@ -14,21 +14,6 @@ class ja_JP_FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('ja')
 
-    def test_ja_JP_company(self):
-        from faker.providers.company.ja_JP import Provider
-        prefixes = Provider.company_prefixes
-
-        prefix = self.factory.company_prefix()
-        assert prefix
-        assert isinstance(prefix, string_types)
-        assert prefix in prefixes
-
-        company = self.factory.company()
-        assert company
-        assert isinstance(company, string_types)
-        assert any(prefix in company for prefix in prefixes)
-        assert any(company.startswith(prefix) for prefix in prefixes)
-
     def test_ja_JP_internet(self):
         from faker.providers.person.ja_JP import Provider
         last_romanized_names = Provider.last_romanized_names
