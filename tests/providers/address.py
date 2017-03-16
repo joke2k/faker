@@ -101,3 +101,13 @@ class TestNeNP(unittest.TestCase):
         city = self.factory.city()
         assert isinstance(city, string_types)
         assert city in NeProvider.cities
+
+
+class TestNoNO(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('no_NO')
+
+    def test_postcode(self):
+        for i in range(100):
+            self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))
