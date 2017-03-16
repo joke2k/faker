@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import unittest
 
 from faker import Factory
+from faker.providers.person.ne_NP import Provider as NeProvider
 from .. import string_types
 
 
@@ -66,3 +67,20 @@ class TestJaJP(unittest.TestCase):
         last_romanized_name = self.factory.last_romanized_name()
         assert last_romanized_name
         assert isinstance(last_romanized_name, string_types)
+
+
+class TestNeNP(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('ne_NP')
+
+    def test_names(self):
+        name = self.factory.name().split()
+        assert all(isinstance(n, string_types) for n in name)
+        # name should always be 2-3 words. If 3, first word
+        # should be a prefix.
+        assert name[-2] in NeProvider.first_names
+        assert name[-1] in NeProvider.last_names
+        prefixes = NeProvider.prefixes_male + NeProvider.prefixes_female
+        if len(name) == 3:
+            assert name[0] in prefixes
