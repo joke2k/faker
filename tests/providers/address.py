@@ -10,6 +10,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker import Factory
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
+from faker.providers.address.ne_NP import Provider as NeProvider
 from .. import string_types
 
 
@@ -42,6 +43,7 @@ class TestJaJP(unittest.TestCase):
         self.factory = Factory.create('ja')
 
     def test_address(self):
+        """ Test"""
         country = self.factory.country()
         assert isinstance(country, string_types)
         assert country in JaProvider.countries
@@ -80,3 +82,22 @@ class TestJaJP(unittest.TestCase):
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+
+
+class TestNeNP(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('ne_NP')
+
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+        assert country in NeProvider.countries
+
+        district = self.factory.district()
+        assert isinstance(district, string_types)
+        assert district in NeProvider.districts
+
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in NeProvider.cities

@@ -11,20 +11,6 @@ class NeNPFactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('ne_NP')
         
-    def test_address(self):
-        from faker.providers.address.ne_NP import Provider
-        country = self.factory.country()
-        assert isinstance(country, string_types)
-        assert country in Provider.countries
-
-        district = self.factory.district()
-        assert isinstance(district, string_types)
-        assert district in Provider.districts
-
-        city = self.factory.city()
-        assert isinstance(city, string_types)
-        assert city in Provider.cities
-
     def test_names(self):
         from faker.providers.person.ne_NP import Provider
         for _ in range(10000):
