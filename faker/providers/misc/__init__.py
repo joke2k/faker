@@ -146,7 +146,8 @@ class Provider(BaseProvider):
         """
         Generates a random UUID4 string.
         """
-        return str(uuid.uuid4())
+        # Based on http://stackoverflow.com/q/41186818
+        return str(uuid.UUID(int=random.getrandbits(128)))
 
     @classmethod
     def password(cls, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
