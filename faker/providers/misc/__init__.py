@@ -134,10 +134,6 @@ class Provider(BaseProvider):
         )
 
     @classmethod
-    def country_code(cls):
-        return cls.random_element(DatetimeProvider.countries)['code']
-
-    @classmethod
     def language_code(cls):
         return cls.random_element(cls.language_locale_codes.keys())
 
