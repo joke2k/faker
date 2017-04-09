@@ -2,7 +2,15 @@
 Changelog
 =========
 
-`0.7.10 - 13-MArch-2017 <https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10>`__
+`0.7.11 - 09-April-2017 <https://github.com/joke2k/faker/compare/v0.7.10...v0.7.11>`__
+--------------------------------------------------------------------------------------
+
+* Added french words for days and months. Thanks @sblondon.
+* Reorganized tests. Thanks @grantbachman.
+* Added file path provider. Thanks @diegommarino.
+* Fixed packaging issue with tests module. Thanks @eukreign for the report.
+
+`0.7.10 - 13-March-2017 <https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10>`__
 -------------------------------------------------------------------------------------
 
 * Add ISBN-10 and ISBN-13. Thanks @grantbachman.
