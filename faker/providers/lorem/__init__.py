@@ -6,6 +6,7 @@ from .. import BaseProvider
 
 class Provider(BaseProvider):
     word_connector = ' '
+    sentence_punctuation = '.'
     @classmethod
     def word(cls):
         """
@@ -41,7 +42,7 @@ class Provider(BaseProvider):
         words = cls.words(nb_words)
         words[0] = words[0].title()
 
-        return cls.word_connector.join(words) + '.'
+        return cls.word_connector.join(words) + cls.sentence_punctuation
 
     @classmethod
     def sentences(cls, nb=3):
@@ -106,7 +107,7 @@ class Provider(BaseProvider):
                 text.pop()
             text[0] = text[0][0].upper() + text[0][1:]
             last_index = len(text) - 1
-            text[last_index] += '.'
+            text[last_index] += cls.sentence_punctuation
         elif max_nb_chars < 100:
             # join sentences
             while not text:
