@@ -6,6 +6,7 @@ from datetime import datetime
 
 from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
+from faker.providers.misc import Provider as MiscProvider
 
 from .. import BaseProvider
 
@@ -25,8 +26,6 @@ class Provider(BaseProvider):
     linux_processors = ('i686', 'x86_64',)
 
     mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC',)
-
-    langs = ('en-US', 'sl-SI', 'it-IT',)
 
     @classmethod
     def mac_processor(cls):
@@ -84,7 +83,7 @@ class Provider(BaseProvider):
         tmplt_mac = '({0}; rv:1.9.{1}.20) {2}'
         platforms = (
             tmplt_win.format(cls.windows_platform_token(),
-                             cls.random_element(cls.langs),
+                             MiscProvider.locale().replace('_', '-'),
                              random.randint(0, 2),
                              random.choice(ver)),
             tmplt_lin.format(cls.linux_platform_token(),
@@ -102,7 +101,7 @@ class Provider(BaseProvider):
         saf = "{0}.{1}.{2}".format(random.randint(531, 535),
                                    random.randint(1, 50),
                                    random.randint(1, 7))
-        if random.randint(0, 1) == 0:
+        if not random.getrandbits(1):
             ver = "{0}.{1}".format(random.randint(4, 5),
                                    random.randint(0, 1))
         else:
@@ -115,6 +114,7 @@ class Provider(BaseProvider):
         tmplt_ipod = '(iPod; U; CPU iPhone OS {0}_{1} like Mac OS X; {2})' \
                      ' AppleWebKit/{3} (KHTML, like Gecko) Version/{4}.0.5' \
                      ' Mobile/8B{5} Safari/6{6}'
+        locale = MiscProvider.locale().replace('_', '-')
         platforms = (
             tmplt_win.format(cls.windows_platform_token(),
                              saf,
@@ -122,13 +122,13 @@ class Provider(BaseProvider):
                              saf),
             tmplt_mac.format(cls.mac_platform_token(),
                              random.randint(2, 6),
-                             cls.random_element(cls.langs),
+                             locale,
                              saf,
                              ver,
                              saf),
             tmplt_ipod.format(random.randint(3, 4),
                               random.randint(0, 3),
-                              cls.random_element(cls.langs),
+                              locale,
                               saf,
                               random.randint(3, 4),
                               random.randint(111, 119),
@@ -139,20 +139,20 @@ class Provider(BaseProvider):
 
     @classmethod
     def opera(cls):
-        tmplt = '({0}; {1}) Presto/2.9.{2} Version/{3}.00'
-        platforms = (
-            tmplt.format(cls.linux_platform_token(),
-                         cls.random_element(cls.langs),
-                         random.randint(160, 190),
-                         random.randint(10, 12)),
-            tmplt.format(cls.windows_platform_token(),
-                         cls.random_element(cls.langs),
-                         random.randint(160, 190),
-                         random.randint(10, 12)),
+        platform = '({0}; {1}) Presto/2.9.{2} Version/{3}.00'.format(
+            (
+                cls.linux_platform_token() if random.getrandbits(1)
+                else cls.windows_platform_token()
+            ),
+            MiscProvider.locale().replace('_', '-'),
+            random.randint(160, 190),
+            random.randint(10, 12),
         )
-        return 'Opera/{0}.{1}.{2}'.format(random.randint(8, 9),
-                                          random.randint(10, 99),
-                                          cls.random_element(platforms))
+        return 'Opera/{0}.{1}.{2}'.format(
+            random.randint(8, 9),
+            random.randint(10, 99),
+            platform,
+        )
 
     @classmethod
     def internet_explorer(cls):
