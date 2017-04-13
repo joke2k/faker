@@ -407,6 +407,10 @@ class FactoryTestCase(unittest.TestCase):
         paragraph = provider.paragraph(0)
         self.assertEqual(paragraph, '')
 
+    def test_words_valueerror(self):
+        f = Factory.create()
+        self.assertRaises(ValueError, f.text, max_nb_chars=4)
+
     def test_no_words_paragraph(self):
         from faker.providers.lorem import Provider
 
