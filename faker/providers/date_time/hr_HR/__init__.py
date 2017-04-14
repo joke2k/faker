@@ -38,4 +38,3 @@ class Provider(DateTimeProvider):
             "12": "Prosinac",
         }
         return MONTH_NAMES[month]
-

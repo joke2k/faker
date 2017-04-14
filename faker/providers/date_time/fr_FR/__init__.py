@@ -38,4 +38,3 @@ class Provider(DateTimeProvider):
             "12": "Décembre",
         }
         return MONTH_NAMES[month]
-
