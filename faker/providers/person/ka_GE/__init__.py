@@ -14,6 +14,8 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
+    # Source: 2012 Voters List.
+    # Obtained from http://mashasada.me/en/chamotvirtva
     first_names_male = (
         'ავთანდილ', 'აკაკი', 'ალექს', 'ალექსანდრე', 'ამირან', 'ანზორ', 'არმენ',
         'არტურ', 'არჩილ', 'ასლან', 'ბადრი', 'ბესარიონ', 'ბესიკ', 'ბექა',
@@ -32,6 +34,8 @@ class Provider(PersonProvider):
         'შალვა', 'შაქრო', 'შოთა', 'ხვიჩა', 'ჯაბა', 'ჯემალ', 'ჯონი', 'ჯუმბერ'
     )
 
+    # Source: 2012 Voters List.
+    # Obtained from http://mashasada.me/en/chamotvirtva
     first_names_female = (
         'აზა', 'აიდა', 'ალა', 'ანა', 'ანი', 'ანიკო', 'ანნა', 'ანჟელა', 'ასმათ',
         'ბელა', 'გალინა', 'გვანცა', 'გიული', 'გუგული', 'გულიკო', 'გულნარა',
@@ -59,6 +63,8 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
+    # Source: 2012 Voters List.
+    # Obtained from http://mashasada.me/en/chamotvirtva
     last_names = (
         'აბაშიძე', 'აბდულაევი', 'აბესაძე', 'აბრამიშვილი', 'აბულაძე', 'ადამია',
         'ადეიშვილი', 'ადუაშვილი', 'ავალიანი', 'ალადაშვილი', 'ალანია', 'ალიევა',
