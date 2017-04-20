@@ -221,6 +221,12 @@ class FactoryTestCase(unittest.TestCase):
         result = datetime_safe.date(2008, 2, 29).strftime('%y')
         self.assertEqual(result, r'08')
 
+    def test_datetime_safe_new_date(self):
+        from faker.utils import datetime_safe
+        d = datetime_safe.date(1850, 8, 2)
+        result = datetime_safe.new_date(d)
+        self.assertEqual(result, datetime.date(1850, 8, 2))
+
     def test_datetimes_with_and_without_tzinfo(self):
         from faker.providers.date_time import Provider
         provider = Provider
