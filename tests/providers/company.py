@@ -6,6 +6,7 @@ import unittest
 import re
 
 from faker import Factory
+from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import Provider as PtProvider, company_id_checksum
 from .. import string_types
@@ -48,3 +49,19 @@ class TestPtBR(unittest.TestCase):
         for _ in range(100):
             cnpj = PtProvider.cnpj()
             self.assertTrue(re.search(r'\d{2}\.\d{3}\.\d{3}/0001-\d{2}', cnpj))
+
+class TestHuHU(unittest.TestCase):
+    """ Tests company in the hu_HU locale """
+
+    def setUp(self):
+        self.factory = Factory.create('hu_HU')
+
+    def test_company_suffix(self):
+        suffixes = HuProvider.company_suffixes
+        suffix = self.factory.company_suffix()
+        assert isinstance(suffix, string_types)
+        assert suffix in suffixes
+
+    def test_company(self):
+        company = self.factory.company()
+        assert isinstance(company, string_types)
