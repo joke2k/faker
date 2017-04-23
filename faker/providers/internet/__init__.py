@@ -97,8 +97,22 @@ class Provider(BaseProvider):
         )
         return username
 
-    def domain_name(self):
-        return self.domain_word() + '.' + self.tld()
+    def domain_name(self, levels=1):
+        """
+        Produce an Internet domain name with the specified number of
+        subdomain levels.
+
+        >>> domain_name()
+        nichols-phillips.com
+        >>> domain_name(2)
+        williamson-hopkins.jackson.com
+        """
+        if levels < 1:
+            raise ValueError("levels must be greater than or equal to 1")
+        if levels == 1:
+            return self.domain_word() + '.' + self.tld()
+        else:
+            return self.domain_word() + '.' + self.domain_name(levels - 1)
 
     @slugify_unicode
     def domain_word(self,):
