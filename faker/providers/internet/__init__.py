@@ -57,7 +57,7 @@ class Provider(BaseProvider):
     )
     image_placeholder_services = (
         'https://placeholdit.imgix.net/~text'
-        '?txtsize=55&txt={width}×{height}&w={width}&h={height}',
+        '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'http://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
      )
