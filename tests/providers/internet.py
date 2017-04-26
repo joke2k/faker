@@ -25,6 +25,13 @@ class TestJaJP(unittest.TestCase):
         assert isinstance(domain_word, string_types)
         assert any(domain_word == text.slugify(name) for name in names)
 
+        domain_name = self.factory.domain_name()
+        deep_domain_name = self.factory.domain_name(3)
+        assert isinstance(domain_name, string_types)
+        assert isinstance(deep_domain_name, string_types)
+        assert deep_domain_name.count('.') == 3
+        self.assertRaises(ValueError, self.factory.domain_name, -1)
+
         user_name = self.factory.user_name()
         assert isinstance(user_name, string_types)
 
