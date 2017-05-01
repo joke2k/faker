@@ -47,3 +47,18 @@ class TestZhCN(unittest.TestCase):
     def test_email(self):
         email = self.factory.email()
         validate_email(email, check_deliverability=False)
+
+
+class testHuHU(unittest.TestCase):
+    """ Tests internet module in the hu_HU locale. """
+
+    def setUp(self):
+        self.factory = Factory.create('hu')
+
+    def test_internet(self):
+        domain_name = self.factory.domain_name()
+        assert isinstance(domain_name, string_types)
+        tld = self.factory.tld()
+        assert isinstance(tld, string_types)
+        email = self.factory.email()
+        assert isinstance(email, string_types)
