@@ -2,6 +2,21 @@
 Changelog
 =========
 
+`0.7.12 - 10-May-2017 <https://github.com/joke2k/faker/compare/v0.7.11...v0.7.12>`__
+------------------------------------------------------------------------------------
+
+* Add Japanese lorem provider. Thanks @richmondwang.
+* Add hr_HR names of month and names of days. Thanks @mislavcimpersak.
+* Add sl_SI names of month and names of days. Thanks @mislavcimpersak.
+* Update the provider ``user_agent``. Thanks @illia-v.
+* Add russian words for date_time. Thanks @iskhomutov.
+* Add Georgian (``ka_GE``) person and address providers. Thanks @GeorgeLubaretsi.
+* Add company provider to hu_HU locale. Thanks @Newman101.
+* Allow subdomains for ``domain_name`` provider. Thanks @hiagofigueiro.
+* Implement hu_HU months + days. Thanks @Newman101.
+* Replacement rules for emails à->a, è->e in `de_DE` internet provider. Thanks @Bergil32.
+
+
 `0.7.11 - 09-April-2017 <https://github.com/joke2k/faker/compare/v0.7.10...v0.7.11>`__
 --------------------------------------------------------------------------------------
 
