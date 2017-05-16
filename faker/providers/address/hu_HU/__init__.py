@@ -131,7 +131,7 @@ class Provider(AddressProvider):
         return cls.random_element(cls.frequent_street_names)
 
     def city(self):
-        return super(Provider, self).city().capitalize()
+        return super(Provider, self).city()
 
     @classmethod
     def postcode(cls):
@@ -140,7 +140,7 @@ class Provider(AddressProvider):
                                    super(Provider, cls).random_digit())
 
     def street_name(self):
-        return super(Provider, self).street_name().upper()
+        return super(Provider, self).street_name().title()
 
     @classmethod
     def building_number(cls):

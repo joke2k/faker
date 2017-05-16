@@ -28,12 +28,22 @@ class TestEnGB(unittest.TestCase):
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
+    def setUp(self):
+        self.factory = Factory.create('hu_HU')
+
     def test_postcode_first_digit(self):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
         # The first digit may not begin with a zero.
         for i in range(100):
             pcd = HuProvider.postcode()
             assert pcd[2] > "0"
+
+    def test_street_address(self):
+        """ Tests the street address in the hu_HU locale """
+        address = self.factory.address()
+        assert isinstance(address, string_types)
+        address_with_county = self.factory.street_address_with_county()
+        assert isinstance(address_with_county, string_types)
 
 
 class TestJaJP(unittest.TestCase):
