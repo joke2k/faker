@@ -74,6 +74,24 @@ class Provider(AddressProvider):
         ('ZAC', (98000, 99999)),
     ))
 
+    municipalities = (
+        # Municipalities of Mexico City
+        ('Condesa'), ('Álvaro Obregón'), ('Azcapotzalco'), ('Benito Juárez'),
+        ('Coyoacán'), ('Cuajimalpa'), ('Cuauhtémoc'), ('Gustavo A.Madero'),
+        ('Iztacalco'), ('Iztapalapa'), ('La Magdalena Contreras'),
+        ('Miguel Hidalgo'), ('Milpa Alta'), ('Tláhuac'), ('Tlalpan'),
+        ('Venustiano Carranza'), ('Xochimilco'),
+        # Some municipalities of the State Of Mexico
+        ('Xalatlaco'), ('Ocoyoacac'), ('Huixquilucan'), ('Naucalpan'),
+        ('Tlalnepantla de Baz'), ('Tultitlán'), ('Coacalco de Berriozábal'),
+        ('Ecatepec de Morelos'), ('Tlalnepantla de Baz'),
+        ('Ecatepec de Morelos'), ('Nezahualcóyotl'), ('La Paz'),
+        ('Valle de Chalco Solidaridad'), ('Chalco'), ('Tenango del Aire'),
+        ('Juchitepec'),
+        # Some municipalities of Morelos
+        ('Tlalnepantla'), ('Tepoztlán'), ('Huitzilac')
+    )
+
     city_formats = (
         '{{city_adjetive}} {{country}}',
         'San {{first_name}} {{city_suffix}}',
@@ -132,3 +150,10 @@ class Provider(AddressProvider):
         example: u'GRO'
         """
         return cls.random_element(cls.states)[0]
+
+    @classmethod
+    def municipality(cls):
+        """
+        example: u'Xochimilco'
+        """
+        return cls.random_element(cls.municipalities)
