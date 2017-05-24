@@ -5,7 +5,17 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    word_list = (
+
+    def __init__(self, ext_word_list=None):
+        #verify the type of the variable
+        self.word_list = words
+        if isanstance(ext_word_list, None):
+            return self.word_list
+        elif isinstance(ext_word_list, list) or isinstance(ext_word_list, tuple):
+            return self.word_list = ext_word_list
+        #difficulty how the user will choose ??? have a class variable or __init__
+
+    words = (
         'a', 'ab', 'accusamus', 'accusantium', 'ad', 'adipisci', 'alias',
         'aliquam', 'aliquid', 'amet', 'animi', 'aperiam', 'architecto',
         'asperiores', 'aspernatur', 'assumenda', 'at', 'atque', 'aut', 'autem',
