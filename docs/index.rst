@@ -141,6 +141,7 @@ Included localized providers:
 -  `en\_US <https://faker.readthedocs.io/en/master/locales/en_US.html>`__ - English (United States)
 -  `es\_ES <https://faker.readthedocs.io/en/master/locales/es_ES.html>`__ - Spanish (Spain)
 -  `es\_MX <https://faker.readthedocs.io/en/master/locales/es_MX.html>`__ - Spanish (Mexico)
+-  `et\_EE <https://faker.readthedocs.io/en/master/locales/et_EE.html>`__ - Estonian
 -  `fa\_IR <https://faker.readthedocs.io/en/master/locales/fa_IR.html>`__ - Persian (Iran)
 -  `fi\_FI <https://faker.readthedocs.io/en/master/locales/fi_FI.html>`__ - Finnish
 -  `fr\_FR <https://faker.readthedocs.io/en/master/locales/fr_FR.html>`__ - French
