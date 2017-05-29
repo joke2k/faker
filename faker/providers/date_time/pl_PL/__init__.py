@@ -13,11 +13,11 @@ class Provider(DateTimeProvider):
         DAY_NAMES = {
             '0': 'poniedziałek',
             '1': 'wtorek',
-            '3': 'środa',
-            '4': 'czwartek',
-            '5': 'piątek',
-            '6': 'sobota',
-            '7': 'niedziela',
+            '2': 'środa',
+            '3': 'czwartek',
+            '4': 'piątek',
+            '5': 'sobota',
+            '6': 'niedziela',
         }
         return DAY_NAMES[day]
 
