@@ -10,9 +10,9 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}'
+        '{{prefix_male}} {{first_name_male}} {{last_name_male}}'
     )
 
     first_names_male = (
@@ -519,7 +519,8 @@ class Provider(PersonProvider):
         'Bukowski', 'Leśniak',
     )
 
-    prefixes = ('pan', 'pani')
+    prefixes_male = ('pan',)
+    prefixes_female = ('pani',)
 
     first_names = first_names_male + first_names_female
 
