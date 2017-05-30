@@ -62,3 +62,18 @@ class testHuHU(unittest.TestCase):
         assert isinstance(tld, string_types)
         email = self.factory.email()
         assert isinstance(email, string_types)
+
+
+class TestPlPL(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('pl_PL')
+        self.provider = self.factory.provider('faker.providers.internet')
+
+    def test_free_email_domain(self):
+        domain = self.factory.free_email_domain()
+        assert domain in self.provider.free_email_domains
+
+    def test_tld(self):
+        tld = self.factory.tld()
+        assert tld in self.provider.tlds
