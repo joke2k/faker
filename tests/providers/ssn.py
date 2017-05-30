@@ -6,8 +6,26 @@ import unittest
 import re
 
 from faker import Factory
+from faker.providers.ssn.et_EE import Provider as EtProvider, checksum as et_checksum
 from faker.providers.ssn.hr_HR import Provider as HrProvider, checksum as hr_checksum
 from faker.providers.ssn.pt_BR import Provider as PtProvider, checksum as pt_checksum
+
+
+class TestEtEE(unittest.TestCase):
+    """ Tests SSN in the et_EE locale """
+
+    def setUp(self):
+        self.factory = Factory.create('et_EE')
+
+    def test_ssn_checksum(self):
+        self.assertEqual(et_checksum([4, 4, 1, 1, 1, 3, 0, 4, 9, 2]), 3)
+        self.assertEqual(et_checksum([3, 6, 7, 0, 1, 1, 6, 6, 2, 7]), 8)
+        self.assertEqual(et_checksum([4, 7, 0, 0, 4, 2, 1, 5, 0, 1]), 2)
+        self.assertEqual(et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]), 0)
+
+    def test_ssn(self):
+        for i in range(100):
+            self.assertTrue(re.search(r'^\d{11}$', EtProvider.ssn()))
 
 
 class TestHrHR(unittest.TestCase):
