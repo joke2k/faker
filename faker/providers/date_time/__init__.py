@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from datetime import timedelta
 import re
 from time import time, mktime
+from calendar import timegm
 
 from dateutil import relativedelta
 from dateutil.tz import tzlocal
@@ -20,6 +21,8 @@ localized = True
 
 def datetime_to_timestamp(dt):
     if getattr(dt, 'tzinfo', None) is not None:
+        if getattr(dt, 'tzinfo', 'UTC'):
+            return timegm(dt.timetuple())
         dt = dt.astimezone(tzlocal())
     return mktime(dt.timetuple())
 
