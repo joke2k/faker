@@ -2,10 +2,15 @@
 Changelog
 =========
 
+`0.7.15 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.14...v0.7.13>`__
+-------------------------------------------------------------------------------------
+
+* fix start and end date for datetime provider methods.
+
 `0.7.14 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.13...v0.7.14>`__
 -------------------------------------------------------------------------------------
 
-* Fix ``future_date``, `and ``past_date`` bounds.
+* fix ``future_date``, `and ``past_date`` bounds.
 
 `0.7.13 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.12...v0.7.13>`__
 -------------------------------------------------------------------------------------
