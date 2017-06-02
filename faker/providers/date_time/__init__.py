@@ -362,6 +362,62 @@ class Provider(BaseProvider):
         return datetime.fromtimestamp(timestamp, tzinfo)
 
     @classmethod
+    def future_datetime(cls, end_date='+30d', tzinfo=None):
+        """
+        Get a DateTime object based on a random date between now and a given date.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param end_date Defaults to "+30d"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :example DateTime('1999-02-02 11:42:52')
+        :return DateTime
+        """
+        return cls.date_time_between(
+            start_date=timedelta(seconds=1), end_date=end_date, tzinfo=tzinfo,
+        )
+
+    @classmethod
+    def future_date(cls, end_date='+30d', tzinfo=None):
+        """
+        Get a Date object based on a random date between now and a given date.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param end_date Defaults to "+30d"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :example DateTime('1999-02-02 11:42:52')
+        :return DateTime
+        """
+        return cls.future_datetime(end_date=end_date, tzinfo=tzinfo).date()
+
+    @classmethod
+    def past_datetime(cls, start_date='-30d', tzinfo=None):
+        """
+        Get a DateTime object based on a random date between a given date and now.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param start_date Defaults to "-30d"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :example DateTime('1999-02-02 11:42:52')
+        :return DateTime
+        """
+        return cls.date_time_between(
+            start_date=start_date, end_date=timedelta(seconds=-1), tzinfo=tzinfo,
+        )
+
+    @classmethod
+    def past_date(cls, start_date='-30d', tzinfo=None):
+        """
+        Get a Date object based on a random date between a given date and now.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param start_date Defaults to "-30d"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :example DateTime('1999-02-02 11:42:52')
+        :return DateTime
+        """
+        return cls.past_datetime(start_date=start_date, tzinfo=tzinfo).date()
+
+    @classmethod
     def date_time_between_dates(cls, datetime_start=None, datetime_end=None, tzinfo=None):
         """
         Takes two DateTime objects and returns a random date between the two given dates.
