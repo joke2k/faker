@@ -364,7 +364,8 @@ class Provider(BaseProvider):
     @classmethod
     def future_datetime(cls, end_date='+30d', tzinfo=None):
         """
-        Get a DateTime object based on a random date between now and a given date.
+        Get a DateTime object based on a random date between 1 second form now
+        and a given date.
         Accepts date strings that can be recognized by strtotime().
 
         :param end_date Defaults to "+30d"
@@ -379,7 +380,8 @@ class Provider(BaseProvider):
     @classmethod
     def future_date(cls, end_date='+30d', tzinfo=None):
         """
-        Get a Date object based on a random date between now and a given date.
+        Get a Date object based on a random date between 1 day from now and a
+        given date.
         Accepts date strings that can be recognized by strtotime().
 
         :param end_date Defaults to "+30d"
@@ -394,7 +396,8 @@ class Provider(BaseProvider):
     @classmethod
     def past_datetime(cls, start_date='-30d', tzinfo=None):
         """
-        Get a DateTime object based on a random date between a given date and now.
+        Get a DateTime object based on a random date between a given date and 1
+        second ago.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date Defaults to "-30d"
@@ -409,7 +412,8 @@ class Provider(BaseProvider):
     @classmethod
     def past_date(cls, start_date='-30d', tzinfo=None):
         """
-        Get a Date object based on a random date between a given date and now.
+        Get a Date object based on a random date between a given date and 1 day
+        ago.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date Defaults to "-30d"
