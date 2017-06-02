@@ -2,6 +2,18 @@
 Changelog
 =========
 
+`0.7.13 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.12...v0.7.13>`__
+-------------------------------------------------------------------------------------
+
+* Remove capitalisation from ``hu_HU`` addresses. Thanks @Newman101.
+* Add ``et_EE`` (Estonian) provider: names and ssn. Thanks @trtd.
+* Proper prefix for gender in ``pl_PL`` names. Thanks @zgoda.
+* Add DateTime provider for ``pl_PL``. Thanks @zgoda.
+* Add ``pl_PL`` internet data provider. Thanks @zgoda.
+* Fix diacritics in ``pl_PL`` street names. Thanks @zgoda.
+* Add ``future_date``, ``future_datetime``, ``past_date`` and ``past_datetime`` to DateTime Provider
+
+
 `0.7.12 - 10-May-2017 <https://github.com/joke2k/faker/compare/v0.7.11...v0.7.12>`__
 ------------------------------------------------------------------------------------
 
