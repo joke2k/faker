@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 
 from datetime import timedelta
 import re
-from time import time, mktime
+from time import time
 from calendar import timegm
 
 from dateutil import relativedelta
-from dateutil.tz import tzlocal
+from dateutil.tz import tzutc
 
 from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
@@ -21,10 +21,8 @@ localized = True
 
 def datetime_to_timestamp(dt):
     if getattr(dt, 'tzinfo', None) is not None:
-        if getattr(dt, 'tzinfo', 'UTC'):
-            return timegm(dt.timetuple())
-        dt = dt.astimezone(tzlocal())
-    return mktime(dt.timetuple())
+        dt = dt.astimezone(tzutc())
+    return timegm(dt.timetuple())
 
 
 timedelta_pattern = r''
