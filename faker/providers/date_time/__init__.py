@@ -387,7 +387,9 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.future_datetime(end_date=end_date, tzinfo=tzinfo).date()
+        return cls.date_time_between(
+            start_date=timedelta(days=1), end_date=end_date, tzinfo=tzinfo,
+        ).date()
 
     @classmethod
     def past_datetime(cls, start_date='-30d', tzinfo=None):
@@ -415,7 +417,9 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.past_datetime(start_date=start_date, tzinfo=tzinfo).date()
+        return cls.date_time_between(
+            start_date=start_date, end_date=timedelta(days=-1), tzinfo=tzinfo,
+        ).date()
 
     @classmethod
     def date_time_between_dates(cls, datetime_start=None, datetime_end=None, tzinfo=None):
