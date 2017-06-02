@@ -374,7 +374,7 @@ class Provider(BaseProvider):
         :return DateTime
         """
         return cls.date_time_between(
-            start_date=timedelta(seconds=1), end_date=end_date, tzinfo=tzinfo,
+            start_date='+1s', end_date=end_date, tzinfo=tzinfo,
         )
 
     @classmethod
@@ -390,7 +390,7 @@ class Provider(BaseProvider):
         :return DateTime
         """
         return cls.date_time_between(
-            start_date=timedelta(days=1), end_date=end_date, tzinfo=tzinfo,
+            start_date='+1d', end_date=end_date, tzinfo=tzinfo,
         ).date()
 
     @classmethod
@@ -406,7 +406,7 @@ class Provider(BaseProvider):
         :return DateTime
         """
         return cls.date_time_between(
-            start_date=start_date, end_date=timedelta(seconds=-1), tzinfo=tzinfo,
+            start_date=start_date, end_date='-1s', tzinfo=tzinfo,
         )
 
     @classmethod
@@ -422,7 +422,7 @@ class Provider(BaseProvider):
         :return DateTime
         """
         return cls.date_time_between(
-            start_date=start_date, end_date=timedelta(days=-1), tzinfo=tzinfo,
+            start_date=start_date, end_date='-1d', tzinfo=tzinfo,
         ).date()
 
     @classmethod
