@@ -425,6 +425,23 @@ class FactoryTestCase(unittest.TestCase):
         sentence = provider.sentence(0)
         self.assertEqual(sentence, '')
 
+    def test_ext_word_list(self):
+        from faker import Factory
+        fake = Factory.create()
+
+        my_word_list = [
+        'danish',
+        'cheesecake',
+        'sugar',
+        'Lollipop',
+        'wafer',
+        'Gummies',
+        'Jelly',
+        'pie',
+        ]
+        word = fake.word(ext_word_list=my_word_list)
+        self.assertIn(word, my_word_list)
+
     def test_random_pystr_characters(self):
         from faker.providers.python import Provider
         provider = Provider(None)
