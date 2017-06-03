@@ -248,7 +248,7 @@ How to customize the Lorem Provider
 -----------------------------------
 
 You can provide your own sets of words if you don't want to use the
-default lorem ipsum one. i.e. with a list of words picked from `cakeipsum <http://www.cupcakeipsum.com/>`__ :
+default lorem ipsum one. The following example shows how to do it with a list of words picked from `cakeipsum <http://www.cupcakeipsum.com/>`__ :
 
 .. code:: python
 
