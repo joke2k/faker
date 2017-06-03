@@ -244,6 +244,38 @@ How to create a Provider
     fake.foo()
     > 'bar'
 
+
+How to customize Lorem
+------------------------
+You can provide your own sets of words if you don't want to use the
+default lorem ipsum one. i.e. with a list of words picked from `cakeipsum <http://www.cupcakeipsum.com/>`__.
+.. code:: python
+
+    from faker import Factory
+    fake = Factory.create()
+
+    my_word_list = [
+    'danish',
+    'cheesecake',
+    'sugar',
+    'Lollipop',
+    'wafer',
+    'Gummies',
+    'sesame',
+    'Jelly',
+    'beans',
+    'pie',
+    'bar',
+    'Ice',
+    'oat'
+    ]
+
+    fake.sentence()
+    #'Expedita at beatae voluptatibus nulla omnis.'
+
+    fake.sentence(ext_word_list=my_word_list)
+    # 'Oat beans oat Lollipop bar cheesecake.'
+
 How to use with Factory Boy
 ---------------------------
 
