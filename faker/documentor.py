@@ -39,12 +39,16 @@ class Documentor(object):
         formatters = {}
 
         for name, method in inspect.getmembers(provider, inspect.ismethod):
-
             # skip 'private' method and inherited methods
             if name.startswith('_') or name in self.already_generated:
                 continue
 
             arguments = []
+            faker_args = []
+            faker_kwargs = {}
+
+            if name == 'binary':
+                faker_kwargs['length'] = 1024
 
             if with_args:
                 # retrieve all parameter
@@ -84,7 +88,7 @@ class Documentor(object):
                                              ", ".join(arguments))
 
             # make a fake example
-            example = self.generator.format(name)
+            example = self.generator.format(name, *faker_args, **faker_kwargs)
 
             formatters[signature] = example
 
