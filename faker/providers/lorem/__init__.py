@@ -24,6 +24,8 @@ class Provider(BaseProvider):
         Keyword arguments:
         'ext_word_list' --- a list of word you would like to have 
                  instead of 'Lorem ipsum'
+
+        :return string
         """
         if ext_word_list:
             return cls.random_element(ext_word_list)
@@ -39,6 +41,8 @@ class Provider(BaseProvider):
         nb --- how many words to return
         'ext_word_list' --- a list of word you would like to have 
                  instead of 'Lorem ipsum'
+
+        :return list
         """
         return [cls.word(ext_word_list) for _ in range(0, nb)]
 
@@ -54,6 +58,8 @@ class Provider(BaseProvider):
             otherwise $nbWords may vary by +/-40% with a minimum of 1
         :param 'ext_word_list' --- a list of word you would like to have 
                  instead of 'Lorem ipsum'
+
+        :return string
         """
         if nb_words <= 0:
             return ''
@@ -118,6 +124,7 @@ class Provider(BaseProvider):
         :param nb how many paragraphs to return
         :param 'ext_word_list' a list of word you would like to have 
                  instead of 'Lorem ipsum'
+                 
         :return list
         """
 
