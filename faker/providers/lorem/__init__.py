@@ -61,7 +61,7 @@ class Provider(BaseProvider):
         if variable_nb_words:
             nb_words = cls.randomize_nb_elements(nb_words)
 
-        words = cls.words(nb=nb_words, ext_world_list=ext_world_list)
+        words = cls.words(nb=nb_words, ext_word_list=ext_word_list)
         words[0] = words[0].title()
 
         return cls.word_connector.join(words) + cls.sentence_punctuation
@@ -104,12 +104,11 @@ class Provider(BaseProvider):
         if variable_nb_sentences:
             nb_sentences = cls.randomize_nb_elements(nb_sentences)
 
-        if ext_word_list:
-            return cls.word_connector.join(cls.sentences(
+        para =  cls.word_connector.join(cls.sentences(
                 nb_sentences, ext_word_list=ext_word_list)
                 )
 
-        return cls.word_connector.join(cls.sentences(nb_sentences))
+        return para
 
     @classmethod
     def paragraphs(cls, nb=3, ext_word_list=None):
@@ -119,12 +118,10 @@ class Provider(BaseProvider):
         :param nb how many paragraphs to return
         :param 'ext_word_list' a list of word you would like to have 
                  instead of 'Lorem ipsum'
-        :return array
+        :return list
         """
-        if ext_word_list:
-            return [cls.paragraph(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
-        return [cls.paragraph() for _ in range(0, nb)]
+        return [cls.paragraph(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     @classmethod
     def text(cls, max_nb_chars=200, ext_word_list=None):
@@ -150,10 +147,7 @@ class Provider(BaseProvider):
                 size = 0
                 # determine how many words are needed to reach the $max_nb_chars once;
                 while size < max_nb_chars:
-                    if ext_word_list:
-                        word = (cls.word_connector if size else '') + cls.word(ext_word_list=ext_word_list)
-                    else:
-                        word = (cls.word_connector if size else '') + cls.word()
+                    word = (cls.word_connector if size else '') + cls.word(ext_word_list=ext_word_list)
                     text.append(word)
                     size += len(word)
                 text.pop()
@@ -166,10 +160,7 @@ class Provider(BaseProvider):
                 size = 0
                 # determine how many sentences are needed to reach the $max_nb_chars once
                 while size < max_nb_chars:
-                    if ext_word_list:
-                        sentence = (cls.word_connector if size else '') + cls.sentence(ext_word_list=ext_word_list)
-                    else:
-                        sentence = (cls.word_connector if size else '') + cls.sentence()
+                    sentence = (cls.word_connector if size else '') + cls.sentence(ext_word_list=ext_word_list)
                     text.append(sentence)
                     size += len(sentence)
                 text.pop()
@@ -179,10 +170,7 @@ class Provider(BaseProvider):
                 size = 0
                 # determine how many paragraphs are needed to reach the $max_nb_chars once
                 while size < max_nb_chars:
-                    if ext_word_list:
-                        paragraph = ('\n' if size else '') + cls.paragraph(ext_word_list=ext_word_list)
-                    else:
-                        paragraph = ('\n' if size else '') + cls.paragraph()
+                    paragraph = ('\n' if size else '') + cls.paragraph(ext_word_list=ext_word_list)
                     text.append(paragraph)
                     size += len(paragraph)
                 text.pop()
