@@ -9,7 +9,6 @@ import unittest
 import string
 import six
 import sys
-import logging
 
 try:
     from StringIO import StringIO
@@ -37,6 +36,7 @@ class UTC(datetime.tzinfo):
 
     def dst(self, dt):
         return datetime.timedelta(0)
+
 
 utc = UTC()
 
