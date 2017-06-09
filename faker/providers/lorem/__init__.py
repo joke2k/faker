@@ -94,9 +94,7 @@ class Provider(BaseProvider):
 
         :return list
         """
-        if ext_word_list:
-            return [cls.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
-        return [cls.sentence() for _ in range(0, nb)]
+        return [cls.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     @classmethod
     def paragraph(cls, nb_sentences=3, variable_nb_sentences=True, ext_word_list=None):
