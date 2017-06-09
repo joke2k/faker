@@ -356,8 +356,8 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        start_date = cls._parse_date_time(start_date)
-        end_date = cls._parse_date_time(end_date)
+        start_date = cls._parse_date_time(start_date, tzinfo=tzinfo)
+        end_date = cls._parse_date_time(end_date, tzinfo=tzinfo)
         timestamp = random.randint(start_date, end_date)
         return datetime.fromtimestamp(timestamp, tzinfo)
 
