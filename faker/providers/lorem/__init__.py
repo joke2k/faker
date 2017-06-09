@@ -1,5 +1,4 @@
 localized = True
-#default_locale is 'en_US' in the previous State of this application
 default_locale = 'la' 
 
 from .. import BaseProvider
