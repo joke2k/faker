@@ -1,12 +1,29 @@
 localized = True
+#'Latin' is the default locale
 default_locale = 'la' 
 
 from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    """Will provide methods to retrieve lorem content
+    
+    Attributes:
+        sentence_punctuation (str): End of sentence punctuation
+        word_connector (str): Default connector between words
+
+    Methods:
+        word: Generate a random word
+        words: Generate a list containing random words
+        sentence: Generate a random sentence
+        sentences: Generate a list containing sentences
+        paragraph: Generate a single paragraph
+        paragraphs: Generate many paragraphs
+        text: Generate a text string.
+    """
     word_connector = ' '
     sentence_punctuation = '.'
+
     @classmethod
     def word(cls, ext_word_list=None):
         """
