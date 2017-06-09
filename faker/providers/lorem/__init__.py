@@ -5,13 +5,6 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
-    '''
-    factory.create will enter this class and will and will list all the
-    methods then will go to 'la.__init__'
-
-    Why does it goes to 'la' as soon as it finish to read this class
-    '''
-    #import pytest; pytest.set_trace()
     word_connector = ' '
     sentence_punctuation = '.'
     @classmethod
@@ -123,7 +116,7 @@ class Provider(BaseProvider):
         :param nb how many paragraphs to return
         :param 'ext_word_list' a list of word you would like to have 
                  instead of 'Lorem ipsum'
-                 
+
         :return list
         """
 
