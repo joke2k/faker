@@ -2,6 +2,12 @@
 Changelog
 =========
 
+`0.7.16 - 09-June-2017 <https://github.com/joke2k/faker/compare/v0.7.16...v0.7.15>`__
+-------------------------------------------------------------------------------------
+
+* fix timezone issues with ``date_time_between`` provider.
+* Add ``ext_word_list`` parameter to methods in the `Lorem` generator. Thanks @guinslym.
+
 `0.7.15 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.14...v0.7.13>`__
 -------------------------------------------------------------------------------------
 
