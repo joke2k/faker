@@ -1,8 +1,6 @@
 localized = True
 #default_locale is 'en_US' in the previous State of this application
 default_locale = 'la' 
-#external provider
-external_provider = ''
 
 from .. import BaseProvider
 
@@ -42,9 +40,7 @@ class Provider(BaseProvider):
         'ext_word_list' --- a list of word you would like to have 
                  instead of 'Lorem ipsum'
         """
-        if ext_word_list:
-            return [cls.word(ext_word_list) for _ in range(0, nb)]
-        return [cls.word() for _ in range(0, nb)]
+        return [cls.word(ext_word_list) for _ in range(0, nb)]
 
     @classmethod
     def sentence(cls, nb_words=6, variable_nb_words=True, ext_word_list=None):
@@ -65,10 +61,7 @@ class Provider(BaseProvider):
         if variable_nb_words:
             nb_words = cls.randomize_nb_elements(nb_words)
 
-        if ext_word_list:
-            words = cls.words(nb_words, ext_word_list)
-        else:
-            words = cls.words(nb_words)
+        words = cls.words(nb=nb_words, ext_world_list=ext_world_list)
         words[0] = words[0].title()
 
         return cls.word_connector.join(words) + cls.sentence_punctuation
