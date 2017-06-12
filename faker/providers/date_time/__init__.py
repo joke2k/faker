@@ -2,13 +2,14 @@
 
 from __future__ import unicode_literals
 
-from datetime import timedelta
 import re
-from time import time
+
 from calendar import timegm
+from datetime import timedelta
+from time import time
 
 from dateutil import relativedelta
-from dateutil.tz import tzutc
+from dateutil.tz import tzlocal, tzutc
 
 from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
@@ -428,11 +429,12 @@ class Provider(BaseProvider):
     @classmethod
     def date_time_between_dates(cls, datetime_start=None, datetime_end=None, tzinfo=None):
         """
-        Takes two DateTime objects and returns a random date between the two given dates.
+        Takes two DateTime objects and returns a random datetime between the two
+        given datetimes.
         Accepts DateTime objects.
 
-        :param datetime_start DateTime
-        :param datetime_end DateTime
+        :param datetime_start: DateTime
+        :param datetime_end: DateTime
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
@@ -447,7 +449,12 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
-        return datetime.fromtimestamp(timestamp, tzinfo)
+        if tzinfo is None:
+            pick = datetime.fromtimestamp(timestamp, tzlocal())
+            pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+        else:
+            pick = datetime.fromtimestamp(timestamp, tzinfo)
+        return pick
 
     @classmethod
     def date_time_this_century(cls, before_now=True, after_now=False, tzinfo=None):
