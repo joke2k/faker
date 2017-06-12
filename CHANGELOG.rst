@@ -2,6 +2,11 @@
 Changelog
 =========
 
+`0.7.17 - 12-June-2017 <https://github.com/joke2k/faker/compare/v0.7.17...v0.7.16>`__
+-------------------------------------------------------------------------------------
+
+* Fix a timezone issue with the ``date_time_between_dates`` provider.
+
 `0.7.16 - 09-June-2017 <https://github.com/joke2k/faker/compare/v0.7.16...v0.7.15>`__
 -------------------------------------------------------------------------------------
 
