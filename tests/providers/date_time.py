@@ -77,9 +77,8 @@ class TestDateTime(unittest.TestCase):
 
         today = date.today()
         timestamp = datetime_to_timestamp(today)
-        today_as_dt = datetime.combine(today, datetime_time.min)
-        today_back = datetime.fromtimestamp(timestamp)
-        self.assertEqual(today_as_dt, today_back)
+        today_back = datetime.fromtimestamp(timestamp, utc).date()
+        self.assertEqual(today, today_back)
 
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
