@@ -360,7 +360,7 @@ class Provider(BaseProvider):
         start_date = cls._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = cls._parse_date_time(end_date, tzinfo=tzinfo)
         timestamp = random.randint(start_date, end_date)
-        return datetime(1970, 1, 1) + timedelta(seconds=timestamp)
+        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=timestamp)
 
     @classmethod
     def future_datetime(cls, end_date='+30d', tzinfo=None):
