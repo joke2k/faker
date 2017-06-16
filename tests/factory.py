@@ -171,20 +171,20 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_binary(self):
         from faker.providers.misc import Provider
-       
+
         for _ in range(999):
             length = random.randint(0, 2 ** 10)
             binary = Provider.binary(length)
 
             self.assertTrue(isinstance(binary, (bytes, bytearray)))
             self.assertTrue(len(binary) == length)
-        
+
         for _ in range(999):
             self.generator.seed(_)
             binary1 = Provider.binary(_)
             self.generator.seed(_)
             binary2 = Provider.binary(_)
-            
+
             self.assertTrue(binary1 == binary2)
 
     def test_language_code(self):
