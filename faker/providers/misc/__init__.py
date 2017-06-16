@@ -91,7 +91,7 @@ class Provider(BaseProvider):
 
         Default blob size is 1 Mb.
         """
-        return os.urandom(length)
+        return random.getrandbits(8 * length).to_bytes(length, byteorder='big', signed=False)
 
     @classmethod
     def md5(cls, raw_output=False):
