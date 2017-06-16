@@ -176,7 +176,7 @@ class FactoryTestCase(unittest.TestCase):
             length = random.randint(0, 2 ** 10)
             binary = Provider.binary(length)
 
-            self.assertTrue(isinstance(binary, bytes) or isinstance(binary, bytearray))
+            self.assertTrue(isinstance(binary, (bytes, bytesarray)))
             self.assertTrue(len(binary) == length)
         
         for _ in range(999):
