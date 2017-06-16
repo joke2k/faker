@@ -180,9 +180,9 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(len(binary) == length)
         
         for _ in range(999):
-            Provider.seed(_)
+            self.generator.seed(_)
             binary1 = Provider.binary(_)
-            Provider.seed(_)
+            self.generator.seed(_)
             binary2 = Provider.binary(_)
             
             self.assertTrue(binary1 == binary2)
