@@ -5,6 +5,7 @@ import hashlib
 import string
 import uuid
 import os
+import sys
 
 from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
@@ -91,7 +92,8 @@ class Provider(BaseProvider):
 
         Default blob size is 1 Mb.
         """
-        return bytes([random.randrange(256) for o in range(length)])
+        blob = [random.randrange(256) for o in range(length)]
+        return bytes(blob) if sys.version_info[0] >= 3 else bytearray(blob)
 
     @classmethod
     def md5(cls, raw_output=False):
