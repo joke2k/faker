@@ -81,10 +81,6 @@ class TestPlPL(unittest.TestCase):
         self.assertEqual(pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]), 6)
 
     def test_calculate_month(self):
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1800', '%m %d %Y')), 81)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 1800', '%m %d %Y')), 92)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1899', '%m %d %Y')), 81)
-
         self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')), 1)
         self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')), 12)
         self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')), 1)
