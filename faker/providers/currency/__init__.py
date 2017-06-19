@@ -170,6 +170,17 @@ class Provider(BaseProvider):
         "ZWD"
     )
 
+    # Source: https://en.wikipedia.org/wiki/List_of_cryptocurrencies
+    cryptocurrencies = (
+        'AMP', 'AUR', 'BC', 'BTC', 'BURST', 'DASH', 'DOGE', 'EMC', 'ETH',
+        'GRC', 'KOI', 'LTC', 'MSC', 'MZC', 'NMC', 'NXT', 'POT', 'PPC', 'SIL',
+        'TIT', 'VTC', 'XDN', 'XMR', 'XPM', 'XRP', 'ZEC',
+    )
+
     @classmethod
     def currency_code(cls):
         return cls.random_element(cls.currencies)
+
+    @classmethod
+    def cryptocurrency_code(cls):
+        return cls.random_element(cls.cryptocurrencies)
