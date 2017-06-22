@@ -41,7 +41,7 @@ class Provider(PersonProvider):
     formats_female = OrderedDict((
         ('{{last_name}} {{first_name_female}}', 0.1),
         ('{{last_name}} {{last_name}} {{first_name_female}}', 0.1),
-        ('{{last_name})} {{first_name_female}} {{first_name_female}}', 0.1),
+        ('{{last_name}} {{first_name_female}} {{first_name_female}}', 0.1),
         ('{{first_name_female_abbreviated}} {{last_name}} {{first_name_female}}', 0.1),
         ('{{last_name}} {{first_name_female_abbreviated}} {{first_name_female}}', 0.1),
         ('{{prefix}} {{last_name}} {{first_name_female}}', 0.05),
