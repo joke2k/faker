@@ -6,6 +6,7 @@ import unittest
 
 from faker import Factory
 from faker.providers.person.ne_NP import Provider as NeProvider
+from faker.providers.person.sv_SE import Provider as SvSEProvider
 from .. import string_types
 
 
@@ -84,3 +85,18 @@ class TestNeNP(unittest.TestCase):
         prefixes = NeProvider.prefixes_male + NeProvider.prefixes_female
         if len(name) == 3:
             assert name[0] in prefixes
+
+
+class TestSvSE(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('sv_SE')
+
+    def test_gender_first_names(self):
+        """simple test to verify that we are pulling gender specific names"""
+        name = self.factory.first_name_female()
+        self.assertIn(name, SvSEProvider.first_names_female)
+        name = self.factory.first_name_male()
+        self.assertIn(name, SvSEProvider.first_names_male)
+        name = self.factory.first_name()
+        self.assertIn(name, SvSEProvider.first_names)
