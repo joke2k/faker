@@ -69,8 +69,8 @@ to ``faker.Generator.format(method_name)``.
 
 .. code:: python
 
-    for _ in range(0, 10):
-      print fake.name()
+    for _ in range(10):
+      print(fake.name())
 
     # Adaline Reichel
     # Dr. Santa Prosacco DVM
@@ -104,8 +104,8 @@ default en\_US locale.
 
     from faker import Factory
     fake = Factory.create('it_IT')
-    for _ in range(0, 10):
-        print fake.name()
+    for _ in range(10):
+        print(fake.name())
 
     > Elda Palumbo
     > Pacifico Giordano
@@ -314,7 +314,7 @@ seed produces the same results.
     fake = Faker()
     fake.seed(4321)
 
-    print fake.name()
+    print(fake.name())
     > Margaret Boehm
 
 The code above is equivalent to the following:
@@ -325,7 +325,7 @@ The code above is equivalent to the following:
     fake = Faker()
     fake.random.seed(4321)
 
-    print fake.name()
+    print(fake.name())
     > Margaret Boehm
 
 Tests
