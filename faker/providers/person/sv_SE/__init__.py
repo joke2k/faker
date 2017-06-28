@@ -17,12 +17,15 @@ from .. import Provider as PersonProvider
 
 class Provider(PersonProvider):
 
-    formats = OrderedDict((
-        ('{{last_name}} {{first_name}}', 1.0),
-    ))
+    formats_female = (
+        '{{first_name_female}} {{last_name}}',
+    )
 
-    formats_female = formats.copy()
-    formats_male = formats.copy()
+    formats_male = (
+        '{{first_name_male}} {{last_name}}',
+    )
+
+    formats = formats_female + formats_male
 
     first_names_female = OrderedDict((
         ('Agnes', 0.001745),
