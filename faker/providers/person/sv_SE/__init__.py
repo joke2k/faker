@@ -18,7 +18,7 @@ from .. import Provider as PersonProvider
 class Provider(PersonProvider):
 
     formats = OrderedDict((
-        ('{{last_name}} {{first_name_male}}', 1.0),
+        ('{{last_name}} {{first_name}}', 1.0),
     ))
 
     formats_female = formats.copy()
