@@ -21,7 +21,7 @@ class TestEnGB(unittest.TestCase):
         self.factory = Factory.create('en_GB')
 
     def test_postcode(self):
-        for i in range(100):
+        for _ in range(100):
             assert isinstance(parse_uk_postcode(self.factory.postcode()), tuple)
 
 
@@ -34,7 +34,7 @@ class TestHuHU(unittest.TestCase):
     def test_postcode_first_digit(self):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
         # The first digit may not begin with a zero.
-        for i in range(100):
+        for _ in range(100):
             pcd = HuProvider.postcode()
             assert pcd[2] > "0"
 
@@ -119,5 +119,5 @@ class TestNoNO(unittest.TestCase):
         self.factory = Factory.create('no_NO')
 
     def test_postcode(self):
-        for i in range(100):
+        for _ in range(100):
             self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))

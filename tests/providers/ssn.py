@@ -27,7 +27,7 @@ class TestEtEE(unittest.TestCase):
         self.assertEqual(et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]), 0)
 
     def test_ssn(self):
-        for i in range(100):
+        for _ in range(100):
             self.assertTrue(re.search(r'^\d{11}$', EtProvider.ssn()))
 
 
@@ -46,7 +46,7 @@ class TestHrHR(unittest.TestCase):
         self.assertEqual(hr_checksum([7, 1, 1, 4, 9, 9, 1, 2, 4, 1]), 6)
 
     def test_ssn(self):
-        for i in range(100):
+        for _ in range(100):
             self.assertTrue(re.search(r'^\d{11}$', HrProvider.ssn()))
 
 
@@ -98,5 +98,5 @@ class TestPlPL(unittest.TestCase):
         self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')), 61)
 
     def test_ssn(self):
-        for i in range(100):
+        for _ in range(100):
             self.assertTrue(re.search(r'^\d{11}$', PlProvider.ssn()))

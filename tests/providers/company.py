@@ -83,5 +83,5 @@ class TestPlPL(unittest.TestCase):
         self.assertEqual(regon_checksum([9, 1, 5, 9, 6, 9, 4, 7]), 7)
 
     def test_regon(self):
-        for i in range(100):
+        for _ in range(100):
             self.assertTrue(re.search(r'^\d{9}$', PlProvider.regon()))
