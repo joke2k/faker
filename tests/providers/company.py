@@ -9,6 +9,7 @@ from faker import Factory
 from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import Provider as PtProvider, company_id_checksum
+from faker.providers.company.pl_PL import Provider as PlProvider, regon_checksum
 from .. import string_types
 
 
@@ -50,6 +51,7 @@ class TestPtBR(unittest.TestCase):
             cnpj = PtProvider.cnpj()
             self.assertTrue(re.search(r'\d{2}\.\d{3}\.\d{3}/0001-\d{2}', cnpj))
 
+
 class TestHuHU(unittest.TestCase):
     """ Tests company in the hu_HU locale """
 
@@ -65,3 +67,21 @@ class TestHuHU(unittest.TestCase):
     def test_company(self):
         company = self.factory.company()
         assert isinstance(company, string_types)
+
+
+class TestPlPL(unittest.TestCase):
+    """ Tests company in the pl_PL locale """
+
+    def setUp(self):
+        self.factory = Factory.create('pl_PL')
+
+    def test_regon_checksum(self):
+        self.assertEqual(regon_checksum([1, 2, 3, 4, 5, 6, 7, 8]), 5)
+        self.assertEqual(regon_checksum([8, 9, 1, 9, 5, 7, 8, 8]), 3)
+        self.assertEqual(regon_checksum([2, 1, 7, 1, 5, 4, 8, 3]), 8)
+        self.assertEqual(regon_checksum([7, 9, 3, 5, 4, 7, 9, 3]), 9)
+        self.assertEqual(regon_checksum([9, 1, 5, 9, 6, 9, 4, 7]), 7)
+
+    def test_regon(self):
+        for _ in range(100):
+            self.assertTrue(re.search(r'^\d{9}$', PlProvider.regon()))
