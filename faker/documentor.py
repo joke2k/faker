@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import inspect
 
+from .compat import getargspec
+
 from faker import utils
 
 
@@ -52,7 +54,7 @@ class Documentor(object):
 
             if with_args:
                 # retrieve all parameter
-                argspec = inspect.getargspec(method)
+                argspec = getargspec(method)
 
                 lst = [x for x in argspec.args if x not in ['self', 'cls']]
                 for i, arg in enumerate(lst):
@@ -79,8 +81,8 @@ class Documentor(object):
                 if with_args != 'first':
                     if argspec.varargs:
                         arguments.append('*' + argspec.varargs)
-                    if argspec.keywords:
-                        arguments.append('**' + argspec.keywords)
+                    if argspec.varkw:
+                        arguments.append('**' + argspec.varkw)
 
             # build fake method signature
             signature = "{0}{1}({2})".format(prefix,
