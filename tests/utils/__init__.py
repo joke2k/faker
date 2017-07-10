@@ -70,6 +70,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.internet',
             'faker.providers.isbn',
             'faker.providers.job',
+            'faker.providers.license_plate',
             'faker.providers.lorem',
             'faker.providers.misc',
             'faker.providers.person',
