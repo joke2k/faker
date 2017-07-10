@@ -398,3 +398,7 @@ class Provider(AddressProvider):
         :example 12345
         """
         return cls.bothify(cls.random_element(cls.new_postal_code_formats))
+
+    @classmethod
+    def postcode(cls):
+        return cls.postal_code()

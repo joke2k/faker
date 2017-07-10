@@ -140,3 +140,7 @@ class Provider(AddressProvider):
         :example '101-1212'
         """
         return "%03d-%04d" % (random.randint(0, 999), random.randint(0, 9999))
+
+    @classmethod
+    def postcode(cls):
+        return cls.zipcode()

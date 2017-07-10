@@ -119,3 +119,6 @@ class Provider(AddressProvider):
             cls.random_element(cls.postal_code_formats))
         return cls.numerify(temp)
 
+    @classmethod
+    def postcode(cls):
+        return cls.postalcode()
