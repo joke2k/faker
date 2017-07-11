@@ -1,12 +1,12 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from .. import Provider as LicensePlateProvider
+from .. import Provider as AutomotiveProvider
 
 
-class Provider(LicensePlateProvider):
+class Provider(AutomotiveProvider):
     # from https://www.revolvy.com/main/index.php?s=Canadian%20licence%20plate%20designs%20and%20serial%20formats
-    formats = (
+    license_formats = (
         # Alberta
         '???-####',
         # BC

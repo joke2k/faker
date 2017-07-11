@@ -60,6 +60,7 @@ class UtilsTestCase(unittest.TestCase):
 
         expected_providers = list(map(str, [
             'faker.providers.address',
+            'faker.providers.automotive',
             'faker.providers.barcode',
             'faker.providers.color',
             'faker.providers.company',
@@ -70,7 +71,6 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.internet',
             'faker.providers.isbn',
             'faker.providers.job',
-            'faker.providers.license_plate',
             'faker.providers.lorem',
             'faker.providers.misc',
             'faker.providers.person',
