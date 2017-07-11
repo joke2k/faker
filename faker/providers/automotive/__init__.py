@@ -8,6 +8,7 @@ import re
 
 class Provider(BaseProvider):
     license_formats = ()
+    
     @classmethod
     def license_plate(cls):
         temp = re.sub(r'\?',
