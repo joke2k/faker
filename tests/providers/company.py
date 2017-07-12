@@ -95,6 +95,5 @@ class TestPlPL(unittest.TestCase):
 
     def test_local_regon(self):
         for _ in range(100):
-            print(PlProvider.local_regon())
             self.assertTrue(re.search(r'^\d{14}$', PlProvider.local_regon()))
 
