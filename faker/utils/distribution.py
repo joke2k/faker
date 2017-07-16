@@ -18,9 +18,8 @@ def cumsum(it):
 def choice_distribution(a, p):
     assert len(a) == len(p)
 
-    if version_info.major >= 3 and version_info.minor >= 6:
-        from random import choices
-        return choices(a, weights=p)[0]
+    if hasattr(random, 'choices'):
+        return random.choices(a, weights=p)[0]
     else:
         cdf = list(cumsum(p))
         normal = cdf[-1]
