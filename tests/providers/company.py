@@ -9,7 +9,8 @@ from faker import Factory
 from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import Provider as PtProvider, company_id_checksum
-from faker.providers.company.pl_PL import Provider as PlProvider, regon_checksum, local_regon_checksum
+from faker.providers.company.pl_PL import (Provider as PlProvider, regon_checksum, local_regon_checksum,
+                                           company_vat_checksum)
 from .. import string_types
 
 
@@ -97,3 +98,13 @@ class TestPlPL(unittest.TestCase):
         for _ in range(100):
             self.assertTrue(re.search(r'^\d{14}$', PlProvider.local_regon()))
 
+    def test_company_vat_checksum(self):
+        self.assertEquals(company_vat_checksum([7, 7, 5, 7, 7, 7, 6, 0, 5]), 9)
+        self.assertEquals(company_vat_checksum([1, 8, 6, 5, 4, 9, 9, 6, 4]), 2)
+        self.assertEquals(company_vat_checksum([7, 1, 2, 8, 9, 2, 4, 9, 9]), 7)
+        self.assertEquals(company_vat_checksum([3, 5, 4, 6, 1, 0, 6, 5, 8]), 4)
+        self.assertEquals(company_vat_checksum([3, 1, 9, 5, 5, 7, 0, 4, 5]), 0)
+
+    def test_company_vat(self):
+        for _ in range(100):
+            self.assertTrue(re.search(r'^\d{10}$', PlProvider.company_vat()))

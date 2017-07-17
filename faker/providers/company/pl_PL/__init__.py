@@ -38,6 +38,21 @@ def local_regon_checksum(digits):
     return check_digit
 
 
+def company_vat_checksum(digits):
+    """
+    Calculates and returns a control digit for given list of digits basing on NIP standard.
+    """
+    weights_for_check_digit = [6, 5, 7, 2, 3, 4, 5, 6, 7]
+    check_digit = 0
+
+    for i in range(0, 9):
+        check_digit += weights_for_check_digit[i] * digits[i]
+
+    check_digit %= 11
+
+    return check_digit
+
+
 class Provider(CompanyProvider):
 
     @classmethod
@@ -74,3 +89,29 @@ class Provider(CompanyProvider):
         regon_digits.append(local_regon_checksum(regon_digits))
 
         return ''.join(str(digit) for digit in regon_digits)
+
+    @classmethod
+    def company_vat(cls):
+        """
+        Returns 10 character tax identification number,
+        Polish: Numer identyfikacji podatkowej.
+
+        https://pl.wikipedia.org/wiki/NIP
+        """
+        vat_digits = []
+
+        for _ in range(3):
+            vat_digits.append(cls.random_digit_not_null())
+
+        for _ in range(6):
+            vat_digits.append(cls.random_digit())
+
+        check_digit = company_vat_checksum(vat_digits)
+
+        # in this case we must generate a tax number again, because check_digit cannot be 10
+        if check_digit == 10:
+            return cls.company_vat()
+
+        vat_digits.append(check_digit)
+
+        return ''.join(str(digit) for digit in vat_digits)
