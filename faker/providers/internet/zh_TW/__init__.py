@@ -6,13 +6,13 @@ from faker.utils.decorators import slugify
 
 class Provider(InternetProvider):
     user_name_formats = (
-        '{{last_name}}.{{first_name}}',
-        '{{first_name}}.{{last_name}}',
-        '{{first_name}}##',
-        '?{{last_name}}',
+        '{{last_romanized_name}}.{{first_romanized_name}}',
+        '{{first_romanized_name}}.{{last_romanized_name}}',
+        '{{first_romanized_name}}##',
+        '?{{last_romanized_name}}',
     )
     tlds = ('com', 'com', 'com', 'net', 'org', 'tw', 'tw', 'tw')
 
     @slugify
     def domain_word(self):
-        return self.generator.format('last_name')
+        return self.generator.format('last_romanized_name')

@@ -70,3 +70,51 @@ class Provider(PersonProvider):
                   "游", "竺", "權", "逮", "盍", "益", "桓", "公",
                   "司馬", "上官", "歐陽", "東方", "公羊",
                   "公冶", "淳于", "公孫", "慕容", "司徒", "司空",)
+
+    romanized_formats = (
+        '{{first_romanized_name}} {{last_romanized_name}}',
+    )
+
+    # From https://en.wikipedia.org/wiki/Chinese_given_name#Common_Chinese_names,
+    # with accents stripped
+    first_romanized_names = (
+        'Chao', 'Fang', 'Gang', 'Guiying', 'Jie', 'Jing', 'Juan', 'Jun', 'Lei',
+        'Li', 'Min', 'Ming', 'Na', 'Ping', 'Qiang', 'Tao', 'Wei', 'Xia', 'Xiulan',
+        'Xiuying', 'Yang', 'Yong', 'Yan',
+    )
+
+    # From https://en.wikipedia.org/wiki/List_of_common_Chinese_surnames
+    # with accents stripped
+    last_romanized_names = (
+        'Bai', 'Cai', 'Cao', 'Chang', 'Chen', 'Cheng', 'Cui', 'Dai', 'Deng',
+        'Ding', 'Dong', 'Du', 'Duan', 'Fan', 'Fang', 'Feng', 'Fu', 'Gao', 'Gong',
+        'Gu', 'Guo', 'Han', 'Hao', 'He', 'Hou', 'Hu', 'Huang', 'Jia', 'Jiang',
+        'Jin', 'Kang', 'Kong', 'Lai', 'Lei', 'Li', 'Liang', 'Liao', 'Lin', 'Liu',
+        'Long', 'Lu', 'Luo', 'Ma', 'Mao', 'Meng', 'Mo', 'Pan', 'Peng', 'Qian',
+        'Qiao', 'Qin', 'Qiu', 'Ren', 'Shao', 'Shen', 'Shi', 'Song', 'Su', 'Sun',
+        'Tan', 'Tang', 'Tao', 'Tian', 'Wan', 'Wang', 'Wei', 'Wen', 'Wu', 'Xia',
+        'Xiang', 'Xiao', 'Xie', 'Xiong', 'Xu', 'Xue', 'Yan', 'Yang', 'Yao', 'Ye',
+        'Yi', 'Yin', 'Yu', 'Yuan', 'Zeng', 'Zhang', 'Zhao', 'Zheng', 'Zhong',
+        'Zhou', 'Zhu', 'Zou',
+    )
+
+    def romanized_name(self):
+        '''
+        @example 'Chao Bai'
+        '''
+        pattern = self.random_element(self.romanized_formats)
+        return self.generator.parse(pattern)
+
+    @classmethod
+    def first_romanized_name(cls):
+        '''
+        @example 'Chao'
+        '''
+        return cls.random_element(cls.first_romanized_names)
+
+    @classmethod
+    def last_romanized_name(cls):
+        '''
+        @example 'Chao'
+        '''
+        return cls.random_element(cls.last_romanized_names)
