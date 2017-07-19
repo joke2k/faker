@@ -8,7 +8,7 @@ Changelog
 * Generate proper dates before 1970. Thanks @kungfu71186.
 * Made it possible to seed ``.binary()``. Thanks @kungfu71186.
 * Add color names for ``hr_HR``. Thanks @mislavcimpersak.
-* Add implementation of `ssn` provider for the ``pl_PL`` locale. Thanks @pdaw.
+* Add implementation of ``ssn`` provider for the ``pl_PL`` locale. Thanks @pdaw.
 * Add ``pt_BR`` colors localization. Thanks @ppcmiranda.
 * Create a method for codes of cryptocurrencies in the currency provider. Thanks @illia-v.
 * Fix female name format typo in ``hu_HU`` person provider. Thanks @swilcox.
