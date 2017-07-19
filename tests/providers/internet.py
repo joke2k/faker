@@ -49,6 +49,16 @@ class TestZhCN(unittest.TestCase):
         validate_email(email, check_deliverability=False)
 
 
+class TestZhTW(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create(locale='zh_TW')
+
+    def test_email(self):
+        email = self.factory.email()
+        validate_email(email, check_deliverability=False)
+
+
 class testHuHU(unittest.TestCase):
     """ Tests internet module in the hu_HU locale. """
 
