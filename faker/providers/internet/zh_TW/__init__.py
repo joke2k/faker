@@ -11,7 +11,7 @@ class Provider(InternetProvider):
         '{{first_romanized_name}}##',
         '?{{last_romanized_name}}',
     )
-    tlds = ('com', 'com', 'com', 'net', 'org', 'cn', 'cn', 'cn')
+    tlds = ('com', 'com', 'com', 'net', 'org', 'tw', 'tw', 'tw')
 
     @slugify
     def domain_word(self):
