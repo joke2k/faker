@@ -4,7 +4,7 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    word_connector = 
+    word_connector = ''
     word_list = (
         u'一個',
         u'我們',
