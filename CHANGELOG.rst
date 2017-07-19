@@ -2,6 +2,27 @@
 Changelog
 =========
 
+`0.7.18 - 19-July-2017 <https://github.com/joke2k/faker/compare/v0.7.18...v0.7.17>`__
+-------------------------------------------------------------------------------------
+
+* Generate proper dates before 1970. Thanks @kungfu71186.
+* Made it possible to seed ``.binary()``. Thanks @kungfu71186.
+* Add color names for ``hr_HR``. Thanks @mislavcimpersak.
+* Add implementation of `ssn` provider for the ``pl_PL`` locale. Thanks @pdaw.
+* Add ``pt_BR`` colors localization. Thanks @ppcmiranda.
+* Create a method for codes of cryptocurrencies in the currency provider. Thanks @illia-v.
+* Fix female name format typo in ``hu_HU`` person provider. Thanks @swilcox.
+* Fix deprecated usage of ``print`` statement in README. Thanks @cclauss.
+* Add gender-specific names for ``sv_SE`` person provider. Thanks @swilcox.
+* Add an implementation of `regon` for ``pl_PL`` company provider. Thanks @pdaw.
+* Addi an implementation of ``local_regon`` for ``pl_PL`` company provider. Thanks @pdaw.
+* Replace deprecated ``getargspec`` on py3. Thanks @fcurella.
+* Add new ``automotive`` provider. Thanks @zafarali.
+* Add an implementation of ``company_vat`` for ``pl_PL`` company provider. Thanks @pdaw.
+* Add Taiwan/Traditional character support for internet and lorem providers. Thanks @bearnun.
+* Use ``random.choices`` when available for better performance. Thanks @catleeball.
+* Refactor RGB color methods. Thanks @catleeball.
+
 `0.7.17 - 12-June-2017 <https://github.com/joke2k/faker/compare/v0.7.17...v0.7.16>`__
 -------------------------------------------------------------------------------------
 
