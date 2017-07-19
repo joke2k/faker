@@ -1,7 +1,6 @@
 # coding=utf-8
 
 import bisect
-from sys import version_info
 from faker.generator import random
 
 def random_sample():
