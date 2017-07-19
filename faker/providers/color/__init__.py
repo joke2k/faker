@@ -175,18 +175,9 @@ class Provider(BaseProvider):
         return "#{0}{0}{1}{1}{2}{2}".format(*color)
 
     @classmethod
-    def rgb_color_list(cls):
-        color = cls.hex_color()
-        return (
-            int(color[1:3], 16),
-            int(color[3:5], 16),
-            int(color[5:7], 16),
-        )
-
-    @classmethod
     def rgb_color(cls):
-        return ','.join(map(str, cls.rgb_color_list()))
+        return ','.join(map(str, (cls.random_int(0, 255) for _ in range(3))))
 
     @classmethod
     def rgb_css_color(cls):
-        return 'rgb(%s)' % ','.join(map(str, cls.rgb_color_list()))
+        return 'rgb(%s)' % ','.join(map(str, (cls.random_int(0, 255) for _ in range(3))))
