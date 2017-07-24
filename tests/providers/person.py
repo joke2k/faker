@@ -2,11 +2,14 @@
 
 from __future__ import unicode_literals
 
+import re
 import unittest
 
 from faker import Factory
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
+from faker.providers.person.pl_PL import (Provider as PlProvider,
+                                          checksum_identity_card_number as pl_checksum_identity_card_number)
 from .. import string_types
 
 
@@ -100,3 +103,20 @@ class TestSvSE(unittest.TestCase):
         self.assertIn(name, SvSEProvider.first_names_male)
         name = self.factory.first_name()
         self.assertIn(name, SvSEProvider.first_names)
+
+
+class TestPlPL(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('pl_PL')
+
+    def test_identity_card_number_checksum(self):
+        self.assertEqual(pl_checksum_identity_card_number(['A', 'I', 'S', 8, 5, 0, 2, 1, 4]), 8)
+        self.assertEqual(pl_checksum_identity_card_number(['A', 'U', 'L', 9, 2, 7, 2, 8, 5]), 9)
+        self.assertEqual(pl_checksum_identity_card_number(['A', 'E', 'I', 2, 5, 1, 8, 2, 4]), 2)
+        self.assertEqual(pl_checksum_identity_card_number(['A', 'H', 'F', 2, 2, 0, 6, 8, 0]), 2)
+        self.assertEqual(pl_checksum_identity_card_number(['A', 'X', 'E', 8, 2, 0, 3, 4, 0]), 8)
+
+    def test_identity_card_number(self):
+        for _ in range(100):
+            self.assertTrue(re.search(r'^[A-Z]{3}\d{6}$', PlProvider.identity_card_number()))
