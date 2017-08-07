@@ -25,6 +25,7 @@ class Factory(object):
             msg = 'Invalid configuration for faker locale "{0}"'.format(locale)
             raise AttributeError(msg)
 
+        config['locale'] = locale
         providers = providers or PROVIDERS
 
         providers += includes

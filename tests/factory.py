@@ -55,8 +55,14 @@ class FactoryTestCase(unittest.TestCase):
                          self.generator.get_formatter('foo_formatter'))
 
     def test_get_formatter_throws_exception_on_incorrect_formatter(self):
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(AttributeError) as exc:
             self.generator.get_formatter('barFormatter')
+            self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter"')
+
+        faker = Factory.create('it_IT')
+        with self.assertRaises(AttributeError) as exc:
+            faker.get_formatter('barFormatter')
+            self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter" with locale "it_IT"')
 
     def test_format_calls_formatter_on_provider(self):
         self.assertEqual('foobar', self.generator.format('foo_formatter'))
