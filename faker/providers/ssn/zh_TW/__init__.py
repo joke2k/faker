@@ -7,4 +7,4 @@ class Provider(SsnProvider):
     ssn_formats = ("?#########",)
 
     def ssn(self):
-        return self.bothify(self.random_element(Provider.ssn_formats)).upper()
+        return self.bothify(self.random_element(self.ssn_formats)).upper()

@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.providers.date_time import Provider as DateTimeProvider
 
 
 def checksum(digits):
@@ -43,7 +42,7 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Poland
         """
-        birth_date = DateTimeProvider.date_time()
+        birth_date = self.generator.date_time()
 
         year_without_century = int(birth_date.strftime('%y'))
         month = calculate_month(birth_date)

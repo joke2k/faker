@@ -32,5 +32,5 @@ class Provider(SsnProvider):
     fiscal_code_format = '??????##?##?###'
 
     def ssn(self):
-        code = self.bothify(Provider.fiscal_code_format).upper()
+        code = self.bothify(self.fiscal_code_format).upper()
         return code + checksum(code)

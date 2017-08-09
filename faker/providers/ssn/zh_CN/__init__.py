@@ -368,5 +368,5 @@ class Provider(SsnProvider):
         birthday = datetime.date.today() - age
         birthday_str = birthday.strftime('%Y%m%d')
 
-        ssn_without_checksum = self.numerify(self.random_element(Provider.area_codes) + birthday_str + "###")
+        ssn_without_checksum = self.numerify(self.random_element(self.area_codes) + birthday_str + "###")
         return ssn_without_checksum + checksum(ssn_without_checksum)
