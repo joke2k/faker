@@ -7,7 +7,7 @@ import random
 
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
-random = random.Random()
+mod_random = random.Random()
 
 
 class Generator(object):
@@ -18,6 +18,7 @@ class Generator(object):
         self.providers = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
+        self.__random = mod_random
 
     def add_provider(self, provider):
 
@@ -52,11 +53,14 @@ class Generator(object):
 
     @property
     def random(self):
-        return random
+        return self.__random
 
     def seed(self, seed=None):
         """Calls random.seed"""
-        random.seed(seed)
+        if self.__random == mod_random:
+            # create per-instance random obj when first time seed() is called
+            self.__random = random.Random()
+        self.__random.seed(seed)
 
     def format(self, formatter, *args, **kwargs):
         """
