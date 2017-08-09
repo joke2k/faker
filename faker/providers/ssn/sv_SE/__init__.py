@@ -2,14 +2,12 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 import datetime
 
 
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns a 10 digit Swedish SSN, "Personnummer".
 
@@ -37,10 +35,10 @@ class Provider(SsnProvider):
 
         min_age = 18 * 365
         max_age = 90 * 365
-        age = datetime.timedelta(days=random.randrange(min_age, max_age))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age, max_age))
         birthday = datetime.datetime.now() - age
         pnr_date = birthday.strftime('%y%m%d')
-        suffix = str(random.randrange(0, 999)).zfill(3)
+        suffix = str(self.generator.random.randrange(0, 999)).zfill(3)
         luhn_checksum = str(_calculate_luhn(pnr_date + suffix))
         pnr = '{0}-{1}{2}'.format(pnr_date, suffix, luhn_checksum)
 

@@ -358,16 +358,15 @@ class Provider(SsnProvider):
                   "654323", "654324", "654325", "654326", "659000", "659001", "659002", "659003", "659004", "710000",
                   "810000", "820000"]
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         def checksum(s):
             return str((1 - 2 * int(s, 13)) % 11).replace('10', 'X')
 
         min_age = 18 * 365
         max_age = 90 * 365
-        age = datetime.timedelta(days=cls.random_int(min_age, max_age))
+        age = datetime.timedelta(days=self.random_int(min_age, max_age))
         birthday = datetime.date.today() - age
         birthday_str = birthday.strftime('%Y%m%d')
 
-        ssn_without_checksum = cls.numerify(cls.random_element(cls.area_codes) + birthday_str + "###")
+        ssn_without_checksum = self.numerify(self.random_element(Provider.area_codes) + birthday_str + "###")
         return ssn_without_checksum + checksum(ssn_without_checksum)

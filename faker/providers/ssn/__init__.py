@@ -8,6 +8,5 @@ from .. import BaseProvider
 class Provider(BaseProvider):
     ssn_formats = ("###-##-####",)
 
-    @classmethod
-    def ssn(cls):
-        return cls.bothify(cls.random_element(cls.ssn_formats))
+    def ssn(self):
+        return self.bothify(self.random_element(Provider.ssn_formats))

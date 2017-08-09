@@ -2,13 +2,11 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 
 
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns a 9 digits Dutch SSN called "burgerservicenummer (BSN)".
 
@@ -26,7 +24,7 @@ class Provider(SsnProvider):
 
         while True:
             # create an array of first 8 elements initialized randomly
-            digits = random.sample(range(10), 8)
+            digits = self.generator.random.sample(range(10), 8)
             # sum those 8 digits according to (part of) the "11-proef"
             s = _checksum(digits)
             # determine the last digit to make it qualify the test

@@ -7,11 +7,10 @@ import re
 from datetime import datetime
 
 from faker import Factory
-from faker.providers.ssn.et_EE import Provider as EtProvider, checksum as et_checksum
-from faker.providers.ssn.hr_HR import Provider as HrProvider, checksum as hr_checksum
-from faker.providers.ssn.pt_BR import Provider as PtProvider, checksum as pt_checksum
-from faker.providers.ssn.pl_PL import (Provider as PlProvider, checksum as pl_checksum,
-                                       calculate_month as pl_calculate_mouth)
+from faker.providers.ssn.et_EE import checksum as et_checksum
+from faker.providers.ssn.hr_HR import checksum as hr_checksum
+from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
 
 
 class TestEtEE(unittest.TestCase):
@@ -28,7 +27,7 @@ class TestEtEE(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', EtProvider.ssn()))
+            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
 
 
 class TestHrHR(unittest.TestCase):
@@ -47,7 +46,7 @@ class TestHrHR(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', HrProvider.ssn()))
+            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
 
 
 class TestPtBR(unittest.TestCase):
@@ -60,11 +59,11 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', PtProvider.ssn()))
+            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
 
     def test_pt_BR_cpf(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', PtProvider.cpf()))
+            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
 
 
 class TestPlPL(unittest.TestCase):
@@ -99,4 +98,4 @@ class TestPlPL(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', PlProvider.ssn()))
+            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))

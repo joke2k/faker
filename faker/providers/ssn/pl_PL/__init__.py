@@ -32,8 +32,7 @@ def calculate_month(birth_date):
 
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns 11 character Polish national identity code (Public Electronic Census System,
         Polish: Powszechny Elektroniczny System Ewidencji Ludności - PESEL).
@@ -59,7 +58,7 @@ class Provider(SsnProvider):
         ]
 
         for _ in range(4):
-            pesel_digits.append(cls.random_digit())
+            pesel_digits.append(self.random_digit())
 
         pesel_digits.append(checksum(pesel_digits))
 

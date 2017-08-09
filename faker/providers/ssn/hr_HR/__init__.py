@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 
 
 def checksum(digits):
@@ -34,9 +33,8 @@ class Provider(SsnProvider):
     (international standard ISO 7064, module 11.10).
     """
 
-    @classmethod
-    def ssn(cls):
-        digits = random.sample(range(10), 10)
+    def ssn(self):
+        digits = self.generator.random.sample(range(10), 10)
 
         digits.append(checksum(digits))
 

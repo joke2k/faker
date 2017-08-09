@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 import datetime
 import operator
 
@@ -35,8 +34,7 @@ class Provider(SsnProvider):
     scale1 = (1, 2, 3, 4, 5, 6, 7, 8, 9, 1)
     scale2 = (3, 4, 5, 6, 7, 8, 9, 1, 2, 3)
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns 11 character Estonian personal identity code (isikukood, IK).
 
@@ -51,17 +49,17 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Estonia
         """
-        age = datetime.timedelta(days=random.randrange(Provider.min_age,
+        age = datetime.timedelta(days=self.generator.random.randrange(Provider.min_age,
                                                        Provider.max_age))
         birthday = datetime.date.today() - age
         if birthday.year < 2000:
-            ik = random.choice(('3', '4'))
+            ik = self.generator.random.choice(('3', '4'))
         elif birthday.year < 2100:
-            ik = random.choice(('5', '6'))
+            ik = self.generator.random.choice(('5', '6'))
         else:
-            ik = random.choice(('7', '8'))
+            ik = self.generator.random.choice(('7', '8'))
 
         ik += "%02d%02d%02d" % ((birthday.year % 100), birthday.month,
                                 birthday.day)
-        ik += str(random.randrange(0, 999)).zfill(3)
+        ik += str(self.generator.random.randrange(0, 999)).zfill(3)
         return ik + str(checksum([int(ch) for ch in ik]))
