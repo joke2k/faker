@@ -7,9 +7,6 @@ import uuid
 import os
 import sys
 
-from faker.generator import random
-from faker.providers.date_time import Provider as DatetimeProvider
-
 from .. import BaseProvider
 
 
@@ -74,81 +71,71 @@ class Provider(BaseProvider):
         'zu': ('ZA',)
     }
 
-    @classmethod
-    def boolean(cls, chance_of_getting_true=50):
-        return random.randint(1, 100) <= chance_of_getting_true
+    def boolean(self, chance_of_getting_true=50):
+        return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
-    @classmethod
-    def null_boolean(cls):
+    def null_boolean(self):
         return {
             0: None,
             1: True,
             -1: False
-        }[random.randint(-1, 1)]
+        }[self.generator.random.randint(-1, 1)]
 
-    @classmethod
-    def binary(cls, length=(1 * 1024 * 1024)):
+    def binary(self, length=(1 * 1024 * 1024)):
         """ Returns random binary blob.
 
         Default blob size is 1 Mb.
         """
-        blob = [random.randrange(256) for o in range(length)]
+        blob = [self.generator.random.randrange(256) for o in range(length)]
         return bytes(blob) if sys.version_info[0] >= 3 else bytearray(blob)
 
-    @classmethod
-    def md5(cls, raw_output=False):
+    def md5(self, raw_output=False):
         """
         Calculates the md5 hash of a given string
         :example 'cfcd208495d565ef66e7dff9f98764da'
         """
-        res = hashlib.md5(str(random.random()).encode('utf-8'))
+        res = hashlib.md5(str(self.generator.random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    @classmethod
-    def sha1(cls, raw_output=False):
+    def sha1(self, raw_output=False):
         """
         Calculates the sha1 hash of a given string
         :example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
         """
-        res = hashlib.sha1(str(random.random()).encode('utf-8'))
+        res = hashlib.sha1(str(self.generator.random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    @classmethod
-    def sha256(cls, raw_output=False):
+    def sha256(self, raw_output=False):
         """
         Calculates the sha256 hash of a given string
         :example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
         """
-        res = hashlib.sha256(str(random.random()).encode('utf-8'))
+        res = hashlib.sha256(str(self.generator.random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    @classmethod
-    def locale(cls):
-        language_code = cls.language_code()
-        return language_code + '_' + cls.random_element(
-            cls.language_locale_codes[language_code]
+    def locale(self):
+        language_code = self.language_code()
+        return language_code + '_' + self.random_element(
+            Provider.language_locale_codes[language_code]
         )
 
-    @classmethod
-    def language_code(cls):
-        return cls.random_element(cls.language_locale_codes.keys())
+    def language_code(self):
+        return self.random_element(Provider.language_locale_codes.keys())
 
-    @classmethod
-    def uuid4(cls):
+    def uuid4(self):
         """
         Generates a random UUID4 string.
         """
         # Based on http://stackoverflow.com/q/41186818
-        return str(uuid.UUID(int=random.getrandbits(128)))
+        return str(uuid.UUID(int=self.generator.random.getrandbits(128)))
 
-    @classmethod
-    def password(cls, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
+    def password(self, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
         """
         Generates a random password.
         @param length: Integer. Length of a password
@@ -161,27 +148,27 @@ class Provider(BaseProvider):
         choices = ""
         required_tokens = []
         if special_chars:
-            required_tokens.append(random.choice("!@#$%^&*()_+"))
+            required_tokens.append(self.generator.random.choice("!@#$%^&*()_+"))
             choices += "!@#$%^&*()_+"
         if digits:
-            required_tokens.append(random.choice(string.digits))
+            required_tokens.append(self.generator.random.choice(string.digits))
             choices += string.digits
         if upper_case:
-            required_tokens.append(random.choice(string.ascii_uppercase))
+            required_tokens.append(self.generator.random.choice(string.ascii_uppercase))
             choices += string.ascii_uppercase
         if lower_case:
-            required_tokens.append(random.choice(string.ascii_lowercase))
+            required_tokens.append(self.generator.random.choice(string.ascii_lowercase))
             choices += string.ascii_lowercase
 
         assert len(required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
-        chars = [random.choice(choices) for x in range(length)]
+        chars = [self.generator.random.choice(choices) for x in range(length)]
 
         # Pick some unique locations
         random_indexes = set()
         while len(random_indexes) < len(required_tokens):
-            random_indexes.add(random.randint(0, len(chars) - 1))
+            random_indexes.add(self.generator.random.randint(0, len(chars) - 1))
 
         # Replace them with the required characters
         for i, index in enumerate(random_indexes):
