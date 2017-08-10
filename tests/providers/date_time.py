@@ -254,7 +254,7 @@ class TestDateTime(unittest.TestCase):
         self.assertTrue(len(series), 30)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
 
-        uniform = lambda: random.uniform(0, 5)  # noqa
+        uniform = lambda dt: random.uniform(0, 5)  # noqa
         series = [i for i in Provider.time_series('now', '+1w', '+1d', uniform)]
         self.assertTrue(len(series), 7)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))

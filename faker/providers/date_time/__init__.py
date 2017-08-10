@@ -591,6 +591,8 @@ class Provider(BaseProvider):
 
         The data points will start at ``start_date``, and be at every time interval specified by
         ``precision``.
+
+        ``distrib`` is a callable that accepts ``<datetime>`` and returns ``<value>``
         """
         start_date = cls._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = cls._parse_date_time(end_date, tzinfo=tzinfo)
@@ -603,7 +605,7 @@ class Provider(BaseProvider):
         precision = cls._parse_timedelta(precision)
 
         if distrib is None:
-            distrib = lambda: random.uniform(0, precision)  # noqa
+            distrib = lambda dt: random.uniform(0, precision)  # noqa
 
         if not callable(distrib):
             raise ValueError("`distrib` must be a callable. Got {} instead.".format(distrib))
@@ -611,7 +613,8 @@ class Provider(BaseProvider):
         datapoint = start_date
         while datapoint < end_date:
             datapoint += precision
-            yield (timestamp_to_datetime(datapoint, tzinfo), distrib())
+            dt = timestamp_to_datetime(datapoint, tzinfo)
+            yield (dt, distrib(dt))
 
     @classmethod
     def am_pm(cls):
