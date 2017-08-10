@@ -5,9 +5,6 @@ from __future__ import unicode_literals
 from decimal import Decimal
 import sys
 
-from faker.providers.lorem.la import Provider as Lorem
-from faker.generator import random
-
 from .. import BaseProvider
 
 
@@ -20,12 +17,10 @@ else:
 
 
 class Provider(BaseProvider):
-    @classmethod
-    def pybool(cls):
-        return cls.random_int(0, 1) == 1
+    def pybool(self):
+        return self.random_int(0, 1) == 1
 
-    @classmethod
-    def pystr(cls, min_chars=None, max_chars=20):
+    def pystr(self, min_chars=None, max_chars=20):
         """
         Generates a random string of upper and lowercase letters.
         :type min_chars: int
@@ -33,13 +28,12 @@ class Provider(BaseProvider):
         :return: String. Random of random length between min and max characters.
         """
         if min_chars is None:
-            return "".join(cls.random_letter() for i in range(max_chars))
+            return "".join(self.generator.random_letter() for i in range(max_chars))
         else:
             assert (max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
-            return "".join(cls.random_letter() for i in range(0, random.randint(min_chars, max_chars)))
+            return "".join(self.generator.random_letter() for i in range(0, self.generator.random.randint(min_chars, max_chars)))
 
-    @classmethod
-    def pyfloat(cls, left_digits=None, right_digits=None, positive=False):
+    def pyfloat(self, left_digits=None, right_digits=None, positive=False):
         if left_digits is not None and left_digits < 0:
             raise ValueError('A float number cannot have less than 0 digits in its '
                              'integer part')
@@ -50,23 +44,21 @@ class Provider(BaseProvider):
             raise ValueError('A float number cannot have less than 0 digits in total')
 
         left_digits = left_digits if left_digits is not None else (
-            cls.random_int(1, sys.float_info.dig))
+            self.random_int(1, sys.float_info.dig))
         right_digits = right_digits if right_digits is not None else (
-            cls.random_int(0, sys.float_info.dig-left_digits))
-        sign = 1 if positive else cls.random_element((-1, 1))
+            self.random_int(0, sys.float_info.dig - left_digits))
+        sign = 1 if positive else self.random_element((-1, 1))
 
         return float("{0}.{1}".format(
-            sign * cls.random_number(left_digits),
-            cls.random_number(right_digits)
+            sign * self.random_number(left_digits),
+            self.random_number(right_digits)
         ))
 
-    @classmethod
-    def pyint(cls):
-        return cls.random_int()
+    def pyint(self):
+        return self.generator.random_int()
 
-    @classmethod
-    def pydecimal(cls, left_digits=None, right_digits=None, positive=False):
-        return Decimal(str(cls.pyfloat(left_digits, right_digits, positive)))
+    def pydecimal(self, left_digits=None, right_digits=None, positive=False):
+        return Decimal(str(self.pyfloat(left_digits, right_digits, positive)))
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, *value_types):
         return tuple(self.pyset(nb_elements, variable_nb_elements, *value_types))
@@ -116,7 +108,7 @@ class Provider(BaseProvider):
             nb_elements = self.randomize_nb_elements(nb_elements)
 
         return dict(zip(
-            Lorem.words(nb_elements),
+            self.generator.words(nb_elements),
             self._pyiterable(nb_elements, False, *value_types)
         ))
 
@@ -133,9 +125,9 @@ class Provider(BaseProvider):
         d = {}
         nd = {}
         for i in range(count):
-            d[Lorem.word()] = self._random_type(value_types)
+            d[self.generator.word()] = self._random_type(value_types)
             l.append(self._random_type(value_types))
-            nd[Lorem.word()] = {
+            nd[self.generator.word()] = {
                 i: self._random_type(value_types),
                 i + 1: [self._random_type(value_types), self._random_type(value_types), self._random_type(value_types)],
                 i + 2: {
