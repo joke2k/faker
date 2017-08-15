@@ -4,8 +4,8 @@ from .. import BaseProvider
 
 from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
-from faker.generator import random
-from faker.providers.lorem.la import Provider as Lorem
+# from faker.generator import random
+# from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import slugify, slugify_unicode
 
 
@@ -85,9 +85,8 @@ class Provider(BaseProvider):
     def company_email(self):
         return self.user_name() + '@' + self.domain_name()
 
-    @classmethod
-    def free_email_domain(cls):
-        return cls.random_element(cls.free_email_domains)
+    def free_email_domain(self):
+        return self.random_element(self.free_email_domains)
 
     @slugify_unicode
     def user_name(self):
@@ -130,60 +129,55 @@ class Provider(BaseProvider):
 
     def ipv4(self, network=False):
         """Produce a random IPv4 address or network with a valid CIDR"""
-        address = str(ip_address(random.randint(
+        address = str(ip_address(self.generator.random.randint(
             0, (2 ** IPV4LENGTH) - 1)))
         if network:
-            address += '/' + str(random.randint(0, IPV4LENGTH))
+            address += '/' + str(self.generator.random.randint(0, IPV4LENGTH))
             address = str(ip_network(address, strict=False))
         return address
 
     def ipv6(self, network=False):
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(random.randint(
+        address = str(ip_address(self.generator.random.randint(
             2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network:
-            address += '/' + str(random.randint(0, IPV6LENGTH))
+            address += '/' + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(ip_network(address, strict=False))
         return address
 
     def mac_address(self):
-        mac = [random.randint(0x00, 0xff) for i in range(0, 6)]
+        mac = [self.generator.random.randint(0x00, 0xff) for i in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
 
-    @classmethod
-    def uri_page(cls):
-        return cls.random_element(cls.uri_pages)
+    def uri_page(self):
+        return self.random_element(self.uri_pages)
 
-    @classmethod
-    def uri_path(cls, deep=None):
-        deep = deep if deep else random.randint(1, 3)
+    def uri_path(self, deep=None):
+        deep = deep if deep else self.generator.random.randint(1, 3)
         return "/".join(
-            [cls.random_element(cls.uri_paths) for _ in range(0, deep)]
+            [self.random_element(self.uri_paths) for _ in range(0, deep)]
         )
 
-    @classmethod
-    def uri_extension(cls):
-        return cls.random_element(cls.uri_extensions)
+    def uri_extension(self):
+        return self.random_element(self.uri_extensions)
 
     def uri(self):
         pattern = self.random_element(self.uri_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
     @slugify
-    def slug(cls, value=None):
+    def slug(self, value=None):
         """Django algorithm"""
         if value is None:
-            value = Lorem.text(20)
+            value = self.generator.text(20)
         return value
 
-    @classmethod
-    def image_url(cls, width=None, height=None):
+    def image_url(self, width=None, height=None):
         """
         Returns URL to placeholder image
         Example: http://placehold.it/640x480
         """
-        width_ = width or cls.random_int(max=1024)
-        height_ = height or cls.random_int(max=1024)
-        placeholder_url = cls.random_element(cls.image_placeholder_services)
+        width_ = width or self.random_int(max=1024)
+        height_ = height or self.random_int(max=1024)
+        placeholder_url = self.random_element(self.image_placeholder_services)
         return placeholder_url.format(width=width_, height=height_)
