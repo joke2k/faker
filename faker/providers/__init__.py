@@ -107,7 +107,7 @@ class BaseProvider(object):
         if isinstance(elements, dict):
             choices = elements.keys()
             probabilities = elements.values()
-            return choice_distribution(list(choices), list(probabilities))
+            return choice_distribution(list(choices), list(probabilities), self.generator.random)
         else:
             return self.generator.random.choice(list(elements))
 
