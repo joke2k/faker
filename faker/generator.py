@@ -62,6 +62,10 @@ class Generator(object):
             self.__random = random.Random()
         self.__random.seed(seed)
 
+    @classmethod
+    def seed_module(self, seed=None):
+        mod_random.seed(seed)
+
     def format(self, formatter, *args, **kwargs):
         """
         This is a secure way to make a fake from another Provider.
