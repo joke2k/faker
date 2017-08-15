@@ -70,6 +70,5 @@ class Provider(PersonProvider):
 
     prefixes = ('de', 'da', 'do')
 
-    @classmethod
-    def prefix(cls):
-        return cls.random_element(cls.prefixes)
+    def prefix(self):
+        return self.random_element(self.prefixes)

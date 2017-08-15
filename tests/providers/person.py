@@ -119,4 +119,4 @@ class TestPlPL(unittest.TestCase):
 
     def test_identity_card_number(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^[A-Z]{3}\d{6}$', PlProvider.identity_card_number()))
+            self.assertTrue(re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number()))
