@@ -212,6 +212,49 @@ class TestDateTime(unittest.TestCase):
             datetime.now(utc).replace(second=0, microsecond=0)
         )
 
+    def test_parse_timedelta(self):
+        from faker.providers.date_time import Provider
+
+        td = timedelta(days=7)
+        seconds = Provider._parse_timedelta(td)
+        self.assertEqual(seconds, 604800.0)
+
+        seconds = Provider._parse_timedelta('+1w')
+        self.assertEqual(seconds, 604800.0)
+
+        seconds = Provider._parse_timedelta('+1y')
+        self.assertEqual(seconds, 31556736.0)
+
+        with self.assertRaises(ValueError):
+            Provider._parse_timedelta('foobar')
+
+    def test_time_series(self):
+        series = [i for i in self.factory.time_series()]
+        self.assertTrue(len(series), 30)
+        self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
+
+        uniform = lambda dt: random.uniform(0, 5)  # noqa
+        series = [i for i in self.factory.time_series('now', '+1w', '+1d', uniform)]
+        self.assertTrue(len(series), 7)
+        self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
+
+        end = datetime.now() + timedelta(days=7)
+        series = [i for i in self.factory.time_series('now', end, '+1d', uniform)]
+        self.assertTrue(len(series), 7)
+        self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
+
+        self.assertTrue(series[-1][0] <= end)
+
+        with self.assertRaises(ValueError):
+            [i for i in self.factory.time_series('+1w', 'now', '+1d', uniform)]
+
+        with self.assertRaises(ValueError):
+            [i for i in self.factory.time_series('now', '+1w', '+1d', 'uniform')]
+
+        series = [i for i in self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc)]
+        self.assertTrue(len(series), 7)
+        self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
+
 
 class TestPlPL(unittest.TestCase):
 

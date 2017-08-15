@@ -25,6 +25,20 @@ def datetime_to_timestamp(dt):
     return timegm(dt.timetuple())
 
 
+def timestamp_to_datetime(timestamp, tzinfo):
+    if tzinfo is None:
+        pick = datetime.fromtimestamp(timestamp, tzlocal())
+        pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+    else:
+        pick = datetime.fromtimestamp(timestamp, tzinfo)
+
+    return pick
+
+
+class ParseError(ValueError):
+    pass
+
+
 timedelta_pattern = r''
 for name, sym in [('years', 'y'), ('weeks', 'w'), ('days', 'd'), ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
     timedelta_pattern += r'((?P<{0}>(?:\+|-)\d+?){1})?'.format(name, sym)
@@ -307,6 +321,37 @@ class Provider(BaseProvider):
         return self.date_time().time()
 
     @classmethod
+    def _parse_date_string(cls, value):
+        parts = cls.regex.match(value)
+        if not parts:
+            raise ParseError("Can't parse date string `{}`.".format(value))
+        parts = parts.groupdict()
+        time_params = {}
+        for (name, param) in parts.items():
+            if param:
+                time_params[name] = int(param)
+
+        if 'years' in time_params:
+            if 'days' not in time_params:
+                time_params['days'] = 0
+            time_params['days'] += 365.24 * time_params.pop('years')
+
+        if not time_params:
+            raise ParseError("Can't parse date string `{}`.".format(value))
+        return time_params
+
+    @classmethod
+    def _parse_timedelta(cls, value):
+        if isinstance(value, timedelta):
+            return value.total_seconds()
+        if is_string(value):
+            time_params = cls._parse_date_string(value)
+            return timedelta(**time_params).total_seconds()
+        if isinstance(value, (int, float)):
+            return value
+        raise ParseError("Invalid format for timedelta '{0}'".format(value))
+
+    @classmethod
     def _parse_date_time(cls, text, tzinfo=None):
         if isinstance(text, (datetime, date, real_datetime, real_date)):
             return datetime_to_timestamp(text)
@@ -316,24 +361,11 @@ class Provider(BaseProvider):
         if is_string(text):
             if text == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
-            parts = cls.regex.match(text)
-            if not parts:
-                return
-            parts = parts.groupdict()
-            time_params = {}
-            for (name, param) in parts.items():
-                if param:
-                    time_params[name] = int(param)
-
-            if 'years' in time_params:
-                if 'days' not in time_params:
-                    time_params['days'] = 0
-                time_params['days'] += 365.24 * time_params.pop('years')
-
+            time_params = cls._parse_date_string(text)
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(text, int):
             return datetime_to_timestamp(now + timedelta(text))
-        raise ValueError("Invalid format for date '{0}'".format(text))
+        raise ParseError("Invalid format for date '{0}'".format(text))
 
     def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """
@@ -531,6 +563,37 @@ class Provider(BaseProvider):
             return self.date_time_between_dates(this_month_start, now, tzinfo)
         else:
             return now
+
+    def time_series(self, start_date='-30d', end_date='now', precision=None, distrib=None, tzinfo=None):
+        """
+        Returns a generator yielding tuples of ``(<datetime>, <value>)``.
+
+        The data points will start at ``start_date``, and be at every time interval specified by
+        ``precision``.
+        ``distrib`` is a callable that accepts ``<datetime>`` and returns ``<value>``
+
+        """
+        start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
+        end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
+
+        if end_date < start_date:
+            raise ValueError("`end_date` must be greater than `start_date`.")
+
+        if precision is None:
+            precision = (end_date - start_date) / 30
+
+        precision = self._parse_timedelta(precision)
+        if distrib is None:
+            distrib = lambda dt: self.generator.random.uniform(0, precision)  # noqa
+
+        if not callable(distrib):
+            raise ValueError("`distrib` must be a callable. Got {} instead.".format(distrib))
+
+        datapoint = start_date
+        while datapoint < end_date:
+            datapoint += precision
+            dt = timestamp_to_datetime(datapoint, tzinfo)
+            yield (dt, distrib(dt))
 
     def am_pm(self):
         return self.date('%p')

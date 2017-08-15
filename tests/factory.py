@@ -64,6 +64,10 @@ class FactoryTestCase(unittest.TestCase):
             faker.get_formatter('barFormatter')
             self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter" with locale "it_IT"')
 
+    def test_invalid_locale(self):
+        with self.assertRaises(AttributeError):
+            Factory.create('foo_Bar')
+
     def test_format_calls_formatter_on_provider(self):
         self.assertEqual('foobar', self.generator.format('foo_formatter'))
 
