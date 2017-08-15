@@ -1,16 +1,20 @@
 import unittest
 from re import search
-from faker.providers.color.en_US import Provider as en_provider
+from faker import Factory
 
 
 class TestColor(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('en_US')
+
     def test_safe_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', en_provider.safe_hex_color())
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.safe_hex_color())
             for _ in range(1000)))
 
 
     def test_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', en_provider.hex_color())
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.hex_color())
             for _ in range(1000)))
 
 
@@ -19,11 +23,11 @@ class TestColor(unittest.TestCase):
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, en_provider.rgb_color().split(',')))
+            current = list(map(int, self.factory.rgb_color().split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
-                minval = min(current) 
+                minval = min(current)
 
         assert maxval <= 255
         assert minval >= 0
@@ -34,11 +38,11 @@ class TestColor(unittest.TestCase):
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, en_provider.rgb_css_color()[4:-1].split(',')))
+            current = list(map(int, self.factory.rgb_css_color()[4:-1].split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
-                minval = min(current) 
+                minval = min(current)
 
         assert maxval <= 255
         assert minval >= 0
