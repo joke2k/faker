@@ -5,9 +5,9 @@ from datetime import date, datetime, timedelta, tzinfo
 from datetime import time as datetime_time
 import time
 import unittest
+import random
 
 from faker import Factory
-from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from .. import string_types
