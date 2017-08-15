@@ -33,9 +33,8 @@ class Provider(PhoneNumberProvider):
         '+61.4##.###.###',
     )
 
-    @classmethod
-    def area_code(cls):
-        return cls.numerify(cls.random_element(
+    def area_code(self):
+        return self.numerify(self.random_element(
             ['2',
              '3',
              '7',
