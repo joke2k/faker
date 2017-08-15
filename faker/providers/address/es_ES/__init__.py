@@ -41,18 +41,14 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Apt. ##', 'Piso #', 'Puerta #')
 
-    @classmethod
-    def state_name(cls):
-        return cls.random_element(cls.states)
+    def state_name(self):
+        return self.random_element(self.states)
 
-    @classmethod
-    def street_prefix(cls):
-        return cls.random_element(cls.street_prefixes)
+    def street_prefix(self):
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+    def secondary_address(self):
+        return self.numerify(self.random_element(self.secondary_address_formats))
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

@@ -81,41 +81,34 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
-    @classmethod
-    def province(cls):
+    def province(self):
         """
         """
-        return cls.random_element(cls.provinces)
+        return self.random_element(self.provinces)
 
-    @classmethod
-    def province_abbr(cls):
-        return cls.random_element(cls.provinces_abbr)
+    def province_abbr(self):
+        return self.random_element(self.provinces_abbr)
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+    def secondary_address(self):
+        return self.numerify(self.random_element(self.secondary_address_formats))
 
-    @classmethod
-    def postal_code_letter(cls):
+    def postal_code_letter(self):
         """
         Returns a random letter from the list of allowable
         letters in a canadian postal code
         """
-        return cls.random_element(cls.postal_code_letters)
+        return self.random_element(self.postal_code_letters)
 
-    @classmethod
-    def postalcode(cls):
+    def postalcode(self):
         """
         Replaces all question mark ('?') occurrences with a random letter
         from postal_code_formats then passes result to
         numerify to insert numbers
         """
         temp = re.sub(r'\?',
-            lambda x: cls.postal_code_letter(),
-            cls.random_element(cls.postal_code_formats))
-        return cls.numerify(temp)
-
+            lambda x: self.postal_code_letter(),
+            self.random_element(self.postal_code_formats))
+        return self.numerify(temp)

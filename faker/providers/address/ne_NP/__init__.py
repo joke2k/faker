@@ -80,23 +80,20 @@ class Provider(AddressProvider):
         'सिराहा', 'सुनसरी', 'सुर्खेत', 'सोलुखुम्बु', 'स्याङ्जा', 'हुम्ला',
     )
 
-    @classmethod
-    def district(cls):
+    def district(self):
         """
         :example अछाम
         """
-        return cls.random_element(cls.districts)
+        return self.random_element(self.districts)
 
-    @classmethod
-    def city(cls):
+    def city(self):
         """
         :example कावासोत
         """
-        return cls.random_element(cls.cities)
+        return self.random_element(self.cities)
 
-    @classmethod
-    def building_prefix(cls):
+    def building_prefix(self):
         """
         :example वडा
         """
-        return cls.random_element(cls.building_prefixes)
+        return self.random_element(self.building_prefixes)

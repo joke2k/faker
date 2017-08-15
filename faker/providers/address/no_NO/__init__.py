@@ -31,7 +31,6 @@ class Provider(AddressProvider):
         'H': 0.05}
     postcode_formats = ('####',)
 
-    @classmethod
-    def building_number(cls):
-        suffix = cls.random_element(cls.building_number_suffixes)
-        return cls.numerify(cls.random_element(cls.building_number_formats)).replace('?', suffix)
+    def building_number(self):
+        suffix = self.random_element(self.building_number_suffixes)
+        return self.numerify(self.random_element(self.building_number_formats)).replace('?', suffix)

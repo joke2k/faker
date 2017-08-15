@@ -100,14 +100,11 @@ class Provider(AddressProvider):
         'Norrbottens län'
     )
 
-    @classmethod
-    def street_prefix(cls):
-        return cls.random_element(cls.street_prefixes)
+    def street_prefix(self):
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

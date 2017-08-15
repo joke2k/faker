@@ -154,41 +154,36 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{postcode}} {{city}}",
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         Randomly returns a street prefix
         :example 'aleja'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def street_prefix_short(cls):
+    def street_prefix_short(self):
         """
         Randomly returns an abbreviation of the street prefix.
         :example 'al.'
         """
-        return cls.random_element(cls.street_prefixes)[:2]+'.'
+        return self.random_element(self.street_prefixes)[:2]+'.'
 
-    @classmethod
-    def street_name(cls):
+    def street_name(self):
         """
         Randomly returns a street name
         :example 'Wróblewskiego'
         """
-        return cls.random_element(cls.streets)
+        return self.random_element(self.streets)
 
-    @classmethod
-    def city(cls):
+    def city(self):
         """
         Randomly returns a street name
         :example 'Konin'
         """
-        return cls.random_element(cls.cities)
+        return self.random_element(self.cities)
 
-    @classmethod
-    def region(cls):
+    def region(self):
         """
         :example 'Wielkopolskie'
         """
-        return cls.random_element(cls.regions)
+        return self.random_element(self.regions)

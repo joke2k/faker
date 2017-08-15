@@ -58,14 +58,11 @@ class Provider(AddressProvider):
         "也门", "南斯拉夫", "扎伊尔", "赞比亚", "桑给巴尔", "津巴布韦", "中华人民共和国", "中国",
     )
 
-    @classmethod
-    def building_number(cls):
-        return cls.lexify(cls.random_element(cls.building_number_formats))
+    def building_number(self):
+        return self.lexify(self.random_element(self.building_number_formats))
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

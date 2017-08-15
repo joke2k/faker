@@ -4,7 +4,6 @@ from decimal import Decimal
 
 from .. import BaseProvider
 from .. import date_time
-from faker.generator import random
 
 localized = True
 
@@ -21,26 +20,23 @@ class Provider(BaseProvider):
     countries = [tz['name'] for tz in date_time.Provider.countries]
     country_codes = [tz['code'] for tz in date_time.Provider.countries]
 
-    @classmethod
-    def city_suffix(cls):
+    def city_suffix(self):
         """
         :example 'town'
         """
-        return cls.random_element(cls.city_suffixes)
+        return self.random_element(self.city_suffixes)
 
-    @classmethod
-    def street_suffix(cls):
+    def street_suffix(self):
         """
         :example 'Avenue'
         """
-        return cls.random_element(cls.street_suffixes)
+        return self.random_element(self.street_suffixes)
 
-    @classmethod
-    def building_number(cls):
+    def building_number(self):
         """
         :example '791'
         """
-        return cls.numerify(cls.random_element(cls.building_number_formats))
+        return self.numerify(self.random_element(self.building_number_formats))
 
     def city(self):
         """
@@ -63,12 +59,11 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def postcode(cls):
+    def postcode(self):
         """
         :example 86039-9874
         """
-        return cls.bothify(cls.random_element(cls.postcode_formats)).upper()
+        return self.bothify(self.random_element(self.postcode_formats)).upper()
 
     def address(self):
         """
@@ -77,32 +72,27 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.address_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def country(cls):
-        return cls.random_element(cls.countries)
+    def country(self):
+        return self.random_element(self.countries)
 
-    @classmethod
-    def country_code(cls):
-        return cls.random_element(cls.country_codes)
+    def country_code(self):
+        return self.random_element(self.country_codes)
 
-    @classmethod
-    def geo_coordinate(cls, center=None, radius=0.001):
+    def geo_coordinate(self, center=None, radius=0.001):
         """
         Optionally center the coord and pick a point within radius.
         """
         if center is None:
-            return Decimal(str(random.randint(-180000000, 180000000) / 1000000.0)).quantize(Decimal('.000001'))
+            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000.0)).quantize(Decimal('.000001'))
         else:
             center = float(center)
             radius = float(radius)
-            geo = random.uniform(center - radius, center + radius)
+            geo = self.generator.random.uniform(center - radius, center + radius)
             return Decimal(str(geo)).quantize(Decimal('.000001'))
 
-    @classmethod
-    def latitude(cls):
+    def latitude(self):
         # Latitude has a range of -90 to 90, so divide by two.
-        return cls.geo_coordinate() / 2
+        return self.geo_coordinate() / 2
 
-    @classmethod
-    def longitude(cls):
-        return cls.geo_coordinate()
+    def longitude(self):
+        return self.geo_coordinate()

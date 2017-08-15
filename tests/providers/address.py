@@ -8,7 +8,6 @@ import unittest
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Factory
-from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from .. import string_types
@@ -35,7 +34,7 @@ class TestHuHU(unittest.TestCase):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
         # The first digit may not begin with a zero.
         for _ in range(100):
-            pcd = HuProvider.postcode()
+            pcd = self.factory.postcode()
             assert pcd[2] > "0"
 
     def test_street_address(self):

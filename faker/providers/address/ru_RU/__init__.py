@@ -254,14 +254,11 @@ class Provider(AddressProvider):
         'Ясный (Оренб.)', 'Яхрома', 'Яшалта', 'Яшкуль'
     )
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.city_names)
+    def city_name(self):
+        return self.random_element(self.city_names)
 
-    @classmethod
-    def street_title(cls):
-        return cls.random_element(cls.street_titles)
+    def street_title(self):
+        return self.random_element(self.street_titles)

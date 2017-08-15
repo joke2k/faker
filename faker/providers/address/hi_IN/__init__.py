@@ -46,10 +46,8 @@ class Provider(AddressProvider):
         'उज़बेकिस्तान', 'यूनाइटेड किंगडम', 'वानुआतू', 'वेटिकन सिटी', 'वेनेजुएला', 'पश्चिमी सहारा', 'वियतनाम', 'यमन', 'ज़ायर', 'जाबम्बया', 'जिम्बाब्वे',
     )
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

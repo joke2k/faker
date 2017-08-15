@@ -110,48 +110,42 @@ class Provider(AddressProvider):
         ('971', 'Guadeloupe'), ('972', 'Martinique'), ('973', 'Guyane'), ('974', 'La Réunion'), ('976', 'Mayotte')
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'rue'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def city_prefix(cls):
+    def city_prefix(self):
         """
         :example 'rue'
         """
-        return cls.random_element(cls.city_prefixes)
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def region(cls):
+    def region(self):
         """
         :example 'Guadeloupe'
         """
-        return cls.random_element(cls.regions)
+        return self.random_element(self.regions)
 
-    @classmethod
-    def department(cls):
+    def department(self):
         """
         Randomly returns a french department ('departmentNumber' , 'departmentName').
         :example ('2B' . 'Haute-Corse')
         """
-        return cls.random_element(cls.departments)
+        return self.random_element(self.departments)
 
-    @classmethod
-    def department_name(cls):
+    def department_name(self):
         """
         Randomly returns a french department name.
         :example 'Ardèche'
         """
-        return cls.department()[1]
+        return self.department()[1]
 
-    @classmethod
-    def department_number(cls):
+    def department_number(self):
         """
         Randomly returns a french department number.
 
         :example '59'
         """
-        return cls.department()[0]
+        return self.department()[0]

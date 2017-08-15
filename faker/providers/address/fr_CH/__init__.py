@@ -99,40 +99,35 @@ class Provider(AddressProvider):
         'Zimbabwe',
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'rue'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def city_prefix(cls):
+    def city_prefix(self):
         """
         :example 'rue'
         """
-        return cls.random_element(cls.city_prefixes)
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def canton(cls):
+    def canton(self):
         """
         Randomly returns a swiss canton ('Abbreviated' , 'Name').
         :example ('VD' . 'Vaud')
         """
-        return cls.random_element(cls.cantons)
+        return self.random_element(self.cantons)
 
-    @classmethod
-    def canton_name(cls):
+    def canton_name(self):
         """
         Randomly returns a Swiss canton name.
         :example 'Vaud'
         """
-        return cls.canton()[1]
+        return self.canton()[1]
 
-    @classmethod
-    def canton_code(cls):
+    def canton_code(self):
         """
         Randomly returns a Swiss canton code.
         :example 'VD'
         """
-        return cls.canton()[0]
+        return self.canton()[0]
