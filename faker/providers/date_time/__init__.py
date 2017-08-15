@@ -233,34 +233,30 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    @classmethod
-    def unix_time(cls):
+    def unix_time(self):
         """
         Get a timestamp between January 1, 1970 and now
         :example 1061306726
         """
         return random.randint(0, int(time()))
 
-    @classmethod
-    def time_delta(cls):
+    def time_delta(self):
         """
         Get a timedelta object
         """
         ts = random.randint(0, int(time()))
         return timedelta(seconds=ts)
 
-    @classmethod
-    def date_time(cls, tzinfo=None):
+    def date_time(self, tzinfo=None):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2005-08-16 20:39:21')
         :return datetime
         """
-        return datetime.fromtimestamp(cls.unix_time(), tzinfo)
+        return datetime.fromtimestamp(self.unix_time(), tzinfo)
 
-    @classmethod
-    def date_time_ad(cls, tzinfo=None):
+    def date_time_ad(self, tzinfo=None):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -274,47 +270,42 @@ class Provider(BaseProvider):
         #       see http://stackoverflow.com/a/10588133/2315612
         return datetime.fromtimestamp(0, tzinfo) + timedelta(seconds=ts)
 
-    @classmethod
-    def iso8601(cls, tzinfo=None):
+    def iso8601(self, tzinfo=None):
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
         """
-        return cls.date_time(tzinfo).isoformat()
+        return self.date_time(tzinfo).isoformat()
 
-    @classmethod
-    def date(cls, pattern='%Y-%m-%d'):
+    def date(self, pattern='%Y-%m-%d'):
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
         :example '2008-11-27'
         """
-        return cls.date_time().strftime(pattern)
+        return self.date_time().strftime(pattern)
 
-    @classmethod
-    def date_object(cls):
+    def date_object(self):
         """
         Get a date object between January 1, 1970 and now
         :example datetime.date(2016, 9, 20)
         """
-        return cls.date_time().date()
+        return self.date_time().date()
 
-    @classmethod
-    def time(cls, pattern='%H:%M:%S'):
+    def time(self, pattern='%H:%M:%S'):
         """
         Get a time string (24h format by default)
         :param pattern format
         :example '15:02:34'
         """
-        return cls.date_time().time().strftime(pattern)
+        return self.date_time().time().strftime(pattern)
 
-    @classmethod
-    def time_object(cls):
+    def time_object(self):
         """
         Get a time object
         :example datetime.time(15, 56, 56, 772876)
         """
-        return cls.date_time().time()
+        return self.date_time().time()
 
     @classmethod
     def _parse_date_time(cls, text, tzinfo=None):
@@ -345,8 +336,7 @@ class Provider(BaseProvider):
             return datetime_to_timestamp(now + timedelta(text))
         raise ValueError("Invalid format for date '{0}'".format(text))
 
-    @classmethod
-    def date_time_between(cls, start_date='-30y', end_date='now', tzinfo=None):
+    def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -357,13 +347,12 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        start_date = cls._parse_date_time(start_date, tzinfo=tzinfo)
-        end_date = cls._parse_date_time(end_date, tzinfo=tzinfo)
+        start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
+        end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
         timestamp = random.randint(start_date, end_date)
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=timestamp)
 
-    @classmethod
-    def future_datetime(cls, end_date='+30d', tzinfo=None):
+    def future_datetime(self, end_date='+30d', tzinfo=None):
         """
         Get a DateTime object based on a random date between 1 second form now
         and a given date.
@@ -374,12 +363,11 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.date_time_between(
+        return self.date_time_between(
             start_date='+1s', end_date=end_date, tzinfo=tzinfo,
         )
 
-    @classmethod
-    def future_date(cls, end_date='+30d', tzinfo=None):
+    def future_date(self, end_date='+30d', tzinfo=None):
         """
         Get a Date object based on a random date between 1 day from now and a
         given date.
@@ -390,12 +378,11 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.date_time_between(
+        return self.date_time_between(
             start_date='+1d', end_date=end_date, tzinfo=tzinfo,
         ).date()
 
-    @classmethod
-    def past_datetime(cls, start_date='-30d', tzinfo=None):
+    def past_datetime(self, start_date='-30d', tzinfo=None):
         """
         Get a DateTime object based on a random date between a given date and 1
         second ago.
@@ -406,12 +393,11 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.date_time_between(
+        return self.date_time_between(
             start_date=start_date, end_date='-1s', tzinfo=tzinfo,
         )
 
-    @classmethod
-    def past_date(cls, start_date='-30d', tzinfo=None):
+    def past_date(self, start_date='-30d', tzinfo=None):
         """
         Get a Date object based on a random date between a given date and 1 day
         ago.
@@ -422,12 +408,11 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return cls.date_time_between(
+        return self.date_time_between(
             start_date=start_date, end_date='-1d', tzinfo=tzinfo,
         ).date()
 
-    @classmethod
-    def date_time_between_dates(cls, datetime_start=None, datetime_end=None, tzinfo=None):
+    def date_time_between_dates(self, datetime_start=None, datetime_end=None, tzinfo=None):
         """
         Takes two DateTime objects and returns a random datetime between the two
         given datetimes.
@@ -456,8 +441,7 @@ class Provider(BaseProvider):
             pick = datetime.fromtimestamp(timestamp, tzinfo)
         return pick
 
-    @classmethod
-    def date_time_this_century(cls, before_now=True, after_now=False, tzinfo=None):
+    def date_time_this_century(self, before_now=True, after_now=False, tzinfo=None):
         """
         Gets a DateTime object for the current century.
 
@@ -472,16 +456,15 @@ class Provider(BaseProvider):
         next_century_start = datetime(this_century_start.year + 100, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_century_start, next_century_start, tzinfo)
+            return self.date_time_between_dates(this_century_start, next_century_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_century_start, tzinfo)
+            return self.date_time_between_dates(now, next_century_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_century_start, now, tzinfo)
+            return self.date_time_between_dates(this_century_start, now, tzinfo)
         else:
             return now
 
-    @classmethod
-    def date_time_this_decade(cls, before_now=True, after_now=False, tzinfo=None):
+    def date_time_this_decade(self, before_now=True, after_now=False, tzinfo=None):
         """
         Gets a DateTime object for the decade year.
 
@@ -496,16 +479,15 @@ class Provider(BaseProvider):
         next_decade_start = datetime(this_decade_start.year + 10, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_decade_start, next_decade_start, tzinfo)
+            return self.date_time_between_dates(this_decade_start, next_decade_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_decade_start, tzinfo)
+            return self.date_time_between_dates(now, next_decade_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_decade_start, now, tzinfo)
+            return self.date_time_between_dates(this_decade_start, now, tzinfo)
         else:
             return now
 
-    @classmethod
-    def date_time_this_year(cls, before_now=True, after_now=False, tzinfo=None):
+    def date_time_this_year(self, before_now=True, after_now=False, tzinfo=None):
         """
         Gets a DateTime object for the current year.
 
@@ -520,16 +502,15 @@ class Provider(BaseProvider):
         next_year_start = datetime(now.year + 1, 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
-            return cls.date_time_between_dates(this_year_start, next_year_start, tzinfo)
+            return self.date_time_between_dates(this_year_start, next_year_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_year_start, tzinfo)
+            return self.date_time_between_dates(now, next_year_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_year_start, now, tzinfo)
+            return self.date_time_between_dates(this_year_start, now, tzinfo)
         else:
             return now
 
-    @classmethod
-    def date_time_this_month(cls, before_now=True, after_now=False, tzinfo=None):
+    def date_time_this_month(self, before_now=True, after_now=False, tzinfo=None):
         """
         Gets a DateTime object for the current month.
 
@@ -544,45 +525,37 @@ class Provider(BaseProvider):
 
         next_month_start = this_month_start + relativedelta.relativedelta(months=1)
         if before_now and after_now:
-            return cls.date_time_between_dates(this_month_start, next_month_start, tzinfo)
+            return self.date_time_between_dates(this_month_start, next_month_start, tzinfo)
         elif not before_now and after_now:
-            return cls.date_time_between_dates(now, next_month_start, tzinfo)
+            return self.date_time_between_dates(now, next_month_start, tzinfo)
         elif not after_now and before_now:
-            return cls.date_time_between_dates(this_month_start, now, tzinfo)
+            return self.date_time_between_dates(this_month_start, now, tzinfo)
         else:
             return now
 
-    @classmethod
-    def am_pm(cls):
-        return cls.date('%p')
+    def am_pm(self):
+        return self.date('%p')
 
-    @classmethod
-    def day_of_month(cls):
-        return cls.date('%d')
+    def day_of_month(self):
+        return self.date('%d')
 
-    @classmethod
-    def day_of_week(cls):
-        return cls.date('%A')
+    def day_of_week(self):
+        return self.date('%A')
 
-    @classmethod
-    def month(cls):
-        return cls.date('%m')
+    def month(self):
+        return self.date('%m')
 
-    @classmethod
-    def month_name(cls):
-        return cls.date('%B')
+    def month_name(self):
+        return self.date('%B')
 
-    @classmethod
-    def year(cls):
-        return cls.date('%Y')
+    def year(self):
+        return self.date('%Y')
 
-    @classmethod
-    def century(cls):
+    def century(self):
         """
         :example 'XVII'
         """
-        return cls.random_element(cls.centuries)
+        return self.random_element(self.centuries)
 
-    @classmethod
-    def timezone(cls):
-        return random.choice(cls.random_element(cls.countries)['timezones'])
+    def timezone(self):
+        return random.choice(self.random_element(self.countries)['timezones'])
