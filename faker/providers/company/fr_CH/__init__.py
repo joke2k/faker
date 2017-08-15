@@ -8,9 +8,8 @@ from ..fr_FR import Provider as CompanyProvider
 
 class Provider(CompanyProvider):
     company_suffixes = ('SA', 'Sàrl.')
-    
-    @classmethod
-    def ide(cls):
+
+    def ide(self):
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
@@ -32,7 +31,7 @@ class Provider(CompanyProvider):
             if (control_number != 10):
                 digits.append(control_number)
                 break
-        
+
         digits = ''.join([str(digit) for digit in digits])
         # finally return our random but valid BSN
         return 'CHE-' + digits[0:3] + '.'\

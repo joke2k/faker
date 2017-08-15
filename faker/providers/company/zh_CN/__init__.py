@@ -22,6 +22,5 @@ class Provider(CompanyProvider):
                         "东方峻景", "华成育卓", "趋势", "维涛", "通际名联"]
     company_suffixes = [n + "有限公司" for n in ["科技", "网络", "信息", "传媒"]]
 
-    @classmethod
-    def company_prefix(cls):
-        return cls.random_element(cls.company_prefixes)
+    def company_prefix(self):
+        return self.random_element(self.company_prefixes)

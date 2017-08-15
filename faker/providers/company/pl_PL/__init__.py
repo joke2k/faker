@@ -55,43 +55,40 @@ def company_vat_checksum(digits):
 
 class Provider(CompanyProvider):
 
-    @classmethod
-    def regon(cls):
+    def regon(self):
         """
         Returns 9 character Polish National Business Registry Number,
         Polish: Rejestr Gospodarki Narodowej - REGON.
 
         https://pl.wikipedia.org/wiki/REGON
         """
-        voivodeship_number = cls.random_int(0, 49) * 2 + 1
+        voivodeship_number = self.random_int(0, 49) * 2 + 1
         regon_digits = [int(voivodeship_number / 10), voivodeship_number % 10]
 
         for _ in range(6):
-            regon_digits.append(cls.random_digit())
+            regon_digits.append(self.random_digit())
 
         regon_digits.append(regon_checksum(regon_digits))
 
         return ''.join(str(digit) for digit in regon_digits)
 
-    @classmethod
-    def local_regon(cls):
+    def local_regon(self):
         """
         Returns 14 character Polish National Business Registry Number,
         local entity number.
 
         https://pl.wikipedia.org/wiki/REGON
         """
-        regon_digits = [int(digit) for digit in list(cls.regon())]
+        regon_digits = [int(digit) for digit in list(self.regon())]
 
         for _ in range(4):
-            regon_digits.append(cls.random_digit())
+            regon_digits.append(self.random_digit())
 
         regon_digits.append(local_regon_checksum(regon_digits))
 
         return ''.join(str(digit) for digit in regon_digits)
 
-    @classmethod
-    def company_vat(cls):
+    def company_vat(self):
         """
         Returns 10 character tax identification number,
         Polish: Numer identyfikacji podatkowej.
@@ -101,16 +98,16 @@ class Provider(CompanyProvider):
         vat_digits = []
 
         for _ in range(3):
-            vat_digits.append(cls.random_digit_not_null())
+            vat_digits.append(self.random_digit_not_null())
 
         for _ in range(6):
-            vat_digits.append(cls.random_digit())
+            vat_digits.append(self.random_digit())
 
         check_digit = company_vat_checksum(vat_digits)
 
         # in this case we must generate a tax number again, because check_digit cannot be 10
         if check_digit == 10:
-            return cls.company_vat()
+            return self.company_vat()
 
         vat_digits.append(check_digit)
 

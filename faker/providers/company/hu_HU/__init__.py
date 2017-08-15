@@ -20,6 +20,5 @@ class Provider(CompanyProvider):
         'BT'
     )
 
-    @classmethod
-    def company_suffix(cls):
-        return cls.random_element(cls.company_suffixes)
+    def company_suffix(self):
+        return self.random_element(self.company_suffixes)
