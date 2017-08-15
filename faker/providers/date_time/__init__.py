@@ -11,7 +11,6 @@ from time import time
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc
 
-from faker.generator import random
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 from faker.utils import is_string
 
@@ -238,13 +237,13 @@ class Provider(BaseProvider):
         Get a timestamp between January 1, 1970 and now
         :example 1061306726
         """
-        return random.randint(0, int(time()))
+        return self.generator.random.randint(0, int(time()))
 
     def time_delta(self):
         """
         Get a timedelta object
         """
-        ts = random.randint(0, int(time()))
+        ts = self.generator.random.randint(0, int(time()))
         return timedelta(seconds=ts)
 
     def date_time(self, tzinfo=None):
@@ -263,7 +262,7 @@ class Provider(BaseProvider):
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
-        ts = random.randint(-62135600400, int(time()))
+        ts = self.generator.random.randint(-62135600400, int(time()))
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
@@ -349,7 +348,7 @@ class Provider(BaseProvider):
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
-        timestamp = random.randint(start_date, end_date)
+        timestamp = self.generator.random.randint(start_date, end_date)
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=timestamp)
 
     def future_datetime(self, end_date='+30d', tzinfo=None):
@@ -430,7 +429,7 @@ class Provider(BaseProvider):
         if datetime_end is None:
             datetime_end = datetime.now(tzinfo)
 
-        timestamp = random.randint(
+        timestamp = self.generator.random.randint(
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
@@ -558,4 +557,4 @@ class Provider(BaseProvider):
         return self.random_element(self.centuries)
 
     def timezone(self):
-        return random.choice(self.random_element(self.countries)['timezones'])
+        return self.generator.random.choice(self.random_element(self.countries)['timezones'])

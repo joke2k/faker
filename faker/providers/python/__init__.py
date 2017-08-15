@@ -28,10 +28,10 @@ class Provider(BaseProvider):
         :return: String. Random of random length between min and max characters.
         """
         if min_chars is None:
-            return "".join(self.generator.random_letter() for i in range(max_chars))
+            return "".join(self.random_letter() for i in range(max_chars))
         else:
             assert (max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
-            return "".join(self.generator.random_letter() for i in range(0, self.generator.random.randint(min_chars, max_chars)))
+            return "".join(self.random_letter() for i in range(0, self.generator.random.randint(min_chars, max_chars)))
 
     def pyfloat(self, left_digits=None, right_digits=None, positive=False):
         if left_digits is not None and left_digits < 0:

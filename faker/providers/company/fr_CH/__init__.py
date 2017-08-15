@@ -1,8 +1,5 @@
 # coding=utf-8
 from __future__ import unicode_literals
-
-from faker.generator import random
-
 from ..fr_FR import Provider as CompanyProvider
 
 
@@ -23,7 +20,7 @@ class Provider(CompanyProvider):
 
         while True:
             # create an array of first 8 elements initialized randomly
-            digits = random.sample(range(10), 8)
+            digits = self.generator.random.sample(range(10), 8)
             # sum those 8 digits according to (part of) the "modulo 11"
             sum = _checksum(digits)
             # determine the last digit to make it qualify the test

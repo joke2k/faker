@@ -3,7 +3,6 @@
 import re
 import string
 
-from faker.generator import random
 from faker.utils.distribution import choice_distribution
 
 
