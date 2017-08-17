@@ -11,7 +11,7 @@ from faker import Factory
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from .. import string_types
+from six import string_types
 
 
 class TestEnGB(unittest.TestCase):
@@ -121,3 +121,22 @@ class TestNoNO(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))
+
+
+
+class TestZhTW(unittest.TestCase):
+    """ Tests addresses in the zh_tw locale """
+
+    def setUp(self):
+        self.factory = Factory.create('zh_TW')
+
+    """ Test"""
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+        street = self.factory.street_name()
+        assert isinstance(street, string_types)
+
+        city = self.factory.city()
+        assert isinstance(city, string_types)
