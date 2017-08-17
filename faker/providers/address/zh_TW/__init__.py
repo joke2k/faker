@@ -9,10 +9,9 @@ class Provider(AddressProvider):
     building_number_formats = ("%號", "%#號", "%##號", )
     postcode_formats = ("%####", "%##", )
 
-    street_name_formats = ("{{street_name}}{{street_name_suffix}}", )
-    street_address_formats = ("{{street_name}}{{building_number}}", )
+    street_address_formats = ("{{street_name}}{{street_name_suffix}}{{building_number}}", )
 
-    address_formats = ("{{postcode}} {{city}}{{street_address}}", )
+    address_formats = ("{{postcode}} {{city}}{{street_address}}{{secondary_address}}", )
     secondary_address_formats = ('#樓', '之#')
 
     street_names = ("中正", "中山", "民生", "中華", "和平",
@@ -38,7 +37,7 @@ class Provider(AddressProvider):
                     "關渡", "北投", "石牌", "芝山", "景美",
                     "士林", "劍潭", "雙連", "新北投", "萬隆")
 
-    street_name_suffix = ( "路", "街", "巷" )
+    street_suffixes = ( "路", "街", "巷" )
 
     cities = ("基隆市", "台北市", "新北市", "桃園縣", "新竹市",
               "新竹縣", "苗栗縣", "台中市", "彰化縣", "南投縣",
@@ -91,6 +90,10 @@ class Provider(AddressProvider):
     @classmethod
     def street_name(cls):
         return cls.random_element(cls.street_names)
+
+    @classmethod
+    def street_name_suffix(cls):
+        return cls.random_element(cls.street_suffixes)
 
     @classmethod
     def city_name(cls):
