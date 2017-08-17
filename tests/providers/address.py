@@ -95,11 +95,13 @@ class TestJaJP(unittest.TestCase):
 
 
 class TestNeNP(unittest.TestCase):
+    """ Tests addresses in the ne_NP locale """
 
     def setUp(self):
         self.factory = Factory.create('ne_NP')
 
     def test_address(self):
+        """ Tests the street address in ne_NP locale """
         country = self.factory.country()
         assert isinstance(country, string_types)
         assert country in NeProvider.countries
@@ -114,6 +116,7 @@ class TestNeNP(unittest.TestCase):
 
 
 class TestNoNO(unittest.TestCase):
+    """ Tests the street address in no_NO locale """
 
     def setUp(self):
         self.factory = Factory.create('no_NO')
