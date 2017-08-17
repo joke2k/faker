@@ -121,3 +121,7 @@ class TestNoNO(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))
+
+    def test_city_suffix(self):
+        suffix = self.factory.city_suffix()
+        assert isinstance(suffix, string_types)

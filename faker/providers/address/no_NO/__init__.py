@@ -35,3 +35,7 @@ class Provider(AddressProvider):
     def building_number(cls):
         suffix = cls.random_element(cls.building_number_suffixes)
         return cls.numerify(cls.random_element(cls.building_number_formats)).replace('?', suffix)
+
+    @classmethod
+    def city_suffix(cls):
+        return cls.random_element(cls.city_suffixes)
