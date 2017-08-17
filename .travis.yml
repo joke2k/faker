@@ -9,7 +9,7 @@ python:
   - 3.4
   - 3.5
   - 3.6
-  - "pypy-5.7.0"
+  - "pypy-5.4.0"
   - "pypy3"
 install:
   - pip install -e .
