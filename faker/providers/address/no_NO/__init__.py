@@ -39,3 +39,7 @@ class Provider(AddressProvider):
     @classmethod
     def city_suffix(cls):
         return cls.random_element(cls.city_suffixes)
+
+    @classmethod
+    def street_suffix(cls):
+        return cls.random_element(cls.street_suffixes)

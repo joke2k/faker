@@ -125,3 +125,7 @@ class TestNoNO(unittest.TestCase):
     def test_city_suffix(self):
         suffix = self.factory.city_suffix()
         assert isinstance(suffix, string_types)
+
+    def test_street_suffix(self):
+        suffix = self.factory.street_suffix()
+        assert isinstance(suffix, string_types)
