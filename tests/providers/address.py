@@ -10,7 +10,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker import Factory
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from .. import string_types
+from six import string_types
 
 
 class TestEnGB(unittest.TestCase):
@@ -94,11 +94,13 @@ class TestJaJP(unittest.TestCase):
 
 
 class TestNeNP(unittest.TestCase):
+    """ Tests addresses in the ne_NP locale """
 
     def setUp(self):
         self.factory = Factory.create('ne_NP')
 
     def test_address(self):
+        """ Tests the street address in ne_NP locale """
         country = self.factory.country()
         assert isinstance(country, string_types)
         assert country in NeProvider.countries
@@ -113,6 +115,7 @@ class TestNeNP(unittest.TestCase):
 
 
 class TestNoNO(unittest.TestCase):
+    """ Tests the street address in no_NO locale """
 
     def setUp(self):
         self.factory = Factory.create('no_NO')
@@ -120,3 +123,32 @@ class TestNoNO(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))
+
+    def test_city_suffix(self):
+        suffix = self.factory.city_suffix()
+        assert isinstance(suffix, string_types)
+
+    def test_street_suffix(self):
+        suffix = self.factory.street_suffix()
+        assert isinstance(suffix, string_types)
+
+    def test_address(self):
+        address = self.factory.address()
+        assert isinstance(address, string_types)
+
+
+class TestZhTW(unittest.TestCase):
+    """ Tests addresses in the zh_tw locale """
+
+    def setUp(self):
+        self.factory = Factory.create('zh_TW')
+
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+        street = self.factory.street_name()
+        assert isinstance(street, string_types)
+
+        city = self.factory.city()
+        assert isinstance(city, string_types)
