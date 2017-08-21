@@ -152,3 +152,6 @@ class TestZhTW(unittest.TestCase):
 
         city = self.factory.city()
         assert isinstance(city, string_types)
+
+        section = self.factory.section_number()
+        assert isinstance(section, string_types)
