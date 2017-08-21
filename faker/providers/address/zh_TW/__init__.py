@@ -5,12 +5,11 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_formats = ("{{city_name}}", )
-
     building_number_formats = ("%號", "%#號", "%##號", )
     postcode_formats = ("%####", "%##", )
-
-    street_address_formats = ("{{street_name}}{{street_name_suffix}}{{building_number}}", )
-
+    section_formats = ( "", "", "", "", "%段", )
+    street_address_formats = ( "{{street_name}}{{street_name_suffix}}{{section_number}}{{building_number}}", )
+    city_formats = ( "{{city_name}}{{city_name_suffix}}", )
     address_formats = ("{{postcode}} {{city}}{{street_address}}{{secondary_address}}", )
     secondary_address_formats = ('#樓', '之#')
 
@@ -39,11 +38,21 @@ class Provider(AddressProvider):
 
     street_suffixes = ( "路", "街", "巷" )
 
-    cities = ("基隆市", "台北市", "新北市", "桃園縣", "新竹市",
-              "新竹縣", "苗栗縣", "台中市", "彰化縣", "南投縣",
-              "雲林縣", "嘉義市", "嘉義縣", "台南市", "高雄市",
-              "屏東縣", "台東縣", "花蓮縣", "宜蘭縣", "澎湖縣",
-              "金門縣", "連江縣")
+    cities = ("基隆", "台北", "新北", "桃園", "新竹",
+              "新竹", "苗栗", "台中", "彰化", "南投",
+              "雲林", "嘉義", "桃園", "台南", "高雄",
+              "屏東", "台東", "花蓮", "宜蘭", "澎湖",
+              "金門", "連江", "太保", "朴子", "馬公",
+              "頭份", "臺東", "斗六", "員林", "竹北",
+              "平鎮", "臺中", "八德", "板橋", "大里",
+              "鳳山", "豐原", "蘆洲", "蘆竹", "三重",
+              "樹林", "太平", "新營", "新營", "汐止",
+              "楊梅", "永和", "永康", "中和", "中壢",
+              "阿里山", "白沙", "褒忠", "北斗", "北竿",
+              "北港", "卑南", "草屯", "梅山", "牡丹",
+              "橫山", "光復", "關山", "古坑", "竹田")
+
+    city_suffixes = ( "市", "縣" )
 
     # from
     countries = ("阿爾巴尼亞", "剛果共和國", "阿爾及利亞", "丹麥",
@@ -98,3 +107,11 @@ class Provider(AddressProvider):
     @classmethod
     def city_name(cls):
         return cls.random_element(cls.cities)
+
+    @classmethod
+    def city_name_suffix(cls):
+        return cls.random_element(cls.city_suffixes)
+
+    @classmethod
+    def section_number(cls):
+        return cls.numerify(cls.random_element(cls.section_formats))
