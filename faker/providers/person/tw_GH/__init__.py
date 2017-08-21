@@ -22,6 +22,8 @@ class Provider(PersonProvider):
         '{{prefix_female}} {{first_name_female}} {{last_name_female}}'
     )
 
+    # names from https://en.wikipedia.org/wiki/Ghanaian_name, https://buzzghana.com/ghanaian-names/, https://en.wikipedia.org/wiki/Akan_names, 
+    
     first_names_male = (
         'Aaron',
         'Abeiku',
