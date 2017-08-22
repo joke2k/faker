@@ -156,6 +156,9 @@ class TestZhTW(unittest.TestCase):
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+                
+        section = self.factory.section_number()
+        assert isinstance(section, string_types)
 
 class TestZhCN(unittest.TestCase):
     """ Tests addresses in the zh_cn locale """
@@ -175,3 +178,6 @@ class TestZhCN(unittest.TestCase):
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+
+
+
