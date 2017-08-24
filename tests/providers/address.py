@@ -24,10 +24,12 @@ class TestDeDE(unittest.TestCase):
     def test_city(self):
         city = self.factory.city()
         assert isinstance(city, string_types)
+        assert city in DeProvider.cities
 
     def test_state(self):
         state = self.factory.state()
         assert isinstance(state, string_types)
+        assert state in DeProvider.states
 
 
 class TestEnGB(unittest.TestCase):
