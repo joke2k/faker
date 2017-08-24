@@ -24,6 +24,11 @@ class TestDeDE(unittest.TestCase):
         city = self.factory.city()
         assert isinstance(city, string_types)
 
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
