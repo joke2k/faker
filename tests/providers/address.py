@@ -8,6 +8,7 @@ import unittest
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Factory
+from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
