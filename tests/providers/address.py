@@ -31,6 +31,11 @@ class TestDeDE(unittest.TestCase):
         assert isinstance(state, string_types)
         assert state in DeProvider.states
 
+    def test_street_suffix_short(self):
+        street_suffix_short = self.factory.street_suffix_short()
+        assert isinstance(street_suffix_short, string_types)
+        assert street_suffix_short in DeProvider.street_suffixes_short
+
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
