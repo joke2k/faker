@@ -14,6 +14,16 @@ from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
 
 
+class TestDeDE(unittest.TestCase):
+    """ Tests in addresses in the de_DE locale """
+
+    def setUp(self):
+        self.factory = Factory.create('de_DE')
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
