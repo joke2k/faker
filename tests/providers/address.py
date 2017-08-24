@@ -154,5 +154,33 @@ class TestZhTW(unittest.TestCase):
         city = self.factory.city()
         assert isinstance(city, string_types)
 
-        section = self.factory.section_number()
-        assert isinstance(section, string_types)
+        address = self.factory.address()
+        assert isinstance(address, string_types)
+
+class TestZhCN(unittest.TestCase):
+    """ Tests addresses in the zh_cn locale """
+
+    def setUp(self):
+        self.factory = Factory.create('zh_CN')
+
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+        street = self.factory.street_name()
+        assert isinstance(street, string_types)
+
+        city = self.factory.street_address()
+        assert isinstance(city, string_types)
+
+        province = self.factory.province()
+        assert isinstance(province, string_types)
+
+        district = self.factory.district()
+        assert isinstance(district, string_types)
+
+        address = self.factory.address()
+        assert isinstance(address, string_types)
+
+        for _ in range(100):
+            self.assertTrue(re.match(r'\d{5}', self.factory.postcode()))
