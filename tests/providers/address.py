@@ -181,3 +181,6 @@ class TestZhCN(unittest.TestCase):
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+
+        for _ in range(100):
+            self.assertTrue(re.match(r'\d{5}', self.factory.postcode()))
