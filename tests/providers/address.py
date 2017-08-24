@@ -8,10 +8,43 @@ import unittest
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Factory
+from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
+
+
+class TestDeDE(unittest.TestCase):
+    """ Tests in addresses in the de_DE locale """
+
+    def setUp(self):
+        self.factory = Factory.create('de_DE')
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in DeProvider.cities
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in DeProvider.states
+
+    def test_street_suffix_short(self):
+        street_suffix_short = self.factory.street_suffix_short()
+        assert isinstance(street_suffix_short, string_types)
+        assert street_suffix_short in DeProvider.street_suffixes_short
+
+    def test_street_suffix_long(self):
+        street_suffix_long = self.factory.street_suffix_long()
+        assert isinstance(street_suffix_long, string_types)
+        assert street_suffix_long in DeProvider.street_suffixes_long
+
+    def test_country(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+        assert country in DeProvider.countries
 
 
 class TestEnGB(unittest.TestCase):
