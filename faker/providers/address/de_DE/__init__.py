@@ -189,3 +189,7 @@ class Provider(AddressProvider):
     @classmethod
     def state(cls):
         return cls.random_element(cls.states)
+
+    @classmethod
+    def country(cls):
+        return cls.random_element(cls.countries)
