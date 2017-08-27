@@ -185,3 +185,6 @@ class Provider(AddressProvider):
 
     def state(self):
         return self.random_element(self.states)
+
+    def country(self):
+        return self.random_element(self.countries)
