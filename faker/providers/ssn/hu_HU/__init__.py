@@ -66,11 +66,11 @@ class Provider(SsnProvider):
         #
 
         if dob:
-            E = dob[0:2]
-            H = dob[2:4]
-            N = dob[4:6]
+            E = int(dob[0:2])
+            H = int(dob[2:4])
+            N = int(dob[4:6])
 
-            if int(dob[0:2]) <= 17:
+            if E <= 17:
                 # => person born after '99 in all likelihood...
                 if gender:
                     if gender.upper() == "F":

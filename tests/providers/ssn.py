@@ -49,6 +49,34 @@ class TestHrHR(unittest.TestCase):
             self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
 
 
+class TestHuHU(unittest.TestCase):
+    def setUp(self):
+        self.factory = Factory.create('hu_HU')
+        self.factory.seed(0)
+
+    def test_ssn(self):
+        for _ in range(100):
+            ssn = self.factory.ssn()
+            assert ssn.isdigit()
+            assert len(ssn) >= 10
+            assert len(ssn) <= 12
+
+        for _ in range(100):
+            dob_val = '{:02d}{:02d}{:02d}'.format(
+                self.factory.random_int(0, 99),
+                self.factory.random_int(1, 12),
+                self.factory.random_int(1, 31))
+            dob = self.factory.random.choice([None, dob_val])
+            gender = self.factory.random.choice([None, 'F', 'M', 'z'])
+            try:
+                ssn = self.factory.ssn(dob=dob, gender=gender)
+                assert ssn.isdigit()
+                assert len(ssn) >= 10
+                assert len(ssn) <= 12
+            except ValueError:
+                pass
+
+
 class TestPtBR(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('pt_BR')
