@@ -77,9 +77,6 @@ class Provider(AddressProvider):
     def city_name(self):
         return self.random_element(self.cities)
 
-    def state(self):
-        return self.random_element(self.states)
-
     def province(self):
         return self.random_element(self.provinces)
 
