@@ -9,6 +9,7 @@ import unittest
 from faker import Factory
 from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
+from faker.providers.date_time.ko_KR import Provider as koKRProvider
 from .. import string_types
 
 
@@ -31,6 +32,18 @@ class UTC(tzinfo):
 
 
 utc = UTC()
+
+class TestKoKR(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('ko_KR')
+
+    def test_day(self):
+        day = self.factory.day_of_week()
+        assert isinstance(day, string_types)
+    def test_month(self):
+        month = self.factory.month()
+        assert isinstance(month, string_types)
 
 
 class TestDateTime(unittest.TestCase):
