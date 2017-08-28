@@ -2,6 +2,14 @@
 Changelog
 =========
 
+`0.8.00 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.7.18>`__
+--------------------------------------------------------------------------------------
+* Add ``identity_card_number`` for ``pl_PL`` ``person`` provider. Thanks @pdaw.
+* More descriptive error message when a formatter is not found. Thanks @fcurella.
+* Add ``time_series`` provider. Thanks @fcurella.
+* Add per-instance seeding via ``.seed_instance`` method. Thanks @reverbc.
+* Fix ``tz_TW`` ``address`` provider. Thanks @clarmso.
+
 `0.7.18 - 19-July-2017 <https://github.com/joke2k/faker/compare/v0.7.18...v0.7.17>`__
 -------------------------------------------------------------------------------------
 
