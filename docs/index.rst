@@ -37,16 +37,12 @@ Install with pip:
     pip install Faker
 
 
-Use ``faker.Factory.create()`` to create and initialize a faker
+Use ``faker.Faker()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
 the type of data you want.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create()
-
-    # OR
     from faker import Faker
     fake = Faker()
 
@@ -107,8 +103,8 @@ default en\_US locale.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create('it_IT')
+    from faker import Faker
+    fake = Faker('it_IT')
     for _ in range(0, 10):
         print fake.name()
 

@@ -32,16 +32,12 @@ Install with pip:
 
 *Note: this package was previously called* ``fake-factory``.
 
-Use ``faker.Factory.create()`` to create and initialize a faker
+Use ``faker.Faker()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
 the type of data you want.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create()
-
-    # OR
     from faker import Faker
     fake = Faker()
 
@@ -102,8 +98,8 @@ default en\_US locale.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create('it_IT')
+    from faker import Faker
+    fake = Faker('it_IT')
     for _ in range(10):
         print(fake.name())
 
@@ -253,8 +249,8 @@ default lorem ipsum one. The following example shows how to do it with a list of
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create()
+    from faker import Faker
+    fake = Faker()
 
     my_word_list = [
     'danish','cheesecake','sugar',
