@@ -55,15 +55,15 @@ class Generator(object):
     def random(self):
         return self.__random
 
-    def seed(self, seed=None):
+    def seed_instance(self, seed=None):
         """Calls random.seed"""
         if self.__random == mod_random:
-            # create per-instance random obj when first time seed() is called
+            # create per-instance random obj when first time seed_instance() is called
             self.__random = random.Random()
         self.__random.seed(seed)
 
     @classmethod
-    def seed_module(self, seed=None):
+    def seed(cls, seed=None):
         mod_random.seed(seed)
 
     def format(self, formatter, *args, **kwargs):
