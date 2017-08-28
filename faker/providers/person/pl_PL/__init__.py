@@ -542,12 +542,10 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    @classmethod
-    def last_name(cls):
-        return cls.random_element(cls.unisex_last_names)
+    def last_name(self):
+        return self.random_element(self.unisex_last_names)
 
-    @classmethod
-    def identity_card_number(cls):
+    def identity_card_number(self):
         """
         Returns 9 character Polish Identity Card Number,
         Polish: Numer Dowodu Osobistego.
@@ -560,13 +558,13 @@ class Provider(PersonProvider):
         identity = []
 
         for _ in range(3):
-            identity.append(cls.random_letter().upper())
+            identity.append(self.random_letter().upper())
 
         # it will be overwritten by a checksum
         identity.append(0)
 
         for _ in range(5):
-            identity.append(cls.random_digit())
+            identity.append(self.random_digit())
 
         identity[3] = checksum_identity_card_number(identity)
 

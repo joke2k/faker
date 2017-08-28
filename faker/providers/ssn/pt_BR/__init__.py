@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 
 
 def checksum(digits):
@@ -27,9 +26,8 @@ class Provider(SsnProvider):
     The cpf return a valid number formatted with brazilian mask. eg nnn.nnn.nnn-nn
     """
 
-    @classmethod
-    def ssn(cls):
-        digits = random.sample(range(10), 9)
+    def ssn(self):
+        digits = self.generator.random.sample(range(10), 9)
 
         dv = checksum(digits)
         digits.append(dv)
@@ -37,7 +35,6 @@ class Provider(SsnProvider):
 
         return ''.join(map(str, digits))
 
-    @classmethod
-    def cpf(cls):
-        c = Provider.ssn()
+    def cpf(self):
+        c = self.ssn()
         return c[:3] + '.' + c[3:6] + '.' + c[6:9] + '-' + c[9:]

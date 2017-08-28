@@ -117,16 +117,14 @@ class Provider(AddressProvider):
         'Wake Island', 'Wallis e Futuna', 'West Bank', 'Zâmbia', 'Zimbabué',
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'Rua'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def city_name(cls):
+    def city_name(self):
         """
         :example Amora
         """
-        return cls.random_element(cls.cities)
+        return self.random_element(self.cities)

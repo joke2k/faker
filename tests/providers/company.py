@@ -45,11 +45,11 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_company_id(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{14}$', PtProvider.company_id()))
+            self.assertTrue(re.search(r'^\d{14}$', self.factory.company_id()))
 
     def test_pt_BR_cnpj(self):
         for _ in range(100):
-            cnpj = PtProvider.cnpj()
+            cnpj = self.factory.cnpj()
             self.assertTrue(re.search(r'\d{2}\.\d{3}\.\d{3}/0001-\d{2}', cnpj))
 
 
@@ -85,7 +85,7 @@ class TestPlPL(unittest.TestCase):
 
     def test_regon(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{9}$', PlProvider.regon()))
+            self.assertTrue(re.search(r'^\d{9}$', self.factory.regon()))
 
     def test_local_regon_checksum(self):
         self.assertEqual(local_regon_checksum([1, 2, 3, 4, 5, 6, 7, 8, 5, 1, 2, 3, 4]), 7)
@@ -96,7 +96,7 @@ class TestPlPL(unittest.TestCase):
 
     def test_local_regon(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{14}$', PlProvider.local_regon()))
+            self.assertTrue(re.search(r'^\d{14}$', self.factory.local_regon()))
 
     def test_company_vat_checksum(self):
         self.assertEqual(company_vat_checksum([7, 7, 5, 7, 7, 7, 6, 0, 5]), 9)
@@ -107,4 +107,4 @@ class TestPlPL(unittest.TestCase):
 
     def test_company_vat(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{10}$', PlProvider.company_vat()))
+            self.assertTrue(re.search(r'^\d{10}$', self.factory.company_vat()))

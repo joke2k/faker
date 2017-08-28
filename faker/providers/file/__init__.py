@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import BaseProvider
-from ..lorem.la import Provider as WordProvider
 
 
 class Provider(BaseProvider):
@@ -176,41 +175,37 @@ class Provider(BaseProvider):
         ("video", video_file_extensions),
     ))
 
-    @classmethod
-    def mime_type(cls, category=None):
+    def mime_type(self, category=None):
         """
         :param category: application|audio|image|message|model|multipart|text|video
         """
-        category = category if category else cls.random_element(list(cls.mime_types.keys()))
-        return cls.random_element(cls.mime_types[category])
+        category = category if category else self.random_element(list(self.mime_types.keys()))
+        return self.random_element(self.mime_types[category])
 
-    @classmethod
-    def file_name(cls, category=None, extension=None):
+    def file_name(self, category=None, extension=None):
         """
         :param category: audio|image|office|text|video
         :param extension: file extension
         """
-        extension = extension if extension else cls.file_extension(category)
-        filename = WordProvider.word()
+        extension = extension if extension else self.file_extension(category)
+        filename = self.generator.word()
         return '{0}.{1}'.format(filename, extension)
 
-    @classmethod
-    def file_extension(cls, category=None):
+    def file_extension(self, category=None):
         """
         :param category: audio|image|office|text|video
         """
-        category = category if category else cls.random_element(list(cls.file_extensions.keys()))
-        return cls.random_element(cls.file_extensions[category])
+        category = category if category else self.random_element(list(self.file_extensions.keys()))
+        return self.random_element(self.file_extensions[category])
 
-    @classmethod
-    def file_path(cls, depth=1, category=None, extension=None):
+    def file_path(self, depth=1, category=None, extension=None):
         """
         :param category: audio|image|office|text|video
         :param extension: file extension
         :param depth: depth of the file (depth >= 0)
         """
-        file = Provider.file_name(category, extension)
+        file = self.file_name(category, extension)
         path = "/{0}".format(file)
         for d in range(0, depth):
-            path = "/{0}{1}".format(WordProvider.word(), path)
+            path = "/{0}{1}".format(self.generator.word(), path)
         return path

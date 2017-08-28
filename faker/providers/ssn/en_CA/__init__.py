@@ -1,18 +1,16 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 
 
 class Provider(SsnProvider):
 
     # in order to create a valid SIN we need to provide a number that passes a simple modified Luhn Algorithmn checksum
     # this function essentially reverses the checksum steps to create a random valid SIN (Social Insurance Number)
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
 
         # create an array of 8 elements initialized randomly
-        digits = random.sample(range(10), 8)
+        digits = self.generator.random.sample(range(10), 8)
 
         # All of the digits must sum to a multiple of 10.
         # sum the first 8 and set 9th to the value to get to a multiple of 10

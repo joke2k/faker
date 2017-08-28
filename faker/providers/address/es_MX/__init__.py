@@ -93,42 +93,35 @@ class Provider(AddressProvider):
     secondary_address_formats = ('### ###', '### Interior ###',
         '### Edif. ### , Depto. ###')
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def city_suffix(cls):
-        return cls.random_element(cls.city_suffixies)
+    def city_suffix(self):
+        return self.random_element(self.city_suffixies)
 
-    @classmethod
-    def city_adjetive(cls):
-        return cls.random_element(cls.city_adjetives)
+    def city_adjetive(self):
+        return self.random_element(self.city_adjetives)
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'Avenida'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
+    def secondary_address(self):
         """
         :example '020 Interior 999'
         """
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+        return self.numerify(self.random_element(self.secondary_address_formats))
 
-    @classmethod
-    def state(cls):
+    def state(self):
         """
         example: u'Guerrero'
         """
-        return cls.random_element(cls.states)[1]
+        return self.random_element(self.states)[1]
 
-    @classmethod
-    def state_abbr(cls):
+    def state_abbr(self):
         """
         example: u'GRO'
         """
-        return cls.random_element(cls.states)[0]
+        return self.random_element(self.states)[0]

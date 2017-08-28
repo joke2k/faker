@@ -2,14 +2,12 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
 import datetime
 
 
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). Age of person is between 18 and 90
@@ -33,14 +31,14 @@ class Provider(SsnProvider):
 
         min_age = 18 * 365
         max_age = 90 * 365
-        age = datetime.timedelta(days=random.randrange(min_age, max_age))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age, max_age))
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (birthday.day, birthday.month, str(birthday.year)[-2:])
         if birthday.year < 2000:
             separator = '-'
         else:
             separator = 'A'
-        suffix = str(random.randrange(2, 899)).zfill(3)
+        suffix = str(self.generator.random.randrange(2, 899)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
         hetu = "".join([hetu_date, separator, suffix, checksum])
         return hetu

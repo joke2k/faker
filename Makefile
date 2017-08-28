@@ -1,5 +1,5 @@
 test:
-	coverage run --source=faker setup.py test
+	coverage run --source=faker --omit=faker/build_docs.py setup.py test
 
 release:
 	rm -rf build dist

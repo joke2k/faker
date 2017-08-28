@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from collections import OrderedDict
 
-from faker.providers.date_time import Provider as DateTimeProvider
 from .. import BaseProvider
 
 
@@ -46,24 +45,21 @@ class Provider(BaseProvider):
     luhn_lookup = {'0': 0, '1': 2, '2': 4, '3': 6, '4': 8,
                    '5': 1, '6': 3, '7': 5, '8': 7, '9': 9}
 
-    @classmethod
-    def credit_card_provider(cls, card_type=None):
+    def credit_card_provider(self, card_type=None):
         """ Returns the provider's name of the credit card. """
         if card_type is None:
-            card_type = cls.random_element(cls.credit_card_types.keys())
-        return cls._credit_card_type(card_type).name
+            card_type = self.random_element(self.credit_card_types.keys())
+        return self._credit_card_type(card_type).name
 
-    @classmethod
-    def credit_card_number(cls, card_type=None):
+    def credit_card_number(self, card_type=None):
         """ Returns a valid credit card number. """
-        card = cls._credit_card_type(card_type)
-        prefix = cls.random_element(card.prefixes)
-        number = cls._generate_number(prefix, card.length)
+        card = self._credit_card_type(card_type)
+        prefix = self.random_element(card.prefixes)
+        number = self._generate_number(prefix, card.length)
         return number
 
-    @classmethod
-    def credit_card_expire(cls, start='now', end='+10y', date_format='%m/%y'):
-        expire_date = DateTimeProvider.date_time_between(start, end)
+    def credit_card_expire(self, start='now', end='+10y', date_format='%m/%y'):
+        expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
     def credit_card_full(self, card_type=None):
@@ -83,23 +79,20 @@ class Provider(BaseProvider):
 
         return self.generator.parse(tpl)
 
-    @classmethod
-    def credit_card_security_code(cls, card_type=None):
+    def credit_card_security_code(self, card_type=None):
         """ Returns a security code string. """
-        sec_len = cls._credit_card_type(card_type).security_code_length
-        return cls.numerify('#' * sec_len)
+        sec_len = self._credit_card_type(card_type).security_code_length
+        return self.numerify('#' * sec_len)
 
-    @classmethod
-    def _credit_card_type(cls, card_type=None):
+    def _credit_card_type(self, card_type=None):
         """ Returns a random credit card type instance. """
         if card_type is None:
-            card_type = cls.random_element(cls.credit_card_types.keys())
+            card_type = self.random_element(self.credit_card_types.keys())
         elif isinstance(card_type, CreditCard):
             return card_type
-        return cls.credit_card_types[card_type]
+        return self.credit_card_types[card_type]
 
-    @classmethod
-    def _generate_number(cls, prefix, length):
+    def _generate_number(self, prefix, length):
         """
         'prefix' is the start of the CC number as a string, any number of digits.
         'length' is the length of the CC number to generate. Typically 13 or 16
@@ -107,7 +100,7 @@ class Provider(BaseProvider):
         number = prefix
         # Generate random char digits
         number += '#' * (length - len(prefix) - 1)
-        number = cls.numerify(number)
+        number = self.numerify(number)
         reverse = number[::-1]
         # Calculate sum
         tot = 0

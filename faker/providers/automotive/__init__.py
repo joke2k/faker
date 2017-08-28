@@ -8,10 +8,9 @@ import re
 
 class Provider(BaseProvider):
     license_formats = ()
-    
-    @classmethod
-    def license_plate(cls):
+
+    def license_plate(self):
         temp = re.sub(r'\?',
-            lambda x: cls.random_element(ascii_uppercase),
-            cls.random_element(cls.license_formats))
-        return cls.numerify(temp)
+            lambda x: self.random_element(ascii_uppercase),
+            self.random_element(self.license_formats))
+        return self.numerify(temp)

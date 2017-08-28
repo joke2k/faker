@@ -1,8 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from random import randint
-
 from .. import Provider as AddressProvider
 
 
@@ -60,15 +58,12 @@ class Provider(AddressProvider):
     ]
     street_suffixes = ['узвіз']
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def postcode(cls):
+    def postcode(self):
         """The code consists of five digits (01000-99999)"""
-        return '{}{}'.format(randint(0, 10), randint(1000, 10000))
+        return '{}{}'.format(self.generator.random.randint(0, 10), self.generator.random.randint(1000, 10000))
 
-    @classmethod
-    def street_prefix(cls):
-        return cls.random_element(cls.street_prefixes)
+    def street_prefix(self):
+        return self.random_element(self.street_prefixes)

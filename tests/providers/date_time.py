@@ -5,11 +5,11 @@ from datetime import date, datetime, timedelta, tzinfo
 from datetime import time as datetime_time
 import time
 import unittest
+import random
 
 from faker import Factory
-from faker.generator import random
 from faker.providers.date_time import Provider as DatetimeProvider
-from faker.providers.date_time.ko_KR import Provider as koKRProvider
+from faker.providers.date_time.pl_PL import Provider as PlProvider
 from .. import string_types
 
 
@@ -117,59 +117,44 @@ class TestDateTime(unittest.TestCase):
         self.assertEqual(result, date(1850, 8, 2))
 
     def test_datetimes_with_and_without_tzinfo(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
+        self.assertEqual(self.factory.date_time().tzinfo, None)
+        self.assertEqual(self.factory.date_time(utc).tzinfo, utc)
 
-        self.assertEqual(provider.date_time().tzinfo, None)
-        self.assertEqual(provider.date_time(utc).tzinfo, utc)
+        self.assertEqual(self.factory.date_time_ad().tzinfo, None)
+        self.assertEqual(self.factory.date_time_ad(utc).tzinfo, utc)
 
-        self.assertEqual(provider.date_time_ad().tzinfo, None)
-        self.assertEqual(provider.date_time_ad(utc).tzinfo, utc)
-
-        self.assertFalse(provider.iso8601().endswith('+00:00'))
-        self.assertTrue(provider.iso8601(utc).endswith('+00:00'))
+        self.assertFalse(self.factory.iso8601().endswith('+00:00'))
+        self.assertTrue(self.factory.iso8601(utc).endswith('+00:00'))
 
     def test_date_object(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
-
-        self.assertIsInstance(provider.date_object(), date)
+        self.assertIsInstance(self.factory.date_object(), date)
 
     def test_time_object(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
-
-        self.assertIsInstance(provider.time_object(), datetime_time)
+        self.assertIsInstance(self.factory.time_object(), datetime_time)
 
     def test_date_time_between_dates(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
-
         timestamp_start = random.randint(0, 2000000000)
         timestamp_end = timestamp_start + 1
 
         datetime_start = datetime.fromtimestamp(timestamp_start)
         datetime_end = datetime.fromtimestamp(timestamp_end)
 
-        random_date = provider.date_time_between_dates(datetime_start, datetime_end)
+        random_date = self.factory.date_time_between_dates(datetime_start, datetime_end)
         self.assertTrue(datetime_start <= random_date)
         self.assertTrue(datetime_end >= random_date)
 
     def test_date_time_between_dates_with_tzinfo(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
-
         timestamp_start = random.randint(0, 2000000000)
         timestamp_end = timestamp_start + 1
 
         datetime_start = datetime.fromtimestamp(timestamp_start, utc)
         datetime_end = datetime.fromtimestamp(timestamp_end, utc)
 
-        random_date_naive = provider.date_time_between_dates(datetime_start, datetime_end)
+        random_date_naive = self.factory.date_time_between_dates(datetime_start, datetime_end)
         with self.assertRaises(TypeError):
             datetime_start <= random_date_naive
 
-        random_date = provider.date_time_between_dates(datetime_start, datetime_end, utc)
+        random_date = self.factory.date_time_between_dates(datetime_start, datetime_end, utc)
         self.assertTrue(datetime_start <= random_date)
         self.assertTrue(datetime_end >= random_date)
 
@@ -177,70 +162,65 @@ class TestDateTime(unittest.TestCase):
         return int(time.mktime(value.timetuple()))
 
     def test_date_time_this_period(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
         # test century
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         # test decade
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         self.assertEqual(
-            self._datetime_to_time(provider.date_time_this_decade(before_now=False, after_now=False)),
+            self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=False)),
             self._datetime_to_time(datetime.now())
         )
         # test year
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         self.assertEqual(
-            self._datetime_to_time(provider.date_time_this_year(before_now=False, after_now=False)),
+            self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=False)),
             self._datetime_to_time(datetime.now())
         )
         # test month
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.now()))
-        self.assertTrue(self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         self.assertEqual(
-            self._datetime_to_time(provider.date_time_this_month(before_now=False, after_now=False)),
+            self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=False)),
             self._datetime_to_time(datetime.now())
         )
 
     def test_date_time_this_period_with_tzinfo(self):
-        from faker.providers.date_time import Provider
-        provider = Provider
-
         # ensure all methods provide timezone aware datetimes
         with self.assertRaises(TypeError):
-            provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now()
+            self.factory.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now()
         with self.assertRaises(TypeError):
-            provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now()
+            self.factory.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now()
         with self.assertRaises(TypeError):
-            provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now()
+            self.factory.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now()
         with self.assertRaises(TypeError):
-            provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now()
+            self.factory.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now()
 
         # test century
-        self.assertTrue(provider.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.now(utc))
-        self.assertTrue(provider.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
         # test decade
-        self.assertTrue(provider.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now(utc))
-        self.assertTrue(provider.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
 
         self.assertEqual(
-            provider.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            self.factory.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.now(utc).replace(second=0, microsecond=0)
         )
         # test year
-        self.assertTrue(provider.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now(utc))
-        self.assertTrue(provider.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
         self.assertEqual(
-            provider.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            self.factory.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.now(utc).replace(second=0, microsecond=0)
         )
         # test month
-        self.assertTrue(provider.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc))
-        self.assertTrue(provider.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc))
+        self.assertTrue(self.factory.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc))
         self.assertEqual(
-            provider.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
+            self.factory.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.now(utc).replace(second=0, microsecond=0)
         )
 
@@ -261,31 +241,29 @@ class TestDateTime(unittest.TestCase):
             Provider._parse_timedelta('foobar')
 
     def test_time_series(self):
-        from faker.providers.date_time import Provider
-
-        series = [i for i in Provider.time_series()]
+        series = [i for i in self.factory.time_series()]
         self.assertTrue(len(series), 30)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
 
         uniform = lambda dt: random.uniform(0, 5)  # noqa
-        series = [i for i in Provider.time_series('now', '+1w', '+1d', uniform)]
+        series = [i for i in self.factory.time_series('now', '+1w', '+1d', uniform)]
         self.assertTrue(len(series), 7)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
 
         end = datetime.now() + timedelta(days=7)
-        series = [i for i in Provider.time_series('now', end, '+1d', uniform)]
+        series = [i for i in self.factory.time_series('now', end, '+1d', uniform)]
         self.assertTrue(len(series), 7)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
 
         self.assertTrue(series[-1][0] <= end)
 
         with self.assertRaises(ValueError):
-            [i for i in Provider.time_series('+1w', 'now', '+1d', uniform)]
+            [i for i in self.factory.time_series('+1w', 'now', '+1d', uniform)]
 
         with self.assertRaises(ValueError):
-            [i for i in Provider.time_series('now', '+1w', '+1d', 'uniform')]
+            [i for i in self.factory.time_series('now', '+1w', '+1d', 'uniform')]
 
-        series = [i for i in Provider.time_series('now', end, '+1d', uniform, tzinfo=utc)]
+        series = [i for i in self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc)]
         self.assertTrue(len(series), 7)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
 
@@ -298,8 +276,8 @@ class TestPlPL(unittest.TestCase):
 
     def test_day(self):
         day = self.factory.day_of_week()
-        assert day in self.provider.DAY_NAMES.values()
+        assert day in PlProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.factory.month_name()
-        assert month in self.provider.MONTH_NAMES.values()
+        assert month in PlProvider.MONTH_NAMES.values()

@@ -201,43 +201,38 @@ class Provider(AddressProvider):
         ('SE', 'Sergipe'), ('TO', 'Tocantins')
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'rua'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def estado(cls):
+    def estado(self):
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example ('MG' . 'Minas Gerais')
         """
-        return cls.random_element(cls.estados)
+        return self.random_element(self.estados)
 
-    @classmethod
-    def estado_nome(cls):
+    def estado_nome(self):
         """
         Randomly returns a Brazilian State Name
         :example 'Minas Gerais'
         """
-        return cls.estado()[1]
+        return self.estado()[1]
 
-    @classmethod
-    def estado_sigla(cls):
+    def estado_sigla(self):
         """
         Randomly returns the abbreviation of a Brazilian State
 
         :example 'MG'
         """
-        return cls.estado()[0]
+        return self.estado()[0]
 
-    @classmethod
-    def bairro(cls):
+    def bairro(self):
         """
         Randomly returns a bairro (neighborhood) name. The names were taken from the city of Belo Horizonte - Minas Gerais
 
         :example 'Serra'
         """
-        return cls.random_element(cls.bairros)
+        return self.random_element(self.bairros)

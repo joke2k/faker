@@ -131,27 +131,23 @@ class Provider(PersonProvider):
         pattern = self.random_element(self.kana_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_kana_name(cls):
+    def first_kana_name(self):
         '''
         @example 'アキラ'
         '''
-        return cls.random_element(cls.first_kana_names)
+        return self.random_element(self.first_kana_names)
 
-    @classmethod
-    def first_kana_name_female(cls):
-        return cls.random_element(cls.first_kana_names_female)
+    def first_kana_name_female(self):
+        return self.random_element(self.first_kana_names_female)
 
-    @classmethod
-    def first_kana_name_male(cls):
-        return cls.random_element(cls.first_kana_names_male)
+    def first_kana_name_male(self):
+        return self.random_element(self.first_kana_names_male)
 
-    @classmethod
-    def last_kana_name(cls):
+    def last_kana_name(self):
         '''
         @example 'アオタ'
         '''
-        return cls.random_element(cls.last_kana_names)
+        return self.random_element(self.last_kana_names)
 
     def romanized_name(self):
         '''
@@ -160,24 +156,20 @@ class Provider(PersonProvider):
         pattern = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_romanized_name(cls):
+    def first_romanized_name(self):
         '''
         @example 'Akira'
         '''
-        return cls.random_element(cls.first_romanized_names)
+        return self.random_element(self.first_romanized_names)
 
-    @classmethod
-    def first_romanized_name_female(cls):
-        return cls.random_element(cls.first_romanized_names_female)
+    def first_romanized_name_female(self):
+        return self.random_element(self.first_romanized_names_female)
 
-    @classmethod
-    def first_romanized_name_male(cls):
-        return cls.random_element(cls.first_romanized_names_male)
+    def first_romanized_name_male(self):
+        return self.random_element(self.first_romanized_names_male)
 
-    @classmethod
-    def last_romanized_name(cls):
+    def last_romanized_name(self):
         '''
         @example 'Aota'
         '''
-        return cls.random_element(cls.last_romanized_names)
+        return self.random_element(self.last_romanized_names)

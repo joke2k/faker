@@ -10,6 +10,5 @@ class Provider(CompanyProvider):
 
     company_prefixes = ('株式会社', '有限会社', '合同会社')
 
-    @classmethod
-    def company_prefix(cls):
-        return cls.random_element(cls.company_prefixes)
+    def company_prefix(self):
+        return self.random_element(self.company_prefixes)

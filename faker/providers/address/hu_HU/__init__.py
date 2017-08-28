@@ -102,47 +102,33 @@ class Provider(AddressProvider):
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
         "Zöld-foki szigetek",)
 
-    @classmethod
-    def county(cls):
-        return cls.random_element(cls.counties)
+    def county(self):
+        return self.random_element(self.counties)
 
     def street_address_with_county(self):
         pattern = self.random_element(self.street_address_with_county_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefs)
+    def city_prefix(self):
+        return self.random_element(self.city_prefs)
 
-    @classmethod
-    def city_part(cls):
-        return cls.random_element(cls.city_parts)
+    def city_part(self):
+        return self.random_element(self.city_parts)
 
-    @classmethod
-    def county(cls):
-        return cls.random_element(cls.counties)
+    def real_city_name(self):
+        return self.random_element(self.real_city_names)
 
-    @classmethod
-    def real_city_name(cls):
-        return cls.random_element(cls.real_city_names)
+    def frequent_street_name(self):
+        return self.random_element(self.frequent_street_names)
 
-    @classmethod
-    def frequent_street_name(cls):
-        return cls.random_element(cls.frequent_street_names)
-
-    def city(self):
-        return super(Provider, self).city()
-
-    @classmethod
-    def postcode(cls):
-        return "H-{}{}{}{}".format(super(Provider, cls).random_digit_not_null(), super(Provider, cls).random_digit(),
-                                   super(Provider, cls).random_digit(),
-                                   super(Provider, cls).random_digit())
+    def postcode(self):
+        return "H-{}{}{}{}".format(super(Provider, self).random_digit_not_null(), super(Provider, self).random_digit(),
+                                   super(Provider, self).random_digit(),
+                                   super(Provider, self).random_digit())
 
     def street_name(self):
         return super(Provider, self).street_name().title()
 
-    @classmethod
-    def building_number(cls):
-        numeric_part = super(Provider, cls).random_int(1, 250)
+    def building_number(self):
+        numeric_part = super(Provider, self).random_int(1, 250)
         return str(numeric_part) + "."

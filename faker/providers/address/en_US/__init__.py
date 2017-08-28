@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from collections import OrderedDict
 
 from ..en import Provider as AddressProvider
-from faker.generator import random
 
 
 class Provider(AddressProvider):
@@ -107,63 +106,51 @@ class Provider(AddressProvider):
 
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+    def secondary_address(self):
+        return self.numerify(self.random_element(self.secondary_address_formats))
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)
 
-    @classmethod
-    def state_abbr(cls):
-        return cls.random_element(cls.states_abbr)
+    def state_abbr(self):
+        return self.random_element(self.states_abbr)
 
-    @classmethod
-    def zipcode(cls):
-        return "%05d" % random.randint(501, 99950)
+    def zipcode(self):
+        return "%05d" % self.generator.random.randint(501, 99950)
 
-    @classmethod
-    def zipcode_plus4(cls):
-        return "%s-%04d" % (cls.zipcode(), random.randint(1, 9999))
+    def zipcode_plus4(self):
+        return "%s-%04d" % (self.zipcode(), self.generator.random.randint(1, 9999))
 
-    @classmethod
-    def military_ship(cls):
+    def military_ship(self):
         """
         :example 'USS'
         """
-        return cls.random_element(cls.military_ship_prefix)
+        return self.random_element(self.military_ship_prefix)
 
-    @classmethod
-    def military_state(cls):
+    def military_state(self):
         """
         :example 'APO'
         """
-        return cls.random_element(cls.military_state_abbr)
+        return self.random_element(self.military_state_abbr)
 
-    @classmethod
-    def military_apo(cls):
+    def military_apo(self):
         """
         :example 'PSC 5394 Box 3492
         """
-        return cls.numerify(cls.military_apo_format)
+        return self.numerify(self.military_apo_format)
 
-    @classmethod
-    def military_dpo(cls):
+    def military_dpo(self):
         """
         :example 'Unit 3333 Box 9342'
         """
-        return cls.numerify(cls.military_dpo_format)
+        return self.numerify(self.military_dpo_format)
 
     # Aliases
-    @classmethod
-    def postalcode(cls):
-        return cls.zipcode()
+    def postalcode(self):
+        return self.zipcode()
 
-    @classmethod
-    def postalcode_plus4(cls):
-        return cls.zipcode_plus4()
+    def postalcode_plus4(self):
+        return self.zipcode_plus4()

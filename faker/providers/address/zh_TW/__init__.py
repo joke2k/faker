@@ -88,30 +88,23 @@ class Provider(AddressProvider):
                  "羅馬尼亞", "葉門", "俄羅斯", "尚比亞", "盧安達", "辛巴威",
                  "聖克里斯多福及尼維斯")
 
-    @classmethod
-    def secondary_address(cls):
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+    def secondary_address(self):
+        return self.numerify(self.random_element(self.secondary_address_formats))
 
-    @classmethod
-    def building_number(cls):
-        return cls.numerify(cls.random_element(cls.building_number_formats))
+    def building_number(self):
+        return self.numerify(self.random_element(self.building_number_formats))
 
-    @classmethod
-    def street_name(cls):
-        return cls.random_element(cls.street_names)
+    def street_name(self):
+        return self.random_element(self.street_names)
 
-    @classmethod
-    def street_name_suffix(cls):
-        return cls.random_element(cls.street_suffixes)
+    def street_name_suffix(self):
+        return self.random_element(self.street_suffixes)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def city_name_suffix(cls):
-        return cls.random_element(cls.city_suffixes)
+    def city_name_suffix(self):
+        return self.random_element(self.city_suffixes)
 
-    @classmethod
-    def section_number(cls):
-        return cls.numerify(cls.random_element(cls.section_formats))
+    def section_number(self):
+        return self.numerify(self.random_element(self.section_formats))

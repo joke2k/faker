@@ -135,14 +135,11 @@ class Provider(AddressProvider):
         'Verkkomeloni', 'Vesimeloni', 'Viikuna', 'Viinirypäle'
     )
 
-    @classmethod
-    def fruit(cls):
-        return cls.random_element(cls.fruits)
+    def fruit(self):
+        return self.random_element(self.fruits)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from .. import Provider as BaseProvider
+from .. import Provider as SsnProvider
 from functools import reduce
 from math import fmod
 
@@ -10,9 +10,8 @@ def zfix(d):
     else:
         return d
 
-class Provider(BaseProvider):
-    @classmethod
-    def ssn(cls, dob=None, gender=None):
+class Provider(SsnProvider):
+    def ssn(self, dob=None, gender=None):
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 
@@ -67,11 +66,11 @@ class Provider(BaseProvider):
         #
 
         if dob:
-            E = dob[0:2]
-            H = dob[2:4]
-            N = dob[4:6]
+            E = int(dob[0:2])
+            H = int(dob[2:4])
+            N = int(dob[4:6])
 
-            if int(dob[0:2]) <= 17:
+            if E <= 17:
                 # => person born after '99 in all likelihood...
                 if gender:
                     if gender.upper() == "F":
@@ -81,7 +80,7 @@ class Provider(BaseProvider):
                     else:
                         raise ValueError("Unknown gender - specify M or F.")
                 else:
-                    M = BaseProvider.random_int(3, 4)
+                    M = self.generator.random_int(3, 4)
             else:
                 # => person born before '99.
                 if gender:
@@ -92,12 +91,12 @@ class Provider(BaseProvider):
                     else:
                         raise ValueError("Unknown gender - specify M or F.")
                 else:
-                    M = BaseProvider.random_int(1, 2)
+                    M = self.generator.random_int(1, 2)
         elif gender:
             # => assume statistically that the person will be born before '99.
-            E = BaseProvider.random_int(17, 99)
-            H = BaseProvider.random_int(1, 12)
-            N = BaseProvider.random_int(1, 30)
+            E = self.generator.random_int(17, 99)
+            H = self.generator.random_int(1, 12)
+            N = self.generator.random_int(1, 30)
 
             if gender.upper() == "F":
                 M = 2
@@ -106,14 +105,14 @@ class Provider(BaseProvider):
             else:
                 raise ValueError("Unknown gender - specify M or F")
         else:
-            M = BaseProvider.random_int(1, 2)
-            E = BaseProvider.random_int(17, 99)
-            H = BaseProvider.random_int(1, 12)
-            N = BaseProvider.random_int(1, 30)
+            M = self.generator.random_int(1, 2)
+            E = self.generator.random_int(17, 99)
+            H = self.generator.random_int(1, 12)
+            N = self.generator.random_int(1, 30)
 
         H = zfix(H)
         N = zfix(N)
-        S = "{}{}{}".format(BaseProvider.random_digit(), BaseProvider.random_digit(), BaseProvider.random_digit())
+        S = "{}{}{}".format(self.generator.random_digit(), self.generator.random_digit(), self.generator.random_digit())
 
         vdig = "{M}{E}{H}{N}{S}".format(M=M, E=E, H=H, N=N, S=S)
 

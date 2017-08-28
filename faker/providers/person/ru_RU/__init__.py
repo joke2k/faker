@@ -259,18 +259,15 @@ class Provider(PersonProvider):
 
     prefixes_female = ('г-жа', 'тов.')
 
-    @classmethod
-    def middle_name(cls):
-        return cls.random_element(cls.middle_names)
+    def middle_name(self):
+        return self.random_element(self.middle_names)
 
-    @classmethod
-    def middle_name_male(cls):
-        if hasattr(cls, 'middle_names_male'):
-            return cls.random_element(cls.middle_names_male)
-        return cls.middle_name()
+    def middle_name_male(self):
+        if hasattr(self, 'middle_names_male'):
+            return self.random_element(self.middle_names_male)
+        return self.middle_name()
 
-    @classmethod
-    def middle_name_female(cls):
-        if hasattr(cls, 'middle_names_female'):
-            return cls.random_element(cls.middle_names_female)
-        return cls.middle_name()
+    def middle_name_female(self):
+        if hasattr(self, 'middle_names_female'):
+            return self.random_element(self.middle_names_female)
+        return self.middle_name()

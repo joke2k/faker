@@ -647,6 +647,5 @@ class Provider(BaseProvider):
         "Youth worker",
     )
 
-    @classmethod
-    def job(cls):
-        return cls.random_element(cls.jobs)
+    def job(self):
+        return self.random_element(self.jobs)

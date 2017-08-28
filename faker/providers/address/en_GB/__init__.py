@@ -101,21 +101,18 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
 
-    @classmethod
-    def postcode(cls):
+    def postcode(self):
         """
         See http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
         """
         postcode = ''
-        pattern = cls.random_element(cls.postcode_formats)
+        pattern = self.random_element(self.postcode_formats)
         for placeholder in pattern:
-            postcode += cls.random_element(cls._postcode_sets[placeholder])
+            postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
-        return cls.bothify(cls.random_element(cls.secondary_address_formats))
+    def secondary_address(self):
+        return self.bothify(self.random_element(self.secondary_address_formats))

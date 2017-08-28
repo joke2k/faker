@@ -177,10 +177,8 @@ class Provider(BaseProvider):
         'TIT', 'VTC', 'XDN', 'XMR', 'XPM', 'XRP', 'ZEC',
     )
 
-    @classmethod
-    def currency_code(cls):
-        return cls.random_element(cls.currencies)
+    def currency_code(self):
+        return self.random_element(self.currencies)
 
-    @classmethod
-    def cryptocurrency_code(cls):
-        return cls.random_element(cls.cryptocurrencies)
+    def cryptocurrency_code(self):
+        return self.random_element(self.cryptocurrencies)

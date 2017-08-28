@@ -15,11 +15,11 @@ class TestFile(unittest.TestCase):
 
     def test_file_path(self):
         for _ in range(100):
-            file_path = FileProvider.file_path()
+            file_path = self.factory.file_path()
             self.assertTrue(re.search(r'\/\w+\/\w+\.\w+', file_path))
-            file_path = FileProvider.file_path(depth=3)
+            file_path = self.factory.file_path(depth=3)
             self.assertTrue(re.search(r'\/\w+\/\w+\/\w+\.\w+', file_path))
-            file_path = FileProvider.file_path(extension='pdf')
+            file_path = self.factory.file_path(extension='pdf')
             self.assertTrue(re.search(r'\/\w+\/\w+\.pdf', file_path))
-            file_path = FileProvider.file_path(category='image')
+            file_path = self.factory.file_path(category='image')
             self.assertTrue(re.search(r'\/\w+\/\w+\.(bmp|gif|jpeg|jpg|png|tiff)', file_path))

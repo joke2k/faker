@@ -5,9 +5,8 @@ from .. import Provider as DateTimeProvider
 
 class Provider(DateTimeProvider):
 
-    @classmethod
-    def day_of_week(cls):
-        day = cls.date('%w')
+    def day_of_week(self):
+        day = self.date('%w')
         DAY_NAMES = {
             "0": "hétfő",
             "1": "kedd",
@@ -20,9 +19,8 @@ class Provider(DateTimeProvider):
 
         return DAY_NAMES[day]
 
-    @classmethod
-    def month_name(cls):
-        month = cls.month()
+    def month_name(self):
+        month = self.month()
         MONTH_NAMES = {
             "01": "január",
             "02": "február",

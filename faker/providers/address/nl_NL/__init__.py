@@ -583,10 +583,8 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{postcode}}\n{{city}}",
     )
 
-    @classmethod
-    def province(cls):
-        return cls.random_element(cls.provinces)
+    def province(self):
+        return self.random_element(self.provinces)
 
-    @classmethod
-    def city(cls):
-        return cls.random_element(cls.cities)
+    def city(self):
+        return self.random_element(self.cities)

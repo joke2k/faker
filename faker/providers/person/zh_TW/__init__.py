@@ -105,16 +105,14 @@ class Provider(PersonProvider):
         pattern = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_romanized_name(cls):
+    def first_romanized_name(self):
         '''
         @example 'Chao'
         '''
-        return cls.random_element(cls.first_romanized_names)
+        return self.random_element(self.first_romanized_names)
 
-    @classmethod
-    def last_romanized_name(cls):
+    def last_romanized_name(self):
         '''
         @example 'Chao'
         '''
-        return cls.random_element(cls.last_romanized_names)
+        return self.random_element(self.last_romanized_names)

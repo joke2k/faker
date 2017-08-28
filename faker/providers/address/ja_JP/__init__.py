@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from .. import Provider as AddressProvider
-from faker.generator import random
 
 
 class Provider(AddressProvider):
@@ -85,58 +84,50 @@ class Provider(AddressProvider):
         'パレス', 'ハイツ', 'コーポ', 'アーバン', 'クレスト', 'パーク', 'シティ', 'シャルム', 'コート',
     )
 
-    @classmethod
-    def prefecture(cls):
+    def prefecture(self):
         """
         :example '東京都'
         """
-        return cls.random_element(cls.prefectures)
+        return self.random_element(self.prefectures)
 
-    @classmethod
-    def city(cls):
+    def city(self):
         """
         :example '台東区'
         """
-        return cls.random_element(cls.cities)
+        return self.random_element(self.cities)
 
-    @classmethod
-    def town(cls):
+    def town(self):
         """
         :example '浅草'
         """
-        return cls.random_element(cls.towns)
+        return self.random_element(self.towns)
 
-    @classmethod
-    def chome(cls):
+    def chome(self):
         """
         :example '1丁目'
         """
-        return "%d丁目" % random.randint(1, 42)
+        return "%d丁目" % self.generator.random.randint(1, 42)
 
-    @classmethod
-    def ban(cls):
+    def ban(self):
         """
         :example '3番'
         """
-        return "%d番" % random.randint(1, 27)
+        return "%d番" % self.generator.random.randint(1, 27)
 
-    @classmethod
-    def gou(cls):
+    def gou(self):
         """
         :example '10号'
         """
-        return "%d号" % random.randint(1, 20)
+        return "%d号" % self.generator.random.randint(1, 20)
 
-    @classmethod
-    def building_name(cls):
+    def building_name(self):
         """
         :example 'コーポ芝浦'
         """
-        return cls.random_element(cls.building_names)
+        return self.random_element(self.building_names)
 
-    @classmethod
-    def zipcode(cls):
+    def zipcode(self):
         """
         :example '101-1212'
         """
-        return "%03d-%04d" % (random.randint(0, 999), random.randint(0, 9999))
+        return "%03d-%04d" % (self.generator.random.randint(0, 999), self.generator.random.randint(0, 9999))

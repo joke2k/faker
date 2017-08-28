@@ -68,7 +68,7 @@ class TestHuHU(unittest.TestCase):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
         # The first digit may not begin with a zero.
         for _ in range(100):
-            pcd = HuProvider.postcode()
+            pcd = self.factory.postcode()
             assert pcd[2] > "0"
 
     def test_street_address(self):

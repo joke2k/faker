@@ -19,9 +19,8 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def company_suffix(cls):
+    def company_suffix(self):
         """
         :example 'Ltd'
         """
-        return cls.random_element(cls.company_suffixes)
+        return self.random_element(self.company_suffixes)

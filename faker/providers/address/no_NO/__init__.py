@@ -31,15 +31,12 @@ class Provider(AddressProvider):
         'H': 0.05}
     postcode_formats = ('####',)
 
-    @classmethod
-    def building_number(cls):
-        suffix = cls.random_element(cls.building_number_suffixes)
-        return cls.numerify(cls.random_element(cls.building_number_formats)).replace('?', suffix)
+    def building_number(self):
+        suffix = self.random_element(self.building_number_suffixes)
+        return self.numerify(self.random_element(self.building_number_formats)).replace('?', suffix)
 
-    @classmethod
-    def city_suffix(cls):
-        return cls.random_element(cls.city_suffixes)
+    def city_suffix(self):
+        return self.random_element(self.city_suffixes)
 
-    @classmethod
-    def street_suffix(cls):
-        return cls.random_element(cls.street_suffixes)
+    def street_suffix(self):
+        return self.random_element(self.street_suffixes)

@@ -742,22 +742,17 @@ class Provider(AddressProvider):
         'Švédsko',
         'Švýcarsko')
 
-    @classmethod
-    def street_suffix_short(cls):
-        return cls.random_element(cls.street_suffixes_short)
+    def street_suffix_short(self):
+        return self.random_element(self.street_suffixes_short)
 
-    @classmethod
-    def street_suffix_long(cls):
-        return cls.random_element(cls.street_suffixes_long)
+    def street_suffix_long(self):
+        return self.random_element(self.street_suffixes_long)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def street_name(cls):
-        return cls.random_element(cls.streets)
+    def street_name(self):
+        return self.random_element(self.streets)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)
