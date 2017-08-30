@@ -10,7 +10,7 @@ from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.pl_PL import (Provider as PlProvider,
                                           checksum_identity_card_number as pl_checksum_identity_card_number)
-from .. import string_types
+from tests import string_types
 
 
 class TestJaJP(unittest.TestCase):

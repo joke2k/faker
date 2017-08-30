@@ -15,7 +15,7 @@ except ImportError:  # pragma: no cover
 from faker import Generator, Factory
 from faker.generator import random
 from faker.utils import text, decorators
-from . import string_types
+from tests import string_types
 
 
 class BarProvider(object):

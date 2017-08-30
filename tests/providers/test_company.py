@@ -11,7 +11,7 @@ from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import Provider as PtProvider, company_id_checksum
 from faker.providers.company.pl_PL import (Provider as PlProvider, regon_checksum, local_regon_checksum,
                                            company_vat_checksum)
-from .. import string_types
+from tests import string_types
 
 
 class TestJaJP(unittest.TestCase):

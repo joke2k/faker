@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import unittest
 
 from faker import Faker
-from .. import string_types
+from tests import string_types
 
 
 class TestPhoneNumber(unittest.TestCase):

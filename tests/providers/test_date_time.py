@@ -10,7 +10,7 @@ import random
 from faker import Factory
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
-from .. import string_types
+from tests import string_types
 
 
 class UTC(tzinfo):

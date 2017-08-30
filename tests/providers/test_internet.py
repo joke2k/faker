@@ -9,7 +9,7 @@ from email_validator import validate_email
 from faker import Factory
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
-from .. import string_types
+from tests import string_types
 
 
 class TestJaJP(unittest.TestCase):
