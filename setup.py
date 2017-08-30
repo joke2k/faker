@@ -60,10 +60,10 @@ setup(
     test_suite='tests',
     zip_safe=zip_safe,
     install_requires=[
-        "email_validator>=1.0.2",
+        "email_validator==1.0.2",
         "python-dateutil>=2.4",
         "six",
-        "ukpostcodeparser>=1.1.1",
+        "ukpostcodeparser==1.1.1",
     ],
     extras_require={
         ':python_version=="2.7"': [
