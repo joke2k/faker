@@ -63,6 +63,8 @@ setup(
         "email_validator==1.0.2",
         "python-dateutil>=2.4",
         "six",
+    ],
+    test_requires=[
         "ukpostcodeparser==1.1.1",
     ],
     extras_require={
