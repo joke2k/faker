@@ -70,7 +70,7 @@ class Provider(BaseProvider):
             return ''
 
         if variable_nb_words:
-            nb_words = self.randomize_nb_elements(nb_words)
+            nb_words = self.randomize_nb_elements(nb_words, min=1)
 
         words = self.words(nb=nb_words, ext_word_list=ext_word_list)
         words[0] = words[0].title()
@@ -110,7 +110,7 @@ class Provider(BaseProvider):
             return ''
 
         if variable_nb_sentences:
-            nb_sentences = self.randomize_nb_elements(nb_sentences)
+            nb_sentences = self.randomize_nb_elements(nb_sentences, min=1)
 
         para = self.word_connector.join(self.sentences(
             nb_sentences, ext_word_list=ext_word_list
