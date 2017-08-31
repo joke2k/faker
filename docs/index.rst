@@ -126,6 +126,9 @@ provider for your own locale and submit a Pull Request (PR).
 
 Included localized providers:
 
+-  `ar\_EG <https://faker.readthedocs.io/en/master/locales/ar_EG.html>`__ - Arabic (Egypt)
+-  `ar\_PS <https://faker.readthedocs.io/en/master/locales/ar_PS.html>`__ - Arabic (Palestine)
+-  `ar\_SA <https://faker.readthedocs.io/en/master/locales/ar_SA.html>`__ - Arabic (Saudi Arabia)
 -  `bg\_BG <https://faker.readthedocs.io/en/master/locales/bg_BG.html>`__ - Bulgarian
 -  `cs\_CZ <https://faker.readthedocs.io/en/master/locales/cs_CZ.html>`__ - Czech
 -  `de\_DE <https://faker.readthedocs.io/en/master/locales/de_DE.html>`__ - German

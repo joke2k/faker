@@ -15,8 +15,10 @@ class Provider(BaseProvider):
     language_locale_codes = {
         'aa': ('DJ', 'ER', 'ET'), 'af': ('ZA',), 'ak': ('GH',), 'am': ('ET',),
         'an': ('ES',), 'apn': ('IN',),
-        'ar': ('AE', 'BH', 'DZ', 'EG', 'IN', 'IQ', 'JO', 'KW', 'LB', 'LY',
-               'MA', 'OM', 'QA', 'SA', 'SD', 'SS', 'SY', 'TN', 'YE'),
+        'ar': ('AE', 'BH', 'DJ', 'DZ', 'EG', 'EH', 'ER', 'IL', 'IN',
+               'IQ', 'JO', 'KM', 'KW', 'LB', 'LY', 'MA', 'MR', 'OM',
+               'PS', 'QA', 'SA', 'SD', 'SO', 'SS', 'SY', 'TD', 'TN',
+               'YE'),
         'as': ('IN',), 'ast': ('ES',), 'ayc': ('PE',), 'az': ('AZ', 'IN'),
         'be': ('BY',), 'bem': ('ZM',), 'ber': ('DZ', 'MA'), 'bg': ('BG',),
         'bhb': ('IN',), 'bho': ('IN',), 'bn': ('BD', 'IN'), 'bo': ('CN', 'IN'),
