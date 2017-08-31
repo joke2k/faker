@@ -2,8 +2,13 @@
 Changelog
 =========
 
-`0.8.00 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.7.18>`__
---------------------------------------------------------------------------------------
+`0.8.1 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.1...v0.8.0>`__
+------------------------------------------------------------------------------------
+
+* Rolled back breaking change in ``randomize_nb_elements``.
+
+`0.8.0 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.7.18>`__
+-------------------------------------------------------------------------------------
 * Add ``identity_card_number`` for ``pl_PL`` ``person`` provider. Thanks @pdaw.
 * More descriptive error message when a formatter is not found. Thanks @fcurella.
 * Add ``time_series`` provider. Thanks @fcurella.
