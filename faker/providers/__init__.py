@@ -144,7 +144,7 @@ class BaseProvider(object):
             return number
         _min = 100 if ge else 60
         _max = 100 if le else 140
-        return int(number * self.generator.random.randint(_min, _max) / 100)
+        return int(number * self.generator.random.randint(_min, _max) / 100) + 1
 
     def numerify(self, text='###'):
         """
