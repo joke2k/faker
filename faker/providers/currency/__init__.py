@@ -109,6 +109,7 @@ class Provider(BaseProvider):
         "NAD",
         "NGN",
         "NIO",
+        "NIS",
         "NOK",
         "NPR",
         "NZD",
