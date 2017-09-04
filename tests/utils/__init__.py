@@ -2,7 +2,7 @@ from faker.utils.loading import find_available_locales
 from faker.utils.distribution import choice_distribution
 from faker.utils.datasets import add_dicts
 from faker.config import PROVIDERS
-from faker.generator import mod_random
+from faker.generator import random
 from faker.utils.loading import find_available_providers
 from faker.config import META_PROVIDERS_MODULES
 from importlib import import_module
@@ -25,7 +25,7 @@ class UtilsTestCase(unittest.TestCase):
             random_state = json.load(fh)
         random_state[1] = tuple(random_state[1])
 
-        mod_random.setstate(random_state)
+        random.setstate(random_state)
         samples = [choice_distribution(a, p) for i in range(100)]
         a_pop = len([i for i in samples if i == 'a'])
         b_pop = len([i for i in samples if i == 'b'])

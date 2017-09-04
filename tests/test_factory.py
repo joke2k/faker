@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import re
 import unittest
 import string
-import six
 import sys
 
 try:
@@ -14,7 +13,7 @@ except ImportError:  # pragma: no cover
     from io import StringIO
 
 from faker import Generator, Factory
-from faker.generator import mod_random as random
+from faker.generator import random
 from faker.utils import text, decorators
 from . import string_types
 
