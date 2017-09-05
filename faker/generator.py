@@ -3,11 +3,12 @@
 from __future__ import unicode_literals
 
 import re
-import random
+import random as random_module
 
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
-mod_random = random.Random()
+random = random_module.Random()
+mod_random = random  # compat with name released in 0.8
 
 
 class Generator(object):
@@ -18,7 +19,7 @@ class Generator(object):
         self.providers = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
-        self.__random = mod_random
+        self.__random = random
 
     def add_provider(self, provider):
 
@@ -57,14 +58,14 @@ class Generator(object):
 
     def seed_instance(self, seed=None):
         """Calls random.seed"""
-        if self.__random == mod_random:
+        if self.__random == random:
             # create per-instance random obj when first time seed_instance() is called
-            self.__random = random.Random()
+            self.__random = random_module.Random()
         self.__random.seed(seed)
 
     @classmethod
     def seed(cls, seed=None):
-        mod_random.seed(seed)
+        random.seed(seed)
 
     def format(self, formatter, *args, **kwargs):
         """

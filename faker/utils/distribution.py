@@ -1,7 +1,8 @@
 # coding=utf-8
 
 import bisect
-from faker.generator import mod_random
+from faker.generator import random as mod_random
+
 
 def random_sample(random=None):
     if random is None:

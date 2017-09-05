@@ -277,13 +277,17 @@ used to generate the values:
     fake.random
     fake.random.getstate()
 
+By default all generators share the same instance of ``random.Random``, which
+can be accessed with ``from faker.generator import random``. Using this may
+be useful for plugins that want to affect all faker instances.
+
 Seeding the Generator
 ---------------------
 
 When using Faker for unit testing, you will often want to generate the same
 data set. For convenience, the generator also provide a ``seed()`` method, which
-seeds the random number generator. Calling the same script twice with the same
-seed produces the same results.
+seeds the shared random number generator. Calling the same methods with the
+same version of faker and seed produces the same results.
 
 .. code:: python
 
@@ -291,18 +295,20 @@ seed produces the same results.
     fake = Faker()
     fake.seed(4321)
 
-    print fake.name()
+    print(fake.name())
     > Margaret Boehm
 
-The code above is equivalent to the following:
+Each generator can also be switched to its own instance of ``random.Random``,
+separate to the shared one, by using the ``seed_instance()`` method, which acts
+the same way. For example:
 
-.. code:: python
+.. code-block:: python
 
     from faker import Faker
     fake = Faker()
-    fake.random.seed(4321)
+    fake.seed_instance(4321)
 
-    print fake.name()
+    print(fake.name())
     > Margaret Boehm
 
 Tests
