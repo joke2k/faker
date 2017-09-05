@@ -2,6 +2,12 @@
 Changelog
 =========
 
+`0.8.2 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.2...v0.8.1>`__
+---------------------------------------------------------------------------------------
+
+* Revert name change of ``faker.generator.random``. Thanks @adamchainz.
+* Document the global shared ``random.Random`` and ``seed_instance()``. Thanks @adamchainz.
+
 `0.8.1 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.1...v0.8.0>`__
 ------------------------------------------------------------------------------------
 
