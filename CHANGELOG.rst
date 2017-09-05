@@ -2,23 +2,23 @@
 Changelog
 =========
 
-`0.8.3 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.2>`__
+`0.8.3 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.2...v0.8.3>`__
 ---------------------------------------------------------------------------------------
 
 * Fix release build.
 
-`0.8.2 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.2...v0.8.1>`__
+`0.8.2 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.1...v0.8.2>`__
 ---------------------------------------------------------------------------------------
 
 * Revert name change of ``faker.generator.random``. Thanks @adamchainz.
 * Document the global shared ``random.Random`` and ``seed_instance()``. Thanks @adamchainz.
 
-`0.8.1 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.1...v0.8.0>`__
+`0.8.1 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.8.1>`__
 ------------------------------------------------------------------------------------
 
 * Rolled back breaking change in ``randomize_nb_elements``.
 
-`0.8.0 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.7.18>`__
+`0.8.0 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.7.18...v0.8.0>`__
 -------------------------------------------------------------------------------------
 * Add ``identity_card_number`` for ``pl_PL`` ``person`` provider. Thanks @pdaw.
 * More descriptive error message when a formatter is not found. Thanks @fcurella.
@@ -26,7 +26,7 @@ Changelog
 * Add per-instance seeding via ``.seed_instance`` method. Thanks @reverbc.
 * Fix ``tz_TW`` ``address`` provider. Thanks @clarmso.
 
-`0.7.18 - 19-July-2017 <https://github.com/joke2k/faker/compare/v0.7.18...v0.7.17>`__
+`0.7.18 - 19-July-2017 <https://github.com/joke2k/faker/compare/v0.7.17...v0.7.18>`__
 -------------------------------------------------------------------------------------
 
 * Generate proper dates before 1970. Thanks @kungfu71186.
@@ -47,18 +47,18 @@ Changelog
 * Use ``random.choices`` when available for better performance. Thanks @catleeball.
 * Refactor RGB color methods. Thanks @catleeball.
 
-`0.7.17 - 12-June-2017 <https://github.com/joke2k/faker/compare/v0.7.17...v0.7.16>`__
+`0.7.17 - 12-June-2017 <https://github.com/joke2k/faker/compare/v0.7.16...v0.7.17>`__
 -------------------------------------------------------------------------------------
 
 * Fix a timezone issue with the ``date_time_between_dates`` provider.
 
-`0.7.16 - 09-June-2017 <https://github.com/joke2k/faker/compare/v0.7.16...v0.7.15>`__
+`0.7.16 - 09-June-2017 <https://github.com/joke2k/faker/compare/v0.7.15...v0.7.16>`__
 -------------------------------------------------------------------------------------
 
 * fix timezone issues with ``date_time_between`` provider.
 * Add ``ext_word_list`` parameter to methods in the `Lorem` generator. Thanks @guinslym.
 
-`0.7.15 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.14...v0.7.13>`__
+`0.7.15 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.14...v0.7.15>`__
 -------------------------------------------------------------------------------------
 
 * fix start and end date for datetime provider methods.
