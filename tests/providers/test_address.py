@@ -58,6 +58,11 @@ class TestElGR(unittest.TestCase):
         address = self.factory.line_address()
         assert isinstance(address, string_types)
 
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in GrProvider.cities
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
