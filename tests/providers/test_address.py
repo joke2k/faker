@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import re
 import unittest
 
+from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Factory
@@ -67,6 +68,15 @@ class TestElGR(unittest.TestCase):
         region = self.factory.region()
         assert isinstance(region, string_types)
         assert region in GrProvider.regions
+
+    def test_latlng(self):
+        latlng = self.factory.latlng()
+        latitude = self.factory.latitude()
+        longitude = self.factory.longitude()
+        assert isinstance(latlng, tuple)
+        assert isinstance(latitude, Decimal)
+        assert isinstance(longitude, Decimal)
+
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
