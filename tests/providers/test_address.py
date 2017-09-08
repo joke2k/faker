@@ -47,6 +47,14 @@ class TestDeDE(unittest.TestCase):
         assert country in DeProvider.countries
 
 
+class TestElGR(unittest.TestCase):
+    """ Tests addresses in the el_GR locale """
+
+    def setUp(self):
+        self.factory = Factory.create('el_GR')
+
+    
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
