@@ -5,10 +5,12 @@ from __future__ import unicode_literals
 import re
 import unittest
 
+from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Factory
 from faker.providers.address.de_DE import Provider as DeProvider
+from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
@@ -45,6 +47,35 @@ class TestDeDE(unittest.TestCase):
         country = self.factory.country()
         assert isinstance(country, string_types)
         assert country in DeProvider.countries
+
+
+class TestElGR(unittest.TestCase):
+    """ Tests addresses in the el_GR locale """
+
+    def setUp(self):
+        self.factory = Factory.create('el_GR')
+
+    def test_line_address(self):
+        address = self.factory.line_address()
+        assert isinstance(address, string_types)
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in GrProvider.cities
+
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
+        assert region in GrProvider.regions
+
+    def test_latlng(self):
+        latlng = self.factory.latlng()
+        latitude = self.factory.latitude()
+        longitude = self.factory.longitude()
+        assert isinstance(latlng, tuple)
+        assert isinstance(latitude, Decimal)
+        assert isinstance(longitude, Decimal)
 
 
 class TestEnGB(unittest.TestCase):
