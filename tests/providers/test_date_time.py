@@ -33,6 +33,7 @@ class UTC(tzinfo):
 
 utc = UTC()
 
+
 class TestKoKR(unittest.TestCase):
 
     def setUp(self):
@@ -41,6 +42,7 @@ class TestKoKR(unittest.TestCase):
     def test_day(self):
         day = self.factory.day_of_week()
         assert isinstance(day, string_types)
+
     def test_month(self):
         month = self.factory.month()
         assert isinstance(month, string_types)
@@ -50,6 +52,10 @@ class TestDateTime(unittest.TestCase):
 
     def setUp(self):
         self.factory = Factory.create()
+
+    def assertBetween(self, date, start_date, end_date):
+        self.assertTrue(date <= end_date)
+        self.assertTrue(date >= start_date)
 
     def test_day(self):
         day = self.factory.day_of_week()
@@ -79,6 +85,30 @@ class TestDateTime(unittest.TestCase):
         timestamp = DatetimeProvider._parse_date_time('+30d')
         now = DatetimeProvider._parse_date_time('now')
         self.assertTrue(timestamp > now)
+        delta = timedelta(days=-30)
+        from_delta = DatetimeProvider._parse_date_time(delta)
+        from_int = DatetimeProvider._parse_date_time(30)
+
+        self.assertEqual(datetime.fromtimestamp(from_delta).date(),
+                         datetime.fromtimestamp(timestamp).date())
+
+        self.assertEqual(datetime.fromtimestamp(from_int).date(),
+                         datetime.fromtimestamp(timestamp).date())
+
+    def test_parse_date(self):
+        parsed = DatetimeProvider._parse_date('+30d')
+        now = DatetimeProvider._parse_date('now')
+        today = DatetimeProvider._parse_date('today')
+        self.assertIsInstance(parsed, date)
+        self.assertIsInstance(now, date)
+        self.assertIsInstance(today, date)
+        self.assertEqual(today, date.today())
+        self.assertEqual(now, today)
+        self.assertEqual(parsed, today + timedelta(days=30))
+        self.assertEqual(DatetimeProvider._parse_date(datetime.now()), today)
+        self.assertEqual(DatetimeProvider._parse_date(parsed), parsed)
+        self.assertEqual(DatetimeProvider._parse_date(30), parsed)
+        self.assertEqual(DatetimeProvider._parse_date(timedelta(days=-30)), parsed)
 
     def test_timezone_conversion(self):
         from faker.providers.date_time import datetime_to_timestamp
@@ -158,6 +188,14 @@ class TestDateTime(unittest.TestCase):
         self.assertTrue(datetime_start <= random_date)
         self.assertTrue(datetime_end >= random_date)
 
+    def test_date_between_dates(self):
+        date_end = date.today()
+        date_start = date_end - timedelta(days=10)
+
+        random_date = self.factory.date_between_dates(date_start, date_end)
+        self.assertTrue(date_start <= random_date)
+        self.assertTrue(date_end >= random_date)
+
     def _datetime_to_time(self, value):
         return int(time.mktime(value.timetuple()))
 
@@ -223,6 +261,52 @@ class TestDateTime(unittest.TestCase):
             self.factory.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0),
             datetime.now(utc).replace(second=0, microsecond=0)
         )
+
+    def test_date_this_period(self):
+        # test century
+        self.assertTrue(self.factory.date_this_century(after_today=False) <= date.today())
+        self.assertTrue(self.factory.date_this_century(before_today=False, after_today=True) >= date.today())
+        # test decade
+        self.assertTrue(self.factory.date_this_decade(after_today=False) <= date.today())
+        self.assertTrue(self.factory.date_this_decade(before_today=False, after_today=True) >= date.today())
+        self.assertEqual(
+            self.factory.date_this_decade(before_today=False, after_today=False),
+            date.today()
+        )
+        # test year
+        self.assertTrue(self.factory.date_this_year(after_today=False) <= date.today())
+        self.assertTrue(self.factory.date_this_year(before_today=False, after_today=True) >= date.today())
+        self.assertEqual(
+            self.factory.date_this_year(before_today=False, after_today=False),
+            date.today()
+        )
+        # test month
+        self.assertTrue(self.factory.date_this_month(after_today=False) <= date.today())
+        self.assertTrue(self.factory.date_this_month(before_today=False, after_today=True) >= date.today())
+        self.assertEqual(
+            self.factory.date_this_month(before_today=False, after_today=False),
+            datetime.now()
+        )
+
+    def test_date_time_between(self):
+        now = datetime.now()
+        _30_years_ago = now.replace(year=now.year - 30)
+        _20_years_ago = now.replace(year=now.year - 20)
+
+        random_datetime = self.factory.date_time_between(start_date='-30y', end_date='-20y')
+
+        self.assertIsInstance(random_datetime, datetime)
+        self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
+
+    def test_date_between(self):
+        today = date.today()
+        _30_years_ago = today.replace(year=today.year - 30)
+        _20_years_ago = today.replace(year=today.year - 20)
+
+        random_date = self.factory.date_between(start_date='-30y', end_date='-20y')
+
+        self.assertIsInstance(random_date, date)
+        self.assertBetween(random_date, _30_years_ago, _20_years_ago)
 
     def test_parse_timedelta(self):
         from faker.providers.date_time import Provider
