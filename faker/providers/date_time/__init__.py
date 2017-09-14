@@ -367,6 +367,24 @@ class Provider(BaseProvider):
             return datetime_to_timestamp(now + timedelta(text))
         raise ParseError("Invalid format for date '{0}'".format(text))
 
+    @classmethod
+    def _parse_date(cls, value):
+        if isinstance(value, (datetime, real_datetime)):
+            return value.date()
+        elif isinstance(value, (date, real_date)):
+            return value
+        today = date.today()
+        if isinstance(value, timedelta):
+            return today - value
+        if is_string(value):
+            if value in ('today', 'now'):
+                return today
+            time_params = cls._parse_date_string(value)
+            return today + timedelta(**time_params)
+        if isinstance(value, int):
+            return today + timedelta(value)
+        raise ParseError("Invalid format for date '{0}'".format(value))
+
     def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """
         Get a DateTime object based on a random date between two given dates.
@@ -382,6 +400,21 @@ class Provider(BaseProvider):
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
         timestamp = self.generator.random.randint(start_date, end_date)
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=timestamp)
+
+    def date_between(self, start_date='-30y', end_date='today'):
+        """
+        Get a Date object based on a random date between two given dates.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param start_date Defaults to 30 years ago
+        :param end_date Defaults to "today"
+        :example Date('1999-02-02')
+        :return Date
+        """
+
+        start_date = self._parse_date(start_date)
+        end_date = self._parse_date(end_date)
+        return self.date_between_dates(date_start=start_date, date_end=end_date)
 
     def future_datetime(self, end_date='+30d', tzinfo=None):
         """
@@ -409,9 +442,7 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return self.date_time_between(
-            start_date='+1d', end_date=end_date, tzinfo=tzinfo,
-        ).date()
+        return self.date_between(start_date='+1d', end_date=end_date)
 
     def past_datetime(self, start_date='-30d', tzinfo=None):
         """
@@ -439,9 +470,7 @@ class Provider(BaseProvider):
         :example DateTime('1999-02-02 11:42:52')
         :return DateTime
         """
-        return self.date_time_between(
-            start_date=start_date, end_date='-1d', tzinfo=tzinfo,
-        ).date()
+        return self.date_between(start_date=start_date, end_date='-1d')
 
     def date_time_between_dates(self, datetime_start=None, datetime_end=None, tzinfo=None):
         """
@@ -471,6 +500,17 @@ class Provider(BaseProvider):
         else:
             pick = datetime.fromtimestamp(timestamp, tzinfo)
         return pick
+
+    def date_between_dates(self, date_start=None, date_end=None):
+        """
+        Takes two Date objects and returns a random date between the two given dates.
+        Accepts Date or Datetime objects
+
+        :param date_start: Date
+        :param date_end: Date
+        :return Date
+        """
+        return self.date_time_between_dates(date_start, date_end).date()
 
     def date_time_this_century(self, before_now=True, after_now=False, tzinfo=None):
         """
@@ -563,6 +603,95 @@ class Provider(BaseProvider):
             return self.date_time_between_dates(this_month_start, now, tzinfo)
         else:
             return now
+
+    def date_this_century(self, before_today=True, after_today=False):
+        """
+        Gets a Date object for the current century.
+
+        :param before_today: include days in current century before today
+        :param after_today: include days in current century after today
+        :example Date('2012-04-04')
+        :return Date
+        """
+        today = date.today()
+        this_century_start = date(today.year - (today.year % 100), 1, 1)
+        next_century_start = date(this_century_start.year + 100, 1, 1)
+
+        if before_today and after_today:
+            return self.date_between_dates(this_century_start, next_century_start)
+        elif not before_today and after_today:
+            return self.date_between_dates(today, next_century_start)
+        elif not after_today and before_today:
+            return self.date_between_dates(this_century_start, today)
+        else:
+            return today
+
+    def date_this_decade(self, before_today=True, after_today=False):
+        """
+        Gets a Date object for the decade year.
+
+        :param before_today: include days in current decade before today
+        :param after_today: include days in current decade after today
+        :example Date('2012-04-04')
+        :return Date
+        """
+        today = date.today()
+        this_decade_start = date(today.year - (today.year % 10), 1, 1)
+        next_decade_start = date(this_decade_start.year + 10, 1, 1)
+
+        if before_today and after_today:
+            return self.date_between_dates(this_decade_start, next_decade_start)
+        elif not before_today and after_today:
+            return self.date_between_dates(today, next_decade_start)
+        elif not after_today and before_today:
+            return self.date_between_dates(this_decade_start, today)
+        else:
+            return today
+
+    def date_this_year(self, before_today=True, after_today=False):
+        """
+        Gets a Date object for the current year.
+
+        :param before_today: include days in current year before today
+        :param after_today: include days in current year after today
+        :example Date('2012-04-04')
+        :return Date
+        """
+        today = date.today()
+        this_year_start = today.replace(month=1, day=1)
+        next_year_start = date(today.year + 1, 1, 1)
+
+        if before_today and after_today:
+            return self.date_between_dates(this_year_start, next_year_start)
+        elif not before_today and after_today:
+            return self.date_between_dates(today, next_year_start)
+        elif not after_today and before_today:
+            return self.date_between_dates(this_year_start, today)
+        else:
+            return today
+
+    def date_this_month(self, before_today=True, after_today=False):
+        """
+        Gets a Date object for the current month.
+
+        :param before_today: include days in current month before today
+        :param after_today: include days in current month after today
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :example DateTime('2012-04-04 11:02:02')
+        :return DateTime
+        """
+        today = date.today()
+        this_month_start = today.replace(day=1)
+
+        next_month_start = this_month_start + relativedelta.relativedelta(months=1)
+        if before_today and after_today:
+            return self.date_between_dates(this_month_start, next_month_start)
+        elif not before_today and after_today:
+            return self.date_between_dates(today, next_month_start)
+        elif not after_today and before_today:
+            return self.date_between_dates(this_month_start, today)
+        else:
+            return today
 
     def time_series(self, start_date='-30d', end_date='now', precision=None, distrib=None, tzinfo=None):
         """
