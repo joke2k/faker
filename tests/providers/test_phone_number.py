@@ -37,7 +37,6 @@ class TestJaJP(unittest.TestCase):
             assert first in formats
 
 
-
 class TestMSISDN(unittest.TestCase):
     """ Tests MSISDN in the pt_br locale """
 
