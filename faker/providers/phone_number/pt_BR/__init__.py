@@ -82,7 +82,6 @@ class Provider(PhoneNumberProvider):
         '5581#########',
     )
 
-    @classmethod
-    def msisdn(cls):
+    def msisdn(self):
         """ https://en.wikipedia.org/wiki/MSISDN """
-        return cls.numerify(cls.random_element(cls.msisdn_formats))
+        return self.numerify(self.random_element(self.msisdn_formats))
