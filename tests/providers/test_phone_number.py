@@ -4,18 +4,25 @@ from __future__ import unicode_literals
 
 import unittest
 
-from faker import Factory
+from faker import Faker
 from .. import string_types
 
 
-class TestJaJP(unittest.TestCase):
+class TestPhoneNumber(unittest.TestCase):
     """ Tests phone_number in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ja')
+        self.factory = Faker()
 
     def test_phone_number(self):
         pn = self.factory.phone_number()
+
+        assert pn
+        assert isinstance(pn, string_types)
+
+    def test_phone_number_ja(self):
+        factory = Faker('ja')
+        pn = factory.phone_number()
         formats = ('070', '080', '090')
 
         assert pn
@@ -36,15 +43,17 @@ class TestJaJP(unittest.TestCase):
             assert len(third) == 4
             assert first in formats
 
-
-class TestMSISDN(unittest.TestCase):
-    """ Tests MSISDN in the pt_br locale """
-
-    def setUp(self):
-        self.factory = Factory.create('pt_br')
-
     def test_msisdn(self):
         msisdn = self.factory.msisdn()
+
+        assert msisdn is not None
+        assert isinstance(msisdn, string_types)
+        assert len(msisdn) == 13
+        assert msisdn.isdigit()
+
+    def test_msisdn_pt_br(self):
+        factory = Faker('pt_br')
+        msisdn = factory.msisdn()
         formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581')
 
         assert msisdn is not None
