@@ -10,7 +10,10 @@ import random
 from faker import Factory
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
-from .. import string_types
+from faker.providers.date_time.ar_AA import Provider as ArProvider
+from faker.providers.date_time.ar_EG import Provider as EgProvider
+
+from tests import string_types
 
 
 class UTC(tzinfo):
@@ -365,3 +368,46 @@ class TestPlPL(unittest.TestCase):
     def test_month(self):
         month = self.factory.month_name()
         assert month in PlProvider.MONTH_NAMES.values()
+
+
+class TestAr(unittest.TestCase):
+    def test_ar_aa(self):
+        factory = Factory.create('ar')
+
+        # AM/PM
+        self.assertIn(factory.am_pm(), ArProvider.AM_PM.values())
+        # Day of week
+        self.assertIn(factory.century(), ArProvider.centuries)
+        # Month name
+        self.assertIn(
+            factory.month_name(),
+            ArProvider.MONTH_NAMES.values()
+        )
+        # Day of week
+        self.assertIn(
+            factory.day_of_week(),
+            ArProvider.DAY_NAMES.values()
+        )
+
+    def test_ar_eg(self):
+        factory = Factory.create('ar_EG')
+
+        # AM/PM
+        self.assertIn(factory.am_pm(), ArProvider.AM_PM.values())
+        # Day of week
+        self.assertIn(factory.century(), ArProvider.centuries)
+        # Day of week
+        self.assertIn(
+            factory.day_of_week(),
+            ArProvider.DAY_NAMES.values()
+        )
+        # Month name
+        self.assertIn(
+            factory.month_name(),
+            EgProvider.MONTH_NAMES.values()
+        )
+        # Month name
+        self.assertNotIn(
+            factory.month_name(),
+            ArProvider.MONTH_NAMES.values()
+        )

@@ -3,12 +3,10 @@
 from __future__ import unicode_literals
 
 import unittest
-import re
 
 from faker import Factory
-from faker.providers.job import Provider as JobProvider
 
-from .. import string_types
+from tests import string_types
 
 class TestJob(unittest.TestCase):
     """

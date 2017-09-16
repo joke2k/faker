@@ -173,20 +173,21 @@ class BaseProvider(object):
             text)
         return text
 
-    def lexify(self, text='????'):
+    def lexify(self, text='????', letters=string.ascii_letters):
         """
         Replaces all question mark ('?') occurrences with a random letter.
 
         :param text: string to be parsed
+        :param letters: a set of letters to choose from.
         :returns: string with all letter placeholders filled in
         """
-        return _re_qm.sub(lambda x: self.random_letter(), text)
+        return _re_qm.sub(lambda x: self.random_element(letters), text)
 
-    def bothify(self, text='## ??'):
+    def bothify(self, text='## ??', letters=string.ascii_letters):
         """
         Replaces all placeholders with random numbers and letters.
 
         :param text: string to be parsed
         :returns: string with all numerical and letter placeholders filled in
         """
-        return self.lexify(self.numerify(text))
+        return self.lexify(self.numerify(text), letters=letters)

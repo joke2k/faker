@@ -6,11 +6,67 @@ import re
 import unittest
 
 from faker import Factory
+from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.pl_PL import (Provider as PlProvider,
                                           checksum_identity_card_number as pl_checksum_identity_card_number)
-from .. import string_types
+from tests import string_types
+
+
+class TestAr(unittest.TestCase):
+    """ Tests person in the ar locale """
+
+    def setUp(self):
+        self.factory = Factory.create('ar')
+
+    def test_first_name(self):
+        # General first name
+        name = self.factory.first_name()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.first_names)
+
+        # Females first name
+        name = self.factory.first_name_female()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.first_names)
+        self.assertIn(name, ArProvider.first_names_female)
+
+        # Male first name
+        name = self.factory.first_name_male()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.first_names)
+        self.assertIn(name, ArProvider.first_names_male)
+
+    def test_last_name(self):
+        # There's no gender-specific last name in Arabic.
+        self.assertFalse(hasattr(ArProvider, 'last_names_male'))
+        self.assertFalse(hasattr(ArProvider, 'last_names_female'))
+        # All last names apply for all genders.
+        self.assertTrue(hasattr(ArProvider, 'last_names'))
+
+        # General first name.
+        name = self.factory.last_name()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.last_names)
+
+        # Females last name.
+        name = self.factory.last_name_female()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.last_names)
+        self.assertIn(name, ArProvider.last_names)
+
+        # Male last name.
+        name = self.factory.last_name_male()
+        self.assertTrue(name)
+        self.assertIsInstance(name, string_types)
+        self.assertIn(name, ArProvider.last_names)
+        self.assertIn(name, ArProvider.last_names)
 
 
 class TestJaJP(unittest.TestCase):
