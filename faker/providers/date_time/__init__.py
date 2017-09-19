@@ -267,7 +267,10 @@ class Provider(BaseProvider):
         :example DateTime('2005-08-16 20:39:21')
         :return datetime
         """
-        return datetime.fromtimestamp(self.unix_time(), tzinfo)
+        # NOTE: On windows, the lowest value you can get from windows is 86400
+        #       on the first day. Known python issue: 
+        #       https://bugs.python.org/issue30684
+        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=self.unix_time())
 
     def date_time_ad(self, tzinfo=None):
         """
@@ -281,7 +284,10 @@ class Provider(BaseProvider):
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
         #       see http://stackoverflow.com/a/10588133/2315612
-        return datetime.fromtimestamp(0, tzinfo) + timedelta(seconds=ts)
+        # NOTE: On windows, the lowest value you can get from windows is 86400
+        #       on the first day. Known python issue: 
+        #       https://bugs.python.org/issue30684
+        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=ts)
 
     def iso8601(self, tzinfo=None):
         """
@@ -398,8 +404,8 @@ class Provider(BaseProvider):
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
-        timestamp = self.generator.random.randint(start_date, end_date)
-        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=timestamp)
+        ts = self.generator.random.randint(start_date, end_date)
+        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=ts)
 
     def date_between(self, start_date='-30y', end_date='today'):
         """
