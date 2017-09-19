@@ -263,7 +263,7 @@ class Provider(BaseProvider):
         ts = self.generator.random.randint(0, end_datetime)
         return timedelta(seconds=ts)
 
-    def date_time(self, end_datetime = None, tzinfo=None):
+    def date_time(self, tzinfo=None, end_datetime = None):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -276,7 +276,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=self.unix_time(end_datetime=end_datetime))
 
-    def date_time_ad(self, end_datetime = None, tzinfo=None):
+    def date_time_ad(self, tzinfo=None, end_datetime = None):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -295,7 +295,7 @@ class Provider(BaseProvider):
         
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=ts)
 
-    def iso8601(self, end_datetime = None, tzinfo=None):
+    def iso8601(self, tzinfo=None, end_datetime = None):
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
@@ -303,7 +303,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         return self.date_time(end_datetime=end_datetime, tzinfo=tzinfo).isoformat()
 
-    def date(self, end_datetime = None, pattern='%Y-%m-%d'):
+    def date(self, pattern='%Y-%m-%d', end_datetime = None):
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
@@ -328,7 +328,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         return self.date_time(end_datetime=end_datetime).time()
 
-    def time(self, end_datetime = None, pattern='%H:%M:%S'):
+    def time(self, pattern='%H:%M:%S', end_datetime = None):
         """
         Get a time string (24h format by default)
         :param pattern format
