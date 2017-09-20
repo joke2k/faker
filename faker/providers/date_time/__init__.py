@@ -246,7 +246,7 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    def unix_time(self, end_datetime = None):
+    def unix_time(self, end_datetime=None):
         """
         Get a timestamp between January 1, 1970 and now
         :example 1061306726
@@ -254,7 +254,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         return self.generator.random.randint(0, end_datetime)
 
-    def time_delta(self, end_datetime = None):
+    def time_delta(self, end_datetime=None):
         """
         Get a timedelta object
         """
@@ -262,7 +262,7 @@ class Provider(BaseProvider):
         ts = self.generator.random.randint(0, end_datetime)
         return timedelta(seconds=ts)
 
-    def date_time(self, tzinfo=None, end_datetime = None):
+    def date_time(self, tzinfo=None, end_datetime=None):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -274,7 +274,7 @@ class Provider(BaseProvider):
         #       https://bugs.python.org/issue30684
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=self.unix_time(end_datetime=end_datetime))
 
-    def date_time_ad(self, tzinfo=None, end_datetime = None):
+    def date_time_ad(self, tzinfo=None, end_datetime=None):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -292,14 +292,14 @@ class Provider(BaseProvider):
         #       https://bugs.python.org/issue30684
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=ts)
 
-    def iso8601(self, tzinfo=None, end_datetime = None):
+    def iso8601(self, tzinfo=None, end_datetime=None):
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
         """
         return self.date_time(tzinfo,end_datetime=end_datetime).isoformat()
 
-    def date(self, pattern='%Y-%m-%d', end_datetime = None):
+    def date(self, pattern='%Y-%m-%d', end_datetime=None):
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
@@ -307,7 +307,7 @@ class Provider(BaseProvider):
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
-    def date_object(self, end_datetime = None):
+    def date_object(self, end_datetime=None):
         """
         Get a date object between January 1, 1970 and now
         :example datetime.date(2016, 9, 20)
@@ -330,14 +330,14 @@ class Provider(BaseProvider):
         return self.date_time(end_datetime=end_datetime).time()
     
     @classmethod
-    def _parse_end_datetime(self, value):
+    def _parse_end_datetime(cls, value):
         if value is None:
             return int(time())
 
-        return self._parse_date_time(value)
+        return cls._parse_date_time(value)
 
     @classmethod
-    def _parse_date_string(self, value):
+    def _parse_date_string(cls, value):
         parts = self.regex.match(value)
         if not parts:
             raise ParseError("Can't parse date string `{}`.".format(value))
@@ -357,18 +357,18 @@ class Provider(BaseProvider):
         return time_params
 
     @classmethod
-    def _parse_timedelta(self, value):
+    def _parse_timedelta(cls, value):
         if isinstance(value, timedelta):
             return value.total_seconds()
         if is_string(value):
-            time_params = self._parse_date_string(value)
+            time_params = cls._parse_date_string(value)
             return timedelta(**time_params).total_seconds()
         if isinstance(value, (int, float)):
             return value
         raise ParseError("Invalid format for timedelta '{0}'".format(value))
 
     @classmethod
-    def _parse_date_time(self, text, tzinfo=None):
+    def _parse_date_time(cls, text, tzinfo=None):
         if isinstance(text, (datetime, date, real_datetime, real_date)):
             return datetime_to_timestamp(text)
         now = datetime.now(tzinfo)
@@ -377,14 +377,14 @@ class Provider(BaseProvider):
         if is_string(text):
             if text == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
-            time_params = self._parse_date_string(text)
+            time_params = cls._parse_date_string(text)
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(text, int):
             return datetime_to_timestamp(now + timedelta(text))
         raise ParseError("Invalid format for date '{0}'".format(text))
 
     @classmethod
-    def _parse_date(self, value):
+    def _parse_date(cls, value):
         if isinstance(value, (datetime, real_datetime)):
             return value.date()
         elif isinstance(value, (date, real_date)):
@@ -395,7 +395,7 @@ class Provider(BaseProvider):
         if is_string(value):
             if value in ('today', 'now'):
                 return today
-            time_params = self._parse_date_string(value)
+            time_params = cls._parse_date_string(value)
             return today + timedelta(**time_params)
         if isinstance(value, int):
             return today + timedelta(value)
