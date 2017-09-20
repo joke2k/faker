@@ -338,7 +338,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def _parse_date_string(cls, value):
-        parts = self.regex.match(value)
+        parts = cls.regex.match(value)
         if not parts:
             raise ParseError("Can't parse date string `{}`.".format(value))
         parts = parts.groupdict()
