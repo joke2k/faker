@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`0.8.4 - 22-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4>`__
+---------------------------------------------------------------------------------------
+
+* Move ``email_validator`` to ``test_requires`` and unpinned the version number.
+* Date feature parity with datetime. Thanks @noirbizarre.
+* Add ``MSISDN`` in the ``phone_number`` provider. Thanks @patrickporto.
+* Add Arabic locales. Thanks @ahmedaljazzar.
+* Fix datetime issue on Windows. Thanks @kungfu71186.
+
 `0.8.3 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.2...v0.8.3>`__
 ---------------------------------------------------------------------------------------
 
