@@ -64,7 +64,7 @@ setup(
         "six",
     ],
     test_requires=[
-        "email_validator==1.0.2",
+        "email_validator>=1.0.0,<1.1.0",
         "ukpostcodeparser==1.1.1",
     ],
     extras_require={
