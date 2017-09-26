@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import unittest
 
+import mock
+
 from email_validator import validate_email
 
 from faker import Factory
@@ -104,3 +106,30 @@ class TestNlNl(unittest.TestCase):
         validate_email(email, check_deliverability=False)
         domain = email.split('@')[1]
         assert domain in self.provider.free_email_domains
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_safe_email(self):
+        email = self.factory.ascii_safe_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == u'fabinn'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_free_email(self):
+        email = self.factory.ascii_free_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == u'fabinn'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_company_email(self):
+        email = self.factory.ascii_company_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == u'fabinn'
