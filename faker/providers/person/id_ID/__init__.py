@@ -10,18 +10,16 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
-        '{{first_name_male}} {{last_name}}-{{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
-        '{{first_name_female}} {{last_name}}-{{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
-        '{{first_name_male}} {{last_name}} {{suffix}}',
-        '{{first_name_female}} {{last_name}} {{suffix}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix}}',
+        '{{first_name_male}} {{last_name}}, {{suffix}}',
+        '{{first_name_female}} {{last_name}}, {{suffix}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}}, {{suffix}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name}}, {{suffix}}',
     )
 
     # From https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php

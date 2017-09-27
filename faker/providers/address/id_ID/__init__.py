@@ -5,18 +5,25 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
-    street_name_formats = (
-        '{{street_prefix_long}} {{street_name}}',
-        '{{street_prefix_short}} {{street_name}}'
-    )
-    street_address_formats = ('{{street_name}} No. {{building_number}}')
-    address_formats = ('{{street_address}}\n{{city}} {{postcode}}')
-
-    building_number_formats = ('###', '##', '#', '#/#', )
+    building_number_formats = ('###', '##', '#',)
 
     city_formats = ('{{city_name}}',)
 
-    postcode_formats = ('#####', )
+    postcode_formats = ('#####',)
+
+    street_name_formats = (
+        '{{street_prefix_short}} {{street}}',
+        '{{street_prefix_long}} {{street}}',
+    )
+
+    street_address_formats = (
+        '{{street_name}} No. {{building_number}}',
+    )
+
+    address_formats = (
+        '{{street_address}}\n{{city}}, {{state}} {{postcode}}',
+        '{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}',
+    )
 
     # http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
     streets = (
@@ -80,7 +87,7 @@ class Provider(AddressProvider):
         'Sumatera Selatan', 'Sumatera Utara',
     )
 
-    state_abbr = (
+    states_abbr = (
         'Aceh', 'Bali', 'Banten', 'Bengkulu', 'DIY', 'DKI', 'Gorontalo',
         'Jambi', 'Jabar', 'Jateng', 'Jatim', 'Kalbar', 'Kalsel', 'Kalteng',
         'Kaltim', 'Kalut', 'Babel', 'Kepri', 'Lampung', 'Maluku', 'Malut',
@@ -130,14 +137,14 @@ class Provider(AddressProvider):
         'Zimbabwe',
     )
 
-    def street_name(self):
+    def street(self):
         return self.random_element(self.streets)
 
     def street_prefix_short(self):
         return self.random_element(self.street_prefixes_short)
 
     def street_prefix_long(self):
-        return self.random_element(self.street_suffixes_long)
+        return self.random_element(self.street_prefixes_long)
 
     def city_name(self):
         return self.random_element(self.cities)
@@ -146,7 +153,7 @@ class Provider(AddressProvider):
         return self.random_element(self.states)
 
     def state_abbr(self):
-        return self.random_element(self.state_abbr)
+        return self.random_element(self.states_abbr)
 
     def country(self):
         return self.random_element(self.countries)
