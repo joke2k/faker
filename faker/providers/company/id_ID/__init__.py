@@ -10,10 +10,14 @@ class Provider(CompanyProvider):
         '{{company_prefix}} {{last_name}} {{last_name}} {{company_suffix}}',
     )
 
+    # From http://id.wikipedia.org/wiki/Jenis_badan_usaha
+    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Company.php
     company_prefixes = (
         'PT', 'CV', 'UD', 'PD', 'Perum',
     )
 
+    # From http://id.wikipedia.org/wiki/Jenis_badan_usaha
+    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Company.php
     company_suffixes = (
         '(Persero) Tbk', 'Tbk',
     )

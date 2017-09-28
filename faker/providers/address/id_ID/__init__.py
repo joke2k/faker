@@ -25,7 +25,7 @@ class Provider(AddressProvider):
         '{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}',
     )
 
-    # http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
+    # From http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
     streets = (
         'Abdul Muis ', 'Antapani Lama', 'Asia Afrika', 'Astana Anyar', 'BKR',
         'Cihampelas', 'Cikapayang', 'Cikutra Barat', 'Cikutra Timur',
@@ -42,15 +42,17 @@ class Provider(AddressProvider):
         'Tubagus Ismail', 'Veteran', 'W.R. Supratman',
     )
 
+    # Currently this is my own work
     street_prefixes_long = (
         'Jalan', 'Lorong', 'Gang',
     )
 
+    # Currently this is my own work
     street_prefixes_short = (
         'Jl.', 'Lr.', 'Gg.',
     )
 
-    # https://id.wikipedia.org/wiki/Daftar_kabupaten_dan_kota_di_Indonesia#Daftar_kota
+    # From https://id.wikipedia.org/wiki/Daftar_kabupaten_dan_kota_di_Indonesia#Daftar_kota
     cities = (
         'Ambon', 'Balikpapan', 'Banda Aceh', 'Bandar Lampung', 'Bandung',
         'Banjar', 'Banjarbaru', 'Banjarmasin', 'Batam', 'Batu', 'Bau-Bau',
@@ -74,7 +76,7 @@ class Provider(AddressProvider):
         'Ternate', 'Tidore Kepulauan', 'Tomohon', 'Tual', 'Yogyakarta',
     )
 
-    # https://id.wikipedia.org/wiki/Daftar_provinsi_di_Indonesia
+    # From https://id.wikipedia.org/wiki/Daftar_provinsi_di_Indonesia
     states = (
         'Aceh', 'Bali', 'Banten', 'Bengkulu', 'DI Yogyakarta', 'DKI Jakarta',
         'Gorontalo', 'Jambi', 'Jawa Barat', 'Jawa Tengah', 'Jawa Timur',
@@ -87,6 +89,7 @@ class Provider(AddressProvider):
         'Sumatera Selatan', 'Sumatera Utara',
     )
 
+    # Currently this is my own work
     states_abbr = (
         'Aceh', 'Bali', 'Banten', 'Bengkulu', 'DIY', 'DKI', 'Gorontalo',
         'Jambi', 'Jabar', 'Jateng', 'Jatim', 'Kalbar', 'Kalsel', 'Kalteng',
@@ -95,7 +98,7 @@ class Provider(AddressProvider):
         'Sultra', 'Sulut', 'Sumbar', 'Sumsel', 'Sumut',
     )
 
-    # https://id.wikipedia.org/wiki/Daftar_negara-negara_di_dunia
+    # From https://id.wikipedia.org/wiki/Daftar_negara-negara_di_dunia
     countries = (
         'Afganistan', 'Afrika Selatan', 'Afrika Tengah', 'Albania', 'Aljazair',
         'Amerika Serikat', 'Andorra', 'Angola', 'Antigua dan Barbuda',
