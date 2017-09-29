@@ -89,16 +89,6 @@ class Provider(BaseProvider):
     def free_email_domain(self):
         return self.random_element(self.free_email_domains)
 
-    def uuid4_email(self):
-        return self._to_ascii(
-            str(uuid.uuid4()) + '@' + self.domain_name()
-        )
-
-    def uuid4_free_email(self):
-        return self._to_ascii(
-            str(uuid.uuid4()) + '@' + self.free_email_domain()
-        )
-
     def ascii_email(self):
         pattern = self.random_element(self.email_formats)
         return self._to_ascii(

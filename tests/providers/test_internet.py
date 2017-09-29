@@ -97,16 +97,6 @@ class TestNlNl(unittest.TestCase):
         self.factory = Factory.create('nl_NL')
         self.provider = self.factory.provider('faker.providers.internet')
 
-    def test_uuid4_email(self):
-        email = self.factory.uuid4_email()
-        validate_email(email, check_deliverability=False)
-
-    def test_uuid4_free_email(self):
-        email = self.factory.uuid4_free_email()
-        validate_email(email, check_deliverability=False)
-        domain = email.split('@')[1]
-        assert domain in self.provider.free_email_domains
-
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
         lambda x: 'fabiënné'
