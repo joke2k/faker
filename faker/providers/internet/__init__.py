@@ -61,13 +61,17 @@ class Provider(BaseProvider):
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'http://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
-     )
+    )
+    drop_ascii = True
 
     replacements = tuple()
 
     def _to_ascii(self, string):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
+
+        if self.drop_ascii is False:
+            return string
 
         return string.encode('ascii', 'ignore').decode('utf8')
 
