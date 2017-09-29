@@ -1,7 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-from datetime import date, datetime, timedelta, tzinfo
+from datetime import date, datetime, timedelta, timezone, tzinfo
 from datetime import time as datetime_time
 import time
 import unittest
@@ -353,6 +353,14 @@ class TestDateTime(unittest.TestCase):
         series = [i for i in self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc)]
         self.assertTrue(len(series), 7)
         self.assertTrue(series[1][0] - series[0][0], timedelta(days=1))
+
+        # avoid microseconds as provider's internal parsing uses POSIX timestamps which only have second granularity
+        end = datetime.now(timezone.utc).replace(microsecond=0)
+        start = end - timedelta(days=15)
+
+        series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
+        self.assertEqual(series[0][0], start)
+        self.assertEqual(series[-1][0], end)
 
 
 class TestPlPL(unittest.TestCase):

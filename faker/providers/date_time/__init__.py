@@ -726,9 +726,12 @@ class Provider(BaseProvider):
 
         datapoint = start_date
         while datapoint < end_date:
-            datapoint += precision
             dt = timestamp_to_datetime(datapoint, tzinfo)
             yield (dt, distrib(dt))
+            datapoint += precision
+
+        dt = timestamp_to_datetime(end_date, tzinfo)
+        yield (dt, distrib(dt))
 
     def am_pm(self):
         return self.date('%p')
