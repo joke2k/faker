@@ -730,9 +730,6 @@ class Provider(BaseProvider):
             yield (dt, distrib(dt))
             datapoint += precision
 
-        dt = timestamp_to_datetime(end_date, tzinfo)
-        yield (dt, distrib(dt))
-
     def am_pm(self):
         return self.date('%p')
 

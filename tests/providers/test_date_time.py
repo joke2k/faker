@@ -360,7 +360,6 @@ class TestDateTime(unittest.TestCase):
 
         series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
         self.assertEqual(series[0][0], start)
-        self.assertEqual(series[-1][0], end)
 
 
 class TestPlPL(unittest.TestCase):
