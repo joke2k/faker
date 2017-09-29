@@ -104,7 +104,7 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
         validate_email(email, check_deliverability=False)
-        assert email.split('@')[0] == u'fabinn'
+        assert email.split('@')[0] == 'fabinn'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -113,7 +113,7 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
         validate_email(email, check_deliverability=False)
-        assert email.split('@')[0] == u'fabinn'
+        assert email.split('@')[0] == 'fabinn'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -122,4 +122,38 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
         validate_email(email, check_deliverability=False)
-        assert email.split('@')[0] == u'fabinn'
+        assert email.split('@')[0] == 'fabinn'
+
+
+class TestArAa(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('ar_AA')
+        self.provider = self.factory.provider('faker.providers.internet')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_safe_email(self):
+        email = self.factory.ascii_safe_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_free_email(self):
+        email = self.factory.ascii_free_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_company_email(self):
+        email = self.factory.ascii_company_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
