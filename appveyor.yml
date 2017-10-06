@@ -33,8 +33,7 @@ init:
   - ps: "ls C:/Python*"
 
 install:
-  - ps: (new-object net.webclient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', 'C:/get-pip.py')
-  - "%PYTHON%/python.exe C:/get-pip.py"
+  - "%PYTHON%/python.exe -m pip install -U pip"
   - "%PYTHON%/Scripts/pip.exe install -e ."
   - "%PYTHON%/Scripts/pip.exe install -r tests/requirements.txt"
 
