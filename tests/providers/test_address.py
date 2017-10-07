@@ -99,6 +99,11 @@ class TestEnAU(unittest.TestCase):
         assert isinstance(city_prefix, string_types)
         assert city_prefix in EnAuProvider.city_prefixes
 
+    def test_state_abbr(self):
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+        assert state_abbr in EnAuProvider.states_abbr
+        self.assertTrue(state_abbr.isupper())
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
