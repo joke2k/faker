@@ -93,7 +93,11 @@ class TestEnAU(unittest.TestCase):
         state = self.factory.state()
         assert isinstance(state, string_types)
         assert state in EnAuProvider.states
-        
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EnAuProvider.city_prefixes
 
 
 class TestEnGB(unittest.TestCase):
