@@ -77,6 +77,12 @@ class TestElGR(unittest.TestCase):
         assert isinstance(latitude, Decimal)
         assert isinstance(longitude, Decimal)
 
+class TestEnAU(unittest.TestCase):
+    """ Tests addresses in the en_AU locale """
+
+    def setup(self):
+        self.factory = Factory.create('en_AU')
+
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
