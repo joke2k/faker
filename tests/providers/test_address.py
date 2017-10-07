@@ -78,6 +78,7 @@ class TestElGR(unittest.TestCase):
         assert isinstance(latitude, Decimal)
         assert isinstance(longitude, Decimal)
 
+
 class TestEnAU(unittest.TestCase):
     """ Tests addresses in the en_AU locale """
 
@@ -104,6 +105,7 @@ class TestEnAU(unittest.TestCase):
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnAuProvider.states_abbr
         self.assertTrue(state_abbr.isupper())
+
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
