@@ -11,7 +11,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker import Factory
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
-from faker.providers.address.en_AU import Provider as AuProvider
+from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
@@ -88,6 +88,12 @@ class TestEnAU(unittest.TestCase):
         for _ in range(100):
             postcode = self.factory.postcode()
             assert re.match("\d{4}", postcode)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in EnAuProvider.states
+        
 
 
 class TestEnGB(unittest.TestCase):
