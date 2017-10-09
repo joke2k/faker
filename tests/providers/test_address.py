@@ -11,6 +11,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker import Factory
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
+from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
@@ -76,6 +77,34 @@ class TestElGR(unittest.TestCase):
         assert isinstance(latlng, tuple)
         assert isinstance(latitude, Decimal)
         assert isinstance(longitude, Decimal)
+
+
+class TestEnAU(unittest.TestCase):
+    """ Tests addresses in the en_AU locale """
+
+    def setUp(self):
+        self.factory = Factory.create('en_AU')
+
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("\d{4}", postcode)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in EnAuProvider.states
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EnAuProvider.city_prefixes
+
+    def test_state_abbr(self):
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+        assert state_abbr in EnAuProvider.states_abbr
+        self.assertTrue(state_abbr.isupper())
 
 
 class TestEnGB(unittest.TestCase):
