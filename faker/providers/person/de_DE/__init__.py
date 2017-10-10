@@ -401,7 +401,7 @@ class Provider(PersonProvider):
         'Siering', 'Söding', 'Sölzer', 'Sontag', 'Sorgatz', 'Speer', 'Spieß',
         'Stadelmann', 'Stahr', 'Staude', 'Steckel', 'Steinberg', 'Stey',
         'Stiebitz', 'Stiffel', 'Stoll', 'Stolze', 'Striebitz', 'Stroh',
-        'Stumpf', 'Sucker', 'Süßebier', 'Täsche', 'Textor', 'Thanel', 'Thies',
+        'Stumpf', 'Süßebier', 'Täsche', 'Textor', 'Thanel', 'Thies',
         'Tintzmann', 'Tlustek', 'Trapp', 'Trommler', 'Tröst', 'Trub', 'Trüb',
         'Trubin', 'Trupp', 'Tschentscher', 'Ullmann', 'Ullrich',
         'van der Dussen', 'Vogt', 'Vollbrecht', 'Wagenknecht', 'Wagner', 'Wähner',
