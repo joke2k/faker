@@ -1,15 +1,24 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
+from collections import OrderedDict
+
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name_male}} {{last_name}}',
-        '{{first_name_female}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}',
-    )
+    formats_female = OrderedDict((
+        ('{{first_name_female}} {{last_name}}', 0.9),
+        ('{{prefix_female}} {{first_name_female}} {{last_name}}', 0.1),
+    ))
+
+    formats_male = OrderedDict((
+        ('{{first_name_male}} {{last_name}}', 0.9),
+        ('{{prefix_male}} {{first_name_male}} {{last_name}}', 0.1),
+    ))
+
+    formats = formats_female.copy()
+    formats.update(formats_male)
 
     # Source: uk.wikipedia.org/wiki/Українські_імена
     first_names_male = (
