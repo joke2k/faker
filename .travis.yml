@@ -14,6 +14,7 @@ python:
 install:
   - pip install -U pip
   - pip --version
+  - pip install -U setuptools
   - pip install -e .
   - pip install -r tests/requirements.txt
   - pip install coveralls
