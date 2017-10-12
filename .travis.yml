@@ -12,6 +12,8 @@ python:
   - "pypy-5.3.1"
   - "pypy3"
 install:
+  - pip install -U pip
+  - pip --version
   - pip install -e .
   - pip install -r tests/requirements.txt
   - pip install coveralls
