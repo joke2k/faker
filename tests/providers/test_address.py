@@ -126,6 +126,7 @@ class TestEnCA(unittest.TestCase):
 
     def test_province(self):
         province = self.factory.province()
+        assert isinstance(province, string_types)
         assert province in EnCaProvider.provinces
 
 class TestEnGB(unittest.TestCase):
