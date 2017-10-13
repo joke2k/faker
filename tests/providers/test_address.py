@@ -129,6 +129,11 @@ class TestEnCA(unittest.TestCase):
         assert isinstance(province, string_types)
         assert province in EnCaProvider.provinces
 
+    def test_province_abbr(self):
+        province_abbr = self.factory.province_abbr()
+        assert isinstance(province_abbr, string_types)
+        assert province_abbr in EnCaProvider.provinces_abbr
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
