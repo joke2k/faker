@@ -1,22 +1,20 @@
 import unittest
 from re import search
-from faker import Factory
+from faker import Faker
 
 
 class TestColor(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('en_US')
+        self.factory = Faker('en_US')
 
     def test_safe_hex_color(self):
         assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.safe_hex_color())
             for _ in range(1000)))
 
-
     def test_hex_color(self):
         assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.hex_color())
             for _ in range(1000)))
-
 
     def test_rgb_color(self):
         maxval = 0
@@ -31,7 +29,6 @@ class TestColor(unittest.TestCase):
 
         assert maxval <= 255
         assert minval >= 0
-
 
     def test_rgb_css_color(self):
         maxval = 0

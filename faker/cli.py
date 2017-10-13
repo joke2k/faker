@@ -7,7 +7,7 @@ import os
 import sys
 import argparse
 
-from faker import Faker, Factory, documentor
+from faker import Faker, documentor
 from faker import VERSION
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
@@ -73,7 +73,7 @@ def print_doc(provider_or_field=None,
         if '.' in provider_or_field:
             parts = provider_or_field.split('.')
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
-            fake = Factory.create(locale, providers=[provider_or_field], includes=includes)
+            fake = Faker(locale, providers=[provider_or_field], includes=includes)
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
             print_provider(

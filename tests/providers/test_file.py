@@ -3,15 +3,14 @@ from __future__ import unicode_literals
 import unittest
 import re
 
-from faker import Factory
-from faker.providers.file import Provider as FileProvider
+from faker import Faker
 
 
 class TestFile(unittest.TestCase):
     """ Tests file """
 
     def setUp(self):
-        self.factory = Factory.create()
+        self.factory = Faker()
 
     def test_file_path(self):
         for _ in range(100):

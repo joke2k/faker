@@ -8,12 +8,11 @@ import unittest
 from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
-from faker import Factory
+from faker import Faker
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
-from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
@@ -23,7 +22,7 @@ class TestDeDE(unittest.TestCase):
     """ Tests in addresses in the de_DE locale """
 
     def setUp(self):
-        self.factory = Factory.create('de_DE')
+        self.factory = Faker('de_DE')
 
     def test_city(self):
         city = self.factory.city()
@@ -55,7 +54,7 @@ class TestElGR(unittest.TestCase):
     """ Tests addresses in the el_GR locale """
 
     def setUp(self):
-        self.factory = Factory.create('el_GR')
+        self.factory = Faker('el_GR')
 
     def test_line_address(self):
         address = self.factory.line_address()
@@ -84,7 +83,7 @@ class TestEnAU(unittest.TestCase):
     """ Tests addresses in the en_AU locale """
 
     def setUp(self):
-        self.factory = Factory.create('en_AU')
+        self.factory = Faker('en_AU')
 
     def test_postcode(self):
         for _ in range(100):
@@ -112,7 +111,7 @@ class TestEnCA(unittest.TestCase):
     """ Tests addresses in en_CA locale """
 
     def setUp(self):
-        self.factory = Factory.create('en_CA')
+        self.factory = Faker('en_CA')
 
     def test_postalcode(self):
         for _ in range(100):
@@ -148,7 +147,7 @@ class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
     def setUp(self):
-        self.factory = Factory.create('en_GB')
+        self.factory = Faker('en_GB')
 
     def test_postcode(self):
         for _ in range(100):
@@ -159,7 +158,7 @@ class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
     def setUp(self):
-        self.factory = Factory.create('hu_HU')
+        self.factory = Faker('hu_HU')
 
     def test_postcode_first_digit(self):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
@@ -180,7 +179,7 @@ class TestJaJP(unittest.TestCase):
     """ Tests addresses in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ja')
+        self.factory = Faker('ja')
 
     def test_address(self):
         """ Test"""
@@ -228,7 +227,7 @@ class TestNeNP(unittest.TestCase):
     """ Tests addresses in the ne_NP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ne_NP')
+        self.factory = Faker('ne_NP')
 
     def test_address(self):
         """ Tests the street address in ne_NP locale """
@@ -249,7 +248,7 @@ class TestNoNO(unittest.TestCase):
     """ Tests the street address in no_NO locale """
 
     def setUp(self):
-        self.factory = Factory.create('no_NO')
+        self.factory = Faker('no_NO')
 
     def test_postcode(self):
         for _ in range(100):
@@ -272,7 +271,7 @@ class TestZhTW(unittest.TestCase):
     """ Tests addresses in the zh_tw locale """
 
     def setUp(self):
-        self.factory = Factory.create('zh_TW')
+        self.factory = Faker('zh_TW')
 
     def test_address(self):
         country = self.factory.country()
@@ -291,7 +290,7 @@ class TestZhCN(unittest.TestCase):
     """ Tests addresses in the zh_cn locale """
 
     def setUp(self):
-        self.factory = Factory.create('zh_CN')
+        self.factory = Faker('zh_CN')
 
     def test_address(self):
         country = self.factory.country()

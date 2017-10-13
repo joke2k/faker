@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 
 import unittest
 
-from faker import Factory
+from faker import Faker
 
 from tests import string_types
+
 
 class TestJob(unittest.TestCase):
     """
@@ -14,11 +15,12 @@ class TestJob(unittest.TestCase):
     """
 
     def setUp(self):
-        self.factory = Factory.create()
+        self.factory = Faker()
 
     def test_job(self):
         job = self.factory.job()
         assert isinstance(job, string_types)
+
 
 class TestKoKR(unittest.TestCase):
     """
@@ -26,7 +28,7 @@ class TestKoKR(unittest.TestCase):
     """
 
     def setUp(self):
-        self.factory = Factory.create('ko_KR')
+        self.factory = Faker('ko_KR')
 
     def test_job(self):
         job = self.factory.job()

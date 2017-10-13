@@ -12,7 +12,7 @@ try:
 except ImportError:  # pragma: no cover
     from io import StringIO
 
-from faker import Generator, Factory
+from faker import Generator, Factory, Faker
 from faker.generator import random
 from faker.utils import text, decorators
 from tests import string_types
@@ -58,14 +58,14 @@ class FactoryTestCase(unittest.TestCase):
             self.generator.get_formatter('barFormatter')
             self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter"')
 
-        faker = Factory.create('it_IT')
+        faker = Faker('it_IT')
         with self.assertRaises(AttributeError) as exc:
             faker.get_formatter('barFormatter')
             self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter" with locale "it_IT"')
 
     def test_invalid_locale(self):
         with self.assertRaises(AttributeError):
-            Factory.create('foo_Bar')
+            Faker('foo_Bar')
 
     def test_format_calls_formatter_on_provider(self):
         self.assertEqual('foobar', self.generator.format('foo_formatter'))
@@ -235,10 +235,10 @@ class FactoryTestCase(unittest.TestCase):
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
         for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
-            f = Factory.create(locale=locale)
+            f = Faker(locale=locale)
             for x in range(20):  # Probabilistic testing.
-                assert isinstance(f.prefix(), string_types)
-                assert isinstance(f.suffix(), string_types)
+                self.assertIsInstance(f.prefix(), string_types)
+                self.assertIsInstance(f.suffix(), string_types)
 
     def test_no_words_sentence(self):
         from faker.providers.lorem import Provider
@@ -249,7 +249,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(paragraph, '')
 
     def test_words_valueerror(self):
-        f = Factory.create()
+        f = Faker()
         self.assertRaises(ValueError, f.text, max_nb_chars=4)
 
     def test_no_words_paragraph(self):
@@ -261,18 +261,17 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(sentence, '')
 
     def test_ext_word_list(self):
-        from faker import Factory
-        fake = Factory.create()
+        fake = Faker()
 
         my_word_list = [
-        'danish',
-        'cheesecake',
-        'sugar',
-        'Lollipop',
-        'wafer',
-        'Gummies',
-        'Jelly',
-        'pie',
+            'danish',
+            'cheesecake',
+            'sugar',
+            'Lollipop',
+            'wafer',
+            'Gummies',
+            'Jelly',
+            'pie',
         ]
         word = fake.word(ext_word_list=my_word_list)
         self.assertIn(word, my_word_list)
@@ -298,8 +297,8 @@ class FactoryTestCase(unittest.TestCase):
 
         self.assertTrue(0 <= abs(provider.pyfloat(left_digits=1)) < 10)
         self.assertTrue(0 <= abs(provider.pyfloat(left_digits=0)) < 1)
-        x=abs(provider.pyfloat(right_digits=0))
-        self.assertTrue(x-int(x) == 0)
+        x = abs(provider.pyfloat(right_digits=0))
+        self.assertTrue(x - int(x) == 0)
         with self.assertRaises(ValueError,
                                msg='A float number cannot have 0 digits '
                                'in total'):
@@ -319,20 +318,17 @@ class FactoryTestCase(unittest.TestCase):
             self.assertNotEqual(ssn[7:11], '0000')
 
     def test_nl_BE_ssn_valid(self):
-        import faker
-        provider = faker.Faker('nl_BE').provider('faker.providers.ssn')
+        provider = Faker('nl_BE').provider('faker.providers.ssn')
 
-        for i in range (1000):
+        for i in range(1000):
             ssn = provider.ssn()
             self.assertEqual(len(ssn), 11)
-            gen_ssn_base = ssn[0:6]
             gen_seq = ssn[6:9]
             gen_chksum = ssn[9:11]
-            gen_ssn_base_as_int = int(gen_ssn_base)
             gen_seq_as_int = int(gen_seq)
             gen_chksum_as_int = int(gen_chksum)
             # Check that the sequence nr is between 1 inclusive and 998 inclusive
-            self.assertGreater(gen_seq_as_int,0)
+            self.assertGreater(gen_seq_as_int, 0)
             self.assertLessEqual(gen_seq_as_int, 998)
 
             # validate checksum calculation
@@ -341,13 +337,11 @@ class FactoryTestCase(unittest.TestCase):
             chksum_below = 97 - (ssn_below % 97)
             ssn_above = ssn_below + 2000000000
             chksum_above = 97 - (ssn_above % 97)
-            results = [ chksum_above, chksum_below ]
-            self.assertIn(gen_chksum_as_int,results)
+            results = [chksum_above, chksum_below]
+            self.assertIn(gen_chksum_as_int, results)
 
     def test_email(self):
-        from faker import Factory
-
-        factory = Factory.create()
+        factory = Faker()
 
         for _ in range(999):
             email = factory.email()
