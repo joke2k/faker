@@ -12,6 +12,7 @@ from faker import Factory
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
+from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
