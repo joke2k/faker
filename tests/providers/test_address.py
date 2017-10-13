@@ -124,6 +124,10 @@ class TestEnCA(unittest.TestCase):
         postal_code_letter = self.factory.postal_code_letter()
         assert re.match("[A-Z]", postal_code_letter)
 
+    def test_province(self):
+        province = self.factory.province()
+        assert province in EnCaProvider.provinces
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
