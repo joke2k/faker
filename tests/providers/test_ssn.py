@@ -6,7 +6,7 @@ import unittest
 import re
 from datetime import datetime
 
-from faker import Factory
+from faker import Faker
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
@@ -17,7 +17,7 @@ class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
 
     def setUp(self):
-        self.factory = Factory.create('et_EE')
+        self.factory = Faker('et_EE')
 
     def test_ssn_checksum(self):
         self.assertEqual(et_checksum([4, 4, 1, 1, 1, 3, 0, 4, 9, 2]), 3)
@@ -34,7 +34,7 @@ class TestHrHR(unittest.TestCase):
     """ Tests SSN in the hr_HR locale """
 
     def setUp(self):
-        self.factory = Factory.create('hr_HR')
+        self.factory = Faker('hr_HR')
 
     def test_ssn_checksum(self):
         self.assertEqual(hr_checksum([0, 0, 2, 2, 8, 2, 6, 9, 2, 8]), 9)
@@ -51,7 +51,7 @@ class TestHrHR(unittest.TestCase):
 
 class TestHuHU(unittest.TestCase):
     def setUp(self):
-        self.factory = Factory.create('hu_HU')
+        self.factory = Faker('hu_HU')
         self.factory.seed(0)
 
     def test_ssn(self):
@@ -79,7 +79,7 @@ class TestHuHU(unittest.TestCase):
 
 class TestPtBR(unittest.TestCase):
     def setUp(self):
-        self.factory = Factory.create('pt_BR')
+        self.factory = Faker('pt_BR')
 
     def test_pt_BR_ssn_checksum(self):
         self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2]), 2)
@@ -98,7 +98,7 @@ class TestPlPL(unittest.TestCase):
     """ Tests SSN in the pl_PL locale """
 
     def setUp(self):
-        self.factory = Factory.create('pl_PL')
+        self.factory = Faker('pl_PL')
 
     def test_ssn_checksum(self):
         self.assertEqual(pl_checksum([0, 5, 2, 6, 2, 8, 1, 2, 3, 6]), 5)

@@ -5,12 +5,13 @@ from __future__ import unicode_literals
 import re
 import unittest
 
-from faker import Factory
+from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
-from faker.providers.person.pl_PL import (Provider as PlProvider,
-                                          checksum_identity_card_number as pl_checksum_identity_card_number)
+from faker.providers.person.pl_PL import (
+    checksum_identity_card_number as pl_checksum_identity_card_number,
+)
 from tests import string_types
 
 
@@ -18,7 +19,7 @@ class TestAr(unittest.TestCase):
     """ Tests person in the ar locale """
 
     def setUp(self):
-        self.factory = Factory.create('ar')
+        self.factory = Faker('ar')
 
     def test_first_name(self):
         # General first name
@@ -73,7 +74,7 @@ class TestJaJP(unittest.TestCase):
     """ Tests person in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ja')
+        self.factory = Faker('ja')
 
     def test_person(self):
         name = self.factory.name()
@@ -132,7 +133,7 @@ class TestJaJP(unittest.TestCase):
 class TestNeNP(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('ne_NP')
+        self.factory = Faker('ne_NP')
 
     def test_names(self):
         name = self.factory.name().split()
@@ -149,7 +150,7 @@ class TestNeNP(unittest.TestCase):
 class TestSvSE(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('sv_SE')
+        self.factory = Faker('sv_SE')
 
     def test_gender_first_names(self):
         """simple test to verify that we are pulling gender specific names"""
@@ -164,7 +165,7 @@ class TestSvSE(unittest.TestCase):
 class TestPlPL(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('pl_PL')
+        self.factory = Faker('pl_PL')
 
     def test_identity_card_number_checksum(self):
         self.assertEqual(pl_checksum_identity_card_number(['A', 'I', 'S', 8, 5, 0, 2, 1, 4]), 8)

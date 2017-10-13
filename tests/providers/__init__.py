@@ -1,11 +1,11 @@
 import unittest
-from faker import Factory
+from faker import Faker
 from faker.providers import BaseProvider
 
 
 class BaseProviderTestCase(unittest.TestCase):
     def setUp(self):
-        self.factory = Factory.create('en_US')
+        self.factory = Faker('en_US')
         self.factory.seed(0)
         self.provider = BaseProvider(generator=self.factory)
 

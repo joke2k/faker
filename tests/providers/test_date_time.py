@@ -7,7 +7,7 @@ import time
 import unittest
 import random
 
-from faker import Factory
+from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
@@ -40,7 +40,7 @@ utc = UTC()
 class TestKoKR(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('ko_KR')
+        self.factory = Faker('ko_KR')
 
     def test_day(self):
         day = self.factory.day_of_week()
@@ -54,7 +54,7 @@ class TestKoKR(unittest.TestCase):
 class TestDateTime(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create()
+        self.factory = Faker()
 
     def assertBetween(self, date, start_date, end_date):
         self.assertTrue(date <= end_date)
@@ -365,7 +365,7 @@ class TestDateTime(unittest.TestCase):
 class TestPlPL(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('pl_PL')
+        self.factory = Faker('pl_PL')
         self.provider = self.factory.provider('faker.providers.date_time')
 
     def test_day(self):
@@ -379,7 +379,7 @@ class TestPlPL(unittest.TestCase):
 
 class TestAr(unittest.TestCase):
     def test_ar_aa(self):
-        factory = Factory.create('ar')
+        factory = Faker('ar')
 
         # AM/PM
         self.assertIn(factory.am_pm(), ArProvider.AM_PM.values())
@@ -397,7 +397,7 @@ class TestAr(unittest.TestCase):
         )
 
     def test_ar_eg(self):
-        factory = Factory.create('ar_EG')
+        factory = Faker('ar_EG')
 
         # AM/PM
         self.assertIn(factory.am_pm(), ArProvider.AM_PM.values())

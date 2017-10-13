@@ -8,7 +8,7 @@ import mock
 
 from email_validator import validate_email
 
-from faker import Factory
+from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
 from tests import string_types
@@ -18,7 +18,7 @@ class TestJaJP(unittest.TestCase):
     """ Tests internet in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ja')
+        self.factory = Faker('ja')
 
     def test_internet(self):
         names = JaProvider.last_romanized_names
@@ -44,7 +44,7 @@ class TestJaJP(unittest.TestCase):
 class TestZhCN(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create(locale='zh_CN')
+        self.factory = Faker(locale='zh_CN')
 
     def test_email(self):
         email = self.factory.email()
@@ -54,7 +54,7 @@ class TestZhCN(unittest.TestCase):
 class TestZhTW(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create(locale='zh_TW')
+        self.factory = Faker(locale='zh_TW')
 
     def test_email(self):
         email = self.factory.email()
@@ -65,7 +65,7 @@ class TestHuHU(unittest.TestCase):
     """ Tests internet module in the hu_HU locale. """
 
     def setUp(self):
-        self.factory = Factory.create('hu')
+        self.factory = Faker('hu')
 
     def test_internet(self):
         domain_name = self.factory.domain_name()
@@ -79,7 +79,7 @@ class TestHuHU(unittest.TestCase):
 class TestPlPL(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('pl_PL')
+        self.factory = Faker('pl_PL')
         self.provider = self.factory.provider('faker.providers.internet')
 
     def test_free_email_domain(self):
@@ -94,7 +94,7 @@ class TestPlPL(unittest.TestCase):
 class TestNlNl(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('nl_NL')
+        self.factory = Faker('nl_NL')
         self.provider = self.factory.provider('faker.providers.internet')
 
     @mock.patch(
@@ -128,7 +128,7 @@ class TestNlNl(unittest.TestCase):
 class TestArAa(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Factory.create('ar_AA')
+        self.factory = Faker('ar_AA')
         self.provider = self.factory.provider('faker.providers.internet')
 
     @mock.patch(

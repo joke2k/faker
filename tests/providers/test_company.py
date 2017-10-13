@@ -5,12 +5,13 @@ from __future__ import unicode_literals
 import unittest
 import re
 
-from faker import Factory
+from faker import Faker
 from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
-from faker.providers.company.pt_BR import Provider as PtProvider, company_id_checksum
-from faker.providers.company.pl_PL import (Provider as PlProvider, regon_checksum, local_regon_checksum,
-                                           company_vat_checksum)
+from faker.providers.company.pt_BR import company_id_checksum
+from faker.providers.company.pl_PL import (
+    company_vat_checksum, regon_checksum, local_regon_checksum,
+)
 from tests import string_types
 
 
@@ -18,7 +19,7 @@ class TestJaJP(unittest.TestCase):
     """ Tests companies in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Factory.create('ja')
+        self.factory = Faker('ja')
 
     def test_company(self):
         prefixes = JaProvider.company_prefixes
@@ -37,7 +38,7 @@ class TestPtBR(unittest.TestCase):
     """ Tests company in the pt_BR locale """
 
     def setUp(self):
-        self.factory = Factory.create('pt_BR')
+        self.factory = Faker('pt_BR')
 
     def test_pt_BR_company_id_checksum(self):
         self.assertEqual(company_id_checksum([9, 4, 9, 5, 3, 4, 4, 1, 0, 0, 0, 1]), [5, 1])
@@ -57,7 +58,7 @@ class TestHuHU(unittest.TestCase):
     """ Tests company in the hu_HU locale """
 
     def setUp(self):
-        self.factory = Factory.create('hu_HU')
+        self.factory = Faker('hu_HU')
 
     def test_company_suffix(self):
         suffixes = HuProvider.company_suffixes
@@ -74,7 +75,7 @@ class TestPlPL(unittest.TestCase):
     """ Tests company in the pl_PL locale """
 
     def setUp(self):
-        self.factory = Factory.create('pl_PL')
+        self.factory = Faker('pl_PL')
 
     def test_regon_checksum(self):
         self.assertEqual(regon_checksum([1, 2, 3, 4, 5, 6, 7, 8]), 5)
