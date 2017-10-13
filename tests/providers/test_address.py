@@ -12,6 +12,7 @@ from faker import Factory
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
+from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.hu_HU import Provider as HuProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
@@ -105,6 +106,42 @@ class TestEnAU(unittest.TestCase):
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnAuProvider.states_abbr
         self.assertTrue(state_abbr.isupper())
+
+
+class TestEnCA(unittest.TestCase):
+    """ Tests addresses in en_CA locale """
+
+    def setUp(self):
+        self.factory = Factory.create('en_CA')
+
+    def test_postalcode(self):
+        for _ in range(100):
+            postalcode = self.factory.postalcode()
+            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
+                            postalcode)
+
+    def test_postal_code_letter(self):
+        postal_code_letter = self.factory.postal_code_letter()
+        assert re.match("[A-Z]", postal_code_letter)
+
+    def test_province(self):
+        province = self.factory.province()
+        assert isinstance(province, string_types)
+        assert province in EnCaProvider.provinces
+
+    def test_province_abbr(self):
+        province_abbr = self.factory.province_abbr()
+        assert isinstance(province_abbr, string_types)
+        assert province_abbr in EnCaProvider.provinces_abbr
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EnCaProvider.city_prefixes
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
 
 
 class TestEnGB(unittest.TestCase):
