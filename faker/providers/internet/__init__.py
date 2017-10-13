@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
+import uuid
 from .. import BaseProvider
 
 from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
@@ -60,7 +61,8 @@ class Provider(BaseProvider):
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
-     )
+    )
+    drop_ascii = True
 
     replacements = tuple()
 
@@ -68,7 +70,10 @@ class Provider(BaseProvider):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
-        return string
+        if self.drop_ascii is False:
+            return string
+
+        return string.encode('ascii', 'ignore').decode('utf8')
 
     def email(self):
         pattern = self.random_element(self.email_formats)
@@ -87,6 +92,29 @@ class Provider(BaseProvider):
 
     def free_email_domain(self):
         return self.random_element(self.free_email_domains)
+
+    def ascii_email(self):
+        pattern = self.random_element(self.email_formats)
+        return self._to_ascii(
+            "".join(self.generator.parse(pattern).split(" "))
+        )
+
+    def ascii_safe_email(self):
+        return self._to_ascii(
+            self.user_name() +
+            '@example.' +
+            self.random_element(self.safe_email_tlds)
+        )
+
+    def ascii_free_email(self):
+        return self._to_ascii(
+            self.user_name() + '@' + self.free_email_domain()
+        )
+
+    def ascii_company_email(self):
+        return self._to_ascii(
+            self.user_name() + '@' + self.domain_name()
+        )
 
     @slugify_unicode
     def user_name(self):

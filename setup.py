@@ -66,6 +66,7 @@ setup(
     test_requires=[
         "email_validator>=1.0.0,<1.1.0",
         "ukpostcodeparser==1.1.1",
+        "mock",
     ],
     extras_require={
         ':python_version=="2.7"': [

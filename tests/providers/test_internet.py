@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 
 import unittest
 
+import mock
+
 from email_validator import validate_email
 
 from faker import Factory
@@ -59,7 +61,7 @@ class TestZhTW(unittest.TestCase):
         validate_email(email, check_deliverability=False)
 
 
-class testHuHU(unittest.TestCase):
+class TestHuHU(unittest.TestCase):
     """ Tests internet module in the hu_HU locale. """
 
     def setUp(self):
@@ -87,3 +89,71 @@ class TestPlPL(unittest.TestCase):
     def test_tld(self):
         tld = self.factory.tld()
         assert tld in self.provider.tlds
+
+
+class TestNlNl(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('nl_NL')
+        self.provider = self.factory.provider('faker.providers.internet')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_safe_email(self):
+        email = self.factory.ascii_safe_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'fabinn'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_free_email(self):
+        email = self.factory.ascii_free_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'fabinn'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'fabiënné'
+    )
+    def test_ascii_company_email(self):
+        email = self.factory.ascii_company_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'fabinn'
+
+
+class TestArAa(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Factory.create('ar_AA')
+        self.provider = self.factory.provider('faker.providers.internet')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_safe_email(self):
+        email = self.factory.ascii_safe_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_free_email(self):
+        email = self.factory.ascii_free_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'اصيل'
+    )
+    def test_ascii_company_email(self):
+        email = self.factory.ascii_company_email()
+        validate_email(email, check_deliverability=False)
+        assert email.split('@')[0] == 'ASyl'
