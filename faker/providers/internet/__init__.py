@@ -1,6 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
-import uuid
+
+import unidecode
+
 from .. import BaseProvider
 
 from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
@@ -62,7 +64,6 @@ class Provider(BaseProvider):
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
     )
-    drop_ascii = True
 
     replacements = tuple()
 
@@ -70,10 +71,8 @@ class Provider(BaseProvider):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
-        if self.drop_ascii is False:
-            return string
-
-        return string.encode('ascii', 'ignore').decode('utf8')
+        string = unidecode.unidecode(string)
+        return string
 
     @lowercase
     def email(self):
