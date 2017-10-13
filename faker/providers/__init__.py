@@ -131,7 +131,7 @@ class BaseProvider(object):
             sample.add(self.random_element(elements))
         return sample
 
-    def randomize_nb_elements(self, number=10, le=False, ge=False):
+    def randomize_nb_elements(self, number=10, le=False, ge=False, min=None, max=None):
         """
         Returns a random value near number.
 
@@ -144,7 +144,12 @@ class BaseProvider(object):
             return number
         _min = 100 if ge else 60
         _max = 100 if le else 140
-        return int(number * self.generator.random.randint(_min, _max) / 100) + 1
+        nb = int(number * self.generator.random.randint(_min, _max) / 100)
+        if min is not None and nb < min:
+            nb = min
+        if max is not None and nb > min:
+            nb = max
+        return nb
 
     def numerify(self, text='###'):
         """

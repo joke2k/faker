@@ -91,7 +91,7 @@ class Provider(BaseProvider):
             value_types = ['str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
         if variable_nb_elements:
-            nb_elements = self.randomize_nb_elements(nb_elements)
+            nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         for f in range(nb_elements):
             yield self._random_type(value_types)
@@ -105,7 +105,7 @@ class Provider(BaseProvider):
         :value_types: type of dictionary values
         """
         if variable_nb_elements:
-            nb_elements = self.randomize_nb_elements(nb_elements)
+            nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         return dict(zip(
             self.generator.words(nb_elements),
