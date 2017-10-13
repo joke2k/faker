@@ -46,7 +46,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         except UnicodeEncodeError:
             raise Exception('error on "{0}" with value "{1}"'.format(
                             signature, example))
-        margin = max(30, doc.max_name_len+1)
+        margin = max(30, doc.max_name_len + 1)
         remains = 150 - margin
         separator = '#'
         for line in lines:
@@ -54,7 +54,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
                 print("\t{fake:<{margin}}{separator} {example}".format(
                     fake=signature,
                     separator=separator,
-                    example=line[i*remains:(i+1)*remains],
+                    example=line[i * remains:(i + 1) * remains],
                     margin=margin
                 ), file=output)
                 signature = separator = ' '
