@@ -107,6 +107,13 @@ class TestEnAU(unittest.TestCase):
         self.assertTrue(state_abbr.isupper())
 
 
+class TestEnCA(unittest.TestCase):
+    """ Tests addresses in en_CA locale """
+
+    def setUp(self):
+        self.factory = Factory.create('en_CA')
+
+
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
