@@ -114,6 +114,12 @@ class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Factory.create('en_CA')
 
+    def postalcode(self):
+        for _ in range(100):
+            postalcode = self.factory.postalcode()
+            assert re.match("\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s\d[ABCEGHJ-NPRSTV-Z]\d\b",
+                            postalcode)
+
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
