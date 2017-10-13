@@ -117,7 +117,7 @@ class TestEnCA(unittest.TestCase):
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()
-            assert re.match("\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z]\s\d[ABCEGHJ-NPRSTV-Z]\d\b",
+            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
                             postalcode)
 
     def test_postal_code_letter(self):
