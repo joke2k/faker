@@ -1,12 +1,15 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
+import unidecode
+
 from .. import BaseProvider
 
 from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
-from faker.utils.decorators import slugify, slugify_unicode
+from faker.utils.decorators import lowercase, slugify, slugify_unicode
 
 
 localized = True
@@ -60,7 +63,7 @@ class Provider(BaseProvider):
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
-     )
+    )
 
     replacements = tuple()
 
@@ -68,25 +71,58 @@ class Provider(BaseProvider):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
+        string = unidecode.unidecode(string)
         return string
 
+    @lowercase
     def email(self):
         pattern = self.random_element(self.email_formats)
         return "".join(self.generator.parse(pattern).split(" "))
 
+    @lowercase
     def safe_email(self):
         return '{}@example.{}'.format(
             self.user_name(), self.random_element(self.safe_email_tlds)
         )
 
+    @lowercase
     def free_email(self):
         return self.user_name() + '@' + self.free_email_domain()
 
+    @lowercase
     def company_email(self):
         return self.user_name() + '@' + self.domain_name()
 
+    @lowercase
     def free_email_domain(self):
         return self.random_element(self.free_email_domains)
+
+    @lowercase
+    def ascii_email(self):
+        pattern = self.random_element(self.email_formats)
+        return self._to_ascii(
+            "".join(self.generator.parse(pattern).split(" "))
+        )
+
+    @lowercase
+    def ascii_safe_email(self):
+        return self._to_ascii(
+            self.user_name() +
+            '@example.' +
+            self.random_element(self.safe_email_tlds)
+        )
+
+    @lowercase
+    def ascii_free_email(self):
+        return self._to_ascii(
+            self.user_name() + '@' + self.free_email_domain()
+        )
+
+    @lowercase
+    def ascii_company_email(self):
+        return self._to_ascii(
+            self.user_name() + '@' + self.domain_name()
+        )
 
     @slugify_unicode
     def user_name(self):
@@ -96,6 +132,7 @@ class Provider(BaseProvider):
         )
         return username
 
+    @lowercase
     def domain_name(self, levels=1):
         """
         Produce an Internet domain name with the specified number of
@@ -113,12 +150,13 @@ class Provider(BaseProvider):
         else:
             return self.domain_word() + '.' + self.domain_name(levels - 1)
 
+    @lowercase
     @slugify_unicode
     def domain_word(self,):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = self._to_ascii(company_elements.pop(0))
-        return company.lower()
+        return company
 
     def tld(self):
         return self.random_element(self.tlds)
