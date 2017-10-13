@@ -2,6 +2,16 @@
 Changelog
 =========
 
+`0.8.5 - 13-October-2017 <https://github.com/joke2k/faker/compare/v0.8.4...v0.8.5>`__
+-------------------------------------------------------------------------------------
+
+* Add ASCII emails. Thanks @barseghyanartur.
+* Add ``id_ID`` Providers. Thanks Sidi Ahmad.
+* Fix ``date_time.time_series() ``to ensure start and end bounds are inclusive. Thanks @bijanvakili.
+* Create a provider to Brazilian license plates. Thanks @diegoholiveira.
+* Use a proper international format for Ukrainian phone numbers. Thanks @illia-v.
+
+
 `0.8.4 - 22-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4>`__
 ---------------------------------------------------------------------------------------
 
