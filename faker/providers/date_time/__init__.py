@@ -246,21 +246,23 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    def unix_time(self):
+    def unix_time(self, end_datetime=None):
         """
         Get a timestamp between January 1, 1970 and now
         :example 1061306726
         """
-        return self.generator.random.randint(0, int(time()))
+        end_datetime = self._parse_end_datetime(end_datetime)
+        return self.generator.random.randint(0, end_datetime)
 
-    def time_delta(self):
+    def time_delta(self, end_datetime=None):
         """
         Get a timedelta object
         """
-        ts = self.generator.random.randint(0, int(time()))
+        end_datetime = self._parse_end_datetime(end_datetime)
+        ts = self.generator.random.randint(0, end_datetime)
         return timedelta(seconds=ts)
 
-    def date_time(self, tzinfo=None):
+    def date_time(self, tzinfo=None, end_datetime=None):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -270,16 +272,17 @@ class Provider(BaseProvider):
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue: 
         #       https://bugs.python.org/issue30684
-        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=self.unix_time())
+        return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=self.unix_time(end_datetime=end_datetime))
 
-    def date_time_ad(self, tzinfo=None):
+    def date_time_ad(self, tzinfo=None, end_datetime=None):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
-        ts = self.generator.random.randint(-62135600400, int(time()))
+        end_datetime = self._parse_end_datetime(end_datetime)
+        ts = self.generator.random.randint(-62135600400, end_datetime)
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
@@ -289,42 +292,49 @@ class Provider(BaseProvider):
         #       https://bugs.python.org/issue30684
         return datetime(1970, 1, 1,tzinfo=tzinfo) + timedelta(seconds=ts)
 
-    def iso8601(self, tzinfo=None):
+    def iso8601(self, tzinfo=None, end_datetime=None):
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
         """
-        return self.date_time(tzinfo).isoformat()
+        return self.date_time(tzinfo,end_datetime=end_datetime).isoformat()
 
-    def date(self, pattern='%Y-%m-%d'):
+    def date(self, pattern='%Y-%m-%d', end_datetime=None):
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
         :example '2008-11-27'
         """
-        return self.date_time().strftime(pattern)
+        return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
-    def date_object(self):
+    def date_object(self, end_datetime=None):
         """
         Get a date object between January 1, 1970 and now
         :example datetime.date(2016, 9, 20)
         """
-        return self.date_time().date()
+        return self.date_time(end_datetime=end_datetime).date()
 
-    def time(self, pattern='%H:%M:%S'):
+    def time(self, pattern='%H:%M:%S', end_datetime = None):
         """
         Get a time string (24h format by default)
         :param pattern format
         :example '15:02:34'
         """
-        return self.date_time().time().strftime(pattern)
+        return self.date_time(end_datetime=end_datetime).time().strftime(pattern)
 
-    def time_object(self):
+    def time_object(self, end_datetime = None):
         """
         Get a time object
         :example datetime.time(15, 56, 56, 772876)
         """
-        return self.date_time().time()
+        return self.date_time(end_datetime=end_datetime).time()
+    
+    @classmethod
+    def _parse_end_datetime(cls, value):
+        if value is None:
+            return int(time())
+
+        return cls._parse_date_time(value)
 
     @classmethod
     def _parse_date_string(cls, value):
