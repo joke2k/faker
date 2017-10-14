@@ -10,7 +10,9 @@ Changelog
 * Fix ``date_time.time_series() ``to ensure start and end bounds are inclusive. Thanks @bijanvakili.
 * Create a provider to Brazilian license plates. Thanks @diegoholiveira.
 * Use a proper international format for Ukrainian phone numbers. Thanks @illia-v.
+* Faker now requires Unidecode_.
 
+.. _Unidecode: https://pypi.python.org/pypi/Unidecode
 
 `0.8.4 - 22-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4>`__
 ---------------------------------------------------------------------------------------
