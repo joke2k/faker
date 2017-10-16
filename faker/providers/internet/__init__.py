@@ -1,7 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import unidecode
+from text_unidecode import unidecode
 
 from .. import BaseProvider
 
@@ -71,7 +71,7 @@ class Provider(BaseProvider):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
-        string = unidecode.unidecode(string)
+        string = unidecode(string)
         return string
 
     @lowercase
