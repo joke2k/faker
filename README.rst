@@ -383,7 +383,7 @@ Credits
 .. _FZaninotto: https://github.com/fzaninotto
 .. _PHP Faker: https://github.com/fzaninotto/Faker
 .. _Perl Faker: http://search.cpan.org/~jasonk/Data-Faker-0.07/
-.. _Ruby Faker: http://faker.rubyforge.org/
+.. _Ruby Faker: https://github.com/stympy/faker
 .. _Distribute: https://pypi.python.org/pypi/distribute
 .. _Buildout: http://www.buildout.org/
 .. _modern-package-template: https://pypi.python.org/pypi/modern-package-template
