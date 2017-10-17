@@ -7,7 +7,8 @@ import io
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = io.open(os.path.join(here, 'README.rst'), encoding="utf8").read()
+with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
+    README = fp.read()
 
 
 version = '0.8.6'
