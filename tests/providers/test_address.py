@@ -198,6 +198,13 @@ class TestEnUS(unittest.TestCase):
         assert military_state in EnUsProvider.military_state_abbr
         assert re.match("[A-Z]", military_state)
 
+    def test_military_apo(self):
+        military_apo = self.factory.military_apo()
+        assert isinstance(military_apo, string_types)
+
+    def test_military_dpo(self):
+        military_dpo = self.factory.military_dpo()
+        assert isinstance(military_dpo, string_types)
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
