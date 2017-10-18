@@ -206,6 +206,7 @@ class TestEnUS(unittest.TestCase):
         military_dpo = self.factory.military_dpo()
         assert isinstance(military_dpo, string_types)
 
+
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
