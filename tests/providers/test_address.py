@@ -154,6 +154,13 @@ class TestEnGB(unittest.TestCase):
             assert isinstance(parse_uk_postcode(self.factory.postcode()), tuple)
 
 
+class TestEnUS(unittest.TestCase):
+    """ Tests addresses in the en_US locale """
+
+    def setUp(self):
+        self.factory = Faker('en_US')
+
+
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
