@@ -192,6 +192,12 @@ class TestEnUS(unittest.TestCase):
         assert military_ship in EnUsProvider.military_ship_prefix
         assert re.match("[A-Z]", military_ship)
 
+    def test_military_state(self):
+        military_state = self.factory.military_state()
+        assert isinstance(military_state, string_types)
+        assert military_state in EnUsProvider.military_state_abbr
+        assert re.match("[A-Z]", military_state)
+
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
