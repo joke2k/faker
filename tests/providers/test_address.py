@@ -176,6 +176,11 @@ class TestEnUS(unittest.TestCase):
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnUsProvider.states_abbr
 
+    def test_zipcode(self):
+        for _ in range(100):
+            zipcode = self.factory.zipcode()
+            assert re.match("\d{5}", zipcode)
+
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
