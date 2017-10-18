@@ -181,6 +181,17 @@ class TestEnUS(unittest.TestCase):
             zipcode = self.factory.zipcode()
             assert re.match("\d{5}", zipcode)
 
+    def test_zipcode_plus4(self):
+        for _ in range(100):
+            zipcode_plus4 = self.factory.zipcode_plus4()
+            assert re.match("\d{5}(-\d{4})", zipcode_plus4)
+
+    def test_military_ship(self):
+        military_ship = self.factory.military_ship()
+        assert isinstance(military_ship, string_types)
+        assert military_ship in EnUsProvider.military_ship_prefix
+        assert re.match("[A-Z]", military_ship)
+
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
