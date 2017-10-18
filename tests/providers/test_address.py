@@ -166,6 +166,11 @@ class TestEnUS(unittest.TestCase):
         assert isinstance(city_prefix, string_types)
         assert city_prefix in EnUsProvider.city_prefixes
 
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in EnUsProvider.states
+
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
