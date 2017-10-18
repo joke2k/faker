@@ -13,6 +13,7 @@ from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
+from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
@@ -152,6 +153,58 @@ class TestEnGB(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             assert isinstance(parse_uk_postcode(self.factory.postcode()), tuple)
+
+
+class TestEnUS(unittest.TestCase):
+    """ Tests addresses in the en_US locale """
+
+    def setUp(self):
+        self.factory = Faker('en_US')
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EnUsProvider.city_prefixes
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in EnUsProvider.states
+
+    def test_state_abbr(self):
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+        assert state_abbr in EnUsProvider.states_abbr
+
+    def test_zipcode(self):
+        for _ in range(100):
+            zipcode = self.factory.zipcode()
+            assert re.match("\d{5}", zipcode)
+
+    def test_zipcode_plus4(self):
+        for _ in range(100):
+            zipcode_plus4 = self.factory.zipcode_plus4()
+            assert re.match("\d{5}(-\d{4})", zipcode_plus4)
+
+    def test_military_ship(self):
+        military_ship = self.factory.military_ship()
+        assert isinstance(military_ship, string_types)
+        assert military_ship in EnUsProvider.military_ship_prefix
+        assert re.match("[A-Z]", military_ship)
+
+    def test_military_state(self):
+        military_state = self.factory.military_state()
+        assert isinstance(military_state, string_types)
+        assert military_state in EnUsProvider.military_state_abbr
+        assert re.match("[A-Z]", military_state)
+
+    def test_military_apo(self):
+        military_apo = self.factory.military_apo()
+        assert isinstance(military_apo, string_types)
+
+    def test_military_dpo(self):
+        military_dpo = self.factory.military_dpo()
+        assert isinstance(military_dpo, string_types)
 
 
 class TestHuHU(unittest.TestCase):
