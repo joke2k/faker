@@ -13,6 +13,7 @@ from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
+from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
@@ -159,6 +160,11 @@ class TestEnUS(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('en_US')
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EnUsProvider.city_prefixes
 
 
 class TestHuHU(unittest.TestCase):
