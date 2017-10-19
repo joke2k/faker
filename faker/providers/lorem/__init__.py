@@ -182,3 +182,32 @@ class Provider(BaseProvider):
                 text.pop()
 
         return "".join(text)
+
+
+    def title(self, max_nb_chars=50, ext_word_list=None):
+        """
+        Generate a title string.
+        Returns a title with at most ``max_nb_chars`` made of words.
+        :example 'Sapiente sunt omnis'
+
+        Keyword arguments:
+        :param max_nb_chars: Maximum number of characters the title should contain (minimum 5)
+        :param ext_word_list: a list of words you would like to have instead of 'Lorem ipsum'.
+
+        :rtype str
+        """
+        title = []
+        if max_nb_chars < 5:
+            raise ValueError('title() can only generate text of at least 5 characters')
+
+
+        while not title:
+            size = 0
+            while size < max_nb_chars:
+                word = (self.word_connector if size else '') + self.word(ext_word_list)
+                title.append(word)
+                size += len(word)
+            title.pop()
+
+        title[0] = title[0].title()
+        return ''.join(title)
