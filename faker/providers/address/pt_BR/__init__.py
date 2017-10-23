@@ -236,3 +236,13 @@ class Provider(AddressProvider):
         :example 'Serra'
         """
         return self.random_element(self.bairros)
+
+    # aliases
+    def neighborhood(self):
+        return self.bairro()
+
+    def state(self):
+        return self.estado_nome()
+
+    def state_abbr(self):
+        return self.estado_sigla()

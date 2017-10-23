@@ -339,6 +339,7 @@ class TestZhTW(unittest.TestCase):
         address = self.factory.address()
         assert isinstance(address, string_types)
 
+
 class TestZhCN(unittest.TestCase):
     """ Tests addresses in the zh_cn locale """
 
@@ -366,3 +367,31 @@ class TestZhCN(unittest.TestCase):
 
         for _ in range(100):
             self.assertTrue(re.match(r'\d{5}', self.factory.postcode()))
+
+
+class TestPtBr(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('pt_BR')
+
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+        street = self.factory.street_name()
+        assert isinstance(street, string_types)
+
+        city = self.factory.street_address()
+        assert isinstance(city, string_types)
+
+        neighborhood = self.factory.neighborhood()
+        assert isinstance(neighborhood, string_types)
+
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+
+        address = self.factory.address()
+        assert isinstance(address, string_types)
