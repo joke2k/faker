@@ -1,0 +1,72 @@
+# This module adds the ability to create fields of study for your fake people. It uses the (admittedly idiosyncratic) list of majors from the University of Chicago. http://collegecatalog.uchicago.edu/thecollege/programsofstudy/
+# coding=utf-8
+localized = True
+
+from .. import BaseProvider
+
+
+class Provider(BaseProvider):
+    majors = (
+		"Anthropology",
+		"Art History",
+		"Astronomy and Astrophysics",
+		"Biological Chemistry",
+		"Biological Sciences",
+		"Chemistry",
+		"Cinema and Media Studies",
+		"Civilization Studies",
+		"Classical Studies",
+		"Comparative Human Development",
+		"Comparative Literature",
+		"Comparative Race and Ethnic Studies",
+		"Computational and Applied Mathematics",
+		"Computational Neuroscience",
+		"Computer Science",
+		"Creative Writing",
+		"East Asian Languages and Civilizations",
+		"Economics",
+		"English Language and Literature",
+		"Environmental Science",
+		"Environmental and Urban Studies",
+		"Fundamentals: Issues and Texts",
+		"Gender and Sexuality Studies",
+		"Geographical Studies",
+		"Geophysical Sciences",
+		"Germanic Studies",
+		"Global Studies",
+		"History",
+		"History, Philosophy, and Social Studies of Science and Medicine",
+		"Humanities",
+		"Human Rights",
+		"Interdisciplinary Studies in the Humanities",
+		"Jewish Studies",
+		"Latin American Studies",
+		"Law, Letters, and Society",
+		"Linguistics",
+		"Mathematics",
+		"Medieval Studies",
+		"Molecular Engineering",
+		"Music",
+		"Near Eastern Languages and Civilizations",
+		"Neuroscience",
+		"New Collegiate Division",
+		"Philosophy",
+		"Physical Sciences",
+		"Physics",
+		"Political Science",
+		"Psychology",
+		"Public Policy Studies",
+		"Religious Studies",
+		"Romance Languages and Literatures",
+		"Russian and East European Studies",
+		"Social Sciences",
+		"Sociology",
+		"South Asian Languages and Civilizations",
+		"Statistics",
+		"Theater and Performance Studies",
+		"Tutorial Studies",
+		"Visual Art"
+	)
+
+def major(self):
+    return self.random_element(self.majors)
