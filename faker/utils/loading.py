@@ -6,9 +6,7 @@ import pkgutil
 def list_module(module):
     path = os.path.dirname(module.__file__)
     modules = [name for finder, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
-    if len(modules) > 0:
-        return modules
-    return [i for i in os.listdir(path) if os.path.isdir(os.path.join(path, i)) and not i.startswith('_')]
+    return modules
 
 
 def find_available_locales(providers):
