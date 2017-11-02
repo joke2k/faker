@@ -130,8 +130,10 @@ class BaseProvider(object):
         if length > len(elements):
             raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
         sample = set()
-        while len(sample) < length:
-            sample.add(self.random_element(elements))
+        for _ in range(length):
+            element = self.random_element(elements)
+            sample.add(element)
+            elements.pop(element)
         return sample
 
     def randomize_nb_elements(self, number=10, le=False, ge=False, min=None, max=None):
