@@ -390,13 +390,25 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
 
+        # To many items requested
+        with self.assertRaises(ValueError):
+            provider.random_sample_unique('abcde', 6)
+
+        # Duplicate inputs reduced to unique set
+        with self.assertRaises(ValueError):
+            provider.random_sample_unique('aabcd', 5)
+
+        # Same length
+        sample = provider.random_sample_unique('aabcd', 4)
+        self.assertEqual(sample, set('abcd'))
+
+        sample = provider.random_sample_unique('abcde', 5)
+        self.assertEqual(sample, set('abcde'))
+
+        # Length = 3
         sample = provider.random_sample_unique('abcde', 3)
         self.assertEqual(len(sample), 3)
         self.assertTrue(sample.issubset(set('abcde')))
-
-        # Same length
-        sample = provider.random_sample_unique('abcde', 5)
-        self.assertEqual(sample, set('abcde'))
 
         # Length = 1
         sample = provider.random_sample_unique('abcde', 1)
@@ -406,10 +418,6 @@ class FactoryTestCase(unittest.TestCase):
         # Length = 0
         sample = provider.random_sample_unique('abcde', 0)
         self.assertEqual(sample, set())
-
-        # Length = 0
-        with self.assertRaises(ValueError):
-            provider.random_sample_unique('abcde', 6)
 
     def test_random_number(self):
         from faker.providers import BaseProvider

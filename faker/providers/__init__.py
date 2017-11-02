@@ -1,5 +1,6 @@
 # coding=utf-8
 
+from collections import Counter
 import re
 import string
 
@@ -120,7 +121,10 @@ class BaseProvider(object):
     def random_sample_unique(self, elements=('a', 'b', 'c'), length=None):
         """
         Returns a `set` of random unique elements for the specified length.
+        Multiple occurances of the same value increase its probabilty to be in the output.
         """
+        if not isinstance(elements, dict):
+            elements = Counter(elements)
         if length is None:
             length = self.generator.random.randint(1, len(elements))
 
