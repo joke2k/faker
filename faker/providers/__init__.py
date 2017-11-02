@@ -123,13 +123,12 @@ class BaseProvider(object):
         Returns a `set` of random unique elements for the specified length.
         Multiple occurances of the same value increase its probabilty to be in the output.
         """
-        if not isinstance(elements, dict):
-            elements = Counter(elements)
+        elements = Counter(elements)
         if length is None:
             length = self.generator.random.randint(1, len(elements))
 
         if length > len(elements):
-            raise ValueError("Sample length cannot be longer than the number of elements to pick from.")
+            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
         sample = set()
         while len(sample) < length:
             sample.add(self.random_element(elements))
