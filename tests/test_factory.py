@@ -390,7 +390,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
 
-        # To many items requested
+        # Too many items requested
         with self.assertRaises(ValueError):
             provider.random_sample_unique('abcde', 6)
 
