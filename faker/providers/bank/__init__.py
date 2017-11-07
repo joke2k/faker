@@ -9,6 +9,11 @@ import re
 localized = True
 
 class Provider(BaseProvider):
+    """
+    Provider for IBAN/BBAN: it generates valid (valid length, valid checksum)
+    IBAN/BBANs for the given country. But the ids of the banks are random and
+    not valid banks! Same for account numbers.
+    """
     
     ALPHA = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
 
