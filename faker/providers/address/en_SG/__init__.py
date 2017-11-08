@@ -8,9 +8,6 @@ Based on https://github.com/missbossy/Faker/tree/singapore
 
 
 class Provider(AddressProvider):
-    city_prefixes = ()
-
-    city_suffixes = ()
 
     building_number_formats = ('#####', '####', '###')
     postcode_formats = ('######',)
