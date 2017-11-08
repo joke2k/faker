@@ -26,17 +26,20 @@ class Provider(AddressProvider):
     street_name_formats = ('{{town}} {{street_suffix}}',)
 
     street_address_formats = (
-        '{{block}} {{lorong}} {{town}} {{flat_number_prefix}}-{{flat_number_suffix}}',
-        '{{block}} {{major_estate}} {{sg_street}} {{flat_number_prefix}}-{{flat_number_suffix}}',
-        '{{block}} {{major_estate}} {{sg_street}} {{flat_number_prefix}}-{{flat_number_suffix}}',
-        '{{block}} {{major_estate}} {{sg_street}} {{flat_number_prefix}}-{{flat_number_suffix}}',
+        '{{block}} {{lorong}} {{town}} {{flat_number}}',
+        '{{block}} {{major_estate}} {{sg_street}} {{flat_number}}',
+        '{{block}} {{major_estate}} {{sg_street}} {{flat_number}}',
+        '{{block}} {{major_estate}} {{sg_street}} {{flat_number}}',
         '{{street_number}} Jalan {{jalan_place}}',
-        '{{street_number}} {{street_name}} {{flat_number_prefix}}-{{flat_number_suffix}}',
+        '{{street_number}} {{street_name}} {{flat_number}}',
         '{{street_number}} {{street_name}}',
         '{{street_number}}',
         '{{street_name}}'
     )
     address_formats = ("{{street_address}}",)
+
+    def flat_number(self):
+        return "{}-{}".format(self.flat_number_prefix(), self.flat_number_suffix())
 
     def flat_number_prefix(self):
         from random import randint
