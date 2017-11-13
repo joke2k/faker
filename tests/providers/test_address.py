@@ -251,7 +251,7 @@ class TestHuHU(unittest.TestCase):
         assert second.split(" ")[0][0].isupper()
 
         # Test postcode
-        assert re.match(r"H-[1-9]\d{3}]", last.split(" ")[0])
+        assert re.match(r"H-[1-9]\d{3}", last.split(" ")[0])
 
         # Test place name capitalization
         assert last.split(" ")[-1][0].isupper()
