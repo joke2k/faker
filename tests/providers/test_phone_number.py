@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+import re
 import unittest
 
 from faker import Faker
@@ -61,3 +62,12 @@ class TestPhoneNumber(unittest.TestCase):
         assert len(msisdn) == 13
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
+
+class TestHuHU(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('hu_HU')
+
+    def test_phone_number(self):
+        phone_number = self.factory.phone_number()
+        re.match(r"[1-9]\d/\d{3} \d{4}", phone_number)

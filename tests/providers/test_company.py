@@ -59,16 +59,23 @@ class TestHuHU(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('hu_HU')
+        self.valid_suffixes = ('Kft.',
+                          'Kht.',
+                          'Zrt.',
+                          'Bt.',
+                          'Nyrt.',
+                          'Kkt.')
+
 
     def test_company_suffix(self):
-        suffixes = HuProvider.company_suffixes
         suffix = self.factory.company_suffix()
         assert isinstance(suffix, string_types)
-        assert suffix in suffixes
+        assert suffix in self.valid_suffixes
 
     def test_company(self):
         company = self.factory.company()
         assert isinstance(company, string_types)
+        assert company.split(" ")[-1] in self.valid_suffixes
 
 
 class TestPlPL(unittest.TestCase):
