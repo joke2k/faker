@@ -225,9 +225,9 @@ class TestHuHU(unittest.TestCase):
         address = self.factory.street_address()
         assert address[-1] == '.'
         # Check for correct capitalisation of place type
-        assert address.split(sep=" ")[-2][0].islower()
+        assert address.split(" ")[-2][0].islower()
         # Check for street number format
-        assert re.match(r"\d{1,4}\.", address.split(sep=" ")[-1])
+        assert re.match(r"\d{1,4}\.", address.split(" ")[-1])
 
     def test_street_address_with_county(self):
         """Tests street address with country. A street address must be:
@@ -238,13 +238,13 @@ class TestHuHU(unittest.TestCase):
         """
         address = self.factory.street_address_with_county()
         # Number of rows
-        assert len(address.split(sep="\n")) == 3
-        first, second, last = address.split(sep="\n")
+        assert len(address.split("\n")) == 3
+        first, second, last = address.split("\n")
 
         # Test street address
         assert first[0].isupper()
-        assert first.split(sep=" ")[-2][0].islower()
-        assert re.match(r"\d{1,4}\.", first.split(sep=" ")[-1])
+        assert first.split(" ")[-2][0].islower()
+        assert re.match(r"\d{1,4}\.", first.split(" ")[-1])
 
         # Test county line
         assert second.split(" ")[-1][0].islower()

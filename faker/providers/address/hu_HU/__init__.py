@@ -103,7 +103,10 @@ class Provider(AddressProvider):
         return self.random_element(self.counties)
 
     def street_address_with_county(self):
-        return f"{self.street_address()}\n{self.county()} megye\n{self.postcode()} {self.city().capitalize()}"
+        return "{street_address}\n{county} megye\n{postcode} {city}".format(street_address=self.street_address(),
+                                                                            county=self.county(),
+                                                                            postcode=self.postcode(),
+                                                                            city=self.city().capitalize())
 
     def city_prefix(self):
         return self.random_element(self.city_prefs)

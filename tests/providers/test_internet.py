@@ -65,7 +65,7 @@ class TestHuHU(unittest.TestCase):
     """ Tests internet module in the hu_HU locale. """
 
     def setUp(self):
-        self.factory = Faker('hu')
+        self.factory = Faker('hu_HU')
 
     def test_internet(self):
         domain_name = self.factory.domain_name()

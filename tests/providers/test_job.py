@@ -36,6 +36,7 @@ class TestKoKR(unittest.TestCase):
         assert isinstance(job, string_types)
 
 class TestHuHU(unittest.TestCase):
+    "Tests the job module in the Hungarian locale."
 
     def setUp(self):
         self.factory = Faker('hu_HU')
