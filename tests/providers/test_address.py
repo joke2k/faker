@@ -221,7 +221,43 @@ class TestHuHU(unittest.TestCase):
             assert pcd[2] > "0"
 
     def test_street_address(self):
-        """ Tests the street address in the hu_HU locale """
+        """Tests street address. A street address must consist of a street name, a place type and a number, and end in a period point."""
+        address = self.factory.street_address()
+        assert address[-1] == '.'
+        # Check for correct capitalisation of place type
+        assert address.split(" ")[-2][0].islower()
+        # Check for street number format
+        assert re.match(r"\d{1,4}\.", address.split(" ")[-1])
+
+    def test_street_address_with_county(self):
+        """Tests street address with country. A street address must be:
+        - in three rows,
+        - starting with a valid street address,
+        - contain a valid post code,
+        - contain the place name validly capitalized.
+        """
+        address = self.factory.street_address_with_county()
+        # Number of rows
+        assert len(address.split("\n")) == 3
+        first, second, last = address.split("\n")
+
+        # Test street address
+        assert first[0].isupper()
+        assert first.split(" ")[-2][0].islower()
+        assert re.match(r"\d{1,4}\.", first.split(" ")[-1])
+
+        # Test county line
+        assert second.split(" ")[-1][0].islower()
+        assert second.split(" ")[0][0].isupper()
+
+        # Test postcode
+        assert re.match(r"H-[1-9]\d{3}", last.split(" ")[0])
+
+        # Test place name capitalization
+        assert last.split(" ")[-1][0].isupper()
+
+    def test_address(self):
+        """ Tests the address provider in the hu_HU locale """
         address = self.factory.address()
         assert isinstance(address, string_types)
         address_with_county = self.factory.street_address_with_county()

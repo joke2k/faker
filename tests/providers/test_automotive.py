@@ -18,3 +18,13 @@ class TestPtBR(unittest.TestCase):
         plate = self.factory.license_plate()
         assert isinstance(plate, string_types)
         assert self.format.match(plate)
+
+class TestHuHU(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('hu_HU')
+
+    def test_hu_HU_plate_format(self):
+        plate = self.factory.license_plate()
+
+        assert re.match("[A-Z]{3}-\d{3}", plate)

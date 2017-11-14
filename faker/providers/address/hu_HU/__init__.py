@@ -20,9 +20,6 @@ class Provider(AddressProvider):
 
     city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}', '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
 
-    street_address_with_county_formats = (
-        '{{street_name}} {{building_number}}\n{{county}} megye\n{{postcode}} {{city}}',)
-
     street_address_formats = ('{{street_name}} {{building_number}}',)
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
@@ -106,8 +103,10 @@ class Provider(AddressProvider):
         return self.random_element(self.counties)
 
     def street_address_with_county(self):
-        pattern = self.random_element(self.street_address_with_county_formats)
-        return self.generator.parse(pattern)
+        return "{street_address}\n{county} megye\n{postcode} {city}".format(street_address=self.street_address(),
+                                                                            county=self.county(),
+                                                                            postcode=self.postcode(),
+                                                                            city=self.city().capitalize())
 
     def city_prefix(self):
         return self.random_element(self.city_prefs)
@@ -127,7 +126,7 @@ class Provider(AddressProvider):
                                    super(Provider, self).random_digit())
 
     def street_name(self):
-        return super(Provider, self).street_name().title()
+        return super(Provider, self).street_name().capitalize()
 
     def building_number(self):
         numeric_part = super(Provider, self).random_int(1, 250)
