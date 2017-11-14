@@ -2,12 +2,6 @@
 Changelog
 =========
 
-`0.8.7` - 13-November-2017
---------------------------
-
-* Corrects some issues with the Hungarian (``hu_HU``) providers, such as incorrectly capitalized company suffixes, street/road type names and place names.
-* The Hungarian locale's ``providers.job.job`` provider now returns Hungarian job names, taken from the Hungarian National Statistical Office (KSH)'s 2008 survey nomenclature of employment (FEOR '08).
-
 `0.8.6 - 16-October-2017 <https://github.com/joke2k/faker/compare/v0.8.5...v0.8.6>`__
 -------------------------------------------------------------------------------------
 
