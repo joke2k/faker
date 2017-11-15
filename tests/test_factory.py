@@ -12,7 +12,7 @@ try:
 except ImportError:  # pragma: no cover
     from io import StringIO
 
-from faker import Generator, Factory, Faker
+from faker import Generator, Faker
 from faker.generator import random
 from faker.utils import text, decorators
 from tests import string_types
@@ -425,6 +425,14 @@ class FactoryTestCase(unittest.TestCase):
 
         number = provider.random_number(10, True)
         self.assertEqual(len(str(number)), 10)
+
+    def test_instance_seed_chain(self):
+        factory = Faker()
+
+        names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
+        anonymized = [factory.seed_instance(name).name() for name in names]
+        self.assertEqual(anonymized[0], anonymized[3])
+        self.assertEqual(anonymized[2], anonymized[4])
 
 
 if __name__ == '__main__':

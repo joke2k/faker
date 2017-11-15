@@ -62,6 +62,7 @@ class Generator(object):
             # create per-instance random obj when first time seed_instance() is called
             self.__random = random_module.Random()
         self.__random.seed(seed)
+        return self
 
     @classmethod
     def seed(cls, seed=None):
