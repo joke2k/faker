@@ -7,6 +7,7 @@ import unittest
 
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
+from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.pl_PL import (
@@ -145,6 +146,23 @@ class TestNeNP(unittest.TestCase):
         prefixes = NeProvider.prefixes_male + NeProvider.prefixes_female
         if len(name) == 3:
             assert name[0] in prefixes
+
+
+class TestFiFI(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+
+    def test_gender_first_names(self):
+        female_name = self.factory.first_name_female()
+        self.assertIsInstance(female_name, string_types)
+        self.assertIn(female_name, FiProvider.first_names_female)
+        male_name = self.factory.first_name_male()
+        self.assertIsInstance(male_name, string_types)
+        self.assertIn(male_name, FiProvider.first_names_male)
+        first_name = self.factory.first_name()
+        self.assertIsInstance(first_name, string_types)
+        self.assertIn(first_name, FiProvider.first_names)
 
 
 class TestSvSE(unittest.TestCase):
