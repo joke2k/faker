@@ -26,6 +26,7 @@ def find_available_locales(providers):
 def find_available_providers(modules):
     available_providers = set()
     for providers_mod in modules:
-        providers = ['.'.join([providers_mod.__package__, mod]) for mod in list_module(providers_mod)]
+        providers = ['.'.join([providers_mod.__package__, mod])
+                     for mod in list_module(providers_mod) if mod != '__pycache__']
         available_providers.update(providers)
     return sorted(available_providers)
