@@ -164,6 +164,11 @@ class TestFiFI(unittest.TestCase):
         self.assertIsInstance(first_name, string_types)
         self.assertIn(first_name, FiProvider.first_names)
 
+    def test_last_names(self):
+        last_name = self.factory.last_name()
+        self.assertIsInstance(last_name, string_types)
+        self.assertIn(last_name, FiProvider.last_names)
+
 
 class TestSvSE(unittest.TestCase):
 
