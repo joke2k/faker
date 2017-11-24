@@ -7,6 +7,7 @@ import unittest
 from faker import Faker
 
 from tests import string_types
+from faker.providers.job.fi_FI import Provider as fiFiProvider
 
 
 
@@ -44,3 +45,17 @@ class TestHuHU(unittest.TestCase):
     def test_job(self):
         job = self.factory.job()
         assert isinstance(job, string_types)
+
+
+class TestFiFI(unittest.TestCase):
+    "Tests for fi_FI locale"
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+
+    def test_job(self):
+        job = self.factory.job()
+        self.assertTrue(isinstance(job, string_types))
+        self.assertTrue(job in fiFiProvider.jobs)
+
+
