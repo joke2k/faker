@@ -6,15 +6,15 @@ from .. import Provider as AddressProvider
 class Provider(AddressProvider):
     building_number_formats = ('###', '##', '#')
 
-    postcode_formats = ('#####',)
+    postcode_formats = ('#####', )
 
-    city_formats = ('{{city_name}}',)
+    city_formats = ('{{city_name}}', )
 
-    street_name_formats = ('{{street_prefix}}{{street_suffix}}',)
+    street_name_formats = ('{{street_prefix}}{{street_suffix}}', )
 
-    street_address_formats = ('{{street_name}} {{building_number}}',)
+    street_address_formats = ('{{street_name}} {{building_number}}', )
 
-    address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
+    address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
     # Data from: https://www.avoindata.fi/data/en/dataset/kunnat/resource/b1cb9870-191f-4616-9c53-5388b7ca6beb
     cities = (
