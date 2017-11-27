@@ -14,6 +14,7 @@ from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
+from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
@@ -49,6 +50,23 @@ class TestDeDE(unittest.TestCase):
         country = self.factory.country()
         assert isinstance(country, string_types)
         assert country in DeProvider.countries
+
+
+class TestFiFI(unittest.TestCase):
+    """ Tests in addresses in the fi_FI locale """
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in FiProvider.cities
+
+    def test_street_suffix(self):
+        suffix = self.factory.street_suffix()
+        assert isinstance(suffix, string_types)
+        assert suffix in FiProvider.street_suffixes
 
 
 class TestElGR(unittest.TestCase):
