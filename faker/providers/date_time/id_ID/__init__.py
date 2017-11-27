@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from .. import Provider as DateTimeProvider
 
+
 class Provider(DateTimeProvider):
 
     def day_of_week(self):

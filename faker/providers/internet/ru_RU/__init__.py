@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from .. import Provider as InternetProvider
 
+
 class Provider(InternetProvider):
     user_name_formats = (
         '{{last_name_female}}.{{first_name_female}}',
@@ -16,12 +17,16 @@ class Provider(InternetProvider):
     )
 
     email_formats = (
-    	'{{user_name}}@{{free_email_domain}}',
-    	'{{user_name}}@{{domain_name}}')
+        '{{user_name}}@{{free_email_domain}}',
+        '{{user_name}}@{{domain_name}}')
 
     free_email_domains = (
-    	'gmail.com', 'yahoo.com', 'hotmail.com', 'mail.ru', 'yandex.ru', 'rambler.ru'
-    )
+        'gmail.com',
+        'yahoo.com',
+        'hotmail.com',
+        'mail.ru',
+        'yandex.ru',
+        'rambler.ru')
 
     tlds = ('ru', 'com', 'biz', 'info', 'net', 'org', 'edu')
 

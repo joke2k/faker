@@ -127,7 +127,9 @@ class Provider(AddressProvider):
         return self.random_element(self.city_prefixes)
 
     def secondary_address(self):
-        return self.numerify(self.random_element(self.secondary_address_formats))
+        return self.numerify(
+            self.random_element(
+                self.secondary_address_formats))
 
     def state(self):
         return self.random_element(self.states)

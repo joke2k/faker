@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from .. import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     formats = (
         '{{first_name}}{{last_name}}',

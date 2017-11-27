@@ -63,7 +63,8 @@ class Provider(BaseProvider):
         if hasattr(self, 'prefixes'):
             return self.random_element(self.prefixes)
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female'):
-            prefixes = self.random_element((self.prefixes_male, self.prefixes_female))
+            prefixes = self.random_element(
+                (self.prefixes_male, self.prefixes_female))
             return self.random_element(prefixes)
         return ''
 
@@ -81,7 +82,8 @@ class Provider(BaseProvider):
         if hasattr(self, 'suffixes'):
             return self.random_element(self.suffixes)
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female'):
-            suffixes = self.random_element((self.suffixes_male, self.suffixes_female))
+            suffixes = self.random_element(
+                (self.suffixes_male, self.suffixes_female))
             return self.random_element(suffixes)
         return ''
 

@@ -23,7 +23,8 @@ class Provider(PersonProvider):
     )
 
     # From http://www.nama.web.id/search.php?gender=male&origin=Indonesia+-+Jawa&letter=&submit=Search
-    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+    # via
+    # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
     first_names_male = (
         'Abyasa', 'Ade', 'Adhiarja', 'Adiarja', 'Adika', 'Adikara', 'Adinata',
         'Aditya', 'Agus', 'Ajiman', 'Ajimat', 'Ajimin', 'Ajiono', 'Akarsana',
@@ -99,7 +100,8 @@ class Provider(PersonProvider):
     )
 
     # From http://namafb.com/2010/08/12/top-1000-nama-populer-indonesia/
-    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+    # via
+    # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
     first_names_female = (
         'Ade', 'Agnes', 'Ajeng', 'Amalia', 'Anita', 'Ayu', 'Aisyah', 'Ana',
         'Ami', 'Ani', 'Azalea', 'Aurora', 'Alika', 'Anastasia', 'Amelia',
@@ -137,7 +139,8 @@ class Provider(PersonProvider):
 
     # From http://namafb.com/2010/08/12/top-1000-nama-populer-indonesia/
     # From http://id.wikipedia.org/wiki/Daftar_marga_suku_Batak_di_Toba
-    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+    # via
+    # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
     last_names_male = (
         'Adriansyah', 'Ardianto', 'Anggriawan', 'Budiman', 'Budiyanto',
         'Damanik', 'Dongoran', 'Dabukke', 'Firmansyah', 'Firgantoro',
@@ -160,7 +163,8 @@ class Provider(PersonProvider):
     )
 
     # From http://namafb.com/2010/08/12/top-1000-nama-populer-indonesia/
-    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+    # via
+    # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
     last_names_female = (
         'Agustina', 'Andriani', 'Anggraini', 'Aryani', 'Astuti',
         'Fujiati', 'Farida', 'Handayani', 'Hassanah', 'Hartati', 'Hasanah',
@@ -182,7 +186,9 @@ class Provider(PersonProvider):
         'Dt.', 'R.', 'R.M.', 'Sutan', 'T.', 'Tgk.',
 
         # From http://id.wikipedia.org/wiki/Gelar_akademik
-        # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php plus noble titles
+        # via
+        # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+        # plus noble titles
         'dr.', 'drg.', 'Dr.', 'Drs.', 'Ir.', 'H.', 'KH.',
     )
 
@@ -190,12 +196,15 @@ class Provider(PersonProvider):
         'Cut', 'Puti', 'R.', 'R.A.', 'Tgk.',
 
         # From http://id.wikipedia.org/wiki/Gelar_akademik
-        # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php plus noble titles
+        # via
+        # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+        # plus noble titles
         'dr.', 'drg.', 'Dr.', 'Drs.', 'Ir.' 'Hj.',
     )
 
     # From http://id.wikipedia.org/wiki/Gelar_akademik
-    # via https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
+    # via
+    # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
     suffixes = (
         'S.Ked', 'S.Gz', 'S.Pt', 'S.IP', 'S.E.I', 'S.E.', 'S.Kom', 'S.H.',
         'S.T.', 'S.Pd', 'S.Psi', 'S.I.Kom', 'S.Sos', 'S.Farm', 'M.M.', 'M.Kom.',

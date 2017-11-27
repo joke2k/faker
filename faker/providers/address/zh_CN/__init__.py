@@ -5,7 +5,8 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_suffixes = ("市", "县")
-    city_formats = ("{{city_name}}{{city_suffix}}", "{{first_name}}{{city_suffix}}")
+    city_formats = ("{{city_name}}{{city_suffix}}",
+                    "{{first_name}}{{city_suffix}}")
 
     district_formats = ("{{district}}区",)
 
@@ -13,10 +14,12 @@ class Provider(AddressProvider):
     postcode_formats = ("%#####",)
 
     street_suffixes = ("街", "路",)
-    street_name_formats = ("{{city_name}}{{street_suffix}}", "{{last_name}}{{street_suffix}}")
+    street_name_formats = ("{{city_name}}{{street_suffix}}",
+                           "{{last_name}}{{street_suffix}}")
     street_address_formats = ("{{street_name}}{{building_number}}",)
 
-    address_formats = ("{{province}}{{city}}{{district}}{{street_address}} {{postcode}}",)
+    address_formats = (
+        "{{province}}{{city}}{{district}}{{street_address}} {{postcode}}",)
 
     provinces = (
         "内蒙古自治区", "山西省", "河北省", "吉林省", "江苏省", "辽宁省", "黑龍江省",
@@ -43,7 +46,7 @@ class Provider(AddressProvider):
         "兴安盟", "太原", "辛集", "邯郸", "沈阳", "辽阳", "兴城", "北镇", "阜新",
         "哈尔滨", "齐齐哈尔", "淮安", "张家港", "海门", "六安", "巢湖", "马鞍山",
         "永安", "宁德", "嘉禾", "荆门", "潜江", "大冶", "宜都", "佛山", "深圳",
-        "潮州", "惠州", "汕尾", "东莞", "梧州", "柳州", "合山", "六盘水", "关岭",  )
+        "潮州", "惠州", "汕尾", "东莞", "梧州", "柳州", "合山", "六盘水", "关岭",)
     countries = (
         "阿富汗", "阿拉斯加", "阿尔巴尼亚", "阿尔及利亚", "安道尔", "安哥拉", "安圭拉岛英", "安提瓜和巴布达",
         "阿根廷", "亚美尼亚", "阿鲁巴岛", "阿森松", "澳大利亚", "奥地利", "阿塞拜疆", "巴林", "孟加拉国",

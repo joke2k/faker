@@ -12,7 +12,8 @@ https://www.isbn-international.org/range_file_generation
 
 from collections import namedtuple
 
-RegistrantRule = namedtuple('RegistrantRule', ['min', 'max', 'registrant_length'])
+RegistrantRule = namedtuple(
+    'RegistrantRule', ['min', 'max', 'registrant_length'])
 
 # Structure: RULES[`EAN Prefix`][`Registration Group`] = [Rule1, Rule2, ...]
 RULES = {

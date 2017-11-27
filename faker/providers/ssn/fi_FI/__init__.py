@@ -31,9 +31,11 @@ class Provider(SsnProvider):
 
         min_age = 18 * 365
         max_age = 90 * 365
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age, max_age))
+        age = datetime.timedelta(
+            days=self.generator.random.randrange(min_age, max_age))
         birthday = datetime.date.today() - age
-        hetu_date = "%02d%02d%s" % (birthday.day, birthday.month, str(birthday.year)[-2:])
+        hetu_date = "%02d%02d%s" % (
+            birthday.day, birthday.month, str(birthday.year)[-2:])
         if birthday.year < 2000:
             separator = '-'
         else:

@@ -11,4 +11,3 @@ class Provider(BaseProvider):
         'bíbor', 'kékeszöld', 'citromzöld', 'kék', 'ezüst',
         'szürke', 'sárga', 'mályva', 'akvamarin', 'fehér',
     )
-

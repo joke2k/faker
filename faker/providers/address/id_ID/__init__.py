@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from .. import Provider as AddressProvider
 
+
 class Provider(AddressProvider):
 
     building_number_formats = ('###', '##', '#',)
@@ -25,7 +26,8 @@ class Provider(AddressProvider):
         '{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}',
     )
 
-    # From http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
+    # From
+    # http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
     streets = (
         'Abdul Muis ', 'Antapani Lama', 'Asia Afrika', 'Astana Anyar', 'BKR',
         'Cihampelas', 'Cikapayang', 'Cikutra Barat', 'Cikutra Timur',
@@ -52,7 +54,8 @@ class Provider(AddressProvider):
         'Jl.', 'Lr.', 'Gg.',
     )
 
-    # From https://id.wikipedia.org/wiki/Daftar_kabupaten_dan_kota_di_Indonesia#Daftar_kota
+    # From
+    # https://id.wikipedia.org/wiki/Daftar_kabupaten_dan_kota_di_Indonesia#Daftar_kota
     cities = (
         'Ambon', 'Balikpapan', 'Banda Aceh', 'Bandar Lampung', 'Bandung',
         'Banjar', 'Banjarbaru', 'Banjarmasin', 'Batam', 'Batu', 'Bau-Bau',

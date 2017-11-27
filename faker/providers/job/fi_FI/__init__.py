@@ -4,7 +4,8 @@ from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
-    #jobs parsed from a list provided by State Treasury: http://www.valtiokonttori.fi/download/noname/%7BF69EA5BD-C919-49FE-8D51-91434E4B030D%7D/82158
+    # jobs parsed from a list provided by State Treasury:
+    # http://www.valtiokonttori.fi/download/noname/%7BF69EA5BD-C919-49FE-8D51-91434E4B030D%7D/82158
     jobs = ["Agrologi",
             "Aikuiskoulutusjohtaja",
             "Aineenopettaja",

@@ -116,7 +116,8 @@ class Provider(BaseProvider):
         Calculates the sha256 hash of a given string
         :example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
         """
-        res = hashlib.sha256(str(self.generator.random.random()).encode('utf-8'))
+        res = hashlib.sha256(
+            str(self.generator.random.random()).encode('utf-8'))
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -137,7 +138,13 @@ class Provider(BaseProvider):
         # Based on http://stackoverflow.com/q/41186818
         return str(uuid.UUID(int=self.generator.random.getrandbits(128)))
 
-    def password(self, length=10, special_chars=True, digits=True, upper_case=True, lower_case=True):
+    def password(
+            self,
+            length=10,
+            special_chars=True,
+            digits=True,
+            upper_case=True,
+            lower_case=True):
         """
         Generates a random password.
         @param length: Integer. Length of a password
@@ -150,19 +157,23 @@ class Provider(BaseProvider):
         choices = ""
         required_tokens = []
         if special_chars:
-            required_tokens.append(self.generator.random.choice("!@#$%^&*()_+"))
+            required_tokens.append(
+                self.generator.random.choice("!@#$%^&*()_+"))
             choices += "!@#$%^&*()_+"
         if digits:
             required_tokens.append(self.generator.random.choice(string.digits))
             choices += string.digits
         if upper_case:
-            required_tokens.append(self.generator.random.choice(string.ascii_uppercase))
+            required_tokens.append(
+                self.generator.random.choice(string.ascii_uppercase))
             choices += string.ascii_uppercase
         if lower_case:
-            required_tokens.append(self.generator.random.choice(string.ascii_lowercase))
+            required_tokens.append(
+                self.generator.random.choice(string.ascii_lowercase))
             choices += string.ascii_lowercase
 
-        assert len(required_tokens) <= length, "Required length is shorter than required characters"
+        assert len(
+            required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
         chars = [self.generator.random.choice(choices) for x in range(length)]
@@ -170,7 +181,8 @@ class Provider(BaseProvider):
         # Pick some unique locations
         random_indexes = set()
         while len(random_indexes) < len(required_tokens):
-            random_indexes.add(self.generator.random.randint(0, len(chars) - 1))
+            random_indexes.add(
+                self.generator.random.randint(0, len(chars) - 1))
 
         # Replace them with the required characters
         for i, index in enumerate(random_indexes):

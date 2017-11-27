@@ -13,15 +13,58 @@ class Provider(AddressProvider):
     )
     postcode_formats = ('#####', )
     states = (
-        'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz',
-        'Baleares', 'Barcelona', 'Burgos', 'Cáceres', 'Cádiz', 'Cantabria', 'Castellón',
-        'Ceuta', 'Ciudad', 'Córdoba', 'Cuenca', 'Girona', 'Granada', 'Guadalajara',
-        'Guipúzcoa', 'Huelva', 'Huesca', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas',
-        'León', 'Lleida', 'Lugo', 'Madrid', 'Málaga', 'Melilla', 'Murcia', 'Navarra',
-        'Ourense', 'Palencia', 'Pontevedra', 'Salamanca', 'Santa Cruz de Tenerife',
-        'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia',
-        'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
-    )
+        'Álava',
+        'Albacete',
+        'Alicante',
+        'Almería',
+        'Asturias',
+        'Ávila',
+        'Badajoz',
+        'Baleares',
+        'Barcelona',
+        'Burgos',
+        'Cáceres',
+        'Cádiz',
+        'Cantabria',
+        'Castellón',
+        'Ceuta',
+        'Ciudad',
+        'Córdoba',
+        'Cuenca',
+        'Girona',
+        'Granada',
+        'Guadalajara',
+        'Guipúzcoa',
+        'Huelva',
+        'Huesca',
+        'Jaén',
+        'La Coruña',
+        'La Rioja',
+        'Las Palmas',
+        'León',
+        'Lleida',
+        'Lugo',
+        'Madrid',
+        'Málaga',
+        'Melilla',
+        'Murcia',
+        'Navarra',
+        'Ourense',
+        'Palencia',
+        'Pontevedra',
+        'Salamanca',
+        'Santa Cruz de Tenerife',
+        'Segovia',
+        'Sevilla',
+        'Soria',
+        'Tarragona',
+        'Teruel',
+        'Toledo',
+        'Valencia',
+        'Valladolid',
+        'Vizcaya',
+        'Zamora',
+        'Zaragoza')
 
     city_formats = (
         '{{state_name}}',
@@ -48,7 +91,9 @@ class Provider(AddressProvider):
         return self.random_element(self.street_prefixes)
 
     def secondary_address(self):
-        return self.numerify(self.random_element(self.secondary_address_formats))
+        return self.numerify(
+            self.random_element(
+                self.secondary_address_formats))
 
     def state(self):
         return self.random_element(self.states)

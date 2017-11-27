@@ -13,8 +13,10 @@ _re_pattern_allow_dots = re.compile('[^\.\w\s-]', flags=re.U)
 _re_spaces = re.compile('[-\s]+', flags=re.U)
 
 
-_PROTECTED_TYPES = six.integer_types + (type(None), float, Decimal,
-    datetime.datetime, datetime.date, datetime.time)
+_PROTECTED_TYPES = six.integer_types + (
+    type(None), float, Decimal,
+    datetime.datetime, datetime.date, datetime.time,
+)
 
 
 def is_protected_type(obj):
@@ -84,6 +86,7 @@ def slugify(value, allow_dots=False, allow_unicode=False):
         value = unicodedata.normalize('NFKC', value)
         value = pattern.sub('', value).strip().lower()
         return _re_spaces.sub('-', value)
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+    value = unicodedata.normalize('NFKD', value).encode(
+        'ascii', 'ignore').decode('ascii')
     value = pattern.sub('', value).strip().lower()
     return _re_spaces.sub('-', value)

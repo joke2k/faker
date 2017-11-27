@@ -63,7 +63,10 @@ class Provider(AddressProvider):
 
     def postcode(self):
         """The code consists of five digits (01000-99999)"""
-        return '{}{}'.format(self.generator.random.randint(0, 10), self.generator.random.randint(1000, 10000))
+        return '{}{}'.format(
+            self.generator.random.randint(
+                0, 10), self.generator.random.randint(
+                1000, 10000))
 
     def street_prefix(self):
         return self.random_element(self.street_prefixes)

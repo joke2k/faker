@@ -91,7 +91,7 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
     )
     secondary_address_formats = ('### ###', '### Interior ###',
-        '### Edif. ### , Depto. ###')
+                                 '### Edif. ### , Depto. ###')
 
     def city_prefix(self):
         return self.random_element(self.city_prefixes)
@@ -112,7 +112,9 @@ class Provider(AddressProvider):
         """
         :example '020 Interior 999'
         """
-        return self.numerify(self.random_element(self.secondary_address_formats))
+        return self.numerify(
+            self.random_element(
+                self.secondary_address_formats))
 
     def state(self):
         """

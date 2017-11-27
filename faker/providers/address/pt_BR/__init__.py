@@ -5,15 +5,70 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_suffixes = (
-        'do Sul', 'do Norte', 'de Minas', 'do Campo', 'Grande', 'da Serra', 'do Oeste', 'de Goiás', 'Paulista',
-        'da Mata', 'Alegre', 'da Praia', 'das Flores', 'das Pedras', 'dos Dourados',
-        'do Amparo', 'do Galho', 'da Prata', 'Verde'
-    )
-    street_prefixes = ('Aeroporto', 'Alameda', 'Área', 'Avenida', 'Campo', 'Chácara', 'Colônia', 'Condomínio',
-                       'Conjunto', 'Distrito', 'Esplanada', 'Estação', 'Estrada', 'Favela', 'Fazenda', 'Feira',
-                       'Jardim', 'Ladeira', 'Lago', 'Lagoa', 'Largo', 'Loteamento', 'Morro', 'Núcleo', 'Parque',
-                       'Passarela', 'Pátio', 'Praça', 'Quadra', 'Recanto', 'Residencial', 'Rodovia', 'Rua', 'Setor',
-                       'Sítio', 'Travessa', 'Trecho', 'Trevo', 'Vale', 'Vereda', 'Via', 'Viaduto', 'Viela', 'Vila')
+        'do Sul',
+        'do Norte',
+        'de Minas',
+        'do Campo',
+        'Grande',
+        'da Serra',
+        'do Oeste',
+        'de Goiás',
+        'Paulista',
+        'da Mata',
+        'Alegre',
+        'da Praia',
+        'das Flores',
+        'das Pedras',
+        'dos Dourados',
+        'do Amparo',
+        'do Galho',
+        'da Prata',
+        'Verde')
+    street_prefixes = (
+        'Aeroporto',
+        'Alameda',
+        'Área',
+        'Avenida',
+        'Campo',
+        'Chácara',
+        'Colônia',
+        'Condomínio',
+        'Conjunto',
+        'Distrito',
+        'Esplanada',
+        'Estação',
+        'Estrada',
+        'Favela',
+        'Fazenda',
+        'Feira',
+        'Jardim',
+        'Ladeira',
+        'Lago',
+        'Lagoa',
+        'Largo',
+        'Loteamento',
+        'Morro',
+        'Núcleo',
+        'Parque',
+        'Passarela',
+        'Pátio',
+        'Praça',
+        'Quadra',
+        'Recanto',
+        'Residencial',
+        'Rodovia',
+        'Rua',
+        'Setor',
+        'Sítio',
+        'Travessa',
+        'Trecho',
+        'Trevo',
+        'Vale',
+        'Vereda',
+        'Via',
+        'Viaduto',
+        'Viela',
+        'Vila')
     city_formats = (
         '{{last_name}}',
         '{{last_name}}',
@@ -41,8 +96,7 @@ class Provider(AddressProvider):
     )
 
     address_formats = (
-        "{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}",
-    )
+        "{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}", )
 
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
 
@@ -191,12 +245,17 @@ class Provider(AddressProvider):
     )
 
     estados = (
-        ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
-        ('CE', 'Ceará'), ('DF', 'Distrito Federal'), ('ES', 'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'),
-        ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG', 'Minas Gerais'), ('PA', 'Pará'), ('PB', 'Paraíba'),
-        ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI', 'Piauí'), ('RJ', 'Rio de Janeiro'),
+        ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP',
+                                            'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
+        ('CE', 'Ceará'), ('DF', 'Distrito Federal'), ('ES',
+                                                      'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'),
+        ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG',
+                                                              'Minas Gerais'), ('PA', 'Pará'), ('PB', 'Paraíba'),
+        ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI',
+                                                 'Piauí'), ('RJ', 'Rio de Janeiro'),
         ('RN', 'Rio Grande do Norte'),
-        ('RS', 'Rio Grande do Sul'), ('RO', 'Rondônia'), ('RR', 'Roraima'), ('SC', 'Santa Catarina'),
+        ('RS', 'Rio Grande do Sul'), ('RO', 'Rondônia'), ('RR',
+                                                          'Roraima'), ('SC', 'Santa Catarina'),
         ('SP', 'São Paulo'),
         ('SE', 'Sergipe'), ('TO', 'Tocantins')
     )

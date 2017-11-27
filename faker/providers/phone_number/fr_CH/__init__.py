@@ -19,7 +19,7 @@ class Provider(PhoneNumberProvider):
         '+41 (0)6# ### ## ##',
         '+41 (0)7# ### ## ##',
         '+41 (0)8# ### ## ##',
-        '+41 (0)9# ### ## ##',        
+        '+41 (0)9# ### ## ##',
         '02# ### ## ##',
         '03# ### ## ##',
         '04# ### ## ##',
@@ -28,7 +28,7 @@ class Provider(PhoneNumberProvider):
         '07# ### ## ##',
         '08# ### ## ##',
         '09# ### ## ##',
-        #see: http://www.bakom.admin.ch/themen/telekom/00479/00607/index.html
+        # see: http://www.bakom.admin.ch/themen/telekom/00479/00607/index.html
         '084# ### ###',
         '0878 ### ###',
         '0900 ### ###',

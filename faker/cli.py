@@ -73,7 +73,8 @@ def print_doc(provider_or_field=None,
         if '.' in provider_or_field:
             parts = provider_or_field.split('.')
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
-            fake = Faker(locale, providers=[provider_or_field], includes=includes)
+            fake = Faker(locale, providers=[
+                         provider_or_field], includes=includes)
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
             print_provider(
@@ -83,7 +84,12 @@ def print_doc(provider_or_field=None,
                 output=output)
         else:
             try:
-                print(fake.format(provider_or_field, *args), end='', file=output)
+                print(
+                    fake.format(
+                        provider_or_field,
+                        *args),
+                    end='',
+                    file=output)
             except AttributeError:
                 raise ValueError('No faker found for "{0}({1})"'.format(
                     provider_or_field, args))

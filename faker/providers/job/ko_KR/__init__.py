@@ -6,7 +6,7 @@ from .. import Provider as BaseProvider
 # Reference : http://zetawiki.com/wiki/%ED%95%9C%EA%B5%AD%ED%91%9C%EC%A4%80%EC%A7%81%EC%97%85%EB%B6%84%EB%A5%98_%ED%91%9C
 # on 2017-08-30
 class Provider(BaseProvider):
-    jobs=[
+    jobs = [
         '의회의원/고위공무원 및 공공단체임원',
         '기업고위임원',
         '정부행정 관리자',

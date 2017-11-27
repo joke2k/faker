@@ -52,7 +52,7 @@ class Provider(BaseProvider):
         }
 
         d = dict(d, **self.generator.simple_profile(sex))
-        #field selection
+        # field selection
         if len(fields) > 0:
             d = dict((k, v) for (k, v) in d.items() if k in fields)
 

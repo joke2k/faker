@@ -78,9 +78,29 @@ class Provider(PersonProvider):
     # From https://en.wikipedia.org/wiki/Chinese_given_name#Common_Chinese_names,
     # with accents stripped
     first_romanized_names = (
-        'Chao', 'Fang', 'Gang', 'Guiying', 'Jie', 'Jing', 'Juan', 'Jun', 'Lei',
-        'Li', 'Min', 'Ming', 'Na', 'Ping', 'Qiang', 'Tao', 'Wei', 'Xia', 'Xiulan',
-        'Xiuying', 'Yang', 'Yong', 'Yan',
+        'Chao',
+        'Fang',
+        'Gang',
+        'Guiying',
+        'Jie',
+        'Jing',
+        'Juan',
+        'Jun',
+        'Lei',
+        'Li',
+        'Min',
+        'Ming',
+        'Na',
+        'Ping',
+        'Qiang',
+        'Tao',
+        'Wei',
+        'Xia',
+        'Xiulan',
+        'Xiuying',
+        'Yang',
+        'Yong',
+        'Yan',
     )
 
     # From https://en.wikipedia.org/wiki/List_of_common_Chinese_surnames

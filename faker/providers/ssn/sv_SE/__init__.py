@@ -35,7 +35,8 @@ class Provider(SsnProvider):
 
         min_age = 18 * 365
         max_age = 90 * 365
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age, max_age))
+        age = datetime.timedelta(
+            days=self.generator.random.randrange(min_age, max_age))
         birthday = datetime.datetime.now() - age
         pnr_date = birthday.strftime('%y%m%d')
         suffix = str(self.generator.random.randrange(0, 999)).zfill(3)

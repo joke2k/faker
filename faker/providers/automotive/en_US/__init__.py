@@ -3,8 +3,10 @@
 from __future__ import unicode_literals
 from .. import Provider as AutomotiveProvider
 
+
 class Provider(AutomotiveProvider):
-    # from https://en.wikipedia.org/wiki/United_States_license_plate_designs_and_serial_formats#Current_standard-issue_passenger_plate_designs_and_serial_formats
+    # from
+    # https://en.wikipedia.org/wiki/United_States_license_plate_designs_and_serial_formats#Current_standard-issue_passenger_plate_designs_and_serial_formats
     license_formats = (
         # Alabama
         '#??####',
@@ -89,7 +91,7 @@ class Provider(AutomotiveProvider):
         # Montana
         '#-#####?',
         '##-####?',
-        # Nebraska 
+        # Nebraska
         '??? ###',
         '#-?####',
         '##-?###',
@@ -105,7 +107,7 @@ class Provider(AutomotiveProvider):
         '???-###',
         # New York
         '???-####',
-        # North Carolina 
+        # North Carolina
         '###-????',
         # North Dakota
         '### ???',
@@ -133,7 +135,7 @@ class Provider(AutomotiveProvider):
         '##? ??#',
         # Tennessee
         '?##-##?',
-        # Texas 
+        # Texas
         '???-####',
         # Utah
         '?## #??',

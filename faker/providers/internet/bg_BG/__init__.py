@@ -16,11 +16,11 @@ class Provider(InternetProvider):
     )
 
     email_formats = (
-    	'{{user_name}}@{{free_email_domain}}',
-    	'{{user_name}}@{{domain_name}}')
+        '{{user_name}}@{{free_email_domain}}',
+        '{{user_name}}@{{domain_name}}')
 
     free_email_domains = (
-    	'gmail.com', 'yahoo.com', 'hotmail.com', 'mail.bg', 'abv.bg', 'dir.bg'
+        'gmail.com', 'yahoo.com', 'hotmail.com', 'mail.bg', 'abv.bg', 'dir.bg'
     )
 
     tlds = ('bg', 'com', 'biz', 'info', 'net', 'org', 'edu')

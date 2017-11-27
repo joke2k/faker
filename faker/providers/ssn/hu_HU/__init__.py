@@ -4,11 +4,13 @@ from .. import Provider as SsnProvider
 from functools import reduce
 from math import fmod
 
+
 def zfix(d):
     if d < 10:
         return "0" + str(d)
     else:
         return d
+
 
 class Provider(SsnProvider):
     def ssn(self, dob=None, gender=None):
@@ -112,15 +114,16 @@ class Provider(SsnProvider):
 
         H = zfix(H)
         N = zfix(N)
-        S = "{}{}{}".format(self.generator.random_digit(), self.generator.random_digit(), self.generator.random_digit())
+        S = "{}{}{}".format(self.generator.random_digit(
+        ), self.generator.random_digit(), self.generator.random_digit())
 
         vdig = "{M}{E}{H}{N}{S}".format(M=M, E=E, H=H, N=N, S=S)
 
         if 17 < E < 97:
-            cum = [(k+1) * int(v) for k,v in enumerate(vdig)]
+            cum = [(k + 1) * int(v) for k, v in enumerate(vdig)]
         else:
-            cum = [(10-k) * int(v) for k,v in enumerate(vdig)]
+            cum = [(10 - k) * int(v) for k, v in enumerate(vdig)]
 
-        K = fmod(reduce(lambda x,y: x+y, cum), 11)
+        K = fmod(reduce(lambda x, y: x + y, cum), 11)
 
         return vdig + str(int(K))

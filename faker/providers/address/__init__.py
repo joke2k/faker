@@ -83,11 +83,13 @@ class Provider(BaseProvider):
         Optionally center the coord and pick a point within radius.
         """
         if center is None:
-            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000.0)).quantize(Decimal('.000001'))
+            return Decimal(str(self.generator.random.randint(-180000000,
+                                                             180000000) / 1000000.0)).quantize(Decimal('.000001'))
         else:
             center = float(center)
             radius = float(radius)
-            geo = self.generator.random.uniform(center - radius, center + radius)
+            geo = self.generator.random.uniform(
+                center - radius, center + radius)
             return Decimal(str(geo)).quantize(Decimal('.000001'))
 
     def latitude(self):

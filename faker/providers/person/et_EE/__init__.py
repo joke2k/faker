@@ -29,7 +29,7 @@ class Provider(PersonProvider):
     first_names_male_est = ('Aivar', 'Aleksander', 'Alexander', 'Andres',
                             'Andrus', 'Ants', 'Indrek', 'Jaan', 'Jaanus',
                             'Jüri', 'Kristjan', 'Marek', 'Margus', 'Marko',
-                            'Martin', 'Mati', 'Meelis', 'Mihkel',  'Peeter',
+                            'Martin', 'Mati', 'Meelis', 'Mihkel', 'Peeter',
                             'Priit', 'Raivo', 'Rein', 'Sander', 'Siim', 'Tarmo',
                             'Tiit', 'Toomas', 'Tõnu', 'Urmas', 'Vello')
 
@@ -68,7 +68,7 @@ class Provider(PersonProvider):
                       'Anton', 'Arro', 'Aru', 'Arula', 'Aun', 'Aus', 'Eller',
                       'Erik', 'Erm', 'Ernits', 'Gross', 'Hallik', 'Hansen',
                       'Hanson', 'Hein', 'Heinsalu', 'Heinsoo', 'Holm', 'Hunt',
-                      'Härm', 'Ilves', 'Ivask','Jaakson', 'Jaanson', 'Jaanus',
+                      'Härm', 'Ilves', 'Ivask', 'Jaakson', 'Jaanson', 'Jaanus',
                       'Jakobson', 'Jalakas', 'Johanson', 'Juhanson', 'Juhkam',
                       'Jänes', 'Järv', 'Järve', 'Jõe', 'Jõesaar', 'Jõgi',
                       'Jürgens', 'Jürgenson', 'Jürisson', 'Kaasik', 'Kadak',

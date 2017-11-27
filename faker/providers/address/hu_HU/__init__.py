@@ -8,24 +8,33 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     street_suffixes = OrderedDict(
-            (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001),))
+        (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001),))
 
-    street_name_formats = ('{{frequent_street_name}} {{street_suffix}}', '{{real_city_name}}i {{street_suffix}}',
-                           '{{city_part}}{{city_suffix}}i {{street_suffix}}',
-                           '{{city_prefix}}{{city_part}}i {{street_suffix}}')
+    street_name_formats = (
+        '{{frequent_street_name}} {{street_suffix}}',
+        '{{real_city_name}}i {{street_suffix}}',
+        '{{city_part}}{{city_suffix}}i {{street_suffix}}',
+        '{{city_prefix}}{{city_part}}i {{street_suffix}}')
 
     #   Currently deprecated.
     #   secondary_address_formats = ("#.em #.", "##. em. #.")
 
-
-    city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}', '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
+    city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}',
+                    '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
 
     street_address_formats = ('{{street_name}} {{building_number}}',)
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
     frequent_street_names = (
-        'Ady Endre', 'Dózsa György', 'Petőfi', 'Petőfi Sándor', 'Arany János', 'Béke', 'Szabadság', 'Kossuth',
+        'Ady Endre',
+        'Dózsa György',
+        'Petőfi',
+        'Petőfi Sándor',
+        'Arany János',
+        'Béke',
+        'Szabadság',
+        'Kossuth',
         'József Attila')
 
     # The 'real city name' generator includes a number of real cities of
@@ -41,28 +50,133 @@ class Provider(AddressProvider):
     # of 01 January 2016 (http://www.ksh.hu/docs/hun/hnk/hnk_2016.pdf).
 
     real_city_names = (
-        'Budapest', 'Debrecen', 'Szeged', 'Miskolc', 'Pécs', 'Győr', 'Nyíregyháza', 'Kecskemét', 'Székesfehérvár',
-        'Szombathely', 'Szolnok', 'Tatabánya', 'Érd', 'Kaposvár', 'Sopron', 'Veszprém', 'Békéscsaba', 'Zalaegerszeg',
-        'Eger', 'Nagykanizsa', 'Dunaújváros', 'Hódmezővásárhely', 'Dunakeszi', 'Szigetszentmiklós', 'Cegléd', 'Baja',
-        'Salgótarján', 'Ózd', 'Vác', 'Mosonmagyaróvár')
+        'Budapest',
+        'Debrecen',
+        'Szeged',
+        'Miskolc',
+        'Pécs',
+        'Győr',
+        'Nyíregyháza',
+        'Kecskemét',
+        'Székesfehérvár',
+        'Szombathely',
+        'Szolnok',
+        'Tatabánya',
+        'Érd',
+        'Kaposvár',
+        'Sopron',
+        'Veszprém',
+        'Békéscsaba',
+        'Zalaegerszeg',
+        'Eger',
+        'Nagykanizsa',
+        'Dunaújváros',
+        'Hódmezővásárhely',
+        'Dunakeszi',
+        'Szigetszentmiklós',
+        'Cegléd',
+        'Baja',
+        'Salgótarján',
+        'Ózd',
+        'Vác',
+        'Mosonmagyaróvár')
 
     city_prefs = (
-        'kis', 'nagy', 'szent', 'duna', 'tisza', 'alsó', 'felső', 'belső', 'bakony', 'vác', 'mező', 'nyék', 'nyír',
-        'balaton', 'borsod', 'buda', 'hajdú', 'kun', 'moson', 'pilis', 'új', 'egyházas', 'dráva', 'magyar', 'mátra',
-        'somogy', 'lajos', 'bács', 'békés', 'puszta', 'orosz', 'rác', 'szerb', 'német', 'török')
+        'kis',
+        'nagy',
+        'szent',
+        'duna',
+        'tisza',
+        'alsó',
+        'felső',
+        'belső',
+        'bakony',
+        'vác',
+        'mező',
+        'nyék',
+        'nyír',
+        'balaton',
+        'borsod',
+        'buda',
+        'hajdú',
+        'kun',
+        'moson',
+        'pilis',
+        'új',
+        'egyházas',
+        'dráva',
+        'magyar',
+        'mátra',
+        'somogy',
+        'lajos',
+        'bács',
+        'békés',
+        'puszta',
+        'orosz',
+        'rác',
+        'szerb',
+        'német',
+        'török')
 
     city_parts = (
-        'híd', 'györgy', 'mindszent', 'kereszt', 'márton', 'hát', 'hetven', 'mellék', 'tamási', 'tapolca', 'fürdő',
-        'liget', 'szék', 'tót', '')
+        'híd',
+        'györgy',
+        'mindszent',
+        'kereszt',
+        'márton',
+        'hát',
+        'hetven',
+        'mellék',
+        'tamási',
+        'tapolca',
+        'fürdő',
+        'liget',
+        'szék',
+        'tót',
+        '')
 
     city_suffixes = (
-        'háza', 'németi', 'devecser', 'fa', 'nádasd', 'apáti', 'falu', 'falva', 'vég', 'vár', 'vára', 'várad', 'hida',
-        'kövesd', 'bánya', 'halas', 'berény', 'kőrös', 'haraszti', 'város')
+        'háza',
+        'németi',
+        'devecser',
+        'fa',
+        'nádasd',
+        'apáti',
+        'falu',
+        'falva',
+        'vég',
+        'vár',
+        'vára',
+        'várad',
+        'hida',
+        'kövesd',
+        'bánya',
+        'halas',
+        'berény',
+        'kőrös',
+        'haraszti',
+        'város')
 
     counties = (
-    'Bács-Kiskun', 'Baranya', 'Békés', 'Borsod-Abaúj-Zemplén', 'Csongrád', 'Fejér', 'Győr-Moson-Sopron', 'Hajdú-Bihar',
-    'Heves', 'Jász-Nagykun-Szolnok', 'Komárom-Esztergom', 'Nógrád', 'Pest', 'Somogy', 'Szabolcs-Szatmár-Bereg', 'Tolna',
-    'Vas', 'Veszprém', 'Zala')
+        'Bács-Kiskun',
+        'Baranya',
+        'Békés',
+        'Borsod-Abaúj-Zemplén',
+        'Csongrád',
+        'Fejér',
+        'Győr-Moson-Sopron',
+        'Hajdú-Bihar',
+        'Heves',
+        'Jász-Nagykun-Szolnok',
+        'Komárom-Esztergom',
+        'Nógrád',
+        'Pest',
+        'Somogy',
+        'Szabolcs-Szatmár-Bereg',
+        'Tolna',
+        'Vas',
+        'Veszprém',
+        'Zala')
 
     countries = (
         "Afganisztán", "Aland-szigetek", "Albánia", "Algéria", "Amerikai Szamoa", "Amerikai Virgin-szigetek", "Andorra",
@@ -103,10 +217,11 @@ class Provider(AddressProvider):
         return self.random_element(self.counties)
 
     def street_address_with_county(self):
-        return "{street_address}\n{county} megye\n{postcode} {city}".format(street_address=self.street_address(),
-                                                                            county=self.county(),
-                                                                            postcode=self.postcode(),
-                                                                            city=self.city().capitalize())
+        return "{street_address}\n{county} megye\n{postcode} {city}".format(
+            street_address=self.street_address(),
+            county=self.county(),
+            postcode=self.postcode(),
+            city=self.city().capitalize())
 
     def city_prefix(self):
         return self.random_element(self.city_prefs)
@@ -121,9 +236,12 @@ class Provider(AddressProvider):
         return self.random_element(self.frequent_street_names)
 
     def postcode(self):
-        return "H-{}{}{}{}".format(super(Provider, self).random_digit_not_null(), super(Provider, self).random_digit(),
-                                   super(Provider, self).random_digit(),
-                                   super(Provider, self).random_digit())
+        return "H-{}{}{}{}".format(
+            super(
+                Provider, self).random_digit_not_null(), super(
+                Provider, self).random_digit(), super(
+                Provider, self).random_digit(), super(
+                    Provider, self).random_digit())
 
     def street_name(self):
         return super(Provider, self).street_name().capitalize()

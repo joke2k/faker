@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from .. import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     formats_male = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.97),
@@ -93,7 +94,7 @@ class Provider(PersonProvider):
         'Олимпиада', 'Ольга', 'Пелагея', 'Полина', 'Прасковья', 'Раиса',
         'Регина', 'Светлана', 'Синклитикия', 'София', 'Таисия', 'Тамара',
         'Татьяна', 'Ульяна', 'Фаина', 'Феврония', 'Фёкла', 'Элеонора', 'Эмилия', 'Юлия'
-        )
+    )
 
     first_names = first_names_male + first_names_female
 

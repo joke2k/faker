@@ -89,7 +89,9 @@ class Provider(AddressProvider):
         return self.generator.parse(pattern)
 
     def street_prefix(self):
-        return self.random_element(self.street_prefixes_short + self.street_prefixes_long)
+        return self.random_element(
+            self.street_prefixes_short +
+            self.street_prefixes_long)
 
     def street_prefix_short(self):
         return self.random_element(self.street_prefixes_short)
@@ -111,22 +113,67 @@ class Provider(AddressProvider):
 
     def latitude(self):
         l = list(map(lambda t: int(t[0] * 10000000), self.poly))
-        return Decimal(str(self.generator.random.randint(min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+        return Decimal(str(self.generator.random.randint(
+            min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
 
     def longitude(self):
         l = list(map(lambda t: int(t[1] * 10000000), self.poly))
-        return Decimal(str(self.generator.random.randint(min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+        return Decimal(str(self.generator.random.randint(
+            min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
 
     # Ονόματα πρωτευουσών νομών
     cities = (
-        'Άμφισσα', 'Άρτα', 'Έδεσσα', 'Αγ. Νικόλαος', 'Αθήνα', 'Αλεξανδρούπολη',
-        'Αργοστόλι', 'Βέροια', 'Βόλος', 'Γρεβενά', 'Δράμα', 'Ερμούπολη', 'Ζάκυνθος',
-        'Ηγουμενίτσα', 'Ηράκλειο', 'Θεσσαλονίκη', 'Ιωάννινα', 'Κέρκυρα', 'Καβάλα',
-        'Καλαμάτα', 'Καρδίτσα', 'Καρπενήσι', 'Καστοριά', 'Κατερίνη', 'Κιλκίς',
-        'Κοζάνη', 'Κομοτηνή', 'Κόρινθος', 'Λάρισα', 'Λαμία', 'Λευκάδα', 'Λιβαδιά',
-        'Μεσολόγγι', 'Μυτιλήνη', 'Ναύπλιο', 'Ξάνθη', 'Πάτρα', 'Πολύγυρος',
-        'Πρέβεζα', 'Πύργος', 'Ρέθυμνο', 'Ρόδος', 'Σάμος', 'Σέρρες', 'Σπάρτη',
-        'Τρίκαλα', 'Τρίπολη', 'Φλώρινα', 'Χίος', 'Χαλκίδα', 'Χανιά',
+        'Άμφισσα',
+        'Άρτα',
+        'Έδεσσα',
+        'Αγ. Νικόλαος',
+        'Αθήνα',
+        'Αλεξανδρούπολη',
+        'Αργοστόλι',
+        'Βέροια',
+        'Βόλος',
+        'Γρεβενά',
+        'Δράμα',
+        'Ερμούπολη',
+        'Ζάκυνθος',
+        'Ηγουμενίτσα',
+        'Ηράκλειο',
+        'Θεσσαλονίκη',
+        'Ιωάννινα',
+        'Κέρκυρα',
+        'Καβάλα',
+        'Καλαμάτα',
+        'Καρδίτσα',
+        'Καρπενήσι',
+        'Καστοριά',
+        'Κατερίνη',
+        'Κιλκίς',
+        'Κοζάνη',
+        'Κομοτηνή',
+        'Κόρινθος',
+        'Λάρισα',
+        'Λαμία',
+        'Λευκάδα',
+        'Λιβαδιά',
+        'Μεσολόγγι',
+        'Μυτιλήνη',
+        'Ναύπλιο',
+        'Ξάνθη',
+        'Πάτρα',
+        'Πολύγυρος',
+        'Πρέβεζα',
+        'Πύργος',
+        'Ρέθυμνο',
+        'Ρόδος',
+        'Σάμος',
+        'Σέρρες',
+        'Σπάρτη',
+        'Τρίκαλα',
+        'Τρίπολη',
+        'Φλώρινα',
+        'Χίος',
+        'Χαλκίδα',
+        'Χανιά',
     )
 
     # Ονόματα νομών

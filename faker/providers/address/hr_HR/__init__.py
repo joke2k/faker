@@ -12,7 +12,7 @@ class Provider(AddressProvider):
     address_formats = ('{{street_address}}\n{{postcode}} {{city}}', )
 
     building_number_formats = ('###', '##', '#', '#a', '#b', '#c',
-        '#a/#', '#b/#', '#c/#')
+                               '#a/#', '#b/#', '#c/#')
 
     postcode_formats = ('#####', )
 

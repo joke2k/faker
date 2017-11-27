@@ -14,7 +14,13 @@ from faker.utils.loading import list_module
 class Factory(object):
 
     @classmethod
-    def create(cls, locale=None, providers=None, generator=None, includes=None, **config):
+    def create(
+            cls,
+            locale=None,
+            providers=None,
+            generator=None,
+            includes=None,
+            **config):
         if includes is None:
             includes = []
 
@@ -74,7 +80,8 @@ class Factory(object):
         if getattr(provider_module, 'localized', False):
             available_locales = list_module(provider_module)
             if not locale or locale not in available_locales:
-                locale = getattr(provider_module, 'default_locale', DEFAULT_LOCALE)
+                locale = getattr(
+                    provider_module, 'default_locale', DEFAULT_LOCALE)
 
             path = "{provider_path}.{locale}".format(
                 provider_path=provider_path,

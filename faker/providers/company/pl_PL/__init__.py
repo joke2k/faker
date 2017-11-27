@@ -105,7 +105,8 @@ class Provider(CompanyProvider):
 
         check_digit = company_vat_checksum(vat_digits)
 
-        # in this case we must generate a tax number again, because check_digit cannot be 10
+        # in this case we must generate a tax number again, because check_digit
+        # cannot be 10
         if check_digit == 10:
             return self.company_vat()
 

@@ -5,7 +5,8 @@ import pkgutil
 
 def list_module(module):
     path = os.path.dirname(module.__file__)
-    modules = [name for finder, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
+    modules = [name for finder, name,
+               is_pkg in pkgutil.iter_modules([path]) if is_pkg]
     return modules
 
 
@@ -24,7 +25,9 @@ def find_available_locales(providers):
 def find_available_providers(modules):
     available_providers = set()
     for providers_mod in modules:
-        providers = ['.'.join([providers_mod.__package__, mod])
-                     for mod in list_module(providers_mod) if mod != '__pycache__']
+        providers = [
+            '.'.join([providers_mod.__package__, mod])
+            for mod in list_module(providers_mod) if mod != '__pycache__'
+        ]
         available_providers.update(providers)
     return sorted(available_providers)

@@ -34,7 +34,8 @@ class Provider(BaseProvider):
         return getattr(self, name)()
 
     def chrome(self):
-        saf = str(self.generator.random.randint(531, 536)) + str(self.generator.random.randint(0, 2))
+        saf = str(self.generator.random.randint(531, 536)) + \
+            str(self.generator.random.randint(0, 2))
         tmplt = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                 ' Chrome/{2}.0.{3}.0 Safari/{4}'
         platforms = (
@@ -61,13 +62,18 @@ class Provider(BaseProvider):
         ver = (
             'Gecko/{0} Firefox/{1}.0'.format(
                 self.generator.date_time_between(
-                    datetime(2011, 1, 1)), self.generator.random.randint(4, 15)),
+                    datetime(2011, 1, 1)
+                ),
+                self.generator.random.randint(4, 15)
+            ),
             'Gecko/{0} Firefox/3.6.{1}'.format(
                 self.generator.date_time_between(
-                    datetime(2010, 1, 1)), self.generator.random.randint(1, 20)),
+                    datetime(2010, 1, 1)
+                ),
+                self.generator.random.randint(1, 20)),
             'Gecko/{0} Firefox/3.8'.format(
-                self.generator.date_time_between(
-                    datetime(2010, 1, 1)), ),
+                self.generator.date_time_between(datetime(2010, 1, 1)),
+            ),
         )
         tmplt_win = '({0}; {1}; rv:1.9.{2}.20) {3}'
         tmplt_lin = '({0}; rv:1.9.{1}.20) {2}'
@@ -130,7 +136,8 @@ class Provider(BaseProvider):
     def opera(self):
         platform = '({0}; {1}) Presto/2.9.{2} Version/{3}.00'.format(
             (
-                self.linux_platform_token() if self.generator.random.getrandbits(1)
+                self.linux_platform_token()
+                if self.generator.random.getrandbits(1)
                 else self.windows_platform_token()
             ),
             self.generator.locale().replace('_', '-'),
@@ -160,4 +167,6 @@ class Provider(BaseProvider):
     def mac_platform_token(self):
         return 'Macintosh; {0} Mac OS X 10_{1}_{2}'.format(
             self.random_element(self.mac_processors),
-            self.generator.random.randint(5, 8), self.generator.random.randint(0, 9))
+            self.generator.random.randint(5, 8),
+            self.generator.random.randint(0, 9),
+        )

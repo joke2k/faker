@@ -12,8 +12,7 @@ class Provider(CompanyProvider):
     )
 
     catch_phrase_formats = (
-        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}',
-    )
+        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}', )
 
     nouns = (
         'a segurança', 'o prazer', 'o conforto', 'a simplicidade', 'a certeza',

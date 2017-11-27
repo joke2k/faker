@@ -89,9 +89,14 @@ class Provider(BaseProvider):
 
         :rtype: list
         """
-        return [self.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
+        return [self.sentence(ext_word_list=ext_word_list)
+                for _ in range(0, nb)]
 
-    def paragraph(self, nb_sentences=3, variable_nb_sentences=True, ext_word_list=None):
+    def paragraph(
+            self,
+            nb_sentences=3,
+            variable_nb_sentences=True,
+            ext_word_list=None):
         """
         :returns: A single paragraph. For example: 'Sapiente sunt omnis. Ut
             pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
@@ -129,7 +134,8 @@ class Provider(BaseProvider):
         :rtype: list
         """
 
-        return [self.paragraph(ext_word_list=ext_word_list) for _ in range(0, nb)]
+        return [self.paragraph(ext_word_list=ext_word_list)
+                for _ in range(0, nb)]
 
     def text(self, max_nb_chars=200, ext_word_list=None):
         """
@@ -145,15 +151,18 @@ class Provider(BaseProvider):
         """
         text = []
         if max_nb_chars < 5:
-            raise ValueError('text() can only generate text of at least 5 characters')
+            raise ValueError(
+                'text() can only generate text of at least 5 characters')
 
         if max_nb_chars < 25:
             # join words
             while not text:
                 size = 0
-                # determine how many words are needed to reach the $max_nb_chars once;
+                # determine how many words are needed to reach the $max_nb_chars
+                # once;
                 while size < max_nb_chars:
-                    word = (self.word_connector if size else '') + self.word(ext_word_list=ext_word_list)
+                    word = (self.word_connector if size else '') + \
+                        self.word(ext_word_list=ext_word_list)
                     text.append(word)
                     size += len(word)
                 text.pop()
@@ -164,9 +173,11 @@ class Provider(BaseProvider):
             # join sentences
             while not text:
                 size = 0
-                # determine how many sentences are needed to reach the $max_nb_chars once
+                # determine how many sentences are needed to reach the
+                # $max_nb_chars once
                 while size < max_nb_chars:
-                    sentence = (self.word_connector if size else '') + self.sentence(ext_word_list=ext_word_list)
+                    sentence = (self.word_connector if size else '') + \
+                        self.sentence(ext_word_list=ext_word_list)
                     text.append(sentence)
                     size += len(sentence)
                 text.pop()
@@ -174,9 +185,11 @@ class Provider(BaseProvider):
             # join paragraphs
             while not text:
                 size = 0
-                # determine how many paragraphs are needed to reach the $max_nb_chars once
+                # determine how many paragraphs are needed to reach the
+                # $max_nb_chars once
                 while size < max_nb_chars:
-                    paragraph = ('\n' if size else '') + self.paragraph(ext_word_list=ext_word_list)
+                    paragraph = ('\n' if size else '') + \
+                        self.paragraph(ext_word_list=ext_word_list)
                     text.append(paragraph)
                     size += len(paragraph)
                 text.pop()

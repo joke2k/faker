@@ -23,7 +23,8 @@ class Provider(PersonProvider):
         '{{prefix_female}} {{first_name_female}} {{last_name}}'
     )
 
-    # Names from http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-243767
+    # Names from
+    # http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-243767
 
     first_names_male = (
         'David', 'Paul', 'Christopher', 'Thomas', 'John', 'Mark', 'James',

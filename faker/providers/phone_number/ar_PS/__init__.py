@@ -3,7 +3,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
-    # Source: https://en.wikipedia.org/wiki/Telephone_numbers_in_the_State_of_Palestine
+    # Source:
+    # https://en.wikipedia.org/wiki/Telephone_numbers_in_the_State_of_Palestine
 
     cellphone_formats = (
         '{{country_code}} {{provider_code}} ### ####',
@@ -104,9 +105,9 @@ class Provider(PhoneNumberProvider):
     )
 
     formats = cellphone_formats + \
-              telephone_formats + \
-              services_phones_formats + \
-              toll_foramts
+        telephone_formats + \
+        services_phones_formats + \
+        toll_foramts
 
     def provider_code(self):
         return self.random_element([

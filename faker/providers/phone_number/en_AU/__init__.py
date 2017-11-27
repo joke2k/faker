@@ -24,7 +24,8 @@ class Provider(PhoneNumberProvider):
         '+61-{{area_code}}-####-####',
         '+61.{{area_code}}.####.####',
         '+61{{area_code}}########',
-        # 04 Mobile telephones (Australia-wide) mostly commonly written 4 - 3 - 3 instead of 2 - 4 - 4
+        # 04 Mobile telephones (Australia-wide) mostly commonly written 4 - 3 -
+        # 3 instead of 2 - 4 - 4
         '04## ### ###',
         '04##-###-###',
         '04##.###.###',

@@ -4,7 +4,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     # Source: https://en.wikipedia.org/wiki/Telephone_numbers_in_Jordan
-    
+
     cellphone_formats = (
         '+9627{{operator_id}}#######',
         '+962 7 {{operator_id}}### ####',
@@ -27,8 +27,8 @@ class Provider(PhoneNumberProvider):
     )
 
     formats = cellphone_formats + \
-              telephone_formats + \
-              services_phones_formats
+        telephone_formats + \
+        services_phones_formats
 
     def operator_id(self):
         return self.random_element([

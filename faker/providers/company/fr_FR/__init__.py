@@ -12,24 +12,46 @@ class Provider(CompanyProvider):
     )
 
     catch_phrase_formats = (
-        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}',
-    )
+        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}', )
 
     nouns = (
-        'la sécurité', 'le plaisir', 'le confort', 'la simplicité', "l'assurance", "l'art", 'le pouvoir', 'le droit',
-        'la possibilité', "l'avantage", 'la liberté'
-    )
+        'la sécurité',
+        'le plaisir',
+        'le confort',
+        'la simplicité',
+        "l'assurance",
+        "l'art",
+        'le pouvoir',
+        'le droit',
+        'la possibilité',
+        "l'avantage",
+        'la liberté')
 
     verbs = (
-        'de rouler', "d'avancer", "d'évoluer", 'de changer', "d'innover", 'de louer', "d'atteindre vos buts",
-        'de concrétiser vos projets'
-    )
+        'de rouler',
+        "d'avancer",
+        "d'évoluer",
+        'de changer',
+        "d'innover",
+        'de louer',
+        "d'atteindre vos buts",
+        'de concrétiser vos projets')
 
     attributes = (
-        'de manière efficace', 'plus rapidement', 'plus facilement', 'plus simplement', 'en toute tranquilité',
-        'avant-tout', 'autrement', 'naturellement', 'à la pointe', 'sans soucis', "à l'état pur",
-        'à sa source', 'de manière sûre', 'en toute sécurité'
-    )
+        'de manière efficace',
+        'plus rapidement',
+        'plus facilement',
+        'plus simplement',
+        'en toute tranquilité',
+        'avant-tout',
+        'autrement',
+        'naturellement',
+        'à la pointe',
+        'sans soucis',
+        "à l'état pur",
+        'à sa source',
+        'de manière sûre',
+        'en toute sécurité')
 
     company_suffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
@@ -83,7 +105,8 @@ class Provider(CompanyProvider):
             begin_pos = catch_phrase.find(word)
             end_pos = catch_phrase.find(word, begin_pos + 1)
 
-            if begin_pos != -1 and begin_pos != end_pos: return False
+            if begin_pos != -1 and begin_pos != end_pos:
+                return False
 
         return True
 
@@ -104,5 +127,6 @@ class Provider(CompanyProvider):
         if max_sequential_digits > 4 or max_sequential_digits <= 0:
             max_sequential_digits = 2
 
-        sequential_number = str(self.random_number(max_sequential_digits)).zfill(4)
+        sequential_number = str(self.random_number(
+            max_sequential_digits)).zfill(4)
         return self.numerify(self.siren() + ' ' + sequential_number + '#')

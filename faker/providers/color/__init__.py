@@ -164,7 +164,11 @@ class Provider(BaseProvider):
         return self.random_element(self.safe_colors)
 
     def hex_color(self):
-        return "#{0}".format(("%x" % self.random_int(1, 16777215)).ljust(6, '0'))
+        return "#{0}".format(
+            ("%x" %
+             self.random_int(
+                 1, 16777215)).ljust(
+                6, '0'))
 
     def safe_hex_color(self):
         color = ("%x" % self.random_int(0, 255)).ljust(3, '0')
@@ -174,4 +178,5 @@ class Provider(BaseProvider):
         return ','.join(map(str, (self.random_int(0, 255) for _ in range(3))))
 
     def rgb_css_color(self):
-        return 'rgb(%s)' % ','.join(map(str, (self.random_int(0, 255) for _ in range(3))))
+        return 'rgb(%s)' % ','.join(
+            map(str, (self.random_int(0, 255) for _ in range(3))))

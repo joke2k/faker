@@ -8,7 +8,8 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Source: https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saudi_Arabia
+    # Source:
+    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saudi_Arabia
     LICENSE_FORMAT_EN = '#### ???'
     LICENSE_FORMAT_AR = '? ? ? ####'
 
@@ -77,5 +78,3 @@ class Provider(AutomotiveProvider):
         ar_palate = self._translate_license_plate(en_palate)
 
         return en_palate, ar_palate
-
-

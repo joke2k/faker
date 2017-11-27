@@ -24,7 +24,8 @@ class Provider(PersonProvider):
         '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix}}',
     )
 
-    # From http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
+    # From
+    # http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
     first_names_male = (
         'Abbas', 'Abdul', 'Abdullah', 'Abraham', 'Abram', 'Achim', 'Ada',
         'Adalbert', 'Adam', 'Adelbert', 'Adem', 'Adolf', 'Adrian', 'Ahmad',
@@ -186,7 +187,8 @@ class Provider(PersonProvider):
         'Zenon', 'Zlatko', 'Zoltan', 'Zoran',
     )
 
-    # From http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_weiblichen_Vornamen_Deutschlands
+    # From
+    # http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_weiblichen_Vornamen_Deutschlands
     first_names_female = (
         'Adele', 'Adelgunde', 'Adelheid', 'Adelinde', 'Adeline', 'Adina',
         'Adolfine', 'Adriana', 'Adriane', 'Aenne', 'Änne', 'Agata', 'Agatha',

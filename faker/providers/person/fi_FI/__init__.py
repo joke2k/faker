@@ -30,7 +30,8 @@ class Provider(PersonProvider):
 
     suffixes = ('DI', 'PhD', 'MSc', 'BSc')
 
-    # List of most popular given names in Finland: https://www.avoindata.fi/data/en/dataset/none/resource/d35f8973-53da-4b66-8a49-bc2fee1a2996
+    # List of most popular given names in Finland:
+    # https://www.avoindata.fi/data/en/dataset/none/resource/d35f8973-53da-4b66-8a49-bc2fee1a2996
     first_names_female = OrderedDict((
         ('Aada', 0.001877),
         ('Aila', 0.002778),
@@ -437,7 +438,8 @@ class Provider(PersonProvider):
     first_names = first_names_male.copy()
     first_names.update(first_names_female)
 
-    # List of most popular last names in Finland: https://www.avoindata.fi/data/en/dataset/none/resource/d25831d1-82a9-476f-8f7c-374c348efc14
+    # List of most popular last names in Finland:
+    # https://www.avoindata.fi/data/en/dataset/none/resource/d25831d1-82a9-476f-8f7c-374c348efc14
     last_names = OrderedDict((
         ('Aalto', 0.004189),
         ('Aaltonen', 0.004828),

@@ -153,4 +153,3 @@ class Provider(ColorProvider):
         'violet', 'sarcelle', 'bleu', 'argent',
         'gris', 'jaune', 'fuchsia', 'cyan', 'blanc'
     )
-

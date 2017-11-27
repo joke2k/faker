@@ -3,14 +3,15 @@ from __future__ import unicode_literals
 
 from .. import Provider as AddressProvider
 
+
 class Provider(AddressProvider):
     #city_suffixes = []
-    street_suffixes = [ 'ул.', ]
+    street_suffixes = ['ул.', ]
     city_formats = ('{{city_prefix}} {{city_name}}', )
     street_name_formats = ('{{street_suffix}} {{street_title}}', )
     street_address_formats = ('{{street_name}}, д. {{building_number}}', )
     address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
-    #building_number_formats = ('##', )
+    # building_number_formats = ('##', )
     postcode_formats = ('######', )
 
     city_prefixes = (

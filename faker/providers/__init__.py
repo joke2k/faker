@@ -80,13 +80,15 @@ class BaseProvider(object):
         if digits is None:
             digits = self.random_digit()
         if fix_len:
-            return self.generator.random.randint(pow(10, digits - 1), pow(10, digits) - 1)
+            return self.generator.random.randint(
+                pow(10, digits - 1), pow(10, digits) - 1)
         else:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
     def random_letter(self):
         """Returns a random letter (between a-z and A-Z)."""
-        return self.generator.random.choice(getattr(string, 'letters', string.ascii_letters))
+        return self.generator.random.choice(
+            getattr(string, 'letters', string.ascii_letters))
 
     def random_element(self, elements=('a', 'b', 'c')):
         """
@@ -108,7 +110,10 @@ class BaseProvider(object):
         if isinstance(elements, dict):
             choices = elements.keys()
             probabilities = elements.values()
-            return choice_distribution(list(choices), list(probabilities), self.generator.random)
+            return choice_distribution(
+                list(choices),
+                list(probabilities),
+                self.generator.random)
         else:
             return self.generator.random.choice(list(elements))
 
@@ -128,7 +133,8 @@ class BaseProvider(object):
             length = self.generator.random.randint(1, len(elements))
 
         if length > len(elements):
-            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
+            raise ValueError(
+                "Sample length cannot be longer than the number of unique elements to pick from.")
         sample = set()
         for _ in range(length):
             element = self.random_element(elements)
@@ -136,7 +142,13 @@ class BaseProvider(object):
             elements.pop(element)
         return sample
 
-    def randomize_nb_elements(self, number=10, le=False, ge=False, min=None, max=None):
+    def randomize_nb_elements(
+            self,
+            number=10,
+            le=False,
+            ge=False,
+            min=None,
+            max=None):
         """
         Returns a random value near number.
 

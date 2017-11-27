@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from .. import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     formats = (
         '{{first_name_male}} {{last_name}}',
@@ -122,4 +123,3 @@ class Provider(PersonProvider):
     prefixes_female = (
         'Fru', 'Dr.', 'Prof.', 'Univ.Prof.'
     )
-

@@ -8,6 +8,7 @@ For more info on rijksregisternummer, see https://nl.wikipedia.org/wiki/Rijksreg
 Dutch/French only for now ...
 """
 
+
 class Provider(SsnProvider):
 
     def ssn(self):
@@ -41,7 +42,7 @@ class Provider(SsnProvider):
         # Only keep the last 2 digits of the year
         elms[0] = elms[0][2:4]
         # Simulate the gender/sequence - should be 3 digits
-        seq = self.generator.random_int(1,998)
+        seq = self.generator.random_int(1, 998)
         # Right justify sequence and append to list
         seq_str = "{:0>3}".format(seq)
         elms.append(seq_str)

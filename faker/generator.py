@@ -23,7 +23,7 @@ class Generator(object):
 
     def add_provider(self, provider):
 
-        if type(provider) is type:
+        if isinstance(provider, type):
             provider = provider(self)
 
         self.providers.insert(0, provider)
@@ -59,7 +59,8 @@ class Generator(object):
     def seed_instance(self, seed=None):
         """Calls random.seed"""
         if self.__random == random:
-            # create per-instance random obj when first time seed_instance() is called
+            # create per-instance random obj when first time seed_instance() is
+            # called
             self.__random = random_module.Random()
         self.__random.seed(seed)
         return self

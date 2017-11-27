@@ -6,7 +6,8 @@ from .. import Provider as SsnProvider
 class Provider(SsnProvider):
 
     # in order to create a valid SIN we need to provide a number that passes a simple modified Luhn Algorithmn checksum
-    # this function essentially reverses the checksum steps to create a random valid SIN (Social Insurance Number)
+    # this function essentially reverses the checksum steps to create a random
+    # valid SIN (Social Insurance Number)
     def ssn(self):
 
         # create an array of 8 elements initialized randomly

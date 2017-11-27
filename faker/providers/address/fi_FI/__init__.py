@@ -16,7 +16,8 @@ class Provider(AddressProvider):
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
-    # Data from: https://www.avoindata.fi/data/en/dataset/kunnat/resource/b1cb9870-191f-4616-9c53-5388b7ca6beb
+    # Data from:
+    # https://www.avoindata.fi/data/en/dataset/kunnat/resource/b1cb9870-191f-4616-9c53-5388b7ca6beb
     cities = (
         'Alajärvi', 'Alavieska', 'Alavus', 'Asikkala', 'Askola', 'Aura', 'Akaa', 'Brändö', 'Eckerö', 'Enonkoski',
         'Enontekiö', 'Espoo', 'Eura', 'Eurajoki', 'Evijärvi', 'Finström', 'Forssa', 'Föglö', 'Geta', 'Haapajärvi',
@@ -119,7 +120,8 @@ class Provider(AddressProvider):
 
     street_suffixes = ('tie', 'katu', 'polku', 'kuja', 'bulevardi')
 
-    # Prefixes parsed from a street list of Helsinki: http://kartta.hel.fi/ws/geoserver/avoindata/wfs?outputFormat=application/json&REQUEST=GetFeature&typeNames=avoindata:Helsinki_osoiteluettelo
+    # Prefixes parsed from a street list of Helsinki:
+    # http://kartta.hel.fi/ws/geoserver/avoindata/wfs?outputFormat=application/json&REQUEST=GetFeature&typeNames=avoindata:Helsinki_osoiteluettelo
 
     street_prefixes = (
         'Adolf Lindforsin ', 'Agnes Sjöbergin ', 'Agnetan', 'Agricolan', 'Ahomäen', 'Ahvenkosken', 'Aidasmäen',
