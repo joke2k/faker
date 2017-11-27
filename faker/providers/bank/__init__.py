@@ -1,12 +1,12 @@
 # coding=utf-8
 
-from .. import BaseProvider
+localized = True
+default_locale = 'en_GB'
 
+from .. import BaseProvider
 import string
 from string import ascii_uppercase
 import re
-
-localized = True
 
 class Provider(BaseProvider):
     """
@@ -17,7 +17,7 @@ class Provider(BaseProvider):
     
     ALPHA = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
 
-     # see https://en.wikipedia.org/wiki/International_Bank_Account_Number
+    # see https://en.wikipedia.org/wiki/International_Bank_Account_Number
     bban_format = '????#############'
     country_code = 'GB'
 
