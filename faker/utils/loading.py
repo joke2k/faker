@@ -1,10 +1,21 @@
 import os
+import sys
 from importlib import import_module
 import pkgutil
 
 
+def get_path(module):
+    if getattr(sys, 'frozen', False):
+        # frozen
+        path = os.path.dirname(sys.executable)
+    else:
+        # unfrozen
+        path = os.path.dirname(os.path.realpath(module.__file__))
+    return path
+
+
 def list_module(module):
-    path = os.path.dirname(module.__file__)
+    path = get_path(module)
     modules = [name for finder, name,
                is_pkg in pkgutil.iter_modules([path]) if is_pkg]
     return modules
