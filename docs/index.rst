@@ -299,7 +299,7 @@ same version of faker and seed produces the same results.
     fake.seed(4321)
 
     print(fake.name())
-    > Margaret Boehm
+    > Jason Brown
 
 Each generator can also be switched to its own instance of ``random.Random``,
 separate to the shared one, by using the ``seed_instance()`` method, which acts
