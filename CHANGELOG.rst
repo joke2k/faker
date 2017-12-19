@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`0.8.8 - 19-December-2017 <https://github.com/joke2k/faker/compare/v0.8.7...v0.8.8>`__
+--------------------------------------------------------------------------------------
+
+* made ``seed_instance`` return ``self`` for chainability.
+* Add ``en_US`` locale for ``lorem``. Thanks @shacker.
+* ``fi_FI`` gender specific data added. Thanks @mikkhola.
+* ``fi_FI`` address and job lists updated. Thanks @mikkhola.
+* Add ``iban`` provider. Thanks @cdaller.
+
 `0.8.7 - 14-November-2017 <https://github.com/joke2k/faker/compare/v0.8.6...v0.8.7>`__
 --------------------------------------------------------------------------------------
 
