@@ -333,6 +333,10 @@ the same way. For example:
     print(fake.name())
     > Margaret Boehm
 
+Please note that as we keep updating datasets, results are not guaranteed to be
+consistent across patch versions. If you hardcode results in your test, make sure
+you pinned the version of ``Faker`` down to the patch number.
+
 Tests
 -----
 
