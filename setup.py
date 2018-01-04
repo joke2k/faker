@@ -33,7 +33,7 @@ setup(
     },
     classifiers=[
         # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
