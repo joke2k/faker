@@ -1,6 +1,10 @@
-
 Changelog
 =========
+
+UNRELEASED
+----------
+
+* Remove support for Python 3.3.
 
 `0.8.8 - 19-December-2017 <https://github.com/joke2k/faker/compare/v0.8.7...v0.8.8>`__
 --------------------------------------------------------------------------------------
@@ -437,4 +441,3 @@ Changelog
 -----------------
 
 * First release
-
