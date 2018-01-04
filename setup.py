@@ -74,11 +74,5 @@ setup(
         ':python_version=="2.7"': [
             'ipaddress',
         ],
-        ':python_version=="3.0"': [
-            'importlib',
-        ],
-        ':python_version=="3.2"': [
-            'ipaddress',
-        ],
     }
 )
