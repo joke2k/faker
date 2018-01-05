@@ -191,6 +191,10 @@ class TestDateTime(unittest.TestCase):
         self.assertTrue(datetime_start <= random_date)
         self.assertTrue(datetime_end >= random_date)
 
+    def test_past_datetime_within_second(self):
+        # Should not raise a ``ValueError``
+        self.factory.past_datetime(start_date='+1s')
+
     def test_date_between_dates(self):
         date_end = date.today()
         date_start = date_end - timedelta(days=10)
