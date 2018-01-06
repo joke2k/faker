@@ -1342,7 +1342,10 @@ class Provider(BaseProvider):
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
-        ts = self.generator.random.randint(start_date, end_date)
+        if end_date - start_date <= 1:
+            ts = start_date + self.generator.random.random()
+        else:
+            ts = self.generator.random.randint(start_date, end_date)
         return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
 
     def date_between(self, start_date='-30y', end_date='today'):
