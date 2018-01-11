@@ -17,6 +17,7 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{first_name_male}} {{last_name}}'
     )
 
+    # sources: https://ro.wikipedia.org/wiki/List%C4%83_de_prenume_rom%C3%A2ne%C8%99ti
     first_names_female = (
         'Ada', 'Adela', 'Adelaida', 'Adelina', 'Adina', 'Adriana', 'Agata', 'Aglaia', 'Agripina', 'Aida', 'Alberta',
         'Albertina', 'Alexandra', 'Alexandrina', 'Alice', 'Alida', 'Alina', 'Alis', 'Alma', 'Amalia', 'Amanda',
@@ -103,6 +104,7 @@ class Provider(PersonProvider):
         'Vasilică', 'Veniamin', 'Vicențiu', 'Victor', 'Vincențiu', 'Viorel', 'Visarion', 'Vlad', 'Vladimir', 'Vlaicu',
         'Voicu', 'Zamfir', 'Zeno')
 
+    # sources: https://ro.wikipedia.org/wiki/Lista_celor_mai_uzuale_nume_de_familie#Rom%C3%A2nia and myself
     last_names = (
         'Aanei', 'Ababei', 'Albu', 'Ardelean', 'Barbu', 'Cristea', 'Diaconescu', 'Diaconu', 'Dima', 'Dinu', 'Dobre',
         'Dochioiu', 'Dragnea', 'Dumitrescu', 'Eftimie', 'Ene', 'Florea', 'Georgescu', 'Gheorghiu', 'Ionescu', 'Ioniță',
