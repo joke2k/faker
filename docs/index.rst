@@ -158,6 +158,7 @@ Included localized providers:
 -  `pl\_PL <https://faker.readthedocs.io/en/master/locales/pl_PL.html>`__ - Polish
 -  `pt\_BR <https://faker.readthedocs.io/en/master/locales/pt_BR.html>`__ - Portuguese (Brazil)
 -  `pt\_PT <https://faker.readthedocs.io/en/master/locales/pt_PT.html>`__ - Portuguese (Portugal)
+-  `ro\_RO <https://faker.readthedocs.io/en/master/locales/ro_RO.html>`__ - Romanian
 -  `ru\_RU <https://faker.readthedocs.io/en/master/locales/ru_RU.html>`__ - Russian
 -  `sl\_SI <https://faker.readthedocs.io/en/master/locales/sl_SI.html>`__ - Slovene
 -  `sv\_SE <https://faker.readthedocs.io/en/master/locales/sv_SE.html>`__ - Swedish
