@@ -107,7 +107,7 @@ class Provider(PersonProvider):
     # sources: https://ro.wikipedia.org/wiki/Lista_celor_mai_uzuale_nume_de_familie#Rom%C3%A2nia
     last_names = (
         'Aanei', 'Ababei', 'Albu', 'Ardelean', 'Barbu', 'Cristea', 'Diaconescu', 'Diaconu', 'Dima', 'Dinu', 'Dobre',
-        'Dochioiu', 'Dragnea', 'Dumitrescu', 'Eftimie', 'Ene', 'Florea', 'Georgescu', 'Gheorghiu', 'Ionescu', 'Ioniță',
-        'Jurji', 'Manole', 'Marin', 'Mazilescu', 'Mocanu', 'Morea', 'Nemeș', 'Nistor', 'Nistor', 'Niță', 'Oprea', 'Pop',
+        'Dochioiu', 'Dumitrescu', 'Eftimie', 'Ene', 'Florea', 'Georgescu', 'Gheorghiu', 'Ionescu', 'Ioniță',
+        'Manole', 'Marin', 'Mazilescu', 'Mocanu', 'Nemeș', 'Nistor', 'Nistor', 'Niță', 'Oprea', 'Pop',
         'Popa', 'Popescu', 'Preda', 'Pușcașu', 'Stan', 'Stancu', 'Stoica', 'Stănescu', 'Suciu', 'Tabacu', 'Toma',
-        'Tomescu', 'Tudor', 'Voinea', 'Zama')
+        'Tomescu', 'Tudor', 'Voinea')
