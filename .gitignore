@@ -43,3 +43,4 @@ nosetests.xml
 .projectile
 .ropeproject
 .DS_Store
+.venv
