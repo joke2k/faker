@@ -14,6 +14,17 @@ from faker.utils import text
 from tests import string_types
 
 
+class TestInternetProvider(unittest.TestCase):
+    """ Tests internet """
+
+    def setUp(self):
+        self.factory = Faker()
+
+    def test_email(self):
+        email = self.factory.email(domain='example.com')
+        self.assertEqual(email.split('@')[1], 'example.com')
+
+
 class TestJaJP(unittest.TestCase):
     """ Tests internet in the ja_JP locale """
 
