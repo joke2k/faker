@@ -1,10 +1,16 @@
 Changelog
 =========
 
-UNRELEASED
-----------
+`0.8.9 - 12-January-2018 <https://github.com/joke2k/faker/compare/v0.8.8...v0.8.9>`__
+-------------------------------------------------------------------------------------
 
-* Remove support for Python 3.3.
+* Remove support for Python 3.3. Thanks @jdufresne.
+* Allow past dates within a second. Thanks @DanEEstar.
+* Added phone number formatting to ``en_GB`` localisation to ensure no genuine phone numbers are generated. Thanks @TheSapper.
+* Added ``en_GB`` localisation for SSN (UK National Insurance Number). Thanks @TheSapper.
+* Added ``ro_RO`` person Provider. Thanks @vasilesmartup.
+* Added ``domain`` argument to ``email`` provider. Thanks @lcd1232.
+
 
 `0.8.8 - 19-December-2017 <https://github.com/joke2k/faker/compare/v0.8.7...v0.8.8>`__
 --------------------------------------------------------------------------------------
