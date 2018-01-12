@@ -5,7 +5,7 @@ from text_unidecode import unidecode
 
 from .. import BaseProvider
 
-from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
+from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH, _IPv4Constants, _IPv6Constants
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
@@ -169,20 +169,56 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.url_formats)
         return self.generator.parse(pattern)
 
-    def ipv4(self, network=False):
-        """Produce a random IPv4 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(
-            0, (2 ** IPV4LENGTH) - 1)))
-        if network:
+    def ipv4(self, network=False, private=False, simple=True):
+        """Produce a random IPv4 address or network with a valid CIDR."""
+        if simple is True:
+            address = str(ip_address(self.generator.random.randint(
+                0, (2 ** IPV4LENGTH) - 1)))
+        elif private is True:
+            networks = dict()
+            for i in range(len(_IPv4Constants._private_networks)):
+                networks[i] = _IPv4Constants._private_networks[i].num_addresses
+            k = self.generator.random_element(networks)
+            _net = _IPv4Constants._private_networks[k]
+            address = str(ip_address(self.generator.random.randint(
+                int(_net.network_address),
+                int(_net.network_address) + _net.num_addresses - 1
+            )))
+        else:
+            # It's unfair to trying to not find private ip but it's much faster
+            address = str(ip_address(self.generator.random.randint(
+                0, (2 ** IPV4LENGTH) - 1)))
+            while ip_address(address).is_private is True:
+                address = str(ip_address(self.generator.random.randint(
+                    0, (2 ** IPV4LENGTH) - 1)))
+        if network is True:
             address += '/' + str(self.generator.random.randint(0, IPV4LENGTH))
             address = str(ip_network(address, strict=False))
         return address
 
-    def ipv6(self, network=False):
-        """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(
-            2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
-        if network:
+    def ipv6(self, network=False, private=False, simple=True):
+        """Produce a random IPv6 address or network with a valid CIDR."""
+        if simple is True:
+            address = str(ip_address(self.generator.random.randint(
+                2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        elif private is True:
+            networks = dict()
+            for i in range(len(_IPv6Constants._private_networks)):
+                networks[i] = _IPv6Constants._private_networks[i].num_addresses
+            k = self.generator.random_element(networks)
+            _net = _IPv6Constants._private_networks[k]
+            address = str(ip_address(self.generator.random.randint(
+                int(_net.network_address),
+                int(_net.network_address) + _net.num_addresses - 1
+            )))
+        else:
+            # It's unfair to trying to not find private ip but it's much faster
+            address = str(ip_address(self.generator.random.randint(
+                2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+            while ip_address(address).is_private is True:
+                address = str(ip_address(self.generator.random.randint(
+                    2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        if network is True:
             address += '/' + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(ip_network(address, strict=False))
         return address
