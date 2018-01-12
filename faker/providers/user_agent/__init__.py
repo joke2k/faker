@@ -33,7 +33,8 @@ class Provider(BaseProvider):
         name = self.random_element(self.user_agents)
         return getattr(self, name)()
 
-    def chrome(self):
+    def chrome(self, version_from=13, version_to=63,
+               build_from=800, build_to=899):
         saf = str(self.generator.random.randint(531, 536)) + \
             str(self.generator.random.randint(0, 2))
         tmplt = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
@@ -41,18 +42,18 @@ class Provider(BaseProvider):
         platforms = (
             tmplt.format(self.linux_platform_token(),
                          saf,
-                         self.generator.random.randint(13, 15),
-                         self.generator.random.randint(800, 899),
+                         self.generator.random.randint(version_from, version_to),
+                         self.generator.random.randint(build_from, build_to),
                          saf),
             tmplt.format(self.windows_platform_token(),
                          saf,
-                         self.generator.random.randint(13, 15),
-                         self.generator.random.randint(800, 899),
+                         self.generator.random.randint(version_from, version_to),
+                         self.generator.random.randint(build_from, build_to),
                          saf),
             tmplt.format(self.mac_platform_token(),
                          saf,
-                         self.generator.random.randint(13, 15),
-                         self.generator.random.randint(800, 899),
+                         self.generator.random.randint(version_from, version_to),
+                         self.generator.random.randint(build_from, build_to),
                          saf),
         )
 
@@ -167,6 +168,6 @@ class Provider(BaseProvider):
     def mac_platform_token(self):
         return 'Macintosh; {0} Mac OS X 10_{1}_{2}'.format(
             self.random_element(self.mac_processors),
-            self.generator.random.randint(5, 8),
+            self.generator.random.randint(5, 12),
             self.generator.random.randint(0, 9),
         )
