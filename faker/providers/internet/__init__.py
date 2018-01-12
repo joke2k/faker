@@ -9,6 +9,7 @@ from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH, _IPv4Const
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
+from faker.utils.text import force_text
 from faker.utils.decorators import lowercase, slugify, slugify_unicode
 
 
@@ -188,7 +189,7 @@ class Provider(BaseProvider):
             # It's unfair to trying to not find private ip but it's much faster
             address = str(ip_address(self.generator.random.randint(
                 0, (2 ** IPV4LENGTH) - 1)))
-            while ip_address(address).is_private is True:
+            while ip_address(force_text(address)).is_private is True:
                 address = str(ip_address(self.generator.random.randint(
                     0, (2 ** IPV4LENGTH) - 1)))
         if network is True:
@@ -215,7 +216,7 @@ class Provider(BaseProvider):
             # It's unfair to trying to not find private ip but it's much faster
             address = str(ip_address(self.generator.random.randint(
                 2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
-            while ip_address(address).is_private is True:
+            while ip_address(force_text(address)).is_private is True:
                 address = str(ip_address(self.generator.random.randint(
                     2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network is True:

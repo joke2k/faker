@@ -26,17 +26,21 @@ class TestInternetProvider(unittest.TestCase):
     def test_ipv4(self):
         for _ in range(10):
             ip = self.factory.ipv4(private=True, simple=False)
+            ip = text.force_text(ip)
             self.assertTrue(ip_address(ip).is_private)
 
             ip = self.factory.ipv4(private=False, simple=False)
+            ip = text.force_text(ip)
             self.assertFalse(ip_address(ip).is_private)
 
     def test_ipv6(self):
         for _ in range(10):
             ip = self.factory.ipv6(private=True, simple=False)
+            ip = text.force_text(ip)
             self.assertTrue(ip_address(ip).is_private)
 
             ip = self.factory.ipv6(private=False, simple=False)
+            ip = text.force_text(ip)
             self.assertFalse(ip_address(ip).is_private)
 
 
