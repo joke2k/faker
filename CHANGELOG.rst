@@ -1,6 +1,12 @@
 Changelog
 =========
 
+`0.8.10 - 16-January-2018 <https://github.com/joke2k/faker/compare/v0.8.9...v0.8.10>`__
+---------------------------------------------------------------------------------------
+
+* Pass ``python_requires`` argument to ``setuptools``. Thanks @jdufresne.
+* Remove some words from ``en_US`` lorem ipsum provider. Thanks @Pomax.
+
 `0.8.9 - 12-January-2018 <https://github.com/joke2k/faker/compare/v0.8.8...v0.8.9>`__
 -------------------------------------------------------------------------------------
 
