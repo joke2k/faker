@@ -30,13 +30,13 @@ Changelog
 `0.8.7 - 14-November-2017 <https://github.com/joke2k/faker/compare/v0.8.6...v0.8.7>`__
 --------------------------------------------------------------------------------------
 
- * Corrected some issues with the Hungarian (``hu_HU``) providers, such as incorrectly capitalized company suffixes, street/road type names and place names. Thanks @chrisvoncsefalvay.
- * The Hungarian locale's ``providers.job.job`` provider now returns Hungarian job names, taken from the Hungarian National Statistical Office (KSH)'s 2008 survey nomenclature of employment (FEOR '08). Thanks @chrisvoncsefalvay.
- * Added ``he_IL`` locale. Thanks @bjesus.
- * Fix possible infinite loop in ``random_sample_unique``. Thanks @153957.
- * Add aliases to make ``pt_BR`` address provider compatible ``with en_US``. Thanks @diegoholiveira.
- * Fix ResourceWarning in ``setup.py``. Thanks @jdufresne.
- * Update test requirements.
+* Corrected some issues with the Hungarian (``hu_HU``) providers, such as incorrectly capitalized company suffixes, street/road type names and place names. Thanks @chrisvoncsefalvay.
+* The Hungarian locale's ``providers.job.job`` provider now returns Hungarian job names, taken from the Hungarian National Statistical Office (KSH)'s 2008 survey nomenclature of employment (FEOR '08). Thanks @chrisvoncsefalvay.
+* Added ``he_IL`` locale. Thanks @bjesus.
+* Fix possible infinite loop in ``random_sample_unique``. Thanks @153957.
+* Add aliases to make ``pt_BR`` address provider compatible ``with en_US``. Thanks @diegoholiveira.
+* Fix ResourceWarning in ``setup.py``. Thanks @jdufresne.
+* Update test requirements.
 
 `0.8.6 - 16-October-2017 <https://github.com/joke2k/faker/compare/v0.8.5...v0.8.6>`__
 -------------------------------------------------------------------------------------
