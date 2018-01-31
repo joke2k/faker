@@ -25,6 +25,36 @@ class TestInternetProvider(unittest.TestCase):
         self.assertEqual(email.split('@')[1], 'example.com')
 
 
+class TestInternetProviderUrl(unittest.TestCase):
+    """ Test internet url generation """
+
+    def setUp(self):
+        self.factory = Faker()
+
+    @staticmethod
+    def is_http(url):
+        return url.startswith('http://')
+
+    @staticmethod
+    def is_https(url):
+        return url.startswith('https://')
+
+    def test_url(self):
+        urls = [self.factory.url() for i in range(100)]
+        self.assertTrue(all(self.is_http(url) or self.is_https(url) for url in urls))
+
+    def test_url_only_http(self):
+        urls = [self.factory.url(https=False) for i in range(100)]
+        self.assertTrue(all(self.is_http(url) for url in urls))
+
+    def test_url_only_https(self):
+        urls = [self.factory.url(http=False) for i in range(100)]
+        self.assertTrue(all(self.is_https(url) for url in urls))
+
+    def test_url_raises_error(self):
+        self.assertRaises(ValueError, self.factory.url(http=False, https=False))
+
+
 class TestJaJP(unittest.TestCase):
     """ Tests internet in the ja_JP locale """
 
