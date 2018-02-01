@@ -165,8 +165,22 @@ class Provider(BaseProvider):
     def tld(self):
         return self.random_element(self.tlds)
 
-    def url(self):
-        pattern = self.random_element(self.url_formats)
+    def _filter_url_formats(self, exclude_scheme):
+        if not isinstance(exclude_scheme, str):
+            raise ValueError('exclude_scheme param should be a string')
+        if exclude_scheme.lower() not in ['https', 'http']:
+            raise ValueError('exclude_scheme param should either `http` or `https`')
+
+        pattern = '{}://'.format(exclude_scheme)
+        return filter(lambda f: not f.startswith(pattern), self.url_formats)
+
+    def url(self, exclude_scheme=None):
+        formats_allowed = self.url_formats
+
+        if exclude_scheme:
+            formats_allowed = self._filter_url_formats(exclude_scheme)
+
+        pattern = self.random_element(formats_allowed)
         return self.generator.parse(pattern)
 
     def ipv4(self, network=False):
