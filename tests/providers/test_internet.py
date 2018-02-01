@@ -44,15 +44,16 @@ class TestInternetProviderUrl(unittest.TestCase):
         self.assertTrue(all(self.is_http(url) or self.is_https(url) for url in urls))
 
     def test_url_only_http(self):
-        urls = [self.factory.url(https=False) for i in range(100)]
+        urls = [self.factory.url(exclude_scheme='https') for i in range(100)]
         self.assertTrue(all(self.is_http(url) for url in urls))
 
     def test_url_only_https(self):
-        urls = [self.factory.url(http=False) for i in range(100)]
+        urls = [self.factory.url(exclude_scheme='http') for i in range(100)]
         self.assertTrue(all(self.is_https(url) for url in urls))
 
     def test_url_raises_error(self):
-        self.assertRaises(ValueError, self.factory.url(http=False, https=False))
+        with self.assertRaises(ValueError):
+            self.factory.url(exclude_scheme=['http', 'https'])
 
 
 class TestJaJP(unittest.TestCase):
