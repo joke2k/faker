@@ -224,6 +224,23 @@ class TestEnAU(unittest.TestCase):
         self.assertTrue(state_abbr.isupper())
 
 
+class TestEnNZ(unittest.TestCase):
+    """ Tests addresses in the en_NZ locale """
+
+    def setUp(self):
+        self.factory = Faker('en_NZ')
+
+    def test_state(self):
+        # No states in New Zealand
+        state = self.factory.state()
+        assert state == ''
+
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("\d{4}", postcode)
+
+
 class TestEnCA(unittest.TestCase):
     """ Tests addresses in en_CA locale """
 
