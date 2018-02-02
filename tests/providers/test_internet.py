@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+from itertools import cycle
+
 import unittest
 
 import mock
@@ -32,28 +34,23 @@ class TestInternetProviderUrl(unittest.TestCase):
         self.factory = Faker()
 
     @staticmethod
-    def is_http(url):
-        return url.startswith('http://')
+    def is_correct_scheme(url, schemes):
+        return any(url.startswith('{}://'.format(scheme)) for scheme in schemes)
 
-    @staticmethod
-    def is_https(url):
-        return url.startswith('https://')
+    def test_url_default_schemes(self):
+        for _ in range(100):
+            url = self.factory.url()
+            self.assertTrue(self.is_correct_scheme(url, ['http', 'https']))
 
-    def test_url(self):
-        urls = [self.factory.url() for i in range(100)]
-        self.assertTrue(all(self.is_http(url) or self.is_https(url) for url in urls))
-
-    def test_url_only_http(self):
-        urls = [self.factory.url(exclude_scheme='https') for i in range(100)]
-        self.assertTrue(all(self.is_http(url) for url in urls))
-
-    def test_url_only_https(self):
-        urls = [self.factory.url(exclude_scheme='http') for i in range(100)]
-        self.assertTrue(all(self.is_https(url) for url in urls))
-
-    def test_url_raises_error(self):
-        with self.assertRaises(ValueError):
-            self.factory.url(exclude_scheme=['http', 'https'])
+    def test_url_custom_schemes(self):
+        schemes_sets = [
+            ['usb'],
+            ['ftp', 'file'],
+            ['usb', 'telnet', 'http'],
+        ]
+        for _, schemes in zip(range(100), cycle(schemes_sets)):
+            url = self.factory.url(schemes=schemes)
+            self.assertTrue(self.is_correct_scheme(url, schemes))
 
 
 class TestJaJP(unittest.TestCase):
