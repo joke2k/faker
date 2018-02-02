@@ -46,10 +46,8 @@ class Provider(BaseProvider):
         '{{user_name}}@{{free_email_domain}}',
     )
     url_formats = (
-        'http://www.{{domain_name}}/',
-        'http://{{domain_name}}/',
-        'https://www.{{domain_name}}/',
-        'https://{{domain_name}}/',
+        '://www.{{domain_name}}/',
+        '://{{domain_name}}/',
     )
     uri_formats = (
         '{{url}}',
@@ -165,22 +163,12 @@ class Provider(BaseProvider):
     def tld(self):
         return self.random_element(self.tlds)
 
-    def _filter_url_formats(self, exclude_scheme):
-        if not isinstance(exclude_scheme, str):
-            raise ValueError('exclude_scheme param should be a string')
-        if exclude_scheme.lower() not in ['https', 'http']:
-            raise ValueError('exclude_scheme param should either `http` or `https`')
+    def url(self, schemes=None):
+        if not schemes:
+            schemes = ['http', 'https']
 
-        pattern = '{}://'.format(exclude_scheme)
-        return filter(lambda f: not f.startswith(pattern), self.url_formats)
+        pattern = '{}{}'.format(self.random_element(schemes), self.random_element(self.url_formats))
 
-    def url(self, exclude_scheme=None):
-        formats_allowed = self.url_formats
-
-        if exclude_scheme:
-            formats_allowed = self._filter_url_formats(exclude_scheme)
-
-        pattern = self.random_element(formats_allowed)
         return self.generator.parse(pattern)
 
     def ipv4(self, network=False):
