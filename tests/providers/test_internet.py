@@ -52,6 +52,12 @@ class TestInternetProviderUrl(unittest.TestCase):
             url = self.factory.url(schemes=schemes)
             self.assertTrue(self.is_correct_scheme(url, schemes))
 
+    def test_url_empty_schemes_list_generate_schemeless_urls(self):
+        for _ in range(100):
+            url = self.factory.url(schemes=[])
+            self.assertFalse(url.startswith('http'))
+            self.assertTrue(url.startswith('://'))
+
 
 class TestJaJP(unittest.TestCase):
     """ Tests internet in the ja_JP locale """

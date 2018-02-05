@@ -46,8 +46,8 @@ class Provider(BaseProvider):
         '{{user_name}}@{{free_email_domain}}',
     )
     url_formats = (
-        '://www.{{domain_name}}/',
-        '://{{domain_name}}/',
+        'www.{{domain_name}}/',
+        '{{domain_name}}/',
     )
     uri_formats = (
         '{{url}}',
@@ -164,10 +164,20 @@ class Provider(BaseProvider):
         return self.random_element(self.tlds)
 
     def url(self, schemes=None):
-        if not schemes:
+        """
+        :param schemes: a list of strings to use as schemes, one will chosen randomly.
+        If None, it will generate http and https urls.
+        Passing an empty list will result in schemeless url generation like "://domain.com".
+
+        :returns: a random url string.
+        """
+        if schemes is None:
             schemes = ['http', 'https']
 
-        pattern = '{}{}'.format(self.random_element(schemes), self.random_element(self.url_formats))
+        pattern = '{}://{}'.format(
+            self.random_element(schemes) if schemes else "",
+            self.random_element(self.url_formats)
+        )
 
         return self.generator.parse(pattern)
 
