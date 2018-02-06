@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+from itertools import cycle
+
 import unittest
 
 import mock
@@ -23,6 +25,38 @@ class TestInternetProvider(unittest.TestCase):
     def test_email(self):
         email = self.factory.email(domain='example.com')
         self.assertEqual(email.split('@')[1], 'example.com')
+
+
+class TestInternetProviderUrl(unittest.TestCase):
+    """ Test internet url generation """
+
+    def setUp(self):
+        self.factory = Faker()
+
+    @staticmethod
+    def is_correct_scheme(url, schemes):
+        return any(url.startswith('{}://'.format(scheme)) for scheme in schemes)
+
+    def test_url_default_schemes(self):
+        for _ in range(100):
+            url = self.factory.url()
+            self.assertTrue(self.is_correct_scheme(url, ['http', 'https']))
+
+    def test_url_custom_schemes(self):
+        schemes_sets = [
+            ['usb'],
+            ['ftp', 'file'],
+            ['usb', 'telnet', 'http'],
+        ]
+        for _, schemes in zip(range(100), cycle(schemes_sets)):
+            url = self.factory.url(schemes=schemes)
+            self.assertTrue(self.is_correct_scheme(url, schemes))
+
+    def test_url_empty_schemes_list_generate_schemeless_urls(self):
+        for _ in range(100):
+            url = self.factory.url(schemes=[])
+            self.assertFalse(url.startswith('http'))
+            self.assertTrue(url.startswith('://'))
 
 
 class TestJaJP(unittest.TestCase):
