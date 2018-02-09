@@ -1209,7 +1209,7 @@ class Provider(BaseProvider):
         :return datetime
         """
         end_datetime = self._parse_end_datetime(end_datetime)
-        ts = self.generator.random.randint(-62135600400, end_datetime)
+        ts = self.generator.random.randint(-62135596800, end_datetime)
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
