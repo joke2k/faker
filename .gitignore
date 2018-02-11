@@ -44,3 +44,6 @@ nosetests.xml
 .ropeproject
 .DS_Store
 .venv
+
+# IDE
+*.sw[po]
