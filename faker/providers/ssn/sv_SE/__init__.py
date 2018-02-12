@@ -7,7 +7,7 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self):
+    def ssn(self, min_age=18, max_age=90):
         """
         Returns a 10 digit Swedish SSN, "Personnummer".
 
@@ -33,10 +33,8 @@ class Provider(SsnProvider):
             check_digit = _luhn_checksum(int(partial_number) * 10)
             return check_digit if check_digit == 0 else 10 - check_digit
 
-        min_age = 18 * 365
-        max_age = 90 * 365
         age = datetime.timedelta(
-            days=self.generator.random.randrange(min_age, max_age))
+            days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.datetime.now() - age
         pnr_date = birthday.strftime('%y%m%d')
         suffix = str(self.generator.random.randrange(0, 999)).zfill(3)

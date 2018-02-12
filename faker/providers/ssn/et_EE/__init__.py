@@ -29,12 +29,10 @@ def checksum(digits):
 
 
 class Provider(SsnProvider):
-    min_age = 16 * 365
-    max_age = 90 * 365
     scale1 = (1, 2, 3, 4, 5, 6, 7, 8, 9, 1)
     scale2 = (3, 4, 5, 6, 7, 8, 9, 1, 2, 3)
 
-    def ssn(self):
+    def ssn(self, min_age=16, max_age=90):
         """
         Returns 11 character Estonian personal identity code (isikukood, IK).
 
@@ -51,7 +49,7 @@ class Provider(SsnProvider):
         """
         age = datetime.timedelta(
             days=self.generator.random.randrange(
-                self.min_age, self.max_age))
+                min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         if birthday.year < 2000:
             ik = self.generator.random.choice(('3', '4'))

@@ -7,7 +7,7 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self):
+    def ssn(self, min_age=18, max_age=90):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). Age of person is between 18 and 90
@@ -29,10 +29,8 @@ class Provider(SsnProvider):
             checksum_characters = "0123456789ABCDEFHJKLMNPRSTUVWXY"
             return checksum_characters[int(hetu) % 31]
 
-        min_age = 18 * 365
-        max_age = 90 * 365
         age = datetime.timedelta(
-            days=self.generator.random.randrange(min_age, max_age))
+            days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (
             birthday.day, birthday.month, str(birthday.year)[-2:])
