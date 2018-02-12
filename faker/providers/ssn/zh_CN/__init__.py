@@ -511,13 +511,12 @@ class Provider(SsnProvider):
         "659003", "659004", "710000", "810000", "820000",
     ]
 
-    def ssn(self):
+    def ssn(self, min_age=18, max_age=90):
         def checksum(s):
             return str((1 - 2 * int(s, 13)) % 11).replace('10', 'X')
 
-        min_age = 18 * 365
-        max_age = 90 * 365
-        age = datetime.timedelta(days=self.random_int(min_age, max_age))
+        age = datetime.timedelta(days=self.random_int(
+            min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         birthday_str = birthday.strftime('%Y%m%d')
 
