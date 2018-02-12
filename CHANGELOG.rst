@@ -1,6 +1,13 @@
 Changelog
 =========
 
+`0.8.11 - 12-February-2018 <https://github.com/joke2k/faker/compare/v0.8.10...v0.8.11>`__
+-----------------------------------------------------------------------------------------
+
+* Add scheme selection for internet ``url`` provider. Thanks @ProvoK.
+* Increase lower bound on AD date generation. Thanks @prophile.
+* Add the ability to specify the min and max age for some ssn locales. Thanks @frangiz.
+
 `0.8.10 - 16-January-2018 <https://github.com/joke2k/faker/compare/v0.8.9...v0.8.10>`__
 ---------------------------------------------------------------------------------------
 
