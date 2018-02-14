@@ -1,4 +1,7 @@
 # coding=utf-8
+# Source from wikipedia.pt
+# https://pt.wikipedia.org/wiki/Distritos_de_Portugal
+# https://pt.wikipedia.org/wiki/Lista_de_freguesias_de_Portugal
 from __future__ import unicode_literals
 from .. import Provider as AddressProvider
 
