@@ -7,7 +7,10 @@ import pkgutil
 def get_path(module):
     if getattr(sys, 'frozen', False):
         # frozen
-        path = os.path.dirname(sys.executable)
+        base_dir = os.path.dirname(sys.executable)
+        lib_dir = os.path.join(base_dir, "lib")
+        module_to_rel_path = os.path.join(*module.__package__.split("."))
+        path = os.path.join(lib_dir, module_to_rel_path)
     else:
         # unfrozen
         path = os.path.dirname(os.path.realpath(module.__file__))
