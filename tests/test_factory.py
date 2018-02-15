@@ -6,6 +6,7 @@ import re
 import unittest
 import string
 import sys
+from ipaddress import ip_address, ip_network
 
 try:
     from StringIO import StringIO
@@ -365,6 +366,51 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(len(address) <= 18)
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
+
+    def test_ipv4_private(self):
+        from faker.providers.internet import Provider
+
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            address = provider.ipv4_private()
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertTrue(ip_address(address).is_private)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
+
+        for _ in range(999):
+            address = provider.ipv4_private(network=True)
+            self.assertTrue(len(address) >= 9)
+            self.assertTrue(len(address) <= 18)
+            self.assertTrue(ip_network(address)[0].is_private)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
+
+        for _ in range(999):
+            address = provider.ipv4_private('a')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertTrue(ip_address(address).is_private)
+            self.assertTrue(
+                re.compile(r'^10\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+
+        for _ in range(999):
+            address = provider.ipv4_private('b')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertTrue(ip_address(address).is_private)
+            self.assertTrue(
+                re.compile(r'^172\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+
+        for _ in range(999):
+            address = provider.ipv4_private('c')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertTrue(ip_address(address).is_private)
+            self.assertTrue(
+                re.compile(r'^192\.168\.\d{1,3}\.\d{1,3}$').search(address))
 
     def test_ipv6(self):
         from faker.providers.internet import Provider

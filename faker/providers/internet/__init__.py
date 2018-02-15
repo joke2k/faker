@@ -178,6 +178,22 @@ class Provider(BaseProvider):
             address = str(ip_network(address, strict=False))
         return address
 
+    def ipv4_private(self, klass=None, network=False):
+        classes = {
+            'a': (167772160, 184549375, 24),
+            'b': (2886729728, 2887778303, 20),
+            'c': (3232235520, 3232301055, 16)
+        }
+        klass = klass or  self.generator.random.choice(list(classes.keys()))
+        min_, max_, netmask = classes[klass]
+        address = str(ip_address(
+            self.generator.random.randint(min_, max_)))
+        if network:
+            address += '/' + str(self.generator.random.randint(netmask, 31))
+            address = str(ip_network(address, strict=False))
+        return address
+
+
     def ipv6(self, network=False):
         """Produce a random IPv6 address or network with a valid CIDR"""
         address = str(ip_address(self.generator.random.randint(
