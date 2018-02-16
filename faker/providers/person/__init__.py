@@ -1,6 +1,9 @@
-localized = True
+from __future__ import unicode_literals
 
 from .. import BaseProvider
+
+
+localized = True
 
 
 class Provider(BaseProvider):
