@@ -5,7 +5,7 @@ from text_unidecode import unidecode
 
 from .. import BaseProvider
 
-from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH, _IPv4Constants, _IPv6Constants
+from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH, IPv4Network, IPv6Network
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
@@ -15,6 +15,35 @@ from faker.utils.decorators import lowercase, slugify, slugify_unicode
 
 localized = True
 
+_private_ipv4_networks = [
+    IPv4Network('0.0.0.0/8'),
+    IPv4Network('10.0.0.0/8'),
+    IPv4Network('127.0.0.0/8'),
+    IPv4Network('169.254.0.0/16'),
+    IPv4Network('172.16.0.0/12'),
+    IPv4Network('192.0.0.0/29'),
+    IPv4Network('192.0.0.170/31'),
+    IPv4Network('192.0.2.0/24'),
+    IPv4Network('192.168.0.0/16'),
+    IPv4Network('198.18.0.0/15'),
+    IPv4Network('198.51.100.0/24'),
+    IPv4Network('203.0.113.0/24'),
+    IPv4Network('240.0.0.0/4'),
+    IPv4Network('255.255.255.255/32'),
+]
+
+_private_ipv6_networks = [
+    IPv6Network('::1/128'),
+    IPv6Network('::/128'),
+    IPv6Network('::ffff:0:0/96'),
+    IPv6Network('100::/64'),
+    IPv6Network('2001::/23'),
+    IPv6Network('2001:2::/48'),
+    IPv6Network('2001:db8::/32'),
+    IPv6Network('2001:10::/28'),
+    IPv6Network('fc00::/7'),
+    IPv6Network('fe80::/10'),
+]
 
 class Provider(BaseProvider):
     safe_email_tlds = ('org', 'com', 'net')
@@ -170,17 +199,14 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.url_formats)
         return self.generator.parse(pattern)
 
-    def ipv4(self, network=False, private=False, simple=True):
+    def ipv4(self, network=False, private=False):
         """Produce a random IPv4 address or network with a valid CIDR."""
-        if simple is True:
-            address = str(ip_address(self.generator.random.randint(
-                0, (2 ** IPV4LENGTH) - 1)))
-        elif private is True:
+        if private is True:
             networks = dict()
-            for i in range(len(_IPv4Constants._private_networks)):
-                networks[i] = _IPv4Constants._private_networks[i].num_addresses
+            for i in range(len(_private_ipv4_networks)):
+                networks[i] = _private_ipv4_networks[i].num_addresses
             k = self.generator.random_element(networks)
-            _net = _IPv4Constants._private_networks[k]
+            _net = _private_ipv4_networks[k]
             address = str(ip_address(self.generator.random.randint(
                 int(_net.network_address),
                 int(_net.network_address) + _net.num_addresses - 1
@@ -197,17 +223,14 @@ class Provider(BaseProvider):
             address = str(ip_network(address, strict=False))
         return address
 
-    def ipv6(self, network=False, private=False, simple=True):
+    def ipv6(self, network=False, private=False):
         """Produce a random IPv6 address or network with a valid CIDR."""
-        if simple is True:
-            address = str(ip_address(self.generator.random.randint(
-                2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
-        elif private is True:
+        if private is True:
             networks = dict()
-            for i in range(len(_IPv6Constants._private_networks)):
-                networks[i] = _IPv6Constants._private_networks[i].num_addresses
+            for i in range(len(_private_ipv6_networks)):
+                networks[i] = _private_ipv6_networks[i].num_addresses
             k = self.generator.random_element(networks)
-            _net = _IPv6Constants._private_networks[k]
+            _net = _private_ipv6_networks[k]
             address = str(ip_address(self.generator.random.randint(
                 int(_net.network_address),
                 int(_net.network_address) + _net.num_addresses - 1
