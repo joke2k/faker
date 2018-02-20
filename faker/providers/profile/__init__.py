@@ -48,7 +48,8 @@ class Provider(BaseProvider):
             "residence": self.generator.address(),
             "current_location": (self.generator.latitude(), self.generator.longitude()),
             "blood_group": "".join(self.random_element(list(itertools.product(["A", "B", "AB", "0"], ["+", "-"])))),
-            "website": [self.generator.url() for i in range(1, self.random_int(2, 5))]
+            "website": [self.generator.url() for i in range(1, self.random_int(2, 5))],
+            "favorite_animal": self.generator.animal()
         }
 
         d = dict(d, **self.generator.simple_profile(sex))
