@@ -12,6 +12,7 @@ _re_perc = re.compile(r'%')
 _re_excl = re.compile(r'!')
 _re_at = re.compile(r'@')
 _re_qm = re.compile(r'\?')
+_re_cir = re.compile(r'\^')
 
 
 class BaseProvider(object):
@@ -214,12 +215,16 @@ class BaseProvider(object):
         """
         return self.lexify(self.numerify(text), letters=letters)
 
-    def hexify(self, text='????'):
+    def hexify(self, text='^^^^', upper=False):
         """
-        Replaces all question mark ('?') occurrences with a random
+        Replaces all circumflex ('^') occurrences with a random
         hexadecimal character.
 
         :param text: string to be parsed
+        :param upper: Format as uppercase hexadecimal
         :returns: string with all letter placeholders filled in
         """
-        return self.lexify(text, letters=string.hexdigits[:-6])
+        letters = string.hexdigits[:-6]
+        if upper:
+            letters = letters.upper()
+        return _re_cir.sub(lambda x: self.random_element(letters), text)

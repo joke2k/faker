@@ -92,9 +92,16 @@ class TestBaseProvider(unittest.TestCase):
         self.assertFalse(bothified)
 
     def test_hexify(self):
-        text = '???'
+        text = '^^^'
+
         for i in range(1000):
             hexified = self.provider.hexify(text)
             for c in hexified:
                 self.assertIn(c, string.hexdigits[:-6])
                 self.assertNotIn(c, string.hexdigits[-6:])
+
+        for i in range(1000):
+            hexified = self.provider.hexify(text, upper=True)
+            for c in hexified:
+                self.assertIn(c, string.hexdigits[:-6].upper())
+                self.assertNotIn(c, string.hexdigits[-6:].lower())
