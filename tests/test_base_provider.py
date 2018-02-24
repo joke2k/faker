@@ -1,4 +1,5 @@
 import unittest
+import string
 
 from faker import Generator
 from faker.providers import BaseProvider
@@ -89,3 +90,11 @@ class TestBaseProvider(unittest.TestCase):
         self.assertFalse(bothified)
         bothified = self.provider.lexify(text, letters='someletters')
         self.assertFalse(bothified)
+
+    def test_hexify(self):
+        text = '???'
+        for i in range(1000):
+            hexified = self.provider.hexify(text)
+            for c in hexified:
+                self.assertIn(c, string.hexdigits[:-6])
+                self.assertNotIn(c, string.hexdigits[-6:])

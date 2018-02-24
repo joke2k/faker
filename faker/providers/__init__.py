@@ -213,3 +213,13 @@ class BaseProvider(object):
         :returns: string with all numerical and letter placeholders filled in
         """
         return self.lexify(self.numerify(text), letters=letters)
+
+    def hexify(self, text='????'):
+        """
+        Replaces all question mark ('?') occurrences with a random
+        hexadecimal character.
+
+        :param text: string to be parsed
+        :returns: string with all letter placeholders filled in
+        """
+        return self.lexify(text, letters=string.hexdigits[:-6])
