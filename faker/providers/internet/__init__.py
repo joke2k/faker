@@ -15,6 +15,38 @@ from faker.utils.decorators import lowercase, slugify, slugify_unicode
 localized = True
 
 
+IPV4_PUBLIC_NETS = {
+    'a': ip_network('0.0.0.0/1'),
+    'b': ip_network('128.0.0.0/2'),
+    'c': ip_network('192.0.0.0/3')
+}
+IPV4_PRIVATE_NET_BLOCKS = {
+    'a': (
+        ip_network('0.0.0.0/8'),
+        ip_network('10.0.0.0/8'),
+        ip_network('127.0.0.0/8'),
+    ),
+    'b': (
+        ip_network('169.254.0.0/16'),
+        ip_network('172.16.0.0/12')
+    ),
+    'c': (
+        ip_network('192.0.0.0/29'),
+        ip_network('192.0.0.170/31'),
+        ip_network('192.0.2.0/24'),
+        ip_network('192.168.0.0/16'),
+        ip_network('198.18.0.0/15'),
+        ip_network('198.51.100.0/24'),
+        ip_network('203.0.113.0/24')
+    ),
+}
+IPV4_NET_CLASSES = {
+    'a': (167772160, 184549375, 24),
+    'b': (2886729728, 2887778303, 20),
+    'c': (3232235520, 3232301055, 16)
+}
+
+
 class Provider(BaseProvider):
     safe_email_tlds = ('org', 'com', 'net')
     free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
@@ -178,14 +210,12 @@ class Provider(BaseProvider):
             address = str(ip_network(address, strict=False))
         return address
 
-    def ipv4_private(self, klass=None, network=False):
-        classes = {
-            'a': (167772160, 184549375, 24),
-            'b': (2886729728, 2887778303, 20),
-            'c': (3232235520, 3232301055, 16)
-        }
-        klass = klass or  self.generator.random.choice(list(classes.keys()))
-        min_, max_, netmask = classes[klass]
+    def ipv4_network_class(self):
+        return self.random_element('abc')
+
+    def ipv4_private(self, address_class=None, network=False):
+        address_class = address_class or self.ipv4_network_class()
+        min_, max_, netmask = IPV4_NET_CLASSES[address_class]
         address = str(ip_address(
             self.generator.random.randint(min_, max_)))
         if network:
@@ -193,6 +223,31 @@ class Provider(BaseProvider):
             address = str(ip_network(address, strict=False))
         return address
 
+    def ipv4_public(self, network=False, address_class=None):
+        address_class = address_class or self.ipv4_network_class()
+        public_net = IPV4_PUBLIC_NETS[address_class]
+        private_blocks = IPV4_PRIVATE_NET_BLOCKS[address_class]
+        # Make valid IP ranges
+        net_ranges = []
+        if public_net[0] != private_blocks[0][0]:
+            net_ranges = [(public_net[0]._ip, private_blocks[0][0]._ip-1)]
+        for i, block in enumerate(private_blocks):
+            if i+1 == len(private_blocks):
+                break
+            net_range = (block[-1]._ip+1, private_blocks[i+1][0]._ip-1)
+            net_ranges.append(net_range)
+        net_ranges.append((private_blocks[-1][-1]._ip-1, public_net[-1]._ip-1))
+        net_ranges = [(i, j) for i, j in net_ranges if (j-i) > 0]
+        # Choose a range
+        min_, max_ = self.generator.random.choice(net_ranges)
+        address = str(ip_address(
+            self.generator.random.randint(min_, max_)))
+        if network:
+            net_masks = {'a': 8, 'b': 16, 'c': 24}
+            min_net_mask = net_masks[address_class]
+            address += '/' + str(self.generator.random.randint(min_net_mask, 31))
+            address = str(ip_network(address, strict=False))
+        return address
 
     def ipv6(self, network=False):
         """Produce a random IPv6 address or network with a valid CIDR"""

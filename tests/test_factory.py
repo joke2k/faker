@@ -367,9 +367,16 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
+    def test_ipv4_network_class(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            klass = provider.ipv4_network_class()
+            self.assertIn(klass, 'abc')
+
     def test_ipv4_private(self):
         from faker.providers.internet import Provider
-
         provider = Provider(self.generator)
 
         for _ in range(999):
@@ -388,6 +395,10 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
+    def test_ipv4_private_class_a(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
         for _ in range(999):
             address = provider.ipv4_private('a')
             self.assertTrue(len(address) >= 7)
@@ -395,6 +406,10 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(ip_address(address).is_private)
             self.assertTrue(
                 re.compile(r'^10\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+
+    def test_ipv4_private_class_b(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
 
         for _ in range(999):
             address = provider.ipv4_private('b')
@@ -404,6 +419,10 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^172\.(\d{1,3}\.){2}\d{1,3}$').search(address))
 
+    def test_ipv4_private_class_c(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
         for _ in range(999):
             address = provider.ipv4_private('c')
             self.assertTrue(len(address) >= 7)
@@ -411,6 +430,60 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(ip_address(address).is_private)
             self.assertTrue(
                 re.compile(r'^192\.168\.\d{1,3}\.\d{1,3}$').search(address))
+
+    def test_ipv4_public(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            address = provider.ipv4_public()
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertFalse(ip_address(address).is_private, address)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
+
+        for _ in range(999):
+            address = provider.ipv4_public(network=True)
+            self.assertTrue(len(address) >= 9)
+            self.assertTrue(len(address) <= 18)
+            # Hack around ipaddress module
+            # As 192.0.0.0 is net addr of many 192.0.0.0/* nets
+            # ipaddress considers them as private
+            if ip_network(address).network_address != ip_address('192.0.0.0'):
+                self.assertFalse(ip_network(address)[0].is_private, address)
+            self.assertTrue(
+                re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
+
+    def test_ipv4_public_class_a(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            address = provider.ipv4_public(address_class='a')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertFalse(ip_address(address).is_private, address)
+
+    def test_ipv4_public_class_b(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            address = provider.ipv4_public(address_class='b')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertFalse(ip_address(address).is_private, address)
+
+    def test_ipv4_public_class_c(self):
+        from faker.providers.internet import Provider
+        provider = Provider(self.generator)
+
+        for _ in range(999):
+            address = provider.ipv4_public(address_class='c')
+            self.assertTrue(len(address) >= 7)
+            self.assertTrue(len(address) <= 15)
+            self.assertFalse(ip_address(address).is_private, address)
 
     def test_ipv6(self):
         from faker.providers.internet import Provider
