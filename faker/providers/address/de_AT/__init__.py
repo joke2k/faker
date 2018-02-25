@@ -24,6 +24,7 @@ class Provider(AddressProvider):
         'gasse', 'platz', 'ring', 'straße', 'str.', 'weg'
     )
 
+    # https://en.wikipedia.org/wiki/List_of_postal_codes_in_Austria
     postcode_formats = (
         '1###',
         '2###',
@@ -36,6 +37,7 @@ class Provider(AddressProvider):
         '9###'
     )
 
+    # https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Austria
     cities = (
         'Allentsteig', 'Altheim', 'Althofen', 'Amstetten', 'Ansfelden', 'Attnang-Puchheim',
         'Bad Aussee', 'Bad Hall', 'Bad Ischl', 'Bad Leonfelden', 'Bad Radkersburg',
@@ -71,6 +73,7 @@ class Provider(AddressProvider):
         'Wolkersdorf', 'Wörgl', 'Ybbs an der Donau', 'Zell am See', 'Zeltweg', 'Zistersdorf', 'Zwettl'
     )
 
+    # https://en.wikipedia.org/wiki/States_of_Austria
     states = (
         'Wien', 'Steiermark', 'Burgenland', 'Tirol', 'Niederösterreich',
         'Oberösterreich', 'Salzburg', 'Kärnten', 'Vorarlberg'
