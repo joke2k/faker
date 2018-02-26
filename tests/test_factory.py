@@ -367,6 +367,18 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
+        address = provider.ipv4(private=True)
+        self.assertTrue(len(address) >= 7)
+        self.assertTrue(len(address) <= 15)
+        self.assertTrue(
+            re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
+
+        address = provider.ipv4(private=False)
+        self.assertTrue(len(address) >= 7)
+        self.assertTrue(len(address) <= 15)
+        self.assertTrue(
+            re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
+
     def test_ipv4_network_class(self):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
@@ -381,6 +393,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_private()
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
@@ -389,6 +402,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_private(network=True)
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
             self.assertTrue(ip_network(address)[0].is_private)
@@ -400,7 +414,8 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         for _ in range(999):
-            address = provider.ipv4_private('a')
+            address = provider.ipv4_private(address_class='a')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
@@ -412,7 +427,8 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         for _ in range(999):
-            address = provider.ipv4_private('b')
+            address = provider.ipv4_private(address_class='b')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
@@ -424,7 +440,8 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         for _ in range(999):
-            address = provider.ipv4_private('c')
+            address = provider.ipv4_private(address_class='c')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
@@ -437,6 +454,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_public()
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -445,6 +463,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_public(network=True)
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
             # Hack around ipaddress module
@@ -461,6 +480,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_public(address_class='a')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -471,6 +491,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_public(address_class='b')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -481,6 +502,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(999):
             address = provider.ipv4_public(address_class='c')
+            address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
