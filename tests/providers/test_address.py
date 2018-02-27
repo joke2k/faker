@@ -9,6 +9,7 @@ from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker
+from faker.providers.address.de_AT import Provider as DeAtProvider
 from faker.providers.address.de_DE import Provider as DeProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
@@ -19,6 +20,42 @@ from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
+
+
+class TestDeAT(unittest.TestCase):
+    """ Tests in addresses in the de_AT locale """
+
+    def setUp(self):
+        self.factory = Faker('de_AT')
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in DeAtProvider.cities
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in DeAtProvider.states
+
+    def test_street_suffix_short(self):
+        street_suffix_short = self.factory.street_suffix_short()
+        assert isinstance(street_suffix_short, string_types)
+        assert street_suffix_short in DeAtProvider.street_suffixes_short
+
+    def test_street_suffix_long(self):
+        street_suffix_long = self.factory.street_suffix_long()
+        assert isinstance(street_suffix_long, string_types)
+        assert street_suffix_long in DeAtProvider.street_suffixes_long
+
+    def test_country(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+        assert country in DeAtProvider.countries
+
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert re.match("\d{4}", postcode)
 
 
 class TestDeDE(unittest.TestCase):
