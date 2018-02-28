@@ -5,11 +5,10 @@ from __future__ import unicode_literals
 from itertools import cycle
 
 import unittest
+from ipaddress import ip_address
 
 import mock
-
 from email_validator import validate_email
-
 from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
@@ -25,6 +24,26 @@ class TestInternetProvider(unittest.TestCase):
     def test_email(self):
         email = self.factory.email(domain='example.com')
         self.assertEqual(email.split('@')[1], 'example.com')
+
+    def test_ipv4(self):
+        for _ in range(100):
+            ip = self.factory.ipv4(private=True)
+            ip = text.force_text(ip)
+            self.assertTrue(ip_address(ip).is_private)
+
+            ip = self.factory.ipv4(private=False)
+            ip = text.force_text(ip)
+            self.assertFalse(ip_address(ip).is_private)
+
+    def test_ipv6(self):
+        for _ in range(100):
+            ip = self.factory.ipv6(private=True)
+            ip = text.force_text(ip)
+            self.assertTrue(ip_address(ip).is_private)
+
+            ip = self.factory.ipv6(private=False)
+            ip = text.force_text(ip)
+            self.assertFalse(ip_address(ip).is_private)
 
 
 class TestInternetProviderUrl(unittest.TestCase):
