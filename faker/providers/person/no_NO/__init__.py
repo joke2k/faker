@@ -268,7 +268,6 @@ class Provider(PersonProvider):
         'Christensen',
         'Dahl',
         'Danielsen',
-        'ødegård',
         'Edvardsen',
         'Eide',
         'Eliassen',
@@ -346,6 +345,7 @@ class Provider(PersonProvider):
         'Thorsen',
         'Tveit',
         'Vik',
+        'Ødegård',
     )
 
     prefixes = (
