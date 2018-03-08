@@ -8,9 +8,9 @@ import six
 import unicodedata
 
 
-_re_pattern = re.compile('[^\w\s-]', flags=re.U)
-_re_pattern_allow_dots = re.compile('[^\.\w\s-]', flags=re.U)
-_re_spaces = re.compile('[-\s]+', flags=re.U)
+_re_pattern = re.compile(r'[^\w\s-]', flags=re.U)
+_re_pattern_allow_dots = re.compile(r'[^\.\w\s-]', flags=re.U)
+_re_spaces = re.compile(r'[-\s]+', flags=re.U)
 
 
 _PROTECTED_TYPES = six.integer_types + (

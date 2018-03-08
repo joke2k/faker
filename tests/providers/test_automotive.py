@@ -12,7 +12,7 @@ class TestPtBR(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('pt_BR')
-        self.format = re.compile('[\w]{3}-[\d]{4}')
+        self.format = re.compile(r'[\w]{3}-[\d]{4}')
 
     def test_plate_has_been_generated(self):
         plate = self.factory.license_plate()
