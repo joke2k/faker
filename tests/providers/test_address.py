@@ -57,6 +57,14 @@ class TestDeAT(unittest.TestCase):
         postcode = self.factory.postcode()
         assert re.match("\d{4}", postcode)
 
+    def test_latitude(self):
+        latitude = self.factory.latitude()
+        assert 46 <= latitude <= 48
+
+    def test_longitude(self):
+        longitude = self.factory.longitude()
+        assert 11 <= longitude <= 15
+
 
 class TestDeDE(unittest.TestCase):
     """ Tests in addresses in the de_DE locale """
