@@ -59,11 +59,11 @@ class TestDeAT(unittest.TestCase):
 
     def test_latitude(self):
         latitude = self.factory.latitude()
-        assert 46 <= latitude <= 48
+        assert re.match("4[6-8]\.\d+", str(latitude))
 
     def test_longitude(self):
         longitude = self.factory.longitude()
-        assert 11 <= longitude <= 15
+        assert re.match("1[1-5]\.\d+", str(longitude))
 
 
 class TestDeDE(unittest.TestCase):
