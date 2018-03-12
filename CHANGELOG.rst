@@ -1,6 +1,22 @@
 Changelog
 =========
 
+`0.8.12 - 12-March-2018 <https://github.com/joke2k/faker/compare/v0.8.11...v0.8.12>`__
+--------------------------------------------------------------------------------------
+
+* Fix issue with ``cx_Freeze``. Thanks @sedominik.
+* Add dutch ``nl_NL`` bank provider. Thanks @PatSousa.
+* Add ``distrito`` and ``freguesia`` to ``pt_PT`` ``address`` provider. Thanks @ZuluPro.
+* Fix  unicode issues with the ``person`` provider. Thanks @karthikarul20.
+* Add ``en_SG`` ``person`` provider. Thanks @karthikarul20.
+* Add street names to the Ukrainian address provider. Thanks @cadmi.
+* Add ``de_AT`` address provider. Thanks @bessl.
+* Fix credit card prefixes. Thanks @jphalip.
+* Fix capitalization in ``no_NO`` address provider. Thanks @cloveras.
+* Fix deprecated syntax for raw strings. Thanks @dchudz.
+* Add ``latitude`` and ``longitude`` to ``de_AT`` ``address`` provider. Thanks @bessl.
+* Fix incorrect value in list of middle name for locale ``ru_RU``. Thanks @damirazo.
+
 `0.8.11 - 12-February-2018 <https://github.com/joke2k/faker/compare/v0.8.10...v0.8.11>`__
 -----------------------------------------------------------------------------------------
 
