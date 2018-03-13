@@ -11,6 +11,7 @@ from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
+from faker.providers.ssn.no_NO import checksum as no_checksum, Provider
 
 
 class TestEtEE(unittest.TestCase):
@@ -127,3 +128,43 @@ class TestPlPL(unittest.TestCase):
     def test_ssn(self):
         for _ in range(100):
             self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+
+
+class TestNoNO(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('no_NO')
+
+    def test_no_NO_ssn_checksum(self):
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], Provider.scale1), 6)
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], Provider.scale2), 7)
+
+    def test_no_NO_ssn(self):
+        for _ in range(100):
+            ssn = self.factory.ssn()
+            self.assertTrue(ssn.isdigit())
+            self.assertEqual(len(ssn), 11)
+
+    def test_no_NO_ssn_dob_passed(self):
+        date_of_birth = '20010203'
+        ssn = self.factory.ssn(dob=date_of_birth)
+        self.assertEqual(ssn[:6], date_of_birth[2:])
+
+    def test_no_NO_ssn_invalid_dob_passed(self):
+        with self.assertRaises(ValueError):
+            self.factory.ssn(dob='010401')
+        with self.assertRaises(ValueError):
+            self.factory.ssn(dob='hello_world')
+        with self.assertRaises(ValueError):
+            self.factory.ssn(dob='001301')
+
+    def test_no_NO_ssn_gender_passed(self):
+        # Females have even number at index 8
+        ssn = self.factory.ssn(gender='F')
+        self.assertTrue(int(ssn[8]) % 2 == 0)
+        # Males have odd number at index 8
+        ssn = self.factory.ssn(gender='M')
+        self.assertTrue(int(ssn[8]) % 2 == 1)
+
+    def test_no_NO_ssn_invalid_gender_passed(self):
+        with self.assertRaises(ValueError):
+            self.factory.ssn(gender='A')
