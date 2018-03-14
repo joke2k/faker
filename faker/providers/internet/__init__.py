@@ -1,7 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from text_unidecode import unidecode
+from isounidecode import unidecode
 
 from .. import BaseProvider
 
@@ -69,7 +69,8 @@ class Provider(BaseProvider):
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
-        string = unidecode(string)
+        # isounidecode returns bytes, so decode to str/unicode
+        string = unidecode(string).decode("ascii")
         return string
 
     @lowercase
