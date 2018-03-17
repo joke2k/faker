@@ -4,6 +4,7 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    # Format: (code, name)
     currencies = (
         ("AED", "United Arab Emirates dirham"),
         ("AFN", "Afghan afghani"),
@@ -173,9 +174,32 @@ class Provider(BaseProvider):
 
     # Source: https://en.wikipedia.org/wiki/List_of_cryptocurrencies
     cryptocurrencies = (
-        'AMP', 'AUR', 'BC', 'BTC', 'BURST', 'DASH', 'DOGE', 'EMC', 'ETH',
-        'GRC', 'KOI', 'LTC', 'MSC', 'MZC', 'NMC', 'NXT', 'POT', 'PPC', 'SIL',
-        'TIT', 'VTC', 'XDN', 'XMR', 'XPM', 'XRP', 'ZEC',
+        ('AMP', "AMP"),
+        ('AUR', "Auroracoin"),
+        ('BC', "BlackCoin"),
+        ('BTC', "Bitcoin"),
+        ('BURST', "Burstcoin"),
+        ('DASH', "Dash"),
+        ('DOGE', "Dogecoin"),
+        ('EMC', "Emercoin"),
+        ('ETH', "Ethereum"),
+        ('GRC', "Gridcoin"),
+        ('KOI', "Coinye"),
+        ('LTC', "Litecoin"),
+        ('MSC', "Omni"),
+        ('MZC', "MazaCoin"),
+        ('NMC', "Namecoin"),
+        ('NXT', "Nxt"),
+        ('POT', "PotCoin"),
+        ('PPC', "Peercoin"),
+        # ('SIL', ""),  # Not Found
+        ('TIT', "Titcoin"),
+        ('VTC', "Vertcoin"),
+        ('XDN', "DigitalNote"),
+        ('XMR', "Monero"),
+        ('XPM', "Primecoin"),
+        ('XRP', "Ripple"),
+        ('ZEC', "Zcash"),
     )
 
     def currency(self):
@@ -187,5 +211,11 @@ class Provider(BaseProvider):
     def currency_name(self):
         return self.currency()[1]
 
-    def cryptocurrency_code(self):
+    def cryptocurrency(self):
         return self.random_element(self.cryptocurrencies)
+
+    def cryptocurrency_code(self):
+        return self.cryptocurrency()[0]
+
+    def cryptocurrency_name(self):
+        return self.cryptocurrency()[1]
