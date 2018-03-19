@@ -12,6 +12,7 @@ _re_perc = re.compile(r'%')
 _re_excl = re.compile(r'!')
 _re_at = re.compile(r'@')
 _re_qm = re.compile(r'\?')
+_re_cir = re.compile(r'\^')
 
 
 class BaseProvider(object):
@@ -213,3 +214,17 @@ class BaseProvider(object):
         :returns: string with all numerical and letter placeholders filled in
         """
         return self.lexify(self.numerify(text), letters=letters)
+
+    def hexify(self, text='^^^^', upper=False):
+        """
+        Replaces all circumflex ('^') occurrences with a random
+        hexadecimal character.
+
+        :param text: string to be parsed
+        :param upper: Format as uppercase hexadecimal
+        :returns: string with all letter placeholders filled in
+        """
+        letters = string.hexdigits[:-6]
+        if upper:
+            letters = letters.upper()
+        return _re_cir.sub(lambda x: self.random_element(letters), text)
