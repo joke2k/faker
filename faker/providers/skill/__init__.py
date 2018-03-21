@@ -17,6 +17,7 @@ class Provider(BaseProvider):
                    'Negotiation', 'Visual Communication', 'Decisiveness', 'Working Well Under Pressure',
                     'Decision Making', 'Multitasking', 'Prioritization', 'Time Management', 'Accepting and integrating feedback',
                    'Collaboration', 'Empathetic', 'Planning/scheduling', 'Mentorship', 'Accountable', 'Reliable')
+
     all_skills = hard_skills + soft_skills
 
     def hard_skill(self):
@@ -27,12 +28,3 @@ class Provider(BaseProvider):
 
     def skill(self):
         return self.random_element(self.all_skills)
-
-    def get_soft_skills(self):
-        return self.soft_skills
-
-    def get_hard_skills(self):
-        return self.hard_skills
-
-    def get_skills(self):
-        return self.all_skills
