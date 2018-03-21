@@ -13,3 +13,8 @@ class TestSkill(unittest.TestCase):
 
         assert skill in EnUsProvider.soft_skills
 
+    def test_skill_provider_grabs_hard_skill(self):
+        skill = self.factory.hard_skill()
+
+        assert skill in EnUsProvider.hard_skills
+
