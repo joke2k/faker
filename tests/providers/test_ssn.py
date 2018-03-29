@@ -8,6 +8,7 @@ from datetime import datetime
 
 from faker import Faker
 from faker.providers.ssn.et_EE import checksum as et_checksum
+from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
@@ -29,6 +30,30 @@ class TestEtEE(unittest.TestCase):
     def test_ssn(self):
         for _ in range(100):
             self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+
+
+class TestFiFI(unittest.TestCase):
+    """ Tests SSN in the fi_FI locale """
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+        self.provider = fi_Provider
+
+    def test_century_code(self):
+        self.assertEqual(self.provider._get_century_code(1900), '-')
+        self.assertEqual(self.provider._get_century_code(1999), '-')
+        self.assertEqual(self.provider._get_century_code(2000), 'A')
+        self.assertEqual(self.provider._get_century_code(2999), 'A')
+        self.assertEqual(self.provider._get_century_code(1800), '+')
+        self.assertEqual(self.provider._get_century_code(1899), '+')
+        with self.assertRaises(ValueError):
+            self.provider._get_century_code(1799)
+        with self.assertRaises(ValueError):
+            self.provider._get_century_code(3000)
+
+    def test_ssn_sanity(self):
+        for age in range(100):
+            self.factory.ssn(min_age=age, max_age=age+1)
 
 
 class TestHrHR(unittest.TestCase):

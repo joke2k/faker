@@ -7,11 +7,10 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self, min_age=18, max_age=90):
+    def ssn(self, min_age=0, max_age=105):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
-        HETU, Swedish: Personbeteckning). Age of person is between 18 and 90
-        years, based on local computer date. This function assigns random
+        HETU, Swedish: Personbeteckning). This function assigns random
         sex to person.
 
         HETU consists of eleven characters of the form DDMMYYCZZZQ, where
@@ -34,11 +33,24 @@ class Provider(SsnProvider):
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (
             birthday.day, birthday.month, str(birthday.year)[-2:])
-        if birthday.year < 2000:
-            separator = '-'
-        else:
-            separator = 'A'
         suffix = str(self.generator.random.randrange(2, 899)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
+        separator = self._get_century_code(birthday.year)
         hetu = "".join([hetu_date, separator, suffix, checksum])
         return hetu
+
+    @staticmethod
+    def _get_century_code(year):
+        """Returns the century code for a given year"""
+        if 2000 <= year < 3000:
+            separator = 'A'
+        elif 1900 <= year < 2000:
+            separator = '-'
+        elif 1800 <= year < 1900:
+            separator = '+'
+        else:
+            raise ValueError(
+                'Finnish SSN do not support people born '
+                'before the year 1800 or after the year 2999'
+            )
+        return separator
