@@ -11,7 +11,7 @@ class Provider(SsnProvider):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). This function assigns random
-        sex to person.
+        gender to person.
 
         HETU consists of eleven characters of the form DDMMYYCZZZQ, where
         DDMMYY is the date of birth, C the century sign, ZZZ the individual
