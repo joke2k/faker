@@ -7,11 +7,10 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self, min_age=18, max_age=90):
+    def ssn(self, min_age=0, max_age=105):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
-        HETU, Swedish: Personbeteckning). Age of person is between 18 and 90
-        years, based on local computer date. This function assigns random
+        HETU, Swedish: Personbeteckning). This function assigns random
         sex to person.
 
         HETU consists of eleven characters of the form DDMMYYCZZZQ, where
