@@ -224,7 +224,7 @@ class Provider(BaseProvider):
         """
         file = self.file_name(category, extension)
         path = "/{0}".format(file)
-        for d in range(0, depth):
+        for _ in range(0, depth):
             path = "/{0}{1}".format(self.generator.word(), path)
         return path
 
