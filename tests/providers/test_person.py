@@ -27,50 +27,50 @@ class TestAr(unittest.TestCase):
     def test_first_name(self):
         # General first name
         name = self.factory.first_name()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.first_names)
+        assert name in ArProvider.first_names
 
         # Females first name
         name = self.factory.first_name_female()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.first_names)
-        self.assertIn(name, ArProvider.first_names_female)
+        assert name in ArProvider.first_names
+        assert name in ArProvider.first_names_female
 
         # Male first name
         name = self.factory.first_name_male()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.first_names)
-        self.assertIn(name, ArProvider.first_names_male)
+        assert name in ArProvider.first_names
+        assert name in ArProvider.first_names_male
 
     def test_last_name(self):
         # There's no gender-specific last name in Arabic.
-        self.assertFalse(hasattr(ArProvider, 'last_names_male'))
-        self.assertFalse(hasattr(ArProvider, 'last_names_female'))
+        assert not hasattr(ArProvider, 'last_names_male')
+        assert not hasattr(ArProvider, 'last_names_female')
         # All last names apply for all genders.
-        self.assertTrue(hasattr(ArProvider, 'last_names'))
+        assert hasattr(ArProvider, 'last_names')
 
         # General first name.
         name = self.factory.last_name()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.last_names)
+        assert name in ArProvider.last_names
 
         # Females last name.
         name = self.factory.last_name_female()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.last_names)
-        self.assertIn(name, ArProvider.last_names)
+        assert name in ArProvider.last_names
+        assert name in ArProvider.last_names
 
         # Male last name.
         name = self.factory.last_name_male()
-        self.assertTrue(name)
+        assert name
         self.assertIsInstance(name, six.string_types)
-        self.assertIn(name, ArProvider.last_names)
-        self.assertIn(name, ArProvider.last_names)
+        assert name in ArProvider.last_names
+        assert name in ArProvider.last_names
 
 
 class TestJaJP(unittest.TestCase):
@@ -158,18 +158,18 @@ class TestFiFI(unittest.TestCase):
     def test_gender_first_names(self):
         female_name = self.factory.first_name_female()
         self.assertIsInstance(female_name, six.string_types)
-        self.assertIn(female_name, FiProvider.first_names_female)
+        assert female_name in FiProvider.first_names_female
         male_name = self.factory.first_name_male()
         self.assertIsInstance(male_name, six.string_types)
-        self.assertIn(male_name, FiProvider.first_names_male)
+        assert male_name in FiProvider.first_names_male
         first_name = self.factory.first_name()
         self.assertIsInstance(first_name, six.string_types)
-        self.assertIn(first_name, FiProvider.first_names)
+        assert first_name in FiProvider.first_names
 
     def test_last_names(self):
         last_name = self.factory.last_name()
         self.assertIsInstance(last_name, six.string_types)
-        self.assertIn(last_name, FiProvider.last_names)
+        assert last_name in FiProvider.last_names
 
 
 class TestSvSE(unittest.TestCase):
@@ -180,11 +180,11 @@ class TestSvSE(unittest.TestCase):
     def test_gender_first_names(self):
         """simple test to verify that we are pulling gender specific names"""
         name = self.factory.first_name_female()
-        self.assertIn(name, SvSEProvider.first_names_female)
+        assert name in SvSEProvider.first_names_female
         name = self.factory.first_name_male()
-        self.assertIn(name, SvSEProvider.first_names_male)
+        assert name in SvSEProvider.first_names_male
         name = self.factory.first_name()
-        self.assertIn(name, SvSEProvider.first_names)
+        assert name in SvSEProvider.first_names
 
 
 class TestPlPL(unittest.TestCase):
@@ -193,15 +193,15 @@ class TestPlPL(unittest.TestCase):
         self.factory = Faker('pl_PL')
 
     def test_identity_card_number_checksum(self):
-        self.assertEqual(pl_checksum_identity_card_number(['A', 'I', 'S', 8, 5, 0, 2, 1, 4]), 8)
-        self.assertEqual(pl_checksum_identity_card_number(['A', 'U', 'L', 9, 2, 7, 2, 8, 5]), 9)
-        self.assertEqual(pl_checksum_identity_card_number(['A', 'E', 'I', 2, 5, 1, 8, 2, 4]), 2)
-        self.assertEqual(pl_checksum_identity_card_number(['A', 'H', 'F', 2, 2, 0, 6, 8, 0]), 2)
-        self.assertEqual(pl_checksum_identity_card_number(['A', 'X', 'E', 8, 2, 0, 3, 4, 0]), 8)
+        assert pl_checksum_identity_card_number(['A', 'I', 'S', 8, 5, 0, 2, 1, 4]) == 8
+        assert pl_checksum_identity_card_number(['A', 'U', 'L', 9, 2, 7, 2, 8, 5]) == 9
+        assert pl_checksum_identity_card_number(['A', 'E', 'I', 2, 5, 1, 8, 2, 4]) == 2
+        assert pl_checksum_identity_card_number(['A', 'H', 'F', 2, 2, 0, 6, 8, 0]) == 2
+        assert pl_checksum_identity_card_number(['A', 'X', 'E', 8, 2, 0, 3, 4, 0]) == 8
 
     def test_identity_card_number(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number()))
+            assert re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number())
 
 
 class TestCsCZ(unittest.TestCase):
@@ -226,8 +226,8 @@ class TestCsCZ(unittest.TestCase):
             else:
                 first_name = name_parts[1]
                 last_name = name_parts[2]
-        self.assertIn(first_name, CsCZProvider.first_names_male)
-        self.assertIn(last_name, CsCZProvider.last_names_male)
+        assert first_name in CsCZProvider.first_names_male
+        assert last_name in CsCZProvider.last_names_male
 
     def test_name_female(self):
         female_name = self.factory.name_female()
@@ -246,5 +246,5 @@ class TestCsCZ(unittest.TestCase):
             else:
                 first_name = name_parts[1]
                 last_name = name_parts[2]
-        self.assertIn(first_name, CsCZProvider.first_names_female)
-        self.assertIn(last_name, CsCZProvider.last_names_female)
+        assert first_name in CsCZProvider.first_names_female
+        assert last_name in CsCZProvider.last_names_female

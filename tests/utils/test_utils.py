@@ -19,7 +19,7 @@ class UtilsTestCase(unittest.TestCase):
         p = (0.5, 0.2, 0.2, 0.1)
 
         sample = choices_distribution(a, p)[0]
-        self.assertTrue(sample in a)
+        assert sample in a
 
         with open(os.path.join(TEST_DIR, 'random_state.json'), 'r') as fh:
             random_state = json.load(fh)
@@ -37,10 +37,10 @@ class UtilsTestCase(unittest.TestCase):
         for probability in p:
             boundaries.append([100 * probability + tolerance,  100 * probability - tolerance])
 
-        self.assertTrue(boundaries[0][0] > a_pop > boundaries[0][1])
-        self.assertTrue(boundaries[1][0] > b_pop > boundaries[1][1])
-        self.assertTrue(boundaries[2][0] > c_pop > boundaries[2][1])
-        self.assertTrue(boundaries[3][0] > d_pop > boundaries[3][1])
+        assert boundaries[0][0] > a_pop > boundaries[0][1]
+        assert boundaries[1][0] > b_pop > boundaries[1][1]
+        assert boundaries[2][0] > c_pop > boundaries[2][1]
+        assert boundaries[3][0] > d_pop > boundaries[3][1]
 
     def test_choices_distribution_unique(self):
         a = ('a', 'b', 'c', 'd')
@@ -49,7 +49,7 @@ class UtilsTestCase(unittest.TestCase):
             choices_distribution_unique(a, p, length=5)
 
         samples = choices_distribution_unique(a, p, length=4)
-        self.assertEqual(len(set(samples)), len(samples))
+        assert len(set(samples)) == len(samples)
 
     def test_add_dicts(self):
         t1 = {'a':1, 'b':2}
@@ -57,11 +57,11 @@ class UtilsTestCase(unittest.TestCase):
         t3 = {'d':4}
 
         result = add_dicts(t1, t2, t3)
-        self.assertEqual(result, {'a': 1, 'c': 3, 'b': 3, 'd': 4})
+        assert result == {'a': 1, 'c': 3, 'b': 3, 'd': 4}
 
     def test_find_available_locales(self):
         result = find_available_locales(PROVIDERS)
-        self.assertNotEqual(len(result), 0)
+        assert len(result) != 0
 
     def test_find_available_providers(self):
         modules = [import_module(path) for path in META_PROVIDERS_MODULES]
@@ -90,4 +90,4 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.ssn',
             'faker.providers.user_agent'
         ]))
-        self.assertEqual(providers, expected_providers)
+        assert providers == expected_providers

@@ -11,31 +11,31 @@ class TestCurrencyProvider(unittest.TestCase):
     def test_currency(self):
         for _ in range(99):
             cur = self.factory.currency()
-            self.assertIsInstance(cur, tuple)
-            self.assertIn(cur, CurrencyProvider.currencies)
+            assert isinstance(cur, tuple)
+            assert cur in CurrencyProvider.currencies
 
     def test_currency_code(self):
         for _ in range(99):
             code = self.factory.currency_code()
-            self.assertIsInstance(code, str)
+            assert isinstance(code, str)
 
     def test_currency_name(self):
         for _ in range(99):
             name = self.factory.currency_name()
-            self.assertIsInstance(name, str)
+            assert isinstance(name, str)
 
     def test_cryptocurrency(self):
         for _ in range(99):
             cur = self.factory.cryptocurrency()
-            self.assertIsInstance(cur, tuple)
-            self.assertIn(cur, CurrencyProvider.cryptocurrencies)
+            assert isinstance(cur, tuple)
+            assert cur in CurrencyProvider.cryptocurrencies
 
     def test_cryptocurrency_code(self):
         for _ in range(99):
             code = self.factory.cryptocurrency_code()
-            self.assertIsInstance(code, str)
+            assert isinstance(code, str)
 
     def test_cryptocurrency_name(self):
         for _ in range(99):
             name = self.factory.cryptocurrency_name()
-            self.assertIsInstance(name, str)
+            assert isinstance(name, str)

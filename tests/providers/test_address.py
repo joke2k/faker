@@ -221,7 +221,7 @@ class TestEnAU(unittest.TestCase):
         state_abbr = self.factory.state_abbr()
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnAuProvider.states_abbr
-        self.assertTrue(state_abbr.isupper())
+        assert state_abbr.isupper()
 
 
 class TestEnNZ(unittest.TestCase):
@@ -515,7 +515,7 @@ class TestNoNO(unittest.TestCase):
 
     def test_postcode(self):
         for _ in range(100):
-            self.assertTrue(re.match(r'^[0-9]{4}$', self.factory.postcode()))
+            assert re.match(r'^[0-9]{4}$', self.factory.postcode())
 
     def test_city_suffix(self):
         suffix = self.factory.city_suffix()
@@ -576,7 +576,7 @@ class TestZhCN(unittest.TestCase):
         assert isinstance(address, string_types)
 
         for _ in range(100):
-            self.assertTrue(re.match(r'\d{5}', self.factory.postcode()))
+            assert re.match(r'\d{5}', self.factory.postcode())
 
 
 class TestPtBr(unittest.TestCase):

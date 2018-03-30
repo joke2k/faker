@@ -2,6 +2,7 @@ import unittest
 from faker.providers.isbn.en_US import Provider as ISBNProvider
 from faker.providers.isbn import ISBN10, ISBN13
 from faker.providers.isbn.rules import RegistrantRule
+import pytest
 
 
 class TestISBN10(unittest.TestCase):
@@ -46,6 +47,6 @@ class TestProvider(unittest.TestCase):
         assert self.prov._registrant_publication('0000002', [r1, r2]) == ('00', '00002')
 
     def test_rule_not_found(self):
-        with self.assertRaises(Exception):
+        with pytest.raises(Exception):
             r = RegistrantRule('0000000', '0000001', 1)
             self.prov._registrant_publication('0000002', [r])
