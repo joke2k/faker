@@ -30,7 +30,7 @@ class Provider(SsnProvider):
             # determine the last digit to make it qualify the test
             digits.append((s % 11) % 10)
             # repeat steps until it does qualify the test
-            if (0 == (_checksum(digits) % 11)):
+            if 0 == (_checksum(digits) % 11):
                 break
 
         # build the resulting BSN

@@ -36,7 +36,7 @@ class Provider(CompanyProvider):
         first_digit = str(self.random_digit_not_null())
         body = first_digit + self.bothify(self.random_element(('######',)))
         cs = calculate_checksum(body)
-        return (body + '-' + str(cs))
+        return body + '-' + str(cs)
 
     def company_vat(self):
         """

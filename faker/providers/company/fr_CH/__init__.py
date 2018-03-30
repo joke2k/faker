@@ -25,7 +25,7 @@ class Provider(CompanyProvider):
             sum_ = _checksum(digits)
             # determine the last digit to make it qualify the test
             control_number = 11 - sum_
-            if (control_number != 10):
+            if control_number != 10:
                 digits.append(control_number)
                 break
 
