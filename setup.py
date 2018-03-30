@@ -63,7 +63,7 @@ setup(
     install_requires=[
         "python-dateutil>=2.4",
         "six",
-        "text-unidecode",
+        "isounidecode",
     ],
     tests_require=[
         "email_validator>=1.0.0,<1.1.0",
