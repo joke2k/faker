@@ -1271,9 +1271,9 @@ class Provider(BaseProvider):
             raise ParseError("Can't parse date string `{}`.".format(value))
         parts = parts.groupdict()
         time_params = {}
-        for (name, param) in parts.items():
-            if param:
-                time_params[name] = int(param)
+        for (name_, param_) in parts.items():
+            if param_:
+                time_params[name_] = int(param_)
 
         if 'years' in time_params:
             if 'days' not in time_params:
