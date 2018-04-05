@@ -2,5 +2,5 @@ mock==2.0.0
 UkPostcodeParser==1.1.2
 email_validator==1.0.3
 python-dateutil>=2.4
-six
+six==1.11.0
 text-unidecode
