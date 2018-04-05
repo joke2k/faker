@@ -1,6 +1,0 @@
-mock==2.0.0
-UkPostcodeParser==1.1.2
-email_validator==1.0.3
-text_unidecode==1.2
-six==1.11.0
-python-dateutil==2.7.2
