@@ -6,7 +6,7 @@ import unittest
 from faker import Faker
 
 class TestNoNO(unittest.TestCase):
-    """ Tests the street address in no_NO locale """
+    """ Tests the bban in no_NO locale """
 
     def setUp(self):
         self.factory = Faker('no_NO')
