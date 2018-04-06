@@ -105,3 +105,20 @@ class TestBaseProvider(unittest.TestCase):
             for c in hexified:
                 self.assertIn(c, string.hexdigits[:-6].upper())
                 self.assertNotIn(c, string.hexdigits[-6:].lower())
+
+    def test_random_letter(self):
+        for i in range(100):
+            letter = self.provider.random_letter()
+            self.assertTrue(letter.isalpha())
+
+    def test_random_lowercase_letter(self):
+        for i in range(100):
+            letter = self.provider.random_lowercase_letter()
+            self.assertTrue(letter.isalpha())
+            self.assertEqual(letter.lower(), letter)
+
+    def test_random_uppercase_letter(self):
+        for i in range(100):
+            letter = self.provider.random_uppercase_letter()
+            self.assertTrue(letter.isalpha())
+            self.assertEqual(letter.upper(), letter)
