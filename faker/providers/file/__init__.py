@@ -1,5 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
+import string
 from collections import OrderedDict
 
 from .. import BaseProvider
@@ -187,6 +189,7 @@ class Provider(BaseProvider):
         ("text", text_file_extensions),
         ("video", video_file_extensions),
     ))
+    unix_device_prefixes = ('sd', 'vd', 'xvd',)
 
     def mime_type(self, category=None):
         """
@@ -223,4 +226,21 @@ class Provider(BaseProvider):
         path = "/{0}".format(file)
         for d in range(0, depth):
             path = "/{0}{1}".format(self.generator.word(), path)
+        return path
+
+    def unix_device(self, prefix=None):
+        """
+        :param prefix: sd|vd|xvd
+        """
+        prefix = prefix or self.random_element(self.unix_device_prefixes)
+        suffix = self.random_element(string.ascii_lowercase)
+        path = '/dev/%s%s' % (prefix, suffix)
+        return path
+
+    def unix_partition(self, prefix=None):
+        """
+        :param prefix: sd|vd|xvd
+        """
+        path = self.unix_device(prefix=prefix)
+        path += str(self.random_digit())
         return path
