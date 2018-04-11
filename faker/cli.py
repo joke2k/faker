@@ -216,7 +216,7 @@ examples:
                                  "list of comma separated field names as the "
                                  "first argument)")
 
-        arguments = parser.parse_args()
+        arguments = parser.parse_args(self.argv[1:])
 
         for _ in range(arguments.repeat):
 
