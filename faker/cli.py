@@ -218,7 +218,7 @@ examples:
 
         arguments = parser.parse_args()
 
-        for i in range(arguments.repeat):
+        for _ in range(arguments.repeat):
 
             print_doc(arguments.fake,
                       arguments.fake_args,
