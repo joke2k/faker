@@ -91,6 +91,14 @@ class BaseProvider(object):
         return self.generator.random.choice(
             getattr(string, 'letters', string.ascii_letters))
 
+    def random_lowercase_letter(self):
+        """Returns a random lowercase letter (between a-z)."""
+        return self.generator.random.choice(string.ascii_lowercase)
+
+    def random_uppercase_letter(self):
+        """Returns a random letter (between A-Z)."""
+        return self.generator.random.choice(string.ascii_uppercase)
+
     def random_element(self, elements=('a', 'b', 'c')):
         """
         Returns a random element from a passed object.
