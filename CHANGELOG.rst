@@ -1,6 +1,22 @@
 Changelog
 =========
 
+`0.8.13 - 12-April-2018 <https://github.com/joke2k/faker/compare/v0.8.12...v0.8.13>`__
+--------------------------------------------------------------------------------------
+
+* Add ``no_NO`` bank provider. Thanks @cloveras.
+* Add ``ipv4_network_class``, ``ipv4_private``, ``ipv4_public`` providers. Thanks @ZuluPro.
+* Add ``address_class`` and ``private`` arguments to ``ipv4`` provider. Thanks @ZuluPro.
+* Add ``currency``, ``currency_name``, ``cryptocurrency``, ``cryptocurrency_code`` and
+``cryptocurrency_name`` to currency provider. Thanks @ZuluPro.
+* Add automotive provider for ``de_DE``. Thanks @gsilvan.
+* Fix edgecases for Finnish ``ssn`` provider. Thanks @sanga.
+* Add job provider for ``pt_BR``. Thanks @paladini.
+* Add ``unix_device`` and ``unix_partition`` to ``file`` provider. Thanks @ZuluPro.
+* Add ``random_lowercase_letter`` and ``random_uppercase_letter`` to the base provider. Thanks @ZuluPro.
+* Clarify CLI help. Thanks @confirmationbias616.
+
+
 `0.8.12 - 12-March-2018 <https://github.com/joke2k/faker/compare/v0.8.11...v0.8.12>`__
 --------------------------------------------------------------------------------------
 
