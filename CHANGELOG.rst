@@ -7,8 +7,7 @@ Changelog
 * Add ``no_NO`` bank provider. Thanks @cloveras.
 * Add ``ipv4_network_class``, ``ipv4_private``, ``ipv4_public`` providers. Thanks @ZuluPro.
 * Add ``address_class`` and ``private`` arguments to ``ipv4`` provider. Thanks @ZuluPro.
-* Add ``currency``, ``currency_name``, ``cryptocurrency``, ``cryptocurrency_code`` and
-``cryptocurrency_name`` to currency provider. Thanks @ZuluPro.
+* Add ``currency``, ``currency_name``, ``cryptocurrency``, ``cryptocurrency_code`` and ``cryptocurrency_name`` to currency provider. Thanks @ZuluPro.
 * Add automotive provider for ``de_DE``. Thanks @gsilvan.
 * Fix edgecases for Finnish ``ssn`` provider. Thanks @sanga.
 * Add job provider for ``pt_BR``. Thanks @paladini.
