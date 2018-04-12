@@ -138,9 +138,14 @@ class Command(object):
 
   {0}
 
-  faker can take a locale as an argument, to return localized data. If no
-  localized provider is found, the factory falls back to the default en_US
-  locale.
+  Faker can take a locale as an optional argument, to return localized data. If
+  no locale argument is specified, the factory falls back to the user's OS
+  locale as long as it is supported by at least one of the providers.
+     - for this user, the default locale is {1}.
+
+  If the optional argument locale and/or user's default locale is not available
+  for the specified provider, the factory falls back to faker's default locale,
+  which is {2}.
 
 examples:
 
@@ -160,7 +165,9 @@ examples:
   Josiah Maggio;
   Gayla Schmitt;
 
-""".format(', '.join(sorted(AVAILABLE_LOCALES)))
+""".format(', '.join(sorted(AVAILABLE_LOCALES)),
+           default_locale,
+           DEFAULT_LOCALE)
 
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
