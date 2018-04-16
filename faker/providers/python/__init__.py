@@ -123,7 +123,7 @@ class Provider(BaseProvider):
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
-        for f in range(nb_elements):
+        for _ in range(nb_elements):
             yield self._random_type(value_types)
 
     def pydict(self, nb_elements=10, variable_nb_elements=True, *value_types):

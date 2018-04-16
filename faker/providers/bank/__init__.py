@@ -14,7 +14,7 @@ class Provider(BaseProvider):
     IBAN/BBANs for the given country. But the ids of the banks are random and
     not valid banks! Same for account numbers.
     """
-    
+
     ALPHA = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
 
     # see https://en.wikipedia.org/wiki/International_Bank_Account_Number
@@ -26,7 +26,7 @@ class Provider(BaseProvider):
 
     def bban(self):
         temp = re.sub(r'\?',
-            lambda x: self.random_element(ascii_uppercase), 
+            lambda x: self.random_element(ascii_uppercase),
             self.bban_format)
         return self.numerify(temp)
 
