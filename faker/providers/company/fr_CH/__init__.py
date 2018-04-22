@@ -13,19 +13,19 @@ class Provider(CompanyProvider):
         """
         def _checksum(digits):
             factors = (5, 4, 3, 2, 7, 6, 5, 4)
-            sum = 0
+            sum_ = 0
             for i in range(len(digits)):
-                sum += digits[i] * factors[i]
-            return sum % 11
+                sum_ += digits[i] * factors[i]
+            return sum_ % 11
 
         while True:
             # create an array of first 8 elements initialized randomly
             digits = self.generator.random.sample(range(10), 8)
             # sum those 8 digits according to (part of) the "modulo 11"
-            sum = _checksum(digits)
+            sum_ = _checksum(digits)
             # determine the last digit to make it qualify the test
-            control_number = 11 - sum
-            if (control_number != 10):
+            control_number = 11 - sum_
+            if control_number != 10:
                 digits.append(control_number)
                 break
 

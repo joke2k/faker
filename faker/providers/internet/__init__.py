@@ -311,7 +311,7 @@ class Provider(BaseProvider):
         return address
 
     def mac_address(self):
-        mac = [self.generator.random.randint(0x00, 0xff) for i in range(0, 6)]
+        mac = [self.generator.random.randint(0x00, 0xff) for _ in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
 
     def uri_page(self):

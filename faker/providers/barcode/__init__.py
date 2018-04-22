@@ -7,7 +7,7 @@ from .. import BaseProvider
 class Provider(BaseProvider):
 
     def ean(self, length=13):
-        code = [self.random_digit() for i in range(length - 1)]
+        code = [self.random_digit() for _ in range(length - 1)]
 
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")

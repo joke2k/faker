@@ -54,6 +54,16 @@ class TestFiFI(unittest.TestCase):
     def test_ssn_sanity(self):
         for age in range(100):
             self.factory.ssn(min_age=age, max_age=age+1)
+    
+    def test_valid_ssn(self):
+        ssn = self.factory.ssn(artificial=False)
+        individual_number = int(ssn[7:10])
+        self.assertLessEqual(individual_number, 899)
+
+    def test_artifical_ssn(self):
+        ssn = self.factory.ssn(artificial=True)
+        individual_number = int(ssn[7:10])
+        self.assertGreaterEqual(individual_number, 900)
 
 
 class TestHrHR(unittest.TestCase):

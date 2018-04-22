@@ -7,7 +7,7 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self, min_age=0, max_age=105):
+    def ssn(self, min_age=0, max_age=105, artificial=False):
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). This function assigns random
@@ -33,7 +33,8 @@ class Provider(SsnProvider):
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (
             birthday.day, birthday.month, str(birthday.year)[-2:])
-        suffix = str(self.generator.random.randrange(2, 899)).zfill(3)
+        range = (900, 999) if artificial is True else (2, 899)
+        suffix = str(self.generator.random.randrange(*range)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
         separator = self._get_century_code(birthday.year)
         hetu = "".join([hetu_date, separator, suffix, checksum])

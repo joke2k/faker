@@ -19,7 +19,7 @@ def get_path(module):
 
 def list_module(module):
     path = get_path(module)
-    modules = [name for finder, name,
+    modules = [name for _, name,
                is_pkg in pkgutil.iter_modules([path]) if is_pkg]
     return modules
 
