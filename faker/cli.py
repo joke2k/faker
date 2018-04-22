@@ -11,6 +11,7 @@ from faker import Faker, documentor
 from faker import VERSION
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
+import logging
 
 if sys.version < '3':
     text_type = unicode
@@ -21,7 +22,6 @@ else:
 
 
 __author__ = 'joke2k'
-
 
 def print_provider(doc, provider, formatters, excludes=None, output=None):
     output = output or sys.stdout
@@ -179,6 +179,12 @@ examples:
         parser.add_argument("--version", action="version",
                             version="%(prog)s {0}".format(VERSION))
 
+        parser.add_argument('-v',
+                            '--verbose',
+                            action='store_true',
+                            help="show INFO level logging events instead "
+                            "of CRITICAL level, which is the default")
+
         parser.add_argument('-o', metavar="output",
                             type=argparse.FileType('w'),
                             default=sys.stdout,
@@ -224,6 +230,11 @@ examples:
                                  "first argument)")
 
         arguments = parser.parse_args(self.argv[1:])
+
+        if arguments.verbose:
+            logging.basicConfig(level=logging.INFO)
+        else:
+            logging.basicConfig(level=logging.CRITICAL)
 
         for _ in range(arguments.repeat):
 

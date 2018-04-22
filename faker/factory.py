@@ -6,9 +6,22 @@ from __future__ import absolute_import
 from importlib import import_module
 import locale as pylocale
 
+import logging
+import sys
+
 from faker import Generator
 from faker.config import DEFAULT_LOCALE, PROVIDERS, AVAILABLE_LOCALES
 from faker.utils.loading import list_module
+
+
+logger = logging.getLogger(__name__)
+
+# identify if python is being run in interactive mode. If so, dsiable logging.
+inREPL = bool(getattr(sys, 'ps1', False))
+if inREPL:
+    logger.setLevel(logging.CRITICAL)
+else:
+    logger.debug('Not in REPL -> leaving logger event level as is...')
 
 
 class Factory(object):
@@ -75,13 +88,23 @@ class Factory(object):
 
     @classmethod
     def _find_provider_class(cls, provider_path, locale=None):
+        logger.debug(locale)
         provider_module = import_module(provider_path)
 
         if getattr(provider_module, 'localized', False):
             available_locales = list_module(provider_module)
-            if not locale or locale not in available_locales:
+
+            if locale not in available_locales:
+                unavailable_locale = locale
                 locale = getattr(
                     provider_module, 'default_locale', DEFAULT_LOCALE)
+                logger.warning('specified locale ({}) is not available for \
+                                provider {}. Locale reset to {} for this \
+                                specific provider'.format(
+                    unavailable_locale, provider_module.__name__, locale))
+            else:
+                logger.info('locale for provider {} set to {}'.format(
+                    provider_module.__name__, locale))
 
             path = "{provider_path}.{locale}".format(
                 provider_path=provider_path,
