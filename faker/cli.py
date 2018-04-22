@@ -23,6 +23,7 @@ else:
 
 __author__ = 'joke2k'
 
+
 def print_provider(doc, provider, formatters, excludes=None, output=None):
     output = output or sys.stdout
     if excludes is None:

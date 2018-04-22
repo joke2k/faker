@@ -93,14 +93,13 @@ class Factory(object):
 
         if getattr(provider_module, 'localized', False):
             available_locales = list_module(provider_module)
-
-            if locale not in available_locales:
+            if not locale or locale not in available_locales:
                 unavailable_locale = locale
                 locale = getattr(
                     provider_module, 'default_locale', DEFAULT_LOCALE)
-                logger.warning('specified locale ({}) is not available for \
-                                provider {}. Locale reset to {} for this \
-                                specific provider'.format(
+                logger.warning('specified locale {} is not available for '
+                               'provider {}. Locale reset to {} for this '
+                               'specific provider'.format(
                     unavailable_locale, provider_module.__name__, locale))
             else:
                 logger.info('locale for provider {} set to {}'.format(
