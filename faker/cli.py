@@ -183,8 +183,10 @@ examples:
         parser.add_argument('-v',
                             '--verbose',
                             action='store_true',
-                            help="show INFO level logging events instead "
-                            "of CRITICAL level, which is the default")
+                            help="show INFO logging events instead "
+                            "of CRITICAL, which is the default. These logging "
+                            "events provide insight into localization of "
+                            "specific providers.")
 
         parser.add_argument('-o', metavar="output",
                             type=argparse.FileType('w'),
