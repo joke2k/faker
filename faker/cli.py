@@ -7,10 +7,13 @@ import os
 import sys
 import argparse
 
+import random
+
 from faker import Faker, documentor
 from faker import VERSION
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
+import logging
 
 if sys.version < '3':
     text_type = unicode
@@ -61,10 +64,12 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
 
 
 def print_doc(provider_or_field=None,
-              args=None, lang=DEFAULT_LOCALE, output=None, includes=None):
+              args=None, lang=DEFAULT_LOCALE, output=None, seed=None,
+              includes=None):
     args = args or []
     output = output or sys.stdout
     fake = Faker(locale=lang, includes=includes)
+    fake.seed_instance(seed)
 
     from faker.providers import BaseProvider
     base_provider_formatters = [f for f in dir(BaseProvider)]
@@ -75,6 +80,7 @@ def print_doc(provider_or_field=None,
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
             fake = Faker(locale, providers=[
                          provider_or_field], includes=includes)
+            fake.seed_instance(seed)
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
             print_provider(
@@ -109,6 +115,7 @@ def print_doc(provider_or_field=None,
             print(file=output)
             print('## LANGUAGE {0}'.format(language), file=output)
             fake = Faker(locale=language)
+            fake.seed_instance(seed)
             d = documentor.Documentor(fake)
 
             for p, fs in d.get_formatters(with_args=True, with_defaults=True,
@@ -179,6 +186,14 @@ examples:
         parser.add_argument("--version", action="version",
                             version="%(prog)s {0}".format(VERSION))
 
+        parser.add_argument('-v',
+                            '--verbose',
+                            action='store_true',
+                            help="show INFO logging events instead "
+                            "of CRITICAL, which is the default. These logging "
+                            "events provide insight into localization of "
+                            "specific providers.")
+
         parser.add_argument('-o', metavar="output",
                             type=argparse.FileType('w'),
                             default=sys.stdout,
@@ -198,6 +213,12 @@ examples:
                             default='\n',
                             help="use the specified separator after each "
                             "output")
+
+        parser.add_argument('--seed', metavar='SEED',
+                            type=int,
+                            help="specify a seed for the random generator so "
+                            "that results are repeatable. Also compatible "
+                            "with 'repeat' option")
 
         parser.add_argument('-i',
                             '--include',
@@ -225,12 +246,21 @@ examples:
 
         arguments = parser.parse_args(self.argv[1:])
 
-        for _ in range(arguments.repeat):
+        if arguments.verbose:
+            logging.basicConfig(level=logging.INFO)
+        else:
+            logging.basicConfig(level=logging.CRITICAL)
+
+        random.seed(arguments.seed)
+        seeds = random.sample(range(arguments.repeat*10),arguments.repeat)
+
+        for i in range(arguments.repeat):
 
             print_doc(arguments.fake,
                       arguments.fake_args,
                       lang=arguments.lang,
                       output=arguments.o,
+                      seed=seeds[i],
                       includes=arguments.include
                       )
             print(arguments.sep, file=arguments.o)

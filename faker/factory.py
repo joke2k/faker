@@ -6,9 +6,22 @@ from __future__ import absolute_import
 from importlib import import_module
 import locale as pylocale
 
+import logging
+import sys
+
 from faker import Generator
 from faker.config import DEFAULT_LOCALE, PROVIDERS, AVAILABLE_LOCALES
 from faker.utils.loading import list_module
+
+
+logger = logging.getLogger(__name__)
+
+# identify if python is being run in interactive mode. If so, disable logging.
+inREPL = bool(getattr(sys, 'ps1', False))
+if inREPL:
+    logger.setLevel(logging.CRITICAL)
+else:
+    logger.debug('Not in REPL -> leaving logger event level as is.')
 
 
 class Factory(object):
@@ -28,7 +41,7 @@ class Factory(object):
         locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
         locale = pylocale.normalize(locale).split('.')[0]
         if locale not in AVAILABLE_LOCALES:
-            msg = 'Invalid configuration for faker locale "{0}"'.format(locale)
+            msg = 'Invalid configuration for faker locale `{0}`'.format(locale)
             raise AttributeError(msg)
 
         config['locale'] = locale
@@ -69,26 +82,49 @@ class Factory(object):
         if provider_class:
             return provider_class, None
 
-        msg = 'Unable to find provider "{0}" with locale "{1}"'.format(
+        msg = 'Unable to find provider `{0}` with locale `{1}`'.format(
             provider, locale)
         raise ValueError(msg)
 
     @classmethod
     def _find_provider_class(cls, provider_path, locale=None):
+
         provider_module = import_module(provider_path)
 
         if getattr(provider_module, 'localized', False):
+
+            logger.debug('Looking for locale `{}` in provider `{}`.'.format(
+                locale, provider_module.__name__))
+
             available_locales = list_module(provider_module)
             if not locale or locale not in available_locales:
+                unavailable_locale = locale
                 locale = getattr(
                     provider_module, 'default_locale', DEFAULT_LOCALE)
+                logger.warning('Specified locale `{}` is not available for '
+                               'provider `{}`. Locale reset to `{}` for this '
+                               'provider.'.format(unavailable_locale,
+                                                  provider_module.__name__,
+                                                  locale)
+                               )
+            else:
+                logger.info('Provider `{}` has been localized to `{}`.'.format(
+                    provider_module.__name__, locale))
 
             path = "{provider_path}.{locale}".format(
                 provider_path=provider_path,
                 locale=locale,
             )
             provider_module = import_module(path)
+
         else:
+
+            logger.info('Provider `{}` does not feature localization. '
+                        'Specified locale `{}` is not utilized for this '
+                        'provider.'.format(
+                            provider_module.__name__, locale)
+                        )
+
             if locale is not None:
                 provider_module = import_module(provider_path)
 
