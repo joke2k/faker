@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import re
 import random as random_module
 
-
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
