@@ -8,6 +8,8 @@ import string
 import sys
 from ipaddress import ip_address, ip_network
 
+import logging
+
 try:
     from StringIO import StringIO
 except ImportError:  # pragma: no cover
@@ -120,6 +122,57 @@ class FactoryTestCase(unittest.TestCase):
             command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
+        finally:
+            sys.stdout = orig_stdout
+
+    def test_cli_seed(self):
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            base_args = ['faker', 'address']
+            target_args = ['--seed', '967']
+            commands = [Command(base_args + target_args), Command(base_args + target_args)]
+            cli_output = [None] * 2
+            for i in range(2):
+                commands[i].execute()
+                cli_output[i] = sys.stdout.getvalue()
+            cli_output[1] = cli_output[1][len(cli_output[0]):]
+            self.assertEqual(cli_output[0][:10], cli_output[1][:10])
+        finally:
+            sys.stdout = orig_stdout
+
+    def test_cli_seed_with_repeat(self):
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            base_args = ['faker', 'address', '-r', '3']
+            target_args = ['--seed', '967']
+            commands = [Command(base_args + target_args), Command(base_args + target_args)]
+            cli_output = [None] * 2
+            for i in range(2):
+                commands[i].execute()
+                cli_output[i] = sys.stdout.getvalue()
+            cli_output[1] = cli_output[1][len(cli_output[0]):]
+            self.assertEqual(cli_output[0], cli_output[1])
+        finally:
+            sys.stdout = orig_stdout
+
+    def test_cli_verbosity(self):
+        from faker.cli import Command
+        orig_stdout = sys.stdout
+        try:
+            sys.stdout = StringIO()
+            base_args = ['faker', 'address', '--seed', '769']
+            target_args = ['-v']
+            commands = [Command(base_args), Command(base_args + target_args)]
+            cli_output = [None] * 2
+            for i in range(2):
+                commands[i].execute()
+                cli_output[i] = sys.stdout.getvalue()
+            simple_output, verbose_output = cli_output
+            self.assertNotEqual(simple_output, verbose_output)
         finally:
             sys.stdout = orig_stdout
 
