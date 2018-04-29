@@ -389,9 +389,9 @@ Credits
 .. _PHP Faker: https://github.com/fzaninotto/Faker
 .. _Perl Faker: http://search.cpan.org/~jasonk/Data-Faker-0.07/
 .. _Ruby Faker: https://github.com/stympy/faker
-.. _Distribute: https://pypi.python.org/pypi/distribute
+.. _Distribute: https://pypi.org/project/distribute/
 .. _Buildout: http://www.buildout.org/
-.. _modern-package-template: https://pypi.python.org/pypi/modern-package-template
+.. _modern-package-template: https://pypi.org/project/modern-package-template/
 .. _extended docs: https://faker.readthedocs.io/en/latest/
 .. _bundled providers: https://faker.readthedocs.io/en/latest/providers.html
 .. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
@@ -400,7 +400,7 @@ Credits
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
 
 .. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
-    :target: https://pypi.python.org/pypi/Faker
+    :target: https://pypi.org/project/Faker/
     :alt: Latest version released on PyPi
 
 .. |coverage| image:: https://img.shields.io/coveralls/joke2k/faker/master.svg?style=flat-square

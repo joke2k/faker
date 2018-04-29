@@ -17,5 +17,5 @@ Here's a list of Providers written by the community:
 |               | by cloud.                |                                  +
 +---------------+--------------------------+----------------------------------+
 
-.. _faker_web: https://pypi.python.org/pypi/faker_web
-.. _faker_cloud: https://pypi.python.org/pypi/faker_cloud
+.. _faker_web: https://pypi.org/project/faker_web/
+.. _faker_cloud: https://pypi.org/project/faker-cloud/

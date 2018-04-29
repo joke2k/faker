@@ -79,7 +79,7 @@ Changelog
 `0.8.6 - 16-October-2017 <https://github.com/joke2k/faker/compare/v0.8.5...v0.8.6>`__
 -------------------------------------------------------------------------------------
 
-* Replace ``unidecode`` dependency in favor of ``text-unidecode``. Faker now requires `text-unidecode <https://pypi.python.org/pypi/text-unidecode>`_.
+* Replace ``unidecode`` dependency in favor of ``text-unidecode``. Faker now requires `text-unidecode <https://pypi.org/project/text-unidecode/>`_.
 
 `0.8.5 - 13-October-2017 <https://github.com/joke2k/faker/compare/v0.8.4...v0.8.5>`__
 -------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ Changelog
 * Use a proper international format for Ukrainian phone numbers. Thanks @illia-v.
 * Faker now requires Unidecode_.
 
-.. _Unidecode: https://pypi.python.org/pypi/Unidecode
+.. _Unidecode: https://pypi.org/project/Unidecode/
 
 `0.8.4 - 22-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4>`__
 ---------------------------------------------------------------------------------------
