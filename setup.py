@@ -32,7 +32,7 @@ setup(
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
     },
     classifiers=[
-        # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        # See https://pypi.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
