@@ -1,6 +1,14 @@
 Changelog
 =========
 
+`0.8.14 - 11-May-2018 <https://github.com/joke2k/faker/compare/v0.8.13...v0.8.14>`__
+------------------------------------------------------------------------------------
+
+* Add possibility to make artificial ssn numbers for ``FI_fi``. Thanks @kivipe.
+* Update ``ko_KR`` person data based on statistics. Thanks @unace.
+* Improved logging. Thanks @confirmationbias616.
+
+
 `0.8.13 - 12-April-2018 <https://github.com/joke2k/faker/compare/v0.8.12...v0.8.13>`__
 --------------------------------------------------------------------------------------
 
