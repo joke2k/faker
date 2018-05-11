@@ -161,6 +161,7 @@ Included localized providers:
 -  `uk\_UA <https://faker.readthedocs.io/en/master/locales/uk_UA.html>`__ - Ukrainian
 -  `zh\_CN <https://faker.readthedocs.io/en/master/locales/zh_CN.html>`__ - Chinese (China)
 -  `zh\_TW <https://faker.readthedocs.io/en/master/locales/zh_TW.html>`__ - Chinese (Taiwan)
+-  `ka\_GE <https://faker.readthedocs.io/en/master/locales/ka_GE.html>`__ - Georgian (Georgia)
 
 Command line usage
 ------------------
