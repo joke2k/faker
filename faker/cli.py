@@ -247,7 +247,7 @@ examples:
         arguments = parser.parse_args(self.argv[1:])
 
         if arguments.verbose:
-            logging.basicConfig(level=logging.INFO)
+            logging.basicConfig(level=logging.DEBUG)
         else:
             logging.basicConfig(level=logging.CRITICAL)
 

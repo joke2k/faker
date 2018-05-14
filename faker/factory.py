@@ -101,14 +101,14 @@ class Factory(object):
                 unavailable_locale = locale
                 locale = getattr(
                     provider_module, 'default_locale', DEFAULT_LOCALE)
-                logger.warning('Specified locale `{}` is not available for '
+                logger.debug('Specified locale `{}` is not available for '
                                'provider `{}`. Locale reset to `{}` for this '
                                'provider.'.format(unavailable_locale,
                                                   provider_module.__name__,
                                                   locale)
                                )
             else:
-                logger.info('Provider `{}` has been localized to `{}`.'.format(
+                logger.debug('Provider `{}` has been localized to `{}`.'.format(
                     provider_module.__name__, locale))
 
             path = "{provider_path}.{locale}".format(
@@ -119,7 +119,7 @@ class Factory(object):
 
         else:
 
-            logger.info('Provider `{}` does not feature localization. '
+            logger.debug('Provider `{}` does not feature localization. '
                         'Specified locale `{}` is not utilized for this '
                         'provider.'.format(
                             provider_module.__name__, locale)
