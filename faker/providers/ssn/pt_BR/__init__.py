@@ -13,7 +13,7 @@ def checksum(digits):
 
     reminder = s % 11
     if reminder == 0 or reminder == 1:
-        return 1
+        return 0
     else:
         return 11 - reminder
 
