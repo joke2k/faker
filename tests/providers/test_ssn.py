@@ -119,7 +119,7 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_ssn_checksum(self):
         self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2]), 2)
-        self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2, 2]), 1)
+        self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2, 2]), 0)
 
     def test_pt_BR_ssn(self):
         for _ in range(100):
