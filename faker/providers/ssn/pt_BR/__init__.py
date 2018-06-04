@@ -5,6 +5,12 @@ from .. import Provider as SsnProvider
 
 
 def checksum(digits):
+    """
+    Returns the checksum of CPF digits.
+    References to the algorithm:
+    https://pt.wikipedia.org/wiki/Cadastro_de_pessoas_f%C3%ADsicas#Algoritmo
+    https://metacpan.org/source/MAMAWE/Algorithm-CheckDigits-v1.3.0/lib/Algorithm/CheckDigits/M11_004.pm
+    """
     s = 0
     p = len(digits) + 1
     for i in range(0, len(digits)):
