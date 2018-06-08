@@ -7,13 +7,29 @@ import re
 from datetime import datetime
 
 from faker import Faker
+from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
-from faker.providers.ssn.no_NO import checksum as no_checksum, Provider
+from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
 
+class TestEnCA(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('en_CA')
+        self.factory.seed(0)
+
+    def test_ssn(self):
+        for _ in range(100):
+            sin = self.factory.ssn()
+
+            # Ensure that generated SINs are 11 characters long
+            # including spaces, consist of spaces and digits only, and
+            # satisfy the validation algorithm. 
+            assert len(sin) == 11
+            assert sin.replace(' ','').isdigit()
+            assert ca_checksum(sin) == int(sin[-1])
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
@@ -170,8 +186,8 @@ class TestNoNO(unittest.TestCase):
         self.factory = Faker('no_NO')
 
     def test_no_NO_ssn_checksum(self):
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], Provider.scale1), 6)
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], Provider.scale2), 7)
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
 
     def test_no_NO_ssn(self):
         for _ in range(100):
