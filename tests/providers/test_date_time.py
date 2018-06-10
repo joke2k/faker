@@ -55,6 +55,7 @@ class TestDateTime(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
+        self.factory.seed(0)
 
     def assertBetween(self, date, start_date, end_date):
         self.assertTrue(date <= end_date)
@@ -365,6 +366,44 @@ class TestDateTime(unittest.TestCase):
         series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
         self.assertEqual(series[0][0], start)
 
+    def test_unix_time(self):
+        for _ in range(100):
+            now=datetime.now()
+            epoch_start=datetime(1970,1,1)
+
+            # Include a buffer of one day in either direction to account for rounding and time zone peculiarities
+            buffer = 86400
+
+            # Ensure doubly-constrained unix_times are generated correctly
+            start_datetime=datetime(2001, 1, 1)
+            end_datetime=datetime(2001, 1, 2)
+
+            constrained_unix_time = self.factory.unix_time(start_datetime=start_datetime, end_datetime=end_datetime)
+
+            self.assertIsInstance(constrained_unix_time, int)
+            self.assertBetween(constrained_unix_time, start_datetime.timestamp()-buffer, end_datetime.timestamp()+buffer)
+
+            # Ensure relative unix_times partially-constrained by a start time are generated correctly
+            one_day_ago = datetime.today()-timedelta(days=1)
+            
+            recent_unix_time = self.factory.unix_time(start_datetime="-1d")
+
+            self.assertIsInstance(recent_unix_time, int)
+            self.assertBetween(recent_unix_time, one_day_ago.timestamp()-buffer, now.timestamp()+buffer)
+
+            # Ensure relative unix_times partially-constrained by an end time are generated correctly
+            one_day_after_epoch_start = datetime(1970,1,2)
+
+            distant_unix_time = self.factory.unix_time(end_datetime=one_day_after_epoch_start)
+            
+            self.assertIsInstance(distant_unix_time, int)
+            self.assertBetween(distant_unix_time, epoch_start.timestamp()-buffer, one_day_after_epoch_start.timestamp()+buffer)
+
+            # Ensure wide-open unix_times are generated correctly
+            random_unix_time = self.factory.unix_time()
+
+            self.assertIsInstance(constrained_unix_time, int)
+            self.assertBetween(constrained_unix_time, 0-buffer, now.timestamp()+buffer)
 
 class TestPlPL(unittest.TestCase):
 
