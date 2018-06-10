@@ -71,7 +71,7 @@ class Provider(SsnProvider):
                 gender_num = self.generator.random.choice((0, 2, 4, 6, 8))
             elif gender == 'M':
                 gender_num = self.generator.random.choice((1, 3, 5, 7, 9))
-            pnr = birthday.strftime('%y%m%d') + suffix.zfill(2) + str(gender_num)
+            pnr = birthday.strftime('%d%m%y') + suffix.zfill(2) + str(gender_num)
             pnr_nums = [int(ch) for ch in pnr]
             k1 = checksum(Provider.scale1, pnr_nums)
             k2 = checksum(Provider.scale2, pnr_nums + [k1])

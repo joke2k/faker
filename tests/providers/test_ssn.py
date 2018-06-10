@@ -180,9 +180,11 @@ class TestNoNO(unittest.TestCase):
             self.assertEqual(len(ssn), 11)
 
     def test_no_NO_ssn_dob_passed(self):
-        date_of_birth = '20010203'
-        ssn = self.factory.ssn(dob=date_of_birth)
-        self.assertEqual(ssn[:6], date_of_birth[2:])
+        test_data = [('20010203', '030201'),
+                     ('19991231', '311299')]
+        for date_of_birth, expected_dob_part in test_data:
+            ssn = self.factory.ssn(dob=date_of_birth)
+            self.assertEqual(ssn[:6], expected_dob_part)
 
     def test_no_NO_ssn_invalid_dob_passed(self):
         with self.assertRaises(ValueError):
