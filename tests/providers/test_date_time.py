@@ -369,7 +369,7 @@ class TestDateTime(unittest.TestCase):
     def test_unix_time(self):
         from faker.providers.date_time import datetime_to_timestamp
 
-        for _ in range(100000):
+        for _ in range(100):
             now = datetime.now(utc).replace(microsecond=0)
             epoch_start = datetime(1970,1,1,tzinfo=utc)
 
