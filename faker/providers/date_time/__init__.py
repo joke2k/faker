@@ -1172,13 +1172,15 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    def unix_time(self, end_datetime=None):
+    def unix_time(self, start_datetime=None, end_datetime=None):
         """
-        Get a timestamp between January 1, 1970 and now
+        Get a timestamp between January 1, 1970 and now, unless passed
+        explicit start_datetime and end_datetimes
         :example 1061306726
         """
+        start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        return self.generator.random.randint(0, end_datetime)
+        return self.generator.random.randint(start_datetime, end_datetime)
 
     def time_delta(self, end_datetime=None):
         """
@@ -1256,6 +1258,13 @@ class Provider(BaseProvider):
         :example datetime.time(15, 56, 56, 772876)
         """
         return self.date_time(end_datetime=end_datetime).time()
+
+    @classmethod
+    def _parse_start_datetime(cls, value):
+        if value is None:
+            return 0
+
+        return cls._parse_date_time(value)
 
     @classmethod
     def _parse_end_datetime(cls, value):
