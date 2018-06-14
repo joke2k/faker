@@ -15,6 +15,7 @@ from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
 from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
 
+
 class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_CA')
@@ -26,10 +27,189 @@ class TestEnCA(unittest.TestCase):
 
             # Ensure that generated SINs are 11 characters long
             # including spaces, consist of spaces and digits only, and
-            # satisfy the validation algorithm. 
+            # satisfy the validation algorithm.
             assert len(sin) == 11
-            assert sin.replace(' ','').isdigit()
+            assert sin.replace(' ', '').isdigit()
             assert ca_checksum(sin) == int(sin[-1])
+
+
+class TestEnUS(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('en_US')
+        self.factory.seed(0)
+
+    def test_ssn(self):
+        for _ in range(100):
+            sin = self.factory.ssn(taxpayer_identification_number='ssn')
+
+            # Ensure that generated SINs are 11 characters long
+            # including dashes, consist of dashes and digits only, and
+            # satisfy these requirements:
+            #
+            # An United States Social Security Number
+            # (SSN) is a tax processing number issued by the Internal
+            # Revenue Service with the format "AAA-GG-SSSS".  The
+            # number is divided into three parts: the first three
+            # digits, known as the area number because they were
+            # formerly assigned by geographical region; the middle two
+            # digits, known as the group number; and the final four
+            # digits, known as the serial number. SSNs with the
+            # following characteristics are not allocated:
+            #
+            # 1) Numbers with all zeros in any digit group
+            # (000-##-####, ###-00-####, ###-##-0000).
+            #
+            # 2) Numbers with 666 or 900-999 in the first digit group.
+            #
+            # https://en.wikipedia.org/wiki/Social_Security_number
+
+            assert len(sin) == 11
+            assert sin.replace('-', '').isdigit()
+
+            [area, group, serial] = sin.split('-')
+
+            assert 1 <= int(area) <= 899 and int(area) != 666
+            assert 1 <= int(group) <= 99
+            assert 1 <= int(serial) <= 9999
+
+    def test_itin(self):
+        for _ in range(100):
+            sin = self.factory.ssn(taxpayer_identification_number='itin')
+
+            # Ensure that generated SINs are 11 characters long
+            # including dashes, consist of dashes and digits only, and
+            # satisfy these requirements:
+            #
+            # An United States Individual Taxpayer Identification Number
+            # (ITIN) is a tax processing number issued by the Internal
+            # Revenue Service. It is a nine-digit number that always begins
+            # with the number 9 and has a range of 70-88 in the fourth and
+            # fifth digit. Effective April 12, 2011, the range was extended
+            # to include 900-70-0000 through 999-88-9999, 900-90-0000
+            # through 999-92-9999 and 900-94-0000 through 999-99-9999.
+            # https://www.irs.gov/individuals/international-taxpayers/general-itin-information
+
+            assert len(sin) == 11
+            assert sin.replace('-', '').isdigit()
+
+            [area, group, serial] = sin.split('-')
+
+            assert 900 <= int(area) <= 999
+            assert 70 <= int(group) <= 88 or 90 <= int(
+                group) <= 92 or 94 <= int(group) <= 99
+            assert 0 <= int(serial) <= 9999
+
+    def test_ein(self):
+
+        ein_prefix_choices = [
+            '01',
+            '02',
+            '03',
+            '04',
+            '05',
+            '06',
+            '10',
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '16',
+            '20',
+            '21',
+            '22',
+            '23',
+            '24',
+            '25',
+            '26',
+            '27',
+            '30',
+            '31',
+            '32',
+            '33',
+            '34',
+            '35',
+            '36',
+            '37',
+            '38',
+            '39',
+            '40',
+            '41',
+            '42',
+            '43',
+            '44',
+            '45',
+            '46',
+            '47',
+            '48',
+            '50',
+            '51',
+            '52',
+            '53',
+            '54',
+            '55',
+            '56',
+            '57',
+            '58',
+            '59',
+            '60',
+            '61',
+            '62',
+            '63',
+            '64',
+            '65',
+            '66',
+            '67',
+            '68',
+            '71',
+            '72',
+            '73',
+            '74',
+            '75',
+            '76',
+            '77',
+            '80',
+            '81',
+            '82',
+            '83',
+            '84',
+            '85',
+            '86',
+            '87',
+            '88',
+            '90',
+            '91',
+            '92',
+            '93',
+            '94',
+            '95',
+            '98',
+            '99']
+
+        for _ in range(100):
+            sin = self.factory.ssn(taxpayer_identification_number='ein')
+
+            # An United States An Employer Identification Number (EIN) is
+            # also known as a Federal Tax Identification Number, and is
+            # used to identify a business entity. EINs follow a format of a
+            # two-digit prefix followed by a hyphen and a seven-digit sequence.
+            # https://www.irs.gov/businesses/small-businesses-self-employed/employer-id-numbers
+            #
+            # Ensure that generated EINs are 10 characters long
+            # including a dash, consist of dashes and digits only, and
+            # satisfy these requirements:
+            #
+            # There are only certain EIN Prefix values assigned:
+            # https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
+
+            assert len(sin) == 10
+            assert sin.replace('-', '').isdigit()
+
+            [prefix, sequence] = sin.split('-')
+
+            assert prefix in ein_prefix_choices
+            assert 0 <= int(sequence) <= 9999999
+
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
@@ -69,8 +249,8 @@ class TestFiFI(unittest.TestCase):
 
     def test_ssn_sanity(self):
         for age in range(100):
-            self.factory.ssn(min_age=age, max_age=age+1)
-    
+            self.factory.ssn(min_age=age, max_age=age + 1)
+
     def test_valid_ssn(self):
         ssn = self.factory.ssn(artificial=False)
         individual_number = int(ssn[7:10])
@@ -143,7 +323,10 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_cpf(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
+            self.assertTrue(
+                re.search(
+                    r'\d{3}\.\d{3}\.\d{3}\-\d{2}',
+                    self.factory.cpf()))
 
 
 class TestPlPL(unittest.TestCase):
@@ -160,21 +343,81 @@ class TestPlPL(unittest.TestCase):
         self.assertEqual(pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]), 6)
 
     def test_calculate_month(self):
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')), 1)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')), 12)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')), 1)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 1900',
+                    '%m %d %Y')),
+            1)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '12 1 1900',
+                    '%m %d %Y')),
+            12)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 1999',
+                    '%m %d %Y')),
+            1)
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')), 21)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')), 32)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')), 21)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2000',
+                    '%m %d %Y')),
+            21)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '12 1 2000',
+                    '%m %d %Y')),
+            32)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2099',
+                    '%m %d %Y')),
+            21)
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')), 41)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')), 52)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')), 41)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2100',
+                    '%m %d %Y')),
+            41)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '12 1 2100',
+                    '%m %d %Y')),
+            52)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2199',
+                    '%m %d %Y')),
+            41)
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')), 61)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')), 72)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')), 61)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2200',
+                    '%m %d %Y')),
+            61)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '12 1 2200',
+                    '%m %d %Y')),
+            72)
+        self.assertEqual(
+            pl_calculate_mouth(
+                datetime.strptime(
+                    '1 1 2299',
+                    '%m %d %Y')),
+            61)
 
     def test_ssn(self):
         for _ in range(100):
@@ -186,8 +429,10 @@ class TestNoNO(unittest.TestCase):
         self.factory = Faker('no_NO')
 
     def test_no_NO_ssn_checksum(self):
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
+        self.assertEqual(no_checksum(
+            [0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
+        self.assertEqual(no_checksum(
+            [0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
 
     def test_no_NO_ssn(self):
         for _ in range(100):
