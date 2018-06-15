@@ -1,6 +1,14 @@
 Changelog
 =========
 
+`0.8.16 - 15-June-2018 <https://github.com/joke2k/faker/compare/v0.8.15...v0.8.16>`__
+------------------------------------------------------------------------------------
+
+* Fix test for CPF (Brazilian SSN). Thanks Rubens Takiguti Ribeiro.
+* Fix Canadian SIN generation. Thanks @crd.
+* Fix Norwegian SSN date portion. Thanks @frangiz.
+* Add ``start_datetime`` argument for ``unix_time()``. Thanks @crd.
+
 `0.8.15 - 14-May-2018 <https://github.com/joke2k/faker/compare/v0.8.14...v0.8.15>`__
 ------------------------------------------------------------------------------------
 
