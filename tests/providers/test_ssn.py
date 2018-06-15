@@ -210,6 +210,10 @@ class TestEnUS(unittest.TestCase):
             assert prefix in ein_prefix_choices
             assert 0 <= int(sequence) <= 9999999
 
+    def test_bad_tin_type(self):
+        with self.assertRaises(ValueError):
+            self.factory.ssn(taxpayer_identification_number='badValue')
+
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
