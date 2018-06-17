@@ -40,7 +40,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number_type='ssn')
+            ssn = self.factory.ssn(taxpayer_identification_number_type='ssn')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -63,18 +63,29 @@ class TestEnUS(unittest.TestCase):
             #
             # https://en.wikipedia.org/wiki/Social_Security_number
 
-            assert len(sin) == 11
-            assert sin.replace('-', '').isdigit()
+            assert len(ssn) == 11
+            assert ssn.replace('-', '').isdigit()
 
-            [area, group, serial] = sin.split('-')
+            [area, group, serial] = ssn.split('-')
 
             assert 1 <= int(area) <= 899 and int(area) != 666
             assert 1 <= int(group) <= 99
             assert 1 <= int(serial) <= 9999
+            assert area != '666'
+
+    def test_prohibited_ssn_value(self):
+        # 666 is a prohibited value. The magic number selected as a seed
+        # is one that would (if not specifically checked for) return an
+        # SSN with an area of '666.
+        
+        self.factory.seed(19031)
+        ssn = self.factory.ssn()
+        [area, group, serial] = ssn.split('-')
+        assert area != '666'
 
     def test_itin(self):
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number_type='itin')
+            itin = self.factory.ssn(taxpayer_identification_number_type='itin')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -89,17 +100,16 @@ class TestEnUS(unittest.TestCase):
             # through 999-92-9999 and 900-94-0000 through 999-99-9999.
             # https://www.irs.gov/individuals/international-taxpayers/general-itin-information
 
-            assert len(sin) == 11
-            assert sin.replace('-', '').isdigit()
+            assert len(itin) == 11
+            assert itin.replace('-', '').isdigit()
 
-            [area, group, serial] = sin.split('-')
+            [area, group, serial] = itin.split('-')
 
             assert 900 <= int(area) <= 999
             assert 70 <= int(group) <= 88 or 90 <= int(group) <= 92 or 94 <= int(group) <= 99
             assert 0 <= int(serial) <= 9999
 
     def test_ein(self):
-
         ein_prefix_choices = [
             '01',
             '02',
@@ -186,7 +196,7 @@ class TestEnUS(unittest.TestCase):
             '99']
 
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number_type='ein')
+            ein = self.factory.ssn(taxpayer_identification_number_type='ein')
 
             # An United States An Employer Identification Number (EIN) is
             # also known as a Federal Tax Identification Number, and is
@@ -201,10 +211,10 @@ class TestEnUS(unittest.TestCase):
             # There are only certain EIN Prefix values assigned:
             # https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
 
-            assert len(sin) == 10
-            assert sin.replace('-', '').isdigit()
+            assert len(ein) == 10
+            assert ein.replace('-', '').isdigit()
 
-            [prefix, sequence] = sin.split('-')
+            [prefix, sequence] = ein.split('-')
 
             assert prefix in ein_prefix_choices
             assert 0 <= int(sequence) <= 9999999
@@ -215,6 +225,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_mixed_tin_type_case(self):
             self.factory.ssn(taxpayer_identification_number_type='ssN')
+
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
