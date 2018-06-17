@@ -40,7 +40,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number='ssn')
+            sin = self.factory.ssn(taxpayer_identification_number_type='ssn')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -74,7 +74,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_itin(self):
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number='itin')
+            sin = self.factory.ssn(taxpayer_identification_number_type='itin')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -95,8 +95,7 @@ class TestEnUS(unittest.TestCase):
             [area, group, serial] = sin.split('-')
 
             assert 900 <= int(area) <= 999
-            assert 70 <= int(group) <= 88 or 90 <= int(
-                group) <= 92 or 94 <= int(group) <= 99
+            assert 70 <= int(group) <= 88 or 90 <= int(group) <= 92 or 94 <= int(group) <= 99
             assert 0 <= int(serial) <= 9999
 
     def test_ein(self):
@@ -187,7 +186,7 @@ class TestEnUS(unittest.TestCase):
             '99']
 
         for _ in range(100):
-            sin = self.factory.ssn(taxpayer_identification_number='ein')
+            sin = self.factory.ssn(taxpayer_identification_number_type='ein')
 
             # An United States An Employer Identification Number (EIN) is
             # also known as a Federal Tax Identification Number, and is
@@ -212,8 +211,10 @@ class TestEnUS(unittest.TestCase):
 
     def test_bad_tin_type(self):
         with self.assertRaises(ValueError):
-            self.factory.ssn(taxpayer_identification_number='badValue')
+            self.factory.ssn(taxpayer_identification_number_type='badValue')
 
+    def test_mixed_tin_type_case(self):
+            self.factory.ssn(taxpayer_identification_number_type='ssN')
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
