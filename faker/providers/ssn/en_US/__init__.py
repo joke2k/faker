@@ -24,7 +24,6 @@ class Provider(BaseProvider):
         """
 
         area = self.random_int(min=900, max=999)
-        group = self.random_int(min=70, max=99)
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
