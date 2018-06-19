@@ -76,8 +76,8 @@ class TestEnUS(unittest.TestCase):
     def test_prohibited_ssn_value(self):
         # 666 is a prohibited value. The magic number selected as a seed
         # is one that would (if not specifically checked for) return an
-        # SSN with an area of '666.
-        
+        # SSN with an area of '666'.
+
         self.factory.seed(19031)
         ssn = self.factory.ssn()
         [area, group, serial] = ssn.split('-')
