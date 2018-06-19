@@ -341,8 +341,7 @@ class TestPtBR(unittest.TestCase):
         for _ in range(100):
             self.assertTrue(
                 re.search(
-                    r'\d{3}\.\d{3}\.\d{3}\-\d{2}',
-                    self.factory.cpf()))
+                    r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
 
 
 class TestPlPL(unittest.TestCase):

@@ -31,7 +31,7 @@ class Provider(BaseProvider):
         group = random.choice([x for x in range(70,100) if x not in [89, 93]])
 
         ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
-        return(ssn)
+        return ssn
 
     def ein(self):
         """Generate a random United States Employer Identification Number (EIN).
@@ -137,8 +137,8 @@ class Provider(BaseProvider):
         ein_prefix = random.choice(ein_prefix_choices)
         sequence = self.random_int(min=0, max=9999999)
 
-        ssn = "{0:s}-{1:07d}".format(ein_prefix, sequence)
-        return(ssn)
+        ein = "{0:s}-{1:07d}".format(ein_prefix, sequence)
+        return ein
 
     def ssn(self, taxpayer_identification_number_type=SSN_TYPE):
         """ Generate a random United States Taxpayer Identification Number of the specified type.
@@ -166,7 +166,7 @@ class Provider(BaseProvider):
                 serial = self.random_int(1, 9999)
 
                 ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
-                return(ssn)
+                return ssn
     
         else:
-            raise ValueError
+            raise ValueError("taxpayer_identification_number_type must be one of 'ssn', 'ein', or 'itin'.")
