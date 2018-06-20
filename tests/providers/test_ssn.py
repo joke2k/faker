@@ -40,7 +40,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            ssn = self.factory.ssn(taxpayer_identification_number_type='ssn')
+            ssn = self.factory.ssn(taxpayer_identification_number_type='SSN')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -85,7 +85,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_itin(self):
         for _ in range(100):
-            itin = self.factory.ssn(taxpayer_identification_number_type='itin')
+            itin = self.factory.ssn(taxpayer_identification_number_type='ITIN')
 
             # Ensure that generated SINs are 11 characters long
             # including dashes, consist of dashes and digits only, and
@@ -196,7 +196,7 @@ class TestEnUS(unittest.TestCase):
             '99']
 
         for _ in range(100):
-            ein = self.factory.ssn(taxpayer_identification_number_type='ein')
+            ein = self.factory.ssn(taxpayer_identification_number_type='EIN')
 
             # An United States An Employer Identification Number (EIN) is
             # also known as a Federal Tax Identification Number, and is
@@ -223,8 +223,9 @@ class TestEnUS(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.factory.ssn(taxpayer_identification_number_type='badValue')
 
-    def test_mixed_tin_type_case(self):
-            self.factory.ssn(taxpayer_identification_number_type='ssN')
+    def test_wrong_tin_type_case(self):
+        with self.assertRaises(ValueError):
+            self.factory.ssn(taxpayer_identification_number_type='ssn')
 
 
 class TestEtEE(unittest.TestCase):

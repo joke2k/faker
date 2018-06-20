@@ -6,9 +6,9 @@ from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
-    SSN_TYPE = 'ssn'
-    ITIN_TYPE = 'itin'
-    EIN_TYPE = 'ein'
+    SSN_TYPE = 'SSN'
+    ITIN_TYPE = 'ITIN'
+    EIN_TYPE = 'EIN'
 
     def itin(self):
         """Generate a random United States Individual Taxpayer Identification Number (ITIN).
@@ -145,27 +145,25 @@ class Provider(BaseProvider):
         If no type is specified, a US SSN is returned.
         """
 
-        if taxpayer_identification_number_type.lower() == self.ITIN_TYPE:
+        if taxpayer_identification_number_type == self.ITIN_TYPE:
             return self.itin()
-        elif taxpayer_identification_number_type.lower() == self.EIN_TYPE:
+        elif taxpayer_identification_number_type == self.EIN_TYPE:
             return self.ein()
-        elif taxpayer_identification_number_type.lower() == self.SSN_TYPE:
+        elif taxpayer_identification_number_type == self.SSN_TYPE:
 
-            if taxpayer_identification_number_type.lower() == 'ssn':
+            # Certain numbers are invalid for United States Social Security
+            # Numbers. The area (first 3 digits) cannot be 666 or 900-999.
+            # The group number (middle digits) cannot be 00. The serial
+            # (last 4 digits) cannot be 0000.
+        
+            area = self.random_int(min=1, max=899)
+            if area == 666:
+                area += 1
+            group = self.random_int(1, 99)
+            serial = self.random_int(1, 9999)
 
-                # Certain numbers are invalid for United States Social Security
-                # Numbers. The area (first 3 digits) cannot be 666 or 900-999.
-                # The group number (middle digits) cannot be 00. The serial
-                # (last 4 digits) cannot be 0000.
-            
-                area = self.random_int(min=1, max=899)
-                if area == 666:
-                    area += 1
-                group = self.random_int(1, 99)
-                serial = self.random_int(1, 9999)
-
-                ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
-                return ssn
+            ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
+            return ssn
     
         else:
-            raise ValueError("taxpayer_identification_number_type must be one of 'ssn', 'ein', or 'itin'.")
+            raise ValueError("taxpayer_identification_number_type must be one of 'SSN', 'EIN', or 'ITIN'.")
