@@ -265,8 +265,8 @@ class TestFiFI(unittest.TestCase):
 
     def test_ssn_sanity(self):
         for age in range(100):
-            self.factory.ssn(min_age=age, max_age=age + 1)
-
+            self.factory.ssn(min_age=age, max_age=age+1)
+    
     def test_valid_ssn(self):
         ssn = self.factory.ssn(artificial=False)
         individual_number = int(ssn[7:10])
@@ -339,9 +339,7 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_cpf(self):
         for _ in range(100):
-            self.assertTrue(
-                re.search(
-                    r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
+            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
 
 
 class TestPlPL(unittest.TestCase):
@@ -358,81 +356,21 @@ class TestPlPL(unittest.TestCase):
         self.assertEqual(pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]), 6)
 
     def test_calculate_month(self):
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 1900',
-                    '%m %d %Y')),
-            1)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '12 1 1900',
-                    '%m %d %Y')),
-            12)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 1999',
-                    '%m %d %Y')),
-            1)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')), 1)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')), 12)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')), 1)
 
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2000',
-                    '%m %d %Y')),
-            21)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '12 1 2000',
-                    '%m %d %Y')),
-            32)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2099',
-                    '%m %d %Y')),
-            21)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')), 21)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')), 32)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')), 21)
 
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2100',
-                    '%m %d %Y')),
-            41)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '12 1 2100',
-                    '%m %d %Y')),
-            52)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2199',
-                    '%m %d %Y')),
-            41)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')), 41)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')), 52)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')), 41)
 
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2200',
-                    '%m %d %Y')),
-            61)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '12 1 2200',
-                    '%m %d %Y')),
-            72)
-        self.assertEqual(
-            pl_calculate_mouth(
-                datetime.strptime(
-                    '1 1 2299',
-                    '%m %d %Y')),
-            61)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')), 61)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')), 72)
+        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')), 61)
 
     def test_ssn(self):
         for _ in range(100):
@@ -444,10 +382,8 @@ class TestNoNO(unittest.TestCase):
         self.factory = Faker('no_NO')
 
     def test_no_NO_ssn_checksum(self):
-        self.assertEqual(no_checksum(
-            [0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
-        self.assertEqual(no_checksum(
-            [0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
+        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
 
     def test_no_NO_ssn(self):
         for _ in range(100):
