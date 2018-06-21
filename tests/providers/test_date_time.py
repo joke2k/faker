@@ -209,15 +209,26 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_time_this_period(self):
         # test century
+        this_century_start = self._datetime_to_time(
+            datetime(datetime.now().year - (datetime.now().year % 100), 1, 1)
+        )
+
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(before_now=True, after_now=True)) >= this_century_start)
+
         # test decade
+        this_decade_start = self._datetime_to_time(
+            datetime(datetime.now().year - (datetime.now().year % 10), 1, 1)
+        )
+
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         self.assertEqual(
             self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=False)),
             self._datetime_to_time(datetime.now())
         )
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(before_now=True, after_now=True)) >= this_decade_start)
         # test year
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
