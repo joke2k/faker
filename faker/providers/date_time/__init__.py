@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import re
 
 from calendar import timegm
-from datetime import timedelta
+from datetime import timedelta, MAXYEAR
 from time import time
 
 from dateutil import relativedelta
@@ -1490,7 +1490,7 @@ class Provider(BaseProvider):
         this_century_start = datetime(
             now.year - (now.year % 100), 1, 1, tzinfo=tzinfo)
         next_century_start = datetime(
-            this_century_start.year + 100, 1, 1, tzinfo=tzinfo)
+            min(this_century_start.year + 100, MAXYEAR), 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return self.date_time_between_dates(
@@ -1520,7 +1520,7 @@ class Provider(BaseProvider):
         this_decade_start = datetime(
             now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
         next_decade_start = datetime(
-            this_decade_start.year + 10, 1, 1, tzinfo=tzinfo)
+            min(this_decade_start.year + 10, MAXYEAR), 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return self.date_time_between_dates(
