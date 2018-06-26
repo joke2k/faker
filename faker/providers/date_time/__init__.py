@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import re
 
 from calendar import timegm
-from datetime import timedelta
+from datetime import timedelta, MAXYEAR
 from time import time
 
 from dateutil import relativedelta
@@ -1172,13 +1172,15 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    def unix_time(self, end_datetime=None):
+    def unix_time(self, end_datetime=None, start_datetime=None):
         """
-        Get a timestamp between January 1, 1970 and now
+        Get a timestamp between January 1, 1970 and now, unless passed
+        explicit start_datetime or end_datetime values.
         :example 1061306726
         """
+        start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        return self.generator.random.randint(0, end_datetime)
+        return self.generator.random.randint(start_datetime, end_datetime)
 
     def time_delta(self, end_datetime=None):
         """
@@ -1256,6 +1258,13 @@ class Provider(BaseProvider):
         :example datetime.time(15, 56, 56, 772876)
         """
         return self.date_time(end_datetime=end_datetime).time()
+
+    @classmethod
+    def _parse_start_datetime(cls, value):
+        if value is None:
+            return 0
+
+        return cls._parse_date_time(value)
 
     @classmethod
     def _parse_end_datetime(cls, value):
@@ -1481,7 +1490,7 @@ class Provider(BaseProvider):
         this_century_start = datetime(
             now.year - (now.year % 100), 1, 1, tzinfo=tzinfo)
         next_century_start = datetime(
-            this_century_start.year + 100, 1, 1, tzinfo=tzinfo)
+            min(this_century_start.year + 100, MAXYEAR), 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return self.date_time_between_dates(
@@ -1511,7 +1520,7 @@ class Provider(BaseProvider):
         this_decade_start = datetime(
             now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
         next_decade_start = datetime(
-            this_decade_start.year + 10, 1, 1, tzinfo=tzinfo)
+            min(this_decade_start.year + 10, MAXYEAR), 1, 1, tzinfo=tzinfo)
 
         if before_now and after_now:
             return self.date_time_between_dates(

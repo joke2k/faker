@@ -44,6 +44,7 @@ class Provider(BaseProvider):
                                   prefix_mastercard, 16, security_code='CVV')),
         ('visa16', CreditCard('VISA 16 digit', prefix_visa)),
         ('visa13', CreditCard('VISA 13 digit', prefix_visa, 13)),
+        ('visa19', CreditCard('VISA 19 digit', prefix_visa, 19)),
         ('amex', CreditCard('American Express', prefix_amex,
                             15, security_code='CID', security_code_length=4)),
         ('discover', CreditCard('Discover', prefix_discover)),

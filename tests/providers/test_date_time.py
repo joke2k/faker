@@ -55,6 +55,7 @@ class TestDateTime(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
+        self.factory.seed(0)
 
     def assertBetween(self, date, start_date, end_date):
         self.assertTrue(date <= end_date)
@@ -208,15 +209,26 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_time_this_period(self):
         # test century
+        this_century_start = self._datetime_to_time(
+            datetime(datetime.now().year - (datetime.now().year % 100), 1, 1)
+        )
+
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_century(before_now=True, after_now=True)) >= this_century_start)
+
         # test decade
+        this_decade_start = self._datetime_to_time(
+            datetime(datetime.now().year - (datetime.now().year % 10), 1, 1)
+        )
+
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
         self.assertEqual(
             self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=False)),
             self._datetime_to_time(datetime.now())
         )
+        self.assertTrue(self._datetime_to_time(self.factory.date_time_this_decade(before_now=True, after_now=True)) >= this_decade_start)
         # test year
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.now()))
         self.assertTrue(self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now()))
@@ -365,6 +377,43 @@ class TestDateTime(unittest.TestCase):
         series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
         self.assertEqual(series[0][0], start)
 
+    def test_unix_time(self):
+        from faker.providers.date_time import datetime_to_timestamp
+
+        for _ in range(100):
+            now = datetime.now(utc).replace(microsecond=0)
+            epoch_start = datetime(1970,1,1,tzinfo=utc)
+
+            # Ensure doubly-constrained unix_times are generated correctly
+            start_datetime = datetime(2001, 1, 1, tzinfo=utc)
+            end_datetime = datetime(2001, 1, 2, tzinfo=utc)
+
+            constrained_unix_time = self.factory.unix_time(end_datetime=end_datetime, start_datetime=start_datetime)
+
+            self.assertIsInstance(constrained_unix_time, int)
+            self.assertBetween(constrained_unix_time, datetime_to_timestamp(start_datetime), datetime_to_timestamp(end_datetime))
+
+            # Ensure relative unix_times partially-constrained by a start time are generated correctly
+            one_day_ago = datetime.today()-timedelta(days=1)
+            
+            recent_unix_time = self.factory.unix_time(start_datetime=one_day_ago)
+
+            self.assertIsInstance(recent_unix_time, int)
+            self.assertBetween(recent_unix_time, datetime_to_timestamp(one_day_ago), datetime_to_timestamp(now))
+
+            # Ensure relative unix_times partially-constrained by an end time are generated correctly
+            one_day_after_epoch_start = datetime(1970, 1, 2, tzinfo=utc)
+
+            distant_unix_time = self.factory.unix_time(end_datetime=one_day_after_epoch_start)
+            
+            self.assertIsInstance(distant_unix_time, int)
+            self.assertBetween(distant_unix_time, datetime_to_timestamp(epoch_start), datetime_to_timestamp(one_day_after_epoch_start))
+
+            # Ensure wide-open unix_times are generated correctly
+            random_unix_time = self.factory.unix_time()
+
+            self.assertIsInstance(constrained_unix_time, int)
+            self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
 
 class TestPlPL(unittest.TestCase):
 
