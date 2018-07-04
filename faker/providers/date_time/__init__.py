@@ -1203,15 +1203,24 @@ class Provider(BaseProvider):
         return datetime(1970, 1, 1, tzinfo=tzinfo) + \
             timedelta(seconds=self.unix_time(end_datetime=end_datetime))
 
-    def date_time_ad(self, tzinfo=None, end_datetime=None):
+    def date_time_ad(self, tzinfo=None, end_datetime=None, start_datetime=None):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1265-03-22 21:15:52')
         :return datetime
         """
+
+        # 1970-01-01 00:00:00 UTC minus 62135596800 seconds is
+        # 0001-01-01 00:00:00 UTC.  Since _parse_end_datetime() is used
+        # elsewhere where a default value of 0 is expected, we can't
+        # simply change that class method to use this magic number as a
+        # default value when None is provided.
+
+        start_time = -62135596800 if start_datetime is None else self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        ts = self.generator.random.randint(-62135596800, end_datetime)
+
+        ts = self.generator.random.randint(start_time, end_datetime)
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
@@ -1747,3 +1756,44 @@ class Provider(BaseProvider):
     def timezone(self):
         return self.generator.random.choice(
             self.random_element(self.countries)['timezones'])
+
+    def date_of_birth(self, tzinfo=None, minimum_age=0, maximum_age=115):
+        """
+        Generate a random date of birth represented as a Date object,
+        constrained by optional miminimum_age and maximum_age
+        parameters.
+
+        :param tzinfo Defaults to None.
+        :param minimum_age Defaults to 0.
+        :param maximum_age Defaults to 115.
+        
+        :example Date('1979-02-02')
+        :return Date
+        """
+
+        if not isinstance(minimum_age, int):
+            raise TypeError("minimum_age must be an integer.")
+
+        if not isinstance(maximum_age, int):
+            raise TypeError("maximum_age must be an integer.")
+
+        if (maximum_age < 0):
+            raise ValueError("maximum_age must be greater than or equal to zero.")
+
+        if (minimum_age < 0):
+            raise ValueError("minimum_age must be greater than or equal to zero.")
+
+        if (minimum_age > maximum_age):
+            raise ValueError("minimum_age must be less than or equal to maximum_age.")
+
+        # In order to return the full range of possible dates of birth, add one
+        # year to the potential age cap and subtract one day if we land on the 
+        # boundary. 
+
+        now = datetime.now(tzinfo).date()
+        start_date = now.replace(year=now.year - (maximum_age+1))
+        end_date = now.replace(year=now.year - minimum_age)
+
+        dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
+
+        return dob if dob != start_date else dob + timedelta(days=1)

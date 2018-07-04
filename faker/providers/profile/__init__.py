@@ -29,7 +29,7 @@ class Provider(BaseProvider):
             "mail": self.generator.free_email(),
 
             #"password":self.generator.password()
-            "birthdate": self.generator.date(),
+            "birthdate": self.generator.date_of_birth(),
 
         }
 
