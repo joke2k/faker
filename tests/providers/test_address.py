@@ -22,6 +22,58 @@ from faker.providers.address.ne_NP import Provider as NeProvider
 from six import string_types
 
 
+class TestBaseProvider(unittest.TestCase):
+    """ Tests addresses in the base provider """
+
+    def setUp(self):
+        self.factory = Faker('')
+
+    def test_alpha_2_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-2')
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_2_country_codes_as_default(self):
+        country_code = Faker().country_code()
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_3_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-3')
+        assert len(country_code) == 3
+        assert country_code.isalpha()
+
+    def test_bad_country_code_representation(self):
+        with self.assertRaises(ValueError):
+            country_code = Faker().country_code(representation='hello')
+
+
+class TestAr_AA(unittest.TestCase):
+    """ Tests addresses in the ar_AA locale """
+
+    def setUp(self):
+        self.factory = Faker('ar_AA')
+
+    def test_alpha_2_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-2')
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_2_country_codes_as_default(self):
+        country_code = Faker().country_code()
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_3_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-3')
+        assert len(country_code) == 3
+        assert country_code.isalpha()
+
+    def test_bad_country_code_representation(self):
+        with self.assertRaises(ValueError):
+            country_code = Faker().country_code(representation='hello')
+
+
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 

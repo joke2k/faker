@@ -18,7 +18,8 @@ class Provider(BaseProvider):
     building_number_formats = ('##', )
     postcode_formats = ('#####', )
     countries = [tz['name'] for tz in date_time.Provider.countries]
-    country_codes = [tz['code'] for tz in date_time.Provider.countries]
+    alpha_2_country_codes = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
+    alpha_3_country_codes = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
 
     def city_suffix(self):
         """
@@ -75,8 +76,13 @@ class Provider(BaseProvider):
     def country(self):
         return self.random_element(self.countries)
 
-    def country_code(self):
-        return self.random_element(self.country_codes)
+    def country_code(self, representation='alpha-2'):
+        if representation == 'alpha-2':
+            return self.random_element(self.alpha_2_country_codes)
+        elif representation == 'alpha-3':
+            return self.random_element(self.alpha_3_country_codes)
+        else:
+            raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
 
     def geo_coordinate(self, center=None, radius=0.001):
         """
