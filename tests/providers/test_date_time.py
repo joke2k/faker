@@ -471,3 +471,95 @@ class TestAr(unittest.TestCase):
             factory.month_name(),
             ArProvider.MONTH_NAMES.values()
         )
+
+
+class DatesOfBirth(unittest.TestCase):
+    from faker.providers.date_time import datetime_to_timestamp
+
+    """
+    Test Dates of Birth
+    """
+
+    def setUp(self):
+        self.factory = Faker()
+        self.factory.seed(0)
+
+    def test_date_of_birth(self):
+        dob = self.factory.date_of_birth()
+        assert isinstance(dob, date)
+
+    def test_value_errors(self):
+        with self.assertRaises(ValueError):
+            self.factory.date_of_birth(minimum_age=-1)
+
+        with self.assertRaises(ValueError):
+            self.factory.date_of_birth(maximum_age=-1)
+
+        with self.assertRaises(ValueError):
+            self.factory.date_of_birth(minimum_age=-2, maximum_age=-1)
+
+        with self.assertRaises(ValueError):
+            self.factory.date_of_birth(minimum_age=5, maximum_age=4)
+
+    def test_type_errors(self):
+        with self.assertRaises(TypeError):
+            self.factory.date_of_birth(minimum_age=0.5)
+
+        with self.assertRaises(TypeError):
+            self.factory.date_of_birth(maximum_age='hello')
+
+    def test_bad_age_range(self):
+        with self.assertRaises(ValueError):
+            self.factory.date_of_birth(minimum_age=5, maximum_age=0)
+
+    def test_acceptable_age_range_five_years(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_now = now - now
+            days_since_six_years_ago = now - now.replace(year=now.year-6)
+            
+            dob = self.factory.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=5)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_six_years_ago > days_since_dob >= days_since_now 
+
+    def test_acceptable_age_range_eighteen_years(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_now = now - now
+            days_since_nineteen_years_ago = now - now.replace(year=now.year-19)
+            
+            dob = self.factory.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=18)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_nineteen_years_ago > days_since_dob >= days_since_now
+    
+    def test_identical_age_range(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_five_years_ago = now - now.replace(year=now.year-5)
+            days_since_six_years_ago = now - now.replace(year=now.year-6)
+
+            dob = self.factory.date_of_birth(minimum_age=5, maximum_age=5)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_six_years_ago > days_since_dob >= days_since_five_years_ago
+
+    def test_distant_age_range(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_one_hundred_years_ago = now - now.replace(year=now.year-100)
+            days_since_one_hundred_eleven_years_ago = now - now.replace(year=now.year-111)
+
+            dob = self.factory.date_of_birth(minimum_age=100, maximum_age=110)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago
