@@ -18,6 +18,10 @@ class Provider(BaseProvider):
     building_number_formats = ('##', )
     postcode_formats = ('#####', )
     countries = [tz['name'] for tz in date_time.Provider.countries]
+
+    ALPHA_2 = 'alpha-2'
+    ALPHA_3 = 'alpha-3'
+
     alpha_2_country_codes = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
     alpha_3_country_codes = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
 
@@ -76,10 +80,10 @@ class Provider(BaseProvider):
     def country(self):
         return self.random_element(self.countries)
 
-    def country_code(self, representation='alpha-2'):
-        if representation == 'alpha-2':
+    def country_code(self, representation=ALPHA_2):
+        if representation == self.ALPHA_2:
             return self.random_element(self.alpha_2_country_codes)
-        elif representation == 'alpha-3':
+        elif representation == self.ALPHA_3:
             return self.random_element(self.alpha_3_country_codes)
         else:
             raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
