@@ -1,8 +1,16 @@
 Changelog
 =========
 
+`0.8.17 - 12-July-2018 <https://github.com/joke2k/faker/compare/v0.8.16...v0.8.17>`__
+-------------------------------------------------------------------------------------
+
+* Add ``ein``, ``itin`` and refactored ``ssn`` Provider for ``en_US``. Thanks @crd.
+* Add ``job`` provier for ``zh_CN``. Thanks @ramwin.
+* Add ``date_of_birth`` provider. Thanks @cdr.
+* Add alpha-3 representation option for ``country-code`` provider. Thanks @cdr.
+
 `0.8.16 - 15-June-2018 <https://github.com/joke2k/faker/compare/v0.8.15...v0.8.16>`__
-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 * Fix test for CPF (Brazilian SSN). Thanks Rubens Takiguti Ribeiro.
 * Fix Canadian SIN generation. Thanks @crd.
