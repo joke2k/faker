@@ -16,6 +16,9 @@ Here's a list of Providers written by the community:
 |               | generic or specialized   |                                  +
 |               | by cloud.                |                                  +
 +---------------+--------------------------+----------------------------------+
+| Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.       | `faker_wifi_essid`_              +
++---------------+--------------------------+----------------------------------+
 
 .. _faker_web: https://pypi.org/project/faker_web/
 .. _faker_cloud: https://pypi.org/project/faker-cloud/
+.. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
