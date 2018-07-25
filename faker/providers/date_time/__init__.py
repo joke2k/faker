@@ -489,7 +489,7 @@ class Provider(BaseProvider):
                   'name': 'Guatemala',
                   'capital': 'Guatemala City'},
                  {'timezones': ['America/Guatemala'],
-                  'alpha-2-code': 'GT',
+                  'alpha-2-code': 'HT',
                   'alpha-3-code': 'HTI',
                   'continent': 'North America',
                   'name': 'Haiti',
