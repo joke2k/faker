@@ -332,7 +332,7 @@ class Provider(AddressProvider):
     def state_abbr(self):
         return self.random_element(self.states_abbr)
 
-    def zipcode(self):
+    def postcode(self):
         return "%05d" % self.generator.random.randint(501, 99950)
 
     def zipcode_plus4(self):
@@ -364,8 +364,11 @@ class Provider(AddressProvider):
         return self.numerify(self.military_dpo_format)
 
     # Aliases
+    def zipcode(self):
+        return self.postcode()
+
     def postalcode(self):
-        return self.zipcode()
+        return self.postcode()
 
     def postalcode_plus4(self):
         return self.zipcode_plus4()

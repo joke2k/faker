@@ -347,9 +347,12 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.building_names)
 
-    def zipcode(self):
+    def postcode(self):
         """
         :example '101-1212'
         """
         return "%03d-%04d" % (self.generator.random.randint(0, 999),
                               self.generator.random.randint(0, 9999))
+
+    def zipcode(self):
+        return self.postcode()

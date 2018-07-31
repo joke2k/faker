@@ -230,6 +230,12 @@ class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_CA')
 
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
+                            postcode)
+
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()
@@ -291,6 +297,11 @@ class TestEnUS(unittest.TestCase):
         state_abbr = self.factory.state_abbr()
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnUsProvider.states_abbr
+
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("\d{5}", postcode)
 
     def test_zipcode(self):
         for _ in range(100):
@@ -420,12 +431,36 @@ class TestJaJP(unittest.TestCase):
         assert isinstance(building_name, string_types)
         assert building_name in JaProvider.building_names
 
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match("\d{3}-\d{4}", postcode)
+
         zipcode = self.factory.zipcode()
         assert isinstance(zipcode, string_types)
         assert re.match("\d{3}-\d{4}", zipcode)
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+
+
+class TestKoKR(unittest.TestCase):
+    """ Tests addresses in the ko_KR locale """
+
+    def setUp(self):
+        self.factory = Faker('ko_KR')
+
+    def test_address(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match("\d{5}", postcode)
+
+        postal_code = self.factory.postal_code()
+        assert isinstance(postal_code, string_types)
+        assert re.match("\d{5}", postal_code)
+
+        old_postal_code = self.factory.old_postal_code()
+        assert isinstance(old_postal_code, string_types)
+        assert re.match("\d{3}-\d{3}", old_postal_code)
 
 
 class TestNeNP(unittest.TestCase):
