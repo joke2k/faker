@@ -15,6 +15,20 @@ from faker.providers.company.pl_PL import (
 from tests import string_types
 
 
+class TestFiFI(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+
+    def test_company_business_id(self):
+        self.factory.random.seed(1)
+        company_id = self.factory.company_business_id()
+        self.assertTrue(company_id.endswith('0'))
+        for seed in range(2, 4):
+            self.factory.random.seed(seed)
+            self.factory.company_business_id()
+
+
 class TestJaJP(unittest.TestCase):
     """ Tests companies in the ja_JP locale """
 
