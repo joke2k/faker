@@ -272,7 +272,7 @@ class Provider(AddressProvider):
 
     provinces_abbr = (
         'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS',
-        'NV', 'ON', 'PE', 'QC', 'SK', 'YT')
+        'NU', 'ON', 'PE', 'QC', 'SK', 'YT')
 
     city_formats = (
         '{{city_prefix}} {{first_name}}{{city_suffix}}',
