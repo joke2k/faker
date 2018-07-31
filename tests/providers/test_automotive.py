@@ -37,5 +37,4 @@ class TestDeDe(unittest.TestCase):
 
     def test_de_DE_plate_format(self):
         plate = self.factory.license_plate()
-
-        assert re.match("[A-Z]{1,3}-[A-Z]{1,2}-\d{1,4}", plate), "%s is not in the correct format." % plate
+        assert re.match(r"[A-Z\u00D6\u00DC]{1,3}-[A-Z]{1,2}-\d{1,4}", plate, flags=re.UNICODE), "%s is not in the correct format." % plate
