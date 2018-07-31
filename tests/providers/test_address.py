@@ -230,6 +230,12 @@ class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_CA')
 
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
+                            postcode)
+
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()

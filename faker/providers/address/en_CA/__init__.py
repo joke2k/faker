@@ -316,7 +316,7 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.postal_code_letters)
 
-    def postalcode(self):
+    def postcode(self):
         """
         Replaces all question mark ('?') occurrences with a random letter
         from postal_code_formats then passes result to
@@ -326,3 +326,6 @@ class Provider(AddressProvider):
                       lambda x: self.postal_code_letter(),
                       self.random_element(self.postal_code_formats))
         return self.numerify(temp)
+    
+    def postalcode(self):
+        return self.postcode()
