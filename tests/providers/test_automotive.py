@@ -17,7 +17,8 @@ class TestPtBR(unittest.TestCase):
     def test_plate_has_been_generated(self):
         plate = self.factory.license_plate()
         assert isinstance(plate, string_types)
-        assert self.format.match(plate)
+        assert self.format.match(plate), "%s is not in the correct format." % plate
+
 
 class TestHuHU(unittest.TestCase):
 
@@ -26,8 +27,8 @@ class TestHuHU(unittest.TestCase):
 
     def test_hu_HU_plate_format(self):
         plate = self.factory.license_plate()
+        assert re.match("[A-Z]{3}-\d{3}", plate), "%s is not in the correct format." % plate
 
-        assert re.match("[A-Z]{3}-\d{3}", plate)
 
 class TestDeDe(unittest.TestCase):
 
@@ -37,4 +38,4 @@ class TestDeDe(unittest.TestCase):
     def test_de_DE_plate_format(self):
         plate = self.factory.license_plate()
 
-        assert re.match("[A-Z]{1,3}-[A-Z]{1,2}-\d{1,4}", plate)
+        assert re.match("[A-Z]{1,3}-[A-Z]{1,2}-\d{1,4}", plate), "%s is not in the correct format." % plate
