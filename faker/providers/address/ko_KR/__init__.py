@@ -381,8 +381,14 @@ class Provider(AddressProvider):
         """
         return self.bothify(self.random_element(self.postcode_formats))
 
-    def postal_code(self):
+    def postcode(self):
         """
         :example 12345
         """
         return self.bothify(self.random_element(self.new_postal_code_formats))
+
+    def postal_code(self):
+        """
+        :example 12345
+        """
+        return self.postcode()

@@ -443,6 +443,26 @@ class TestJaJP(unittest.TestCase):
         assert isinstance(address, string_types)
 
 
+class TestKoKR(unittest.TestCase):
+    """ Tests addresses in the ko_KR locale """
+
+    def setUp(self):
+        self.factory = Faker('ko_KR')
+
+    def test_address(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match("\d{5}", postcode)
+
+        postal_code = self.factory.postal_code()
+        assert isinstance(postal_code, string_types)
+        assert re.match("\d{5}", postal_code)
+
+        old_postal_code = self.factory.old_postal_code()
+        assert isinstance(old_postal_code, string_types)
+        assert re.match("\d{3}-\d{3}", old_postal_code)
+
+
 class TestNeNP(unittest.TestCase):
     """ Tests addresses in the ne_NP locale """
 
