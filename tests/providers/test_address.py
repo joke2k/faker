@@ -298,6 +298,11 @@ class TestEnUS(unittest.TestCase):
         assert isinstance(state_abbr, string_types)
         assert state_abbr in EnUsProvider.states_abbr
 
+    def test_postcode(self):
+        for _ in range(100):
+            postcode = self.factory.postcode()
+            assert re.match("\d{5}", postcode)
+
     def test_zipcode(self):
         for _ in range(100):
             zipcode = self.factory.zipcode()
