@@ -431,6 +431,10 @@ class TestJaJP(unittest.TestCase):
         assert isinstance(building_name, string_types)
         assert building_name in JaProvider.building_names
 
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match("\d{3}-\d{4}", postcode)
+
         zipcode = self.factory.zipcode()
         assert isinstance(zipcode, string_types)
         assert re.match("\d{3}-\d{4}", zipcode)
