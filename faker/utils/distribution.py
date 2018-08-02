@@ -17,18 +17,49 @@ def cumsum(it):
         yield total
 
 
-def choice_distribution(a, p, random=None):
+def choices_distribution_unique(a, p, random=None, length=1):
+    # As of Python 3.7, there isn't a way to sample unique elements that takes
+    # weight into account.
+    if random is None:
+        random = mod_random
+
+    assert len(a) == len(p)
+    assert len(a) >= length, "You can't request more unique samples than elements in the dataset."
+
+    choices = []
+    items = list(a)
+    probabilities = list(p)
+    for i in range(length):
+        cdf = list(cumsum(probabilities))
+        normal = cdf[-1]
+        cdf2 = [float(i) / float(normal) for i in cdf]
+        uniform_sample = random_sample(random=random)
+        idx = bisect.bisect_right(cdf2, uniform_sample)
+        item = items[idx]
+        choices.append(item)
+        probabilities.pop(idx)
+        items.pop(idx)
+    return choices
+
+
+def choices_distribution(a, p, random=None, length=1):
     if random is None:
         random = mod_random
 
     assert len(a) == len(p)
 
     if hasattr(random, 'choices'):
-        return random.choices(a, weights=p)[0]
+        choices = random.choices(a, weights=p, k=length)
+        return choices
     else:
+        choices = []
+
         cdf = list(cumsum(p))
         normal = cdf[-1]
         cdf2 = [float(i) / float(normal) for i in cdf]
-        uniform_sample = random_sample(random=random)
-        idx = bisect.bisect_right(cdf2, uniform_sample)
-        return a[idx]
+        for i in range(length):
+            uniform_sample = random_sample(random=random)
+            idx = bisect.bisect_right(cdf2, uniform_sample)
+            item = a[idx]
+            choices.append(item)
+        return choices
