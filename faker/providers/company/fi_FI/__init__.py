@@ -34,7 +34,7 @@ class Provider(CompanyProvider):
                 return str(11 - sum_ % 11)
 
         first_digit = str(self.random_digit_not_null())
-        body = first_digit + self.bothify(self.random_element(('######',)))
+        body = first_digit + self.bothify('######')
         cs = calculate_checksum(body)
         return body + '-' + str(cs)
 

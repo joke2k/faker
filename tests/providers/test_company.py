@@ -21,10 +21,10 @@ class TestFiFI(unittest.TestCase):
         self.factory = Faker('fi_FI')
 
     def test_company_business_id(self):
-        self.factory.random.seed(1)
+        self.factory.random.seed(6)
         company_id = self.factory.company_business_id()
         self.assertTrue(company_id.endswith('0'))
-        for seed in range(2, 4):
+        for seed in range(0, 11):
             self.factory.random.seed(seed)
             self.factory.company_business_id()
 
