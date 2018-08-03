@@ -88,7 +88,7 @@ class Provider(PersonProvider):
     """
     last_names = (
         'Almeida', 'Alves', 'Aragão', 'Araújo', 'Azevedo', 'Barbosa', 'Barros',
-        'Caldeira', 'Campos', 'Cardoso', 'Cardoso,', 'Carvalho', 'Castro',
+        'Caldeira', 'Campos', 'Cardoso', 'Cardoso', 'Carvalho', 'Castro',
         'Cavalcanti', 'Correia', 'Costa', 'Costela', 'Cunha', 'da Conceição',
         'da Costa', 'da Cruz', 'da Cunha', 'da Luz', 'da Mata', 'da Mota',
         'da Paz', 'da Rocha', 'da Rosa', 'das Neves', 'Dias', 'Duarte',
