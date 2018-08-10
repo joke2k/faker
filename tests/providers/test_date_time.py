@@ -545,7 +545,7 @@ class DatesOfBirth(unittest.TestCase):
             days_since_five_years_ago = now - now.replace(year=now.year-5)
             days_since_six_years_ago = now - now.replace(year=now.year-6)
 
-            dob = self.factory.date_of_birth(minimum_age=5, maximum_age=5)
+            dob = self.factory.date_of_birth(tzinfo=utc, minimum_age=5, maximum_age=5)
             days_since_dob = now - dob
 
             assert isinstance(dob, date)
