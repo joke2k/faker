@@ -20,7 +20,7 @@ Changelog
 -------------------------------------------------------------------------------------
 
 * Add ``ein``, ``itin`` and refactored ``ssn`` Provider for ``en_US``. Thanks @crd.
-* Add ``job`` provier for ``zh_CN``. Thanks @ramwin.
+* Add ``job`` provider for ``zh_CN``. Thanks @ramwin.
 * Add ``date_of_birth`` provider. Thanks @cdr.
 * Add alpha-3 representation option for ``country-code`` provider. Thanks @cdr.
 
