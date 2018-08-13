@@ -1,6 +1,21 @@
 Changelog
 =========
 
+`0.8.18 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.17...v0.8.18>`__
+---------------------------------------------------------------------------------------
+
+* Change blood group from ``0`` (zero) to ``O`` (capital letter O). Some locales do use 'zero', but
+  ``O`` is more common and it is the medical standard. Thanks @mohi7solanki.
+* Fix alpha-2 country code for Haiti. Thanks @sevens-ef for the report.
+* Fix abbreviation for Nunavut. Thanks @straz for the report.
+* Standardized ``postcode`` in address providers. Now all locales are guaranteed to have
+  a ``postcode`` method and may have a localized alias for it (eg: ``zipcode``). Thanks @straz for
+  the report.
+* Fix typo in ``pt_BR`` Person perovider. Thanks @Nichlas.
+* Fix timezone handling. Thanks @Fraterius.
+* Use tzinfo when provided in ``date_of_birth``. Thanks @Kelledin.
+
+
 `0.8.17 - 12-July-2018 <https://github.com/joke2k/faker/compare/v0.8.16...v0.8.17>`__
 -------------------------------------------------------------------------------------
 
