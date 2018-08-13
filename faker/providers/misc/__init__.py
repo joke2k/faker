@@ -176,7 +176,7 @@ class Provider(BaseProvider):
             required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
-        chars = [self.generator.random.choice(choices) for _ in range(length)]
+        chars = self.random_choices(choices, length=length)
 
         # Pick some unique locations
         random_indexes = set()
