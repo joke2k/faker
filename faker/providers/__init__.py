@@ -4,7 +4,7 @@ from collections import Counter
 import re
 import string
 
-from faker.utils.distribution import choice_distribution
+from faker.utils.distribution import choices_distribution, choices_distribution_unique
 
 
 _re_hash = re.compile(r'#')
@@ -91,6 +91,13 @@ class BaseProvider(object):
         return self.generator.random.choice(
             getattr(string, 'letters', string.ascii_letters))
 
+    def random_letters(self, length=16):
+        """Returns a random letter (between a-z and A-Z)."""
+        return self.random_choices(
+            getattr(string, 'letters', string.ascii_letters),
+            length=length,
+        )
+
     def random_lowercase_letter(self):
         """Returns a random lowercase letter (between a-z)."""
         return self.generator.random.choice(string.ascii_lowercase)
@@ -98,6 +105,51 @@ class BaseProvider(object):
     def random_uppercase_letter(self):
         """Returns a random letter (between A-Z)."""
         return self.generator.random.choice(string.ascii_uppercase)
+
+    def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False):
+        fn = choices_distribution_unique if unique else choices_distribution
+
+        if length is None:
+            length = self.generator.random.randint(1, len(elements))
+
+        if unique and length > len(elements):
+            raise ValueError(
+                "Sample length cannot be longer than the number of unique elements to pick from.")
+
+        if isinstance(elements, dict):
+            choices = elements.keys()
+            probabilities = elements.values()
+        else:
+            if unique:
+                # shortcut
+                return self.generator.random.sample(elements, length)
+            choices = elements
+            probabilities = [1.0 for _ in range(len(choices))]
+
+        return fn(
+            list(choices),
+            list(probabilities),
+            self.generator.random,
+            length=length,
+        )
+
+    def random_choices(self, elements=('a', 'b', 'c'), length=None):
+        """
+        Returns a list of random, non-unique elements from a passed object.
+
+        If `elements` is a dictionary, the value will be used as
+        a weighting element. For example::
+
+            random_element({"{{variable_1}}": 0.5, "{{variable_2}}": 0.2, "{{variable_3}}": 0.2, "{{variable_4}}": 0.1})
+
+        will have the following distribution:
+            * `variable_1`: 50% probability
+            * `variable_2`: 20% probability
+            * `variable_3`: 20% probability
+            * `variable_4`: 10% probability
+
+        """
+        return self.random_elements(elements, length, unique=False)
 
     def random_element(self, elements=('a', 'b', 'c')):
         """
@@ -115,41 +167,14 @@ class BaseProvider(object):
             * `variable_4`: 10% probability
 
         """
-
-        if isinstance(elements, dict):
-            choices = elements.keys()
-            probabilities = elements.values()
-            return choice_distribution(
-                list(choices),
-                list(probabilities),
-                self.generator.random)
-        else:
-            return self.generator.random.choice(list(elements))
+        return self.random_elements(elements, length=1)[0]
 
     def random_sample(self, elements=('a', 'b', 'c'), length=None):
-        if length is None:
-            length = self.generator.random.randint(1, len(elements))
-
-        return [self.random_element(elements) for _ in range(length)]
-
-    def random_sample_unique(self, elements=('a', 'b', 'c'), length=None):
         """
-        Returns a `set` of random unique elements for the specified length.
-        Multiple occurances of the same value increase its probabilty to be in the output.
+        Returns a list of random unique elements for the specified length.
+        Multiple occurrences of the same value increase its probability to be in the output.
         """
-        elements = Counter(elements)
-        if length is None:
-            length = self.generator.random.randint(1, len(elements))
-
-        if length > len(elements):
-            raise ValueError(
-                "Sample length cannot be longer than the number of unique elements to pick from.")
-        sample = set()
-        for _ in range(length):
-            element = self.random_element(elements)
-            sample.add(element)
-            elements.pop(element)
-        return sample
+        return self.random_elements(elements, length, unique=True)
 
     def randomize_nb_elements(
             self,

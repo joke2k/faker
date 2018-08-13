@@ -26,19 +26,6 @@ class Provider(BaseProvider):
     word_connector = ' '
     sentence_punctuation = '.'
 
-    def word(self, ext_word_list=None):
-        """
-        :returns: A random word, eg: 'lorem'
-
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'
-
-        :rtype: str
-        """
-        if ext_word_list:
-            return self.random_element(ext_word_list)
-        return self.random_element(self.word_list)
-
     def words(self, nb=3, ext_word_list=None):
         """
         :returns: An array of random words. for example: ['Lorem', 'ipsum', 'dolor']
@@ -50,7 +37,19 @@ class Provider(BaseProvider):
 
         :rtype: list
         """
-        return [self.word(ext_word_list) for _ in range(0, nb)]
+        word_list = ext_word_list if ext_word_list else self.word_list
+        return self.random_choices(word_list, length=nb)
+
+    def word(self, ext_word_list=None):
+        """
+        :returns: A random word, eg: 'lorem'
+
+        :param ext_word_list: a list of words you would like to have instead of
+            'Lorem ipsum'
+
+        :rtype: str
+        """
+        return self.words(1, ext_word_list)[0]
 
     def sentence(self, nb_words=6, variable_nb_words=True, ext_word_list=None):
         """

@@ -586,32 +586,28 @@ class FactoryTestCase(unittest.TestCase):
 
         # Too many items requested
         with self.assertRaises(ValueError):
-            provider.random_sample_unique('abcde', 6)
-
-        # Duplicate inputs reduced to unique set
-        with self.assertRaises(ValueError):
-            provider.random_sample_unique('aabcd', 5)
+            provider.random_sample('abcde', 6)
 
         # Same length
-        sample = provider.random_sample_unique('aabcd', 4)
-        self.assertEqual(sample, set('abcd'))
+        sample = provider.random_sample('abcd', 4)
+        self.assertEqual(sorted(sample), list('abcd'))
 
-        sample = provider.random_sample_unique('abcde', 5)
-        self.assertEqual(sample, set('abcde'))
+        sample = provider.random_sample('abcde', 5)
+        self.assertEqual(sorted(sample), list('abcde'))
 
         # Length = 3
-        sample = provider.random_sample_unique('abcde', 3)
+        sample = provider.random_sample('abcde', 3)
         self.assertEqual(len(sample), 3)
-        self.assertTrue(sample.issubset(set('abcde')))
+        self.assertTrue(set(sample).issubset(set('abcde')))
 
         # Length = 1
-        sample = provider.random_sample_unique('abcde', 1)
+        sample = provider.random_sample('abcde', 1)
         self.assertEqual(len(sample), 1)
-        self.assertTrue(sample.issubset(set('abcde')))
+        self.assertTrue(set(sample).issubset(set('abcde')))
 
         # Length = 0
-        sample = provider.random_sample_unique('abcde', 0)
-        self.assertEqual(sample, set())
+        sample = provider.random_sample('abcde', 0)
+        self.assertEqual(sample, [])
 
     def test_random_number(self):
         from faker.providers import BaseProvider

@@ -320,7 +320,7 @@ class Provider(BaseProvider):
     def uri_path(self, deep=None):
         deep = deep if deep else self.generator.random.randint(1, 3)
         return "/".join(
-            [self.random_element(self.uri_paths) for _ in range(0, deep)]
+            self.random_elements(self.uri_paths, length=deep)
         )
 
     def uri_extension(self):
