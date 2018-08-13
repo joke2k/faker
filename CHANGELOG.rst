@@ -1,6 +1,16 @@
 Changelog
 =========
 
+`0.9.0 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.18...v0.9.00>`__
+--------------------------------------------------------------------------------------
+
+* ``.random_sample()`` now returns a list of unique elements instead of a set.
+* ``.random_sample_unique()`` is removed in favor of ``.random_sample()``.
+* Added ``random_choices()``, ``random_elements()`` and ``random_letters()``.
+* Added ``faker.utils.distribution.choices_distribution_unique()``.
+* ``words()``, ``password()``, ``uri_path`` and ``pystr()`` now use the new the ``random_choices()``
+  method.
+
 `0.8.18 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.17...v0.8.18>`__
 ---------------------------------------------------------------------------------------
 
