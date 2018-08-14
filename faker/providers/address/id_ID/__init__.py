@@ -29,15 +29,15 @@ class Provider(AddressProvider):
     # From
     # http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
     streets = (
-        'Abdul Muis ', 'Antapani Lama', 'Asia Afrika', 'Astana Anyar', 'BKR',
+        'Abdul Muis', 'Antapani Lama', 'Asia Afrika', 'Astana Anyar', 'BKR',
         'Cihampelas', 'Cikapayang', 'Cikutra Barat', 'Cikutra Timur',
         'Ciumbuleuit', 'Ciwastra', 'Dipatiukur', 'Dipenogoro', 'Dr. Djunjunan',
         'Gardujati', 'Gedebage Selatan', 'Gegerkalong Hilir',
-        'HOS. Cokroaminoto', 'Ir. H. Djuanda', 'Jakarta ', 'Jamika',
+        'HOS. Cokroaminoto', 'Ir. H. Djuanda', 'Jakarta', 'Jamika',
         'Jend. A. Yani', 'Jend. Sudirman', 'K.H. Wahid Hasyim', 'Kebonjati',
         'Kiaracondong', 'Laswi', 'Lembong', 'Merdeka', 'Moch. Ramdan',
         'Moch. Toha', 'Pacuan Kuda', 'Pasir Koja', 'Pasirkoja', 'Pasteur',
-        'Pelajar Pejuang', 'Peta', 'PHH. Mustofa ', 'Rajawali Barat',
+        'Pelajar Pejuang', 'Peta', 'PHH. Mustofa', 'Rajawali Barat',
         'Rajawali Timur', 'Raya Setiabudhi', 'Raya Ujungberung', 'Rumah Sakit',
         'Sadang Serang', 'Sentot Alibasa', 'Setiabudhi', 'Siliwangi',
         'Soekarno Hatta', 'Sukabumi', 'Sukajadi', 'Suniaraja', 'Surapati',

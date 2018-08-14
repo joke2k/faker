@@ -92,7 +92,7 @@ class Provider(PersonProvider):
         'Cavalcanti', 'Correia', 'Costa', 'Costela', 'Cunha', 'da Conceição',
         'da Costa', 'da Cruz', 'da Cunha', 'da Luz', 'da Mata', 'da Mota',
         'da Paz', 'da Rocha', 'da Rosa', 'das Neves', 'Dias', 'Duarte',
-        'Farias' 'Fernandes', 'Ferreira', 'Fogaça', 'Freitas', 'Gomes',
+        'Farias', 'Fernandes', 'Ferreira', 'Fogaça', 'Freitas', 'Gomes',
         'Gonçalves', 'Jesus', 'Lima', 'Lopes', 'Martins', 'Melo', 'Mendes',
         'Monteiro', 'Moraes', 'Moreira', 'Moura', 'Nascimento', 'Nogueira',
         'Novaes', 'Nunes', 'Oliveira', 'Peixoto', 'Pereira', 'Pinto', 'Pires',
