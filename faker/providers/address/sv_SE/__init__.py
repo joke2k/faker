@@ -91,7 +91,7 @@ class Provider(AddressProvider):
     )
 
     states = (
-        'Stockholms län', 'Uppsala län', 'Södermanlands län'
+        'Stockholms län', 'Uppsala län', 'Södermanlands län',
         'Östergötlands län', 'Jönköpings län', 'Kronobergs län', 'Kalmar län',
         'Gotlands län', 'Blekinge län', 'Skåne län', 'Hallands län',
         'Västra Götalands län', 'Värmlands län', 'Örebro län',

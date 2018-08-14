@@ -590,7 +590,7 @@ class Provider(PersonProvider):
     last_names = last_names_male + last_names_female
 
     prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.',
-                       'Mama', 'Maame', 'Awura', 'Sista'
+                       'Mama', 'Maame', 'Awura', 'Sista',
                        'Osofo Maame')
 
     prefixes_male = ('Mr.', 'Dr.', 'Agya', 'Owura', 'Osofo')

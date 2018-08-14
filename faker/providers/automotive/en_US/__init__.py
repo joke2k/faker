@@ -152,13 +152,13 @@ class Provider(AutomotiveProvider):
         '???-####',
         # Washington
         '???####',
-        '###-???'
+        '###-???',
         # West Virginia
         '#?? ###',
         '??? ###',
         # Wisconsin
         '???-####',
-        '###-???'
+        '###-???',
         # Wyoming
         '#-#####',
         '#-####?',

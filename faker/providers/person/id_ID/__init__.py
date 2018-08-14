@@ -199,7 +199,7 @@ class Provider(PersonProvider):
         # via
         # https://github.com/fzaninotto/faker/blob/master/src/Faker/Provider/id_ID/Person.php
         # plus noble titles
-        'dr.', 'drg.', 'Dr.', 'Drs.', 'Ir.' 'Hj.',
+        'dr.', 'drg.', 'Dr.', 'Drs.', 'Ir.', 'Hj.',
     )
 
     # From http://id.wikipedia.org/wiki/Gelar_akademik

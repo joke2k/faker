@@ -12,7 +12,7 @@ class Provider(InternetProvider):
         '{{first_name}}##',
         '{{first_name}}_##',
         '?{{last_name}}',
-        '{{first_name}}{{year}}'
+        '{{first_name}}{{year}}',
         '{{first_name}}_{{year}}'
     )
 

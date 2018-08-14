@@ -119,7 +119,7 @@ class Provider(AddressProvider):
 
     # From https://pt.wikipedia.org/wiki/Distritos_de_Portugal
     distritos = (
-        'Aveiro' 'Beja' 'Braga', 'Bragança', 'Castelo Branco', 'Coimbra',
+        'Aveiro', 'Beja', 'Braga', 'Bragança', 'Castelo Branco', 'Coimbra',
         'Évora', 'Faro', 'Guarda', 'Leiria', 'Lisboa', 'Portalegre', 'Porto',
         'Santarém', 'Setúbal', 'Viana do Castelo', 'Vila Real', 'Viseu',
     )
