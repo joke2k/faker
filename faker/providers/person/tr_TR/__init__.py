@@ -120,8 +120,7 @@ class Provider(PersonProvider):
                           'Şahıgül', 'Şamiha', 'Şayan', 'Şazime', 'Şefiye', 'Şehreban', 'Şehza',
                           'Şelâle', 'Şemsinisa', 'Şendoğan', 'Şennur', 'Şeref', 'Şerman',
                           'Şevketfeza', 'Şeyda', 'Şilan', 'Şirivan', 'Şöhret', 'Şüküfe'
-
-                          )
+    )
 
     first_names_male = ('Abdiş', 'Abdulbekir', 'Abdulgazi', 'Abdulkadir',
                         'Abdulmenaf', 'Abdulsemet', 'Abdurrahman', 'Abdülahat', 'Abdülcemal',
@@ -254,8 +253,7 @@ class Provider(PersonProvider):
                         'Şahmettin', 'Şali', 'Şanlı', 'Şavki', 'Şefi', 'Şehamet', 'Şekim',
                         'Şemsettin', 'Şendoğan', 'Şenkal', 'Şerafeddin', 'Şevket', 'Şide',
                         'Şinasi', 'Şuayp', 'Şükri'
-
-                        )
+    )
 
     first_names = first_names_male + first_names_female
 
