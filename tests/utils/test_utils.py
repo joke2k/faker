@@ -75,6 +75,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.color',
             'faker.providers.company',
             'faker.providers.credit_card',
+            'faker.providers.credit_score',
             'faker.providers.currency',
             'faker.providers.date_time',
             'faker.providers.file',
