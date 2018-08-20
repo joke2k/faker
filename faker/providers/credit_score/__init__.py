@@ -1,15 +1,11 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from collections import OrderedDict
+from collections import namedtuple, OrderedDict
 
 from .. import BaseProvider
 
 
-class CreditScore(object):
-    def __init__(self, name, provider, score_range):
-        self.name = name
-        self.provider = provider
-        self.score_range = score_range
+CreditScore = namedtuple("CreditScore", ["name", "provider", "score_range"])
 
 
 class Provider(BaseProvider):
