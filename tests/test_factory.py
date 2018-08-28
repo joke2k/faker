@@ -6,7 +6,7 @@ import re
 import unittest
 import string
 import sys
-from ipaddress import ip_address, ip_network
+from ipaddress import ip_address, ip_network, IPv4Address
 
 import logging
 
@@ -441,8 +441,13 @@ class FactoryTestCase(unittest.TestCase):
             self.assertIn(klass, 'abc')
 
     def test_ipv4_private(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
+
+        # monkeypatch IPv4Address private networks to include
+        # current IANA entries used by faker
+        IPv4Address._constants._private_networks += \
+            _IPv4Constants._private_networks
 
         for _ in range(999):
             address = provider.ipv4_private()
@@ -463,8 +468,12 @@ class FactoryTestCase(unittest.TestCase):
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
     def test_ipv4_private_class_a(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
+        
+        class_network = _IPv4Constants._network_classes['a']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
 
         for _ in range(999):
             address = provider.ipv4_private(address_class='a')
@@ -472,12 +481,16 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^10\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_private_class_b(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
+        
+        class_network = _IPv4Constants._network_classes['b']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
 
         for _ in range(999):
             address = provider.ipv4_private(address_class='b')
@@ -485,12 +498,16 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^172\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_private_class_c(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
+        
+        class_network = _IPv4Constants._network_classes['c']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
 
         for _ in range(999):
             address = provider.ipv4_private(address_class='c')
@@ -498,12 +515,17 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^192\.168\.\d{1,3}\.\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_public(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
+
+        # monkeypatch IPv4Address private networks to include
+        # current IANA entries used by faker
+        IPv4Address._constants._private_networks += \
+            _IPv4Constants._private_networks        
 
         for _ in range(999):
             address = provider.ipv4_public()
