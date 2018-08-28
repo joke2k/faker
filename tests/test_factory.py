@@ -444,11 +444,6 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
 
-        # monkeypatch IPv4Address private networks to include
-        # current IANA entries used by faker
-        IPv4Address._constants._private_networks += \
-            _IPv4Constants._private_networks
-
         for _ in range(999):
             address = provider.ipv4_private()
             address = text.force_text(address)
@@ -520,12 +515,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_ipv4_public(self):
         from faker.providers.internet import Provider, _IPv4Constants
-        provider = Provider(self.generator)
-
-        # monkeypatch IPv4Address private networks to include
-        # current IANA entries used by faker
-        IPv4Address._constants._private_networks += \
-            _IPv4Constants._private_networks        
+        provider = Provider(self.generator)   
 
         for _ in range(999):
             address = provider.ipv4_public()
