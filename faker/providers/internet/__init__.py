@@ -58,7 +58,8 @@ class _IPv4Constants:
     # includes 0.0.0.0/8, as it can't be used for destination addresses.
     _excluded_networks = [
         ip_network('0.0.0.0/8'),
-        ip_network('100.64.0.0/10')
+        ip_network('100.64.0.0/10'),
+        ip_network('192.0.0.0/24')
     ]
 
 
@@ -271,12 +272,19 @@ class Provider(BaseProvider):
                 :returns: Flat list of IPv4 networks after exclusion.
                           If exclude fails because networks do not
                           overlap, a single element list with the
-                          orignal network is returned.
+                          orignal network is returned. If it overlaps,
+                          even partially, the network is excluded.
                 """
                 try:
                     return list(network.address_exclude(network_to_exclude))
                 except ValueError:
-                    return [network]
+                    # If networks overlap partially, `address_exclude`
+                    # will fail, but the network still must not be used
+                    # in generation.
+                    if network.overlaps(network_to_exclude):
+                        return []
+                    else:
+                        return [network]
 
             networks = list(map(_exclude_ipv4_network, networks))
 
