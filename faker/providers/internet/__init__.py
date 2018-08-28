@@ -41,7 +41,7 @@ class _IPv4Constants:
 
     # Add IANA reserved ranges missing from Python ipaddress module
     # https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
-    _private_networks = IPv4Address._constants._private_networks.copy() + [
+    _private_networks = list(IPv4Address._constants._private_networks) + [
         ip_network('100.64.0.0/10'),
         ip_network('192.0.0.0/24'),
         ip_network('192.0.0.0/29'),
