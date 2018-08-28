@@ -71,7 +71,7 @@ setup(
         "mock",
     ],
     extras_require={
-        ':python_version<"3.5"': [
+        ':python_version=="2.7"': [
             'ipaddress',
         ],
     }

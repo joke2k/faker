@@ -20,10 +20,8 @@ class _IPv4Constants:
     IPv4 network constants used to group networks into different categories.
     Structure derived from `ipaddress._IPv4Constants`.
 
-    Private network list is updated to comply with current IANA list.
-
-    Excluded networks are added to allow filtering out certain networks
-    from faker output.
+    Excluded network list is updated to comply with current IANA list of
+    private and reserved networks.
     """
     _network_classes = {
         'a': ip_network('0.0.0.0/1'),
@@ -31,35 +29,43 @@ class _IPv4Constants:
         'c': ip_network('192.0.0.0/3')
     }
 
-    _linklocal_network = IPv4Address._constants._linklocal_network
+    _linklocal_network = ip_network('169.254.0.0/16')
 
-    _loopback_network = IPv4Address._constants._loopback_network
+    _loopback_network = ip_network('127.0.0.0/8')
 
-    _multicast_network = IPv4Address._constants._multicast_network
+    _multicast_network = ip_network('224.0.0.0/4')
 
-    _reserved_network = IPv4Address._constants._reserved_network
-
-    # Add IANA reserved ranges missing from Python ipaddress module
-    # https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
-    _private_networks = list(IPv4Address._constants._private_networks) + [
-        ip_network('100.64.0.0/10'),
-        ip_network('192.0.0.0/24'),
-        ip_network('192.0.0.0/29'),
-        ip_network('192.0.0.8/32'),
-        ip_network('192.0.0.9/32'),
-        ip_network('192.0.0.10/32'),
-        ip_network('192.31.196.0/24'),
-        ip_network('192.52.193.0/24'),
-        ip_network('192.88.99.0/24'),
-        ip_network('192.175.48.0/24')
+    # Three common private networks from class A, B and CIDR
+    # to generate private addresses from.
+    _private_networks = [
+        ip_network('10.0.0.0/8'),
+        ip_network('172.16.0.0/12'),
+        ip_network('192.168.0.0/16')
     ]
 
     # List of networks from which IP addresses will never be generated,
-    # includes 0.0.0.0/8, as it can't be used for destination addresses.
+    # includes other private IANA and reserved networks from
+    # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
     _excluded_networks = [
         ip_network('0.0.0.0/8'),
         ip_network('100.64.0.0/10'),
-        ip_network('192.0.0.0/24')
+        ip_network('127.0.0.0/8'),
+        ip_network('169.254.0.0/16'),
+        ip_network('192.0.0.0/24'),
+        ip_network('192.0.2.0/24'),
+        ip_network('192.31.196.0/24'),
+        ip_network('192.52.193.0/24'),
+        ip_network('192.88.99.0/24'),
+        ip_network('192.175.48.0/24'),
+        ip_network('198.18.0.0/15'),
+        ip_network('198.51.100.0/24'),
+        ip_network('203.0.113.0/24'),
+        ip_network('240.0.0.0/4'),
+        ip_network('255.255.255.255/32')
+    ] + [
+        _linklocal_network,
+        _loopback_network,
+        _multicast_network
     ]
 
 
@@ -346,7 +352,7 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Private IPv4
         """
-        # compute private networks
+        # compute private networks from given class
         supernet = _IPv4Constants._network_classes[
             address_class or self.ipv4_network_class()
         ]
