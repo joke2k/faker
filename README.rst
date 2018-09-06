@@ -132,6 +132,7 @@ Included localized providers:
 -  `en\_AU <https://faker.readthedocs.io/en/master/locales/en_AU.html>`__ - English (Australia)
 -  `en\_CA <https://faker.readthedocs.io/en/master/locales/en_CA.html>`__ - English (Canada)
 -  `en\_GB <https://faker.readthedocs.io/en/master/locales/en_GB.html>`__ - English (Great Britain)
+-  `en\_NZ <https://faker.readthedocs.io/en/master/locales/en_NZ.html>`__ - English (New Zealand)
 -  `en\_US <https://faker.readthedocs.io/en/master/locales/en_US.html>`__ - English (United States)
 -  `es\_ES <https://faker.readthedocs.io/en/master/locales/es_ES.html>`__ - Spanish (Spain)
 -  `es\_MX <https://faker.readthedocs.io/en/master/locales/es_MX.html>`__ - Spanish (Mexico)
