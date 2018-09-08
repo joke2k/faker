@@ -34,6 +34,7 @@ class Provider(BaseProvider):
         :param nb: how many words to return
         :param ext_word_list: a list of words you would like to have instead of
             'Lorem ipsum'
+        :param unique: If True, the returned word list will contain unique words
 
         :rtype: list
         """
