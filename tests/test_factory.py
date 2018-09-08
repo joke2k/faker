@@ -330,6 +330,91 @@ class FactoryTestCase(unittest.TestCase):
         word = fake.word(ext_word_list=my_word_list)
         self.assertIn(word, my_word_list)
 
+    def test_no_words(self):
+        fake = Faker()
+
+        words = fake.words(0)
+        self.assertEqual(words, [])
+
+    def test_some_words(self):
+        fake = Faker()
+
+        num_words = 5
+        words = fake.words(num_words)
+        self.assertTrue(isinstance(words, list))
+        self.assertEqual(len(words), num_words)
+
+        for word in words:
+            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(re.match(r'^[a-z].*$', word))
+
+    def test_words_ext_word_list(self):
+        fake = Faker()
+
+        my_word_list = [
+            'danish',
+            'cheesecake',
+            'sugar',
+            'Lollipop',
+            'wafer',
+            'Gummies',
+            'Jelly',
+            'pie',
+        ]
+
+        num_words = 5
+        words = fake.words(5, ext_word_list=my_word_list)
+        self.assertTrue(isinstance(words, list))
+        self.assertEqual(len(words), num_words)
+
+        for word in words:
+            self.assertTrue(isinstance(word, string_types))
+            self.assertIn(word, my_word_list)
+
+    def test_words_ext_word_list_unique(self):
+        fake = Faker()
+
+        my_word_list = [
+            'danish',
+            'cheesecake',
+            'sugar',
+            'Lollipop',
+            'wafer',
+            'Gummies',
+            'Jelly',
+            'pie',
+        ]
+
+        num_words = 5
+        words = fake.words(5, ext_word_list=my_word_list)
+        self.assertTrue(isinstance(words, list))
+        self.assertEqual(len(words), num_words)
+
+        checked_words = []
+        for word in words:
+            self.assertTrue(isinstance(word, string_types))
+            self.assertIn(word, my_word_list)
+            # Check that word is unique
+            self.assertTrue(word not in checked_words)
+            checked_words.append(word)
+
+    def test_unique_words(self):
+        fake = Faker()
+
+        num_words = 20
+        words = fake.words(num_words, unique=True)
+        self.assertTrue(isinstance(words, list))
+        self.assertEqual(len(words), num_words)
+
+        checked_words = []
+        for word in words:
+            self.assertTrue(isinstance(word, string_types))
+            # Check that word is lowercase letters. No numbers, symbols, etc
+            self.assertTrue(re.match(r'^[a-z].*$', word))
+            # Check that word list is unique
+            self.assertTrue(word not in checked_words)
+            checked_words.append(word)
+
     def test_random_pystr_characters(self):
         from faker.providers.python import Provider
         provider = Provider(self.generator)
