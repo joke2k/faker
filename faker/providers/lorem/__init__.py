@@ -26,7 +26,7 @@ class Provider(BaseProvider):
     word_connector = ' '
     sentence_punctuation = '.'
 
-    def words(self, nb=3, ext_word_list=None):
+    def words(self, nb=3, ext_word_list=None, unique=False):
         """
         :returns: An array of random words. for example: ['Lorem', 'ipsum', 'dolor']
 
@@ -38,6 +38,8 @@ class Provider(BaseProvider):
         :rtype: list
         """
         word_list = ext_word_list if ext_word_list else self.word_list
+        if unique:
+            return self.random_sample(word_list, length=nb)
         return self.random_choices(word_list, length=nb)
 
     def word(self, ext_word_list=None):
