@@ -55,6 +55,24 @@ def company_vat_checksum(digits):
 
 class Provider(CompanyProvider):
 
+    formats = (
+        '{{last_name}} {{company_suffix}}',
+        '{{last_name}}-{{last_name}} {{company_suffix}}',
+        '{{company_prefix}} {{last_name}}',
+        '{{company_prefix}} {{last_name}} {{company_suffix}}',
+        '{{company_prefix}} {{last_name}}-{{last_name}} {{company_suffix}}'
+    )
+
+    company_prefixes = ('Grupa', 'Spółdzielnia', 'Stowarzyszenie', 'Fundacja', 'PPUH', 'FPUH', 'Gabinety')
+
+    company_suffixes = ('Sp. z o.o.', 'S.A.', 'Sp. z o.o. Sp.k.', 'Sp.j.', 's.c.', 'Sp.k.', 'i syn s.c.')
+
+    def company_prefix(self):
+        """
+        :example 'Grupa'
+        """
+        return self.random_element(self.company_prefixes)
+
     def regon(self):
         """
         Returns 9 character Polish National Business Registry Number,
