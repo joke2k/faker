@@ -16,6 +16,3 @@ class Provider(CompanyProvider):
     company_prefixes = (
         'РАО', 'АО', 'ИП', 'НПО',
     )
-
-    def company_prefix(self):
-        return self.random_element(self.company_prefixes)
