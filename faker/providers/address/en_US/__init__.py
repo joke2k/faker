@@ -272,12 +272,18 @@ class Provider(AddressProvider):
         'West Virginia', 'Wisconsin', 'Wyoming',
     )
     states_abbr = (
-        'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL',
-        'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH',
-        'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM',
-        'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC',
-        'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY',
+        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI',
+        'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN',
+        'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH',
+        'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA',
+        'WV', 'WI', 'WY',
     )
+
+    territories_abbr = (
+        'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'PR', 'VI',
+    )
+
+    states_and_territories_abbr = states_abbr + territories_abbr
 
     military_state_abbr = ('AE', 'AA', 'AP')
 
@@ -329,7 +335,15 @@ class Provider(AddressProvider):
     def state(self):
         return self.random_element(self.states)
 
-    def state_abbr(self):
+    def state_abbr(self, include_territories=True):
+        """
+        :returns: A random state or territory abbreviation.
+
+        :param include_territories: If True, territories will be included.
+            If False, only states will be returned.
+        """
+        if include_territories:
+            self.random_element(self.states_and_territories_abbr)
         return self.random_element(self.states_abbr)
 
     def postcode(self):

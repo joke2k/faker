@@ -313,6 +313,12 @@ class TestEnUS(unittest.TestCase):
     def test_state_abbr(self):
         state_abbr = self.factory.state_abbr()
         assert isinstance(state_abbr, string_types)
+        states_and_territories = EnUsProvider.states_and_territories_abbr
+        assert state_abbr in states_and_territories
+
+    def test_state_abbr_no_territories(self):
+        state_abbr = self.factory.state_abbr(include_territories=False)
+        assert isinstance(state_abbr, string_types)
         assert state_abbr in EnUsProvider.states_abbr
 
     def test_postcode(self):
