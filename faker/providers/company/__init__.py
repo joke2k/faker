@@ -16,6 +16,8 @@ class Provider(BaseProvider):
 
     company_suffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
 
+    company_prefixes = ()
+
     catch_phrase_words = (
         ('Adaptive',
          'Advanced',
@@ -500,6 +502,12 @@ class Provider(BaseProvider):
         """
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
+
+    def company_prefix(self):
+        """
+        :example 'Group'
+        """
+        return self.random_element(self.company_prefixes)
 
     def company_suffix(self):
         """
