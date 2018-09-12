@@ -137,17 +137,11 @@ class Provider(CompanyProvider):
         ),
     )
 
-    company_preffixes = ('Despacho', 'Grupo', 'Corporacin', 'Club',
+    company_prefixes = ('Despacho', 'Grupo', 'Corporacin', 'Club',
                          'Industrias', 'Laboratorios', 'Proyectos')
 
     company_suffixes = ('A.C.', 'S.A.', 'S.A. de C.V.', 'S.C.',
                         'S. R.L. de C.V.', 'e Hijos', 'y Asociados')
-
-    def company_prefix(self):
-        """
-        Ejemplo: Grupo
-        """
-        return self.random_element(self.company_preffixes)
 
     def catch_phrase(self):
         """

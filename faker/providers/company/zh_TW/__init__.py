@@ -34,6 +34,3 @@ class Provider(CompanyProvider):
         "瑞輝大藥廠", "隆豐大飯店（北台君悅）", "資華粧業（生資堂）")
 
     company_suffixes = ("", "有限公司", "股份有限公司", "資訊有限公司")
-
-    def company_prefix(self):
-        return self.random_element(self.company_prefixes)
