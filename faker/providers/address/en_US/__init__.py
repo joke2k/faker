@@ -283,6 +283,8 @@ class Provider(AddressProvider):
         'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'PR', 'VI',
     )
 
+    states_and_territories_abbr = states_abbr + territories_abbr
+
     military_state_abbr = ('AE', 'AA', 'AP')
 
     military_ship_prefix = ('USS', 'USNS', 'USNV', 'USCGC')
@@ -340,10 +342,9 @@ class Provider(AddressProvider):
         :param include_territories: If True, territories will be included.
             If False, only states will be returned.
         """
-        abbr_options = self.states_abbr
         if include_territories:
-            abbr_options += self.territories_abbr
-        return self.random_element(abbr_options)
+            self.random_element(self.states_and_territories_abbr)
+        return self.random_element(self.states_abbr)
 
     def postcode(self):
         return "%05d" % self.generator.random.randint(501, 99950)
