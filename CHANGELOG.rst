@@ -1,8 +1,18 @@
 Changelog
 =========
 
-`0.9.0 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.18...v0.9.00>`__
---------------------------------------------------------------------------------------
+`0.9.1 - 13-September-2018 <https://github.com/joke2k/faker/compare/v0.9.0...v0.9.1>`__
+---------------------------------------------------------------------------------------
+
+* Fix missing and misplaced comma's in many providers. Thanks @153957.
+* Refactor IPv4 address generation to leverage ``ipaddress`` module. Thanks @maticomp.
+* An ``en_NZ`` provider for addresses, phone numbers and email addresses. Thanks @doctorlard.
+* Add ``unique`` argument to ``words()`` for returning unique words. Thanks @micahstrube.
+* Allow US territories to be excluded from ``state_abbr()`` for ``en_US`` provider. Thanks @micahstrube.
+* Add support for Python 3.7. Thanks @michael-k.
+
+`0.9.0 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.18...v0.9.0>`__
+-------------------------------------------------------------------------------------
 
 * ``.random_sample()`` now returns a list of unique elements instead of a set.
 * ``.random_sample_unique()`` is removed in favor of ``.random_sample()``.
