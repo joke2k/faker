@@ -482,7 +482,7 @@ class FactoryTestCase(unittest.TestCase):
     def test_email(self):
         factory = Faker()
 
-        for _ in range(999):
+        for _ in range(99):
             email = factory.email()
             self.assertTrue('@' in email)
 
@@ -491,14 +491,14 @@ class FactoryTestCase(unittest.TestCase):
 
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4()
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4(network=True)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
@@ -521,7 +521,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             klass = provider.ipv4_network_class()
             self.assertIn(klass, 'abc')
 
@@ -529,7 +529,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private()
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -538,7 +538,7 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private(network=True)
             address = text.force_text(address)
             self.assertTrue(len(address) >= 9)
@@ -555,7 +555,7 @@ class FactoryTestCase(unittest.TestCase):
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private(address_class='a')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -572,7 +572,7 @@ class FactoryTestCase(unittest.TestCase):
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private(address_class='b')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -589,7 +589,7 @@ class FactoryTestCase(unittest.TestCase):
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private(address_class='c')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -602,7 +602,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)   
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public()
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -611,7 +611,7 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(network=True)
             address = text.force_text(address)
             self.assertTrue(len(address) >= 9)
@@ -628,7 +628,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='a')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -639,7 +639,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='b')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -650,7 +650,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='c')
             address = text.force_text(address)
             self.assertTrue(len(address) >= 7)
@@ -662,14 +662,14 @@ class FactoryTestCase(unittest.TestCase):
 
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv6()
             self.assertTrue(len(address) >= 3)  # ::1
             self.assertTrue(len(address) <= 39)
             self.assertTrue(
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv6(network=True)
             self.assertTrue(len(address) >= 4)  # ::/8
             self.assertTrue(len(address) <= 39 + 4)
