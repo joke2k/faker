@@ -386,7 +386,7 @@ class FactoryTestCase(unittest.TestCase):
         ]
 
         num_words = 5
-        words = fake.words(5, ext_word_list=my_word_list)
+        words = fake.words(5, ext_word_list=my_word_list, unique=True)
         self.assertTrue(isinstance(words, list))
         self.assertEqual(len(words), num_words)
 
