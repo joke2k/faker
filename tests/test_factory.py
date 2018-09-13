@@ -409,8 +409,8 @@ class FactoryTestCase(unittest.TestCase):
         checked_words = []
         for word in words:
             self.assertTrue(isinstance(word, string_types))
-            # Check that word is lowercase letters. No numbers, symbols, etc
-            self.assertTrue(re.match(r'^[a-z].*$', word))
+            # Check that word is only letters. No numbers, symbols, etc
+            self.assertTrue(re.match(r'^[a-zA-Z].*$', word))
             # Check that word list is unique
             self.assertTrue(word not in checked_words)
             checked_words.append(word)
