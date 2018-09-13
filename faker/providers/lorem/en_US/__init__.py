@@ -7,7 +7,7 @@ from .. import Provider as LoremProvider
 class Provider(LoremProvider):
     """en_US word list is drawn from Education First's "1000 Most Common Words in English":
     http://www.ef.edu/english-resources/english-vocabulary/top-1000-words/
-    Some words have been removed to make this list appropiate for public testing"""
+    Some words have been removed to make this list appropriate for public testing"""
 
     word_list = (
         'a',
