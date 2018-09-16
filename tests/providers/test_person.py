@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 import re
 import unittest
 
+import six
+
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
@@ -13,7 +15,6 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
 )
-from tests import string_types
 
 
 class TestAr(unittest.TestCase):
@@ -26,20 +27,20 @@ class TestAr(unittest.TestCase):
         # General first name
         name = self.factory.first_name()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.first_names)
 
         # Females first name
         name = self.factory.first_name_female()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.first_names)
         self.assertIn(name, ArProvider.first_names_female)
 
         # Male first name
         name = self.factory.first_name_male()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.first_names)
         self.assertIn(name, ArProvider.first_names_male)
 
@@ -53,20 +54,20 @@ class TestAr(unittest.TestCase):
         # General first name.
         name = self.factory.last_name()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.last_names)
 
         # Females last name.
         name = self.factory.last_name_female()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.last_names)
         self.assertIn(name, ArProvider.last_names)
 
         # Male last name.
         name = self.factory.last_name_male()
         self.assertTrue(name)
-        self.assertIsInstance(name, string_types)
+        self.assertIsInstance(name, six.string_types)
         self.assertIn(name, ArProvider.last_names)
         self.assertIn(name, ArProvider.last_names)
 
@@ -80,55 +81,55 @@ class TestJaJP(unittest.TestCase):
     def test_person(self):
         name = self.factory.name()
         assert name
-        assert isinstance(name, string_types)
+        assert isinstance(name, six.string_types)
 
         first_name = self.factory.first_name()
         assert first_name
-        assert isinstance(first_name, string_types)
+        assert isinstance(first_name, six.string_types)
 
         last_name = self.factory.last_name()
         assert last_name
-        assert isinstance(last_name, string_types)
+        assert isinstance(last_name, six.string_types)
 
         kana_name = self.factory.kana_name()
         assert kana_name
-        assert isinstance(kana_name, string_types)
+        assert isinstance(kana_name, six.string_types)
 
         first_kana_name = self.factory.first_kana_name()
         assert first_kana_name
-        assert isinstance(first_kana_name, string_types)
+        assert isinstance(first_kana_name, six.string_types)
 
         first_kana_name_male = self.factory.first_kana_name_male()
         assert first_kana_name_male
-        assert isinstance(first_kana_name_male, string_types)
+        assert isinstance(first_kana_name_male, six.string_types)
 
         first_kana_name_female = self.factory.first_kana_name_female()
         assert first_kana_name_female
-        assert isinstance(first_kana_name_female, string_types)
+        assert isinstance(first_kana_name_female, six.string_types)
 
         last_kana_name = self.factory.last_kana_name()
         assert last_kana_name
-        assert isinstance(last_kana_name, string_types)
+        assert isinstance(last_kana_name, six.string_types)
 
         romanized_name = self.factory.romanized_name()
         assert romanized_name
-        assert isinstance(romanized_name, string_types)
+        assert isinstance(romanized_name, six.string_types)
 
         first_romanized_name = self.factory.first_romanized_name()
         assert first_romanized_name
-        assert isinstance(first_romanized_name, string_types)
+        assert isinstance(first_romanized_name, six.string_types)
 
         first_romanized_name_male = self.factory.first_romanized_name_male()
         assert first_romanized_name_male
-        assert isinstance(first_romanized_name_male, string_types)
+        assert isinstance(first_romanized_name_male, six.string_types)
 
         first_romanized_name_female = self.factory.first_romanized_name_female()
         assert first_romanized_name_female
-        assert isinstance(first_romanized_name_female, string_types)
+        assert isinstance(first_romanized_name_female, six.string_types)
 
         last_romanized_name = self.factory.last_romanized_name()
         assert last_romanized_name
-        assert isinstance(last_romanized_name, string_types)
+        assert isinstance(last_romanized_name, six.string_types)
 
 
 class TestNeNP(unittest.TestCase):
@@ -138,7 +139,7 @@ class TestNeNP(unittest.TestCase):
 
     def test_names(self):
         name = self.factory.name().split()
-        assert all(isinstance(n, string_types) for n in name)
+        assert all(isinstance(n, six.string_types) for n in name)
         # name should always be 2-3 words. If 3, first word
         # should be a prefix.
         assert name[-2] in NeProvider.first_names
@@ -155,18 +156,18 @@ class TestFiFI(unittest.TestCase):
 
     def test_gender_first_names(self):
         female_name = self.factory.first_name_female()
-        self.assertIsInstance(female_name, string_types)
+        self.assertIsInstance(female_name, six.string_types)
         self.assertIn(female_name, FiProvider.first_names_female)
         male_name = self.factory.first_name_male()
-        self.assertIsInstance(male_name, string_types)
+        self.assertIsInstance(male_name, six.string_types)
         self.assertIn(male_name, FiProvider.first_names_male)
         first_name = self.factory.first_name()
-        self.assertIsInstance(first_name, string_types)
+        self.assertIsInstance(first_name, six.string_types)
         self.assertIn(first_name, FiProvider.first_names)
 
     def test_last_names(self):
         last_name = self.factory.last_name()
-        self.assertIsInstance(last_name, string_types)
+        self.assertIsInstance(last_name, six.string_types)
         self.assertIn(last_name, FiProvider.last_names)
 
 

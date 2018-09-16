@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 import unittest
 import re
 
+import six
+
 from faker import Faker
 from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
@@ -12,7 +14,6 @@ from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.pl_PL import (
     company_vat_checksum, regon_checksum, local_regon_checksum,
 )
-from tests import string_types
 
 
 class TestFiFI(unittest.TestCase):
@@ -39,11 +40,11 @@ class TestJaJP(unittest.TestCase):
         prefixes = JaProvider.company_prefixes
 
         prefix = self.factory.company_prefix()
-        assert isinstance(prefix, string_types)
+        assert isinstance(prefix, six.string_types)
         assert prefix in prefixes
 
         company = self.factory.company()
-        assert isinstance(company, string_types)
+        assert isinstance(company, six.string_types)
         assert any(prefix in company for prefix in prefixes)
         assert any(company.startswith(prefix) for prefix in prefixes)
 
@@ -83,12 +84,12 @@ class TestHuHU(unittest.TestCase):
 
     def test_company_suffix(self):
         suffix = self.factory.company_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, six.string_types)
         assert suffix in self.valid_suffixes
 
     def test_company(self):
         company = self.factory.company()
-        assert isinstance(company, string_types)
+        assert isinstance(company, six.string_types)
         assert company.split(" ")[-1] in self.valid_suffixes
 
 

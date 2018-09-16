@@ -10,15 +10,11 @@ from ipaddress import ip_address, ip_network, IPv4Address
 
 import logging
 
-try:
-    from StringIO import StringIO
-except ImportError:  # pragma: no cover
-    from io import StringIO
+import six
 
 from faker import Generator, Faker
 from faker.generator import random
 from faker.utils import text, decorators
-from tests import string_types
 
 
 class BarProvider(object):
@@ -95,7 +91,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_documentor(self):
         from faker.cli import print_doc
-        output = StringIO()
+        output = six.StringIO()
         print_doc(output=output)
         print_doc('address', output=output)
         print_doc('faker.providers.person.it_IT', output=output)
@@ -107,7 +103,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             command = Command(['faker', 'address'])
             command.execute()
             assert sys.stdout.getvalue()
@@ -118,7 +114,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
@@ -129,7 +125,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address']
             target_args = ['--seed', '967']
             commands = [Command(base_args + target_args), Command(base_args + target_args)]
@@ -146,7 +142,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address', '-r', '3']
             target_args = ['--seed', '967']
             commands = [Command(base_args + target_args), Command(base_args + target_args)]
@@ -163,7 +159,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address', '--seed', '769']
             target_args = ['-v']
             commands = [Command(base_args), Command(base_args + target_args)]
@@ -257,7 +253,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             language_code = provider.language_code()
-            self.assertTrue(isinstance(language_code, string_types))
+            self.assertTrue(isinstance(language_code, six.string_types))
             self.assertTrue(re.match(r'^[a-z]{2,3}$', language_code))
 
     def test_locale(self):
@@ -291,8 +287,8 @@ class FactoryTestCase(unittest.TestCase):
         for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
             f = Faker(locale=locale)
             for x in range(20):  # Probabilistic testing.
-                self.assertIsInstance(f.prefix(), string_types)
-                self.assertIsInstance(f.suffix(), string_types)
+                self.assertIsInstance(f.prefix(), six.string_types)
+                self.assertIsInstance(f.suffix(), six.string_types)
 
     def test_no_words_sentence(self):
         from faker.providers.lorem import Provider
@@ -345,7 +341,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(len(words), num_words)
 
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertTrue(re.match(r'^[a-z].*$', word))
 
     def test_words_ext_word_list(self):
@@ -368,7 +364,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(len(words), num_words)
 
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertIn(word, my_word_list)
 
     def test_words_ext_word_list_unique(self):
@@ -392,7 +388,7 @@ class FactoryTestCase(unittest.TestCase):
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertIn(word, my_word_list)
             # Check that word is unique
             self.assertTrue(word not in checked_words)
@@ -408,7 +404,7 @@ class FactoryTestCase(unittest.TestCase):
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             # Check that word is only letters. No numbers, symbols, etc
             self.assertTrue(re.match(r'^[a-zA-Z].*$', word))
             # Check that word list is unique
