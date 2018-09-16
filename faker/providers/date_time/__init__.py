@@ -1964,7 +1964,7 @@ class Provider(BaseProvider):
         :param tzinfo Defaults to None.
         :param minimum_age Defaults to 0.
         :param maximum_age Defaults to 115.
-        
+
         :example Date('1979-02-02')
         :return Date
         """
@@ -1985,8 +1985,8 @@ class Provider(BaseProvider):
             raise ValueError("minimum_age must be less than or equal to maximum_age.")
 
         # In order to return the full range of possible dates of birth, add one
-        # year to the potential age cap and subtract one day if we land on the 
-        # boundary. 
+        # year to the potential age cap and subtract one day if we land on the
+        # boundary.
 
         now = datetime.now(tzinfo).date()
         start_date = now.replace(year=now.year - (maximum_age+1))

@@ -326,6 +326,6 @@ class Provider(AddressProvider):
                       lambda x: self.postal_code_letter(),
                       self.random_element(self.postal_code_formats))
         return self.numerify(temp)
-    
+
     def postalcode(self):
         return self.postcode()
