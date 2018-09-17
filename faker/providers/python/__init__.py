@@ -5,16 +5,9 @@ from __future__ import unicode_literals
 from decimal import Decimal
 import sys
 
+import six
+
 from .. import BaseProvider
-
-
-if sys.version_info[0] == 2:
-    string_types = (basestring,)
-elif sys.version_info[0] == 3:
-    string_types = (str, bytes)
-else:
-    raise SystemError(
-        "Unrecognized python version: {}".format(sys.version_info[0]))
 
 
 class Provider(BaseProvider):
@@ -113,7 +106,7 @@ class Provider(BaseProvider):
             variable_nb_elements=True,
             *value_types):
 
-        value_types = [t if isinstance(t, string_types) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, six.string_types) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
@@ -145,7 +138,7 @@ class Provider(BaseProvider):
 
     def pystruct(self, count=10, *value_types):
 
-        value_types = [t if isinstance(t, string_types) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, six.string_types) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t != 'struct']

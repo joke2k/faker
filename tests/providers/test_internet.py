@@ -7,13 +7,13 @@ from itertools import cycle
 import unittest
 
 import mock
+import six
 
 from email_validator import validate_email
 
 from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
-from tests import string_types
 
 
 class TestInternetProvider(unittest.TestCase):
@@ -69,21 +69,21 @@ class TestJaJP(unittest.TestCase):
         names = JaProvider.last_romanized_names
 
         domain_word = self.factory.domain_word()
-        self.assertIsInstance(domain_word, string_types)
+        self.assertIsInstance(domain_word, six.string_types)
         self.assertTrue(any(domain_word == text.slugify(name) for name in names))
 
         domain_name = self.factory.domain_name()
         deep_domain_name = self.factory.domain_name(3)
-        self.assertIsInstance(domain_name, string_types)
-        self.assertIsInstance(deep_domain_name, string_types)
+        self.assertIsInstance(domain_name, six.string_types)
+        self.assertIsInstance(deep_domain_name, six.string_types)
         self.assertEqual(deep_domain_name.count('.'), 3)
         self.assertRaises(ValueError, self.factory.domain_name, -1)
 
         user_name = self.factory.user_name()
-        self.assertIsInstance(user_name, string_types)
+        self.assertIsInstance(user_name, six.string_types)
 
         tld = self.factory.tld()
-        self.assertIsInstance(tld, string_types)
+        self.assertIsInstance(tld, six.string_types)
 
 
 class TestZhCN(unittest.TestCase):
@@ -114,11 +114,11 @@ class TestHuHU(unittest.TestCase):
 
     def test_internet(self):
         domain_name = self.factory.domain_name()
-        self.assertIsInstance(domain_name, string_types)
+        self.assertIsInstance(domain_name, six.string_types)
         tld = self.factory.tld()
-        self.assertIsInstance(tld, string_types)
+        self.assertIsInstance(tld, six.string_types)
         email = self.factory.email()
-        self.assertIsInstance(email, string_types)
+        self.assertIsInstance(email, six.string_types)
 
 
 class TestPlPL(unittest.TestCase):
