@@ -267,7 +267,7 @@ class TestFiFI(unittest.TestCase):
     def test_ssn_sanity(self):
         for age in range(100):
             self.factory.ssn(min_age=age, max_age=age+1)
-    
+
     def test_valid_ssn(self):
         ssn = self.factory.ssn(artificial=False)
         individual_number = int(ssn[7:10])

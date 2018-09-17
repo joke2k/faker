@@ -544,7 +544,7 @@ class FactoryTestCase(unittest.TestCase):
     def test_ipv4_private_class_a(self):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
-        
+
         class_network = _IPv4Constants._network_classes['a']
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
@@ -561,7 +561,7 @@ class FactoryTestCase(unittest.TestCase):
     def test_ipv4_private_class_b(self):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
-        
+
         class_network = _IPv4Constants._network_classes['b']
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
@@ -578,7 +578,7 @@ class FactoryTestCase(unittest.TestCase):
     def test_ipv4_private_class_c(self):
         from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
-        
+
         class_network = _IPv4Constants._network_classes['c']
         class_min = class_network.network_address
         class_max = class_network.broadcast_address
@@ -594,7 +594,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_ipv4_public(self):
         from faker.providers.internet import Provider
-        provider = Provider(self.generator)   
+        provider = Provider(self.generator)
 
         for _ in range(99):
             address = provider.ipv4_public()
