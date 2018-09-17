@@ -8,19 +8,13 @@ import sys
 import argparse
 
 import random
+import six
 
 from faker import Faker, documentor
 from faker import VERSION
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
 import logging
-
-if sys.version < '3':
-    text_type = unicode
-    binary_type = str
-else:
-    text_type = str
-    binary_type = bytes
 
 
 __author__ = 'joke2k'
@@ -40,7 +34,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         if signature in excludes:
             continue
         try:
-            lines = text_type(example).expandtabs().splitlines()
+            lines = six.text_type(example).expandtabs().splitlines()
         except UnicodeDecodeError:
             # The example is actually made of bytes.
             # We could coerce to bytes, but that would fail anyway when we wiil

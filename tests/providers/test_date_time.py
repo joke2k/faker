@@ -7,13 +7,13 @@ import time
 import unittest
 import random
 
+import six
+
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
-
-from tests import string_types
 
 
 class UTC(tzinfo):
@@ -44,11 +44,11 @@ class TestKoKR(unittest.TestCase):
 
     def test_day(self):
         day = self.factory.day_of_week()
-        assert isinstance(day, string_types)
+        assert isinstance(day, six.string_types)
 
     def test_month(self):
         month = self.factory.month()
-        assert isinstance(month, string_types)
+        assert isinstance(month, six.string_types)
 
 
 class TestDateTime(unittest.TestCase):
@@ -63,11 +63,11 @@ class TestDateTime(unittest.TestCase):
 
     def test_day(self):
         day = self.factory.day_of_week()
-        assert isinstance(day, string_types)
+        assert isinstance(day, six.string_types)
 
     def test_month(self):
         month = self.factory.month()
-        assert isinstance(month, string_types)
+        assert isinstance(month, six.string_types)
 
     def test_past_datetime(self):
         past_datetime = self.factory.past_datetime()
