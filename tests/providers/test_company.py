@@ -8,7 +8,6 @@ import re
 import six
 
 from faker import Faker
-from faker.providers.company.hu_HU import Provider as HuProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.pl_PL import (

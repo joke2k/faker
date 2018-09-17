@@ -5,7 +5,7 @@ from text_unidecode import unidecode
 
 from .. import BaseProvider
 
-from ipaddress import ip_address, ip_network, IPv4Address, IPV4LENGTH, IPV6LENGTH
+from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem

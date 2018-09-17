@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import hashlib
 import string
 import uuid
-import os
 import sys
 
 from .. import BaseProvider

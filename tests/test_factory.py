@@ -6,9 +6,7 @@ import re
 import unittest
 import string
 import sys
-from ipaddress import ip_address, ip_network, IPv4Address
-
-import logging
+from ipaddress import ip_address, ip_network
 
 import six
 
@@ -522,7 +520,7 @@ class FactoryTestCase(unittest.TestCase):
             self.assertIn(klass, 'abc')
 
     def test_ipv4_private(self):
-        from faker.providers.internet import Provider, _IPv4Constants
+        from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
         for _ in range(99):
@@ -595,7 +593,7 @@ class FactoryTestCase(unittest.TestCase):
             self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_public(self):
-        from faker.providers.internet import Provider, _IPv4Constants
+        from faker.providers.internet import Provider
         provider = Provider(self.generator)   
 
         for _ in range(99):

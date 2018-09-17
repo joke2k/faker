@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from math import ceil
 
 
 class Provider(SsnProvider):
