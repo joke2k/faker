@@ -134,11 +134,11 @@ class TestPlPL(unittest.TestCase):
     def test_company_prefix(self):
         prefixes = PlProvider.company_prefixes
         prefix = self.factory.company_prefix()
-        assert isinstance(prefix, string_types)
+        assert isinstance(prefix, six.string_types)
         assert prefix in prefixes
 
     def test_company_suffix(self):
         suffixes = PlProvider.company_suffixes
         suffix = self.factory.company_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, six.string_types)
         assert suffix in suffixes
