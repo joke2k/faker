@@ -49,4 +49,3 @@ class TestProvider(unittest.TestCase):
         with self.assertRaises(Exception):
             r = RegistrantRule('0000000', '0000001', 1)
             self.prov._registrant_publication('0000002', [r])
-

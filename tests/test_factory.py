@@ -8,17 +8,11 @@ import string
 import sys
 from ipaddress import ip_address, ip_network
 
-import logging
-
-try:
-    from StringIO import StringIO
-except ImportError:  # pragma: no cover
-    from io import StringIO
+import six
 
 from faker import Generator, Faker
 from faker.generator import random
 from faker.utils import text, decorators
-from tests import string_types
 
 
 class BarProvider(object):
@@ -95,7 +89,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_documentor(self):
         from faker.cli import print_doc
-        output = StringIO()
+        output = six.StringIO()
         print_doc(output=output)
         print_doc('address', output=output)
         print_doc('faker.providers.person.it_IT', output=output)
@@ -107,7 +101,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             command = Command(['faker', 'address'])
             command.execute()
             assert sys.stdout.getvalue()
@@ -118,7 +112,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
             command.execute()
             assert sys.stdout.getvalue()
@@ -129,7 +123,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address']
             target_args = ['--seed', '967']
             commands = [Command(base_args + target_args), Command(base_args + target_args)]
@@ -146,7 +140,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address', '-r', '3']
             target_args = ['--seed', '967']
             commands = [Command(base_args + target_args), Command(base_args + target_args)]
@@ -163,7 +157,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.cli import Command
         orig_stdout = sys.stdout
         try:
-            sys.stdout = StringIO()
+            sys.stdout = six.StringIO()
             base_args = ['faker', 'address', '--seed', '769']
             target_args = ['-v']
             commands = [Command(base_args), Command(base_args + target_args)]
@@ -257,7 +251,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             language_code = provider.language_code()
-            self.assertTrue(isinstance(language_code, string_types))
+            self.assertTrue(isinstance(language_code, six.string_types))
             self.assertTrue(re.match(r'^[a-z]{2,3}$', language_code))
 
     def test_locale(self):
@@ -291,8 +285,8 @@ class FactoryTestCase(unittest.TestCase):
         for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
             f = Faker(locale=locale)
             for x in range(20):  # Probabilistic testing.
-                self.assertIsInstance(f.prefix(), string_types)
-                self.assertIsInstance(f.suffix(), string_types)
+                self.assertIsInstance(f.prefix(), six.string_types)
+                self.assertIsInstance(f.suffix(), six.string_types)
 
     def test_no_words_sentence(self):
         from faker.providers.lorem import Provider
@@ -345,7 +339,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(len(words), num_words)
 
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertTrue(re.match(r'^[a-z].*$', word))
 
     def test_words_ext_word_list(self):
@@ -368,7 +362,7 @@ class FactoryTestCase(unittest.TestCase):
         self.assertEqual(len(words), num_words)
 
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertIn(word, my_word_list)
 
     def test_words_ext_word_list_unique(self):
@@ -386,13 +380,13 @@ class FactoryTestCase(unittest.TestCase):
         ]
 
         num_words = 5
-        words = fake.words(5, ext_word_list=my_word_list)
+        words = fake.words(5, ext_word_list=my_word_list, unique=True)
         self.assertTrue(isinstance(words, list))
         self.assertEqual(len(words), num_words)
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
+            self.assertTrue(isinstance(word, six.string_types))
             self.assertIn(word, my_word_list)
             # Check that word is unique
             self.assertTrue(word not in checked_words)
@@ -408,9 +402,9 @@ class FactoryTestCase(unittest.TestCase):
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, string_types))
-            # Check that word is lowercase letters. No numbers, symbols, etc
-            self.assertTrue(re.match(r'^[a-z].*$', word))
+            self.assertTrue(isinstance(word, six.string_types))
+            # Check that word is only letters. No numbers, symbols, etc
+            self.assertTrue(re.match(r'^[a-zA-Z].*$', word))
             # Check that word list is unique
             self.assertTrue(word not in checked_words)
             checked_words.append(word)
@@ -482,7 +476,7 @@ class FactoryTestCase(unittest.TestCase):
     def test_email(self):
         factory = Faker()
 
-        for _ in range(999):
+        for _ in range(99):
             email = factory.email()
             self.assertTrue('@' in email)
 
@@ -491,14 +485,14 @@ class FactoryTestCase(unittest.TestCase):
 
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4()
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4(network=True)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
@@ -521,7 +515,7 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             klass = provider.ipv4_network_class()
             self.assertIn(klass, 'abc')
 
@@ -529,18 +523,18 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private()
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_private(network=True)
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
             self.assertTrue(ip_network(address)[0].is_private)
@@ -548,60 +542,72 @@ class FactoryTestCase(unittest.TestCase):
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
     def test_ipv4_private_class_a(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        class_network = _IPv4Constants._network_classes['a']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
+
+        for _ in range(99):
             address = provider.ipv4_private(address_class='a')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^10\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_private_class_b(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        class_network = _IPv4Constants._network_classes['b']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
+
+        for _ in range(99):
             address = provider.ipv4_private(address_class='b')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^172\.(\d{1,3}\.){2}\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_private_class_c(self):
-        from faker.providers.internet import Provider
+        from faker.providers.internet import Provider, _IPv4Constants
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        class_network = _IPv4Constants._network_classes['c']
+        class_min = class_network.network_address
+        class_max = class_network.broadcast_address
+
+        for _ in range(99):
             address = provider.ipv4_private(address_class='c')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
-                re.compile(r'^192\.168\.\d{1,3}\.\d{1,3}$').search(address))
+            self.assertTrue(ip_address(address) >= class_min)
+            self.assertTrue(ip_address(address) <= class_max)
 
     def test_ipv4_public(self):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public()
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
             self.assertTrue(
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(network=True)
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 9)
             self.assertTrue(len(address) <= 18)
             # Hack around ipaddress module
@@ -616,9 +622,9 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='a')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -627,9 +633,9 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='b')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -638,9 +644,9 @@ class FactoryTestCase(unittest.TestCase):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv4_public(address_class='c')
-            address = text.force_text(address)
+            address = six.text_type(address)
             self.assertTrue(len(address) >= 7)
             self.assertTrue(len(address) <= 15)
             self.assertFalse(ip_address(address).is_private, address)
@@ -650,14 +656,14 @@ class FactoryTestCase(unittest.TestCase):
 
         provider = Provider(self.generator)
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv6()
             self.assertTrue(len(address) >= 3)  # ::1
             self.assertTrue(len(address) <= 39)
             self.assertTrue(
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$').search(address))
 
-        for _ in range(999):
+        for _ in range(99):
             address = provider.ipv6(network=True)
             self.assertTrue(len(address) >= 4)  # ::/8
             self.assertTrue(len(address) <= 39 + 4)

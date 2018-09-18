@@ -41,9 +41,9 @@ def checksum(sin):
 
 class Provider(SsnProvider):
 
-    # In order to create a valid SIN we need to provide a number that 
-    # passes a simple modified Luhn Algorithm checksum. 
-    # 
+    # In order to create a valid SIN we need to provide a number that
+    # passes a simple modified Luhn Algorithm checksum.
+    #
     # This function reverses the checksum steps to create a random
     # valid nine-digit Canadian SIN (Social Insurance Number) in the
     # format '### ### ###'.
@@ -52,7 +52,7 @@ class Provider(SsnProvider):
         # Create an array of 8 elements initialized randomly.
         digits = self.generator.random.sample(range(9), 8)
 
-        # The final step of the validation requires that all of the 
+        # The final step of the validation requires that all of the
         # digits sum to a multiple of 10. First, sum the first 8 and
         # set the 9th to the value that results in a multiple of 10.
         check_digit = 10 - (sum(digits) % 10)
@@ -60,7 +60,7 @@ class Provider(SsnProvider):
 
         digits.append(check_digit)
 
-        # digits is now the digital root of the number we want 
+        # digits is now the digital root of the number we want
         # multiplied by the magic number 121 212 121. The next step is
         # to reverse the multiplication which occurred on every other
         # element.

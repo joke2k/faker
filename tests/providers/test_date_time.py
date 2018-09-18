@@ -7,13 +7,13 @@ import time
 import unittest
 import random
 
+import six
+
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
-
-from tests import string_types
 
 
 class UTC(tzinfo):
@@ -44,11 +44,11 @@ class TestKoKR(unittest.TestCase):
 
     def test_day(self):
         day = self.factory.day_of_week()
-        assert isinstance(day, string_types)
+        assert isinstance(day, six.string_types)
 
     def test_month(self):
         month = self.factory.month()
-        assert isinstance(month, string_types)
+        assert isinstance(month, six.string_types)
 
 
 class TestDateTime(unittest.TestCase):
@@ -63,11 +63,11 @@ class TestDateTime(unittest.TestCase):
 
     def test_day(self):
         day = self.factory.day_of_week()
-        assert isinstance(day, string_types)
+        assert isinstance(day, six.string_types)
 
     def test_month(self):
         month = self.factory.month()
-        assert isinstance(month, string_types)
+        assert isinstance(month, six.string_types)
 
     def test_past_datetime(self):
         past_datetime = self.factory.past_datetime()
@@ -395,7 +395,7 @@ class TestDateTime(unittest.TestCase):
 
             # Ensure relative unix_times partially-constrained by a start time are generated correctly
             one_day_ago = datetime.today()-timedelta(days=1)
-            
+
             recent_unix_time = self.factory.unix_time(start_datetime=one_day_ago)
 
             self.assertIsInstance(recent_unix_time, int)
@@ -405,7 +405,7 @@ class TestDateTime(unittest.TestCase):
             one_day_after_epoch_start = datetime(1970, 1, 2, tzinfo=utc)
 
             distant_unix_time = self.factory.unix_time(end_datetime=one_day_after_epoch_start)
-            
+
             self.assertIsInstance(distant_unix_time, int)
             self.assertBetween(distant_unix_time, datetime_to_timestamp(epoch_start), datetime_to_timestamp(one_day_after_epoch_start))
 
@@ -518,12 +518,12 @@ class DatesOfBirth(unittest.TestCase):
 
             days_since_now = now - now
             days_since_six_years_ago = now - now.replace(year=now.year-6)
-            
+
             dob = self.factory.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=5)
             days_since_dob = now - dob
 
             assert isinstance(dob, date)
-            assert days_since_six_years_ago > days_since_dob >= days_since_now 
+            assert days_since_six_years_ago > days_since_dob >= days_since_now
 
     def test_acceptable_age_range_eighteen_years(self):
         for _ in range(100):
@@ -531,13 +531,13 @@ class DatesOfBirth(unittest.TestCase):
 
             days_since_now = now - now
             days_since_nineteen_years_ago = now - now.replace(year=now.year-19)
-            
+
             dob = self.factory.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=18)
             days_since_dob = now - dob
 
             assert isinstance(dob, date)
             assert days_since_nineteen_years_ago > days_since_dob >= days_since_now
-    
+
     def test_identical_age_range(self):
         for _ in range(100):
             now = datetime.now(utc).date()

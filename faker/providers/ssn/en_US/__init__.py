@@ -34,7 +34,7 @@ class Provider(BaseProvider):
 
     def ein(self):
         """Generate a random United States Employer Identification Number (EIN).
-        
+
          An United States An Employer Identification Number (EIN) is
          also known as a Federal Tax Identification Number, and is
          used to identify a business entity. EINs follow a format of a
@@ -155,7 +155,7 @@ class Provider(BaseProvider):
             # Numbers. The area (first 3 digits) cannot be 666 or 900-999.
             # The group number (middle digits) cannot be 00. The serial
             # (last 4 digits) cannot be 0000.
-        
+
             area = self.random_int(min=1, max=899)
             if area == 666:
                 area += 1
@@ -164,6 +164,6 @@ class Provider(BaseProvider):
 
             ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
             return ssn
-    
+
         else:
             raise ValueError("taxpayer_identification_number_type must be one of 'SSN', 'EIN', or 'ITIN'.")

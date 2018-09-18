@@ -15,36 +15,58 @@ from faker.utils.decorators import lowercase, slugify, slugify_unicode
 localized = True
 
 
-IPV4_PUBLIC_NETS = {
-    'a': ip_network('0.0.0.0/1'),
-    'b': ip_network('128.0.0.0/2'),
-    'c': ip_network('192.0.0.0/3')
-}
-IPV4_PRIVATE_NET_BLOCKS = {
-    'a': (
-        ip_network('0.0.0.0/8'),
+class _IPv4Constants:
+    """
+    IPv4 network constants used to group networks into different categories.
+    Structure derived from `ipaddress._IPv4Constants`.
+
+    Excluded network list is updated to comply with current IANA list of
+    private and reserved networks.
+    """
+    _network_classes = {
+        'a': ip_network('0.0.0.0/1'),
+        'b': ip_network('128.0.0.0/2'),
+        'c': ip_network('192.0.0.0/3')
+    }
+
+    _linklocal_network = ip_network('169.254.0.0/16')
+
+    _loopback_network = ip_network('127.0.0.0/8')
+
+    _multicast_network = ip_network('224.0.0.0/4')
+
+    # Three common private networks from class A, B and CIDR
+    # to generate private addresses from.
+    _private_networks = [
         ip_network('10.0.0.0/8'),
+        ip_network('172.16.0.0/12'),
+        ip_network('192.168.0.0/16')
+    ]
+
+    # List of networks from which IP addresses will never be generated,
+    # includes other private IANA and reserved networks from
+    # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
+    _excluded_networks = [
+        ip_network('0.0.0.0/8'),
+        ip_network('100.64.0.0/10'),
         ip_network('127.0.0.0/8'),
-    ),
-    'b': (
         ip_network('169.254.0.0/16'),
-        ip_network('172.16.0.0/12')
-    ),
-    'c': (
-        ip_network('192.0.0.0/29'),
-        ip_network('192.0.0.170/31'),
+        ip_network('192.0.0.0/24'),
         ip_network('192.0.2.0/24'),
-        ip_network('192.168.0.0/16'),
+        ip_network('192.31.196.0/24'),
+        ip_network('192.52.193.0/24'),
+        ip_network('192.88.99.0/24'),
+        ip_network('192.175.48.0/24'),
         ip_network('198.18.0.0/15'),
         ip_network('198.51.100.0/24'),
-        ip_network('203.0.113.0/24')
-    ),
-}
-IPV4_NET_CLASSES = {
-    'a': (167772160, 184549375, 24),
-    'b': (2886729728, 2887778303, 20),
-    'c': (3232235520, 3232301055, 16)
-}
+        ip_network('203.0.113.0/24'),
+        ip_network('240.0.0.0/4'),
+        ip_network('255.255.255.255/32')
+    ] + [
+        _linklocal_network,
+        _loopback_network,
+        _multicast_network
+    ]
 
 
 class Provider(BaseProvider):
@@ -213,6 +235,80 @@ class Provider(BaseProvider):
 
         return self.generator.parse(pattern)
 
+    def _random_ipv4_address_from_subnet(self, subnet, network=False):
+        """
+        Produces a random IPv4 address or network with a valid CIDR
+        from within a given subnet.
+
+        :param subnet: IPv4Network to choose from within
+        :param network: Return a network address, and not an IP address
+        """
+        address = str(
+            subnet[self.generator.random.randint(
+                0, subnet.num_addresses - 1
+            )]
+        )
+
+        if network:
+            address += '/' + str(self.generator.random.randint(
+                subnet.prefixlen,
+                subnet.max_prefixlen
+            ))
+            address = str(ip_network(address, strict=False))
+
+        return address
+
+    def _exclude_ipv4_networks(self, networks, networks_to_exclude):
+        """
+        Exclude the list of networks from another list of networks
+        and return a flat list of new networks.
+
+        :param networks: List of IPv4 networks to exclude from
+        :param networks_to_exclude: List of IPv4 networks to exclude
+        :returns: Flat list of IPv4 networks
+        """
+        for network_to_exclude in networks_to_exclude:
+            def _exclude_ipv4_network(network):
+                """
+                Exclude a single network from another single network
+                and return a list of networks. Network to exclude
+                comes from the outer scope.
+
+                :param network: Network to exclude from
+                :returns: Flat list of IPv4 networks after exclusion.
+                          If exclude fails because networks do not
+                          overlap, a single element list with the
+                          orignal network is returned. If it overlaps,
+                          even partially, the network is excluded.
+                """
+                try:
+                    return list(network.address_exclude(network_to_exclude))
+                except ValueError:
+                    # If networks overlap partially, `address_exclude`
+                    # will fail, but the network still must not be used
+                    # in generation.
+                    if network.overlaps(network_to_exclude):
+                        return []
+                    else:
+                        return [network]
+
+            networks = list(map(_exclude_ipv4_network, networks))
+
+            # flatten list of lists
+            networks = [
+                item for nested in networks for item in nested
+            ]
+
+        return networks
+
+    def ipv4_network_class(self):
+        """
+        Returns a IPv4 network class 'a', 'b' or 'c'.
+
+        :returns: IPv4 network class
+        """
+        return self.random_element('abc')
+
     def ipv4(self, network=False, address_class=None, private=None):
         """
         Produce a random IPv4 address or network with a valid CIDR.
@@ -228,24 +324,25 @@ class Provider(BaseProvider):
         elif private is False:
             return self.ipv4_public(address_class=address_class,
                                     network=network)
-        if address_class is None:
-            ip_range = (0, (2 ** IPV4LENGTH) - 1)
+
+        # if neither private nor public is required explicitly,
+        # generate from whole requested address space
+        if address_class:
+            all_networks = [_IPv4Constants._network_classes[address_class]]
         else:
-            net = IPV4_PUBLIC_NETS[address_class]
-            ip_range = (net._ip[0], net.ip[-1])
-        address = str(ip_address(self.generator.random.randint(*ip_range)))
-        if network:
-            address += '/' + str(self.generator.random.randint(0, IPV4LENGTH))
-            address = str(ip_network(address, strict=False))
-        return address
+            # if no address class is choosen, use whole IPv4 pool
+            all_networks = [ip_network('0.0.0.0/0')]
 
-    def ipv4_network_class(self):
-        """
-        Returns a IPv4 network class 'a', 'b' or 'c'.
+        # exclude special networks
+        all_networks = self._exclude_ipv4_networks(
+            all_networks,
+            _IPv4Constants._excluded_networks
+        )
 
-        :returns: IPv4 network class
-        """
-        return self.random_element('abc')
+        # choose random network from the list
+        random_network = self.generator.random.choice(all_networks)
+
+        return self._random_ipv4_address_from_subnet(random_network, network)
 
     def ipv4_private(self, network=False, address_class=None):
         """
@@ -255,14 +352,26 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Private IPv4
         """
-        address_class = address_class or self.ipv4_network_class()
-        min_, max_, netmask = IPV4_NET_CLASSES[address_class]
-        address = str(ip_address(
-            self.generator.random.randint(min_, max_)))
-        if network:
-            address += '/' + str(self.generator.random.randint(netmask, 31))
-            address = str(ip_network(address, strict=False))
-        return address
+        # compute private networks from given class
+        supernet = _IPv4Constants._network_classes[
+            address_class or self.ipv4_network_class()
+        ]
+
+        private_networks = [
+            subnet for subnet in _IPv4Constants._private_networks
+            if subnet.overlaps(supernet)
+        ]
+
+        # exclude special networks
+        private_networks = self._exclude_ipv4_networks(
+            private_networks,
+            _IPv4Constants._excluded_networks
+        )
+
+        # choose random private network from the list
+        private_network = self.generator.random.choice(private_networks)
+
+        return self._random_ipv4_address_from_subnet(private_network, network)
 
     def ipv4_public(self, network=False, address_class=None):
         """
@@ -272,34 +381,22 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Public IPv4
         """
-        address_class = address_class or self.ipv4_network_class()
-        public_net = IPV4_PUBLIC_NETS[address_class]
-        private_blocks = IPV4_PRIVATE_NET_BLOCKS[address_class]
-        # Make valid IP ranges, created from private block exclusion
-        net_ranges = []
-        ## Starts at end of 1st block if it's 1st of class
-        if public_net[0] != private_blocks[0][0]:
-            net_ranges = [(public_net[0]._ip, private_blocks[0][0]._ip-1)]
-        ## Loop on private blocks and guess available ranges
-        for i, block in enumerate(private_blocks):
-            if i+1 == len(private_blocks):
-                break
-            net_range = (block[-1]._ip+1, private_blocks[i+1][0]._ip-1)
-            net_ranges.append(net_range)
-        ## Add last range
-        net_ranges.append((private_blocks[-1][-1]._ip-1, public_net[-1]._ip-1))
-        net_ranges = [(i, j) for i, j in net_ranges if (j-i) > 0]
-        # Choose a range
-        min_, max_ = self.generator.random.choice(net_ranges)
-        address = str(ip_address(
-            self.generator.random.randint(min_, max_)))
-        # Add network mask
-        if network:
-            net_masks = {'a': 8, 'b': 16, 'c': 24}
-            min_net_mask = net_masks[address_class]
-            address += '/' + str(self.generator.random.randint(min_net_mask, 31))
-            address = str(ip_network(address, strict=False))
-        return address
+        # compute public networks
+        public_networks = [_IPv4Constants._network_classes[
+            address_class or self.ipv4_network_class()
+        ]]
+
+        # exclude private and excluded special networks
+        public_networks = self._exclude_ipv4_networks(
+            public_networks,
+            _IPv4Constants._private_networks +
+            _IPv4Constants._excluded_networks
+        )
+
+        # choose random public network from the list
+        public_network = self.generator.random.choice(public_networks)
+
+        return self._random_ipv4_address_from_subnet(public_network, network)
 
     def ipv6(self, network=False):
         """Produce a random IPv6 address or network with a valid CIDR"""

@@ -4,9 +4,9 @@ from __future__ import unicode_literals
 
 import unittest
 
-from faker import Faker
+import six
 
-from tests import string_types
+from faker import Faker
 
 
 class TestJob(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestJob(unittest.TestCase):
 
     def test_job(self):
         job = self.factory.job()
-        assert isinstance(job, string_types)
+        assert isinstance(job, six.string_types)
 
 
 class TestKoKR(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestKoKR(unittest.TestCase):
 
     def test_job(self):
         job = self.factory.job()
-        assert isinstance(job, string_types)
+        assert isinstance(job, six.string_types)
 
 
 class TestHuHU(unittest.TestCase):
@@ -43,4 +43,4 @@ class TestHuHU(unittest.TestCase):
 
     def test_job(self):
         job = self.factory.job()
-        assert isinstance(job, string_types)
+        assert isinstance(job, six.string_types)

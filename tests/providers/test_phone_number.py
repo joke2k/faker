@@ -5,8 +5,9 @@ from __future__ import unicode_literals
 import re
 import unittest
 
+import six
+
 from faker import Faker
-from tests import string_types
 
 
 class TestPhoneNumber(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestPhoneNumber(unittest.TestCase):
         pn = self.factory.phone_number()
 
         assert pn
-        assert isinstance(pn, string_types)
+        assert isinstance(pn, six.string_types)
 
     def test_phone_number_ja(self):
         factory = Faker('ja')
@@ -27,7 +28,7 @@ class TestPhoneNumber(unittest.TestCase):
         formats = ('070', '080', '090')
 
         assert pn
-        assert isinstance(pn, string_types)
+        assert isinstance(pn, six.string_types)
         first, second, third = pn.split('-')
         assert first
         assert first.isdigit()
@@ -48,7 +49,7 @@ class TestPhoneNumber(unittest.TestCase):
         msisdn = self.factory.msisdn()
 
         assert msisdn is not None
-        assert isinstance(msisdn, string_types)
+        assert isinstance(msisdn, six.string_types)
         assert len(msisdn) == 13
         assert msisdn.isdigit()
 
@@ -58,7 +59,7 @@ class TestPhoneNumber(unittest.TestCase):
         formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581')
 
         assert msisdn is not None
-        assert isinstance(msisdn, string_types)
+        assert isinstance(msisdn, six.string_types)
         assert len(msisdn) == 13
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
