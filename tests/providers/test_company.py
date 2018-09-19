@@ -11,7 +11,7 @@ from faker import Faker
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.pl_PL import (
-    company_vat_checksum, regon_checksum, local_regon_checksum,
+    company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
 )
 
 
@@ -130,3 +130,15 @@ class TestPlPL(unittest.TestCase):
     def test_company_vat(self):
         for _ in range(100):
             self.assertTrue(re.search(r'^\d{10}$', self.factory.company_vat()))
+
+    def test_company_prefix(self):
+        prefixes = PlProvider.company_prefixes
+        prefix = self.factory.company_prefix()
+        assert isinstance(prefix, six.string_types)
+        assert prefix in prefixes
+
+    def test_company_suffix(self):
+        suffixes = PlProvider.company_suffixes
+        suffix = self.factory.company_suffix()
+        assert isinstance(suffix, six.string_types)
+        assert suffix in suffixes
