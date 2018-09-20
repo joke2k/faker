@@ -1,5 +1,6 @@
 language: python
 sudo: false
+cache: pip
 branches:
   only:
     - master
