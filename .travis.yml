@@ -23,9 +23,6 @@ matrix:
       env: TOXENV=pypy
     - python: pypy3
       env: TOXENV=pypy3
-
-before_install:
-    - pip install pep8
 install:
   - pip install tox
 script:
