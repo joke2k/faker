@@ -347,7 +347,7 @@ Installing dependencies:
 
 .. code:: bash
 
-    $ pip install -r tests/requirements.txt
+    $ pip install -e .
 
 Run tests:
 
