@@ -13,3 +13,11 @@ class Provider(InternetProvider):
         'bol.com.br',
         'ig.com.br')
     tlds = ('com', 'com', 'com', 'net', 'org', 'br', 'br', 'br')
+    replacements = (
+        ('à', 'a'), ('â', 'a'), ('ã', 'a'),
+        ('ç', 'c'),
+        ('é', 'e'), ('ê', 'e'),
+        ('í', 'i'),
+        ('ô', 'o'), ('ö', 'o'), ('õ', 'o'),
+        ('ú', 'u'),
+    )

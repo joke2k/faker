@@ -202,3 +202,37 @@ class TestArAa(unittest.TestCase):
         email = self.factory.ascii_company_email()
         validate_email(email, check_deliverability=False)
         self.assertEqual(email.split('@')[0], 'asyl')
+
+
+class TestPtBR(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('pt_BR')
+        self.provider = self.factory.provider('faker.providers.internet')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'VitóriaMagalhães'
+    )
+    def test_ascii_safe_email(self):
+        email = self.factory.ascii_safe_email()
+        validate_email(email, check_deliverability=False)
+        self.assertEqual(email.split('@')[0], 'vitoriamagalhaes')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'JoãoSimões'
+    )
+    def test_ascii_free_email(self):
+        email = self.factory.ascii_free_email()
+        validate_email(email, check_deliverability=False)
+        self.assertEqual(email.split('@')[0], 'joaosimoes')
+
+    @mock.patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'AndréCauã'
+    )
+    def test_ascii_company_email(self):
+        email = self.factory.ascii_company_email()
+        validate_email(email, check_deliverability=False)
+        self.assertEqual(email.split('@')[0], 'andrecaua')
