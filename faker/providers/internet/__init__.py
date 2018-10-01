@@ -116,14 +116,11 @@ class Provider(BaseProvider):
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
         'https://baconmockup.com/{width}/{height}',
-        'https://www.fillmurray.com/{width}/{height}',
         'https://loremflickr.com/{width}/{height}',
         'https://placekitten.com/{width}/{height}',
-        'https://placebeard.it/{width}x{height}',
         'https://www.placecage.com/{width}/{height}',
         'https://placeimg.com/{width}/{height}/any',
         'https://placebear.com/{width}/{height}',
-        'https://www.stevensegallery.com/{width}/{height}',
         'https://picsum.photos/{width}/{height}',
     )
 
