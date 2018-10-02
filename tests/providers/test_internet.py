@@ -26,6 +26,18 @@ class TestInternetProvider(unittest.TestCase):
         email = self.factory.email(domain='example.com')
         self.assertEqual(email.split('@')[1], 'example.com')
 
+    @mock.patch(
+        'faker.providers.internet.Provider.image_placeholder_services',
+        {'https://dummyimage.com/{width}x{height}'}
+    )
+    def test_image_url(self):
+        my_width = 500
+        my_height = 1024
+        url = self.factory.image_url(my_width, my_height)
+        self.assertEqual('https://dummyimage.com/{}x{}'.format(my_width, my_height), url)
+        url = self.factory.image_url()
+        self.assertIn('https://dummyimage.com/', url)
+
 
 class TestInternetProviderUrl(unittest.TestCase):
     """ Test internet url generation """

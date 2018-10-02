@@ -115,6 +115,8 @@ class Provider(BaseProvider):
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
+        'https://placekitten.com/{width}/{height}',
+        'https://placeimg.com/{width}/{height}/any',
     )
 
     replacements = tuple()
