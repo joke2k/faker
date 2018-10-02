@@ -86,6 +86,17 @@ Each of the generator properties (like ``name``, ``address``, and
 ``lorem``) are called "fake". A faker generator has many of them,
 packaged in "providers".
 
+.. code:: python
+
+    from faker import Factory
+    from faker.providers import internet
+    
+    fake = Factory.create()
+    fake.add_provider(internet)
+    
+    print(fake.ipv4_private())
+    
+
 Check the `extended docs`_ for a list of `bundled providers`_ and a list of
 `community providers`_.
 
