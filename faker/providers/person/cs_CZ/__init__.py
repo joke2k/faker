@@ -1,26 +1,26 @@
 # coding=utf-8
 from __future__ import unicode_literals
+from collections import OrderedDict
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name_male}} {{last_name_male}}',
-        '{{first_name_male}} {{last_name_male}}',
-        '{{first_name_male}} {{last_name_male}}',
-        '{{first_name_male}} {{last_name_male}}',
-        '{{first_name_male}} {{last_name_male}}',
-        '{{first_name_female}} {{last_name_female}}',
-        '{{first_name_female}} {{last_name_female}}',
-        '{{first_name_female}} {{last_name_female}}',
-        '{{first_name_female}} {{last_name_female}}',
-        '{{first_name_female}} {{last_name_female}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
-        '{{first_name_male}} {{last_name_male}} {{suffix}}',
-        '{{first_name_female}} {{last_name_female}} {{suffix}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name_male}} {{suffix}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name_female}} {{suffix}}')
+    formats_female = OrderedDict((
+        ('{{first_name_female}} {{last_name_female}}', 0.97),
+        ('{{prefix_female}} {{first_name_female}} {{last_name_female}}', 0.015),
+        ('{{first_name_female}} {{last_name_female}} {{suffix}}', 0.02),
+        ('{{prefix_female}} {{first_name_female}} {{last_name_female}} {{suffix}}', 0.005)
+    ))
+
+    formats_male = OrderedDict((
+        ('{{first_name_male}} {{last_name_male}}', 0.97),
+        ('{{prefix_male}} {{first_name_male}} {{last_name_male}}', 0.015),
+        ('{{first_name_male}} {{last_name_male}} {{suffix}}', 0.02),
+        ('{{prefix_male}} {{first_name_male}} {{last_name_male}} {{suffix}}', 0.005)
+    ))
+
+    formats = formats_male.copy()
+    formats.update(formats_female)
 
     first_names_male = (
         'Adam',
