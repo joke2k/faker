@@ -12,6 +12,7 @@ from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
+from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
 )
@@ -201,3 +202,49 @@ class TestPlPL(unittest.TestCase):
     def test_identity_card_number(self):
         for _ in range(100):
             self.assertTrue(re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number()))
+
+
+class TestCsCZ(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('cs_CZ')
+
+    def test_name_male(self):
+        male_name = self.factory.name_male()
+        name_parts = male_name.split(" ")
+        first_name, last_name = "", ""
+        if len(name_parts) == 2:
+            first_name = name_parts[0]
+            last_name = name_parts[1]
+        elif len(name_parts) == 4:
+            first_name = name_parts[1]
+            last_name = name_parts[2]
+        elif len(name_parts) == 3:
+            if name_parts[-1] in CsCZProvider.suffixes:
+                first_name = name_parts[0]
+                last_name = name_parts[1]
+            else:
+                first_name = name_parts[1]
+                last_name = name_parts[2]
+        self.assertIn(first_name, CsCZProvider.first_names_male)
+        self.assertIn(last_name, CsCZProvider.last_names_male)
+
+    def test_name_female(self):
+        female_name = self.factory.name_female()
+        name_parts = female_name.split(" ")
+        first_name, last_name = "", ""
+        if len(name_parts) == 2:
+            first_name = name_parts[0]
+            last_name = name_parts[1]
+        elif len(name_parts) == 4:
+            first_name = name_parts[1]
+            last_name = name_parts[2]
+        elif len(name_parts) == 3:
+            if name_parts[-1] in CsCZProvider.suffixes:
+                first_name = name_parts[0]
+                last_name = name_parts[1]
+            else:
+                first_name = name_parts[1]
+                last_name = name_parts[2]
+        self.assertIn(first_name, CsCZProvider.first_names_female)
+        self.assertIn(last_name, CsCZProvider.last_names_female)
