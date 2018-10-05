@@ -107,6 +107,31 @@ class TestZhCN(unittest.TestCase):
         email = self.factory.email()
         validate_email(email, check_deliverability=False)
 
+    def test_domain_word(self):
+        domain_word = self.factory.domain_word()
+        self.assertGreater(len(domain_word), 1)
+
+    @mock.patch(
+        'faker.providers.internet.Provider.tld',
+        lambda x: 'cn'
+    )
+    def test_domain_name(self):
+        domain_name_1_level = self.factory.domain_name(levels=1)
+        domain_parts = domain_name_1_level.split(".")
+        self.assertEqual(len(domain_parts), 2)
+        self.assertEqual(domain_parts[-1], 'cn')
+        domain_name_2_level = self.factory.domain_name(levels=2)
+        domain_parts = domain_name_2_level.split(".")
+        self.assertEqual(len(domain_parts), 3)
+        self.assertEqual(domain_parts[-1], 'cn')
+        self.assertIn(domain_parts[1], ['ac', 'com', 'edu', 'gov', 'mil',
+                                        'net', 'org', 'ah', 'bj', 'cq',
+                                        'fj', 'gd', 'gs', 'gz', 'gx', 'ha',
+                                        'hb', 'he', 'hi', 'hk', 'hl', 'hn',
+                                        'jl', 'js', 'jx', 'ln', 'mo', 'nm',
+                                        'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
+                                        'sx', 'tj', 'xj', 'xz', 'yn', 'zj'])
+
 
 class TestZhTW(unittest.TestCase):
 
