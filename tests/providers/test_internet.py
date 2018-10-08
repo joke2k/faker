@@ -7,6 +7,7 @@ from itertools import cycle
 import unittest
 
 import mock
+import pytest
 import six
 
 from email_validator import validate_email
@@ -24,7 +25,7 @@ class TestInternetProvider(unittest.TestCase):
 
     def test_email(self):
         email = self.factory.email(domain='example.com')
-        self.assertEqual(email.split('@')[1], 'example.com')
+        assert email.split('@')[1] == 'example.com'
 
     @mock.patch(
         'faker.providers.internet.Provider.image_placeholder_services',
@@ -34,9 +35,9 @@ class TestInternetProvider(unittest.TestCase):
         my_width = 500
         my_height = 1024
         url = self.factory.image_url(my_width, my_height)
-        self.assertEqual('https://dummyimage.com/{}x{}'.format(my_width, my_height), url)
+        assert 'https://dummyimage.com/{}x{}'.format(my_width, my_height) == url
         url = self.factory.image_url()
-        self.assertIn('https://dummyimage.com/', url)
+        assert 'https://dummyimage.com/' in url
 
 
 class TestInternetProviderUrl(unittest.TestCase):
@@ -52,7 +53,7 @@ class TestInternetProviderUrl(unittest.TestCase):
     def test_url_default_schemes(self):
         for _ in range(100):
             url = self.factory.url()
-            self.assertTrue(self.is_correct_scheme(url, ['http', 'https']))
+            assert self.is_correct_scheme(url, ['http', 'https'])
 
     def test_url_custom_schemes(self):
         schemes_sets = [
@@ -62,13 +63,13 @@ class TestInternetProviderUrl(unittest.TestCase):
         ]
         for _, schemes in zip(range(100), cycle(schemes_sets)):
             url = self.factory.url(schemes=schemes)
-            self.assertTrue(self.is_correct_scheme(url, schemes))
+            assert self.is_correct_scheme(url, schemes)
 
     def test_url_empty_schemes_list_generate_schemeless_urls(self):
         for _ in range(100):
             url = self.factory.url(schemes=[])
-            self.assertFalse(url.startswith('http'))
-            self.assertTrue(url.startswith('://'))
+            assert not url.startswith('http')
+            assert url.startswith('://')
 
 
 class TestJaJP(unittest.TestCase):
@@ -82,14 +83,15 @@ class TestJaJP(unittest.TestCase):
 
         domain_word = self.factory.domain_word()
         self.assertIsInstance(domain_word, six.string_types)
-        self.assertTrue(any(domain_word == text.slugify(name) for name in names))
+        assert any(domain_word == text.slugify(name) for name in names)
 
         domain_name = self.factory.domain_name()
         deep_domain_name = self.factory.domain_name(3)
         self.assertIsInstance(domain_name, six.string_types)
         self.assertIsInstance(deep_domain_name, six.string_types)
-        self.assertEqual(deep_domain_name.count('.'), 3)
-        self.assertRaises(ValueError, self.factory.domain_name, -1)
+        assert deep_domain_name.count('.') == 3
+        with pytest.raises(ValueError):
+            self.factory.domain_name(-1)
 
         user_name = self.factory.user_name()
         self.assertIsInstance(user_name, six.string_types)
@@ -109,7 +111,7 @@ class TestZhCN(unittest.TestCase):
 
     def test_domain_word(self):
         domain_word = self.factory.domain_word()
-        self.assertGreater(len(domain_word), 1)
+        assert len(domain_word) > 1
 
     @mock.patch(
         'faker.providers.internet.Provider.tld',
@@ -118,19 +120,19 @@ class TestZhCN(unittest.TestCase):
     def test_domain_name(self):
         domain_name_1_level = self.factory.domain_name(levels=1)
         domain_parts = domain_name_1_level.split(".")
-        self.assertEqual(len(domain_parts), 2)
-        self.assertEqual(domain_parts[-1], 'cn')
+        assert len(domain_parts) == 2
+        assert domain_parts[-1] == 'cn'
         domain_name_2_level = self.factory.domain_name(levels=2)
         domain_parts = domain_name_2_level.split(".")
-        self.assertEqual(len(domain_parts), 3)
-        self.assertEqual(domain_parts[-1], 'cn')
-        self.assertIn(domain_parts[1], ['ac', 'com', 'edu', 'gov', 'mil',
+        assert len(domain_parts) == 3
+        assert domain_parts[-1] == 'cn'
+        assert domain_parts[1] in ['ac', 'com', 'edu', 'gov', 'mil',
                                         'net', 'org', 'ah', 'bj', 'cq',
                                         'fj', 'gd', 'gs', 'gz', 'gx', 'ha',
                                         'hb', 'he', 'hi', 'hk', 'hl', 'hn',
                                         'jl', 'js', 'jx', 'ln', 'mo', 'nm',
                                         'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
-                                        'sx', 'tj', 'xj', 'xz', 'yn', 'zj'])
+                                        'sx', 'tj', 'xj', 'xz', 'yn', 'zj']
 
 
 class TestZhTW(unittest.TestCase):
@@ -166,11 +168,11 @@ class TestPlPL(unittest.TestCase):
 
     def test_free_email_domain(self):
         domain = self.factory.free_email_domain()
-        self.assertIn(domain, self.provider.free_email_domains)
+        assert domain in self.provider.free_email_domains
 
     def test_tld(self):
         tld = self.factory.tld()
-        self.assertIn(tld, self.provider.tlds)
+        assert tld in self.provider.tlds
 
 
 class TestNlNl(unittest.TestCase):
@@ -186,7 +188,7 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'fabienne')
+        assert email.split('@')[0] == 'fabienne'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -195,7 +197,7 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'fabienne')
+        assert email.split('@')[0] == 'fabienne'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -204,7 +206,7 @@ class TestNlNl(unittest.TestCase):
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'fabienne')
+        assert email.split('@')[0] == 'fabienne'
 
 
 class TestArAa(unittest.TestCase):
@@ -220,7 +222,7 @@ class TestArAa(unittest.TestCase):
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'asyl')
+        assert email.split('@')[0] == 'asyl'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -229,7 +231,7 @@ class TestArAa(unittest.TestCase):
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'asyl')
+        assert email.split('@')[0] == 'asyl'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -238,7 +240,7 @@ class TestArAa(unittest.TestCase):
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'asyl')
+        assert email.split('@')[0] == 'asyl'
 
 
 class TestPtBR(unittest.TestCase):
@@ -254,7 +256,7 @@ class TestPtBR(unittest.TestCase):
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'vitoriamagalhaes')
+        assert email.split('@')[0] == 'vitoriamagalhaes'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -263,7 +265,7 @@ class TestPtBR(unittest.TestCase):
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'joaosimoes')
+        assert email.split('@')[0] == 'joaosimoes'
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
@@ -272,4 +274,4 @@ class TestPtBR(unittest.TestCase):
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
         validate_email(email, check_deliverability=False)
-        self.assertEqual(email.split('@')[0], 'andrecaua')
+        assert email.split('@')[0] == 'andrecaua'

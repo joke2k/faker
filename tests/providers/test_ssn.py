@@ -6,6 +6,8 @@ import unittest
 import re
 from datetime import datetime
 
+import pytest
+
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
@@ -235,14 +237,14 @@ class TestEtEE(unittest.TestCase):
         self.factory = Faker('et_EE')
 
     def test_ssn_checksum(self):
-        self.assertEqual(et_checksum([4, 4, 1, 1, 1, 3, 0, 4, 9, 2]), 3)
-        self.assertEqual(et_checksum([3, 6, 7, 0, 1, 1, 6, 6, 2, 7]), 8)
-        self.assertEqual(et_checksum([4, 7, 0, 0, 4, 2, 1, 5, 0, 1]), 2)
-        self.assertEqual(et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]), 0)
+        assert et_checksum([4, 4, 1, 1, 1, 3, 0, 4, 9, 2]) == 3
+        assert et_checksum([3, 6, 7, 0, 1, 1, 6, 6, 2, 7]) == 8
+        assert et_checksum([4, 7, 0, 0, 4, 2, 1, 5, 0, 1]) == 2
+        assert et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]) == 0
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+            assert re.search(r'^\d{11}$', self.factory.ssn())
 
 
 class TestFiFI(unittest.TestCase):
@@ -253,15 +255,15 @@ class TestFiFI(unittest.TestCase):
         self.provider = fi_Provider
 
     def test_century_code(self):
-        self.assertEqual(self.provider._get_century_code(1900), '-')
-        self.assertEqual(self.provider._get_century_code(1999), '-')
-        self.assertEqual(self.provider._get_century_code(2000), 'A')
-        self.assertEqual(self.provider._get_century_code(2999), 'A')
-        self.assertEqual(self.provider._get_century_code(1800), '+')
-        self.assertEqual(self.provider._get_century_code(1899), '+')
-        with self.assertRaises(ValueError):
+        assert self.provider._get_century_code(1900) == '-'
+        assert self.provider._get_century_code(1999) == '-'
+        assert self.provider._get_century_code(2000) == 'A'
+        assert self.provider._get_century_code(2999) == 'A'
+        assert self.provider._get_century_code(1800) == '+'
+        assert self.provider._get_century_code(1899) == '+'
+        with pytest.raises(ValueError):
             self.provider._get_century_code(1799)
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             self.provider._get_century_code(3000)
 
     def test_ssn_sanity(self):
@@ -271,12 +273,12 @@ class TestFiFI(unittest.TestCase):
     def test_valid_ssn(self):
         ssn = self.factory.ssn(artificial=False)
         individual_number = int(ssn[7:10])
-        self.assertLessEqual(individual_number, 899)
+        assert individual_number <= 899
 
     def test_artifical_ssn(self):
         ssn = self.factory.ssn(artificial=True)
         individual_number = int(ssn[7:10])
-        self.assertGreaterEqual(individual_number, 900)
+        assert individual_number >= 900
 
 
 class TestHrHR(unittest.TestCase):
@@ -286,16 +288,16 @@ class TestHrHR(unittest.TestCase):
         self.factory = Faker('hr_HR')
 
     def test_ssn_checksum(self):
-        self.assertEqual(hr_checksum([0, 0, 2, 2, 8, 2, 6, 9, 2, 8]), 9)
-        self.assertEqual(hr_checksum([5, 8, 9, 3, 6, 9, 5, 1, 2, 5]), 1)
-        self.assertEqual(hr_checksum([5, 7, 8, 0, 2, 0, 3, 4, 2, 3]), 7)
-        self.assertEqual(hr_checksum([4, 3, 3, 3, 1, 4, 6, 7, 6, 2]), 2)
-        self.assertEqual(hr_checksum([0, 5, 9, 3, 7, 7, 5, 9, 1, 8]), 7)
-        self.assertEqual(hr_checksum([7, 1, 1, 4, 9, 9, 1, 2, 4, 1]), 6)
+        assert hr_checksum([0, 0, 2, 2, 8, 2, 6, 9, 2, 8]) == 9
+        assert hr_checksum([5, 8, 9, 3, 6, 9, 5, 1, 2, 5]) == 1
+        assert hr_checksum([5, 7, 8, 0, 2, 0, 3, 4, 2, 3]) == 7
+        assert hr_checksum([4, 3, 3, 3, 1, 4, 6, 7, 6, 2]) == 2
+        assert hr_checksum([0, 5, 9, 3, 7, 7, 5, 9, 1, 8]) == 7
+        assert hr_checksum([7, 1, 1, 4, 9, 9, 1, 2, 4, 1]) == 6
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+            assert re.search(r'^\d{11}$', self.factory.ssn())
 
 
 class TestHuHU(unittest.TestCase):
@@ -331,16 +333,16 @@ class TestPtBR(unittest.TestCase):
         self.factory = Faker('pt_BR')
 
     def test_pt_BR_ssn_checksum(self):
-        self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2]), 2)
-        self.assertEqual(pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2, 2]), 0)
+        assert pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2]) == 2
+        assert pt_checksum([8, 8, 2, 8, 2, 1, 6, 5, 2, 2]) == 0
 
     def test_pt_BR_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+            assert re.search(r'^\d{11}$', self.factory.ssn())
 
     def test_pt_BR_cpf(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf()))
+            assert re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf())
 
 
 class TestPlPL(unittest.TestCase):
@@ -350,32 +352,32 @@ class TestPlPL(unittest.TestCase):
         self.factory = Faker('pl_PL')
 
     def test_ssn_checksum(self):
-        self.assertEqual(pl_checksum([0, 5, 2, 6, 2, 8, 1, 2, 3, 6]), 5)
-        self.assertEqual(pl_checksum([8, 5, 0, 5, 0, 8, 1, 5, 5, 8]), 7)
-        self.assertEqual(pl_checksum([4, 5, 1, 1, 1, 0, 0, 2, 4, 3]), 3)
-        self.assertEqual(pl_checksum([9, 1, 0, 7, 2, 6, 1, 4, 8, 7]), 3)
-        self.assertEqual(pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]), 6)
+        assert pl_checksum([0, 5, 2, 6, 2, 8, 1, 2, 3, 6]) == 5
+        assert pl_checksum([8, 5, 0, 5, 0, 8, 1, 5, 5, 8]) == 7
+        assert pl_checksum([4, 5, 1, 1, 1, 0, 0, 2, 4, 3]) == 3
+        assert pl_checksum([9, 1, 0, 7, 2, 6, 1, 4, 8, 7]) == 3
+        assert pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]) == 6
 
     def test_calculate_month(self):
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')), 1)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')), 12)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')), 1)
+        assert pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')) == 1
+        assert pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')) == 12
+        assert pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')) == 1
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')), 21)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')), 32)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')), 21)
+        assert pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')) == 21
+        assert pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')) == 32
+        assert pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')) == 21
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')), 41)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')), 52)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')), 41)
+        assert pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')) == 41
+        assert pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')) == 52
+        assert pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')) == 41
 
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')), 61)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')), 72)
-        self.assertEqual(pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')), 61)
+        assert pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')) == 61
+        assert pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')) == 72
+        assert pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')) == 61
 
     def test_ssn(self):
         for _ in range(100):
-            self.assertTrue(re.search(r'^\d{11}$', self.factory.ssn()))
+            assert re.search(r'^\d{11}$', self.factory.ssn())
 
 
 class TestNoNO(unittest.TestCase):
@@ -383,38 +385,38 @@ class TestNoNO(unittest.TestCase):
         self.factory = Faker('no_NO')
 
     def test_no_NO_ssn_checksum(self):
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1), 6)
-        self.assertEqual(no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2), 7)
+        assert no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7], no_Provider.scale1) == 6
+        assert no_checksum([0, 1, 0, 2, 0, 3, 9, 8, 7, 6], no_Provider.scale2) == 7
 
     def test_no_NO_ssn(self):
         for _ in range(100):
             ssn = self.factory.ssn()
-            self.assertTrue(ssn.isdigit())
-            self.assertEqual(len(ssn), 11)
+            assert ssn.isdigit()
+            assert len(ssn) == 11
 
     def test_no_NO_ssn_dob_passed(self):
         test_data = [('20010203', '030201'),
                      ('19991231', '311299')]
         for date_of_birth, expected_dob_part in test_data:
             ssn = self.factory.ssn(dob=date_of_birth)
-            self.assertEqual(ssn[:6], expected_dob_part)
+            assert ssn[:6] == expected_dob_part
 
     def test_no_NO_ssn_invalid_dob_passed(self):
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             self.factory.ssn(dob='010401')
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             self.factory.ssn(dob='hello_world')
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             self.factory.ssn(dob='001301')
 
     def test_no_NO_ssn_gender_passed(self):
         # Females have even number at index 8
         ssn = self.factory.ssn(gender='F')
-        self.assertTrue(int(ssn[8]) % 2 == 0)
+        assert int(ssn[8]) % 2 == 0
         # Males have odd number at index 8
         ssn = self.factory.ssn(gender='M')
-        self.assertTrue(int(ssn[8]) % 2 == 1)
+        assert int(ssn[8]) % 2 == 1
 
     def test_no_NO_ssn_invalid_gender_passed(self):
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             self.factory.ssn(gender='A')

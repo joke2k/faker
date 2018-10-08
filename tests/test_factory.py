@@ -9,6 +9,7 @@ import sys
 from ipaddress import ip_address, ip_network
 
 import six
+import pytest
 
 from faker import Generator, Faker
 from faker.generator import random
@@ -39,52 +40,54 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_add_provider_gives_priority_to_newly_added_provider(self):
         self.generator.add_provider(BarProvider())
-        self.assertEqual('barfoo', self.generator.format('foo_formatter'))
+        assert 'barfoo' == self.generator.format('foo_formatter')
 
     def test_get_formatter_returns_callable(self):
         formatter = self.generator.get_formatter('foo_formatter')
-        self.assertTrue(hasattr(formatter, '__call__')
-                        or isinstance(formatter, (classmethod, staticmethod)))
+        assert (
+            hasattr(formatter, '__call__') or
+            isinstance(formatter, (classmethod, staticmethod))
+        )
 
     def test_get_formatter_returns_correct_formatter(self):
-        self.assertEqual(self.provider.foo_formatter,
+        assert self.provider.foo_formatter == (
                          self.generator.get_formatter('foo_formatter'))
 
     def test_get_formatter_throws_exception_on_incorrect_formatter(self):
-        with self.assertRaises(AttributeError) as exc:
+        with pytest.raises(AttributeError) as exc:
             self.generator.get_formatter('barFormatter')
-            self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter"')
+            assert exc.args[0] == 'Unknown formatter "barFormatter"'
 
         faker = Faker('it_IT')
-        with self.assertRaises(AttributeError) as exc:
+        with pytest.raises(AttributeError) as exc:
             faker.get_formatter('barFormatter')
-            self.assertEqual(exc.args[0], 'Unknown formatter "barFormatter" with locale "it_IT"')
+            assert exc.args[0] == 'Unknown formatter "barFormatter" with locale "it_IT"'
 
     def test_invalid_locale(self):
-        with self.assertRaises(AttributeError):
+        with pytest.raises(AttributeError):
             Faker('foo_Bar')
 
     def test_format_calls_formatter_on_provider(self):
-        self.assertEqual('foobar', self.generator.format('foo_formatter'))
+        assert 'foobar' == self.generator.format('foo_formatter')
 
     def test_format_transfers_arguments_to_formatter(self):
         result = self.generator.format('foo_formatter_with_arguments',
                                        'foo', append='!')
-        self.assertEqual('bazfoo!', result)
+        assert 'bazfoo!' == result
 
     def test_parse_returns_same_string_when_it_contains_no_curly_braces(self):
-        self.assertEqual('fooBar#?', self.generator.parse('fooBar#?'))
+        assert 'fooBar#?' == self.generator.parse('fooBar#?')
 
     def test_parse_returns_string_with_tokens_replaced_by_formatters(self):
         result = self.generator.parse(
             'This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
-        self.assertEqual('This is foobar a text with " foobar "', result)
+        assert 'This is foobar a text with " foobar "' == result
 
     def test_magic_call_calls_format(self):
-        self.assertEqual('foobar', self.generator.foo_formatter())
+        assert 'foobar' == self.generator.foo_formatter()
 
     def test_magic_call_calls_format_with_arguments(self):
-        self.assertEqual('bazfoo',
+        assert 'bazfoo' == (
                          self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
@@ -94,7 +97,7 @@ class FactoryTestCase(unittest.TestCase):
         print_doc('address', output=output)
         print_doc('faker.providers.person.it_IT', output=output)
         assert output.getvalue()
-        with self.assertRaises(AttributeError):
+        with pytest.raises(AttributeError):
             self.generator.get_formatter('barFormatter')
 
     def test_command(self):
@@ -132,7 +135,7 @@ class FactoryTestCase(unittest.TestCase):
                 commands[i].execute()
                 cli_output[i] = sys.stdout.getvalue()
             cli_output[1] = cli_output[1][len(cli_output[0]):]
-            self.assertEqual(cli_output[0][:10], cli_output[1][:10])
+            assert cli_output[0][:10] == cli_output[1][:10]
         finally:
             sys.stdout = orig_stdout
 
@@ -149,7 +152,7 @@ class FactoryTestCase(unittest.TestCase):
                 commands[i].execute()
                 cli_output[i] = sys.stdout.getvalue()
             cli_output[1] = cli_output[1][len(cli_output[0]):]
-            self.assertEqual(cli_output[0], cli_output[1])
+            assert cli_output[0] == cli_output[1]
         finally:
             sys.stdout = orig_stdout
 
@@ -166,49 +169,49 @@ class FactoryTestCase(unittest.TestCase):
                 commands[i].execute()
                 cli_output[i] = sys.stdout.getvalue()
             simple_output, verbose_output = cli_output
-            self.assertNotEqual(simple_output, verbose_output)
+            assert simple_output != verbose_output
         finally:
             sys.stdout = orig_stdout
 
     def test_slugify(self):
         slug = text.slugify("a'b/c")
-        self.assertEqual(slug, 'abc')
+        assert slug == 'abc'
 
         slug = text.slugify("àeìöú")
-        self.assertEqual(slug, 'aeiou')
+        assert slug == 'aeiou'
 
         slug = text.slugify("àeì.öú")
-        self.assertEqual(slug, 'aeiou')
+        assert slug == 'aeiou'
 
         slug = text.slugify("àeì.öú", allow_dots=True)
-        self.assertEqual(slug, 'aei.ou')
+        assert slug == 'aei.ou'
 
         slug = text.slugify("àeì.öú", allow_unicode=True)
-        self.assertEqual(slug, 'àeìöú')
+        assert slug == 'àeìöú'
 
         slug = text.slugify("àeì.öú", allow_unicode=True, allow_dots=True)
-        self.assertEqual(slug, 'àeì.öú')
+        assert slug == 'àeì.öú'
 
         @decorators.slugify
         def fn(s):
             return s
 
         slug = fn("a'b/c")
-        self.assertEqual(slug, 'abc')
+        assert slug == 'abc'
 
         @decorators.slugify_domain
         def fn(s):
             return s
 
         slug = fn("a'b/.c")
-        self.assertEqual(slug, 'ab.c')
+        assert slug == 'ab.c'
 
         @decorators.slugify_unicode
         def fn(s):
             return s
 
         slug = fn("a'b/.cé")
-        self.assertEqual(slug, 'abcé')
+        assert slug == 'abcé'
 
     def test_random_element(self):
         from faker.providers import BaseProvider
@@ -216,15 +219,15 @@ class FactoryTestCase(unittest.TestCase):
 
         choices = ('a', 'b', 'c', 'd')
         pick = provider.random_element(choices)
-        self.assertTrue(pick in choices)
+        assert pick in choices
 
         choices = {'a': 5, 'b': 2, 'c': 2, 'd': 1}
         pick = provider.random_element(choices)
-        self.assertTrue(pick in choices)
+        assert pick in choices
 
         choices = {'a': 0.5, 'b': 0.2, 'c': 0.2, 'd': 0.1}
         pick = provider.random_element(choices)
-        self.assertTrue(pick in choices)
+        assert pick in choices
 
     def test_binary(self):
         from faker.providers.misc import Provider
@@ -234,8 +237,8 @@ class FactoryTestCase(unittest.TestCase):
             length = random.randint(0, 2 ** 10)
             binary = provider.binary(length)
 
-            self.assertTrue(isinstance(binary, (bytes, bytearray)))
-            self.assertTrue(len(binary) == length)
+            assert isinstance(binary, (bytes, bytearray))
+            assert len(binary) == length
 
         for _ in range(999):
             self.generator.seed(_)
@@ -243,7 +246,7 @@ class FactoryTestCase(unittest.TestCase):
             self.generator.seed(_)
             binary2 = provider.binary(_)
 
-            self.assertTrue(binary1 == binary2)
+            assert binary1 == binary2
 
     def test_language_code(self):
         from faker.providers.misc import Provider
@@ -251,8 +254,8 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             language_code = provider.language_code()
-            self.assertTrue(isinstance(language_code, six.string_types))
-            self.assertTrue(re.match(r'^[a-z]{2,3}$', language_code))
+            assert isinstance(language_code, six.string_types)
+            assert re.match(r'^[a-z]{2,3}$', language_code)
 
     def test_locale(self):
         from faker.providers.misc import Provider
@@ -260,7 +263,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             locale = provider.locale()
-            self.assertTrue(re.match(r'^[a-z]{2,3}_[A-Z]{2}$', locale))
+            assert re.match(r'^[a-z]{2,3}_[A-Z]{2}$', locale)
 
     def test_password(self):
         from faker.providers.misc import Provider
@@ -272,12 +275,12 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(999):
             password = provider.password()
 
-            self.assertTrue(any([in_string(char, password) for char in "!@#$%^&*()_+"]))
-            self.assertTrue(any([in_string(char, password) for char in string.digits]))
-            self.assertTrue(any([in_string(char, password) for char in string.ascii_uppercase]))
-            self.assertTrue(any([in_string(char, password) for char in string.ascii_lowercase]))
+            assert any([in_string(char, password) for char in "!@#$%^&*()_+"])
+            assert any([in_string(char, password) for char in string.digits])
+            assert any([in_string(char, password) for char in string.ascii_uppercase])
+            assert any([in_string(char, password) for char in string.ascii_lowercase])
 
-        with self.assertRaises(AssertionError):
+        with pytest.raises(AssertionError):
             provider.password(length=2)
 
     def test_prefix_suffix_always_string(self):
@@ -294,11 +297,12 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         paragraph = provider.paragraph(0)
-        self.assertEqual(paragraph, '')
+        assert paragraph == ''
 
     def test_words_valueerror(self):
         f = Faker()
-        self.assertRaises(ValueError, f.text, max_nb_chars=4)
+        with pytest.raises(ValueError):
+            f.text(max_nb_chars=4)
 
     def test_no_words_paragraph(self):
         from faker.providers.lorem import Provider
@@ -306,7 +310,7 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         sentence = provider.sentence(0)
-        self.assertEqual(sentence, '')
+        assert sentence == ''
 
     def test_ext_word_list(self):
         fake = Faker()
@@ -322,25 +326,25 @@ class FactoryTestCase(unittest.TestCase):
             'pie',
         ]
         word = fake.word(ext_word_list=my_word_list)
-        self.assertIn(word, my_word_list)
+        assert word in my_word_list
 
     def test_no_words(self):
         fake = Faker()
 
         words = fake.words(0)
-        self.assertEqual(words, [])
+        assert words == []
 
     def test_some_words(self):
         fake = Faker()
 
         num_words = 5
         words = fake.words(num_words)
-        self.assertTrue(isinstance(words, list))
-        self.assertEqual(len(words), num_words)
+        assert isinstance(words, list)
+        assert len(words) == num_words
 
         for word in words:
-            self.assertTrue(isinstance(word, six.string_types))
-            self.assertTrue(re.match(r'^[a-z].*$', word))
+            assert isinstance(word, six.string_types)
+            assert re.match(r'^[a-z].*$', word)
 
     def test_words_ext_word_list(self):
         fake = Faker()
@@ -358,12 +362,12 @@ class FactoryTestCase(unittest.TestCase):
 
         num_words = 5
         words = fake.words(5, ext_word_list=my_word_list)
-        self.assertTrue(isinstance(words, list))
-        self.assertEqual(len(words), num_words)
+        assert isinstance(words, list)
+        assert len(words) == num_words
 
         for word in words:
-            self.assertTrue(isinstance(word, six.string_types))
-            self.assertIn(word, my_word_list)
+            assert isinstance(word, six.string_types)
+            assert word in my_word_list
 
     def test_words_ext_word_list_unique(self):
         fake = Faker()
@@ -381,15 +385,15 @@ class FactoryTestCase(unittest.TestCase):
 
         num_words = 5
         words = fake.words(5, ext_word_list=my_word_list, unique=True)
-        self.assertTrue(isinstance(words, list))
-        self.assertEqual(len(words), num_words)
+        assert isinstance(words, list)
+        assert len(words) == num_words
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, six.string_types))
-            self.assertIn(word, my_word_list)
+            assert isinstance(word, six.string_types)
+            assert word in my_word_list
             # Check that word is unique
-            self.assertTrue(word not in checked_words)
+            assert word not in checked_words
             checked_words.append(word)
 
     def test_unique_words(self):
@@ -397,16 +401,16 @@ class FactoryTestCase(unittest.TestCase):
 
         num_words = 20
         words = fake.words(num_words, unique=True)
-        self.assertTrue(isinstance(words, list))
-        self.assertEqual(len(words), num_words)
+        assert isinstance(words, list)
+        assert len(words) == num_words
 
         checked_words = []
         for word in words:
-            self.assertTrue(isinstance(word, six.string_types))
+            assert isinstance(word, six.string_types)
             # Check that word is only letters. No numbers, symbols, etc
-            self.assertTrue(re.match(r'^[a-zA-Z].*$', word))
+            assert re.match(r'^[a-zA-Z].*$', word)
             # Check that word list is unique
-            self.assertTrue(word not in checked_words)
+            assert word not in checked_words
             checked_words.append(word)
 
     def test_random_pystr_characters(self):
@@ -414,27 +418,25 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         characters = provider.pystr()
-        self.assertEqual(len(characters), 20)
+        assert len(characters) == 20
         characters = provider.pystr(max_chars=255)
-        self.assertEqual(len(characters), 255)
+        assert len(characters) == 255
         characters = provider.pystr(max_chars=0)
-        self.assertEqual(characters, '')
+        assert characters == ''
         characters = provider.pystr(max_chars=-10)
-        self.assertEqual(characters, '')
+        assert characters == ''
         characters = provider.pystr(min_chars=10, max_chars=255)
-        self.assertTrue((len(characters) >= 10))
+        assert (len(characters) >= 10)
 
     def test_random_pyfloat(self):
         from faker.providers.python import Provider
         provider = Provider(self.generator)
 
-        self.assertTrue(0 <= abs(provider.pyfloat(left_digits=1)) < 10)
-        self.assertTrue(0 <= abs(provider.pyfloat(left_digits=0)) < 1)
+        assert 0 <= abs(provider.pyfloat(left_digits=1)) < 10
+        assert 0 <= abs(provider.pyfloat(left_digits=0)) < 1
         x = abs(provider.pyfloat(right_digits=0))
-        self.assertTrue(x - int(x) == 0)
-        with self.assertRaises(ValueError,
-                               msg='A float number cannot have 0 digits '
-                               'in total'):
+        assert x - int(x) == 0
+        with pytest.raises(ValueError):
             provider.pyfloat(left_digits=0, right_digits=0)
 
     def test_us_ssn_valid(self):
@@ -443,26 +445,26 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
         for i in range(1000):
             ssn = provider.ssn()
-            self.assertEqual(len(ssn), 11)
-            self.assertNotEqual(ssn[0], '9')
-            self.assertNotEqual(ssn[0:3], '666')
-            self.assertNotEqual(ssn[0:3], '000')
-            self.assertNotEqual(ssn[4:6], '00')
-            self.assertNotEqual(ssn[7:11], '0000')
+            assert len(ssn) == 11
+            assert ssn[0] != '9'
+            assert ssn[0:3] != '666'
+            assert ssn[0:3] != '000'
+            assert ssn[4:6] != '00'
+            assert ssn[7:11] != '0000'
 
     def test_nl_BE_ssn_valid(self):
         provider = Faker('nl_BE').provider('faker.providers.ssn')
 
         for i in range(1000):
             ssn = provider.ssn()
-            self.assertEqual(len(ssn), 11)
+            assert len(ssn) == 11
             gen_seq = ssn[6:9]
             gen_chksum = ssn[9:11]
             gen_seq_as_int = int(gen_seq)
             gen_chksum_as_int = int(gen_chksum)
             # Check that the sequence nr is between 1 inclusive and 998 inclusive
-            self.assertGreater(gen_seq_as_int, 0)
-            self.assertLessEqual(gen_seq_as_int, 998)
+            assert gen_seq_as_int > 0
+            assert gen_seq_as_int <= 998
 
             # validate checksum calculation
             # Since the century is not part of ssn, try both below and above year 2000
@@ -471,14 +473,14 @@ class FactoryTestCase(unittest.TestCase):
             ssn_above = ssn_below + 2000000000
             chksum_above = 97 - (ssn_above % 97)
             results = [chksum_above, chksum_below]
-            self.assertIn(gen_chksum_as_int, results)
+            assert gen_chksum_as_int in results
 
     def test_email(self):
         factory = Faker()
 
         for _ in range(99):
             email = factory.email()
-            self.assertTrue('@' in email)
+            assert '@' in email
 
     def test_ipv4(self):
         from faker.providers.internet import Provider
@@ -487,28 +489,28 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             address = provider.ipv4()
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertTrue(
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
         for _ in range(99):
             address = provider.ipv4(network=True)
-            self.assertTrue(len(address) >= 9)
-            self.assertTrue(len(address) <= 18)
-            self.assertTrue(
+            assert len(address) >= 9
+            assert len(address) <= 18
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
         address = provider.ipv4(private=True)
-        self.assertTrue(len(address) >= 7)
-        self.assertTrue(len(address) <= 15)
-        self.assertTrue(
+        assert len(address) >= 7
+        assert len(address) <= 15
+        assert (
             re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
         address = provider.ipv4(private=False)
-        self.assertTrue(len(address) >= 7)
-        self.assertTrue(len(address) <= 15)
-        self.assertTrue(
+        assert len(address) >= 7
+        assert len(address) <= 15
+        assert (
             re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
     def test_ipv4_network_class(self):
@@ -517,7 +519,7 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             klass = provider.ipv4_network_class()
-            self.assertIn(klass, 'abc')
+            assert klass in 'abc'
 
     def test_ipv4_private(self):
         from faker.providers.internet import Provider
@@ -526,19 +528,19 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_private()
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert ip_address(address).is_private
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
         for _ in range(99):
             address = provider.ipv4_private(network=True)
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 9)
-            self.assertTrue(len(address) <= 18)
-            self.assertTrue(ip_network(address)[0].is_private)
-            self.assertTrue(
+            assert len(address) >= 9
+            assert len(address) <= 18
+            assert ip_network(address)[0].is_private
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
     def test_ipv4_private_class_a(self):
@@ -552,11 +554,11 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_private(address_class='a')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(ip_address(address) >= class_min)
-            self.assertTrue(ip_address(address) <= class_max)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert ip_address(address).is_private
+            assert ip_address(address) >= class_min
+            assert ip_address(address) <= class_max
 
     def test_ipv4_private_class_b(self):
         from faker.providers.internet import Provider, _IPv4Constants
@@ -569,11 +571,11 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_private(address_class='b')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(ip_address(address) >= class_min)
-            self.assertTrue(ip_address(address) <= class_max)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert ip_address(address).is_private
+            assert ip_address(address) >= class_min
+            assert ip_address(address) <= class_max
 
     def test_ipv4_private_class_c(self):
         from faker.providers.internet import Provider, _IPv4Constants
@@ -586,11 +588,11 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_private(address_class='c')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertTrue(ip_address(address).is_private)
-            self.assertTrue(ip_address(address) >= class_min)
-            self.assertTrue(ip_address(address) <= class_max)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert ip_address(address).is_private
+            assert ip_address(address) >= class_min
+            assert ip_address(address) <= class_max
 
     def test_ipv4_public(self):
         from faker.providers.internet import Provider
@@ -599,23 +601,23 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_public()
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertFalse(ip_address(address).is_private, address)
-            self.assertTrue(
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert not ip_address(address).is_private, address
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}$').search(address))
 
         for _ in range(99):
             address = provider.ipv4_public(network=True)
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 9)
-            self.assertTrue(len(address) <= 18)
+            assert len(address) >= 9
+            assert len(address) <= 18
             # Hack around ipaddress module
             # As 192.0.0.0 is net addr of many 192.0.0.0/* nets
             # ipaddress considers them as private
             if ip_network(address).network_address != ip_address('192.0.0.0'):
-                self.assertFalse(ip_network(address)[0].is_private, address)
-            self.assertTrue(
+                assert not ip_network(address)[0].is_private, address
+            assert (
                 re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$').search(address))
 
     def test_ipv4_public_class_a(self):
@@ -625,9 +627,9 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_public(address_class='a')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertFalse(ip_address(address).is_private, address)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert not ip_address(address).is_private, address
 
     def test_ipv4_public_class_b(self):
         from faker.providers.internet import Provider
@@ -636,9 +638,9 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_public(address_class='b')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertFalse(ip_address(address).is_private, address)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert not ip_address(address).is_private, address
 
     def test_ipv4_public_class_c(self):
         from faker.providers.internet import Provider
@@ -647,9 +649,9 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             address = provider.ipv4_public(address_class='c')
             address = six.text_type(address)
-            self.assertTrue(len(address) >= 7)
-            self.assertTrue(len(address) <= 15)
-            self.assertFalse(ip_address(address).is_private, address)
+            assert len(address) >= 7
+            assert len(address) <= 15
+            assert not ip_address(address).is_private, address
 
     def test_ipv6(self):
         from faker.providers.internet import Provider
@@ -658,16 +660,16 @@ class FactoryTestCase(unittest.TestCase):
 
         for _ in range(99):
             address = provider.ipv6()
-            self.assertTrue(len(address) >= 3)  # ::1
-            self.assertTrue(len(address) <= 39)
-            self.assertTrue(
+            assert len(address) >= 3  # ::1
+            assert len(address) <= 39
+            assert (
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$').search(address))
 
         for _ in range(99):
             address = provider.ipv6(network=True)
-            self.assertTrue(len(address) >= 4)  # ::/8
-            self.assertTrue(len(address) <= 39 + 4)
-            self.assertTrue(
+            assert len(address) >= 4  # ::/8
+            assert len(address) <= 39 + 4
+            assert (
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$').search(
                     address))
 
@@ -681,39 +683,39 @@ class FactoryTestCase(unittest.TestCase):
 
         # Same length
         sample = provider.random_sample('abcd', 4)
-        self.assertEqual(sorted(sample), list('abcd'))
+        assert sorted(sample) == list('abcd')
 
         sample = provider.random_sample('abcde', 5)
-        self.assertEqual(sorted(sample), list('abcde'))
+        assert sorted(sample) == list('abcde')
 
         # Length = 3
         sample = provider.random_sample('abcde', 3)
-        self.assertEqual(len(sample), 3)
-        self.assertTrue(set(sample).issubset(set('abcde')))
+        assert len(sample) == 3
+        assert set(sample).issubset(set('abcde'))
 
         # Length = 1
         sample = provider.random_sample('abcde', 1)
-        self.assertEqual(len(sample), 1)
-        self.assertTrue(set(sample).issubset(set('abcde')))
+        assert len(sample) == 1
+        assert set(sample).issubset(set('abcde'))
 
         # Length = 0
         sample = provider.random_sample('abcde', 0)
-        self.assertEqual(sample, [])
+        assert sample == []
 
     def test_random_number(self):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
 
         number = provider.random_number(10, True)
-        self.assertEqual(len(str(number)), 10)
+        assert len(str(number)) == 10
 
     def test_instance_seed_chain(self):
         factory = Faker()
 
         names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
         anonymized = [factory.seed_instance(name).name() for name in names]
-        self.assertEqual(anonymized[0], anonymized[3])
-        self.assertEqual(anonymized[2], anonymized[4])
+        assert anonymized[0] == anonymized[3]
+        assert anonymized[2] == anonymized[4]
 
 
 if __name__ == '__main__':
