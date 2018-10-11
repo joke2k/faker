@@ -1661,11 +1661,14 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
-        if tzinfo is None:
-            pick = datetime.fromtimestamp(timestamp, tzlocal())
-            pick = pick.astimezone(tzutc()).replace(tzinfo=None)
-        else:
-            pick = datetime.fromtimestamp(timestamp, tzinfo)
+        try:
+          if tzinfo is None:
+              pick = datetime.fromtimestamp(timestamp, tzlocal())
+              pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+          else:
+              pick = datetime.fromtimestamp(timestamp, tzinfo)
+        except OSError:
+          return self.date_time_between_dates(datetime_start, datetime_end)
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
