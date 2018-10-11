@@ -1669,6 +1669,8 @@ class Provider(BaseProvider):
               pick = datetime.fromtimestamp(timestamp, tzinfo)
         except OSError:
           return self.date_time_between_dates(datetime_start, datetime_end)
+        except RecursionError as err:
+          raise err  
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
