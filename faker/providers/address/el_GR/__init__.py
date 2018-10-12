@@ -112,14 +112,14 @@ class Provider(AddressProvider):
         return float(self.latitude()), float(self.longitude())
 
     def latitude(self):
-        l = list(map(lambda t: int(t[0] * 10000000), self.poly))
+        latitudes = list(map(lambda t: int(t[0] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(
-            min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+            min(latitudes), max(latitudes)) / 10000000.0)).quantize(Decimal('.000001'))
 
     def longitude(self):
-        l = list(map(lambda t: int(t[1] * 10000000), self.poly))
+        longitudes = list(map(lambda t: int(t[1] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(
-            min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+            min(longitudes), max(longitudes)) / 10000000.0)).quantize(Decimal('.000001'))
 
     # Ονόματα πρωτευουσών νομών
     cities = (

@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
 
+
 def checksum(sin):
     """
     Determine validity of a Canadian Social Insurance Number.
@@ -39,6 +40,7 @@ def checksum(sin):
 
     return check_digit
 
+
 class Provider(SsnProvider):
 
     # In order to create a valid SIN we need to provide a number that
@@ -75,7 +77,7 @@ class Provider(SsnProvider):
         for i in range(0, len(digits)):
             sin += str(digits[i])
             # Add a space to make it conform to Canadian formatting.
-            if i in (2,5):
+            if i in (2, 5):
                 sin += " "
 
         # Finally return our random but valid SIN.

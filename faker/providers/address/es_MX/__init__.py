@@ -6,9 +6,9 @@ from ..es import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_prefixes = ('Sur', 'Norte',)
-    city_adjetives = ('Nueva', 'Vieja',)
-    city_suffixies = ('de la Montaña', 'los bajos', 'los altos', )
+    city_prefixes = ('Sur', 'Norte')
+    city_adjetives = ('Nueva', 'Vieja')
+    city_suffixies = ('de la Montaña', 'los bajos', 'los altos')
     street_prefixes = (
         'Ampliación', 'Andador', 'Avenida', 'Boulevard', 'Calle', 'Callejón',
         'Calzada', 'Cerrada', 'Circuito', 'Circunvalación', 'Continuación',
@@ -35,7 +35,7 @@ class Provider(AddressProvider):
         ('SIN', 'Sinaloa'), ('SON', 'Sonora'), ('TAB', 'Tabasco'),
         ('TAMPS', 'Tamaulipas'), ('TLAX', 'Tlaxcala'),
         ('VER', 'Veracruz de Ignacio de la Llave'),
-        ('YUC', 'Yucatán'), ('ZAC', 'Zacatecas'),)
+        ('YUC', 'Yucatán'), ('ZAC', 'Zacatecas'))
 
     zip_codes = OrderedDict((
         # The ZipCodes has a begin & final range
@@ -82,7 +82,7 @@ class Provider(AddressProvider):
         '{{street_prefix}} {{last_name}}',
         '{{street_prefix}} {{country}}',
         '{{street_prefix}} {{state}}',
-        '{{street_prefix}} {{city_prefix}} {{last_name}}'
+        '{{street_prefix}} {{city_prefix}} {{last_name}}',
     )
     street_address_formats = (
         '{{street_name}} {{secondary_address}}',

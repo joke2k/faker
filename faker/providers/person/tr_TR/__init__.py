@@ -22,7 +22,7 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{first_name_male}} {{last_name}}'
+        '{{prefix_male}} {{first_name_male}} {{first_name_male}} {{last_name}}',
     )
 
     formats = formats_male + formats_female
@@ -119,8 +119,8 @@ class Provider(PersonProvider):
                           'İzel', 'İçimbike', 'Şadıman', 'Şahdiye', 'Şahinder', 'Şahnuray',
                           'Şahıgül', 'Şamiha', 'Şayan', 'Şazime', 'Şefiye', 'Şehreban', 'Şehza',
                           'Şelâle', 'Şemsinisa', 'Şendoğan', 'Şennur', 'Şeref', 'Şerman',
-                          'Şevketfeza', 'Şeyda', 'Şilan', 'Şirivan', 'Şöhret', 'Şüküfe'
-    )
+                          'Şevketfeza', 'Şeyda', 'Şilan', 'Şirivan', 'Şöhret', 'Şüküfe',
+                          )
 
     first_names_male = ('Abdiş', 'Abdulbekir', 'Abdulgazi', 'Abdulkadir',
                         'Abdulmenaf', 'Abdulsemet', 'Abdurrahman', 'Abdülahat', 'Abdülcemal',
@@ -252,8 +252,8 @@ class Provider(PersonProvider):
                         'İyiyürek', 'İzgü', 'İşcan', 'Şabettin', 'Şafii', 'Şahat', 'Şahinbey',
                         'Şahmettin', 'Şali', 'Şanlı', 'Şavki', 'Şefi', 'Şehamet', 'Şekim',
                         'Şemsettin', 'Şendoğan', 'Şenkal', 'Şerafeddin', 'Şevket', 'Şide',
-                        'Şinasi', 'Şuayp', 'Şükri'
-    )
+                        'Şinasi', 'Şuayp', 'Şükri',
+                        )
 
     first_names = first_names_male + first_names_female
 
@@ -266,7 +266,7 @@ class Provider(PersonProvider):
         'Zengin', 'Tevetoğlu', 'Mansız', 'Şener', 'Şensoy', 'Ülker', 'Tarhan',
         'Sezer', 'Demirel', 'Gül', 'Korutürk', 'İnönü', 'Öcalan', 'Çetin',
         'Sezgin', 'Alemdar', 'Karadeniz', 'Akdeniz', 'Bilge', 'Akgündüz',
-        'Akçay', 'Çamurcuoğlu', 'İhsanoğlu', 'Akça'
+        'Akçay', 'Çamurcuoğlu', 'İhsanoğlu', 'Akça',
     )
 
     prefixes_female = ('Bayan', 'Dr.')

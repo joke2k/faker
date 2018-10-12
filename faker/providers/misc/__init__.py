@@ -31,7 +31,7 @@ class Provider(BaseProvider):
                'NZ', 'PH', 'SG', 'US', 'ZA', 'ZM', 'ZW'),
         'eo': ('US',),
         'es': ('AR', 'BO', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'ES', 'GT',
-               'HN', 'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'US', 'UY', 'VE'
+               'HN', 'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'US', 'UY', 'VE',
                ), 'et': ('EE',), 'eu': ('ES', 'FR'), 'fa': ('IR',),
         'ff': ('SN',), 'fi': ('FI',), 'fil': ('PH',), 'fo': ('FO',),
         'fr': ('CA', 'CH', 'FR', 'LU'), 'fur': ('IT',), 'fy': ('NL', 'DE'),
@@ -69,7 +69,7 @@ class Provider(BaseProvider):
         've': ('ZA',), 'vi': ('VN',), 'wa': ('BE',), 'wae': ('CH',),
         'wal': ('ET',), 'wo': ('SN',), 'xh': ('ZA',), 'yi': ('US',),
         'yo': ('NG',), 'yue': ('HK',), 'zh': ('CN', 'HK', 'SG', 'TW'),
-        'zu': ('ZA',)
+        'zu': ('ZA',),
     }
 
     def boolean(self, chance_of_getting_true=50):
@@ -79,7 +79,7 @@ class Provider(BaseProvider):
         return {
             0: None,
             1: True,
-            -1: False
+            -1: False,
         }[self.generator.random.randint(-1, 1)]
 
     def binary(self, length=(1 * 1024 * 1024)):
@@ -124,7 +124,7 @@ class Provider(BaseProvider):
     def locale(self):
         language_code = self.language_code()
         return language_code + '_' + self.random_element(
-            Provider.language_locale_codes[language_code]
+            Provider.language_locale_codes[language_code],
         )
 
     def language_code(self):

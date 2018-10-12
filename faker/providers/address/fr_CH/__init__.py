@@ -10,7 +10,7 @@ class Provider(AddressProvider):
     city_prefixes = ('Saint ', 'Sainte ', 'San ', 'Ober', 'Unter')
     street_prefixes = ('rue', 'rue', 'chemin', 'avenue', 'boulevard')
 
-    address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
+    address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
 
@@ -21,36 +21,29 @@ class Provider(AddressProvider):
                     '{{last_name}}-près-{{last_name}}',
                     '{{last_name}}-sur-{{last_name}}',
                     '{{city_prefix}}{{last_name}}',
-                    '{{last_name}} ({{canton_code}})',)
+                    '{{last_name}} ({{canton_code}})')
 
     street_address_formats = ('{{street_name}}',
                               '{{street_name}} {{building_number}}',
                               '{{street_name}} {{building_number}}',
                               '{{street_name}} {{building_number}}',
                               '{{street_name}} {{building_number}}',
-                              '{{street_name}} {{building_number}}',)
+                              '{{street_name}} {{building_number}}')
     street_name_formats = ('{{street_prefix}} {{last_name}}',
                            '{{street_prefix}} {{first_name}} {{last_name}}',
-                           '{{street_prefix}} de {{last_name}}',)
+                           '{{street_prefix}} de {{last_name}}')
 
     postcode_formats = ('1###', '2###', '3###', '4###', '5###', '6###', '7###',
                         '8###', '9###')
 
     cantons = (('AG', 'Argovie'), ('AI', 'Appenzell Rhodes-Intérieures'),
                ('AR', 'Appenzell Rhodes-Extérieures'), ('BE', 'Berne'),
-               ('BL', 'Bâle-Campagne'), ('BS', 'Bâle-Ville'), ('FR',
-                                                               'Fribourg'),
-               ('GE', 'Genève'), ('GL', 'Glaris'), ('GR', 'Grisons'), ('JU',
-                                                                       'Jura'),
-               ('LU', 'Lucerne'), ('NE', 'Neuchâtel'), ('NW',
-                                                        'Nidwald'), ('OW',
-                                                                     'Obwald'),
+               ('BL', 'Bâle-Campagne'), ('BS', 'Bâle-Ville'), ('FR', 'Fribourg'),
+               ('GE', 'Genève'), ('GL', 'Glaris'), ('GR', 'Grisons'), ('JU', 'Jura'),
+               ('LU', 'Lucerne'), ('NE', 'Neuchâtel'), ('NW', 'Nidwald'), ('OW', 'Obwald'),
                ('SG', 'Saint-Gall'), ('SH', 'Schaffhouse'), ('SO', 'Soleure'),
-               ('SZ', 'Schwytz'), ('TG', 'Thurgovie'), ('TI',
-                                                        'Tessin'), ('UR',
-                                                                    'Uri'),
-               ('VD', 'Vaud'), ('VS', 'Valais'), ('ZG', 'Zoug'), ('ZH',
-                                                                  'Zurich'),)
+               ('SZ', 'Schwytz'), ('TG', 'Thurgovie'), ('TI', 'Tessin'), ('UR', 'Uri'),
+               ('VD', 'Vaud'), ('VS', 'Valais'), ('ZG', 'Zoug'), ('ZH', 'Zurich'))
 
     countries = (
         'Afghanistan', 'Afrique du sud', 'Albanie', 'Algérie', 'Allemagne',
@@ -104,7 +97,7 @@ class Provider(AddressProvider):
         'Turks et Caïques (Îles)', 'Turquie', 'Tuvalu', 'Ukraine', 'Uruguay',
         'Vanuatu', 'Vatican (Etat du)', 'Venezuela', 'Vierges (Îles)',
         'Vierges britanniques (Îles)', 'Vietnam', 'Wallis et Futuna (Îles)',
-        'Yemen', 'Yougoslavie', 'Zambie', 'Zaïre', 'Zimbabwe',)
+        'Yemen', 'Yougoslavie', 'Zambie', 'Zaïre', 'Zimbabwe')
 
     def street_prefix(self):
         """

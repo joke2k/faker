@@ -45,7 +45,7 @@ class TestBaseProvider(unittest.TestCase):
 
     def test_bad_country_code_representation(self):
         with self.assertRaises(ValueError):
-            country_code = Faker().country_code(representation='hello')
+            Faker().country_code(representation='hello')
 
 
 class TestAr_AA(unittest.TestCase):
@@ -71,7 +71,7 @@ class TestAr_AA(unittest.TestCase):
 
     def test_bad_country_code_representation(self):
         with self.assertRaises(ValueError):
-            country_code = Faker().country_code(representation='hello')
+            Faker().country_code(representation='hello')
 
 
 class TestDeAT(unittest.TestCase):
@@ -371,7 +371,11 @@ class TestHuHU(unittest.TestCase):
             assert pcd[2] > "0"
 
     def test_street_address(self):
-        """Tests street address. A street address must consist of a street name, a place type and a number, and end in a period point."""
+        """
+        Tests street address.
+
+        A street address must consist of a street name, a place type and a number, and end in a period point.
+        """
         address = self.factory.street_address()
         assert address[-1] == '.'
         # Check for correct capitalisation of place type

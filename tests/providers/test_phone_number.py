@@ -64,6 +64,7 @@ class TestPhoneNumber(unittest.TestCase):
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
 
+
 class TestHuHU(unittest.TestCase):
 
     def setUp(self):

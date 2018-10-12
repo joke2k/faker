@@ -26,7 +26,7 @@ class _IPv4Constants:
     _network_classes = {
         'a': ip_network('0.0.0.0/1'),
         'b': ip_network('128.0.0.0/2'),
-        'c': ip_network('192.0.0.0/3')
+        'c': ip_network('192.0.0.0/3'),
     }
 
     _linklocal_network = ip_network('169.254.0.0/16')
@@ -40,7 +40,7 @@ class _IPv4Constants:
     _private_networks = [
         ip_network('10.0.0.0/8'),
         ip_network('172.16.0.0/12'),
-        ip_network('192.168.0.0/16')
+        ip_network('192.168.0.0/16'),
     ]
 
     # List of networks from which IP addresses will never be generated,
@@ -61,11 +61,11 @@ class _IPv4Constants:
         ip_network('198.51.100.0/24'),
         ip_network('203.0.113.0/24'),
         ip_network('240.0.0.0/4'),
-        ip_network('255.255.255.255/32')
+        ip_network('255.255.255.255/32'),
     ] + [
         _linklocal_network,
         _loopback_network,
-        _multicast_network
+        _multicast_network,
     ]
 
 
@@ -73,20 +73,20 @@ class Provider(BaseProvider):
     safe_email_tlds = ('org', 'com', 'net')
     free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
     tlds = (
-        'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org'
+        'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
     )
 
     uri_pages = (
         'index', 'home', 'search', 'main', 'post', 'homepage', 'category',
-        'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author'
+        'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author',
     )
     uri_paths = (
         'app', 'main', 'wp-content', 'search', 'category', 'tag', 'categories',
-        'tags', 'blog', 'posts', 'list', 'explore'
+        'tags', 'blog', 'posts', 'list', 'explore',
     )
     uri_extensions = (
         '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
-        '.asp'
+        '.asp',
     )
 
     user_name_formats = (
@@ -111,7 +111,7 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'https://placeholdit.imgix.net/~text'
+        'https://placeholdit.imgix.net/~text',
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
@@ -119,7 +119,7 @@ class Provider(BaseProvider):
         'https://placeimg.com/{width}/{height}/any',
     )
 
-    replacements = tuple()
+    replacements = ()
 
     def _to_ascii(self, string):
         for search, replace in self.replacements:
@@ -140,7 +140,7 @@ class Provider(BaseProvider):
     @lowercase
     def safe_email(self):
         return '{}@example.{}'.format(
-            self.user_name(), self.random_element(self.safe_email_tlds)
+            self.user_name(), self.random_element(self.safe_email_tlds),
         )
 
     @lowercase
@@ -159,7 +159,7 @@ class Provider(BaseProvider):
     def ascii_email(self):
         pattern = self.random_element(self.email_formats)
         return self._to_ascii(
-            "".join(self.generator.parse(pattern).split(" "))
+            "".join(self.generator.parse(pattern).split(" ")),
         )
 
     @lowercase
@@ -167,26 +167,26 @@ class Provider(BaseProvider):
         return self._to_ascii(
             self.user_name() +
             '@example.' +
-            self.random_element(self.safe_email_tlds)
+            self.random_element(self.safe_email_tlds),
         )
 
     @lowercase
     def ascii_free_email(self):
         return self._to_ascii(
-            self.user_name() + '@' + self.free_email_domain()
+            self.user_name() + '@' + self.free_email_domain(),
         )
 
     @lowercase
     def ascii_company_email(self):
         return self._to_ascii(
-            self.user_name() + '@' + self.domain_name()
+            self.user_name() + '@' + self.domain_name(),
         )
 
     @slugify_unicode
     def user_name(self):
         pattern = self.random_element(self.user_name_formats)
         username = self._to_ascii(
-            self.bothify(self.generator.parse(pattern)).lower()
+            self.bothify(self.generator.parse(pattern)).lower(),
         )
         return username
 
@@ -210,7 +210,7 @@ class Provider(BaseProvider):
 
     @lowercase
     @slugify_unicode
-    def domain_word(self,):
+    def domain_word(self):
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = self._to_ascii(company_elements.pop(0))
@@ -232,7 +232,7 @@ class Provider(BaseProvider):
 
         pattern = '{}://{}'.format(
             self.random_element(schemes) if schemes else "",
-            self.random_element(self.url_formats)
+            self.random_element(self.url_formats),
         )
 
         return self.generator.parse(pattern)
@@ -247,14 +247,14 @@ class Provider(BaseProvider):
         """
         address = str(
             subnet[self.generator.random.randint(
-                0, subnet.num_addresses - 1
-            )]
+                0, subnet.num_addresses - 1,
+            )],
         )
 
         if network:
             address += '/' + str(self.generator.random.randint(
                 subnet.prefixlen,
-                subnet.max_prefixlen
+                subnet.max_prefixlen,
             ))
             address = str(ip_network(address, strict=False))
 
@@ -338,7 +338,7 @@ class Provider(BaseProvider):
         # exclude special networks
         all_networks = self._exclude_ipv4_networks(
             all_networks,
-            _IPv4Constants._excluded_networks
+            _IPv4Constants._excluded_networks,
         )
 
         # choose random network from the list
@@ -367,7 +367,7 @@ class Provider(BaseProvider):
         # exclude special networks
         private_networks = self._exclude_ipv4_networks(
             private_networks,
-            _IPv4Constants._excluded_networks
+            _IPv4Constants._excluded_networks,
         )
 
         # choose random private network from the list
@@ -392,7 +392,7 @@ class Provider(BaseProvider):
         public_networks = self._exclude_ipv4_networks(
             public_networks,
             _IPv4Constants._private_networks +
-            _IPv4Constants._excluded_networks
+            _IPv4Constants._excluded_networks,
         )
 
         # choose random public network from the list
@@ -419,7 +419,7 @@ class Provider(BaseProvider):
     def uri_path(self, deep=None):
         deep = deep if deep else self.generator.random.randint(1, 3)
         return "/".join(
-            self.random_elements(self.uri_paths, length=deep)
+            self.random_elements(self.uri_paths, length=deep),
         )
 
     def uri_extension(self):

@@ -52,7 +52,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
                     fake=signature,
                     separator=separator,
                     example=line[i * remains:(i + 1) * remains],
-                    margin=margin
+                    margin=margin,
                 ), file=output)
                 signature = separator = ' '
 
@@ -246,7 +246,7 @@ examples:
             logging.basicConfig(level=logging.CRITICAL)
 
         random.seed(arguments.seed)
-        seeds = random.sample(range(arguments.repeat*10),arguments.repeat)
+        seeds = random.sample(range(arguments.repeat*10), arguments.repeat)
 
         for i in range(arguments.repeat):
 
@@ -255,7 +255,7 @@ examples:
                       lang=arguments.lang,
                       output=arguments.o,
                       seed=seeds[i],
-                      includes=arguments.include
+                      includes=arguments.include,
                       )
             print(arguments.sep, file=arguments.o)
 

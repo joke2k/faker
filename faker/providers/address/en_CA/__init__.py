@@ -282,7 +282,7 @@ class Provider(AddressProvider):
     )
     street_name_formats = (
         '{{first_name}} {{street_suffix}}',
-        '{{last_name}} {{street_suffix}}'
+        '{{last_name}} {{street_suffix}}',
     )
     street_address_formats = (
         '{{building_number}} {{street_name}}',

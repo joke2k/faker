@@ -580,7 +580,8 @@ class Provider(AddressProvider):
         'Žbince', 'Ždaňa', 'Ždiar', 'Žehňa', 'Žehra', 'Železník', 'Želiezovce',
         'Želmanovce', 'Žemberovce', 'Žemliare', 'Žiar', 'Žiar',
         'Žiar nad Hronom', 'Žihárec', 'Žikava', 'Žilina', 'Žipov', 'Žirany',
-        'Žitavany', 'Žitavce', 'Žitná - Radiša', 'Žlkovce', 'Župčany', )
+        'Žitavany', 'Žitavce', 'Žitná - Radiša', 'Žlkovce', 'Župčany',
+    )
 
     streets = (
         'Adámiho', 'Agátová', 'Ahoj', 'Albánska', 'Albrechtova', 'Alejová',
@@ -985,12 +986,14 @@ class Provider(AddressProvider):
         'Železničná', 'Želiarska', 'Žellova', 'Žiacka', 'Žiarska', 'Židovská',
         'Žihľavová', 'Žilinská', 'Žilinská', 'Žitavská', 'Žitná', 'Živnostenská',
         'Žižkova', 'Žulová', 'Župné námestie', 'Borágova', 'Parenicová',
-        'Loparová', 'Jegnešská', 'Jonatanová', 'Monardová', 'Perličková', )
+        'Loparová', 'Jegnešská', 'Jonatanová', 'Monardová', 'Perličková',
+    )
 
     states = (
         'Bratislavský kraj', 'Trnavský kraj', 'Trenčiansky kraj',
         'Nitriansky kraj', 'Žilinský kraj', 'Banskobystrický kraj',
-        'Prešovský kraj', 'Košický kraj', )
+        'Prešovský kraj', 'Košický kraj',
+    )
 
     countries = (
         'Afganistan', 'Afghanistanská islamská republika', 'Ålandy',
@@ -1139,7 +1142,8 @@ class Provider(AddressProvider):
         'Republika Horná Volta', 'Vatikánsky mestský štát (Svätá stolica)',
         'Vietnamská demokratická republika', 'Wake',
         'Jemenská ľudovodemokratická republika', 'Jemenská arabská republika',
-        'Socialistická federatívna republika Juhoslávia', 'Zairská republika', )
+        'Socialistická federatívna republika Juhoslávia', 'Zairská republika',
+    )
 
     def street_suffix_short(self):
         return self.random_element(self.street_suffixes_short)

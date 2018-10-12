@@ -15,13 +15,13 @@ class Provider(AddressProvider):
     street_address_formats = ('{{street_name}} {{building_number}}', )
     address_formats = ('{{street_address}}\n{{postcode}} {{city}}', )
 
-    building_number_formats = ('###', '##', '#', '#/#', )
+    building_number_formats = ('###', '##', '#', '#/#')
 
     street_suffixes_long = (
-        'Gasse', 'Platz', 'Ring', 'Straße', 'Weg'
+        'Gasse', 'Platz', 'Ring', 'Straße', 'Weg',
     )
     street_suffixes_short = (
-        'gasse', 'platz', 'ring', 'straße', 'str.', 'weg'
+        'gasse', 'platz', 'ring', 'straße', 'str.', 'weg',
     )
 
     # https://en.wikipedia.org/wiki/List_of_postal_codes_in_Austria
@@ -34,7 +34,7 @@ class Provider(AddressProvider):
         '6###',
         '7###',
         '8###',
-        '9###'
+        '9###',
     )
 
     # https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Austria
@@ -70,13 +70,13 @@ class Provider(AddressProvider):
         'Traismauer', 'Traun', 'Trieben', 'Trofaiach', 'Tulln an der Donau', 'Villach', 'Vils',
         'Vöcklabruck', 'Voitsberg', 'Völkermarkt', 'Waidhofen an der Thaya', 'Waidhofen an der Ybbs',
         'Weitra', 'Weiz', 'Wels', 'Wien', 'Wiener Neustadt', 'Wieselburg', 'Wilhelmsburg', 'Wolfsberg',
-        'Wolkersdorf', 'Wörgl', 'Ybbs an der Donau', 'Zell am See', 'Zeltweg', 'Zistersdorf', 'Zwettl'
+        'Wolkersdorf', 'Wörgl', 'Ybbs an der Donau', 'Zell am See', 'Zeltweg', 'Zistersdorf', 'Zwettl',
     )
 
     # https://en.wikipedia.org/wiki/States_of_Austria
     states = (
         'Wien', 'Steiermark', 'Burgenland', 'Tirol', 'Niederösterreich',
-        'Oberösterreich', 'Salzburg', 'Kärnten', 'Vorarlberg'
+        'Oberösterreich', 'Salzburg', 'Kärnten', 'Vorarlberg',
     )
 
     countries = (

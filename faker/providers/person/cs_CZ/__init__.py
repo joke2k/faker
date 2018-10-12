@@ -9,14 +9,14 @@ class Provider(PersonProvider):
         ('{{first_name_female}} {{last_name_female}}', 0.97),
         ('{{prefix_female}} {{first_name_female}} {{last_name_female}}', 0.015),
         ('{{first_name_female}} {{last_name_female}} {{suffix}}', 0.02),
-        ('{{prefix_female}} {{first_name_female}} {{last_name_female}} {{suffix}}', 0.005)
+        ('{{prefix_female}} {{first_name_female}} {{last_name_female}} {{suffix}}', 0.005),
     ))
 
     formats_male = OrderedDict((
         ('{{first_name_male}} {{last_name_male}}', 0.97),
         ('{{prefix_male}} {{first_name_male}} {{last_name_male}}', 0.015),
         ('{{first_name_male}} {{last_name_male}} {{suffix}}', 0.02),
-        ('{{prefix_male}} {{first_name_male}} {{last_name_male}} {{suffix}}', 0.005)
+        ('{{prefix_male}} {{first_name_male}} {{last_name_male}} {{suffix}}', 0.005),
     ))
 
     formats = formats_male.copy()
@@ -336,6 +336,6 @@ class Provider(PersonProvider):
 
     prefixes_male = ('pan', ) + degrees
 
-    prefixes_female = ('paní', 'slečna', ) + degrees
+    prefixes_female = ('paní', 'slečna') + degrees
 
     suffixes = ('CSc.', 'DiS.', 'Ph.D.', 'Th.D.')

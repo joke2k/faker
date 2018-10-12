@@ -9,7 +9,7 @@ class Provider(CompanyProvider):
         '{{last_name}} {{company_suffix}}',
         '{{last_name}} {{last_name}} {{company_suffix}}',
         '{{last_name}} és {{last_name}} {{company_suffix}}',
-        '{{last_name}} és társa {{company_suffix}}'
+        '{{last_name}} és társa {{company_suffix}}',
     )
 
     company_suffixes = ('Kft.', 'Kht.', 'Zrt.', 'Bt.', 'Nyrt.', 'Kkt.')

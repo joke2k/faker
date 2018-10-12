@@ -7,11 +7,11 @@ class Provider(AddressProvider):
     city_prefixes = ('San', 'Borgo', 'Sesto', 'Quarto', 'Settimo')
     city_suffixes = ('a mare', 'lido', 'ligure', 'del friuli', 'salentino',
                      'calabro', 'veneto', 'nell\'emilia', 'umbro', 'laziale',
-                     'terme', 'sardo', )
+                     'terme', 'sardo')
     building_number_formats = ('###', '##', '#')
     street_suffixes = ('Piazza', 'Strada', 'Via', 'Borgo', 'Contrada',
                        'Rotonda', 'Incrocio', 'Viale', 'Stretto', 'Vicolo',
-                       'Canale', )
+                       'Canale')
     postcode_formats = ('#####', )
     states = ('Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Arezzo',
               'Ascoli Piceno', 'Asti', 'Avellino', 'Bari',
@@ -34,7 +34,7 @@ class Provider(AddressProvider):
               'Sondrio', 'Taranto', 'Teramo', 'Terni', 'Torino', 'Ogliastra',
               'Trapani', 'Trento', 'Treviso', 'Trieste', 'Udine', 'Varese',
               'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli', 'Verona',
-              'Vibo Valentia', 'Vicenza', 'Viterbo', )
+              'Vibo Valentia', 'Vicenza', 'Viterbo')
     states_abbr = ('AG', 'AL', 'AN', 'AO', 'AR', 'AP', 'AT', 'AV', 'BA', 'BT',
                    'BL', 'BN', 'BG', 'BI', 'BO', 'BZ', 'BS', 'BR', 'CA', 'CL',
                    'CB', 'CI', 'CE', 'CT', 'CZ', 'CH', 'CO', 'CS', 'CR', 'KR',
@@ -45,8 +45,7 @@ class Provider(AddressProvider):
                    'PE', 'PC', 'PI', 'PT', 'PN', 'PZ', 'PO', 'RG', 'RA', 'RC',
                    'RE', 'RI', 'RN', 'RM', 'RO', 'SA', 'VS', 'SS', 'SV', 'SI',
                    'SR', 'SO', 'TA', 'TE', 'TR', 'TO', 'OG', 'TP', 'TN', 'TV',
-                   'TS', 'UD', 'VA', 'VE', 'VB', 'VC', 'VR', 'VV', 'VI',
-                   'VT', )
+                   'TS', 'UD', 'VA', 'VE', 'VB', 'VC', 'VR', 'VV', 'VI', 'VT')
     countries = (
         'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra',
         'Angola', 'Anguilla', 'Antartide (territori a sud del 60° parallelo)',
@@ -101,17 +100,17 @@ class Provider(AddressProvider):
         'Emirati Arabi Uniti', 'Regno Unito', 'Stati Uniti d\'America',
         'United States Minor Outlying Islands', 'Isole Vergini Statunitensi',
         'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam',
-        'Wallis and Futuna', 'Western Sahara', 'Yemen', 'Zambia', 'Zimbabwe', )
+        'Wallis and Futuna', 'Western Sahara', 'Yemen', 'Zambia', 'Zimbabwe')
 
     city_formats = ('{{city_prefix}} {{first_name}} {{city_suffix}}',
                     '{{city_prefix}} {{first_name}}',
                     '{{first_name}} {{city_suffix}}',
-                    '{{last_name}} {{city_suffix}}', )
+                    '{{last_name}} {{city_suffix}}')
     street_name_formats = ('{{street_suffix}} {{first_name}}',
                            '{{street_suffix}} {{last_name}}')
     street_address_formats = (
         '{{street_name}} {{building_number}}',
-        '{{street_name}} {{building_number}} {{secondary_address}}', )
+        '{{street_name}} {{building_number}} {{secondary_address}}')
     address_formats = (
         "{{street_address}}\n{{city}}, {{postcode}} {{state}} ({{state_abbr}})",
     )

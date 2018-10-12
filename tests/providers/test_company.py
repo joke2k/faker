@@ -73,13 +73,7 @@ class TestHuHU(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('hu_HU')
-        self.valid_suffixes = ('Kft.',
-                          'Kht.',
-                          'Zrt.',
-                          'Bt.',
-                          'Nyrt.',
-                          'Kkt.')
-
+        self.valid_suffixes = ('Kft.', 'Kht.', 'Zrt.', 'Bt.', 'Nyrt.', 'Kkt.')
 
     def test_company_suffix(self):
         suffix = self.factory.company_suffix()

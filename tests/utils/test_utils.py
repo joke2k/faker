@@ -52,9 +52,9 @@ class UtilsTestCase(unittest.TestCase):
         assert len(set(samples)) == len(samples)
 
     def test_add_dicts(self):
-        t1 = {'a':1, 'b':2}
-        t2 = {'b':1, 'c':3}
-        t3 = {'d':4}
+        t1 = {'a': 1, 'b': 2}
+        t2 = {'b': 1, 'c': 3}
+        t3 = {'d': 4}
 
         result = add_dicts(t1, t2, t3)
         assert result == {'a': 1, 'c': 3, 'b': 3, 'd': 4}
@@ -88,6 +88,6 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.profile',
             'faker.providers.python',
             'faker.providers.ssn',
-            'faker.providers.user_agent'
+            'faker.providers.user_agent',
         ]))
         assert providers == expected_providers

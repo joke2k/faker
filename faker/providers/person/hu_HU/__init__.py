@@ -28,8 +28,8 @@ from .. import Provider as PersonProvider
 
 class Provider(PersonProvider):
     formats_male = OrderedDict((
-        ('{{last_name}} {{first_name_male}}',
-         0.1), ('{{last_name}} {{last_name}} {{first_name_male}}', 0.1),
+        ('{{last_name}} {{first_name_male}}', 0.1),
+        ('{{last_name}} {{last_name}} {{first_name_male}}', 0.1),
         ('{{last_name}} {{first_name_male}} {{first_name_male}}', 0.1),
         ('{{first_name_male_abbreviated}} {{last_name}} {{first_name_male}}', 0.1),
         ('{{last_name}} {{first_name_male_abbreviated}} {{first_name_male}}', 0.1),
@@ -37,7 +37,7 @@ class Provider(PersonProvider):
         ('{{prefix}} {{last_name}} {{last_name}} {{first_name_male}}', 0.05),
         ('{{prefix}} {{last_name}} {{first_name_male}} {{first_name_male}}', 0.05),
         ('{{prefix}} {{first_name_male_abbreviated}} {{last_name}} {{first_name_male}}', 0.05),
-        ('{{prefix}} {{last_name}} {{first_name_male_abbreviated}} {{first_name_male}}', 0.05),))
+        ('{{prefix}} {{last_name}} {{first_name_male_abbreviated}} {{first_name_male}}', 0.05)))
 
     formats_female = OrderedDict((
         ('{{last_name}} {{first_name_female}}', 0.1),

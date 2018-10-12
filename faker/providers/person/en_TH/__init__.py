@@ -187,4 +187,4 @@ class Provider(PersonProvider):
         "Sittisaowapak", "Suraprachit", "Kongsri", "Trikasemmart", "Habpanom",
         "Wannapaitoonsri", "Vinyuvanichkul", "Pongpanitch", "Permchart", "Chaihirankarn",
         "Thantananont", "Norramon", "Prayoonhong", "Lertsattayanusak", "Polauaypon",
-        "Prakalpawong", "Titipatrayunyong", "Krittayanukoon", "Siripaiboo",)
+        "Prakalpawong", "Titipatrayunyong", "Krittayanukoon", "Siripaiboo")

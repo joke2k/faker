@@ -102,11 +102,10 @@ class Factory(object):
                 locale = getattr(
                     provider_module, 'default_locale', DEFAULT_LOCALE)
                 logger.debug('Specified locale `{}` is not available for '
-                               'provider `{}`. Locale reset to `{}` for this '
-                               'provider.'.format(unavailable_locale,
-                                                  provider_module.__name__,
-                                                  locale)
-                               )
+                             'provider `{}`. Locale reset to `{}` for this '
+                             'provider.'.format(
+                                 unavailable_locale, provider_module.__name__, locale),
+                             )
             else:
                 logger.debug('Provider `{}` has been localized to `{}`.'.format(
                     provider_module.__name__, locale))
@@ -120,10 +119,10 @@ class Factory(object):
         else:
 
             logger.debug('Provider `{}` does not feature localization. '
-                        'Specified locale `{}` is not utilized for this '
-                        'provider.'.format(
-                            provider_module.__name__, locale)
-                        )
+                         'Specified locale `{}` is not utilized for this '
+                         'provider.'.format(
+                             provider_module.__name__, locale),
+                         )
 
             if locale is not None:
                 provider_module = import_module(provider_path)

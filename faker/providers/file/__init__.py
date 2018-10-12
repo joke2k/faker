@@ -25,7 +25,13 @@ class Provider(BaseProvider):
         #   The "type" attribute of the <script> tag in HTML5 is optional and in practice
         #   omitting the media type of JavaScript programs is the most interoperable
         #   solution since all browsers have always assumed the correct
-        #   default even before HTML5.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        "application/octet-stream",  # Arbitrary binary data.[6] Generally speaking this type identifies files that are not associated with a specific application. Contrary to past assumptions by software packages such as Apache this is not a type that should be applied to unknown files. In such a case, a server or application should not indicate a content type, as it may be incorrect, but rather, should omit the type in order to allow the recipient to guess the type.[7]
+        #   default even before HTML5.
+        "application/octet-stream",
+        # Arbitrary binary data.[6] Generally speaking this type identifies files that are not associated with
+        # a specific application. Contrary to past assumptions by software packages such as Apache this is not
+        # a type that should be applied to unknown files. In such a case, a server or application should not indicate
+        # a content type, as it may be incorrect, but rather, should omit the type in order to allow the recipient
+        # to guess the type.[7]
         "application/ogg",  # Ogg, a multimedia bitstream container format; Defined in RFC 5334
         "application/pdf",  # Portable Document Format, PDF has been in use for document exchange
         #   on the Internet since 1993; Defined in RFC 3778
@@ -60,7 +66,8 @@ class Provider(BaseProvider):
         "image/gif",  # GIF image; Defined in RFC 2045 and RFC 2046
         "image/jpeg",  # JPEG JFIF image; Defined in RFC 2045 and RFC 2046
         "image/pjpeg",
-        # JPEG JFIF image; Associated with Internet Explorer; Listed in ms775147(v=vs.85) - Progressive JPEG, initiated before global browser support for progressive JPEGs (Microsoft and Firefox).
+        # JPEG JFIF image; Associated with Internet Explorer; Listed in ms775147(v=vs.85) - Progressive JPEG,
+        # initiated before global browser support for progressive JPEGs (Microsoft and Firefox).
         # Portable Network Graphics; Registered,[10] Defined in RFC 2083
         "image/png",
         "image/svg+xml",  # SVG vector image; Defined in SVG Tiny 1.2 Specification Appendix M
@@ -106,7 +113,11 @@ class Provider(BaseProvider):
         "text/csv",  # Comma-separated values; Defined in RFC 4180
         "text/html",  # HTML; Defined in RFC 2854
         "text/javascript",
-        # (Obsolete): JavaScript; Defined in and obsoleted by RFC 4329 in order to discourage its usage in favor of application/javascript. However, text/javascript is allowed in HTML 4 and 5 and, unlike application/javascript, has cross-browser support. The "type" attribute of the <script> tag in HTML5 is optional and there is no need to use it at all since all browsers have always assumed the correct default (even in HTML 4 where it was required by the specification).
+        # (Obsolete): JavaScript; Defined in and obsoleted by RFC 4329 in order to discourage its usage in favor of
+        # application/javascript. However, text/javascript is allowed in HTML 4 and 5 and, unlike
+        # application/javascript, has cross-browser support. The "type" attribute of the <script> tag in HTML5 is
+        # optional and there is no need to use it at all since all browsers have always assumed the correct default
+        # (even in HTML 4 where it was required by the specification).
         "text/plain",  # Textual data; Defined in RFC 2046 and RFC 3676
         "text/vcard",  # vCard (contact information); Defined in RFC 6350
         "text/xml",  # Extensible Markup Language; Defined in RFC 3023
@@ -189,7 +200,7 @@ class Provider(BaseProvider):
         ("text", text_file_extensions),
         ("video", video_file_extensions),
     ))
-    unix_device_prefixes = ('sd', 'vd', 'xvd',)
+    unix_device_prefixes = ('sd', 'vd', 'xvd')
 
     def mime_type(self, category=None):
         """

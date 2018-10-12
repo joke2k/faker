@@ -392,7 +392,7 @@ class Provider(PersonProvider):
         'Villalonga', 'Villanueva', 'Villar', 'Villaverde', 'Villegas', 'Villena', 'Vives',
         'Vizcaíno', 'Viña', 'Viñas', 'Vázquez', 'Vélez', 'Yuste', 'Yáñez',
         'Zabala', 'Zabaleta', 'Zamora', 'Zamorano', 'Zapata', 'Zaragoza', 'Zorrilla',
-        'Zurita', 'Águila', 'Álamo', 'Álvarez', 'Álvaro', 'Ángel', 'Ávila'
+        'Zurita', 'Águila', 'Álamo', 'Álvarez', 'Álvaro', 'Ángel', 'Ávila',
     )
 
     prefixes = ('de', 'del')

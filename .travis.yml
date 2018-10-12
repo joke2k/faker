@@ -23,9 +23,13 @@ matrix:
       env: TOXENV=pypy
     - python: pypy3
       env: TOXENV=pypy3
+    - python: 3.7
+      env: TOXENV=flake8
+      sudo: required
+      dist: xenial
 
 before_install:
-    - pip install pep8
+  - pip install pep8
 install:
   - pip install tox
 script:

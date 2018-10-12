@@ -13,7 +13,7 @@ class Provider(InternetProvider):
         '{{first_name}}_##',
         '?{{last_name}}',
         '{{first_name}}{{year}}',
-        '{{first_name}}_{{year}}'
+        '{{first_name}}_{{year}}',
     )
 
     email_formats = (
@@ -42,5 +42,5 @@ class Provider(InternetProvider):
         ('н', 'n'), ('о', 'o'), ('п', 'p'), ('р', 'r'), ('с', 's'), ('т', 't'),
         ('у', 'u'), ('ф', 'f'), ('х', 'h'), ('ц', 'ts'), ('ч', 'ch'),
         ('ш', 'sh'), ('щ', 'shch'), ('ъ', ''), ('ы', 'i'), ('ь', ''),
-        ('э', 'e'), ('ю', 'ju'), ('я', 'ja')
+        ('э', 'e'), ('ю', 'ju'), ('я', 'ja'),
     )

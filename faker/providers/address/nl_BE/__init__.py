@@ -5,7 +5,7 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    building_number_formats = ('#', '##', '###', '#', '##', '###',)
+    building_number_formats = ('#', '##', '###', '#', '##', '###')
 
     street_suffixes = (
         'baan', 'boulevard', 'dreef', 'hof', 'laan', 'lei', 'pad',
@@ -552,12 +552,12 @@ class Provider(AddressProvider):
         "Zolder", "Zomergem", "Zonhoven", "Zonnebeke", "Zonnegem", "Zottegem",
         "Zoutenaaie", "Zoutleeuw", "Zuidschote", "Zuienkerke", "Zulte", "Zulzeke",
         "Zutendaal", "Zwalm", "Zwevegem", "Zwevezele", "Zwijnaarde", "Zwijndrecht",
-        "Zétrud-Lumay", "l'Escaillère"
+        "Zétrud-Lumay", "l'Escaillère",
     )
 
     provinces = (
         "Antwerpen", "Henegouwen", "Limburg", "Luik", "Luxemburg", "Namen",
-        "Oost-Vlaanderen", "Vlaams-Brabant", "Waals-Brabant", "West-Vlaanderen"
+        "Oost-Vlaanderen", "Vlaams-Brabant", "Waals-Brabant", "West-Vlaanderen",
     )
 
     street_name_formats = (

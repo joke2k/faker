@@ -268,7 +268,7 @@ class Provider(AddressProvider):
         'SA', 'SE', 'SG', 'SK', 'SL', 'SM', 'SN', 'SO', 'SP', 'SR',
         'SS', 'ST', 'SW', 'SY', 'TA', 'TD', 'TF', 'TN', 'TQ', 'TR',
         'TS', 'TW', 'UB', 'W', 'WA', 'WC', 'WD', 'WF', 'WN', 'WR',
-        'WS', 'WV', 'YO', 'ZE'
+        'WS', 'WV', 'YO', 'ZE',
     )
 
     POSTAL_ZONES_ONE_CHAR = [zone for zone in POSTAL_ZONES if len(zone) == 1]
@@ -302,7 +302,7 @@ class Provider(AddressProvider):
     )
     street_name_formats = (
         '{{first_name}} {{street_suffix}}',
-        '{{last_name}} {{street_suffix}}'
+        '{{last_name}} {{street_suffix}}',
     )
     street_address_formats = (
         '{{building_number}} {{street_name}}',
@@ -316,7 +316,8 @@ class Provider(AddressProvider):
 
     def postcode(self):
         """
-        See http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
+        See
+        http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
         """
         postcode = ''
         pattern = self.random_element(self.postcode_formats)

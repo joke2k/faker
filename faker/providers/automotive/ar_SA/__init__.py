@@ -49,7 +49,7 @@ class Provider(AutomotiveProvider):
 
     def license_plate_en(self):
         return self.bothify(
-            self.LICENSE_FORMAT_EN, letters=self.PLATE_CHARS_EN
+            self.LICENSE_FORMAT_EN, letters=self.PLATE_CHARS_EN,
         )
 
     def license_plate_ar(self):
@@ -63,12 +63,12 @@ class Provider(AutomotiveProvider):
         numerated = re.sub(
             r'\#',
             lambda x: self.PLATE_MAP[nums.pop()],
-            self.LICENSE_FORMAT_AR
+            self.LICENSE_FORMAT_AR,
         )
         ar_plate = re.sub(
             r'\?',
             lambda x: self.PLATE_MAP[chars.pop()],
-            numerated
+            numerated,
         )
 
         return ar_plate

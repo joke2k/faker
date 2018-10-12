@@ -226,5 +226,5 @@ class Provider(LoremProvider):
         u'自体',
         u'あなた自身',
         u'じぶんの',
-        u'鉱山'
+        u'鉱山',
     )

@@ -8,7 +8,7 @@ class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
-        '{{last_name}}, {{first_name}}'
+        '{{last_name}}, {{first_name}}',
     )
 
     first_names = (
@@ -41,7 +41,7 @@ class Provider(PersonProvider):
         'Paula', 'Paulīna', 'Rasma', 'Regīna', 'Rita', 'Rudīte', 'Ruta', 'Rute', 'Samanta', 'Sandra', 'Sanita',
         'Santa', 'Sapa', 'Sarmīte', 'Silvija', 'Sintija', 'Skaidrīte', 'Solvita', 'Tekla', 'Trīne', 'Valda',
         'Valentīna', 'Valija', 'Velta', 'Veneranda', 'Vera', 'Veronika', 'Vija', 'Vilma', 'Vineta', 'Vita', 'Zane',
-        'Zelma', 'Zenta', 'Zigrīda'
+        'Zelma', 'Zenta', 'Zigrīda',
     )
 
     last_names = (

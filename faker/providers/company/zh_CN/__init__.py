@@ -4,7 +4,7 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
-    formats = ["{{company_prefix}}{{company_suffix}}", ]
+    formats = ["{{company_prefix}}{{company_suffix}}"]
 
     company_prefixes = ["超艺", "和泰", "九方", "鑫博腾飞", "戴硕电子", "济南亿次元",
                         "海创", "创联世纪", "凌云", "泰麒麟", "彩虹", "兰金电子",

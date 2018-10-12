@@ -6,5 +6,5 @@ class Provider(PhoneNumberProvider):
     formats = (
         '+371 ########',
         '+(371) ########',
-        '+371########'
+        '+371########',
     )

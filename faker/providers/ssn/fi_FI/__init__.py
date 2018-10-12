@@ -50,8 +50,5 @@ class Provider(SsnProvider):
         elif 1800 <= year < 1900:
             separator = '+'
         else:
-            raise ValueError(
-                'Finnish SSN do not support people born '
-                'before the year 1800 or after the year 2999'
-            )
+            raise ValueError('Finnish SSN do not support people born before the year 1800 or after the year 2999')
         return separator

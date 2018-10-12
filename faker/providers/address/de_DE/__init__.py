@@ -15,7 +15,7 @@ class Provider(AddressProvider):
     street_address_formats = ('{{street_name}} {{building_number}}', )
     address_formats = ('{{street_address}}\n{{postcode}} {{city}}', )
 
-    building_number_formats = ('###', '##', '#', '#/#', )
+    building_number_formats = ('###', '##', '#', '#/#')
 
     street_suffixes_long = (
         'Gasse', 'Platz', 'Ring', 'Straße', 'Weg', 'Allee',

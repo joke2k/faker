@@ -39,5 +39,5 @@ class Provider(AutomotiveProvider):
         # Saskatchewan
         '### ???',
         # Yukon
-        '???##'
+        '???##',
     )

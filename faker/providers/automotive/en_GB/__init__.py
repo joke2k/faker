@@ -9,5 +9,5 @@ class Provider(AutomotiveProvider):
     # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_Kingdom
     license_formats = (
         '??## ???',
-        '??##???'
+        '??##???',
     )

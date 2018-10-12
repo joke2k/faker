@@ -29,7 +29,7 @@ class Provider(DateTimeProvider):
         '09': 'wrzesień',
         '10': 'październik',
         '11': 'listopad',
-        '12': 'grudzień'
+        '12': 'grudzień',
     }
 
     def day_of_week(self):

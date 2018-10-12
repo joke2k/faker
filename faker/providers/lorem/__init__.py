@@ -1,10 +1,9 @@
+from .. import BaseProvider
+
 localized = True
 
 # 'Latin' is the default locale
 default_locale = 'la'
-
-
-from .. import BaseProvider
 
 
 class Provider(BaseProvider):
@@ -120,7 +119,7 @@ class Provider(BaseProvider):
             nb_sentences = self.randomize_nb_elements(nb_sentences, min=1)
 
         para = self.word_connector.join(self.sentences(
-            nb_sentences, ext_word_list=ext_word_list
+            nb_sentences, ext_word_list=ext_word_list,
         ))
 
         return para

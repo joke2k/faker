@@ -7,11 +7,11 @@ class Provider(CompanyProvider):
         '{{last_name}} {{company_suffix}}',
         '{{last_name}} {{last_name}} {{company_suffix}}',
         '{{last_name}} {{last_name}} {{company_suffix}}',
-        '{{last_name}}'
+        '{{last_name}}',
     )
 
     company_suffixes = (
-        'As Oy', 'Tmi', 'Oy', 'Oyj', 'Ky', 'Osk', 'ry'
+        'As Oy', 'Tmi', 'Oy', 'Oyj', 'Ky', 'Osk', 'ry',
     )
 
     def company_business_id(self):

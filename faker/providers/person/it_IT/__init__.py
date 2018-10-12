@@ -12,7 +12,7 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{prefix}} {{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}'
+        '{{prefix}} {{first_name}} {{last_name}}',
     )
 
     first_names = (
@@ -71,7 +71,7 @@ class Provider(PersonProvider):
         'Oretta', 'Ortensia', 'Penelope', 'Piccarda', 'Prisca', 'Rebecca', 'Rita', 'Rosalba', 'Rosaria', 'Rosita',
         'Ruth', 'Samira',
         'Sarita', 'Selvaggia', 'Shaira', 'Sibilla', 'Soriana', 'Sue ellen', 'Thea', 'Tosca', 'Ursula', 'Vania', 'Vera',
-        'Vienna', 'Violante', 'Vitalba', 'Zelida'
+        'Vienna', 'Violante', 'Vitalba', 'Zelida',
     )
 
     last_names = (

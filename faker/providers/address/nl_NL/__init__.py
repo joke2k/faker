@@ -5,7 +5,7 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    building_number_formats = ('#', '##', '###', '#', '##', '###',)
+    building_number_formats = ('#', '##', '###', '#', '##', '###')
 
     street_suffixes = (
         'baan', 'boulevard', 'dreef', 'hof', 'laan', 'pad',
@@ -14,7 +14,7 @@ class Provider(AddressProvider):
 
     # the 4 digit numerical part of Dutch postcodes is between 1000 and 9999;
     # see http://nl.wikipedia.org/wiki/Postcode#Postcodes_in_Nederland
-    postcode_formats = ('%###??', '%### ??',)
+    postcode_formats = ('%###??', '%### ??')
 
     city_formats = ('{{city}}',)
 

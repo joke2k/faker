@@ -23,5 +23,5 @@ class Provider(InternetProvider):
         'net.nz',
         'school.nz',
         'ac.nz',
-        'maori.nz'
+        'maori.nz',
     )

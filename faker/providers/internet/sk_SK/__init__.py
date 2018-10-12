@@ -32,4 +32,4 @@ class Provider(InternetProvider):
         'inmail.sk',
     )
 
-    tlds = ('sk', 'com',)
+    tlds = ('sk', 'com')

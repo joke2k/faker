@@ -97,7 +97,8 @@ class Provider(AddressProvider):
         '7###',
         # NT
         '08##',
-        '09##', )
+        '09##',
+    )
 
     states = ('Australian Capital Territory', 'New South Wales',
               'Northern Territory', 'Queensland', 'South Australia',
@@ -108,14 +109,15 @@ class Provider(AddressProvider):
     city_formats = ('{{city_prefix}} {{first_name}}{{city_suffix}}',
                     '{{city_prefix}} {{first_name}}',
                     '{{first_name}}{{city_suffix}}',
-                    '{{last_name}}{{city_suffix}}', )
+                    '{{last_name}}{{city_suffix}}')
 
     street_name_formats = ('{{first_name}} {{street_suffix}}',
                            '{{last_name}} {{street_suffix}}')
 
     street_address_formats = (
         '{{building_number}} {{street_name}}',
-        '{{secondary_address}}\n {{building_number}} {{street_name}}', )
+        '{{secondary_address}}\n {{building_number}} {{street_name}}',
+    )
 
     address_formats = (
         "{{street_address}}\n{{city}}, {{state_abbr}}, {{postcode}}", )

@@ -52,7 +52,7 @@ class Provider(AddressProvider):
         'Toivakka', 'Tornio', 'Turku', 'Pello', 'Tuusniemi', 'Tuusula', 'Tyrnävä', 'Ulvila', 'Urjala', 'Utajärvi',
         'Utsjoki', 'Uurainen', 'Uusikaarlepyy', 'Uusikaupunki', 'Vaasa', 'Valkeakoski', 'Valtimo', 'Varkaus', 'Vehmaa',
         'Vesanto', 'Vesilahti', 'Veteli', 'Vieremä', 'Vihti', 'Viitasaari', 'Vimpeli', 'Virolahti', 'Virrat', 'Värdö',
-        'Vöyri', 'Ylitornio', 'Ylivieska', 'Ylöjärvi', 'Ypäjä', 'Ähtäri', 'Äänekoski'
+        'Vöyri', 'Ylitornio', 'Ylivieska', 'Ylöjärvi', 'Ypäjä', 'Ähtäri', 'Äänekoski',
     )
 
     countries = (
@@ -115,7 +115,7 @@ class Provider(AddressProvider):
         'Hämeen lääni', 'Mikkelin lääni', 'Kuopion lääni', 'Ahvenanmaan lääni',
         'Petsamon lääni', 'Lapin lääni', 'Kymen lääni', 'Keski-Suomen lääni',
         'Pohjois-Karjalan lääni', 'Etelä-Suomen lääni', 'Länsi-Suomen lääni',
-        'Itä-Suomen lääni'
+        'Itä-Suomen lääni',
     )
 
     street_suffixes = ('tie', 'katu', 'polku', 'kuja', 'bulevardi')
@@ -151,7 +151,7 @@ class Provider(AddressProvider):
         'Vesakko', 'Vesalan', 'Vellikellon', 'Verkko', 'Verso', 'Vaakalinnun', 'Vaarna', 'Wavulinin',
         'Walentin Chorellin ', 'Wallinin', 'Waseniuksen puisto', 'Wecksellin', 'Willebrandin', 'Winqvistin',
         'Wäinö Aaltosen ', 'Werner Wirénin ', 'Yhteiskoulun', 'Ylipalon', 'Yllästunturin', 'Ylä-Fallin ', 'Yläkasken',
-        'Ylänkö', 'Ylätuvan', 'Yrjö-Koskisen ', 'Yrjön', 'Yrttimaan', 'Zaidan'
+        'Ylänkö', 'Ylätuvan', 'Yrjö-Koskisen ', 'Yrjön', 'Yrttimaan', 'Zaidan',
     )
 
     def street_prefix(self):

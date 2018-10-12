@@ -25,7 +25,7 @@ class Provider(PersonProvider):
     formats = formats_female + formats_male
 
     prefixes = (
-        'Herra', 'hra', 'Rouva', 'rva', 'Tohtori', 'tri', 'prof.', 'arkkit.'
+        'Herra', 'hra', 'Rouva', 'rva', 'Tohtori', 'tri', 'prof.', 'arkkit.',
     )
 
     suffixes = ('DI', 'PhD', 'MSc', 'BSc')
@@ -231,7 +231,7 @@ class Provider(PersonProvider):
         ('Vilhelmiina', 0.002004),
         ('Vilma', 0.001724),
         ('Virpi', 0.00213),
-        ('Vuokko', 0.001466)
+        ('Vuokko', 0.001466),
     ))
     first_names_male = OrderedDict((
         ('Aapo', 0.001263),
@@ -432,7 +432,7 @@ class Provider(PersonProvider):
         ('Viljami', 0.003563),
         ('Viljo', 0.00154),
         ('Ville', 0.007025),
-        ('Yrjö', 0.001912)
+        ('Yrjö', 0.001912),
     ))
 
     first_names = first_names_male.copy()
@@ -840,5 +840,5 @@ class Provider(PersonProvider):
         ('Vuorinen', 0.003188),
         ('Ylinen', 0.00105),
         ('Ylitalo', 0.001438),
-        ('Ylönen', 0.00125)
+        ('Ylönen', 0.00125),
     ))

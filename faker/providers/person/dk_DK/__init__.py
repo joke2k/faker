@@ -18,7 +18,7 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
     first_names_male = (
@@ -117,9 +117,9 @@ class Provider(PersonProvider):
     )
 
     prefixes_male = (
-        'Hr', 'Dr.', 'Prof.', 'Univ.Prof.'
+        'Hr', 'Dr.', 'Prof.', 'Univ.Prof.',
     )
 
     prefixes_female = (
-        'Fru', 'Dr.', 'Prof.', 'Univ.Prof.'
+        'Fru', 'Dr.', 'Prof.', 'Univ.Prof.',
     )

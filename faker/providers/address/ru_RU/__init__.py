@@ -5,17 +5,15 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    #city_suffixes = []
-    street_suffixes = ['ул.', ]
+    street_suffixes = ['ул.']
     city_formats = ('{{city_prefix}} {{city_name}}', )
     street_name_formats = ('{{street_suffix}} {{street_title}}', )
     street_address_formats = ('{{street_name}}, д. {{building_number}}', )
     address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
-    # building_number_formats = ('##', )
     postcode_formats = ('######', )
 
     city_prefixes = (
-        'г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.'
+        'г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.',
     )
 
     street_titles = (
@@ -124,7 +122,7 @@ class Provider(AddressProvider):
         'Культуры', 'Мая 1', 'Минина', 'Машиностроителей', 'Детская', 'ДОС',
         'Тюленина', 'Запорожская', 'Дальневосточная', 'Громова', 'О.Кошевого',
         'Балтийская', 'Р.Люксембург', 'Февральская', 'Толбухина', 'Лунная',
-        'Дарвина', 'З.Космодемьянской', 'Высотная', 'Рязанская', 'Малиновая'
+        'Дарвина', 'З.Космодемьянской', 'Высотная', 'Рязанская', 'Малиновая',
     )
 
     city_names = (
@@ -252,7 +250,7 @@ class Provider(AddressProvider):
         'Энгельс', 'Югорск', 'Южно-Курильск', 'Южно-Сахалинск', 'Южноуральск',
         'Юровск', 'Юрьев-Польский', 'Юрьевец (Иван.)', 'Юрюзань', 'Якутск',
         'Якша', 'Ялуторовск', 'Ямбург', 'Яр-Сале', 'Ярославль',
-        'Ясный (Оренб.)', 'Яхрома', 'Яшалта', 'Яшкуль'
+        'Ясный (Оренб.)', 'Яхрома', 'Яшалта', 'Яшкуль',
     )
 
     def city_prefix(self):

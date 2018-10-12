@@ -21,7 +21,7 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}} {{suffix_male}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix_male}}'
+        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix_male}}',
     )
 
     formats = formats_male + formats_female

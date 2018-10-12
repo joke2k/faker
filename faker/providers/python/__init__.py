@@ -29,7 +29,7 @@ class Provider(BaseProvider):
             return "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
-                )
+                ),
             )
 
     def pyfloat(self, left_digits=None, right_digits=None, positive=False):
@@ -53,7 +53,7 @@ class Provider(BaseProvider):
 
         return float("{0}.{1}".format(
             sign * self.random_number(left_digits),
-            self.random_number(right_digits)
+            self.random_number(right_digits),
         ))
 
     def pyint(self):
@@ -133,7 +133,7 @@ class Provider(BaseProvider):
 
         return dict(zip(
             self.generator.words(nb_elements),
-            self._pyiterable(nb_elements, False, *value_types)
+            self._pyiterable(nb_elements, False, *value_types),
         ))
 
     def pystruct(self, count=10, *value_types):
@@ -146,12 +146,12 @@ class Provider(BaseProvider):
             value_types = ['str', 'str', 'str', 'str', 'float',
                            'int', 'int', 'decimal', 'date_time', 'uri', 'email']
 
-        l = []
+        types = []
         d = {}
         nd = {}
         for i in range(count):
             d[self.generator.word()] = self._random_type(value_types)
-            l.append(self._random_type(value_types))
+            types.append(self._random_type(value_types))
             nd[self.generator.word()] = {i: self._random_type(value_types),
                                          i + 1: [self._random_type(value_types),
                                                  self._random_type(value_types),
@@ -160,4 +160,4 @@ class Provider(BaseProvider):
                                                  i + 1: self._random_type(value_types),
                                                  i + 2: [self._random_type(value_types),
                                                          self._random_type(value_types)]}}
-        return l, d, nd
+        return types, d, nd

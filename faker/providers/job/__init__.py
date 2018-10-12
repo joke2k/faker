@@ -1,7 +1,7 @@
 # coding=utf-8
-localized = True
-
 from .. import BaseProvider
+
+localized = True
 
 
 class Provider(BaseProvider):

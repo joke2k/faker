@@ -54,7 +54,6 @@ class Provider(InternetProvider):
             return domain_word + '.' + self.tld()
         elif levels == 2:
             my_tld = self.tld()
-            my_second_level = ''
             if my_tld == 'cn':
                 my_second_level = self.random_element(self.second_level_domains)
             else:
@@ -62,4 +61,3 @@ class Provider(InternetProvider):
             return self.domain_word() + '.' + my_second_level + '.' + my_tld
         else:
             return self.domain_word() + '.' + self.domain_name(levels - 1)
-

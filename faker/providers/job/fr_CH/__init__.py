@@ -88,8 +88,10 @@ class Provider(BaseProvider):
         "Assistant-constructeur de fondations AFP (champ professionnel Construction de voies de communication)",
         "Assistant-constructeur de routes AFP (champ professionnel Construction de voies de communication)",
         "Assistant-constructeur de routes AFP (champ professionnel Construction de voies de communication)",
-        "Assistant-constructeur de sols industriels et de chapes AFP (champ professionnel Construction de voies de communication)",
-        "Assistant-constructeur de sols industriels et de chapes AFP (champ professionnel Construction de voies de communication)",
+        "Assistant-constructeur de sols industriels et de chapes AFP "
+        "(champ professionnel Construction de voies de communication)",
+        "Assistant-constructeur de sols industriels et de chapes AFP "
+        "(champ professionnel Construction de voies de communication)",
         "Assistant-constructeur de voies ferrées AFP (champ professionnel Construction de voies de communication)",
         "Audioprothésiste avec brevet fédéral",
         "Automaticien CFC",
@@ -205,8 +207,10 @@ class Provider(BaseProvider):
         "Constructeur de fondations CFC (champ professionnel Construction de voies de communication)",
         "Constructeur de routes CFC (champ professionnel Construction de voies de communication)",
         "Constructeur de routes CFC (champ professionnel Construction de voies de communication)",
-        "Constructeur de sols industriels et de chapes CFC (champ professionnel Construction de voies de communication)",
-        "Constructeur de sols industriels et de chapes CFC (champ professionnel Construction de voies de communication)",
+        "Constructeur de sols industriels et de chapes CFC "
+        "(champ professionnel Construction de voies de communication)",
+        "Constructeur de sols industriels et de chapes CFC "
+        "(champ professionnel Construction de voies de communication)",
         "Constructeur de voies ferrées CFC (champ professionnel Construction de voies de communication)",
         "Constructeur de voies ferrées CFC (champ professionnel Construction de voies de communication)",
         "Constructeur d’appareils industriels CFC",
@@ -215,13 +219,18 @@ class Provider(BaseProvider):
         "Constructeur naval, maître",
         "Contact Center Supervisor avec brevet fédéral",
         "Contremaître charpentier avec brevet fédéral",
-        "Contremaître de construction de fondations avec brevet fédéral (champ professionnel Construction de voies de communication)",
-        "Contremaître de construction de routes avec brevet fédéral (champ professionnel Construction de voies de communication)",
-        "Contremaître de construction de sols industriels et de chapes avec brevet fédéral (champ professionnel Construction de voies de communication)",
+        "Contremaître de construction de fondations avec brevet fédéral "
+        "(champ professionnel Construction de voies de communication)",
+        "Contremaître de construction de routes avec brevet fédéral "
+        "(champ professionnel Construction de voies de communication)",
+        "Contremaître de construction de sols industriels et de chapes avec brevet fédéral "
+        "(champ professionnel Construction de voies de communication)",
         "Contremaître de sciage d'édifice avec brevet fédéral",
-        "Contremaître de voies ferrées avec brevet fédéral (champ professionnel Construction de voies de communication)",
+        "Contremaître de voies ferrées avec brevet fédéral "
+        "(champ professionnel Construction de voies de communication)",
         "Contremaître en chauffage avec brevet fédéral",
-        "Contremaître en entretien de routes avec brevet fédéral (champ professionnel Construction de voies de communication)",
+        "Contremaître en entretien de routes avec brevet fédéral "
+        "(champ professionnel Construction de voies de communication)",
         "Contremaître en ferblanterie avec brevet fédéral",
         "Contremaître en ventilation avec brevet fédéral",
         "Contremaître forestier avec brevet fédéral",
@@ -660,9 +669,12 @@ class Provider(BaseProvider):
         "Projeteur constructeur sur métal avec brevet fédéral",
         "Projeteur en sanitaire avec diplôme fédéral",
         "Projeteur en technique du bâtiment",
-        "Projeteur en technique du bâtiment chauffage CFC (champ professionnel Planification en technique du bâtiment)",
-        "Projeteur en technique du bâtiment sanitaire CFC (champ professionnel Planification en technique du bâtiment)",
-        "Projeteur en technique du bâtiment ventilation CFC (champ professionnel Planification en technique du bâtiment)",
+        "Projeteur en technique du bâtiment chauffage CFC "
+        "(champ professionnel Planification en technique du bâtiment)",
+        "Projeteur en technique du bâtiment sanitaire CFC "
+        "(champ professionnel Planification en technique du bâtiment)",
+        "Projeteur en technique du bâtiment ventilation CFC "
+        "(champ professionnel Planification en technique du bâtiment)",
         "Projeteur frigoriste CFC",
         "Ramoneur CFC",
         "Réalisateur publicaire avec diplôme fédéral",
@@ -836,5 +848,4 @@ class Provider(BaseProvider):
         "Web Project Manager diplômé",
         "Zingueur avec brevet fédéral",
         "Zingueur diplômé",
-
     ]

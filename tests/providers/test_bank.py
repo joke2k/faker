@@ -5,6 +5,7 @@ import unittest
 
 from faker import Faker
 
+
 class TestNoNO(unittest.TestCase):
     """ Tests the bban in no_NO locale """
 

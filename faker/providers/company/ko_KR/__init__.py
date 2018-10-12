@@ -9,7 +9,7 @@ class Provider(CompanyProvider):
         '{{company_suffix}} {{last_name}}{{last_name}}{{last_name}}',
         '{{company_suffix}} {{last_name}}',
         '{{last_name}}{{last_name}}',
-        '{{last_name}}{{last_name}}{{last_name}}'
+        '{{last_name}}{{last_name}}{{last_name}}',
     )
 
     catch_phrase_words = (

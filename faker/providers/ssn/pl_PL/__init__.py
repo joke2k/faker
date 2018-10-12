@@ -53,7 +53,7 @@ class Provider(SsnProvider):
             year_without_century % 10,
             int(month / 10),
             month % 10,
-            int(day / 10), day % 10
+            int(day / 10), day % 10,
         ]
 
         for _ in range(4):

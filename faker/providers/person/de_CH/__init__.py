@@ -17,7 +17,7 @@ class Provider(PersonProvider):
         '{{prefix}} {{first_name}} {{last_name}}',
     )
 
-    # extracted from https://www.bfs.admin.ch/bfs/it/home/statistiche/popolazione/nascite-decessi/nomi-svizzera.assetdetail.3243313.html
+    # extracted from https://www.bfs.admin.ch/bfs/it/home/statistiche/popolazione/nascite-decessi/nomi-svizzera.assetdetail.3243313.html # noqa E501
     first_names_male = (
         'Peter', 'Hans', 'Daniel', 'Thomas', 'Andreas', 'Martin', 'Markus',
         'Michael', 'Christian', 'Stefan', 'Walter', 'Urs', 'Marco', 'Bruno',
@@ -164,7 +164,7 @@ class Provider(PersonProvider):
         'Sedat', 'Tahir',
     )
 
-    # extracted from https://www.bfs.admin.ch/bfs/it/home/statistiche/popolazione/nascite-decessi/nomi-svizzera.assetdetail.3243318.html
+    # extracted from https://www.bfs.admin.ch/bfs/it/home/statistiche/popolazione/nascite-decessi/nomi-svizzera.assetdetail.3243318.html # noqa E501
     first_names_female = (
         'Maria', 'Anna', 'Ursula', 'Ruth', 'Elisabeth', 'Sandra', 'Monika',
         'Claudia', 'Verena', 'Nicole', 'Barbara', 'Silvia', 'Andrea', 'Marie',
@@ -357,4 +357,4 @@ class Provider(PersonProvider):
         'Zollinger', 'Zürcher',
     )
 
-    prefixes = ('Dr.', 'Prof.',)
+    prefixes = ('Dr.', 'Prof.')
