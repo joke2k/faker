@@ -756,5 +756,5 @@ class Provider(BaseProvider):
         "Windsurfer",
         "Xilógrafo",
         "Zelador",
-        "Zootecnista"
+        "Zootecnista",
     ]

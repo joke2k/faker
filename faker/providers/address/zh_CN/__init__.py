@@ -13,7 +13,7 @@ class Provider(AddressProvider):
     building_number_formats = ("?座",)
     postcode_formats = ("%#####",)
 
-    street_suffixes = ("街", "路",)
+    street_suffixes = ("街", "路")
     street_name_formats = ("{{city_name}}{{street_suffix}}",
                            "{{last_name}}{{street_suffix}}")
     street_address_formats = ("{{street_name}}{{building_number}}",)
@@ -46,7 +46,7 @@ class Provider(AddressProvider):
         "兴安盟", "太原", "辛集", "邯郸", "沈阳", "辽阳", "兴城", "北镇", "阜新",
         "哈尔滨", "齐齐哈尔", "淮安", "张家港", "海门", "六安", "巢湖", "马鞍山",
         "永安", "宁德", "嘉禾", "荆门", "潜江", "大冶", "宜都", "佛山", "深圳",
-        "潮州", "惠州", "汕尾", "东莞", "梧州", "柳州", "合山", "六盘水", "关岭",)
+        "潮州", "惠州", "汕尾", "东莞", "梧州", "柳州", "合山", "六盘水", "关岭")
     countries = (
         "阿富汗", "阿拉斯加", "阿尔巴尼亚", "阿尔及利亚", "安道尔", "安哥拉", "安圭拉岛英", "安提瓜和巴布达",
         "阿根廷", "亚美尼亚", "阿鲁巴岛", "阿森松", "澳大利亚", "奥地利", "阿塞拜疆", "巴林", "孟加拉国",

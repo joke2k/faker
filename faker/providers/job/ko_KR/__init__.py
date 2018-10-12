@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from .. import Provider as BaseProvider
 
 
-# Reference : http://zetawiki.com/wiki/%ED%95%9C%EA%B5%AD%ED%91%9C%EC%A4%80%EC%A7%81%EC%97%85%EB%B6%84%EB%A5%98_%ED%91%9C
+# Reference:
+# http://zetawiki.com/wiki/%ED%95%9C%EA%B5%AD%ED%91%9C%EC%A4%80%EC%A7%81%EC%97%85%EB%B6%84%EB%A5%98_%ED%91%9C
 # on 2017-08-30
 class Provider(BaseProvider):
     jobs = [
@@ -432,5 +433,5 @@ class Provider(BaseProvider):
         '기타 서비스관련 단순 종사원',
         '영관급 이상',
         '위관급',
-        '장기 부사관 및 준위'
+        '장기 부사관 및 준위',
     ]

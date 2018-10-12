@@ -1,10 +1,10 @@
 # coding=utf-8
 
-localized = True
-
 from .. import BaseProvider
 from string import ascii_uppercase
 import re
+
+localized = True
 
 
 class Provider(BaseProvider):

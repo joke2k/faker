@@ -7,11 +7,11 @@ localized = True
 
 
 class Provider(BaseProvider):
-    formats = ['{{first_name}} {{last_name}}', ]
+    formats = ['{{first_name}} {{last_name}}']
 
     first_names = ['John', 'Jane']
 
-    last_names = ['Doe', ]
+    last_names = ['Doe']
 
     def name(self):
         """

@@ -199,7 +199,7 @@ class Provider(AddressProvider):
         'Horto',
         'Cidade Jardim', 'Castelo', 'Cidade Nova', 'Savassi', 'Serra', 'Silveira', 'Sion', 'Centro',
         'Alto Barroca', 'Nova Vista', 'Coração De Jesus', 'Coração Eucarístico', 'Funcionários', 'Cruzeiro',
-        'João Pinheiro', 'Nova Granada', 'Nova Suíça', 'Itaipu'
+        'João Pinheiro', 'Nova Granada', 'Nova Suíça', 'Itaipu',
     )
     countries = (
         'Afeganistão', 'África do Sul', 'Akrotiri', 'Albânia', 'Alemanha', 'Andorra', 'Angola', 'Anguila',
@@ -257,7 +257,7 @@ class Provider(AddressProvider):
         ('RS', 'Rio Grande do Sul'), ('RO', 'Rondônia'), ('RR',
                                                           'Roraima'), ('SC', 'Santa Catarina'),
         ('SP', 'São Paulo'),
-        ('SE', 'Sergipe'), ('TO', 'Tocantins')
+        ('SE', 'Sergipe'), ('TO', 'Tocantins'),
     )
 
     def street_prefix(self):
@@ -290,7 +290,8 @@ class Provider(AddressProvider):
 
     def bairro(self):
         """
-        Randomly returns a bairro (neighborhood) name. The names were taken from the city of Belo Horizonte - Minas Gerais
+        Randomly returns a bairro (neighborhood) name.
+        The names were taken from the city of Belo Horizonte - Minas Gerais
 
         :example 'Serra'
         """

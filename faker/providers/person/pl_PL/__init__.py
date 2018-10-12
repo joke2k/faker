@@ -30,7 +30,7 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name_male}}'
+        '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
     )
 
     first_names_male = (
@@ -637,7 +637,7 @@ class Provider(PersonProvider):
         'Cogiel', 'Cheba', 'Baś', 'Andreasik', 'Wenzel', 'Szumna', 'Rosłoń', 'Ogłaza',
         'Mikłaszewicz', 'Kubieniec', 'Jędral', 'Bieniak', 'Wons', 'Władyka', 'Rolak', 'Prejs',
         'Płocharczyk', 'Ostręga', 'Łęgowik', 'Ludwik', 'Kopik', 'Kleinschmidt', 'Karczmarek',
-        'Gładka', 'Czylok', 'Wawrzynkiewicz'
+        'Gładka', 'Czylok', 'Wawrzynkiewicz',
     )
     male_last_names = (
         'Kowalski', 'Wiśniewski', 'Dąbrowski', 'Lewandowski', 'Wójcik', 'Kamiński', 'Kowalczyk',

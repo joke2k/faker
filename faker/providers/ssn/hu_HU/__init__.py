@@ -17,7 +17,8 @@ class Provider(SsnProvider):
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 
-        :param dob: date of birth as a "YYMMDD" string - this determines the checksum regime and is also encoded in the személyazonosító szám.
+        :param dob: date of birth as a "YYMMDD" string - this determines the checksum regime and is also encoded
+            in the személyazonosító szám.
         :type dob: str
         :param gender: gender of the person - "F" for female, M for male.
         :type gender: str

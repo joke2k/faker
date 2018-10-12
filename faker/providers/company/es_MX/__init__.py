@@ -12,7 +12,7 @@ class Provider(CompanyProvider):
         '{{company_prefix}} {{last_name}}, {{last_name}} y {{last_name}}',
         '{{last_name}}-{{last_name}} {{company_suffix}}',
         '{{last_name}}, {{last_name}} y {{last_name}}',
-        '{{last_name}} y {{last_name}} {{company_suffix}}'
+        '{{last_name}} y {{last_name}} {{company_suffix}}',
     )
 
     catch_phrase_words = (
@@ -65,7 +65,7 @@ class Provider(CompanyProvider):
             "escalable", "secundaria", "orientada a soluciones",
             "estable", "estática", "sistemática", "sistémica",
             "tangible", "terciaria", "transicional", "uniforme",
-            "valor añadido", "vía web", "defectos cero", "tolerancia cero"
+            "valor añadido", "vía web", "defectos cero", "tolerancia cero",
         ),
         (
             'adaptativo', 'avanzado', 'asimilado', 'automatizado',
@@ -91,7 +91,7 @@ class Provider(CompanyProvider):
             'sincronizado', 'orientado a equipos', 'total',
             'universal', 'actualizable', 'centrado en el usuario',
             'versátil', 'virtual', 'visionario',
-        )
+        ),
     )
 
     bsWords = (
@@ -117,7 +117,7 @@ class Provider(CompanyProvider):
             'sistemas', 'ancho de banda', 'modelos', 'entregables',
             'usuarios', 'esquemas', 'redes', 'aplicaciones', 'métricas',
             'funcionalidades', 'experiencias', 'servicios web',
-            'metodologías'
+            'metodologías',
         ),
         (
             'valor agregado', 'verticales', 'proactivas', 'robustas',
@@ -133,7 +133,7 @@ class Provider(CompanyProvider):
             'integrado', 'impacto total', 'inalámbrica', 'transparentes',
             'de siguiente generación', 'lo último', 'centrado al usuario',
             'visionarias', 'personalizado', 'ubicuas', 'plug-and-play',
-            'colaborativas', 'holísticas', 'ricas'
+            'colaborativas', 'holísticas', 'ricas',
         ),
     )
 

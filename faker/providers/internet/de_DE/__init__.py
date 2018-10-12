@@ -10,7 +10,7 @@ class Provider(InternetProvider):
         'aol.de', 'gmail.com', 'gmx.de', 'googlemail.com', 'hotmail.de',
         'web.de', 'yahoo.de',
     )
-    tlds = ('com', 'com', 'com', 'net', 'org', 'de', 'de', 'de', )
+    tlds = ('com', 'com', 'com', 'net', 'org', 'de', 'de', 'de')
 
     replacements = (
         ('ä', 'ae'), ('Ä', 'Ae'),

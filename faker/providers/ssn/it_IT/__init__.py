@@ -1,5 +1,5 @@
 # coding=utf-8
-'it_IT ssn provider (yields italian fiscal codes)'
+"""it_IT ssn provider (yields italian fiscal codes)"""
 
 from __future__ import unicode_literals
 from string import ascii_uppercase, digits
@@ -7,8 +7,7 @@ from .. import Provider as SsnProvider
 
 
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
-ALPHANUMERICS_DICT = dict((char, index)
-                          for index, char in enumerate(ALPHANUMERICS))
+ALPHANUMERICS_DICT = {char: index for index, char in enumerate(ALPHANUMERICS)}
 CHECKSUM_TABLE = (
     (1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 1, 0, 5, 7, 9, 13, 15, 17, 19,
      21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23),

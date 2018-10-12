@@ -19,9 +19,9 @@ class Provider(BaseProvider):
         'Windows NT 6.2',
     )
 
-    linux_processors = ('i686', 'x86_64',)
+    linux_processors = ('i686', 'x86_64')
 
-    mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC',)
+    mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
 
     def mac_processor(self):
         return self.random_element(self.mac_processors)
@@ -63,13 +63,13 @@ class Provider(BaseProvider):
         ver = (
             'Gecko/{0} Firefox/{1}.0'.format(
                 self.generator.date_time_between(
-                    datetime(2011, 1, 1)
+                    datetime(2011, 1, 1),
                 ),
-                self.generator.random.randint(4, 15)
+                self.generator.random.randint(4, 15),
             ),
             'Gecko/{0} Firefox/3.6.{1}'.format(
                 self.generator.date_time_between(
-                    datetime(2010, 1, 1)
+                    datetime(2010, 1, 1),
                 ),
                 self.generator.random.randint(1, 20)),
             'Gecko/{0} Firefox/3.8'.format(

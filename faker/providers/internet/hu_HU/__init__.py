@@ -8,7 +8,7 @@ class Provider(InternetProvider):
     free_email_domains = (
         'gmail.com',
         'hotmail.com',
-        'yahoo.com'
+        'yahoo.com',
     )
 
     tlds = (
@@ -18,7 +18,7 @@ class Provider(InternetProvider):
         'info',
         'org',
         'net',
-        'biz'
+        'biz',
     )
 
     replacements = (
@@ -30,5 +30,5 @@ class Provider(InternetProvider):
         ('ó', 'i'),
         ('ő', 'o'),
         ('ú', 'u'),
-        ('ű', 'u')
+        ('ű', 'u'),
     )

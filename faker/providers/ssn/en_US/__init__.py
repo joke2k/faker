@@ -27,7 +27,7 @@ class Provider(BaseProvider):
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
-        group = random.choice([x for x in range(70,100) if x not in [89, 93]])
+        group = random.choice([x for x in range(70, 100) if x not in [89, 93]])
 
         itin = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
         return itin

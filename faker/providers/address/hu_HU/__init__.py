@@ -8,7 +8,7 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     street_suffixes = OrderedDict(
-        (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001),))
+        (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001)))
 
     street_name_formats = (
         '{{frequent_street_name}} {{street_suffix}}',
@@ -211,7 +211,7 @@ class Provider(AddressProvider):
         "Thaiföld", "Togo", "Tokelau-szigetek", "Tonga", "Törökország", "Trinidad és Tobago", "Tunézia",
         "Turks- és Caicos-szigetek", "Tuvalu", "Türkmenisztán", "Uganda", "Új-Kaledónia", "Új-Zéland", "Ukrajna",
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
-        "Zöld-foki szigetek",)
+        "Zöld-foki szigetek")
 
     def county(self):
         return self.random_element(self.counties)

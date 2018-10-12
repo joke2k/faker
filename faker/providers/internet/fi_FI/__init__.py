@@ -7,7 +7,7 @@ class Provider(InternetProvider):
 
     free_email_domains = (
         'gmail.com', 'googlemail.com', 'hotmail.com', 'suomi24.fi',
-        'kolumbus.fi', 'luukku.com', 'surffi.net'
+        'kolumbus.fi', 'luukku.com', 'surffi.net',
     )
 
     tlds = ('com', 'com', 'com', 'fi', 'fi', 'net', 'org')

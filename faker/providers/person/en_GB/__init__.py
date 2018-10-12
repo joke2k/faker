@@ -20,7 +20,7 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
     # Names from
@@ -52,7 +52,7 @@ class Provider(PersonProvider):
         'Mohammad', 'Dylan', 'Graeme', 'Terry', 'Guy', 'Elliott', 'Stanley',
         'Danny', 'Brandon', 'Victor', 'Toby', 'Hugh', 'Mohamed', 'Brett',
         'Albert', 'Tom', 'Declan', 'Maurice', 'Glenn', 'Leigh', 'Denis',
-        'Damien', 'Bruce', 'Jay', 'Owen'
+        'Damien', 'Bruce', 'Jay', 'Owen',
     )
 
     first_names_female = (
@@ -82,7 +82,7 @@ class Provider(PersonProvider):
         'Dorothy', 'Aimee', 'Vanessa', 'Ellie', 'Frances', 'Sian', 'Josephine',
         'Gail', 'Jill', 'Lydia', 'Joyce', 'Charlene', 'Hollie', 'Hazel',
         'Annette', 'Bethan', 'Amelia', 'Beth', 'Rita', 'Geraldine', 'Diana',
-        'Lindsey', 'Carolyn'
+        'Lindsey', 'Carolyn',
     )
 
     first_names = first_names_male + first_names_female

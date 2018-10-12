@@ -636,5 +636,5 @@ class Provider(PersonProvider):
         ('Åström', 0.002272),
         ('Öberg', 0.002448),
         ('Öhman', 0.001415),
-        ('Östlund', 0.001623)
+        ('Östlund', 0.001623),
     ))

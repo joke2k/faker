@@ -46,7 +46,7 @@ class Provider(AddressProvider):
         'Kluczbork', 'Lubliniec', 'Skawina', 'Jawor', 'Kościan', 'Wieluń',
         'Kościerzyna', 'Nowa Ruda', 'Świebodzice', 'Koło', 'Piastów',
         'Goleniów', 'Ostrów Mazowiecka', 'Polkowice', 'Lubartów', 'Zambrów',
-        'Płońsk', 'Reda', 'Łaziska Górne', 'Środa Wielkopolska'
+        'Płońsk', 'Reda', 'Łaziska Górne', 'Środa Wielkopolska',
     )
 
     street_prefixes = (
@@ -134,7 +134,7 @@ class Provider(AddressProvider):
         'Makuszyńskiego', 'Sybiraków', 'Kowalska', 'Morcinka', 'Odrzańska',
         'Okulickiego', 'Solidarnosci', 'Zapolskiej', 'Łabędzia', 'Wojciecha',
         'Bałtycka', 'Lwowska', 'Rajska', 'Korfantego', 'Pszenna', 'Ciasna',
-        'Floriana', 'Hutnicza', 'Kielecka'
+        'Floriana', 'Hutnicza', 'Kielecka',
     )
 
     regions = (
@@ -144,7 +144,7 @@ class Provider(AddressProvider):
         "Warmińsko - mazurskie", "Wielkopolskie", "Zachodniopomorskie",
     )
 
-    building_number_formats = ('##', '###', "##/##",)
+    building_number_formats = ('##', '###', "##/##")
     postcode_formats = ('##-###',)
     street_address_formats = (
         '{{street_prefix}} {{street_name}} {{building_number}}',

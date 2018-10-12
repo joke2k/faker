@@ -421,4 +421,4 @@ class Provider(PersonProvider):
         'Frau', 'Dr.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.',
     )
 
-    suffixes = ('B.Sc.', 'B.A.', 'B.Eng.', 'MBA.', )
+    suffixes = ('B.Sc.', 'B.A.', 'B.Eng.', 'MBA.')

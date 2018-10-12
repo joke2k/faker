@@ -153,10 +153,10 @@ class TestDateTime(unittest.TestCase):
         assert result == date(1850, 8, 2)
 
     def test_datetimes_with_and_without_tzinfo(self):
-        assert self.factory.date_time().tzinfo == None
+        assert self.factory.date_time().tzinfo is None
         assert self.factory.date_time(utc).tzinfo == utc
 
-        assert self.factory.date_time_ad().tzinfo == None
+        assert self.factory.date_time_ad().tzinfo is None
         assert self.factory.date_time_ad(utc).tzinfo == utc
 
         assert not self.factory.iso8601().endswith('+00:00')
@@ -212,37 +212,67 @@ class TestDateTime(unittest.TestCase):
     def test_date_time_this_period(self):
         # test century
         this_century_start = self._datetime_to_time(
-            datetime(datetime.now().year - (datetime.now().year % 100), 1, 1)
+            datetime(datetime.now().year - (datetime.now().year % 100), 1, 1),
         )
 
-        assert self._datetime_to_time(self.factory.date_time_this_century(after_now=False)) <= self._datetime_to_time(datetime.now())
-        assert self._datetime_to_time(self.factory.date_time_this_century(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now())
-        assert self._datetime_to_time(self.factory.date_time_this_century(before_now=True, after_now=True)) >= this_century_start
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_century(after_now=False)) <=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_century(before_now=False, after_now=True)) >=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_century(before_now=True, after_now=True)) >=
+            this_century_start
+        )
 
         # test decade
         this_decade_start = self._datetime_to_time(
-            datetime(datetime.now().year - (datetime.now().year % 10), 1, 1)
+            datetime(datetime.now().year - (datetime.now().year % 10), 1, 1),
         )
 
-        assert self._datetime_to_time(self.factory.date_time_this_decade(after_now=False)) <= self._datetime_to_time(datetime.now())
-        assert self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=False))) == (
+            self._datetime_to_time(self.factory.date_time_this_decade(after_now=False)) <=
             self._datetime_to_time(datetime.now())
         )
-        assert self._datetime_to_time(self.factory.date_time_this_decade(before_now=True, after_now=True)) >= this_decade_start
-        # test year
-        assert self._datetime_to_time(self.factory.date_time_this_year(after_now=False)) <= self._datetime_to_time(datetime.now())
-        assert self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=False))) == (
+            self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=True)) >=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_decade(before_now=False, after_now=False)) ==
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_decade(before_now=True, after_now=True)) >=
+            this_decade_start
+        )
+        # test year
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_year(after_now=False)) <=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=True)) >=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_year(before_now=False, after_now=False)) ==
             self._datetime_to_time(datetime.now())
         )
         # test month
-        assert self._datetime_to_time(self.factory.date_time_this_month(after_now=False)) <= self._datetime_to_time(datetime.now())
-        assert self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=True)) >= self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=False))) == (
+            self._datetime_to_time(self.factory.date_time_this_month(after_now=False)) <=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=True)) >=
+            self._datetime_to_time(datetime.now())
+        )
+        assert (
+            self._datetime_to_time(self.factory.date_time_this_month(before_now=False, after_now=False)) ==
             self._datetime_to_time(datetime.now())
         )
 
@@ -265,22 +295,22 @@ class TestDateTime(unittest.TestCase):
         assert self.factory.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
 
         assert (
-            self.factory.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0)) == (
-            datetime.now(utc).replace(second=0, microsecond=0)
+            self.factory.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).
+            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
         # test year
         assert self.factory.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.factory.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
         assert (
-            self.factory.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0)) == (
-            datetime.now(utc).replace(second=0, microsecond=0)
+            self.factory.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).
+            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
         # test month
         assert self.factory.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.factory.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
         assert (
-            self.factory.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(second=0, microsecond=0)) == (
-            datetime.now(utc).replace(second=0, microsecond=0)
+            self.factory.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).
+            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
 
     def test_date_this_period(self):
@@ -384,7 +414,7 @@ class TestDateTime(unittest.TestCase):
 
         for _ in range(100):
             now = datetime.now(utc).replace(microsecond=0)
-            epoch_start = datetime(1970,1,1,tzinfo=utc)
+            epoch_start = datetime(1970, 1, 1, tzinfo=utc)
 
             # Ensure doubly-constrained unix_times are generated correctly
             start_datetime = datetime(2001, 1, 1, tzinfo=utc)
@@ -393,7 +423,11 @@ class TestDateTime(unittest.TestCase):
             constrained_unix_time = self.factory.unix_time(end_datetime=end_datetime, start_datetime=start_datetime)
 
             self.assertIsInstance(constrained_unix_time, int)
-            self.assertBetween(constrained_unix_time, datetime_to_timestamp(start_datetime), datetime_to_timestamp(end_datetime))
+            self.assertBetween(
+                constrained_unix_time,
+                datetime_to_timestamp(start_datetime),
+                datetime_to_timestamp(end_datetime),
+            )
 
             # Ensure relative unix_times partially-constrained by a start time are generated correctly
             one_day_ago = datetime.today()-timedelta(days=1)
@@ -409,13 +443,18 @@ class TestDateTime(unittest.TestCase):
             distant_unix_time = self.factory.unix_time(end_datetime=one_day_after_epoch_start)
 
             self.assertIsInstance(distant_unix_time, int)
-            self.assertBetween(distant_unix_time, datetime_to_timestamp(epoch_start), datetime_to_timestamp(one_day_after_epoch_start))
+            self.assertBetween(
+                distant_unix_time,
+                datetime_to_timestamp(epoch_start),
+                datetime_to_timestamp(one_day_after_epoch_start),
+            )
 
             # Ensure wide-open unix_times are generated correctly
-            random_unix_time = self.factory.unix_time()
+            self.factory.unix_time()
 
             self.assertIsInstance(constrained_unix_time, int)
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
+
 
 class TestPlPL(unittest.TestCase):
 
@@ -476,8 +515,6 @@ class TestAr(unittest.TestCase):
 
 
 class DatesOfBirth(unittest.TestCase):
-    from faker.providers.date_time import datetime_to_timestamp
-
     """
     Test Dates of Birth
     """

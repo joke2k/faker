@@ -16,7 +16,7 @@ class Provider(AddressProvider):
         'Björk', 'Järnvägs', 'Ring', 'Skol', 'Skogs', 'Ny', 'Gran', 'Idrotts',
         'Stor', 'Kyrk', 'Industri', 'Park', 'Strand', 'Skol', 'Trädgårds',
         'Industri', 'Ängs', 'Kyrko', 'Park', 'Villa', 'Ek', 'Kvarn', 'Stations',
-        'Back', 'Furu', 'Gen', 'Fabriks', 'Åker', 'Bäck', 'Asp'
+        'Back', 'Furu', 'Gen', 'Fabriks', 'Åker', 'Bäck', 'Asp',
     )
 
     street_suffixes = ('gatan', 'gatan', 'vägen', 'vägen',
@@ -36,7 +36,7 @@ class Provider(AddressProvider):
         'Borlänge', 'Falun', 'Kalmar', 'Skövde', 'Kristianstad', 'Karlskrona',
         'Skellefteå', 'Uddevalla', 'Lidingö', 'Motala', 'Landskrona',
         'Örnsköldsvik', 'Nyköping', 'Karlskoga', 'Varberg', 'Trelleborg',
-        'Lidköping', 'Alingsås', 'Piteå', 'Sandviken', 'Ängelholm'
+        'Lidköping', 'Alingsås', 'Piteå', 'Sandviken', 'Ängelholm',
     )
 
     countries = (
@@ -87,7 +87,7 @@ class Provider(AddressProvider):
         'Tuvalu', 'Tyskland', 'Uganda', 'Ukraina', 'Ungern', 'Uruguay', 'USA',
         'Uzbekistan', 'Vanuatu', 'Vatikanstaten', 'Venezuela', 'Vietnam',
         'Vitryssland', 'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
-        'Österrike', 'Östtimor'
+        'Österrike', 'Östtimor',
     )
 
     states = (
@@ -97,7 +97,7 @@ class Provider(AddressProvider):
         'Västra Götalands län', 'Värmlands län', 'Örebro län',
         'Västmanlands län', 'Dalarnas län', 'Gävleborgs län',
         'Västernorrlands län', 'Jämtlands län', 'Västerbottens län',
-        'Norrbottens län'
+        'Norrbottens län',
     )
 
     def street_prefix(self):

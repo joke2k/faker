@@ -4,13 +4,12 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_formats = ("{{city_name}}", )
-    building_number_formats = ("%號", "%#號", "%##號", )
-    postcode_formats = ("%####", "%##", )
-    section_formats = ("", "", "", "", "%段", )
+    city_formats = ("{{city_name}}", "{{city_name}}{{city_name_suffix}}")
+    building_number_formats = ("%號", "%#號", "%##號")
+    postcode_formats = ("%####", "%##")
+    section_formats = ("", "", "", "", "%段")
     street_address_formats = (
         "{{street_name}}{{street_name_suffix}}{{section_number}}{{building_number}}", )
-    city_formats = ("{{city_name}}{{city_name_suffix}}", )
     address_formats = (
         "{{postcode}} {{city}}{{street_address}}{{secondary_address}}", )
     secondary_address_formats = ('#樓', '之#')

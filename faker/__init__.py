@@ -1,6 +1,6 @@
-VERSION = '0.9.1'
+from faker.generator import Generator  # noqa F401
+from faker.factory import Factory  # noqa F401
 
-from faker.generator import Generator
-from faker.factory import Factory
+VERSION = '0.9.1'
 
 Faker = Factory.create

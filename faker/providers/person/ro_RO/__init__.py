@@ -8,13 +8,13 @@ class Provider(PersonProvider):
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
-        '{{first_name_female}} {{first_name_female}} {{last_name}}'
+        '{{first_name_female}} {{first_name_female}} {{last_name}}',
     )
     formats_male = (
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
-        '{{first_name_male}} {{first_name_male}} {{last_name}}'
+        '{{first_name_male}} {{first_name_male}} {{last_name}}',
     )
 
     # sources: https://ro.wikipedia.org/wiki/List%C4%83_de_prenume_rom%C3%A2ne%C8%99ti

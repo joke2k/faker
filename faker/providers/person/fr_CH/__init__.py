@@ -208,5 +208,5 @@ class Provider(PersonProvider):
                   'Rapin', 'Rappaz', 'Rapraz', 'Rey', 'Robadey', 'Robert', 'Romanens',
                   'Rosselat', 'Rosselet', 'Rossellat', 'Sandoz', 'Sansonnens', 'Saudan',
                   'Thorens', 'Théraulaz', 'Tinguely', 'Treboux', 'Uldry', 'Vallélian',
-                  'Vermeil', 'Vienne', 'Vonlanthen', 'Vuille', 'Wicht'
+                  'Vermeil', 'Vienne', 'Vonlanthen', 'Vuille', 'Wicht',
                   ]

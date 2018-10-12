@@ -297,7 +297,7 @@ class Provider(PersonProvider):
         'Delannoy', 'Auger', 'Wagner', 'Fouquet', 'Mace', 'Ramos', 'Pages', 'Petitjean', 'Chauveau', 'Foucher', 'Peron',
         'Guyon', 'Gallet', 'Rousset', 'Traore', 'Bernier', 'Vallet', 'Letellier', 'Bouvet', 'Hamel', 'Chretien',
         'Faivre', 'Boulay', 'Thierry', 'Samson', 'Ledoux', 'Salmon', 'Gosselin', 'Lecoq', 'Pires', 'Leleu', 'Becker',
-        'Diallo', 'Merle', 'Valette'
+        'Diallo', 'Merle', 'Valette',
     )
 
     prefixes = ('de', 'de la', 'Le', 'du')

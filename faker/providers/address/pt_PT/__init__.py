@@ -195,7 +195,7 @@ class Provider(AddressProvider):
         "Vila Nova de Foz Côa", "Vila Nova de Gaia", "Vila Nova de Paiva",
         "Vila Nova de Poiares", "Vila Pouca de Aguiar", "Vila Real",
         "Vila Real de Santo António", "Vila Velha de Ródão", "Vila Verde",
-        "Vila Viçosa", "Vimioso", "Vinhais", "Viseu", "Vizela", "Vouzela"
+        "Vila Viçosa", "Vimioso", "Vinhais", "Viseu", "Vizela", "Vouzela",
     ]
 
     def street_prefix(self):
@@ -209,7 +209,6 @@ class Provider(AddressProvider):
         :example 'Amora'
         """
         return self.random_element(self.cities)
-
 
     def distrito(self):
         """

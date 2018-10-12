@@ -61,7 +61,7 @@ class Provider(CompanyProvider):
         '{{last_name}}-{{last_name}} {{company_suffix}}',
         '{{company_prefix}} {{last_name}}',
         '{{company_prefix}} {{last_name}} {{company_suffix}}',
-        '{{company_prefix}} {{last_name}}-{{last_name}} {{company_suffix}}'
+        '{{company_prefix}} {{last_name}}-{{last_name}} {{company_suffix}}',
     )
 
     company_prefixes = ('Grupa', 'Spółdzielnia', 'Stowarzyszenie', 'Fundacja', 'PPUH', 'FPUH', 'Gabinety')

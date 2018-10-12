@@ -222,5 +222,5 @@ class Provider(BaseProvider):
         "Zarządca nieruchomości",
         "Zoopsycholog",
         "Żołnierz",
-        "Żongler"
+        "Żongler",
     ]

@@ -1,12 +1,12 @@
 # coding=utf-8
-
-localized = True
-default_locale = 'en_GB'
-
 from .. import BaseProvider
 import string
 from string import ascii_uppercase
 import re
+
+localized = True
+default_locale = 'en_GB'
+
 
 class Provider(BaseProvider):
     """
@@ -26,8 +26,8 @@ class Provider(BaseProvider):
 
     def bban(self):
         temp = re.sub(r'\?',
-            lambda x: self.random_element(ascii_uppercase),
-            self.bban_format)
+                      lambda x: self.random_element(ascii_uppercase),
+                      self.bban_format)
         return self.numerify(temp)
 
     def iban(self):

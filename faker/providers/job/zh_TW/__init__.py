@@ -479,5 +479,5 @@ class Provider(BaseProvider):
         '駐校代表',
         '驗光師',
         '麵包師',
-        '麻醉醫師'
+        '麻醉醫師',
     ]

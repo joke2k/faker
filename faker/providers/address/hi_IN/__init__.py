@@ -9,13 +9,13 @@ class Provider(AddressProvider):
 
     street_name_formats = (
         '{{first_name}} {{last_name}}',
-        '{{last_name}}'
+        '{{last_name}}',
     )
 
     street_address_formats = ('{{building_number}} {{street_name}}', )
 
     address_formats = ('{{street_address}}\n{{city}} {{postcode}}',
-                       '{{street_address}}\n{{city}}-{{postcode}}',)
+                       '{{street_address}}\n{{city}}-{{postcode}}')
 
     building_number_formats = (
         '####', '###', '##', '#', '#/#', '##/##', '##/###', '##/####')

@@ -53,5 +53,5 @@ class Provider(InternetProvider):
         ('ز', 'z'),
         ('ع', 'E'),
         ('آ', '|'),
-        ('غ', 'g')
+        ('غ', 'g'),
     )

@@ -8,7 +8,7 @@ class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
-        '{{last_name}}, {{first_name}}'
+        '{{last_name}}, {{first_name}}',
     )
 
     first_names = (
@@ -41,7 +41,7 @@ class Provider(PersonProvider):
         'Jurgita', 'Rusnė', 'Aušrinė', 'Rita', 'Elena', 'Ineta', 'Ligita',
         'Vasarė', 'Vėjūnė', 'Ignė', 'Gytė', 'Ariana', 'Arielė', 'Vytė', 'Eidvilė',
         'Karolina', 'Miglė', 'Viltė', 'Jolanta', 'Enrika', 'Aurėja', 'Vanesa',
-        'Darija', 'Reda', 'Milana', 'Rugilė', 'Diana'
+        'Darija', 'Reda', 'Milana', 'Rugilė', 'Diana',
     )
 
     last_names = (
@@ -51,5 +51,5 @@ class Provider(PersonProvider):
         'Kairys', 'Kalvaitis', 'Kalvelis', 'Kalvėnas', 'Kaupas', 'Kiška',
         'Gagys', 'Gailius', 'Gailys', 'Gaižauskas', 'Gaičiūnas', 'Galdikas',
         'Gintalas', 'Ginzburgas', 'Grinius', 'Gronskis', 'Nagys', 'Naujokas',
-        'Narušis', 'Nausėda', 'Poška', 'Povilonis'
+        'Narušis', 'Nausėda', 'Poška', 'Povilonis',
     )

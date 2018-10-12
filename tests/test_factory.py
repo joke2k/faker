@@ -275,10 +275,10 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(999):
             password = provider.password()
 
-            assert any([in_string(char, password) for char in "!@#$%^&*()_+"])
-            assert any([in_string(char, password) for char in string.digits])
-            assert any([in_string(char, password) for char in string.ascii_uppercase])
-            assert any([in_string(char, password) for char in string.ascii_lowercase])
+            assert any(in_string(char, password) for char in "!@#$%^&*()_+")
+            assert any(in_string(char, password) for char in string.digits)
+            assert any(in_string(char, password) for char in string.ascii_uppercase)
+            assert any(in_string(char, password) for char in string.ascii_lowercase)
 
         with pytest.raises(AssertionError):
             provider.password(length=2)

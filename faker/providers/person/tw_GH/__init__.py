@@ -19,7 +19,7 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
         '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
         '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name_female}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
     )
 
     # names from https://en.wikipedia.org/wiki/Ghanaian_name,
@@ -152,7 +152,7 @@ class Provider(PersonProvider):
         'Victor',
         'Vincent',
         'William',
-        'Yaw'
+        'Yaw',
     )
 
     first_names_female = (
@@ -293,7 +293,7 @@ class Provider(PersonProvider):
         'Vida',
         'Wendy',
         'Yaa',
-        'Yvonne'
+        'Yvonne',
     )
 
     first_names = first_names_male + first_names_female
@@ -413,7 +413,7 @@ class Provider(PersonProvider):
         'Yawson',
         'Yeboa',
         'Yeboah',
-        'Yirenkyi'
+        'Yirenkyi',
     )
 
     last_names_female = (
@@ -584,7 +584,7 @@ class Provider(PersonProvider):
         'Yawson',
         'Yeboa',
         'Yeboah',
-        'Yirenkyi'
+        'Yirenkyi',
     )
 
     last_names = last_names_male + last_names_female

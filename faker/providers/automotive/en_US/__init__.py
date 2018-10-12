@@ -162,5 +162,5 @@ class Provider(AutomotiveProvider):
         # Wyoming
         '#-#####',
         '#-####?',
-        '##-#####'
+        '##-#####',
     )

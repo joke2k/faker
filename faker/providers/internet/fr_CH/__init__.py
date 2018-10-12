@@ -4,7 +4,7 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-    safe_email_tlds = ('org', 'com', 'net', 'ch',)
+    safe_email_tlds = ('org', 'com', 'net', 'ch')
     free_email_domains = (
         'gmail.com',
         'hotmail.fr',

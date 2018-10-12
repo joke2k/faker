@@ -29,7 +29,7 @@ class TestInternetProvider(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.image_placeholder_services',
-        {'https://dummyimage.com/{width}x{height}'}
+        {'https://dummyimage.com/{width}x{height}'},
     )
     def test_image_url(self):
         my_width = 500
@@ -115,7 +115,7 @@ class TestZhCN(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.tld',
-        lambda x: 'cn'
+        lambda x: 'cn',
     )
     def test_domain_name(self):
         domain_name_1_level = self.factory.domain_name(levels=1)
@@ -127,12 +127,12 @@ class TestZhCN(unittest.TestCase):
         assert len(domain_parts) == 3
         assert domain_parts[-1] == 'cn'
         assert domain_parts[1] in ['ac', 'com', 'edu', 'gov', 'mil',
-                                        'net', 'org', 'ah', 'bj', 'cq',
-                                        'fj', 'gd', 'gs', 'gz', 'gx', 'ha',
-                                        'hb', 'he', 'hi', 'hk', 'hl', 'hn',
-                                        'jl', 'js', 'jx', 'ln', 'mo', 'nm',
-                                        'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
-                                        'sx', 'tj', 'xj', 'xz', 'yn', 'zj']
+                                   'net', 'org', 'ah', 'bj', 'cq',
+                                   'fj', 'gd', 'gs', 'gz', 'gx', 'ha',
+                                   'hb', 'he', 'hi', 'hk', 'hl', 'hn',
+                                   'jl', 'js', 'jx', 'ln', 'mo', 'nm',
+                                   'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
+                                   'sx', 'tj', 'xj', 'xz', 'yn', 'zj']
 
 
 class TestZhTW(unittest.TestCase):
@@ -183,7 +183,7 @@ class TestNlNl(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'fabiënné'
+        lambda x: 'fabiënné',
     )
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
@@ -192,7 +192,7 @@ class TestNlNl(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'fabiënné'
+        lambda x: 'fabiënné',
     )
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
@@ -201,7 +201,7 @@ class TestNlNl(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'fabiënné'
+        lambda x: 'fabiënné',
     )
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
@@ -217,7 +217,7 @@ class TestArAa(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'اصيل'
+        lambda x: 'اصيل',
     )
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
@@ -226,7 +226,7 @@ class TestArAa(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'اصيل'
+        lambda x: 'اصيل',
     )
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
@@ -235,7 +235,7 @@ class TestArAa(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'اصيل'
+        lambda x: 'اصيل',
     )
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()
@@ -251,7 +251,7 @@ class TestPtBR(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'VitóriaMagalhães'
+        lambda x: 'VitóriaMagalhães',
     )
     def test_ascii_safe_email(self):
         email = self.factory.ascii_safe_email()
@@ -260,7 +260,7 @@ class TestPtBR(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'JoãoSimões'
+        lambda x: 'JoãoSimões',
     )
     def test_ascii_free_email(self):
         email = self.factory.ascii_free_email()
@@ -269,7 +269,7 @@ class TestPtBR(unittest.TestCase):
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
-        lambda x: 'AndréCauã'
+        lambda x: 'AndréCauã',
     )
     def test_ascii_company_email(self):
         email = self.factory.ascii_company_email()

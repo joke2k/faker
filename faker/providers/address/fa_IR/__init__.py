@@ -14,7 +14,7 @@ class Provider(AddressProvider):
         'کوچه', 'خیابان', 'پل', 'دره', 'میدان', 'چهار راه', 'بن بست', 'بلوار',
         'جنب', 'تقاطع', 'آزاد راه', 'بزرگ راه', 'جزیره', 'کوه', 'جاده', 'تونل',
     )
-    postcode_formats = ('###', '####', '#####', '######', '##########',)
+    postcode_formats = ('###', '####', '#####', '######', '##########')
     states = (
         'آذربایجان شرقی', 'آذربایجان غربی', 'اردبیل', 'خراسان', 'کردستان',
         'گیلان', 'اصفهان', 'البرز', 'ایلام', 'بوشهر', 'تهران',
@@ -66,7 +66,7 @@ class Provider(AddressProvider):
     )
     street_name_formats = (
         '{{first_name}} {{street_suffix}}',
-        '{{last_name}} {{street_suffix}}'
+        '{{last_name}} {{street_suffix}}',
     )
     street_address_formats = (
         '{{building_number}} {{street_name}}',

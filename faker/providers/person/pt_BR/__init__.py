@@ -10,7 +10,7 @@ class Provider(PersonProvider):
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
     formats_male = (
@@ -19,7 +19,7 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}}'
+        '{{prefix_male}} {{first_name_male}} {{last_name}}',
 
     )
 
@@ -49,7 +49,7 @@ class Provider(PersonProvider):
         'Melissa', 'Milena', 'Mirella', 'Natália', 'Nicole', 'Nina', 'Olivia',
         'Pietra', 'Rafaela', 'Raquel', 'Rebeca', 'Sabrina', 'Sarah', 'Sofia',
         'Sophia', 'Sophie', 'Stella', 'Stephany', 'Valentina', 'Vitória',
-        'Yasmin'
+        'Yasmin',
     )
 
     """
@@ -76,7 +76,7 @@ class Provider(PersonProvider):
         'Pedro Henrique', 'Pedro Lucas', 'Pedro Miguel', 'Pedro', 'Pietro',
         'Rafael', 'Raul', 'Renan', 'Rodrigo', 'Ryan', 'Samuel', 'Thales',
         'Theo', 'Thiago', 'Thomas', 'Vicente', 'Vinicius', 'Vitor Gabriel',
-        'Vitor Hugo', 'Vitor', 'Yago', 'Yuri'
+        'Vitor Hugo', 'Vitor', 'Yago', 'Yuri',
     )
 
     first_names = first_names_male + first_names_female
@@ -97,7 +97,7 @@ class Provider(PersonProvider):
         'Monteiro', 'Moraes', 'Moreira', 'Moura', 'Nascimento', 'Nogueira',
         'Novaes', 'Nunes', 'Oliveira', 'Peixoto', 'Pereira', 'Pinto', 'Pires',
         'Porto', 'Ramos', 'Rezende', 'Ribeiro', 'Rocha', 'Rodrigues', 'Sales',
-        'Santos', 'Silva', 'Silveira', 'Souza', 'Teixeira', 'Viana', 'Vieira'
+        'Santos', 'Silva', 'Silveira', 'Souza', 'Teixeira', 'Viana', 'Vieira',
     )
 
     prefixes_female = ('Srta.', 'Sra.', 'Dra.')

@@ -23,10 +23,10 @@ class Provider(AddressProvider):
         'town', 'ton', 'land', 'ville', 'berg', 'burgh',
         'borough', 'bury', 'burn', 'ing', 'port', 'mouth', 'stone', 'ings'
         'mouth', 'fort', 'haven', 'leigh', 'side', 'gate', 'neath', 'side',
-        ' Flats', ' Hill'
+        ' Flats', ' Hill',
     )
 
-    building_number_formats = ('%##', '%#', '%',)
+    building_number_formats = ('%##', '%#', '%')
 
     street_suffixes = (
         # Most common:
@@ -223,7 +223,7 @@ class Provider(AddressProvider):
         'Flat %#',
         'Suite %##',
         'Unit %#',
-        'Level %'
+        'Level %',
     )
 
     def state(self):

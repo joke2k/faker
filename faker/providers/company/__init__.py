@@ -11,7 +11,7 @@ class Provider(BaseProvider):
     formats = (
         '{{last_name}} {{company_suffix}}',
         '{{last_name}}-{{last_name}}',
-        '{{last_name}}, {{last_name}} and {{last_name}}'
+        '{{last_name}}, {{last_name}} and {{last_name}}',
     )
 
     company_suffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
