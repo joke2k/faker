@@ -1669,8 +1669,10 @@ class Provider(BaseProvider):
               pick = datetime.fromtimestamp(timestamp, tzinfo)
         except OSError:
           return self.date_time_between_dates(datetime_start, datetime_end)
-        except RecursionError as err:
-          raise err  
+        except RuntimeError as re:
+          if re.args[0] != 'maximum recursion depth exceeded':
+            raise('Recursion Error: datetime_start and datetime_end likely out of range')
+          raise re
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
