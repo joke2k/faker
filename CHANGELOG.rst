@@ -1,6 +1,18 @@
 Changelog
 =========
 
+`0.9.2 - 12-October-2018 <https://github.com/joke2k/faker/compare/v0.9.1...v0.9.2>`__
+-------------------------------------------------------------------------------------
+
+* Add company names to ``pl_PL`` provider. Thanks @@twkrol.
+* Add replacements for non-ascii characters in ``pt_BR``. Thanks @clarmso.
+* Add some more placeholder image services. Thanks @clarmso.
+* Separate male name and female name formats in ``cs_CZ`` provider. Thanks @clarmso.
+* Add second level domains (mostly provinces) for ``cn`` top level domain. Thanks @clarmso.
+* Add ``fr_FR`` localization to ``lorem`` provider. Thanks @tristandeborde.
+* Lots of work on internal cleanup and optimizing the CI. Thanks @jdufresne.
+* Add ``flake8`` to the CI. Thanks @andrzej3393.
+
 `0.9.1 - 13-September-2018 <https://github.com/joke2k/faker/compare/v0.9.0...v0.9.1>`__
 ---------------------------------------------------------------------------------------
 
