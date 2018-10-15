@@ -64,6 +64,13 @@ class TestPhoneNumber(unittest.TestCase):
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
 
+    def test_cellphone_pt_br(self):
+        factory = Faker('pt_BR')
+        cellphone = factory.cellphone_number()
+
+        assert cellphone is not None
+        assert len(cellphone) == 13
+
 
 class TestHuHU(unittest.TestCase):
 
