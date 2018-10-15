@@ -7,7 +7,7 @@ import re
 import sys
 
 from calendar import timegm
-from datetime import timedelta, MAXYEAR, date
+from datetime import timedelta, MAXYEAR
 from time import time
 
 from dateutil import relativedelta
@@ -1576,14 +1576,12 @@ class Provider(BaseProvider):
         :example Date('1999-02-02')
         :return Date
         """
-        
         start_date = self._parse_date(start_date)
-        
         end_date = self._parse_date(end_date)
-        
+
         if sys.platform == 'win32':
-          if (start_date <= date(1970, 1, 1)) | (end_date >= date(3000, 1, 1)):
-            raise ValueError("Windows does not support using this method with date values before 1970-1-1 or after {0}".format(date(3000, 1, 1)))
+            if (start_date <= date(1970, 1, 1)) | (end_date >= date(3000, 1, 1)):
+                raise ValueError("Windows doen't support using this method with values before 1970-1-1 or after 3000-1-1")
 
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
@@ -1670,11 +1668,10 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime_end),
         )
         if tzinfo is None:
-          pick = datetime.fromtimestamp(timestamp, tzlocal())
-          pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+            pick = datetime.fromtimestamp(timestamp, tzlocal())
+            pick = pick.astimezone(tzutc()).replace(tzinfo=None)
         else:
-          pick = datetime.fromtimestamp(timestamp, tzinfo)
-        
+            pick = datetime.fromtimestamp(timestamp, tzinfo)
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
