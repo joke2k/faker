@@ -111,7 +111,7 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'https://placeholdit.imgix.net/~text',
+        'https://placeholdit.imgix.net/~text'
         '?txtsize=55&txt={width}x{height}&w={width}&h={height}',
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
