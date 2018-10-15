@@ -4,8 +4,6 @@ from __future__ import unicode_literals
 
 import re
 
-import sys
-
 from calendar import timegm
 from datetime import timedelta, MAXYEAR
 from time import time
