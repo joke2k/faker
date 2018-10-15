@@ -1578,7 +1578,6 @@ class Provider(BaseProvider):
         """
         start_date = self._parse_date(start_date)
         end_date = self._parse_date(end_date)
-        print(start_date + timedelta(days=-365))
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
     def future_datetime(self, end_date='+30d', tzinfo=None):
@@ -1991,7 +1990,7 @@ class Provider(BaseProvider):
         # boundary.
 
         now = datetime.now(tzinfo).date()
-        start_date = now.replace(year=now.year - (maximum_age+1))
+        start_date = now.replace(year=now.year - (maximum_age + 1))
         end_date = now.replace(year=now.year - minimum_age)
 
         dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
