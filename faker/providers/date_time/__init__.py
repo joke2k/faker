@@ -1581,8 +1581,8 @@ class Provider(BaseProvider):
         end_date = self._parse_date(end_date)
         
         if sys.platform == 'win32':
-          if (start_date <= date(1970, 1, 1)) | (end_date > date.today() + timedelta(days=7300)):
-            raise ValueError("Windows does not support using this method with date values before 1970-1-1 or after {0}".format(date.today() + timedelta(days=7300)))
+          if (start_date <= date(1970, 1, 1)) | (end_date >= date(3000, 1, 1)):
+            raise ValueError("Windows does not support using this method with date values before 1970-1-1 or after {0}".format(date(3000, 1, 1)))
 
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
@@ -1675,7 +1675,9 @@ class Provider(BaseProvider):
           else:
               pick = datetime.fromtimestamp(timestamp, tzinfo)
         except OSError:
-          raise OSError('Argument(s) out of bounds.  On windows machines dates provided must occur in the range of 1970-01-01T00:00:01 and 2038-12-31T23:59:59')
+          return self.date_time_between_dates(datetime_start, datetime_end)
+        except RecursionError as err:
+          raise err  
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
