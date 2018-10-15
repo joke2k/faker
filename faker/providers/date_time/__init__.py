@@ -4,8 +4,10 @@ from __future__ import unicode_literals
 
 import re
 
+import sys
+
 from calendar import timegm
-from datetime import timedelta, MAXYEAR
+from datetime import timedelta, MAXYEAR, date
 from time import time
 
 from dateutil import relativedelta
@@ -1577,6 +1579,11 @@ class Provider(BaseProvider):
 
         start_date = self._parse_date(start_date)
         end_date = self._parse_date(end_date)
+        
+        if sys.platform == 'win32':
+          if (start_date <= date(1970, 1, 1)) | (end_date > date.today() + timedelta(days=7300)):
+            raise ValueError("Windows does not support using this method with date values before 1970-1-1 or after {0}".format(date.today() + timedelta(days=7300)))
+
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
     def future_datetime(self, end_date='+30d', tzinfo=None):
