@@ -81,3 +81,7 @@ class Provider(PhoneNumberProvider):
         '5571#########',
         '5581#########',
     )
+
+    def cellphone_number(self):
+        pattern = self.random_element(self.cellphone_formats)
+        return self.numerify(self.generator.parse(pattern))
