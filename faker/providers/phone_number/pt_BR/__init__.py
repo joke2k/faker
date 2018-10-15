@@ -71,6 +71,7 @@ class Provider(PhoneNumberProvider):
         '#### ####',
         '####-####',
     )
+    
     msisdn_formats = (
         '5511#########',
         '5521#########',
@@ -80,6 +81,10 @@ class Provider(PhoneNumberProvider):
         '5561#########',
         '5571#########',
         '5581#########',
+    )
+
+    cellphone_formats = (
+        
     )
 
     def cellphone_number(self):
