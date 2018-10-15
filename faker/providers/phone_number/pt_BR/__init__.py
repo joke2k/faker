@@ -84,7 +84,7 @@ class Provider(PhoneNumberProvider):
     )
 
     cellphone_formats = (
-        '+55 9#### ####'
+        '+55 9#### ####',
     )
 
     def cellphone_number(self):

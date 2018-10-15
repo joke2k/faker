@@ -67,9 +67,8 @@ class TestPhoneNumber(unittest.TestCase):
     def test_cellphone_pt_br(self):
         factory = Faker('pt_BR')
         cellphone = factory.cellphone_number()
-
         assert cellphone is not None
-        assert len(cellphone) == 13
+        assert len(cellphone) == 14
 
 
 class TestHuHU(unittest.TestCase):
