@@ -1576,8 +1576,9 @@ class Provider(BaseProvider):
         :example Date('1999-02-02')
         :return Date
         """
-
+        
         start_date = self._parse_date(start_date)
+        
         end_date = self._parse_date(end_date)
         
         if sys.platform == 'win32':
@@ -1668,16 +1669,12 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
-        try:
-          if tzinfo is None:
-              pick = datetime.fromtimestamp(timestamp, tzlocal())
-              pick = pick.astimezone(tzutc()).replace(tzinfo=None)
-          else:
-              pick = datetime.fromtimestamp(timestamp, tzinfo)
-        except OSError:
-          return self.date_time_between_dates(datetime_start, datetime_end)
-        except RecursionError as err:
-          raise err  
+        if tzinfo is None:
+          pick = datetime.fromtimestamp(timestamp, tzlocal())
+          pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+        else:
+          pick = datetime.fromtimestamp(timestamp, tzinfo)
+        
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
