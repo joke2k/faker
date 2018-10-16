@@ -71,6 +71,7 @@ class Provider(PhoneNumberProvider):
         '#### ####',
         '####-####',
     )
+
     msisdn_formats = (
         '5511#########',
         '5521#########',
@@ -81,3 +82,11 @@ class Provider(PhoneNumberProvider):
         '5571#########',
         '5581#########',
     )
+
+    cellphone_formats = (
+        '+55 9#### ####',
+    )
+
+    def cellphone_number(self):
+        pattern = self.random_element(self.cellphone_formats)
+        return self.numerify(self.generator.parse(pattern))
