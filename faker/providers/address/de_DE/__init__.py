@@ -8,6 +8,8 @@ class Provider(AddressProvider):
 
     city_formats = ('{{city_name}}', )
 
+    city_with_postcode_formats = ('{{city_name}} {{postcode}}')
+
     street_name_formats = (
         '{{first_name}}-{{last_name}}-{{street_suffix_long}}',
         '{{last_name}}{{street_suffix_short}}',
