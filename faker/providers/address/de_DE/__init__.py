@@ -188,3 +188,6 @@ class Provider(AddressProvider):
 
     def country(self):
         return self.random_element(self.countries)
+
+    def postcode(self):
+        return postcode
