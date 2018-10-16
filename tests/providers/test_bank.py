@@ -15,3 +15,18 @@ class TestNoNO(unittest.TestCase):
     def test_bban(self):
         bban = self.factory.bban()
         assert re.match("\d{11}", bban)
+
+
+class TestPlPL(unittest.TestCase):
+    """Tests the bank provider for pl_PL locale"""
+
+    def setUp(self):
+        self.factory = Faker('pl_PL')
+
+    def test_bban(self):
+        bban = self.factory.bban()
+        assert re.match("\d{26}", bban)
+
+    def test_iban(self):
+        iban = self.factory.iban()
+        assert re.match("PL\d{26}", iban)
