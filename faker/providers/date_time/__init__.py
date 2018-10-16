@@ -1574,7 +1574,6 @@ class Provider(BaseProvider):
         :example Date('1999-02-02')
         :return Date
         """
-
         start_date = self._parse_date(start_date)
         end_date = self._parse_date(end_date)
         return self.date_between_dates(date_start=start_date, date_end=end_date)
@@ -1657,16 +1656,16 @@ class Provider(BaseProvider):
         if datetime_end is None:
             datetime_end = datetime.now(tzinfo)
 
-        timestamp = self.generator.random.randint(
+        ts = self.generator.random.randint(
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
         if tzinfo is None:
-            pick = datetime.fromtimestamp(timestamp, tzlocal())
-            pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+            return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
         else:
-            pick = datetime.fromtimestamp(timestamp, tzinfo)
-        return pick
+            return (
+                datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)
+            ).astimezone(tzinfo)
 
     def date_between_dates(self, date_start=None, date_end=None):
         """
@@ -1989,7 +1988,7 @@ class Provider(BaseProvider):
         # boundary.
 
         now = datetime.now(tzinfo).date()
-        start_date = now.replace(year=now.year - (maximum_age+1))
+        start_date = now.replace(year=now.year - (maximum_age + 1))
         end_date = now.replace(year=now.year - minimum_age)
 
         dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
