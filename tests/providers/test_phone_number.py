@@ -79,3 +79,25 @@ class TestHuHU(unittest.TestCase):
     def test_phone_number(self):
         phone_number = self.factory.phone_number()
         re.match(r"[1-9]\d/\d{3} \d{4}", phone_number)
+
+
+class TestThTH(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('th_TH')
+
+    def test_phone_number_should_be_in_defined_format(self):
+        phone_number = self.factory.phone_number()
+
+        first, second, third = phone_number.split(' ')
+
+        formats = ('+66', '+668')
+        self.assertTrue(first in formats)
+
+        if len(first) == 3:
+            self.assertEqual(first, '+66')
+        elif len(first) == 4:
+            self.assertEqual(first, '+668')
+
+        self.assertEqual(len(second), 4)
+        self.assertEqual(len(third), 4)
