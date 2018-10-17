@@ -45,19 +45,19 @@ the type of data you want.
     # 'Lucy Cechtelar'
 
     fake.address()
-    # "426 Jordy Lodge
-    #  Cartwrightshire, SC 88120-6700"
+    # '426 Jordy Lodge
+    #  Cartwrightshire, SC 88120-6700'
 
     fake.text()
-    # Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
-    # beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
-    # amet quidem. Iusto deleniti cum autem ad quia aperiam.
-    # A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
-    # quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
-    # voluptatem sit aliquam. Dolores voluptatum est.
-    # Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
-    # Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
-    # Et sint et. Ut ducimus quod nemo ab voluptatum.
+    # 'Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
+    #  beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
+    #  amet quidem. Iusto deleniti cum autem ad quia aperiam.
+    #  A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
+    #  quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
+    #  voluptatem sit aliquam. Dolores voluptatum est.
+    #  Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
+    #  Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
+    #  Et sint et. Ut ducimus quod nemo ab voluptatum.'
 
 Each call to method ``fake.name()`` yields a different (random) result.
 This is because faker forwards ``faker.Generator.method_name()`` calls
@@ -68,16 +68,16 @@ to ``faker.Generator.format(method_name)``.
     for _ in range(10):
       print(fake.name())
 
-    # Adaline Reichel
-    # Dr. Santa Prosacco DVM
-    # Noemy Vandervort V
-    # Lexi O'Conner
-    # Gracie Weber
-    # Roscoe Johns
-    # Emmett Lebsack
-    # Keegan Thiel
-    # Wellington Koelpin II
-    # Ms. Karley Kiehn V
+    # 'Adaline Reichel'
+    # 'Dr. Santa Prosacco DVM'
+    # 'Noemy Vandervort V'
+    # 'Lexi O'Conner'
+    # 'Gracie Weber'
+    # 'Roscoe Johns'
+    # 'Emmett Lebsack'
+    # 'Keegan Thiel'
+    # 'Wellington Koelpin II'
+    # 'Ms. Karley Kiehn V'
 
 Providers
 ---------
@@ -114,16 +114,16 @@ default en\_US locale.
     for _ in range(10):
         print(fake.name())
 
-    > Elda Palumbo
-    > Pacifico Giordano
-    > Sig. Avide Guerra
-    > Yago Amato
-    > Eustachio Messina
-    > Dott. Violante Lombardo
-    > Sig. Alighieri Monti
-    > Costanzo Costa
-    > Nazzareno Barbieri
-    > Max Coppola
+    # 'Elda Palumbo'
+    # 'Pacifico Giordano'
+    # 'Sig. Avide Guerra'
+    # 'Yago Amato'
+    # 'Eustachio Messina'
+    # 'Dott. Violante Lombardo'
+    # 'Sig. Alighieri Monti'
+    # 'Costanzo Costa'
+    # 'Nazzareno Barbieri'
+    # 'Max Coppola'
 
 You can check available Faker locales in the source code, under the
 providers package. The localization of Faker is an ongoing process, for
@@ -256,7 +256,7 @@ How to create a Provider
 
     # now you can use:
     fake.foo()
-    > 'bar'
+    # 'bar'
 
 How to customize the Lorem Provider
 -----------------------------------
@@ -276,7 +276,7 @@ default lorem ipsum one. The following example shows how to do it with a list of
     'pie','bar','Ice','oat' ]
 
     fake.sentence()
-    #'Expedita at beatae voluptatibus nulla omnis.'
+    # 'Expedita at beatae voluptatibus nulla omnis.'
 
     fake.sentence(ext_word_list=my_word_list)
     # 'Oat beans oat Lollipop bar cheesecake.'
@@ -332,20 +332,20 @@ same version of faker and seed produces the same results.
     fake.seed(4321)
 
     print(fake.name())
-    > Margaret Boehm
+    # 'Margaret Boehm'
 
 Each generator can also be switched to its own instance of ``random.Random``,
 separate to the shared one, by using the ``seed_instance()`` method, which acts
 the same way. For example:
 
-.. code-block:: python
+.. code:: python
 
     from faker import Faker
     fake = Faker()
     fake.seed_instance(4321)
 
     print(fake.name())
-    > Margaret Boehm
+    # 'Margaret Boehm'
 
 Please note that as we keep updating datasets, results are not guaranteed to be
 consistent across patch versions. If you hardcode results in your test, make sure
