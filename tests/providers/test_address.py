@@ -149,6 +149,10 @@ class TestDeDE(unittest.TestCase):
         assert isinstance(country, string_types)
         assert country in DeProvider.countries
 
+    def test_city_with_postcode(self):
+        city_with_postcode = self.factory.city_with_postcode()
+        assert isinstance(city_with_postcode, string_types)
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
