@@ -62,3 +62,14 @@ class Provider(SsnProvider):
                                 birthday.day)
         ik += str(self.generator.random.randrange(0, 999)).zfill(3)
         return ik + str(checksum([int(ch) for ch in ik]))
+
+    vat_id_formats = (
+        'ET#########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Estonian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

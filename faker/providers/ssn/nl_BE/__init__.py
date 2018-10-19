@@ -56,3 +56,14 @@ class Provider(SsnProvider):
         # return result as a string
         elms.append(s_rjust)
         return "".join(elms)
+
+    vat_id_formats = (
+        'BE##########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Belgian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

@@ -37,3 +37,14 @@ class Provider(SsnProvider):
         bsn = "".join([str(e) for e in digits])
         # finally return our random but valid BSN
         return bsn
+
+    vat_id_formats = (
+        'NL#########B##',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Dutch VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))
