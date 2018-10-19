@@ -2,8 +2,8 @@
 
 from __future__ import unicode_literals
 
-import unittest
 import re
+import unittest
 from datetime import datetime
 
 import pytest
@@ -13,9 +13,45 @@ from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
-from faker.providers.ssn.pt_BR import checksum as pt_checksum
-from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
 from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
+from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
+from faker.providers.ssn.pt_BR import checksum as pt_checksum
+
+
+class TestBgBG(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('bg_BG')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^BG\d{9,10}$', self.factory.vat_id())
+
+
+class TestCsCZ(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('cs_CZ')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^CZ\d{8,10}$', self.factory.vat_id())
+
+
+class TestDeAT(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('de_AT')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^ATU\d{9}$', self.factory.vat_id())
+
+
+class TestElCY(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('el_CY')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^CY\d{9}\w$', self.factory.vat_id())
 
 
 class TestEnCA(unittest.TestCase):
@@ -230,6 +266,15 @@ class TestEnUS(unittest.TestCase):
             self.factory.ssn(taxpayer_identification_number_type='ssn')
 
 
+class TestEsES(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('es_ES')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^ES\w\d{8}$|^ES\d{8}\w$|^ES\w\d{7}\w$', self.factory.vat_id())
+
+
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
 
@@ -245,6 +290,10 @@ class TestEtEE(unittest.TestCase):
     def test_ssn(self):
         for _ in range(100):
             assert re.search(r'^\d{11}$', self.factory.ssn())
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^EE\d{9}$', self.factory.vat_id())
 
 
 class TestFiFI(unittest.TestCase):
@@ -268,7 +317,7 @@ class TestFiFI(unittest.TestCase):
 
     def test_ssn_sanity(self):
         for age in range(100):
-            self.factory.ssn(min_age=age, max_age=age+1)
+            self.factory.ssn(min_age=age, max_age=age + 1)
 
     def test_valid_ssn(self):
         ssn = self.factory.ssn(artificial=False)
@@ -279,6 +328,28 @@ class TestFiFI(unittest.TestCase):
         ssn = self.factory.ssn(artificial=True)
         individual_number = int(ssn[7:10])
         assert individual_number >= 900
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^FI\d{8}$', self.factory.vat_id())
+
+
+class TestFrFR(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('fr_FR')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^FR[\w\d]{2} \d{9}$', self.factory.vat_id())
+
+
+class TestEnGB(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('en_GB')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^GB\d{3} \d{4} \d{2}(?: \d{3})?$|^GB(?:GD|HA)\d{3}$', self.factory.vat_id())
 
 
 class TestHrHR(unittest.TestCase):
@@ -298,6 +369,10 @@ class TestHrHR(unittest.TestCase):
     def test_ssn(self):
         for _ in range(100):
             assert re.search(r'^\d{11}$', self.factory.ssn())
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^HR\d{11}$', self.factory.vat_id())
 
 
 class TestHuHU(unittest.TestCase):
@@ -327,6 +402,10 @@ class TestHuHU(unittest.TestCase):
             except ValueError:
                 pass
 
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^HU\d{8}$', self.factory.vat_id())
+
 
 class TestPtBR(unittest.TestCase):
     def setUp(self):
@@ -342,42 +421,16 @@ class TestPtBR(unittest.TestCase):
 
     def test_pt_BR_cpf(self):
         for _ in range(100):
-            assert re.search(r'\d{3}\.\d{3}\.\d{3}\-\d{2}', self.factory.cpf())
+            assert re.search(r'\d{3}\.\d{3}\.\d{3}-\d{2}', self.factory.cpf())
 
 
-class TestPlPL(unittest.TestCase):
-    """ Tests SSN in the pl_PL locale """
-
+class TestNlNL(unittest.TestCase):
     def setUp(self):
-        self.factory = Faker('pl_PL')
+        self.factory = Faker('nl_NL')
 
-    def test_ssn_checksum(self):
-        assert pl_checksum([0, 5, 2, 6, 2, 8, 1, 2, 3, 6]) == 5
-        assert pl_checksum([8, 5, 0, 5, 0, 8, 1, 5, 5, 8]) == 7
-        assert pl_checksum([4, 5, 1, 1, 1, 0, 0, 2, 4, 3]) == 3
-        assert pl_checksum([9, 1, 0, 7, 2, 6, 1, 4, 8, 7]) == 3
-        assert pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]) == 6
-
-    def test_calculate_month(self):
-        assert pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')) == 1
-        assert pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')) == 12
-        assert pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')) == 1
-
-        assert pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')) == 21
-        assert pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')) == 32
-        assert pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')) == 21
-
-        assert pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')) == 41
-        assert pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')) == 52
-        assert pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')) == 41
-
-        assert pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')) == 61
-        assert pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')) == 72
-        assert pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')) == 61
-
-    def test_ssn(self):
+    def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r'^\d{11}$', self.factory.ssn())
+            assert re.search(r'^NL\d{9}B\d{2}$', self.factory.vat_id())
 
 
 class TestNoNO(unittest.TestCase):
@@ -420,3 +473,42 @@ class TestNoNO(unittest.TestCase):
     def test_no_NO_ssn_invalid_gender_passed(self):
         with pytest.raises(ValueError):
             self.factory.ssn(gender='A')
+
+
+class TestPlPL(unittest.TestCase):
+    """ Tests SSN in the pl_PL locale """
+
+    def setUp(self):
+        self.factory = Faker('pl_PL')
+
+    def test_ssn_checksum(self):
+        assert pl_checksum([0, 5, 2, 6, 2, 8, 1, 2, 3, 6]) == 5
+        assert pl_checksum([8, 5, 0, 5, 0, 8, 1, 5, 5, 8]) == 7
+        assert pl_checksum([4, 5, 1, 1, 1, 0, 0, 2, 4, 3]) == 3
+        assert pl_checksum([9, 1, 0, 7, 2, 6, 1, 4, 8, 7]) == 3
+        assert pl_checksum([8, 1, 1, 2, 1, 4, 1, 1, 8, 7]) == 6
+
+    def test_calculate_month(self):
+        assert pl_calculate_mouth(datetime.strptime('1 1 1900', '%m %d %Y')) == 1
+        assert pl_calculate_mouth(datetime.strptime('12 1 1900', '%m %d %Y')) == 12
+        assert pl_calculate_mouth(datetime.strptime('1 1 1999', '%m %d %Y')) == 1
+
+        assert pl_calculate_mouth(datetime.strptime('1 1 2000', '%m %d %Y')) == 21
+        assert pl_calculate_mouth(datetime.strptime('12 1 2000', '%m %d %Y')) == 32
+        assert pl_calculate_mouth(datetime.strptime('1 1 2099', '%m %d %Y')) == 21
+
+        assert pl_calculate_mouth(datetime.strptime('1 1 2100', '%m %d %Y')) == 41
+        assert pl_calculate_mouth(datetime.strptime('12 1 2100', '%m %d %Y')) == 52
+        assert pl_calculate_mouth(datetime.strptime('1 1 2199', '%m %d %Y')) == 41
+
+        assert pl_calculate_mouth(datetime.strptime('1 1 2200', '%m %d %Y')) == 61
+        assert pl_calculate_mouth(datetime.strptime('12 1 2200', '%m %d %Y')) == 72
+        assert pl_calculate_mouth(datetime.strptime('1 1 2299', '%m %d %Y')) == 61
+
+    def test_ssn(self):
+        for _ in range(100):
+            assert re.search(r'^\d{11}$', self.factory.ssn())
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^PL\d{10}$', self.factory.vat_id())
