@@ -87,6 +87,14 @@ class TestCsCZ(unittest.TestCase):
         street_suffix_long = self.factory.street_suffix_long()
         assert isinstance(street_suffix_long, string_types)
 
+    def test_city_name(self):
+        city = self.factory.city_name()
+        assert isinstance(city, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
+
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 
