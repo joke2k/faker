@@ -79,6 +79,10 @@ class TestCsCZ(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('cs_CZ')
 
+    def test_street_suffix_short(self):
+        street_suffix_short = self.factory.street_suffix_short()
+        assert isinstance(street_suffix_short, string_types)
+
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 
