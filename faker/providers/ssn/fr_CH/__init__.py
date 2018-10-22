@@ -47,4 +47,4 @@ class Provider(SsnProvider):
             return remainder
 
         vat_id = self.bothify('########')
-        return 'CHE' + vat_id + _checksum(vat_id)
+        return 'CHE' + vat_id + str(_checksum(vat_id))

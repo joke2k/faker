@@ -54,7 +54,7 @@ class Provider(SsnProvider):
         return separator
 
     vat_id_formats = (
-        'FI#########',
+        'FI########',
     )
 
     def vat_id(self):

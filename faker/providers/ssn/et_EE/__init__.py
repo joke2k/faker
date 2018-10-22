@@ -64,7 +64,7 @@ class Provider(SsnProvider):
         return ik + str(checksum([int(ch) for ch in ik]))
 
     vat_id_formats = (
-        'ET#########',
+        'EE#########',
     )
 
     def vat_id(self):

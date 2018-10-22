@@ -42,7 +42,7 @@ class TestDeAT(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r'^ATU\d{9}$', self.factory.vat_id())
+            assert re.search(r'^ATU\d{8}$', self.factory.vat_id())
 
 
 class TestElCY(unittest.TestCase):
