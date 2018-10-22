@@ -73,6 +73,11 @@ class TestAr_AA(unittest.TestCase):
         with self.assertRaises(ValueError):
             Faker().country_code(representation='hello')
 
+class TestCsCZ(unittest.TestCase):
+    """ Tests in addresses in the cs_CZ locale """
+
+    def setUp(self):
+        self.factory = Faker('cs_CZ')
 
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
