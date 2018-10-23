@@ -74,6 +74,41 @@ class TestAr_AA(unittest.TestCase):
             Faker().country_code(representation='hello')
 
 
+class TestCsCZ(unittest.TestCase):
+    """ Tests in addresses in the cs_CZ locale """
+
+    def setUp(self):
+        self.factory = Faker('cs_CZ')
+
+    def test_street_suffix_short(self):
+        street_suffix_short = self.factory.street_suffix_short()
+        assert isinstance(street_suffix_short, string_types)
+
+    def test_street_suffix_long(self):
+        street_suffix_long = self.factory.street_suffix_long()
+        assert isinstance(street_suffix_long, string_types)
+
+    def test_city_name(self):
+        city = self.factory.city_name()
+        assert isinstance(city, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+
+    def test_city_with_postcode(self):
+        city_with_postcode = self.factory.city_with_postcode()
+        assert isinstance(city_with_postcode, string_types)
+
+
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 
