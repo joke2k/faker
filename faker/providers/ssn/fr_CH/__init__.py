@@ -38,7 +38,6 @@ class Provider(SsnProvider):
         """
         def _checksum(digits):
             code = ['8', '6', '4', '2', '3', '5', '9', '7']
-            digits = [*digits]
             remainder = 11-(sum(map(lambda x, y: int(x) * int(y), code, digits)) % 11)
             if remainder == 10:
                 return 0
