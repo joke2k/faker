@@ -39,6 +39,7 @@ environment:
 init:
   - "ECHO %PYTHON%"
   - ps: "ls C:/Python*"
+  - "%PYTHON%/Scripts/pip.exe install pip --upgrade"
 
 test_script:
   - "%PYTHON%/Scripts/pip.exe --version"
