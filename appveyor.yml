@@ -42,4 +42,6 @@ init:
 
 test_script:
   - "%PYTHON%/Scripts/pip.exe --version"
+  - "%PYTHON%/Scripts/pip.exe freeze"
+  - "%PYTHON%/python.exe --version"
   - "%PYTHON%/python.exe setup.py test"
