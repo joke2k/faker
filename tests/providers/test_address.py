@@ -73,6 +73,7 @@ class TestAr_AA(unittest.TestCase):
         with self.assertRaises(ValueError):
             Faker().country_code(representation='hello')
 
+
 class TestCsCZ(unittest.TestCase):
     """ Tests in addresses in the cs_CZ locale """
 
@@ -106,6 +107,7 @@ class TestCsCZ(unittest.TestCase):
     def test_city_with_postcode(self):
         city_with_postcode = self.factory.city_with_postcode()
         assert isinstance(city_with_postcode, string_types)
+
 
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
