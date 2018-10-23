@@ -99,6 +99,14 @@ class TestCsCZ(unittest.TestCase):
         state = self.factory.state()
         assert isinstance(state, string_types)
 
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+
+    def test_city_with_postcode(self):
+        city_with_postcode = self.factory.city_with_postcode()
+        assert isinstance(city_with_postcode, string_types)
+
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 
