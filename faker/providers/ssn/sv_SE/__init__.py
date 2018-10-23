@@ -42,3 +42,15 @@ class Provider(SsnProvider):
         pnr = '{0}-{1}{2}'.format(pnr_date, suffix, luhn_checksum)
 
         return pnr
+
+    vat_id_formats = (
+        'SE############',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Swedish VAT ID
+        """
+
+        return self.bothify(self.random_element(self.vat_id_formats))

@@ -52,3 +52,14 @@ class Provider(SsnProvider):
         else:
             raise ValueError('Finnish SSN do not support people born before the year 1800 or after the year 2999')
         return separator
+
+    vat_id_formats = (
+        'FI########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Finnish VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

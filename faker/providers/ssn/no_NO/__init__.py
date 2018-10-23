@@ -59,13 +59,13 @@ class Provider(SsnProvider):
             raise ValueError('Gender must be one of F or M.')
 
         while True:
-            if birthday.year >= 1900 and birthday.year <= 1999:
+            if 1900 <= birthday.year <= 1999:
                 suffix = str(self.generator.random.randrange(0, 49))
-            elif birthday.year >= 1854 and birthday.year <= 1899:
+            elif 1854 <= birthday.year <= 1899:
                 suffix = str(self.generator.random.randrange(50, 74))
-            elif birthday.year >= 2000 and birthday.year <= 2039:
+            elif 2000 <= birthday.year <= 2039:
                 suffix = str(self.generator.random.randrange(50, 99))
-            elif birthday.year >= 1940 and birthday.year <= 1999:
+            elif 1940 <= birthday.year <= 1999:
                 suffix = str(self.generator.random.randrange(90, 99))
             if gender == 'F':
                 gender_num = self.generator.random.choice((0, 2, 4, 6, 8))

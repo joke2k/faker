@@ -16,20 +16,31 @@ CHECKSUM_TABLE = (
 
 
 def checksum(value):
-    '''
+    """
     Calculates the checksum char used for the 16th char.
     Author: Vincenzo Palazzo
-    '''
+    """
     return chr(65 + sum(CHECKSUM_TABLE[index % 2][ALPHANUMERICS_DICT[char]]
                         for index, char in enumerate(value)) % 26)
 
 
 class Provider(SsnProvider):
-    '''
+    """
     Generates italian fiscal codes.
-    '''
+    """
     fiscal_code_format = '??????##?##?###'
 
     def ssn(self):
         code = self.bothify(self.fiscal_code_format).upper()
         return code + checksum(code)
+
+    vat_id_formats = (
+        'IT###########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Italian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

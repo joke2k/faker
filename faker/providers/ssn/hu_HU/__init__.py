@@ -128,3 +128,14 @@ class Provider(SsnProvider):
         K = fmod(reduce(lambda x, y: x + y, cum), 11)
 
         return vdig + str(int(K))
+
+    vat_id_formats = (
+        'HU########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Hungarian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

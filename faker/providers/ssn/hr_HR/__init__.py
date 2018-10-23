@@ -39,3 +39,14 @@ class Provider(SsnProvider):
         digits.append(checksum(digits))
 
         return ''.join(map(str, digits))
+
+    vat_id_formats = (
+        'HR###########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Croatian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))
