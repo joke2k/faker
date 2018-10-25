@@ -154,6 +154,9 @@ class Provider(AddressProvider):
     def postcode(self):
         return self.bothify(self.random_element(self.postcode_formats))
 
+    def city_with_postcode(self):
+        return self.postcode() + " " + self.random_element(self.cities)
+
     def latitude(self):
         return self.geo_coordinate(center=47.60707, radius=1)
 
