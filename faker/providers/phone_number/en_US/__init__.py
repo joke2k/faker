@@ -4,28 +4,34 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     formats = (
-        '+##(#)##########',
-        '+##(#)##########',
-        '0##########',
-        '0##########',
+        # Standard 10-digit phone number formats
+        '##########',
+        '##########',
         '###-###-####',
-        '(###)###-####',
-        '1-###-###-####',
-        '###.###.####',
         '###-###-####',
+        # Optional 10-digit local phone number format
         '(###)###-####',
-        '1-###-###-####',
+        '(###)###-####',
+        # Non-standard 10-digit phone number formats
         '###.###.####',
+        '###.###.####',
+        # Standard 11-digit international format
+        '1-###-###-####',
+        '1-###-###-####',
+        # Standard 10-digit phone number formats with extensions
         '###-###-####x###',
-        '(###)###-####x###',
-        '1-###-###-####x###',
-        '###.###.####x###',
         '###-###-####x####',
-        '(###)###-####x####',
-        '1-###-###-####x####',
-        '###.###.####x####',
         '###-###-####x#####',
+        # Optional 10-digit local phone number format with extensions
+        '(###)###-####x###',
+        '(###)###-####x####',
         '(###)###-####x#####',
-        '1-###-###-####x#####',
+        # Non-standard 10-digit phone number formats with extensions
+        '###.###.####x###',
+        '###.###.####x####',
         '###.###.####x#####',
+        # Standard 11-digit international format with extensions
+        '1-###-###-####x###',
+        '1-###-###-####x####',
+        '1-###-###-####x#####',
     )
