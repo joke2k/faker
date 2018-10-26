@@ -193,18 +193,18 @@ class Provider(AutomotiveProvider):
         '89',
         # Sevastopol / De jure part of Ukraine as City with special status. Annexed by Russia in 2014.
         '92',
-        # Territories outside of the Russian Federation, served by the bodies of internal affairs of the Russian Federation, such as Baikonur
+        # Territories outside of the Russian Federation,
+        # served by the bodies of internal affairs of the Russian Federation, such as Baikonur
         '94',
     )
 
     license_plate_number = (
-        '###'
+        '##%'
     )
 
     def license_plate(self):
         return self.random_element(self.license_plate_letters) + \
-               self.numerify(self.generator.parse(self.license_plate_number))  + \
+               self.numerify(self.generator.parse(self.license_plate_number)) + \
                self.random_element(self.license_plate_letters) + \
                self.random_element(self.license_plate_letters) + \
                self.random_element(self.license_plate_suffix)
-
