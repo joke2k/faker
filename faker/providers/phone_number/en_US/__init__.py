@@ -15,9 +15,6 @@ class Provider(PhoneNumberProvider):
         # Non-standard 10-digit phone number format
         '###.###.####',
         '###.###.####',
-        # Standard 11-digit phone number format
-        '1-###-###-####',
-        '1-###-###-####',
         # Standard 10-digit phone number format with extensions
         '###-###-####x###',
         '###-###-####x####',
@@ -30,8 +27,14 @@ class Provider(PhoneNumberProvider):
         '###.###.####x###',
         '###.###.####x####',
         '###.###.####x#####',
+        # Standard 11-digit phone number format
+        '+1-###-###-####',
+        '001-###-###-####',
         # Standard 11-digit phone number format with extensions
-        '1-###-###-####x###',
-        '1-###-###-####x####',
-        '1-###-###-####x#####',
+        '+1-###-###-####x###',
+        '+1-###-###-####x####',
+        '+1-###-###-####x#####',
+        '001-###-###-####x###',
+        '001-###-###-####x####',
+        '001-###-###-####x#####',
     )
