@@ -24,7 +24,7 @@ class TestFile(unittest.TestCase):
             assert re.search(r'\/\w+\/\w+\.(bmp|gif|jpeg|jpg|png|tiff)', file_path)
 
     def test_unix_device(self):
-        reg_device = re.compile('^/dev/(vd|sd|xvd)[a-z]$')
+        reg_device = re.compile(r'^/dev/(vd|sd|xvd)[a-z]$')
         # Test default
         for _ in range(100):
             path = self.factory.unix_device()
@@ -36,7 +36,7 @@ class TestFile(unittest.TestCase):
             assert path.startswith('/dev/sd')
 
     def test_unix_partition(self):
-        reg_part = re.compile('^/dev/(vd|sd|xvd)[a-z]\d$')
+        reg_part = re.compile(r'^/dev/(vd|sd|xvd)[a-z]\d$')
         # Test default
         for _ in range(100):
             path = self.factory.unix_partition()

@@ -142,15 +142,15 @@ class TestDeAT(unittest.TestCase):
 
     def test_postcode(self):
         postcode = self.factory.postcode()
-        assert re.match("\d{4}", postcode)
+        assert re.match(r"\d{4}", postcode)
 
     def test_latitude(self):
         latitude = self.factory.latitude()
-        assert re.match("4[6-8]\.\d+", str(latitude))
+        assert re.match(r"4[6-8]\.\d+", str(latitude))
 
     def test_longitude(self):
         longitude = self.factory.longitude()
-        assert re.match("1[1-5]\.\d+", str(longitude))
+        assert re.match(r"1[1-5]\.\d+", str(longitude))
 
 
 class TestDeDE(unittest.TestCase):
@@ -244,7 +244,7 @@ class TestEnAU(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             postcode = self.factory.postcode()
-            assert re.match("\d{4}", postcode)
+            assert re.match(r"\d{4}", postcode)
 
     def test_state(self):
         state = self.factory.state()
@@ -277,7 +277,7 @@ class TestEnNZ(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             postcode = self.factory.postcode()
-            assert re.match("\d{4}", postcode)
+            assert re.match(r"\d{4}", postcode)
 
 
 class TestEnCA(unittest.TestCase):
@@ -289,18 +289,18 @@ class TestEnCA(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             postcode = self.factory.postcode()
-            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
+            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
                             postcode)
 
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()
-            assert re.match("[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
+            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
                             postalcode)
 
     def test_postal_code_letter(self):
         postal_code_letter = self.factory.postal_code_letter()
-        assert re.match("[A-Z]", postal_code_letter)
+        assert re.match(r"[A-Z]", postal_code_letter)
 
     def test_province(self):
         province = self.factory.province()
@@ -363,29 +363,29 @@ class TestEnUS(unittest.TestCase):
     def test_postcode(self):
         for _ in range(100):
             postcode = self.factory.postcode()
-            assert re.match("\d{5}", postcode)
+            assert re.match(r"\d{5}", postcode)
 
     def test_zipcode(self):
         for _ in range(100):
             zipcode = self.factory.zipcode()
-            assert re.match("\d{5}", zipcode)
+            assert re.match(r"\d{5}", zipcode)
 
     def test_zipcode_plus4(self):
         for _ in range(100):
             zipcode_plus4 = self.factory.zipcode_plus4()
-            assert re.match("\d{5}(-\d{4})", zipcode_plus4)
+            assert re.match(r"\d{5}(-\d{4})", zipcode_plus4)
 
     def test_military_ship(self):
         military_ship = self.factory.military_ship()
         assert isinstance(military_ship, string_types)
         assert military_ship in EnUsProvider.military_ship_prefix
-        assert re.match("[A-Z]", military_ship)
+        assert re.match(r"[A-Z]", military_ship)
 
     def test_military_state(self):
         military_state = self.factory.military_state()
         assert isinstance(military_state, string_types)
         assert military_state in EnUsProvider.military_state_abbr
-        assert re.match("[A-Z]", military_state)
+        assert re.match(r"[A-Z]", military_state)
 
     def test_military_apo(self):
         military_apo = self.factory.military_apo()
@@ -483,15 +483,15 @@ class TestJaJP(unittest.TestCase):
 
         chome = self.factory.chome()
         assert isinstance(chome, string_types)
-        assert re.match("\d{1,2}丁目", chome)
+        assert re.match(r"\d{1,2}丁目", chome)
 
         ban = self.factory.ban()
         assert isinstance(ban, string_types)
-        assert re.match("\d{1,2}番", ban)
+        assert re.match(r"\d{1,2}番", ban)
 
         gou = self.factory.gou()
         assert isinstance(gou, string_types)
-        assert re.match("\d{1,2}号", gou)
+        assert re.match(r"\d{1,2}号", gou)
 
         building_name = self.factory.building_name()
         assert isinstance(building_name, string_types)
@@ -499,11 +499,11 @@ class TestJaJP(unittest.TestCase):
 
         postcode = self.factory.postcode()
         assert isinstance(postcode, string_types)
-        assert re.match("\d{3}-\d{4}", postcode)
+        assert re.match(r"\d{3}-\d{4}", postcode)
 
         zipcode = self.factory.zipcode()
         assert isinstance(zipcode, string_types)
-        assert re.match("\d{3}-\d{4}", zipcode)
+        assert re.match(r"\d{3}-\d{4}", zipcode)
 
         address = self.factory.address()
         assert isinstance(address, string_types)
@@ -518,15 +518,15 @@ class TestKoKR(unittest.TestCase):
     def test_address(self):
         postcode = self.factory.postcode()
         assert isinstance(postcode, string_types)
-        assert re.match("\d{5}", postcode)
+        assert re.match(r"\d{5}", postcode)
 
         postal_code = self.factory.postal_code()
         assert isinstance(postal_code, string_types)
-        assert re.match("\d{5}", postal_code)
+        assert re.match(r"\d{5}", postal_code)
 
         old_postal_code = self.factory.old_postal_code()
         assert isinstance(old_postal_code, string_types)
-        assert re.match("\d{3}-\d{3}", old_postal_code)
+        assert re.match(r"\d{3}-\d{3}", old_postal_code)
 
 
 class TestNeNP(unittest.TestCase):
