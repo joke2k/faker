@@ -12,13 +12,13 @@ class Provider(PhoneNumberProvider):
         # Optional 10-digit local phone number format
         '(###)###-####',
         '(###)###-####',
-        # Non-standard 10-digit phone number formats
+        # Non-standard 10-digit phone number format
         '###.###.####',
         '###.###.####',
-        # Standard 11-digit international format
+        # Standard 11-digit phone number format
         '1-###-###-####',
         '1-###-###-####',
-        # Standard 10-digit phone number formats with extensions
+        # Standard 10-digit phone number format with extensions
         '###-###-####x###',
         '###-###-####x####',
         '###-###-####x#####',
@@ -26,11 +26,11 @@ class Provider(PhoneNumberProvider):
         '(###)###-####x###',
         '(###)###-####x####',
         '(###)###-####x#####',
-        # Non-standard 10-digit phone number formats with extensions
+        # Non-standard 10-digit phone number format with extensions
         '###.###.####x###',
         '###.###.####x####',
         '###.###.####x#####',
-        # Standard 11-digit international format with extensions
+        # Standard 11-digit phone number format with extensions
         '1-###-###-####x###',
         '1-###-###-####x####',
         '1-###-###-####x#####',
