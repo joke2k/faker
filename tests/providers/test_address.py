@@ -109,6 +109,10 @@ class TestDeAT(unittest.TestCase):
         postcode = self.factory.postcode()
         assert re.match("\d{4}", postcode)
 
+    def test_city_with_postcode(self):
+        city_with_postcode = self.factory.city_with_postcode()
+        assert isinstance(city_with_postcode, string_types)
+
     def test_latitude(self):
         latitude = self.factory.latitude()
         assert re.match("4[6-8]\.\d+", str(latitude))
