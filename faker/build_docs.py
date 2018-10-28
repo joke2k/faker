@@ -7,13 +7,7 @@ import os
 import pprint
 import sys
 
-
-if sys.version < '3':
-    text_type = unicode
-    binary_type = str
-else:
-    text_type = str
-    binary_type = bytes
+import six
 
 
 DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
@@ -41,7 +35,7 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
             # `pprint` can't format sets of heterogenous types.
             if not isinstance(example, set):
                 example = pprint.pformat(example, indent=4)
-            lines = text_type(example).expandtabs().splitlines()
+            lines = six.text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
             msg = 'error on "{0}" with value "{1}"'.format(signature, example)
             raise Exception(msg)
@@ -79,8 +73,7 @@ def write_docs(*args, **kwargs):
         [write(fh, '   providers/%s\n' % doc.get_provider_name(provider))
          for provider, fakers in formatters]
 
-    AVAILABLE_LOCALES = list(AVAILABLE_LOCALES)
-    AVAILABLE_LOCALES.sort()
+    AVAILABLE_LOCALES = sorted(AVAILABLE_LOCALES)
     for lang in AVAILABLE_LOCALES:
         fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
         with open(fname, 'wb') as fh:

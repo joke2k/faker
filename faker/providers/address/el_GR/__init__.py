@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from decimal import Decimal
 
 from .. import Provider as AddressProvider
-from faker.generator import random
 
 
 def contains_point(poly, point):
@@ -89,54 +88,92 @@ class Provider(AddressProvider):
         pattern = self.random_element(self.line_address_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def street_prefix(cls):
-        return cls.random_element(cls.street_prefixes_short + cls.street_prefixes_long)
+    def street_prefix(self):
+        return self.random_element(
+            self.street_prefixes_short +
+            self.street_prefixes_long)
 
-    @classmethod
-    def street_prefix_short(cls):
-        return cls.random_element(cls.street_prefixes_short)
+    def street_prefix_short(self):
+        return self.random_element(self.street_prefixes_short)
 
-    @classmethod
-    def street_prefix_long(cls):
-        return cls.random_element(cls.street_prefixes_long)
+    def street_prefix_long(self):
+        return self.random_element(self.street_prefixes_long)
 
-    @classmethod
-    def street(cls):
-        return cls.random_element(cls.localities)
+    def street(self):
+        return self.random_element(self.localities)
 
-    @classmethod
-    def city(cls):
-        return cls.random_element(cls.cities)
+    def city(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def region(cls):
-        return cls.random_element(cls.regions)
+    def region(self):
+        return self.random_element(self.regions)
 
-    @classmethod
-    def latlng(cls):
-        return float(cls.latitude()), float(cls.longitude())
-    
-    @classmethod
-    def latitude(cls):
-        l = list(map(lambda t: int(t[0] * 10000000), cls.poly))
-        return Decimal(str(random.randint(min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+    def latlng(self):
+        return float(self.latitude()), float(self.longitude())
 
-    @classmethod
-    def longitude(cls):
-        l = list(map(lambda t: int(t[1] * 10000000), cls.poly))
-        return Decimal(str(random.randint(min(l), max(l)) / 10000000.0)).quantize(Decimal('.000001'))
+    def latitude(self):
+        latitudes = list(map(lambda t: int(t[0] * 10000000), self.poly))
+        return Decimal(str(self.generator.random.randint(
+            min(latitudes), max(latitudes)) / 10000000.0)).quantize(Decimal('.000001'))
+
+    def longitude(self):
+        longitudes = list(map(lambda t: int(t[1] * 10000000), self.poly))
+        return Decimal(str(self.generator.random.randint(
+            min(longitudes), max(longitudes)) / 10000000.0)).quantize(Decimal('.000001'))
 
     # Ονόματα πρωτευουσών νομών
     cities = (
-        'Άμφισσα', 'Άρτα', 'Έδεσσα', 'Αγ. Νικόλαος', 'Αθήνα', 'Αλεξανδρούπολη',
-        'Αργοστόλι', 'Βέροια', 'Βόλος', 'Γρεβενά', 'Δράμα', 'Ερμούπολη', 'Ζάκυνθος',
-        'Ηγουμενίτσα', 'Ηράκλειο', 'Θεσσαλονίκη', 'Ιωάννινα', 'Κέρκυρα', 'Καβάλα',
-        'Καλαμάτα', 'Καρδίτσα', 'Καρπενήσι', 'Καστοριά', 'Κατερίνη', 'Κιλκίς',
-        'Κοζάνη', 'Κομοτηνή', 'Κόρινθος', 'Λάρισα', 'Λαμία', 'Λευκάδα', 'Λιβαδιά',
-        'Μεσολόγγι', 'Μυτιλήνη', 'Ναύπλιο', 'Ξάνθη', 'Πάτρα', 'Πολύγυρος',
-        'Πρέβεζα', 'Πύργος', 'Ρέθυμνο', 'Ρόδος', 'Σάμος', 'Σέρρες', 'Σπάρτη',
-        'Τρίκαλα', 'Τρίπολη', 'Φλώρινα', 'Χίος', 'Χαλκίδα', 'Χανιά',
+        'Άμφισσα',
+        'Άρτα',
+        'Έδεσσα',
+        'Αγ. Νικόλαος',
+        'Αθήνα',
+        'Αλεξανδρούπολη',
+        'Αργοστόλι',
+        'Βέροια',
+        'Βόλος',
+        'Γρεβενά',
+        'Δράμα',
+        'Ερμούπολη',
+        'Ζάκυνθος',
+        'Ηγουμενίτσα',
+        'Ηράκλειο',
+        'Θεσσαλονίκη',
+        'Ιωάννινα',
+        'Κέρκυρα',
+        'Καβάλα',
+        'Καλαμάτα',
+        'Καρδίτσα',
+        'Καρπενήσι',
+        'Καστοριά',
+        'Κατερίνη',
+        'Κιλκίς',
+        'Κοζάνη',
+        'Κομοτηνή',
+        'Κόρινθος',
+        'Λάρισα',
+        'Λαμία',
+        'Λευκάδα',
+        'Λιβαδιά',
+        'Μεσολόγγι',
+        'Μυτιλήνη',
+        'Ναύπλιο',
+        'Ξάνθη',
+        'Πάτρα',
+        'Πολύγυρος',
+        'Πρέβεζα',
+        'Πύργος',
+        'Ρέθυμνο',
+        'Ρόδος',
+        'Σάμος',
+        'Σέρρες',
+        'Σπάρτη',
+        'Τρίκαλα',
+        'Τρίπολη',
+        'Φλώρινα',
+        'Χίος',
+        'Χαλκίδα',
+        'Χανιά',
     )
 
     # Ονόματα νομών

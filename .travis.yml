@@ -1,20 +1,39 @@
 language: python
 sudo: false
+cache: pip
 branches:
   only:
     - master
-python:
-  - 2.6
-  - 2.7
-  - 3.3
-  - 3.4
-  - "pypy"
-  - "pypy3"
+
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py27
+    - python: 3.4
+      env: TOXENV=py34
+    - python: 3.5
+      env: TOXENV=py35
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 3.7
+      env: TOXENV=py37
+      sudo: required
+      dist: xenial
+    - python: pypy-5.3.1
+      env: TOXENV=pypy
+    - python: pypy3
+      env: TOXENV=pypy3
+    - python: 3.7
+      env: TOXENV=flake8
+      sudo: required
+      dist: xenial
+
+before_install:
+  - pip install pep8
 install:
-  - pip install -e .
-  - pip install -r faker/tests/requirements.txt
-  - pip install coveralls
+  - pip install tox
 script:
-  - coverage run --source=faker setup.py test
+  - tox
 after_success:
+  - pip install coveralls
   - coveralls

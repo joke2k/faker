@@ -60,7 +60,7 @@ def _findall(text, substr):
     # Also finds overlaps
     sites = []
     i = 0
-    while 1:
+    while True:
         j = text.find(substr, i)
         if j == -1:
             break

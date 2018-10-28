@@ -20,8 +20,16 @@ class Provider(InternetProvider):
     email_formats = ('{{user_name}}@{{free_email_domain}}', )
 
     free_email_domains = (
-        'zoznam.sk', 'gmail.com', 'centrum.sk', 'post.sk', 'chello.sk', 'pobox.sk', 'szm.sk', 'atlas.sk', 'azet.sk',
+        'zoznam.sk',
+        'gmail.com',
+        'centrum.sk',
+        'post.sk',
+        'chello.sk',
+        'pobox.sk',
+        'szm.sk',
+        'atlas.sk',
+        'azet.sk',
         'inmail.sk',
     )
 
-    tlds = ('sk', 'com',)
+    tlds = ('sk', 'com')

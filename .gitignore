@@ -1,3 +1,4 @@
+__pycache__/
 *.py[cod]
 
 # C extensions
@@ -14,6 +15,7 @@ docs/locales/*.rst
 docs/providers.rst
 docs/providers/*.rst
 eggs
+.eggs
 parts
 var
 sdist
@@ -40,3 +42,8 @@ nosetests.xml
 .idea
 .projectile
 .ropeproject
+.DS_Store
+.venv
+
+# IDE
+*.sw[po]

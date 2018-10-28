@@ -1,2 +1,0 @@
-mock==1.0.1
-UkPostcodeParser==1.0.3

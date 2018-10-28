@@ -6,6 +6,5 @@ from .. import Provider as SsnProvider
 class Provider(SsnProvider):
     ssn_formats = ("?#########",)
 
-    @classmethod
-    def ssn(cls):
-        return cls.bothify(cls.random_element(cls.ssn_formats)).upper()
+    def ssn(self):
+        return self.bothify(self.random_element(self.ssn_formats)).upper()

@@ -12,15 +12,15 @@ class Provider(InternetProvider):
         '{{first_name_male}}.{{last_name_male}}',
         '{{first_name}}##',
         '?{{last_name}}',
-        '{{first_name}}{{year}}'
+        '{{first_name}}{{year}}',
     )
 
     email_formats = (
-    	'{{user_name}}@{{free_email_domain}}',
-    	'{{user_name}}@{{domain_name}}')
+        '{{user_name}}@{{free_email_domain}}',
+        '{{user_name}}@{{domain_name}}')
 
     free_email_domains = (
-    	'gmail.com', 'yahoo.com', 'hotmail.com', 'mail.bg', 'abv.bg', 'dir.bg'
+        'gmail.com', 'yahoo.com', 'hotmail.com', 'mail.bg', 'abv.bg', 'dir.bg',
     )
 
     tlds = ('bg', 'com', 'biz', 'info', 'net', 'org', 'edu')
@@ -39,5 +39,5 @@ class Provider(InternetProvider):
         ('д', 'd'), ('ж', 'zh'), ('з', 'z'), ('и', 'i'), ('й', 'i'), ('к', 'k'),
         ('л', 'l'), ('м', 'm'), ('н', 'n'), ('п', 'p'), ('т', 't'), ('ф', 'f'),
         ('ц', 'ts'), ('ч', 'ch'), ('ш', 'sh'), ('щ', 'sht'), ('ъ', 'u'), ('ь', ''),
-        ('ю', 'yu'), ('я', 'ya')
+        ('ю', 'yu'), ('я', 'ya'),
     )

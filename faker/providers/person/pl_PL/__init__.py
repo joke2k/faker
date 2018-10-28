@@ -3,6 +3,24 @@ from __future__ import unicode_literals
 from .. import Provider as PersonProvider
 
 
+def checksum_identity_card_number(characters):
+    """
+    Calculates and returns a control digit for given list of characters basing on Identity Card Number standards.
+    """
+    weights_for_check_digit = [7, 3, 1, 0, 7, 3, 1, 7, 3]
+    check_digit = 0
+
+    for i in range(3):
+        check_digit += weights_for_check_digit[i] * (ord(characters[i]) - 55)
+
+    for i in range(4, 9):
+        check_digit += weights_for_check_digit[i] * characters[i]
+
+    check_digit %= 10
+
+    return check_digit
+
+
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
@@ -10,34 +28,167 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name_female}}',
         '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}'
+        '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
     )
 
     first_names_male = (
-        'Jakub', 'Jan', 'Mateusz', 'Bartek', 'Kacper', 'Michał', 'Szymon', 'Antoni', 'Filip',
-        'Piotr', 'Maciej', 'Aleksander', 'Franciszek', 'Mikołaj', 'Adam', 'Stanisław', 'Wiktor',
-        'Krzysztof', 'Wojciech', 'Igor', 'Maksymilian', 'Karol', 'Dawid', 'Tomasz', 'Patryk',
-        'Oskar', 'Paweł', 'Dominik', 'Kamil', 'Oliwier', 'Ignacy', 'Marcel', 'Hubert', 'Adrian',
-        'Łukasz', 'Sebastian', 'Julian', 'Tymon', 'Krystian', 'Marcin', 'Damian', 'Miłosz', 'Leon',
-        'Alan', 'Tymoteusz', 'Kajetan', 'Grzegorz', 'Daniel', 'Rafał', 'Eryk', 'Konrad', 'Ksawery',
-        'Gabriel', 'Nikodem', 'Bruno', 'Przemysław', 'Borys', 'Artur', 'Olaf', 'Jerzy', 'Marek',
-        'Tadeusz', 'Andrzej', 'Witold', 'Iwo', 'Juliusz', 'Robert', 'Błażej', 'Cezary', 'Jeremi',
-        'Jacek', 'Konstanty', 'Ryszard', 'Stefan', 'Aleks', 'Gustaw', 'Radosław', 'Emil', 'Norbert',
-        'Fabian', 'Jędrzej', 'Alex', 'Kazimierz', 'Arkadiusz', 'Kornel', 'Józef', 'Natan',
-        'Cyprian', 'Mieszko', 'Nataniel', 'Maks', 'Maurycy', 'Olgierd', 'Dariusz', 'Leonard',
-        'Mariusz', 'Albert', 'Fryderyk', 'Ernest', 'Tobiasz'
-    )
+        'Jakub',
+        'Jan',
+        'Mateusz',
+        'Bartek',
+        'Kacper',
+        'Michał',
+        'Szymon',
+        'Antoni',
+        'Filip',
+        'Piotr',
+        'Maciej',
+        'Aleksander',
+        'Franciszek',
+        'Mikołaj',
+        'Adam',
+        'Stanisław',
+        'Wiktor',
+        'Krzysztof',
+        'Wojciech',
+        'Igor',
+        'Maksymilian',
+        'Karol',
+        'Dawid',
+        'Tomasz',
+        'Patryk',
+        'Oskar',
+        'Paweł',
+        'Dominik',
+        'Kamil',
+        'Oliwier',
+        'Ignacy',
+        'Marcel',
+        'Hubert',
+        'Adrian',
+        'Łukasz',
+        'Sebastian',
+        'Julian',
+        'Tymon',
+        'Krystian',
+        'Marcin',
+        'Damian',
+        'Miłosz',
+        'Leon',
+        'Alan',
+        'Tymoteusz',
+        'Kajetan',
+        'Grzegorz',
+        'Daniel',
+        'Rafał',
+        'Eryk',
+        'Konrad',
+        'Ksawery',
+        'Gabriel',
+        'Nikodem',
+        'Bruno',
+        'Przemysław',
+        'Borys',
+        'Artur',
+        'Olaf',
+        'Jerzy',
+        'Marek',
+        'Tadeusz',
+        'Andrzej',
+        'Witold',
+        'Iwo',
+        'Juliusz',
+        'Robert',
+        'Błażej',
+        'Cezary',
+        'Jeremi',
+        'Jacek',
+        'Konstanty',
+        'Ryszard',
+        'Stefan',
+        'Aleks',
+        'Gustaw',
+        'Radosław',
+        'Emil',
+        'Norbert',
+        'Fabian',
+        'Jędrzej',
+        'Alex',
+        'Kazimierz',
+        'Arkadiusz',
+        'Kornel',
+        'Józef',
+        'Natan',
+        'Cyprian',
+        'Mieszko',
+        'Nataniel',
+        'Maks',
+        'Maurycy',
+        'Olgierd',
+        'Dariusz',
+        'Leonard',
+        'Mariusz',
+        'Albert',
+        'Fryderyk',
+        'Ernest',
+        'Tobiasz')
 
     first_names_female = (
-        'Kamila', 'Ewa', 'Blanka', 'Olga', 'Kalina', 'Klara', 'Urszula', 'Sandra', 'Kaja',
-        'Marianna', 'Kornelia', 'Justyna', 'Monika', 'Sara', 'Adrianna', 'Aniela', 'Agnieszka',
-        'Róża', 'Marcelina', 'Roksana', 'Natasza', 'Lidia', 'Malwina', 'Karina', 'Ada', 'Marika',
-        'Anastazja', 'Sonia', 'Nela', 'Dorota', 'Apolonia', 'Ida', 'Eliza', 'Angelika',
-        'Anna Maria', 'Liwia', 'Ewelina', 'Julita', 'Rozalia', 'Inga', 'Krystyna', 'Bianka',
-        'Dagmara', 'Melania', 'Sylwia', 'Nicole', 'Anita', 'Aurelia',
-        'Elżbieta', 'Janina', 'Julianna', 'Tola', 'Gaja')
+        'Kamila',
+        'Ewa',
+        'Blanka',
+        'Olga',
+        'Kalina',
+        'Klara',
+        'Urszula',
+        'Sandra',
+        'Kaja',
+        'Marianna',
+        'Kornelia',
+        'Justyna',
+        'Monika',
+        'Sara',
+        'Adrianna',
+        'Aniela',
+        'Agnieszka',
+        'Róża',
+        'Marcelina',
+        'Roksana',
+        'Natasza',
+        'Lidia',
+        'Malwina',
+        'Karina',
+        'Ada',
+        'Marika',
+        'Anastazja',
+        'Sonia',
+        'Nela',
+        'Dorota',
+        'Apolonia',
+        'Ida',
+        'Eliza',
+        'Angelika',
+        'Anna Maria',
+        'Liwia',
+        'Ewelina',
+        'Julita',
+        'Rozalia',
+        'Inga',
+        'Krystyna',
+        'Bianka',
+        'Dagmara',
+        'Melania',
+        'Sylwia',
+        'Nicole',
+        'Anita',
+        'Aurelia',
+        'Elżbieta',
+        'Janina',
+        'Julianna',
+        'Tola',
+        'Gaja')
 
     unisex_last_names = (
         'Wandzel', 'Pajda', 'Dzienis', 'Borysewicz', 'Szlaga', 'Krzysiek', 'Iwańczyk', 'Cierpisz',
@@ -486,7 +637,7 @@ class Provider(PersonProvider):
         'Cogiel', 'Cheba', 'Baś', 'Andreasik', 'Wenzel', 'Szumna', 'Rosłoń', 'Ogłaza',
         'Mikłaszewicz', 'Kubieniec', 'Jędral', 'Bieniak', 'Wons', 'Władyka', 'Rolak', 'Prejs',
         'Płocharczyk', 'Ostręga', 'Łęgowik', 'Ludwik', 'Kopik', 'Kleinschmidt', 'Karczmarek',
-        'Gładka', 'Czylok', 'Wawrzynkiewicz'
+        'Gładka', 'Czylok', 'Wawrzynkiewicz',
     )
     male_last_names = (
         'Kowalski', 'Wiśniewski', 'Dąbrowski', 'Lewandowski', 'Wójcik', 'Kamiński', 'Kowalczyk',
@@ -519,10 +670,35 @@ class Provider(PersonProvider):
         'Bukowski', 'Leśniak',
     )
 
-    prefixes = ('pan', 'pani')
+    prefixes_male = ('pan',)
+    prefixes_female = ('pani',)
 
     first_names = first_names_male + first_names_female
 
-    @classmethod
-    def last_name(cls):
-        return cls.random_element(cls.unisex_last_names)
+    def last_name(self):
+        return self.random_element(self.unisex_last_names)
+
+    def identity_card_number(self):
+        """
+        Returns 9 character Polish Identity Card Number,
+        Polish: Numer Dowodu Osobistego.
+
+        The card number consists of 3 letters followed by 6 digits (for example, ABA300000),
+        of which the first digit (at position 3) is the check digit.
+
+        https://en.wikipedia.org/wiki/Polish_identity_card
+        """
+        identity = []
+
+        for _ in range(3):
+            identity.append(self.random_letter().upper())
+
+        # it will be overwritten by a checksum
+        identity.append(0)
+
+        for _ in range(5):
+            identity.append(self.random_digit())
+
+        identity[3] = checksum_identity_card_number(identity)
+
+        return ''.join(str(character) for character in identity)

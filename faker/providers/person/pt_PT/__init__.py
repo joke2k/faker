@@ -51,7 +51,7 @@ class Provider(PersonProvider):
     )
 
     last_names = (
-        'Abreu',  'Almeida',  'Alves', 'Amaral', 'Amorim', 'Andrade', 'Anjos',
+        'Abreu', 'Almeida', 'Alves', 'Amaral', 'Amorim', 'Andrade', 'Anjos',
         'Antunes', 'Araújo', 'Assunção', 'Azevedo', 'Baptista', 'Barbosa',
         'Barros', 'Batista', 'Borges', 'Branco', 'Brito', 'Campos', 'Cardoso',
         'Carneiro', 'Carvalho', 'Castro', 'Coelho', 'Correia', 'Costa', 'Cruz',
@@ -70,6 +70,5 @@ class Provider(PersonProvider):
 
     prefixes = ('de', 'da', 'do')
 
-    @classmethod
-    def prefix(cls):
-        return cls.random_element(cls.prefixes)
+    def prefix(self):
+        return self.random_element(self.prefixes)

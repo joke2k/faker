@@ -10,6 +10,5 @@ class Provider(PhoneNumberProvider):
                             145, 133, 153, 180, 181, 189]
     formats = [str(i) + "########" for i in phonenumber_prefixes]
 
-    @classmethod
-    def phonenumber_prefix(cls):
-        return cls.random_element(cls.phonenumber_prefixes)
+    def phonenumber_prefix(self):
+        return self.random_element(self.phonenumber_prefixes)

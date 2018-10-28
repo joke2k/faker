@@ -12,49 +12,68 @@ class Provider(CompanyProvider):
     )
 
     catch_phrase_formats = (
-        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}',
-    )
+        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}', )
 
     nouns = (
-        'la sécurité', 'le plaisir', 'le confort', 'la simplicité', "l'assurance", "l'art", 'le pouvoir', 'le droit',
-        'la possibilité', "l'avantage", 'la liberté'
-    )
+        'la sécurité',
+        'le plaisir',
+        'le confort',
+        'la simplicité',
+        "l'assurance",
+        "l'art",
+        'le pouvoir',
+        'le droit',
+        'la possibilité',
+        "l'avantage",
+        'la liberté')
 
     verbs = (
-        'de rouler', "d'avancer", "d'évoluer", 'de changer', "d'innover", 'de louer', "d'atteindre vos buts",
-        'de concrétiser vos projets'
-    )
+        'de rouler',
+        "d'avancer",
+        "d'évoluer",
+        'de changer',
+        "d'innover",
+        'de louer',
+        "d'atteindre vos buts",
+        'de concrétiser vos projets')
 
     attributes = (
-        'de manière efficace', 'plus rapidement', 'plus facilement', 'plus simplement', 'en toute tranquilité',
-        'avant-tout', 'autrement', 'naturellement', 'à la pointe', 'sans soucis', "à l'état pur",
-        'à sa source', 'de manière sûre', 'en toute sécurité'
-    )
+        'de manière efficace',
+        'plus rapidement',
+        'plus facilement',
+        'plus simplement',
+        'en toute tranquilité',
+        'avant-tout',
+        'autrement',
+        'naturellement',
+        'à la pointe',
+        'sans soucis',
+        "à l'état pur",
+        'à sa source',
+        'de manière sûre',
+        'en toute sécurité')
 
     company_suffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
     siren_format = "### ### ###"
 
-    @classmethod
-    def catch_phrase_noun(cls):
+    def catch_phrase_noun(self):
         """
         Returns a random catch phrase noun.
         """
-        return cls.random_element(cls.nouns)
+        return self.random_element(self.nouns)
 
-    @classmethod
-    def catch_phrase_attribute(cls):
+    def catch_phrase_attribute(self):
         """
         Returns a random catch phrase attribute.
         """
-        return cls.random_element(cls.attributes)
+        return self.random_element(self.attributes)
 
-    @classmethod
-    def catch_phrase_verb(cls):
+    def catch_phrase_verb(self):
         """
         Returns a random catch phrase verb.
         """
-        return cls.random_element(cls.verbs)
+        return self.random_element(self.verbs)
 
     def catch_phrase(self):
         """
@@ -75,31 +94,29 @@ class Provider(CompanyProvider):
     # An array containing string which should not appear twice in a catch phrase
     words_which_should_not_appear_twice = ('sécurité', 'simpl')
 
-    @classmethod
-    def _is_catch_phrase_valid(cls, catch_phrase):
+    def _is_catch_phrase_valid(self, catch_phrase):
         """
         Validates a french catch phrase.
 
         :param catch_phrase: The catch phrase to validate.
         """
-        for word in cls.words_which_should_not_appear_twice:
+        for word in self.words_which_should_not_appear_twice:
             # Fastest way to check if a piece of word does not appear twice.
             begin_pos = catch_phrase.find(word)
             end_pos = catch_phrase.find(word, begin_pos + 1)
 
-            if begin_pos != -1 and begin_pos != end_pos: return False
+            if begin_pos != -1 and begin_pos != end_pos:
+                return False
 
         return True
 
-    @classmethod
-    def siren(cls):
+    def siren(self):
         """
         Generates a siren number (9 digits).
         """
-        return cls.numerify(cls.siren_format)
+        return self.numerify(self.siren_format)
 
-    @classmethod
-    def siret(cls, max_sequential_digits=2):
+    def siret(self, max_sequential_digits=2):
         """
         Generates a siret number (14 digits).
         It is in fact the result of the concatenation of a siren number (9 digits),
@@ -110,10 +127,6 @@ class Provider(CompanyProvider):
         if max_sequential_digits > 4 or max_sequential_digits <= 0:
             max_sequential_digits = 2
 
-        sequential_number = str(cls.random_number(max_sequential_digits)).zfill(4)
-        return cls.numerify(cls.siren() + ' ' + sequential_number + '#')
-
-
-
-
-
+        sequential_number = str(self.random_number(
+            max_sequential_digits)).zfill(4)
+        return self.numerify(self.siren() + ' ' + sequential_number + '#')

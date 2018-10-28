@@ -23,14 +23,14 @@ class Provider(InternetProvider):
         'index', 'domov', 'iskanje', 'main', 'novica',
         'homepage', 'kategorija', 'registracija', 'login',
         'faq', 'o-nas', 'pogoji',
-        'zasebnost', 'avtor'
+        'zasebnost', 'avtor',
     )
     uri_paths = (
         'app', 'main', 'wp-content', 'iskanje', 'kategorija', 'novica',
         'kategorije', 'novice', 'blog', 'komentarji', 'seznam')
     uri_extensions = (
         '.html', '.html', '.html', '.htm', '.htm', '.php',
-        '.php', '.jsp', '.asp'
+        '.php', '.jsp', '.asp',
     )
 
-    tlds = ('si', 'com',)
+    tlds = ('si', 'com')

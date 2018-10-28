@@ -1,13 +1,13 @@
 # coding=utf-8
 from __future__ import unicode_literals
-localized = True
 
 from .. import BaseProvider
+
+localized = True
 
 
 class Provider(BaseProvider):
     ssn_formats = ("###-##-####",)
-    
-    @classmethod
-    def ssn(cls):
-        return cls.bothify(cls.random_element(cls.ssn_formats))
+
+    def ssn(self):
+        return self.bothify(self.random_element(self.ssn_formats))
