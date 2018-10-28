@@ -402,9 +402,9 @@ class Provider(BaseProvider):
         "Direktor prodajne promocije",
         "Direktor proizvodne i operativne jedinice građevinskog preduzeća",
         "Direktor proizvodne i operativne jedinice preduzeća u prerađivačkoj djelatnosti",
-        "Direktor proizvodne i operativne jedinice preduzeća u proizvodnji termoelektrične ",energije
+        "Direktor proizvodne i operativne jedinice preduzeća u proizvodnji termoelektrične energije",
         "Direktor proizvodne i operativne jedinice preduzeća u rudarstvu",
-        "Direktor proizvodne i operativne jedinice preduzeća za snabdjevanje el. energijom ",,gasom i vodom
+        "Direktor proizvodne i operativne jedinice preduzeća za snabdjevanje el. energijom, gasom i vodom ",
         "Direktor proizvodnje i poslovanja lovno-uzgojnog preduzeća",
         "Direktor proizvodnje i poslovanja šumarskog preduzeća",
         "Direktor proizvodnje poljoprivrednog preduzeća",
