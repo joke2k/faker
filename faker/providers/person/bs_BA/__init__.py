@@ -48,24 +48,37 @@ class Provider(PersonProvider):
 
     first_names = first_names_female + first_names_male
     """
-    Last names were taken from Wikipedia
+    Last names were taken from Wikipedia Category listing about bosnian surnames
+    https://en.wikipedia.org/wiki/Category:Bosnian-language_surnames
     """
     last_names = [
-        "Abadžić", "Adilović", "Alečković", "Alomerović", "Arnautović",
-        "Babić", "Bajraktarević", "Bajramović", "Balašević", "Baljić",
-        "Bašić", "Bećirović", "Beganović", "Begović", "Berović", "Bešić",
-        "Bešlagić", "Bičakčić", "Bolić", "Bosnić", "Brunčević", "Burić",
-        "Čaušević", "Čejvan", "Čengić", "Čorbadžić", "Ćosić", "Delić",
-        "Demirović", "Divjak", "Dizdarević", "Dodik", "Dugalić", "Džeko",
-        "Edhemović", "Ferhatović", "Galijašević", "Gudelj", "Hadžić",
-        "Hadžihalilović", "Handanović", "Hodžić", "Izetbegović",
-        "Jašić", "Kapić", "Kolašinac", "Kopanja", "Koroman", "Kovač",
-        "Kurjak", "Kurtćehajić", "Kusturica", "Mahmuljin",
-        "Majstorović", "Mandić", "Marjanović", "Matković",
-        "Mehmedbašić", "Mehmedović", "Mešić", "Muratović",
-        "Mutapčić", "Muftić", "Nadarević", "Nikić", "Nišić",
-        "Novalić", "Pačariz", "Predojević", "Preldžić", "Rakić",
-        "Salatić", "Salihović", "Sarajlić", "Šarić", "Sidran",
-        "Sijerčić", "Sokolović", "Sušić", "Tahirović", "Terzić",
-        "Topalović", "Topčagić", "Toskić", "Turković", "Zahirović"
+        "Abadžić", "Ademović", "Adilović", "Aganović", "Ahmetović", "Ahmić",
+        "Alečković", "Alibegović", "Alić", "Alihodžić", "Alikadić", "Alispahić",
+        "Alomerović", "Amidžić", "Arnautović", "Avdić", "Babić", "Bajraktarević",
+        "Bajramović", "Balašević", "Baljić", "Bašić", "Bećirović", "Bećirspahić",
+        "Beganović", "Begić", "Begović", "Bekić", "Bekrić", "Berović", "Bešić",
+        "Bešlagić", "Bičakčić", "Bilbi", "Bolić", "Bosnić", "Bradarić", "Brkić",
+        "Brković", "Brunčević", "Bukvić", "Buljubašić", "Burić", "Ćatić", "Čaušević",
+        "Čejv", "Čelebić", "Čengić", "Cerić", "Čorbadžić", "Ćosić", "Delić", "Demirović",
+        "Divj", "Dizdarević", "Đumić", "Đurasović", "Dod", "Dragović", "Dugalić",
+        "Džaferović", "Džeko", "Džumh", "Ekmečić", "Fatić", "Fazlić", "Ferhatović",
+        "Galijašević", "Gatarić", "Gorčić", "Graov", "Gude", "Hadžiabdić", "Hadžibegić",
+        "Hadžić", "Hadžihalilović", "Hadžiosmanović", "Hajradinović", "Hajrović",
+        "Halilhodžić", "Halilović", "Handanović", "Haračić", "Hasagić", "Hasanagić",
+        "Hasanbegović", "Hasanović", "Hodžić", "Hukić", "Ibišević", "Ibrahimović",
+        "Ignjatić", "Imamović", "Isaković", "Izetbegović", "Jahić", "Jakupović",
+        "Jašić", "Jugić", "Junuzović", "Kalajdžić", "Kapetanović", "Kapić", "Kariš",
+        "Kecmanović", "Kod", "Kolašin", "Koljić", "Komšić", "Kopan", "Korom", "Košar",
+        "Kovač", "Krunić", "Kulenović", "Kurj", "Kurtćehajić", "Kusturi", "Lulić",
+        "Mahmulj", "Majstorović", "Mandić", "Marjanović", "Mećava", "Medunjan",
+        "Mehmedbašić", "Mehmedović", "Memić", "Mena", "Mešanović", "Mešić", "Mišić",
+        "Muhić", "Mujić", "Mulić", "Muratović", "Musemić", "Mušović", "Mustafić",
+        "Mutapčić", "Muzaferi", "Muzurović", "Nadarević", "Nikić", "Nišić", "Pačar",
+         "Pašalić", "Pjanić", "Plakalović", "Predojević", "Preldžić", "Rahimić",
+         "Rakić", "Rastod", "Sadiković", "Salatić", "Salihović", "Salkić", "Saračević",
+         "Sarajlić", "Šarić", "Šećerović", "Seferović", "Šehić", "Selimović", "Šetkić",
+         "Sidr", "Sijerčić", "Šimunović", "Šišić", "Skenderović", "Smajić", "Smajlović",
+         "Sokolović", "Suljić", "Sušić", "Tahirović", "Tanković", "Terzić", "Tinjić",
+         "Topalović", "Topčagić", "Toskić", "Turković", "Varešanović", "Velagić", "Vidić",
+         "Vučkić", "Vugdalić", "Vuković", "Zahirović", "Zakarić", "Zukanović", 
     ]
