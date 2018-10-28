@@ -7,6 +7,8 @@ Data is provided by the official list of professions from
 National institue for statistics
 * http://dissemination.bhas.ba/classifications/kzbih.aspx?l=h
 """
+
+
 class Provider(BaseProvider):
     jobs = [
         "Аdministrаtivni pоmоćnik u mеdicinskој оrdinаciјi",
@@ -4315,5 +4317,5 @@ class Provider(BaseProvider):
         "Živoder",
         "Žongler",
         "Župni asistent",
-        "Župnik"
+        "Župnik",
     ]
