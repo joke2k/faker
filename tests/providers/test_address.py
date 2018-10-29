@@ -187,6 +187,11 @@ class TestElGR(unittest.TestCase):
 	assert isinstance(street_prefix_long, string_types)
 	assert street_prefix_long in GrProvider.street_prefixes_long
 
+    def test_street(self):
+	street = self.factory.street()
+	assert isinstance(street, string_types)
+	assert street in GrProvider.localities
+
     def test_city(self):
         city = self.factory.city()
         assert isinstance(city, string_types)
