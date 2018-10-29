@@ -182,6 +182,11 @@ class TestElGR(unittest.TestCase):
 	assert isinstance(street_prefix_short, string_types)
 	assert street_prefix_short in GrProvider.street_prefixes_short
 
+    def test_street_prefix_long(self):
+	street_prefix_long = self.factory.street_prefix.long()
+	assert isinstance(street_prefix_long, string_types)
+	assert street_prefix_long in GrProvider.street_prefixes_long
+
     def test_city(self):
         city = self.factory.city()
         assert isinstance(city, string_types)
