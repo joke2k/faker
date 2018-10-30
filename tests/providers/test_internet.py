@@ -42,7 +42,7 @@ class TestInternetProvider(unittest.TestCase):
     def test_hostname(self):
         hostname = self.factory.hostname(levels=1)
         assert hostname
-        assert isinstance(hostname, six.string_types)
+        self.assertIsInstance(hostname, six.string_types)
 
 
 class TestInternetProviderUrl(unittest.TestCase):
