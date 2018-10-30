@@ -136,7 +136,7 @@ class Provider(BaseProvider):
         @param cast_to: String. What date type you would like the UUID to be cast to. Default is string.
         """
         # Based on http://stackoverflow.com/q/41186818
-        value = uuid.UUID(int=self.generator.random.getrandbits(128))
+        value = uuid.uuid4(int=self.generator.random.getrandbits(128))
         if cast_to:
             return cast_to(value)
         return value
