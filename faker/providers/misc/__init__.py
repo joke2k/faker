@@ -133,7 +133,7 @@ class Provider(BaseProvider):
     def uuid4(self, cast_to=str):
         """
         Generates a random UUID4 string.
-        @param uuid_object: Boolean. Whether to return UUID object or string
+        @param cast_to: String. What date type you would like the UUID to be cast to. Default is string.
         """
         # Based on http://stackoverflow.com/q/41186818
         value = uuid.UUID(int=self.generator.random.getrandbits(128))
