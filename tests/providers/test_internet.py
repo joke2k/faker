@@ -46,10 +46,10 @@ class TestInternetProvider(unittest.TestCase):
         self.assertIsInstance(hostname_1_level, six.string_types)
         assert len(hostname_parts) == 3
 
-
         hostname_0_level = self.factory.hostname(levels=0)
         assert hostname_0_level
         self.assertIsInstance(hostname_0_level, six.string_types)
+
 
 class TestInternetProviderUrl(unittest.TestCase):
     """ Test internet url generation """
