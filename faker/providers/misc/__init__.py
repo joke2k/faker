@@ -130,15 +130,16 @@ class Provider(BaseProvider):
     def language_code(self):
         return self.random_element(Provider.language_locale_codes.keys())
 
-    def uuid4(self, uuid_object=False):
+    def uuid4(self, cast_to=str):
         """
         Generates a random UUID4 string.
         @param uuid_object: Boolean. Whether to return UUID object or string
         """
         # Based on http://stackoverflow.com/q/41186818
-        if uuid_object:
-            return uuid.UUID(int=self.generator.random.getrandbits(128))
-        return str(uuid.UUID(int=self.generator.random.getrandbits(128)))
+        value = uuid.UUID(int=self.generator.random.getrandbits(128))
+        if cast_to:
+            return cast_to(value)
+        return value
 
     def password(
             self,

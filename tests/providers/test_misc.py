@@ -1,5 +1,6 @@
 import unittest
 import uuid
+import six
 
 from faker import Faker
 
@@ -11,9 +12,14 @@ class TestMisc(unittest.TestCase):
     def test_uuid4(self):
         uuid4 = self.factory.uuid4()
         assert uuid4
-        assert isinstance(uuid4, str)
+        assert isinstance(uuid4, six.string_types)
+
+    def test_uuid4_int(self):
+        uuid4 = self.factory.uuid4(cast_to=int)
+        assert uuid4
+        assert isinstance(uuid4, six.integer_types)
 
     def test_uuid4_uuid_object(self):
-        uuid4 = self.factory.uuid4(uuid_object=True)
+        uuid4 = self.factory.uuid4(cast_to=None)
         assert uuid4
         assert isinstance(uuid4, uuid.UUID)
