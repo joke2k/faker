@@ -39,6 +39,11 @@ class TestInternetProvider(unittest.TestCase):
         url = self.factory.image_url()
         assert 'https://dummyimage.com/' in url
 
+    def test_hostname(self):
+        hostname = self.factory.hostname(levels=1)
+        assert hostname
+        assert isinstance(hostname, six.string_types)
+
 
 class TestInternetProviderUrl(unittest.TestCase):
     """ Test internet url generation """

@@ -75,7 +75,7 @@ class Provider(BaseProvider):
     tlds = (
         'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
     )
-
+    hostname_prefixes = ('db', 'srv', 'desktop', 'laptop', 'lt', 'email', 'web')
     uri_pages = (
         'index', 'home', 'search', 'main', 'post', 'homepage', 'category',
         'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author',
@@ -189,6 +189,22 @@ class Provider(BaseProvider):
             self.bothify(self.generator.parse(pattern)).lower(),
         )
         return username
+
+    @lowercase
+    def hostname(self, levels=1):
+        """
+        Produce a hostname with specified number of subdomain levels.
+
+        >>> hostname()
+        db-01.nichols-phillips.com
+        >>> hostname(0)
+        laptop-56
+        >>> hostname(2)
+        web-12.williamson-hopkins.jackson.com
+        """
+        if levels < 1:
+            return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##')
+        return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##') + '.' + self.domain_name(levels)
 
     @lowercase
     def domain_name(self, levels=1):
