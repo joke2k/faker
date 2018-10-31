@@ -46,6 +46,6 @@ class TestSvSE(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('sv_SE')
 
-    def test_hu_HU_plate_format(self):
+    def test_sv_SE_plate_format(self):
         plate = self.factory.license_plate()
         assert re.match(r"[A-Z]{3} \d{2}[\dA-Z]{1}", plate), "%s is not in the correct format." % plate
