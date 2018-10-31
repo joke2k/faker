@@ -39,3 +39,13 @@ class TestDeDe(unittest.TestCase):
         plate = self.factory.license_plate()
         assert re.match(r"[A-Z\u00D6\u00DC]{1,3}-[A-Z]{1,2}-\d{1,4}", plate, flags=re.UNICODE), \
             "%s is not in the correct format." % plate
+
+
+class TestSvSE(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('sv_SE')
+
+    def test_hu_HU_plate_format(self):
+        plate = self.factory.license_plate()
+        assert re.match(r"[A-Z]{3} \d{2}[\dA-Z]{1}", plate), "%s is not in the correct format." % plate
