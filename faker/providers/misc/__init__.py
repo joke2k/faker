@@ -137,7 +137,7 @@ class Provider(BaseProvider):
         :type cast_to: callable, None
         """
         # Based on http://stackoverflow.com/q/41186818
-        value = uuid.uuid4(int=self.generator.random.getrandbits(128))
+        value = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
         if cast_to:
             return cast_to(value)
         return value
