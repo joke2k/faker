@@ -406,9 +406,9 @@ Credits
 .. _Distribute: https://pypi.org/project/distribute/
 .. _Buildout: http://www.buildout.org/
 .. _modern-package-template: https://pypi.org/project/modern-package-template/
-.. _extended docs: https://faker.readthedocs.io/en/latest/
-.. _bundled providers: https://faker.readthedocs.io/en/latest/providers.html
-.. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
+.. _extended docs: https://faker.readthedocs.io/en/stable/
+.. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
+.. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
