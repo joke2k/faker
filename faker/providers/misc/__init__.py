@@ -134,13 +134,10 @@ class Provider(BaseProvider):
         """
         Generates a random UUID4 string.
         :param cast_to: Specify what type the UUID should be cast to. Default is `str`
-        :type cast_to: callable, None
+        :type cast_to: callable
         """
         # Based on http://stackoverflow.com/q/41186818
-        value = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
-        if cast_to:
-            return cast_to(value)
-        return value
+        return cast_to(uuid.UUID(int=self.generator.random.getrandbits(128), version=4))
 
     def password(
             self,
