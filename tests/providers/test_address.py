@@ -166,6 +166,9 @@ class TestFiFI(unittest.TestCase):
         assert isinstance(suffix, string_types)
         assert suffix in FiProvider.street_suffixes
 
+    def test_state(self):
+        # TODO
+
 
 class TestElGR(unittest.TestCase):
     """ Tests addresses in the el_GR locale """
