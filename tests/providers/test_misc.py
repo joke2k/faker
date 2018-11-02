@@ -20,6 +20,6 @@ class TestMisc(unittest.TestCase):
         assert isinstance(uuid4, six.integer_types)
 
     def test_uuid4_uuid_object(self):
-        uuid4 = self.factory.uuid4(cast_to=None)
+        uuid4 = self.factory.uuid4(cast_to=lambda x: x)
         assert uuid4
         assert isinstance(uuid4, uuid.UUID)
