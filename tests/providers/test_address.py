@@ -167,7 +167,9 @@ class TestFiFI(unittest.TestCase):
         assert suffix in FiProvider.street_suffixes
 
     def test_state(self):
-        # TODO
+        state = self.factory.state()
+        assert isinstace(state, string_types)
+        assert state in FiProvider.states
 
 
 class TestElGR(unittest.TestCase):
