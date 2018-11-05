@@ -4,6 +4,7 @@ import six
 
 from faker import Faker
 
+
 class TestMisc(unittest.TestCase):
     """Tests miscellaneous generators"""
     def setUp(self):
