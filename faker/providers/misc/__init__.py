@@ -130,12 +130,14 @@ class Provider(BaseProvider):
     def language_code(self):
         return self.random_element(Provider.language_locale_codes.keys())
 
-    def uuid4(self):
+    def uuid4(self, cast_to=str):
         """
         Generates a random UUID4 string.
+        :param cast_to: Specify what type the UUID should be cast to. Default is `str`
+        :type cast_to: callable
         """
         # Based on http://stackoverflow.com/q/41186818
-        return str(uuid.UUID(int=self.generator.random.getrandbits(128)))
+        return cast_to(uuid.UUID(int=self.generator.random.getrandbits(128), version=4))
 
     def password(
             self,
