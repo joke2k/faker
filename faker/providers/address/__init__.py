@@ -1,6 +1,5 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from decimal import Decimal
 
 from .. import BaseProvider
 from .. import date_time
@@ -87,24 +86,3 @@ class Provider(BaseProvider):
             return self.random_element(self.alpha_3_country_codes)
         else:
             raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
-
-    def geo_coordinate(self, center=None, radius=0.001):
-        """
-        Optionally center the coord and pick a point within radius.
-        """
-        if center is None:
-            return Decimal(str(self.generator.random.randint(-180000000,
-                                                             180000000) / 1000000.0)).quantize(Decimal('.000001'))
-        else:
-            center = float(center)
-            radius = float(radius)
-            geo = self.generator.random.uniform(
-                center - radius, center + radius)
-            return Decimal(str(geo)).quantize(Decimal('.000001'))
-
-    def latitude(self):
-        # Latitude has a range of -90 to 90, so divide by two.
-        return self.geo_coordinate() / 2
-
-    def longitude(self):
-        return self.geo_coordinate()

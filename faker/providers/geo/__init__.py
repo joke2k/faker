@@ -1,16 +1,19 @@
 # coding=utf-8
+from decimal import Decimal
+
 from .. import BaseProvider
 
 localized = False
 
 
 class Provider(BaseProvider):
-    '''
+    """
     land_coords data extracted from geonames.org, under the Creative Commons Attribution 3.0 License.
     Coordinates are in decimal format for mapping purposes.
     Country code is in Alpha 2 format (https://www.nationsonline.org/oneworld/country_code_list.htm).
     Timezones are canonical (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-    '''
+    """
+
     land_coords = (
         ("42.50729", "1.53414", "les Escaldes", "AD", "Europe/Andorra"),
         ("36.21544", "65.93249", "Sar-e Pul", "AF", "Asia/Kabul"),
@@ -971,6 +974,27 @@ class Provider(BaseProvider):
         ("-26.93366", "29.24152", "Standerton", "ZA", "Africa/Johannesburg"),
         ("-24.19436", "29.00974", "Mokopane", "ZA", "Africa/Johannesburg"),
     )
+
+    def geo_coordinate(self, center=None, radius=0.001):
+        """
+        Optionally center the coord and pick a point within radius.
+        """
+        if center is None:
+            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000.0)).quantize(
+                Decimal(".000001")
+            )
+        else:
+            center = float(center)
+            radius = float(radius)
+            geo = self.generator.random.uniform(center - radius, center + radius)
+            return Decimal(str(geo)).quantize(Decimal(".000001"))
+
+    def latitude(self):
+        # Latitude has a range of -90 to 90, so divide by two.
+        return self.geo_coordinate() / 2
+
+    def longitude(self):
+        return self.geo_coordinate()
 
     def location_on_land(self, coords_only=False):
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
