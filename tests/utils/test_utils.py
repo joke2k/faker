@@ -78,6 +78,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.currency',
             'faker.providers.date_time',
             'faker.providers.file',
+            'faker.providers.geo',
             'faker.providers.internet',
             'faker.providers.isbn',
             'faker.providers.job',

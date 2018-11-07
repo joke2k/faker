@@ -148,14 +148,6 @@ class TestDeAT(unittest.TestCase):
         city_with_postcode = self.factory.city_with_postcode()
         assert isinstance(city_with_postcode, string_types)
 
-    def test_latitude(self):
-        latitude = self.factory.latitude()
-        assert re.match(r"4[6-8]\.\d+", str(latitude))
-
-    def test_longitude(self):
-        longitude = self.factory.longitude()
-        assert re.match(r"1[1-5]\.\d+", str(longitude))
-
 
 class TestDeDE(unittest.TestCase):
     """ Tests in addresses in the de_DE locale """
