@@ -209,6 +209,11 @@ class TestFiFI(unittest.TestCase):
         assert isinstance(suffix, string_types)
         assert suffix in FiProvider.street_suffixes
 
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in FiProvider.states
+
 
 class TestElGR(unittest.TestCase):
     """ Tests addresses in the el_GR locale """
