@@ -168,7 +168,7 @@ class TestFiFI(unittest.TestCase):
 
     def test_state(self):
         state = self.factory.state()
-        assert isinstace(state, string_types)
+        assert isinstance(state, string_types)
         assert state in FiProvider.states
 
 
