@@ -193,6 +193,13 @@ class TestDeDE(unittest.TestCase):
         assert isinstance(city_with_postcode, string_types)
 
 
+class TestFaIR(unittest.TestCase):
+    """ Tests in addresses in the fa_IR locale """
+
+    def setUp(self):
+        self.factory = Faker('fa_IR')
+
+
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
