@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from .. import BaseProvider
 
-localized = False
+localized = True
 
 
 class Provider(BaseProvider):

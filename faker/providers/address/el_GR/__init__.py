@@ -108,14 +108,17 @@ class Provider(AddressProvider):
     def region(self):
         return self.random_element(self.regions)
 
+    # FIXME: latlng for el_GR should be moved to geo provider in default en_US locale
     def latlng(self):
         return float(self.latitude()), float(self.longitude())
 
+    # FIXME: latitude for el_GR overrides default latitude in geo provider without cause
     def latitude(self):
         latitudes = list(map(lambda t: int(t[0] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(
             min(latitudes), max(latitudes)) / 10000000.0)).quantize(Decimal('.000001'))
 
+    # FIXME: longitude for el_GR overrides default longitude in geo provider without cause
     def longitude(self):
         longitudes = list(map(lambda t: int(t[1] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(

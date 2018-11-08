@@ -222,14 +222,6 @@ class TestElGR(unittest.TestCase):
         assert isinstance(region, string_types)
         assert region in GrProvider.regions
 
-    def test_latlng(self):
-        latlng = self.factory.latlng()
-        latitude = self.factory.latitude()
-        longitude = self.factory.longitude()
-        assert isinstance(latlng, tuple)
-        assert isinstance(latitude, Decimal)
-        assert isinstance(longitude, Decimal)
-
 
 class TestEnAU(unittest.TestCase):
     """ Tests addresses in the en_AU locale """
