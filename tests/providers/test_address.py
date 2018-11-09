@@ -199,6 +199,10 @@ class TestFaIR(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('fa_IR')
 
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
