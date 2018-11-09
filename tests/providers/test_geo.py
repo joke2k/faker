@@ -67,10 +67,10 @@ class TestDeAT(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('de_AT')
 
-    def test_latitude(self):
-        latitude = self.factory.latitude()
-        assert re.match(r"4[6-8]\.\d+", str(latitude))
+    def test_local_latitude(self):
+        local_latitude = self.factory.local_latitude()
+        assert re.match(r"4[6-8]\.\d+", str(local_latitude))
 
-    def test_longitude(self):
-        longitude = self.factory.longitude()
-        assert re.match(r"1[1-5]\.\d+", str(longitude))
+    def test_local_longitude(self):
+        local_longitude = self.factory.local_longitude()
+        assert re.match(r"1[1-5]\.\d+", str(local_longitude))
