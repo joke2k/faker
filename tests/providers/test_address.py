@@ -205,6 +205,15 @@ class TestFaIR(unittest.TestCase):
         assert isinstance(city_prefix, string_types)
         assert city_prefix in IrProvider.city_prefixes
 
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in IrProvider.states
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
