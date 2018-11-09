@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import re
 import unittest
 
-from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker

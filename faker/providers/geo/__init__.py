@@ -981,7 +981,7 @@ class Provider(BaseProvider):
         """
         if center is None:
             return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000.0)).quantize(
-                Decimal(".000001")
+                Decimal(".000001"),
             )
         else:
             center = float(center)
