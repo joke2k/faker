@@ -11,6 +11,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker import Faker
 from faker.providers.address.de_AT import Provider as DeAtProvider
 from faker.providers.address.de_DE import Provider as DeProvider
+from faker.providers.address.fa_IR import Provider as IrProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
