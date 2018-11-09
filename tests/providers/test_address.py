@@ -201,6 +201,11 @@ class TestFiFI(unittest.TestCase):
         assert isinstance(suffix, string_types)
         assert suffix in FiProvider.street_suffixes
 
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in FiProvider.states
+
 
 class TestElGR(unittest.TestCase):
     """ Tests addresses in the el_GR locale """
@@ -211,6 +216,21 @@ class TestElGR(unittest.TestCase):
     def test_line_address(self):
         address = self.factory.line_address()
         assert isinstance(address, string_types)
+
+    def test_street_prefix_short(self):
+        street_prefix_short = self.factory.street_prefix_short()
+        assert isinstance(street_prefix_short, string_types)
+        assert street_prefix_short in GrProvider.street_prefixes_short
+
+    def test_street_prefix_long(self):
+        street_prefix_long = self.factory.street_prefix_long()
+        assert isinstance(street_prefix_long, string_types)
+        assert street_prefix_long in GrProvider.street_prefixes_long
+
+    def test_street(self):
+        street = self.factory.street()
+        assert isinstance(street, string_types)
+        assert street in GrProvider.localities
 
     def test_city(self):
         city = self.factory.city()
