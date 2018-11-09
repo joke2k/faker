@@ -203,6 +203,7 @@ class TestFaIR(unittest.TestCase):
     def test_city_prefix(self):
         city_prefix = self.factory.city_prefix()
         assert isinstance(city_prefix, string_types)
+        assert city_prefix in IrProvider.city_prefixes
 
 
 class TestFiFI(unittest.TestCase):
