@@ -1,37 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from decimal import Decimal
 
 from .. import Provider as AddressProvider
 
 
-def contains_point(poly, point):
-    """
-    Given a list of 2-tuples (lat, lng) defining a convex polygon, returns
-    True if the given point, which is a 2-tuple (lat, lng), is inside the
-    polygon, False otherwise.
-    """
-    n = len(poly)
-    c = False
-    i = 0
-    j = n - 1
-    while i < n:
-        if ((poly[i][0] > point[0]) != (poly[j][0] > point[0])) and \
-                (point[1] < (poly[j][1] - poly[i][1]) * (point[0] - poly[i][0]) /
-                            (poly[j][0] - poly[i][0]) + poly[i][1]):
-            c = not c
-        j = i
-        i += 1
-    return c
-
-
 class Provider(AddressProvider):
-    poly = (
-        (40.34026, 19.15120),
-        (42.21670, 26.13934),
-        (35.55680, 29.38280),
-        (34.15370, 22.58810),
-    )
 
     building_number_formats = (
         '###',
@@ -107,22 +80,6 @@ class Provider(AddressProvider):
 
     def region(self):
         return self.random_element(self.regions)
-
-    # FIXME: latlng for el_GR should be moved to geo provider in default en_US locale
-    def latlng(self):
-        return float(self.latitude()), float(self.longitude())
-
-    # FIXME: latitude for el_GR overrides default latitude in geo provider without cause
-    def latitude(self):
-        latitudes = list(map(lambda t: int(t[0] * 10000000), self.poly))
-        return Decimal(str(self.generator.random.randint(
-            min(latitudes), max(latitudes)) / 10000000.0)).quantize(Decimal('.000001'))
-
-    # FIXME: longitude for el_GR overrides default longitude in geo provider without cause
-    def longitude(self):
-        longitudes = list(map(lambda t: int(t[1] * 10000000), self.poly))
-        return Decimal(str(self.generator.random.randint(
-            min(longitudes), max(longitudes)) / 10000000.0)).quantize(Decimal('.000001'))
 
     # Ονόματα πρωτευουσών νομών
     cities = (
