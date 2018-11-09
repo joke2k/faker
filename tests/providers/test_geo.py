@@ -15,6 +15,33 @@ class TestEnUS(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_US')
 
+    def test_latitude(self):
+        lat = self.factory.latitude()
+        assert isinstance(lat, Decimal)
+
+    def test_longitude(self):
+        long = self.factory.longitude()
+        assert isinstance(long, Decimal)
+
+    def test_latlng(self):
+        loc = self.factory.latlng()
+        assert isinstance(loc, tuple)
+        assert len(loc) == 2
+        assert isinstance(loc[0], Decimal)
+        assert isinstance(loc[1], Decimal)
+
+    def test_coordinate(self):
+        loc = self.factory.coordinate()
+        assert isinstance(loc, Decimal)
+
+    def test_coordinate_centered(self):
+        loc = self.factory.coordinate(center=23)
+        assert round(loc) == 23
+
+    def test_coordinate_rounded(self):
+        loc = self.factory.coordinate(center=23, radius=3)
+        assert round(loc) >= 20 <= 26
+
     def test_location_on_land(self):
         loc = self.factory.location_on_land()
         assert isinstance(loc, tuple)

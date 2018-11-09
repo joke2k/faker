@@ -975,7 +975,7 @@ class Provider(BaseProvider):
         ("-24.19436", "29.00974", "Mokopane", "ZA", "Africa/Johannesburg"),
     )
 
-    def geo_coordinate(self, center=None, radius=0.001):
+    def coordinate(self, center=None, radius=0.001):
         """
         Optionally center the coord and pick a point within radius.
         """
@@ -991,10 +991,13 @@ class Provider(BaseProvider):
 
     def latitude(self):
         # Latitude has a range of -90 to 90, so divide by two.
-        return self.geo_coordinate() / 2
+        return self.coordinate() / 2
 
     def longitude(self):
-        return self.geo_coordinate()
+        return self.coordinate()
+
+    def latlng(self):
+        return (self.latitude(), self.longitude())
 
     def location_on_land(self, coords_only=False):
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.

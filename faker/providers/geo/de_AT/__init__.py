@@ -7,7 +7,7 @@ from .. import Provider as GeoProvider
 class Provider(GeoProvider):
 
     def latitude(self):
-        return self.geo_coordinate(center=47.60707, radius=1)
+        return self.coordinate(center=47.60707, radius=1)
 
     def longitude(self):
-        return self.geo_coordinate(center=13.37208, radius=2)
+        return self.coordinate(center=13.37208, radius=2)
