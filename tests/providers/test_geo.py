@@ -9,6 +9,25 @@ from decimal import Decimal
 from faker import Faker
 
 
+class TestGlobal(unittest.TestCase):
+    """ Tests geographic locations regardless of locale"""
+
+    def setUp(self):
+        self.factory = Faker()  # No locale specified, gets global for this provider
+
+    def test_local_latlng(self):
+        loc = self.factory.local_latlng(country_code='US')
+        assert isinstance(loc, tuple)
+        assert len(loc) == 5
+        assert Decimal(loc[0])
+        assert Decimal(loc[1])
+
+        loc_short = self.factory.local_latlng(country_code='US', coords_only=True)
+        assert len(loc_short) == 2
+        assert Decimal(loc_short[0])
+        assert Decimal(loc_short[1])
+
+
 class TestEnUS(unittest.TestCase):
     """ Tests geographic locations in the en_US locale """
 

@@ -999,6 +999,15 @@ class Provider(BaseProvider):
     def latlng(self):
         return (self.latitude(), self.longitude())
 
+    def local_latlng(self, country_code='US', coords_only=False):
+        """Returns a location known to exist on land in a country specified by `country_code`.
+        Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
+        """
+        results = [loc for loc in self.land_coords if loc[3] == country_code]
+        if results:
+            place = self.random_element(results)
+            return (place[0], place[1]) if coords_only else place
+
     def location_on_land(self, coords_only=False):
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
         Format is `(latitude, longitude, place name, two-letter country code, timezone)`
