@@ -215,6 +215,13 @@ class TestFaIR(unittest.TestCase):
         assert state in IrProvider.states
 
 
+class TestFrFR(unittest.TestCase):
+    """ Tests addresses in the fr_FR locale """
+
+    def setUp(self):
+        self.factory = Faker('fr_FR')
+
+
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
