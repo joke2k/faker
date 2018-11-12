@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import re
 import unittest
 
-from decimal import Decimal
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker
@@ -149,14 +148,6 @@ class TestDeAT(unittest.TestCase):
         city_with_postcode = self.factory.city_with_postcode()
         assert isinstance(city_with_postcode, string_types)
 
-    def test_latitude(self):
-        latitude = self.factory.latitude()
-        assert re.match(r"4[6-8]\.\d+", str(latitude))
-
-    def test_longitude(self):
-        longitude = self.factory.longitude()
-        assert re.match(r"1[1-5]\.\d+", str(longitude))
-
 
 class TestDeDE(unittest.TestCase):
     """ Tests in addresses in the de_DE locale """
@@ -271,14 +262,6 @@ class TestElGR(unittest.TestCase):
         region = self.factory.region()
         assert isinstance(region, string_types)
         assert region in GrProvider.regions
-
-    def test_latlng(self):
-        latlng = self.factory.latlng()
-        latitude = self.factory.latitude()
-        longitude = self.factory.longitude()
-        assert isinstance(latlng, tuple)
-        assert isinstance(latitude, Decimal)
-        assert isinstance(longitude, Decimal)
 
 
 class TestEnAU(unittest.TestCase):
