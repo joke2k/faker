@@ -1,6 +1,14 @@
 Changelog
 =========
 
+`1.0.0 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.3...v1.0.0>`__
+--------------------------------------------------------------------------------------
+
+* Breaking change: ``latlng``, ``latitude`` and ``longitude`` no longer return
+  coordinates that are close the locale's country. Use the ``local_latlng``,
+  ``local_latitude`` and ``local_longitude`` instead.
+* Add ``location_on_land`` provider. Thanks @shacker.
+
 
 `0.9.3 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.2...v0.9.3>`__
 --------------------------------------------------------------------------------------
