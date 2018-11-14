@@ -221,6 +221,10 @@ class TestFrFR(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('fr_FR')
 
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in FrProvider.street_prefixes
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
