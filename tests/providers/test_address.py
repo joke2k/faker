@@ -231,6 +231,11 @@ class TestFrFR(unittest.TestCase):
         assert isinstance(city_prefix, string_types)
         assert city_prefix in FrProvider.city_prefixes
 
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
+        assert region in FrProvider.regions
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
