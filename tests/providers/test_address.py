@@ -16,6 +16,7 @@ from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
+from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
