@@ -248,7 +248,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_department_number(self):
         department_number = self.factory.department_number()
-        assert isinstance(department_number, int)
+        assert isinstance(department_number, string_types)
 
 
 class TestFiFI(unittest.TestCase):
