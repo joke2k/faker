@@ -225,22 +225,22 @@ class TestFrFR(unittest.TestCase):
     def test_street_prefix(self):
         street_prefix = self.factory.street_prefix()
         assert isinstance(street_prefix, string_types)
-        assert street_prefix in FrProvider.street_prefixes
+        assert street_prefix in FrFrProvider.street_prefixes
 
     def test_city_prefix(self):
         city_prefix = self.factory.city_prefix()
         assert isinstance(city_prefix, string_types)
-        assert city_prefix in FrProvider.city_prefixes
+        assert city_prefix in FrFrProvider.city_prefixes
 
     def test_region(self):
         region = self.factory.region()
         assert isinstance(region, string_types)
-        assert region in FrProvider.regions
+        assert region in FrFrProvider.regions
 
     def test_department(self):
         department = self.factory.department()
         assert isinstance(department, string_types)
-        assert department in FrProvider.departments
+        assert department in FrFrProvider.departments
 
     def test_department_name(self):
         department_name = self.factory.department_name()
