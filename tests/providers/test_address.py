@@ -239,7 +239,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_department(self):
         department = self.factory.department()
-        assert isinstance(department, string_types)
+        assert isinstance(department, tuple)
         assert department in FrFrProvider.departments
 
     def test_department_name(self):
