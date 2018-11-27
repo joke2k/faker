@@ -15,6 +15,7 @@ from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
+from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
@@ -204,6 +205,41 @@ class TestFaIR(unittest.TestCase):
         state = self.factory.state()
         assert isinstance(state, string_types)
         assert state in IrProvider.states
+
+
+class TestFrFR(unittest.TestCase):
+    """ Tests addresses in the fr_FR locale """
+
+    def setUp(self):
+        self.factory = Faker('fr_FR')
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in FrFrProvider.street_prefixes
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in FrFrProvider.city_prefixes
+
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
+        assert region in FrFrProvider.regions
+
+    def test_department(self):
+        department = self.factory.department()
+        assert isinstance(department, tuple)
+        assert department in FrFrProvider.departments
+
+    def test_department_name(self):
+        department_name = self.factory.department_name()
+        assert isinstance(department_name, string_types)
+
+    def test_department_number(self):
+        department_number = self.factory.department_number()
+        assert isinstance(department_number, string_types)
 
 
 class TestFiFI(unittest.TestCase):
