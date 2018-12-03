@@ -103,7 +103,7 @@ Check the `extended docs`_ for a list of `bundled providers`_ and a list of
 Localization
 ------------
 
-``faker.Factory`` can take a locale as an argument, to return localized
+``faker.Faker`` can take a locale as an argument, to return localized
 data. If no localized provider is found, the factory falls back to the
 default en\_US locale.
 
