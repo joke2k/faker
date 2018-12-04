@@ -19,7 +19,11 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-For more details, see the `extended docs`_.
+For more details, see the `extended docs`_, or try running the interactive demo:
+
+.. image:: https://user-images.githubusercontent.com/1155573/49400125-16e73500-f722-11e8-9275-e1d7eb3bbf99.png
+    :target: https://staging-notebooks.rmotr.com/clone/gh/martinzugnoni/faker
+    :alt: Open Live Demo
 
 Basic Usage
 -----------
