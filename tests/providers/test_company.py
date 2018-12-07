@@ -37,14 +37,19 @@ class TestJaJP(unittest.TestCase):
 
     def test_company(self):
         prefixes = JaProvider.company_prefixes
-
         prefix = self.factory.company_prefix()
         assert isinstance(prefix, six.string_types)
         assert prefix in prefixes
 
+        categories = JaProvider.company_categories
+        category = self.factory.company_category()
+        assert isinstance(category, six.string_types)
+        assert category in categories
+
         company = self.factory.company()
         assert isinstance(company, six.string_types)
         assert any(company.startswith(prefix) or company.endswith(prefix) for prefix in prefixes)
+        assert any(category in company for category in categories)
 
 
 class TestPtBR(unittest.TestCase):
