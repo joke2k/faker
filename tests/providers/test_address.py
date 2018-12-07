@@ -256,6 +256,7 @@ class TestHeIL(unittest.TestCase):
         street_title = self.factory.street_title()
         assert isinstance(street_title, string_types)
 
+
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
