@@ -44,7 +44,6 @@ class TestJaJP(unittest.TestCase):
 
         company = self.factory.company()
         assert isinstance(company, six.string_types)
-        assert any(prefix in company for prefix in prefixes)
         assert any(company.startswith(prefix) or company.endswith(prefix) for prefix in prefixes)
 
 
