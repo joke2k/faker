@@ -242,6 +242,13 @@ class TestFrFR(unittest.TestCase):
         assert isinstance(department_number, string_types)
 
 
+class TestHeIL(unittest.TestCase):
+    """ Tests addresses in the he_IL locale """
+
+    def setUp(self):
+        self.factory = Faker('he_IL')
+
+
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
