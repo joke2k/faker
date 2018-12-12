@@ -1,6 +1,13 @@
 Changelog
 =========
 
+`1.0.1 - 12-December-2018 <https://github.com/joke2k/faker/compare/v1.0.0...v1.0.1>`__
+--------------------------------------------------------------------------------------
+
+* Fixed number of digits in ``phone_number`` provider for ``no_NO``. Thanks @aleksanb.
+* Add categories to ``jp_JP`` company provider. Thanks @shirakia.
+* Add trunk prefix for ``ru_RU`` phone numbers. thanks @pishchalnikov.
+
 `1.0.0 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.3...v1.0.0>`__
 --------------------------------------------------------------------------------------
 
@@ -8,7 +15,6 @@ Changelog
   coordinates that are close the locale's country. Use the ``local_latlng``,
   ``local_latitude`` and ``local_longitude`` instead.
 * Add ``location_on_land`` provider. Thanks @shacker.
-
 
 `0.9.3 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.2...v0.9.3>`__
 --------------------------------------------------------------------------------------
