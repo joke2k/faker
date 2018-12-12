@@ -1,5 +1,8 @@
 # https://ci.appveyor.com/project/joke2k/faker
 build: false
+image:
+  - Visual Studio 2015
+  - Visual Studio 2017
 
 environment:
   PYTHONIOENCODING: "utf-8"

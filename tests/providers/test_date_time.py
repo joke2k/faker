@@ -455,6 +455,10 @@ class TestDateTime(unittest.TestCase):
             self.assertIsInstance(constrained_unix_time, int)
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
 
+    def test_datetime_before_1970(self):
+        # This should not raise an OSError on Windows
+        self.factory.date_between(start_date="-49y", end_date="today")
+
 
 class TestPlPL(unittest.TestCase):
 
