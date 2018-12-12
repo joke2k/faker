@@ -11,7 +11,7 @@ with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
     README = fp.read()
 
 
-version = '1.0.0'
+version = '1.0.1'
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
@@ -68,7 +68,7 @@ setup(
         "text-unidecode==1.2",
     ],
     tests_require=[
-        "email_validator>=1.0.0,<1.1.0",
+        "email_validator>=1.0.1,<1.1.0",
         "ukpostcodeparser>=1.1.1",
         "mock",
         "pytest>=3.8.0,<3.9",
