@@ -262,7 +262,10 @@ class TestHiIN(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('hi_IN')
-    
+
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
 
 
 class TestFiFI(unittest.TestCase):
