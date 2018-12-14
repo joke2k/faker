@@ -267,6 +267,10 @@ class TestHiIN(unittest.TestCase):
         city_name = self.factory.city_name()
         assert isinstance(city_name, string_types)
 
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
