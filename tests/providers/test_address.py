@@ -257,6 +257,14 @@ class TestHeIL(unittest.TestCase):
         assert isinstance(street_title, string_types)
 
 
+class TestHiIN(unittest.TestCase):
+    """ Tests addresses in the hi_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('hi_IN')
+    
+
+
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
