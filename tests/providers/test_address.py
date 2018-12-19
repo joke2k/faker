@@ -491,6 +491,13 @@ class TestEnUS(unittest.TestCase):
         assert isinstance(military_dpo, string_types)
 
 
+class TestHRHR(unittest.TestCase):
+    """ Tests addresses in the hr_HR locale """
+
+    def setUp(self):
+        self.factory = Faker('hr_HR')
+
+
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
