@@ -497,6 +497,18 @@ class TestHRHR(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('hr_HR')
 
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
