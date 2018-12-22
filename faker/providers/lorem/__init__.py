@@ -196,3 +196,16 @@ class Provider(BaseProvider):
                 text.pop()
 
         return "".join(text)
+
+    def texts(self, nb_texts=3, max_nb_chars=200, ext_word_list=None):
+        """
+        Generate an array of texts
+        :example [text1, text2, text3]
+        :param nb_texts: How many texts to return
+        :param max_nb_chars: Maximum number of characters the text should contain (minimum 5)
+        :param ext_word_list: a list of words you would like to have instead of 'Lorem ipsum'.
+
+        :rtype: list
+        """
+        return [self.text(max_nb_chars, ext_word_list)
+                for _ in range(0, nb_texts)]
