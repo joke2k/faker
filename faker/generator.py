@@ -34,8 +34,7 @@ class Generator(object):
 
             faker_function = getattr(provider, method_name)
 
-            if hasattr(faker_function, '__call__') or \
-                    isinstance(faker_function, (classmethod, staticmethod)):
+            if callable(faker_function):
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
