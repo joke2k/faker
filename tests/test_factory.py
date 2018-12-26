@@ -44,10 +44,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_get_formatter_returns_callable(self):
         formatter = self.generator.get_formatter('foo_formatter')
-        assert (
-            hasattr(formatter, '__call__') or
-            isinstance(formatter, (classmethod, staticmethod))
-        )
+        assert callable(formatter)
 
     def test_get_formatter_returns_correct_formatter(self):
         assert self.provider.foo_formatter == (
