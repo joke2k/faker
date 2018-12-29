@@ -3,13 +3,13 @@ from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    streetPrefixes = [
+    streetPrefixes = (
         'Jln', 'Jln',
         'Jalan', 'Jalan', 'Jalan',
         'Lorong'
-    ]
+    )
 
-    streetSuffixes = [
+    streetSuffixes = (
         'Air Itam', 'Alor', 'Ampang', 'Ampang Hilir', 'Anson', 'Ariffin',
         'Bangsar', 'Baru', 'Bellamy', 'Birch', 'Bijih Timah', 'Bukit Aman', 'Bukit Bintang', 'Bukit Petaling',
         'Bukit Tunku',
@@ -37,11 +37,11 @@ class Provider(AddressProvider):
         'Vermont', 'Vivekananda',
         'Wan Kadir', 'Wesley', 'Wisma Putra',
         'Yaacob Latif', 'Yap Ah Loy', 'Yap Ah Shak', 'Yap Kwan Seng', 'Yew', 'Zaaba', 'Zainal Abidin'
-    ]
+    )
 
-    townAbbr = ['SS', 'Seksyen', 'PJS', 'PJU', 'USJ']
+    townAbbr = ('SS', 'Seksyen', 'PJS', 'PJU', 'USJ')
 
-    townPrefixes = [
+    townPrefixes = (
         'Alam', 'Apartment', 'Ara',
         'Bandar', 'Bandar', 'Bandar', 'Bandar', 'Bandar', 'Bandar',
         'Bandar Bukit', 'Bandar Seri', 'Bandar Sri', 'Bandar Baru', 'Batu', 'Bukit',
@@ -53,9 +53,9 @@ class Provider(AddressProvider):
         'Seri', 'Sri',
         'Taman', 'Taman', 'Taman', 'Taman', 'Taman', 'Taman',
         'Taman Desa'
-    ]
+    )
 
-    townSuffixes = [
+    townSuffixes = (
         'Aman', 'Amanjaya', 'Anggerik', 'Angkasa', 'Antarabangsa', 'Awan',
         'Bahagia', 'Bangsar', 'Baru', 'Belakong', 'Bendahara', 'Bestari', 'Bintang', 'Brickfields',
         'Casa', 'Changkat', 'Country Heights',
@@ -75,9 +75,9 @@ class Provider(AddressProvider):
         'Tasik Puteri', 'Tengah', 'Timur', 'Tinggi', 'Tropika', 'Tun Hussein Onn', 'Tun Perak', 'Tunku',
         'Ulu', 'Utama', 'Utara',
         'Wangi'
-    ]
+    )
 
-    town = [
+    town = (
         'Ayer Hitam',
         'Batu Pahat',
         'Bukit Gambir',
@@ -497,9 +497,9 @@ class Provider(AddressProvider):
         'Rantau Abang',
         'Teluk Kalung',
         'Wakaf Tapai',
-    ]
+    )
 
-    states = [
+    states = (
         'johor',
         'kedah',
         'kelantan',
@@ -516,9 +516,9 @@ class Provider(AddressProvider):
         'sarawak',
         'selangor',
         'terengganu'
-    ]
+    )
 
-    country = [
+    country = (
         'Abkhazia', 'Afghanistan', 'Afrika Selatan', 'Republik Afrika Tengah', 'Akrotiri dan Dhekelia', 'Albania',
         'Algeria', 'Amerika Syarikat', 'Andorra', 'Angola', 'Antigua dan Barbuda', 'Arab Saudi', 'Argentina', 'Armenia',
         'Australia', 'Austria', 'Azerbaijan',
@@ -558,12 +558,13 @@ class Provider(AddressProvider):
         'Vanuatu', 'Kota Vatican', 'Venezuela', 'Vietnam',
         'Yaman',
         'Zambia', 'Zimbabwe'
-    ]
+    )
 
-    buildingNumber = ['#', '##', '##-##', '-##']
+    buildingNumber = ('#', '##', '##-##', '-##')
 
+    buildingPrefixes = ('No.','Lot')
 
-    street_name_formats = [
+    street_name_formats = (
         '{{street_prefixes}} #',
         '{{street_prefixes}} ##',
         '{{street_prefixes}} ###',
@@ -578,22 +579,22 @@ class Provider(AddressProvider):
         '{{street_prefixes}} {{street_suffixes}} ###?',
         '{{street_prefixes}} {{street_suffixes}} #?',
         '{{street_prefixes}} {{street_suffixes}} ##?'
-    ]
+    )
 
-    street_address_formats = [
+    street_address_formats = (
     '{{building_prefixes}}{{building_number}}, {{street_name}}'
-    ]
+    )
 
-    address_formats = [
+    address_formats = (
         '{{street_address}}, {{town}}, {{State}}'
-    ]
+    )
 
-    town_formats = [
+    town_formats = (
         '{{town_prefixes}} {{town_suffixes}}',
         '{{town_prefixes_abbr}}',
         '{{town_prefixes_abbr}}#',
         '{{town_prefixes_abbr}}#?',
-    ]
+    )
 
     def building_prefix(self):
         return self.random_element(self.buildingPrefixes)
