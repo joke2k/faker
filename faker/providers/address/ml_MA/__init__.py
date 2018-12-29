@@ -5,13 +5,13 @@ from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    street_prefixes = [
+    streetPrefixes = [
         'Jln', 'Jln',
         'Jalan', 'Jalan', 'Jalan',
         'Lorong'
     ]
 
-    street_suffixes = [
+    streetSuffixes = [
         'Air Itam', 'Alor', 'Ampang', 'Ampang Hilir', 'Anson', 'Ariffin',
         'Bangsar', 'Baru', 'Bellamy', 'Birch', 'Bijih Timah', 'Bukit Aman', 'Bukit Bintang', 'Bukit Petaling',
         'Bukit Tunku',
@@ -41,9 +41,9 @@ class Provider(AddressProvider):
         'Yaacob Latif', 'Yap Ah Loy', 'Yap Ah Shak', 'Yap Kwan Seng', 'Yew', 'Zaaba', 'Zainal Abidin'
     ]
 
-    town_abbr = ['SS', 'Seksyen', 'PJS', 'PJU', 'USJ']
+    townAbbr = ['SS', 'Seksyen', 'PJS', 'PJU', 'USJ']
 
-    town_prefixes = [
+    townPrefixes = [
         'Alam', 'Apartment', 'Ara',
         'Bandar', 'Bandar', 'Bandar', 'Bandar', 'Bandar', 'Bandar',
         'Bandar Bukit', 'Bandar Seri', 'Bandar Sri', 'Bandar Baru', 'Batu', 'Bukit',
@@ -57,7 +57,7 @@ class Provider(AddressProvider):
         'Taman Desa'
     ]
 
-    town_suffixes = [
+    townSuffixes = [
         'Aman', 'Amanjaya', 'Anggerik', 'Angkasa', 'Antarabangsa', 'Awan',
         'Bahagia', 'Bangsar', 'Baru', 'Belakong', 'Bendahara', 'Bestari', 'Bintang', 'Brickfields',
         'Casa', 'Changkat', 'Country Heights',
@@ -635,7 +635,7 @@ class Provider(AddressProvider):
         'Laos', 'Latvia', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Lubnan', 'Luxembourg',
         'Macedonia', 'Madagaskar', 'Maghribi', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Kepulauan Marshall',
         'Mauritania', 'Mauritius', 'Mesir', 'Mexico', 'Persekutuan Micronesia', 'Moldova', 'Monaco', 'Montenegro',
-        'Mongolia', 'Mozambique', 'Myanmar',
+        'Mo     ngolia', 'Mozambique', 'Myanmar',
         'Namibia', 'Nauru', 'Nepal', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norway',
         'Oman', 'Ossetia Selatan',
         'Pakistan', 'Palau', 'Palestin', 'Panama', 'Papua New Guinea', 'Paraguay', 'Perancis', 'Peru', 'Poland',
@@ -654,9 +654,9 @@ class Provider(AddressProvider):
         'Zambia', 'Zimbabwe'
     ]
 
-    building_number = ['#', '##', '##-##', '-##']
+    buildingNumber = ['#', '##', '##-##', '-##']
 
-    building_prefixes = [
+    buildingPrefixes = [
         '', 'No. ', 'Lot '
     ]
 
@@ -692,28 +692,28 @@ class Provider(AddressProvider):
         '{{town_prefixes_abbr}}#?',
     ]
 
-    def building_prefixes(self):
-        return self.random_element(self.building_prefixes)
+    def building_prefix(self):
+        return self.random_element(self.buildingPrefixes)
 
     def building_number(self):
         return self.lexify(
             self.numerify(
                 self.random_element(
-                    self.building_number)))
+                    self.buildingNumber)))
 
     def street_prefixes(self):
         return self.generator.parse(
-            self.random_element(self.street_prefixes))
+            self.random_element(self.streetPrefixes))
 
     
     def street_name(self):
         return self.generator.parse(
             self.lexify(
                 self.numerify(
-                    self.random_elelment(
+                    self.random_element(
                         self.street_name_formats))))
 
-    def town(self):
+    def city(self):
         return self.generator.parse(
             self.lexify(
                 self.numerify(
@@ -721,13 +721,13 @@ class Provider(AddressProvider):
                         self.town_formats))))
 
     def town_prefixes(self):
-        return self.random_element(self.town_prefixes)
+        return self.random_element(self.townPrefixes)
 
     def town_prefixes_abbr(self):
         return self.random_element(self.town_prefixes_abbr)
 
     def town_suffixes(self):
-        return self.random_element(self.town_suffixes)
+        return self.random_element(self.townSuffixes)
 
     def postcode(self):
         format = {
@@ -793,8 +793,3 @@ class Provider(AddressProvider):
         town = self.random_element(self.town(state))
         state = self.random_element(self.states(state))
         return f"{postcode},{town},{state}"
-
-    def city(self):
-        state = self.random_element(self.key(town) for key, value in self.town.items())
-        return self.random_element(self.town(state))
-    
