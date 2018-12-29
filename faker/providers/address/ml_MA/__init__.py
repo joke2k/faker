@@ -582,11 +582,11 @@ class Provider(AddressProvider):
     )
 
     street_address_formats = (
-    '{{building_prefixes}}{{building_number}}, {{street_name}}'
+        '{{building_prefix}}{{building_number}}, {{street_name}}'
     )
 
     address_formats = (
-        '{{street_address}}, {{town}}, {{State}}'
+        '{{street_address}}, {{city}}, {{State}}'
     )
 
     town_formats = (
