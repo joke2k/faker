@@ -563,7 +563,6 @@ class Provider(AddressProvider):
     buildingNumber = ['#', '##', '##-##', '-##']
 
     buildingPrefixes = [
-        '', 'No. ', 'Lot '
     ]
 
     street_name_formats = [
