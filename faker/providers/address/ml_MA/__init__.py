@@ -600,10 +600,9 @@ class Provider(AddressProvider):
         return self.random_element(self.buildingPrefixes)
 
     def building_number(self):
-        return self.lexify(
-            self.numerify(
-                self.random_element(
-                    self.buildingNumber)))
+        return self.numerify(
+            self.random_element(
+                self.buildingNumber)))
 
     def street_prefixes(self):
         return self.generator.parse(
@@ -612,17 +611,15 @@ class Provider(AddressProvider):
     
     def street_name(self):
         return self.generator.parse(
-            self.lexify(
-                self.numerify(
-                    self.random_element(
-                        self.street_name_formats))))
+            self.numerify(
+                self.random_element(
+                    self.street_name_formats))))
 
     def city(self):
         return self.generator.parse(
-            self.lexify(
-                self.numerify(
-                    self.random_element(
-                        self.town_formats))))
+            self.numerify(
+                self.random_element(
+                    self.town_formats))))
 
     def town_prefixes(self):
         return self.random_element(self.townPrefixes)
