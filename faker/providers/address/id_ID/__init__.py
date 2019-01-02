@@ -92,13 +92,13 @@ class Provider(AddressProvider):
         'Sumatera Selatan', 'Sumatera Utara',
     )
 
-    # Currently this is my own work
+    # https://id.wikipedia.org/wiki/Daftar_provinsi_di_Indonesia
     states_abbr = (
-        'Aceh', 'Bali', 'Banten', 'Bengkulu', 'DIY', 'DKI', 'Gorontalo',
-        'Jambi', 'Jabar', 'Jateng', 'Jatim', 'Kalbar', 'Kalsel', 'Kalteng',
-        'Kaltim', 'Kalut', 'Babel', 'Kepri', 'Lampung', 'Maluku', 'Malut',
-        'NTB', 'NTT', 'Papua', 'Papbar', 'Riau', 'Sulbar', 'Sulsel', 'Sulteng',
-        'Sultra', 'Sulut', 'Sumbar', 'Sumsel', 'Sumut',
+        'AC', 'BA', 'BT', 'BE', 'YO', 'JK', 'GO',
+        'JA', 'JB', 'JT', 'JI', 'KB', 'KS', 'KT',
+        'KI', 'KU', 'BB', 'KR', 'LA', 'MA', 'MU',
+        'NB', 'NT', 'PA', 'PB', 'RI', 'SR', 'SN', 'ST',
+        'SG', 'SU', 'SB', 'SS', 'SU',
     )
 
     # From https://id.wikipedia.org/wiki/Daftar_negara-negara_di_dunia
