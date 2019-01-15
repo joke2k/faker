@@ -279,6 +279,26 @@ class Provider(AddressProvider):
         'WV', 'WI', 'WY',
     )
 
+    states_postcode = {
+        'AL': (35004,36925), 'AK': (99501, 99950), 'AZ': (85001,86556),
+        'AR': (71601,72959), 'CA': (90001,96162), 'CO': (80001,81658),
+        'CT': (6001,6389), 'DE': (19701,19980), 'DC': (20001,20039),
+        'FL': (32004,34997), 'GA': (30001,31999), 'HI': (96701,96898),
+        'ID': (83201,83876), 'IL': (60001,62999), 'IN': (46001,47997),
+        'IA': (50001,52809), 'KS': (66002,67954), 'KY': (40003,42788),
+        'LA': (70001,71232), 'ME': (3901,4992), 'MD': (20331,20331),
+        'MA': (1001,2791), 'MI': (48001,49971), 'MN': (55001,56763),
+        'MS': (38601,39776), 'MO': (63001,65899), 'MT': (59001,59937),
+        'NE': (68001,68118), 'NV': (88901,89883), 'NH': (3031,3897),
+        'NJ': (7001,8989), 'NM': (87001,88441), 'NY': (6390,6390),
+        'NC': (27006,28909), 'ND': (58001,58856), 'OH': (43001,45999),
+        'OK': (73001,73199), 'OR': (97001,97920), 'PA': (15001,19640),
+        'RI': (2801,2940), 'SC': (29001,29948), 'SD': (57001,57799),
+        'TN': (37010,38589), 'TX': (73301,73301), 'UT': (84001,84784),
+        'VT': (5001,5495), 'VA': (20040,20041), 'WA': (98001,99403),
+        'WV': (24701, 26886), 'WI': (53001,54990), 'WY': (82001, 83128)
+    }
+
     territories_abbr = (
         'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'PR', 'VI',
     )
@@ -353,6 +373,24 @@ class Provider(AddressProvider):
         return "%s-%04d" % (self.zipcode(),
                             self.generator.random.randint(1, 9999))
 
+    def postcode_in_state(self, state_abbr='AL'):
+        """
+        :returns: A random postcode within the provided state abbreviation
+
+        :param state_abbr: A state abbreviation
+        """
+        if state_abbr in self.states_abbr:
+            postcode = "%d" % (self.generator.random.randint(
+                            self.states_postcode[state_abbr][0],
+                            self.states_postcode[state_abbr][1]))
+
+            if len(postcode) == 4:
+                postcode = "0%s" % postcode
+
+            return postcode
+        else:
+            raise Exception('State Abbreviation not found in list')
+
     def military_ship(self):
         """
         :example 'USS'
@@ -381,8 +419,14 @@ class Provider(AddressProvider):
     def zipcode(self):
         return self.postcode()
 
+    def zipcode_in_state(self, state_abbr='AL'):
+        return self.postcode_in_state(state_abbr)
+
     def postalcode(self):
         return self.postcode()
+
+    def postalcode_in_state(self, state_abbr='AL'):
+        return self.postcode_in_state(state_abbr)
 
     def postalcode_plus4(self):
         return self.zipcode_plus4()
