@@ -8,7 +8,7 @@ class Provider(AddressProvider):
 
     city_formats = ('{{city_name}}', )
 
-    city_with_postcode_formats = ('{{city_name}} {{postcode}}', )
+    city_with_postcode_formats = ('{{postcode}} {{city}}', )
 
     street_name_formats = (
         '{{first_name}}-{{last_name}}-{{street_suffix_long}}',
@@ -195,4 +195,5 @@ class Provider(AddressProvider):
         return self.bothify(self.random_element(self.postcode_formats))
 
     def city_with_postcode(self):
-        return self.postcode() + " " + self.random_element(self.cities)
+        pattern = self.random_element(self.city_with_postcode_formats)
+        return self.generator.parse(pattern)
