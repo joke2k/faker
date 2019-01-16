@@ -41,7 +41,7 @@ class Provider(PersonProvider):
         'Gernot',
         'Hanna',
         'Ingrid',
-        'Isabel'
+        'Isabel',
         'Jakob',
         'Jana',
         'Jasmin',
@@ -52,7 +52,7 @@ class Provider(PersonProvider):
         'Julian',
         'Katharinna',
         'Konrad',
-        'Konstantin'
+        'Konstantin',
         'Lara',
         'Laura',
         'Lena',
