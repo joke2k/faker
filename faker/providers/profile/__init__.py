@@ -27,10 +27,7 @@ class Provider(BaseProvider):
             "sex": sex,
             "address": self.generator.address(),
             "mail": self.generator.free_email(),
-
-            #"password":self.generator.password()
-            "birthdate": self.generator.date(),
-
+            "birthdate": self.generator.date_of_birth(),
         }
 
     def profile(self, fields=None, sex=None):
@@ -47,13 +44,13 @@ class Provider(BaseProvider):
             "ssn": self.generator.ssn(),
             "residence": self.generator.address(),
             "current_location": (self.generator.latitude(), self.generator.longitude()),
-            "blood_group": "".join(self.random_element(list(itertools.product(["A", "B", "AB", "0"], ["+", "-"])))),
-            "website": [self.generator.url() for i in range(1, self.random_int(2, 5))]
+            "blood_group": "".join(self.random_element(list(itertools.product(["A", "B", "AB", "O"], ["+", "-"])))),
+            "website": [self.generator.url() for _ in range(1, self.random_int(2, 5))],
         }
 
         d = dict(d, **self.generator.simple_profile(sex))
-        #field selection
+        # field selection
         if len(fields) > 0:
-            d = dict((k, v) for (k, v) in d.items() if k in fields)
+            d = {k: v for k, v in d.items() if k in fields}
 
         return d

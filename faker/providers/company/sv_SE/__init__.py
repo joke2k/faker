@@ -12,5 +12,5 @@ class Provider(CompanyProvider):
     )
 
     company_suffixes = (
-        'AB', 'HB'
+        'AB', 'HB',
     )

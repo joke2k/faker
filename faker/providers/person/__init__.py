@@ -1,14 +1,17 @@
-localized = True
+from __future__ import unicode_literals
 
 from .. import BaseProvider
 
 
+localized = True
+
+
 class Provider(BaseProvider):
-    formats = ['{{first_name}} {{last_name}}', ]
+    formats = ['{{first_name}} {{last_name}}']
 
     first_names = ['John', 'Jane']
 
-    last_names = ['Doe', ]
+    last_names = ['Doe']
 
     def name(self):
         """
@@ -17,13 +20,11 @@ class Provider(BaseProvider):
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_name(cls):
-        return cls.random_element(cls.first_names)
+    def first_name(self):
+        return self.random_element(self.first_names)
 
-    @classmethod
-    def last_name(cls):
-        return cls.random_element(cls.last_names)
+    def last_name(self):
+        return self.random_element(self.last_names)
 
     def name_male(self):
         if hasattr(self, 'formats_male'):
@@ -41,68 +42,60 @@ class Provider(BaseProvider):
         pattern = self.random_element(formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_name_male(cls):
-        if hasattr(cls, 'first_names_male'):
-            return cls.random_element(cls.first_names_male)
-        return cls.first_name()
+    def first_name_male(self):
+        if hasattr(self, 'first_names_male'):
+            return self.random_element(self.first_names_male)
+        return self.first_name()
 
-    @classmethod
-    def first_name_female(cls):
-        if hasattr(cls, 'first_names_female'):
-            return cls.random_element(cls.first_names_female)
-        return cls.first_name()
+    def first_name_female(self):
+        if hasattr(self, 'first_names_female'):
+            return self.random_element(self.first_names_female)
+        return self.first_name()
 
-    @classmethod
-    def last_name_male(cls):
-        if hasattr(cls, 'last_names_male'):
-            return cls.random_element(cls.last_names_male)
-        return cls.last_name()
+    def last_name_male(self):
+        if hasattr(self, 'last_names_male'):
+            return self.random_element(self.last_names_male)
+        return self.last_name()
 
-    @classmethod
-    def last_name_female(cls):
-        if hasattr(cls, 'last_names_female'):
-            return cls.random_element(cls.last_names_female)
-        return cls.last_name()
+    def last_name_female(self):
+        if hasattr(self, 'last_names_female'):
+            return self.random_element(self.last_names_female)
+        return self.last_name()
 
-    @classmethod
-    def prefix(cls):
-        if hasattr(cls, 'prefixes'):
-            return cls.random_element(cls.prefixes)
-        if hasattr(cls, 'prefixes_male') and hasattr(cls, 'prefixes_female'):
-            prefixes = cls.random_element((cls.prefixes_male, cls.prefixes_female))
-            return cls.random_element(prefixes)
+    def prefix(self):
+        if hasattr(self, 'prefixes'):
+            return self.random_element(self.prefixes)
+        if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female'):
+            prefixes = self.random_element(
+                (self.prefixes_male, self.prefixes_female))
+            return self.random_element(prefixes)
         return ''
 
-    @classmethod
-    def prefix_male(cls):
-        if hasattr(cls, 'prefixes_male'):
-            return cls.random_element(cls.prefixes_male)
-        return cls.prefix()
+    def prefix_male(self):
+        if hasattr(self, 'prefixes_male'):
+            return self.random_element(self.prefixes_male)
+        return self.prefix()
 
-    @classmethod
-    def prefix_female(cls):
-        if hasattr(cls, 'prefixes_female'):
-            return cls.random_element(cls.prefixes_female)
-        return cls.prefix()
+    def prefix_female(self):
+        if hasattr(self, 'prefixes_female'):
+            return self.random_element(self.prefixes_female)
+        return self.prefix()
 
-    @classmethod
-    def suffix(cls):
-        if hasattr(cls, 'suffixes'):
-            return cls.random_element(cls.suffixes)
-        if hasattr(cls, 'suffixes_male') and hasattr(cls, 'suffixes_female'):
-            suffixes = cls.random_element((cls.suffixes_male, cls.suffixes_female))
-            return cls.random_element(suffixes)
+    def suffix(self):
+        if hasattr(self, 'suffixes'):
+            return self.random_element(self.suffixes)
+        if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female'):
+            suffixes = self.random_element(
+                (self.suffixes_male, self.suffixes_female))
+            return self.random_element(suffixes)
         return ''
 
-    @classmethod
-    def suffix_male(cls):
-        if hasattr(cls, 'suffixes_male'):
-            return cls.random_element(cls.suffixes_male)
-        return cls.suffix()
+    def suffix_male(self):
+        if hasattr(self, 'suffixes_male'):
+            return self.random_element(self.suffixes_male)
+        return self.suffix()
 
-    @classmethod
-    def suffix_female(cls):
-        if hasattr(cls, 'suffixes_female'):
-            return cls.random_element(cls.suffixes_female)
-        return cls.suffix()
+    def suffix_female(self):
+        if hasattr(self, 'suffixes_female'):
+            return self.random_element(self.suffixes_female)
+        return self.suffix()

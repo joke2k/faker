@@ -26,5 +26,5 @@ class Provider(InternetProvider):
     tlds = ('com', 'com', 'com', 'net', 'org', 'eu', 'it', 'it', 'it', 'it')
     replacements = (
         ('à', 'a'), ('é', 'e'), ('è', 'e'),
-        ('ì', 'i'), ('ò', 'o'), ('ù', 'u')
+        ('ì', 'i'), ('ò', 'o'), ('ù', 'u'),
     )

@@ -4,33 +4,49 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_suffixes = ("市",)
-    city_formats = ("{{first_name}}{{city_suffix}}",)
+    city_suffixes = ("市", "县")
+    city_formats = ("{{city_name}}{{city_suffix}}",
+                    "{{first_name}}{{city_suffix}}")
+
+    district_formats = ("{{district}}区",)
 
     building_number_formats = ("?座",)
     postcode_formats = ("%#####",)
 
-    street_suffixes = ("街", "路",)
-    street_name_formats = ("{{last_name}}{{street_suffix}}",)
+    street_suffixes = ("街", "路")
+    street_name_formats = ("{{city_name}}{{street_suffix}}",
+                           "{{last_name}}{{street_suffix}}")
     street_address_formats = ("{{street_name}}{{building_number}}",)
 
-    address_formats = ("{{city}}{{street_address}} {{postcode}}",)
+    address_formats = (
+        "{{province}}{{city}}{{district}}{{street_address}} {{postcode}}",)
 
-    states = (
-        "西夏区", "永川区", "秀英区", "高港区", "清城区", "兴山区", "锡山区", "清河区",
-        "龙潭区", "华龙区", "海陵区", "滨城区", "东丽区", "高坪区", "沙湾区", "平山区",
-        "城北区", "海港区", "沙市区", "双滦区", "长寿区", "山亭区", "南湖区", "浔阳区",
-        "南长区", "友好区", "安次区", "翔安区", "沈河区", "魏都区", "西峰区", "萧山区",
-        "金平区", "沈北新区", "孝南区", "上街区", "城东区", "牧野区", "大东区",
-        "白云区", "花溪区", "吉利区", "新城区", "怀柔区", "六枝特区", "涪城区",
-        "清浦区", "南溪区", "淄川区", "高明区",
+    provinces = (
+        "内蒙古自治区", "山西省", "河北省", "吉林省", "江苏省", "辽宁省", "黑龍江省",
+        "安徽省", "山东省", "浙江省", "江西省", "福建省", "湖南省", "湖北省",
+        "河南省", "广东省", "广西壮族自治区", "贵州省", "海南省", "四川省", "云南省",
+        "陕西省", "甘肃省", "宁夏回族自治区", "青海省", "新疆维吾尔自治区", "西藏自治区",
+    )
+    districts = (
+        "西夏", "永川", "秀英", "高港", "清城", "兴山", "锡山", "清河",
+        "龙潭", "华龙", "海陵", "滨城", "东丽", "高坪", "沙湾", "平山",
+        "城北", "海港", "沙市", "双滦", "长寿", "山亭", "南湖", "浔阳",
+        "南长", "友好", "安次", "翔安", "沈河", "魏都", "西峰", "萧山",
+        "金平", "沈北新", "孝南", "上街", "城东", "牧野", "大东",
+        "白云", "花溪", "吉区", "新城", "怀柔", "六枝特", "涪城",
+        "清浦", "南溪", "淄川", "高明", "东城", "崇文", "朝阳", "大兴",
+        "房山", "门头沟", "黄浦", "徐汇", "静安", "普陀", "闵行", "和平",
+        "蓟州", "永川", "长寿", "璧山", "合川", "梁平", "丰都", "江北",
     )
     cities = (
         "北京", "上海", "天津", "重庆", "哈尔滨", "长春", "沈阳", "呼和浩特",
         "石家庄", "乌鲁木齐", "兰州", "西宁", "西安", "银川", "郑州", "济南", "太原",
         "合肥", "武汉", "长沙", "南京", "成都", "贵阳", "昆明", "南宁", "拉萨",
-        "杭州", "南昌", "广州", "福州", "台北", "海口", "香港", "澳门",
-    )
+        "杭州", "南昌", "广州", "福州", "台北", "海口", "香港", "澳门", "通辽",
+        "兴安盟", "太原", "辛集", "邯郸", "沈阳", "辽阳", "兴城", "北镇", "阜新",
+        "哈尔滨", "齐齐哈尔", "淮安", "张家港", "海门", "六安", "巢湖", "马鞍山",
+        "永安", "宁德", "嘉禾", "荆门", "潜江", "大冶", "宜都", "佛山", "深圳",
+        "潮州", "惠州", "汕尾", "东莞", "梧州", "柳州", "合山", "六盘水", "关岭")
     countries = (
         "阿富汗", "阿拉斯加", "阿尔巴尼亚", "阿尔及利亚", "安道尔", "安哥拉", "安圭拉岛英", "安提瓜和巴布达",
         "阿根廷", "亚美尼亚", "阿鲁巴岛", "阿森松", "澳大利亚", "奥地利", "阿塞拜疆", "巴林", "孟加拉国",
@@ -58,14 +74,14 @@ class Provider(AddressProvider):
         "也门", "南斯拉夫", "扎伊尔", "赞比亚", "桑给巴尔", "津巴布韦", "中华人民共和国", "中国",
     )
 
-    @classmethod
-    def building_number(cls):
-        return cls.lexify(cls.random_element(cls.building_number_formats))
+    def building_number(self):
+        return self.lexify(self.random_element(self.building_number_formats))
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def province(self):
+        return self.random_element(self.provinces)
+
+    def district(self):
+        return self.random_element(self.districts)

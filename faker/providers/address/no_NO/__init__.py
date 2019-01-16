@@ -25,13 +25,21 @@ class Provider(AddressProvider):
     ]
     street_address_formats = ('{{street_name}} {{building_number}}',)
     address_formats = ('{{street_address}}, {{postcode}} {{city}}',)
-    building_number_formats = ('%', '%', '%', '%?', '##', '##', '##?', '###',)
+    building_number_formats = ('%', '%', '%', '%?', '##', '##', '##?', '###')
     building_number_suffixes = {
         'A': 0.2, 'B': 0.2, 'C': 0.2, 'D': 0.1, 'E': 0.1, 'F': 0.1, 'G': 0.05,
         'H': 0.05}
     postcode_formats = ('####',)
 
-    @classmethod
-    def building_number(cls):
-        suffix = cls.random_element(cls.building_number_suffixes)
-        return cls.numerify(cls.random_element(cls.building_number_formats)).replace('?', suffix)
+    def building_number(self):
+        suffix = self.random_element(self.building_number_suffixes)
+        return self.numerify(
+            self.random_element(
+                self.building_number_formats)).replace(
+            '?', suffix)
+
+    def city_suffix(self):
+        return self.random_element(self.city_suffixes)
+
+    def street_suffix(self):
+        return self.random_element(self.street_suffixes)

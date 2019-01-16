@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.providers.date_time import Provider as DateTimeProvider
 
 
 def checksum(digits):
@@ -32,8 +31,7 @@ def calculate_month(birth_date):
 
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns 11 character Polish national identity code (Public Electronic Census System,
         Polish: Powszechny Elektroniczny System Ewidencji Ludności - PESEL).
@@ -44,7 +42,7 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Poland
         """
-        birth_date = DateTimeProvider.date_time()
+        birth_date = self.generator.date_time()
 
         year_without_century = int(birth_date.strftime('%y'))
         month = calculate_month(birth_date)
@@ -55,12 +53,23 @@ class Provider(SsnProvider):
             year_without_century % 10,
             int(month / 10),
             month % 10,
-            int(day / 10), day % 10
+            int(day / 10), day % 10,
         ]
 
         for _ in range(4):
-            pesel_digits.append(cls.random_digit())
+            pesel_digits.append(self.random_digit())
 
         pesel_digits.append(checksum(pesel_digits))
 
         return ''.join(str(digit) for digit in pesel_digits)
+
+    vat_id_formats = (
+        'PL##########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Polish VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

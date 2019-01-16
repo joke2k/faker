@@ -4,7 +4,7 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = ["{{last_name}}{{first_name}}", ]
+    formats = ["{{last_name}}{{first_name}}"]
     first_names = [
         "伟", "芳", "娜", "敏", "静", "秀英", "丽", "强", "磊", "洋", "艳", "勇", "军", "杰", "娟",
         "涛", "超", "明", "霞", "秀兰", "刚", "平", "燕", "辉", "玲", "桂英", "丹", "萍", "鹏", "华",
@@ -62,9 +62,29 @@ class Provider(PersonProvider):
     # From https://en.wikipedia.org/wiki/Chinese_given_name#Common_Chinese_names,
     # with accents stripped
     first_romanized_names = (
-        'Chao', 'Fang', 'Gang', 'Guiying', 'Jie', 'Jing', 'Juan', 'Jun', 'Lei',
-        'Li', 'Min', 'Ming', 'Na', 'Ping', 'Qiang', 'Tao', 'Wei', 'Xia', 'Xiulan',
-        'Xiuying', 'Yang', 'Yong', 'Yan',
+        'Chao',
+        'Fang',
+        'Gang',
+        'Guiying',
+        'Jie',
+        'Jing',
+        'Juan',
+        'Jun',
+        'Lei',
+        'Li',
+        'Min',
+        'Ming',
+        'Na',
+        'Ping',
+        'Qiang',
+        'Tao',
+        'Wei',
+        'Xia',
+        'Xiulan',
+        'Xiuying',
+        'Yang',
+        'Yong',
+        'Yan',
     )
 
     # From https://en.wikipedia.org/wiki/List_of_common_Chinese_surnames
@@ -89,16 +109,14 @@ class Provider(PersonProvider):
         pattern = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
-    @classmethod
-    def first_romanized_name(cls):
+    def first_romanized_name(self):
         '''
         @example 'Chao'
         '''
-        return cls.random_element(cls.first_romanized_names)
+        return self.random_element(self.first_romanized_names)
 
-    @classmethod
-    def last_romanized_name(cls):
+    def last_romanized_name(self):
         '''
         @example 'Chao'
         '''
-        return cls.random_element(cls.last_romanized_names)
+        return self.random_element(self.last_romanized_names)

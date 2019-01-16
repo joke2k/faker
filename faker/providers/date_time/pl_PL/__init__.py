@@ -29,15 +29,13 @@ class Provider(DateTimeProvider):
         '09': 'wrzesień',
         '10': 'październik',
         '11': 'listopad',
-        '12': 'grudzień'
+        '12': 'grudzień',
     }
 
-    @classmethod
-    def day_of_week(cls):
-        day = cls.date('%w')
-        return cls.DAY_NAMES[day]
+    def day_of_week(self):
+        day = self.date('%w')
+        return self.DAY_NAMES[day]
 
-    @classmethod
-    def month_name(cls):
-        month = cls.month()
-        return cls.MONTH_NAMES[month]
+    def month_name(self):
+        month = self.month()
+        return self.MONTH_NAMES[month]

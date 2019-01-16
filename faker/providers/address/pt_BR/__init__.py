@@ -5,15 +5,70 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_suffixes = (
-        'do Sul', 'do Norte', 'de Minas', 'do Campo', 'Grande', 'da Serra', 'do Oeste', 'de Goiás', 'Paulista',
-        'da Mata', 'Alegre', 'da Praia', 'das Flores', 'das Pedras', 'dos Dourados',
-        'do Amparo', 'do Galho', 'da Prata', 'Verde'
-    )
-    street_prefixes = ('Aeroporto', 'Alameda', 'Área', 'Avenida', 'Campo', 'Chácara', 'Colônia', 'Condomínio',
-                       'Conjunto', 'Distrito', 'Esplanada', 'Estação', 'Estrada', 'Favela', 'Fazenda', 'Feira',
-                       'Jardim', 'Ladeira', 'Lago', 'Lagoa', 'Largo', 'Loteamento', 'Morro', 'Núcleo', 'Parque',
-                       'Passarela', 'Pátio', 'Praça', 'Quadra', 'Recanto', 'Residencial', 'Rodovia', 'Rua', 'Setor',
-                       'Sítio', 'Travessa', 'Trecho', 'Trevo', 'Vale', 'Vereda', 'Via', 'Viaduto', 'Viela', 'Vila')
+        'do Sul',
+        'do Norte',
+        'de Minas',
+        'do Campo',
+        'Grande',
+        'da Serra',
+        'do Oeste',
+        'de Goiás',
+        'Paulista',
+        'da Mata',
+        'Alegre',
+        'da Praia',
+        'das Flores',
+        'das Pedras',
+        'dos Dourados',
+        'do Amparo',
+        'do Galho',
+        'da Prata',
+        'Verde')
+    street_prefixes = (
+        'Aeroporto',
+        'Alameda',
+        'Área',
+        'Avenida',
+        'Campo',
+        'Chácara',
+        'Colônia',
+        'Condomínio',
+        'Conjunto',
+        'Distrito',
+        'Esplanada',
+        'Estação',
+        'Estrada',
+        'Favela',
+        'Fazenda',
+        'Feira',
+        'Jardim',
+        'Ladeira',
+        'Lago',
+        'Lagoa',
+        'Largo',
+        'Loteamento',
+        'Morro',
+        'Núcleo',
+        'Parque',
+        'Passarela',
+        'Pátio',
+        'Praça',
+        'Quadra',
+        'Recanto',
+        'Residencial',
+        'Rodovia',
+        'Rua',
+        'Setor',
+        'Sítio',
+        'Travessa',
+        'Trecho',
+        'Trevo',
+        'Vale',
+        'Vereda',
+        'Via',
+        'Viaduto',
+        'Viela',
+        'Vila')
     city_formats = (
         '{{last_name}}',
         '{{last_name}}',
@@ -41,8 +96,7 @@ class Provider(AddressProvider):
     )
 
     address_formats = (
-        "{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}",
-    )
+        "{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}", )
 
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
 
@@ -145,7 +199,7 @@ class Provider(AddressProvider):
         'Horto',
         'Cidade Jardim', 'Castelo', 'Cidade Nova', 'Savassi', 'Serra', 'Silveira', 'Sion', 'Centro',
         'Alto Barroca', 'Nova Vista', 'Coração De Jesus', 'Coração Eucarístico', 'Funcionários', 'Cruzeiro',
-        'João Pinheiro', 'Nova Granada', 'Nova Suíça', 'Itaipu'
+        'João Pinheiro', 'Nova Granada', 'Nova Suíça', 'Itaipu',
     )
     countries = (
         'Afeganistão', 'África do Sul', 'Akrotiri', 'Albânia', 'Alemanha', 'Andorra', 'Angola', 'Anguila',
@@ -191,53 +245,64 @@ class Provider(AddressProvider):
     )
 
     estados = (
-        ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
-        ('CE', 'Ceará'), ('DF', 'Distrito Federal'), ('ES', 'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'),
-        ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG', 'Minas Gerais'), ('PA', 'Pará'), ('PB', 'Paraíba'),
-        ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI', 'Piauí'), ('RJ', 'Rio de Janeiro'),
+        ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP',
+                                            'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
+        ('CE', 'Ceará'), ('DF', 'Distrito Federal'), ('ES',
+                                                      'Espírito Santo'), ('GO', 'Goiás'), ('MA', 'Maranhão'),
+        ('MT', 'Mato Grosso'), ('MS', 'Mato Grosso do Sul'), ('MG',
+                                                              'Minas Gerais'), ('PA', 'Pará'), ('PB', 'Paraíba'),
+        ('PR', 'Paraná'), ('PE', 'Pernambuco'), ('PI',
+                                                 'Piauí'), ('RJ', 'Rio de Janeiro'),
         ('RN', 'Rio Grande do Norte'),
-        ('RS', 'Rio Grande do Sul'), ('RO', 'Rondônia'), ('RR', 'Roraima'), ('SC', 'Santa Catarina'),
+        ('RS', 'Rio Grande do Sul'), ('RO', 'Rondônia'), ('RR',
+                                                          'Roraima'), ('SC', 'Santa Catarina'),
         ('SP', 'São Paulo'),
-        ('SE', 'Sergipe'), ('TO', 'Tocantins')
+        ('SE', 'Sergipe'), ('TO', 'Tocantins'),
     )
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'rua'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def estado(cls):
+    def estado(self):
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example ('MG' . 'Minas Gerais')
         """
-        return cls.random_element(cls.estados)
+        return self.random_element(self.estados)
 
-    @classmethod
-    def estado_nome(cls):
+    def estado_nome(self):
         """
         Randomly returns a Brazilian State Name
         :example 'Minas Gerais'
         """
-        return cls.estado()[1]
+        return self.estado()[1]
 
-    @classmethod
-    def estado_sigla(cls):
+    def estado_sigla(self):
         """
         Randomly returns the abbreviation of a Brazilian State
 
         :example 'MG'
         """
-        return cls.estado()[0]
+        return self.estado()[0]
 
-    @classmethod
-    def bairro(cls):
+    def bairro(self):
         """
-        Randomly returns a bairro (neighborhood) name. The names were taken from the city of Belo Horizonte - Minas Gerais
+        Randomly returns a bairro (neighborhood) name.
+        The names were taken from the city of Belo Horizonte - Minas Gerais
 
         :example 'Serra'
         """
-        return cls.random_element(cls.bairros)
+        return self.random_element(self.bairros)
+
+    # aliases
+    def neighborhood(self):
+        return self.bairro()
+
+    def state(self):
+        return self.estado_nome()
+
+    def state_abbr(self):
+        return self.estado_sigla()

@@ -29,7 +29,7 @@ class Provider(PersonProvider):
     first_names_male_est = ('Aivar', 'Aleksander', 'Alexander', 'Andres',
                             'Andrus', 'Ants', 'Indrek', 'Jaan', 'Jaanus',
                             'Jüri', 'Kristjan', 'Marek', 'Margus', 'Marko',
-                            'Martin', 'Mati', 'Meelis', 'Mihkel',  'Peeter',
+                            'Martin', 'Mati', 'Meelis', 'Mihkel', 'Peeter',
                             'Priit', 'Raivo', 'Rein', 'Sander', 'Siim', 'Tarmo',
                             'Tiit', 'Toomas', 'Tõnu', 'Urmas', 'Vello')
 
@@ -68,7 +68,7 @@ class Provider(PersonProvider):
                       'Anton', 'Arro', 'Aru', 'Arula', 'Aun', 'Aus', 'Eller',
                       'Erik', 'Erm', 'Ernits', 'Gross', 'Hallik', 'Hansen',
                       'Hanson', 'Hein', 'Heinsalu', 'Heinsoo', 'Holm', 'Hunt',
-                      'Härm', 'Ilves', 'Ivask','Jaakson', 'Jaanson', 'Jaanus',
+                      'Härm', 'Ilves', 'Ivask', 'Jaakson', 'Jaanson', 'Jaanus',
                       'Jakobson', 'Jalakas', 'Johanson', 'Juhanson', 'Juhkam',
                       'Jänes', 'Järv', 'Järve', 'Jõe', 'Jõesaar', 'Jõgi',
                       'Jürgens', 'Jürgenson', 'Jürisson', 'Kaasik', 'Kadak',
@@ -157,34 +157,26 @@ class Provider(PersonProvider):
                       'Štšerbakov', 'Žukov', 'Žuravljov')
     last_names = set(last_names_est + last_names_rus)
 
-    @classmethod
-    def first_name_male_est(cls):
-        return cls.random_element(cls.first_names_male_est)
+    def first_name_male_est(self):
+        return self.random_element(self.first_names_male_est)
 
-    @classmethod
-    def first_name_female_est(cls):
-        return cls.random_element(cls.first_names_female_est)
+    def first_name_female_est(self):
+        return self.random_element(self.first_names_female_est)
 
-    @classmethod
-    def first_name_male_rus(cls):
-        return cls.random_element(cls.first_names_male_rus)
+    def first_name_male_rus(self):
+        return self.random_element(self.first_names_male_rus)
 
-    @classmethod
-    def first_name_female_rus(cls):
-        return cls.random_element(cls.first_names_female_rus)
+    def first_name_female_rus(self):
+        return self.random_element(self.first_names_female_rus)
 
-    @classmethod
-    def first_name_est(cls):
-        return cls.random_element(cls.first_names_est)
+    def first_name_est(self):
+        return self.random_element(self.first_names_est)
 
-    @classmethod
-    def first_name_rus(cls):
-        return cls.random_element(cls.first_names_rus)
+    def first_name_rus(self):
+        return self.random_element(self.first_names_rus)
 
-    @classmethod
-    def last_name_est(cls):
-        return cls.random_element(cls.last_names_est)
+    def last_name_est(self):
+        return self.random_element(self.last_names_est)
 
-    @classmethod
-    def last_name_rus(cls):
-        return cls.random_element(cls.last_names_rus)
+    def last_name_rus(self):
+        return self.random_element(self.last_names_rus)

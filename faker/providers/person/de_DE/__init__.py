@@ -24,7 +24,8 @@ class Provider(PersonProvider):
         '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix}}',
     )
 
-    # From http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
+    # From
+    # http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
     first_names_male = (
         'Abbas', 'Abdul', 'Abdullah', 'Abraham', 'Abram', 'Achim', 'Ada',
         'Adalbert', 'Adam', 'Adelbert', 'Adem', 'Adolf', 'Adrian', 'Ahmad',
@@ -186,7 +187,8 @@ class Provider(PersonProvider):
         'Zenon', 'Zlatko', 'Zoltan', 'Zoran',
     )
 
-    # From http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_weiblichen_Vornamen_Deutschlands
+    # From
+    # http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_weiblichen_Vornamen_Deutschlands
     first_names_female = (
         'Adele', 'Adelgunde', 'Adelheid', 'Adelinde', 'Adeline', 'Adina',
         'Adolfine', 'Adriana', 'Adriane', 'Aenne', 'Änne', 'Agata', 'Agatha',
@@ -401,7 +403,7 @@ class Provider(PersonProvider):
         'Siering', 'Söding', 'Sölzer', 'Sontag', 'Sorgatz', 'Speer', 'Spieß',
         'Stadelmann', 'Stahr', 'Staude', 'Steckel', 'Steinberg', 'Stey',
         'Stiebitz', 'Stiffel', 'Stoll', 'Stolze', 'Striebitz', 'Stroh',
-        'Stumpf', 'Sucker', 'Süßebier', 'Täsche', 'Textor', 'Thanel', 'Thies',
+        'Stumpf', 'Süßebier', 'Täsche', 'Textor', 'Thanel', 'Thies',
         'Tintzmann', 'Tlustek', 'Trapp', 'Trommler', 'Tröst', 'Trub', 'Trüb',
         'Trubin', 'Trupp', 'Tschentscher', 'Ullmann', 'Ullrich',
         'van der Dussen', 'Vogt', 'Vollbrecht', 'Wagenknecht', 'Wagner', 'Wähner',
@@ -419,4 +421,4 @@ class Provider(PersonProvider):
         'Frau', 'Dr.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.',
     )
 
-    suffixes = ('B.Sc.', 'B.A.', 'B.Eng.', 'MBA.', )
+    suffixes = ('B.Sc.', 'B.A.', 'B.Eng.', 'MBA.')

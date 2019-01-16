@@ -3,11 +3,11 @@
 from __future__ import unicode_literals
 
 import re
-import random
-
+import random as random_module
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
-random = random.Random()
+random = random_module.Random()
+mod_random = random  # compat with name released in 0.8
 
 
 class Generator(object):
@@ -18,10 +18,11 @@ class Generator(object):
         self.providers = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
+        self.__random = random
 
     def add_provider(self, provider):
 
-        if type(provider) is type:
+        if isinstance(provider, type):
             provider = provider(self)
 
         self.providers.insert(0, provider)
@@ -33,8 +34,7 @@ class Generator(object):
 
             faker_function = getattr(provider, method_name)
 
-            if hasattr(faker_function, '__call__') or \
-                    isinstance(faker_function, (classmethod, staticmethod)):
+            if callable(faker_function):
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
@@ -52,10 +52,19 @@ class Generator(object):
 
     @property
     def random(self):
-        return random
+        return self.__random
 
-    def seed(self, seed=None):
+    def seed_instance(self, seed=None):
         """Calls random.seed"""
+        if self.__random == random:
+            # create per-instance random obj when first time seed_instance() is
+            # called
+            self.__random = random_module.Random()
+        self.__random.seed(seed)
+        return self
+
+    @classmethod
+    def seed(cls, seed=None):
         random.seed(seed)
 
     def format(self, formatter, *args, **kwargs):
@@ -69,7 +78,15 @@ class Generator(object):
         try:
             return getattr(self, formatter)
         except AttributeError:
-            raise AttributeError('Unknown formatter "{0}"'.format(formatter))
+            if 'locale' in self.__config:
+                msg = 'Unknown formatter "{0}" with locale "{1}"'.format(
+                    formatter, self.__config['locale'],
+                )
+            else:
+                raise AttributeError('Unknown formatter "{0}"'.format(
+                    formatter,
+                ))
+            raise AttributeError(msg)
 
     def set_formatter(self, name, method):
         """

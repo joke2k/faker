@@ -1,2 +1,3 @@
 [paths]
 source = faker/
+omit = faker/build_docs.py

@@ -4,7 +4,7 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
-    formats = ["{{company_prefix}}{{company_suffix}}", ]
+    formats = ["{{company_prefix}}{{company_suffix}}"]
 
     company_prefixes = ["超艺", "和泰", "九方", "鑫博腾飞", "戴硕电子", "济南亿次元",
                         "海创", "创联世纪", "凌云", "泰麒麟", "彩虹", "兰金电子",
@@ -22,6 +22,5 @@ class Provider(CompanyProvider):
                         "东方峻景", "华成育卓", "趋势", "维涛", "通际名联"]
     company_suffixes = [n + "有限公司" for n in ["科技", "网络", "信息", "传媒"]]
 
-    @classmethod
-    def company_prefix(cls):
-        return cls.random_element(cls.company_prefixes)
+    def company_prefix(self):
+        return self.random_element(self.company_prefixes)

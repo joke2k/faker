@@ -6,7 +6,7 @@ from .. import Provider as InternetProvider
 
 class Provider(InternetProvider):
     free_email_domains = (
-        'email.ua', 'gmail.com', 'gov.ua', 'i.ua', 'meta.ua', 'ukr.net'
+        'email.ua', 'gmail.com', 'gov.ua', 'i.ua', 'meta.ua', 'ukr.net',
     )
     tlds = ('com', 'info', 'net', 'org', 'ua', 'укр')
 
@@ -23,5 +23,5 @@ class Provider(InternetProvider):
         ('к', 'k'), ('л', 'l'), ('м', 'm'), ('н', 'n'), ('о', 'o'), ('п', 'p'),
         ('р', 'r'), ('с', 's'), ('т', 't'), ('у', 'u'), ('ф', 'f'),
         ('х', 'kh'), ('ц', 'ts'), ('ч', 'ch'), ('ш', 'sh'), ('щ', 'shch'),
-        ('ь', 'ʹ'), ('ю', 'iu'), ('я', 'ia')
+        ('ь', 'ʹ'), ('ю', 'iu'), ('я', 'ia'),
     )

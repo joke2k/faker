@@ -8,18 +8,11 @@ class Provider(CompanyProvider):
     formats = (
         '{{last_name}} {{company_suffix}}',
         '{{last_name}} {{last_name}} {{company_suffix}}',
-        '{{last_name}}'
+        '{{last_name}} és {{last_name}} {{company_suffix}}',
+        '{{last_name}} és társa {{company_suffix}}',
     )
 
-    company_suffixes = (
-        'Kft',
-        'és Tsa',
-        'Kht',
-        'ZRT',
-        'NyRT',
-        'BT'
-    )
+    company_suffixes = ('Kft.', 'Kht.', 'Zrt.', 'Bt.', 'Nyrt.', 'Kkt.')
 
-    @classmethod
-    def company_suffix(cls):
-        return cls.random_element(cls.company_suffixes)
+    def company_suffix(self):
+        return self.random_element(self.company_suffixes)

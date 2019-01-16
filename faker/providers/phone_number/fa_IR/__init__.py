@@ -13,7 +13,8 @@ class Provider(PhoneNumberProvider):
         '0921 ### ####',
         '+98 93# ### ####',
         '093# ### ####',
-        # Land lines, https://en.wikipedia.org/wiki/List_of_dialling_codes_in_Iran
+        # Land lines,
+        # https://en.wikipedia.org/wiki/List_of_dialling_codes_in_Iran
         '+98 21 #### ####',
         '021 #### ####',
         '+98 26 #### ####',
@@ -77,5 +78,5 @@ class Provider(PhoneNumberProvider):
         '+98 84 #### ####',
         '084 #### ####',
         '+98 ### #### ####',
-        '0### #### ####'
+        '0### #### ####',
     )

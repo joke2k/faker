@@ -4,6 +4,7 @@ from collections import OrderedDict
 
 from .. import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     formats_male = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.97),
@@ -76,7 +77,7 @@ class Provider(PersonProvider):
         'Фрол', 'Харитон', 'Харлампий', 'Христофор', 'Чеслав', 'Эдуард',
         'Эммануил', 'Эмиль', 'Эраст', 'Эрнест', 'Эрнст', 'Ювеналий',
         'Юлиан', 'Юлий', 'Юрий', 'Яков', 'Ян', 'Якуб',
-        'Януарий', 'Ярополк', 'Ярослав'
+        'Януарий', 'Ярополк', 'Ярослав',
     )
 
     first_names_female = (
@@ -92,8 +93,8 @@ class Provider(PersonProvider):
         'Наталья', 'Нина', 'Нинель', 'Нонна', 'Оксана', 'Октябрина',
         'Олимпиада', 'Ольга', 'Пелагея', 'Полина', 'Прасковья', 'Раиса',
         'Регина', 'Светлана', 'Синклитикия', 'София', 'Таисия', 'Тамара',
-        'Татьяна', 'Ульяна', 'Фаина', 'Феврония', 'Фёкла', 'Элеонора', 'Эмилия', 'Юлия'
-        )
+        'Татьяна', 'Ульяна', 'Фаина', 'Феврония', 'Фёкла', 'Элеонора', 'Эмилия', 'Юлия',
+    )
 
     first_names = first_names_male + first_names_female
 
@@ -147,7 +148,7 @@ class Provider(PersonProvider):
         'Мясников', 'Лихачев', 'Буров', 'Сысоев', 'Фомичев',
         'Русаков', 'Стрелков', 'Гущин', 'Тетерин', 'Колобов',
         'Субботин', 'Фокин', 'Блохин', 'Селиверстов', 'Пестов',
-        'Кондратьев', 'Силин', 'Меркушев', 'Лыткин', 'Туров'
+        'Кондратьев', 'Силин', 'Меркушев', 'Лыткин', 'Туров',
     )
 
     last_names_female = (
@@ -197,7 +198,7 @@ class Provider(PersonProvider):
         'Бурова', 'Сысоева', 'Фомичева', 'Русакова', 'Стрелкова', 'Гущина',
         'Тетерина', 'Колобова', 'Субботина', 'Фокина', 'Блохина',
         'Селиверстова', 'Пестова', 'Кондратьева', 'Силина', 'Меркушева',
-        'Лыткина', 'Турова'
+        'Лыткина', 'Турова',
     )
 
     last_names = last_names_male + last_names_female
@@ -230,7 +231,7 @@ class Provider(PersonProvider):
         'Филиппович', 'Фокич', 'Фомич', 'Фролович', 'Харитонович', 'Харламович',
         'Харлампович', 'Харлампьевич', 'Чеславович', 'Эдгардович', 'Эдгарович',
         'Эдуардович', 'Юлианович', 'Юльевич', 'Яковлевич', 'Якубович',
-        'Ярославович'
+        'Ярославович',
     )
 
     middle_names_female = (
@@ -240,7 +241,7 @@ class Provider(PersonProvider):
         'Вадимовна', 'Васильевна', 'Владимировна', 'Валентиновна',
         'Вениаминовна', 'Владиславовна', 'Валериевна', 'Викторовна',
         'Вячеславовна', 'Геннадиевна', 'Георгиевна', 'Геннадьевна',
-        'Григорьевна', 'Даниловна', 'Дмитриевна', 'Евгеньевна', 'Егоровны',
+        'Григорьевна', 'Даниловна', 'Дмитриевна', 'Евгеньевна',
         'Егоровна', 'Ефимовна', 'Ждановна', 'Захаровна', 'Ивановна', 'Игоревна',
         'Ильинична', 'Кирилловна', 'Кузминична', 'Константиновна',
         'Кузьминична', 'Леонидовна', 'Леоновна', 'Львовна', 'Макаровна',
@@ -250,7 +251,7 @@ class Provider(PersonProvider):
         'Руслановна', 'Романовна', 'Рудольфовна', 'Святославовна', 'Сергеевна',
         'Степановна', 'Семеновна', 'Станиславовна', 'Тарасовна', 'Тимофеевна',
         'Тимуровна', 'Федоровна', 'Феликсовна', 'Филипповна', 'Харитоновна',
-        'Эдуардовна', 'Эльдаровна', 'Юльевна', 'Юрьевна', 'Яковлевна'
+        'Эдуардовна', 'Эльдаровна', 'Юльевна', 'Юрьевна', 'Яковлевна',
     )
 
     middle_names = middle_names_male + middle_names_female
@@ -259,18 +260,15 @@ class Provider(PersonProvider):
 
     prefixes_female = ('г-жа', 'тов.')
 
-    @classmethod
-    def middle_name(cls):
-        return cls.random_element(cls.middle_names)
+    def middle_name(self):
+        return self.random_element(self.middle_names)
 
-    @classmethod
-    def middle_name_male(cls):
-        if hasattr(cls, 'middle_names_male'):
-            return cls.random_element(cls.middle_names_male)
-        return cls.middle_name()
+    def middle_name_male(self):
+        if hasattr(self, 'middle_names_male'):
+            return self.random_element(self.middle_names_male)
+        return self.middle_name()
 
-    @classmethod
-    def middle_name_female(cls):
-        if hasattr(cls, 'middle_names_female'):
-            return cls.random_element(cls.middle_names_female)
-        return cls.middle_name()
+    def middle_name_female(self):
+        if hasattr(self, 'middle_names_female'):
+            return self.random_element(self.middle_names_female)
+        return self.middle_name()

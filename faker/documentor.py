@@ -31,7 +31,7 @@ class Documentor(object):
             if locale and provider.__lang__ != locale:
                 continue
             formatters.append(
-                (provider, self.get_provider_formatters(provider, **kwargs))
+                (provider, self.get_provider_formatters(provider, **kwargs)),
             )
         return formatters
 

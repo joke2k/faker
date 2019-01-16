@@ -20,10 +20,11 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
-    # Names from http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-243767
+    # Names from
+    # http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-243767
 
     first_names_male = (
         'David', 'Paul', 'Christopher', 'Thomas', 'John', 'Mark', 'James',
@@ -51,7 +52,7 @@ class Provider(PersonProvider):
         'Mohammad', 'Dylan', 'Graeme', 'Terry', 'Guy', 'Elliott', 'Stanley',
         'Danny', 'Brandon', 'Victor', 'Toby', 'Hugh', 'Mohamed', 'Brett',
         'Albert', 'Tom', 'Declan', 'Maurice', 'Glenn', 'Leigh', 'Denis',
-        'Damien', 'Bruce', 'Jay', 'Owen'
+        'Damien', 'Bruce', 'Jay', 'Owen',
     )
 
     first_names_female = (
@@ -81,7 +82,7 @@ class Provider(PersonProvider):
         'Dorothy', 'Aimee', 'Vanessa', 'Ellie', 'Frances', 'Sian', 'Josephine',
         'Gail', 'Jill', 'Lydia', 'Joyce', 'Charlene', 'Hollie', 'Hazel',
         'Annette', 'Bethan', 'Amelia', 'Beth', 'Rita', 'Geraldine', 'Diana',
-        'Lindsey', 'Carolyn'
+        'Lindsey', 'Carolyn',
     )
 
     first_names = first_names_male + first_names_female

@@ -6,9 +6,9 @@ from ..es import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_prefixes = ('Sur', 'Norte',)
-    city_adjetives = ('Nueva', 'Vieja',)
-    city_suffixies = ('de la Montaña', 'los bajos', 'los altos', )
+    city_prefixes = ('Sur', 'Norte')
+    city_adjetives = ('Nueva', 'Vieja')
+    city_suffixies = ('de la Montaña', 'los bajos', 'los altos')
     street_prefixes = (
         'Ampliación', 'Andador', 'Avenida', 'Boulevard', 'Calle', 'Callejón',
         'Calzada', 'Cerrada', 'Circuito', 'Circunvalación', 'Continuación',
@@ -35,7 +35,7 @@ class Provider(AddressProvider):
         ('SIN', 'Sinaloa'), ('SON', 'Sonora'), ('TAB', 'Tabasco'),
         ('TAMPS', 'Tamaulipas'), ('TLAX', 'Tlaxcala'),
         ('VER', 'Veracruz de Ignacio de la Llave'),
-        ('YUC', 'Yucatán'), ('ZAC', 'Zacatecas'),)
+        ('YUC', 'Yucatán'), ('ZAC', 'Zacatecas'))
 
     zip_codes = OrderedDict((
         # The ZipCodes has a begin & final range
@@ -82,7 +82,7 @@ class Provider(AddressProvider):
         '{{street_prefix}} {{last_name}}',
         '{{street_prefix}} {{country}}',
         '{{street_prefix}} {{state}}',
-        '{{street_prefix}} {{city_prefix}} {{last_name}}'
+        '{{street_prefix}} {{city_prefix}} {{last_name}}',
     )
     street_address_formats = (
         '{{street_name}} {{secondary_address}}',
@@ -91,44 +91,39 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
     )
     secondary_address_formats = ('### ###', '### Interior ###',
-        '### Edif. ### , Depto. ###')
+                                 '### Edif. ### , Depto. ###')
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefixes)
+    def city_prefix(self):
+        return self.random_element(self.city_prefixes)
 
-    @classmethod
-    def city_suffix(cls):
-        return cls.random_element(cls.city_suffixies)
+    def city_suffix(self):
+        return self.random_element(self.city_suffixies)
 
-    @classmethod
-    def city_adjetive(cls):
-        return cls.random_element(cls.city_adjetives)
+    def city_adjetive(self):
+        return self.random_element(self.city_adjetives)
 
-    @classmethod
-    def street_prefix(cls):
+    def street_prefix(self):
         """
         :example 'Avenida'
         """
-        return cls.random_element(cls.street_prefixes)
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def secondary_address(cls):
+    def secondary_address(self):
         """
         :example '020 Interior 999'
         """
-        return cls.numerify(cls.random_element(cls.secondary_address_formats))
+        return self.numerify(
+            self.random_element(
+                self.secondary_address_formats))
 
-    @classmethod
-    def state(cls):
+    def state(self):
         """
         example: u'Guerrero'
         """
-        return cls.random_element(cls.states)[1]
+        return self.random_element(self.states)[1]
 
-    @classmethod
-    def state_abbr(cls):
+    def state_abbr(self):
         """
         example: u'GRO'
         """
-        return cls.random_element(cls.states)[0]
+        return self.random_element(self.states)[0]

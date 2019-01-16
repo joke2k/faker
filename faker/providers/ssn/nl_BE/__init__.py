@@ -2,19 +2,16 @@
 
 from __future__ import unicode_literals
 from .. import Provider as SsnProvider
-from faker.generator import random
-from faker.providers.date_time import Provider as DateProvider
-from faker.providers import BaseProvider
 
 """
 For more info on rijksregisternummer, see https://nl.wikipedia.org/wiki/Rijksregisternummer
 Dutch/French only for now ...
 """
 
+
 class Provider(SsnProvider):
 
-    @classmethod
-    def ssn(cls):
+    def ssn(self):
         """
         Returns a 11 digits Belgian SSN called "rijksregisternummer" as a string
 
@@ -26,15 +23,15 @@ class Provider(SsnProvider):
         Divide those 9 digits by 97, subtract the remainder from 97 and that's the result.
         For persons born in or after 2000, the 9 digit number needs to be proceeded by a 2
         (add 2000000000) before the division by 97.
-                
+
         """
         # see http://nl.wikipedia.org/wiki/Burgerservicenummer (in Dutch)
         def _checksum(digits):
             res = 97 - (digits % 97)
             return res
-        
+
         # Generate a date (random)
-        mydate = DateProvider.date()        
+        mydate = self.generator.date()
         # Convert it to an int
         elms = mydate.split("-")
         # Adjust for year 2000 if necessary
@@ -45,7 +42,7 @@ class Provider(SsnProvider):
         # Only keep the last 2 digits of the year
         elms[0] = elms[0][2:4]
         # Simulate the gender/sequence - should be 3 digits
-        seq = BaseProvider.random_int(1,998)
+        seq = self.generator.random_int(1, 998)
         # Right justify sequence and append to list
         seq_str = "{:0>3}".format(seq)
         elms.append(seq_str)
@@ -59,3 +56,14 @@ class Provider(SsnProvider):
         # return result as a string
         elms.append(s_rjust)
         return "".join(elms)
+
+    vat_id_formats = (
+        'BE##########',
+    )
+
+    def vat_id(self):
+        """
+        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        :return: A random Belgian VAT ID
+        """
+        return self.bothify(self.random_element(self.vat_id_formats))

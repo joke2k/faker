@@ -16,7 +16,7 @@ class Provider(AddressProvider):
         'Björk', 'Järnvägs', 'Ring', 'Skol', 'Skogs', 'Ny', 'Gran', 'Idrotts',
         'Stor', 'Kyrk', 'Industri', 'Park', 'Strand', 'Skol', 'Trädgårds',
         'Industri', 'Ängs', 'Kyrko', 'Park', 'Villa', 'Ek', 'Kvarn', 'Stations',
-        'Back', 'Furu', 'Gen', 'Fabriks', 'Åker', 'Bäck', 'Asp'
+        'Back', 'Furu', 'Gen', 'Fabriks', 'Åker', 'Bäck', 'Asp',
     )
 
     street_suffixes = ('gatan', 'gatan', 'vägen', 'vägen',
@@ -36,7 +36,7 @@ class Provider(AddressProvider):
         'Borlänge', 'Falun', 'Kalmar', 'Skövde', 'Kristianstad', 'Karlskrona',
         'Skellefteå', 'Uddevalla', 'Lidingö', 'Motala', 'Landskrona',
         'Örnsköldsvik', 'Nyköping', 'Karlskoga', 'Varberg', 'Trelleborg',
-        'Lidköping', 'Alingsås', 'Piteå', 'Sandviken', 'Ängelholm'
+        'Lidköping', 'Alingsås', 'Piteå', 'Sandviken', 'Ängelholm',
     )
 
     countries = (
@@ -87,27 +87,24 @@ class Provider(AddressProvider):
         'Tuvalu', 'Tyskland', 'Uganda', 'Ukraina', 'Ungern', 'Uruguay', 'USA',
         'Uzbekistan', 'Vanuatu', 'Vatikanstaten', 'Venezuela', 'Vietnam',
         'Vitryssland', 'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
-        'Österrike', 'Östtimor'
+        'Österrike', 'Östtimor',
     )
 
     states = (
-        'Stockholms län', 'Uppsala län', 'Södermanlands län'
+        'Stockholms län', 'Uppsala län', 'Södermanlands län',
         'Östergötlands län', 'Jönköpings län', 'Kronobergs län', 'Kalmar län',
         'Gotlands län', 'Blekinge län', 'Skåne län', 'Hallands län',
         'Västra Götalands län', 'Värmlands län', 'Örebro län',
         'Västmanlands län', 'Dalarnas län', 'Gävleborgs län',
         'Västernorrlands län', 'Jämtlands län', 'Västerbottens län',
-        'Norrbottens län'
+        'Norrbottens län',
     )
 
-    @classmethod
-    def street_prefix(cls):
-        return cls.random_element(cls.street_prefixes)
+    def street_prefix(self):
+        return self.random_element(self.street_prefixes)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)

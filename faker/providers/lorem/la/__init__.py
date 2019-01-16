@@ -33,5 +33,5 @@ class Provider(LoremProvider):
         'similique', 'sint', 'sit', 'soluta', 'sunt', 'suscipit', 'tempora',
         'tempore', 'temporibus', 'tenetur', 'totam', 'ullam', 'unde', 'ut',
         'vel', 'velit', 'veniam', 'veritatis', 'vero', 'vitae', 'voluptas',
-        'voluptate', 'voluptatem', 'voluptates', 'voluptatibus', 'voluptatum'
+        'voluptate', 'voluptatem', 'voluptates', 'voluptatibus', 'voluptatum',
     )

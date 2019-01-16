@@ -8,27 +8,33 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
     street_suffixes = OrderedDict(
-            (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001),))
+        (('utca', 0.75), ('út', 0.1), ('tér', 0.1), ('köz', 0.001), ('körút', 0.001), ('sétány', 0.001)))
 
-    street_name_formats = ('{{frequent_street_name}} {{street_suffix}}', '{{real_city_name}}i {{street_suffix}}',
-                           '{{city_part}}{{city_suffix}}i {{street_suffix}}',
-                           '{{city_prefix}}{{city_part}}i {{street_suffix}}')
+    street_name_formats = (
+        '{{frequent_street_name}} {{street_suffix}}',
+        '{{real_city_name}}i {{street_suffix}}',
+        '{{city_part}}{{city_suffix}}i {{street_suffix}}',
+        '{{city_prefix}}{{city_part}}i {{street_suffix}}')
 
     #   Currently deprecated.
     #   secondary_address_formats = ("#.em #.", "##. em. #.")
 
-
-    city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}', '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
-
-    street_address_with_county_formats = (
-        '{{street_name}} {{building_number}}\n{{county}} megye\n{{postcode}} {{city}}',)
+    city_formats = ('{{city_prefix}}{{city_part}}{{city_suffix}}',
+                    '{{city_part}}{{city_suffix}}', '{{real_city_name}}')
 
     street_address_formats = ('{{street_name}} {{building_number}}',)
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
     frequent_street_names = (
-        'Ady Endre', 'Dózsa György', 'Petőfi', 'Petőfi Sándor', 'Arany János', 'Béke', 'Szabadság', 'Kossuth',
+        'Ady Endre',
+        'Dózsa György',
+        'Petőfi',
+        'Petőfi Sándor',
+        'Arany János',
+        'Béke',
+        'Szabadság',
+        'Kossuth',
         'József Attila')
 
     # The 'real city name' generator includes a number of real cities of
@@ -44,28 +50,133 @@ class Provider(AddressProvider):
     # of 01 January 2016 (http://www.ksh.hu/docs/hun/hnk/hnk_2016.pdf).
 
     real_city_names = (
-        'Budapest', 'Debrecen', 'Szeged', 'Miskolc', 'Pécs', 'Győr', 'Nyíregyháza', 'Kecskemét', 'Székesfehérvár',
-        'Szombathely', 'Szolnok', 'Tatabánya', 'Érd', 'Kaposvár', 'Sopron', 'Veszprém', 'Békéscsaba', 'Zalaegerszeg',
-        'Eger', 'Nagykanizsa', 'Dunaújváros', 'Hódmezővásárhely', 'Dunakeszi', 'Szigetszentmiklós', 'Cegléd', 'Baja',
-        'Salgótarján', 'Ózd', 'Vác', 'Mosonmagyaróvár')
+        'Budapest',
+        'Debrecen',
+        'Szeged',
+        'Miskolc',
+        'Pécs',
+        'Győr',
+        'Nyíregyháza',
+        'Kecskemét',
+        'Székesfehérvár',
+        'Szombathely',
+        'Szolnok',
+        'Tatabánya',
+        'Érd',
+        'Kaposvár',
+        'Sopron',
+        'Veszprém',
+        'Békéscsaba',
+        'Zalaegerszeg',
+        'Eger',
+        'Nagykanizsa',
+        'Dunaújváros',
+        'Hódmezővásárhely',
+        'Dunakeszi',
+        'Szigetszentmiklós',
+        'Cegléd',
+        'Baja',
+        'Salgótarján',
+        'Ózd',
+        'Vác',
+        'Mosonmagyaróvár')
 
     city_prefs = (
-        'kis', 'nagy', 'szent', 'duna', 'tisza', 'alsó', 'felső', 'belső', 'bakony', 'vác', 'mező', 'nyék', 'nyír',
-        'balaton', 'borsod', 'buda', 'hajdú', 'kun', 'moson', 'pilis', 'új', 'egyházas', 'dráva', 'magyar', 'mátra',
-        'somogy', 'lajos', 'bács', 'békés', 'puszta', 'orosz', 'rác', 'szerb', 'német', 'török')
+        'kis',
+        'nagy',
+        'szent',
+        'duna',
+        'tisza',
+        'alsó',
+        'felső',
+        'belső',
+        'bakony',
+        'vác',
+        'mező',
+        'nyék',
+        'nyír',
+        'balaton',
+        'borsod',
+        'buda',
+        'hajdú',
+        'kun',
+        'moson',
+        'pilis',
+        'új',
+        'egyházas',
+        'dráva',
+        'magyar',
+        'mátra',
+        'somogy',
+        'lajos',
+        'bács',
+        'békés',
+        'puszta',
+        'orosz',
+        'rác',
+        'szerb',
+        'német',
+        'török')
 
     city_parts = (
-        'híd', 'györgy', 'mindszent', 'kereszt', 'márton', 'hát', 'hetven', 'mellék', 'tamási', 'tapolca', 'fürdő',
-        'liget', 'szék', 'tót', '')
+        'híd',
+        'györgy',
+        'mindszent',
+        'kereszt',
+        'márton',
+        'hát',
+        'hetven',
+        'mellék',
+        'tamási',
+        'tapolca',
+        'fürdő',
+        'liget',
+        'szék',
+        'tót',
+        '')
 
     city_suffixes = (
-        'háza', 'németi', 'devecser', 'fa', 'nádasd', 'apáti', 'falu', 'falva', 'vég', 'vár', 'vára', 'várad', 'hida',
-        'kövesd', 'bánya', 'halas', 'berény', 'kőrös', 'haraszti', 'város')
+        'háza',
+        'németi',
+        'devecser',
+        'fa',
+        'nádasd',
+        'apáti',
+        'falu',
+        'falva',
+        'vég',
+        'vár',
+        'vára',
+        'várad',
+        'hida',
+        'kövesd',
+        'bánya',
+        'halas',
+        'berény',
+        'kőrös',
+        'haraszti',
+        'város')
 
     counties = (
-    'Bács-Kiskun', 'Baranya', 'Békés', 'Borsod-Abaúj-Zemplén', 'Csongrád', 'Fejér', 'Győr-Moson-Sopron', 'Hajdú-Bihar',
-    'Heves', 'Jász-Nagykun-Szolnok', 'Komárom-Esztergom', 'Nógrád', 'Pest', 'Somogy', 'Szabolcs-Szatmár-Bereg', 'Tolna',
-    'Vas', 'Veszprém', 'Zala')
+        'Bács-Kiskun',
+        'Baranya',
+        'Békés',
+        'Borsod-Abaúj-Zemplén',
+        'Csongrád',
+        'Fejér',
+        'Győr-Moson-Sopron',
+        'Hajdú-Bihar',
+        'Heves',
+        'Jász-Nagykun-Szolnok',
+        'Komárom-Esztergom',
+        'Nógrád',
+        'Pest',
+        'Somogy',
+        'Szabolcs-Szatmár-Bereg',
+        'Tolna',
+        'Vas',
+        'Veszprém',
+        'Zala')
 
     countries = (
         "Afganisztán", "Aland-szigetek", "Albánia", "Algéria", "Amerikai Szamoa", "Amerikai Virgin-szigetek", "Andorra",
@@ -100,49 +211,41 @@ class Provider(AddressProvider):
         "Thaiföld", "Togo", "Tokelau-szigetek", "Tonga", "Törökország", "Trinidad és Tobago", "Tunézia",
         "Turks- és Caicos-szigetek", "Tuvalu", "Türkmenisztán", "Uganda", "Új-Kaledónia", "Új-Zéland", "Ukrajna",
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
-        "Zöld-foki szigetek",)
+        "Zöld-foki szigetek")
 
-    @classmethod
-    def county(cls):
-        return cls.random_element(cls.counties)
+    def county(self):
+        return self.random_element(self.counties)
 
     def street_address_with_county(self):
-        pattern = self.random_element(self.street_address_with_county_formats)
-        return self.generator.parse(pattern)
+        return "{street_address}\n{county} megye\n{postcode} {city}".format(
+            street_address=self.street_address(),
+            county=self.county(),
+            postcode=self.postcode(),
+            city=self.city().capitalize())
 
-    @classmethod
-    def city_prefix(cls):
-        return cls.random_element(cls.city_prefs)
+    def city_prefix(self):
+        return self.random_element(self.city_prefs)
 
-    @classmethod
-    def city_part(cls):
-        return cls.random_element(cls.city_parts)
+    def city_part(self):
+        return self.random_element(self.city_parts)
 
-    @classmethod
-    def county(cls):
-        return cls.random_element(cls.counties)
+    def real_city_name(self):
+        return self.random_element(self.real_city_names)
 
-    @classmethod
-    def real_city_name(cls):
-        return cls.random_element(cls.real_city_names)
+    def frequent_street_name(self):
+        return self.random_element(self.frequent_street_names)
 
-    @classmethod
-    def frequent_street_name(cls):
-        return cls.random_element(cls.frequent_street_names)
-
-    def city(self):
-        return super(Provider, self).city()
-
-    @classmethod
-    def postcode(cls):
-        return "H-{}{}{}{}".format(super(Provider, cls).random_digit_not_null(), super(Provider, cls).random_digit(),
-                                   super(Provider, cls).random_digit(),
-                                   super(Provider, cls).random_digit())
+    def postcode(self):
+        return "H-{}{}{}{}".format(
+            super(
+                Provider, self).random_digit_not_null(), super(
+                Provider, self).random_digit(), super(
+                Provider, self).random_digit(), super(
+                    Provider, self).random_digit())
 
     def street_name(self):
-        return super(Provider, self).street_name().title()
+        return super(Provider, self).street_name().capitalize()
 
-    @classmethod
-    def building_number(cls):
-        numeric_part = super(Provider, cls).random_int(1, 250)
+    def building_number(self):
+        numeric_part = super(Provider, self).random_int(1, 250)
         return str(numeric_part) + "."

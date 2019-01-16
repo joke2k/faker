@@ -1,15 +1,24 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
+from collections import OrderedDict
+
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name_male}} {{last_name}}',
-        '{{first_name_female}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}',
-    )
+    formats_female = OrderedDict((
+        ('{{first_name_female}} {{last_name}}', 0.9),
+        ('{{prefix_female}} {{first_name_female}} {{last_name}}', 0.1),
+    ))
+
+    formats_male = OrderedDict((
+        ('{{first_name_male}} {{last_name}}', 0.9),
+        ('{{prefix_male}} {{first_name_male}} {{last_name}}', 0.1),
+    ))
+
+    formats = formats_female.copy()
+    formats.update(formats_male)
 
     # Source: uk.wikipedia.org/wiki/Українські_імена
     first_names_male = (
@@ -30,7 +39,7 @@ class Provider(PersonProvider):
         'Прохір', 'Роман', 'Ростислав', 'Руслан', 'Святослав', 'Семен',
         'Сергій', 'Симон', 'Соломон', 'Спас', 'Станіслав', 'Степан', 'Стефан',
         'Тарас', 'Теодор', 'Тимофій', 'Трохим', 'Устим', 'Федір', 'Феофан',
-        'Франц', 'Хома', 'Юстим', 'Юхим', 'Яків', 'Ярема', 'Ярослав'
+        'Франц', 'Хома', 'Юстим', 'Юхим', 'Яків', 'Ярема', 'Ярослав',
     )
 
     first_names_female = (
@@ -44,7 +53,7 @@ class Provider(PersonProvider):
         'Розалія', 'Святослава', 'Сніжана', 'Соломія', 'Софія', 'Одарка',
         'Оксана', 'Оксенія', 'Олена', 'Ольга', 'Орина', 'Орися', 'Роксолана',
         'Світлана', 'Тереза', 'Тетяна', 'Юстина', 'Христина', 'Ярина',
-        'Ярослава'
+        'Ярослава',
     )
 
     first_names = first_names_male + first_names_female

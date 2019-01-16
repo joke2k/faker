@@ -151,6 +151,5 @@ class Provider(ColorProvider):
     safe_colors = (
         'noir', 'bordeaux', 'vert', 'rouge',
         'violet', 'sarcelle', 'bleu', 'argent',
-        'gris', 'jaune', 'fuchsia', 'cyan', 'blanc'
+        'gris', 'jaune', 'fuchsia', 'cyan', 'blanc',
     )
-

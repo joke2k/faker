@@ -157,4 +157,3 @@ class Provider(ColorProvider):
         'purpurna', 'modrozelena', 'lipa', 'plava', 'srebrna',
         'siva', 'žuta', 'fuksija', 'voda', 'bijela',
     )
-

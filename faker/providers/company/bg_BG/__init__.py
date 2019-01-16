@@ -19,5 +19,5 @@ class Provider(CompanyProvider):
         'OOD', 'ООД',
         'KD', 'КД',
         'KDA', 'КДА',
-        'SD', 'СД'
+        'SD', 'СД',
     )

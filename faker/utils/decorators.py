@@ -24,3 +24,10 @@ def slugify_unicode(fn):
     def wrapper(*args, **kwargs):
         return text.slugify(fn(*args, **kwargs), allow_unicode=True)
     return wrapper
+
+
+def lowercase(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs).lower()
+    return wrapper

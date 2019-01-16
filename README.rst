@@ -32,16 +32,12 @@ Install with pip:
 
 *Note: this package was previously called* ``fake-factory``.
 
-Use ``faker.Factory.create()`` to create and initialize a faker
+Use ``faker.Faker()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
 the type of data you want.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create()
-
-    # OR
     from faker import Faker
     fake = Faker()
 
@@ -49,19 +45,19 @@ the type of data you want.
     # 'Lucy Cechtelar'
 
     fake.address()
-    # "426 Jordy Lodge
-    #  Cartwrightshire, SC 88120-6700"
+    # '426 Jordy Lodge
+    #  Cartwrightshire, SC 88120-6700'
 
     fake.text()
-    # Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
-    # beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
-    # amet quidem. Iusto deleniti cum autem ad quia aperiam.
-    # A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
-    # quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
-    # voluptatem sit aliquam. Dolores voluptatum est.
-    # Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
-    # Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
-    # Et sint et. Ut ducimus quod nemo ab voluptatum.
+    # 'Sint velit eveniet. Rerum atque repellat voluptatem quia rerum. Numquam excepturi
+    #  beatae sint laudantium consequatur. Magni occaecati itaque sint et sit tempore. Nesciunt
+    #  amet quidem. Iusto deleniti cum autem ad quia aperiam.
+    #  A consectetur quos aliquam. In iste aliquid et aut similique suscipit. Consequatur qui
+    #  quaerat iste minus hic expedita. Consequuntur error magni et laboriosam. Aut aspernatur
+    #  voluptatem sit aliquam. Dolores voluptatum est.
+    #  Aut molestias et maxime. Fugit autem facilis quos vero. Eius quibusdam possimus est.
+    #  Ea quaerat et quisquam. Deleniti sunt quam. Adipisci consequatur id in occaecati.
+    #  Et sint et. Ut ducimus quod nemo ab voluptatum.'
 
 Each call to method ``fake.name()`` yields a different (random) result.
 This is because faker forwards ``faker.Generator.method_name()`` calls
@@ -72,16 +68,16 @@ to ``faker.Generator.format(method_name)``.
     for _ in range(10):
       print(fake.name())
 
-    # Adaline Reichel
-    # Dr. Santa Prosacco DVM
-    # Noemy Vandervort V
-    # Lexi O'Conner
-    # Gracie Weber
-    # Roscoe Johns
-    # Emmett Lebsack
-    # Keegan Thiel
-    # Wellington Koelpin II
-    # Ms. Karley Kiehn V
+    # 'Adaline Reichel'
+    # 'Dr. Santa Prosacco DVM'
+    # 'Noemy Vandervort V'
+    # 'Lexi O'Conner'
+    # 'Gracie Weber'
+    # 'Roscoe Johns'
+    # 'Emmett Lebsack'
+    # 'Keegan Thiel'
+    # 'Wellington Koelpin II'
+    # 'Ms. Karley Kiehn V'
 
 Providers
 ---------
@@ -90,33 +86,44 @@ Each of the generator properties (like ``name``, ``address``, and
 ``lorem``) are called "fake". A faker generator has many of them,
 packaged in "providers".
 
+.. code:: python
+
+    from faker import Faker
+    from faker.providers import internet
+    
+    fake = Faker()
+    fake.add_provider(internet)
+    
+    print(fake.ipv4_private())
+    
+
 Check the `extended docs`_ for a list of `bundled providers`_ and a list of
 `community providers`_.
 
 Localization
 ------------
 
-``faker.Factory`` can take a locale as an argument, to return localized
+``faker.Faker`` can take a locale as an argument, to return localized
 data. If no localized provider is found, the factory falls back to the
 default en\_US locale.
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create('it_IT')
+    from faker import Faker
+    fake = Faker('it_IT')
     for _ in range(10):
         print(fake.name())
 
-    > Elda Palumbo
-    > Pacifico Giordano
-    > Sig. Avide Guerra
-    > Yago Amato
-    > Eustachio Messina
-    > Dott. Violante Lombardo
-    > Sig. Alighieri Monti
-    > Costanzo Costa
-    > Nazzareno Barbieri
-    > Max Coppola
+    # 'Elda Palumbo'
+    # 'Pacifico Giordano'
+    # 'Sig. Avide Guerra'
+    # 'Yago Amato'
+    # 'Eustachio Messina'
+    # 'Dott. Violante Lombardo'
+    # 'Sig. Alighieri Monti'
+    # 'Costanzo Costa'
+    # 'Nazzareno Barbieri'
+    # 'Max Coppola'
 
 You can check available Faker locales in the source code, under the
 providers package. The localization of Faker is an ongoing process, for
@@ -125,6 +132,10 @@ provider for your own locale and submit a Pull Request (PR).
 
 Included localized providers:
 
+-  `ar\_EG <https://faker.readthedocs.io/en/master/locales/ar_EG.html>`__ - Arabic (Egypt)
+-  `ar\_PS <https://faker.readthedocs.io/en/master/locales/ar_PS.html>`__ - Arabic (Palestine)
+-  `ar\_SA <https://faker.readthedocs.io/en/master/locales/ar_SA.html>`__ - Arabic (Saudi Arabia)
+-  `bs\_BA <https://faker.readthedocs.io/en/master/locales/bs_BA.html>`__ - Bosnian
 -  `bg\_BG <https://faker.readthedocs.io/en/master/locales/bg_BG.html>`__ - Bulgarian
 -  `cs\_CZ <https://faker.readthedocs.io/en/master/locales/cs_CZ.html>`__ - Czech
 -  `de\_DE <https://faker.readthedocs.io/en/master/locales/de_DE.html>`__ - German
@@ -133,6 +144,7 @@ Included localized providers:
 -  `en\_AU <https://faker.readthedocs.io/en/master/locales/en_AU.html>`__ - English (Australia)
 -  `en\_CA <https://faker.readthedocs.io/en/master/locales/en_CA.html>`__ - English (Canada)
 -  `en\_GB <https://faker.readthedocs.io/en/master/locales/en_GB.html>`__ - English (Great Britain)
+-  `en\_NZ <https://faker.readthedocs.io/en/master/locales/en_NZ.html>`__ - English (New Zealand)
 -  `en\_US <https://faker.readthedocs.io/en/master/locales/en_US.html>`__ - English (United States)
 -  `es\_ES <https://faker.readthedocs.io/en/master/locales/es_ES.html>`__ - Spanish (Spain)
 -  `es\_MX <https://faker.readthedocs.io/en/master/locales/es_MX.html>`__ - Spanish (Mexico)
@@ -154,6 +166,7 @@ Included localized providers:
 -  `pl\_PL <https://faker.readthedocs.io/en/master/locales/pl_PL.html>`__ - Polish
 -  `pt\_BR <https://faker.readthedocs.io/en/master/locales/pt_BR.html>`__ - Portuguese (Brazil)
 -  `pt\_PT <https://faker.readthedocs.io/en/master/locales/pt_PT.html>`__ - Portuguese (Portugal)
+-  `ro\_RO <https://faker.readthedocs.io/en/master/locales/ro_RO.html>`__ - Romanian
 -  `ru\_RU <https://faker.readthedocs.io/en/master/locales/ru_RU.html>`__ - Russian
 -  `sl\_SI <https://faker.readthedocs.io/en/master/locales/sl_SI.html>`__ - Slovene
 -  `sv\_SE <https://faker.readthedocs.io/en/master/locales/sv_SE.html>`__ - Swedish
@@ -161,6 +174,7 @@ Included localized providers:
 -  `uk\_UA <https://faker.readthedocs.io/en/master/locales/uk_UA.html>`__ - Ukrainian
 -  `zh\_CN <https://faker.readthedocs.io/en/master/locales/zh_CN.html>`__ - Chinese (China)
 -  `zh\_TW <https://faker.readthedocs.io/en/master/locales/zh_TW.html>`__ - Chinese (Taiwan)
+-  `ka\_GE <https://faker.readthedocs.io/en/master/locales/ka_GE.html>`__ - Georgian (Georgia)
 
 Command line usage
 ------------------
@@ -172,7 +186,7 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
-          [-i {module.containing.custom_provider othermodule.containing.custom_provider}]
+          [-i {package.containing.custom_provider otherpkg.containing.custom_provider}]
           [fake] [fake argument [fake argument ...]]
 
 Where:
@@ -195,7 +209,7 @@ Where:
    generated output
 
 -  ``-i {my.custom_provider other.custom_provider}`` list of additional custom providers to use.
-   Note that is the import path of the module containing your Provider class, not the custom Provider class itself.
+   Note that is the import path of the package containing your Provider class, not the custom Provider class itself.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
@@ -233,17 +247,17 @@ How to create a Provider
     # first, import a similar Provider or use the default one
     from faker.providers import BaseProvider
 
-    # create new provider class
-    class MyProvider(BaseProvider):
+    # create new provider class. Note that the class name _must_ be ``Provider``.
+    class Provider(BaseProvider):
         def foo(self):
             return 'bar'
 
     # then add new provider to faker instance
-    fake.add_provider(MyProvider)
+    fake.add_provider(Provider)
 
     # now you can use:
     fake.foo()
-    > 'bar'
+    # 'bar'
 
 How to customize the Lorem Provider
 -----------------------------------
@@ -253,8 +267,8 @@ default lorem ipsum one. The following example shows how to do it with a list of
 
 .. code:: python
 
-    from faker import Factory
-    fake = Factory.create()
+    from faker import Faker
+    fake = Faker()
 
     my_word_list = [
     'danish','cheesecake','sugar',
@@ -263,7 +277,7 @@ default lorem ipsum one. The following example shows how to do it with a list of
     'pie','bar','Ice','oat' ]
 
     fake.sentence()
-    #'Expedita at beatae voluptatibus nulla omnis.'
+    # 'Expedita at beatae voluptatibus nulla omnis.'
 
     fake.sentence(ext_word_list=my_word_list)
     # 'Oat beans oat Lollipop bar cheesecake.'
@@ -300,13 +314,17 @@ used to generate the values:
     fake.random
     fake.random.getstate()
 
+By default all generators share the same instance of ``random.Random``, which
+can be accessed with ``from faker.generator import random``. Using this may
+be useful for plugins that want to affect all faker instances.
+
 Seeding the Generator
 ---------------------
 
 When using Faker for unit testing, you will often want to generate the same
 data set. For convenience, the generator also provide a ``seed()`` method, which
-seeds the random number generator. Calling the same script twice with the same
-seed produces the same results.
+seeds the shared random number generator. Calling the same methods with the
+same version of faker and seed produces the same results.
 
 .. code:: python
 
@@ -315,18 +333,24 @@ seed produces the same results.
     fake.seed(4321)
 
     print(fake.name())
-    > Margaret Boehm
+    # 'Margaret Boehm'
 
-The code above is equivalent to the following:
+Each generator can also be switched to its own instance of ``random.Random``,
+separate to the shared one, by using the ``seed_instance()`` method, which acts
+the same way. For example:
 
 .. code:: python
 
     from faker import Faker
     fake = Faker()
-    fake.random.seed(4321)
+    fake.seed_instance(4321)
 
     print(fake.name())
-    > Margaret Boehm
+    # 'Margaret Boehm'
+
+Please note that as we keep updating datasets, results are not guaranteed to be
+consistent across patch versions. If you hardcode results in your test, make sure
+you pinned the version of ``Faker`` down to the patch number.
 
 Tests
 -----
@@ -335,7 +359,7 @@ Installing dependencies:
 
 .. code:: bash
 
-    $ pip install -r tests/requirements.txt
+    $ pip install -e .
 
 Run tests:
 
@@ -378,20 +402,20 @@ Credits
 .. _FZaninotto: https://github.com/fzaninotto
 .. _PHP Faker: https://github.com/fzaninotto/Faker
 .. _Perl Faker: http://search.cpan.org/~jasonk/Data-Faker-0.07/
-.. _Ruby Faker: http://faker.rubyforge.org/
-.. _Distribute: https://pypi.python.org/pypi/distribute
+.. _Ruby Faker: https://github.com/stympy/faker
+.. _Distribute: https://pypi.org/project/distribute/
 .. _Buildout: http://www.buildout.org/
-.. _modern-package-template: https://pypi.python.org/pypi/modern-package-template
-.. _extended docs: https://faker.readthedocs.io/en/latest/
-.. _bundled providers: https://faker.readthedocs.io/en/latest/providers.html
-.. _community providers: https://faker.readthedocs.io/en/latest/communityproviders.html
+.. _modern-package-template: https://pypi.org/project/modern-package-template/
+.. _extended docs: https://faker.readthedocs.io/en/stable/
+.. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
+.. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
 
 .. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
-    :target: https://pypi.python.org/pypi/Faker
-    :alt: Latest version released on PyPi
+    :target: https://pypi.org/project/Faker/
+    :alt: Latest version released on PyPI
 
 .. |coverage| image:: https://img.shields.io/coveralls/joke2k/faker/master.svg?style=flat-square
     :target: https://coveralls.io/r/joke2k/faker?branch=master

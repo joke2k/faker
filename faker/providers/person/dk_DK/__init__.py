@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from .. import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     formats = (
         '{{first_name_male}} {{last_name}}',
@@ -17,7 +18,7 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}'
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
     first_names_male = (
@@ -28,9 +29,9 @@ class Provider(PersonProvider):
         'Brian', 'Bruno', 'Bøje', 'Børge', 'Carl', 'Carlo', 'Carsten',
         'Casper', 'Christian', 'Christoffer', 'Christopher', 'Claus', 'Clavs', 'Curt',
         'Dan', 'Daniel', 'Danny', 'David', 'Dennis', 'Ebbe', 'Einar',
-        'Einer', 'Elias', 'Emil ', 'Eric', 'Erik', 'Erling', 'Ernst',
-        'Esben', 'Finn', 'Flemming ', 'Frank', 'Frans', 'Freddy', 'Frede',
-        'Frederik', 'Frode', 'Georg ', 'George', 'Gert', 'Gorm', 'Gunnar',
+        'Einer', 'Elias', 'Emil', 'Eric', 'Erik', 'Erling', 'Ernst',
+        'Esben', 'Finn', 'Flemming', 'Frank', 'Frans', 'Freddy', 'Frede',
+        'Frederik', 'Frode', 'Georg', 'George', 'Gert', 'Gorm', 'Gunnar',
         'Gunner', 'Gustav', 'Hans', 'Helge', 'Henrik', 'Henry', 'Herbert',
         'Herman', 'Hjalte', 'Holger', 'Hugo', 'Ib', 'Ivan', 'Iver',
         'Jack', 'Jacob', 'Jakob', 'James', 'Jan', 'Jano', 'Jarl',
@@ -74,14 +75,14 @@ class Provider(PersonProvider):
         'Helen', 'Helle', 'Henriette', 'Herdis', 'Iben', 'Ida', 'Inga',
         'Inge', 'Ingelise', 'Inger', 'Ingrid', 'Irma', 'Isabella', 'Jacobine',
         'Jacqueline', 'Janne', 'Janni', 'Jannie', 'Jasmin', 'Jean', 'Jenny',
-        'Joan', 'Johanne', 'Jonna', 'Josefine', 'Josephine ', 'Julie', 'Justina',
+        'Joan', 'Johanne', 'Jonna', 'Josefine', 'Josephine', 'Julie', 'Justina',
         'Jytte', 'Karen', 'Karin', 'Karina', 'Karla', 'Karoline', 'Katcha',
         'Katja', 'Katrine', 'Kirsten', 'Kirstin', 'Kirstine', 'Klara', 'Kristina',
         'Kristine', 'Laura', 'Lea', 'Lena', 'Lene', 'Leonora', 'Line',
         'Liva', 'Lona', 'Lone', 'Lotte', 'Louise', 'Lærke', 'Maiken',
         'Maja', 'Majken', 'Malene', 'Malou', 'Maren', 'Margit', 'Margrethe',
         'Maria', 'Marianne', 'Marie', 'Marlene', 'Mathilde', 'Maya', 'Merete',
-        'Merethe', 'Mette ', 'Mia', 'Michala', 'Michelle', 'Mie', 'Mille',
+        'Merethe', 'Mette', 'Mia', 'Michala', 'Michelle', 'Mie', 'Mille',
         'Mimi', 'Minna', 'Nadia', 'Naja', 'Nana', 'Nanna', 'Nanni',
         'Natasha', 'Natasja', 'Nete', 'Nicoline', 'Nina', 'Nora', 'Oda',
         'Odeline', 'Odette', 'Ofelia', 'Olga', 'Olivia', 'Patricia', 'Paula',
@@ -116,10 +117,9 @@ class Provider(PersonProvider):
     )
 
     prefixes_male = (
-        'Hr', 'Dr.', 'Prof.', 'Univ.Prof.'
+        'Hr', 'Dr.', 'Prof.', 'Univ.Prof.',
     )
 
     prefixes_female = (
-        'Fru', 'Dr.', 'Prof.', 'Univ.Prof.'
+        'Fru', 'Dr.', 'Prof.', 'Univ.Prof.',
     )
-

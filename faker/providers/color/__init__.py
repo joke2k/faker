@@ -157,36 +157,26 @@ class Provider(BaseProvider):
         'gray', 'yellow', 'fuchsia', 'aqua', 'white',
     )
 
-    @classmethod
-    def color_name(cls):
-        return cls.random_element(cls.all_colors.keys())
+    def color_name(self):
+        return self.random_element(self.all_colors.keys())
 
-    @classmethod
-    def safe_color_name(cls):
-        return cls.random_element(cls.safe_colors)
+    def safe_color_name(self):
+        return self.random_element(self.safe_colors)
 
-    @classmethod
-    def hex_color(cls):
-        return "#{0}".format(("%x" % cls.random_int(1, 16777215)).ljust(6, '0'))
+    def hex_color(self):
+        return "#{0}".format(
+            ("%x" %
+             self.random_int(
+                 1, 16777215)).ljust(
+                6, '0'))
 
-    @classmethod
-    def safe_hex_color(cls):
-        color = ("%x" % cls.random_int(0, 255)).ljust(3, '0')
+    def safe_hex_color(self):
+        color = ("%x" % self.random_int(0, 255)).ljust(3, '0')
         return "#{0}{0}{1}{1}{2}{2}".format(*color)
 
-    @classmethod
-    def rgb_color_list(cls):
-        color = cls.hex_color()
-        return (
-            int(color[1:3], 16),
-            int(color[3:5], 16),
-            int(color[5:7], 16),
-        )
+    def rgb_color(self):
+        return ','.join(map(str, (self.random_int(0, 255) for _ in range(3))))
 
-    @classmethod
-    def rgb_color(cls):
-        return ','.join(map(str, cls.rgb_color_list()))
-
-    @classmethod
-    def rgb_css_color(cls):
-        return 'rgb(%s)' % ','.join(map(str, cls.rgb_color_list()))
+    def rgb_css_color(self):
+        return 'rgb(%s)' % ','.join(
+            map(str, (self.random_int(0, 255) for _ in range(3))))

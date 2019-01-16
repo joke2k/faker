@@ -7,7 +7,7 @@ from .. import BaseProvider
 class Provider(BaseProvider):
 
     def ean(self, length=13):
-        code = [self.random_digit() for i in range(length - 1)]
+        code = [self.random_digit() for _ in range(length - 1)]
 
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
@@ -17,7 +17,7 @@ class Provider(BaseProvider):
         elif length == 13:
             weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
 
-        weighted_sum = sum([x * y for x, y in zip(code, weights)])
+        weighted_sum = sum(x * y for x, y in zip(code, weights))
         check_digit = (10 - weighted_sum % 10) % 10
         code.append(check_digit)
 

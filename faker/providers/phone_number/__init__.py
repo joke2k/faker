@@ -1,11 +1,18 @@
-localized = True
-
 from .. import BaseProvider
+
+localized = True
 
 
 class Provider(BaseProvider):
     formats = ('###-###-###',)
 
-    @classmethod
-    def phone_number(cls):
-        return cls.numerify(cls.random_element(cls.formats))
+    msisdn_formats = (
+        '#############',
+    )
+
+    def phone_number(self):
+        return self.numerify(self.random_element(self.formats))
+
+    def msisdn(self):
+        """ https://en.wikipedia.org/wiki/MSISDN """
+        return self.numerify(self.random_element(self.msisdn_formats))

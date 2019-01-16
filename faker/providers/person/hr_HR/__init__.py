@@ -4,7 +4,7 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = ['{{first_name}} {{last_name}}', ]
+    formats = ['{{first_name}} {{last_name}}']
 
     first_names_male = [
         "Aldo", "Alen", "Andrija", "Ante", "Anto", "Anton", "Antonio",

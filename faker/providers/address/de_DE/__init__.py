@@ -8,6 +8,8 @@ class Provider(AddressProvider):
 
     city_formats = ('{{city_name}}', )
 
+    city_with_postcode_formats = ('{{postcode}} {{city}}', )
+
     street_name_formats = (
         '{{first_name}}-{{last_name}}-{{street_suffix_long}}',
         '{{last_name}}{{street_suffix_short}}',
@@ -15,7 +17,7 @@ class Provider(AddressProvider):
     street_address_formats = ('{{street_name}} {{building_number}}', )
     address_formats = ('{{street_address}}\n{{postcode}} {{city}}', )
 
-    building_number_formats = ('###', '##', '#', '#/#', )
+    building_number_formats = ('###', '##', '#', '#/#')
 
     street_suffixes_long = (
         'Gasse', 'Platz', 'Ring', 'Straße', 'Weg', 'Allee',
@@ -174,18 +176,24 @@ class Provider(AddressProvider):
         'Äquatorialguinea', 'Äthiopien', 'Äußeres Ozeanien', 'Österreich',
     )
 
-    @classmethod
-    def street_suffix_short(cls):
-        return cls.random_element(cls.street_suffixes_short)
+    def street_suffix_short(self):
+        return self.random_element(self.street_suffixes_short)
 
-    @classmethod
-    def street_suffix_long(cls):
-        return cls.random_element(cls.street_suffixes_long)
+    def street_suffix_long(self):
+        return self.random_element(self.street_suffixes_long)
 
-    @classmethod
-    def city_name(cls):
-        return cls.random_element(cls.cities)
+    def city_name(self):
+        return self.random_element(self.cities)
 
-    @classmethod
-    def state(cls):
-        return cls.random_element(cls.states)
+    def state(self):
+        return self.random_element(self.states)
+
+    def country(self):
+        return self.random_element(self.countries)
+
+    def postcode(self):
+        return self.bothify(self.random_element(self.postcode_formats))
+
+    def city_with_postcode(self):
+        pattern = self.random_element(self.city_with_postcode_formats)
+        return self.generator.parse(pattern)
