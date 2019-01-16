@@ -24,24 +24,9 @@ Making Changes
    the new branch with ``git checkout fix/master/my_contribution``.
    Please avoid working directly on the ``master`` branch.
 -  Make commits of logical units.
+-  Follow our `coding style`_
 -  Check for unnecessary whitespace with ``git diff --check`` before
    committing.
--  Make sure your commit messages are in the proper format.
-
-::
-
-        Make the example in CONTRIBUTING imperative and concrete
-
-        Without this patch applied the example commit message in the CONTRIBUTING
-        document is not a concrete example.  This is a problem because the
-        contributor is left to imagine what the commit message should look like
-        based on a description rather than an example.  This patch fixes the
-        problem by making the example concrete and imperative.
-
-        The first line is a real life imperative statement with a ticket number
-        from our issue tracker.  The body describes the behavior without the patch,
-        why this is a problem, and how the patch fixes the problem when applied.
-
 -  Make sure you have added the necessary tests for your changes.
 -  Run *all* the tests to assure nothing else was accidentally broken.
 
@@ -57,3 +42,6 @@ Additional Resources
 -  `General GitHub documentation <https://help.github.com>`__
 -  `GitHub pull request
    documentation <https://help.github.com/articles/about-pull-requests>`__
+
+
+.. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
