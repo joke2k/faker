@@ -26,15 +26,7 @@ class Provider(AddressProvider):
 
     # https://en.wikipedia.org/wiki/List_of_postal_codes_in_Austria
     postcode_formats = (
-        '1###',
-        '2###',
-        '3###',
-        '4###',
-        '5###',
-        '6###',
-        '7###',
-        '8###',
-        '9###',
+        '1###', '2###', '3###', '4###', '5###', '6###', '7###', '8###', '9###',
     )
 
     # https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Austria
