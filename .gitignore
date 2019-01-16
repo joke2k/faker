@@ -48,3 +48,6 @@ nosetests.xml
 
 # IDE
 *.sw[po]
+ml_MA_address.txt
+en_address.txt
+ml_MA_address.txt
