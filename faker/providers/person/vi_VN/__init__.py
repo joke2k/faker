@@ -52,13 +52,13 @@ class Provider(PersonProvider):
         pattern = self.random_element(self.mid_formats)
         return self.generator.parse(pattern)
 
-    def first_mid_name(self):
+    def first_name(self):
         '''
         @example 'Tien'
         '''
         return self.random_element(self.first_names)
 
-    def last_mid_name(self):
+    def last_name(self):
         '''
         @example 'Nguyen'
         '''
