@@ -128,11 +128,5 @@ class Provider(AddressProvider):
     def state(self):
         return self.random_element(self.states)
 
-    def country(self):
-        return self.random_element(self.countries)
-
-    def postcode(self):
-        return self.bothify(self.random_element(self.postcode_formats))
-
     def city_with_postcode(self):
         return self.postcode() + " " + self.random_element(self.cities)
