@@ -3,7 +3,7 @@ Coding Style
 
 Lines length should not exceed 120 characters. Please use trailing commas.
 
-You can find our complete flake8 configuration in the `tox.ini_` file.
+You can find our complete flake8 configuration in the tox.ini_ file.
 
 
 Encoding
