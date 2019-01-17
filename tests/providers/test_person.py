@@ -250,6 +250,7 @@ class TestCsCZ(unittest.TestCase):
         assert first_name in CsCZProvider.first_names_female
         assert last_name in CsCZProvider.last_names_female
 
+
 class TestZhCN(unittest.TestCase):
 
     def setUp(self):
