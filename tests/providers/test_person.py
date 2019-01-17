@@ -16,6 +16,7 @@ from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
 )
+from faker.providers.person.zh_CN import Provider as ZhCNProvider
 
 
 class TestAr(unittest.TestCase):
@@ -248,3 +249,83 @@ class TestCsCZ(unittest.TestCase):
                 last_name = name_parts[2]
         assert first_name in CsCZProvider.first_names_female
         assert last_name in CsCZProvider.last_names_female
+
+
+class TestZhCN(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('zh_CN')
+
+    def test_last_name(self):
+        # There's no gender-specific last name in Chinese.
+        assert not hasattr(ZhCNProvider, 'last_names_male')
+        assert not hasattr(ZhCNProvider, 'last_names_female')
+        assert not hasattr(ZhCNProvider, 'last_romanized_names_male')
+        assert not hasattr(ZhCNProvider, 'last_romanized_names_female')
+        # All last names apply for all genders.
+        assert hasattr(ZhCNProvider, 'last_names')
+
+        # General first name.
+        name = self.factory.last_name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.last_names
+
+        # Females last name.
+        name = self.factory.last_name_female()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.last_names
+
+        # Male last name.
+        name = self.factory.last_name_male()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.last_names
+
+        # General last romanized name
+        name = self.factory.last_romanized_name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.last_romanized_names
+
+    def test_first_name(self):
+        # General first name
+        name = self.factory.first_name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.first_names
+
+        # Females first name
+        name = self.factory.first_name_female()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.first_names
+
+        # Male first name
+        name = self.factory.first_name_male()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.first_names
+
+        # General first romanized name
+        name = self.factory.first_romanized_name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name in ZhCNProvider.first_romanized_names
+
+    def test_name(self):
+        # Full name
+        name = self.factory.name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        assert name[0] in ZhCNProvider.last_names or name[:2] in ZhCNProvider.last_names
+        assert name[1:] in ZhCNProvider.first_names or name[2:] in ZhCNProvider.first_names
+
+        # Full romanized name
+        name = self.factory.romanized_name()
+        assert name
+        self.assertIsInstance(name, six.string_types)
+        first_romanized_name, last_romanized_name = name.split(' ')
+        assert first_romanized_name in ZhCNProvider.first_romanized_names
+        assert last_romanized_name in ZhCNProvider.last_romanized_names
