@@ -325,6 +325,6 @@ class TestZhCN(unittest.TestCase):
         name = self.factory.romanized_name()
         assert name
         self.assertIsInstance(name, six.string_types)
-        first_romanized_name, last_romanized_name =name.split(' ')
+        first_romanized_name, last_romanized_name = name.split(' ')
         assert first_romanized_name in ZhCNProvider.first_romanized_names
         assert last_romanized_name in ZhCNProvider.last_romanized_names
