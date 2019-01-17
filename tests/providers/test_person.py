@@ -257,7 +257,7 @@ class TestZhCN(unittest.TestCase):
         self.factory = Faker('zh_CN')
 
     def test_last_name(self):
-        # There's no gender-specific last name in Arabic.
+        # There's no gender-specific last name in Chinese.
         assert not hasattr(ZhCNProvider, 'last_names_male')
         assert not hasattr(ZhCNProvider, 'last_names_female')
         assert not hasattr(ZhCNProvider, 'last_romanized_names_male')
