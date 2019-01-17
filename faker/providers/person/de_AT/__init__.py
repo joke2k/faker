@@ -35,7 +35,7 @@ class Provider(PersonProvider):
         'Samuel', 'Sarah', 'Sebastian', 'Simon', 'Sophie',
         'Theresa', 'Thomas', 'Tim',
         'Tobias',
-        'Valentin'
+        'Valentin',
     )
     last_names = (
         'Auer', 'Aigner',
