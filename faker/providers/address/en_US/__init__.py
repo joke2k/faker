@@ -383,8 +383,6 @@ class Provider(AddressProvider):
             state_abbr = self.random_element(self.states_abbr)
 
         if state_abbr in self.states_abbr:
-            state_abbr = state_abbr or self.random_element(self.states_abbr)
-
             postcode = "%d" % (self.generator.random.randint(
                             self.states_postcode[state_abbr][0],
                             self.states_postcode[state_abbr][1]))
