@@ -88,10 +88,10 @@ packaged in "providers".
 
 .. code:: python
 
-    from faker import Factory
+    from faker import Faker
     from faker.providers import internet
     
-    fake = Factory.create()
+    fake = Faker()
     fake.add_provider(internet)
     
     print(fake.ipv4_private())

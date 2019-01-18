@@ -3,7 +3,7 @@ Coding Style
 
 Lines length should not exceed 120 characters. Please use trailing commas.
 
-You can find our complete flake8 configuration in the `tox.ini_` file.
+You can find our complete flake8 configuration in the tox.ini_ file.
 
 
 Encoding
@@ -19,7 +19,7 @@ Data Sets
 ---------
 
 For each data set, please provide a comment with reference to the source
-and/or origin of the data.
+and/or origin of the data. We only accept datasets coming from statistical sources, such as census or government institutions.
 
 
 Name Lists
