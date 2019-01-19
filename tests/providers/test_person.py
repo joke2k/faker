@@ -301,12 +301,14 @@ class TestZhCN(unittest.TestCase):
         assert name
         self.assertIsInstance(name, six.string_types)
         assert name in ZhCNProvider.first_names
+        assert name in ZhCNProvider.first_names_female
 
         # Male first name
         name = self.factory.first_name_male()
         assert name
         self.assertIsInstance(name, six.string_types)
         assert name in ZhCNProvider.first_names
+        assert name in ZhCNProvider.first_names_male
 
         # General first romanized name
         name = self.factory.first_romanized_name()
