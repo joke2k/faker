@@ -1,10 +1,20 @@
 Changelog
 =========
 
+`1.0.2 - 22-January-2019 <https://github.com/joke2k/faker/compare/v1.0.1...v1.0.2>`__
+--------------------------------------------------------------------------------------
+
+* Fix state abbreviations for ``id_ID`` to be 2-letters. Thanks @dt-ap.
+* Fix format for ``city_with_postcode`` on ``de_DE`` locale. Thanks @TZanke.
+* Update ``person`` providers for ``zh_CN``. Thanks @TimeFinger.
+* Implement ``zipcode_in_state`` and aliases in ``en_US`` locale for generating
+  a zipcode for a specified state. Thanks @mattyg.
+* Group first names by gender on ``zh_CN`` provider. Thanks @TimeFinger.
+
 `1.0.1 - 12-December-2018 <https://github.com/joke2k/faker/compare/v1.0.0...v1.0.1>`__
 --------------------------------------------------------------------------------------
 
-* Fixed number of digits in ``phone_number`` provider for ``no_NO``. Thanks @aleksanb.
+* Fix number of digits in ``phone_number`` provider for ``no_NO``. Thanks @aleksanb.
 * Add categories to ``jp_JP`` company provider. Thanks @shirakia.
 * Add trunk prefix for ``ru_RU`` phone numbers. thanks @pishchalnikov.
 
