@@ -457,13 +457,33 @@ class TestEnUS(unittest.TestCase):
 
     def test_postcode(self):
         for _ in range(100):
-            postcode = self.factory.postcode()
-            assert re.match(r"\d{5}", postcode)
+            code = self.factory.postcode()
+            assert re.match(r"\d{5}", code)
+
+    def test_postcode_in_state(self):
+        for state_abbr in EnUsProvider.states_abbr:
+            code = self.factory.postcode_in_state(state_abbr)
+            assert re.match(r"\d{5}", code)
+            assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
+            assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
+
+        with self.assertRaises(Exception):
+            self.factory.postcode_in_state('XX')
 
     def test_zipcode(self):
         for _ in range(100):
             zipcode = self.factory.zipcode()
             assert re.match(r"\d{5}", zipcode)
+
+    def test_zipcode_in_state(self):
+        for state_abbr in EnUsProvider.states_abbr:
+            code = self.factory.zipcode_in_state(state_abbr)
+            assert re.match(r"\d{5}", code)
+            assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
+            assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
+
+        with self.assertRaises(Exception):
+            self.factory.zipcode_in_state('XX')
 
     def test_zipcode_plus4(self):
         for _ in range(100):
@@ -489,6 +509,21 @@ class TestEnUS(unittest.TestCase):
     def test_military_dpo(self):
         military_dpo = self.factory.military_dpo()
         assert isinstance(military_dpo, string_types)
+
+    def test_postalcode(self):
+        for _ in range(100):
+            postalcode = self.factory.postalcode()
+            assert re.match(r"\d{5}", postalcode)
+
+    def test_postalcode_in_state(self):
+        for state_abbr in EnUsProvider.states_abbr:
+            code = self.factory.postalcode_in_state(state_abbr)
+            assert re.match(r"\d{5}", code)
+            assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
+            assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
+
+        with self.assertRaises(Exception):
+            self.factory.postalcode_in_state('XX')
 
 
 class TestHRHR(unittest.TestCase):

@@ -10,8 +10,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
     README = fp.read()
 
+with open(os.path.join(here, 'VERSION')) as version_file:
+    version = version_file.read().strip()
 
-version = '1.0.1'
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
