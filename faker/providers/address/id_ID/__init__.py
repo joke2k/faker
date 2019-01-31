@@ -48,7 +48,7 @@ class Provider(AddressProvider):
         'Stasiun Wonokromo', 'Ahmad Yani', 'Joyoboyo', 'Indragiri', 'Kutai',
         'Kutisari Selatan', 'Rungkut Industri', 'Kendalsari', 'Wonoayu',
         'Medokan Ayu', 'KH Amin Jasuta', 'H.J Maemunah', 'Suryakencana',
-        'Kapten Muslihat', 'Otto Iskandardinata', 'Tebet Barat Dalam'
+        'Kapten Muslihat', 'Otto Iskandardinata', 'Tebet Barat Dalam',
     )
 
     street_prefixes_long = (
