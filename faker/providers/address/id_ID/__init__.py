@@ -28,6 +28,8 @@ class Provider(AddressProvider):
 
     # From
     # http://elibrary.dephub.go.id/elibrary/media/catalog/0010-021500000000135/swf/618/Lampiran%20E%20Data%20Bandung.pdf
+    # https://www.surabaya.go.id/id/info-penting/47601/daftar-nama-jalan-dan-status-ja
+    # https://www.streetdirectory.com/indonesia/jakarta/asia_travel/street/popular/
     streets = (
         'Abdul Muis', 'Antapani Lama', 'Asia Afrika', 'Astana Anyar', 'BKR',
         'Cihampelas', 'Cikapayang', 'Cikutra Barat', 'Cikutra Timur',
