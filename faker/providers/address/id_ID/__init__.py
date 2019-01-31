@@ -41,17 +41,22 @@ class Provider(AddressProvider):
         'Rajawali Timur', 'Raya Setiabudhi', 'Raya Ujungberung', 'Rumah Sakit',
         'Sadang Serang', 'Sentot Alibasa', 'Setiabudhi', 'Siliwangi',
         'Soekarno Hatta', 'Sukabumi', 'Sukajadi', 'Suniaraja', 'Surapati',
-        'Tubagus Ismail', 'Veteran', 'W.R. Supratman',
+        'Tubagus Ismail', 'Veteran', 'W.R. Supratman', 'Bangka Raya', 'Cempaka',
+        'Cihampelas', 'Erlangga', 'Rawamangun', 'Waringin', 'Ronggowarsito',
+        'Rajiman', 'Yos Sudarso', 'S. Parman', 'Monginsidi', 'M.T Haryono',
+        'Ahmad Dahlan', 'Jayawijaya', 'R.E Martadinata', 'M.H Thamrin',
+        'Stasiun Wonokromo', 'Ahmad Yani', 'Joyoboyo', 'Indragiri', 'Kutai',
+        'Kutisari Selatan', 'Rungkut Industri', 'Kendalsari', 'Wonoayu',
+        'Medokan Ayu', 'KH Amin Jasuta', 'H.J Maemunah', 'Suryakencana',
+        'Kapten Muslihat', 'Otto Iskandardinata', 'Tebet Barat Dalam'
     )
 
-    # Currently this is my own work
     street_prefixes_long = (
-        'Jalan', 'Lorong', 'Gang',
+        'Jalan', 'Gang',
     )
 
-    # Currently this is my own work
     street_prefixes_short = (
-        'Jl.', 'Lr.', 'Gg.',
+        'Jl.', 'Gg.',
     )
 
     # From
