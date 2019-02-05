@@ -1,6 +1,5 @@
-include *.rst
-include *.md
-include *.txt
-include *.json
+include README.rst
+include LICENSE.txt
 include VERSION
-graft tests
+prune tests
+prune docs
