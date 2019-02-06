@@ -1379,8 +1379,11 @@ class Provider(BaseProvider):
         """
         Get a timedelta object
         """
+        start_datetime = self._parse_start_datetime('now')
         end_datetime = self._parse_end_datetime(end_datetime)
-        ts = self.generator.random.randint(0, end_datetime)
+        seconds = end_datetime - start_datetime
+
+        ts = self.generator.random.randint(*sorted([0, seconds]))
         return timedelta(seconds=ts)
 
     def date_time(self, tzinfo=None, end_datetime=None):

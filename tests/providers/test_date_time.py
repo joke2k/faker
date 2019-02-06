@@ -168,6 +168,22 @@ class TestDateTime(unittest.TestCase):
     def test_time_object(self):
         assert isinstance(self.factory.time_object(), datetime_time)
 
+    def test_timedelta(self):
+        delta = self.factory.time_delta(end_datetime=timedelta(seconds=60))
+        assert delta.seconds <= 60
+
+        delta = self.factory.time_delta(end_datetime=timedelta(seconds=-60))
+        assert delta.seconds >= -60
+
+        delta = self.factory.time_delta(end_datetime='+60s')
+        assert delta.seconds <= 60
+
+        delta = self.factory.time_delta(end_datetime='-60s')
+        assert delta.seconds >= 60
+
+        delta = self.factory.time_delta(end_datetime='now')
+        assert delta.seconds <= 0
+
     def test_date_time_between_dates(self):
         timestamp_start = random.randint(0, 2000000000)
         timestamp_end = timestamp_start + 1
