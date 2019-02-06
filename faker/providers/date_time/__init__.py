@@ -1379,8 +1379,11 @@ class Provider(BaseProvider):
         """
         Get a timedelta object
         """
+        start_datetime = self._parse_start_datetime('now')
         end_datetime = self._parse_end_datetime(end_datetime)
-        ts = self.generator.random.randint(0, end_datetime)
+        seconds = end_datetime - start_datetime
+
+        ts = self.generator.random.randint(*sorted([0, seconds]))
         return timedelta(seconds=ts)
 
     def date_time(self, tzinfo=None, end_datetime=None):
@@ -1507,20 +1510,20 @@ class Provider(BaseProvider):
         raise ParseError("Invalid format for timedelta '{0}'".format(value))
 
     @classmethod
-    def _parse_date_time(cls, text, tzinfo=None):
-        if isinstance(text, (datetime, date, real_datetime, real_date)):
-            return datetime_to_timestamp(text)
+    def _parse_date_time(cls, value, tzinfo=None):
+        if isinstance(value, (datetime, date, real_datetime, real_date)):
+            return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
-        if isinstance(text, timedelta):
-            return datetime_to_timestamp(now - text)
-        if is_string(text):
-            if text == 'now':
+        if isinstance(value, timedelta):
+            return datetime_to_timestamp(now + value)
+        if is_string(value):
+            if value == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
-            time_params = cls._parse_date_string(text)
+            time_params = cls._parse_date_string(value)
             return datetime_to_timestamp(now + timedelta(**time_params))
-        if isinstance(text, int):
-            return datetime_to_timestamp(now + timedelta(text))
-        raise ParseError("Invalid format for date '{0}'".format(text))
+        if isinstance(value, int):
+            return datetime_to_timestamp(now + timedelta(value))
+        raise ParseError("Invalid format for date '{0}'".format(value))
 
     @classmethod
     def _parse_date(cls, value):
@@ -1530,7 +1533,7 @@ class Provider(BaseProvider):
             return value
         today = date.today()
         if isinstance(value, timedelta):
-            return today - value
+            return today + value
         if is_string(value):
             if value in ('today', 'now'):
                 return today
