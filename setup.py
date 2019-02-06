@@ -10,8 +10,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
     README = fp.read()
 
-with open(os.path.join(here, 'VERSION')) as version_file:
-    version = version_file.read().strip()
+with io.open(os.path.join(here, 'VERSION')) as version_file:
+    VERSION = version_file.read().strip()
 
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
@@ -26,7 +26,7 @@ except (ImportError, AttributeError):
 
 setup(
     name='Faker',
-    version=version,
+    version=VERSION,
     description="Faker is a Python package that generates fake data for you.",
     long_description=README,
     entry_points={
