@@ -91,7 +91,7 @@ class TestDateTime(unittest.TestCase):
         timestamp = DatetimeProvider._parse_date_time('+30d')
         now = DatetimeProvider._parse_date_time('now')
         assert timestamp > now
-        delta = timedelta(days=-30)
+        delta = timedelta(days=30)
         from_delta = DatetimeProvider._parse_date_time(delta)
         from_int = DatetimeProvider._parse_date_time(30)
 
@@ -114,7 +114,7 @@ class TestDateTime(unittest.TestCase):
         assert DatetimeProvider._parse_date(datetime.now()) == today
         assert DatetimeProvider._parse_date(parsed) == parsed
         assert DatetimeProvider._parse_date(30) == parsed
-        assert DatetimeProvider._parse_date(timedelta(days=-30)) == parsed
+        assert DatetimeProvider._parse_date(timedelta(days=30)) == parsed
 
     def test_timezone_conversion(self):
         from faker.providers.date_time import datetime_to_timestamp
