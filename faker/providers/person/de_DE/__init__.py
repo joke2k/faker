@@ -5,24 +5,29 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
+    formats_male = (
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}-{{last_name}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{suffix_male}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix_male}}',
+    )
+
+    formats_female = (
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}-{{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
-        '{{first_name_male}} {{last_name}} {{suffix}}',
-        '{{first_name_female}} {{last_name}} {{suffix}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix}}',
+        '{{first_name_female}} {{last_name}} {{suffix_female}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix_female}}',
     )
+
+    formats = formats_male + formats_female
 
     # From
     # http://de.wiktionary.org/wiki/Verzeichnis:Deutsch/Liste_der_h%C3%A4ufigsten_m%C3%A4nnlichen_Vornamen_Deutschlands
