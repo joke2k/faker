@@ -40,7 +40,7 @@ class Provider(AddressProvider):
     )
 
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
-    postcode_formats = ('#####', '## ###')
+    postcode_formats = ('#####', )
     countries = (
         'Afghanistan', 'Afrique du sud', 'Albanie', 'Algérie', 'Allemagne', 'Andorre', 'Angola', 'Anguilla',
         'Antarctique', 'Antigua et Barbuda', 'Antilles néerlandaises', 'Arabie saoudite', 'Argentine', 'Arménie',
