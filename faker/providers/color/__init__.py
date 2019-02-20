@@ -148,7 +148,7 @@ class Provider(BaseProvider):
         ("White", "#FFFFFF"),
         ("WhiteSmoke", "#F5F5F5"),
         ("Yellow", "#FFFF00"),
-        ("YellowGreen", "#9ACD3"),
+        ("YellowGreen", "#9ACD32"),
     ))
 
     safe_colors = (

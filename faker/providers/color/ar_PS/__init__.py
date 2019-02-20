@@ -146,7 +146,7 @@ class Provider(ColorProvider):
         ("أبيض", "#FFFFFF"),
         ("دخاني قمحي", "#F5F5F5"),
         ("أصفر", "#FFFF00"),
-        ("أصفر مخضر", "#9ACD3"),
+        ("أصفر مخضر", "#9ACD32"),
     ))
 
     safe_colors = (
