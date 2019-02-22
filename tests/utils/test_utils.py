@@ -1,11 +1,6 @@
-from faker.utils.loading import find_available_locales
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 from faker.utils.datasets import add_dicts
-from faker.config import PROVIDERS
 from faker.generator import random
-from faker.utils.loading import find_available_providers
-from faker.config import META_PROVIDERS_MODULES
-from importlib import import_module
 import unittest
 import json
 import os
@@ -58,37 +53,3 @@ class UtilsTestCase(unittest.TestCase):
 
         result = add_dicts(t1, t2, t3)
         assert result == {'a': 1, 'c': 3, 'b': 3, 'd': 4}
-
-    def test_find_available_locales(self):
-        result = find_available_locales(PROVIDERS)
-        assert len(result) != 0
-
-    def test_find_available_providers(self):
-        modules = [import_module(path) for path in META_PROVIDERS_MODULES]
-        providers = find_available_providers(modules)
-
-        expected_providers = list(map(str, [
-            'faker.providers.address',
-            'faker.providers.automotive',
-            'faker.providers.bank',
-            'faker.providers.barcode',
-            'faker.providers.color',
-            'faker.providers.company',
-            'faker.providers.credit_card',
-            'faker.providers.currency',
-            'faker.providers.date_time',
-            'faker.providers.file',
-            'faker.providers.geo',
-            'faker.providers.internet',
-            'faker.providers.isbn',
-            'faker.providers.job',
-            'faker.providers.lorem',
-            'faker.providers.misc',
-            'faker.providers.person',
-            'faker.providers.phone_number',
-            'faker.providers.profile',
-            'faker.providers.python',
-            'faker.providers.ssn',
-            'faker.providers.user_agent',
-        ]))
-        assert providers == expected_providers
