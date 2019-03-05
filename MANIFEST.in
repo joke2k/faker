@@ -1,5 +1,5 @@
 include README.rst
 include LICENSE.txt
 include VERSION
-prune tests
 prune docs
+global-exclude *.py[cod] __pycache__ *.so
