@@ -24,6 +24,8 @@ matrix:
       env: TOXENV=pypy3
     - python: 3.7
       env: TOXENV=flake8
+    - python: 3.7
+      env: TOXENV=checkmanifest
 
 install:
   - pip install tox
