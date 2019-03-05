@@ -1,5 +1,15 @@
 include README.rst
 include LICENSE.txt
+include CONTRIBUTING.rst
+include CHANGELOG.rst
 include VERSION
-prune docs
+recursive-include tests *.json
+recursive-include tests *.py
+
 global-exclude *.py[cod] __pycache__ *.so
+exclude Makefile tox.ini .coveragerc .bumpversion.cfg
+exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
+exclude appveyor.yml readthedocs.yml
+prune docs
+prune .circleci
+
