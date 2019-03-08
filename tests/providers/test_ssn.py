@@ -288,8 +288,16 @@ class TestEtEE(unittest.TestCase):
         assert et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]) == 0
 
     def test_ssn(self):
-        for _ in range(100):
-            assert re.search(r'^\d{11}$', self.factory.ssn())
+        self.factory.seed_instance(0)
+        value = self.factory.ssn()
+        assert re.search(r'^\d{11}$', value)
+        assert not value.endswith('0')
+
+        self.factory.seed_instance(9)
+        value = self.factory.ssn()
+        print(value)
+        assert re.search(r'^\d{11}$', value)
+        assert value.endswith('0')
 
     def test_vat_id(self):
         for _ in range(100):
