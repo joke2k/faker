@@ -53,7 +53,7 @@ class Provider(SsnProvider):
         """
 
         digits = self.generator.random.sample(range(0, 9), 8)
-        checksum = sum([i * digits[i - 2] for i in range(2, 10)])
+        checksum = sum(i * digits[i - 2] for i in range(2, 10))
         last_digit = 11 - (checksum % 11)
 
         if last_digit == 10:
