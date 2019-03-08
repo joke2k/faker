@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 from .. import Provider as SsnProvider
 
 
@@ -44,3 +45,22 @@ class Provider(SsnProvider):
     def cpf(self):
         c = self.ssn()
         return c[:3] + '.' + c[3:6] + '.' + c[6:9] + '-' + c[9:]
+
+    def rg(self):
+        """
+        Brazilian RG, return plain numbers.
+        Check:  https://www.ngmatematica.com/2014/02/como-determinar-o-digito-verificador-do.html
+        """
+
+        digits = self.generator.random.sample(range(0, 9), 8)
+        checksum = sum(i * digits[i - 2] for i in range(2, 10))
+        last_digit = 11 - (checksum % 11)
+
+        if last_digit == 10:
+            digits.append('X')
+        elif last_digit == 11:
+            digits.append(0)
+        else:
+            digits.append(last_digit)
+
+        return ''.join(map(str, digits))

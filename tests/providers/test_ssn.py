@@ -423,6 +423,14 @@ class TestPtBR(unittest.TestCase):
         for _ in range(100):
             assert re.search(r'\d{3}\.\d{3}\.\d{3}-\d{2}', self.factory.cpf())
 
+    def test_pt_BR_rg(self):
+        for _ in range(100):
+            to_test = self.factory.rg()
+            if 'X' in to_test:
+                assert re.search(r'^\d{8}X', to_test)
+            else:
+                assert re.search(r'^\d{9}$', to_test)
+
 
 class TestNlNL(unittest.TestCase):
     def setUp(self):
