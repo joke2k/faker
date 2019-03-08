@@ -32,27 +32,3 @@ When you have long lists of names, please order them alphabetically. Keep the li
 .. _`tox.ini`: https://github.com/joke2k/faker/blob/master/tox.ini
 .. _`pep 8`: https://python.org/dev/peps/pep-0008
 .. _`pep 263`: https://python.org/dev/peps/pep-0263
-
-Tests
------
-
-Use `factory.seed` to check for specific cases, and avoid using loops in order to get values you are looking for. Seeding with specific values will  make the test deterministic, faster and will help you target each condition of your code, increasing coverage.
-
-For example::
-
-    # Bad
-    def test_ssn(self):
-        for _ in range(100):
-            assert re.search(r'^\d{11}$', self.factory.ssn())
-    
-    # Good
-    def test_ssn(self):
-        self.factory.seed(0)
-        value = self.factory.ssn()
-        assert re.search(r'^\d{11}$', value)
-        assert not value.endswith('0')
-
-        self.factory.seed(18)
-        value = self.factory.ssn()
-        assert re.search(r'^\d{11}$', value)
-        assert value.endswith('0')
