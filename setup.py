@@ -74,7 +74,6 @@ setup(
         "mock",
         "pytest>=3.8.0,<3.9",
         "more-itertools<6.0.0",
-        "random2==1.0.1",
     ],
     extras_require={
         ':python_version=="2.7"': [

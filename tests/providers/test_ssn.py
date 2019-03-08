@@ -7,7 +7,6 @@ import unittest
 from datetime import datetime
 
 import pytest
-import random2
 
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
@@ -289,18 +288,8 @@ class TestEtEE(unittest.TestCase):
         assert et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]) == 0
 
     def test_ssn(self):
-        self.factory.random = random2.Random()
-
-        self.factory.seed_instance(0)
-        value = self.factory.ssn()
-        assert re.search(r'^\d{11}$', value)
-        assert not value.endswith('0')
-
-        self.factory.seed_instance(13)
-        value = self.factory.ssn()
-
-        assert re.search(r'^\d{11}$', value)
-        assert value.endswith('0')
+        for _ in range(100):
+            assert re.search(r'^\d{11}$', self.factory.ssn())
 
     def test_vat_id(self):
         for _ in range(100):
