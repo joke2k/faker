@@ -296,7 +296,7 @@ class TestEtEE(unittest.TestCase):
         assert re.search(r'^\d{11}$', value)
         assert not value.endswith('0')
 
-        self.factory.seed_instance(13)
+        self.factory.seed_instance(5)
         value = self.factory.ssn()
 
         assert re.search(r'^\d{11}$', value)
