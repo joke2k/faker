@@ -7,9 +7,10 @@ recursive-include tests *.json
 recursive-include tests *.py
 
 global-exclude *.py[cod] __pycache__ *.so
-exclude Makefile tox.ini .coveragerc .bumpversion.cfg
+exclude Makefile tox.ini .coveragerc .bumpversion.cfg .dockerignore
 exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
 exclude appveyor.yml readthedocs.yml
+exclude build32bit.sh
 prune docs
 prune .circleci
 

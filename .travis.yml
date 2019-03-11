@@ -8,6 +8,10 @@ branches:
 
 matrix:
   include:
+    - python: 3.7
+      env: TOXENV=flake8
+    - python: 3.7
+      env: TOXENV=checkmanifest
     - python: 2.7
       env: TOXENV=py27
     - python: 3.4
@@ -23,9 +27,8 @@ matrix:
     - python: pypy3.5-6.0
       env: TOXENV=pypy3
     - python: 3.7
-      env: TOXENV=flake8
-    - python: 3.7
-      env: TOXENV=checkmanifest
+      os: linux
+      env: TOXENV=32bit
 
 install:
   - pip install tox

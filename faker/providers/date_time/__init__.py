@@ -11,8 +11,8 @@ from time import time
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc
 
-from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 from faker.utils import is_string
+from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 
 from .. import BaseProvider
 
@@ -1664,11 +1664,17 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime_start),
             datetime_to_timestamp(datetime_end),
         )
-        if tzinfo is None:
-            pick = datetime.fromtimestamp(timestamp, tzlocal())
-            pick = pick.astimezone(tzutc()).replace(tzinfo=None)
-        else:
-            pick = datetime.fromtimestamp(timestamp, tzinfo)
+        try:
+            if tzinfo is None:
+                pick = datetime.fromtimestamp(timestamp, tzlocal())
+                pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+            else:
+                pick = datetime.fromtimestamp(timestamp, tzinfo)
+        except OverflowError:
+            raise OverflowError(
+                "You specified an end date with a timestamp bigger than the maximum allowed on this"
+                " system. Please specify an earlier date.",
+            )
         return pick
 
     def date_between_dates(self, date_start=None, date_end=None):
