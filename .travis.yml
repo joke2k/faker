@@ -28,7 +28,7 @@ matrix:
       env: TOXENV=pypy3
     - python: 3.7
       os: linux
-      env: TOXENV=32bit
+      env: TOXENV=32bit TEST_32BIT=1
 
 install:
   - pip install tox
