@@ -6,6 +6,7 @@ import re
 import unittest
 from datetime import datetime
 
+import freezegun
 import pytest
 import random2
 
@@ -288,6 +289,7 @@ class TestEtEE(unittest.TestCase):
         assert et_checksum([4, 7, 0, 0, 4, 2, 1, 5, 0, 1]) == 2
         assert et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]) == 0
 
+    @freezegun.freeze_time('2019-03-11')
     def test_ssn(self):
         self.factory.random = random2.Random()
 
