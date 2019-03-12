@@ -1,6 +1,20 @@
 Changelog
 =========
 
+`1.0.3 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.2...v1.0.3>`__
+--------------------------------------------------------------------------------------
+
+* Fix ``AttributeError`` in ``user_Agent`` provider. Thanks @Mattwmaster58  for the report.
+* Update ``zh_TW`` ``person`` provider. Thanks @TimeFinger.
+* Add street data & remove ``street_prefixes`` from ``id_ID`` address provider. Thanks @codenoid.
+* Fix parsing of timedeltas in ``date_time`` provider. Thanks @riconnon for the report.
+* Split name formats into ``formats_male`` and ``formats_female`` for ``de_DE`` provider. Thanks @petro-zdebskyi.
+* Pin ``more-itertools`` to a version compatible with Python 2.7. Thanks @canarduck.
+* Fix ``fr_FR`` ``postcodes_format``. Thanks @canarduck.
+* Fix hex code for ``yellowgreen` color. Thanks @hovikman.
+* Add Brazilian RG (identity card). Thanks @davizucon.
+* Allow overriding of random generator class.
+
 `1.0.2 - 22-January-2019 <https://github.com/joke2k/faker/compare/v1.0.1...v1.0.2>`__
 --------------------------------------------------------------------------------------
 
