@@ -18,8 +18,10 @@ from faker.providers.date_time.ar_EG import Provider as EgProvider
 
 import pytest
 
+
 def is64bit():
     return sys.maxsize > 2**32
+
 
 class UTC(tzinfo):
     """
@@ -383,8 +385,8 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_between_months(self):
         today = date.today()
-        _2_months_ago = today - timedelta(days = 2*(365.24/12))
-        _9_months_ago = today - timedelta(days = 9*(365.24/12))
+        _2_months_ago = today - timedelta(days=2 * (365.24/12))
+        _9_months_ago = today - timedelta(days=9 * (365.24/12))
 
         random_date = self.factory.date_between(start_date='-9M', end_date='-2M')
 
@@ -486,6 +488,7 @@ class TestDateTime(unittest.TestCase):
 
             self.assertIsInstance(constrained_unix_time, int)
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
+
 
 class TestPlPL(unittest.TestCase):
 
