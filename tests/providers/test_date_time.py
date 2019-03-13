@@ -6,6 +6,7 @@ from datetime import time as datetime_time
 import time
 import unittest
 import random
+import sys
 
 import six
 
@@ -16,6 +17,9 @@ from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 
 import pytest
+
+def is64bit():
+    return sys.maxsize > 2**32
 
 class UTC(tzinfo):
     """
@@ -224,6 +228,7 @@ class TestDateTime(unittest.TestCase):
     def _datetime_to_time(self, value):
         return int(time.mktime(value.timetuple()))
 
+    @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_time_this_period(self):
         # test century
         this_century_start = self._datetime_to_time(
@@ -291,6 +296,7 @@ class TestDateTime(unittest.TestCase):
             self._datetime_to_time(datetime.now())
         )
 
+    @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_time_this_period_with_tzinfo(self):
         # ensure all methods provide timezone aware datetimes
         with pytest.raises(TypeError):
@@ -328,6 +334,7 @@ class TestDateTime(unittest.TestCase):
             replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
 
+    @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_this_period(self):
         # test century
         assert self.factory.date_this_century(after_today=False) <= date.today()

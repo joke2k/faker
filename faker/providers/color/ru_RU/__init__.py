@@ -64,7 +64,7 @@ class Provider(ColorProvider):
         ("Фиолетовый", "#EE82EE"),
         ("Белый", "#FFFFFF"),
         ("Желтый", "#FFFF00"),
-        ("Желто-зеленый", "#9ACD3"),
+        ("Желто-зеленый", "#9ACD32"),
     ))
 
     safe_colors = (

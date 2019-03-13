@@ -50,7 +50,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Testing',
         'Topic :: Utilities',
-        'License :: OSI Approved :: MIT License'
+        'License :: OSI Approved :: MIT License',
     ],
     keywords='faker fixtures data test mock generator',
     author='joke2k',
@@ -73,10 +73,13 @@ setup(
         "ukpostcodeparser>=1.1.1",
         "mock",
         "pytest>=3.8.0,<3.9",
+        "more-itertools<6.0.0",
+        "random2==1.0.1",
+        "freezegun==0.3.11",
     ],
     extras_require={
         ':python_version=="2.7"': [
             'ipaddress',
         ],
-    }
+    },
 )

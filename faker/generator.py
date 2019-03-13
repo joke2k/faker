@@ -54,6 +54,10 @@ class Generator(object):
     def random(self):
         return self.__random
 
+    @random.setter
+    def random(self, value):
+        self.__random = value
+
     def seed_instance(self, seed=None):
         """Calls random.seed"""
         if self.__random == random:

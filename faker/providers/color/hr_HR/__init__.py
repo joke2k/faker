@@ -149,7 +149,7 @@ class Provider(ColorProvider):
         ('Žućkastosmeđa glina', '#A0522D'),
         ('Žuta svila', '#FFF8DC'),
         ('Žuta', '#FFFF00'),
-        ('Žutozelena', '#9ACD3'),
+        ('Žutozelena', '#9ACD32'),
     ))
 
     safe_colors = (

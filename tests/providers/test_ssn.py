@@ -6,7 +6,9 @@ import re
 import unittest
 from datetime import datetime
 
+import freezegun
 import pytest
+import random2
 
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
@@ -287,9 +289,20 @@ class TestEtEE(unittest.TestCase):
         assert et_checksum([4, 7, 0, 0, 4, 2, 1, 5, 0, 1]) == 2
         assert et_checksum([3, 9, 7, 0, 3, 0, 4, 3, 3, 6]) == 0
 
+    @freezegun.freeze_time('2019-03-11')
     def test_ssn(self):
-        for _ in range(100):
-            assert re.search(r'^\d{11}$', self.factory.ssn())
+        self.factory.random = random2.Random()
+
+        self.factory.seed_instance(0)
+        value = self.factory.ssn()
+        assert re.search(r'^\d{11}$', value)
+        assert not value.endswith('0')
+
+        self.factory.seed_instance(5)
+        value = self.factory.ssn()
+
+        assert re.search(r'^\d{11}$', value)
+        assert value.endswith('0')
 
     def test_vat_id(self):
         for _ in range(100):
@@ -422,6 +435,14 @@ class TestPtBR(unittest.TestCase):
     def test_pt_BR_cpf(self):
         for _ in range(100):
             assert re.search(r'\d{3}\.\d{3}\.\d{3}-\d{2}', self.factory.cpf())
+
+    def test_pt_BR_rg(self):
+        for _ in range(100):
+            to_test = self.factory.rg()
+            if 'X' in to_test:
+                assert re.search(r'^\d{8}X', to_test)
+            else:
+                assert re.search(r'^\d{9}$', to_test)
 
 
 class TestNlNL(unittest.TestCase):
