@@ -32,7 +32,9 @@ class Provider(BaseProvider):
                 ),
             )
 
-    def pyfloat(self, left_digits=None, right_digits=None, positive=False):
+    def pyfloat(self, left_digits=None, right_digits=None, positive=False,
+                min_value=None, max_value=None):
+
         if left_digits is not None and left_digits < 0:
             raise ValueError(
                 'A float number cannot have less than 0 digits in its '
@@ -44,6 +46,8 @@ class Provider(BaseProvider):
         if left_digits == 0 and right_digits == 0:
             raise ValueError(
                 'A float number cannot have less than 0 digits in total')
+        if None not in (min_value, max_value) and min_value > max_value:
+            raise ValueError('Min value cannot be greater than max value')
 
         left_digits = left_digits if left_digits is not None else (
             self.random_int(1, sys.float_info.dig))
@@ -51,16 +55,30 @@ class Provider(BaseProvider):
             self.random_int(0, sys.float_info.dig - left_digits))
         sign = 1 if positive else self.random_element((-1, 1))
 
+        if (min_value is not None) or (max_value is not None):
+            if min_value is None:
+                min_value = max_value - self.random_int()
+            if max_value is None:
+                max_value = min_value + self.random_int()
+
+            left_number = self.random_int(min_value, max_value)
+        else:
+            left_number = sign * self.random_number(left_digits)
+
         return float("{0}.{1}".format(
-            sign * self.random_number(left_digits),
+            left_number,
             self.random_number(right_digits),
         ))
 
     def pyint(self):
         return self.generator.random_int()
 
-    def pydecimal(self, left_digits=None, right_digits=None, positive=False):
-        return Decimal(str(self.pyfloat(left_digits, right_digits, positive)))
+    def pydecimal(self, left_digits=None, right_digits=None, positive=False,
+                  min_value=None, max_value=None):
+
+        float_ = self.pyfloat(
+            left_digits, right_digits, positive, min_value, max_value)
+        return Decimal(str(float_))
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, *value_types):
         return tuple(
