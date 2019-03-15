@@ -78,7 +78,7 @@ setup(
         "freezegun==0.3.11",
     ],
     extras_require={
-        ':python_version=="2.7"': [
+        ':python_version<"3.3"': [
             'ipaddress',
         ],
     },
