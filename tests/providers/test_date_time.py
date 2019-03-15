@@ -383,6 +383,16 @@ class TestDateTime(unittest.TestCase):
         assert isinstance(random_date, date)
         self.assertBetween(random_date, _30_years_ago, _20_years_ago)
 
+    def test_date_between_months(self):
+        today = date.today()
+        _2_months_ago = today - timedelta(days=2 * (365.24/12))
+        _9_months_ago = today - timedelta(days=9 * (365.24/12))
+
+        random_date = self.factory.date_between(start_date='-9M', end_date='-2M')
+
+        assert isinstance(random_date, date)
+        self.assertBetween(random_date, _9_months_ago, _2_months_ago)
+
     def test_parse_timedelta(self):
         from faker.providers.date_time import Provider
 

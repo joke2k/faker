@@ -40,7 +40,7 @@ class ParseError(ValueError):
 
 
 timedelta_pattern = r''
-for name, sym in [('years', 'y'), ('weeks', 'w'), ('days', 'd'),
+for name, sym in [('years', 'y'), ('months', 'M'), ('weeks', 'w'), ('days', 'd'),
                   ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
     timedelta_pattern += r'((?P<{0}>(?:\+|-)\d+?){1})?'.format(name, sym)
 
@@ -1493,6 +1493,10 @@ class Provider(BaseProvider):
             if 'days' not in time_params:
                 time_params['days'] = 0
             time_params['days'] += 365.24 * time_params.pop('years')
+        if 'months' in time_params:
+            if 'days' not in time_params:
+                time_params['days'] = 0
+            time_params['days'] += 30.42 * time_params.pop('months')
 
         if not time_params:
             raise ParseError("Can't parse date string `{}`.".format(value))
