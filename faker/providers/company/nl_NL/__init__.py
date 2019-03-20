@@ -9,17 +9,18 @@ class Provider(CompanyProvider):
         '{{last_name}} {{company_suffix}}',
         '{{last_name}} & {{last_name}}',
         '{{company_prefix}} {{last_name}}',
-        '{{large_company}}'
+        '{{large_company}}',
     )
 
     company_prefixes = (
-        'Stichting', 'Koninklijke', 'Royal'
+        'Stichting', 'Koninklijke', 'Royal',
     )
 
     company_suffixes = (
-        'BV', 'NV', 'Groep'
+        'BV', 'NV', 'Groep',
     )
 
+    # Source: https://www.mt.nl/management/reputatie/mt-500-2018-de-lijst/559930
     large_companies = (
         'Shell', 'Coolblue', 'ASML', 'Ahold', 'Tata Steel', 'KLM', 'Bol.com', 'BP Nederland', 'De Efteling', 'Eneco',
         'De Persgroep', 'ING', 'Royal HaskoningDHV', 'Randstad', 'Google', 'Ikea', 'Rockwool', 'BAM', 'Achmea',
@@ -91,12 +92,12 @@ class Provider(CompanyProvider):
         'Rockwell Automation Nederland', 'Engie Services', 'Hendrix Genetics', 'Qbuzz', 'Unica',
         '2SistersFoodGroup', 'Ziut', 'Munckhof Groep', 'Spar Holding', 'Samskip', 'Continental Bakeries', 'Sligro',
         'Merck', 'Foot Locker Europe', 'Unit4', 'PepsiCo', 'Sulzer', 'Tebodin', 'Value8', 'Boels',
-        'DKG Groep', 'Bruynzeel Keukens', 'Janssen de Jong Groep', 'ProRail', 'Solid Professionals', 'Hermes Partners'
+        'DKG Groep', 'Bruynzeel Keukens', 'Janssen de Jong Groep', 'ProRail', 'Solid Professionals', 'Hermes Partners',
     )
 
     def large_company(self):
         """
-        :exampple: 'Bol.com'
+        :example: 'Bol.com'
         """
         return self.random_element(self.large_companies)
 
