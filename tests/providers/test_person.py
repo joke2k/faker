@@ -416,6 +416,7 @@ class TestZhTW(unittest.TestCase):
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
 
+
 class TestHyAM(unittest.TestCase):
     """ Tests person in the hy_AM locale """
 
