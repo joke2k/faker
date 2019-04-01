@@ -606,6 +606,7 @@ class TestHuHU(unittest.TestCase):
         address_with_county = self.factory.street_address_with_county()
         assert isinstance(address_with_county, string_types)
 
+
 class TestHyAM(unittest.TestCase):
     """ Tests addresses in the hy_AM locale """
 
@@ -660,11 +661,11 @@ class TestHyAM(unittest.TestCase):
             Faker().country_code(representation='hello')
 
     def test_postcode(self):
-       postcode = self.factory.postcode()
-       assert isinstance(postcode, string_types)
-       assert re.match(r"\d{4}", postcode)
-       assert int(postcode) >= 200
-       assert int(postcode) <= 4299
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match(r"\d{4}", postcode)
+        assert int(postcode) >= 200
+        assert int(postcode) <= 4299
 
     def test_postcode_in_state(self):
         for state_abbr in HyAmProvider.states_abbr:

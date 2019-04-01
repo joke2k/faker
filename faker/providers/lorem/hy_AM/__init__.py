@@ -222,4 +222,3 @@ class Provider(LoremProvider):
         'հեռու',
         'աջ',
     )
-
