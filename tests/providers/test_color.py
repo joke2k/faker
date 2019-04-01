@@ -5,6 +5,7 @@ from faker import Faker
 from faker.providers.color.hy_AM import Provider as HyAmProvider
 from six import string_types
 
+
 class TestColor(unittest.TestCase):
 
     def setUp(self):
