@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 from .. import Provider as BaseProvider
 
+
 class Provider(BaseProvider):
     jobs = (
         "Ակադեմիական գրադարանավար",

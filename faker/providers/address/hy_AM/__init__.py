@@ -8,7 +8,7 @@ class Provider(AddressProvider):
 
     city_prefixes = ('ք.',)
     city_suffixes = ('',)
-    street_prefixes = ('փողոց', 'պողոտա',)
+    street_prefixes = ('փողոց', 'պողոտա')
     street_suffixes = ('',)
     village_prefixes = ('գ.',)
 
@@ -19,9 +19,9 @@ class Provider(AddressProvider):
         '{{city_prefix}} {{city}}, {{postcode}}, {{street_name}} {{building_number}}, {{secondary_address}}',
         '{{village_prefix}} {{village}}, {{state}}ի մարզ, {{postcode}}, {{street_name}} {{building_number}}',
     )
-    building_number_formats = ('#', '##', '###',)
-    postcode_formats = ('0###', '1###', '2###', '3###', '4###',)
-    secondary_address_formats = ('բն. #', 'բն. ##', 'բն. ##',)
+    building_number_formats = ('#', '##', '###')
+    postcode_formats = ('0###', '1###', '2###', '3###', '4###')
+    secondary_address_formats = ('բն. #', 'բն. ##', 'բն. ##')
     street_address_formats = ('{{street_name}} {{building_number}}',)
     street_name_formats = ('{{street}}',)
 
