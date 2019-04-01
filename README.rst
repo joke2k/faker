@@ -155,6 +155,7 @@ Included localized providers:
 -  `hi\_IN <https://faker.readthedocs.io/en/master/locales/hi_IN.html>`__ - Hindi
 -  `hr\_HR <https://faker.readthedocs.io/en/master/locales/hr_HR.html>`__ - Croatian
 -  `hu\_HU <https://faker.readthedocs.io/en/master/locales/hu_HU.html>`__ - Hungarian
+-  `hy\_AM <https://faker.readthedocs.io/en/master/locales/hy_AM.html>`__ - Armenian
 -  `it\_IT <https://faker.readthedocs.io/en/master/locales/it_IT.html>`__ - Italian
 -  `ja\_JP <https://faker.readthedocs.io/en/master/locales/ja_JP.html>`__ - Japanese
 -  `ka\_GE <https://faker.readthedocs.io/en/master/locales/ka_GE.html>`__ - Georgian (Georgia)
