@@ -15,6 +15,7 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
+    # Source: https://en.wiktionary.org/wiki/Category:Armenian_male_given_names
     first_names_male = (
         'Սիմոն',
         'Ուիլյամ',
@@ -197,6 +198,7 @@ class Provider(PersonProvider):
         'Շմավոն',
     )
 
+    # Source: https://en.wiktionary.org/wiki/Category:Armenian_female_given_names
     first_names_female = (
         'Ագապի',
         'Աիդա',
@@ -351,6 +353,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
+    # Source: https://en.wiktionary.org/wiki/Category:Armenian_surnames
     last_names = (
         'Աբազյան',
         'Աբաղյան',
