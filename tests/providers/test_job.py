@@ -44,3 +44,14 @@ class TestHuHU(unittest.TestCase):
     def test_job(self):
         job = self.factory.job()
         assert isinstance(job, six.string_types)
+
+
+class TestHyAm(unittest.TestCase):
+    """ Tests jobs in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_job(self):
+        job = self.factory.job()
+        assert isinstance(job, six.string_types)

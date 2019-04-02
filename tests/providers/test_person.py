@@ -10,6 +10,7 @@ import six
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
+from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
@@ -54,7 +55,7 @@ class TestAr(unittest.TestCase):
         # All last names apply for all genders.
         assert hasattr(ArProvider, 'last_names')
 
-        # General first name.
+        # General last name.
         name = self.factory.last_name()
         assert name
         self.assertIsInstance(name, six.string_types)
@@ -266,7 +267,7 @@ class TestZhCN(unittest.TestCase):
         # All last names apply for all genders.
         assert hasattr(ZhCNProvider, 'last_names')
 
-        # General first name.
+        # General last name.
         name = self.factory.last_name()
         assert name
         self.assertIsInstance(name, six.string_types)
@@ -348,7 +349,7 @@ class TestZhTW(unittest.TestCase):
         # All last names apply for all genders.
         assert hasattr(ZhTWProvider, 'last_names')
 
-        # General first name.
+        # General last name.
         name = self.factory.last_name()
         assert name
         self.assertIsInstance(name, six.string_types)
@@ -414,3 +415,63 @@ class TestZhTW(unittest.TestCase):
         first_romanized_name, last_romanized_name = name.split(' ')
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
+
+
+class TestHyAM(unittest.TestCase):
+    """ Tests person in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_name(self):
+        # General name
+        name = self.factory.name()
+        self.assertIsInstance(name, six.string_types)
+
+        # Female name
+        name = self.factory.name_female()
+        self.assertIsInstance(name, six.string_types)
+
+        # Male name
+        name = self.factory.name_male()
+        self.assertIsInstance(name, six.string_types)
+
+    def test_first_name(self):
+        # General first name
+        name = self.factory.first_name()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.first_names
+
+        # Female first name
+        name = self.factory.first_name_female()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.first_names
+        assert name in HyAmProvider.first_names_female
+
+        # Male first name
+        name = self.factory.first_name_male()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.first_names
+        assert name in HyAmProvider.first_names_male
+
+    def test_last_name(self):
+        # There's no gender-specific last name in Armenian.
+        assert not hasattr(HyAmProvider, 'last_names_male')
+        assert not hasattr(HyAmProvider, 'last_names_female')
+        # All last names apply for all genders.
+        assert hasattr(HyAmProvider, 'last_names')
+
+        # General last name.
+        name = self.factory.last_name()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.last_names
+
+        # Females last name.
+        name = self.factory.last_name_female()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.last_names
+
+        # Male last name.
+        name = self.factory.last_name_male()
+        self.assertIsInstance(name, six.string_types)
+        assert name in HyAmProvider.last_names

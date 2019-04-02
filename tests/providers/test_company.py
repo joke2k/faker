@@ -8,6 +8,7 @@ import re
 import six
 
 from faker import Faker
+from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.pl_PL import (
@@ -28,6 +29,30 @@ class TestFiFI(unittest.TestCase):
         for seed in range(0, 11):
             self.factory.random.seed(seed)
             self.factory.company_business_id()
+
+
+class TestHyAm(unittest.TestCase):
+    """ Tests companies in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_bs(self):
+        bs = self.factory.bs()
+        assert isinstance(bs, six.string_types)
+
+    def test_catch_phrase(self):
+        catch_phrase = self.factory.catch_phrase()
+        assert isinstance(catch_phrase, six.string_types)
+
+    def test_company(self):
+        company = self.factory.company()
+        assert isinstance(company, six.string_types)
+
+    def test_company_suffix(self):
+        suffix = self.factory.company_suffix()
+        assert isinstance(suffix, six.string_types)
+        assert suffix in HyAmProvider.company_suffixes
 
 
 class TestJaJP(unittest.TestCase):

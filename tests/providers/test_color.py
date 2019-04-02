@@ -2,6 +2,9 @@ import unittest
 from re import search
 from faker import Faker
 
+from faker.providers.color.hy_AM import Provider as HyAmProvider
+from six import string_types
+
 
 class TestColor(unittest.TestCase):
 
@@ -41,3 +44,20 @@ class TestColor(unittest.TestCase):
 
         assert maxval <= 255
         assert minval >= 0
+
+
+class TestHyAM(unittest.TestCase):
+    """ Tests colors in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_color_name(self):
+        color_name = self.factory.color_name()
+        assert isinstance(color_name, string_types)
+        assert color_name in HyAmProvider.all_colors.keys()
+
+    def test_safe_color_name(self):
+        safe_color_name = self.factory.safe_color_name()
+        assert isinstance(safe_color_name, string_types)
+        assert safe_color_name in HyAmProvider.safe_colors

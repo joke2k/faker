@@ -17,6 +17,7 @@ from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
+from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
@@ -604,6 +605,125 @@ class TestHuHU(unittest.TestCase):
         assert isinstance(address, string_types)
         address_with_county = self.factory.street_address_with_county()
         assert isinstance(address_with_county, string_types)
+
+
+class TestHyAM(unittest.TestCase):
+    """ Tests addresses in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_address(self):
+        address = self.factory.address()
+        assert isinstance(address, string_types)
+
+    def test_building_number(self):
+        building_number = self.factory.building_number()
+        assert isinstance(building_number, string_types)
+        assert len(building_number) <= 3
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in HyAmProvider.cities
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in HyAmProvider.city_prefixes
+
+    def test_city_suffix(self):
+        city_suffix = self.factory.city_suffix()
+        assert isinstance(city_suffix, string_types)
+
+    def test_country(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+        assert country in HyAmProvider.countries
+
+    def test_alpha_2_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-2')
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_2_country_codes_as_default(self):
+        country_code = Faker().country_code()
+        assert len(country_code) == 2
+        assert country_code.isalpha()
+
+    def test_alpha_3_country_codes(self):
+        country_code = Faker().country_code(representation='alpha-3')
+        assert len(country_code) == 3
+        assert country_code.isalpha()
+
+    def test_bad_country_code_representation(self):
+        with self.assertRaises(ValueError):
+            Faker().country_code(representation='hello')
+
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+        assert re.match(r"\d{4}", postcode)
+        assert int(postcode) >= 200
+        assert int(postcode) <= 4299
+
+    def test_postcode_in_state(self):
+        for state_abbr in HyAmProvider.states_abbr:
+            code = self.factory.postcode_in_state(state_abbr)
+            assert re.match(r"\d{4}", code)
+            assert int(code) >= HyAmProvider.states_postcode[state_abbr][0]
+            assert int(code) <= HyAmProvider.states_postcode[state_abbr][1]
+
+        with self.assertRaises(Exception):
+            self.factory.postcode_in_state('XX')
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in HyAmProvider.states
+
+    def test_state_abbr(self):
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+        assert state_abbr in HyAmProvider.states_abbr
+        assert state_abbr.isupper()
+
+    def test_street(self):
+        street = self.factory.street()
+        assert isinstance(street, string_types)
+        assert street in HyAmProvider.streets
+
+    def test_street_address(self):
+        street_address = self.factory.street_address()
+        assert isinstance(street_address, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in HyAmProvider.street_prefixes
+
+    def test_street_suffix(self):
+        suffix = self.factory.street_suffix()
+        assert isinstance(suffix, string_types)
+        assert suffix in HyAmProvider.street_suffixes
+
+    def test_village(self):
+        village = self.factory.village()
+        assert isinstance(village, string_types)
+        assert village in HyAmProvider.villages
+
+    def test_village_prefix(self):
+        village_prefix = self.factory.village_prefix()
+        assert isinstance(village_prefix, string_types)
+        assert village_prefix in HyAmProvider.village_prefixes
 
 
 class TestJaJP(unittest.TestCase):

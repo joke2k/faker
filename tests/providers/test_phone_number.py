@@ -101,3 +101,14 @@ class TestThTH(unittest.TestCase):
 
         self.assertEqual(len(second), 4)
         self.assertEqual(len(third), 4)
+
+
+class TestHyAm(unittest.TestCase):
+    """ Tests phone_number in the hy_AM locale """
+
+    def setUp(self):
+        self.factory = Faker('hy_AM')
+
+    def test_phone_number(self):
+        pn = self.factory.phone_number()
+        assert isinstance(pn, six.string_types)
