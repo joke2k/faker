@@ -1,13 +1,23 @@
 Changelog
 =========
 
+`1.0.5 - 12-April-2019 <https://github.com/joke2k/faker/compare/v1.0.4...v1.0.5>`__
+-----------------------------------------------------------------------------------
+
+* Add min and max values for ``pyfloat`` and ``pydecimal``. Thanks @Lrcezimbra.
+* Add ``months`` and ``M`` to the syntax for ``start_date`` and ``end_date``. Thanks @anneclairebrld.
+* Add support for ``PyInstaller``. Thanks @arossert.
+* Add Dutch company names. Thanks @MathynS.
+* Fix some invalid French phone numbers starting with ``+33 8x``. Thanks @stephane.
+* Add Armenian locale ``hy_AM``. Thanks @hovikman.
+
 `1.0.4 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.3...v1.0.4>`__
---------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 * Fix erratic test.
 
 `1.0.3 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.2...v1.0.3>`__
---------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 * Fix ``AttributeError`` in ``user_Agent`` provider. Thanks @Mattwmaster58  for the report.
 * Update ``zh_TW`` ``person`` provider. Thanks @TimeFinger.
@@ -21,7 +31,7 @@ Changelog
 * Allow overriding of random generator class.
 
 `1.0.2 - 22-January-2019 <https://github.com/joke2k/faker/compare/v1.0.1...v1.0.2>`__
---------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 * Fix state abbreviations for ``id_ID`` to be 2-letters. Thanks @dt-ap.
 * Fix format for ``city_with_postcode`` on ``de_DE`` locale. Thanks @TZanke.
