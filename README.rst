@@ -356,23 +356,11 @@ you pinned the version of ``Faker`` down to the patch number.
 Tests
 -----
 
-Installing dependencies:
-
-.. code:: bash
-
-    $ pip install -e .
-
 Run tests:
 
 .. code:: bash
 
-    $ python setup.py test
-
-or
-
-.. code:: bash
-
-    $ python -m unittest -v tests
+    $ tox
 
 Write documentation for providers:
 
