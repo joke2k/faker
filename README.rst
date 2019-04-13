@@ -90,12 +90,12 @@ packaged in "providers".
 
     from faker import Faker
     from faker.providers import internet
-    
+
     fake = Faker()
     fake.add_provider(internet)
-    
+
     print(fake.ipv4_private())
-    
+
 
 Check the `extended docs`_ for a list of `bundled providers`_ and a list of
 `community providers`_.
