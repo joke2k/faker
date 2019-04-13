@@ -70,8 +70,8 @@ class Provider(BaseProvider):
             self.random_number(right_digits),
         ))
 
-    def pyint(self):
-        return self.generator.random_int()
+    def pyint(self, step=1):
+        return self.generator.random_int(step=step)
 
     def pydecimal(self, left_digits=None, right_digits=None, positive=False,
                   min_value=None, max_value=None):
