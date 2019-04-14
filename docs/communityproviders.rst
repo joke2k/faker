@@ -42,4 +42,3 @@ In order to be inlcuded, your provider must satisfy these requirement:
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
-

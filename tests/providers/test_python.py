@@ -15,6 +15,18 @@ class TestPyint(unittest.TestCase):
     def test_pyint_bounds(self):
         self.assertTrue(0 <= self.factory.pyint() <= 9999)
 
+    def test_pyint_bound_0(self):
+        self.assertEqual(0, self.factory.pyint(min=0, max=0))
+
+    def test_pyint_bound_positive(self):
+        self.assertEqual(5, self.factory.pyint(min=5, max=5))
+
+    def test_pyint_bound_negative(self):
+        self.assertEqual(-5, self.factory.pyint(min=-5, max=-5))
+
+    def test_pyint_range(self):
+        self.assertTrue(0 <= self.factory.pyint(min=0, max=2) <= 2)
+
 
 class TestPyfloat(unittest.TestCase):
     def setUp(self):
