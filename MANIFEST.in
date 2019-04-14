@@ -13,4 +13,3 @@ exclude appveyor.yml readthedocs.yml
 exclude build32bit.sh
 prune docs
 prune .circleci
-

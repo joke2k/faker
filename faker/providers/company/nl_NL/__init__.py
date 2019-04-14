@@ -29,7 +29,7 @@ class Provider(CompanyProvider):
         'AkzoNobel', 'Arcadis', 'AFAS', 'Cisco', 'DAF Trucks', 'DHL', 'Hanos', 'Boon Edam', 'BMW Nederland',
         'The Greenery', 'Dutch Flower Group', 'Koninklijke Mosa', 'Yacht', 'Rituals', 'Microsoft', 'Esso',
         '3W Vastgoed', 'Deloitte', 'Corio', 'Voortman Steel Group', 'Agrifirm', 'Makro Nederland',
-        'Nederlandse Publieke Omroep', 'De Alliantie', 'Heijmans', 'McDonalds', 'ANWB', 'Mediamarkt', 'Kruidvat',
+        'Nederlandse Publieke Omroep', 'De Alliantie', 'Heijmans', 'McDonalds', 'ANWB', 'Mediamarkt', 'Kruidvat'
         'Van Merksteijn Steel', 'Dura Vermeer', 'Alliander', 'Unilever', 'Enexis', 'Berenschot', 'Jumbo',
         'Technische Unie', 'Havenbedrijf Rotterdam', 'Ballast Nedam', 'RTL Nederland', 'Talpa Media',
         'Blauwhoed Vastgoed', 'DSM', 'Ymere', 'Witteveen+Bos', 'NS', 'Action', 'FloraHolland', 'Heineken', 'Nuon', 'EY',
@@ -74,7 +74,7 @@ class Provider(CompanyProvider):
         'CGI Nederland', 'Staples Nederland', 'Denkavit International', 'Ecorys', 'Rexel Nederland',
         'A. Hakpark', 'DuPont Nederland', 'CBRE Group', 'Bolsius', 'Marel', 'Metro',
         'Flynth Adviseurs en Accountants', 'Kropman Installatietechniek', 'Kuijpers', 'Medtronic', 'Cefetra',
-        'Simon Loos', 'Citadel Enterprises', 'Intergamma', 'Ceva Logistics', 'Beter Bed', 'Subway', 'Gamma', 'Karwei',
+        'Simon Loos', 'Citadel Enterprises', 'Intergamma', 'Ceva Logistics', 'Beter Bed', 'Subway', 'Gamma', 'Karwei'
         'Varo Energy', 'APM Terminals', 'Center Parcs', 'Brenntag Nederland', 'NFI', 'Hoogvliet',
         'Van Gansewinkel', 'Nedap', 'Blokker', 'Perfetti Van Melle', 'Vestia', 'Kuehne + Nagel Logistics',
         'Rensa Group', 'NTS Group', 'Joh. Mourik & Co. Holding', 'Mercedes-Benz', 'DIT Personeel', 'Verkade',
