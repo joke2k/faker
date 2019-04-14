@@ -93,15 +93,16 @@ class BaseProvider(object):
     def language_code(self):
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
-    def random_int(self, min=0, max=9999):
+    def random_int(self, min=0, max=9999, step=1):
         """
         Returns a random integer between two values.
 
         :param min: lower bound value (inclusive; default=0)
         :param max: upper bound value (inclusive; default=9999)
+        :param step: range step (default=1)
         :returns: random integer between min and max
         """
-        return self.generator.random.randint(min, max)
+        return self.generator.random.randrange(min, max + 1, step)
 
     def random_digit(self):
         """

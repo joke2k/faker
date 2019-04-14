@@ -15,6 +15,10 @@ class TestPyint(unittest.TestCase):
     def test_pyint_bounds(self):
         self.assertTrue(0 <= self.factory.pyint() <= 9999)
 
+    def test_pyint_step(self):
+        random_int = self.factory.pyint(step=2)
+        self.assertEqual(0, random_int % 2)
+        
     def test_pyint_bound_0(self):
         self.assertEqual(0, self.factory.pyint(min=0, max=0))
 
