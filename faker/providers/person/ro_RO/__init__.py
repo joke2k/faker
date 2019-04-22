@@ -104,6 +104,8 @@ class Provider(PersonProvider):
         'Vasilică', 'Veniamin', 'Vicențiu', 'Victor', 'Vincențiu', 'Viorel', 'Visarion', 'Vlad', 'Vladimir', 'Vlaicu',
         'Voicu', 'Zamfir', 'Zeno')
 
+    first_names = first_names_female + first_names_male
+
     # sources: https://ro.wikipedia.org/wiki/Lista_celor_mai_uzuale_nume_de_familie#Rom%C3%A2nia
     last_names = (
         'Aanei', 'Ababei', 'Albu', 'Ardelean', 'Barbu', 'Cristea', 'Diaconescu', 'Diaconu', 'Dima', 'Dinu', 'Dobre',
