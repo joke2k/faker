@@ -1,3 +1,6 @@
+* Faker version:
+* OS:
+
 Brief summary of the issue goes here.
 
 ### Steps to reproduce
