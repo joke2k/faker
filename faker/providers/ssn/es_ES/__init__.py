@@ -89,11 +89,7 @@ class Provider(BaseProvider):
             if index % 2:
                 sum_ += int(char)
             else:
-                result = int(char) * 2
-                if len(str(result)) == 1:
-                    sum_ += result
-                else:
-                    sum_ += sum(map(int, str(result)))
+                sum_ += sum(map(int, str(int(char) * 2)))
         if sum_ > 10:
             sum_ = int(str(sum_)[-1])
         else:
