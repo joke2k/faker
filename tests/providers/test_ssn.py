@@ -268,6 +268,92 @@ class TestEnUS(unittest.TestCase):
             self.factory.ssn(taxpayer_identification_number_type='ssn')
 
 
+def nif_nie_validation(doi, number_by_letter, special_cases):
+    """
+    Validate if the doi is a NIF or a NIE.
+    :param doi: DOI to validate.
+    :return: boolean if it's valid.
+    """
+    doi = doi.upper()
+    if doi in special_cases:
+        return False
+
+    table = 'TRWAGMYFPDXBNJZSQVHLCKE'
+
+    if len(doi) == 9:
+        control = doi[8]
+
+        # If it is not a DNI, convert the first letter to the corresponding digit
+        numbers = number_by_letter.get(doi[0], doi[0]) + doi[1:8]
+
+        return numbers.isdigit() and control == table[int(numbers) % 23]
+
+    return False
+
+
+def is_cif(doi):
+    """
+    Validate if the doi is a CIF.
+    :param doi: DOI to validate.
+    :return: boolean if it's valid.
+    """
+    doi = doi.upper()
+
+    if len(doi) != 9:
+        return False
+
+    table = 'JABCDEFGHI'
+    first_chr = doi[0]
+    doi_body = doi[1:8]
+    control = doi[8]
+
+    if not doi_body.isdigit():
+        return False
+
+    # Multiply each each odd position doi digit by 2 and sum it all together
+    odd_result = sum(int(x) for x in ''.join(str(int(x) * 2) for x in doi_body[0::2]))
+    # Sum all even doi digits
+    even_result = sum(map(int, doi_body[1::2]))
+
+    res = (10 - (even_result + odd_result) % 10) % 10
+
+    if first_chr in 'ABEH':  # Number type
+        return str(res) == control
+    elif first_chr in 'PSQW':  # Letter type
+        return table[res] == control
+    elif first_chr not in 'CDFGJNRUV':
+        return False
+
+    return control == str(res) or control == table[res]
+
+
+def is_nif(doi):
+    """
+    Validate if the doi is a NIF.
+    :param doi: DOI to validate.
+    :return: boolean if it's valid.
+    """
+    number_by_letter = {'L': '0', 'M': '0', 'K': '0'}
+    special_cases = ['X0000000T', '00000000T', '00000001R', '00000001R']
+    return nif_nie_validation(doi, number_by_letter, special_cases)
+
+
+def is_nie(doi):
+    """
+    Validate if the doi is a NIE.
+    :param doi: DOI to validate.
+    :return: boolean if it's valid.
+    """
+    number_by_letter = {'X': '0', 'Y': '1', 'Z': '2'}
+    special_cases = ['X0000000T']
+
+    # NIE must must start with X Y or Z
+    if not doi or doi[0] not in number_by_letter.keys():
+        return False
+
+    return nif_nie_validation(doi, number_by_letter, special_cases)
+
+
 class TestEsES(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('es_ES')
@@ -275,6 +361,26 @@ class TestEsES(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r'^ES\w\d{8}$|^ES\d{8}\w$|^ES\w\d{7}\w$', self.factory.vat_id())
+
+    def test_nie(self):
+        for _ in range(100):
+            assert is_nie(self.factory.nie())
+
+    def test_nif(self):
+        for _ in range(100):
+            assert is_nif(self.factory.nif())
+
+    def test_cif(self):
+        for _ in range(100):
+            assert is_cif(self.factory.cif())
+
+    def test_doi(self):
+        assert len(self.factory.doi()) == 9
+
+
+class TestEsCA(TestEsES):
+    def setUp(self):
+        self.factory = Faker('es_CA')
 
 
 class TestEtEE(unittest.TestCase):
