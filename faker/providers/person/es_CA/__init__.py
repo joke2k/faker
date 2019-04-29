@@ -50,7 +50,7 @@ class Provider(PersonProvider):
         'Pol',
         'Ramon',
         'Ramón',
-        'Xavier',)
+        'Xavier')
 
     first_names_female = (
         'Abril',
@@ -101,7 +101,6 @@ class Provider(PersonProvider):
         'Sofía',
         'Sílvia',
         'Valeria',
-        'Valèria',
-    )
+        'Valèria')
 
     first_names = first_names_male + first_names_female
