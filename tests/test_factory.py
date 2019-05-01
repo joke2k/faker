@@ -410,6 +410,30 @@ class FactoryTestCase(unittest.TestCase):
             assert word not in checked_words
             checked_words.append(word)
 
+    def test_texts_count(self):
+        faker = Faker()
+
+        texts_count = 5
+        assert texts_count == len(faker.texts(nb_texts=texts_count))
+
+    def test_texts_chars_count(self):
+        faker = Faker()
+
+        chars_count = 5
+        for faker_text in faker.texts(max_nb_chars=chars_count):
+            assert chars_count >= len(faker_text)
+
+    def test_texts_word_list(self):
+        faker = Faker()
+
+        word_list = [
+            'test',
+            'faker',
+        ]
+        for faker_text in faker.texts(ext_word_list=word_list):
+            for word in word_list:
+                assert word in faker_text.lower()
+
     def test_random_pystr_characters(self):
         from faker.providers.python import Provider
         provider = Provider(self.generator)
