@@ -21,6 +21,28 @@ def checksum_identity_card_number(characters):
     return check_digit
 
 
+def generate_pesel_checksum_value(pesel_digits):
+    """
+    Calculates and returns a control digit for given PESEL.
+    """
+    checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
+
+    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
+
+    return checksum % 10
+
+
+def checksum_pesel_number(pesel_digits):
+    """
+    Calculates and returns True if PESEL is valid.
+    """
+    checksum_values = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1]
+
+    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
+
+    return checksum % 10 == 0
+
+
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
@@ -702,3 +724,31 @@ class Provider(PersonProvider):
         identity[3] = checksum_identity_card_number(identity)
 
         return ''.join(str(character) for character in identity)
+
+    def pesel(self):
+        """
+        Returns 11 characters of Universal Electronic System for Registration of the Population.
+        Polish: Powszechny Elektroniczny System Ewidencji Ludności.
+
+        PESEL has 11 digits which identifies just one person.
+        Month: if person was born in 1900-2000, december is 12. If person was born > 2000, we have to add 20 to month,
+        so december is 32.
+        Person id: last digit identifies person's sex. Even for females, odd for males.
+
+        https://en.wikipedia.org/wiki/PESEL
+        """
+
+        birth = self.generator.date_of_birth()
+
+        year_pesel = str(birth.year)[-2:]
+        month_pesel = birth.month if birth.year < 2000 else birth.month + 20
+        day_pesel = birth.day
+        person_id = self.random_int(1000, 9999)
+
+        current_pesel = '{year}{month:02d}{day:02d}{person_id:04d}'.format(year=year_pesel, month=month_pesel,
+                                                                           day=day_pesel,
+                                                                           person_id=person_id)
+
+        checksum_value = generate_pesel_checksum_value(current_pesel)
+        return '{pesel_without_checksum}{checksum_value}'.format(pesel_without_checksum=current_pesel,
+                                                                 checksum_value=checksum_value)

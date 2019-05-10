@@ -49,3 +49,15 @@ class TestSvSE(unittest.TestCase):
     def test_sv_SE_plate_format(self):
         plate = self.factory.license_plate()
         assert re.match(r"[A-Z]{3} \d{2}[\dA-Z]{1}", plate), "%s is not in the correct format." % plate
+
+
+class TestPlPL(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('pl_PL')
+
+    def test_pl_PL_plate_format(self):
+        plate = self.factory.license_plate()
+        patterns = self.factory.license_plate_regex_formats()
+        assert re.match(r'{patterns}'.format(patterns='|'.join(patterns)),
+                        plate), '{plate} is not the correct format.'.format(plate=plate)
