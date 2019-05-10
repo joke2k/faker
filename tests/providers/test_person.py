@@ -16,6 +16,7 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
+    checksum_pesel_number as pl_checksum_pesel_number,
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
@@ -205,6 +206,14 @@ class TestPlPL(unittest.TestCase):
     def test_identity_card_number(self):
         for _ in range(100):
             assert re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number())
+
+    def test_pesel_number_checksum(self):
+        assert pl_checksum_pesel_number('31090655159') is True
+        assert pl_checksum_pesel_number('95030853577') is True
+        assert pl_checksum_pesel_number('05260953442') is True
+        assert pl_checksum_pesel_number('31090655158') is False
+        assert pl_checksum_pesel_number('95030853576') is False
+        assert pl_checksum_pesel_number('05260953441') is False
 
 
 class TestCsCZ(unittest.TestCase):
