@@ -1,6 +1,13 @@
 Changelog
 =========
 
+`1.0.6 - 26-April-2019 <https://github.com/joke2k/faker/compare/v1.0.5...v1.0.6>`__
+-----------------------------------------------------------------------------------
+
+* Add missing commas to company/nl_NL provider. Thanks @francoisfreitag.
+* Add bounds to pyint. Thanks @francoisfreitag.
+* Accept step argument in random_int(). Thanks @francoisfreitag.
+
 `1.0.5 - 12-April-2019 <https://github.com/joke2k/faker/compare/v1.0.4...v1.0.5>`__
 -----------------------------------------------------------------------------------
 
