@@ -467,7 +467,6 @@ class FactoryTestCase(unittest.TestCase):
         assert any(factory.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
         assert any(factory.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
 
-
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 
