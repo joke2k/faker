@@ -65,7 +65,11 @@ class Provider(BaseProvider):
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
 
-        return float(f"{sign}{left_number}.{self.random_number(right_digits)}")
+        return float("{0}{1}.{2}".format(
+            sign,
+            left_number,
+            self.random_number(right_digits),
+        ))
 
     def pyint(self, min=0, max=9999, step=1):
         return self.generator.random_int(min, max, step=step)
