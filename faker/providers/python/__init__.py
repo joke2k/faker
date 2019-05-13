@@ -53,8 +53,7 @@ class Provider(BaseProvider):
             self.random_int(1, sys.float_info.dig))
         right_digits = right_digits if right_digits is not None else (
             self.random_int(0, sys.float_info.dig - left_digits))
-        sign = 1 if positive else self.random_element((-1, 1))
-
+        sign = ''
         if (min_value is not None) or (max_value is not None):
             if min_value is None:
                 min_value = max_value - self.random_int()
@@ -63,12 +62,10 @@ class Provider(BaseProvider):
 
             left_number = self.random_int(min_value, max_value)
         else:
-            left_number = sign * self.random_number(left_digits)
+            sign = '+' if positive else self.random_element(('+', '-'))
+            left_number = self.random_number(left_digits)
 
-        return float("{0}.{1}".format(
-            left_number,
-            self.random_number(right_digits),
-        ))
+        return float(f"{sign}{left_number}.{self.random_number(right_digits)}")
 
     def pyint(self, min=0, max=9999, step=1):
         return self.generator.random_int(min, max, step=step)
