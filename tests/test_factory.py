@@ -460,6 +460,13 @@ class FactoryTestCase(unittest.TestCase):
         with pytest.raises(ValueError):
             provider.pyfloat(left_digits=0, right_digits=0)
 
+    def test_negative_pyfloat(self):
+        # tests for https://github.com/joke2k/faker/issues/813
+        factory = Faker()
+        factory.seed_instance(32167)
+        assert any(factory.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
+        assert any(factory.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
+
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 
