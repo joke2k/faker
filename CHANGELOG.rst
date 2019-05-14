@@ -1,12 +1,22 @@
 Changelog
 =========
 
+`1.0.7 - 14-May-2019 <https://github.com/joke2k/faker/compare/v1.0.6...v1.0.7>`__
+---------------------------------------------------------------------------------
+
+* Remove dead url from ``image_placeholder_services``. Thanks @Monstrofil.
+* Fix missing ``first_names`` in Romanian person provider. Thanks @xlotlu.
+* Add Catalan, adds doi/nie/nif/cif to Spain ssn. Thanks @kingbuzzman.
+* Add ``texts`` to generate list of texts. Thanks @pishchalnikov.
+* Add provider for ``pl_PL`` automotive and Polish pesel number. Thanks @adwojak.
+* Corrected behavior for ``pyfloat``. Thanks @ariksu.
+
 `1.0.6 - 26-April-2019 <https://github.com/joke2k/faker/compare/v1.0.5...v1.0.6>`__
 -----------------------------------------------------------------------------------
 
 * Add missing commas to company/nl_NL provider. Thanks @francoisfreitag.
-* Add bounds to pyint. Thanks @francoisfreitag.
-* Accept step argument in random_int(). Thanks @francoisfreitag.
+* Add bounds to ``pyint``. Thanks @francoisfreitag.
+* Accept step argument in ``random_int()``. Thanks @francoisfreitag.
 
 `1.0.5 - 12-April-2019 <https://github.com/joke2k/faker/compare/v1.0.4...v1.0.5>`__
 -----------------------------------------------------------------------------------
