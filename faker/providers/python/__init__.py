@@ -71,8 +71,8 @@ class Provider(BaseProvider):
             self.random_number(right_digits),
         ))
 
-    def pyint(self, min=0, max=9999, step=1):
-        return self.generator.random_int(min, max, step=step)
+    def pyint(self, min_value=0, max_value=9999, step=1):
+        return self.generator.random_int(min_value, max_value, step=step)
 
     def pydecimal(self, left_digits=None, right_digits=None, positive=False,
                   min_value=None, max_value=None):
