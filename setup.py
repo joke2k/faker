@@ -77,7 +77,7 @@ setup(
         "random2==1.0.1",
         "freezegun==0.3.11",
     ],
-    dependency_links=['git+https://github.com/kingbuzzman/validators@master#egg=validators-0.13.0'],  # TODO: DELETE!!!!!  # noqa
+    dependency_links=['git+https://github.com/kvesteri/validators@master#egg=validators-0.13.0'],  # TODO: DELETE!!!!!  # noqa
     extras_require={
         ':python_version<"3.3"': [
             'ipaddress',
