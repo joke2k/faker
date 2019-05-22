@@ -69,7 +69,7 @@ setup(
         "text-unidecode==1.2",
     ],
     tests_require=[
-        "email_validator>=1.0.1,<1.1.0",
+        "validators>=0.13.0",
         "ukpostcodeparser>=1.1.1",
         "mock ; python_version < '3.3'",
         "pytest>=3.8.0,<3.9",
