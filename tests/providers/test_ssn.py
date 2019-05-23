@@ -114,83 +114,94 @@ class TestEnUS(unittest.TestCase):
             assert area != '666'
 
     def test_invalid_ssn(self):
-        self.factory.seed(19030)
-        for _ in range(100):
-            ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        # Magic Numbers used generate '666-44-9370', '000-19-8911', '978-45-0926', '241-00-1691',
+        # and 812-11-0000 respectively:
+        #
+        # Ensure that generated SSNs are 11 characters long
+        # including dashes, consist of dashes and digits only, and the tested number
+        # violates the requirements below, ensuring an INVALID SSN is returned:
+        #
+        # A United States Social Security Number
+        # (SSN) is a tax processing number issued by the Internal
+        # Revenue Service with the format "AAA-GG-SSSS".  The
+        # number is divided into three parts: the first three
+        # digits, known as the area number because they were
+        # formerly assigned by geographical region; the middle two
+        # digits, known as the group number; and the final four
+        # digits, known as the serial number. SSNs with the
+        # following characteristics are not allocated:
+        #
+        # 1) Numbers with all zeros in any digit group
+        # (000-##-####, ###-00-####, ###-##-0000).
+        #
+        # 2) Numbers with 666 or 900-999 in the first digit group.
+        #
+        # https://en.wikipedia.org/wiki/Social_Security_number
+        #
+        # ITIN explained:
+        # https://www.irs.gov/individuals/international-taxpayers/general-itin-information
 
-            # The Magic Number for the Seed returns an SSN beginning with 666 to test the Area value properly
-            #
-            # Ensure that generated SSNs are 11 characters long
-            # including dashes, consist of dashes and digits only, and the tested number
-            # violates the requirements below, ensuring an INVALID SSN is returned:
-            #
-            # A United States Social Security Number
-            # (SSN) is a tax processing number issued by the Internal
-            # Revenue Service with the format "AAA-GG-SSSS".  The
-            # number is divided into three parts: the first three
-            # digits, known as the area number because they were
-            # formerly assigned by geographical region; the middle two
-            # digits, known as the group number; and the final four
-            # digits, known as the serial number. SSNs with the
-            # following characteristics are not allocated:
-            #
-            # 1) Numbers with all zeros in any digit group
-            # (000-##-####, ###-00-####, ###-##-0000).
-            #
-            # 2) Numbers with 666 or 900-999 in the first digit group.
-            #
-            # https://en.wikipedia.org/wiki/Social_Security_number
-            #
-            # ITIN explained:
-            # https://www.irs.gov/individuals/international-taxpayers/general-itin-information
+        itin_group_numbers = [
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            90,
+            91,
+            92,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99]
 
-            itin_group_numbers = [
-                70,
-                71,
-                72,
-                73,
-                74,
-                75,
-                76,
-                77,
-                78,
-                79,
-                80,
-                81,
-                82,
-                83,
-                84,
-                85,
-                86,
-                87,
-                88,
-                90,
-                91,
-                92,
-                94,
-                95,
-                96,
-                97,
-                98,
-                99]
-            assert len(ssn) == 11
-            assert ssn.replace('-', '').isdigit()
+        self.factory.seed(2432)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
 
-            [area, group, serial] = ssn.split('-')
+        assert len(ssn) == 11
+        assert ssn.replace('-', '').isdigit()
+        assert int(area) == 666 and int(group) >= 1 and int(serial) >= 1
 
-            if int(area) in {666, 0}:
-                assert int(group) >= 1
-                assert int(serial) >= 1
-            elif 0 not in {int(group), int(serial)}:
-                assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers
-            elif (int(area) < 900) and (0 not in {int(serial)}):
-                assert int(group) == 0
-            elif (int(area) < 900) and (0 not in {int(group)}):
-                assert int(serial) == 0
-            else:
-                assert int(area) >= 900
-                assert int(group) >= 0 and int(group) not in itin_group_numbers
-                assert int(serial) >= 0
+        self.factory.seed(1514)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert int(area) == 0 and int(group) >= 1 and int(serial) >= 1
+
+        self.factory.seed(2)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers and int(serial) >= 0
+
+        self.factory.seed(4)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert int(area) < 900 and int(group) == 0 and int(serial) >= 1
+
+        self.factory.seed(6)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert int(area) < 900 and int(group) >= 1 and int(serial) == 0
 
     def test_prohibited_ssn_value(self):
         # 666 is a prohibited value. The magic number selected as a seed
