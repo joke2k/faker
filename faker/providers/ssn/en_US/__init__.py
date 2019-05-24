@@ -188,13 +188,13 @@ class Provider(BaseProvider):
             random_group_or_serial = self.random_int(min=1, max=1000)
             if random_group_or_serial <= 500:
                 group = 0
-                serial = self.random_int(1, 9999)
+                serial = self.random_int(0, 9999)
             else:
-                group = self.random_int(1, 99)
+                group = self.random_int(0, 99)
                 serial = 0
         elif area in {666, 0}:
-            group = self.random_int(1, 99)
-            serial = self.random_int(1, 9999)
+            group = self.random_int(0, 99)
+            serial = self.random_int(0, 9999)
         else:
             group = random.choice([x for x in range(0, 100) if x not in itin_group_numbers])
             serial = self.random_int(0, 9999)

@@ -114,8 +114,12 @@ class TestEnUS(unittest.TestCase):
             assert area != '666'
 
     def test_invalid_ssn(self):
-        # Magic Numbers used generate '666-44-9370', '000-19-8911', '978-45-0926', '241-00-1691',
-        # and 812-11-0000 respectively:
+        self.factory.random = random2.Random()
+        # Magic Numbers below generate '666-92-7944', '000-54-2963', '956-GG-9478', '436-00-1386',
+        # and 134-76-0000 respectively. The "group" (GG) returned for '956-GG-9478 will be a random
+        # number, and that random number is not in the "itin_group_numbers" List. The random GG occurs
+        # even when using the same seed_instance() due to using random.choice() for GG to avoid valid
+        # ITINs being returned as an invalid SSN:
         #
         # Ensure that generated SSNs are 11 characters long
         # including dashes, consist of dashes and digits only, and the tested number
@@ -171,37 +175,35 @@ class TestEnUS(unittest.TestCase):
             98,
             99]
 
-        self.factory.seed(2432)
+        self.factory.seed_instance(1143)
         ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
-        [area, group, serial] = ssn.split('-')
 
         assert len(ssn) == 11
         assert ssn.replace('-', '').isdigit()
-        assert int(area) == 666 and int(group) >= 1 and int(serial) >= 1
+        assert ssn.startswith('666')
 
-        self.factory.seed(1514)
+        self.factory.seed_instance(1514)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+
+        assert ssn.startswith('000')
+
+        self.factory.seed_instance(2)
         ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
         [area, group, serial] = ssn.split('-')
 
-        assert int(area) == 0 and int(group) >= 1 and int(serial) >= 1
+        assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers
 
-        self.factory.seed(2)
+        self.factory.seed_instance(9)
         ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
         [area, group, serial] = ssn.split('-')
 
-        assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers and int(serial) >= 0
+        assert int(area) < 900 and int(group) == 0
 
-        self.factory.seed(4)
+        self.factory.seed_instance(1)
         ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
         [area, group, serial] = ssn.split('-')
 
-        assert int(area) < 900 and int(group) == 0 and int(serial) >= 1
-
-        self.factory.seed(6)
-        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
-        [area, group, serial] = ssn.split('-')
-
-        assert int(area) < 900 and int(group) >= 1 and int(serial) == 0
+        assert int(area) < 900 and int(serial) == 0
 
     def test_prohibited_ssn_value(self):
         # 666 is a prohibited value. The magic number selected as a seed
