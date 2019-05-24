@@ -6,6 +6,7 @@ from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
+    INVALID_SSN_TYPE = 'INVALID_SSN'
     SSN_TYPE = 'SSN'
     ITIN_TYPE = 'ITIN'
     EIN_TYPE = 'EIN'
@@ -139,6 +140,68 @@ class Provider(BaseProvider):
         ein = "{0:s}-{1:07d}".format(ein_prefix, sequence)
         return ein
 
+    def invalid_ssn(self):
+        """ Generate a random invalid United States Social Security Identification Number (SSN).
+
+        Invalid SSNs have the following characteristics:
+        Cannot begin with the number 9
+        Cannot begin with 666 in positions 1 - 3
+        Cannot begin with 000 in positions 1 - 3
+        Cannot contain 00 in positions 4 - 5
+        Cannot contain 0000 in positions 6 - 9
+
+        https://www.ssa.gov/kc/SSAFactSheet--IssuingSSNs.pdf
+
+        Additionally, return an invalid SSN that is NOT a valid ITIN by excluding certain ITIN related "group" values
+        """
+        itin_group_numbers = [
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            90,
+            91,
+            92,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99]
+        area = self.random_int(min=0, max=999)
+        if area < 900 and area not in {666, 0}:
+            random_group_or_serial = self.random_int(min=1, max=1000)
+            if random_group_or_serial <= 500:
+                group = 0
+                serial = self.random_int(0, 9999)
+            else:
+                group = self.random_int(0, 99)
+                serial = 0
+        elif area in {666, 0}:
+            group = self.random_int(0, 99)
+            serial = self.random_int(0, 9999)
+        else:
+            group = random.choice([x for x in range(0, 100) if x not in itin_group_numbers])
+            serial = self.random_int(0, 9999)
+
+        invalid_ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
+        return invalid_ssn
+
     def ssn(self, taxpayer_identification_number_type=SSN_TYPE):
         """ Generate a random United States Taxpayer Identification Number of the specified type.
 
@@ -149,6 +212,8 @@ class Provider(BaseProvider):
             return self.itin()
         elif taxpayer_identification_number_type == self.EIN_TYPE:
             return self.ein()
+        elif taxpayer_identification_number_type == self.INVALID_SSN_TYPE:
+            return self.invalid_ssn()
         elif taxpayer_identification_number_type == self.SSN_TYPE:
 
             # Certain numbers are invalid for United States Social Security
@@ -166,4 +231,5 @@ class Provider(BaseProvider):
             return ssn
 
         else:
-            raise ValueError("taxpayer_identification_number_type must be one of 'SSN', 'EIN', or 'ITIN'.")
+            raise ValueError("taxpayer_identification_number_type must be one of 'SSN', 'EIN', 'ITIN',"
+                             " or 'INVALID_SSN'.")

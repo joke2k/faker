@@ -114,6 +114,98 @@ class TestEnUS(unittest.TestCase):
             assert 1 <= int(serial) <= 9999
             assert area != '666'
 
+    def test_invalid_ssn(self):
+        self.factory.random = random2.Random()
+        # Magic Numbers below generate '666-92-7944', '000-54-2963', '956-GG-9478', '436-00-1386',
+        # and 134-76-0000 respectively. The "group" (GG) returned for '956-GG-9478 will be a random
+        # number, and that random number is not in the "itin_group_numbers" List. The random GG occurs
+        # even when using the same seed_instance() due to using random.choice() for GG to avoid valid
+        # ITINs being returned as an invalid SSN:
+        #
+        # Ensure that generated SSNs are 11 characters long
+        # including dashes, consist of dashes and digits only, and the tested number
+        # violates the requirements below, ensuring an INVALID SSN is returned:
+        #
+        # A United States Social Security Number
+        # (SSN) is a tax processing number issued by the Internal
+        # Revenue Service with the format "AAA-GG-SSSS".  The
+        # number is divided into three parts: the first three
+        # digits, known as the area number because they were
+        # formerly assigned by geographical region; the middle two
+        # digits, known as the group number; and the final four
+        # digits, known as the serial number. SSNs with the
+        # following characteristics are not allocated:
+        #
+        # 1) Numbers with all zeros in any digit group
+        # (000-##-####, ###-00-####, ###-##-0000).
+        #
+        # 2) Numbers with 666 or 900-999 in the first digit group.
+        #
+        # https://en.wikipedia.org/wiki/Social_Security_number
+        #
+        # ITIN explained:
+        # https://www.irs.gov/individuals/international-taxpayers/general-itin-information
+
+        itin_group_numbers = [
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            90,
+            91,
+            92,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99]
+
+        self.factory.seed_instance(1143)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+
+        assert len(ssn) == 11
+        assert ssn.replace('-', '').isdigit()
+        assert ssn.startswith('666')
+
+        self.factory.seed_instance(1514)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+
+        assert ssn.startswith('000')
+
+        self.factory.seed_instance(2)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers
+
+        self.factory.seed_instance(9)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert int(area) < 900 and int(group) == 0
+
+        self.factory.seed_instance(1)
+        ssn = self.factory.ssn(taxpayer_identification_number_type='INVALID_SSN')
+        [area, group, serial] = ssn.split('-')
+
+        assert int(area) < 900 and int(serial) == 0
+
     def test_prohibited_ssn_value(self):
         # 666 is a prohibited value. The magic number selected as a seed
         # is one that would (if not specifically checked for) return an
