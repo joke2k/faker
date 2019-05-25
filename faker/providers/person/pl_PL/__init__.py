@@ -21,28 +21,6 @@ def checksum_identity_card_number(characters):
     return check_digit
 
 
-def generate_pesel_checksum_value(pesel_digits):
-    """
-    Calculates and returns a control digit for given PESEL.
-    """
-    checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
-
-    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
-
-    return checksum % 10
-
-
-def checksum_pesel_number(pesel_digits):
-    """
-    Calculates and returns True if PESEL is valid.
-    """
-    checksum_values = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1]
-
-    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
-
-    return checksum % 10 == 0
-
-
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
@@ -725,7 +703,7 @@ class Provider(PersonProvider):
 
         return ''.join(str(character) for character in identity)
 
-    def pesel(self):
+    def pesel(self, date_of_birth=None, sex=None):
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
@@ -737,21 +715,27 @@ class Provider(PersonProvider):
 
         https://en.wikipedia.org/wiki/PESEL
         """
+        if date_of_birth is None:
+            date_of_birth = self.generator.date_of_birth()
 
-        birth = self.generator.date_of_birth()
+        pesel_date = '{year}{month:02d}{day:02d}'.format(
+            year=date_of_birth.year, day=date_of_birth.day,
+            month=date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20)
+        pesel_date = pesel_date[2:]
 
-        year_pesel = str(birth.year)[-2:]
-        month_pesel = birth.month if birth.year < 2000 else birth.month + 20
-        day_pesel = birth.day
-        person_id = self.random_int(1000, 9999)
+        pesel_core = ''.join(list(map(str, [self.random_digit() for _ in range(3)])))
+        pesel_sex = self.random_digit()
 
-        current_pesel = '{year}{month:02d}{day:02d}{person_id:04d}'.format(year=year_pesel, month=month_pesel,
-                                                                           day=day_pesel,
-                                                                           person_id=person_id)
+        if (sex == 'M' and pesel_sex % 2 == 0) or (sex == 'F' and pesel_sex % 2 == 1):
+            pesel_sex = (pesel_sex + 1) % 10
 
-        checksum_value = generate_pesel_checksum_value(current_pesel)
-        return '{pesel_without_checksum}{checksum_value}'.format(pesel_without_checksum=current_pesel,
-                                                                 checksum_value=checksum_value)
+        pesel_core = '{date}{core}{sex}'.format(date=pesel_date, core=pesel_core, sex=pesel_sex)
+        pesel_core_digits = list(map(int, list(pesel_core)))
+
+        checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
+        pesel_check_digit = sum(int(a) * b for a, b in zip(list(pesel_core_digits), checksum_values)) % 10
+
+        return pesel_core + str(pesel_check_digit)
 
     def pwz_doctor(self):
         """

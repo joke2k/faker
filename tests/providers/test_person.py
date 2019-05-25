@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import re
 import unittest
-
+import datetime
 import six
 
 from faker import Faker
@@ -16,7 +16,6 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
-    checksum_pesel_number as pl_checksum_pesel_number,
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
@@ -210,13 +209,32 @@ class TestPlPL(unittest.TestCase):
         for _ in range(100):
             assert re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number())
 
-    def test_pesel_number_checksum(self):
-        assert pl_checksum_pesel_number('31090655159') is True
-        assert pl_checksum_pesel_number('95030853577') is True
-        assert pl_checksum_pesel_number('05260953442') is True
-        assert pl_checksum_pesel_number('31090655158') is False
-        assert pl_checksum_pesel_number('95030853576') is False
-        assert pl_checksum_pesel_number('05260953441') is False
+    def test_pesel_birth_date(self):
+        date = datetime.date(1971, 6, 22)
+        self.factory_injected_random.random.set_sequence('3819')
+        assert self.factory_injected_random.pesel(date) == '71062238197'
+
+        date = datetime.date(2001, 2, 4)
+        self.factory_injected_random.random.set_sequence('0226')
+        assert self.factory_injected_random.pesel(date) == '01220402265'
+
+    def test_pesel_sex_male(self):
+        date = datetime.date(1909, 3, 3)
+        self.factory_injected_random.random.set_sequence('1345')
+        assert self.factory_injected_random.pesel(date, 'M') == '09030313454'
+
+        date = datetime.date(1913, 8, 16)
+        self.factory_injected_random.random.set_sequence('6170')
+        assert self.factory_injected_random.pesel(date, 'M') == '13081661718'
+
+    def test_pesel_sex_female(self):
+        date = datetime.date(2007, 4, 13)
+        self.factory_injected_random.random.set_sequence('4916')
+        assert self.factory_injected_random.pesel(date, 'F') == '07241349161'
+
+        date = datetime.date(1933, 12, 16)
+        self.factory_injected_random.random.set_sequence('6173')
+        assert self.factory_injected_random.pesel(date, 'F') == '33121661744'
 
     def test_pwz_doctor(self):
         self.factory_injected_random.random.set_sequence('691965')
