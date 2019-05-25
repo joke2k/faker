@@ -752,3 +752,36 @@ class Provider(PersonProvider):
         checksum_value = generate_pesel_checksum_value(current_pesel)
         return '{pesel_without_checksum}{checksum_value}'.format(pesel_without_checksum=current_pesel,
                                                                  checksum_value=checksum_value)
+
+    def pwz_doctor(self):
+        """
+        Function generates an identification number for medical doctors
+        Polish: Prawo Wykonywania Zawodu (PWZ)
+
+        https://www.nil.org.pl/rejestry/centralny-rejestr-lekarzy/zasady-weryfikowania-nr-prawa-wykonywania-zawodu
+        """
+        core = [self.random_digit() for _ in range(6)]
+        check_digit = sum((i+1)*d for i, d in enumerate(core)) % 11
+
+        if check_digit == 0:
+            core[-1] += 1
+            core[-1] %= 10
+            check_digit = sum((i+1)*d for i, d in enumerate(core)) % 11
+
+        return '{}{}'.format(check_digit, ''.join(map(str, core)))
+
+    def pwz_nurse(self, kind='nurse'):
+        """
+        Function generates an identification number for nurses and midwifes
+        Polish: Prawo Wykonywania Zawodu (PWZ)
+
+        http://arch.nipip.pl/index.php/prawo/uchwaly/naczelnych-rad/w-roku-2015/posiedzenie-15-17-grudnia/3664-uchwala-
+        nr-381-vi-2015-w-sprawie-trybu-postepowania-dotyczacego-stwierdzania-i-przyznawania-prawa-wykonywania-zawodu-pi
+        elegniarki-i-zawodu-poloznej-oraz-sposobu-prowadzenia-rejestru-pielegniarek-i-rejestru-poloznych-przez-okregowe-
+        rady-pielegniarek-i-polo
+        """
+        region = self.random_int(1, 45)
+        core = [self.random_digit() for _ in range(5)]
+        kind_char = 'A' if kind == 'midwife' else 'P'
+
+        return '{:02d}{}{}'.format(region, ''.join(map(str, core)), kind_char)

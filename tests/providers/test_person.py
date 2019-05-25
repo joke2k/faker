@@ -20,6 +20,7 @@ from faker.providers.person.pl_PL import (
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
+from faker.injections.random_injectrion import RandomInjection
 
 
 class TestAr(unittest.TestCase):
@@ -195,6 +196,8 @@ class TestPlPL(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('pl_PL')
+        self.factory_injected_random = Faker('pl_PL')
+        self.factory_injected_random.random = RandomInjection()
 
     def test_identity_card_number_checksum(self):
         assert pl_checksum_identity_card_number(['A', 'I', 'S', 8, 5, 0, 2, 1, 4]) == 8
@@ -214,6 +217,27 @@ class TestPlPL(unittest.TestCase):
         assert pl_checksum_pesel_number('31090655158') is False
         assert pl_checksum_pesel_number('95030853576') is False
         assert pl_checksum_pesel_number('05260953441') is False
+
+    def test_pwz_doctor(self):
+        self.factory_injected_random.random.set_sequence('691965')
+        assert self.factory_injected_random.pwz_doctor() == '2691965'
+
+        self.factory_injected_random.random.set_sequence('279915')
+        assert self.factory_injected_random.pwz_doctor() == '4279915'
+
+    def test_pwz_doctor_check_digit_zero(self):
+        self.factory_injected_random.random.set_sequence('000011')
+        assert self.factory_injected_random.pwz_doctor() == '6000012'
+
+        self.factory_injected_random.random.set_sequence('000099')
+        assert self.factory_injected_random.pwz_doctor() == '1000090'
+
+    def test_pwz_nurse(self):
+        self.factory_injected_random.random.set_sequence([45, 3, 4, 5, 6, 7])
+        assert self.factory_injected_random.pwz_nurse(kind='nurse') == '4534567P'
+
+        self.factory_injected_random.random.set_sequence('317512')
+        assert self.factory_injected_random.pwz_nurse(kind='midwife') == '0317512A'
 
 
 class TestCsCZ(unittest.TestCase):

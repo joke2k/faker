@@ -23,4 +23,3 @@ class RandomInjection(random.Random):
 
     def randrange(self, start, stop=None, step=1, _int=int, _maxwidth=None):
         return self.get_element()
-
