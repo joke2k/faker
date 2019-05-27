@@ -7,6 +7,11 @@ import unittest
 
 import six
 
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
@@ -14,9 +19,9 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
+from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import (
     checksum_identity_card_number as pl_checksum_identity_card_number,
-    checksum_pesel_number as pl_checksum_pesel_number,
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
@@ -207,13 +212,25 @@ class TestPlPL(unittest.TestCase):
         for _ in range(100):
             assert re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number())
 
-    def test_pesel_number_checksum(self):
-        assert pl_checksum_pesel_number('31090655159') is True
-        assert pl_checksum_pesel_number('95030853577') is True
-        assert pl_checksum_pesel_number('05260953442') is True
-        assert pl_checksum_pesel_number('31090655158') is False
-        assert pl_checksum_pesel_number('95030853576') is False
-        assert pl_checksum_pesel_number('05260953441') is False
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pwz_doctor(self, mock_random_digit):
+        mock_random_digit.side_effect = [6, 9, 1, 9, 6, 5, 2, 7, 9, 9, 1, 5]
+        assert self.factory.pwz_doctor() == '2691965'
+        assert self.factory.pwz_doctor() == '4279915'
+
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pwz_doctor_check_digit_zero(self, mock_random_digit):
+        mock_random_digit.side_effect = [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 9, 9]
+        assert self.factory.pwz_doctor() == '6000012'
+        assert self.factory.pwz_doctor() == '1000090'
+
+    @mock.patch.object(PlPLProvider, 'random_int')
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pwz_nurse(self, mock_random_digit, mock_random_int):
+        mock_random_digit.side_effect = [3, 4, 5, 6, 7, 1, 7, 5, 1, 2]
+        mock_random_int.side_effect = [45, 3]
+        assert self.factory.pwz_nurse(kind='nurse') == '4534567P'
+        assert self.factory.pwz_nurse(kind='midwife') == '0317512A'
 
 
 class TestCsCZ(unittest.TestCase):

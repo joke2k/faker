@@ -738,17 +738,38 @@ class Provider(PersonProvider):
         https://en.wikipedia.org/wiki/PESEL
         """
 
-        birth = self.generator.date_of_birth()
+    @staticmethod
+    def pwz_doctor_compute_check_digit(x):
+        return sum((i+1)*d for i, d in enumerate(x)) % 11
 
-        year_pesel = str(birth.year)[-2:]
-        month_pesel = birth.month if birth.year < 2000 else birth.month + 20
-        day_pesel = birth.day
-        person_id = self.random_int(1000, 9999)
+    def pwz_doctor(self):
+        """
+        Function generates an identification number for medical doctors
+        Polish: Prawo Wykonywania Zawodu (PWZ)
 
-        current_pesel = '{year}{month:02d}{day:02d}{person_id:04d}'.format(year=year_pesel, month=month_pesel,
-                                                                           day=day_pesel,
-                                                                           person_id=person_id)
+        https://www.nil.org.pl/rejestry/centralny-rejestr-lekarzy/zasady-weryfikowania-nr-prawa-wykonywania-zawodu
+        """
+        core = [self.random_digit() for _ in range(6)]
+        check_digit = self.pwz_doctor_compute_check_digit(core)
 
-        checksum_value = generate_pesel_checksum_value(current_pesel)
-        return '{pesel_without_checksum}{checksum_value}'.format(pesel_without_checksum=current_pesel,
-                                                                 checksum_value=checksum_value)
+        if check_digit == 0:
+            core[-1] = (core[-1] + 1) % 10
+            check_digit = self.pwz_doctor_compute_check_digit(core)
+
+        return '{}{}'.format(check_digit, ''.join(map(str, core)))
+
+    def pwz_nurse(self, kind='nurse'):
+        """
+        Function generates an identification number for nurses and midwifes
+        Polish: Prawo Wykonywania Zawodu (PWZ)
+
+        http://arch.nipip.pl/index.php/prawo/uchwaly/naczelnych-rad/w-roku-2015/posiedzenie-15-17-grudnia/3664-uchwala-
+        nr-381-vi-2015-w-sprawie-trybu-postepowania-dotyczacego-stwierdzania-i-przyznawania-prawa-wykonywania-zawodu-pi
+        elegniarki-i-zawodu-poloznej-oraz-sposobu-prowadzenia-rejestru-pielegniarek-i-rejestru-poloznych-przez-okregowe
+        -rady-pielegniarek-i-polo
+        """
+        region = self.random_int(1, 45)
+        core = [self.random_digit() for _ in range(5)]
+        kind_char = 'A' if kind == 'midwife' else 'P'
+
+        return '{:02d}{}{}'.format(region, ''.join(map(str, core)), kind_char)
