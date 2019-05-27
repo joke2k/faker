@@ -21,28 +21,6 @@ def checksum_identity_card_number(characters):
     return check_digit
 
 
-def generate_pesel_checksum_value(pesel_digits):
-    """
-    Calculates and returns a control digit for given PESEL.
-    """
-    checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
-
-    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
-
-    return checksum % 10
-
-
-def checksum_pesel_number(pesel_digits):
-    """
-    Calculates and returns True if PESEL is valid.
-    """
-    checksum_values = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1]
-
-    checksum = sum((int(a) * b for a, b in zip(list(pesel_digits), checksum_values)))
-
-    return checksum % 10 == 0
-
-
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
@@ -725,18 +703,41 @@ class Provider(PersonProvider):
 
         return ''.join(str(character) for character in identity)
 
-    def pesel(self):
+    @staticmethod
+    def pesel_compute_check_digit(x):
+        checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
+        return sum(int(a) * b for a, b in zip(list(x), checksum_values)) % 10
+
+    def pesel(self, date_of_birth=None, sex=None):
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
 
         PESEL has 11 digits which identifies just one person.
-        Month: if person was born in 1900-2000, december is 12. If person was born > 2000, we have to add 20 to month,
-        so december is 32.
-        Person id: last digit identifies person's sex. Even for females, odd for males.
+        pesel_date: if person was born in 1900-2000, december is 12. If person was born > 2000, we have to add 20 to
+        month, so december is 32.
+        pesel_sex: last digit identifies person's sex. Even for females, odd for males.
 
         https://en.wikipedia.org/wiki/PESEL
         """
+        if date_of_birth is None:
+            date_of_birth = self.generator.date_of_birth()
+
+        pesel_date = '{year}{month:02d}{day:02d}'.format(
+            year=date_of_birth.year, day=date_of_birth.day,
+            month=date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20)
+        pesel_date = pesel_date[2:]
+
+        pesel_core = ''.join(list(map(str, [self.random_digit() for _ in range(3)])))
+        pesel_sex = self.random_digit()
+
+        if (sex == 'M' and pesel_sex % 2 == 0) or (sex == 'F' and pesel_sex % 2 == 1):
+            pesel_sex = (pesel_sex + 1) % 10
+
+        pesel_core = '{date}{core}{sex}'.format(date=pesel_date, core=pesel_core, sex=pesel_sex)
+        pesel_core_digits = list(map(int, list(pesel_core)))
+
+        return pesel_core + str(self.pesel_compute_check_digit(pesel_core_digits))
 
     @staticmethod
     def pwz_doctor_compute_check_digit(x):

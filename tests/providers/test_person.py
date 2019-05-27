@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 import re
 import unittest
-
+import datetime
 import six
 
 try:
@@ -211,6 +211,24 @@ class TestPlPL(unittest.TestCase):
     def test_identity_card_number(self):
         for _ in range(100):
             assert re.search(r'^[A-Z]{3}\d{6}$', self.factory.identity_card_number())
+
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pesel_birth_date(self, mock_random_digit):
+        mock_random_digit.side_effect = [3, 5, 8, 8, 7, 9, 9, 3]
+        assert self.factory.pesel(datetime.date(1999, 12, 31)) == '99123135885'
+        assert self.factory.pesel(datetime.date(2000,  1,  1)) == '00210179936'
+
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pesel_sex_male(self, mock_random_digit):
+        mock_random_digit.side_effect = [1, 3, 4, 5, 6, 1, 7, 0]
+        assert self.factory.pesel(datetime.date(1909, 3, 3), 'M') == '09030313454'
+        assert self.factory.pesel(datetime.date(1913, 8, 16), 'M') == '13081661718'
+
+    @mock.patch.object(PlPLProvider, 'random_digit')
+    def test_pesel_sex_female(self, mock_random_digit):
+        mock_random_digit.side_effect = [4, 9, 1, 6, 6, 1, 7, 3]
+        assert self.factory.pesel(datetime.date(2007, 4, 13), 'F') == '07241349161'
+        assert self.factory.pesel(datetime.date(1933, 12, 16), 'F') == '33121661744'
 
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pwz_doctor(self, mock_random_digit):
