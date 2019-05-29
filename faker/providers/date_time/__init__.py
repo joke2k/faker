@@ -6,7 +6,6 @@ import re
 
 from calendar import timegm
 from datetime import timedelta, MAXYEAR
-from time import time
 
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc
@@ -1474,7 +1473,7 @@ class Provider(BaseProvider):
     @classmethod
     def _parse_end_datetime(cls, value):
         if value is None:
-            return int(time())
+            return datetime_to_timestamp(datetime.now())
 
         return cls._parse_date_time(value)
 
