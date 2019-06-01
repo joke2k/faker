@@ -704,9 +704,9 @@ class Provider(PersonProvider):
         return ''.join(str(character) for character in identity)
 
     @staticmethod
-    def pesel_compute_check_digit(x):
+    def pesel_compute_check_digit(pesel):
         checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
-        return sum(int(a) * b for a, b in zip(list(x), checksum_values)) % 10
+        return sum(int(a) * b for a, b in zip(pesel, checksum_values)) % 10
 
     def pesel(self, date_of_birth=None, sex=None):
         """
@@ -728,16 +728,16 @@ class Provider(PersonProvider):
             month=date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20)
         pesel_date = pesel_date[2:]
 
-        pesel_core = ''.join(list(map(str, [self.random_digit() for _ in range(3)])))
+        pesel_core = ''.join(map(str, (self.random_digit() for _ in range(3))))
         pesel_sex = self.random_digit()
 
         if (sex == 'M' and pesel_sex % 2 == 0) or (sex == 'F' and pesel_sex % 2 == 1):
             pesel_sex = (pesel_sex + 1) % 10
 
-        pesel_core = '{date}{core}{sex}'.format(date=pesel_date, core=pesel_core, sex=pesel_sex)
-        pesel_core_digits = list(map(int, list(pesel_core)))
+        pesel = '{date}{core}{sex}'.format(date=pesel_date, core=pesel_core, sex=pesel_sex)
+        pesel += str(self.pesel_compute_check_digit(pesel))
 
-        return pesel_core + str(self.pesel_compute_check_digit(pesel_core_digits))
+        return pesel
 
     @staticmethod
     def pwz_doctor_compute_check_digit(x):
@@ -761,7 +761,7 @@ class Provider(PersonProvider):
 
     def pwz_nurse(self, kind='nurse'):
         """
-        Function generates an identification number for nurses and midwifes
+        Function generates an identification number for nurses and midwives
         Polish: Prawo Wykonywania Zawodu (PWZ)
 
         http://arch.nipip.pl/index.php/prawo/uchwaly/naczelnych-rad/w-roku-2015/posiedzenie-15-17-grudnia/3664-uchwala-
