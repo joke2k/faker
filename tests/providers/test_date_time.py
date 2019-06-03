@@ -3,10 +3,13 @@ from __future__ import unicode_literals
 
 from datetime import date, datetime, timedelta, tzinfo
 from datetime import time as datetime_time
-import time
-import unittest
+import os
+import platform
+import pytest
 import random
 import sys
+import time
+import unittest
 
 import six
 
@@ -16,10 +19,6 @@ from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
-
-import pytest
-import os
-import platform
 
 
 def is64bit():
