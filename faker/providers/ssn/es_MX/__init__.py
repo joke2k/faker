@@ -7,6 +7,98 @@ import string
 from .. import Provider as BaseProvider
 
 
+ALPHABET = string.ascii_uppercase
+VOWELS = "AEIOU"
+CONSONANTS = [
+    letter
+    for letter in ALPHABET
+    if letter not in VOWELS
+]
+
+# https://es.wikipedia.org/wiki/Plantilla:Abreviaciones_de_los_estados_de_M%C3%A9xico
+STATES_RENAPO = [
+    "AS",
+    "BC",
+    "BS",
+    "CC",
+    "CS",
+    "CH",
+    "DF",
+    "CL",
+    "CM",
+    "DG",
+    "GT",
+    "GR",
+    "HG",
+    "JC",
+    "MC",
+    "MN",
+    "MS",
+    "NT",
+    "NL",
+    "OC",
+    "PL",
+    "QO",
+    "QR",
+    "SP",
+    "SL",
+    "SR",
+    "TC",
+    "TS",
+    "TL",
+    "VZ",
+    "YN",
+    "ZS",
+    "NE",  # Foreign Born
+]
+
+FORBIDDEN_WORDS = {
+    "BUEI": "BUEX",
+    "BUEY": "BUEX",
+    "CACA": "CACX",
+    "CACO": "CACX",
+    "CAGA": "CAGX",
+    "CAGO": "CAGX",
+    "CAKA": "CAKX",
+    "CAKO": "CAKX",
+    "COGE": "COGX",
+    "COJA": "COJX",
+    "COJE": "COJX",
+    "COJI": "COJX",
+    "COJO": "COJX",
+    "CULO": "CULX",
+    "FETO": "FETX",
+    "GUEY": "GUEX",
+    "JOTO": "JOTX",
+    "KACA": "KACX",
+    "KACO": "KACX",
+    "KAGA": "KAGX",
+    "KAGO": "KAGX",
+    "KOGE": "KOGX",
+    "KOJO": "KOJX",
+    "KAKA": "KAKX",
+    "KULO": "KULX",
+    "MAME": "MAMX",
+    "MAMO": "MAMX",
+    "MEAR": "MEAX",
+    "MEAS": "MEAX",
+    "MEON": "MEOX",
+    "MION": "MIOX",
+    "MOCO": "MOCX",
+    "MULA": "MULX",
+    "PEDA": "PEDX",
+    "PEDO": "PEDX",
+    "PENE": "PENX",
+    "PUTA": "PUTX",
+    "PUTO": "PUTX",
+    "QULO": "QULX",
+    "RATA": "RATX",
+    "RUIN": "RUIN",
+}
+
+CURP_CHARACTERS = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+
+
 def _reduce_digits(n):
     """
     Sum of digits of a number until sum becomes single digit.
@@ -29,6 +121,17 @@ def ssn_checksum(digits):
     return -sum(
         _reduce_digits(n * (i % 2 + 1))
         for i, n in enumerate(digits)
+    ) % 10
+
+
+def curp_checksum(characters):
+    """
+    Calculate the checksum for the mexican CURP.
+    """
+    start = 18
+    return -sum(
+        (start - i) * CURP_CHARACTERS.index(n)
+        for i, n in enumerate(characters)
     ) % 10
 
 
@@ -60,3 +163,49 @@ class Provider(BaseProvider):
         num += str(check)
 
         return num
+
+    def curp(self):
+        """
+        See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n
+
+        :return: a random Mexican CURP (Unique Population Registry Code)
+        """
+        birthday = self.generator.date_of_birth()
+
+        first_surname = random.choice(ALPHABET) + random.choice(VOWELS)
+        second_surname = random.choice(ALPHABET)
+        given_name = random.choice(ALPHABET)
+        name_initials = first_surname + second_surname + given_name
+
+        birth_date = birthday.strftime("%y%m%d")
+        gender = random.choice("HM")
+        state = random.choice(STATES_RENAPO)
+        first_surname_inside = random.choice(CONSONANTS)
+        second_surname_inside = random.choice(CONSONANTS)
+        given_name_inside = random.choice(ALPHABET)
+
+        # This character is assigned to avoid duplicity
+        # It's normally '0' for those born < 2000
+        # and 'A' for those botn >= 2000
+        assigned_character = "0" if birthday.year < 2000 else "A"
+
+        if name_initials in FORBIDDEN_WORDS:
+            name_initials = FORBIDDEN_WORDS[name_initials]
+
+        random_curp = (
+            name_initials +
+            birth_date +
+            gender +
+            state +
+            first_surname_inside +
+            second_surname_inside +
+            given_name_inside +
+            assigned_character
+        )
+
+        # control_digit = str(self.random_digit())
+        control_digit = curp_checksum(random_curp)
+
+        random_curp += str(control_digit)
+
+        return random_curp
