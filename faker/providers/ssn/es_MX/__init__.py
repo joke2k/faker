@@ -8,6 +8,7 @@ from .. import Provider as BaseProvider
 
 
 ALPHABET = string.ascii_uppercase
+ALPHANUMERIC = string.digits + ALPHABET
 VOWELS = "AEIOU"
 CONSONANTS = [
     letter
@@ -209,3 +210,41 @@ class Provider(BaseProvider):
         random_curp += str(control_digit)
 
         return random_curp
+
+    def rfc(self, natural=True):
+        """
+        See https://es.wikipedia.org/wiki/Registro_Federal_de_Contribuyentes
+
+        :param natural: Whether to return the RFC of a natural person.
+            Otherwise return the RFC of a legal person.
+        :type natural: bool
+        :return: a random Mexican RFC
+        """
+        birthday = self.generator.date_of_birth()
+
+        if natural:
+            first_surname = random.choice(ALPHABET) + random.choice(VOWELS)
+            second_surname = random.choice(ALPHABET)
+            given_name = random.choice(ALPHABET)
+            name_initials = first_surname + second_surname + given_name
+        else:
+            name_initials = (
+                self.random_uppercase_letter() +
+                self.random_uppercase_letter() +
+                self.random_uppercase_letter()
+            )
+
+        birth_date = birthday.strftime("%y%m%d")
+        disambiguation_code = (
+            random.choice(ALPHANUMERIC) +
+            random.choice(ALPHANUMERIC) +
+            random.choice(ALPHANUMERIC)
+        )
+
+        random_rfc = (
+            name_initials +
+            birth_date +
+            disambiguation_code
+        )
+
+        return random_rfc

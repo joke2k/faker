@@ -412,6 +412,20 @@ class TestEsMX(unittest.TestCase):
             assert re.search(r'^[A-Z]{4}\d{6}[A-Z]{6}[0A]\d$', curp)
             assert mx_curp_checksum(curp[:-1]) == int(curp[-1])
 
+    def test_rfc_natural(self):
+        for _ in range(100):
+            rfc = self.factory.rfc()
+
+            assert len(rfc) == 13
+            assert re.search(r'^[A-Z]{4}\d{6}[0-9A-Z]{3}$', rfc)
+
+    def test_rfc_legal(self):
+        for _ in range(100):
+            rfc = self.factory.rfc(natural=False)
+
+            assert len(rfc) == 12
+            assert re.search(r'^[A-Z]{3}\d{6}[0-9A-Z]{3}$', rfc)
+
 
 class TestEtEE(unittest.TestCase):
     """ Tests SSN in the et_EE locale """
