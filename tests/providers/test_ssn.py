@@ -19,6 +19,7 @@ from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 
 
 class TestBgBG(unittest.TestCase):
@@ -388,6 +389,19 @@ class TestEsES(unittest.TestCase):
 class TestEsCA(TestEsES):
     def setUp(self):
         self.factory = Faker('es_CA')
+
+
+class TestEsMX(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('es_MX')
+
+    def test_ssn(self):
+        for _ in range(100):
+            ssn = self.factory.ssn()
+
+            assert len(ssn) == 11
+            assert ssn.isnumeric()
+            assert mx_ssn_checksum(map(int, ssn[:-1])) == int(ssn[-1])
 
 
 class TestEtEE(unittest.TestCase):
