@@ -195,7 +195,7 @@ class Provider(BaseProvider):
 
         # This character is assigned to avoid duplicity
         # It's normally '0' for those born < 2000
-        # and 'A' for those botn >= 2000
+        # and 'A' for those born >= 2000
         assigned_character = "0" if birthday.year < 2000 else "A"
 
         name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
