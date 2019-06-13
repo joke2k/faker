@@ -1,4 +1,12 @@
 # coding=utf-8
+"""
+SSN provider for es_MX.
+
+This module adds a provider for mexican SSN, along with Unique Population
+Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
+"""
+
+
 from __future__ import unicode_literals
 
 import random
@@ -100,19 +108,19 @@ FORBIDDEN_WORDS = {
 CURP_CHARACTERS = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
 
 
-def _reduce_digits(n):
+def _reduce_digits(number):
     """
     Sum of digits of a number until sum becomes single digit.
 
     Example:
         658 => 6 + 5 + 8 = 19 => 1 + 9 = 10 => 1
     """
-    if n == 0:
+    if number == 0:
         return 0
-    if n % 9 == 0:
+    if number % 9 == 0:
         return 9
-    else:
-        return n % 9
+
+    return number % 9
 
 
 def ssn_checksum(digits):
@@ -167,7 +175,7 @@ class Provider(BaseProvider):
 
     def curp(self):
         """
-        See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n
+        See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n.
 
         :return: a random Mexican CURP (Unique Population Registry Code)
         """
@@ -190,8 +198,7 @@ class Provider(BaseProvider):
         # and 'A' for those botn >= 2000
         assigned_character = "0" if birthday.year < 2000 else "A"
 
-        if name_initials in FORBIDDEN_WORDS:
-            name_initials = FORBIDDEN_WORDS[name_initials]
+        name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
 
         random_curp = (
             name_initials +
@@ -204,10 +211,7 @@ class Provider(BaseProvider):
             assigned_character
         )
 
-        # control_digit = str(self.random_digit())
-        control_digit = curp_checksum(random_curp)
-
-        random_curp += str(control_digit)
+        random_curp += str(curp_checksum(random_curp))
 
         return random_curp
 
