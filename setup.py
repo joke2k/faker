@@ -74,8 +74,10 @@ setup(
         "mock ; python_version < '3.3'",
         "pytest>=3.8.0,<3.9",
         "more-itertools<6.0.0 ; python_version < '3.0'",
-        "random2==1.0.1",
-        "freezegun==0.3.11",
+        # restricted because they may drop python2 support in future versions
+        # https://github.com/joke2k/faker/issues/970
+        "random2<1.1",
+        "freezegun<0.4",
     ],
     extras_require={
         ':python_version<"3.3"': [
