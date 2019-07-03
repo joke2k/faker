@@ -53,6 +53,7 @@ class Provider(AddressProvider):
         'Passarela',
         'Pátio',
         'Praça',
+        'Praia',
         'Quadra',
         'Recanto',
         'Residencial',
