@@ -44,4 +44,5 @@ test_script:
   - "%PYTHON%/Scripts/pip.exe --version"
   - "%PYTHON%/Scripts/pip.exe freeze"
   - "%PYTHON%/python.exe --version"
+  - "%PYTHON%/Scripts/pip.exe install \"importlib-metadata>=0.12\""
   - "%PYTHON%/python.exe setup.py test"
