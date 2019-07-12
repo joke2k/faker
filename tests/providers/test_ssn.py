@@ -19,6 +19,8 @@ from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
 from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.providers.ssn.es_MX import (ssn_checksum as mx_ssn_checksum,
+                                       curp_checksum as mx_curp_checksum)
 
 
 class TestBgBG(unittest.TestCase):
@@ -388,6 +390,41 @@ class TestEsES(unittest.TestCase):
 class TestEsCA(TestEsES):
     def setUp(self):
         self.factory = Faker('es_CA')
+
+
+class TestEsMX(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('es_MX')
+
+    def test_ssn(self):
+        for _ in range(100):
+            ssn = self.factory.ssn()
+
+            assert len(ssn) == 11
+            assert ssn.isnumeric()
+            assert mx_ssn_checksum(map(int, ssn[:-1])) == int(ssn[-1])
+
+    def test_curp(self):
+        for _ in range(100):
+            curp = self.factory.curp()
+
+            assert len(curp) == 18
+            assert re.search(r'^[A-Z]{4}\d{6}[A-Z]{6}[0A]\d$', curp)
+            assert mx_curp_checksum(curp[:-1]) == int(curp[-1])
+
+    def test_rfc_natural(self):
+        for _ in range(100):
+            rfc = self.factory.rfc()
+
+            assert len(rfc) == 13
+            assert re.search(r'^[A-Z]{4}\d{6}[0-9A-Z]{3}$', rfc)
+
+    def test_rfc_legal(self):
+        for _ in range(100):
+            rfc = self.factory.rfc(natural=False)
+
+            assert len(rfc) == 12
+            assert re.search(r'^[A-Z]{3}\d{6}[0-9A-Z]{3}$', rfc)
 
 
 class TestEtEE(unittest.TestCase):
