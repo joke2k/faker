@@ -3,10 +3,13 @@ from __future__ import unicode_literals
 
 from datetime import date, datetime, timedelta, tzinfo
 from datetime import time as datetime_time
-import time
-import unittest
+import os
+import platform
+import pytest
 import random
 import sys
+import time
+import unittest
 
 import six
 
@@ -16,8 +19,6 @@ from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
-
-import pytest
 
 
 def is64bit():
@@ -448,7 +449,7 @@ class TestDateTime(unittest.TestCase):
         from faker.providers.date_time import datetime_to_timestamp
 
         for _ in range(100):
-            now = datetime.now(utc).replace(microsecond=0)
+            now = datetime.now().replace(microsecond=0)
             epoch_start = datetime(1970, 1, 1, tzinfo=utc)
 
             # Ensure doubly-constrained unix_times are generated correctly
@@ -489,6 +490,14 @@ class TestDateTime(unittest.TestCase):
 
             self.assertIsInstance(constrained_unix_time, int)
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
+
+            # Ensure it does not throw error with startdate='now' for machines with negative offset
+            if platform.system() != 'Windows':
+                os.environ['TZ'] = 'Europe/Paris'
+                time.tzset()
+            self.factory.unix_time(start_datetime='now')
+            if platform.system() != 'Windows':
+                del os.environ['TZ']
 
 
 class TestPlPL(unittest.TestCase):
