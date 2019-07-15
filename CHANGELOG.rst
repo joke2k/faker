@@ -1,7 +1,11 @@
 Changelog
 =========
 
-`1.0.8 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.8...v1.0.8>`__
+`2.0.0 - 15-July-2019 <https://github.com/joke2k/faker/compare/v2.0.0...v1.0.8>`__
+----------------------------------------------------------------------------------
+* Breaking change: Only allow providers to use ``OrderedDict`` s, to avoid any more ``PYTHONHASHSEED`` problems. Thanks @adamchainz.
+
+`1.0.8 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.7...v1.0.8>`__
 ----------------------------------------------------------------------------------
 
 * Rename ``pyint`` ``min`` and ``max`` to ``min_value`` and ``max_value``. Thanks @francoisfreitag.
