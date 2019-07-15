@@ -6,6 +6,8 @@ import re
 import unittest
 import string
 import sys
+
+from collections import OrderedDict
 from ipaddress import ip_address, ip_network
 
 import six
@@ -218,13 +220,17 @@ class FactoryTestCase(unittest.TestCase):
         pick = provider.random_element(choices)
         assert pick in choices
 
-        choices = {'a': 5, 'b': 2, 'c': 2, 'd': 1}
-        pick = provider.random_element(choices)
-        assert pick in choices
+        # dicts not allowed because they introduce dependency on PYTHONHASHSEED
+        with self.assertRaises(ValueError):
+            provider.random_element({})
 
-        choices = {'a': 0.5, 'b': 0.2, 'c': 0.2, 'd': 0.1}
+        choices = OrderedDict([('a', 5), ('b', 2), ('c', 2), ('d', 1)])
         pick = provider.random_element(choices)
-        assert pick in choices
+        self.assertTrue(pick in choices)
+
+        choices = OrderedDict([('a', 0.5), ('b', 0.2), ('c', 0.2), ('d', 0.1)])
+        pick = provider.random_element(choices)
+        self.assertTrue(pick in choices)
 
     def test_binary(self):
         from faker.providers.misc import Provider
