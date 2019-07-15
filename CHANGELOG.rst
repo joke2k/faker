@@ -1,6 +1,19 @@
 Changelog
 =========
 
+`1.0.8 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.8...v1.0.8>`__
+----------------------------------------------------------------------------------
+
+* Rename ``pyint`` ``min`` and ``max`` to ``min_value`` and ``max_value``. Thanks @francoisfreitag.
+* Remove some validations from Faker and delegate it to an external library, ``validators``. Thanks @kingbuzzman.
+* Add an "Invalid SSN" generator to the ``en_US`` SSN Provider. Thanks @darrylwhiting.
+* Include "Praia" as street_prefix in ``pr_BR`` address Provider. Thanks @G5Olivieri.
+* Loosen version restrictions on ``freezegun`` and ``random2``. Thanks @timokau.
+* Add SSN provider for ``es_MX``. Thanks @mrfunnyshoes.
+* Add ``pwz`` generator for ``pl_PL``. Thanks @torm89.
+* Add ``date_of_birth`` and ``sex`` argument to ``pesel`` Provider (`pl_PL`). Thanks @torm89.
+* Fix datetime parsing on environments with negative offsets. Thanks @bluesheeptoken.
+
 `1.0.7 - 14-May-2019 <https://github.com/joke2k/faker/compare/v1.0.6...v1.0.7>`__
 ---------------------------------------------------------------------------------
 
