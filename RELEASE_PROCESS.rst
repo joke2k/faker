@@ -2,7 +2,6 @@ Release Process
 ---------------
 
 1. Compile entries in ``CHANGELOG.rst``. Each entry should:
-
   * Be in the past tense  (eg "Fix datetime on Windows")
   * End with acknowledging the PR author(s): "Thanks @<github username>."
 
