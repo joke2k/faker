@@ -123,7 +123,7 @@ class Provider(AddressProvider):
         'Évora', 'Faro', 'Guarda', 'Leiria', 'Lisboa', 'Portalegre', 'Porto',
         'Santarém', 'Setúbal', 'Viana do Castelo', 'Vila Real', 'Viseu',
     )
-    
+
     # From https://pt.wikipedia.org/wiki/Lista_de_concelhos_por_NUTS,_distritos_e_ilhas
     concelhos = (
         "Águeda", "Aguiar da Beira", "Alandroal", "Albergaria-a-Velha", "Albufeira",
@@ -191,7 +191,7 @@ class Provider(AddressProvider):
         "Vila Nova de Gaia", "Vila Nova de Paiva", "Vila Nova de Poiares",
         "Vila Pouca de Aguiar", "Vila Real", "Vila Real de Santo António",
         "Vila Velha de Ródão", "Vila Verde", "Vila Viçosa", "Vimioso",
-        "Vinhais", "Viseu", "Vizela", "Vouzela"
+        "Vinhais", "Viseu", "Vizela", "Vouzela",
     )
 
     # From https://pt.wikipedia.org/wiki/Lista_de_freguesias_de_Portugal
@@ -285,7 +285,7 @@ class Provider(AddressProvider):
         :example 'Bragança'
         """
         return self.random_element(self.distritos)
-    
+
     def concelho(self):
         """
         :example 'Tondela'

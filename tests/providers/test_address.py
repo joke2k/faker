@@ -938,4 +938,3 @@ class TestPtPT(unittest.TestCase):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)
         assert freguesia in PtPtProvider.freguesias
-
