@@ -5,8 +5,10 @@ from __future__ import unicode_literals
 import re
 import unittest
 from decimal import Decimal
+from six import string_types
 
 from faker import Faker
+from faker.providers.geo.pt_PT import Provider as PtPtProvider
 
 
 class TestGlobal(unittest.TestCase):
@@ -93,3 +95,14 @@ class TestDeAT(unittest.TestCase):
     def test_local_longitude(self):
         local_longitude = self.factory.local_longitude()
         assert re.match(r"1[1-5]\.\d+", str(local_longitude))
+
+
+class TestPtPT(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('pt_PT')
+
+    def test_nationality(self):
+        nationality = self.factory.nationality()
+        assert isinstance(nationality, string_types)
+        assert nationality in PtPtProvider.nationalities
