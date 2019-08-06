@@ -63,6 +63,11 @@ class Provider(BaseProvider):
                          self.generator.random.randint(version_from, version_to),
                          self.generator.random.randint(build_from, build_to),
                          saf),
+            tmplt.format('Linux; {0}'.format(self.android_platform_token()),
+                         saf,
+                         self.generator.random.randint(version_from, version_to),
+                         self.generator.random.randint(build_from, build_to),
+                         saf),
         )
 
         return 'Mozilla/5.0 ' + self.random_element(platforms)
