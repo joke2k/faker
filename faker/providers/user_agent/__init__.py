@@ -2,10 +2,10 @@
 
 from __future__ import unicode_literals
 
+import string
 from datetime import datetime
 
 from .. import BaseProvider
-import string
 
 
 class Provider(BaseProvider):
@@ -108,6 +108,11 @@ class Provider(BaseProvider):
         tmplt_lin = '({0}; rv:1.9.{1}.20) {2}'
         tmplt_mac = '({0}; rv:1.9.{1}.20) {2}'
         tmplt_and = '({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0'
+        tmplt_ios = '({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}'
+        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
+                               self.generator.random.randint(0, 2))
+        bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
+        bld2 = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
         platforms = (
             tmplt_win.format(self.windows_platform_token(),
                              self.generator.locale().replace('_', '-'),
@@ -121,6 +126,11 @@ class Provider(BaseProvider):
                              self.generator.random.choice(ver)),
             tmplt_and.format(self.android_platform_token(),
                              self.generator.random.randint(5, 68)),
+            tmplt_ios.format(self.ios_platform_token(),
+                             saf,
+                             self.generator.random.randint(9, 18),
+                             bld2,
+                             bld),
         )
 
         return 'Mozilla/5.0 ' + self.random_element(platforms)
@@ -209,5 +219,5 @@ class Provider(BaseProvider):
     def ios_platform_token(self):
         return '{0}; CPU {0} OS {1} like Mac OS X'.format(
             self.random_element(self.apple_devices),
-            self.random_element(self.ios_versions).replace('.', '_')
+            self.random_element(self.ios_versions).replace('.', '_'),
         )
