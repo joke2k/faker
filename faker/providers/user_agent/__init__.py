@@ -50,8 +50,8 @@ class Provider(BaseProvider):
 
     def chrome(self, version_from=13, version_to=63,
                build_from=800, build_to=899):
-        saf = str(self.generator.random.randint(531, 536)) +  \
-            str(self.generator.random.randint(0, 2))
+        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
+                               self.generator.random.randint(0, 2))
         bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
         tmplt = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                 ' Chrome/{2}.0.{3}.0 Safari/{4}'
