@@ -23,6 +23,14 @@ class Provider(BaseProvider):
 
     mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
 
+    android_versions = (
+        '1.0', '1.1', '1.5', '1.6', '2.0', '2.0.1', '2.1', '2.2', '2.2.1', '2.2.2', '2.2.3', '2.3', '2.3.1', '2.3.2',
+        '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '3.0', '3.1', '3.2', '3.2.1', '3.2.2', '3.2.3', '3.2.4', '3.2.5',
+        '3.2.6', '4.0', '4.0.1', '4.0.2', '4.0.3', '4.0.4', '4.1', '4.1.1', '4.1.2', '4.2', '4.2.1', '4.2.2', '4.3',
+        '4.3.1', '4.4', '4.4.1', '4.4.2', '4.4.3', '4.4.4', '5.0', '5.0.1', '5.0.2', '5.1', '5.1.1', '6.0', '6.0.1',
+        '7.0', '7.1', '7.1.1', '7.1.2', '8.0.0', '8.1.0', '9',
+    )
+
     def mac_processor(self):
         return self.random_element(self.mac_processors)
 
@@ -79,6 +87,7 @@ class Provider(BaseProvider):
         tmplt_win = '({0}; {1}; rv:1.9.{2}.20) {3}'
         tmplt_lin = '({0}; rv:1.9.{1}.20) {2}'
         tmplt_mac = '({0}; rv:1.9.{1}.20) {2}'
+        tmplt_and = '({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0'
         platforms = (
             tmplt_win.format(self.windows_platform_token(),
                              self.generator.locale().replace('_', '-'),
@@ -90,6 +99,8 @@ class Provider(BaseProvider):
             tmplt_mac.format(self.mac_platform_token(),
                              self.generator.random.randint(2, 6),
                              self.generator.random.choice(ver)),
+            tmplt_and.format(self.android_platform_token(),
+                             self.generator.random.randint(5, 68)),
         )
 
         return 'Mozilla/5.0 ' + self.random_element(platforms)
@@ -171,3 +182,6 @@ class Provider(BaseProvider):
             self.generator.random.randint(5, 12),
             self.generator.random.randint(0, 9),
         )
+
+    def android_platform_token(self):
+        return 'Android {0}'.format(self.random_element(self.android_versions))
