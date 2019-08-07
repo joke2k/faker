@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+import string
 from datetime import datetime
 
 from .. import BaseProvider
@@ -23,6 +24,20 @@ class Provider(BaseProvider):
 
     mac_processors = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
 
+    android_versions = (
+        '1.0', '1.1', '1.5', '1.6', '2.0', '2.0.1', '2.1', '2.2', '2.2.1', '2.2.2', '2.2.3', '2.3', '2.3.1', '2.3.2',
+        '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '3.0', '3.1', '3.2', '3.2.1', '3.2.2', '3.2.3', '3.2.4', '3.2.5',
+        '3.2.6', '4.0', '4.0.1', '4.0.2', '4.0.3', '4.0.4', '4.1', '4.1.1', '4.1.2', '4.2', '4.2.1', '4.2.2', '4.3',
+        '4.3.1', '4.4', '4.4.1', '4.4.2', '4.4.3', '4.4.4', '5.0', '5.0.1', '5.0.2', '5.1', '5.1.1', '6.0', '6.0.1',
+        '7.0', '7.1', '7.1.1', '7.1.2', '8.0.0', '8.1.0', '9',
+    )
+
+    apple_devices = ('iPhone', 'iPad')
+
+    ios_versions = (
+        '3.1.3', '4.2.1', '5.1.1', '6.1.6', '7.1.2', '9.3.5', '9.3.6', '10.3.3', '10.3.4', '12.4',
+    )
+
     def mac_processor(self):
         return self.random_element(self.mac_processors)
 
@@ -35,10 +50,13 @@ class Provider(BaseProvider):
 
     def chrome(self, version_from=13, version_to=63,
                build_from=800, build_to=899):
-        saf = str(self.generator.random.randint(531, 536)) + \
-            str(self.generator.random.randint(0, 2))
+        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
+                               self.generator.random.randint(0, 2))
+        bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
         tmplt = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                 ' Chrome/{2}.0.{3}.0 Safari/{4}'
+        tmplt_ios = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
+                    ' CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}'
         platforms = (
             tmplt.format(self.linux_platform_token(),
                          saf,
@@ -55,6 +73,16 @@ class Provider(BaseProvider):
                          self.generator.random.randint(version_from, version_to),
                          self.generator.random.randint(build_from, build_to),
                          saf),
+            tmplt.format('Linux; {0}'.format(self.android_platform_token()),
+                         saf,
+                         self.generator.random.randint(version_from, version_to),
+                         self.generator.random.randint(build_from, build_to),
+                         saf),
+            tmplt_ios.format(self.ios_platform_token(),
+                             saf,
+                             self.generator.random.randint(version_from, version_to),
+                             self.generator.random.randint(build_from, build_to),
+                             bld),
         )
 
         return 'Mozilla/5.0 ' + self.random_element(platforms)
@@ -79,6 +107,12 @@ class Provider(BaseProvider):
         tmplt_win = '({0}; {1}; rv:1.9.{2}.20) {3}'
         tmplt_lin = '({0}; rv:1.9.{1}.20) {2}'
         tmplt_mac = '({0}; rv:1.9.{1}.20) {2}'
+        tmplt_and = '({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0'
+        tmplt_ios = '({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}'
+        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
+                               self.generator.random.randint(0, 2))
+        bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
+        bld2 = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
         platforms = (
             tmplt_win.format(self.windows_platform_token(),
                              self.generator.locale().replace('_', '-'),
@@ -90,6 +124,13 @@ class Provider(BaseProvider):
             tmplt_mac.format(self.mac_platform_token(),
                              self.generator.random.randint(2, 6),
                              self.generator.random.choice(ver)),
+            tmplt_and.format(self.android_platform_token(),
+                             self.generator.random.randint(5, 68)),
+            tmplt_ios.format(self.ios_platform_token(),
+                             saf,
+                             self.generator.random.randint(9, 18),
+                             bld2,
+                             bld),
         )
 
         return 'Mozilla/5.0 ' + self.random_element(platforms)
@@ -170,4 +211,13 @@ class Provider(BaseProvider):
             self.random_element(self.mac_processors),
             self.generator.random.randint(5, 12),
             self.generator.random.randint(0, 9),
+        )
+
+    def android_platform_token(self):
+        return 'Android {0}'.format(self.random_element(self.android_versions))
+
+    def ios_platform_token(self):
+        return '{0}; CPU {0} OS {1} like Mac OS X'.format(
+            self.random_element(self.apple_devices),
+            self.random_element(self.ios_versions).replace('.', '_'),
         )
