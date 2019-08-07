@@ -1,21 +1,17 @@
 # coding=utf-8
 
-from __future__ import unicode_literals
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
-import os
-import sys
 import argparse
-
+import logging
+import os
 import random
+import sys
+
 import six
 
-from faker import Faker, documentor
-from faker import VERSION
+from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
-
-import logging
-
 
 __author__ = 'joke2k'
 

@@ -1,4 +1,5 @@
 import unittest
+
 from faker import Generator
 
 try:

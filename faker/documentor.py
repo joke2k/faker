@@ -4,9 +4,9 @@ from __future__ import unicode_literals
 
 import inspect
 
-from .compat import getargspec
-
 from faker import utils
+
+from .compat import getargspec
 
 
 class Documentor(object):

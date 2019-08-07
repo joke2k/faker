@@ -3,19 +3,19 @@
 from __future__ import unicode_literals
 
 import re
-import unittest
 import string
 import sys
+import unittest
 
 from collections import OrderedDict
 from ipaddress import ip_address, ip_network
 
-import six
 import pytest
+import six
 
-from faker import Generator, Faker
+from faker import Faker, Generator
 from faker.generator import random
-from faker.utils import text, decorators
+from faker.utils import decorators, text
 
 
 class BarProvider(object):

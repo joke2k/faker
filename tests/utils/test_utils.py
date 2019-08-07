@@ -1,14 +1,14 @@
-from faker.utils.loading import find_available_locales
-from faker.utils.distribution import choices_distribution, choices_distribution_unique
-from faker.utils.datasets import add_dicts
-from faker.config import PROVIDERS
-from faker.generator import random
-from faker.utils.loading import find_available_providers
-from faker.config import META_PROVIDERS_MODULES
-from importlib import import_module
-import unittest
 import json
 import os
+import unittest
+
+from importlib import import_module
+
+from faker.config import META_PROVIDERS_MODULES, PROVIDERS
+from faker.generator import random
+from faker.utils.datasets import add_dicts
+from faker.utils.distribution import choices_distribution, choices_distribution_unique
+from faker.utils.loading import find_available_locales, find_available_providers
 
 TEST_DIR = os.path.dirname(__file__)
 

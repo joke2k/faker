@@ -1,8 +1,9 @@
 # coding=utf-8
 
+import operator
+
 from collections import Counter
 from functools import reduce
-import operator
 
 
 def add_dicts(*args):

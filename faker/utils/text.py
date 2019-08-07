@@ -1,10 +1,9 @@
 # coding=utf-8
 
 import re
-
-import six
 import unicodedata
 
+import six
 
 _re_pattern = re.compile(r'[^\w\s-]', flags=re.U)
 _re_pattern_allow_dots = re.compile(r'[^\.\w\s-]', flags=re.U)

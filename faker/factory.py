@@ -1,18 +1,16 @@
 # coding=utf-8
 
-from __future__ import unicode_literals
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
-from importlib import import_module
 import locale as pylocale
-
 import logging
 import sys
 
-from faker import Generator
-from faker.config import DEFAULT_LOCALE, PROVIDERS, AVAILABLE_LOCALES
-from faker.utils.loading import list_module
+from importlib import import_module
 
+from faker import Generator
+from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
+from faker.utils.loading import list_module
 
 logger = logging.getLogger(__name__)
 

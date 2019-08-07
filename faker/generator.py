@@ -2,8 +2,8 @@
 
 from __future__ import unicode_literals
 
-import re
 import random as random_module
+import re
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
 random = random_module.Random()

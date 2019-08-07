@@ -1,14 +1,12 @@
 # coding=utf-8
 
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
 import os
 import pprint
 import sys
 
 import six
-
 
 DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
 
