@@ -1,6 +1,13 @@
 Changelog
 =========
 
+`2.0.1 - 20-August-2019 <https://github.com/joke2k/faker/compare/v2.0.1...v2.0.0>`__
+------------------------------------------------------------------------------------
+
+* Add nationalities for locale ``pt_PT``. Thanks @tng10.
+* Add ``ios()`` and ``android()`` to ``user_agent`` provider. Thanks @gsilvan.
+* Update ``zh_CN`` provinces. Thanks @casen27.
+
 `2.0.0 - 15-July-2019 <https://github.com/joke2k/faker/compare/v2.0.0...v1.0.8>`__
 ----------------------------------------------------------------------------------
 * Breaking change: Only allow providers to use ``OrderedDict`` s, to avoid any more ``PYTHONHASHSEED`` problems. Thanks @adamchainz.
