@@ -17,6 +17,34 @@ from faker.providers.company.pl_PL import (
 from faker.providers.company.nl_NL import Provider as NlProvider
 
 
+class TestCompany(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('en_US')
+
+    def test_company(self):
+        company = self.factory.company()
+        assert isinstance(company, six.string_types)
+
+    def test_companies(self):
+        num_of_companies = 5
+        companies = self.factory.companies(nb=num_of_companies)
+        self.assertTrue(isinstance(companies, list))
+        self.assertEqual(len(companies), num_of_companies)
+
+    def test_unique_companies(self):
+        num_of_companies = 10
+        companies = self.factory.companies(nb=num_of_companies, unique=True)
+        self.assertTrue(isinstance(companies, list))
+        self.assertEqual(len(companies), num_of_companies)
+
+        checked_companies = []
+        for company in companies:
+            assert isinstance(company, six.string_types)
+            self.assertTrue(company not in checked_companies)
+            checked_companies.append(company)
+
+
 class TestFiFI(unittest.TestCase):
 
     def setUp(self):
