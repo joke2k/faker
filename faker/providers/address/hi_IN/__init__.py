@@ -114,7 +114,7 @@ class Provider(AddressProvider):
         'दादरा और नगर हवेली',
         'दिल्ली',
         'पांडिचेरी',
-        'लक्षद्वीप'
+        'लक्षद्वीप',
     )
 
     countries = (
@@ -225,7 +225,7 @@ class Provider(AddressProvider):
         'मोरक्को',
         'तुर्की',
         'श्रीलंका',
-        'अफ़ग़ानिस्तान'
+        'अफ़ग़ानिस्तान',
     )
 
     def city_name(self):
