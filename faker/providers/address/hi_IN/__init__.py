@@ -79,7 +79,7 @@ class Provider(AddressProvider):
         'मोतिहारी',
         'लखनऊ',
         'मुंबई',
-        'हैदराबाद'
+        'हैदराबाद',
     )
 
     states = (
