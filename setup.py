@@ -66,7 +66,7 @@ setup(
     install_requires=[
         "python-dateutil>=2.4",
         "six>=1.10",
-        "text-unidecode==1.2",
+        "text-unidecode==1.3",
     ],
     tests_require=[
         "validators>=0.13.0",
