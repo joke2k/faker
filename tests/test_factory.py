@@ -466,6 +466,16 @@ class FactoryTestCase(unittest.TestCase):
         with pytest.raises(ValueError):
             provider.pyfloat(left_digits=0, right_digits=0)
 
+    def test_pyfloat_in_range(self):
+        # tests for https://github.com/joke2k/faker/issues/994
+        factory = Faker()
+
+        factory.seed_instance(5)
+        result = factory.pyfloat(min_value=0, max_value=1)
+
+        assert result >= 0.0
+        assert result <= 1.0
+
     def test_negative_pyfloat(self):
         # tests for https://github.com/joke2k/faker/issues/813
         factory = Faker()

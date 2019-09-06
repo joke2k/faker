@@ -60,7 +60,7 @@ class Provider(BaseProvider):
             if max_value is None:
                 max_value = min_value + self.random_int()
 
-            left_number = self.random_int(min_value, max_value)
+            left_number = self.random_int(min_value, max_value - 1)
         else:
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
