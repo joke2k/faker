@@ -1,25 +1,20 @@
 # coding=utf-8
 from __future__ import unicode_literals
-
 from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    region_formats = ('{{region_name}} {{region_suffix}}', )
-    street_suffixes = ['ул.']
-    region_suffixes = ['край']
+    city_suffixes = ('ск', 'вль', 'град', 'поль', 'ин', 'ов', 'бург', )
+    street_suffixes = ('ул.', 'алл.', 'наб.', 'пр.', 'пер.', 'бул.', 'ш.', )
     city_formats = ('{{city_prefix}} {{city_name}}', )
     street_name_formats = ('{{street_suffix}} {{street_title}}', )
     street_address_formats = ('{{street_name}}, д. {{building_number}}', )
     address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
     postcode_formats = ('######', )
+    building_number_formats = ('###', '##', '#', '#/#')
 
     city_prefixes = (
         'г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.',
-    )
-
-    city_suffixes = (
-        'ск', 'вль', 'град', 'поль', 'ин', 'ов', 'бург',
     )
 
     street_titles = (
@@ -259,9 +254,9 @@ class Provider(AddressProvider):
         'Ясный (Оренб.)', 'Яхрома', 'Яшалта', 'Яшкуль',
     )
 
-    regions = (
-        'Алтайский', 'Забайкальский', 'Камчатский', 'Краснодарский', 'Красноярский',
-        'Пермский', 'Приморский', 'Ставропольский', 'Хабаровский',
+    states = (
+        'Алтайский край', 'Забайкальский край', 'Камчатский край', 'Краснодарский край', 'Красноярский край',
+        'Пермский край', 'Приморский край', 'Ставропольский край', 'Хабаровский край',
     )
 
     countries = (
@@ -308,30 +303,11 @@ class Provider(AddressProvider):
     def city_name(self):
         return self.random_element(self.city_names)
 
-    def street_title(self):
-        return self.random_element(self.street_titles)
-
     def country(self):
         return self.random_element(self.countries)
 
-    def region_name(self):
-        """
-        :example 'Ставропольский'
-        """
-        return self.random_element(self.regions)
-
-    def region_suffix(self):
-        """
-        :example 'край'
-        """
-        return self.random_element(self.region_suffixes)
-
-    def region(self):
-        """
-        :example 'Алтайский край'
-        """
-        pattern = self.random_element(self.region_formats)
-        return self.generator.parse(pattern)
+    def state(self):
+        return self.random_element(self.states)
 
 
 
