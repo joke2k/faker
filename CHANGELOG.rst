@@ -1,6 +1,13 @@
 Changelog
 =========
 
+`2.0.2 - 17-September-2019 <https://github.com/joke2k/faker/compare/v2.0.2...v2.0.1>`__
+---------------------------------------------------------------------------------------
+
+* Fix typos, misspellings. Add locations, names, dates in ``hi_IN`` providers. Thanks @kathawala.
+* Bump required version ``text-unidecode`` to 1.3. Thanks @moggers87.
+* Bug fix for ``pyfloat`` going over ``max_value``. Thanks @fgs-dbudwin.
+
 `2.0.1 - 20-August-2019 <https://github.com/joke2k/faker/compare/v2.0.1...v2.0.0>`__
 ------------------------------------------------------------------------------------
 
