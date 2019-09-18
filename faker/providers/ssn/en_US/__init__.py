@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import random
 from .. import Provider as BaseProvider
 
 
@@ -28,7 +27,7 @@ class Provider(BaseProvider):
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
-        group = random.choice([x for x in range(70, 100) if x not in [89, 93]])
+        group = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
 
         itin = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
         return itin
@@ -134,7 +133,7 @@ class Provider(BaseProvider):
             '98',
             '99']
 
-        ein_prefix = random.choice(ein_prefix_choices)
+        ein_prefix = self.random_element(ein_prefix_choices)
         sequence = self.random_int(min=0, max=9999999)
 
         ein = "{0:s}-{1:07d}".format(ein_prefix, sequence)
@@ -196,7 +195,7 @@ class Provider(BaseProvider):
             group = self.random_int(0, 99)
             serial = self.random_int(0, 9999)
         else:
-            group = random.choice([x for x in range(0, 100) if x not in itin_group_numbers])
+            group = self.random_element([x for x in range(0, 100) if x not in itin_group_numbers])
             serial = self.random_int(0, 9999)
 
         invalid_ssn = "{0:03d}-{1:02d}-{2:04d}".format(area, group, serial)
