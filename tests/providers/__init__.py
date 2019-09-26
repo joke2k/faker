@@ -30,6 +30,9 @@ class BaseProviderTestCase(unittest.TestCase):
 
         assert self.provider.randomize_nb_elements(le=True, ge=True) == 10
 
+        assert self.provider.randomize_nb_elements(min=42) == 42
+        assert self.provider.randomize_nb_elements(max=1) == 1
+
         number = 9999
         random_times = 100
         lower_bound = int(number * 0.6)
