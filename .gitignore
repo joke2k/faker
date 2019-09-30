@@ -50,3 +50,4 @@ nosetests.xml
 *.sw[po]
 *.iml
 *.ipr
+venv/
