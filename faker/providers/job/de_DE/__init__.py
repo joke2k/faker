@@ -13,5 +13,22 @@ class Provider(BaseProvider):
         'Bäcker',
         'Bankkaufmann',
         'Beamter',
-        'Binnenschiffer'
+        'Binnenschiffer',
+        'Chemikant',
+        'Chirurgiemechaniker',
+        'Designer',
+        'Drogist',
+        'Erzieher',
+        'Elektroniker',
+        'Fachinformatiker',
+        'Fleischer',
+        'Florist',
+        'Forstwirst',
+        'Friseur',
+        'Informatiker',
+        'Programmierer',
+        'Techniker',
+        'Mathematiker',
+        'Koreanistiker',
+        'Mechaniker'
     ]
