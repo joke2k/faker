@@ -30,5 +30,13 @@ class Provider(BaseProvider):
         'Techniker',
         'Mathematiker',
         'Koreanistiker',
-        'Mechaniker'
+        'Mechaniker',
+        'Pfleger',
+        'Polizist',
+        'Pilot',
+        'Arzt',
+        'Krankenschwester',
+        'Medizininformatiker',
+        'Schornsteinfeger',
+        'Winzer'
     ]
