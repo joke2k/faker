@@ -55,3 +55,15 @@ class TestHyAm(unittest.TestCase):
     def test_job(self):
         job = self.factory.job()
         assert isinstance(job, six.string_types)
+
+
+
+class TestDeDe(unittest.TestCase):
+    """ Tests jobs in the de_DE locale """
+
+    def setUp(self):
+        self.factory = Faker('de_DE')
+
+    def test_job(self):
+        job = self.factory.job()
+        assert isinstance(job, six.string_types)
