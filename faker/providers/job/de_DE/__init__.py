@@ -38,5 +38,5 @@ class Provider(BaseProvider):
         'Krankenschwester',
         'Medizininformatiker',
         'Schornsteinfeger',
-        'Winzer'
+        'Winzer',
     ]
