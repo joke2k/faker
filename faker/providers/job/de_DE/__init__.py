@@ -4,6 +4,9 @@ from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
+    """
+    Source: http://planet-beruf.de/schuelerinnen/mein-beruf/berufe-von-a-z/
+    """
     jobs = [
         'Altenpfleger',
         'Asphaltbauer',
