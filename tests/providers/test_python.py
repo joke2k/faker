@@ -54,7 +54,7 @@ class TestPyfloat(unittest.TestCase):
 
         result = self.factory.pyfloat(right_digits=expected_right_digits)
 
-        right_digits = len(str(result).split('.')[1])
+        right_digits = len(('%r' % result).split('.')[1])
         self.assertGreaterEqual(expected_right_digits, right_digits)
 
     def test_positive(self):
