@@ -193,6 +193,20 @@ class TestEsES(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('es_ES')
 
+    def test_state_name(self):
+        state_name = self.factory.state_name()
+        assert isinstance(state_name, string_types)
+        assert state_name in EsEsProvider.states
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in EsEsProvider.street_prefixes
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
 class TestFaIR(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
 
