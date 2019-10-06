@@ -15,6 +15,7 @@ from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
+from faker.providers.address.es_ES import Provider as EsEsProvider
 from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
@@ -186,6 +187,11 @@ class TestDeDE(unittest.TestCase):
         city_with_postcode = self.factory.city_with_postcode()
         assert isinstance(city_with_postcode, string_types)
 
+class TestEsES(unittest.TestCase):
+    """ Tests in addresses in the fa_IR locale """
+
+    def setUp(self):
+        self.factory = Faker('es_ES')
 
 class TestFaIR(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
