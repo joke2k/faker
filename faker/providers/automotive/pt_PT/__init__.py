@@ -10,5 +10,5 @@ class Provider(AutomotiveProvider):
     license_formats = (
         '##-##-??',
         '##-??-##',
-        '??-##-##'
+        '??-##-##',
     )
