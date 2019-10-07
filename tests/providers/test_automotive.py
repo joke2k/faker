@@ -19,6 +19,7 @@ class TestPtBR(unittest.TestCase):
         assert isinstance(plate, string_types)
         assert self.format.match(plate), "%s is not in the correct format." % plate
 
+
 class TestPtPT(unittest.TestCase):
 
     def setUp(self):
