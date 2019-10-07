@@ -19,6 +19,15 @@ class TestPtBR(unittest.TestCase):
         assert isinstance(plate, string_types)
         assert self.format.match(plate), "%s is not in the correct format." % plate
 
+class TestPtPT(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('pt_PT')
+
+    def test_pt_PT_plate_format(self):
+        plate = self.factory.license_plate()
+        assert re.match(r'^\d{2}-\d{2}-[aA-zZ]{2}$|^\d{2}-[aA-zZ]{2}-\d{2}$|^[aA-zZ]{2}-\d{2}-\d{2}$', plate), "%s is not in the correct format." % plate
+
 
 class TestHuHU(unittest.TestCase):
 
