@@ -440,6 +440,7 @@ class TestEsES(unittest.TestCase):
         secondary_address = self.factory.secondary_address()
         assert isinstance(secondary_address, string_types)
 
+
 class TestFaIR(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
 
