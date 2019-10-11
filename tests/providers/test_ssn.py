@@ -59,6 +59,19 @@ class TestElCY(unittest.TestCase):
             assert re.search(r'^CY\d{9}\w$', self.factory.vat_id())
 
 
+class TestElGr(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('el_GR')
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^EL\d{9}$', self.factory.vat_id())
+
+    def test_police_id(self):
+        for _ in range(100):
+            assert re.search(r'^[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]{1,2} ?\d{6}$', self.factory.police_id())
+
+
 class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_CA')
