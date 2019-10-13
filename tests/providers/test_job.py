@@ -88,3 +88,25 @@ class TestElGr(unittest.TestCase):
     def test_job(self):
         job = self.factory.job()
         assert isinstance(job, six.string_types)
+
+
+class TestPtPt(unittest.TestCase):
+    """ Tests jobs in the pt_PT locale """
+
+    def setUp(self):
+        self.factory = Faker('pt_PT')
+
+    def test_job(self):
+        job = self.factory.job()
+        assert isinstance(job, six.string_types)
+
+
+class TestPtBR(unittest.TestCase):
+    """ Tests jobs in the pt_BR locale """
+
+    def setUp(self):
+        self.factory = Faker('pt_BR')
+
+    def test_job(self):
+        job = self.factory.job()
+        assert isinstance(job, six.string_types)
