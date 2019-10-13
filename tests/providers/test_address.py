@@ -15,6 +15,7 @@ from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
+from faker.providers.address.es_ES import Provider as EsEsProvider
 from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
@@ -185,114 +186,6 @@ class TestDeDE(unittest.TestCase):
     def test_city_with_postcode(self):
         city_with_postcode = self.factory.city_with_postcode()
         assert isinstance(city_with_postcode, string_types)
-
-
-class TestFaIR(unittest.TestCase):
-    """ Tests in addresses in the fa_IR locale """
-
-    def setUp(self):
-        self.factory = Faker('fa_IR')
-
-    def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
-        assert city_prefix in IrProvider.city_prefixes
-
-    def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
-
-    def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
-        assert state in IrProvider.states
-
-
-class TestFrFR(unittest.TestCase):
-    """ Tests addresses in the fr_FR locale """
-
-    def setUp(self):
-        self.factory = Faker('fr_FR')
-
-    def test_street_prefix(self):
-        street_prefix = self.factory.street_prefix()
-        assert isinstance(street_prefix, string_types)
-        assert street_prefix in FrFrProvider.street_prefixes
-
-    def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
-        assert city_prefix in FrFrProvider.city_prefixes
-
-    def test_region(self):
-        region = self.factory.region()
-        assert isinstance(region, string_types)
-        assert region in FrFrProvider.regions
-
-    def test_department(self):
-        department = self.factory.department()
-        assert isinstance(department, tuple)
-        assert department in FrFrProvider.departments
-
-    def test_department_name(self):
-        department_name = self.factory.department_name()
-        assert isinstance(department_name, string_types)
-
-    def test_department_number(self):
-        department_number = self.factory.department_number()
-        assert isinstance(department_number, string_types)
-
-
-class TestHeIL(unittest.TestCase):
-    """ Tests addresses in the he_IL locale """
-
-    def setUp(self):
-        self.factory = Faker('he_IL')
-
-    def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
-
-    def test_street_title(self):
-        street_title = self.factory.street_title()
-        assert isinstance(street_title, string_types)
-
-
-class TestHiIN(unittest.TestCase):
-    """ Tests addresses in the hi_IN locale """
-
-    def setUp(self):
-        self.factory = Faker('hi_IN')
-
-    def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
-
-    def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
-
-
-class TestFiFI(unittest.TestCase):
-    """ Tests in addresses in the fi_FI locale """
-
-    def setUp(self):
-        self.factory = Faker('fi_FI')
-
-    def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
-        assert city in FiProvider.cities
-
-    def test_street_suffix(self):
-        suffix = self.factory.street_suffix()
-        assert isinstance(suffix, string_types)
-        assert suffix in FiProvider.street_suffixes
-
-    def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
-        assert state in FiProvider.states
 
 
 class TestElGR(unittest.TestCase):
@@ -525,6 +418,135 @@ class TestEnUS(unittest.TestCase):
 
         with self.assertRaises(Exception):
             self.factory.postalcode_in_state('XX')
+
+
+class TestEsES(unittest.TestCase):
+    """ Tests in addresses in the fa_IR locale """
+
+    def setUp(self):
+        self.factory = Faker('es_ES')
+
+    def test_state_name(self):
+        state_name = self.factory.state_name()
+        assert isinstance(state_name, string_types)
+        assert state_name in EsEsProvider.states
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in EsEsProvider.street_prefixes
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
+
+class TestFaIR(unittest.TestCase):
+    """ Tests in addresses in the fa_IR locale """
+
+    def setUp(self):
+        self.factory = Faker('fa_IR')
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in IrProvider.city_prefixes
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in IrProvider.states
+
+
+class TestFrFR(unittest.TestCase):
+    """ Tests addresses in the fr_FR locale """
+
+    def setUp(self):
+        self.factory = Faker('fr_FR')
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in FrFrProvider.street_prefixes
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in FrFrProvider.city_prefixes
+
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
+        assert region in FrFrProvider.regions
+
+    def test_department(self):
+        department = self.factory.department()
+        assert isinstance(department, tuple)
+        assert department in FrFrProvider.departments
+
+    def test_department_name(self):
+        department_name = self.factory.department_name()
+        assert isinstance(department_name, string_types)
+
+    def test_department_number(self):
+        department_number = self.factory.department_number()
+        assert isinstance(department_number, string_types)
+
+
+class TestHeIL(unittest.TestCase):
+    """ Tests addresses in the he_IL locale """
+
+    def setUp(self):
+        self.factory = Faker('he_IL')
+
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
+
+    def test_street_title(self):
+        street_title = self.factory.street_title()
+        assert isinstance(street_title, string_types)
+
+
+class TestHiIN(unittest.TestCase):
+    """ Tests addresses in the hi_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('hi_IN')
+
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+
+class TestFiFI(unittest.TestCase):
+    """ Tests in addresses in the fi_FI locale """
+
+    def setUp(self):
+        self.factory = Faker('fi_FI')
+
+    def test_city(self):
+        city = self.factory.city()
+        assert isinstance(city, string_types)
+        assert city in FiProvider.cities
+
+    def test_street_suffix(self):
+        suffix = self.factory.street_suffix()
+        assert isinstance(suffix, string_types)
+        assert suffix in FiProvider.street_suffixes
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+        assert state in FiProvider.states
 
 
 class TestHRHR(unittest.TestCase):
