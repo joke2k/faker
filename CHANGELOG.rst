@@ -1,6 +1,17 @@
 Changelog
 =========
 
+`2.0.3 - 14-October-2019 <https://github.com/joke2k/faker/compare/v2.0.3...v2.0.2>`__
+-------------------------------------------------------------------------------------
+
+* Use the provider's RNG instead of the random module in ``invalid_ssn``. Thanks @luser.
+* Fix ``randomize_nb_elements`` ``max`` argument. Thanks @jorrit-wehelp.
+* Add ``de_DE`` jobs. Thanks @CodeAndChoke.
+* Add ``pt_PT`` automotive plates. Thanks @rubenandre.
+* Add ``el_GR`` jobs. Thanks @athaks.
+* Add police id for ``el_GR``. Thanks @athaks.
+* Add jobs for for ``pt_PT``. Thanks @rubenandre.
+
 `2.0.2 - 17-September-2019 <https://github.com/joke2k/faker/compare/v2.0.2...v2.0.1>`__
 ---------------------------------------------------------------------------------------
 
