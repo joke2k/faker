@@ -23,65 +23,69 @@ class MastercardGeneratorTestCase(unittest.TestCase):
 
 class VisaGeneratorTestCase(unittest.TestCase):
     def setUp(self):
+        self.base_provider = credit_card.Provider(faker.generator.Generator())
         self.factory = faker.Faker(locale='en_US')
         self.pattern = r'^4[0-9]{12}([0-9]{3}){0,2}$'
 
     def test_visa13(self):
         prefix_all = ['4']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 13)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 13)
             assert re.fullmatch(self.pattern, number)
 
     def test_visa16(self):
         prefix_all = ['4']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 16)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
             assert re.fullmatch(self.pattern, number)
 
     def test_visa19(self):
         prefix_all = ['4']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 19)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 19)
             assert re.fullmatch(self.pattern, number)
 
 
 class DiscoverGeneratorTestCase(unittest.TestCase):
     def setUp(self):
+        self.base_provider = credit_card.Provider(faker.generator.Generator())
         self.factory = faker.Faker(locale='en_US')
         self.pattern = r'^6(?:011|5[0-9]{2})[0-9]{12}$'
 
     def test_discover(self):
         prefix_all = ['6011', '65']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 16)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
             assert re.fullmatch(self.pattern, number)
 
 
 class DinersClubGeneratorTestCase(unittest.TestCase):
     def setUp(self):
+        self.base_provider = credit_card.Provider(faker.generator.Generator())
         self.factory = faker.Faker(locale='en_US')
         self.pattern = r'^3(?:0[0-5]|[68][0-9])[0-9]{11}$'
 
     def test_diners_club(self):
         prefix_all = ['300', '301', '302', '303', '304', '305', '36', '38']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 14)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 14)
             assert re.fullmatch(self.pattern, number)
 
 
 class JCBGeneratorTestCase(unittest.TestCase):
     def setUp(self):
+        self.base_provider = credit_card.Provider(faker.generator.Generator())
         self.factory = faker.Faker(locale='en_US')
         self.pattern = r'^(?:2131|1800|35\d{3})\d{11}$'
 
     def test_jcb16(self):
         prefix_all = ['35']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 16)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
             assert re.fullmatch(self.pattern, number)
 
     def test_jcb15(self):
         prefix_all = ['2131', '1800']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 15)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 15)
             assert re.fullmatch(self.pattern, number)
