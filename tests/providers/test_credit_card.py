@@ -18,7 +18,7 @@ class MastercardGeneratorTestCase(unittest.TestCase):
                       '271', '2720']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.factory, prefix, 16)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
 
 class VisaGeneratorTestCase(unittest.TestCase):
@@ -31,19 +31,19 @@ class VisaGeneratorTestCase(unittest.TestCase):
         prefix_all = ['4']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 13)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
     def test_visa16(self):
         prefix_all = ['4']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
     def test_visa19(self):
         prefix_all = ['4']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 19)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
 
 class DiscoverGeneratorTestCase(unittest.TestCase):
@@ -56,7 +56,7 @@ class DiscoverGeneratorTestCase(unittest.TestCase):
         prefix_all = ['6011', '65']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
 
 class DinersClubGeneratorTestCase(unittest.TestCase):
@@ -69,7 +69,7 @@ class DinersClubGeneratorTestCase(unittest.TestCase):
         prefix_all = ['300', '301', '302', '303', '304', '305', '36', '38']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 14)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
 
 class JCBGeneratorTestCase(unittest.TestCase):
@@ -82,10 +82,10 @@ class JCBGeneratorTestCase(unittest.TestCase):
         prefix_all = ['35']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
 
     def test_jcb15(self):
         prefix_all = ['2131', '1800']
         for prefix in prefix_all:
             number = credit_card.Provider._generate_number(self.base_provider, prefix, 15)
-            assert re.fullmatch(self.pattern, number)
+            assert re.match(self.pattern, number)
