@@ -9,6 +9,7 @@ from faker.providers import credit_card
 
 class MastercardGeneratorTestCase(unittest.TestCase):
     def setUp(self):
+        self.base_provider = credit_card.Provider(faker.generator.Generator())
         self.factory = faker.Faker(locale='en_US')
         self.pattern = r'^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$'
 
@@ -17,7 +18,7 @@ class MastercardGeneratorTestCase(unittest.TestCase):
                       '226', '227', '228', '229', '23', '24', '25', '26', '270',
                       '271', '2720']
         for prefix in prefix_all:
-            number = credit_card.Provider._generate_number(self.factory, prefix, 16)
+            number = credit_card.Provider._generate_number(self.base_provider, prefix, 16)
             assert re.match(self.pattern, number)
 
 
