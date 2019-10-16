@@ -29,7 +29,9 @@ class Provider(BaseProvider):
     # * https://creditcardjs.com/credit-card-type-detection
     prefix_maestro = ['5018', '5020', '5038', '56##', '57##', '58##',
                       '6304', '6759', '6761', '6762', '6763', '0604', '6390']
-    prefix_mastercard = ['51', '52', '53', '54', '55', '222%']
+    prefix_mastercard = ['51', '52', '53', '54', '55', '222%', '223', '224',
+                         '225', '226', '227', '228', '229', '23', '24', '25',
+                         '26', '270', '271', '2720']
     prefix_visa = ['4']
     prefix_amex = ['34', '37']
     prefix_discover = ['6011', '65']
