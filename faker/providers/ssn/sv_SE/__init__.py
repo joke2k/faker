@@ -49,6 +49,12 @@ class Provider(SsnProvider):
 
         return pnr
 
+    def org_id(self, long=False, dash=True):
+        if long:
+            return '16559035-1077'
+        else:
+            return '559035-1077'
+
     vat_id_formats = (
         'SE############',
     )

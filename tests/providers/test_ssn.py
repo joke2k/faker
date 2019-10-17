@@ -90,8 +90,12 @@ class TestSvSE(unittest.TestCase):
             assert self.validate_date_string(pers_id[:8]) is True
             assert self.ssn_checksum(pers_id) is True
 
-    def test_org_id(self):
-        raise NotImplementedError("Test for organisation ID validation not implemented")
+    def test_org_id_short_with_dash(self):
+        for _ in range(100):
+            org_id = self.factory.org_id()
+            assert re.search(r'\d{6}-\d{4}', org_id)
+            assert int(org_id[2:4]) >= 20
+            assert self.ssn_checksum(org_id) is True
 
     def test_vat_id(self):
         raise NotImplementedError("Test for VAT (MOMS) ID not implemented")
