@@ -98,16 +98,33 @@ class TestSvSE(unittest.TestCase):
             assert self.ssn_checksum(org_id) is True
 
     def test_org_id_short_no_dash(self):
-        raise NotImplementedError("org short no dash not inplemented")
+        for _ in range(100):
+            org_id = self.factory.org_id(dash=False)
+            assert re.search(r'\d{10}', org_id)
+            assert int(org_id[2:4]) >= 20
+            assert self.ssn_checksum(org_id) is True
 
     def test_org_id_long_with_dash(self):
-        raise NotImplementedError("org long with dash not inplemented")
+        for _ in range(100):
+            org_id = self.factory.org_id(long=True)
+            assert re.search(r'\d{8}-\d{4}', org_id)
+            assert int(org_id[4:6]) >= 20
+            assert self.ssn_checksum(org_id) is True
+
 
     def test_org_id_long_no_dash(self):
-        raise NotImplementedError("org long no dash not inplemented")
+        for _ in range(100):
+            org_id = self.factory.org_id(long=True, dash=False)
+            assert re.search(r'\d{12}', org_id)
+            assert int(org_id[4:6]) >= 20
+            assert self.ssn_checksum(org_id) is True
 
     def test_vat_id(self):
-        raise NotImplementedError("Test for VAT (MOMS) ID not implemented")
+        for _ in range(100):
+            vat_id = self.factory.vat_id()
+            assert re.search(r'SE\d{12}', vat_id)
+            assert int(vat_id[2]) in (1, 2, 3, 5, 6, 7, 8, 9)
+            assert int(vat_id[4:6]) >= 20
 
 
 class TestBgBG(unittest.TestCase):
