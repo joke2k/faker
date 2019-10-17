@@ -16,6 +16,7 @@ class TestNoNO(unittest.TestCase):
         bban = self.factory.bban()
         assert re.match(r"\d{11}", bban)
 
+
 class TestFiFi(unittest.TestCase):
     """ Tests the iban in fi_FI locale """
 
@@ -29,6 +30,7 @@ class TestFiFi(unittest.TestCase):
     def test_iban(self):
         iban = self.factory.iban()
         assert re.match(r"FI\d{16}", iban)
+
 
 class TestPlPL(unittest.TestCase):
     """Tests the bank provider for pl_PL locale"""
