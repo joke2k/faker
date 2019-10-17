@@ -36,7 +36,7 @@ class TestSvSE(unittest.TestCase):
         """Validates the checksum digit and returns a Boolean"""
         ssn = ssn.replace('-', '')
         if len(ssn) == 12:
-            ssn = ssn[2:12]
+            ssn = ssn[2:]
         if len(ssn) != 10:
             return False
 
