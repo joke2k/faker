@@ -97,6 +97,15 @@ class TestSvSE(unittest.TestCase):
             assert int(org_id[2:4]) >= 20
             assert self.ssn_checksum(org_id) is True
 
+    def test_org_id_short_no_dash(self):
+        raise NotImplementedError("org short no dash not inplemented")
+
+    def test_org_id_long_with_dash(self):
+        raise NotImplementedError("org long with dash not inplemented")
+
+    def test_org_id_long_no_dash(self):
+        raise NotImplementedError("org long no dash not inplemented")
+
     def test_vat_id(self):
         raise NotImplementedError("Test for VAT (MOMS) ID not implemented")
 
