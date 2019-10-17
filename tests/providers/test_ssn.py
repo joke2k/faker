@@ -111,7 +111,6 @@ class TestSvSE(unittest.TestCase):
             assert int(org_id[4:6]) >= 20
             assert self.ssn_checksum(org_id) is True
 
-
     def test_org_id_long_no_dash(self):
         for _ in range(100):
             org_id = self.factory.org_id(long=True, dash=False)
@@ -124,8 +123,13 @@ class TestSvSE(unittest.TestCase):
             vat_id = self.factory.vat_id()
             assert re.search(r'SE\d{12}', vat_id)
             assert int(vat_id[2]) in (1, 2, 3, 5, 6, 7, 8, 9)
-            assert int(vat_id[4:6]) >= 20
+            assert int(vat_id[6:8]) >= 20
 
+    def test_org_and_vat_id(self):
+        for _ in range(100):
+            oid, vid = self.factory.org_and_vat_id()
+            assert oid.replace('-','')[-10:] == vid[4:-2]
+            assert re.search(r'SE\d{12}', vid)
 
 class TestBgBG(unittest.TestCase):
     def setUp(self):

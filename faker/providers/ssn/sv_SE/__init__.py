@@ -26,6 +26,13 @@ class Provider(SsnProvider):
         check_digit = Provider._luhn_checksum(int(partial_number) * 10)
         return check_digit if check_digit == 0 else 10 - check_digit
 
+    @staticmethod
+    def _org_to_vat(org_id):
+        org_id = org_id.replace('-', '')
+        if len(org_id) == 10:
+            org_id = '16' + org_id
+        return 'SE{0}01'.format(org_id)
+
     def ssn(self, min_age=18, max_age=90, long=False, dash=True):
         """
         Returns a 10 or 12 (long=True) digit Swedish SSN, "Personnummer".
@@ -56,6 +63,11 @@ class Provider(SsnProvider):
     ORG_ID_DIGIT_1 = (1, 2, 3, 5, 6, 7, 8, 9)
 
     def org_id(self, long=False, dash=True):
+        """
+        Returns a 10 or 12 digit Organisation ID for a Swedish
+        company.
+        (In Swedish) https://sv.wikipedia.org/wiki/Organisationsnummer
+        """
         first_digits = list(self.ORG_ID_DIGIT_1)
         random.shuffle(first_digits)
         onr_one = str(first_digits.pop())
@@ -75,6 +87,12 @@ class Provider(SsnProvider):
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Swedish VAT ID, based on a valid Org ID
         """
-        oid = self.org_id(dash=False)
-        vid = 'SE{0}01'.format(oid)
+        oid = self.org_id(long=True, dash=False)
+        vid = Provider._org_to_vat(oid)
         return vid
+
+    def org_and_vat_id(self, long=False, dash=True):
+        """Returns matching Org ID and VAT number"""
+        oid = self.org_id(long=long, dash=dash)
+        vid = Provider._org_to_vat(oid)
+        return oid, vid
