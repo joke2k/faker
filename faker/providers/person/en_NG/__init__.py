@@ -63,7 +63,7 @@ class Provider(PersonProvider):
         'Rasheedah',
         'Sekinat', 'Simisola', 'Sumayyah',
         'Titi', 'Titilayo', 'Toluwani',
-        'Zainab'
+        'Zainab',
     )
 
     first_names = first_names_male + first_names_female
@@ -234,7 +234,7 @@ class Provider(PersonProvider):
         ('Wilcox', 0.65),
         ('Wuraola', 0.48),
         ('Yaqub', 0.99),
-        ('Yussuf', 0.77)
+        ('Yussuf', 0.77),
     ))
 
     prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.')

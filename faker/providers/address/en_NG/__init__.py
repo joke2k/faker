@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
-from collections import OrderedDict
 
 from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
+    city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port',)
     city_suffixes = (
         'Abiodun', 'Abiola', 'Abodunrin', 'Abosede', 'Adaobi', 'Adebayo', 'Adegboye', 'Adegoke', 'Ademayowa', 'Ademola',
         'Adeniyan', 'Adeoluwa', 'Aderinsola', 'Aderonke', 'Adesina', 'Adewale', 'Adewale', 'Adewale', 'Adewunmi',
@@ -37,7 +36,7 @@ class Provider(AddressProvider):
         'Taiwo', 'Tamunoemi', 'Tella', 'Temitope', 'Tolulope',
         'Uchechi',
         'Wasiu', 'Wilcox', 'Wuraola',
-        'Yaqub', 'Yussuf'
+        'Yaqub', 'Yussuf',
     )
     building_number_formats = ('#', '##', '###')
     street_suffixes = (
@@ -104,7 +103,8 @@ class Provider(AddressProvider):
         'ville',
         'walk',
         'way',
-        'bus stop')
+        'bus stop',
+    )
 
     POSTAL_ZONES = {
         'Abuja': '900001',
@@ -137,7 +137,7 @@ class Provider(AddressProvider):
         'Sokoto': '840001',
         'Taraba': '660001',
         'Yobe': '320001',
-        'Ebonyi': '840001'
+        'Ebonyi': '840001',
     }
 
     city_formats = (
@@ -158,7 +158,7 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}\n {{state}} {{postcode}}",
     )
     secondary_address_formats = (
-        'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
+        'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?',)
 
     def postcode(self):
         return self.random_element(self.POSTAL_ZONES.values())
