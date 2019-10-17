@@ -7,13 +7,16 @@ import datetime
 
 class Provider(SsnProvider):
 
-    def ssn(self, min_age=18, max_age=90):
+    def ssn(self, min_age=18, max_age=90, dash=True):
         """
         Returns a 10 digit Swedish SSN, "Personnummer".
 
         It consists of 10 digits in the form YYMMDD-SSGQ, where
         YYMMDD is the date of birth, SSS is a serial number
         and Q is a control character (Luhn checksum).
+
+        Specifying dash=False will give a purely numeric string, suitable
+        for writing direct to databases.
 
         http://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
         """
@@ -39,7 +42,8 @@ class Provider(SsnProvider):
         pnr_date = birthday.strftime('%y%m%d')
         suffix = str(self.generator.random.randrange(0, 999)).zfill(3)
         luhn_checksum = str(_calculate_luhn(pnr_date + suffix))
-        pnr = '{0}-{1}{2}'.format(pnr_date, suffix, luhn_checksum)
+        hyphen = '-' if dash else ''
+        pnr = '{0}{1}{2}{3}'.format(pnr_date, hyphen, suffix, luhn_checksum)
 
         return pnr
 
