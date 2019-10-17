@@ -4,7 +4,7 @@ from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port',)
+    city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
     city_suffixes = (
         'Abiodun', 'Abiola', 'Abodunrin', 'Abosede', 'Adaobi', 'Adebayo', 'Adegboye', 'Adegoke', 'Ademayowa', 'Ademola',
         'Adeniyan', 'Adeoluwa', 'Aderinsola', 'Aderonke', 'Adesina', 'Adewale', 'Adewale', 'Adewale', 'Adewunmi',
@@ -158,7 +158,7 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{city}}\n {{state}} {{postcode}}",
     )
     secondary_address_formats = (
-        'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?',)
+        'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
 
     def postcode(self):
         return self.random_element(self.POSTAL_ZONES.values())
