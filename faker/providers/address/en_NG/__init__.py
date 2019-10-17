@@ -106,6 +106,8 @@ class Provider(AddressProvider):
         'bus stop',
     )
 
+    # Data parsed from
+    # https://nigeriazipcodes.com/8985/postal-codes-nigerian-states/
     POSTAL_ZONES = {
         'Abuja': '900001',
         'Abia': '440001',

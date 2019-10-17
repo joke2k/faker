@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from .. import Provider as PhoneNumberProvider
 
+# https://en.wikipedia.org/wiki/Telephone_numbers_in_Nigeria
 
 class Provider(PhoneNumberProvider):
     formats = (
