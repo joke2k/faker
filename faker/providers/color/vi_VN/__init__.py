@@ -67,5 +67,5 @@ class Provider(ColorProvider):
         ('Tím', '#BF00BF'),
         ('Xanh crôm', '#40826D'),
         ('Trắng', '#FFFFFF'),
-        ('Vàng', '#FFFF00')
+        ('Vàng', '#FFFF00'),
     ))
