@@ -34,15 +34,16 @@ class TestSvSE(unittest.TestCase):
 
     def ssn_checksum(self, ssn):
         """Validates the checksum digit and returns a Boolean"""
+        ssn = ssn.replace('-', '')
         if len(ssn) == 12:
             ssn = ssn[2:12]
         if len(ssn) != 10:
             return False
 
-        mult_factors = cycle([1, 2])
-        final_sum = sum(self.partial_sum(int(char), mf) for char, mf in zip(ssn, mult_factors))
-        checksum = int(ssn[-1])
-        return checksum == int(ssn[-1])
+        mult_factors = cycle([2, 1])
+        final_sum = sum(self.partial_sum(int(char), mf) for char, mf in zip(ssn[:9], mult_factors))
+        chksum = -final_sum % 10
+        return chksum == int(ssn[-1])
 
     def validate_date_string(self, date_str):
         date_len = len(date_str)
@@ -65,6 +66,13 @@ class TestSvSE(unittest.TestCase):
         for _ in range(100):
             pers_id = self.factory.ssn()
             assert re.search(r'\d{6}-\d{4}', pers_id)
+            assert self.validate_date_string(pers_id[:6]) is True
+            assert self.ssn_checksum('19710820-2792') is True
+
+    def test_pers_id_short_no_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(dash=False)
+            assert re.search(r'\d{6}\d{4}', pers_id)
             assert self.validate_date_string(pers_id[:6]) is True
             assert self.ssn_checksum(pers_id) is True
 
