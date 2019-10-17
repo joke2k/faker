@@ -113,6 +113,7 @@ class TestHyAm(unittest.TestCase):
         pn = self.factory.phone_number()
         assert isinstance(pn, six.string_types)
 
+
 class TestEnNG(unittest.TestCase):
     """ Tests phone_number in the en_NG locale """
 
