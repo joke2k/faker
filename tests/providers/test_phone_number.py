@@ -112,3 +112,14 @@ class TestHyAm(unittest.TestCase):
     def test_phone_number(self):
         pn = self.factory.phone_number()
         assert isinstance(pn, six.string_types)
+
+class TestEnNG(unittest.TestCase):
+    """ Tests phone_number in the en_NG locale """
+
+    def setUp(self):
+        self.factory = Faker('en_NG')
+
+    def test_phone_number(self):
+        phone = self.factory.phone_number()
+        length = len(re.sub("[^0-9]", "", phone))
+        self.assertTrue(length == 11 or length == 13)

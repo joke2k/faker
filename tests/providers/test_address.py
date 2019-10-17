@@ -22,6 +22,7 @@ from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
+from faker.providers.address.en_NG import Provider as NgProvider
 from six import string_types
 
 
@@ -955,3 +956,24 @@ class TestPtPT(unittest.TestCase):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)
         assert freguesia in PtPtProvider.freguesias
+
+class TestEnNG(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('en_NG')
+
+    def test_address(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+        street = self.factory.street_name()
+        assert isinstance(street, string_types)
+
+        city = self.factory.street_address()
+        assert isinstance(city, string_types)
+
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+        address = self.factory.address()
+        assert isinstance(address, string_types)
