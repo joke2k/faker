@@ -23,6 +23,24 @@ from faker.providers.ssn.es_MX import (ssn_checksum as mx_ssn_checksum,
                                        curp_checksum as mx_curp_checksum)
 
 
+class TestSvSE(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('sv_SE')
+
+    def ssn_checksum(ssn):
+        """Validates the checksum digit and returns a Boolean"""
+        pass
+
+    def test_pers_id(self):
+        raise NotImplementedError("Test for pers ID validation not implemented")
+
+    def test_org_id(self):
+        raise NotImplementedError("Test for organisation ID validation not implemented")
+
+    def test_vat_id(self):
+        raise NotImplementedError("Test for VAT (MOMS) ID not implemented")
+
+
 class TestBgBG(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('bg_BG')
