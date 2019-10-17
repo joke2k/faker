@@ -67,13 +67,27 @@ class TestSvSE(unittest.TestCase):
             pers_id = self.factory.ssn()
             assert re.search(r'\d{6}-\d{4}', pers_id)
             assert self.validate_date_string(pers_id[:6]) is True
-            assert self.ssn_checksum('19710820-2792') is True
+            assert self.ssn_checksum(pers_id) is True
 
     def test_pers_id_short_no_dash(self):
         for _ in range(100):
             pers_id = self.factory.ssn(dash=False)
-            assert re.search(r'\d{6}\d{4}', pers_id)
+            assert re.search(r'\d{10}', pers_id)
             assert self.validate_date_string(pers_id[:6]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_pers_id_long_with_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(long=True)
+            assert re.search(r'\d{8}-\d{4}', pers_id)
+            assert self.validate_date_string(pers_id[:8]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_pers_id_long_no_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(long=True, dash=False)
+            assert re.search(r'\d{12}', pers_id)
+            assert self.validate_date_string(pers_id[:8]) is True
             assert self.ssn_checksum(pers_id) is True
 
     def test_org_id(self):
