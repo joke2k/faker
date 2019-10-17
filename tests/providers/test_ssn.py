@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import re
 import unittest
 from datetime import datetime
+from itertools import cycle
 
 import freezegun
 import pytest
@@ -27,12 +28,45 @@ class TestSvSE(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('sv_SE')
 
-    def ssn_checksum(ssn):
-        """Validates the checksum digit and returns a Boolean"""
-        pass
+    def partial_sum(self, number, mult_factor):
+        quotient, remainder = divmod(number * mult_factor, 10)
+        return quotient + remainder
 
-    def test_pers_id(self):
-        raise NotImplementedError("Test for pers ID validation not implemented")
+    def ssn_checksum(self, ssn):
+        """Validates the checksum digit and returns a Boolean"""
+        if len(ssn) == 12:
+            ssn = ssn[2:12]
+        if len(ssn) != 10:
+            return False
+
+        mult_factors = cycle([1, 2])
+        final_sum = sum(self.partial_sum(int(char), mf) for char, mf in zip(ssn, mult_factors))
+        checksum = int(ssn[-1])
+        return checksum == int(ssn[-1])
+
+    def validate_date_string(self, date_str):
+        date_len = len(date_str)
+        if date_len == 6:
+            year_fmt = '%y'
+        elif date_len == 8:
+            year_fmt = '%Y'
+        else:
+            return False
+
+        try:
+            if date_str != datetime.strptime(date_str, '{}%m%d'.format(year_fmt)).strftime('{}%m%d'.format(year_fmt)):
+                raise ValueError
+            return True
+        except ValueError:
+            return False
+
+    def test_pers_id_short_with_dash(self):
+        """Regression case that ensures previous implementations work as-is"""
+        for _ in range(100):
+            pers_id = self.factory.ssn()
+            assert re.search(r'\d{6}-\d{4}', pers_id)
+            assert self.validate_date_string(pers_id[:6]) is True
+            assert self.ssn_checksum(pers_id) is True
 
     def test_org_id(self):
         raise NotImplementedError("Test for organisation ID validation not implemented")
