@@ -71,7 +71,7 @@ class Provider(SsnProvider):
         first_digits = list(self.ORG_ID_DIGIT_1)
         random.shuffle(first_digits)
         onr_one = str(first_digits.pop())
-        onr_one += str(self.generator.random.randrange(0,9)).zfill(1)
+        onr_one += str(self.generator.random.randrange(0, 9)).zfill(1)
         onr_one += str(self.generator.random.randrange(20, 99))
         onr_one += str(self.generator.random.randrange(0, 99)).zfill(2)
         onr_two = str(self.generator.random.randrange(0, 999)).zfill(3)

@@ -128,8 +128,9 @@ class TestSvSE(unittest.TestCase):
     def test_org_and_vat_id(self):
         for _ in range(100):
             oid, vid = self.factory.org_and_vat_id()
-            assert oid.replace('-','')[-10:] == vid[4:-2]
+            assert oid.replace('-', '')[-10:] == vid[4:-2]
             assert re.search(r'SE\d{12}', vid)
+
 
 class TestBgBG(unittest.TestCase):
     def setUp(self):
