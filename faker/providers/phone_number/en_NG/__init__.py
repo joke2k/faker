@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 from .. import Provider as PhoneNumberProvider
 
 
-# https://en.wikipedia.org/wiki/Telephone_numbers_in_Nigeria
+# Names gotten from
+# https://github.com/fzaninotto/Faker/blob/master/src/Faker/Provider/en_NG/Person.php
 
 class Provider(PhoneNumberProvider):
     formats = (
