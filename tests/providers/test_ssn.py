@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import re
 import unittest
 from datetime import datetime
+from itertools import cycle
 
 import freezegun
 import pytest
@@ -21,6 +22,114 @@ from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month a
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.es_MX import (ssn_checksum as mx_ssn_checksum,
                                        curp_checksum as mx_curp_checksum)
+
+
+class TestSvSE(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('sv_SE')
+
+    def partial_sum(self, number, mult_factor):
+        quotient, remainder = divmod(number * mult_factor, 10)
+        return quotient + remainder
+
+    def ssn_checksum(self, ssn):
+        """Validates the checksum digit and returns a Boolean"""
+        ssn = ssn.replace('-', '')
+        if len(ssn) == 12:
+            ssn = ssn[2:]
+        if len(ssn) != 10:
+            return False
+
+        mult_factors = cycle([2, 1])
+        final_sum = sum(self.partial_sum(int(char), mf) for char, mf in zip(ssn[:9], mult_factors))
+        chksum = -final_sum % 10
+        return chksum == int(ssn[-1])
+
+    def validate_date_string(self, date_str):
+        date_len = len(date_str)
+        if date_len == 6:
+            year_fmt = '%y'
+        elif date_len == 8:
+            year_fmt = '%Y'
+        else:
+            return False
+
+        try:
+            if date_str != datetime.strptime(date_str, '{}%m%d'.format(year_fmt)).strftime('{}%m%d'.format(year_fmt)):
+                raise ValueError
+            return True
+        except ValueError:
+            return False
+
+    def test_pers_id_short_with_dash(self):
+        """Regression case that ensures previous implementations work as-is"""
+        for _ in range(100):
+            pers_id = self.factory.ssn()
+            assert re.search(r'\d{6}-\d{4}', pers_id)
+            assert self.validate_date_string(pers_id[:6]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_pers_id_short_no_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(dash=False)
+            assert re.search(r'\d{10}', pers_id)
+            assert self.validate_date_string(pers_id[:6]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_pers_id_long_with_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(long=True)
+            assert re.search(r'\d{8}-\d{4}', pers_id)
+            assert self.validate_date_string(pers_id[:8]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_pers_id_long_no_dash(self):
+        for _ in range(100):
+            pers_id = self.factory.ssn(long=True, dash=False)
+            assert re.search(r'\d{12}', pers_id)
+            assert self.validate_date_string(pers_id[:8]) is True
+            assert self.ssn_checksum(pers_id) is True
+
+    def test_org_id_short_with_dash(self):
+        for _ in range(100):
+            org_id = self.factory.org_id()
+            assert re.search(r'\d{6}-\d{4}', org_id)
+            assert int(org_id[2:4]) >= 20
+            assert self.ssn_checksum(org_id) is True
+
+    def test_org_id_short_no_dash(self):
+        for _ in range(100):
+            org_id = self.factory.org_id(dash=False)
+            assert re.search(r'\d{10}', org_id)
+            assert int(org_id[2:4]) >= 20
+            assert self.ssn_checksum(org_id) is True
+
+    def test_org_id_long_with_dash(self):
+        for _ in range(100):
+            org_id = self.factory.org_id(long=True)
+            assert re.search(r'\d{8}-\d{4}', org_id)
+            assert int(org_id[4:6]) >= 20
+            assert self.ssn_checksum(org_id) is True
+
+    def test_org_id_long_no_dash(self):
+        for _ in range(100):
+            org_id = self.factory.org_id(long=True, dash=False)
+            assert re.search(r'\d{12}', org_id)
+            assert int(org_id[4:6]) >= 20
+            assert self.ssn_checksum(org_id) is True
+
+    def test_vat_id(self):
+        for _ in range(100):
+            vat_id = self.factory.vat_id()
+            assert re.search(r'SE\d{12}', vat_id)
+            assert int(vat_id[2]) in (1, 2, 3, 5, 6, 7, 8, 9)
+            assert int(vat_id[6:8]) >= 20
+
+    def test_org_and_vat_id(self):
+        for _ in range(100):
+            oid, vid = self.factory.org_and_vat_id()
+            assert oid.replace('-', '')[-10:] == vid[4:-2]
+            assert re.search(r'SE\d{12}', vid)
 
 
 class TestBgBG(unittest.TestCase):
