@@ -19,6 +19,7 @@ from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
+from faker.providers.date_time.vi_VN import Provider as ViProvider
 
 
 def is64bit():
@@ -663,3 +664,16 @@ class DatesOfBirth(unittest.TestCase):
 
             assert isinstance(dob, date)
             assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago
+
+
+class ViDatetimeTest(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('vi_VN')
+
+    def test_day_name(self):
+        day_name = self.factory.day_of_week()
+        assert day_name in ViProvider.day_names.values()
+
+    def test_month_name(self):
+        month_name = self.factory.month_name()
+        assert month_name in ViProvider.month_names.values()

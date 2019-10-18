@@ -25,6 +25,7 @@ from faker.providers.person.pl_PL import (
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
+from faker.providers.person.vi_VN import Provider as ViProvider
 
 
 class TestAr(unittest.TestCase):
@@ -519,3 +520,16 @@ class TestHyAM(unittest.TestCase):
         name = self.factory.last_name_male()
         self.assertIsInstance(name, six.string_types)
         assert name in HyAmProvider.last_names
+
+
+class TestVi(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('vi_VN')
+
+    def test_mid_name_female(self):
+        mid_name_female = self.factory.mid_name_female()
+        assert mid_name_female in ViProvider.mid_names_female
+
+    def test_mid_name_male(self):
+        mid_name_male = self.factory.mid_name_male()
+        assert mid_name_male in ViProvider.mid_names_male

@@ -22,6 +22,7 @@ from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
+from faker.providers.address.vi_VN import Provider as ViProvider
 from six import string_types
 
 
@@ -955,3 +956,20 @@ class TestPtPT(unittest.TestCase):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)
         assert freguesia in PtPtProvider.freguesias
+
+
+class TestViPT(unittest.TestCase):
+    def setUp(self):
+        self.factory = Faker('vi_VN')
+
+    def test_country(self):
+        country = self.factory.country()
+        assert country in ViProvider.countries
+
+    def test_city(self):
+        city = self.factory.city()
+        assert city in ViProvider.cities
+
+    def test_state(self):
+        state = self.factory.state()
+        assert state in ViProvider.states
