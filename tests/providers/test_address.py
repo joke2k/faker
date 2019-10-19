@@ -527,12 +527,6 @@ class TestHiIN(unittest.TestCase):
         assert isinstance(state, string_types)
 
 
-    def test_street_suffix(self):
-        suffix = self.factory.street_suffix()
-        assert isinstance(suffix, string_types)
-        assert suffix in FiProvider.street_suffixes
-
-
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
