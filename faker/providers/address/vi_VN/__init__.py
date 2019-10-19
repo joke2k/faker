@@ -5,6 +5,7 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
+    # https://vi.wikipedia.org/wiki/T%E1%BB%89nh_th%C3%A0nh_Vi%E1%BB%87t_Nam
     cities = (
         'An Giang',
         'Bà Rịa - Vũng Tàu',
@@ -66,6 +67,7 @@ class Provider(AddressProvider):
         'Phú Yên',
     )
 
+    # https://www.101languages.net/vietnamese/country-names-vietnamese/
     countries = (
         'Afghanistan',
         'Albania',
@@ -262,6 +264,7 @@ class Provider(AddressProvider):
         'Zimbabwe',
     )
 
+    # http://thuylucnhattin.com/danh-muc-quan-huyen-cua-thanh-pho-ha-noi/
     states = (
         'Ba Đình',
         'Hoàn Kiếm',

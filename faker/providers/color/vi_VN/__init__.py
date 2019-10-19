@@ -4,6 +4,8 @@ from collections import OrderedDict
 from .. import Provider as ColorProvider
 
 
+# https://vi.wikipedia.org/wiki/Danh_s%C3%A1ch_m%C3%A0u
+
 class Provider(ColorProvider):
     """Color generator for Vietnamese locale"""
     all_colors = OrderedDict((

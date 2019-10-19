@@ -2,6 +2,8 @@
 from .. import Provider as JobProvider
 
 
+# https://vi.wikipedia.org/wiki/Thể_loại:Nghề_nghiệp
+
 class Provider(JobProvider):
     """Job generator"""
     jobs = (
