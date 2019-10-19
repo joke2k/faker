@@ -115,6 +115,7 @@ class Provider(AddressProvider):
         'दिल्ली',
         'पांडिचेरी',
         'लक्षद्वीप',
+        'तेलंगाना'
     )
 
     countries = (
