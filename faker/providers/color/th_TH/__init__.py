@@ -6,6 +6,7 @@ from .. import Provider as ColorProvider
 
 localized = True
 
+
 # Reference
 # https://th.wikipedia.org/wiki/รายชื่อสี
 # on 2019-10-20
@@ -35,5 +36,5 @@ class Provider(ColorProvider):
     safe_colors = (
         'สีดำ', 'สีน้ำตาล', 'สีทอง', 'สีเขียว',
         'สีส้ม', 'สีชมพู', 'สีม่วง', 'สีเงิน', 'สีแดง',
-        'สีเงิน', 'สีขาว', 'สีเหลือง'
+        'สีเงิน', 'สีขาว', 'สีเหลือง',
     )
