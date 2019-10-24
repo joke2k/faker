@@ -264,7 +264,7 @@ class Provider(AddressProvider):
         'Zimbabwe',
     )
 
-    # http://thuylucnhattin.com/danh-muc-quan-huyen-cua-thanh-pho-ha-noi/
+    # https://vi.wikipedia.org/wiki/H%C3%A0_N%E1%BB%99i#T%E1%BB%95_ch%E1%BB%A9c_h%C3%A0nh_ch%C3%ADnh
     states = (
         'Ba Đình',
         'Hoàn Kiếm',
