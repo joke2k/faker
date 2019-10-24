@@ -14,29 +14,78 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
         '{{prefix}} {{first_name}} {{last_name}}',
     )
-    first_names = (
-        'Alexander', 'Alina', 'Andreas', 'Anna', 'Anton',
+    formats_male = (
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}-{{last_name}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}} {{suffix_male}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix_male}}',
+    )
+
+    formats_female = (
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}-{{last_name}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}} {{suffix_female}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix_female}}',
+    )
+
+    formats = formats_male + formats_female
+
+    first_names_male = (
+        'Alexander', 'Andreas', 'Anton',
         'Benjamin', 'Bernhard',
         'Christian', 'Christop',
         'Daniel', 'David', 'Dominik',
-        'Elena', 'Elias', 'Emil', 'Emilia',
-        'Fabian', 'Felix', 'Florian', 'Franz', 'Fransizka',
+        'Elias', 'Emil',
+        'Fabian', 'Felix', 'Florian', 'Franz',
         'Gabriel', 'Gernot',
-        'Hanna',
-        'Ingrid', 'Isabel',
-        'Jakob', 'Jana', 'Jasmin', 'Johanna', 'Johannes', 'Jonas', 'Julia', 'Julian',
-        'Katharinna', 'Konrad', 'Konstantin',
-        'Lara', 'Laura', 'Lena', 'Leo', 'Leon', 'Linda', 'Luca', 'Lukas',
-        'Marcel', 'Maria', 'Martin', 'Matthias', 'Max', 'Maximilian', 'Mia', 'Michael', 'Moritz',
-        'Nico', 'Niklas', 'Nina', 'Noah',
-        'Oliver', 'Olivia',
-        'Paul', 'Paula', 'Philipp', 'Pia',
+        'Heinrich',
+        'Ingo',
+        'Jakob', 'Johannes', 'Jonas', 'Julian',
+        'Konrad', 'Konstantin',
+        'Leo', 'Leon', 'Luca', 'Lukas',
+        'Marcel', 'Martin', 'Matthias', 'Max', 'Maximilian', 'Michael', 'Moritz',
+        'Nico', 'Niklas', 'Noah',
+        'Oliver',
+        'Paul', 'Philipp',
         'Raphael', 'Robert',
-        'Samuel', 'Sarah', 'Sebastian', 'Simon', 'Sophie',
-        'Theresa', 'Thomas', 'Tim',
+        'Samuel', 'Sebastian', 'Simon',
+        'Thomas', 'Tim',
         'Tobias',
         'Valentin',
     )
+    first_names_female = (
+        'Alina', 'Anna',
+        'Bea',
+        'Christin',
+        'Daniela',
+        'Elena', 'Emil',
+        'Fabian', 'Felix', 'Florian', 'Franz',
+        'Gabriela',
+        'Hanna',
+        'Ingrid', 'Isabel',
+        'Jana', 'Jasmin', 'Johanna', 'Julia',
+        'Katharinna',
+        'Lara', 'Laura', 'Lena', 'Linda',
+        'Maria', 'Matthias', 'Mia',
+        'Nina',
+        'Olivia',
+        'Paula', 'Pia',
+        'Ria',
+        'Sarah', 'Sophie',
+        'Theresa',
+        'Valentina',
+    )
+
+    first_names = first_names_male + first_names_female
+
     last_names = (
         'Auer', 'Aigner',
         'Bauer', 'Baumgartner', 'Berger', 'Binder', 'Brunner',
@@ -57,4 +106,11 @@ class Provider(PersonProvider):
         'Wallner', 'Weber', 'Weiss', 'Wieser', 'Wimmer', 'Winkler', 'Winter', 'Wolf',
     )
 
+    prefixes_male = (
+        'Herr', 'Dr.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.',
+    )
+    prefixes_female = (
+        'Frau', 'Dr.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.',
+    )
+    
     prefixes = ('Dr.', 'Mag.', 'Ing.', 'Dipl.-Ing.', 'Prof.', 'Univ.Prof.')
