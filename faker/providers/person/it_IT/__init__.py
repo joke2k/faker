@@ -4,16 +4,7 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{prefix}} {{first_name}} {{last_name}}',
-    )
+
     formats_male = (
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
