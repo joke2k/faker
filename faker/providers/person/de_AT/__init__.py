@@ -59,7 +59,7 @@ class Provider(PersonProvider):
         'Lennart', 'Leo', 'Leon', 'Leonard', 'Leonardo', 'Leonhard', 'Leopold', 'Levi',
         'Liam', 'Lino', 'Linus', 'Lionel', 'Lorenz', 'Lorenzo', 'Louis', 'Luca', 'Lucas',
         'Luis', 'Luka', 'Lukas', 'Maksim', 'Manuel', 'Marc', 'Marcel', 'Marco', 'Marcus',
-        'Mario', 'Marius', 'Mark', 'Marko', 'Markus', 'Martin', 'Marvin', 
+        'Mario', 'Marius', 'Mark', 'Marko', 'Markus', 'Martin', 'Marvin',
         'Mateo', 'Matheo', 'Mathias', 'Matteo', 'Matthias', 'Maurice', 'Max',
         'Maximilian', 'Merlin', 'Mert', 'Michael', 'Mika', 'Mike', 'Milan', 'Milo', 'Moritz',
         'Natan', 'Nathan', 'Nicholas', 'Nick', 'Nico', 'Nicolai', 'Nicolas', 'Niklas',
@@ -70,7 +70,7 @@ class Provider(PersonProvider):
         'Samuel', 'Sandro', 'Sascha', 'Sebastian', 'Severin', 'Simon', 'Stefan', 'Stephan',
         'Steven', 'Sven', 'Teodor', 'Theo', 'Theodor', 'Thomas', 'Tim', 'Timo', 'Timon',
         'Tobias', 'Tom', 'Tristan', 'Valentin', 'Valentino', 'Victor', 'Viktor',
-        'Vincent', 'Vito', 'William', 'Xavier'
+        'Vincent', 'Vito', 'William', 'Xavier',
     )
 
     # source: https://www.data.gv.at/katalog/dataset/87fc82a0-0042-49c8-b6f9-2602cd3dc17a
@@ -82,7 +82,7 @@ class Provider(PersonProvider):
         'Annabella', 'Annabelle', 'Annalena', 'Anne', 'Annika', 'Antonella', 'Antonia',
         'Ariana', 'Ariane', 'Aurelia', 'Aurora', 'Ava', 'Aylin', 'Barbara', 'Beatrice',
         'Bernadette', 'Berra', 'Bianca', 'Carina', 'Carla', 'Carlotta', 'Carolina',
-        'Caroline', 'Catharina', 'Cecilia', 'Charlotte', 'Christina', 'Christine', 'Claire', 
+        'Caroline', 'Catharina', 'Cecilia', 'Charlotte', 'Christina', 'Christine', 'Claire',
         'Clara', 'Clarissa', 'Claudia', 'Constanze', 'Cristina', 'Dana', 'Daniela', 'Denise',
         'Diana', 'Dilara', 'Domenica', 'Dora', 'Eda', 'Edda', 'Ela', 'Elena', 'Eleonora',
         'Elina', 'Elisa', 'Elisabeth', 'Ella', 'Ellie', 'Elma', 'Elona', 'Elsa', 'Elvira',
