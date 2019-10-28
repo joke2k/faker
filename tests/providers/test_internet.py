@@ -12,7 +12,7 @@ except ImportError:
 import pytest
 import six
 
-from validators import email as validate_email
+from validators import email as validate_email, domain as validate_domain
 
 from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
@@ -288,3 +288,30 @@ class TestPtBR(unittest.TestCase):
         email = self.factory.ascii_company_email()
         validate_email(email)
         assert email.split('@')[0] == 'andrecaua'
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 10000
+
+    def setUp(self):
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def test_PH_domain_name(self):
+        for i in range(self.num_sample_runs):
+            domain = self.factory.domain_name()
+            validate_domain(domain)
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+
+class TestTlPh(TestFilPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
