@@ -191,3 +191,65 @@ class TestNlNL(unittest.TestCase):
         company = self.factory.large_company()
         assert isinstance(company, six.string_types)
         assert company in companies
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 10000
+
+    def setUp(self):
+        self.national_corporation_pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
+        self.setup_constants()
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def setup_constants(self):
+        from faker.providers.company.en_PH import Provider
+        self.company_types = Provider.company_types
+        self.company_suffixes = Provider.company_suffixes.keys()
+        self.parody_company_names = Provider.parody_company_names
+        self.company_products = Provider.company_products
+
+    def test_PH_random_company_noun_chain(self):
+        for i in range(self.num_sample_runs):
+            noun_list = self.factory.random_company_noun_chain().split()
+            assert len(noun_list) in range(1, 3)
+
+    def test_PH_random_company_acronym(self):
+        for i in range(self.num_sample_runs):
+            assert len(self.factory.random_company_acronym()) in range(2, 5)
+
+    def test_PH_company(self):
+        for i in range(self.num_sample_runs):
+            company = self.factory.company()
+            if any([
+                company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types,
+                company in self.parody_company_names,
+            ]):
+                continue
+            else:
+                national_corporation_match = self.national_corporation_pattern.fullmatch(company)
+                assert national_corporation_match and national_corporation_match.group(1) in self.company_products
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+    def setup_constants(self):
+        super(TestFilPh, self).setup_constants()
+        from faker.providers.company.fil_PH import Provider
+        self.good_service_adjectives = Provider.good_service_adjectives
+
+    def test_PH_random_good_service_adjective_chain(self):
+        for i in range(self.num_sample_runs):
+            adjectives = self.factory.random_good_service_adjective_chain().split(' at ')
+            assert adjectives[0] in self.good_service_adjectives and adjectives[1] in self.good_service_adjectives
+
+
+class TestTlPh(TestFilPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
