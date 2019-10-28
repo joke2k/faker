@@ -5,8 +5,8 @@ from .. import Provider as PersonProvider
 
 class Provider(PersonProvider):
     """
-    The names used here are the top 100 names released by the Federal statistics 
-    institute in Bosnia and Herzegovina, available from demography section at  
+    The names used here are the top 100 names released by the Federal statistics
+    institute in Bosnia and Herzegovina, available from demography section at
     http://fzs.ba/index.php/statisticke-oblasti/stanovnistvo-i-drustvene-statistike/stanovnistvo-i-registar/
     male: http://fzs.ba/wp-content/uploads/2018/05/100-najčešćih-muških-imena-dodjeljivanih-djeci-rođenoj-u-2017.pdf
     female: http://fzs.ba/wp-content/uploads/2018/05/100-najčešćih-ženskih-imena-dodjeljivanih-djeci-rođenoj-u-2017.pdf
@@ -51,7 +51,8 @@ class Provider(PersonProvider):
     Last names were taken from Wikipedia Category listing about bosnian surnames
     https://en.wikipedia.org/wiki/Category:Bosnian-language_surnames
     """
-    last_names = ["Abadžić", "Ademović", "Adilović", "Aganović", "Ahmetović",
+    last_names = [
+        "Abadžić", "Ademović", "Adilović", "Aganović", "Ahmetović",
         "Ahmić", "Alečković", "Alibegović", "Alić", "Alihodžić", "Alikadić",
         "Alispahić", "Alomerović", "Amidžić", "Arnautović", "Avdić", "Babić",
         "Bajraktarević", "Bajramović", "Balašević", "Baljić", "Bašić",
