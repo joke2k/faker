@@ -933,3 +933,26 @@ class TestPtPT(unittest.TestCase):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)
         assert freguesia in PtPtProvider.freguesias
+
+
+class TestRuRU(unittest.TestCase):
+    """ Tests addresses in the ru_RU locale """
+
+    def setUp(self):
+        self.factory = Faker('ru_RU')
+
+    def test_city_name(self):
+        city = self.factory.city_name()
+        assert isinstance(city, string_types)
+
+    def test_country(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
