@@ -9,6 +9,9 @@ import sys
 from .. import BaseProvider
 
 
+localized = True
+
+
 class Provider(BaseProvider):
     def boolean(self, chance_of_getting_true=50):
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
