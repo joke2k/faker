@@ -566,6 +566,19 @@ class TestHiIN(unittest.TestCase):
         state = self.factory.state()
         assert isinstance(state, string_types)
 
+class TestTaIN(unittest.TestCase):
+    """ Tests addresses in the ta_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
