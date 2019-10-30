@@ -22,7 +22,7 @@ class Provider(AddressProvider):
 
     postcode_formats = ('######', )
 
-    #Source: https://ta.wikipedia.org/wiki/மக்கள்_தொகை_மிகுந்த_இந்திய_நகரங்கள்
+    # Source: https://ta.wikipedia.org/wiki/மக்கள்_தொகை_மிகுந்த_இந்திய_நகரங்கள்
     cities = (
         'சென்னை',
         'கோயம்புத்தூர்',
@@ -155,10 +155,10 @@ class Provider(AddressProvider):
         'தாவண்கரே',
         'வேலூர்',
         'திருவண்ணாமலை',
-        'காஜுவாகா'
+        'காஜுவாகா',
     )
-    
-    #Source: https://ta.wikipedia.org/wiki/இந்தியாவின்_மாநிலங்களும்_ஆட்சிப்பகுதிகளும்
+
+    # Source: https://ta.wikipedia.org/wiki/இந்தியாவின்_மாநிலங்களும்_ஆட்சிப்பகுதிகளும்
     states = (
         'ஆந்திரப் பிரதேசம்',
         'அருணாச்சலப் பிரதேசம்',
@@ -188,10 +188,10 @@ class Provider(AddressProvider):
         'திரிபுரா',
         'உத்தரப்பிரதேசம்',
         'உத்தரகண்ட்',
-        'மேற்கு வங்கம்'
+        'மேற்கு வங்கம்',
     )
-    
-    #Source: https://ta.wikipedia.org/wiki/பிறப்பு_விகித_அடிப்படையில்_நாடுகளின்_பட்டியல்
+
+    # Source: https://ta.wikipedia.org/wiki/பிறப்பு_விகித_அடிப்படையில்_நாடுகளின்_பட்டியல்
     countries = (
         'ஆப்கானித்தான்',
         'அல்பேனியா',
@@ -410,13 +410,11 @@ class Provider(AddressProvider):
         'மக்காவு',
         'மர்தினிக்கு (France)',
         'மயோட்டே (France)',
-        'மொன்செராட்'
+        'மொன்செராட்',
     )
-    
+
     def city_name(self):
         return self.random_element(self.cities)
 
     def state(self):
         return self.random_element(self.states)
-    
-    

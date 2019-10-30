@@ -566,6 +566,7 @@ class TestHiIN(unittest.TestCase):
         state = self.factory.state()
         assert isinstance(state, string_types)
 
+
 class TestTaIN(unittest.TestCase):
     """ Tests addresses in the ta_IN locale """
 
@@ -579,6 +580,7 @@ class TestTaIN(unittest.TestCase):
     def test_state(self):
         state = self.factory.state()
         assert isinstance(state, string_types)
+
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """

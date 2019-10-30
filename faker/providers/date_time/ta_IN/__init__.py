@@ -6,7 +6,7 @@ from .. import Provider as DateTimeProvider
 
 class Provider(DateTimeProvider):
 
-    #Source: http://www.localeplanet.com/icu/ta-IN/index.html
+    # Source: http://www.localeplanet.com/icu/ta-IN/index.html
     def day_of_week(self):
         day = self.date('%w')
         DAY_NAMES = {

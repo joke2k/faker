@@ -486,7 +486,7 @@ class Provider(PersonProvider):
         'ஹரிஹரன்',
         'ஹவினாஷன்',
         'ஹஷ்விந்ரன்',
-        'ஹாருண்'        
+        'ஹாருண்',
     )
 
     first_names_female = (
@@ -1023,8 +1023,8 @@ class Provider(PersonProvider):
         'ஹெலன்',
         'ஹேமந்தினி',
         'ஹேமலதா',
-        'ஹேமா'
+        'ஹேமா',
     )
-    
+
     first_names = first_names_male + first_names_female
     last_names = first_names
