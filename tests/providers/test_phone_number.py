@@ -231,3 +231,13 @@ class TestTlPh(TestEnPh):
 
     def setup_factory(self):
         self.factory = Faker('tl_PH')
+
+
+class TestTaIN(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_phone_number(self):
+        phone_number = self.factory.phone_number()
+        re.match(r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$", phone_number)
