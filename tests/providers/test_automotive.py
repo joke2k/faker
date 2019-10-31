@@ -75,7 +75,7 @@ class TestPlPL(unittest.TestCase):
 
 
 class TestEnPh(unittest.TestCase):
-    num_sample_runs = 10000
+    num_sample_runs = 1000
 
     def setUp(self):
         self.motorcycle_pattern = re.compile(r'^[A-Z]{2}\d{4,5}$')
@@ -88,15 +88,15 @@ class TestEnPh(unittest.TestCase):
 
     def test_PH_motorcycle_plate_format(self):
         for i in range(self.num_sample_runs):
-            assert self.motorcycle_pattern.fullmatch(self.factory.motorcycle_license_plate())
+            assert self.motorcycle_pattern.match(self.factory.motorcycle_license_plate())
 
     def test_PH_automobile_plate_format(self):
         for i in range(self.num_sample_runs):
-            assert self.automobile_pattern.fullmatch(self.factory.automobile_license_plate())
+            assert self.automobile_pattern.match(self.factory.automobile_license_plate())
 
     def test_PH_plate_format(self):
         for i in range(self.num_sample_runs):
-            assert self.vehicle_pattern.fullmatch(self.factory.license_plate())
+            assert self.vehicle_pattern.match(self.factory.license_plate())
 
     def test_PH_protocol_plate_format(self):
         for i in range(self.num_sample_runs):

@@ -194,7 +194,7 @@ class TestNlNL(unittest.TestCase):
 
 
 class TestEnPh(unittest.TestCase):
-    num_sample_runs = 10000
+    num_sample_runs = 1000
 
     def setUp(self):
         self.national_corporation_pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
@@ -225,7 +225,7 @@ class TestEnPh(unittest.TestCase):
             if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
                 continue
             else:
-                national_corporation_match = self.national_corporation_pattern.fullmatch(company)
+                national_corporation_match = self.national_corporation_pattern.match(company)
                 assert national_corporation_match and national_corporation_match.group(1) in self.company_products
 
 

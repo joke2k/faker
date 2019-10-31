@@ -115,7 +115,7 @@ class TestHyAm(unittest.TestCase):
 
 
 class TestEnPh(unittest.TestCase):
-    num_sample_runs = 10000
+    num_sample_runs = 1000
 
     def setUp(self):
         self.mobile_number_pattern = re.compile(r'^(?:0|\+63)(\d+)-\d{3}-\d{4}$')
@@ -142,55 +142,55 @@ class TestEnPh(unittest.TestCase):
     def test_PH_globe_mobile_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.globe_mobile_number()
-            match = self.mobile_number_pattern.fullmatch(number)
+            match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.globe_mobile_number_prefixes
 
     def test_PH_smart_mobile_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.smart_mobile_number()
-            match = self.mobile_number_pattern.fullmatch(number)
+            match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.smart_mobile_number_prefixes
 
     def test_PH_sun_mobile_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.sun_mobile_number()
-            match = self.mobile_number_pattern.fullmatch(number)
+            match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.sun_mobile_number_prefixes
 
     def test_PH_mobile_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.mobile_number()
-            match = self.mobile_number_pattern.fullmatch(number)
+            match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.mobile_number_prefixes
 
     def test_PH_globe_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.globe_area2_landline_number()
-            match = self.area2_landline_number_pattern.fullmatch(number)
+            match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1).startswith('7')
 
     def test_PH_pldt_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.pldt_area2_landline_number()
-            match = self.area2_landline_number_pattern.fullmatch(number)
+            match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1).startswith('8')
 
     def test_PH_bayantel_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.bayantel_area2_landline_number()
-            match = self.area2_landline_number_pattern.fullmatch(number)
+            match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.bayantel_landline_identifiers
 
     def test_PH_misc_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.misc_area2_landline_number()
-            match = self.area2_landline_number_pattern.fullmatch(number)
+            match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.misc_landline_identifiers
 
     def test_PH_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.area2_landline_number()
-            match = self.area2_landline_number_pattern.fullmatch(number)
+            match = self.area2_landline_number_pattern.match(number)
             assert match and any([
                 match.group(1).startswith('7'),
                 match.group(1).startswith('8'),
@@ -201,14 +201,14 @@ class TestEnPh(unittest.TestCase):
     def test_PH_non_area2_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.non_area2_landline_number()
-            match = self.non_area2_landline_number_pattern.fullmatch(number)
+            match = self.non_area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.non_area2_landline_area_codes
 
     def test_PH_landline_number(self):
         for i in range(self.num_sample_runs):
             number = self.factory.landline_number()
-            area2_match = self.area2_landline_number_pattern.fullmatch(number)
-            non_area2_match = self.non_area2_landline_number_pattern.fullmatch(number)
+            area2_match = self.area2_landline_number_pattern.match(number)
+            non_area2_match = self.non_area2_landline_number_pattern.match(number)
             assert area2_match or non_area2_match
             if area2_match:
                 assert any([

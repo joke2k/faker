@@ -808,7 +808,7 @@ class TestPlPL(unittest.TestCase):
 
 
 class TestEnPh(unittest.TestCase):
-    num_sample_runs = 10000
+    num_sample_runs = 1000
 
     def setUp(self):
         self.sss_pattern = re.compile(r'^\d{2}-\d{7}-\d$')
@@ -823,23 +823,23 @@ class TestEnPh(unittest.TestCase):
 
     def test_PH_sss(self):
         for i in range(self.num_sample_runs):
-            assert self.sss_pattern.fullmatch(self.factory.sss())
+            assert self.sss_pattern.match(self.factory.sss())
 
     def test_PH_gsis(self):
         for i in range(self.num_sample_runs):
-            assert self.gsis_pattern.fullmatch(self.factory.gsis())
+            assert self.gsis_pattern.match(self.factory.gsis())
 
     def test_PH_philhealth(self):
         for i in range(self.num_sample_runs):
-            assert self.philhealth_pattern.fullmatch(self.factory.philhealth())
+            assert self.philhealth_pattern.match(self.factory.philhealth())
 
     def test_PH_pagibig(self):
         for i in range(self.num_sample_runs):
-            assert self.pagibig_pattern.fullmatch(self.factory.pagibig())
+            assert self.pagibig_pattern.match(self.factory.pagibig())
 
     def test_PH_umid(self):
         for i in range(self.num_sample_runs):
-            assert self.umid_pattern.fullmatch(self.factory.umid())
+            assert self.umid_pattern.match(self.factory.umid())
 
 
 class TestFilPh(TestEnPh):
@@ -852,4 +852,3 @@ class TestTlPh(TestEnPh):
 
     def setup_factory(self):
         self.factory = Faker('tl_PH')
-

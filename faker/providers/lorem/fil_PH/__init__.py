@@ -68,5 +68,5 @@ class Provider(LoremProvider):
         'tinda', 'tindahan', 'tingin', 'tipon', 'tiyak', 'tono', 'totoo', 'trabaho', 'trak', 'tren', 'tubig', 'tugon',
         'tukoy', 'tuktok', 'tula', 'tulad', 'tulog', 'tulong', 'tuloy', 'tumba', 'tunay', 'tungkol', 'tungo', 'tunog',
         'turo', 'tuwa', 'tuwid', 'ugat', 'ulan', 'ulo', 'una', 'upo', 'upuan', 'uri', 'wala', 'walo', 'wika', 'yaman',
-        'yelo'
+        'yelo',
     )

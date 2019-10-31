@@ -229,7 +229,7 @@ class Provider(AddressProvider):
         'Uson', 'Uyugan', 'Valderrama', 'Valencia', 'Valladolid', 'Vallehermoso', 'Veruela', 'Victoria', 'Victorias',
         'Viga', 'Vigan', 'Villaba', 'Villanueva', 'Villareal', 'Villasis', 'Villaverde', 'Villaviciosa',
         'Vincenzo A. Sagun', 'Vintar', 'Vinzons', 'Virac', 'Wao', 'Zamboanga City', 'Zamboanguita', 'Zaragoza',
-        'Zarraga', 'Zumarraga'
+        'Zarraga', 'Zumarraga',
     )
     luzon_provinces = (
         'Abra', 'Albay', 'Apayao', 'Aurora', 'Bataan', 'Batanes', 'Batangas', 'Benguet', 'Bulacan', 'Cagayan',
@@ -404,7 +404,7 @@ class Provider(AddressProvider):
 
     def partitioned_building_number(self):
         pattern = self.lexify(
-            self.random_element(self.partitioned_building_number_formats), letters=ascii_uppercase[:10]
+            self.random_element(self.partitioned_building_number_formats), letters=ascii_uppercase[:10],
         )
         return self.generator.parse(pattern)
 
@@ -426,7 +426,7 @@ class Provider(AddressProvider):
     def floor_unit_number(self):
         return '{floor_number}{unit_number:02d}'.format(
             floor_number=self.floor_number(),
-            unit_number=self.random_int(1, 40)
+            unit_number=self.random_int(1, 40),
         )
 
     def building_unit_number(self):

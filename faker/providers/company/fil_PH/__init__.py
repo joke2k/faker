@@ -50,7 +50,7 @@ class Provider(EnPhProvider):
         'tunay',
         'walang kapantay',
         'walang katulad',
-        'walang tatalo'
+        'walang tatalo',
     )
     objects_of_concern = [
         'Filipino',

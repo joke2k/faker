@@ -958,14 +958,14 @@ class TestPtPT(unittest.TestCase):
 
 
 class TestEnPh(unittest.TestCase):
-    num_sample_runs = 10000
+    num_sample_runs = 1000
 
     def setUp(self):
         self.building_number_pattern = re.compile(
-            r'^(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?$'
+            r'^(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?$',
         )
         self.address_pattern = re.compile(
-            r'^(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)$'
+            r'^(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)$',
         )
         self.setup_constants()
         self.setup_factory()
@@ -1006,7 +1006,7 @@ class TestEnPh(unittest.TestCase):
 
     def test_PH_building_number(self):
         for i in range(self.num_sample_runs):
-            assert self.building_number_pattern.fullmatch(self.factory.building_number())
+            assert self.building_number_pattern.match(self.factory.building_number())
 
     def test_PH_floor_unit_number(self):
         for i in range(self.num_sample_runs):
@@ -1017,7 +1017,7 @@ class TestEnPh(unittest.TestCase):
     def test_PH_address(self):
         for i in range(self.num_sample_runs):
             address = self.factory.address()
-            match = self.address_pattern.fullmatch(address)
+            match = self.address_pattern.match(address)
             street_address = match.group('street_address')
             lgu = match.group('lgu')
             postcode = match.group('postcode')
