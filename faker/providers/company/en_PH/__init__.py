@@ -9,7 +9,6 @@ class Provider(CompanyProvider):
     Provider for company names for en_PH locale
 
     Company naming scheme and probabilities are inspired by and/or based on existing companies in the Philippines.
-    Parody names of popular local companies are also available.
 
     Sources:
     - https://en.wikipedia.org/wiki/List_of_companies_of_the_Philippines
@@ -22,9 +21,8 @@ class Provider(CompanyProvider):
         ('{{last_name}} {{random_company_noun_chain}} {{company_type}} {{company_suffix}}', 0.16),
         ('{{random_company_adjective}} {{company_type}} {{company_suffix}}', 0.12),
         ('{{random_company_acronym}} {{company_type}} {{company_suffix}}', 0.12),
-        ('{{last_name}} {{company_type}} {{company_suffix}}', 0.08),
-        ('National {{random_company_product}} Corporation of the Philippines', 0.02),
-        ('{{parody_company_name}}', 0.02),
+        ('{{last_name}} {{company_type}} {{company_suffix}}', 0.09),
+        ('National {{random_company_product}} Corporation of the Philippines', 0.03),
     ])
     company_suffixes = OrderedDict([
         ('Inc.', 0.45),
@@ -116,53 +114,9 @@ class Provider(CompanyProvider):
         'Philippine',
         'Prime',
     )
-    parody_company_names = (
-        'Alaya Corporation',
-        'Autolife Financial Corporation',
-        'Backwell Land Corporation',
-        'Banco de Cobre',
-        'Bank of the Philippine Islets',
-        'Batmansons Land Corporation',
-        'BD Prime Holdings Inc.',
-        'Cebu Atlantic Air Inc.',
-        'Chooks-for-Here',
-        'Chowqueen',
-        'Cosmobank',
-        'Diverge ITC Solutions Inc.',
-        'Earth Cable Corporation',
-        'Falcon Cement Corporation',
-        'Flat Earth Telecom Inc.',
-        'Gigaworld Corporation',
-        'GMA-CBN Corporation',
-        'Happywasp Foods Corporation',
-        'Hawaii Milk Corporation',
-        'Ilocana Lhuillier',
-        'LBM Express Inc.',
-        'Lunar Entertainment Corporation',
-        'Makati Water Company Inc.',
-        'Mang Bacolod',
-        'Millenium Properties Group Inc.',
-        'Moon Life Financial Inc.',
-        'Multilab Inc.',
-        'North South Banking Corporation',
-        'Omegaland Corporation',
-        'Osaka Osaka',
-        'PLDC',
-        'Royal Entertainment',
-        'The Gastro Group',
-        'The Philippine Stonks Exchange Inc.',
-        'Triplewyvern Properties Corporation',
-        'United Tomato Planters Bank',
-        'Venus Drug Corporation',
-        'Wilson Depot',
-        'Wise Communications Inc.',
-    )
 
     def company_type(self):
         return self.random_element(self.company_types)
-
-    def parody_company_name(self):
-        return self.random_element(self.parody_company_names)
 
     def random_company_adjective(self):
         return self.random_element(self.company_adjectives)

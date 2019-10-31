@@ -208,7 +208,6 @@ class TestEnPh(unittest.TestCase):
         from faker.providers.company.en_PH import Provider
         self.company_types = Provider.company_types
         self.company_suffixes = Provider.company_suffixes.keys()
-        self.parody_company_names = Provider.parody_company_names
         self.company_products = Provider.company_products
 
     def test_PH_random_company_noun_chain(self):
@@ -223,10 +222,7 @@ class TestEnPh(unittest.TestCase):
     def test_PH_company(self):
         for i in range(self.num_sample_runs):
             company = self.factory.company()
-            if any([
-                company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types,
-                company in self.parody_company_names,
-            ]):
+            if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
                 continue
             else:
                 national_corporation_match = self.national_corporation_pattern.fullmatch(company)

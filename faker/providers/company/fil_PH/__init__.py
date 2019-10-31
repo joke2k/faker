@@ -29,7 +29,7 @@ class Provider(EnPhProvider):
         'karangalan',
         'lingkod',
         'liwanag',
-        'numero_uno',
+        'numero uno',
         'pag-asa',
         'tulay',
     )
