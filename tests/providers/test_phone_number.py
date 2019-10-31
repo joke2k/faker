@@ -112,3 +112,13 @@ class TestHyAm(unittest.TestCase):
     def test_phone_number(self):
         pn = self.factory.phone_number()
         assert isinstance(pn, six.string_types)
+
+
+class TestTaIN(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_phone_number(self):
+        phone_number = self.factory.phone_number()
+        re.match(r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$", phone_number)
