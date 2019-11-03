@@ -20,6 +20,7 @@ from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.vi_VN import Provider as ViProvider
+from faker.providers.date_time.ta_IN import Provider as TaInProvider
 
 
 def is64bit():
@@ -677,3 +678,19 @@ class ViDatetimeTest(unittest.TestCase):
     def test_month_name(self):
         month_name = self.factory.month_name()
         assert month_name in ViProvider.month_names.values()
+
+class TestTaIN(unittest.TestCase):
+    """ Tests date_time in the ta_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_day(self):
+        day = self.factory.day_of_week()
+        assert isinstance(day, six.string_types)
+        assert day in TaInProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.factory.month_name()
+        assert isinstance(month, six.string_types)
+        assert month in TaInProvider.MONTH_NAMES.values()

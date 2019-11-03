@@ -16,6 +16,7 @@ from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.es_ES import Provider as EsEsProvider
+from faker.providers.address.es_MX import Provider as EsMxProvider
 from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
@@ -442,6 +443,45 @@ class TestEsES(unittest.TestCase):
         assert isinstance(secondary_address, string_types)
 
 
+class TestEsMX(unittest.TestCase):
+    """ Tests the addresses in the es_MX locale """
+
+    def setUp(self):
+        self.factory = Faker('es_MX')
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+        assert city_prefix in EsMxProvider.city_prefixes
+
+    def test_city_suffix(self):
+        city_suffix = self.factory.city_suffix()
+        assert isinstance(city_suffix, string_types)
+        assert city_suffix in EsMxProvider.city_suffixes
+
+    def test_city_adjective(self):
+        city_adjective = self.factory.city_adjective()
+        assert isinstance(city_adjective, string_types)
+        assert city_adjective in EsMxProvider.city_adjectives
+
+    def test_street_prefix(self):
+        street_prefix = self.factory.street_prefix()
+        assert isinstance(street_prefix, string_types)
+        assert street_prefix in EsMxProvider.street_prefixes
+
+    def test_secondary_address(self):
+        secondary_address = self.factory.secondary_address()
+        assert isinstance(secondary_address, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+    def test_state_abbr(self):
+        state_abbr = self.factory.state_abbr()
+        assert isinstance(state_abbr, string_types)
+
+
 class TestFaIR(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
 
@@ -518,6 +558,21 @@ class TestHiIN(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('hi_IN')
+
+    def test_city_name(self):
+        city_name = self.factory.city_name()
+        assert isinstance(city_name, string_types)
+
+    def test_state(self):
+        state = self.factory.state()
+        assert isinstance(state, string_types)
+
+
+class TestTaIN(unittest.TestCase):
+    """ Tests addresses in the ta_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
 
     def test_city_name(self):
         city_name = self.factory.city_name()

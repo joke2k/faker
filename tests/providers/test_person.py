@@ -26,6 +26,7 @@ from faker.providers.person.pl_PL import (
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.vi_VN import Provider as ViProvider
+from faker.providers.person.ta_IN import Provider as TaINProvider
 
 
 class TestAr(unittest.TestCase):
@@ -533,3 +534,18 @@ class TestVi(unittest.TestCase):
     def test_mid_name_male(self):
         mid_name_male = self.factory.mid_name_male()
         assert mid_name_male in ViProvider.mid_names_male
+
+        
+class TestTaIN(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_gender_first_names(self):
+        """simple test to verify that we are pulling gender specific names"""
+        name = self.factory.first_name_female()
+        assert name in TaINProvider.first_names_female
+        name = self.factory.first_name_male()
+        assert name in TaINProvider.first_names_male
+        name = self.factory.first_name()
+        assert name in TaINProvider.first_names
