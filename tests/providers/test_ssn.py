@@ -805,3 +805,50 @@ class TestPlPL(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r'^PL\d{10}$', self.factory.vat_id())
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.sss_pattern = re.compile(r'^\d{2}-\d{7}-\d$')
+        self.gsis_pattern = re.compile(r'^\d{11}$')
+        self.philhealth_pattern = re.compile(r'^\d{2}-\d{9}-\d$')
+        self.pagibig_pattern = re.compile(r'^\d{4}-\d{4}-\d{4}$')
+        self.umid_pattern = re.compile(r'^\d{4}-\d{7}-\d$')
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def test_PH_sss(self):
+        for i in range(self.num_sample_runs):
+            assert self.sss_pattern.match(self.factory.sss())
+
+    def test_PH_gsis(self):
+        for i in range(self.num_sample_runs):
+            assert self.gsis_pattern.match(self.factory.gsis())
+
+    def test_PH_philhealth(self):
+        for i in range(self.num_sample_runs):
+            assert self.philhealth_pattern.match(self.factory.philhealth())
+
+    def test_PH_pagibig(self):
+        for i in range(self.num_sample_runs):
+            assert self.pagibig_pattern.match(self.factory.pagibig())
+
+    def test_PH_umid(self):
+        for i in range(self.num_sample_runs):
+            assert self.umid_pattern.match(self.factory.umid())
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+
+class TestTlPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')

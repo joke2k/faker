@@ -679,6 +679,37 @@ class ViDatetimeTest(unittest.TestCase):
         month_name = self.factory.month_name()
         assert month_name in ViProvider.month_names.values()
 
+
+class TestFilPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.setup_constants()
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+    def setup_constants(self):
+        from faker.providers.date_time.fil_PH import Provider
+        self.day_names = Provider.DAY_NAMES.values()
+        self.month_names = Provider.MONTH_NAMES.values()
+
+    def test_PH_of_week(self):
+        for i in range(self.num_sample_runs):
+            assert self.factory.day_of_week() in self.day_names
+
+    def test_PH_month_name(self):
+        for i in range(self.num_sample_runs):
+            assert self.factory.month_name() in self.month_names
+
+
+class TestTlPh(TestFilPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
+
+
 class TestTaIN(unittest.TestCase):
     """ Tests date_time in the ta_IN locale """
 
