@@ -1010,3 +1010,87 @@ class TestPtPT(unittest.TestCase):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)
         assert freguesia in PtPtProvider.freguesias
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.building_number_pattern = re.compile(
+            r'^(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?$',
+        )
+        self.address_pattern = re.compile(
+            r'^(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)$',
+        )
+        self.setup_constants()
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def setup_constants(self):
+        from faker.providers.address.en_PH import Provider
+        self.metro_manila_postcodes = Provider.metro_manila_postcodes
+        self.luzon_province_postcodes = Provider.luzon_province_postcodes
+        self.visayas_province_postcodes = Provider.visayas_province_postcodes
+        self.mindanao_province_postcodes = Provider.mindanao_province_postcodes
+        self.postcodes = Provider.postcodes
+        self.provinces = Provider.provinces
+        self.province_lgus = Provider.province_lgus
+        self.metro_manila_lgus = Provider.metro_manila_lgus
+
+    def test_PH_metro_manila_postcode(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.metro_manila_postcode()) in self.metro_manila_postcodes
+
+    def test_PH_luzon_province_postcode(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.luzon_province_postcode()) in self.luzon_province_postcodes
+
+    def test_PH_visayas_province_postcode(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.visayas_province_postcode()) in self.visayas_province_postcodes
+
+    def test_PH_mindanao_province_postcode(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.mindanao_province_postcode()) in self.mindanao_province_postcodes
+
+    def test_PH_postcode(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.postcode()) in self.postcodes
+
+    def test_PH_building_number(self):
+        for i in range(self.num_sample_runs):
+            assert self.building_number_pattern.match(self.factory.building_number())
+
+    def test_PH_floor_unit_number(self):
+        for i in range(self.num_sample_runs):
+            number = self.factory.floor_unit_number()
+            assert 2 <= int(number[:-2]) <= 99
+            assert 1 <= int(number[-2:]) <= 40
+
+    def test_PH_address(self):
+        for i in range(self.num_sample_runs):
+            address = self.factory.address()
+            match = self.address_pattern.match(address)
+            street_address = match.group('street_address')
+            lgu = match.group('lgu')
+            postcode = match.group('postcode')
+            province = match.group('province')
+            assert match
+            assert street_address
+            assert lgu in self.province_lgus or lgu in self.metro_manila_lgus
+            assert int(postcode) in self.postcodes
+            assert province in self.provinces or province == 'Metro Manila'
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+
+class TestTlPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')

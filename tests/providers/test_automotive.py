@@ -72,3 +72,44 @@ class TestPlPL(unittest.TestCase):
         patterns = self.factory.license_plate_regex_formats()
         assert re.match(r'{patterns}'.format(patterns='|'.join(patterns)),
                         plate), '{plate} is not the correct format.'.format(plate=plate)
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.motorcycle_pattern = re.compile(r'^[A-Z]{2}\d{4,5}$')
+        self.automobile_pattern = re.compile(r'^[A-Z]{3}\d{3,4}$')
+        self.vehicle_pattern = re.compile(r'^(?:[A-Z]{2}\d{4,5}|[A-Z]{3}\d{3,4})$')
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def test_PH_motorcycle_plate_format(self):
+        for i in range(self.num_sample_runs):
+            assert self.motorcycle_pattern.match(self.factory.motorcycle_license_plate())
+
+    def test_PH_automobile_plate_format(self):
+        for i in range(self.num_sample_runs):
+            assert self.automobile_pattern.match(self.factory.automobile_license_plate())
+
+    def test_PH_plate_format(self):
+        for i in range(self.num_sample_runs):
+            assert self.vehicle_pattern.match(self.factory.license_plate())
+
+    def test_PH_protocol_plate_format(self):
+        for i in range(self.num_sample_runs):
+            assert int(self.factory.protocol_license_plate()) != 15
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+
+class TestTlPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
