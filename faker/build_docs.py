@@ -61,9 +61,11 @@ def write_docs(*args, **kwargs):
         provider_name = doc.get_provider_name(provider)
         fname = os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name)
         with open(fname, 'wb') as fh:
+            write(fh, ':github_url: hide\n\n')
             write_provider(fh, doc, provider, fakers)
 
     with open(os.path.join(DOCS_ROOT, 'providers.rst'), 'wb') as fh:
+        write(fh, ':github_url: hide\n\n')
         write(fh, 'Providers\n')
         write(fh, '=========\n')
         write(fh, '.. toctree::\n')
@@ -75,7 +77,7 @@ def write_docs(*args, **kwargs):
     for lang in AVAILABLE_LOCALES:
         fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
         with open(fname, 'wb') as fh:
-            write(fh, '\n')
+            write(fh, ':github_url: hide\n\n')
             title = 'Language {0}\n'.format(lang)
             write(fh, title)
             write(fh, '=' * len(title))
@@ -89,6 +91,7 @@ def write_docs(*args, **kwargs):
                 write_provider(fh, d, p, fs)
 
     with open(os.path.join(DOCS_ROOT, 'locales.rst'), 'wb') as fh:
+        write(fh, ':github_url: hide\n\n')
         write(fh, 'Locales\n')
         write(fh, '=======\n')
         write(fh, '.. toctree::\n')
