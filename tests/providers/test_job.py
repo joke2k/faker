@@ -22,6 +22,19 @@ class TestJob(unittest.TestCase):
         assert isinstance(job, six.string_types)
 
 
+class TestJaJP(unittest.TestCase):
+    """
+    Test Job ja_JP
+    """
+
+    def setUp(self):
+        self.factory = Faker('ja_JP')
+
+    def test_job(self):
+        job = self.factory.job()
+        assert isinstance(job, six.string_types)
+
+
 class TestKoKR(unittest.TestCase):
     """
     Test Job ko_KR
