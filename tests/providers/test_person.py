@@ -535,7 +535,7 @@ class TestVi(unittest.TestCase):
         mid_name_male = self.factory.mid_name_male()
         assert mid_name_male in ViProvider.mid_names_male
 
-        
+
 class TestTaIN(unittest.TestCase):
 
     def setUp(self):
