@@ -1029,6 +1029,7 @@ class TestViPT(unittest.TestCase):
         state = self.factory.state()
         assert state in ViProvider.states
 
+
 class TestEnPh(unittest.TestCase):
     num_sample_runs = 1000
 
