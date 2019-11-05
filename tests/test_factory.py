@@ -6,6 +6,10 @@ import re
 import string
 import sys
 import unittest
+try:
+    from unittest.mock import patch, PropertyMock
+except ImportError:
+    from mock import patch, PropertyMock
 
 from collections import OrderedDict
 from ipaddress import ip_address, ip_network
@@ -526,6 +530,41 @@ class FactoryTestCase(unittest.TestCase):
             email = factory.email()
             assert '@' in email
 
+    def test_ipv4_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        # The extra [None] here is to test code path involving whole IPv4 pool
+        for address_class in list(_IPv4Constants._network_classes.keys()) + [None]:
+            if address_class is None:
+                networks_attr = '_cached_all_networks'
+            else:
+                networks_attr = '_cached_all_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
+
     def test_ipv4(self):
         from faker.providers.internet import Provider
 
@@ -564,6 +603,37 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             klass = provider.ipv4_network_class()
             assert klass in 'abc'
+
+    def test_ipv4_private_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        for address_class in _IPv4Constants._network_classes.keys():
+            networks_attr = '_cached_private_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4_private(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4_private(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4_private() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
 
     def test_ipv4_private(self):
         from faker.providers.internet import Provider
@@ -637,6 +707,37 @@ class FactoryTestCase(unittest.TestCase):
             assert ip_address(address).is_private
             assert ip_address(address) >= class_min
             assert ip_address(address) <= class_max
+
+    def test_ipv4_public_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        for address_class in _IPv4Constants._network_classes.keys():
+            networks_attr = '_cached_public_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4_public(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4_public(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4_public() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
 
     def test_ipv4_public(self):
         from faker.providers.internet import Provider
