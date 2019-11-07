@@ -798,6 +798,39 @@ class FactoryTestCase(unittest.TestCase):
             assert len(address) <= 15
             assert not ip_address(address).is_private, address
 
+    def test_ipv4_distribution_selection(self):
+        from faker.providers.internet import Provider
+        from faker.utils.distribution import choices_distribution
+        provider = Provider(self.generator)
+
+        subnets = [ip_network('10.0.0.0/8'), ip_network('11.0.0.0/8')]
+        valid_weights = [1, 1]
+        list_of_invalid_weights = [
+            [1, 2, 3],   # List size does not match subnet list size
+            ['a', 'b'],  # List size matches, but elements are invalid
+            None,        # Not a list or valid iterable
+        ]
+
+        with patch('faker.providers.internet.choices_distribution',
+                   wraps=choices_distribution) as mock_choices_fn:
+            with patch('faker.generator.random.choice',
+                       wraps=random.choice) as mock_random_choice:
+                # If weights argument is valid, only `choices_distribution` should be called
+                provider._random_ipv4_address_from_subnets(subnets, valid_weights)
+                assert mock_choices_fn.call_count == 1
+                assert mock_random_choice.call_count == 0
+
+                # If weights argument is invalid, calls to `choices_distribution` will fail
+                # and calls to `random.choice` will be made as failover behavior
+                for invalid_weights in list_of_invalid_weights:
+                    # Reset mock objects for each iteration
+                    mock_random_choice.reset_mock()
+                    mock_choices_fn.reset_mock()
+
+                    provider._random_ipv4_address_from_subnets(subnets, invalid_weights)
+                    assert mock_choices_fn.call_count == 1
+                    assert mock_random_choice.call_count == 1
+
     def test_ipv6(self):
         from faker.providers.internet import Provider
 
