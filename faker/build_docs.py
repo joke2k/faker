@@ -15,6 +15,12 @@ def write(fh, s):
     return fh.write(s.encode('utf-8'))
 
 
+def write_base_provider(fh, doc, base_provider):
+    formatters = doc.get_provider_formatters(base_provider)
+    write(fh, ':github_url: hide\n\n')
+    write_provider(fh, doc, base_provider, formatters)
+
+
 def write_provider(fh, doc, provider, formatters, excludes=None):
 
     if excludes is None:
@@ -47,16 +53,21 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
 def write_docs(*args, **kwargs):
     from faker import Faker, documentor
     from faker.config import DEFAULT_LOCALE, AVAILABLE_LOCALES
+    from faker.providers import BaseProvider
 
     fake = Faker(locale=DEFAULT_LOCALE)
-
-    from faker.providers import BaseProvider
-    base_provider_formatters = [f for f in dir(BaseProvider)]
-
     doc = documentor.Documentor(fake)
 
-    formatters = doc.get_formatters(with_args=True, with_defaults=True)
+    # Write docs for fakers.providers.BaseProvider
+    base_provider = BaseProvider(fake)
+    fname = os.path.join(DOCS_ROOT, 'providers', 'BaseProvider.rst')
+    with open(fname, 'wb') as fh:
+        write_base_provider(fh, doc, base_provider)
 
+    # Write docs for default locale providers
+    base_provider_formatters = [f for f in dir(BaseProvider)]
+    formatters = doc.get_formatters(with_args=True, with_defaults=True,
+                                    excludes=base_provider_formatters)
     for provider, fakers in formatters:
         provider_name = doc.get_provider_name(provider)
         fname = os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name)
@@ -64,15 +75,18 @@ def write_docs(*args, **kwargs):
             write(fh, ':github_url: hide\n\n')
             write_provider(fh, doc, provider, fakers)
 
+    # Write providers index page
     with open(os.path.join(DOCS_ROOT, 'providers.rst'), 'wb') as fh:
         write(fh, ':github_url: hide\n\n')
         write(fh, 'Providers\n')
         write(fh, '=========\n')
         write(fh, '.. toctree::\n')
         write(fh, '   :maxdepth: 2\n\n')
+        write(fh, '   providers/BaseProvider\n')
         [write(fh, '   providers/%s\n' % doc.get_provider_name(provider))
          for provider, fakers in formatters]
 
+    # Write docs for locale-specific providers
     AVAILABLE_LOCALES = sorted(AVAILABLE_LOCALES)
     for lang in AVAILABLE_LOCALES:
         fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
@@ -90,6 +104,7 @@ def write_docs(*args, **kwargs):
                                           excludes=base_provider_formatters):
                 write_provider(fh, d, p, fs)
 
+    # Write locales index page
     with open(os.path.join(DOCS_ROOT, 'locales.rst'), 'wb') as fh:
         write(fh, ':github_url: hide\n\n')
         write(fh, 'Locales\n')
