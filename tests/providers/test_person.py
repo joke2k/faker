@@ -25,7 +25,11 @@ from faker.providers.person.pl_PL import (
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
+<<<<<<< HEAD
 from faker.providers.person.ta_IN import Provider as TaINProvider
+=======
+from faker.providers.person.en_NG import Provider as EnNGProvider
+>>>>>>> b1c5d2ea2f030625d269a7e27f354b6062ee0523
 
 
 class TestAr(unittest.TestCase):
@@ -535,3 +539,56 @@ class TestTaIN(unittest.TestCase):
         assert name in TaINProvider.first_names_male
         name = self.factory.first_name()
         assert name in TaINProvider.first_names
+
+class TestEnNG(unittest.TestCase):
+    """ Tests person in the en_NG locale """
+
+    def setUp(self):
+        self.factory = Faker('en_NG')
+
+    def test_name(self):
+        # General name
+        name = self.factory.name()
+        self.assertIsInstance(name, six.string_types)
+
+        # Female name
+        name = self.factory.name_female()
+        self.assertIsInstance(name, six.string_types)
+
+        # Male name
+        name = self.factory.name_male()
+        self.assertIsInstance(name, six.string_types)
+
+    def test_first_name(self):
+        # General first name
+        name = self.factory.first_name()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.first_names
+
+        # Female first name
+        name = self.factory.first_name_female()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.first_names
+        assert name in EnNGProvider.first_names_female
+
+        # Male first name
+        name = self.factory.first_name_male()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.first_names
+        assert name in EnNGProvider.first_names_male
+
+    def test_last_name(self):
+        # General last name.
+        name = self.factory.last_name()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.last_names
+
+        # Females last name.
+        name = self.factory.last_name_female()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.last_names
+
+        # Male last name.
+        name = self.factory.last_name_male()
+        self.assertIsInstance(name, six.string_types)
+        assert name in EnNGProvider.last_names
