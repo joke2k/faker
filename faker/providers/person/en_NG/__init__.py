@@ -24,7 +24,7 @@ class Provider(PersonProvider):
     )
 
     # Names from
-    # https://andela-celisha-wigwe.github.io/names.html
+    # https://elchroy.github.io/names.html
 
     first_names_male = (
          'Abimbola','Abisola','Abisoye','Adeboye','Adedayo','Adegoke', 'Akande', 'Akanni', 'Alade', 'Ayinde', 'Azubuike',
