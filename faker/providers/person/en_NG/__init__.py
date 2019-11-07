@@ -25,6 +25,7 @@ class Provider(PersonProvider):
 
     # Names from
     # https://elchroy.github.io/names.html
+    # Another source: https://www.pulse.ng/lifestyle/food-travel/common-nigerian-names-from-the-different-ethnic-groups-in-nigeria/h5fs1h3
 
     first_names_male = (
          'Abimbola','Abisola','Abisoye','Adeboye','Adedayo','Adegoke', 'Akande', 'Akanni', 'Alade', 'Ayinde', 'Azubuike',

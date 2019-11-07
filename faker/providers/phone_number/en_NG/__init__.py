@@ -18,6 +18,8 @@ class Provider(PhoneNumberProvider):
         '+234-{{area_code}}-###-####',
     )
 
+
+    # https://en.wikipedia.org/wiki/Telephone_numbers_in_Nigeria
     mobile_codes = [
         #MTN
         '803',
