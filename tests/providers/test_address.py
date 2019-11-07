@@ -1096,6 +1096,7 @@ class TestTlPh(TestEnPh):
     def setup_factory(self):
         self.factory = Faker('tl_PH')
 
+
 class TestEnNG(unittest.TestCase):
 
     def setUp(self):

@@ -81,7 +81,7 @@ class Provider(AddressProvider):
         'shores',
         'skyway',
         'spring',
-        'square',      
+        'square',
         'station',
         'street',
         'summit',
@@ -98,37 +98,37 @@ class Provider(AddressProvider):
 
     # https://en.wikipedia.org/wiki/Postal_codes_in_Nigeria
     POSTAL_ZONES = {
-        'Abuja' : '900001',
-'Abia' : '440001',
-'Adamawa' : '640001',
-'Akwa-Ibom' : '520001',
-'Anambra' : '420001',
-'Bauchi' : '740001',
-'Borno' : '600001',
-'Delta' : '320001',
-'Edo' : '300001',
-'Enugu' : '400001',
-'Imo' : '460001',
-'Jigawa' : '720001',
-'Kano' : '700001',
-'Kaduna' : '800001',
-'Katsina' : '820001',
-'Kebbi' : '860001',
-'Kogi' : '260001',
-'Kwara' : '240001',
-'Lagos (Island)' : '101001',
-'Lagos (Mainland)' : '100001',
-'Niger' : '920001',
-'Ogun' : '110001',
-'Ondo' : '340001',
-'Osun' : '230001',
-'Oyo' : '200001',
-'Plateau' : '930001',
-'Rivers' : '500001',
-'Sokoto' : '840001',
-'Taraba' : '660001',
-'Yobe': '320001',
-'Ebonyi' : '840001'
+        'Abuja': '900001',
+        'Abia': '440001',
+        'Adamawa': '640001',
+        'Akwa-Ibom': '520001',
+        'Anambra': '420001',
+        'Bauchi': '740001',
+        'Borno': '600001',
+        'Delta': '320001',
+        'Edo': '300001',
+        'Enugu': '400001',
+        'Imo': '460001',
+        'Jigawa': '720001',
+        'Kano': '700001',
+        'Kaduna': '800001',
+        'Katsina': '820001',
+        'Kebbi': '860001',
+        'Kogi': '260001',
+        'Kwara': '240001',
+        'Lagos (Island)': '101001',
+        'Lagos (Mainland)': '100001',
+        'Niger': '920001',
+        'Ogun': '110001',
+        'Ondo': '340001',
+        'Osun': '230001',
+        'Oyo': '200001',
+        'Plateau': '930001',
+        'Rivers': '500001',
+        'Sokoto': '840001',
+        'Taraba': '660001',
+        'Yobe': '320001',
+        'Ebonyi': '840001'
     }
 
     city_formats = (
@@ -151,11 +151,10 @@ class Provider(AddressProvider):
     secondary_address_formats = (
         'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
 
-    
     def postcode(self):
         return self.random_element(self.POSTAL_ZONES.values())
 
-    def state (self):
+    def state(self):
         return self.random_element(self.POSTAL_ZONES.keys())
 
     def city_prefix(self):

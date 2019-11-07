@@ -537,6 +537,7 @@ class TestTaIN(unittest.TestCase):
         name = self.factory.first_name()
         assert name in TaINProvider.first_names
 
+
 class TestEnNG(unittest.TestCase):
     """ Tests person in the en_NG locale """
 
