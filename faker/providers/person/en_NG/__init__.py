@@ -25,11 +25,11 @@ class Provider(PersonProvider):
 
     # Names from
     # https://elchroy.github.io/names.html
-    # Another source: https://www.pulse.ng/lifestyle/food-travel/common-nigerian-names-from-the-different-ethnic-groups-in-nigeria/h5fs1h3
+    # https://www.pulse.ng/lifestyle/food-travel/common-nigerian-names-from-the-different-ethnic-groups-in-nigeria/h5fs1h3
 
     first_names_male = (
-        'Abimbola', 'Abisola', 'Abisoye', 'Adeboye', 'Adedayo', 'Adegoke', 'Akande', 'Akanni', 'Alade', 'Ayinde', 'Azubuike',
-        'Banji', 'Bankole', 'Buchi', 'Bukola',
+        'Abimbola', 'Abisola', 'Abisoye', 'Adeboye', 'Adedayo', 'Adegoke', 'Akande', 'Akanni', 'Alade', 'Ayinde',
+        'Azubuike', 'Banji', 'Bankole', 'Buchi', 'Bukola',
         'Chinedu', 'Chisom', 'Chukwu',
         'Damilare', 'Damilola', 'Danjuma',
         'Ebiowei', 'Emeka', 'Emmanuel', 'Esse',
@@ -63,7 +63,7 @@ class Provider(PersonProvider):
         'Rasheedah',
         'Sekinat', 'Simisola', 'Sumayyah',
         'Titi', 'Titilayo', 'Toluwani',
-        'Zainab'
+        'Zainab',
     )
 
     first_names = first_names_male + first_names_female
@@ -234,7 +234,7 @@ class Provider(PersonProvider):
         ('Wilcox', 0.65),
         ('Wuraola', 0.48),
         ('Yaqub', 0.99),
-        ('Yussuf', 0.77)
+        ('Yussuf', 0.77),
     ))
 
     prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.')

@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from collections import OrderedDict
 
 from ..en import Provider as AddressProvider
 
@@ -7,11 +6,16 @@ from ..en import Provider as AddressProvider
 class Provider(AddressProvider):
     city_prefixes = ('North', 'East', 'West', 'South', 'New', 'Lake', 'Port')
     city_suffixes = (
-        'Abiodun', 'Abiola', 'Abodunrin', 'Abosede', 'Adaobi', 'Adebayo', 'Adegboye', 'Adegoke', 'Ademayowa', 'Ademola', 'Adeniyan', 'Adeoluwa', 'Aderinsola', 'Aderonke', 'Adesina', 'Adewale', 'Adewale', 'Adewale', 'Adewunmi', 'Adewura', 'Adeyemo', 'Afolabi', 'Afunku', 'Agboola', 'Agboola', 'Agnes', 'Aigbiniode', 'Ajakaiye', 'Ajose-adeogun', 'Akeem-omosanya', 'Akerele', 'Akintade', 'Aligbe', 'Amaechi', 'Aminat', 'Aremu', 'Atanda', 'Ayisat', 'Ayobami', 'Ayomide', 'Ayomide',
+        'Abiodun', 'Abiola', 'Abodunrin', 'Abosede', 'Adaobi', 'Adebayo', 'Adegboye',
+        'Adegoke', 'Ademayowa', 'Ademola', 'Adeniyan', 'Adeoluwa', 'Aderinsola', 'Aderonke', 'Adesina', 'Adewale',
+        'Adewale', 'Adewale', 'Adewunmi', 'Adewura', 'Adeyemo', 'Afolabi', 'Afunku', 'Agboola', 'Agboola', 'Agnes',
+        'Aigbiniode', 'Ajakaiye', 'Ajose-adeogun', 'Akeem-omosanya', 'Akerele', 'Akintade', 'Aligbe', 'Amaechi',
+        'Aminat', 'Aremu', 'Atanda', 'Ayisat', 'Ayobami', 'Ayomide', 'Ayomide',
         'Babalola', 'Babatunde', 'Balogun', 'Bamisebi', 'Bello', 'Busari',
         'Chibike', 'Chibuike', 'Chidinma', 'Chidozie', 'Christian', 'Clare',
         'David', 'David',
-        'Ebubechukwu', 'Egbochukwu', 'Ehigiator', 'Ekwueme', 'Elebiyo', 'Elizabeth', 'Elizabeth', 'Elizabeth', 'Emmanuel', 'Emmanuel', 'Esther',
+        'Ebubechukwu', 'Egbochukwu', 'Ehigiator', 'Ekwueme', 'Elebiyo', 'Elizabeth', 'Elizabeth',
+        'Elizabeth', 'Emmanuel', 'Emmanuel', 'Esther',
         'Funmilayo',
         'Gbadamosi', 'Gbogboade', 'Grace',
         'Habeeb', 'Hanifat', 'Isaac',
@@ -19,15 +23,20 @@ class Provider(AddressProvider):
         'Jamiu', 'Jimoh', 'Joshua', 'Justina',
         'Katherine', 'Kayode', 'Kayode', 'Kimberly',
         'Ladega', 'Latifat', 'Lawal', 'Leonard',
-        'Makuachukwu', 'Maryam', 'Maryjane', 'Mayowa', 'Miracle', 'Mobolaji', 'Mogbadunade', 'Motalo', 'Muinat', 'Mukaram', 'Mustapha', 'Mutiat',
+        'Makuachukwu', 'Maryam', 'Maryjane', 'Mayowa', 'Miracle', 'Mobolaji', 'Mogbadunade', 'Motalo',
+        'Muinat', 'Mukaram', 'Mustapha', 'Mutiat',
         'Ndukwu', 'Ngozi', 'Nojeem', 'Nwachukwu', 'Nwogu', 'Nwuzor',
-        'Obiageli', 'Obianuju', 'Odunayo', 'Odunayo', 'Ogunbanwo', 'Ogunwande', 'Okonkwo', 'Okunola', 'Oladeji', 'Oladimeji', 'Olaoluwa', 'Olasunkanmi', 'Olasunkanmi-fasayo', 'Olawale', 'Olubukola', 'Olubunmi', 'Olufeyikemi', 'Olumide', 'Olutola', 'Oluwakemi', 'Oluwanisola', 'Oluwaseun', 'Oluwaseyi', 'Oluwashina', 'Oluwatosin', 'Omobolaji', 'Omobolanle', 'Omolara', 'Omowale', 'Onohinosen', 'Onose', 'Onyinyechukwu', 'Opeyemi', 'Osuagwu', 'Oyebola', 'Oyelude', 'Oyinkansola',
+        'Obiageli', 'Obianuju', 'Odunayo', 'Odunayo', 'Ogunbanwo', 'Ogunwande', 'Okonkwo', 'Okunola',
+        'Oladeji', 'Oladimeji', 'Olaoluwa', 'Olasunkanmi', 'Olasunkanmi-fasayo', 'Olawale', 'Olubukola',
+        'Olubunmi', 'Olufeyikemi', 'Olumide', 'Olutola', 'Oluwakemi', 'Oluwanisola', 'Oluwaseun', 'Oluwaseyi',
+        'Oluwashina', 'Oluwatosin', 'Omobolaji', 'Omobolanle', 'Omolara', 'Omowale', 'Onohinosen', 'Onose',
+        'Onyinyechukwu', 'Opeyemi', 'Osuagwu', 'Oyebola', 'Oyelude', 'Oyinkansola',
         'Peter',
         'Sabdat', 'Saheed', 'Salami', 'Samuel', 'Sanusi', 'Sarah', 'Segunmaru', 'Sekinat', 'Sulaimon', 'Sylvester',
         'Taiwo', 'Tamunoemi', 'Tella', 'Temitope', 'Tolulope',
         'Uchechi',
         'Wasiu', 'Wilcox', 'Wuraola',
-        'Yaqub', 'Yussuf'
+        'Yaqub', 'Yussuf',
     )
     building_number_formats = ('#', '##', '###')
     street_suffixes = (
@@ -128,7 +137,7 @@ class Provider(AddressProvider):
         'Sokoto': '840001',
         'Taraba': '660001',
         'Yobe': '320001',
-        'Ebonyi': '840001'
+        'Ebonyi': '840001',
     }
 
     city_formats = (

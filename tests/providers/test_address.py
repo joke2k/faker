@@ -23,7 +23,6 @@ from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from faker.providers.address.en_NG import Provider as NgProvider
 from six import string_types
 
 
