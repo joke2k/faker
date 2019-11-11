@@ -56,7 +56,7 @@ class Provider(BaseProvider):
             self.random_int(0, sys.float_info.dig - left_digits))
         sign = ''
         if (min_value is not None) or (max_value is not None):
-            left_number = self._safe_randint(min_value, max_value)
+            left_number = self._safe_random_int(min_value, max_value)
         else:
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
@@ -67,7 +67,7 @@ class Provider(BaseProvider):
             self.random_number(right_digits),
         ))
 
-    def _safe_randint(self, min_value, max_value):
+    def _safe_random_int(self, min_value, max_value):
         orig_min_value = min_value
         orig_max_value = max_value
 
@@ -76,7 +76,7 @@ class Provider(BaseProvider):
         if max_value is None:
             max_value = min_value + self.random_int()
         if min_value == max_value:
-            return self._safe_randint(orig_min_value, orig_max_value)
+            return self._safe_random_int(orig_min_value, orig_max_value)
         else:
             return self.random_int(min_value, max_value - 1)
 
