@@ -108,5 +108,5 @@ class Generator(object):
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
-        formatter[1] = self.format(formatter[1])
+        formatter[1] = str(self.format(formatter[1]))
         return ''.join(formatter)
