@@ -52,7 +52,7 @@ class Provider(BaseProvider):
         :returns: A (registrant, publication) tuple of strings.
         """
         for rule in rules:
-            if rule.min <= reg_pub <= rule.max:
+            if rule.min <= reg_pub[:-1] <= rule.max:
                 reg_len = rule.registrant_length
                 break
         else:
