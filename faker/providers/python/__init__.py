@@ -38,7 +38,6 @@ class Provider(BaseProvider):
 
     def pyfloat(self, left_digits=None, right_digits=None, positive=False,
                 min_value=None, max_value=None):
-
         if left_digits is not None and left_digits < 0:
             raise ValueError(
                 'A float number cannot have less than 0 digits in its '
@@ -52,6 +51,8 @@ class Provider(BaseProvider):
                 'A float number cannot have less than 0 digits in total')
         if None not in (min_value, max_value) and min_value > max_value:
             raise ValueError('Min value cannot be greater than max value')
+        if None not in (min_value, max_value) and min_value == max_value:
+            raise ValueError('Min and max value cannot be the same')
 
         left_digits = left_digits if left_digits is not None else (
             self.random_int(1, sys.float_info.dig))
@@ -59,12 +60,7 @@ class Provider(BaseProvider):
             self.random_int(0, sys.float_info.dig - left_digits))
         sign = ''
         if (min_value is not None) or (max_value is not None):
-            if min_value is None:
-                min_value = max_value - self.random_int()
-            if max_value is None:
-                max_value = min_value + self.random_int()
-
-            left_number = self.random_int(min_value, max_value - 1)
+            left_number = self._safe_random_int(min_value, max_value)
         else:
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
@@ -74,6 +70,19 @@ class Provider(BaseProvider):
             left_number,
             self.random_number(right_digits),
         ))
+
+    def _safe_random_int(self, min_value, max_value):
+        orig_min_value = min_value
+        orig_max_value = max_value
+
+        if min_value is None:
+            min_value = max_value - self.random_int()
+        if max_value is None:
+            max_value = min_value + self.random_int()
+        if min_value == max_value:
+            return self._safe_random_int(orig_min_value, orig_max_value)
+        else:
+            return self.random_int(min_value, max_value - 1)
 
     def pyint(self, min_value=0, max_value=9999, step=1):
         return self.generator.random_int(min_value, max_value, step=step)

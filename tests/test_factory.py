@@ -487,6 +487,18 @@ class FactoryTestCase(unittest.TestCase):
         assert any(factory.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
         assert any(factory.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
 
+    def test_pyfloat_empty_range_error(self):
+        # tests for https://github.com/joke2k/faker/issues/1048
+        factory = Faker()
+        factory.seed_instance(8038)
+        assert factory.pyfloat(max_value=9999) < 9999
+
+    def test_pyfloat_same_min_max(self):
+        # tests for https://github.com/joke2k/faker/issues/1048
+        factory = Faker()
+        with pytest.raises(ValueError):
+            assert factory.pyfloat(min_value=9999, max_value=9999)
+
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
 
