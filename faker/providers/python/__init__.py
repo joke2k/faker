@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from decimal import Decimal
+import string
 import sys
 
 import six
@@ -31,6 +32,9 @@ class Provider(BaseProvider):
                     length=self.generator.random.randint(min_chars, max_chars),
                 ),
             )
+
+    def pystr_format(self, string_format='?#-###{{random_int}}{{random_letter}}', letters=string.ascii_letters):
+        return self.bothify(self.generator.parse(string_format), letters=letters)
 
     def pyfloat(self, left_digits=None, right_digits=None, positive=False,
                 min_value=None, max_value=None):
