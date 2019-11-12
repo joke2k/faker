@@ -17,7 +17,7 @@ class Provider(BaseProvider):
         r'(?P<mfr_code>\d{2})'              # the first 2 digits make up the manufacturer code,
         r'(?:(?P<extra>[012])0{4})'         # if immediately followed by 00000, 10000, or 20000,
         r'(?P<product_code>\d{3})'          # a 3-digit product code,
-        r'(?P<check_digit>\d)$'             # and finally a check digit.
+        r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
     upc_ae_pattern2 = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
@@ -25,17 +25,17 @@ class Provider(BaseProvider):
         r'(?P<mfr_code>\d{3,4}?)'           # the first 3 or 4 digits make up the manufacturer code,
         r'(?:0{5})'                         # if immediately followed by 00000,
         r'(?P<product_code>\d{1,2})'        # a 2-digit or single digit product code,
-        r'(?P<check_digit>\d)$'             # and finally a check digit.
+        r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
     upc_ae_pattern3 = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
         r'(?=\d{11}$)'                      # followed by 11 digits of which
         r'(?P<mfr_code>\d{5})'              # the first 5 digits make up the manufacturer code,
         r'(?:0{4}(?P<extra>[5-9]))'         # if immediately followed by 0000 and a 5, 6, 7, 8, or 9,
-        r'(?P<check_digit>\d)$'             # and finally a check digit.
+        r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def _ean(self, length=13, *, leading_zero=None):
+    def _ean(self, length=13, leading_zero=None):
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
@@ -85,7 +85,7 @@ class Provider(BaseProvider):
             upc_e = upc_e_template.format(**groupdict)
         return upc_e
 
-    def _upc_ae(self, *, base=None, number_system_digit=None):
+    def _upc_ae(self, base=None, number_system_digit=None):
         """
         Creates a 12-digit UPC-A barcode that can be converted to UPC-E
 
@@ -123,7 +123,7 @@ class Provider(BaseProvider):
     def ean8(self):
         return self._ean(8)
 
-    def ean13(self, *, leading_zero=None):
+    def ean13(self, leading_zero=None):
         """
         Creates an EAN-13 barcode
 
@@ -132,7 +132,7 @@ class Provider(BaseProvider):
         """
         return self._ean(13, leading_zero=leading_zero)
 
-    def upc_a(self, *, upc_ae_mode=False, base=None, number_system_digit=None):
+    def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
         """
         Creates a 12-digit UPC-A barcode
 
@@ -160,7 +160,7 @@ class Provider(BaseProvider):
             ean13 = self.ean13(leading_zero=True)
             return ean13[1:]
 
-    def upc_e(self, *, base=None, number_system_digit=None, safe_mode=True):
+    def upc_e(self, base=None, number_system_digit=None, safe_mode=True):
         """
         Creates an 8-digit UPC-E barcode
 
