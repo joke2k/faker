@@ -1,6 +1,5 @@
 #  -*- coding: utf-8 -*-
 
-from importlib import import_module
 import unittest
 try:
     from unittest.mock import patch
