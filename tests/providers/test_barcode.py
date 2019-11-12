@@ -52,7 +52,7 @@ class TestBarcodeProvider(unittest.TestCase):
 
     def test_ean13_no_leading_zero(self):
         for _ in range(1000):
-            ean13 = self.factory.ean13(no_leading_zero=True)
+            ean13 = self.factory.ean13(leading_zero=False)
             assert self.ean13_pattern.match(ean13)
             assert ean13[0] != '0'
 
@@ -60,19 +60,15 @@ class TestBarcodeProvider(unittest.TestCase):
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
-    def test_ean13_force_leading_zero(self):
+    def test_ean13_leading_zero(self):
         for _ in range(1000):
-            ean13 = self.factory.ean13(force_leading_zero=True)
+            ean13 = self.factory.ean13(leading_zero=True)
             assert self.ean13_pattern.match(ean13)
             assert ean13[0] == '0'
 
             # Included check digit must be correct
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-    def test_ean13_bad_arguments(self):
-        with self.assertRaises(AssertionError):
-            self.factory.ean13(no_leading_zero=True, force_leading_zero=True)
 
     def test_upc_a(self):
         for _ in range(self.num_sample_runs):
@@ -147,7 +143,7 @@ class TestBarcodeProvider(unittest.TestCase):
             # Create a new UPC-A barcode based on the UPC-E barcode
             new_upc_a = self.factory.upc_a(upc_ae_mode=True,
                                            base=upc_e[1:-1],
-                                           number_system_digit=upc_e[0])
+                                           number_system_digit=int(upc_e[0]))
 
             # New UPC-A barcode must be the same as the original
             assert upc_a == new_upc_a
@@ -163,7 +159,7 @@ class TestBarcodeProvider(unittest.TestCase):
             # Create a new UPC-A barcode based on the UPC-E barcode
             upc_a = self.factory.upc_a(upc_ae_mode=True,
                                        base=upc_e[1:-1],
-                                       number_system_digit=upc_e[0])
+                                       number_system_digit=int(upc_e[0]))
 
             # Number system and check digits must be the same
             assert int(upc_a[0]) == int(upc_e[0])

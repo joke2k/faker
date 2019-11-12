@@ -14,7 +14,7 @@ class Provider(BaseProvider):
     upc_ae_pattern1 = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
         r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{2})'              # the first 2 digits are make up the manufacturer code,
+        r'(?P<mfr_code>\d{2})'              # the first 2 digits make up the manufacturer code,
         r'(?:(?P<extra>[012])0{4})'         # if immediately followed by 00000, 10000, or 20000,
         r'(?P<product_code>\d{3})'          # a 3-digit product code,
         r'(?P<check_digit>\d)$'             # and finally a check digit.
@@ -35,17 +35,15 @@ class Provider(BaseProvider):
         r'(?P<check_digit>\d)$'             # and finally a check digit.
     )
 
-    def _ean(self, length=13, *, no_leading_zero=False, force_leading_zero=False):
+    def _ean(self, length=13, *, leading_zero=None):
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
-        if no_leading_zero is True and force_leading_zero is True:
-            raise AssertionError('`no_leading_zero` is True but `force_leading_zero` is True')
 
         code = [self.random_digit() for _ in range(length - 1)]
-        if no_leading_zero is True:
-            code[0] = self.random_int(1, 9)
-        elif force_leading_zero is True:
+        if leading_zero is True:
             code[0] = 0
+        elif leading_zero is False:
+            code[0] = self.random_int(1, 9)
 
         if length == 8:
             weights = [3, 1, 3, 1, 3, 1, 3]
@@ -95,16 +93,14 @@ class Provider(BaseProvider):
         - Please view notes on `upc_a()` and `upc_e()` first.
 
         :param base: A 6-digit string
-        :param number_system_digit: 0, 1, '0', '1'
+        :param number_system_digit: 0 or 1
         :return: 12-digit UPC-A barcode that can be converted to UPC-E
         """
         if isinstance(base, string_types) and self.upc_e_base_pattern.match(base):
             base = [int(x) for x in base]
         else:
             base = [self.random_int(0, 9) for _ in range(6)]
-        if number_system_digit in ['0', '1', 0, 1]:
-            number_system_digit = int(number_system_digit)
-        else:
+        if number_system_digit not in [0, 1]:
             number_system_digit = self.random_int(0, 1)
 
         if base[-1] <= 2:
@@ -127,24 +123,14 @@ class Provider(BaseProvider):
     def ean8(self):
         return self._ean(8)
 
-    def ean13(self, *, no_leading_zero=False, force_leading_zero=False):
+    def ean13(self, *, leading_zero=None):
         """
         Creates an EAN-13 barcode
 
-        Notes on this method:
-        - Obviously, `no_leading_zero` and `force_leading_zero` cannot be both set to True.
-        - If `no_leading_zero` is True, no EAN-13 barcodes generated will lead with zero. This flag
-          can be used to work around scanners that cannot properly handle such barcodes.
-        - If `force_leading_zero` is True, EAN-13 barcodes generated will always lead with zero,
-          and as a result, the barcodes become UPC-A compatible. Just drop the leading zeroes.
-        - Any other non-boolean value supplied to `no_leading_zero` and `force_leading_zero` will
-          be treated as False, and therefore, providing the default behavior.
-
-        :param no_leading_zero: True or False
-        :param force_leading_zero: True or False
+        :param leading_zero: Leading digit will be 0 if True, 1-9 if False, and 0-9 otherwise
         :return: An EAN-13 barcode
         """
-        return self._ean(13, no_leading_zero=no_leading_zero, force_leading_zero=force_leading_zero)
+        return self._ean(13, leading_zero=leading_zero)
 
     def upc_a(self, *, upc_ae_mode=False, base=None, number_system_digit=None):
         """
@@ -165,13 +151,13 @@ class Provider(BaseProvider):
 
         :param upc_ae_mode: Set to True explicitly to enable
         :param base: A 6-digit string
-        :param number_system_digit: 0, 1, '0', or '1'
+        :param number_system_digit: 0 or 1
         :return: 12-digit UPC-A barcode
         """
         if upc_ae_mode is True:
             return self._upc_ae(base=base, number_system_digit=number_system_digit)
         else:
-            ean13 = self.ean13(force_leading_zero=True)
+            ean13 = self.ean13(leading_zero=True)
             return ean13[1:]
 
     def upc_e(self, *, base=None, number_system_digit=None, safe_mode=True):
@@ -203,7 +189,8 @@ class Provider(BaseProvider):
 
         :param base: A 6-digit string
         :param number_system_digit: First digit of the barcode
-        :param safe_mode: True or False
+        :param safe_mode: True or False. Guarantees that every UPC-E barcode generated can be
+                          converted back-and-forth between UPC-A and UPC-E.
         :return: 8-digit UPC-E barcode
         """
         if safe_mode is not False:
