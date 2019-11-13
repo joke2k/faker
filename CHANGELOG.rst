@@ -1,6 +1,27 @@
 Changelog
 =========
 
+`2.0.4 - 12-November-2019 <https://github.com/joke2k/faker/compare/v2.0.4...v2.0.3>`__
+--------------------------------------------------------------------------------------
+
+* Drop python 3.4.
+* Fix master card number generator. Thanks @nkthanh98.
+* Add provider for Finnish IBAN numbers. Thanks @sitomani.
+* Add color in Thai language. Thanks @mesodiar.
+* Split first names into male/female for ``person/de_AT``. Thanks @Jayday.
+* Extend data for ``de_AT`` and ``it_IT`` person providers. Thanks @Jayday.
+* Add ``ta_IN`` support. Thanks @jcopps.
+* Add ``*_PH`` locales. Thanks @malefice.
+* Add Thai lorem. Thanks @mesodiar.
+* Add job in ``ja_JP``. Thanks @shmokmt.
+* Optimize IPv4 address generation. Thanks @malefice.
+* Increase bban_format length for ``en_GB``. Thanks @Necrathex.
+* Fix occasional errors in ISBN provider. Thanks @malefice.
+* Add more phone numbers to ``fa_IR`` locale. Thanks @abtinmo.
+* Add support for token-based string generation. Thanks @malefice.
+* Improve barcode provider. Thanks @malefice.
+* Fix for pyfloat empty randrange. Thanks @jcardali.
+
 `2.0.3 - 14-October-2019 <https://github.com/joke2k/faker/compare/v2.0.3...v2.0.2>`__
 -------------------------------------------------------------------------------------
 
