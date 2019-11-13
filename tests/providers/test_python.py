@@ -2,9 +2,9 @@
 
 import unittest
 try:
-    from unittest.mock import patch
+    from unittest.mock import patch, PropertyMock
 except ImportError:
-    from mock import patch
+    from mock import patch, PropertyMock
 
 from faker import Faker
 
@@ -99,7 +99,7 @@ class TestPystrFormat(unittest.TestCase):
         self.factory = Faker(includes=['tests.mymodule.en_US'])
 
     def test_formatter_invocation(self):
-        with patch.object(self.factory, 'foo') as mock_foo:
+        with patch.object(self.factory['en_US'], 'foo') as mock_foo:
             with patch('faker.providers.BaseProvider.bothify',
                        wraps=self.factory.bothify) as mock_bothify:
                 mock_foo.return_value = 'barbar'
