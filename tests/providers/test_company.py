@@ -15,6 +15,7 @@ from faker.providers.company.pl_PL import (
     company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
 )
 from faker.providers.company.nl_NL import Provider as NlProvider
+from faker.providers.company import ru_RU as company_ru
 
 
 class TestFiFI(unittest.TestCase):
@@ -249,3 +250,33 @@ class TestTlPh(TestFilPh):
 
     def setup_factory(self):
         self.factory = Faker('tl_PH')
+
+
+class TestRuRu(unittest.TestCase):
+    """ Tests company in the ru_RU locale """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.factory = Faker('ru_RU')
+
+    def test_calculate_checksum_nine_digits(self):
+        assert company_ru.calculate_checksum('164027304') == '7'
+        assert company_ru.calculate_checksum('629082979') == '0'
+        assert company_ru.calculate_checksum('0203184580') == '5'
+        assert company_ru.calculate_checksum('1113145630') == '0'
+        assert company_ru.calculate_checksum('70517081385') == '1'
+        assert company_ru.calculate_checksum('60307390550') == '0'
+
+    def test_businesses_inn(self):
+        for i in range(self.num_sample_runs):
+            inn = self.factory.businesses_inn()
+            assert len(inn) == 10
+            assert company_ru.calculate_checksum(inn[:9]) == inn[9]
+
+    def test_individuals_inn(self):
+        for i in range(self.num_sample_runs):
+            inn = self.factory.individuals_inn()
+            assert len(inn) == 12
+            assert company_ru.calculate_checksum(inn[:10]) == inn[10]
+            assert company_ru.calculate_checksum(inn[:11]) == inn[11]

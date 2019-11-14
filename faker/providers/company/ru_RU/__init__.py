@@ -4,6 +4,15 @@ from __future__ import unicode_literals
 from .. import Provider as CompanyProvider
 
 
+def calculate_checksum(value):
+    factors = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8][-len(value):]
+    check_sum = 0
+    for number, factor in zip(value, factors):
+        check_sum += int(number) * factor
+
+    return str((check_sum % 11) % 10)
+
+
 class Provider(CompanyProvider):
     formats = (
         '{{company_prefix}} «{{last_name}}»',
@@ -19,3 +28,26 @@ class Provider(CompanyProvider):
 
     def company_prefix(self):
         return self.random_element(self.company_prefixes)
+
+    def businesses_inn(self):
+        """
+        Returns tax identification number for businesses (ru. идентификационный номер налогоплательщика, ИНН).
+        """
+        region = '%02d' % self.random_int(min=1, max=92)
+        inspection = '%02d' % self.random_int(min=1, max=99)
+        tail = '%05d' % self.random_int(min=1, max=99999)
+        result = region + inspection + tail
+
+        return result + calculate_checksum(result)
+
+    def individuals_inn(self):
+        """
+        Returns tax identification number for individuals (ru. идентификационный номер налогоплательщика, ИНН).
+        """
+        region = '%02d' % self.random_int(min=1, max=92)
+        inspection = '%02d' % self.random_int(min=1, max=99)
+        tail = '%06d' % self.random_int(min=1, max=999999)
+        result = region + inspection + tail
+        result += calculate_checksum(result)
+
+        return result + calculate_checksum(result)
