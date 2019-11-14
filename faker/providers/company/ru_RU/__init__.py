@@ -1,6 +1,9 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
+from datetime import datetime
+
 from .. import Provider as CompanyProvider
 
 
@@ -51,6 +54,33 @@ class Provider(CompanyProvider):
         result += calculate_checksum(result)
 
         return result + calculate_checksum(result)
+
+    def businesses_ogrn(self):
+        """
+        Returns primary state registration number for businesses
+        (ru. основной государственный регистрационный номер, ОГРН).
+        """
+        sign = self.random_element(('1', '5'))
+        year = '%02d' % self.random_int(min=1, max=datetime.now().year - 2000)
+        region = '%02d' % self.random_int(min=1, max=92)
+        tail = '%07d' % self.random_int(min=1, max=9999999)
+
+        result = sign + year + region + tail
+
+        return result + str((int(result) % 11) % 10)
+
+    def individuals_ogrn(self):
+        """
+        Returns primary state registration number for individuals
+        (ru. основной государственный регистрационный номер, ОГРН).
+        """
+        year = '%02d' % self.random_int(min=1, max=datetime.now().year - 2000)
+        region = '%02d' % self.random_int(min=1, max=92)
+        tail = '%09d' % self.random_int(min=1, max=999999999)
+
+        result = '3' + year + region + tail
+
+        return result + str((int(result) % 13) % 10)
 
     def kpp(self):
         """
