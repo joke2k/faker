@@ -271,12 +271,23 @@ class TestRuRu(unittest.TestCase):
     def test_businesses_inn(self):
         for i in range(self.num_sample_runs):
             inn = self.factory.businesses_inn()
+
             assert len(inn) == 10
             assert company_ru.calculate_checksum(inn[:9]) == inn[9]
 
     def test_individuals_inn(self):
         for i in range(self.num_sample_runs):
             inn = self.factory.individuals_inn()
+
             assert len(inn) == 12
             assert company_ru.calculate_checksum(inn[:10]) == inn[10]
             assert company_ru.calculate_checksum(inn[:11]) == inn[11]
+
+    def test_kpp(self):
+        for i in range(self.num_sample_runs):
+            kpp = self.factory.kpp()
+
+            assert len(kpp) == 9
+            assert 1 <= int(kpp[0:2]) <= 92
+            assert int(kpp[2:4]) > 0
+            assert kpp[4:6] in ('01', '43', '44', '45')

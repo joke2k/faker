@@ -51,3 +51,14 @@ class Provider(CompanyProvider):
         result += calculate_checksum(result)
 
         return result + calculate_checksum(result)
+
+    def kpp(self):
+        """
+        Returns tax registration reason code (ru. код причины постановки на учет, КПП).
+        """
+        region = '%02d' % self.random_int(min=1, max=92)
+        inspection = '%02d' % self.random_int(min=1, max=99)
+        reason = self.random_element(('01', '43', '44', '45'))
+        tail = '%03d' % self.random_int(min=1, max=999)
+
+        return region + inspection + reason + tail
