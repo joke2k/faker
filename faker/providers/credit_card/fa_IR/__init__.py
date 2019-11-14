@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from .. import Provider as CreditCardProvider
 from .. import CreditCard
 from collections import OrderedDict
