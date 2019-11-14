@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 import re
 import unittest
-from datetime import datetime
 
 import six
 
@@ -17,6 +16,7 @@ from faker.providers.company.pl_PL import (
     company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
 )
 from faker.providers.company.pt_BR import company_id_checksum
+from faker.utils.datetime_safe import datetime
 
 
 class TestFiFI(unittest.TestCase):
