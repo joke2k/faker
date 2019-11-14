@@ -4,6 +4,8 @@ from collections import OrderedDict
 
 from .. import BaseProvider
 
+localized = True
+
 
 class CreditCard(object):
 
