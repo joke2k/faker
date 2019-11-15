@@ -38,7 +38,6 @@ class TestFakerProxyClass(unittest.TestCase):
         assert set(self.faker.locales) == set(locale)
         assert len(self.faker.factories) == len(set(locale))
 
-        # Test
         locale = locale * 3
         self.faker = Faker(locale)
         assert set(self.faker.locales) == set(locale)
@@ -72,7 +71,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
     def test_items(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP', 'de-DE', 'ja-JP', 'en-US']
-        processed_locale = list({[l.replace('-', '_') for l in locale]})
+        processed_locale = list({l.replace('-', '_') for l in locale})
         self.faker = Faker(locale)
         for locale_name, factory in self.faker.items():
             assert locale_name in processed_locale
