@@ -65,7 +65,7 @@ def write_docs(*args, **kwargs):
         write_base_provider(fh, doc, base_provider)
 
     # Write docs for default locale providers
-    base_provider_formatters = [f for f in dir(BaseProvider)]
+    base_provider_formatters = list(dir(BaseProvider))
     formatters = doc.get_formatters(with_args=True, with_defaults=True,
                                     excludes=base_provider_formatters)
     for provider, fakers in formatters:
