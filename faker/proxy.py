@@ -4,25 +4,39 @@ from __future__ import absolute_import, unicode_literals
 
 from collections import OrderedDict
 import random
+import re
 import six
 
 from faker.config import DEFAULT_LOCALE
 from faker.factory import Factory
+from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
 
 
 class Faker(object):
     """Proxy class capable of supporting multiple locales"""
 
+    cache_pattern = re.compile(r'^_cached_\w*_mapping$')
+    generator_attrs = [attr for attr in dir(Generator) if not attr.startswith('__')]
+
     def __init__(self, locale=None, providers=None,
                  generator=None, includes=None, **config):
         self._factory_map = OrderedDict()
         self._weights = None
+
         if isinstance(locale, six.string_types):
             locales = [locale]
+
+        # This guarantees a FIFO ordering of elements in `locales` based on the final
+        # locale string while discarding duplicates after processing
         elif isinstance(locale, (list, set)):
             assert all(isinstance(l, six.string_types) for l in locale)
-            locales = list({l.replace('-', '_') for l in locale})
+            locales = []
+            for l in locale:
+                final_locale = l.replace('-', '_')
+                if final_locale not in locales:
+                    locales.append(final_locale)
+
         elif isinstance(locale, OrderedDict):
             assert all(isinstance(v, (int, float)) for v in locale.values())
             odict = OrderedDict()
@@ -31,6 +45,7 @@ class Faker(object):
                 odict[key] = v
             locales = list(odict.keys())
             self._weights = list(odict.values())
+
         else:
             locales = [DEFAULT_LOCALE]
 
@@ -44,13 +59,37 @@ class Faker(object):
         return self._factory_map[locale]
 
     def __getattr__(self, attr):
+        """
+        Handles the "attribute resolution" behavior of this proxy class
+
+        This method checks the specified `attr` in this order:
+        1.  Regardless of how many locales were specified, first try to return
+            the attribute `attr` if it is present in this proxy class
+        2a. In single locale mode, proxy all __getattr__ calls to the only
+            internal `Generator` object that will be created
+        2b. In multiple locale mode,
+
+        This, however, does not proxy calls to setters, so getters and setters
+        should be defined separately.
+
+        :param attr: attribute name
+        :return: the appropriate attribute
+        """
+
         try:
             return object.__getattribute__(self, attr)
         except AttributeError:
-            if attr.startswith('_cached') and attr.endswith('_mapping'):
-                raise AttributeError()
-            factory = self._select_factory(attr)
-            return getattr(factory, attr)
+            if len(self._factories) == 1:
+                return getattr(self._factories[0], attr)
+            elif attr in self.generator_attrs:
+                msg = 'Proxying calls to `%s` is not implemented in multiple locale mode.' % attr
+                raise NotImplementedError(msg)
+            elif self.cache_pattern.match(attr):
+                msg = 'Cached attribute `%s` does not exist' % attr
+                raise AttributeError(msg)
+            else:
+                factory = self._select_factory(attr)
+                return getattr(factory, attr)
 
     def _select_factory(self, method_name):
         """
@@ -112,6 +151,38 @@ class Faker(object):
         # Then cache and return results
         setattr(self, attr, mapping)
         return mapping
+
+    @property
+    def random(self):
+        """
+        Proxies `random` getter calls
+
+        In single locale mode, this will be proxied to the `random` getter
+        of the only internal `Generator` object. Subclasses will have to
+        implement desired behavior in multiple locale mode.
+        """
+
+        if len(self._factories) == 1:
+            return self._factories[0].random
+        else:
+            msg = 'Proxying `random` getter calls is not implemented in multiple locale mode.'
+            raise NotImplementedError(msg)
+
+    @random.setter
+    def random(self, value):
+        """
+        Proxies `random` setter calls
+
+        In single locale mode, this will be proxied to the `random` setter
+        of the only internal `Generator` object. Subclasses will have to
+        implement desired behavior in multiple locale mode.
+        """
+
+        if len(self._factories) == 1:
+            self._factories[0].random = value
+        else:
+            msg = 'Proxying `random` setter calls is not implemented in multiple locale mode.'
+            raise NotImplementedError(msg)
 
     @property
     def locales(self):
