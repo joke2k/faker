@@ -93,9 +93,9 @@ class RandomColor(object):
         for color_name, color_attrs in self.colormap.items():
             lower_bounds = color_attrs['lower_bounds']
             s_min = lower_bounds[0][0]
-            s_max = lower_bounds[len(lower_bounds) - 1][0]
+            s_max = lower_bounds[-1][0]
 
-            b_min = lower_bounds[len(lower_bounds) - 1][1]
+            b_min = lower_bounds[-1][1]
             b_max = lower_bounds[0][1]
 
             self.colormap[color_name]['saturation_range'] = [s_min, s_max]
@@ -118,7 +118,7 @@ class RandomColor(object):
         hue_range = self.get_hue_range(hue)
         hue = self.random_within(hue_range)
 
-        # Instead of storing red as two seperate ranges,
+        # Instead of storing red as two separate ranges,
         # we group them, using negative numbers
         if hue < 0:
             hue += 360
@@ -204,12 +204,16 @@ class RandomColor(object):
         elif isinstance(color_input, six.string_types) and color_input in self.colormap:
             return self.colormap[color_input]['hue_range']
 
+        elif color_input is None:
+            return [0, 360]
+
         try:
             v1, v2 = color_input
             v1 = int(v1)
             v2 = int(v2)
         except (ValueError, TypeError):
-            return [0, 360]
+            msg = 'Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.'
+            raise TypeError(msg)
         else:
             if v2 < v1:
                 v1, v2 = v2, v1
@@ -231,7 +235,7 @@ class RandomColor(object):
             if color['hue_range'][0] <= hue <= color['hue_range'][1]:
                 return self.colormap[color_name]
         else:
-            raise ValueError('Value of hue is invalid.')
+            raise ValueError('Value of hue `%s` is invalid.' % hue)
 
     def random_within(self, r):
         return self.random.randint(int(r[0]), int(r[1]))

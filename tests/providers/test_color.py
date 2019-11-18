@@ -201,11 +201,6 @@ class TestRandomColor(unittest.TestCase):
         assert colors == expected
 
     def test_hue_invalid(self):
-        baseline_random_color = RandomColor(seed=self.seed)
-        expected = [baseline_random_color.generate() for _ in range(1000)]
-
-        # Using any invalid value should yield the same results
-        # as not specifying a hue value for a given seed
         invalid_values = [
             'invalid value',    # Unsupported string
             [1, 2, 3],          # List with incorrect number of elements of valid data types
@@ -214,9 +209,8 @@ class TestRandomColor(unittest.TestCase):
         ]
 
         for invalid_value in invalid_values:
-            random_color = RandomColor(seed=self.seed)
-            colors = [random_color.generate(hue=invalid_value) for _ in range(1000)]
-            assert colors == expected
+            with self.assertRaises(TypeError):
+                self.random_color.generate(hue=invalid_value)
 
     def test_luminosity_word(self):
         if six.PY2:
