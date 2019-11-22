@@ -949,10 +949,26 @@ class TestRuRU(unittest.TestCase):
         country = self.factory.country()
         assert isinstance(country, string_types)
 
-    def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
 
     def test_postcode(self):
         postcode = self.factory.postcode()
         assert isinstance(postcode, string_types)
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+
+    def test_street_suffix(self):
+        street_suffix = self.factory.street_suffix()
+        assert isinstance(street_suffix, string_types)
+
+    def test_street_title(self):
+        street_title = self.factory.street_title()
+        assert isinstance(street_title, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
