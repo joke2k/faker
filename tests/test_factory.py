@@ -474,11 +474,15 @@ class FactoryTestCase(unittest.TestCase):
         # tests for https://github.com/joke2k/faker/issues/994
         factory = Faker()
 
-        factory.seed_instance(5)
-        result = factory.pyfloat(min_value=0, max_value=1)
-
-        assert result >= 0.0
-        assert result <= 1.0
+        for i in range(20):
+            for min_value,max_value in [
+                (0,1),
+                (-1,1),
+            ]:
+                factory.seed_instance(i)
+                result = factory.pyfloat(min_value=min_value, max_value=max_value)
+                assert result >= min_value
+                assert result <= max_value
 
     def test_negative_pyfloat(self):
         # tests for https://github.com/joke2k/faker/issues/813
