@@ -476,13 +476,19 @@ class FactoryTestCase(unittest.TestCase):
 
         for i in range(20):
             for min_value,max_value in [
-                (0,1),
-                (-1,1),
+                (0, 1),
+                (-1, 1),
+                (None, -5),
+                (-5, None),
+                (None, 5),
+                (5, None),
             ]:
                 factory.seed_instance(i)
                 result = factory.pyfloat(min_value=min_value, max_value=max_value)
-                assert result >= min_value
-                assert result <= max_value
+                if min_value is not None:
+                    assert result >= min_value
+                if max_value is not None:
+                    assert result <= max_value
 
     def test_negative_pyfloat(self):
         # tests for https://github.com/joke2k/faker/issues/813
