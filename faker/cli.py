@@ -62,7 +62,7 @@ def print_doc(provider_or_field=None,
     fake.seed_instance(seed)
 
     from faker.providers import BaseProvider
-    base_provider_formatters = [f for f in dir(BaseProvider)]
+    base_provider_formatters = list(dir(BaseProvider))
 
     if provider_or_field:
         if '.' in provider_or_field:

@@ -1006,6 +1006,11 @@ class TestPtPT(unittest.TestCase):
         assert isinstance(distrito, string_types)
         assert distrito in PtPtProvider.distritos
 
+    def test_concelho(self):
+        concelho = self.factory.concelho()
+        assert isinstance(concelho, string_types)
+        assert concelho in PtPtProvider.concelhos
+
     def test_freguesia(self):
         freguesia = self.factory.freguesia()
         assert isinstance(freguesia, string_types)

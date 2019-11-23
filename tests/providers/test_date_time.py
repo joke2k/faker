@@ -413,29 +413,29 @@ class TestDateTime(unittest.TestCase):
             Provider._parse_timedelta('foobar')
 
     def test_time_series(self):
-        series = [i for i in self.factory.time_series()]
+        series = list(self.factory.time_series())
         assert len(series), 30
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         uniform = lambda dt: random.uniform(0, 5)  # noqa
-        series = [i for i in self.factory.time_series('now', '+1w', '+1d', uniform)]
+        series = list(self.factory.time_series('now', '+1w', '+1d', uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         end = datetime.now() + timedelta(days=7)
-        series = [i for i in self.factory.time_series('now', end, '+1d', uniform)]
+        series = list(self.factory.time_series('now', end, '+1d', uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         assert series[-1][0] <= end
 
         with pytest.raises(ValueError):
-            [i for i in self.factory.time_series('+1w', 'now', '+1d', uniform)]
+            list(self.factory.time_series('+1w', 'now', '+1d', uniform))
 
         with pytest.raises(ValueError):
-            [i for i in self.factory.time_series('now', '+1w', '+1d', 'uniform')]
+            list(self.factory.time_series('now', '+1w', '+1d', 'uniform'))
 
-        series = [i for i in self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc)]
+        series = list(self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
@@ -443,7 +443,7 @@ class TestDateTime(unittest.TestCase):
         end = datetime.now(utc).replace(microsecond=0)
         start = end - timedelta(days=15)
 
-        series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
+        series = list(self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo))
         assert series[0][0] == start
 
     def test_unix_time(self):
