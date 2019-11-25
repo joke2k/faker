@@ -18,6 +18,7 @@ import pytest
 import six
 
 from faker import Faker, Generator
+from faker.factory import Factory
 from faker.generator import random
 from faker.utils import decorators, text
 
@@ -900,7 +901,7 @@ class FactoryTestCase(unittest.TestCase):
         assert len(str(number)) == 10
 
     def test_instance_seed_chain(self):
-        factory = Faker()
+        factory = Factory.create()
 
         names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
         anonymized = [factory.seed_instance(name).name() for name in names]

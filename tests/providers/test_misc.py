@@ -29,10 +29,10 @@ class TestMisc(unittest.TestCase):
         for _ in range(10):
             random_seed = self.factory.random_int()
             baseline_fake = Faker()
-            baseline_fake.seed(random_seed)
+            Faker.seed(random_seed)
             expected_uuids = [baseline_fake.uuid4() for i in range(1000)]
 
             new_fake = Faker()
-            new_fake.seed(random_seed)
+            Faker.seed(random_seed)
             new_uuids = [new_fake.uuid4() for i in range(1000)]
             assert new_uuids == expected_uuids

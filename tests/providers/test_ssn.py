@@ -184,7 +184,7 @@ class TestElGr(unittest.TestCase):
 class TestEnCA(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_CA')
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def test_ssn(self):
         for _ in range(100):
@@ -201,7 +201,7 @@ class TestEnCA(unittest.TestCase):
 class TestEnUS(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_US')
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def test_ssn(self):
         for _ in range(100):
@@ -335,7 +335,7 @@ class TestEnUS(unittest.TestCase):
         # is one that would (if not specifically checked for) return an
         # SSN with an area of '666'.
 
-        self.factory.seed(19031)
+        Faker.seed(19031)
         ssn = self.factory.ssn()
         [area, group, serial] = ssn.split('-')
         assert area != '666'
@@ -663,7 +663,7 @@ class TestHrHR(unittest.TestCase):
 class TestHuHU(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('hu_HU')
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def test_ssn(self):
         for _ in range(100):

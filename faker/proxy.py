@@ -17,7 +17,11 @@ class Faker(object):
     """Proxy class capable of supporting multiple locales"""
 
     cache_pattern = re.compile(r'^_cached_\w*_mapping$')
-    generator_attrs = [attr for attr in dir(Generator) if not attr.startswith('__')]
+    generator_attrs = [
+        attr for attr in dir(Generator)
+        if not attr.startswith('__')
+        and attr not in ['seed', 'seed_instance', 'random']
+    ]
 
     def __init__(self, locale=None, providers=None,
                  generator=None, includes=None, **config):
@@ -25,7 +29,7 @@ class Faker(object):
         self._weights = None
 
         if isinstance(locale, six.string_types):
-            locales = [locale]
+            locales = [locale.replace('-', '_')]
 
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
@@ -56,40 +60,45 @@ class Faker(object):
         self._factories = list(self._factory_map.values())
 
     def __getitem__(self, locale):
-        return self._factory_map[locale]
+        return self._factory_map[locale.replace('-', '_')]
+
+    def __getattribute__(self, attr):
+        """
+        Handles the "attribute resolution" behavior for declared members of this proxy class
+
+        The class method `seed` cannot be called from an instance.
+
+        :param attr: attribute name
+        :return: the appropriate attribute
+        """
+        if attr == 'seed':
+            msg = (
+                'Calling `.seed()` on instances is deprecated. '
+                'Use the class method `Faker.seed()` instead.'
+            )
+            raise TypeError(msg)
+        else:
+            return super(Faker, self).__getattribute__(attr)
 
     def __getattr__(self, attr):
         """
-        Handles the "attribute resolution" behavior of this proxy class
-
-        This method checks the specified `attr` in this order:
-        1.  Regardless of how many locales were specified, first try to return
-            the attribute `attr` if it is present in this proxy class
-        2a. In single locale mode, proxy all __getattr__ calls to the only
-            internal `Generator` object that will be created
-        2b. In multiple locale mode,
-
-        This, however, does not proxy calls to setters, so getters and setters
-        should be defined separately.
+        Handles cache access and proxying behavior
 
         :param attr: attribute name
         :return: the appropriate attribute
         """
 
-        try:
-            return object.__getattribute__(self, attr)
-        except AttributeError:
-            if len(self._factories) == 1:
-                return getattr(self._factories[0], attr)
-            elif attr in self.generator_attrs:
-                msg = 'Proxying calls to `%s` is not implemented in multiple locale mode.' % attr
-                raise NotImplementedError(msg)
-            elif self.cache_pattern.match(attr):
-                msg = 'Cached attribute `%s` does not exist' % attr
-                raise AttributeError(msg)
-            else:
-                factory = self._select_factory(attr)
-                return getattr(factory, attr)
+        if len(self._factories) == 1:
+            return getattr(self._factories[0], attr)
+        elif attr in self.generator_attrs:
+            msg = 'Proxying calls to `%s` is not implemented in multiple locale mode.' % attr
+            raise NotImplementedError(msg)
+        elif self.cache_pattern.match(attr):
+            msg = 'Cached attribute `%s` does not exist' % attr
+            raise AttributeError(msg)
+        else:
+            factory = self._select_factory(attr)
+            return getattr(factory, attr)
 
     def _select_factory(self, method_name):
         """
@@ -151,6 +160,33 @@ class Faker(object):
         # Then cache and return results
         setattr(self, attr, mapping)
         return mapping
+
+    @classmethod
+    def seed(cls, seed=None):
+        """
+        Seeds the shared `random.Random` object across all factories
+
+        :param seed: seed value
+        """
+        Generator.seed(seed)
+
+    def seed_instance(self, seed=None):
+        """
+        Creates and seeds a new `random.Random` object for each factory
+
+        :param seed: seed value
+        """
+        for factory in self._factories:
+            factory.seed_instance(seed)
+
+    def seed_locale(self, locale, seed=None):
+        """
+        Creates and seeds a new `random.Random` object for the factory of the specified locale
+
+        :param locale: locale string
+        :param seed: seed value
+        """
+        self._factory_map[locale.replace('-', '_')].seed_instance(seed)
 
     @property
     def random(self):

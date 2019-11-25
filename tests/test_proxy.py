@@ -84,9 +84,65 @@ class TestFakerProxyClass(unittest.TestCase):
     def test_dunder_getitem(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
         self.faker = Faker(locale)
-        assert isinstance(self.faker['en_US'], Generator)
+
+        for l in locale:
+            assert isinstance(self.faker[l], Generator)
+
         with self.assertRaises(KeyError):
-            self.faker['en-US']
+            self.faker['en_GB']
+
+    def test_seed_classmethod(self):
+        self.faker = Faker()
+
+        # Verify `seed()` is not callable from a class instance
+        with self.assertRaises(TypeError):
+            self.faker.seed(0)
+
+        # Verify calls to `seed()` from a class object are proxied properly
+        with patch('faker.generator.Generator.seed') as mock_seed:
+            mock_seed.assert_not_called()
+            Faker.seed(0)
+            mock_seed.assert_called_once_with(0)
+
+    def test_seed_instance(self):
+        locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
+        self.faker = Faker(locale)
+
+        with patch('faker.generator.Generator.seed_instance') as mock_seed_instance:
+            mock_seed_instance.assert_not_called()
+            self.faker.seed_instance(0)
+
+            # Verify `seed_instance(0)` was called 4 times (one for each locale)
+            calls = mock_seed_instance.call_args_list
+            assert len(calls) == 4
+            for call in calls:
+                assert call.args == (0, )
+                assert call.kwargs == {}
+
+    def test_seed_locale(self):
+        from faker.generator import random as shared_random_instance
+
+        locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
+        self.faker = Faker(locale)
+
+        # Get current state of each factory's random instance
+        states = {}
+        for locale, factory in self.faker.items():
+            states[locale] = factory.random.getstate()
+
+        # Create a new random instance for en_US factory with seed value
+        self.faker.seed_locale('en_US', 0)
+
+        for locale, factory in self.faker.items():
+            # en_US factory should have changed
+            if locale == 'en_US':
+                assert factory.random != shared_random_instance
+                assert factory.random.getstate() != states[locale]
+
+            # There should be no changes for the rest
+            else:
+                assert factory.random == shared_random_instance
+                assert factory.random.getstate() == states[locale]
 
     def test_single_locale_proxy_behavior(self):
         self.faker = Faker()
@@ -111,7 +167,7 @@ class TestFakerProxyClass(unittest.TestCase):
             self.faker.name()
             mock_select_factory.assert_not_called()
 
-    def test_multiple_locale_basic_proxy_behavior(self):
+    def test_multiple_locale_proxy_behavior(self):
         self.faker = Faker(['de-DE', 'en-US', 'en-PH', 'ja-JP'])
 
         # `Generator` attributes are not implemented
