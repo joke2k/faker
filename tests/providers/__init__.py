@@ -6,7 +6,7 @@ from faker.providers import BaseProvider
 class BaseProviderTestCase(unittest.TestCase):
     def setUp(self):
         self.factory = Faker('en_US')
-        self.factory.seed(0)
+        Faker.seed(0)
         self.provider = BaseProvider(generator=self.factory)
 
     def test_random_digit_or_empty(self):
@@ -14,7 +14,7 @@ class BaseProviderTestCase(unittest.TestCase):
         assert isinstance(ret, int)
         assert ret >= 0 and ret <= 9
 
-        self.factory.seed(1)
+        Faker.seed(1)
         assert self.provider.random_digit_or_empty() == ''
 
     def test_random_digit_not_null_or_empty(self):
@@ -22,7 +22,7 @@ class BaseProviderTestCase(unittest.TestCase):
         assert isinstance(ret, int)
         assert ret >= 0 and ret <= 9
 
-        self.factory.seed(1)
+        Faker.seed(1)
         assert self.provider.random_digit_not_null_or_empty() == ''
 
     def test_randomize_nb_elements(self):

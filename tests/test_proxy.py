@@ -116,8 +116,9 @@ class TestFakerProxyClass(unittest.TestCase):
             calls = mock_seed_instance.call_args_list
             assert len(calls) == 4
             for call in calls:
-                assert call.args == (0, )
-                assert call.kwargs == {}
+                args, kwargs = call
+                assert args == (0, )
+                assert kwargs == {}
 
     def test_seed_locale(self):
         from faker.generator import random as shared_random_instance
@@ -254,7 +255,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
     @patch('faker.proxy.random.choice')
     @patch('faker.proxy.choices_distribution')
-    def test_multiple_locale_factory_selection_no_weights(self, mock_choices_fn, mock_random_choice):
+    def test_multiple_locale_factory_selection_with_weights(self, mock_choices_fn, mock_random_choice):
         locale = OrderedDict([
             ('de_DE', 3),
             ('en-US', 2),

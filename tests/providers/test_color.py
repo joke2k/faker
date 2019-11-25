@@ -54,7 +54,7 @@ class TestColor(unittest.TestCase):
 
         # The `color` provider method should behave like the `generate`
         # method of a standalone RandomColor instance for a given seed
-        self.factory.seed(4761)
+        Faker.seed(4761)
         colors = [self.factory.color() for _ in range(10000)]
         assert colors == expected
 
