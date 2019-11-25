@@ -291,7 +291,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
             # Both `en_US` and `ja_JP` factories have provider method `zipcode`
             self.faker.zipcode()
-            mock_select_factory.assert_called_once()
+            mock_select_factory.assert_called_once_with('zipcode')
             mock_choices_fn.assert_called_once_with(
                 [self.faker['en_US'], self.faker['ja_JP']], [2, 5], length=1,
             )
