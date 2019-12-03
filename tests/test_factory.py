@@ -475,7 +475,7 @@ class FactoryTestCase(unittest.TestCase):
         factory = Faker()
 
         for i in range(20):
-            for min_value,max_value in [
+            for min_value, max_value in [
                 (0, 1),
                 (-1, 1),
                 (None, -5),
