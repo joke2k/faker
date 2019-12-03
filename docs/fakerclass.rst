@@ -3,15 +3,15 @@ Using the Faker Class
 
 In version ``2.0.4`` and below, the ``Faker`` object is just a shortcut for the class method
 ``Factory.create``, and that method creates a ``Generator`` object with access to the wide
-selection of provider methods. Because of how everything was set up, it is difficult to do
+selection of provider methods. Because of how everything was set up, it was difficult to do
 certain things without going through the ``Factory`` and ``Generator`` internals and without
 potentially breaking a lot of things that will be difficult for users to fix when they upgrade.
 
 The solution was to introduce a new ``Faker`` proxy class that will, for the most part, behave
 just like the old ``Faker`` shortcut but with support for multiple locales while providing the
 option to subclass and a very simple upgrade path should old code be affected. For the purposes
-this document, the terms new ``Faker`` and old ``Faker`` will be used where the former refers to
-the new proxy class, and the latter refers to the ``Factory.create`` shortcut.
+of this document, the terms new ``Faker`` and old ``Faker`` will be used where the former refers
+to the new proxy class, and the latter refers to the ``Factory.create`` shortcut.
 
 Breaking Change
 ---------------
@@ -93,7 +93,7 @@ Proxy Class Attribute Name Resolution
 
 The proxy class has a fairly involved attribute name resolution behavior that runs in this order:
 
-1. If the attribute name is `seed`, raise a TypeError. This prevents the class method `seed`
+1. If the attribute name is ``seed``, raise a TypeError. This prevents the class method ``seed``
    from being called from an instance.
 2. If #1 does not apply, check if the attribute name matches an attribute present in the proxy
    class instance. If there is one, return the matching attribute.
@@ -117,7 +117,7 @@ Locale Normalization
 Depending on the ``locale`` value passed, a new ``Faker`` instance will either operate in single
 locale mode or multiple locale mode. The value of ``locale`` can be one of the following:
 
-1. Any empty value like `None` (automatically defaults to en_US)
+1. Any empty value like ``None`` (automatically defaults to ``en_US``)
 2. A valid locale string, underscored or hyphenated
 3. A list, tuple, or set with valid locale strings, underscored or hyphenated
 4. An OrderedDict with key-value pairs of valid locale strings (underscored or
@@ -129,8 +129,8 @@ in single locale mode. In that mode, there is really no need to retrieve a refer
 internal ``Generator`` object because of the 1:1 proxying behavior discussed earlier.
 
 The potential pitfalls lie in multiple locale mode and when there is a need to access the internal
-``Generator`` objects individually. Since locale strings can be written underscored (en_US) or
-hyphenated (en-US), this can lead to confusion and errors, so locale strings have to be normalized
+``Generator`` objects individually. Since locale strings can be written underscored (``en_US``) or
+hyphenated (``en-US``), this can lead to confusion and errors, so locale strings have to be normalized
 to provide consistent results without duplicates.
 
 During instantiation, new ``Faker`` will normalize locale strings to the underscore format, and it
