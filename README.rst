@@ -126,7 +126,7 @@ default en\_US locale.
     # 'Nazzareno Barbieri'
     # 'Max Coppola'
 
-``faker.Faker`` also supports multiple locales.
+``faker.Faker`` also supports multiple locales. New in v3.0.0.
 
 .. code:: python
 
