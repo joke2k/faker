@@ -65,7 +65,7 @@ class TestDateTime(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def assertBetween(self, date, start_date, end_date):
         assert date <= end_date
@@ -583,7 +583,7 @@ class DatesOfBirth(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def test_date_of_birth(self):
         dob = self.factory.date_of_birth()
