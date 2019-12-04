@@ -1,6 +1,12 @@
 Changelog
 =========
 
+`3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v2.0.5>`__
+--------------------------------------------------------------------------------------
+
+* Breaking change: Add support for multiple locale data generation.
+  Thanks @malefice.
+
 `2.0.5 - 03-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v2.0.4>`__
 --------------------------------------------------------------------------------------
 
