@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import hashlib
 import io
 import string
+import tarfile
 import uuid
 import sys
 import zipfile
@@ -184,3 +185,59 @@ class Provider(BaseProvider):
                 else:
                     zip_handle.writestr(filename, str(data))
         return zip_buffer.getvalue()
+
+    def tar(self, uncompressed_size=1048576, num_files=1, min_file_size=4096, compression=None):
+        """
+        Returns a random valid tar
+
+        :param uncompressed_size: Total size of files before compression, 1 MiB by default
+        :param num_files: Number of files archived in resulting zip file, 1 file by default
+        :param min_file_size: Minimum size of each file before compression, 4 KiB by default
+        :param compression: gzip or gz for GZIP, bzip2 or bz2 for BZIP2,
+                            lzma or xz for LZMA, otherwise no compression
+
+        :return: Bytes object representation of tar
+        """
+        if any([
+            not isinstance(num_files, int) or num_files <= 0,
+            not isinstance(min_file_size, int) or min_file_size <= 0,
+            not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
+        ]):
+            raise ValueError(
+                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers'
+            )
+        if min_file_size * num_files > uncompressed_size:
+            raise AssertionError(
+                '`uncompressed_size` is smaller than the calculated minimum required size'
+            )
+        if compression in ['gzip', 'gz']:
+            mode = 'w:gz'
+        elif compression in ['bzip2', 'bz2']:
+            mode = 'w:bz2'
+        elif compression in ['lzma', 'xz']:
+            mode = 'w:xz'
+        else:
+            mode = 'w'
+
+        tar_buffer = io.BytesIO()
+        remaining_size = uncompressed_size
+        with tarfile.open(mode=mode, fileobj=tar_buffer) as tar_handle:
+            for file_number in range(1, num_files + 1):
+                file_buffer = io.BytesIO()
+                filename = self.generator.pystr() + str(file_number)
+
+                max_allowed_size = remaining_size - (num_files - file_number) * min_file_size
+                if file_number < num_files:
+                    file_size = self.generator.random.randint(min_file_size, max_allowed_size)
+                    remaining_size = remaining_size - file_size
+                else:
+                    file_size = remaining_size
+
+                tarinfo = tarfile.TarInfo(name=filename)
+                data = self.generator.binary(file_size)
+                file_buffer.write(data)
+                tarinfo.size = len(file_buffer.getvalue())
+                file_buffer.seek(0)
+                tar_handle.addfile(tarinfo, file_buffer)
+                file_buffer.close()
+        return tar_buffer.getvalue()

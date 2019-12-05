@@ -200,3 +200,120 @@ class TestMisc(unittest.TestCase):
                     uncompressed_size=uncompressed_size,  num_files=num_files,
                     min_file_size=min_file_size, compression=compression,
                 )
+
+    def test_tar_invalid_file(self):
+        with self.assertRaises(ValueError):
+            self.factory.tar(num_files='1')
+
+        with self.assertRaises(ValueError):
+            self.factory.tar(num_files=0)
+
+        with self.assertRaises(ValueError):
+            self.factory.tar(min_file_size='1')
+
+        with self.assertRaises(ValueError):
+            self.factory.tar(min_file_size=0)
+
+        with self.assertRaises(ValueError):
+            self.factory.tar(uncompressed_size='1')
+
+        with self.assertRaises(ValueError):
+            self.factory.tar(uncompressed_size=0)
+
+    def test_tar_one_byte_undersized(self):
+        Faker.seed(0)
+        for _ in range(10):
+            num_files = self.factory.random.randint(1, 100)
+            min_file_size = self.factory.random.randint(1, 1024)
+            uncompressed_size = num_files * min_file_size - 1
+
+            # Will always fail because of conflicting size requirements
+            with self.assertRaises(AssertionError):
+                self.factory.tar(
+                    uncompressed_size=uncompressed_size, num_files=num_files,
+                    min_file_size=min_file_size,
+                )
+
+    def test_tar_exact_minimum_size(self):
+        Faker.seed(0)
+        for _ in range(10):
+            num_files = self.factory.random.randint(1, 100)
+            min_file_size = self.factory.random.randint(1, 1024)
+            uncompressed_size = num_files * min_file_size
+
+            tar_bytes = self.factory.tar(
+                uncompressed_size=uncompressed_size, num_files=num_files,
+                min_file_size=min_file_size,
+            )
+            tar_buffer = io.BytesIO(tar_bytes)
+            with tarfile.open(fileobj=tar_buffer) as tar_handle:
+                # Verify tar has the correct number of files
+                members = tar_handle.getmembers()
+                assert len(members) == num_files
+
+                # Every file's size will be the minimum specified
+                total_size = 0
+                for member in members:
+                    assert member.size == min_file_size
+                    total_size += member.size
+
+                # The file sizes should sum up to the specified uncompressed size
+                assert total_size == uncompressed_size
+
+    def test_tar_over_minimum_size(self):
+        Faker.seed(0)
+        for _ in range(10):
+            num_files = self.factory.random.randint(1, 100)
+            min_file_size = self.factory.random.randint(1, 1024)
+            expected_extra_bytes = self.factory.random.randint(1, 1024 * 1024)
+            uncompressed_size = num_files * min_file_size + expected_extra_bytes
+
+            tar_bytes = self.factory.tar(
+                uncompressed_size=uncompressed_size, num_files=num_files,
+                min_file_size=min_file_size,
+            )
+            tar_buffer = io.BytesIO(tar_bytes)
+            with tarfile.open(fileobj=tar_buffer) as tar_handle:
+                # Verify tar has the correct number of files
+                members = tar_handle.getmembers()
+                assert len(members) == num_files
+
+                # Every file's size will be at least the minimum specified
+                extra_bytes = 0
+                total_size = 0
+                for member in members:
+                    assert member.size >= min_file_size
+                    total_size += member.size
+                    if member.size > min_file_size:
+                        extra_bytes += (member.size - min_file_size)
+
+                # The file sizes should sum up to the specified uncompressed size
+                # and the extra bytes counted should be the one we expect
+                assert total_size == uncompressed_size
+                assert extra_bytes == expected_extra_bytes
+
+    def test_tar_compression(self):
+        Faker.seed(0)
+        num_files = 25
+        min_file_size = 512
+        uncompressed_size = 50 * 1024
+        compression_mapping = [
+            ('gzip', 'r:gz'),
+            ('gz', 'r:gz'),
+            ('bzip2', 'r:bz2'),
+            ('bz2', 'r:bz2'),
+            ('lzma', 'r:xz'),
+            ('xz', 'r:xz'),
+            (None, 'r'),
+        ]
+
+        for compression, read_mode in compression_mapping:
+            tar_bytes = self.factory.tar(
+                uncompressed_size=uncompressed_size, num_files=num_files,
+                min_file_size=min_file_size, compression=compression,
+            )
+            tar_buffer = io.BytesIO(tar_bytes)
+            with tarfile.open(fileobj=tar_buffer, mode=read_mode) as tar_handle:
+                # Verify tar has the correct number of files
+                members = tar_handle.getmembers()
+                assert len(members) == num_files
