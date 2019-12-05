@@ -128,11 +128,11 @@ class Provider(BaseProvider):
 
         return ''.join(chars)
 
-    def zip(self, uncompressed_size=1048576, num_files=1, min_file_size=4096, compression=None):
+    def zip(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
         """
         Returns a random valid zip archive
 
-        :param uncompressed_size: Total size of files before compression, 1 MiB by default
+        :param uncompressed_size: Total size of files before compression, 16 KiB by default
         :param num_files: Number of files archived in resulting zip file, 1 file by default
         :param min_file_size: Minimum size of each file before compression, 4 KiB by default
         :param compression: bzip2 or bz2 for BZIP2, lzma or xz for LZMA,
@@ -147,11 +147,11 @@ class Provider(BaseProvider):
             not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
         ]):
             raise ValueError(
-                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers'
+                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers',
             )
         if min_file_size * num_files > uncompressed_size:
             raise AssertionError(
-                '`uncompressed_size` is smaller than the calculated minimum required size'
+                '`uncompressed_size` is smaller than the calculated minimum required size',
             )
         if compression in ['bzip2', 'bz2']:
             if six.PY2:
@@ -186,11 +186,11 @@ class Provider(BaseProvider):
                     zip_handle.writestr(filename, str(data))
         return zip_buffer.getvalue()
 
-    def tar(self, uncompressed_size=1048576, num_files=1, min_file_size=4096, compression=None):
+    def tar(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
         """
         Returns a random valid tar
 
-        :param uncompressed_size: Total size of files before compression, 1 MiB by default
+        :param uncompressed_size: Total size of files before compression, 16 KiB by default
         :param num_files: Number of files archived in resulting zip file, 1 file by default
         :param min_file_size: Minimum size of each file before compression, 4 KiB by default
         :param compression: gzip or gz for GZIP, bzip2 or bz2 for BZIP2,
@@ -204,17 +204,19 @@ class Provider(BaseProvider):
             not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
         ]):
             raise ValueError(
-                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers'
+                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers',
             )
         if min_file_size * num_files > uncompressed_size:
             raise AssertionError(
-                '`uncompressed_size` is smaller than the calculated minimum required size'
+                '`uncompressed_size` is smaller than the calculated minimum required size',
             )
         if compression in ['gzip', 'gz']:
             mode = 'w:gz'
         elif compression in ['bzip2', 'bz2']:
             mode = 'w:bz2'
         elif compression in ['lzma', 'xz']:
+            if six.PY2:
+                raise RuntimeError('LZMA compression is not supported in Python 2')
             mode = 'w:xz'
         else:
             mode = 'w'

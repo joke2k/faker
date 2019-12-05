@@ -1,3 +1,6 @@
+# coding=utf-8
+
+from __future__ import unicode_literals
 import io
 import tarfile
 import unittest
@@ -197,7 +200,7 @@ class TestMisc(unittest.TestCase):
         for compression in ['bzip2', 'bz2', 'lzma', 'xz']:
             with self.assertRaises(RuntimeError):
                 self.factory.zip(
-                    uncompressed_size=uncompressed_size,  num_files=num_files,
+                    uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size, compression=compression,
                 )
 
@@ -292,7 +295,8 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
                 assert extra_bytes == expected_extra_bytes
 
-    def test_tar_compression(self):
+    @unittest.skipIf(six.PY2, 'Python 3 only')
+    def test_tar_compression_py3(self):
         Faker.seed(0)
         num_files = 25
         min_file_size = 512
@@ -317,3 +321,36 @@ class TestMisc(unittest.TestCase):
                 # Verify tar has the correct number of files
                 members = tar_handle.getmembers()
                 assert len(members) == num_files
+
+    @unittest.skipIf(six.PY3, 'Python 2 only')
+    def test_tar_compression_py2(self):
+        Faker.seed(0)
+        num_files = 25
+        min_file_size = 512
+        uncompressed_size = 50 * 1024
+        compression_mapping = [
+            ('gzip', 'r:gz'),
+            ('gz', 'r:gz'),
+            ('bzip2', 'r:bz2'),
+            ('bz2', 'r:bz2'),
+            (None, 'r'),
+        ]
+
+        for compression, read_mode in compression_mapping:
+            tar_bytes = self.factory.tar(
+                uncompressed_size=uncompressed_size, num_files=num_files,
+                min_file_size=min_file_size, compression=compression,
+            )
+            tar_buffer = io.BytesIO(tar_bytes)
+            with tarfile.open(fileobj=tar_buffer, mode=read_mode) as tar_handle:
+                # Verify tar has the correct number of files
+                members = tar_handle.getmembers()
+                assert len(members) == num_files
+
+        # LZMA is not supported in Python 2
+        for compression in ['lzma', 'xz']:
+            with self.assertRaises(RuntimeError):
+                self.factory.tar(
+                    uncompressed_size=uncompressed_size, num_files=num_files,
+                    min_file_size=min_file_size, compression=compression,
+                )
