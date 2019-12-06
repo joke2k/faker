@@ -774,3 +774,40 @@ class Provider(PersonProvider):
         kind_char = 'A' if kind == 'midwife' else 'P'
 
         return '{:02d}{}{}'.format(region, ''.join(map(str, core)), kind_char)
+
+    def nip(self):
+        """
+        Returns 10 digit of Number of tax identification.
+        Polish: Numer identyfikacji podatkowej (NIP).
+
+        https://pl.wikipedia.org/wiki/NIP
+
+        """
+        nip = []
+        for _ in range(9):
+            nip.append(self.random_digit())
+
+        weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+        check_sum = sum(d * w for d, w in zip(nip, weights)) % 11
+
+        if check_sum % 11 == 10:
+            nip.append(0)
+        else:
+            nip.append(check_sum % 11)
+
+        self.validate_nip(nip)
+        return ''.join(str(character) for character in nip)
+
+    @staticmethod
+    def validate_nip(nip_str):
+        """
+        Validation code from goverment site
+        https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
+        """
+        nip_str = nip_str.replace('-', '')
+        if len(nip_str) != 10 or not nip_str.isdigit():
+            return False
+        digits = [int(i) for i in nip_str]
+        weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+        check_sum = sum(d * w for d, w in zip(digits, weights)) % 11
+        return check_sum == digits[9]
