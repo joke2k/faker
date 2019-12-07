@@ -285,6 +285,15 @@ class TestEnCA(unittest.TestCase):
             postcode = self.factory.postcode()
             assert re.match(self.valid_postcode_re, postcode)
 
+    def test_postcode_in_province(self):
+        for province_abbr in EnCaProvider.provinces_abbr:
+            code = self.factory.postcode_in_province(province_abbr)
+            assert code[0] in EnCaProvider.provinces_postcode_prefixes[
+                province_abbr]
+
+        with self.assertRaises(Exception):
+            self.factory.postcode_in_province('XX')
+
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()
