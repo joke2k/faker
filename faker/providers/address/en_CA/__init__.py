@@ -5,6 +5,11 @@ from ..en import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
+    #  Source: https://www.canadapost.ca/tools/pg/manual/PGaddress-e.asp#1449294
+    #
+    #  'W' and 'Z' are valid in non-initial position (easily verified in the
+    #  wild), but online official documentation is hard to find, so just ignore
+    #  them for now.
     postal_code_letters = (
         'A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S',
         'T', 'V', 'X', 'Y',
