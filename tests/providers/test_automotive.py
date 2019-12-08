@@ -123,3 +123,7 @@ class TestRuRU(unittest.TestCase):
     def test_ru_RU_plate_format(self):
         plate = self.factory.license_plate()
         assert isinstance(plate, string_types)
+
+    def test_vehicle_category(self):
+        category = self.factory.vehicle_category()
+        assert isinstance(category, string_types)
