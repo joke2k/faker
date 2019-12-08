@@ -6,6 +6,10 @@ import re
 import string
 import sys
 import unittest
+try:
+    from unittest.mock import patch, PropertyMock
+except ImportError:
+    from mock import patch, PropertyMock
 
 from collections import OrderedDict
 from ipaddress import ip_address, ip_network
@@ -14,6 +18,7 @@ import pytest
 import six
 
 from faker import Faker, Generator
+from faker.factory import Factory
 from faker.generator import random
 from faker.utils import decorators, text
 
@@ -466,12 +471,44 @@ class FactoryTestCase(unittest.TestCase):
         with pytest.raises(ValueError):
             provider.pyfloat(left_digits=0, right_digits=0)
 
+    def test_pyfloat_in_range(self):
+        # tests for https://github.com/joke2k/faker/issues/994
+        factory = Faker()
+
+        for i in range(20):
+            for min_value, max_value in [
+                (0, 1),
+                (-1, 1),
+                (None, -5),
+                (-5, None),
+                (None, 5),
+                (5, None),
+            ]:
+                factory.seed_instance(i)
+                result = factory.pyfloat(min_value=min_value, max_value=max_value)
+                if min_value is not None:
+                    assert result >= min_value
+                if max_value is not None:
+                    assert result <= max_value
+
     def test_negative_pyfloat(self):
         # tests for https://github.com/joke2k/faker/issues/813
         factory = Faker()
         factory.seed_instance(32167)
         assert any(factory.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
         assert any(factory.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
+
+    def test_pyfloat_empty_range_error(self):
+        # tests for https://github.com/joke2k/faker/issues/1048
+        factory = Faker()
+        factory.seed_instance(8038)
+        assert factory.pyfloat(max_value=9999) < 9999
+
+    def test_pyfloat_same_min_max(self):
+        # tests for https://github.com/joke2k/faker/issues/1048
+        factory = Faker()
+        with pytest.raises(ValueError):
+            assert factory.pyfloat(min_value=9999, max_value=9999)
 
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
@@ -516,6 +553,41 @@ class FactoryTestCase(unittest.TestCase):
             email = factory.email()
             assert '@' in email
 
+    def test_ipv4_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        # The extra [None] here is to test code path involving whole IPv4 pool
+        for address_class in list(_IPv4Constants._network_classes.keys()) + [None]:
+            if address_class is None:
+                networks_attr = '_cached_all_networks'
+            else:
+                networks_attr = '_cached_all_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
+
     def test_ipv4(self):
         from faker.providers.internet import Provider
 
@@ -554,6 +626,37 @@ class FactoryTestCase(unittest.TestCase):
         for _ in range(99):
             klass = provider.ipv4_network_class()
             assert klass in 'abc'
+
+    def test_ipv4_private_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        for address_class in _IPv4Constants._network_classes.keys():
+            networks_attr = '_cached_private_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4_private(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4_private(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4_private() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
 
     def test_ipv4_private(self):
         from faker.providers.internet import Provider
@@ -628,6 +731,37 @@ class FactoryTestCase(unittest.TestCase):
             assert ip_address(address) >= class_min
             assert ip_address(address) <= class_max
 
+    def test_ipv4_public_caching(self):
+        from faker.providers.internet import Provider, _IPv4Constants
+
+        for address_class in _IPv4Constants._network_classes.keys():
+            networks_attr = '_cached_public_class_{}_networks'.format(address_class)
+            weights_attr = '{}_weights'.format(networks_attr)
+            provider = Provider(self.generator)
+
+            # First, test cache creation
+            assert not hasattr(provider, networks_attr)
+            assert not hasattr(provider, weights_attr)
+            provider.ipv4_public(address_class=address_class)
+            assert hasattr(provider, networks_attr)
+            assert hasattr(provider, weights_attr)
+
+            # Then, test cache access on subsequent calls
+            with patch.object(Provider, networks_attr, create=True,
+                              new_callable=PropertyMock) as mock_networks_cache:
+                with patch.object(Provider, weights_attr, create=True,
+                                  new_callable=PropertyMock) as mock_weights_cache:
+                    # Keep test fast by patching the cache attributes to return something simple
+                    mock_networks_cache.return_value = [ip_network('10.0.0.0/24')]
+                    mock_weights_cache.return_value = [10]
+                    for _ in range(100):
+                        provider.ipv4_public(address_class=address_class)
+
+                    # Python's hasattr() internally calls getattr()
+                    # So each call to ipv4_public() accesses the cache attributes twice
+                    assert mock_networks_cache.call_count == 200
+                    assert mock_weights_cache.call_count == 200
+
     def test_ipv4_public(self):
         from faker.providers.internet import Provider
         provider = Provider(self.generator)
@@ -687,6 +821,39 @@ class FactoryTestCase(unittest.TestCase):
             assert len(address) <= 15
             assert not ip_address(address).is_private, address
 
+    def test_ipv4_distribution_selection(self):
+        from faker.providers.internet import Provider
+        from faker.utils.distribution import choices_distribution
+        provider = Provider(self.generator)
+
+        subnets = [ip_network('10.0.0.0/8'), ip_network('11.0.0.0/8')]
+        valid_weights = [1, 1]
+        list_of_invalid_weights = [
+            [1, 2, 3],   # List size does not match subnet list size
+            ['a', 'b'],  # List size matches, but elements are invalid
+            None,        # Not a list or valid iterable
+        ]
+
+        with patch('faker.providers.internet.choices_distribution',
+                   wraps=choices_distribution) as mock_choices_fn:
+            with patch('faker.generator.random.choice',
+                       wraps=random.choice) as mock_random_choice:
+                # If weights argument is valid, only `choices_distribution` should be called
+                provider._random_ipv4_address_from_subnets(subnets, valid_weights)
+                assert mock_choices_fn.call_count == 1
+                assert mock_random_choice.call_count == 0
+
+                # If weights argument is invalid, calls to `choices_distribution` will fail
+                # and calls to `random.choice` will be made as failover behavior
+                for invalid_weights in list_of_invalid_weights:
+                    # Reset mock objects for each iteration
+                    mock_random_choice.reset_mock()
+                    mock_choices_fn.reset_mock()
+
+                    provider._random_ipv4_address_from_subnets(subnets, invalid_weights)
+                    assert mock_choices_fn.call_count == 1
+                    assert mock_random_choice.call_count == 1
+
     def test_ipv6(self):
         from faker.providers.internet import Provider
 
@@ -744,7 +911,7 @@ class FactoryTestCase(unittest.TestCase):
         assert len(str(number)) == 10
 
     def test_instance_seed_chain(self):
-        factory = Faker()
+        factory = Factory.create()
 
         names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
         anonymized = [factory.seed_instance(name).name() for name in names]

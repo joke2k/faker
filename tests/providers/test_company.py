@@ -2,19 +2,21 @@
 
 from __future__ import unicode_literals
 
-import unittest
 import re
+import unittest
 
 import six
 
 from faker import Faker
+from faker.providers.company import ru_RU as ru
 from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
-from faker.providers.company.pt_BR import company_id_checksum
+from faker.providers.company.nl_NL import Provider as NlProvider
 from faker.providers.company.pl_PL import (
     company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
 )
-from faker.providers.company.nl_NL import Provider as NlProvider
+from faker.providers.company.pt_BR import company_id_checksum
+from faker.utils.datetime_safe import datetime
 
 
 class TestFiFI(unittest.TestCase):
@@ -191,3 +193,126 @@ class TestNlNL(unittest.TestCase):
         company = self.factory.large_company()
         assert isinstance(company, six.string_types)
         assert company in companies
+
+
+class TestEnPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.national_corporation_pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
+        self.setup_constants()
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('en_PH')
+
+    def setup_constants(self):
+        from faker.providers.company.en_PH import Provider
+        self.company_types = Provider.company_types
+        self.company_suffixes = Provider.company_suffixes.keys()
+        self.company_products = Provider.company_products
+
+    def test_PH_random_company_noun_chain(self):
+        for i in range(self.num_sample_runs):
+            noun_list = self.factory.random_company_noun_chain().split()
+            assert len(noun_list) in range(1, 3)
+
+    def test_PH_random_company_acronym(self):
+        for i in range(self.num_sample_runs):
+            assert len(self.factory.random_company_acronym()) in range(2, 5)
+
+    def test_PH_company(self):
+        for i in range(self.num_sample_runs):
+            company = self.factory.company()
+            if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
+                continue
+            else:
+                national_corporation_match = self.national_corporation_pattern.match(company)
+                assert national_corporation_match and national_corporation_match.group(1) in self.company_products
+
+
+class TestFilPh(TestEnPh):
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+    def setup_constants(self):
+        super(TestFilPh, self).setup_constants()
+        from faker.providers.company.fil_PH import Provider
+        self.good_service_adjectives = Provider.good_service_adjectives
+
+    def test_PH_random_good_service_adjective_chain(self):
+        for i in range(self.num_sample_runs):
+            adjectives = self.factory.random_good_service_adjective_chain().split(' at ')
+            assert adjectives[0] in self.good_service_adjectives and adjectives[1] in self.good_service_adjectives
+
+
+class TestTlPh(TestFilPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
+
+
+class TestRuRu(unittest.TestCase):
+    """ Tests company in the ru_RU locale """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.factory = Faker('ru_RU')
+
+    def test_calculate_checksum_nine_digits(self):
+        assert ru.calculate_checksum('164027304') == '7'
+        assert ru.calculate_checksum('629082979') == '0'
+        assert ru.calculate_checksum('0203184580') == '5'
+        assert ru.calculate_checksum('1113145630') == '0'
+        assert ru.calculate_checksum('70517081385') == '1'
+        assert ru.calculate_checksum('60307390550') == '0'
+
+    def test_businesses_inn(self):
+        for i in range(self.num_sample_runs):
+            inn = self.factory.businesses_inn()
+
+            assert len(inn) == 10
+            assert ru.calculate_checksum(inn[:9]) == inn[9]
+
+    def test_individuals_inn(self):
+        for i in range(self.num_sample_runs):
+            inn = self.factory.individuals_inn()
+
+            assert len(inn) == 12
+            assert ru.calculate_checksum(inn[:10]) == inn[10]
+            assert ru.calculate_checksum(inn[:11]) == inn[11]
+
+    def test_businesses_ogrn(self):
+        max_year = datetime.now().year - 2000
+
+        for i in range(self.num_sample_runs):
+            ogrn = self.factory.businesses_ogrn()
+
+            assert len(ogrn) == 13
+            assert ogrn[0] in ('1', '5')
+            assert 1 <= int(ogrn[1:3]) <= max_year
+            assert 1 <= int(ogrn[3:5]) <= 92
+            assert int(ogrn[:-1]) % 11 % 10 == int(ogrn[-1])
+
+    def test_individuals_ogrn(self):
+        max_year = datetime.now().year - 2000
+
+        for i in range(self.num_sample_runs):
+            ogrn = self.factory.individuals_ogrn()
+
+            assert len(ogrn) == 15
+            assert ogrn[0] == '3'
+            assert 1 <= int(ogrn[1:3]) <= max_year
+            assert 1 <= int(ogrn[3:5]) <= 92
+            assert int(ogrn[:-1]) % 13 % 10 == int(ogrn[-1])
+
+    def test_kpp(self):
+        for i in range(self.num_sample_runs):
+            kpp = self.factory.kpp()
+
+            assert len(kpp) == 9
+            assert 1 <= int(kpp[0:2]) <= 92
+            assert int(kpp[2:4]) > 0
+            assert kpp[4:6] in ('01', '43', '44', '45')

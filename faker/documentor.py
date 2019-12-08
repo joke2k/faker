@@ -22,7 +22,6 @@ class Documentor(object):
         self.already_generated = []
 
     def get_formatters(self, locale=None, excludes=None, **kwargs):
-
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []

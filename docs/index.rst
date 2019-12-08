@@ -15,6 +15,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
+   fakerclass
    providers
    communityproviders
    locales

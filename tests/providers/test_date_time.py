@@ -19,6 +19,7 @@ from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
+from faker.providers.date_time.ta_IN import Provider as TaInProvider
 
 
 def is64bit():
@@ -64,7 +65,7 @@ class TestDateTime(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def assertBetween(self, date, start_date, end_date):
         assert date <= end_date
@@ -412,29 +413,29 @@ class TestDateTime(unittest.TestCase):
             Provider._parse_timedelta('foobar')
 
     def test_time_series(self):
-        series = [i for i in self.factory.time_series()]
+        series = list(self.factory.time_series())
         assert len(series), 30
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         uniform = lambda dt: random.uniform(0, 5)  # noqa
-        series = [i for i in self.factory.time_series('now', '+1w', '+1d', uniform)]
+        series = list(self.factory.time_series('now', '+1w', '+1d', uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         end = datetime.now() + timedelta(days=7)
-        series = [i for i in self.factory.time_series('now', end, '+1d', uniform)]
+        series = list(self.factory.time_series('now', end, '+1d', uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         assert series[-1][0] <= end
 
         with pytest.raises(ValueError):
-            [i for i in self.factory.time_series('+1w', 'now', '+1d', uniform)]
+            list(self.factory.time_series('+1w', 'now', '+1d', uniform))
 
         with pytest.raises(ValueError):
-            [i for i in self.factory.time_series('now', '+1w', '+1d', 'uniform')]
+            list(self.factory.time_series('now', '+1w', '+1d', 'uniform'))
 
-        series = [i for i in self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc)]
+        series = list(self.factory.time_series('now', end, '+1d', uniform, tzinfo=utc))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
@@ -442,7 +443,7 @@ class TestDateTime(unittest.TestCase):
         end = datetime.now(utc).replace(microsecond=0)
         start = end - timedelta(days=15)
 
-        series = [i for i in self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo)]
+        series = list(self.factory.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo))
         assert series[0][0] == start
 
     def test_unix_time(self):
@@ -582,7 +583,7 @@ class DatesOfBirth(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker()
-        self.factory.seed(0)
+        Faker.seed(0)
 
     def test_date_of_birth(self):
         dob = self.factory.date_of_birth()
@@ -663,3 +664,50 @@ class DatesOfBirth(unittest.TestCase):
 
             assert isinstance(dob, date)
             assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago
+
+
+class TestFilPh(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.setup_constants()
+        self.setup_factory()
+
+    def setup_factory(self):
+        self.factory = Faker('fil_PH')
+
+    def setup_constants(self):
+        from faker.providers.date_time.fil_PH import Provider
+        self.day_names = Provider.DAY_NAMES.values()
+        self.month_names = Provider.MONTH_NAMES.values()
+
+    def test_PH_of_week(self):
+        for i in range(self.num_sample_runs):
+            assert self.factory.day_of_week() in self.day_names
+
+    def test_PH_month_name(self):
+        for i in range(self.num_sample_runs):
+            assert self.factory.month_name() in self.month_names
+
+
+class TestTlPh(TestFilPh):
+
+    def setup_factory(self):
+        self.factory = Faker('tl_PH')
+
+
+class TestTaIN(unittest.TestCase):
+    """ Tests date_time in the ta_IN locale """
+
+    def setUp(self):
+        self.factory = Faker('ta_IN')
+
+    def test_day(self):
+        day = self.factory.day_of_week()
+        assert isinstance(day, six.string_types)
+        assert day in TaInProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.factory.month_name()
+        assert isinstance(month, six.string_types)
+        assert month in TaInProvider.MONTH_NAMES.values()

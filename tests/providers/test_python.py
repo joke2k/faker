@@ -1,6 +1,10 @@
 #  -*- coding: utf-8 -*-
 
 import unittest
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 from faker import Faker
 
@@ -54,7 +58,7 @@ class TestPyfloat(unittest.TestCase):
 
         result = self.factory.pyfloat(right_digits=expected_right_digits)
 
-        right_digits = len(str(result).split('.')[1])
+        right_digits = len(('%r' % result).split('.')[1])
         self.assertGreaterEqual(expected_right_digits, right_digits)
 
     def test_positive(self):
@@ -87,3 +91,19 @@ class TestPyfloat(unittest.TestCase):
 
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
+
+
+class TestPystrFormat(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker(includes=['tests.mymodule.en_US'])
+
+    def test_formatter_invocation(self):
+        with patch.object(self.factory['en_US'], 'foo') as mock_foo:
+            with patch('faker.providers.BaseProvider.bothify',
+                       wraps=self.factory.bothify) as mock_bothify:
+                mock_foo.return_value = 'barbar'
+                value = self.factory.pystr_format('{{foo}}?#?{{foo}}?#?{{foo}}', letters='abcde')
+                assert value.count('barbar') == 3
+                assert mock_foo.call_count == 3
+                mock_bothify.assert_called_once_with('barbar?#?barbar?#?barbar', letters='abcde')

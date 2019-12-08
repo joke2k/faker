@@ -284,7 +284,7 @@ class BaseProvider(object):
         nb = int(number * self.generator.random.randint(_min, _max) / 100)
         if min is not None and nb < min:
             nb = min
-        if max is not None and nb > min:
+        if max is not None and nb > max:
             nb = max
         return nb
 
