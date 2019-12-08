@@ -113,3 +113,13 @@ class TestTlPh(TestEnPh):
 
     def setup_factory(self):
         self.factory = Faker('tl_PH')
+
+
+class TestRuRU(unittest.TestCase):
+
+    def setUp(self):
+        self.factory = Faker('ru_RU')
+
+    def test_ru_RU_plate_format(self):
+        plate = self.factory.license_plate()
+        assert isinstance(plate, string_types)
