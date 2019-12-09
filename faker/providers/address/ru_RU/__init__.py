@@ -277,6 +277,7 @@ class Provider(AddressProvider):
         'Ясный (Оренб.)', 'Яхрома', 'Яшалта', 'Яшкуль',
     )
 
+    # https://en.wikipedia.org/wiki/Federal_subjects_of_Russia
     region_republics = (
         'Адыгея', 'Алтай', 'Башкортостан', 'Бурятия', 'Дагестан',
         'Ингушетия', 'Кабардино-Балкария', 'Калмыкия', 'Карачаево-Черкесия', 'Карелия',

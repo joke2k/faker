@@ -9,6 +9,7 @@ class Provider(AutomotiveProvider):
 
     # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
     license_plate_letters = ('A', 'B', 'E', 'K', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+    # https://ru.wikipedia.org/wiki/Категории_транспортных_средств
     vehicle_categories = ('M', 'A', 'A1', 'B', 'B1', 'BE', 'C', 'C1', 'C1E', 'CE', 'D', 'D1', 'DE', 'Tm', 'Tb')
 
     license_plate_suffix = (
