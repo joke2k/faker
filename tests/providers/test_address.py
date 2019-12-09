@@ -275,22 +275,33 @@ class TestEnCA(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('en_CA')
+        self.valid_postcode_letter_re = r'[{}]'.format(
+            ''.join(EnCaProvider.postal_code_letters))
+        self.valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(
+            self.valid_postcode_letter_re)
 
     def test_postcode(self):
         for _ in range(100):
             postcode = self.factory.postcode()
-            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
-                            postcode)
+            assert re.match(self.valid_postcode_re, postcode)
+
+    def test_postcode_in_province(self):
+        for province_abbr in EnCaProvider.provinces_abbr:
+            code = self.factory.postcode_in_province(province_abbr)
+            assert code[0] in EnCaProvider.provinces_postcode_prefixes[
+                province_abbr]
+
+        with self.assertRaises(Exception):
+            self.factory.postcode_in_province('XX')
 
     def test_postalcode(self):
         for _ in range(100):
             postalcode = self.factory.postalcode()
-            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
-                            postalcode)
+            assert re.match(self.valid_postcode_letter_re, postalcode)
 
     def test_postal_code_letter(self):
         postal_code_letter = self.factory.postal_code_letter()
-        assert re.match(r"[A-Z]", postal_code_letter)
+        assert re.match(self.valid_postcode_letter_re, postal_code_letter)
 
     def test_province(self):
         province = self.factory.province()
