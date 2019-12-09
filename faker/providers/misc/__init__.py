@@ -17,10 +17,7 @@ from .. import BaseProvider
 
 localized = True
 
-
-class _FakerCSV(csv.excel):
-    quoting = csv.QUOTE_ALL
-csv.register_dialect('faker-csv', _FakerCSV)
+csv.register_dialect('faker-csv', csv.excel, quoting=csv.QUOTE_ALL)
 
 
 class Provider(BaseProvider):
@@ -291,12 +288,19 @@ class Provider(BaseProvider):
             writer.writerow(header)
 
         for row_num in range(1, num_rows + 1):
-            row = [self.generator.pystr_format(column) for column in data_columns]
+            if six.PY2:
+                row = [self.generator.pystr_format(column).encode('utf-8') for column in data_columns]
+            else:
+                row = [self.generator.pystr_format(column) for column in data_columns]
             if include_row_ids:
                 row.insert(0, str(row_num))
+
             writer.writerow(row)
 
-        return dsv_buffer.getvalue()
+        dsv = dsv_buffer.getvalue()
+        if six.PY2:
+            return dsv.decode('utf-8')
+        return dsv
 
     def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
         """
@@ -311,7 +315,7 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter=','
+            include_row_ids=include_row_ids, delimiter=str(','),
         )
 
     def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
@@ -327,7 +331,7 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter='\t',
+            include_row_ids=include_row_ids, delimiter=str('\t'),
         )
 
     def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
@@ -343,5 +347,5 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter='|',
+            include_row_ids=include_row_ids, delimiter=str('|'),
         )
