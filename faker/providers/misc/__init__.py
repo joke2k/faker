@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+import csv
 import hashlib
 import io
 import string
@@ -15,6 +16,11 @@ from .. import BaseProvider
 
 
 localized = True
+
+
+class _FakerCSV(csv.excel):
+    quoting = csv.QUOTE_ALL
+csv.register_dialect('faker-csv', _FakerCSV)
 
 
 class Provider(BaseProvider):
@@ -243,3 +249,99 @@ class Provider(BaseProvider):
                 tar_handle.addfile(tarinfo, file_buffer)
                 file_buffer.close()
         return tar_buffer.getvalue()
+
+    def dsv(self, dialect='faker-csv', header=None,
+            data_columns=('{{name}}', '{{address}}'),
+            num_rows=10, include_row_ids=False, **fmtparams):
+        """
+        Generic method that returns delimiter-separated values
+
+        This method's signature is mostly the same as the signature of csv.writer with some
+        additional keyword arguments for controlling data generation. Dialects and formatting
+        parameters are passed to the csv.writer object during its instantiation.
+
+        :param dialect: Name of a registered csv.Dialect subclass, defaults to 'faker-csv'
+                        which is a subclass of csv.excel with full quoting enabled
+        :param header: List of strings that will serve as the header row if supplied
+        :param data_columns: List of string tokens that will be passed to the pystr_format
+                             provider method during data generation
+        :param num_rows: Number of rows of data to generate
+        :param include_row_ids: True to include a sequential row ID column
+        :param fmtparams: Formatting parameters expected by csv.writer
+        :return: Delimiter-separated values, csv by default
+        """
+
+        if not isinstance(num_rows, int) or num_rows <= 0:
+            raise ValueError('`num_rows` must be a positive integer')
+        if not isinstance(data_columns, (list, tuple)):
+            raise TypeError('`data_columns` must be a tuple or a list')
+        if header is not None:
+            if not isinstance(header, (list, tuple)):
+                raise TypeError('`header` must be a tuple or a list')
+            if len(header) != len(data_columns):
+                raise ValueError('`header` and `data_columns` must have matching lengths')
+
+        dsv_buffer = six.StringIO()
+        writer = csv.writer(dsv_buffer, dialect=dialect, **fmtparams)
+
+        if header:
+            if include_row_ids:
+                header = list(header)
+                header.insert(0, 'ID')
+            writer.writerow(header)
+
+        for row_num in range(1, num_rows + 1):
+            row = [self.generator.pystr_format(column) for column in data_columns]
+            if include_row_ids:
+                row.insert(0, str(row_num))
+            writer.writerow(row)
+
+        return dsv_buffer.getvalue()
+
+    def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+        """
+        Helper method that returns comma-separated values using the faker-csv dialect
+
+        :param header: List of strings that will serve as the header row if supplied
+        :param data_columns: List of strings expected by the pystr_format provider method
+        :param num_rows: Number of rows of data to generate
+        :param include_row_ids: True to include a sequential row ID column
+        :return: Comma-separated values
+        """
+
+        return self.dsv(
+            header=header, data_columns=data_columns, num_rows=num_rows,
+            include_row_ids=include_row_ids, delimiter=','
+        )
+
+    def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+        """
+        Helper method that returns tab-separated values using the faker-csv dialect
+
+        :param header: List of strings that will serve as the header row if supplied
+        :param data_columns: List of strings expected by the pystr_format provider method
+        :param num_rows: Number of rows of data to generate
+        :param include_row_ids: True to include a sequential row ID column
+        :return: Tab-separated values
+        """
+
+        return self.dsv(
+            header=header, data_columns=data_columns, num_rows=num_rows,
+            include_row_ids=include_row_ids, delimiter='\t',
+        )
+
+    def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+        """
+        Helper method that returns pipe-separated values using the faker-csv dialect
+
+        :param header: List of strings that will serve as the header row if supplied
+        :param data_columns: List of strings expected by the pystr_format provider method
+        :param num_rows: Number of rows of data to generate
+        :param include_row_ids: True to include a sequential row ID column
+        :return: Pipe-separated values
+        """
+
+        return self.dsv(
+            header=header, data_columns=data_columns, num_rows=num_rows,
+            include_row_ids=include_row_ids, delimiter='|',
+        )
