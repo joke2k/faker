@@ -4,22 +4,22 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_suffixes = ('ск', 'вль', 'град', 'поль', 'ин', 'ов', 'бург',)
-    street_suffixes = ('ул.', 'алл.', 'наб.', 'пр.', 'пер.', 'бул.', 'ш.',)
-    region_suffixes = ('респ.', 'обл.', 'край', 'АО',)
-    city_formats = ('{{city_prefix}} {{city_name}}',)
+    city_suffixes = ('ск', 'вль', 'град', 'поль', 'ин', 'ов', 'бург')
+    street_suffixes = ('ул.', 'алл.', 'наб.', 'пр.', 'пер.', 'бул.', 'ш.')
+    region_suffixes = ('респ.', 'обл.', 'край', 'АО')
+    city_formats = ('{{city_prefix}} {{city_name}}', )
     street_address_formats = ('{{street_name}}, д. {{building_number}}',
                               '{{street_name}}, д. {{building_number}} к. {{building_number}}',
                               '{{street_name}}, д. {{building_number}} стр. {{building_number}}')
-    address_formats = ('{{city}}, {{street_address}}, {{postcode}}',)
+    address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
     postcode_formats = ('######',)
     building_number_formats = ('###', '##', '#', '#/#')
 
-    city_prefixes = ('г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.',)
+    city_prefixes = ('г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.')
 
-    street_suffixes_masc = ('пр.', 'пер.', 'бул.',)
-    street_suffixes_fem = ('ул.', 'алл.', 'наб.',)
-    street_suffixes_neu = ('ш.',)
+    street_suffixes_masc = ('пр.', 'пер.', 'бул.')
+    street_suffixes_fem = ('ул.', 'алл.', 'наб.')
+    street_suffixes_neu = ('ш.', )
 
     street_titles = (
         'Советская', 'Молодежная', 'Центральная', 'Школьная', 'Новая',
@@ -395,8 +395,3 @@ class Provider(AddressProvider):
                 elif suffix in self.street_suffixes_neu:
                     inflexion = 'ое'
         return suffix + ' ' + result
-
-
-
-
-
