@@ -1110,3 +1110,42 @@ class TestTlPh(TestEnPh):
 
     def setup_factory(self):
         self.factory = Faker('tl_PH')
+
+
+class TestRuRU(unittest.TestCase):
+    """ Tests addresses in the ru_RU locale """
+
+    def setUp(self):
+        self.factory = Faker('ru_RU')
+
+    def test_city_name(self):
+        city = self.factory.city_name()
+        assert isinstance(city, string_types)
+
+    def test_country(self):
+        country = self.factory.country()
+        assert isinstance(country, string_types)
+
+    def test_region(self):
+        region = self.factory.region()
+        assert isinstance(region, string_types)
+
+    def test_postcode(self):
+        postcode = self.factory.postcode()
+        assert isinstance(postcode, string_types)
+
+    def test_city_prefix(self):
+        city_prefix = self.factory.city_prefix()
+        assert isinstance(city_prefix, string_types)
+
+    def test_street_suffix(self):
+        street_suffix = self.factory.street_suffix()
+        assert isinstance(street_suffix, string_types)
+
+    def test_street_title(self):
+        street_title = self.factory.street_title()
+        assert isinstance(street_title, string_types)
+
+    def test_street_name(self):
+        street_name = self.factory.street_name()
+        assert isinstance(street_name, string_types)
