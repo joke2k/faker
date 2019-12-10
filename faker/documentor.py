@@ -50,6 +50,11 @@ class Documentor(object):
 
             if name == 'binary':
                 faker_kwargs['length'] = 1024
+            elif name in ['zip', 'tar']:
+                faker_kwargs.update({
+                    'uncompressed_size': 1024,
+                    'min_file_size': 512,
+                })
 
             if with_args:
                 # retrieve all parameter
