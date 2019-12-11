@@ -13,8 +13,9 @@ class TestUserAgent(unittest.TestCase):
     """ Tests user_agent """
 
     def setUp(self):
-        self.factory = Faker()
-        self.ua = UaProvider(self.factory)
+        self.fake = Faker()
+        Faker.seed(0)
+        self.ua = UaProvider(self.fake)
 
     def test_android_platform_token(self):
         for _ in range(0, 1000):
