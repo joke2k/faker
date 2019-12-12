@@ -12,20 +12,21 @@ from six import string_types
 class TestColor(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('en_US')
+        self.fake = Faker('en_US')
+        Faker.seed(0)
 
     def test_safe_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.safe_hex_color()) for _ in range(1000)))
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.safe_hex_color()) for _ in range(1000)))
 
     def test_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.hex_color()) for _ in range(1000)))
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.hex_color()) for _ in range(1000)))
 
     def test_rgb_color(self):
         maxval = 0
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, self.factory.rgb_color().split(',')))
+            current = list(map(int, self.fake.rgb_color().split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
@@ -39,7 +40,7 @@ class TestColor(unittest.TestCase):
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, self.factory.rgb_css_color()[4:-1].split(',')))
+            current = list(map(int, self.fake.rgb_css_color()[4:-1].split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
@@ -55,7 +56,7 @@ class TestColor(unittest.TestCase):
         # The `color` provider method should behave like the `generate`
         # method of a standalone RandomColor instance for a given seed
         Faker.seed(4761)
-        colors = [self.factory.color() for _ in range(10000)]
+        colors = [self.fake.color() for _ in range(10000)]
         assert colors == expected
 
 
@@ -253,14 +254,15 @@ class TestHyAM(unittest.TestCase):
     """ Tests colors in the hy_AM locale """
 
     def setUp(self):
-        self.factory = Faker('hy_AM')
+        self.fake = Faker('hy_AM')
+        Faker.seed(0)
 
     def test_color_name(self):
-        color_name = self.factory.color_name()
+        color_name = self.fake.color_name()
         assert isinstance(color_name, string_types)
         assert color_name in HyAmProvider.all_colors.keys()
 
     def test_safe_color_name(self):
-        safe_color_name = self.factory.safe_color_name()
+        safe_color_name = self.fake.safe_color_name()
         assert isinstance(safe_color_name, string_types)
         assert safe_color_name in HyAmProvider.safe_colors

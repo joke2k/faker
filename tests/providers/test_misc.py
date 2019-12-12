@@ -21,26 +21,27 @@ from faker import Faker
 class TestMisc(unittest.TestCase):
     """Tests miscellaneous generators"""
     def setUp(self):
-        self.factory = Faker()
+        self.fake = Faker()
+        Faker.seed(0)
 
     def test_uuid4(self):
-        uuid4 = self.factory.uuid4()
+        uuid4 = self.fake.uuid4()
         assert uuid4
         assert isinstance(uuid4, six.string_types)
 
     def test_uuid4_int(self):
-        uuid4 = self.factory.uuid4(cast_to=int)
+        uuid4 = self.fake.uuid4(cast_to=int)
         assert uuid4
         assert isinstance(uuid4, six.integer_types)
 
     def test_uuid4_uuid_object(self):
-        uuid4 = self.factory.uuid4(cast_to=lambda x: x)
+        uuid4 = self.fake.uuid4(cast_to=lambda x: x)
         assert uuid4
         assert isinstance(uuid4, uuid.UUID)
 
     def test_uuid4_seedability(self):
         for _ in range(10):
-            random_seed = self.factory.random_int()
+            random_seed = self.fake.random_int()
             baseline_fake = Faker()
             Faker.seed(random_seed)
             expected_uuids = [baseline_fake.uuid4() for i in range(1000)]
@@ -52,45 +53,43 @@ class TestMisc(unittest.TestCase):
 
     def test_zip_invalid_file(self):
         with self.assertRaises(ValueError):
-            self.factory.zip(num_files='1')
+            self.fake.zip(num_files='1')
 
         with self.assertRaises(ValueError):
-            self.factory.zip(num_files=0)
+            self.fake.zip(num_files=0)
 
         with self.assertRaises(ValueError):
-            self.factory.zip(min_file_size='1')
+            self.fake.zip(min_file_size='1')
 
         with self.assertRaises(ValueError):
-            self.factory.zip(min_file_size=0)
+            self.fake.zip(min_file_size=0)
 
         with self.assertRaises(ValueError):
-            self.factory.zip(uncompressed_size='1')
+            self.fake.zip(uncompressed_size='1')
 
         with self.assertRaises(ValueError):
-            self.factory.zip(uncompressed_size=0)
+            self.fake.zip(uncompressed_size=0)
 
     def test_zip_one_byte_undersized(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size - 1
 
             # Will always fail because of bad size requirements
             with self.assertRaises(AssertionError):
-                self.factory.zip(
+                self.fake.zip(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size,
                 )
 
     def test_zip_exact_minimum_size(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size
 
-            zip_bytes = self.factory.zip(
+            zip_bytes = self.fake.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -113,14 +112,13 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
 
     def test_zip_over_minimum_size(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
-            expected_extra_bytes = self.factory.random.randint(1, 1024 * 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
+            expected_extra_bytes = self.fake.random.randint(1, 1024 * 1024)
             uncompressed_size = num_files * min_file_size + expected_extra_bytes
 
-            zip_bytes = self.factory.zip(
+            zip_bytes = self.fake.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -149,7 +147,6 @@ class TestMisc(unittest.TestCase):
 
     @unittest.skipIf(six.PY2, 'Python 3 only')
     def test_zip_compression_py3(self):
-        Faker.seed(0)
         num_files = 10
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -164,7 +161,7 @@ class TestMisc(unittest.TestCase):
             (None, zipfile.ZIP_STORED),
         ]
         for compression, compress_type in compression_mapping:
-            zip_bytes = self.factory.zip(
+            zip_bytes = self.fake.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -179,7 +176,6 @@ class TestMisc(unittest.TestCase):
 
     @unittest.skipIf(six.PY3, 'Python 2 only')
     def test_zip_compression_py2(self):
-        Faker.seed(0)
         num_files = 10
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -190,7 +186,7 @@ class TestMisc(unittest.TestCase):
             (None, zipfile.ZIP_STORED),
         ]
         for compression, compress_type in compression_mapping:
-            zip_bytes = self.factory.zip(
+            zip_bytes = self.fake.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -206,52 +202,50 @@ class TestMisc(unittest.TestCase):
         # BZIP2 and LZMA are not supported in Python 2
         for compression in ['bzip2', 'bz2', 'lzma', 'xz']:
             with self.assertRaises(RuntimeError):
-                self.factory.zip(
+                self.fake.zip(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size, compression=compression,
                 )
 
     def test_tar_invalid_file(self):
         with self.assertRaises(ValueError):
-            self.factory.tar(num_files='1')
+            self.fake.tar(num_files='1')
 
         with self.assertRaises(ValueError):
-            self.factory.tar(num_files=0)
+            self.fake.tar(num_files=0)
 
         with self.assertRaises(ValueError):
-            self.factory.tar(min_file_size='1')
+            self.fake.tar(min_file_size='1')
 
         with self.assertRaises(ValueError):
-            self.factory.tar(min_file_size=0)
+            self.fake.tar(min_file_size=0)
 
         with self.assertRaises(ValueError):
-            self.factory.tar(uncompressed_size='1')
+            self.fake.tar(uncompressed_size='1')
 
         with self.assertRaises(ValueError):
-            self.factory.tar(uncompressed_size=0)
+            self.fake.tar(uncompressed_size=0)
 
     def test_tar_one_byte_undersized(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size - 1
 
             # Will always fail because of conflicting size requirements
             with self.assertRaises(AssertionError):
-                self.factory.tar(
+                self.fake.tar(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size,
                 )
 
     def test_tar_exact_minimum_size(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size
 
-            tar_bytes = self.factory.tar(
+            tar_bytes = self.fake.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -271,14 +265,13 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
 
     def test_tar_over_minimum_size(self):
-        Faker.seed(0)
         for _ in range(10):
-            num_files = self.factory.random.randint(1, 100)
-            min_file_size = self.factory.random.randint(1, 1024)
-            expected_extra_bytes = self.factory.random.randint(1, 1024 * 1024)
+            num_files = self.fake.random.randint(1, 100)
+            min_file_size = self.fake.random.randint(1, 1024)
+            expected_extra_bytes = self.fake.random.randint(1, 1024 * 1024)
             uncompressed_size = num_files * min_file_size + expected_extra_bytes
 
-            tar_bytes = self.factory.tar(
+            tar_bytes = self.fake.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -304,7 +297,6 @@ class TestMisc(unittest.TestCase):
 
     @unittest.skipIf(six.PY2, 'Python 3 only')
     def test_tar_compression_py3(self):
-        Faker.seed(0)
         num_files = 25
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -319,7 +311,7 @@ class TestMisc(unittest.TestCase):
         ]
 
         for compression, read_mode in compression_mapping:
-            tar_bytes = self.factory.tar(
+            tar_bytes = self.fake.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -331,7 +323,6 @@ class TestMisc(unittest.TestCase):
 
     @unittest.skipIf(six.PY3, 'Python 2 only')
     def test_tar_compression_py2(self):
-        Faker.seed(0)
         num_files = 25
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -344,7 +335,7 @@ class TestMisc(unittest.TestCase):
         ]
 
         for compression, read_mode in compression_mapping:
-            tar_bytes = self.factory.tar(
+            tar_bytes = self.fake.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -357,33 +348,32 @@ class TestMisc(unittest.TestCase):
         # LZMA is not supported in Python 2
         for compression in ['lzma', 'xz']:
             with self.assertRaises(RuntimeError):
-                self.factory.tar(
+                self.fake.tar(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size, compression=compression,
                 )
 
     def test_dsv_with_invalid_values(self):
         with self.assertRaises(ValueError):
-            self.factory.dsv(num_rows='1')
+            self.fake.dsv(num_rows='1')
 
         with self.assertRaises(ValueError):
-            self.factory.dsv(num_rows=0)
+            self.fake.dsv(num_rows=0)
 
         with self.assertRaises(TypeError):
-            self.factory.dsv(header=None, data_columns=1)
+            self.fake.dsv(header=None, data_columns=1)
 
         with self.assertRaises(TypeError):
-            self.factory.dsv(header=1, data_columns=['???'])
+            self.fake.dsv(header=1, data_columns=['???'])
 
         with self.assertRaises(ValueError):
-            self.factory.dsv(header=['Column 1', 'Column 2'], data_columns=['???'])
+            self.fake.dsv(header=['Column 1', 'Column 2'], data_columns=['???'])
 
     def test_dsv_no_header(self):
-        Faker.seed(0)
         data_columns = ['????', '?????']
         for _ in range(10):
-            num_rows = self.factory.random.randint(1, 1000)
-            dsv = self.factory.dsv(header=None, data_columns=data_columns, num_rows=num_rows)
+            num_rows = self.fake.random.randint(1, 1000)
+            dsv = self.fake.dsv(header=None, data_columns=data_columns, num_rows=num_rows)
             reader = csv.reader(six.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
@@ -394,12 +384,11 @@ class TestMisc(unittest.TestCase):
             assert reader.line_num == num_rows
 
     def test_dsv_with_valid_header(self):
-        Faker.seed(0)
         header = ['Column 1', 'Column 2']
         data_columns = ['????', '?????']
         for _ in range(10):
-            num_rows = self.factory.random.randint(1, 1000)
-            dsv = self.factory.dsv(header=header, data_columns=data_columns, num_rows=num_rows)
+            num_rows = self.fake.random.randint(1, 1000)
+            dsv = self.fake.dsv(header=header, data_columns=data_columns, num_rows=num_rows)
             reader = csv.reader(six.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
@@ -410,12 +399,11 @@ class TestMisc(unittest.TestCase):
             assert reader.line_num == num_rows + 1
 
     def test_dsv_with_row_ids(self):
-        Faker.seed(0)
         data_columns = ['????', '?????']
         for _ in range(10):
             counter = 0
-            num_rows = self.factory.random.randint(1, 1000)
-            dsv = self.factory.dsv(
+            num_rows = self.fake.random.randint(1, 1000)
+            dsv = self.fake.dsv(
                 header=None, data_columns=data_columns,
                 num_rows=num_rows, include_row_ids=True,
             )
@@ -434,9 +422,9 @@ class TestMisc(unittest.TestCase):
     def test_dsv_data_columns(self):
         num_rows = 10
         data_columns = ['{{name}}', '#??-####', '{{address}}', '{{phone_number}}']
-        with patch.object(self.factory['en_US'], 'pystr_format') as mock_pystr_format:
+        with patch.object(self.fake['en_US'], 'pystr_format') as mock_pystr_format:
             mock_pystr_format.assert_not_called()
-            self.factory.dsv(data_columns=data_columns, num_rows=num_rows)
+            self.fake.dsv(data_columns=data_columns, num_rows=num_rows)
 
             # pystr_format will be called for each data column and each row
             calls = mock_pystr_format.call_args_list
@@ -461,7 +449,7 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.csv.writer') as mock_writer:
             mock_writer.assert_not_called()
-            self.factory.dsv(**test_kwargs)
+            self.fake.dsv(**test_kwargs)
             assert mock_writer.call_count == 1
 
             # Remove all data generation kwargs
@@ -481,7 +469,7 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.factory.csv(**kwargs)
+            self.fake.csv(**kwargs)
             kwargs['delimiter'] = ','
             mock_dsv.assert_called_once_with(**kwargs)
 
@@ -494,7 +482,7 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.factory.tsv(**kwargs)
+            self.fake.tsv(**kwargs)
             kwargs['delimiter'] = '\t'
             mock_dsv.assert_called_once_with(**kwargs)
 
@@ -507,6 +495,6 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.factory.psv(**kwargs)
+            self.fake.psv(**kwargs)
             kwargs['delimiter'] = '|'
             mock_dsv.assert_called_once_with(**kwargs)
