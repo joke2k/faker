@@ -783,9 +783,7 @@ class Provider(PersonProvider):
         https://pl.wikipedia.org/wiki/NIP
 
         """
-        nip = []
-        for _ in range(9):
-            nip.append(self.random_digit())
+        nip = [self.random_digit() for _ in range(9)]
 
         weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
         check_sum = sum(d * w for d, w in zip(nip, weights)) % 11
