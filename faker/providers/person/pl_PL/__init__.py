@@ -789,9 +789,11 @@ class Provider(PersonProvider):
         check_sum = sum(d * w for d, w in zip(nip, weights)) % 11
 
         if check_sum % 11 == 10:
-            nip.append(0)
+            position = self.random_int(0, 8)
+            nip[position] = (nip[position]+1) % 10
+            nip.append((check_sum + weights[position]) % 11)
+
         else:
             nip.append(check_sum % 11)
 
         return ''.join(str(character) for character in nip)
-
