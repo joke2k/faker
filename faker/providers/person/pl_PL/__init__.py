@@ -1549,7 +1549,7 @@ class Provider(PersonProvider):
         https://pl.wikipedia.org/wiki/NIP
         """
 
-        nip = [int(i) for i in self.random_choices(self.tax_office_codes)]
+        nip = [int(i) for i in self.random_choices(self.tax_office_codes,1)[0]]
         for _ in range(6):
             nip.append(self.random_digit())
 
