@@ -8,7 +8,9 @@ from .. import Provider as AutomotiveProvider
 class Provider(AutomotiveProvider):
 
     # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
-    license_plate_letters = ('A', 'B', 'E', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+    license_plate_letters = ('A', 'B', 'E', 'K', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+    # https://ru.wikipedia.org/wiki/Категории_транспортных_средств
+    vehicle_categories = ('M', 'A', 'A1', 'B', 'B1', 'BE', 'C', 'C1', 'C1E', 'CE', 'D', 'D1', 'DE', 'Tm', 'Tb')
 
     license_plate_suffix = (
         # Republic of Adygea
@@ -198,13 +200,30 @@ class Provider(AutomotiveProvider):
         '94',
     )
 
-    license_plate_number = (
-        '##%'
+    license_plate_formats = (
+        '{{plate_letter}}###{{plate_letter}}{{plate_letter}}{{plate_suffix}}',
+        '{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
+        '{{plate_letter}}{{plate_letter}}####{{plate_suffix}}',
+        '####{{plate_letter}}{{plate_letter}}{{plate_suffix}}',
+        '###CD#{{plate_suffix}}',
+        '###D###{{plate_suffix}}',
+        '###T###{{plate_suffix}}',
+        '{{plate_letter}}####{{plate_suffix}}',
+        '###{{plate_letter}}{{plate_suffix}}',
+        '####{{plate_letter}}{{plate_suffix}}',
+        'K{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
+        'C{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
     )
 
     def license_plate(self):
-        return self.random_element(self.license_plate_letters) + \
-               self.numerify(self.generator.parse(self.license_plate_number)) + \
-               self.random_element(self.license_plate_letters) + \
-               self.random_element(self.license_plate_letters) + \
-               self.random_element(self.license_plate_suffix)
+        pattern = self.random_element(self.license_plate_formats)
+        return self.generator.parse(pattern)
+
+    def plate_letter(self):
+        return self.random_element(self.license_plate_letters)
+
+    def plate_suffix(self):
+        return self.random_element(self.license_plate_letters)
+
+    def vehicle_category(self):
+        return self.random_element(self.vehicle_categories)

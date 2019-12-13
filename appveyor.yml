@@ -20,6 +20,10 @@ environment:
       PYTHON_VERSION: "3.7.x"
       PYTHON_ARCH: "32"
 
+    - PYTHON: "C:\\Python38"
+      PYTHON_VERSION: "3.8.x"
+      PYTHON_ARCH: "32"
+
     - PYTHON: "C:\\Python27-x64"
       PYTHON_VERSION: "2.7.x"
       PYTHON_ARCH: "64"
@@ -36,6 +40,10 @@ environment:
       PYTHON_VERSION: "3.7.x"
       PYTHON_ARCH: "64"
 
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "3.8.x"
+      PYTHON_ARCH: "64"
+
 init:
   - "ECHO %PYTHON%"
   - ps: "ls C:/Python*"
@@ -44,5 +52,6 @@ test_script:
   - "%PYTHON%/Scripts/pip.exe --version"
   - "%PYTHON%/Scripts/pip.exe freeze"
   - "%PYTHON%/python.exe --version"
+  - "%PYTHON%/Scripts/pip.exe install -U setuptools"
   - "%PYTHON%/Scripts/pip.exe install \"importlib-metadata>=0.12\""
   - "%PYTHON%/python.exe setup.py test"
