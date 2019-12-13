@@ -1,4 +1,5 @@
 import unittest
+import random
 import re
 from re import search
 from faker import Faker
@@ -126,6 +127,28 @@ class TestRandomColor(unittest.TestCase):
             color = self.random_color.generate()
             assert self.hex_color_pattern.match(color)
 
+    def test_hue_integer(self):
+        # HSV format is used, because whatever hue value supplied must be present in the output
+        for hue in range(360):
+            colors = [self.random_color.generate(hue=hue, color_format='hsv') for _ in range(10)]
+            for color in colors:
+                match = self.hsv_color_pattern.match(color)
+                assert match
+                groupdict = match.groupdict()
+                assert int(groupdict['h']) == hue
+
+    def test_hue_float(self):
+        baseline_random_color = RandomColor(seed=self.seed)
+        for _ in range(1000):
+            hue_float = random.uniform(0, 360)
+            hue_int = int(hue_float)
+            expected = [baseline_random_color.generate(hue=hue_int) for _ in range(10)]
+
+            # Using a float value between 0 and 360 should yield the same results
+            # as using an integer rounded down from that float value for a given seed
+            colors = [self.random_color.generate(hue=hue_float) for _ in range(10)]
+            assert colors == expected
+
     def test_hue_word(self):
         if six.PY2:
             expected = ['#f2f2f2', '#6b6b6b', '#939393', '#5e5e5e', '#aaaaaa']
@@ -203,6 +226,8 @@ class TestRandomColor(unittest.TestCase):
 
     def test_hue_invalid(self):
         invalid_values = [
+            -0.000000001,       # Very slightly under the min numerical value of 0
+            360.000000001,      # Very slightly over the max numerical value of 360
             'invalid value',    # Unsupported string
             [1, 2, 3],          # List with incorrect number of elements of valid data types
             ['ab', 1],          # List with correct number of elements with invalid data types
@@ -248,6 +273,15 @@ class TestRandomColor(unittest.TestCase):
 
         colors = [self.random_color.generate(luminosity='invalid_value') for _ in range(1000)]
         assert colors == expected
+
+    def test_bad_color_map(self):
+        # Initial baseline using 62 as hue value
+        self.random_color.generate(hue=62)
+
+        # If we remove 62 from the yellow range, calling the previous function should fail
+        self.random_color.colormap['yellow']['hue_range'] = [47, 61]
+        with self.assertRaises(ValueError):
+            self.random_color.generate(hue=62)
 
 
 class TestHyAM(unittest.TestCase):
