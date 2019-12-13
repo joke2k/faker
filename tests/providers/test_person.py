@@ -21,8 +21,7 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import (
-    checksum_identity_card_number as pl_checksum_identity_card_number, validate_nip as pl_validate_nip
-)
+    checksum_identity_card_number as pl_checksum_identity_card_number)
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
@@ -257,9 +256,23 @@ class TestPlPL(unittest.TestCase):
         assert self.fake.pwz_nurse(kind='nurse') == '4534567P'
         assert self.fake.pwz_nurse(kind='midwife') == '0317512A'
 
+    @staticmethod
+    def validate_nip(nip_str):
+        """
+        Validates NIP using recomended code
+        https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
+        """
+        nip_str = nip_str.replace('-', '')
+        if len(nip_str) != 10 or not nip_str.isdigit():
+            return False
+        digits = [int(i) for i in nip_str]
+        weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+        check_sum = sum(d * w for d, w in zip(digits, weights)) % 11
+        return check_sum == digits[9]
+
     def test_nip(self):
         for _ in range(100):
-            assert pl_validate_nip(self.factory.nip())
+            assert self.validate_nip(self.fake.nip())
 
 
 class TestCsCZ(unittest.TestCase):

@@ -21,20 +21,6 @@ def checksum_identity_card_number(characters):
     return check_digit
 
 
-def validate_nip(nip_str):
-    """
-    Validates NIP using recomended code
-    https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
-    """
-    nip_str = nip_str.replace('-', '')
-    if len(nip_str) != 10 or not nip_str.isdigit():
-        return False
-    digits = [int(i) for i in nip_str]
-    weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
-    check_sum = sum(d * w for d, w in zip(digits, weights)) % 11
-    return check_sum == digits[9]
-
-
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
@@ -752,10 +738,10 @@ class Provider(PersonProvider):
         pesel += str(self.pesel_compute_check_digit(pesel))
 
         return pesel
-        
+
     @staticmethod
     def pwz_doctor_compute_check_digit(x):
-        return sum((i+1)*d for i, d in enumerate(x)) % 11
+        return sum((i + 1) * d for i, d in enumerate(x)) % 11
 
     def pwz_doctor(self):
         """
