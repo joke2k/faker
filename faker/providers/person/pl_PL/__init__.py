@@ -20,6 +20,19 @@ def checksum_identity_card_number(characters):
 
     return check_digit
 
+def validate_nip(nip_str):
+    """
+    Validates NIP using recomended code
+    https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
+    """
+    nip_str = nip_str.replace('-', '')
+    if len(nip_str) != 10 or not nip_str.isdigit(): 
+        return False
+    digits = [int(i) for i in nip_str]
+    weights = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+    check_sum = sum(d * w for d, w in zip(digits, weights)) % 11
+    return check_sum == digits[9]
+
 
 class Provider(PersonProvider):
     formats = (
@@ -797,3 +810,5 @@ class Provider(PersonProvider):
             nip.append(check_sum % 11)
 
         return ''.join(str(character) for character in nip)
+
+    

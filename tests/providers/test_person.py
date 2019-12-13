@@ -21,7 +21,7 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import (
-    checksum_identity_card_number as pl_checksum_identity_card_number,
+    checksum_identity_card_number as pl_checksum_identity_card_number,validate_nip as pl_validate_nip
 )
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
@@ -251,6 +251,9 @@ class TestPlPL(unittest.TestCase):
         assert self.factory.pwz_nurse(kind='nurse') == '4534567P'
         assert self.factory.pwz_nurse(kind='midwife') == '0317512A'
 
+    def test_nip(self):
+        for _ in range(100):
+            assert pl_validate_nip(self.factory.nip())
 
 class TestCsCZ(unittest.TestCase):
 
