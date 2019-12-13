@@ -1538,7 +1538,7 @@ class Provider(PersonProvider):
         '995',  # Urząd Skarbowy w Grodzisku Wielkopolskim
         '996',  # Urząd Skarbowy w Grodzisku Wielkopolskim
         '997',  # Urząd Skarbowy Wieluń lokalizacja w Wieruszowie
-        '998'  # Urząd Skarbowy Wieluń lokalizacja w Wieruszowie
+        '998',  # Urząd Skarbowy Wieluń lokalizacja w Wieruszowie
     )
 
     def nip(self):
@@ -1549,7 +1549,7 @@ class Provider(PersonProvider):
         https://pl.wikipedia.org/wiki/NIP
         """
 
-        nip = [int(i) for i in self.random_choices(self.tax_office_codes,1)[0]]
+        nip = [int(i) for i in self.random_choices(self.tax_office_codes, 1)[0]]
         for _ in range(6):
             nip.append(self.random_digit())
 
