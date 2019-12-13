@@ -33,6 +33,12 @@ class TestBarcodeProvider(unittest.TestCase):
             assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
+    def test_ean_bad_length(self):
+        bad_lengths = [l for l in range(1, 15) if l not in (8, 13)]
+        for length in bad_lengths:
+            with self.assertRaises(AssertionError):
+                self.fake.ean(length)
+
     def test_ean8(self):
         for _ in range(self.num_sample_runs):
             ean8 = self.fake.ean8()
@@ -125,6 +131,18 @@ class TestBarcodeProvider(unittest.TestCase):
             # What will be the same are their number system and check digits
             assert upc_e_safe[0] == upc_e_unsafe[0]
             assert upc_e_safe[-1] == upc_e_unsafe[-1]
+
+    def test_upc_a2e_bad_values(self):
+        from faker.providers.barcode import Provider
+        provider = Provider(self.fake)
+
+        # Invalid data type
+        with self.assertRaises(TypeError):
+            provider._convert_upc_a2e(12345678)
+
+        # Invalid string
+        with self.assertRaises(ValueError):
+            provider._convert_upc_a2e('abcdef')
 
     def test_upc_a2e2a(self):
         from faker.providers.barcode import Provider
