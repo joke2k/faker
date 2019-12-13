@@ -300,3 +300,8 @@ class TestFakerProxyClass(unittest.TestCase):
             mock_select_factory.reset_mock()
             mock_choices_fn.reset_mock()
             mock_random_choice.reset_mock()
+
+    def test_multiple_locale_factory_selection_unsupported_method(self):
+        self.fake = Faker(['en_US', 'en_PH'])
+        with self.assertRaises(AttributeError):
+            self.fake.obviously_invalid_provider_method_a23f()
