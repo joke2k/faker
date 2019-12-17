@@ -873,3 +873,21 @@ class TestTlPh(TestEnPh):
     def setup_faker(self):
         self.fake = Faker('tl_PH')
         Faker.seed(0)
+
+
+class TestTrTr(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setup_factory(self):
+        self.factory = Faker('tr_TR')
+        self.samples = [self.factory.ssn() for _ in range(self.num_sample_runs)]
+
+    def first_part_non_zero(self):
+        for sample in self.samples:
+            assert sample[0] != 0
+
+    def compare_first_ten_and_last_part(self):
+        for sample in self.samples:
+            first_ten_number = sample[:-1]
+            last_part = sample[-1]
+            assert sum(list(map(lambda x: int(x), '{0}'.format(first_ten_number)))) % 10 == last_part
