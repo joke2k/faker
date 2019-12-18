@@ -876,11 +876,12 @@ class TestTlPh(TestEnPh):
 
 
 class TestTrTr(unittest.TestCase):
-    num_sample_runs = 1000
+    num_sample_runs = 10
 
-    def setup_factory(self):
-        self.factory = Faker('tr_TR')
-        self.samples = [self.factory.ssn() for _ in range(self.num_sample_runs)]
+    def setUp(self):
+        self.fake = Faker('tr_TR')
+        self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
+        Faker.seed(0)
 
     def first_part_non_zero(self):
         for sample in self.samples:
