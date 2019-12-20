@@ -213,7 +213,7 @@ class TestZhCN(unittest.TestCase):
                 # But every level henceforth should return the mocked value
                 assert domain_parts[-1] == 'cn'
                 assert domain_parts[-2] in provider.second_level_domains
-                assert all([domain_part == 'li' for domain_part in domain_parts[:-2]])
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-2])
 
                 # tld() method should only be called once, domain_word() will be called for each
                 # level after tld except the second, and recursive calls to domain_name() will be
@@ -239,7 +239,7 @@ class TestZhCN(unittest.TestCase):
                 # Same assertions as levels=2 for non cn tld and
                 # every level henceforth should return the mocked value
                 assert domain_parts[-1] == 'net'
-                assert all([domain_part == 'li' for domain_part in domain_parts[:-1]])
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-1])
 
                 # tld() method should only be called once, domain_word() will be called for each
                 # level after tld, and recursive calls to domain_name() will be made for each

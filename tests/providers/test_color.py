@@ -1,3 +1,4 @@
+import copy
 import unittest
 import random
 import re
@@ -279,7 +280,9 @@ class TestRandomColor(unittest.TestCase):
         self.random_color.generate(hue=62)
 
         # If we remove 62 from the yellow range, calling the previous function should fail
-        self.random_color.colormap['yellow']['hue_range'] = [47, 61]
+        colormap = copy.deepcopy(self.random_color.colormap)
+        colormap['yellow']['hue_range'] = [47, 61]
+        self.random_color.colormap = colormap
         with self.assertRaises(ValueError):
             self.random_color.generate(hue=62)
 
