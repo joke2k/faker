@@ -1,20 +1,23 @@
 # coding=utf-8
 from __future__ import unicode_literals
+from collections import OrderedDict
+
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_female = (
-        '{{first_name_female}} {{last_name}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}}',
-    )
+    formats_female = OrderedDict((
+        ('{{first_name_female}} {{last_name}}', 0.98),
+        ('{{prefix_female}} {{first_name_female}} {{last_name}}', 0.02),
+    ))
 
-    formats_male = (
-        '{{first_name_male}} {{last_name}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}}',
-    )
+    formats_male = OrderedDict((
+        ('{{first_name_male}} {{last_name}}', 0.98),
+        ('{{prefix_male}} {{first_name_male}} {{last_name}}', 0.02),
+    ))
 
-    formats = formats_male + formats_female
+    formats = formats_male.copy()
+    formats.update(formats_female)
 
     first_names_female = (
         'اصيل', 'آلاء', 'آيات', 'ايمان', 'بهجة', 'تمام', 'بشري', 'حياة',
