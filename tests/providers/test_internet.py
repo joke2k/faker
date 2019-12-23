@@ -151,6 +151,107 @@ class TestZhCN(unittest.TestCase):
                                    'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
                                    'sx', 'tj', 'xj', 'xz', 'yn', 'zj']
 
+    def test_domain_name_one_level_after_tld(self):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+        for _ in range(100):
+            domain_name = self.fake.domain_name(levels=1)
+            domain_parts = domain_name.split('.')
+            assert len(domain_parts) == 2
+            assert domain_parts[-1] in provider.tlds.keys()
+            assert domain_parts[0] not in provider.second_level_domains
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_two_levels_after_cn_tld(self, mock_tld, mock_domain_word):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+
+        # If tld() returns cn, second level name should be selected from second_level_domains
+        # and domain_word() will only be called once which will be used for the third level
+        mock_tld.return_value = 'cn'
+        mock_domain_word.return_value = 'li'
+        for _ in range(100):
+            mock_domain_word.reset_mock()
+            domain_name = self.fake.domain_name(levels=2)
+            domain_parts = domain_name.split('.')
+            assert len(domain_parts) == 3
+            assert domain_parts[-1] == 'cn'
+            assert domain_parts[-2] in provider.second_level_domains
+            assert domain_parts[0] == 'li'
+            assert mock_domain_word.call_count == 1
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word):
+        # If tld() does not return cn, domain_word() will be called twice
+        mock_domain_word.reset_mock()
+        mock_tld.return_value = 'net'
+        mock_domain_word.return_value = 'li'
+        domain_name = self.fake.domain_name(levels=2)
+        assert domain_name == 'li.li.net'
+        assert mock_domain_word.call_count == 2
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_more_than_two_levels_after_cn_tld(self, mock_tld, mock_domain_word):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+
+        mock_tld.return_value = 'cn'
+        mock_domain_word.return_value = 'li'
+        for levels in range(3, 10):
+            with mock.patch('faker.providers.internet.zh_CN.Provider.domain_name',
+                            wraps=self.fake.domain_name) as mock_domain_name:
+                mock_tld.reset_mock()
+                mock_domain_word.reset_mock()
+                mock_domain_name.reset_mock()
+                domain_name = self.fake.domain_name(levels=levels)
+                domain_parts = domain_name.split('.')
+
+                # Same assertions as levels=2 for tld and second level if tld is cn
+                # But every level henceforth should return the mocked value
+                assert domain_parts[-1] == 'cn'
+                assert domain_parts[-2] in provider.second_level_domains
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-2])
+
+                # tld() method should only be called once, domain_word() will be called for each
+                # level after tld except the second, and recursive calls to domain_name() will be
+                # made for each level starting from the third level after tld
+                assert mock_tld.call_count == 1
+                assert mock_domain_word.call_count == levels - 1
+                assert mock_domain_name.call_count == levels - 2
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_more_than_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word):
+        mock_tld.return_value = 'net'
+        mock_domain_word.return_value = 'li'
+        for levels in range(3, 10):
+            with mock.patch('faker.providers.internet.zh_CN.Provider.domain_name',
+                            wraps=self.fake.domain_name) as mock_domain_name:
+                mock_tld.reset_mock()
+                mock_domain_word.reset_mock()
+                mock_domain_name.reset_mock()
+                domain_name = self.fake.domain_name(levels=levels)
+                domain_parts = domain_name.split('.')
+
+                # Same assertions as levels=2 for non cn tld and
+                # every level henceforth should return the mocked value
+                assert domain_parts[-1] == 'net'
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-1])
+
+                # tld() method should only be called once, domain_word() will be called for each
+                # level after tld, and recursive calls to domain_name() will be made for each
+                # level starting from the third level after tld
+                assert mock_tld.call_count == 1
+                assert mock_domain_word.call_count == levels
+                assert mock_domain_name.call_count == levels - 2
+
+    def test_domain_name_bad_level(self):
+        with self.assertRaises(ValueError):
+            self.fake.domain_name(levels=0)
+
 
 class TestZhTW(unittest.TestCase):
 
