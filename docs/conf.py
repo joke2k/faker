@@ -26,7 +26,7 @@
 # ones.
 extensions = [
     'sphinx.ext.todo',
-    'faker.build_docs',
+    'faker.sphinx.autodoc',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
