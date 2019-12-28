@@ -16,9 +16,9 @@ Contents
    :maxdepth: 2
 
    fakerclass
-   standardproviders
+   providers
    communityproviders
-   localizedproviders
+   locales
    coding_style
 
 
