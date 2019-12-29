@@ -480,6 +480,25 @@ class Provider(BaseProvider):
         mac = [self.generator.random.randint(0x00, 0xff) for _ in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
 
+    def port_number(self, is_system=False, is_user=False, is_dynamic=False):
+        """Returns a network port number
+        https://tools.ietf.org/html/rfc6335
+
+        :param is_system: System or well-known ports
+        :param is_user: User or registered ports
+        :param is_dynamic: Dynamic / private / ephemeral ports
+        :rtype: int
+        """
+
+        if is_system:
+            return self.random_int(min=0, max=1023)
+        elif is_user:
+            return self.random_int(min=1024, max=49151)
+        elif is_dynamic:
+            return self.random_int(min=49152, max=65535)
+
+        return self.random_int(min=0, max=65535)
+
     def uri_page(self):
         return self.random_element(self.uri_pages)
 
