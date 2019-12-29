@@ -876,6 +876,15 @@ class FactoryTestCase(unittest.TestCase):
                 re.compile(r'^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$').search(
                     address))
 
+    def test_port_number(self):
+        faker = Faker()
+
+        for _ in range(99):
+            assert 0 <= faker.port_number() <= 65535
+            assert 0 <= faker.port_number(is_system=True) <= 1023
+            assert 1024 <= faker.port_number(is_user=True) <= 49151
+            assert 49152 <= faker.port_number(is_dynamic=True) <= 65535
+
     def test_random_sample_unique(self):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
