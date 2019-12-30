@@ -5,6 +5,11 @@ from ..en import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
+    #  Source: https://www.canadapost.ca/tools/pg/manual/PGaddress-e.asp#1449294
+    #
+    #  'W' and 'Z' are valid in non-initial position (easily verified in the
+    #  wild), but online official documentation is hard to find, so just ignore
+    #  them for now.
     postal_code_letters = (
         'A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S',
         'T', 'V', 'X', 'Y',
@@ -267,12 +272,19 @@ class Provider(AddressProvider):
     provinces = (
         'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
         'Newfoundland and Labrador', 'Northwest Territories',
-        'New Brunswick', 'Nova Scotia', 'Nunavut', 'Ontario',
+        'Nova Scotia', 'Nunavut', 'Ontario',
         'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon Territory')
 
     provinces_abbr = (
         'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS',
         'NU', 'ON', 'PE', 'QC', 'SK', 'YT')
+
+    provinces_postcode_prefixes = {
+        'NL': ['A'], 'NS': ['B'], 'PE': ['C'], 'NB': ['E'],
+        'QC': ['G', 'H', 'J'], 'ON': ['K', 'L', 'M', 'N', 'P'],
+        'MB': ['R'], 'SK': ['S'], 'AB': ['T'], 'BC': ['V'],
+        'NU': ['X'], 'NT': ['X'], 'YT': ['Y'],
+    }
 
     city_formats = (
         '{{city_prefix}} {{first_name}}{{city_suffix}}',
@@ -316,16 +328,44 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.postal_code_letters)
 
-    def postcode(self):
+    def _postcode_replace(self, postal_code_format):
         """
         Replaces all question mark ('?') occurrences with a random letter
-        from postal_code_formats then passes result to
-        numerify to insert numbers
+        from given postal_code_format, then passes result to numerify to insert
+        numbers
         """
         temp = re.sub(r'\?',
                       lambda x: self.postal_code_letter(),
-                      self.random_element(self.postal_code_formats))
+                      postal_code_format)
         return self.numerify(temp)
+
+    def postcode(self):
+        """
+        Returns a random postcode
+        """
+        return self._postcode_replace(
+            self.random_element(self.postal_code_formats))
+
+    def postcode_in_province(self, province_abbr=None):
+        """
+        Returns a random postcode within the provided province abbreviation
+        """
+        if province_abbr is None:
+            province_abbr = self.random_element(self.provinces_abbr)
+
+        if province_abbr in self.provinces_abbr:
+            postal_code_format = self.random_element(self.postal_code_formats)
+            postal_code_format = postal_code_format.replace(
+                '?',
+                self.generator.random_element(
+                    self.provinces_postcode_prefixes[province_abbr]),
+                1)
+            return self._postcode_replace(postal_code_format)
+        else:
+            raise Exception('Province Abbreviation not found in list')
+
+    def postalcode_in_province(self, province_abbr=None):
+        return self.postcode_in_province(province_abbr)
 
     def postalcode(self):
         return self.postcode()

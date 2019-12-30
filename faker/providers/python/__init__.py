@@ -60,6 +60,10 @@ class Provider(BaseProvider):
             self.random_int(0, sys.float_info.dig - left_digits))
         sign = ''
         if (min_value is not None) or (max_value is not None):
+            if max_value is not None and max_value < 0:
+                max_value += 1  # as the random_int will be generated up to max_value - 1
+            if min_value is not None and min_value < 0:
+                min_value += 1  # as we then append digits after the left_number
             left_number = self._safe_random_int(min_value, max_value)
         else:
             sign = '+' if positive else self.random_element(('+', '-'))

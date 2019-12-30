@@ -1,4 +1,6 @@
+import copy
 import unittest
+import random
 import re
 from re import search
 from faker import Faker
@@ -12,20 +14,21 @@ from six import string_types
 class TestColor(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('en_US')
+        self.fake = Faker('en_US')
+        Faker.seed(0)
 
     def test_safe_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.safe_hex_color()) for _ in range(1000)))
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.safe_hex_color()) for _ in range(1000)))
 
     def test_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.factory.hex_color()) for _ in range(1000)))
+        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.hex_color()) for _ in range(1000)))
 
     def test_rgb_color(self):
         maxval = 0
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, self.factory.rgb_color().split(',')))
+            current = list(map(int, self.fake.rgb_color().split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
@@ -39,7 +42,7 @@ class TestColor(unittest.TestCase):
         minval = 0
 
         for _ in range(1000):
-            current = list(map(int, self.factory.rgb_css_color()[4:-1].split(',')))
+            current = list(map(int, self.fake.rgb_css_color()[4:-1].split(',')))
             if max(current) > maxval:
                 maxval = max(current)
             if min(current) > minval:
@@ -54,8 +57,8 @@ class TestColor(unittest.TestCase):
 
         # The `color` provider method should behave like the `generate`
         # method of a standalone RandomColor instance for a given seed
-        self.factory.seed(4761)
-        colors = [self.factory.color() for _ in range(10000)]
+        Faker.seed(4761)
+        colors = [self.fake.color() for _ in range(10000)]
         assert colors == expected
 
 
@@ -124,6 +127,28 @@ class TestRandomColor(unittest.TestCase):
         for _ in range(10000):
             color = self.random_color.generate()
             assert self.hex_color_pattern.match(color)
+
+    def test_hue_integer(self):
+        # HSV format is used, because whatever hue value supplied must be present in the output
+        for hue in range(360):
+            colors = [self.random_color.generate(hue=hue, color_format='hsv') for _ in range(10)]
+            for color in colors:
+                match = self.hsv_color_pattern.match(color)
+                assert match
+                groupdict = match.groupdict()
+                assert int(groupdict['h']) == hue
+
+    def test_hue_float(self):
+        baseline_random_color = RandomColor(seed=self.seed)
+        for _ in range(1000):
+            hue_float = random.uniform(0, 360)
+            hue_int = int(hue_float)
+            expected = [baseline_random_color.generate(hue=hue_int) for _ in range(10)]
+
+            # Using a float value between 0 and 360 should yield the same results
+            # as using an integer rounded down from that float value for a given seed
+            colors = [self.random_color.generate(hue=hue_float) for _ in range(10)]
+            assert colors == expected
 
     def test_hue_word(self):
         if six.PY2:
@@ -202,6 +227,8 @@ class TestRandomColor(unittest.TestCase):
 
     def test_hue_invalid(self):
         invalid_values = [
+            -0.000000001,       # Very slightly under the min numerical value of 0
+            360.000000001,      # Very slightly over the max numerical value of 360
             'invalid value',    # Unsupported string
             [1, 2, 3],          # List with incorrect number of elements of valid data types
             ['ab', 1],          # List with correct number of elements with invalid data types
@@ -248,19 +275,31 @@ class TestRandomColor(unittest.TestCase):
         colors = [self.random_color.generate(luminosity='invalid_value') for _ in range(1000)]
         assert colors == expected
 
+    def test_bad_color_map(self):
+        # Initial baseline using 62 as hue value
+        self.random_color.generate(hue=62)
+
+        # If we remove 62 from the yellow range, calling the previous function should fail
+        colormap = copy.deepcopy(self.random_color.colormap)
+        colormap['yellow']['hue_range'] = [47, 61]
+        self.random_color.colormap = colormap
+        with self.assertRaises(ValueError):
+            self.random_color.generate(hue=62)
+
 
 class TestHyAM(unittest.TestCase):
     """ Tests colors in the hy_AM locale """
 
     def setUp(self):
-        self.factory = Faker('hy_AM')
+        self.fake = Faker('hy_AM')
+        Faker.seed(0)
 
     def test_color_name(self):
-        color_name = self.factory.color_name()
+        color_name = self.fake.color_name()
         assert isinstance(color_name, string_types)
         assert color_name in HyAmProvider.all_colors.keys()
 
     def test_safe_color_name(self):
-        safe_color_name = self.factory.safe_color_name()
+        safe_color_name = self.fake.safe_color_name()
         assert isinstance(safe_color_name, string_types)
         assert safe_color_name in HyAmProvider.safe_colors

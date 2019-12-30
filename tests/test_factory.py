@@ -18,6 +18,7 @@ import pytest
 import six
 
 from faker import Faker, Generator
+from faker.factory import Factory
 from faker.generator import random
 from faker.utils import decorators, text
 
@@ -61,9 +62,9 @@ class FactoryTestCase(unittest.TestCase):
             self.generator.get_formatter('barFormatter')
             assert exc.args[0] == 'Unknown formatter "barFormatter"'
 
-        faker = Faker('it_IT')
+        fake = Faker('it_IT')
         with pytest.raises(AttributeError) as exc:
-            faker.get_formatter('barFormatter')
+            fake.get_formatter('barFormatter')
             assert exc.args[0] == 'Unknown formatter "barFormatter" with locale "it_IT"'
 
     def test_invalid_locale(self):
@@ -293,10 +294,10 @@ class FactoryTestCase(unittest.TestCase):
     def test_prefix_suffix_always_string(self):
         # Locales known to contain `*_male` and `*_female`.
         for locale in ("bg_BG", "dk_DK", "en", "ru_RU", "tr_TR"):
-            f = Faker(locale=locale)
+            fake = Faker(locale=locale)
             for x in range(20):  # Probabilistic testing.
-                self.assertIsInstance(f.prefix(), six.string_types)
-                self.assertIsInstance(f.suffix(), six.string_types)
+                self.assertIsInstance(fake.prefix(), six.string_types)
+                self.assertIsInstance(fake.suffix(), six.string_types)
 
     def test_no_words_sentence(self):
         from faker.providers.lorem import Provider
@@ -307,9 +308,9 @@ class FactoryTestCase(unittest.TestCase):
         assert paragraph == ''
 
     def test_words_valueerror(self):
-        f = Faker()
+        fake = Faker()
         with pytest.raises(ValueError):
-            f.text(max_nb_chars=4)
+            fake.text(max_nb_chars=4)
 
     def test_no_words_paragraph(self):
         from faker.providers.lorem import Provider
@@ -421,26 +422,26 @@ class FactoryTestCase(unittest.TestCase):
             checked_words.append(word)
 
     def test_texts_count(self):
-        faker = Faker()
+        fake = Faker()
 
         texts_count = 5
-        assert texts_count == len(faker.texts(nb_texts=texts_count))
+        assert texts_count == len(fake.texts(nb_texts=texts_count))
 
     def test_texts_chars_count(self):
-        faker = Faker()
+        fake = Faker()
 
         chars_count = 5
-        for faker_text in faker.texts(max_nb_chars=chars_count):
+        for faker_text in fake.texts(max_nb_chars=chars_count):
             assert chars_count >= len(faker_text)
 
     def test_texts_word_list(self):
-        faker = Faker()
+        fake = Faker()
 
         word_list = [
             'test',
             'faker',
         ]
-        for faker_text in faker.texts(ext_word_list=word_list):
+        for faker_text in fake.texts(ext_word_list=word_list):
             for word in word_list:
                 assert word in faker_text.lower()
 
@@ -472,32 +473,42 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_pyfloat_in_range(self):
         # tests for https://github.com/joke2k/faker/issues/994
-        factory = Faker()
+        fake = Faker()
 
-        factory.seed_instance(5)
-        result = factory.pyfloat(min_value=0, max_value=1)
-
-        assert result >= 0.0
-        assert result <= 1.0
+        for i in range(20):
+            for min_value, max_value in [
+                (0, 1),
+                (-1, 1),
+                (None, -5),
+                (-5, None),
+                (None, 5),
+                (5, None),
+            ]:
+                fake.seed_instance(i)
+                result = fake.pyfloat(min_value=min_value, max_value=max_value)
+                if min_value is not None:
+                    assert result >= min_value
+                if max_value is not None:
+                    assert result <= max_value
 
     def test_negative_pyfloat(self):
         # tests for https://github.com/joke2k/faker/issues/813
-        factory = Faker()
-        factory.seed_instance(32167)
-        assert any(factory.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
-        assert any(factory.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
+        fake = Faker()
+        fake.seed_instance(32167)
+        assert any(fake.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
+        assert any(fake.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
 
     def test_pyfloat_empty_range_error(self):
         # tests for https://github.com/joke2k/faker/issues/1048
-        factory = Faker()
-        factory.seed_instance(8038)
-        assert factory.pyfloat(max_value=9999) < 9999
+        fake = Faker()
+        fake.seed_instance(8038)
+        assert fake.pyfloat(max_value=9999) < 9999
 
     def test_pyfloat_same_min_max(self):
         # tests for https://github.com/joke2k/faker/issues/1048
-        factory = Faker()
+        fake = Faker()
         with pytest.raises(ValueError):
-            assert factory.pyfloat(min_value=9999, max_value=9999)
+            assert fake.pyfloat(min_value=9999, max_value=9999)
 
     def test_us_ssn_valid(self):
         from faker.providers.ssn.en_US import Provider
@@ -513,10 +524,10 @@ class FactoryTestCase(unittest.TestCase):
             assert ssn[7:11] != '0000'
 
     def test_nl_BE_ssn_valid(self):
-        provider = Faker('nl_BE').provider('faker.providers.ssn')
+        fake = Faker('nl_BE')
 
         for i in range(1000):
-            ssn = provider.ssn()
+            ssn = fake.ssn()
             assert len(ssn) == 11
             gen_seq = ssn[6:9]
             gen_chksum = ssn[9:11]
@@ -536,10 +547,10 @@ class FactoryTestCase(unittest.TestCase):
             assert gen_chksum_as_int in results
 
     def test_email(self):
-        factory = Faker()
+        fake = Faker()
 
         for _ in range(99):
-            email = factory.email()
+            email = fake.email()
             assert '@' in email
 
     def test_ipv4_caching(self):
@@ -900,7 +911,7 @@ class FactoryTestCase(unittest.TestCase):
         assert len(str(number)) == 10
 
     def test_instance_seed_chain(self):
-        factory = Faker()
+        factory = Factory.create()
 
         names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
         anonymized = [factory.seed_instance(name).name() for name in names]

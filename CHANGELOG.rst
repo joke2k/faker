@@ -1,6 +1,21 @@
 Changelog
 =========
 
+`3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v2.0.5>`__
+--------------------------------------------------------------------------------------
+
+* Breaking change: Add support for multiple locale data generation.
+  Thanks @malefice.
+
+`2.0.5 - 03-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v2.0.4>`__
+--------------------------------------------------------------------------------------
+
+* Add Iranian credit card. Thanks @abtinmo.
+* Improve color provider. Thanks @malefice.
+* Add counties (concelhos) for locale ``pt_PT``. Thanks @tng10.
+* Change NY zipcode range. Thanks @arielkaluzhny.
+* Fix pyfloat out of min/max range. Thanks @bryan-brancotte.
+
 `2.0.4 - 12-November-2019 <https://github.com/joke2k/faker/compare/v2.0.4...v2.0.3>`__
 --------------------------------------------------------------------------------------
 

@@ -23,10 +23,11 @@ class TestInternetProvider(unittest.TestCase):
     """ Tests internet """
 
     def setUp(self):
-        self.factory = Faker()
+        self.fake = Faker()
+        Faker.seed(0)
 
     def test_email(self):
-        email = self.factory.email(domain='example.com')
+        email = self.fake.email(domain='example.com')
         assert email.split('@')[1] == 'example.com'
 
     @mock.patch(
@@ -36,19 +37,19 @@ class TestInternetProvider(unittest.TestCase):
     def test_image_url(self):
         my_width = 500
         my_height = 1024
-        url = self.factory.image_url(my_width, my_height)
+        url = self.fake.image_url(my_width, my_height)
         assert 'https://dummyimage.com/{}x{}'.format(my_width, my_height) == url
-        url = self.factory.image_url()
+        url = self.fake.image_url()
         assert 'https://dummyimage.com/' in url
 
     def test_hostname(self):
-        hostname_1_level = self.factory.hostname(levels=1)
+        hostname_1_level = self.fake.hostname(levels=1)
         hostname_parts = hostname_1_level.split(".")
         assert hostname_1_level
         self.assertIsInstance(hostname_1_level, six.string_types)
         assert len(hostname_parts) == 3
 
-        hostname_0_level = self.factory.hostname(levels=0)
+        hostname_0_level = self.fake.hostname(levels=0)
         assert hostname_0_level
         self.assertIsInstance(hostname_0_level, six.string_types)
 
@@ -57,7 +58,8 @@ class TestInternetProviderUrl(unittest.TestCase):
     """ Test internet url generation """
 
     def setUp(self):
-        self.factory = Faker()
+        self.fake = Faker()
+        Faker.seed(0)
 
     @staticmethod
     def is_correct_scheme(url, schemes):
@@ -65,7 +67,7 @@ class TestInternetProviderUrl(unittest.TestCase):
 
     def test_url_default_schemes(self):
         for _ in range(100):
-            url = self.factory.url()
+            url = self.fake.url()
             assert self.is_correct_scheme(url, ['http', 'https'])
 
     def test_url_custom_schemes(self):
@@ -75,12 +77,12 @@ class TestInternetProviderUrl(unittest.TestCase):
             ['usb', 'telnet', 'http'],
         ]
         for _, schemes in zip(range(100), cycle(schemes_sets)):
-            url = self.factory.url(schemes=schemes)
+            url = self.fake.url(schemes=schemes)
             assert self.is_correct_scheme(url, schemes)
 
     def test_url_empty_schemes_list_generate_schemeless_urls(self):
         for _ in range(100):
-            url = self.factory.url(schemes=[])
+            url = self.fake.url(schemes=[])
             assert not url.startswith('http')
             assert url.startswith('://')
 
@@ -89,41 +91,43 @@ class TestJaJP(unittest.TestCase):
     """ Tests internet in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Faker('ja')
+        self.fake = Faker('ja')
+        Faker.seed(0)
 
     def test_internet(self):
         names = JaProvider.last_romanized_names
 
-        domain_word = self.factory.domain_word()
+        domain_word = self.fake.domain_word()
         self.assertIsInstance(domain_word, six.string_types)
         assert any(domain_word == text.slugify(name) for name in names)
 
-        domain_name = self.factory.domain_name()
-        deep_domain_name = self.factory.domain_name(3)
+        domain_name = self.fake.domain_name()
+        deep_domain_name = self.fake.domain_name(3)
         self.assertIsInstance(domain_name, six.string_types)
         self.assertIsInstance(deep_domain_name, six.string_types)
         assert deep_domain_name.count('.') == 3
         with pytest.raises(ValueError):
-            self.factory.domain_name(-1)
+            self.fake.domain_name(-1)
 
-        user_name = self.factory.user_name()
+        user_name = self.fake.user_name()
         self.assertIsInstance(user_name, six.string_types)
 
-        tld = self.factory.tld()
+        tld = self.fake.tld()
         self.assertIsInstance(tld, six.string_types)
 
 
 class TestZhCN(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker(locale='zh_CN')
+        self.fake = Faker(locale='zh_CN')
+        Faker.seed(0)
 
     def test_email(self):
-        email = self.factory.email()
+        email = self.fake.email()
         validate_email(email)
 
     def test_domain_word(self):
-        domain_word = self.factory.domain_word()
+        domain_word = self.fake.domain_word()
         assert len(domain_word) > 1
 
     @mock.patch(
@@ -131,11 +135,11 @@ class TestZhCN(unittest.TestCase):
         lambda x: 'cn',
     )
     def test_domain_name(self):
-        domain_name_1_level = self.factory.domain_name(levels=1)
+        domain_name_1_level = self.fake.domain_name(levels=1)
         domain_parts = domain_name_1_level.split(".")
         assert len(domain_parts) == 2
         assert domain_parts[-1] == 'cn'
-        domain_name_2_level = self.factory.domain_name(levels=2)
+        domain_name_2_level = self.fake.domain_name(levels=2)
         domain_parts = domain_name_2_level.split(".")
         assert len(domain_parts) == 3
         assert domain_parts[-1] == 'cn'
@@ -147,14 +151,116 @@ class TestZhCN(unittest.TestCase):
                                    'nx', 'qh', 'sc', 'sd', 'sh', 'sn',
                                    'sx', 'tj', 'xj', 'xz', 'yn', 'zj']
 
+    def test_domain_name_one_level_after_tld(self):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+        for _ in range(100):
+            domain_name = self.fake.domain_name(levels=1)
+            domain_parts = domain_name.split('.')
+            assert len(domain_parts) == 2
+            assert domain_parts[-1] in provider.tlds.keys()
+            assert domain_parts[0] not in provider.second_level_domains
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_two_levels_after_cn_tld(self, mock_tld, mock_domain_word):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+
+        # If tld() returns cn, second level name should be selected from second_level_domains
+        # and domain_word() will only be called once which will be used for the third level
+        mock_tld.return_value = 'cn'
+        mock_domain_word.return_value = 'li'
+        for _ in range(100):
+            mock_domain_word.reset_mock()
+            domain_name = self.fake.domain_name(levels=2)
+            domain_parts = domain_name.split('.')
+            assert len(domain_parts) == 3
+            assert domain_parts[-1] == 'cn'
+            assert domain_parts[-2] in provider.second_level_domains
+            assert domain_parts[0] == 'li'
+            assert mock_domain_word.call_count == 1
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word):
+        # If tld() does not return cn, domain_word() will be called twice
+        mock_domain_word.reset_mock()
+        mock_tld.return_value = 'net'
+        mock_domain_word.return_value = 'li'
+        domain_name = self.fake.domain_name(levels=2)
+        assert domain_name == 'li.li.net'
+        assert mock_domain_word.call_count == 2
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_more_than_two_levels_after_cn_tld(self, mock_tld, mock_domain_word):
+        from faker.providers.internet.zh_CN import Provider
+        provider = Provider(self.fake)
+
+        mock_tld.return_value = 'cn'
+        mock_domain_word.return_value = 'li'
+        for levels in range(3, 10):
+            with mock.patch('faker.providers.internet.zh_CN.Provider.domain_name',
+                            wraps=self.fake.domain_name) as mock_domain_name:
+                mock_tld.reset_mock()
+                mock_domain_word.reset_mock()
+                mock_domain_name.reset_mock()
+                domain_name = self.fake.domain_name(levels=levels)
+                domain_parts = domain_name.split('.')
+
+                # Same assertions as levels=2 for tld and second level if tld is cn
+                # But every level henceforth should return the mocked value
+                assert domain_parts[-1] == 'cn'
+                assert domain_parts[-2] in provider.second_level_domains
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-2])
+
+                # tld() method should only be called once, domain_word() will be called for each
+                # level after tld except the second, and recursive calls to domain_name() will be
+                # made for each level starting from the third level after tld
+                assert mock_tld.call_count == 1
+                assert mock_domain_word.call_count == levels - 1
+                assert mock_domain_name.call_count == levels - 2
+
+    @mock.patch('faker.providers.internet.zh_CN.Provider.domain_word')
+    @mock.patch('faker.providers.internet.Provider.tld')
+    def test_domain_name_more_than_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word):
+        mock_tld.return_value = 'net'
+        mock_domain_word.return_value = 'li'
+        for levels in range(3, 10):
+            with mock.patch('faker.providers.internet.zh_CN.Provider.domain_name',
+                            wraps=self.fake.domain_name) as mock_domain_name:
+                mock_tld.reset_mock()
+                mock_domain_word.reset_mock()
+                mock_domain_name.reset_mock()
+                domain_name = self.fake.domain_name(levels=levels)
+                domain_parts = domain_name.split('.')
+
+                # Same assertions as levels=2 for non cn tld and
+                # every level henceforth should return the mocked value
+                assert domain_parts[-1] == 'net'
+                assert all(domain_part == 'li' for domain_part in domain_parts[:-1])
+
+                # tld() method should only be called once, domain_word() will be called for each
+                # level after tld, and recursive calls to domain_name() will be made for each
+                # level starting from the third level after tld
+                assert mock_tld.call_count == 1
+                assert mock_domain_word.call_count == levels
+                assert mock_domain_name.call_count == levels - 2
+
+    def test_domain_name_bad_level(self):
+        with self.assertRaises(ValueError):
+            self.fake.domain_name(levels=0)
+
 
 class TestZhTW(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker(locale='zh_TW')
+        self.fake = Faker(locale='zh_TW')
+        Faker.seed(0)
 
     def test_email(self):
-        email = self.factory.email()
+        email = self.fake.email()
         validate_email(email)
 
 
@@ -162,44 +268,46 @@ class TestHuHU(unittest.TestCase):
     """ Tests internet module in the hu_HU locale. """
 
     def setUp(self):
-        self.factory = Faker('hu_HU')
+        self.fake = Faker('hu_HU')
+        Faker.seed(0)
 
     def test_internet(self):
-        domain_name = self.factory.domain_name()
+        domain_name = self.fake.domain_name()
         self.assertIsInstance(domain_name, six.string_types)
-        tld = self.factory.tld()
+        tld = self.fake.tld()
         self.assertIsInstance(tld, six.string_types)
-        email = self.factory.email()
+        email = self.fake.email()
         self.assertIsInstance(email, six.string_types)
 
 
 class TestPlPL(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('pl_PL')
-        self.provider = self.factory.provider('faker.providers.internet')
+        self.fake = Faker('pl_PL')
+        Faker.seed(0)
+        self.provider = self.fake.provider('faker.providers.internet')
 
     def test_free_email_domain(self):
-        domain = self.factory.free_email_domain()
+        domain = self.fake.free_email_domain()
         assert domain in self.provider.free_email_domains
 
     def test_tld(self):
-        tld = self.factory.tld()
+        tld = self.fake.tld()
         assert tld in self.provider.tlds
 
 
 class TestNlNl(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('nl_NL')
-        self.provider = self.factory.provider('faker.providers.internet')
+        self.fake = Faker('nl_NL')
+        Faker.seed(0)
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
         lambda x: 'fabiënné',
     )
     def test_ascii_safe_email(self):
-        email = self.factory.ascii_safe_email()
+        email = self.fake.ascii_safe_email()
         validate_email(email)
         assert email.split('@')[0] == 'fabienne'
 
@@ -208,7 +316,7 @@ class TestNlNl(unittest.TestCase):
         lambda x: 'fabiënné',
     )
     def test_ascii_free_email(self):
-        email = self.factory.ascii_free_email()
+        email = self.fake.ascii_free_email()
         validate_email(email)
         assert email.split('@')[0] == 'fabienne'
 
@@ -217,7 +325,7 @@ class TestNlNl(unittest.TestCase):
         lambda x: 'fabiënné',
     )
     def test_ascii_company_email(self):
-        email = self.factory.ascii_company_email()
+        email = self.fake.ascii_company_email()
         validate_email(email)
         assert email.split('@')[0] == 'fabienne'
 
@@ -225,15 +333,15 @@ class TestNlNl(unittest.TestCase):
 class TestArAa(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('ar_AA')
-        self.provider = self.factory.provider('faker.providers.internet')
+        self.fake = Faker('ar_AA')
+        Faker.seed(0)
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
         lambda x: 'اصيل',
     )
     def test_ascii_safe_email(self):
-        email = self.factory.ascii_safe_email()
+        email = self.fake.ascii_safe_email()
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
 
@@ -242,7 +350,7 @@ class TestArAa(unittest.TestCase):
         lambda x: 'اصيل',
     )
     def test_ascii_free_email(self):
-        email = self.factory.ascii_free_email()
+        email = self.fake.ascii_free_email()
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
 
@@ -251,7 +359,7 @@ class TestArAa(unittest.TestCase):
         lambda x: 'اصيل',
     )
     def test_ascii_company_email(self):
-        email = self.factory.ascii_company_email()
+        email = self.fake.ascii_company_email()
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
 
@@ -259,15 +367,15 @@ class TestArAa(unittest.TestCase):
 class TestPtBR(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('pt_BR')
-        self.provider = self.factory.provider('faker.providers.internet')
+        self.fake = Faker('pt_BR')
+        Faker.seed(0)
 
     @mock.patch(
         'faker.providers.internet.Provider.user_name',
         lambda x: 'VitóriaMagalhães',
     )
     def test_ascii_safe_email(self):
-        email = self.factory.ascii_safe_email()
+        email = self.fake.ascii_safe_email()
         validate_email(email)
         assert email.split('@')[0] == 'vitoriamagalhaes'
 
@@ -276,7 +384,7 @@ class TestPtBR(unittest.TestCase):
         lambda x: 'JoãoSimões',
     )
     def test_ascii_free_email(self):
-        email = self.factory.ascii_free_email()
+        email = self.fake.ascii_free_email()
         validate_email(email)
         assert email.split('@')[0] == 'joaosimoes'
 
@@ -285,7 +393,7 @@ class TestPtBR(unittest.TestCase):
         lambda x: 'AndréCauã',
     )
     def test_ascii_company_email(self):
-        email = self.factory.ascii_company_email()
+        email = self.fake.ascii_company_email()
         validate_email(email)
         assert email.split('@')[0] == 'andrecaua'
 
@@ -294,24 +402,27 @@ class TestEnPh(unittest.TestCase):
     num_sample_runs = 1000
 
     def setUp(self):
-        self.setup_factory()
+        self.setup_faker()
 
-    def setup_factory(self):
-        self.factory = Faker('en_PH')
+    def setup_faker(self):
+        self.fake = Faker('en_PH')
+        Faker.seed(0)
 
     def test_PH_domain_name(self):
         for i in range(self.num_sample_runs):
-            domain = self.factory.domain_name()
+            domain = self.fake.domain_name()
             validate_domain(domain)
 
 
 class TestFilPh(TestEnPh):
 
-    def setup_factory(self):
-        self.factory = Faker('fil_PH')
+    def setup_faker(self):
+        self.fake = Faker('fil_PH')
+        Faker.seed(0)
 
 
 class TestTlPh(TestFilPh):
 
-    def setup_factory(self):
-        self.factory = Faker('tl_PH')
+    def setup_faker(self):
+        self.fake = Faker('tl_PH')
+        Faker.seed(0)

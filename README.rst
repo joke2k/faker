@@ -19,7 +19,8 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-For more details, see the `extended docs`_.
+For more details, see the `extended docs`_, especially if you are upgrading from
+version ``2.0.4`` and below as there might be breaking changes.
 
 Basic Usage
 -----------
@@ -124,6 +125,26 @@ default en\_US locale.
     # 'Costanzo Costa'
     # 'Nazzareno Barbieri'
     # 'Max Coppola'
+
+``faker.Faker`` also supports multiple locales. New in v3.0.0.
+
+.. code:: python
+
+    from faker import Faker
+    fake = Faker(['it_IT', 'en_US', 'ja_JP'])
+    for _ in range(10):
+        print(fake.name())
+
+    # 鈴木 陽一
+    # Leslie Moreno
+    # Emma Williams
+    # 渡辺 裕美子
+    # Marcantonio Galuppi
+    # Martha Davis
+    # Kristen Turner
+    # 中津川 春香
+    # Ashley Castillo
+    # 山田 桃子
 
 You can check available Faker locales in the source code, under the
 providers package. The localization of Faker is an ongoing process, for
@@ -331,7 +352,7 @@ same version of faker and seed produces the same results.
 
     from faker import Faker
     fake = Faker()
-    fake.seed(4321)
+    Faker.seed(4321)
 
     print(fake.name())
     # 'Margaret Boehm'
