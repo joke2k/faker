@@ -108,9 +108,6 @@ class Faker(object):
         :return: A factory that supports the provider method
         """
 
-        if len(self._factories) == 1:
-            return self._factories[0]
-
         factories, weights = self._map_provider_method(method_name)
         if len(factories) == 0:
             msg = "No generator object has attribute '{}'".format(method_name)
