@@ -1,13 +1,13 @@
 Changelog
 =========
 
-`3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v2.0.5>`__
+`3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v3.0.0>`__
 --------------------------------------------------------------------------------------
 
 * Breaking change: Add support for multiple locale data generation.
   Thanks @malefice.
 
-`2.0.5 - 03-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v2.0.4>`__
+`2.0.5 - 03-December-2019 <https://github.com/joke2k/faker/compare/v2.0.4...v2.0.5>`__
 --------------------------------------------------------------------------------------
 
 * Add Iranian credit card. Thanks @abtinmo.
@@ -16,7 +16,7 @@ Changelog
 * Change NY zipcode range. Thanks @arielkaluzhny.
 * Fix pyfloat out of min/max range. Thanks @bryan-brancotte.
 
-`2.0.4 - 12-November-2019 <https://github.com/joke2k/faker/compare/v2.0.4...v2.0.3>`__
+`2.0.4 - 12-November-2019 <https://github.com/joke2k/faker/compare/v2.0.3...v2.0.4>`__
 --------------------------------------------------------------------------------------
 
 * Drop python 3.4.
@@ -37,7 +37,7 @@ Changelog
 * Improve barcode provider. Thanks @malefice.
 * Fix for pyfloat empty randrange. Thanks @jcardali.
 
-`2.0.3 - 14-October-2019 <https://github.com/joke2k/faker/compare/v2.0.3...v2.0.2>`__
+`2.0.3 - 14-October-2019 <https://github.com/joke2k/faker/compare/v2.0.2...v2.0.3>`__
 -------------------------------------------------------------------------------------
 
 * Use the provider's RNG instead of the random module in ``invalid_ssn``. Thanks @luser.
@@ -48,21 +48,21 @@ Changelog
 * Add police id for ``el_GR``. Thanks @athaks.
 * Add jobs for for ``pt_PT``. Thanks @rubenandre.
 
-`2.0.2 - 17-September-2019 <https://github.com/joke2k/faker/compare/v2.0.2...v2.0.1>`__
+`2.0.2 - 17-September-2019 <https://github.com/joke2k/faker/compare/v2.0.1...v2.0.2>`__
 ---------------------------------------------------------------------------------------
 
 * Fix typos, misspellings. Add locations, names, dates in ``hi_IN`` providers. Thanks @kathawala.
 * Bump required version ``text-unidecode`` to 1.3. Thanks @moggers87.
 * Bug fix for ``pyfloat`` going over ``max_value``. Thanks @fgs-dbudwin.
 
-`2.0.1 - 20-August-2019 <https://github.com/joke2k/faker/compare/v2.0.1...v2.0.0>`__
+`2.0.1 - 20-August-2019 <https://github.com/joke2k/faker/compare/v2.0.0...v2.0.1>`__
 ------------------------------------------------------------------------------------
 
 * Add nationalities for locale ``pt_PT``. Thanks @tng10.
 * Add ``ios()`` and ``android()`` to ``user_agent`` provider. Thanks @gsilvan.
 * Update ``zh_CN`` provinces. Thanks @casen27.
 
-`2.0.0 - 15-July-2019 <https://github.com/joke2k/faker/compare/v2.0.0...v1.0.8>`__
+`2.0.0 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.8...v2.0.0>`__
 ----------------------------------------------------------------------------------
 * Breaking change: Only allow providers to use ``OrderedDict`` s, to avoid any more ``PYTHONHASHSEED`` problems. Thanks @adamchainz.
 
