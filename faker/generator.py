@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import random as random_module
 import re
+
 import six
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')

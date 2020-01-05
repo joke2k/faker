@@ -1,19 +1,19 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 import csv
 import hashlib
 import io
 import string
+import sys
 import tarfile
 import uuid
-import sys
 import zipfile
 
 import six
 
 from .. import BaseProvider
-
 
 localized = True
 

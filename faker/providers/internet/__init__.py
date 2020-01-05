@@ -1,17 +1,16 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from ipaddress import IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
+
 from text_unidecode import unidecode
-
-from .. import BaseProvider
-
-from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import lowercase, slugify, slugify_unicode
 from faker.utils.distribution import choices_distribution
 
+from .. import BaseProvider
 
 localized = True
 

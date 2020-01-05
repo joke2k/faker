@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 import re
 import unittest
 
-from faker import Faker
 from six import string_types
+
+from faker import Faker
 
 
 class TestPtBR(unittest.TestCase):

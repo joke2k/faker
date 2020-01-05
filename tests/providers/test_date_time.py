@@ -1,24 +1,27 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-from datetime import date, datetime, timedelta, tzinfo
-from datetime import time as datetime_time
 import os
 import platform
-import pytest
 import random
 import sys
 import time
 import unittest
 
+from datetime import date, datetime
+from datetime import time as datetime_time
+from datetime import timedelta, tzinfo
+
 import six
+
+import pytest
 
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
-from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
+from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 
 

@@ -1,14 +1,17 @@
 import copy
-import unittest
 import random
 import re
-from re import search
-from faker import Faker
+import unittest
 
+from re import search
+
+import six
+
+from six import string_types
+
+from faker import Faker
 from faker.providers.color import RandomColor
 from faker.providers.color.hy_AM import Provider as HyAmProvider
-import six
-from six import string_types
 
 
 class TestColor(unittest.TestCase):

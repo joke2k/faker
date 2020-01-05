@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 import csv
 import io
 import itertools
@@ -8,14 +9,15 @@ import tarfile
 import unittest
 import uuid
 import zipfile
+
 import six
+
+from faker import Faker
 
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
-
-from faker import Faker
 
 
 class TestMisc(unittest.TestCase):

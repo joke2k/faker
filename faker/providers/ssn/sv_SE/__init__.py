@@ -1,9 +1,11 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from .. import Provider as SsnProvider
+
 import datetime
 import random
+
+from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):

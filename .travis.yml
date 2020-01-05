@@ -12,6 +12,7 @@ matrix:
       env: TOXENV=flake8
     - python: 3.7
       env: TOXENV=checkmanifest
+    - env: TOXENV=isort
     - python: 2.7
       env: TOXENV=py27
     - python: 3.5

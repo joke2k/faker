@@ -1,8 +1,9 @@
 # coding=utf-8
 
-from .. import Provider as CreditCardProvider
-from .. import CreditCard
 from collections import OrderedDict
+
+from .. import CreditCard
+from .. import Provider as CreditCardProvider
 
 
 class Provider(CreditCardProvider):

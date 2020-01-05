@@ -14,7 +14,6 @@ import sys
 
 import six
 
-
 COLOR_MAP = {
     'monochrome': {
         'hue_range': [0, 0],

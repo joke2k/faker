@@ -12,9 +12,8 @@ from faker.providers.company import ru_RU as ru
 from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.nl_NL import Provider as NlProvider
-from faker.providers.company.pl_PL import (
-    company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
-)
+from faker.providers.company.pl_PL import Provider as PlProvider
+from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.utils.datetime_safe import datetime
 
