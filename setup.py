@@ -59,25 +59,12 @@ setup(
     license='MIT License',
     packages=find_packages(exclude=["docs", "tests", "tests.*"]),
     platforms=["any"],
-    test_suite='tests',
     zip_safe=zip_safe,
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
-    setup_requires=["pytest-runner"],
     install_requires=[
         "python-dateutil>=2.4",
         "six>=1.10",
         "text-unidecode==1.3",
-    ],
-    tests_require=[
-        "validators>=0.13.0",
-        "ukpostcodeparser>=1.1.1",
-        "mock ; python_version < '3.3'",
-        "pytest>=3.8.0,<3.9",
-        "more-itertools<6.0.0 ; python_version < '3.0'",
-        # restricted because they may drop python2 support in future versions
-        # https://github.com/joke2k/faker/issues/970
-        "random2<1.1",
-        "freezegun<0.4",
     ],
     extras_require={
         ':python_version<"3.3"': [
