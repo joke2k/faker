@@ -16,5 +16,5 @@ class Provider(BaseProvider):
         """
         first_part = self.random_element((1, 2, 3, 4, 5, 6, 7, 8, 9))
         middle_part = self.bothify('#########')
-        last_part = sum(list(map(lambda x: int(x), '{0}{1}'.format(first_part, middle_part)))) % 10
+        last_part = sum(list(map(lambda x: int(x), '{}{}'.format(first_part, middle_part)))) % 10
         return '{}{}{}'.format(first_part, middle_part, last_part)

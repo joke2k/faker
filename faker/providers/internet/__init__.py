@@ -121,7 +121,7 @@ class Provider(BaseProvider):
     @lowercase
     def email(self, domain=None):
         if domain:
-            email = '{0}@{1}'.format(self.user_name(), domain)
+            email = '{}@{}'.format(self.user_name(), domain)
         else:
             pattern = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))

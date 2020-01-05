@@ -27,7 +27,7 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
         excludes = []
 
     write(fh, '\n')
-    title = "``{0}``".format(doc.get_provider_name(provider))
+    title = "``{}``".format(doc.get_provider_name(provider))
     write(fh, '%s\n' % title)
     write(fh, "-" * len(title))
     write(fh, '\n\n::\n')
@@ -41,7 +41,7 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
                 example = pprint.pformat(example, indent=4)
             lines = six.text_type(example).expandtabs().splitlines()
         except UnicodeEncodeError:
-            msg = 'error on "{0}" with value "{1}"'.format(signature, example)
+            msg = 'error on "{}" with value "{}"'.format(signature, example)
             raise Exception(msg)
         write(fh, '\n')
         write(fh, "\t{fake}\n{example}\n".format(
@@ -92,7 +92,7 @@ def write_docs(*args, **kwargs):
         fname = os.path.join(DOCS_ROOT, 'locales', '%s.rst' % lang)
         with open(fname, 'wb') as fh:
             write(fh, ':github_url: hide\n\n')
-            title = 'Language {0}\n'.format(lang)
+            title = 'Language {}\n'.format(lang)
             write(fh, title)
             write(fh, '=' * len(title))
             write(fh, '\n')

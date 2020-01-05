@@ -165,7 +165,7 @@ class Provider(BaseProvider):
         return self.random_element(self.safe_colors)
 
     def hex_color(self):
-        return "#{0}".format(
+        return "#{}".format(
             ("%x" %
              self.random_int(
                  1, 16777215)).ljust(

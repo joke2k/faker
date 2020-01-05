@@ -84,11 +84,11 @@ class Generator(object):
             return getattr(self, formatter)
         except AttributeError:
             if 'locale' in self.__config:
-                msg = 'Unknown formatter "{0}" with locale "{1}"'.format(
+                msg = 'Unknown formatter "{}" with locale "{}"'.format(
                     formatter, self.__config['locale'],
                 )
             else:
-                raise AttributeError('Unknown formatter "{0}"'.format(
+                raise AttributeError('Unknown formatter "{}"'.format(
                     formatter,
                 ))
             raise AttributeError(msg)

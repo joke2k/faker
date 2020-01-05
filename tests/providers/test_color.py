@@ -18,10 +18,10 @@ class TestColor(unittest.TestCase):
         Faker.seed(0)
 
     def test_safe_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.safe_hex_color()) for _ in range(1000)))
+        assert all(search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.safe_hex_color()) for _ in range(1000))
 
     def test_hex_color(self):
-        assert all((search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.hex_color()) for _ in range(1000)))
+        assert all(search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', self.fake.hex_color()) for _ in range(1000))
 
     def test_rgb_color(self):
         maxval = 0

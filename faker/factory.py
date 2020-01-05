@@ -39,7 +39,7 @@ class Factory(object):
         locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
         locale = pylocale.normalize(locale).split('.')[0]
         if locale not in AVAILABLE_LOCALES:
-            msg = 'Invalid configuration for faker locale `{0}`'.format(locale)
+            msg = 'Invalid configuration for faker locale `{}`'.format(locale)
             raise AttributeError(msg)
 
         config['locale'] = locale
@@ -80,7 +80,7 @@ class Factory(object):
         if provider_class:
             return provider_class, None
 
-        msg = 'Unable to find provider `{0}` with locale `{1}`'.format(
+        msg = 'Unable to find provider `{}` with locale `{}`'.format(
             provider, locale)
         raise ValueError(msg)
 
