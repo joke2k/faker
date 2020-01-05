@@ -891,4 +891,4 @@ class TestTrTr(unittest.TestCase):
         for sample in self.samples:
             first_ten_number = sample[:-1]
             last_part = sample[-1]
-            assert sum(list(map(lambda x: int(x), '{0}'.format(first_ten_number)))) % 10 == last_part
+            assert sum(list(map(lambda x: int(x), '{}'.format(first_ten_number)))) % 10 == last_part

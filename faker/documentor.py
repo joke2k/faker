@@ -71,9 +71,9 @@ class Documentor(object):
                                 default = utils.quote(default)
                             else:
                                 # TODO check default type
-                                default = "{0}".format(default)
+                                default = "{}".format(default)
 
-                            arg = "{0}={1}".format(arg, default)
+                            arg = "{}={}".format(arg, default)
 
                         except IndexError:
                             pass
@@ -89,9 +89,7 @@ class Documentor(object):
                         arguments.append('**' + argspec.varkw)
 
             # build fake method signature
-            signature = "{0}{1}({2})".format(prefix,
-                                             name,
-                                             ", ".join(arguments))
+            signature = "{}{}({})".format(prefix, name, ", ".join(arguments))
 
             # make a fake example
             example = self.generator.format(name, *faker_args, **faker_kwargs)

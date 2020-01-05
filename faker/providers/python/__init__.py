@@ -69,7 +69,7 @@ class Provider(BaseProvider):
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
 
-        return float("{0}{1}.{2}".format(
+        return float("{}{}.{}".format(
             sign,
             left_number,
             self.random_number(right_digits),
@@ -130,7 +130,7 @@ class Provider(BaseProvider):
     def _random_type(self, type_list):
         value_type = self.random_element(type_list)
 
-        method_name = "py{0}".format(value_type)
+        method_name = "py{}".format(value_type)
         if hasattr(self, method_name):
             value_type = method_name
 
