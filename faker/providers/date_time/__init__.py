@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 
 from calendar import timegm
@@ -10,7 +6,6 @@ from datetime import MAXYEAR, timedelta
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc
 
-from faker.utils import is_string
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 
 from .. import BaseProvider
@@ -1505,7 +1500,7 @@ class Provider(BaseProvider):
     def _parse_timedelta(cls, value):
         if isinstance(value, timedelta):
             return value.total_seconds()
-        if is_string(value):
+        if isinstance(value, str):
             time_params = cls._parse_date_string(value)
             return timedelta(**time_params).total_seconds()
         if isinstance(value, (int, float)):
@@ -1519,7 +1514,7 @@ class Provider(BaseProvider):
         now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
             return datetime_to_timestamp(now + value)
-        if is_string(value):
+        if isinstance(value, str):
             if value == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
             time_params = cls._parse_date_string(value)
@@ -1537,7 +1532,7 @@ class Provider(BaseProvider):
         today = date.today()
         if isinstance(value, timedelta):
             return today + value
-        if is_string(value):
+        if isinstance(value, str):
             if value in ('today', 'now'):
                 return today
             time_params = cls._parse_date_string(value)

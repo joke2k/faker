@@ -1,13 +1,9 @@
-# coding=utf-8
 """
 SSN provider for es_MX.
 
 This module adds a provider for mexican SSN, along with Unique Population
 Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
 """
-
-
-from __future__ import unicode_literals
 
 import random
 import string

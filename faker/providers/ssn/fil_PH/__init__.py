@@ -1,4 +1,3 @@
-# coding=utf-8
 from ..en_PH import Provider as EnPhSsnProvider
 
 

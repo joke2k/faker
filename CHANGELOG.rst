@@ -1,6 +1,11 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+
+* Breaking change: Remove support for end-of-life Python 2.7.
+
 `3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v3.0.0>`__
 --------------------------------------------------------------------------------------
 

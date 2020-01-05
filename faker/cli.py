@@ -1,14 +1,8 @@
-# coding=utf-8
-
-from __future__ import print_function, unicode_literals
-
 import argparse
 import logging
 import os
 import random
 import sys
-
-import six
 
 from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
@@ -30,7 +24,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         if signature in excludes:
             continue
         try:
-            lines = six.text_type(example).expandtabs().splitlines()
+            lines = str(example).expandtabs().splitlines()
         except UnicodeDecodeError:
             # The example is actually made of bytes.
             # We could coerce to bytes, but that would fail anyway when we wiil
@@ -114,7 +108,7 @@ def print_doc(provider_or_field=None,
                 print_provider(d, p, fs, output=output)
 
 
-class Command(object):
+class Command:
 
     def __init__(self, argv=None):
         self.argv = argv or sys.argv[:]

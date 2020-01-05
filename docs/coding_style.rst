@@ -6,15 +6,6 @@ Lines length should not exceed 120 characters. Please use trailing commas.
 You can find our complete flake8 configuration in the tox.ini_ file.
 
 
-Encoding
---------
-
-Every Python source file should be encoded as UTF-8.
-As per `PEP 263`_, the first or the second line must be::
-
-    # coding=utf-8
-
-
 Data Sets
 ---------
 

@@ -1,11 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 import unittest
-
-from six import string_types
 
 from faker import Faker
 from faker.providers.address.de_AT import Provider as DeAtProvider
@@ -89,31 +83,31 @@ class TestCsCZ(unittest.TestCase):
 
     def test_street_suffix_short(self):
         street_suffix_short = self.fake.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        assert isinstance(street_suffix_short, str)
 
     def test_street_suffix_long(self):
         street_suffix_long = self.fake.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        assert isinstance(street_suffix_long, str)
 
     def test_city_name(self):
         city = self.fake.city_name()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
 
     def test_street_name(self):
         street_name = self.fake.street_name()
-        assert isinstance(street_name, string_types)
+        assert isinstance(street_name, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
     def test_postcode(self):
         postcode = self.fake.postcode()
-        assert isinstance(postcode, string_types)
+        assert isinstance(postcode, str)
 
     def test_city_with_postcode(self):
         city_with_postcode = self.fake.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        assert isinstance(city_with_postcode, str)
 
 
 class TestDeAT(unittest.TestCase):
@@ -125,27 +119,27 @@ class TestDeAT(unittest.TestCase):
 
     def test_city(self):
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in DeAtProvider.cities
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in DeAtProvider.states
 
     def test_street_suffix_short(self):
         street_suffix_short = self.fake.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        assert isinstance(street_suffix_short, str)
         assert street_suffix_short in DeAtProvider.street_suffixes_short
 
     def test_street_suffix_long(self):
         street_suffix_long = self.fake.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        assert isinstance(street_suffix_long, str)
         assert street_suffix_long in DeAtProvider.street_suffixes_long
 
     def test_country(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
         assert country in DeAtProvider.countries
 
     def test_postcode(self):
@@ -154,7 +148,7 @@ class TestDeAT(unittest.TestCase):
 
     def test_city_with_postcode(self):
         city_with_postcode = self.fake.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        assert isinstance(city_with_postcode, str)
 
 
 class TestDeDE(unittest.TestCase):
@@ -166,32 +160,32 @@ class TestDeDE(unittest.TestCase):
 
     def test_city(self):
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in DeProvider.cities
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in DeProvider.states
 
     def test_street_suffix_short(self):
         street_suffix_short = self.fake.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        assert isinstance(street_suffix_short, str)
         assert street_suffix_short in DeProvider.street_suffixes_short
 
     def test_street_suffix_long(self):
         street_suffix_long = self.fake.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        assert isinstance(street_suffix_long, str)
         assert street_suffix_long in DeProvider.street_suffixes_long
 
     def test_country(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
         assert country in DeProvider.countries
 
     def test_city_with_postcode(self):
         city_with_postcode = self.fake.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        assert isinstance(city_with_postcode, str)
 
 
 class TestElGR(unittest.TestCase):
@@ -203,31 +197,31 @@ class TestElGR(unittest.TestCase):
 
     def test_line_address(self):
         address = self.fake.line_address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
     def test_street_prefix_short(self):
         street_prefix_short = self.fake.street_prefix_short()
-        assert isinstance(street_prefix_short, string_types)
+        assert isinstance(street_prefix_short, str)
         assert street_prefix_short in GrProvider.street_prefixes_short
 
     def test_street_prefix_long(self):
         street_prefix_long = self.fake.street_prefix_long()
-        assert isinstance(street_prefix_long, string_types)
+        assert isinstance(street_prefix_long, str)
         assert street_prefix_long in GrProvider.street_prefixes_long
 
     def test_street(self):
         street = self.fake.street()
-        assert isinstance(street, string_types)
+        assert isinstance(street, str)
         assert street in GrProvider.localities
 
     def test_city(self):
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in GrProvider.cities
 
     def test_region(self):
         region = self.fake.region()
-        assert isinstance(region, string_types)
+        assert isinstance(region, str)
         assert region in GrProvider.regions
 
 
@@ -245,17 +239,17 @@ class TestEnAU(unittest.TestCase):
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in EnAuProvider.states
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnAuProvider.city_prefixes
 
     def test_state_abbr(self):
         state_abbr = self.fake.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
         assert state_abbr in EnAuProvider.states_abbr
         assert state_abbr.isupper()
 
@@ -314,22 +308,22 @@ class TestEnCA(unittest.TestCase):
 
     def test_province(self):
         province = self.fake.province()
-        assert isinstance(province, string_types)
+        assert isinstance(province, str)
         assert province in EnCaProvider.provinces
 
     def test_province_abbr(self):
         province_abbr = self.fake.province_abbr()
-        assert isinstance(province_abbr, string_types)
+        assert isinstance(province_abbr, str)
         assert province_abbr in EnCaProvider.provinces_abbr
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnCaProvider.city_prefixes
 
     def test_secondary_address(self):
         secondary_address = self.fake.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        assert isinstance(secondary_address, str)
 
 
 class TestEnGB(unittest.TestCase):
@@ -353,23 +347,23 @@ class TestEnUS(unittest.TestCase):
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnUsProvider.city_prefixes
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in EnUsProvider.states
 
     def test_state_abbr(self):
         state_abbr = self.fake.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
         states_and_territories = EnUsProvider.states_and_territories_abbr
         assert state_abbr in states_and_territories
 
     def test_state_abbr_no_territories(self):
         state_abbr = self.fake.state_abbr(include_territories=False)
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
         assert state_abbr in EnUsProvider.states_abbr
 
     def test_postcode(self):
@@ -409,23 +403,23 @@ class TestEnUS(unittest.TestCase):
 
     def test_military_ship(self):
         military_ship = self.fake.military_ship()
-        assert isinstance(military_ship, string_types)
+        assert isinstance(military_ship, str)
         assert military_ship in EnUsProvider.military_ship_prefix
         assert re.match(r"[A-Z]", military_ship)
 
     def test_military_state(self):
         military_state = self.fake.military_state()
-        assert isinstance(military_state, string_types)
+        assert isinstance(military_state, str)
         assert military_state in EnUsProvider.military_state_abbr
         assert re.match(r"[A-Z]", military_state)
 
     def test_military_apo(self):
         military_apo = self.fake.military_apo()
-        assert isinstance(military_apo, string_types)
+        assert isinstance(military_apo, str)
 
     def test_military_dpo(self):
         military_dpo = self.fake.military_dpo()
-        assert isinstance(military_dpo, string_types)
+        assert isinstance(military_dpo, str)
 
     def test_postalcode(self):
         for _ in range(100):
@@ -452,17 +446,17 @@ class TestEsES(unittest.TestCase):
 
     def test_state_name(self):
         state_name = self.fake.state_name()
-        assert isinstance(state_name, string_types)
+        assert isinstance(state_name, str)
         assert state_name in EsEsProvider.states
 
     def test_street_prefix(self):
         street_prefix = self.fake.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        assert isinstance(street_prefix, str)
         assert street_prefix in EsEsProvider.street_prefixes
 
     def test_secondary_address(self):
         secondary_address = self.fake.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        assert isinstance(secondary_address, str)
 
 
 class TestEsMX(unittest.TestCase):
@@ -474,35 +468,35 @@ class TestEsMX(unittest.TestCase):
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in EsMxProvider.city_prefixes
 
     def test_city_suffix(self):
         city_suffix = self.fake.city_suffix()
-        assert isinstance(city_suffix, string_types)
+        assert isinstance(city_suffix, str)
         assert city_suffix in EsMxProvider.city_suffixes
 
     def test_city_adjective(self):
         city_adjective = self.fake.city_adjective()
-        assert isinstance(city_adjective, string_types)
+        assert isinstance(city_adjective, str)
         assert city_adjective in EsMxProvider.city_adjectives
 
     def test_street_prefix(self):
         street_prefix = self.fake.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        assert isinstance(street_prefix, str)
         assert street_prefix in EsMxProvider.street_prefixes
 
     def test_secondary_address(self):
         secondary_address = self.fake.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
     def test_state_abbr(self):
         state_abbr = self.fake.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
 
 
 class TestFaIR(unittest.TestCase):
@@ -514,16 +508,16 @@ class TestFaIR(unittest.TestCase):
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in IrProvider.city_prefixes
 
     def test_secondary_address(self):
         secondary_address = self.fake.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in IrProvider.states
 
 
@@ -536,17 +530,17 @@ class TestFrFR(unittest.TestCase):
 
     def test_street_prefix(self):
         street_prefix = self.fake.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        assert isinstance(street_prefix, str)
         assert street_prefix in FrFrProvider.street_prefixes
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in FrFrProvider.city_prefixes
 
     def test_region(self):
         region = self.fake.region()
-        assert isinstance(region, string_types)
+        assert isinstance(region, str)
         assert region in FrFrProvider.regions
 
     def test_department(self):
@@ -556,11 +550,11 @@ class TestFrFR(unittest.TestCase):
 
     def test_department_name(self):
         department_name = self.fake.department_name()
-        assert isinstance(department_name, string_types)
+        assert isinstance(department_name, str)
 
     def test_department_number(self):
         department_number = self.fake.department_number()
-        assert isinstance(department_number, string_types)
+        assert isinstance(department_number, str)
 
 
 class TestHeIL(unittest.TestCase):
@@ -572,11 +566,11 @@ class TestHeIL(unittest.TestCase):
 
     def test_city_name(self):
         city_name = self.fake.city_name()
-        assert isinstance(city_name, string_types)
+        assert isinstance(city_name, str)
 
     def test_street_title(self):
         street_title = self.fake.street_title()
-        assert isinstance(street_title, string_types)
+        assert isinstance(street_title, str)
 
 
 class TestHiIN(unittest.TestCase):
@@ -588,11 +582,11 @@ class TestHiIN(unittest.TestCase):
 
     def test_city_name(self):
         city_name = self.fake.city_name()
-        assert isinstance(city_name, string_types)
+        assert isinstance(city_name, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
 
 class TestTaIN(unittest.TestCase):
@@ -604,11 +598,11 @@ class TestTaIN(unittest.TestCase):
 
     def test_city_name(self):
         city_name = self.fake.city_name()
-        assert isinstance(city_name, string_types)
+        assert isinstance(city_name, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
 
 class TestFiFI(unittest.TestCase):
@@ -620,17 +614,17 @@ class TestFiFI(unittest.TestCase):
 
     def test_city(self):
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in FiProvider.cities
 
     def test_street_suffix(self):
         suffix = self.fake.street_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, str)
         assert suffix in FiProvider.street_suffixes
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in FiProvider.states
 
 
@@ -643,15 +637,15 @@ class TestHRHR(unittest.TestCase):
 
     def test_city_name(self):
         city_name = self.fake.city_name()
-        assert isinstance(city_name, string_types)
+        assert isinstance(city_name, str)
 
     def test_street_name(self):
         street_name = self.fake.street_name()
-        assert isinstance(street_name, string_types)
+        assert isinstance(street_name, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
 
 class TestHuHU(unittest.TestCase):
@@ -711,9 +705,9 @@ class TestHuHU(unittest.TestCase):
     def test_address(self):
         """ Tests the address provider in the hu_HU locale """
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
         address_with_county = self.fake.street_address_with_county()
-        assert isinstance(address_with_county, string_types)
+        assert isinstance(address_with_county, str)
 
 
 class TestHyAM(unittest.TestCase):
@@ -725,30 +719,30 @@ class TestHyAM(unittest.TestCase):
 
     def test_address(self):
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
     def test_building_number(self):
         building_number = self.fake.building_number()
-        assert isinstance(building_number, string_types)
+        assert isinstance(building_number, str)
         assert len(building_number) <= 3
 
     def test_city(self):
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in HyAmProvider.cities
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
         assert city_prefix in HyAmProvider.city_prefixes
 
     def test_city_suffix(self):
         city_suffix = self.fake.city_suffix()
-        assert isinstance(city_suffix, string_types)
+        assert isinstance(city_suffix, str)
 
     def test_country(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
         assert country in HyAmProvider.countries
 
     def test_alpha_2_country_codes(self):
@@ -772,7 +766,7 @@ class TestHyAM(unittest.TestCase):
 
     def test_postcode(self):
         postcode = self.fake.postcode()
-        assert isinstance(postcode, string_types)
+        assert isinstance(postcode, str)
         assert re.match(r"\d{4}", postcode)
         assert int(postcode) >= 200
         assert int(postcode) <= 4299
@@ -789,50 +783,50 @@ class TestHyAM(unittest.TestCase):
 
     def test_secondary_address(self):
         secondary_address = self.fake.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
         assert state in HyAmProvider.states
 
     def test_state_abbr(self):
         state_abbr = self.fake.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
         assert state_abbr in HyAmProvider.states_abbr
         assert state_abbr.isupper()
 
     def test_street(self):
         street = self.fake.street()
-        assert isinstance(street, string_types)
+        assert isinstance(street, str)
         assert street in HyAmProvider.streets
 
     def test_street_address(self):
         street_address = self.fake.street_address()
-        assert isinstance(street_address, string_types)
+        assert isinstance(street_address, str)
 
     def test_street_name(self):
         street_name = self.fake.street_name()
-        assert isinstance(street_name, string_types)
+        assert isinstance(street_name, str)
 
     def test_street_prefix(self):
         street_prefix = self.fake.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        assert isinstance(street_prefix, str)
         assert street_prefix in HyAmProvider.street_prefixes
 
     def test_street_suffix(self):
         suffix = self.fake.street_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, str)
         assert suffix in HyAmProvider.street_suffixes
 
     def test_village(self):
         village = self.fake.village()
-        assert isinstance(village, string_types)
+        assert isinstance(village, str)
         assert village in HyAmProvider.villages
 
     def test_village_prefix(self):
         village_prefix = self.fake.village_prefix()
-        assert isinstance(village_prefix, string_types)
+        assert isinstance(village_prefix, str)
         assert village_prefix in HyAmProvider.village_prefixes
 
 
@@ -846,47 +840,47 @@ class TestJaJP(unittest.TestCase):
     def test_address(self):
         """ Test"""
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
         assert country in JaProvider.countries
 
         prefecture = self.fake.prefecture()
-        assert isinstance(prefecture, string_types)
+        assert isinstance(prefecture, str)
         assert prefecture in JaProvider.prefectures
 
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in JaProvider.cities
 
         town = self.fake.town()
-        assert isinstance(town, string_types)
+        assert isinstance(town, str)
         assert town in JaProvider.towns
 
         chome = self.fake.chome()
-        assert isinstance(chome, string_types)
+        assert isinstance(chome, str)
         assert re.match(r"\d{1,2}丁目", chome)
 
         ban = self.fake.ban()
-        assert isinstance(ban, string_types)
+        assert isinstance(ban, str)
         assert re.match(r"\d{1,2}番", ban)
 
         gou = self.fake.gou()
-        assert isinstance(gou, string_types)
+        assert isinstance(gou, str)
         assert re.match(r"\d{1,2}号", gou)
 
         building_name = self.fake.building_name()
-        assert isinstance(building_name, string_types)
+        assert isinstance(building_name, str)
         assert building_name in JaProvider.building_names
 
         postcode = self.fake.postcode()
-        assert isinstance(postcode, string_types)
+        assert isinstance(postcode, str)
         assert re.match(r"\d{3}-\d{4}", postcode)
 
         zipcode = self.fake.zipcode()
-        assert isinstance(zipcode, string_types)
+        assert isinstance(zipcode, str)
         assert re.match(r"\d{3}-\d{4}", zipcode)
 
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
 
 class TestKoKR(unittest.TestCase):
@@ -898,15 +892,15 @@ class TestKoKR(unittest.TestCase):
 
     def test_address(self):
         postcode = self.fake.postcode()
-        assert isinstance(postcode, string_types)
+        assert isinstance(postcode, str)
         assert re.match(r"\d{5}", postcode)
 
         postal_code = self.fake.postal_code()
-        assert isinstance(postal_code, string_types)
+        assert isinstance(postal_code, str)
         assert re.match(r"\d{5}", postal_code)
 
         old_postal_code = self.fake.old_postal_code()
-        assert isinstance(old_postal_code, string_types)
+        assert isinstance(old_postal_code, str)
         assert re.match(r"\d{3}-\d{3}", old_postal_code)
 
 
@@ -920,15 +914,15 @@ class TestNeNP(unittest.TestCase):
     def test_address(self):
         """ Tests the street address in ne_NP locale """
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
         assert country in NeProvider.countries
 
         district = self.fake.district()
-        assert isinstance(district, string_types)
+        assert isinstance(district, str)
         assert district in NeProvider.districts
 
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
         assert city in NeProvider.cities
 
 
@@ -945,15 +939,15 @@ class TestNoNO(unittest.TestCase):
 
     def test_city_suffix(self):
         suffix = self.fake.city_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, str)
 
     def test_street_suffix(self):
         suffix = self.fake.street_suffix()
-        assert isinstance(suffix, string_types)
+        assert isinstance(suffix, str)
 
     def test_address(self):
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
 
 class TestZhTW(unittest.TestCase):
@@ -965,16 +959,16 @@ class TestZhTW(unittest.TestCase):
 
     def test_address(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
 
         street = self.fake.street_name()
-        assert isinstance(street, string_types)
+        assert isinstance(street, str)
 
         city = self.fake.city()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
 
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
 
 class TestZhCN(unittest.TestCase):
@@ -986,22 +980,22 @@ class TestZhCN(unittest.TestCase):
 
     def test_address(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
 
         street = self.fake.street_name()
-        assert isinstance(street, string_types)
+        assert isinstance(street, str)
 
         city = self.fake.street_address()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
 
         province = self.fake.province()
-        assert isinstance(province, string_types)
+        assert isinstance(province, str)
 
         district = self.fake.district()
-        assert isinstance(district, string_types)
+        assert isinstance(district, str)
 
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
         for _ in range(100):
             assert re.match(r'\d{5}', self.fake.postcode())
@@ -1015,25 +1009,25 @@ class TestPtBr(unittest.TestCase):
 
     def test_address(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
 
         street = self.fake.street_name()
-        assert isinstance(street, string_types)
+        assert isinstance(street, str)
 
         city = self.fake.street_address()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
 
         neighborhood = self.fake.neighborhood()
-        assert isinstance(neighborhood, string_types)
+        assert isinstance(neighborhood, str)
 
         state = self.fake.state()
-        assert isinstance(state, string_types)
+        assert isinstance(state, str)
 
         state_abbr = self.fake.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        assert isinstance(state_abbr, str)
 
         address = self.fake.address()
-        assert isinstance(address, string_types)
+        assert isinstance(address, str)
 
 
 class TestPtPT(unittest.TestCase):
@@ -1044,17 +1038,17 @@ class TestPtPT(unittest.TestCase):
 
     def test_distrito(self):
         distrito = self.fake.distrito()
-        assert isinstance(distrito, string_types)
+        assert isinstance(distrito, str)
         assert distrito in PtPtProvider.distritos
 
     def test_concelho(self):
         concelho = self.fake.concelho()
-        assert isinstance(concelho, string_types)
+        assert isinstance(concelho, str)
         assert concelho in PtPtProvider.concelhos
 
     def test_freguesia(self):
         freguesia = self.fake.freguesia()
-        assert isinstance(freguesia, string_types)
+        assert isinstance(freguesia, str)
         assert freguesia in PtPtProvider.freguesias
 
 
@@ -1154,32 +1148,32 @@ class TestRuRU(unittest.TestCase):
 
     def test_city_name(self):
         city = self.fake.city_name()
-        assert isinstance(city, string_types)
+        assert isinstance(city, str)
 
     def test_country(self):
         country = self.fake.country()
-        assert isinstance(country, string_types)
+        assert isinstance(country, str)
 
     def test_region(self):
         region = self.fake.region()
-        assert isinstance(region, string_types)
+        assert isinstance(region, str)
 
     def test_postcode(self):
         postcode = self.fake.postcode()
-        assert isinstance(postcode, string_types)
+        assert isinstance(postcode, str)
 
     def test_city_prefix(self):
         city_prefix = self.fake.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        assert isinstance(city_prefix, str)
 
     def test_street_suffix(self):
         street_suffix = self.fake.street_suffix()
-        assert isinstance(street_suffix, string_types)
+        assert isinstance(street_suffix, str)
 
     def test_street_title(self):
         street_title = self.fake.street_title()
-        assert isinstance(street_title, string_types)
+        assert isinstance(street_title, str)
 
     def test_street_name(self):
         street_name = self.fake.street_name()
-        assert isinstance(street_name, string_types)
+        assert isinstance(street_name, str)

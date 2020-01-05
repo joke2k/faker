@@ -1,13 +1,7 @@
-# coding=utf-8
-
-from __future__ import absolute_import, unicode_literals
-
 import random
 import re
 
 from collections import OrderedDict
-
-import six
 
 from faker.config import DEFAULT_LOCALE
 from faker.factory import Factory
@@ -15,7 +9,7 @@ from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
 
 
-class Faker(object):
+class Faker:
     """Proxy class capable of supporting multiple locales"""
 
     cache_pattern = re.compile(r'^_cached_\w*_mapping$')
@@ -30,13 +24,13 @@ class Faker(object):
         self._factory_map = OrderedDict()
         self._weights = None
 
-        if isinstance(locale, six.string_types):
+        if isinstance(locale, str):
             locales = [locale.replace('-', '_')]
 
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
         elif isinstance(locale, (list, tuple, set)):
-            assert all(isinstance(l, six.string_types) for l in locale)
+            assert all(isinstance(l, str) for l in locale)
             locales = []
             for l in locale:
                 final_locale = l.replace('-', '_')
@@ -80,7 +74,7 @@ class Faker(object):
             )
             raise TypeError(msg)
         else:
-            return super(Faker, self).__getattribute__(attr)
+            return super().__getattribute__(attr)
 
     def __getattr__(self, attr):
         """

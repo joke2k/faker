@@ -1,4 +1,3 @@
-# coding=utf-8
 import random
 
 from .. import Provider as BaseProvider

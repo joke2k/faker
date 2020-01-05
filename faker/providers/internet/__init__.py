@@ -1,6 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from ipaddress import IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
 
 from text_unidecode import unidecode

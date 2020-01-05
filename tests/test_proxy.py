@@ -1,19 +1,11 @@
-#  -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 import unittest
 
 from collections import OrderedDict
+from unittest.mock import PropertyMock, patch
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
 from faker.generator import Generator
-
-try:
-    from unittest.mock import patch, PropertyMock
-except ImportError:
-    from mock import patch, PropertyMock
 
 
 class TestFakerProxyClass(unittest.TestCase):

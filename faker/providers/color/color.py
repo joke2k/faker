@@ -12,8 +12,6 @@ import math
 import random
 import sys
 
-import six
-
 COLOR_MAP = {
     'monochrome': {
         'hue_range': [0, 0],
@@ -76,7 +74,7 @@ COLOR_MAP = {
 }
 
 
-class RandomColor(object):
+class RandomColor:
 
     def __init__(self, generator=None, seed=None):
         self.colormap = COLOR_MAP
@@ -200,7 +198,7 @@ class RandomColor(object):
             color_input = int(color_input)
             return [color_input, color_input]
 
-        elif isinstance(color_input, six.string_types) and color_input in self.colormap:
+        elif isinstance(color_input, str) and color_input in self.colormap:
             return self.colormap[color_input]['hue_range']
 
         elif color_input is None:
