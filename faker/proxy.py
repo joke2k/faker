@@ -2,9 +2,11 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from collections import OrderedDict
 import random
 import re
+
+from collections import OrderedDict
+
 import six
 
 from faker.config import DEFAULT_LOCALE

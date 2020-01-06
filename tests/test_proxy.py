@@ -2,16 +2,18 @@
 
 from __future__ import unicode_literals
 
-from collections import OrderedDict
 import unittest
-try:
-    from unittest.mock import patch, PropertyMock
-except ImportError:
-    from mock import patch, PropertyMock
+
+from collections import OrderedDict
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
 from faker.generator import Generator
+
+try:
+    from unittest.mock import patch, PropertyMock
+except ImportError:
+    from mock import patch, PropertyMock
 
 
 class TestFakerProxyClass(unittest.TestCase):

@@ -2,29 +2,29 @@
 
 from __future__ import unicode_literals
 
+import datetime
 import re
 import unittest
-import datetime
+
 import six
+
+from faker import Faker
+from faker.providers.person.ar_AA import Provider as ArProvider
+from faker.providers.person.cs_CZ import Provider as CsCZProvider
+from faker.providers.person.fi_FI import Provider as FiProvider
+from faker.providers.person.hy_AM import Provider as HyAmProvider
+from faker.providers.person.ne_NP import Provider as NeProvider
+from faker.providers.person.pl_PL import Provider as PlPLProvider
+from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
+from faker.providers.person.sv_SE import Provider as SvSEProvider
+from faker.providers.person.ta_IN import Provider as TaINProvider
+from faker.providers.person.zh_CN import Provider as ZhCNProvider
+from faker.providers.person.zh_TW import Provider as ZhTWProvider
 
 try:
     from unittest import mock
 except ImportError:
     import mock
-
-from faker import Faker
-from faker.providers.person.ar_AA import Provider as ArProvider
-from faker.providers.person.fi_FI import Provider as FiProvider
-from faker.providers.person.hy_AM import Provider as HyAmProvider
-from faker.providers.person.ne_NP import Provider as NeProvider
-from faker.providers.person.sv_SE import Provider as SvSEProvider
-from faker.providers.person.cs_CZ import Provider as CsCZProvider
-from faker.providers.person.pl_PL import Provider as PlPLProvider
-from faker.providers.person.pl_PL import (
-    checksum_identity_card_number as pl_checksum_identity_card_number)
-from faker.providers.person.zh_CN import Provider as ZhCNProvider
-from faker.providers.person.zh_TW import Provider as ZhTWProvider
-from faker.providers.person.ta_IN import Provider as TaINProvider
 
 
 class TestAr(unittest.TestCase):

@@ -1,9 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
 from collections import OrderedDict
 
-from .color import RandomColor
 from .. import BaseProvider
+from .color import RandomColor
 
 localized = True
 

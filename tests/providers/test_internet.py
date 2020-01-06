@@ -2,21 +2,24 @@
 
 from __future__ import unicode_literals
 
+import unittest
+
 from itertools import cycle
 
-import unittest
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-import pytest
 import six
 
-from validators import email as validate_email, domain as validate_domain
+import pytest
 
 from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
+from validators import domain as validate_domain
+from validators import email as validate_email
+
+try:
+    from unittest import mock
+except ImportError:
+    import mock
 
 
 class TestInternetProvider(unittest.TestCase):

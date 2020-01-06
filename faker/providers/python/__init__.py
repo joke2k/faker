@@ -2,9 +2,10 @@
 
 from __future__ import unicode_literals
 
-from decimal import Decimal
 import string
 import sys
+
+from decimal import Decimal
 
 import six
 

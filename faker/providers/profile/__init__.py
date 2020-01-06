@@ -1,7 +1,8 @@
 # coding=utf-8
 
-from .. import BaseProvider
 import itertools
+
+from .. import BaseProvider
 
 
 class Provider(BaseProvider):

@@ -8,8 +8,8 @@ import sys
 
 from importlib import import_module
 
-from faker import Generator
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
+from faker.generator import Generator
 from faker.utils.loading import list_module
 
 logger = logging.getLogger(__name__)

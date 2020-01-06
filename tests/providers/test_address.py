@@ -5,25 +5,25 @@ from __future__ import unicode_literals
 import re
 import unittest
 
-from ukpostcodeparser.parser import parse_uk_postcode
+from six import string_types
 
 from faker import Faker
 from faker.providers.address.de_AT import Provider as DeAtProvider
 from faker.providers.address.de_DE import Provider as DeProvider
-from faker.providers.address.fa_IR import Provider as IrProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.es_ES import Provider as EsEsProvider
 from faker.providers.address.es_MX import Provider as EsMxProvider
-from faker.providers.address.fr_FR import Provider as FrFrProvider
+from faker.providers.address.fa_IR import Provider as IrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
+from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
-from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from six import string_types
+from faker.providers.address.pt_PT import Provider as PtPtProvider
+from ukpostcodeparser.parser import parse_uk_postcode
 
 
 class TestBaseProvider(unittest.TestCase):

@@ -1,9 +1,11 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from .. import Provider as InternetProvider
 
 import re
+
 from faker.utils.decorators import slugify_domain
+
+from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):

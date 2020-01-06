@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import re
 
 from calendar import timegm
-from datetime import timedelta, MAXYEAR
+from datetime import MAXYEAR, timedelta
 
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc

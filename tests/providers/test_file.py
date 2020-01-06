@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
-import unittest
 import re
+import unittest
 
 from faker import Faker
 

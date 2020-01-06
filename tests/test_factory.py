@@ -6,21 +6,23 @@ import re
 import string
 import sys
 import unittest
-try:
-    from unittest.mock import patch, PropertyMock
-except ImportError:
-    from mock import patch, PropertyMock
 
 from collections import OrderedDict
 from ipaddress import ip_address, ip_network
 
-import pytest
 import six
+
+import pytest
 
 from faker import Faker, Generator
 from faker.factory import Factory
 from faker.generator import random
 from faker.utils import decorators, text
+
+try:
+    from unittest.mock import patch, PropertyMock
+except ImportError:
+    from mock import patch, PropertyMock
 
 
 class BarProvider(object):
