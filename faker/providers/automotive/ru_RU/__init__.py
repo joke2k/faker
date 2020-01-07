@@ -201,9 +201,17 @@ class Provider(AutomotiveProvider):
     )
 
     license_plate_formats = (
+        # Private vehicle plate
         '{{plate_letter}}{{plate_number}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Public transport plate
+        '{{plate_letter}}{{plate_letter}}{{plate_number}} {{plate_suffix}}',
+        # Trailer plate
         '{{plate_letter}}{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
-        '{{plate_number}}{{plate_letter}} {{plate_suffix}}',
+        # Police forces vehicle plate
+        '{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        # Military vehicle plate
+        '{{plate_number_extra}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Diplomatic vehicles
         '{{plate_number_special}} {{plate_suffix}}',
     )
 
@@ -212,11 +220,11 @@ class Provider(AutomotiveProvider):
     )
 
     plate_extra_formats = (
-        '###', '####',
+        '####',
     )
 
     plate_special_formats = (
-        '###CD#', '###D###', '###T###'
+        '00#CD#', '00#D###', '00#T###'
     )
 
     def license_plate(self):
