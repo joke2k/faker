@@ -13,7 +13,7 @@ class Provider(AddressProvider):
                               '{{street_name}}, д. {{building_number}} стр. {{building_number}}')
     address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
     postcode_formats = ('######',)
-    building_number_formats = ('###', '##', '#', '#/#')
+    building_number_formats = ('%##', '##', '%', '%/%')
 
     city_prefixes = ('г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.')
 
@@ -360,18 +360,14 @@ class Provider(AddressProvider):
 
     def region(self):
         regions_suffix = self.random_element(self.region_suffixes)
-        region_name = ''
-        result = region_name + ' ' + regions_suffix
         if regions_suffix == 'респ.':
-            region_name = self.random_element(self.region_republics)
-            result = regions_suffix + ' ' + region_name
+            return regions_suffix + ' ' + self.random_element(self.region_republics)
         elif regions_suffix == 'край':
-            region_name = self.random_element(self.region_krai)
+            return self.random_element(self.region_krai) + ' ' + regions_suffix
         elif regions_suffix == 'обл.':
-            region_name = self.random_element(self.region_oblast)
+            return self.random_element(self.region_oblast) + ' ' + regions_suffix
         elif regions_suffix == 'АО':
-            region_name = self.random_element(self.region_ao)
-        return result
+            return self.random_element(self.region_ao) + ' ' + regions_suffix
 
     def street_suffix(self):
         return self.random_element(self.street_suffixes)
