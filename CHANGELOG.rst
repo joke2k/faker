@@ -1,8 +1,8 @@
 Changelog
 =========
 
-UNRELEASED
-----------
+`4.0.0 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
+-------------------------------------------------------------------------------------
 
 * Breaking change: Remove support for end-of-life Python 2.7.
 
