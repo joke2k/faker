@@ -1,9 +1,11 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
-from .. import Provider as SsnProvider
+
 import datetime
 import random
+
+from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
@@ -31,7 +33,7 @@ class Provider(SsnProvider):
         org_id = org_id.replace('-', '')
         if len(org_id) == 10:
             org_id = '16' + org_id
-        return 'SE{0}01'.format(org_id)
+        return 'SE{}01'.format(org_id)
 
     def ssn(self, min_age=18, max_age=90, long=False, dash=True):
         """
@@ -56,7 +58,7 @@ class Provider(SsnProvider):
         suffix = str(self.generator.random.randrange(0, 999)).zfill(3)
         luhn_checksum = str(Provider._calculate_luhn(chk_date + suffix))
         hyphen = '-' if dash else ''
-        pnr = '{0}{1}{2}{3}'.format(pnr_date, hyphen, suffix, luhn_checksum)
+        pnr = '{}{}{}{}'.format(pnr_date, hyphen, suffix, luhn_checksum)
 
         return pnr
 
@@ -79,7 +81,7 @@ class Provider(SsnProvider):
         prefix = '16' if long else ''
         hyphen = '-' if dash else ''
 
-        org_id = '{0}{1}{2}{3}{4}'.format(prefix, onr_one, hyphen, onr_two, luhn_checksum)
+        org_id = '{}{}{}{}{}'.format(prefix, onr_one, hyphen, onr_two, luhn_checksum)
         return org_id
 
     def vat_id(self):

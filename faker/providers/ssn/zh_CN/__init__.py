@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
-from .. import Provider as SsnProvider
+
 import datetime
+
+from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):

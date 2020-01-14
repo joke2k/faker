@@ -1,8 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
 from collections import OrderedDict
 
 from .. import BaseProvider
+from .color import RandomColor
 
 localized = True
 
@@ -164,7 +166,7 @@ class Provider(BaseProvider):
         return self.random_element(self.safe_colors)
 
     def hex_color(self):
-        return "#{0}".format(
+        return "#{}".format(
             ("%x" %
              self.random_int(
                  1, 16777215)).ljust(
@@ -180,3 +182,18 @@ class Provider(BaseProvider):
     def rgb_css_color(self):
         return 'rgb(%s)' % ','.join(
             map(str, (self.random_int(0, 255) for _ in range(3))))
+
+    def color(self, hue=None, luminosity=None, color_format='hex'):
+        """
+        Creates a color in specified format
+
+        :param hue: monochrome, red, orange, yellow, green, blue, purple, pink, a number
+                    from 0 to 360, or a tuple/list of 2 numbers from 0 to 360
+        :param luminosity: bright, dark, light, or random
+        :param color_format: hsv, hsl, rgb, or hex with hex being default
+        :return: color in the specified format
+        """
+
+        return RandomColor(self.generator).generate(
+            hue=hue, luminosity=luminosity, color_format=color_format,
+        )

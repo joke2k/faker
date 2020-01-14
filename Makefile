@@ -1,5 +1,5 @@
 test:
-	coverage run --source=faker --omit=faker/build_docs.py setup.py test
+	tox -e py
 
 isort:
 	isort -rc --atomic .

@@ -1,7 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
 from collections import OrderedDict
+
 from faker.utils.decorators import lowercase, slugify
+
 from .. import Provider as InternetProvider
 
 
