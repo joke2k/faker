@@ -1,5 +1,3 @@
-# coding=utf-8
-
 import re
 import string
 
@@ -15,7 +13,7 @@ _re_qm = re.compile(r'\?')
 _re_cir = re.compile(r'\^')
 
 
-class BaseProvider(object):
+class BaseProvider:
 
     __provider__ = 'base'
     __lang__ = None

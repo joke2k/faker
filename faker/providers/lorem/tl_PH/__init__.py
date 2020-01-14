@@ -1,4 +1,3 @@
-# coding=utf-8
 from ..fil_PH import Provider as FilPhProvider
 
 

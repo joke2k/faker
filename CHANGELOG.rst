@@ -1,6 +1,11 @@
 Changelog
 =========
 
+UNRELEASED
+----------
+
+* Breaking change: Remove support for end-of-life Python 2.7.
+
 `3.0.1 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
 -------------------------------------------------------------------------------------
 
@@ -16,6 +21,7 @@ Changelog
   @jerr0328.
 * Add ``NIP`` generator in ``pl_PL``. Thanks @IlfirinPL.
 * Fix ``Faker.random_number`` intermittent exceptions. Thanks @Jengah.
+
 
 `3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v3.0.0>`__
 --------------------------------------------------------------------------------------

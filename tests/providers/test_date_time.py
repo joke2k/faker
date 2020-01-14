@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import os
 import platform
 import random
@@ -11,8 +8,6 @@ import unittest
 from datetime import date, datetime
 from datetime import time as datetime_time
 from datetime import timedelta, tzinfo
-
-import six
 
 import pytest
 
@@ -58,11 +53,11 @@ class TestKoKR(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
 
     def test_month(self):
         month = self.fake.month()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
 
 
 class TestDateTime(unittest.TestCase):
@@ -77,11 +72,11 @@ class TestDateTime(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
 
     def test_month(self):
         month = self.fake.month()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
 
     def test_past_datetime(self):
         past_datetime = self.fake.past_datetime()
@@ -529,12 +524,12 @@ class TestHyAm(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
         assert day in HyAmProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
         assert month in HyAmProvider.MONTH_NAMES.values()
 
 
@@ -714,10 +709,10 @@ class TestTaIN(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
         assert day in TaInProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
         assert month in TaInProvider.MONTH_NAMES.values()

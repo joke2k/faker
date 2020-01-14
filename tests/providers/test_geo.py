@@ -1,13 +1,7 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 import unittest
 
 from decimal import Decimal
-
-from six import string_types
 
 from faker import Faker
 from faker.providers.geo.pt_PT import Provider as PtPtProvider
@@ -110,5 +104,5 @@ class TestPtPT(unittest.TestCase):
 
     def test_nationality(self):
         nationality = self.fake.nationality()
-        assert isinstance(nationality, string_types)
+        assert isinstance(nationality, str)
         assert nationality in PtPtProvider.nationalities

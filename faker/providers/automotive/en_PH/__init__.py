@@ -1,6 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from string import ascii_uppercase
 
 from ... import BaseProvider

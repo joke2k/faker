@@ -1,13 +1,8 @@
-#  -*- coding: utf-8 -*-
-
 import unittest
 
-from faker import Faker
+from unittest.mock import patch
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from faker import Faker
 
 
 class TestPyint(unittest.TestCase):

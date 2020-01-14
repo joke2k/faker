@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Faker documentation build configuration file, created by
 # sphinx-quickstart on Tue Mar 11 11:25:48 2014.
@@ -43,8 +42,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Faker'
-copyright = u'2014, Daniele Faraglia'
+project = 'Faker'
+copyright = '2014, Daniele Faraglia'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -196,8 +195,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Faker.tex', u'Faker Documentation',
-   u'Daniele Faraglia', 'manual'),
+  ('index', 'Faker.tex', 'Faker Documentation',
+   'Daniele Faraglia', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -226,8 +225,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'faker', u'Faker Documentation',
-     [u'Daniele Faraglia'], 1)
+    ('index', 'faker', 'Faker Documentation',
+     ['Daniele Faraglia'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -240,8 +239,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Faker', u'Faker Documentation',
-   u'Daniele Faraglia', 'Faker', 'One line description of project.',
+  ('index', 'Faker', 'Faker Documentation',
+   'Daniele Faraglia', 'Faker', 'One line description of project.',
    'Miscellaneous'),
 ]
 
