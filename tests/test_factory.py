@@ -903,6 +903,14 @@ class FactoryTestCase(unittest.TestCase):
         number = provider.random_number(10, True)
         assert len(str(number)) == 10
 
+        # Digits parameter < 0
+        with self.assertRaises(ValueError):
+            number = provider.random_number(-1, True)
+
+        # Digits parameter < 1 with fix_len=True
+        with self.assertRaises(ValueError):
+            number = provider.random_number(0, True)
+
     def test_instance_seed_chain(self):
         factory = Factory.create()
 
