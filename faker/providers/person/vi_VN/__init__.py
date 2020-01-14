@@ -1,10 +1,10 @@
 # coding=utf-8
 
 from __future__ import unicode_literals
+
 from collections import OrderedDict
 
 from .. import Provider as PersonProvider
-
 
 # I statstic with data from https://github.com/duyetdev/vietnamese-namedb
 

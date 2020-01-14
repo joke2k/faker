@@ -5,10 +5,6 @@ from __future__ import unicode_literals
 import datetime
 import re
 import unittest
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 
 import six
 
@@ -22,10 +18,16 @@ from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
+from faker.providers.person.vi_VN import Provider as ViProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
-from faker.providers.person.vi_VN import Provider as ViProvider
-from faker.providers.person.ta_IN import Provider as TaINProvider
+
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+
+
 
 
 class TestAr(unittest.TestCase):

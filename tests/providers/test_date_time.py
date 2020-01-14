@@ -21,9 +21,9 @@ from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
-from faker.providers.date_time.vi_VN import Provider as ViProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
+from faker.providers.date_time.vi_VN import Provider as ViProvider
 
 
 def is64bit():

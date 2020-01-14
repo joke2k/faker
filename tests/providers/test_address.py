@@ -22,10 +22,9 @@ from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from faker.providers.address.vi_VN import Provider as ViProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
+from faker.providers.address.vi_VN import Provider as ViProvider
 from ukpostcodeparser.parser import parse_uk_postcode
-
 
 
 class TestBaseProvider(unittest.TestCase):
