@@ -1,6 +1,6 @@
 import pytest
 
-from faker import Factory
+from faker import Faker
 
 
 @pytest.fixture(scope="session")
@@ -14,4 +14,5 @@ def faker_locale():
 @pytest.fixture(scope="session")
 def faker(faker_locale):
     """Faker factory object."""
-    return Factory.create(faker_locale)
+    faker = Faker(faker_locale)
+    return faker
