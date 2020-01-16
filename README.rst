@@ -98,13 +98,28 @@ If you need to override ``Faker``'s default locale, you must redefine the
 
     import pytest
 
-    @pytest.fixture(scope="session")
+    @pytest.fixture()
     def faker_locale():
         return "it_IT"
 
 
     def test_faker(faker):
         assert faker.providers[0].__lang__ == faker_locale
+
+If you need to seed the faker instance, override the ``faker_seed`` fixture:
+
+.. code:: python
+
+    import pytest
+
+    @pytest.fixture()
+    def faker_seed():
+        return 0
+
+
+    def test_faker(faker):
+        assert faker.name() == 'Norma Fisher'
+
 
 Providers
 ---------
@@ -402,6 +417,21 @@ the same way. For example:
 Please note that as we keep updating datasets, results are not guaranteed to be
 consistent across patch versions. If you hardcode results in your test, make sure
 you pinned the version of ``Faker`` down to the patch number.
+
+If you are using ``pytest``, you can seed the ``faker`` fixture by overriding
+the ``faker_seed`` fixture:
+
+.. code:: python
+
+    import pytest
+
+    @pytest.fixture()
+    def faker_seed():
+        return 0
+
+
+    def test_faker(faker):
+        assert faker.name() == 'Norma Fisher'
 
 Tests
 -----

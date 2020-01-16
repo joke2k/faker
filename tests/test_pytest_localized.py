@@ -1,16 +1,16 @@
 import pytest
 
-from faker.generator import Generator
+from faker import Faker
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def faker_locale():
     return "it_IT"
 
 
-def test_faker(faker, faker_locale):
+def test_faker_locale(faker, faker_locale):
     """Test faker fixture."""
-    assert isinstance(faker, Generator)
+    assert isinstance(faker, Faker)
     assert faker.name() != faker.name()
     assert faker.name()
     assert faker_locale == "it_IT"
