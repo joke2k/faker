@@ -29,6 +29,7 @@ setup(
     long_description=README,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
+        'pytest11': ['faker = faker.contrib.pytest.plugin'],
     },
     classifiers=[
         # See https://pypi.org/pypi?%3Aaction=list_classifiers

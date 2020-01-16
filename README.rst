@@ -80,6 +80,32 @@ to ``faker.Generator.format(method_name)``.
     # 'Wellington Koelpin II'
     # 'Ms. Karley Kiehn V'
 
+pytest fixtures
+---------------
+
+``Faker`` includes a ``faker`` fixture for ``pytest``.
+
+
+.. code:: python
+
+    def test_faker(faker):
+        assert isinstance(faker.name(), str)
+
+If you need to override ``Faker``'s default locale, you must redefine the
+``faker_locale`` fixture:
+
+.. code:: python
+
+    import pytest
+
+    @pytest.fixture(scope="session")
+    def faker_locale():
+        return "it_IT"
+
+
+    def test_faker(faker):
+        assert faker.providers[0].__lang__ == faker_locale
+
 Providers
 ---------
 
