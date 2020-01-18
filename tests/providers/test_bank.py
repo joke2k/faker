@@ -3,6 +3,7 @@
 import re
 import unittest
 
+from six import string_types
 from faker import Faker
 
 
@@ -92,3 +93,7 @@ class TestRuRU(unittest.TestCase):
     def test_checking_account(self):
         checking_account = self.fake.checking_account()
         assert re.match(r"\d{3}0\d{16}", checking_account)
+
+    def test_bank(self):
+        bank = self.fake.bank()
+        assert isinstance(bank, string_types)
