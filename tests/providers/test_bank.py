@@ -1,7 +1,6 @@
 import re
 import unittest
 
-from six import string_types
 from faker import Faker
 
 
@@ -94,4 +93,4 @@ class TestRuRU(unittest.TestCase):
 
     def test_bank(self):
         bank = self.fake.bank()
-        assert isinstance(bank, string_types)
+        assert re.match(r"\D{3,41}", bank)
