@@ -1,14 +1,8 @@
-# coding=utf-8
-
-from __future__ import print_function, unicode_literals
-
 import argparse
 import logging
 import os
 import random
 import sys
-
-import six
 
 from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
@@ -22,7 +16,7 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         excludes = []
 
     print(file=output)
-    print("### {0}".format(
+    print("### {}".format(
           doc.get_provider_name(provider)), file=output)
     print(file=output)
 
@@ -30,14 +24,14 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
         if signature in excludes:
             continue
         try:
-            lines = six.text_type(example).expandtabs().splitlines()
+            lines = str(example).expandtabs().splitlines()
         except UnicodeDecodeError:
             # The example is actually made of bytes.
             # We could coerce to bytes, but that would fail anyway when we wiil
             # try to `print` the line.
             lines = ["<bytes>"]
         except UnicodeEncodeError:
-            raise Exception('error on "{0}" with value "{1}"'.format(
+            raise Exception('error on "{}" with value "{}"'.format(
                             signature, example))
         margin = max(30, doc.max_name_len + 1)
         remains = 150 - margin
@@ -87,7 +81,7 @@ def print_doc(provider_or_field=None,
                     end='',
                     file=output)
             except AttributeError:
-                raise ValueError('No faker found for "{0}({1})"'.format(
+                raise ValueError('No faker found for "{}({})"'.format(
                     provider_or_field, args))
 
     else:
@@ -103,7 +97,7 @@ def print_doc(provider_or_field=None,
             if language == lang:
                 continue
             print(file=output)
-            print('## LANGUAGE {0}'.format(language), file=output)
+            print('## LANGUAGE {}'.format(language), file=output)
             fake = Faker(locale=language)
             fake.seed_instance(seed)
             d = documentor.Documentor(fake)
@@ -114,7 +108,7 @@ def print_doc(provider_or_field=None,
                 print_provider(d, p, fs, output=output)
 
 
-class Command(object):
+class Command:
 
     def __init__(self, argv=None):
         self.argv = argv or sys.argv[:]
@@ -169,12 +163,12 @@ examples:
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
             prog=self.prog_name,
-            description='{0} version {1}'.format(self.prog_name, VERSION),
+            description='{} version {}'.format(self.prog_name, VERSION),
             epilog=epilog,
             formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
-                            version="%(prog)s {0}".format(VERSION))
+                            version="%(prog)s {}".format(VERSION))
 
         parser.add_argument('-v',
                             '--verbose',

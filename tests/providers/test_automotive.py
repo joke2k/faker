@@ -1,11 +1,7 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 import re
 import unittest
 
 from faker import Faker
-from six import string_types
 
 
 class TestPtBR(unittest.TestCase):
@@ -17,7 +13,7 @@ class TestPtBR(unittest.TestCase):
 
     def test_plate_has_been_generated(self):
         plate = self.fake.license_plate()
-        assert isinstance(plate, string_types)
+        assert isinstance(plate, str)
         assert self.format.match(plate), "%s is not in the correct format." % plate
 
 
@@ -132,8 +128,8 @@ class TestRuRU(unittest.TestCase):
 
     def test_ru_RU_plate_format(self):
         plate = self.fake.license_plate()
-        assert isinstance(plate, string_types)
+        assert isinstance(plate, str)
 
     def test_vehicle_category(self):
         category = self.fake.vehicle_category()
-        assert isinstance(category, string_types)
+        assert isinstance(category, str)

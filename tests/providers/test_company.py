@@ -1,20 +1,13 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 import unittest
-
-import six
 
 from faker import Faker
 from faker.providers.company import ru_RU as ru
 from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.nl_NL import Provider as NlProvider
-from faker.providers.company.pl_PL import (
-    company_vat_checksum, regon_checksum, local_regon_checksum, Provider as PlProvider,
-)
+from faker.providers.company.pl_PL import Provider as PlProvider
+from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.utils.datetime_safe import datetime
 
@@ -43,19 +36,19 @@ class TestHyAm(unittest.TestCase):
 
     def test_bs(self):
         bs = self.fake.bs()
-        assert isinstance(bs, six.string_types)
+        assert isinstance(bs, str)
 
     def test_catch_phrase(self):
         catch_phrase = self.fake.catch_phrase()
-        assert isinstance(catch_phrase, six.string_types)
+        assert isinstance(catch_phrase, str)
 
     def test_company(self):
         company = self.fake.company()
-        assert isinstance(company, six.string_types)
+        assert isinstance(company, str)
 
     def test_company_suffix(self):
         suffix = self.fake.company_suffix()
-        assert isinstance(suffix, six.string_types)
+        assert isinstance(suffix, str)
         assert suffix in HyAmProvider.company_suffixes
 
 
@@ -69,16 +62,16 @@ class TestJaJP(unittest.TestCase):
     def test_company(self):
         prefixes = JaProvider.company_prefixes
         prefix = self.fake.company_prefix()
-        assert isinstance(prefix, six.string_types)
+        assert isinstance(prefix, str)
         assert prefix in prefixes
 
         categories = JaProvider.company_categories
         category = self.fake.company_category()
-        assert isinstance(category, six.string_types)
+        assert isinstance(category, str)
         assert category in categories
 
         company = self.fake.company()
-        assert isinstance(company, six.string_types)
+        assert isinstance(company, str)
         assert any(company.startswith(prefix) or company.endswith(prefix) for prefix in prefixes)
         assert any(category in company for category in categories)
 
@@ -114,12 +107,12 @@ class TestHuHU(unittest.TestCase):
 
     def test_company_suffix(self):
         suffix = self.fake.company_suffix()
-        assert isinstance(suffix, six.string_types)
+        assert isinstance(suffix, str)
         assert suffix in self.valid_suffixes
 
     def test_company(self):
         company = self.fake.company()
-        assert isinstance(company, six.string_types)
+        assert isinstance(company, str)
         assert company.split(" ")[-1] in self.valid_suffixes
 
 
@@ -166,13 +159,13 @@ class TestPlPL(unittest.TestCase):
     def test_company_prefix(self):
         prefixes = PlProvider.company_prefixes
         prefix = self.fake.company_prefix()
-        assert isinstance(prefix, six.string_types)
+        assert isinstance(prefix, str)
         assert prefix in prefixes
 
     def test_company_suffix(self):
         suffixes = PlProvider.company_suffixes
         suffix = self.fake.company_suffix()
-        assert isinstance(suffix, six.string_types)
+        assert isinstance(suffix, str)
         assert suffix in suffixes
 
 
@@ -186,19 +179,19 @@ class TestNlNL(unittest.TestCase):
     def test_company_prefix(self):
         prefixes = NlProvider.company_prefixes
         prefix = self.fake.company_prefix()
-        assert isinstance(prefix, six.string_types)
+        assert isinstance(prefix, str)
         assert prefix in prefixes
 
     def test_company_suffix(self):
         suffixes = NlProvider.company_suffixes
         suffix = self.fake.company_suffix()
-        assert isinstance(suffix, six.string_types)
+        assert isinstance(suffix, str)
         assert suffix in suffixes
 
     def test_large_companies(self):
         companies = NlProvider.large_companies
         company = self.fake.large_company()
-        assert isinstance(company, six.string_types)
+        assert isinstance(company, str)
         assert company in companies
 
 
@@ -246,7 +239,7 @@ class TestFilPh(TestEnPh):
         Faker.seed(0)
 
     def setup_constants(self):
-        super(TestFilPh, self).setup_constants()
+        super().setup_constants()
         from faker.providers.company.fil_PH import Provider
         self.good_service_adjectives = Provider.good_service_adjectives
 

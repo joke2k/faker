@@ -1,7 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import Provider as SsnProvider
+
 
 """
 For more info on rijksregisternummer, see https://nl.wikipedia.org/wiki/Rijksregisternummer

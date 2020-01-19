@@ -1,8 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 from faker.utils.datetime_safe import datetime
+
 from .. import Provider as CompanyProvider
 
 

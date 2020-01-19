@@ -1,27 +1,28 @@
-#  -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 import re
 import unittest
+
 from datetime import datetime
 from itertools import cycle
 
 import freezegun
 import pytest
 import random2
-from validators.i18n.es import es_cif as is_cif, es_nif as is_nif, es_nie as is_nie
 
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
+from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
-from faker.providers.ssn.no_NO import checksum as no_checksum, Provider as no_Provider
-from faker.providers.ssn.pl_PL import checksum as pl_checksum, calculate_month as pl_calculate_mouth
+from faker.providers.ssn.no_NO import Provider as no_Provider
+from faker.providers.ssn.no_NO import checksum as no_checksum
+from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
+from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
-from faker.providers.ssn.es_MX import (ssn_checksum as mx_ssn_checksum,
-                                       curp_checksum as mx_curp_checksum)
+from validators.i18n.es import es_cif as is_cif
+from validators.i18n.es import es_nie as is_nie
+from validators.i18n.es import es_nif as is_nif
 
 
 class TestSvSE(unittest.TestCase):
@@ -891,4 +892,4 @@ class TestTrTr(unittest.TestCase):
         for sample in self.samples:
             first_ten_number = sample[:-1]
             last_part = sample[-1]
-            assert sum(list(map(lambda x: int(x), '{0}'.format(first_ten_number)))) % 10 == last_part
+            assert sum(list(map(lambda x: int(x), '{}'.format(first_ten_number)))) % 10 == last_part

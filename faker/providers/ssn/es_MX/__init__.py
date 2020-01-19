@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 SSN provider for es_MX.
 
@@ -6,14 +5,10 @@ This module adds a provider for mexican SSN, along with Unique Population
 Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
 """
 
-
-from __future__ import unicode_literals
-
 import random
 import string
 
 from .. import Provider as BaseProvider
-
 
 ALPHABET = string.ascii_uppercase
 ALPHANUMERIC = string.digits + ALPHABET
@@ -161,7 +156,7 @@ class Provider(BaseProvider):
         start_year = self.random_int(min=0, max=99)
         serial = self.random_int(min=1, max=9999)
 
-        num = "{0:02d}{1:02d}{2:02d}{3:04d}".format(
+        num = "{:02d}{:02d}{:02d}{:04d}".format(
             office,
             start_year,
             birth_year,

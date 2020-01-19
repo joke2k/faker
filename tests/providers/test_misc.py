@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 import csv
 import io
 import itertools
@@ -8,12 +5,8 @@ import tarfile
 import unittest
 import uuid
 import zipfile
-import six
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
+from unittest.mock import patch
 
 from faker import Faker
 
@@ -27,12 +20,12 @@ class TestMisc(unittest.TestCase):
     def test_uuid4(self):
         uuid4 = self.fake.uuid4()
         assert uuid4
-        assert isinstance(uuid4, six.string_types)
+        assert isinstance(uuid4, str)
 
     def test_uuid4_int(self):
         uuid4 = self.fake.uuid4(cast_to=int)
         assert uuid4
-        assert isinstance(uuid4, six.integer_types)
+        assert isinstance(uuid4, int)
 
     def test_uuid4_uuid_object(self):
         uuid4 = self.fake.uuid4(cast_to=lambda x: x)
@@ -145,7 +138,6 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
                 assert extra_bytes == expected_extra_bytes
 
-    @unittest.skipIf(six.PY2, 'Python 3 only')
     def test_zip_compression_py3(self):
         num_files = 10
         min_file_size = 512
@@ -173,39 +165,6 @@ class TestMisc(unittest.TestCase):
                 # Verify compression type used
                 for info in zip_handle.infolist():
                     assert info.compress_type == compress_type
-
-    @unittest.skipIf(six.PY3, 'Python 2 only')
-    def test_zip_compression_py2(self):
-        num_files = 10
-        min_file_size = 512
-        uncompressed_size = 50 * 1024
-        compression_mapping = [
-            ('deflate', zipfile.ZIP_DEFLATED),
-            ('gzip', zipfile.ZIP_DEFLATED),
-            ('gz', zipfile.ZIP_DEFLATED),
-            (None, zipfile.ZIP_STORED),
-        ]
-        for compression, compress_type in compression_mapping:
-            zip_bytes = self.fake.zip(
-                uncompressed_size=uncompressed_size, num_files=num_files,
-                min_file_size=min_file_size, compression=compression,
-            )
-            zip_buffer = io.BytesIO(zip_bytes)
-            with zipfile.ZipFile(zip_buffer, 'r') as zip_handle:
-                # Verify zip archive is good
-                assert zip_handle.testzip() is None
-
-                # Verify compression type used
-                for info in zip_handle.infolist():
-                    assert info.compress_type == compress_type
-
-        # BZIP2 and LZMA are not supported in Python 2
-        for compression in ['bzip2', 'bz2', 'lzma', 'xz']:
-            with self.assertRaises(RuntimeError):
-                self.fake.zip(
-                    uncompressed_size=uncompressed_size, num_files=num_files,
-                    min_file_size=min_file_size, compression=compression,
-                )
 
     def test_tar_invalid_file(self):
         with self.assertRaises(ValueError):
@@ -295,7 +254,6 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
                 assert extra_bytes == expected_extra_bytes
 
-    @unittest.skipIf(six.PY2, 'Python 3 only')
     def test_tar_compression_py3(self):
         num_files = 25
         min_file_size = 512
@@ -321,38 +279,6 @@ class TestMisc(unittest.TestCase):
                 members = tar_handle.getmembers()
                 assert len(members) == num_files
 
-    @unittest.skipIf(six.PY3, 'Python 2 only')
-    def test_tar_compression_py2(self):
-        num_files = 25
-        min_file_size = 512
-        uncompressed_size = 50 * 1024
-        compression_mapping = [
-            ('gzip', 'r:gz'),
-            ('gz', 'r:gz'),
-            ('bzip2', 'r:bz2'),
-            ('bz2', 'r:bz2'),
-            (None, 'r'),
-        ]
-
-        for compression, read_mode in compression_mapping:
-            tar_bytes = self.fake.tar(
-                uncompressed_size=uncompressed_size, num_files=num_files,
-                min_file_size=min_file_size, compression=compression,
-            )
-            tar_buffer = io.BytesIO(tar_bytes)
-            with tarfile.open(fileobj=tar_buffer, mode=read_mode) as tar_handle:
-                # Verify tar has the correct number of files
-                members = tar_handle.getmembers()
-                assert len(members) == num_files
-
-        # LZMA is not supported in Python 2
-        for compression in ['lzma', 'xz']:
-            with self.assertRaises(RuntimeError):
-                self.fake.tar(
-                    uncompressed_size=uncompressed_size, num_files=num_files,
-                    min_file_size=min_file_size, compression=compression,
-                )
-
     def test_dsv_with_invalid_values(self):
         with self.assertRaises(ValueError):
             self.fake.dsv(num_rows='1')
@@ -374,7 +300,7 @@ class TestMisc(unittest.TestCase):
         for _ in range(10):
             num_rows = self.fake.random.randint(1, 1000)
             dsv = self.fake.dsv(header=None, data_columns=data_columns, num_rows=num_rows)
-            reader = csv.reader(six.StringIO(dsv), dialect='faker-csv')
+            reader = csv.reader(io.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
             for row in reader:
@@ -389,7 +315,7 @@ class TestMisc(unittest.TestCase):
         for _ in range(10):
             num_rows = self.fake.random.randint(1, 1000)
             dsv = self.fake.dsv(header=header, data_columns=data_columns, num_rows=num_rows)
-            reader = csv.reader(six.StringIO(dsv), dialect='faker-csv')
+            reader = csv.reader(io.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
             for row in reader:
@@ -407,7 +333,7 @@ class TestMisc(unittest.TestCase):
                 header=None, data_columns=data_columns,
                 num_rows=num_rows, include_row_ids=True,
             )
-            reader = csv.reader(six.StringIO(dsv), dialect='faker-csv')
+            reader = csv.reader(io.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
             # and row ids increment correctly

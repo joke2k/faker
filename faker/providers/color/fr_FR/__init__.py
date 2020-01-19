@@ -1,5 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import Provider as ColorProvider
@@ -39,7 +37,7 @@ class Provider(ColorProvider):
         ("Violet orchidée", "#DA70D6"),
         ("Violet orchidée moyen", "#BA55D3"),
         ("Violet orchidée foncé", "#9932CC"),
-        (u"Violet foncé", "#9400D3"),
+        ("Violet foncé", "#9400D3"),
         ("Bleu violet", "#8A2BE2"),
         ("Indigo", "#4B0082"),
         ("Bleu ardoise moyen", "#7B68EE"),

@@ -1,5 +1,3 @@
-# coding=utf-8
-
 from functools import wraps
 
 from faker.utils import text

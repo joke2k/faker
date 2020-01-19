@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from ..en import Provider as AddressProvider
 
 

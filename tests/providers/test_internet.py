@@ -1,22 +1,15 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
+import unittest
 
 from itertools import cycle
+from unittest import mock
 
-import unittest
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 import pytest
-import six
-
-from validators import email as validate_email, domain as validate_domain
 
 from faker import Faker
 from faker.providers.person.ja_JP import Provider as JaProvider
 from faker.utils import text
+from validators import domain as validate_domain
+from validators import email as validate_email
 
 
 class TestInternetProvider(unittest.TestCase):
@@ -46,12 +39,12 @@ class TestInternetProvider(unittest.TestCase):
         hostname_1_level = self.fake.hostname(levels=1)
         hostname_parts = hostname_1_level.split(".")
         assert hostname_1_level
-        self.assertIsInstance(hostname_1_level, six.string_types)
+        self.assertIsInstance(hostname_1_level, str)
         assert len(hostname_parts) == 3
 
         hostname_0_level = self.fake.hostname(levels=0)
         assert hostname_0_level
-        self.assertIsInstance(hostname_0_level, six.string_types)
+        self.assertIsInstance(hostname_0_level, str)
 
 
 class TestInternetProviderUrl(unittest.TestCase):
@@ -98,22 +91,22 @@ class TestJaJP(unittest.TestCase):
         names = JaProvider.last_romanized_names
 
         domain_word = self.fake.domain_word()
-        self.assertIsInstance(domain_word, six.string_types)
+        self.assertIsInstance(domain_word, str)
         assert any(domain_word == text.slugify(name) for name in names)
 
         domain_name = self.fake.domain_name()
         deep_domain_name = self.fake.domain_name(3)
-        self.assertIsInstance(domain_name, six.string_types)
-        self.assertIsInstance(deep_domain_name, six.string_types)
+        self.assertIsInstance(domain_name, str)
+        self.assertIsInstance(deep_domain_name, str)
         assert deep_domain_name.count('.') == 3
         with pytest.raises(ValueError):
             self.fake.domain_name(-1)
 
         user_name = self.fake.user_name()
-        self.assertIsInstance(user_name, six.string_types)
+        self.assertIsInstance(user_name, str)
 
         tld = self.fake.tld()
-        self.assertIsInstance(tld, six.string_types)
+        self.assertIsInstance(tld, str)
 
 
 class TestZhCN(unittest.TestCase):
@@ -273,11 +266,11 @@ class TestHuHU(unittest.TestCase):
 
     def test_internet(self):
         domain_name = self.fake.domain_name()
-        self.assertIsInstance(domain_name, six.string_types)
+        self.assertIsInstance(domain_name, str)
         tld = self.fake.tld()
-        self.assertIsInstance(tld, six.string_types)
+        self.assertIsInstance(tld, str)
         email = self.fake.email()
-        self.assertIsInstance(email, six.string_types)
+        self.assertIsInstance(email, str)
 
 
 class TestPlPL(unittest.TestCase):

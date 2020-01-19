@@ -1,10 +1,8 @@
-# coding=utf-8
 """it_IT ssn provider (yields italian fiscal codes)"""
 
-from __future__ import unicode_literals
 from string import ascii_uppercase, digits
-from .. import Provider as SsnProvider
 
+from .. import Provider as SsnProvider
 
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
 ALPHANUMERICS_DICT = {char: index for index, char in enumerate(ALPHANUMERICS)}
