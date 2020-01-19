@@ -47,7 +47,10 @@ class Provider(BankProvider):
         '973', '975', '976', '977', '978', '980', '981', '985', '986', '997', '998', '999'
     )
 
-    # The list of Russian banks is based on http://cbr.ru/credit/coreports/ko17012020.zip
+    """
+    The list of Russian banks is based on Central Bank of Russia statistics
+    See http://cbr.ru/credit/coreports/ko17012020.zip
+    """
     banks = (
         'Абсолют Банк', 'Авангард', 'Аверс', 'Автоградбанк', 'Автокредитбанк', 'Автоторгбанк', 'Агора',
         'Агропромкредит', 'Агророс', 'Азиатско-Тихоокеанский Банк', 'Азия-Инвест Банк', 'Айсибиси Банк',
