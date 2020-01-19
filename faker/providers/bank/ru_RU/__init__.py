@@ -17,19 +17,19 @@ class Provider(BankProvider):
     )
 
     department_code_formats = (
-        '0#', '1#', '2#', '3#', ' 4#', '5#', '6#', '7#', '8#', '9#'
+        '0#', '1#', '2#', '3#', ' 4#', '5#', '6#', '7#', '8#', '9#',
     )
 
     credit_organization_code_formats = (
-        '05#', '06#', '07#', '08#', '09#', '1##', '2##', '3##', '4##', '5##', '6##', '7##', '8##', '9##'
+        '05#', '06#', '07#', '08#', '09#', '1##', '2##', '3##', '4##', '5##', '6##', '7##', '8##', '9##',
     )
 
-    checking_account_codes = [str(i) for i in range(102, 110)] + ['203', '204'] + [str(i) for i in range(301, 330)] +\
-                            [str(i) for i in range(401, 409)] + [str(i) for i in range(411, 426)] + ['430'] +\
-                            [str(i) for i in range(501, 527)]
+    checking_account_codes = [str(i) for i in range(102, 110)] + ['203', '204'] + [str(i) for i in range(301, 330)] + \
+                             [str(i) for i in range(401, 409)] + [str(i) for i in range(411, 426)] + ['430'] + \
+                             [str(i) for i in range(501, 527)]
 
     organization_codes = (
-        '01', '02', '03', '04'
+        '01', '02', '03', '04',
     )
 
     # See https://ru.wikipedia.org/wiki/Общероссийский_классификатор_валют
@@ -44,7 +44,7 @@ class Provider(BankProvider):
         '764', '776', '780', '784', '788', '800', '807', '810', '818', '826', '834', '840', '858', '860', '882', '886',
         '894', '901', '931', '932', '933', '934', '936', '937', '938', '940', '941', '943', '944', '946', '947', '948',
         '949', '950', '951', '952', '953', '959', '960', '961', '962', '963', '964', '968', '969', '970', '971', '972',
-        '973', '975', '976', '977', '978', '980', '981', '985', '986', '997', '998', '999'
+        '973', '975', '976', '977', '978', '980', '981', '985', '986', '997', '998', '999',
     )
 
     """
@@ -125,6 +125,7 @@ class Provider(BankProvider):
     BIC is a bank identification code that is used in Russia
     See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код
     """
+
     def bic(self):
         region = self.random_element(self.region_codes)
         department_code = self.numerify(self.random_element(self.department_code_formats))
@@ -135,19 +136,21 @@ class Provider(BankProvider):
     Correspondent account is established to handle various financial operations between financial institutions
     See https://en.wikipedia.org/wiki/Корреспондентский_счёт
     """
+
     def correspondent_account(self):
         credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
-        return '301' + self.numerify('#'*14) + credit_organization_code
+        return '301' + self.numerify('#' * 14) + credit_organization_code
 
     """
     Checking account is used in banks to handle financial operations of clients
     See https://ru.wikipedia.org/wiki/Расчётный_счёт
     """
+
     def checking_account(self):
         account = self.random_element(self.checking_account_codes)
         organization = self.random_element(self.organization_codes)
         currency = self.random_element(self.currency_codes)
-        return account + organization + currency + self.numerify('#'*12)
+        return account + organization + currency + self.numerify('#' * 12)
 
     def bank(self):
         return self.random_element(self.banks)

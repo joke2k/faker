@@ -220,7 +220,7 @@ class Provider(AutomotiveProvider):
     )
 
     plate_special_formats = (
-        '00#CD#', '00#D###', '00#T###'
+        '00#CD#', '00#D###', '00#T###',
     )
 
     def license_plate(self):
