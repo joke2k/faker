@@ -2,14 +2,14 @@ import re
 import unittest
 
 from faker import Faker
-from faker.providers.company.ru_RU import Provider as RuProvider
-from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.nl_NL import Provider as NlProvider
 from faker.providers.company.pl_PL import Provider as PlProvider
 from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
+from faker.providers.company.ru_RU import Provider as RuProvider
+from faker.providers.company.ru_RU import calculate_checksum
 from faker.utils.datetime_safe import datetime
 
 
