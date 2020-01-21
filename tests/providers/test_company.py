@@ -2,7 +2,8 @@ import re
 import unittest
 
 from faker import Faker
-from faker.providers.company import ru_RU as ru
+from faker.providers.company.ru_RU import Provider as RuProvider
+from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.hy_AM import Provider as HyAmProvider
 from faker.providers.company.ja_JP import Provider as JaProvider
 from faker.providers.company.nl_NL import Provider as NlProvider
@@ -266,27 +267,27 @@ class TestRuRu(unittest.TestCase):
         Faker.seed(0)
 
     def test_calculate_checksum_nine_digits(self):
-        assert ru.calculate_checksum('164027304') == '7'
-        assert ru.calculate_checksum('629082979') == '0'
-        assert ru.calculate_checksum('0203184580') == '5'
-        assert ru.calculate_checksum('1113145630') == '0'
-        assert ru.calculate_checksum('70517081385') == '1'
-        assert ru.calculate_checksum('60307390550') == '0'
+        assert calculate_checksum('164027304') == '7'
+        assert calculate_checksum('629082979') == '0'
+        assert calculate_checksum('0203184580') == '5'
+        assert calculate_checksum('1113145630') == '0'
+        assert calculate_checksum('70517081385') == '1'
+        assert calculate_checksum('60307390550') == '0'
 
     def test_businesses_inn(self):
         for i in range(self.num_sample_runs):
             inn = self.fake.businesses_inn()
 
             assert len(inn) == 10
-            assert ru.calculate_checksum(inn[:9]) == inn[9]
+            assert calculate_checksum(inn[:9]) == inn[9]
 
     def test_individuals_inn(self):
         for i in range(self.num_sample_runs):
             inn = self.fake.individuals_inn()
 
             assert len(inn) == 12
-            assert ru.calculate_checksum(inn[:10]) == inn[10]
-            assert ru.calculate_checksum(inn[:11]) == inn[11]
+            assert calculate_checksum(inn[:10]) == inn[10]
+            assert calculate_checksum(inn[:11]) == inn[11]
 
     def test_businesses_ogrn(self):
         max_year = datetime.now().year - 2000
@@ -320,3 +321,24 @@ class TestRuRu(unittest.TestCase):
             assert 1 <= int(kpp[0:2]) <= 92
             assert int(kpp[2:4]) > 0
             assert kpp[4:6] in ('01', '43', '44', '45')
+
+    def test_company_prefix(self):
+        prefixes = RuProvider.company_prefixes
+        for i in range(self.num_sample_runs):
+            prefix = self.fake.company_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in prefixes
+
+    def test_company_suffix(self):
+        suffixes = RuProvider.company_suffixes
+        for i in range(self.num_sample_runs):
+            suffix = self.fake.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in suffixes
+
+    def test_large_companies(self):
+        companies = RuProvider.large_companies
+        for i in range(self.num_sample_runs):
+            company = self.fake.large_company()
+            assert isinstance(company, str)
+            assert company in companies
