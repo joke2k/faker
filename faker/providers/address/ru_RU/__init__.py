@@ -11,7 +11,7 @@ class Provider(AddressProvider):
                               '{{street_name}}, д. {{building_number}} стр. {{building_number}}')
     address_formats = ('{{city}}, {{street_address}}, {{postcode}}', )
     postcode_formats = ('######',)
-    building_number_formats = ('###', '##', '#', '#/#')
+    building_number_formats = ('%##', '%#', '%', '%/%')
 
     city_prefixes = ('г.', 'п.', 'к.', 'с.', 'д.', 'клх', 'ст.')
 
@@ -131,21 +131,22 @@ class Provider(AddressProvider):
         '1 Мая', '9 мая', 'Тукая',
     )
 
-    street_titles_irregular_masc = (
-        'Полевой', 'Луговой', 'Степной', 'Заводской', 'Береговой',
-        'Речной', 'Трудовой', 'Ключевой', 'Мостовой', 'Кольцевой',
-        'Боровой', 'Донской', 'Морской', 'Сенной', 'Прудовой',
-        'Большрй', 'Окружной', 'Хуторской', 'Логовой', 'Моховой',
-        'Угловой', 'Слободской', 'Путевой', 'Городской', 'Рабочий',
-        'Верхний', 'Тихий', 'Широкий', 'Нижний', 'Дальний',
-        'Крайний', 'Казачий', 'Весенний', 'Средний', 'Короткий',
-        'Осенний', 'Проезжий', 'Высокий',
-    )
+    street_titles_irregular_masc = {
+        'Полевая': 'Полевой', 'Луговая': 'Луговой', 'Степная': 'Степной', 'Заводская': 'Заводской',
+        'Береговая': 'Береговой', 'Речная': 'Речной', 'Трудовая': 'Трудовой', 'Ключевая': 'Ключевой',
+        'Мостовая': 'Мостовой', 'Кольцевая': 'Кольцевой', 'Боровая': 'Боровой', 'Донская': 'Донской',
+        'Морская': 'Морской', 'Сенная': 'Сенной', 'Прудовая': 'Прудовой', 'Большая': 'Большой',
+        'Окружная': 'Окружной', 'Хуторская': 'Хуторской', 'Логовая': 'Логовой', 'Моховая': 'Моховой',
+        'Угловая': 'Угловой', 'Слободская': 'Слободской', 'Путевая': 'Путевой', 'Городская': 'Городской',
+        'Рабочая': 'Рабочий', 'Верхняя': 'Верхний', 'Тихая': 'Тихий', 'Широкая': 'Широкий', 'Нижняя': 'Нижний',
+        'Дальняя': 'Дальний', 'Крайняя': 'Крайний', 'Казачья': 'Казачий', 'Весенняя': 'Весенний', 'Средняя': 'Средний',
+        'Короткая': 'Короткий', 'Осенняя': 'Осенний', 'Проезжая': 'Проезжий', 'Высокая': 'Высокий',
+    }
 
-    street_titles_irregular_neu = (
-        'Весеннее', 'Верхнее', 'Нижнее', 'Среднее', 'Дальнее',
-        'Крайнее', 'Казачье', 'Рабочее', 'Осеннее', 'Проезжее',
-    )
+    street_titles_irregular_neu = {
+        'Весенняя': 'Весеннее', 'Верхняя': 'Верхнее', 'Нижняя': 'Нижнее', 'Средняя': 'Среднее', 'Дальняя': 'Дальнее',
+        'Крайняя': 'Крайнее', 'Казачья': 'Казачье', 'Рабочая': 'Рабочее', 'Осеняя': 'Осеннее', 'Проезжая': 'Проезжее',
+    }
 
     city_names = (
         'Абакан', 'Абинск', 'Агата', 'Агинское (Забайк.)', 'Адлер', 'Адыгейск',
@@ -358,18 +359,14 @@ class Provider(AddressProvider):
 
     def region(self):
         regions_suffix = self.random_element(self.region_suffixes)
-        region_name = ''
-        result = region_name + ' ' + regions_suffix
         if regions_suffix == 'респ.':
-            region_name = self.random_element(self.region_republics)
-            result = regions_suffix + ' ' + region_name
+            return regions_suffix + ' ' + self.random_element(self.region_republics)
         elif regions_suffix == 'край':
-            region_name = self.random_element(self.region_krai)
+            return self.random_element(self.region_krai) + ' ' + regions_suffix
         elif regions_suffix == 'обл.':
-            region_name = self.random_element(self.region_oblast)
+            return self.random_element(self.region_oblast) + ' ' + regions_suffix
         elif regions_suffix == 'АО':
-            region_name = self.random_element(self.region_ao)
-        return result
+            return self.random_element(self.region_ao) + ' ' + regions_suffix
 
     def street_suffix(self):
         return self.random_element(self.street_suffixes)
@@ -381,16 +378,18 @@ class Provider(AddressProvider):
         suffix = self.street_suffix()
         street = self.street_title()
         stem = street[:-2]
-        inflexion = ''
         result = street
-        if street not in self.street_titles_noflex:
-            if not (suffix in self.street_suffixes_fem and (stem in self.street_titles_irregular_masc
-                                                            or stem in self.street_titles_irregular_neu)):
-                if suffix in self.street_suffixes_masc:
-                    result = stem + inflexion
-                    inflexion = 'ый'
+        if street not in self.street_titles_noflex and suffix not in self.street_suffixes_fem:
+            if suffix in self.street_suffixes_masc:
+                if street in self.street_titles_irregular_masc.keys():
+                    result = self.street_titles_irregular_masc[street]
+                else:
+                    result = stem + 'ый'
                     if stem.endswith('ск') or stem.endswith('цк'):
-                        inflexion = 'ий'
-                elif suffix in self.street_suffixes_neu:
-                    inflexion = 'ое'
+                        result = stem + 'ий'
+            elif suffix in self.street_suffixes_neu:
+                if street in self.street_titles_irregular_neu.keys():
+                    result = self.street_titles_irregular_neu[street]
+                else:
+                    result = stem + 'ое'
         return suffix + ' ' + result

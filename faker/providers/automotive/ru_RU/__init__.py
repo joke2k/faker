@@ -197,18 +197,30 @@ class Provider(AutomotiveProvider):
     )
 
     license_plate_formats = (
-        '{{plate_letter}}###{{plate_letter}}{{plate_letter}}{{plate_suffix}}',
-        '{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
-        '{{plate_letter}}{{plate_letter}}####{{plate_suffix}}',
-        '####{{plate_letter}}{{plate_letter}}{{plate_suffix}}',
-        '###CD#{{plate_suffix}}',
-        '###D###{{plate_suffix}}',
-        '###T###{{plate_suffix}}',
-        '{{plate_letter}}####{{plate_suffix}}',
-        '###{{plate_letter}}{{plate_suffix}}',
-        '####{{plate_letter}}{{plate_suffix}}',
-        'K{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
-        'C{{plate_letter}}{{plate_letter}}###{{plate_suffix}}',
+        # Private vehicle plate
+        '{{plate_letter}}{{plate_number}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Public transport plate
+        '{{plate_letter}}{{plate_letter}}{{plate_number}} {{plate_suffix}}',
+        # Trailer plate
+        '{{plate_letter}}{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        # Police forces vehicle plate
+        '{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        # Military vehicle plate
+        '{{plate_number_extra}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Diplomatic vehicles
+        '{{plate_number_special}} {{plate_suffix}}',
+    )
+
+    plate_number_formats = (
+        '###',
+    )
+
+    plate_extra_formats = (
+        '####',
+    )
+
+    plate_special_formats = (
+        '00#CD#', '00#D###', '00#T###',
     )
 
     def license_plate(self):
@@ -218,8 +230,17 @@ class Provider(AutomotiveProvider):
     def plate_letter(self):
         return self.random_element(self.license_plate_letters)
 
+    def plate_number(self):
+        return self.numerify(self.random_element(self.plate_number_formats))
+
+    def plate_number_extra(self):
+        return self.numerify(self.random_element(self.plate_extra_formats))
+
+    def plate_number_special(self):
+        return self.numerify(self.random_element(self.plate_special_formats))
+
     def plate_suffix(self):
-        return self.random_element(self.license_plate_letters)
+        return self.random_element(self.license_plate_suffix)
 
     def vehicle_category(self):
         return self.random_element(self.vehicle_categories)
