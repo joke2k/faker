@@ -153,6 +153,13 @@ class TestCsCZ(unittest.TestCase):
         for _ in range(100):
             assert re.search(r'^CZ\d{8,10}$', self.fake.vat_id())
 
+    def test_birth_number(self):
+        for _ in range(100):
+            birth_number = self.fake.birth_number()
+            assert len(birth_number) in [10, 11]
+            assert birth_number[6] == "/"
+            assert int(birth_number.replace("/", "")) % 11 == 0
+
 
 class TestDeAT(unittest.TestCase):
     def setUp(self):
