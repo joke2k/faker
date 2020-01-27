@@ -3,15 +3,33 @@ from collections import OrderedDict
 from .. import Provider as PersonProvider
 
 
+# See transliteration table https://en.wikipedia.org/wiki/Romanization_of_Russian#Transliteration_table
+def translit(text):
+    translit_dict = {
+      'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y',
+      'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f',
+      'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu',
+      'я': 'ya', 'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'Ye', 'Ë': 'E', 'Ж': 'Zh', 'З': 'Z', 'И': 'I',
+      'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+      'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch', 'Ы': 'Y', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya',
+      ' ': ' ', '-': '-', "'": "'",
+     }
+    for letter in text:
+        text = text.replace(letter, translit_dict[letter])
+    return text
+
+
 class Provider(PersonProvider):
     formats_male = OrderedDict((
-        ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.97),
-        ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.03),
+        ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.49),
+        ('{{first_name_male}} {{middle_name_male}} {{last_name_male}}', 0.49),
+        ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.02),
     ))
 
     formats_female = OrderedDict((
-        ('{{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.97),
-        ('{{prefix_female}} {{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.03),
+        ('{{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.49),
+        ('{{first_name_female}} {{middle_name_female}} {{last_name_female}}', 0.49),
+        ('{{prefix_female}} {{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.02),
     ))
 
     # Using random_element's dictionary weighting means that the
@@ -254,7 +272,7 @@ class Provider(PersonProvider):
 
     middle_names = middle_names_male + middle_names_female
 
-    prefixes_male = ('г-н.', 'тов.')
+    prefixes_male = ('г-н', 'тов.')
 
     prefixes_female = ('г-жа', 'тов.')
 

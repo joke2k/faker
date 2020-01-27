@@ -12,6 +12,8 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
+from faker.providers.person.ru_RU import Provider as RuProvider
+from faker.providers.person.ru_RU import translit
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
@@ -554,3 +556,41 @@ class TestTaIN(unittest.TestCase):
         assert name in TaINProvider.first_names_male
         name = self.fake.first_name()
         assert name in TaINProvider.first_names
+
+
+class TestRuRU(unittest.TestCase):
+    """ Tests person in the ru_RU locale """
+
+    def setUp(self):
+        self.fake = Faker('ru_RU')
+        Faker.seed(0)
+
+    def test_translit(self):
+        assert translit('Александр Сергеевич Пушкин') == 'Aleksandr Sergeevich Pushkin'
+        assert translit('Анна Андреевна Ахматова') == 'Anna Andreevna Akhmatova'
+        assert translit('Михаил') == 'Mikhail'
+        assert translit('Фёдор') == 'Fedor'
+        assert translit('Екатерина') == 'Yekaterina'
+        assert translit('Анастасия') == 'Anastasiya'
+        assert translit('Юрьевич') == 'Yurevich'
+        assert translit('Никитична') == 'Nikitichna'
+        assert translit('Щербакова') == 'Shcherbakova'
+        assert translit('Маяковский') == 'Mayakovskiy'
+        assert translit('Петров-Водкин') == 'Petrov-Vodkin'
+        assert translit('Воронцова-Дашкова') == 'Vorontsova-Dashkova'
+
+    def test_name_female(self):
+        first_name = self.fake.first_name_female()
+        assert first_name in RuProvider.first_names_female
+        middle_name = self.fake.middle_name_female()
+        assert middle_name in RuProvider.middle_names_female
+        last_name = self.fake.last_name_female()
+        assert last_name in RuProvider.last_names_female
+
+    def test_name_male(self):
+        first_name = self.fake.first_name_male()
+        assert first_name in RuProvider.first_names_male
+        middle_name = self.fake.middle_name_male()
+        assert middle_name in RuProvider.middle_names_male
+        last_name = self.fake.last_name_male()
+        assert last_name in RuProvider.last_names_male

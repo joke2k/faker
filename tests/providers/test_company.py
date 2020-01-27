@@ -342,3 +342,16 @@ class TestRuRu(unittest.TestCase):
             company = self.fake.large_company()
             assert isinstance(company, str)
             assert company in companies
+
+    def test_catchphrase(self):
+        for i in range(self.num_sample_runs):
+            catchphrase = self.fake.catch_phrase()
+            assert isinstance(catchphrase, str)
+            assert ' и ' in catchphrase
+
+    def test_bs(self):
+        for i in range(self.num_sample_runs):
+            bs = self.fake.bs()
+            bs_words = bs.split()
+            assert isinstance(bs, str)
+            assert bs_words[0] in RuProvider.bsWords[0]
