@@ -728,13 +728,13 @@ class TestRuRu(unittest.TestCase):
         Faker.seed(0)
 
     def test_day(self):
-        for _ in range(100):
+        for _ in range(50):
             day = self.fake.day_of_week()
             assert isinstance(day, str)
             assert day in RuProvider.DAY_NAMES.values()
 
     def test_month(self):
-        for _ in range(100):
+        for _ in range(50):
             month = self.fake.month_name()
             assert isinstance(month, str)
             assert month in RuProvider.MONTH_NAMES.values()
