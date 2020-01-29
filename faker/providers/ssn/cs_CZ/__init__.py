@@ -1,3 +1,5 @@
+from math import ceil
+
 from .. import Provider as BaseProvider
 
 
@@ -32,12 +34,9 @@ class Provider(BaseProvider):
         else:
             sn = self.random_number(3, True)
         number = int('{}{}{}{}'.format(year, month, day, sn))
-        while number % 11 != 0:
-            number += 1
-        else:
-            number = str(number)
-            if year == '00':
-                number = '00' + number
-            elif year[0] == '0':
-                number = '0' + number
-            return '{}/{}'.format(number[:6], number[6::])
+        birth_number = str(ceil(number / 11) * 11)
+        if year == '00':
+            birth_number = '00' + birth_number
+        elif year[0] == '0':
+            birth_number = '0' + birth_number
+        return '{}/{}'.format(birth_number[:6], birth_number[6::])
