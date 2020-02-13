@@ -329,74 +329,12 @@ How to use with Factory Boy
 Accessing the `random` instance
 -------------------------------
 
-The ``.random`` property on the generator returns the instance of
-``random.Random`` used to generate the values:
-
-.. code:: python
-
-    from faker import Faker
-    fake = Faker()
-    fake.random
-    fake.random.getstate()
-
-By default all generators share the same instance of ``random.Random``, which
-can be accessed with ``from faker.generator import random``. Using this may
-be useful for plugins that want to affect all faker instances.
+< TO BE UPDATED >
 
 Seeding the Generator
 ---------------------
 
-When using Faker for unit testing, you will often want to generate the same
-data set. For convenience, the generator also provide a ``seed()`` method,
-which seeds the shared random number generator. Calling the same methods with
-the same version of faker and seed produces the same results.
-
-.. code:: python
-
-    from faker import Faker
-    fake = Faker()
-    Faker.seed(4321)
-
-    print(fake.name())
-    # 'Margaret Boehm'
-
-Each generator can also be switched to its own instance of ``random.Random``,
-separate to the shared one, by using the ``seed_instance()`` method, which acts
-the same way. For example:
-
-.. code:: python
-
-    from faker import Faker
-    fake = Faker()
-    fake.seed_instance(4321)
-
-    print(fake.name())
-    # 'Margaret Boehm'
-
-Please note that as we keep updating datasets, results are not guaranteed to be
-consistent across patch versions. If you hardcode results in your test, make sure
-you pinned the version of ``Faker`` down to the patch number.
-
-Tests
------
-
-Run tests:
-
-.. code:: bash
-
-    $ tox
-
-Write documentation for providers:
-
-.. code:: bash
-
-    $ python -m faker > docs.txt
-
-
-Contribute
-----------
-
-Please see `CONTRIBUTING`_.
+< TO BE UPDATED >
 
 License
 -------
@@ -426,22 +364,6 @@ Credits
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
-
-.. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
-    :target: https://pypi.org/project/Faker/
-    :alt: Latest version released on PyPI
-
-.. |coverage| image:: https://img.shields.io/coveralls/joke2k/faker/master.svg?style=flat-square
-    :target: https://coveralls.io/r/joke2k/faker?branch=master
-    :alt: Test coverage
-
-.. |unix_build| image:: https://img.shields.io/travis/joke2k/faker/master.svg?style=flat-square&label=unix%20build
-    :target: http://travis-ci.org/joke2k/faker
-    :alt: Build status of the master branch on Mac/Linux
-
-.. |windows_build|  image:: https://img.shields.io/appveyor/ci/joke2k/faker/master.svg?style=flat-square&label=windows%20build
-    :target: https://ci.appveyor.com/project/joke2k/faker
-    :alt: Build status of the master branch on Windows
 
 .. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://raw.githubusercontent.com/joke2k/faker/master/LICENSE.txt
