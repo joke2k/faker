@@ -4,13 +4,6 @@ import os
 
 from setuptools import find_packages, setup
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
-    README = fp.read()
-
-with open(os.path.join(here, 'VERSION')) as version_file:
-    VERSION = version_file.read().strip()
-
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
@@ -24,9 +17,9 @@ except AttributeError:
 
 setup(
     name='Faker',
-    version=VERSION,
+    version=0.1,
     description="Faker is a Python package that generates fake data for you.",
-    long_description=README,
+    long_description=None,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
     },
