@@ -58,7 +58,6 @@ setup(
     platforms=["any"],
     zip_safe=zip_safe,
     python_requires=">=3.4",
-    setup_requires=["pytest-runner"],
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",
