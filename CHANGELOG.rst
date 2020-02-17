@@ -1,6 +1,29 @@
 Changelog
 =========
 
+`4.0.1 - 17-February-2019 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
+--------------------------------------------------------------------------------------
+
+* Provider improvements for Russian locale:
+    * added city suffixes, regions and country list
+    * regions converted into states for now
+    * street address formats and states expanded
+    * lists for street titles changed
+    * Fixed errors in Automotive Provider
+    * Fixed errors in Address Provider
+    * Bank Provider expanded:
+        * BIC added)
+        * Added list of banks
+    * Improved Company Provider
+    * Credit Card and Person Provider improvements
+    * Currency Provider improvements
+    * Date-Time Provider improvements
+    * translit fix
+
+  Thanks @valestel.
+* Add Birth Number to czech locale. Thanks @Jengah.
+* Add persons provider for ``fr_QC``. Thanks @Lionesk.
+
 `4.0.0 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
 -------------------------------------------------------------------------------------
 
