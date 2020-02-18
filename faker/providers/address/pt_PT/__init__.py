@@ -2,13 +2,15 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    street_prefixes = ('Av', 'Avenida', 'R.', 'Rua', 'Travessa', 'Largo')
+
+    street_prefixes = ('Av', 'Avenida', 'R.', 'Rua', 'Travessa', 'Largo', 'Alameda', 'Praça')
 
     city_formats = ('{{city_name}}',)
     street_name_formats = (
         '{{street_prefix}} {{last_name}}',
-        '{{street_prefix}} {{first_name}} {{last_name}}',
-        '{{street_prefix}} de {{last_name}}',
+        #'{{street_prefix}} {{first_name}} {{last_name}}',
+        #'{{street_prefix}} de {{last_name}}',
+        '{{street_prefix}} {{place_name}}',
     )
 
     street_address_formats = (
@@ -266,6 +268,14 @@ class Provider(AddressProvider):
         "Vila Viçosa", "Vimioso", "Vinhais", "Viseu", "Vizela", "Vouzela",
     ]
 
+    # from https://pt.wikipedia.org/wiki/Lista_de_arruamentos_de_Lisboa
+    # and https://pt.wikipedia.org/wiki/Lista_de_arruamentos_do_Porto
+
+    places = (
+        "da Alegria", "de Jesus", "de Gustavo Eiffel", "de Fernão de Magalhães", "do Pombal",
+    )
+
+
     def street_prefix(self):
         """
         :example 'Rua'
@@ -295,3 +305,9 @@ class Provider(AddressProvider):
         :example 'Miranda do Douro'
         """
         return self.random_element(self.freguesias)
+
+    def place_name(self):
+        """
+        :example "do Pombal"
+        """
+        return self.random_element(self.places)
