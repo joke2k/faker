@@ -387,8 +387,6 @@ class Provider(AddressProvider):
         "do Buraco", "do José da Mestra", "do Monte da Pena", "do Picoto", "do Sobreirinho",
         )
 
-
-
     def street_prefix(self):
         """
         :example 'Rua'
