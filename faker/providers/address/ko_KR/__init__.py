@@ -174,7 +174,7 @@ class Provider(AddressProvider):
         '진천군',
         '괴산군',
         '음성군',
-        '단양군'
+        '단양군',
     )
     road_names = (
         '압구정',
