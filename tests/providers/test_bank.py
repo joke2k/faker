@@ -94,3 +94,19 @@ class TestRuRU(unittest.TestCase):
     def test_bank(self):
         bank = self.fake.bank()
         assert re.match(r"\D{3,41}", bank)
+
+
+class TestPtPt(unittest.TestCase):
+    """Tests the bank provider for pt_PT locale"""
+
+    def setUp(self):
+        self.fake = Faker('pt_PT')
+        Faker.seed(0)
+
+    def test_bban(self):
+        bban = self.fake.bban()
+        assert re.match(r"\d{21}", bban)
+
+    def test_iban(self):
+        iban = self.fake.iban()
+        assert re.match(r"PT\d{26}")

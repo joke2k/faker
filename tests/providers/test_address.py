@@ -1051,6 +1051,11 @@ class TestPtPT(unittest.TestCase):
         assert isinstance(freguesia, str)
         assert freguesia in PtPtProvider.freguesias
 
+    def test_place_name(self):
+        place_name = self.fake.place_name()
+        assert isinstance(place_name, str)
+        assert place_name in PtPtProvider.places
+
 
 class TestEnPh(unittest.TestCase):
     num_sample_runs = 1000
