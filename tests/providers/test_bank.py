@@ -109,4 +109,4 @@ class TestPtPt(unittest.TestCase):
 
     def test_iban(self):
         iban = self.fake.iban()
-        assert re.match(r"PT\d{21}")
+        assert re.match(r"PT\d{23}")
