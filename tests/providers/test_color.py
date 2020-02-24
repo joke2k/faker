@@ -7,8 +7,8 @@ from re import search
 
 from faker import Faker
 from faker.providers.color import RandomColor
-from faker.providers.color.hy_AM import Provider as HyAmProvider
 from faker.providers.color.fa_IR import Provider as FaIrProvider
+from faker.providers.color.hy_AM import Provider as HyAmProvider
 
 
 class TestColor(unittest.TestCase):
