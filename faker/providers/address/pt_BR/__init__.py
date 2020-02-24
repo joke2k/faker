@@ -295,6 +295,12 @@ class Provider(AddressProvider):
         :example 'Serra'
         """
         return self.random_element(self.bairros)
+    
+    def postcode(self, formatted=True):
+        postcode_raw_formats = ('########', )
+        postcode_all_formats = postcode_raw_formats + ( '#####-###', )
+        template = postcode_all_formats if formatted else postcode_raw_formats
+        return self.bothify(self.random_element(template))
 
     # aliases
     def neighborhood(self):
