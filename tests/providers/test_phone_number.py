@@ -17,6 +17,13 @@ class TestPhoneNumber(unittest.TestCase):
         assert pn
         assert isinstance(pn, str)
 
+    def test_country_calling_code(self):
+        cc = self.fake.country_calling_code()
+
+        assert cc
+        assert isinstance(cc, str)
+        assert cc.startswith('+')
+
     def test_msisdn(self):
         msisdn = self.fake.msisdn()
 
