@@ -1,8 +1,10 @@
 import unittest
-from faker.providers.isbn.en_US import Provider as ISBNProvider
-from faker.providers.isbn import ISBN10, ISBN13
-from faker.providers.isbn.rules import RegistrantRule
+
 import pytest
+
+from faker.providers.isbn import ISBN10, ISBN13
+from faker.providers.isbn.en_US import Provider as ISBNProvider
+from faker.providers.isbn.rules import RegistrantRule
 
 
 class TestISBN10(unittest.TestCase):

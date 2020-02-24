@@ -1,6 +1,8 @@
-# coding=utf-8
-from __future__ import unicode_literals
+import string
+
 from .. import Provider as AddressProvider
+
+ALPHABET = string.ascii_uppercase
 
 
 class Provider(AddressProvider):
@@ -49,7 +51,7 @@ class Provider(AddressProvider):
         '타워',
     )
     road_suffixes = ('로', '길', '거리', '가')
-    town_suffixes = ('동', '리', '마을')
+    town_suffixes = ('동', '읍', '면', '리', '마을')
     postcode_formats = ('###-###',)
     new_postal_code_formats = ('#####',)
     metropolitan_cities = (
@@ -125,6 +127,54 @@ class Provider(AddressProvider):
         '수원시 장안구',
         '의정부시',
         '여주시',
+        '춘천시',
+        '원주시',
+        '강릉시',
+        '동해시',
+        '태백시',
+        '속초시',
+        '삼척시',
+        '홍천군',
+        '횡성군',
+        '영월군',
+        '평창군',
+        '정선군',
+        '철원군',
+        '화천군',
+        '양구군',
+        '인제군',
+        '고성군',
+        '양양군',
+        '천안시 동남구',
+        '천안시 서북구',
+        '공주시',
+        '보령시',
+        '아산시',
+        '서산시',
+        '논산시',
+        '계룡시',
+        '당진시',
+        '금산군',
+        '부여군',
+        '서천군',
+        '청양군',
+        '홍성군',
+        '예산군',
+        '태안군',
+        '청주시 상당구',
+        '청주시 서원구',
+        '청주시 흥덕구',
+        '청주시 청원구',
+        '충주시',
+        '제천시',
+        '보은군',
+        '옥천군',
+        '영동군',
+        '증평군',
+        '진천군',
+        '괴산군',
+        '음성군',
+        '단양군',
     )
     road_names = (
         '압구정',
@@ -218,7 +268,7 @@ class Provider(AddressProvider):
         '바',
         '##',
         '###',
-    )
+    ) + tuple(ALPHABET)
     land_numbers = (
         '###',
         '###-#',

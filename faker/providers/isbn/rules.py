@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 This module exists solely to figure how long a registrant/publication
 number may be within an ISBN. The rules change based on the prefix and

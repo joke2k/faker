@@ -1,9 +1,4 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
-from six import string_types
 
 from .. import BaseProvider
 
@@ -65,7 +60,7 @@ class Provider(BaseProvider):
         :param upc_a: UPC-A barcode to convert
         :return: UPC-E equivalent barcode
         """
-        if not isinstance(upc_a, string_types):
+        if not isinstance(upc_a, str):
             raise TypeError('`upc_a` is not a string')
         m1 = self.upc_ae_pattern1.match(upc_a)
         m2 = self.upc_ae_pattern2.match(upc_a)
@@ -96,7 +91,7 @@ class Provider(BaseProvider):
         :param number_system_digit: 0 or 1
         :return: 12-digit UPC-A barcode that can be converted to UPC-E
         """
-        if isinstance(base, string_types) and self.upc_e_base_pattern.match(base):
+        if isinstance(base, str) and self.upc_e_base_pattern.match(base):
             base = [int(x) for x in base]
         else:
             base = [self.random_int(0, 9) for _ in range(6)]

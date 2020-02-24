@@ -1,5 +1,3 @@
-# coding=utf-8
-
 import re
 import string
 
@@ -15,7 +13,7 @@ _re_qm = re.compile(r'\?')
 _re_cir = re.compile(r'\^')
 
 
-class BaseProvider(object):
+class BaseProvider:
 
     __provider__ = 'base'
     __lang__ = None
@@ -151,10 +149,15 @@ class BaseProvider(object):
             fixed length number
         """
         if digits is None:
-            digits = self.random_digit()
+            digits = self.random_digit_not_null()
+        if digits < 0:
+            raise ValueError("The digit parameter must be greater than or equal to 0.")
         if fix_len:
-            return self.generator.random.randint(
-                pow(10, digits - 1), pow(10, digits) - 1)
+            if digits > 0:
+                return self.generator.random.randint(
+                    pow(10, digits - 1), pow(10, digits) - 1)
+            else:
+                raise ValueError("A number of fixed length cannot have less than 1 digit in it.")
         else:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 

@@ -1,7 +1,5 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 import string
+
 from collections import OrderedDict
 
 from .. import BaseProvider
@@ -217,7 +215,7 @@ class Provider(BaseProvider):
         """
         extension = extension if extension else self.file_extension(category)
         filename = self.generator.word()
-        return '{0}.{1}'.format(filename, extension)
+        return '{}.{}'.format(filename, extension)
 
     def file_extension(self, category=None):
         """
@@ -234,9 +232,9 @@ class Provider(BaseProvider):
         :param depth: depth of the file (depth >= 0)
         """
         file = self.file_name(category, extension)
-        path = "/{0}".format(file)
+        path = "/{}".format(file)
         for _ in range(0, depth):
-            path = "/{0}{1}".format(self.generator.word(), path)
+            path = "/{}{}".format(self.generator.word(), path)
         return path
 
     def unix_device(self, prefix=None):

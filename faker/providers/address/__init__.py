@@ -1,8 +1,4 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
-from .. import BaseProvider
-from .. import date_time
+from .. import BaseProvider, date_time
 
 localized = True
 

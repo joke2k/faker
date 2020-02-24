@@ -1,19 +1,12 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 import csv
 import hashlib
 import io
 import string
 import tarfile
 import uuid
-import sys
 import zipfile
 
-import six
-
 from .. import BaseProvider
-
 
 localized = True
 
@@ -37,14 +30,14 @@ class Provider(BaseProvider):
         Default blob size is 1 Mb.
         """
         blob = [self.generator.random.randrange(256) for _ in range(length)]
-        return bytes(blob) if sys.version_info[0] >= 3 else bytearray(blob)
+        return bytes(blob)
 
     def md5(self, raw_output=False):
         """
         Calculates the md5 hash of a given string
         :example 'cfcd208495d565ef66e7dff9f98764da'
         """
-        res = hashlib.md5(str(self.generator.random.random()).encode('utf-8'))
+        res = hashlib.md5(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -54,7 +47,7 @@ class Provider(BaseProvider):
         Calculates the sha1 hash of a given string
         :example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
         """
-        res = hashlib.sha1(str(self.generator.random.random()).encode('utf-8'))
+        res = hashlib.sha1(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -65,7 +58,7 @@ class Provider(BaseProvider):
         :example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
         """
         res = hashlib.sha256(
-            str(self.generator.random.random()).encode('utf-8'))
+            str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -157,12 +150,8 @@ class Provider(BaseProvider):
                 '`uncompressed_size` is smaller than the calculated minimum required size',
             )
         if compression in ['bzip2', 'bz2']:
-            if six.PY2:
-                raise RuntimeError('BZIP2 compression is not supported in Python 2')
             compression = zipfile.ZIP_BZIP2
         elif compression in ['lzma', 'xz']:
-            if six.PY2:
-                raise RuntimeError('LZMA compression is not supported in Python 2')
             compression = zipfile.ZIP_LZMA
         elif compression in ['deflate', 'gzip', 'gz']:
             compression = zipfile.ZIP_DEFLATED
@@ -183,10 +172,7 @@ class Provider(BaseProvider):
                     file_size = remaining_size
 
                 data = self.generator.binary(file_size)
-                if six.PY3:
-                    zip_handle.writestr(filename, data)
-                else:
-                    zip_handle.writestr(filename, str(data))
+                zip_handle.writestr(filename, data)
         return zip_buffer.getvalue()
 
     def tar(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
@@ -218,8 +204,6 @@ class Provider(BaseProvider):
         elif compression in ['bzip2', 'bz2']:
             mode = 'w:bz2'
         elif compression in ['lzma', 'xz']:
-            if six.PY2:
-                raise RuntimeError('LZMA compression is not supported in Python 2')
             mode = 'w:xz'
         else:
             mode = 'w'
@@ -278,7 +262,7 @@ class Provider(BaseProvider):
             if len(header) != len(data_columns):
                 raise ValueError('`header` and `data_columns` must have matching lengths')
 
-        dsv_buffer = six.StringIO()
+        dsv_buffer = io.StringIO()
         writer = csv.writer(dsv_buffer, dialect=dialect, **fmtparams)
 
         if header:
@@ -288,19 +272,13 @@ class Provider(BaseProvider):
             writer.writerow(header)
 
         for row_num in range(1, num_rows + 1):
-            if six.PY2:
-                row = [self.generator.pystr_format(column).encode('utf-8') for column in data_columns]
-            else:
-                row = [self.generator.pystr_format(column) for column in data_columns]
+            row = [self.generator.pystr_format(column) for column in data_columns]
             if include_row_ids:
                 row.insert(0, str(row_num))
 
             writer.writerow(row)
 
-        dsv = dsv_buffer.getvalue()
-        if six.PY2:
-            return dsv.decode('utf-8')
-        return dsv
+        return dsv_buffer.getvalue()
 
     def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
         """
@@ -315,7 +293,7 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter=str(','),
+            include_row_ids=include_row_ids, delimiter=',',
         )
 
     def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
@@ -331,7 +309,7 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter=str('\t'),
+            include_row_ids=include_row_ids, delimiter='\t',
         )
 
     def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
@@ -347,5 +325,5 @@ class Provider(BaseProvider):
 
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter=str('|'),
+            include_row_ids=include_row_ids, delimiter='|',
         )

@@ -1,8 +1,8 @@
-# coding=utf-8
+import re
+
+from string import ascii_uppercase
 
 from .. import BaseProvider
-from string import ascii_uppercase
-import re
 
 localized = True
 

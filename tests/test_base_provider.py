@@ -1,8 +1,6 @@
 import string
 import unittest
 
-import six
-
 from faker import Generator
 from faker.providers import BaseProvider
 
@@ -26,12 +24,12 @@ class TestBaseProvider(unittest.TestCase):
 
         # all letters to choose from
         lexified = self.provider.lexify(text)
-        self.assertIsInstance(lexified, six.string_types)
+        self.assertIsInstance(lexified, str)
         assert len(lexified) == len(text)
 
         # A set of letters to choose from
         lexified = self.provider.lexify(text, letters=letters)
-        self.assertIsInstance(lexified, six.string_types)
+        self.assertIsInstance(lexified, str)
         assert len(lexified) == len(text)
         for letter in lexified:
             assert letter in letters
@@ -42,12 +40,12 @@ class TestBaseProvider(unittest.TestCase):
 
         # all letters to choose from
         lexified = self.provider.lexify(text)
-        self.assertIsInstance(lexified, six.string_types)
+        self.assertIsInstance(lexified, str)
         assert len(lexified) == len(text)
 
         # A set of letters to choose from
         lexified = self.provider.lexify(text, letters=letters)
-        self.assertIsInstance(lexified, six.string_types)
+        self.assertIsInstance(lexified, str)
         assert len(lexified) == len(text)
         for letter in lexified:
             assert letter in letters + '# '
@@ -58,12 +56,12 @@ class TestBaseProvider(unittest.TestCase):
 
         # all letters to choose from
         bothify = self.provider.bothify(text)
-        self.assertIsInstance(bothify, six.string_types)
+        self.assertIsInstance(bothify, str)
         assert len(bothify) == len(text)
 
         # A set of letters to choose from
         bothify = self.provider.bothify(text, letters=letters)
-        self.assertIsInstance(bothify, six.string_types)
+        self.assertIsInstance(bothify, str)
         assert len(bothify) == len(text)
         for letter in bothify:
             assert letter in letters
@@ -74,12 +72,12 @@ class TestBaseProvider(unittest.TestCase):
 
         # all letters to choose from
         bothify = self.provider.bothify(text)
-        self.assertIsInstance(bothify, six.string_types)
+        self.assertIsInstance(bothify, str)
         assert len(bothify) == len(text)
 
         # A set of letters to choose from
         bothify = self.provider.bothify(text, letters=letters)
-        self.assertIsInstance(bothify, six.string_types)
+        self.assertIsInstance(bothify, str)
         assert len(bothify) == len(text)
         for letter in bothify:
             assert letter in letters + '0123456789# '

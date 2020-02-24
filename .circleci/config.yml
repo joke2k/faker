@@ -6,7 +6,5 @@ jobs:
       - image: circleci/python:latest-node-browsers
     steps:
       - checkout
-      - run: pip install --user virtualenv
-      - run: virtualenv faker
-      - run: source faker/bin/activate && pip install tox
-      - run: source faker/bin/activate && tox
+      - run: pip install --user tox
+      - run: tox

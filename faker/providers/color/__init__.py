@@ -1,9 +1,7 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
-from .color import RandomColor
 from .. import BaseProvider
+from .color import RandomColor
 
 localized = True
 
@@ -165,7 +163,7 @@ class Provider(BaseProvider):
         return self.random_element(self.safe_colors)
 
     def hex_color(self):
-        return "#{0}".format(
+        return "#{}".format(
             ("%x" %
              self.random_int(
                  1, 16777215)).ljust(

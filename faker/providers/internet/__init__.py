@@ -1,17 +1,13 @@
-# coding=utf-8
-from __future__ import unicode_literals
+from ipaddress import IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
 
 from text_unidecode import unidecode
-
-from .. import BaseProvider
-
-from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import lowercase, slugify, slugify_unicode
 from faker.utils.distribution import choices_distribution
 
+from .. import BaseProvider
 
 localized = True
 
@@ -121,7 +117,7 @@ class Provider(BaseProvider):
     @lowercase
     def email(self, domain=None):
         if domain:
-            email = '{0}@{1}'.format(self.user_name(), domain)
+            email = '{}@{}'.format(self.user_name(), domain)
         else:
             pattern = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))
@@ -480,6 +476,25 @@ class Provider(BaseProvider):
     def mac_address(self):
         mac = [self.generator.random.randint(0x00, 0xff) for _ in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
+
+    def port_number(self, is_system=False, is_user=False, is_dynamic=False):
+        """Returns a network port number
+        https://tools.ietf.org/html/rfc6335
+
+        :param is_system: System or well-known ports
+        :param is_user: User or registered ports
+        :param is_dynamic: Dynamic / private / ephemeral ports
+        :rtype: int
+        """
+
+        if is_system:
+            return self.random_int(min=0, max=1023)
+        elif is_user:
+            return self.random_int(min=1024, max=49151)
+        elif is_dynamic:
+            return self.random_int(min=49152, max=65535)
+
+        return self.random_int(min=0, max=65535)
 
     def uri_page(self):
         return self.random_element(self.uri_pages)

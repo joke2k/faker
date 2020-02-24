@@ -1,6 +1,5 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from .. import Provider as BaseProvider
+
 
 """
 Data is provided by the official list of professions from

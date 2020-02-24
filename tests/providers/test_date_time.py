@@ -1,24 +1,24 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-from datetime import date, datetime, timedelta, tzinfo
-from datetime import time as datetime_time
 import os
 import platform
-import pytest
 import random
+import re
 import sys
 import time
 import unittest
 
-import six
+from datetime import date, datetime
+from datetime import time as datetime_time
+from datetime import timedelta, tzinfo
+
+import pytest
 
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
-from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
+from faker.providers.date_time.pl_PL import Provider as PlProvider
+from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 
 
@@ -55,11 +55,11 @@ class TestKoKR(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
 
     def test_month(self):
         month = self.fake.month()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
 
 
 class TestDateTime(unittest.TestCase):
@@ -74,11 +74,11 @@ class TestDateTime(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
 
     def test_month(self):
         month = self.fake.month()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
 
     def test_past_datetime(self):
         past_datetime = self.fake.past_datetime()
@@ -526,12 +526,12 @@ class TestHyAm(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
         assert day in HyAmProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
         assert month in HyAmProvider.MONTH_NAMES.values()
 
 
@@ -711,10 +711,36 @@ class TestTaIN(unittest.TestCase):
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, six.string_types)
+        assert isinstance(day, str)
         assert day in TaInProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert isinstance(month, six.string_types)
+        assert isinstance(month, str)
         assert month in TaInProvider.MONTH_NAMES.values()
+
+
+class TestRuRu(unittest.TestCase):
+    """ Tests date_time in the ru_RU locale """
+
+    def setUp(self):
+        self.fake = Faker('ru_RU')
+        Faker.seed(0)
+
+    def test_day(self):
+        for _ in range(50):
+            day = self.fake.day_of_week()
+            assert isinstance(day, str)
+            assert day in RuProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        for _ in range(50):
+            month = self.fake.month_name()
+            assert isinstance(month, str)
+            assert month in RuProvider.MONTH_NAMES.values()
+
+    def test_timezone(self):
+        for _ in range(100):
+            timezone = self.fake.timezone()
+            assert isinstance(timezone, str)
+            assert re.match(r'[А-Яа-я]', timezone)

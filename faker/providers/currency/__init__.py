@@ -1,6 +1,6 @@
-# coding=utf-8
-
 from .. import BaseProvider
+
+localized = True
 
 
 class Provider(BaseProvider):
@@ -219,6 +219,24 @@ class Provider(BaseProvider):
         ('ADA', "Cardano"),
     )
 
+    # List of currency symbols in Unicode, source: https://www.unicode.org/charts/beta/nameslist/n_20A0.html
+    currency_symbols = {
+        'AFN': '\u060B', 'ANG': '\u0192', 'ARS': '\u0024', 'AUD': '\u0024', 'AWG': '\u0192', 'BBD': '\u0024',
+        'BDT': '\u09F3', 'BMD': '\u0024', 'BND': '\u0024', 'BOB': '\u0024', 'BRL': '\u0024', 'BSD': '\u0024',
+        'BZD': '\u0024', 'CAD': '\u0024', 'CLP': '\u0024', 'CNY': '\u00A5', 'COP': '\u0024', 'CRC': '\u20A1',
+        'CUP': '\u0024', 'CVE': '\u0024', 'DOP': '\u0024', 'EGP': '\u00A3', 'EUR': '\u20AC', 'FJD': '\u0024',
+        'FKP': '\u00A3', 'GBP': '\u00A3', 'GHS': '\u20B5', 'GIP': '\u00A3', 'GYD': '\u0024', 'HKD': '\u0024',
+        'HUF': '\u0192', 'IDR': '\u20A8', 'ILS': '\u20AA', 'INR': '\u20B9', 'IRR': '\uFDFC', 'JMD': '\u0024',
+        'JPY': '\u00A5', 'KHR': '\u17DB', 'KPW': '\u20A9', 'KRW': '\u20A9', 'KYD': '\u0024', 'KZT': '\u20B8',
+        'LAK': '\u20AD', 'LBP': '\u00A3', 'LKR': '\u20A8', 'LRD': '\u0024', 'MNT': '\u20AE', 'MOP': '\u0024',
+        'MUR': '\u20A8', 'MXN': '\u0024', 'NAD': '\u0024', 'NGN': '\u20A6', 'NIO': '\u0024', 'NPR': '\u20A8',
+        'NZD': '\u0024', 'OMR': '\uFDFC', 'PHP': '\u20B1', 'PKR': '\u20A8', 'PYG': '\u20B2', 'QAR': '\uFDFC',
+        'RUB': '\u20BD', 'SAR': '\uFDFC', 'SBD': '\u0024', 'SDG': '\u00A3', 'SGD': '\u0024', 'SHP': '\u00A3',
+        'SRD': '\u0024', 'SYP': '\u00A3', 'THB': '\u0E3F', 'TOP': '\u0024', 'TRY': '\u20BA', 'TTD': '\u0024',
+        'TWD': '\u0024', 'UAH': '\u20B4', 'USD': '\u0024', 'UY': '\u0024', 'VND': '\u20AB', 'WST': '\u0024',
+        'XCD': '\u0024', 'YER': '\uFDFC', 'ZWD': '\u0024',
+    }
+
     def currency(self):
         return self.random_element(self.currencies)
 
@@ -227,6 +245,14 @@ class Provider(BaseProvider):
 
     def currency_name(self):
         return self.currency()[1]
+
+    def currency_symbol(self, code=None):
+        """
+        :example: $
+        """
+        if code is None:
+            code = self.random_element(self.currency_symbols.keys())
+        return self.currency_symbols[code]
 
     def cryptocurrency(self):
         return self.random_element(self.cryptocurrencies)

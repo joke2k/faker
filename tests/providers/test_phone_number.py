@@ -1,11 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 import unittest
-
-import six
 
 from faker import Faker
 
@@ -21,13 +15,13 @@ class TestPhoneNumber(unittest.TestCase):
         pn = self.fake.phone_number()
 
         assert pn
-        assert isinstance(pn, six.string_types)
+        assert isinstance(pn, str)
 
     def test_msisdn(self):
         msisdn = self.fake.msisdn()
 
         assert msisdn is not None
-        assert isinstance(msisdn, six.string_types)
+        assert isinstance(msisdn, str)
         assert len(msisdn) == 13
         assert msisdn.isdigit()
 
@@ -43,7 +37,7 @@ class TestJa(unittest.TestCase):
         formats = ('070', '080', '090')
 
         assert pn
-        assert isinstance(pn, six.string_types)
+        assert isinstance(pn, str)
         first, second, third = pn.split('-')
         assert first
         assert first.isdigit()
@@ -72,7 +66,7 @@ class TestPtBr(unittest.TestCase):
         formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581')
 
         assert msisdn is not None
-        assert isinstance(msisdn, six.string_types)
+        assert isinstance(msisdn, str)
         assert len(msisdn) == 13
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
@@ -126,7 +120,7 @@ class TestHyAm(unittest.TestCase):
 
     def test_phone_number(self):
         pn = self.fake.phone_number()
-        assert isinstance(pn, six.string_types)
+        assert isinstance(pn, str)
 
 
 class TestEnPh(unittest.TestCase):
