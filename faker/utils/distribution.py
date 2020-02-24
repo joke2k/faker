@@ -1,5 +1,3 @@
-# coding=utf-8
-
 import bisect
 
 from faker.generator import random as mod_random

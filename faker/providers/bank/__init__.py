@@ -1,8 +1,9 @@
-# coding=utf-8
-from .. import BaseProvider
-import string
-from string import ascii_uppercase
 import re
+import string
+
+from string import ascii_uppercase
+
+from .. import BaseProvider
 
 localized = True
 default_locale = 'en_GB'

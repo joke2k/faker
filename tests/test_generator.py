@@ -1,11 +1,8 @@
 import unittest
 
-from faker import Generator
+from unittest.mock import patch
 
-try:
-    from mock import patch
-except ImportError:  # pragma: no cover
-    from unittest.mock import patch
+from faker import Generator
 
 
 class GeneratorTestCase(unittest.TestCase):

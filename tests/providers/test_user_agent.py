@@ -1,9 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
-import unittest
 import re
+import unittest
 
 from faker import Faker
 from faker.providers.user_agent import Provider as UaProvider
@@ -13,8 +9,9 @@ class TestUserAgent(unittest.TestCase):
     """ Tests user_agent """
 
     def setUp(self):
-        self.factory = Faker()
-        self.ua = UaProvider(self.factory)
+        self.fake = Faker()
+        Faker.seed(0)
+        self.ua = UaProvider(self.fake)
 
     def test_android_platform_token(self):
         for _ in range(0, 1000):

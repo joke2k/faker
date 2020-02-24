@@ -19,7 +19,8 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-For more details, see the `extended docs`_.
+For more details, see the `extended docs`_, especially if you are upgrading
+from version ``2.0.4`` and below as there might be breaking changes.
 
 Basic Usage
 -----------
@@ -125,6 +126,26 @@ default en\_US locale.
     # 'Nazzareno Barbieri'
     # 'Max Coppola'
 
+``faker.Faker`` also supports multiple locales. New in v3.0.0.
+
+.. code:: python
+
+    from faker import Faker
+    fake = Faker(['it_IT', 'en_US', 'ja_JP'])
+    for _ in range(10):
+        print(fake.name())
+
+    # 鈴木 陽一
+    # Leslie Moreno
+    # Emma Williams
+    # 渡辺 裕美子
+    # Marcantonio Galuppi
+    # Martha Davis
+    # Kristen Turner
+    # 中津川 春香
+    # Ashley Castillo
+    # 山田 桃子
+
 You can check available Faker locales in the source code, under the
 providers package. The localization of Faker is an ongoing process, for
 which we need your help. Please don't hesitate to create a localized
@@ -209,13 +230,16 @@ Where:
 -  ``-s SEP``: will generate the specified separator after each
    generated output
 
--  ``-i {my.custom_provider other.custom_provider}`` list of additional custom providers to use.
-   Note that is the import path of the package containing your Provider class, not the custom Provider class itself.
+-  ``-i {my.custom_provider other.custom_provider}`` list of additional custom
+   providers to use. Note that is the import path of the package containing
+   your Provider class, not the custom Provider class itself.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
 
--  ``[fake argument ...]``: optional arguments to pass to the fake (e.g. the profile fake takes an optional list of comma separated field names as the first argument)
+-  ``[fake argument ...]``: optional arguments to pass to the fake (e.g. the
+   profile fake takes an optional list of comma separated field names as the
+   first argument)
 
 Examples:
 
@@ -305,8 +329,8 @@ How to use with Factory Boy
 Accessing the `random` instance
 -------------------------------
 
-The ``.random`` property on the generator returns the instance of ``random.Random``
-used to generate the values:
+The ``.random`` property on the generator returns the instance of
+``random.Random`` used to generate the values:
 
 .. code:: python
 
@@ -323,15 +347,15 @@ Seeding the Generator
 ---------------------
 
 When using Faker for unit testing, you will often want to generate the same
-data set. For convenience, the generator also provide a ``seed()`` method, which
-seeds the shared random number generator. Calling the same methods with the
-same version of faker and seed produces the same results.
+data set. For convenience, the generator also provide a ``seed()`` method,
+which seeds the shared random number generator. Calling the same methods with
+the same version of faker and seed produces the same results.
 
 .. code:: python
 
     from faker import Faker
     fake = Faker()
-    fake.seed(4321)
+    Faker.seed(4321)
 
     print(fake.name())
     # 'Margaret Boehm'
@@ -377,7 +401,8 @@ Please see `CONTRIBUTING`_.
 License
 -------
 
-Faker is released under the MIT License. See the bundled `LICENSE`_ file for details.
+Faker is released under the MIT License. See the bundled `LICENSE`_ file
+for details.
 
 Credits
 -------

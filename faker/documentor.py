@@ -1,15 +1,7 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import inspect
 
-from faker import utils
 
-from .compat import getargspec
-
-
-class Documentor(object):
+class Documentor:
 
     def __init__(self, generator):
         """
@@ -22,7 +14,6 @@ class Documentor(object):
         self.already_generated = []
 
     def get_formatters(self, locale=None, excludes=None, **kwargs):
-
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
@@ -51,10 +42,15 @@ class Documentor(object):
 
             if name == 'binary':
                 faker_kwargs['length'] = 1024
+            elif name in ['zip', 'tar']:
+                faker_kwargs.update({
+                    'uncompressed_size': 1024,
+                    'min_file_size': 512,
+                })
 
             if with_args:
                 # retrieve all parameter
-                argspec = getargspec(method)
+                argspec = inspect.getfullargspec(method)
 
                 lst = [x for x in argspec.args if x not in ['self', 'cls']]
                 for i, arg in enumerate(lst):
@@ -63,13 +59,13 @@ class Documentor(object):
 
                         try:
                             default = argspec.defaults[i]
-                            if utils.is_string(default):
-                                default = utils.quote(default)
+                            if isinstance(default, str):
+                                default = repr(default)
                             else:
                                 # TODO check default type
-                                default = "{0}".format(default)
+                                default = "{}".format(default)
 
-                            arg = "{0}={1}".format(arg, default)
+                            arg = "{}={}".format(arg, default)
 
                         except IndexError:
                             pass
@@ -85,9 +81,7 @@ class Documentor(object):
                         arguments.append('**' + argspec.varkw)
 
             # build fake method signature
-            signature = "{0}{1}({2})".format(prefix,
-                                             name,
-                                             ", ".join(arguments))
+            signature = "{}{}({})".format(prefix, name, ", ".join(arguments))
 
             # make a fake example
             example = self.generator.format(name, *faker_args, **faker_kwargs)

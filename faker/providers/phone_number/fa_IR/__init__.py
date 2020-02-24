@@ -1,18 +1,37 @@
-from __future__ import unicode_literals
 from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
     formats = (
         # Mobile
+        # Mci
         '+98 91# ### ####',
         '091# ### ####',
+        '+98 990 ### ####',
+        '0990 ### ####',
+        '+98 991 ### ####',
+        '0991 ### ####',
+        # Rightel Mobile prefixes
         '+98 920 ### ####',
         '0920 ### ####',
         '+98 921 ### ####',
         '0921 ### ####',
+        '+98 922 ### ####',
+        '0922 ### ####',
+        # Samantel Mobile prefixes
+        '+98 999 ### ####',
+        '0999 ### ####',
+        # Mtn and Talia
         '+98 93# ### ####',
         '093# ### ####',
+        '+98 901 ### ####',
+        '0901 ### ####',
+        '+98 902 ### ####',
+        '902 ### ####',
+        '+98 903 ### ####',
+        '0903 ### ####',
+        '+98 905 ### ####',
+        '0905 ### ####',
         # Land lines,
         # https://en.wikipedia.org/wiki/List_of_dialling_codes_in_Iran
         '+98 21 #### ####',

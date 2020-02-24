@@ -1,8 +1,5 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import string
+
 from datetime import datetime
 
 from .. import BaseProvider
@@ -50,8 +47,8 @@ class Provider(BaseProvider):
 
     def chrome(self, version_from=13, version_to=63,
                build_from=800, build_to=899):
-        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
-                               self.generator.random.randint(0, 2))
+        saf = '{}.{}'.format(self.generator.random.randint(531, 536),
+                             self.generator.random.randint(0, 2))
         bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
         tmplt = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                 ' Chrome/{2}.0.{3}.0 Safari/{4}'
@@ -73,7 +70,7 @@ class Provider(BaseProvider):
                          self.generator.random.randint(version_from, version_to),
                          self.generator.random.randint(build_from, build_to),
                          saf),
-            tmplt.format('Linux; {0}'.format(self.android_platform_token()),
+            tmplt.format('Linux; {}'.format(self.android_platform_token()),
                          saf,
                          self.generator.random.randint(version_from, version_to),
                          self.generator.random.randint(build_from, build_to),
@@ -89,18 +86,18 @@ class Provider(BaseProvider):
 
     def firefox(self):
         ver = (
-            'Gecko/{0} Firefox/{1}.0'.format(
+            'Gecko/{} Firefox/{}.0'.format(
                 self.generator.date_time_between(
                     datetime(2011, 1, 1),
                 ),
                 self.generator.random.randint(4, 15),
             ),
-            'Gecko/{0} Firefox/3.6.{1}'.format(
+            'Gecko/{} Firefox/3.6.{}'.format(
                 self.generator.date_time_between(
                     datetime(2010, 1, 1),
                 ),
                 self.generator.random.randint(1, 20)),
-            'Gecko/{0} Firefox/3.8'.format(
+            'Gecko/{} Firefox/3.8'.format(
                 self.generator.date_time_between(datetime(2010, 1, 1)),
             ),
         )
@@ -109,8 +106,8 @@ class Provider(BaseProvider):
         tmplt_mac = '({0}; rv:1.9.{1}.20) {2}'
         tmplt_and = '({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0'
         tmplt_ios = '({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}'
-        saf = '{0}.{1}'.format(self.generator.random.randint(531, 536),
-                               self.generator.random.randint(0, 2))
+        saf = '{}.{}'.format(self.generator.random.randint(531, 536),
+                             self.generator.random.randint(0, 2))
         bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
         bld2 = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
         platforms = (
@@ -136,15 +133,15 @@ class Provider(BaseProvider):
         return 'Mozilla/5.0 ' + self.random_element(platforms)
 
     def safari(self):
-        saf = "{0}.{1}.{2}".format(self.generator.random.randint(531, 535),
-                                   self.generator.random.randint(1, 50),
-                                   self.generator.random.randint(1, 7))
+        saf = "{}.{}.{}".format(self.generator.random.randint(531, 535),
+                                self.generator.random.randint(1, 50),
+                                self.generator.random.randint(1, 7))
         if not self.generator.random.getrandbits(1):
-            ver = "{0}.{1}".format(self.generator.random.randint(4, 5),
-                                   self.generator.random.randint(0, 1))
+            ver = "{}.{}".format(self.generator.random.randint(4, 5),
+                                 self.generator.random.randint(0, 1))
         else:
-            ver = "{0}.0.{1}".format(self.generator.random.randint(4, 5),
-                                     self.generator.random.randint(1, 5))
+            ver = "{}.0.{}".format(self.generator.random.randint(4, 5),
+                                   self.generator.random.randint(1, 5))
         tmplt_win = '(Windows; U; {0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                     ' Version/{2} Safari/{3}'
         tmplt_mac = '({0} rv:{1}.0; {2}) AppleWebKit/{3} (KHTML, like Gecko)' \
@@ -176,7 +173,7 @@ class Provider(BaseProvider):
         return 'Mozilla/5.0 ' + self.random_element(platforms)
 
     def opera(self):
-        platform = '({0}; {1}) Presto/2.9.{2} Version/{3}.00'.format(
+        platform = '({}; {}) Presto/2.9.{} Version/{}.00'.format(
             (
                 self.linux_platform_token()
                 if self.generator.random.getrandbits(1)
@@ -186,7 +183,7 @@ class Provider(BaseProvider):
             self.generator.random.randint(160, 190),
             self.generator.random.randint(10, 12),
         )
-        return 'Opera/{0}.{1}.{2}'.format(
+        return 'Opera/{}.{}.{}'.format(
             self.generator.random.randint(8, 9),
             self.generator.random.randint(10, 99),
             platform,
@@ -203,18 +200,18 @@ class Provider(BaseProvider):
         return self.random_element(self.windows_platform_tokens)
 
     def linux_platform_token(self):
-        return 'X11; Linux {0}'.format(
+        return 'X11; Linux {}'.format(
             self.random_element(self.linux_processors))
 
     def mac_platform_token(self):
-        return 'Macintosh; {0} Mac OS X 10_{1}_{2}'.format(
+        return 'Macintosh; {} Mac OS X 10_{}_{}'.format(
             self.random_element(self.mac_processors),
             self.generator.random.randint(5, 12),
             self.generator.random.randint(0, 9),
         )
 
     def android_platform_token(self):
-        return 'Android {0}'.format(self.random_element(self.android_versions))
+        return 'Android {}'.format(self.random_element(self.android_versions))
 
     def ios_platform_token(self):
         return '{0}; CPU {0} OS {1} like Mac OS X'.format(

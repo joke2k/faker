@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import Provider as AddressProvider
@@ -237,15 +234,11 @@ class Provider(AddressProvider):
 
     def postcode(self):
         return "H-{}{}{}{}".format(
-            super(
-                Provider, self).random_digit_not_null(), super(
-                Provider, self).random_digit(), super(
-                Provider, self).random_digit(), super(
-                    Provider, self).random_digit())
+            super().random_digit_not_null(), super().random_digit(), super().random_digit(), super().random_digit())
 
     def street_name(self):
-        return super(Provider, self).street_name().capitalize()
+        return super().street_name().capitalize()
 
     def building_number(self):
-        numeric_part = super(Provider, self).random_int(1, 250)
+        numeric_part = super().random_int(1, 250)
         return str(numeric_part) + "."

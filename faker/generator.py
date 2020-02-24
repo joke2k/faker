@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import random as random_module
 import re
 
@@ -10,7 +6,7 @@ random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 
-class Generator(object):
+class Generator:
 
     __config = {}
 
@@ -83,11 +79,11 @@ class Generator(object):
             return getattr(self, formatter)
         except AttributeError:
             if 'locale' in self.__config:
-                msg = 'Unknown formatter "{0}" with locale "{1}"'.format(
+                msg = 'Unknown formatter "{}" with locale "{}"'.format(
                     formatter, self.__config['locale'],
                 )
             else:
-                raise AttributeError('Unknown formatter "{0}"'.format(
+                raise AttributeError('Unknown formatter "{}"'.format(
                     formatter,
                 ))
             raise AttributeError(msg)
@@ -108,5 +104,5 @@ class Generator(object):
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
-        formatter[1] = self.format(formatter[1])
+        formatter[1] = str(self.format(formatter[1]))
         return ''.join(formatter)

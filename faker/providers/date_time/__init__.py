@@ -1,16 +1,11 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 
 from calendar import timegm
-from datetime import timedelta, MAXYEAR
+from datetime import MAXYEAR, timedelta
 
 from dateutil import relativedelta
 from dateutil.tz import tzlocal, tzutc
 
-from faker.utils import is_string
 from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 
 from .. import BaseProvider
@@ -41,7 +36,7 @@ class ParseError(ValueError):
 timedelta_pattern = r''
 for name, sym in [('years', 'y'), ('months', 'M'), ('weeks', 'w'), ('days', 'd'),
                   ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
-    timedelta_pattern += r'((?P<{0}>(?:\+|-)\d+?){1})?'.format(name, sym)
+    timedelta_pattern += r'((?P<{}>(?:\+|-)\d+?){})?'.format(name, sym)
 
 
 class Provider(BaseProvider):
@@ -1505,12 +1500,12 @@ class Provider(BaseProvider):
     def _parse_timedelta(cls, value):
         if isinstance(value, timedelta):
             return value.total_seconds()
-        if is_string(value):
+        if isinstance(value, str):
             time_params = cls._parse_date_string(value)
             return timedelta(**time_params).total_seconds()
         if isinstance(value, (int, float)):
             return value
-        raise ParseError("Invalid format for timedelta '{0}'".format(value))
+        raise ParseError("Invalid format for timedelta '{}'".format(value))
 
     @classmethod
     def _parse_date_time(cls, value, tzinfo=None):
@@ -1519,14 +1514,14 @@ class Provider(BaseProvider):
         now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
             return datetime_to_timestamp(now + value)
-        if is_string(value):
+        if isinstance(value, str):
             if value == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
             time_params = cls._parse_date_string(value)
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(value, int):
             return datetime_to_timestamp(now + timedelta(value))
-        raise ParseError("Invalid format for date '{0}'".format(value))
+        raise ParseError("Invalid format for date '{}'".format(value))
 
     @classmethod
     def _parse_date(cls, value):
@@ -1537,14 +1532,14 @@ class Provider(BaseProvider):
         today = date.today()
         if isinstance(value, timedelta):
             return today + value
-        if is_string(value):
+        if isinstance(value, str):
             if value in ('today', 'now'):
                 return today
             time_params = cls._parse_date_string(value)
             return today + timedelta(**time_params)
         if isinstance(value, int):
             return today + timedelta(value)
-        raise ParseError("Invalid format for date '{0}'".format(value))
+        raise ParseError("Invalid format for date '{}'".format(value))
 
     def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """

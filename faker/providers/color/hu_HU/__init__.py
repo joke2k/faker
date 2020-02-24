@@ -1,5 +1,3 @@
-# coding=utf-8
-
 from faker.providers import BaseProvider
 
 

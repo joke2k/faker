@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from ..de import Provider as AddressProvider
 
 
@@ -71,7 +68,7 @@ class Provider(AddressProvider):
         'Kötzting', 'Leipziger Land', 'Lemgo', 'Lichtenfels', 'Lippstadt',
         'Lobenstein', 'Luckau', 'Luckenwalde', 'Ludwigsburg', 'Ludwigslust',
         'Lörrach', 'Lübben', 'Lübeck', 'Lübz', 'Lüdenscheid', 'Lüdinghausen',
-        'Lüneburg', 'Magdeburg', 'Main-Höchst)', 'Mainburg', 'Malchin',
+        'Lüneburg', 'Magdeburg', 'Main-Höchst', 'Mainburg', 'Malchin',
         'Mallersdorf', 'Marienberg', 'Marktheidenfeld', 'Mayen', 'Meiningen',
         'Meißen', 'Melle', 'Mellrichstadt', 'Melsungen', 'Meppen', 'Merseburg',
         'Mettmann', 'Miesbach', 'Miltenberg', 'Mittweida', 'Moers', 'Monschau',

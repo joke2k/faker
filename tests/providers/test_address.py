@@ -1,227 +1,227 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 import unittest
-
-from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker
 from faker.providers.address.de_AT import Provider as DeAtProvider
 from faker.providers.address.de_DE import Provider as DeProvider
-from faker.providers.address.fa_IR import Provider as IrProvider
 from faker.providers.address.el_GR import Provider as GrProvider
 from faker.providers.address.en_AU import Provider as EnAuProvider
 from faker.providers.address.en_CA import Provider as EnCaProvider
 from faker.providers.address.en_US import Provider as EnUsProvider
 from faker.providers.address.es_ES import Provider as EsEsProvider
 from faker.providers.address.es_MX import Provider as EsMxProvider
-from faker.providers.address.fr_FR import Provider as FrFrProvider
+from faker.providers.address.fa_IR import Provider as IrProvider
 from faker.providers.address.fi_FI import Provider as FiProvider
+from faker.providers.address.fr_FR import Provider as FrFrProvider
 from faker.providers.address.hy_AM import Provider as HyAmProvider
-from faker.providers.address.pt_PT import Provider as PtPtProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
-from six import string_types
+from faker.providers.address.pt_PT import Provider as PtPtProvider
+from ukpostcodeparser.parser import parse_uk_postcode
 
 
 class TestBaseProvider(unittest.TestCase):
     """ Tests addresses in the base provider """
 
     def setUp(self):
-        self.factory = Faker('')
+        self.fake = Faker('')
+        Faker.seed(0)
 
     def test_alpha_2_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-2')
+        country_code = self.fake.country_code(representation='alpha-2')
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_2_country_codes_as_default(self):
-        country_code = Faker().country_code()
+        country_code = self.fake.country_code()
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_3_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-3')
+        country_code = self.fake.country_code(representation='alpha-3')
         assert len(country_code) == 3
         assert country_code.isalpha()
 
     def test_bad_country_code_representation(self):
         with self.assertRaises(ValueError):
-            Faker().country_code(representation='hello')
+            self.fake.country_code(representation='hello')
 
 
 class TestAr_AA(unittest.TestCase):
     """ Tests addresses in the ar_AA locale """
 
     def setUp(self):
-        self.factory = Faker('ar_AA')
+        self.fake = Faker('ar_AA')
+        Faker.seed(0)
 
     def test_alpha_2_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-2')
+        country_code = self.fake.country_code(representation='alpha-2')
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_2_country_codes_as_default(self):
-        country_code = Faker().country_code()
+        country_code = self.fake.country_code()
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_3_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-3')
+        country_code = self.fake.country_code(representation='alpha-3')
         assert len(country_code) == 3
         assert country_code.isalpha()
 
     def test_bad_country_code_representation(self):
         with self.assertRaises(ValueError):
-            Faker().country_code(representation='hello')
+            self.fake.country_code(representation='hello')
 
 
 class TestCsCZ(unittest.TestCase):
     """ Tests in addresses in the cs_CZ locale """
 
     def setUp(self):
-        self.factory = Faker('cs_CZ')
+        self.fake = Faker('cs_CZ')
+        Faker.seed(0)
 
     def test_street_suffix_short(self):
-        street_suffix_short = self.factory.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        street_suffix_short = self.fake.street_suffix_short()
+        assert isinstance(street_suffix_short, str)
 
     def test_street_suffix_long(self):
-        street_suffix_long = self.factory.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        street_suffix_long = self.fake.street_suffix_long()
+        assert isinstance(street_suffix_long, str)
 
     def test_city_name(self):
-        city = self.factory.city_name()
-        assert isinstance(city, string_types)
+        city = self.fake.city_name()
+        assert isinstance(city, str)
 
     def test_street_name(self):
-        street_name = self.factory.street_name()
-        assert isinstance(street_name, string_types)
+        street_name = self.fake.street_name()
+        assert isinstance(street_name, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
     def test_postcode(self):
-        postcode = self.factory.postcode()
-        assert isinstance(postcode, string_types)
+        postcode = self.fake.postcode()
+        assert isinstance(postcode, str)
 
     def test_city_with_postcode(self):
-        city_with_postcode = self.factory.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        city_with_postcode = self.fake.city_with_postcode()
+        assert isinstance(city_with_postcode, str)
 
 
 class TestDeAT(unittest.TestCase):
     """ Tests in addresses in the de_AT locale """
 
     def setUp(self):
-        self.factory = Faker('de_AT')
+        self.fake = Faker('de_AT')
+        Faker.seed(0)
 
     def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in DeAtProvider.cities
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in DeAtProvider.states
 
     def test_street_suffix_short(self):
-        street_suffix_short = self.factory.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        street_suffix_short = self.fake.street_suffix_short()
+        assert isinstance(street_suffix_short, str)
         assert street_suffix_short in DeAtProvider.street_suffixes_short
 
     def test_street_suffix_long(self):
-        street_suffix_long = self.factory.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        street_suffix_long = self.fake.street_suffix_long()
+        assert isinstance(street_suffix_long, str)
         assert street_suffix_long in DeAtProvider.street_suffixes_long
 
     def test_country(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
         assert country in DeAtProvider.countries
 
     def test_postcode(self):
-        postcode = self.factory.postcode()
+        postcode = self.fake.postcode()
         assert re.match(r"\d{4}", postcode)
 
     def test_city_with_postcode(self):
-        city_with_postcode = self.factory.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        city_with_postcode = self.fake.city_with_postcode()
+        assert isinstance(city_with_postcode, str)
 
 
 class TestDeDE(unittest.TestCase):
     """ Tests in addresses in the de_DE locale """
 
     def setUp(self):
-        self.factory = Faker('de_DE')
+        self.fake = Faker('de_DE')
+        Faker.seed(0)
 
     def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in DeProvider.cities
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in DeProvider.states
 
     def test_street_suffix_short(self):
-        street_suffix_short = self.factory.street_suffix_short()
-        assert isinstance(street_suffix_short, string_types)
+        street_suffix_short = self.fake.street_suffix_short()
+        assert isinstance(street_suffix_short, str)
         assert street_suffix_short in DeProvider.street_suffixes_short
 
     def test_street_suffix_long(self):
-        street_suffix_long = self.factory.street_suffix_long()
-        assert isinstance(street_suffix_long, string_types)
+        street_suffix_long = self.fake.street_suffix_long()
+        assert isinstance(street_suffix_long, str)
         assert street_suffix_long in DeProvider.street_suffixes_long
 
     def test_country(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
         assert country in DeProvider.countries
 
     def test_city_with_postcode(self):
-        city_with_postcode = self.factory.city_with_postcode()
-        assert isinstance(city_with_postcode, string_types)
+        city_with_postcode = self.fake.city_with_postcode()
+        assert isinstance(city_with_postcode, str)
 
 
 class TestElGR(unittest.TestCase):
     """ Tests addresses in the el_GR locale """
 
     def setUp(self):
-        self.factory = Faker('el_GR')
+        self.fake = Faker('el_GR')
+        Faker.seed(0)
 
     def test_line_address(self):
-        address = self.factory.line_address()
-        assert isinstance(address, string_types)
+        address = self.fake.line_address()
+        assert isinstance(address, str)
 
     def test_street_prefix_short(self):
-        street_prefix_short = self.factory.street_prefix_short()
-        assert isinstance(street_prefix_short, string_types)
+        street_prefix_short = self.fake.street_prefix_short()
+        assert isinstance(street_prefix_short, str)
         assert street_prefix_short in GrProvider.street_prefixes_short
 
     def test_street_prefix_long(self):
-        street_prefix_long = self.factory.street_prefix_long()
-        assert isinstance(street_prefix_long, string_types)
+        street_prefix_long = self.fake.street_prefix_long()
+        assert isinstance(street_prefix_long, str)
         assert street_prefix_long in GrProvider.street_prefixes_long
 
     def test_street(self):
-        street = self.factory.street()
-        assert isinstance(street, string_types)
+        street = self.fake.street()
+        assert isinstance(street, str)
         assert street in GrProvider.localities
 
     def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in GrProvider.cities
 
     def test_region(self):
-        region = self.factory.region()
-        assert isinstance(region, string_types)
+        region = self.fake.region()
+        assert isinstance(region, str)
         assert region in GrProvider.regions
 
 
@@ -229,26 +229,27 @@ class TestEnAU(unittest.TestCase):
     """ Tests addresses in the en_AU locale """
 
     def setUp(self):
-        self.factory = Faker('en_AU')
+        self.fake = Faker('en_AU')
+        Faker.seed(0)
 
     def test_postcode(self):
         for _ in range(100):
-            postcode = self.factory.postcode()
+            postcode = self.fake.postcode()
             assert re.match(r"\d{4}", postcode)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in EnAuProvider.states
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnAuProvider.city_prefixes
 
     def test_state_abbr(self):
-        state_abbr = self.factory.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr()
+        assert isinstance(state_abbr, str)
         assert state_abbr in EnAuProvider.states_abbr
         assert state_abbr.isupper()
 
@@ -257,16 +258,17 @@ class TestEnNZ(unittest.TestCase):
     """ Tests addresses in the en_NZ locale """
 
     def setUp(self):
-        self.factory = Faker('en_NZ')
+        self.fake = Faker('en_NZ')
+        Faker.seed(0)
 
     def test_state(self):
         # No states in New Zealand
-        state = self.factory.state()
+        state = self.fake.state()
         assert state == ''
 
     def test_postcode(self):
         for _ in range(100):
-            postcode = self.factory.postcode()
+            postcode = self.fake.postcode()
             assert re.match(r"\d{4}", postcode)
 
 
@@ -274,231 +276,248 @@ class TestEnCA(unittest.TestCase):
     """ Tests addresses in en_CA locale """
 
     def setUp(self):
-        self.factory = Faker('en_CA')
+        self.fake = Faker('en_CA')
+        Faker.seed(0)
+        self.valid_postcode_letter_re = r'[{}]'.format(
+            ''.join(EnCaProvider.postal_code_letters))
+        self.valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(
+            self.valid_postcode_letter_re)
 
     def test_postcode(self):
         for _ in range(100):
-            postcode = self.factory.postcode()
-            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
-                            postcode)
+            postcode = self.fake.postcode()
+            assert re.match(self.valid_postcode_re, postcode)
+
+    def test_postcode_in_province(self):
+        for province_abbr in EnCaProvider.provinces_abbr:
+            code = self.fake.postcode_in_province(province_abbr)
+            assert code[0] in EnCaProvider.provinces_postcode_prefixes[
+                province_abbr]
+
+        with self.assertRaises(Exception):
+            self.fake.postcode_in_province('XX')
 
     def test_postalcode(self):
         for _ in range(100):
-            postalcode = self.factory.postalcode()
-            assert re.match(r"[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]",
-                            postalcode)
+            postalcode = self.fake.postalcode()
+            assert re.match(self.valid_postcode_letter_re, postalcode)
 
     def test_postal_code_letter(self):
-        postal_code_letter = self.factory.postal_code_letter()
-        assert re.match(r"[A-Z]", postal_code_letter)
+        postal_code_letter = self.fake.postal_code_letter()
+        assert re.match(self.valid_postcode_letter_re, postal_code_letter)
 
     def test_province(self):
-        province = self.factory.province()
-        assert isinstance(province, string_types)
+        province = self.fake.province()
+        assert isinstance(province, str)
         assert province in EnCaProvider.provinces
 
     def test_province_abbr(self):
-        province_abbr = self.factory.province_abbr()
-        assert isinstance(province_abbr, string_types)
+        province_abbr = self.fake.province_abbr()
+        assert isinstance(province_abbr, str)
         assert province_abbr in EnCaProvider.provinces_abbr
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnCaProvider.city_prefixes
 
     def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        secondary_address = self.fake.secondary_address()
+        assert isinstance(secondary_address, str)
 
 
 class TestEnGB(unittest.TestCase):
     """ Tests addresses in the en_GB locale """
 
     def setUp(self):
-        self.factory = Faker('en_GB')
+        self.fake = Faker('en_GB')
+        Faker.seed(0)
 
     def test_postcode(self):
         for _ in range(100):
-            assert isinstance(parse_uk_postcode(self.factory.postcode()), tuple)
+            assert isinstance(parse_uk_postcode(self.fake.postcode()), tuple)
 
 
 class TestEnUS(unittest.TestCase):
     """ Tests addresses in the en_US locale """
 
     def setUp(self):
-        self.factory = Faker('en_US')
+        self.fake = Faker('en_US')
+        Faker.seed(0)
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in EnUsProvider.city_prefixes
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in EnUsProvider.states
 
     def test_state_abbr(self):
-        state_abbr = self.factory.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr()
+        assert isinstance(state_abbr, str)
         states_and_territories = EnUsProvider.states_and_territories_abbr
         assert state_abbr in states_and_territories
 
     def test_state_abbr_no_territories(self):
-        state_abbr = self.factory.state_abbr(include_territories=False)
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr(include_territories=False)
+        assert isinstance(state_abbr, str)
         assert state_abbr in EnUsProvider.states_abbr
 
     def test_postcode(self):
         for _ in range(100):
-            code = self.factory.postcode()
+            code = self.fake.postcode()
             assert re.match(r"\d{5}", code)
 
     def test_postcode_in_state(self):
         for state_abbr in EnUsProvider.states_abbr:
-            code = self.factory.postcode_in_state(state_abbr)
+            code = self.fake.postcode_in_state(state_abbr)
             assert re.match(r"\d{5}", code)
             assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
             assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
 
         with self.assertRaises(Exception):
-            self.factory.postcode_in_state('XX')
+            self.fake.postcode_in_state('XX')
 
     def test_zipcode(self):
         for _ in range(100):
-            zipcode = self.factory.zipcode()
+            zipcode = self.fake.zipcode()
             assert re.match(r"\d{5}", zipcode)
 
     def test_zipcode_in_state(self):
         for state_abbr in EnUsProvider.states_abbr:
-            code = self.factory.zipcode_in_state(state_abbr)
+            code = self.fake.zipcode_in_state(state_abbr)
             assert re.match(r"\d{5}", code)
             assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
             assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
 
         with self.assertRaises(Exception):
-            self.factory.zipcode_in_state('XX')
+            self.fake.zipcode_in_state('XX')
 
     def test_zipcode_plus4(self):
         for _ in range(100):
-            zipcode_plus4 = self.factory.zipcode_plus4()
+            zipcode_plus4 = self.fake.zipcode_plus4()
             assert re.match(r"\d{5}(-\d{4})", zipcode_plus4)
 
     def test_military_ship(self):
-        military_ship = self.factory.military_ship()
-        assert isinstance(military_ship, string_types)
+        military_ship = self.fake.military_ship()
+        assert isinstance(military_ship, str)
         assert military_ship in EnUsProvider.military_ship_prefix
         assert re.match(r"[A-Z]", military_ship)
 
     def test_military_state(self):
-        military_state = self.factory.military_state()
-        assert isinstance(military_state, string_types)
+        military_state = self.fake.military_state()
+        assert isinstance(military_state, str)
         assert military_state in EnUsProvider.military_state_abbr
         assert re.match(r"[A-Z]", military_state)
 
     def test_military_apo(self):
-        military_apo = self.factory.military_apo()
-        assert isinstance(military_apo, string_types)
+        military_apo = self.fake.military_apo()
+        assert isinstance(military_apo, str)
 
     def test_military_dpo(self):
-        military_dpo = self.factory.military_dpo()
-        assert isinstance(military_dpo, string_types)
+        military_dpo = self.fake.military_dpo()
+        assert isinstance(military_dpo, str)
 
     def test_postalcode(self):
         for _ in range(100):
-            postalcode = self.factory.postalcode()
+            postalcode = self.fake.postalcode()
             assert re.match(r"\d{5}", postalcode)
 
     def test_postalcode_in_state(self):
         for state_abbr in EnUsProvider.states_abbr:
-            code = self.factory.postalcode_in_state(state_abbr)
+            code = self.fake.postalcode_in_state(state_abbr)
             assert re.match(r"\d{5}", code)
             assert int(code) >= EnUsProvider.states_postcode[state_abbr][0]
             assert int(code) <= EnUsProvider.states_postcode[state_abbr][1]
 
         with self.assertRaises(Exception):
-            self.factory.postalcode_in_state('XX')
+            self.fake.postalcode_in_state('XX')
 
 
 class TestEsES(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
 
     def setUp(self):
-        self.factory = Faker('es_ES')
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
 
     def test_state_name(self):
-        state_name = self.factory.state_name()
-        assert isinstance(state_name, string_types)
+        state_name = self.fake.state_name()
+        assert isinstance(state_name, str)
         assert state_name in EsEsProvider.states
 
     def test_street_prefix(self):
-        street_prefix = self.factory.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        street_prefix = self.fake.street_prefix()
+        assert isinstance(street_prefix, str)
         assert street_prefix in EsEsProvider.street_prefixes
 
     def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        secondary_address = self.fake.secondary_address()
+        assert isinstance(secondary_address, str)
 
 
 class TestEsMX(unittest.TestCase):
     """ Tests the addresses in the es_MX locale """
 
     def setUp(self):
-        self.factory = Faker('es_MX')
+        self.fake = Faker('es_MX')
+        Faker.seed(0)
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in EsMxProvider.city_prefixes
 
     def test_city_suffix(self):
-        city_suffix = self.factory.city_suffix()
-        assert isinstance(city_suffix, string_types)
+        city_suffix = self.fake.city_suffix()
+        assert isinstance(city_suffix, str)
         assert city_suffix in EsMxProvider.city_suffixes
 
     def test_city_adjective(self):
-        city_adjective = self.factory.city_adjective()
-        assert isinstance(city_adjective, string_types)
+        city_adjective = self.fake.city_adjective()
+        assert isinstance(city_adjective, str)
         assert city_adjective in EsMxProvider.city_adjectives
 
     def test_street_prefix(self):
-        street_prefix = self.factory.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        street_prefix = self.fake.street_prefix()
+        assert isinstance(street_prefix, str)
         assert street_prefix in EsMxProvider.street_prefixes
 
     def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        secondary_address = self.fake.secondary_address()
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
     def test_state_abbr(self):
-        state_abbr = self.factory.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr()
+        assert isinstance(state_abbr, str)
 
 
 class TestFaIR(unittest.TestCase):
     """ Tests in addresses in the fa_IR locale """
 
     def setUp(self):
-        self.factory = Faker('fa_IR')
+        self.fake = Faker('fa_IR')
+        Faker.seed(0)
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in IrProvider.city_prefixes
 
     def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        secondary_address = self.fake.secondary_address()
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in IrProvider.states
 
 
@@ -506,101 +525,106 @@ class TestFrFR(unittest.TestCase):
     """ Tests addresses in the fr_FR locale """
 
     def setUp(self):
-        self.factory = Faker('fr_FR')
+        self.fake = Faker('fr_FR')
+        Faker.seed(0)
 
     def test_street_prefix(self):
-        street_prefix = self.factory.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        street_prefix = self.fake.street_prefix()
+        assert isinstance(street_prefix, str)
         assert street_prefix in FrFrProvider.street_prefixes
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in FrFrProvider.city_prefixes
 
     def test_region(self):
-        region = self.factory.region()
-        assert isinstance(region, string_types)
+        region = self.fake.region()
+        assert isinstance(region, str)
         assert region in FrFrProvider.regions
 
     def test_department(self):
-        department = self.factory.department()
+        department = self.fake.department()
         assert isinstance(department, tuple)
         assert department in FrFrProvider.departments
 
     def test_department_name(self):
-        department_name = self.factory.department_name()
-        assert isinstance(department_name, string_types)
+        department_name = self.fake.department_name()
+        assert isinstance(department_name, str)
 
     def test_department_number(self):
-        department_number = self.factory.department_number()
-        assert isinstance(department_number, string_types)
+        department_number = self.fake.department_number()
+        assert isinstance(department_number, str)
 
 
 class TestHeIL(unittest.TestCase):
     """ Tests addresses in the he_IL locale """
 
     def setUp(self):
-        self.factory = Faker('he_IL')
+        self.fake = Faker('he_IL')
+        Faker.seed(0)
 
     def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
+        city_name = self.fake.city_name()
+        assert isinstance(city_name, str)
 
     def test_street_title(self):
-        street_title = self.factory.street_title()
-        assert isinstance(street_title, string_types)
+        street_title = self.fake.street_title()
+        assert isinstance(street_title, str)
 
 
 class TestHiIN(unittest.TestCase):
     """ Tests addresses in the hi_IN locale """
 
     def setUp(self):
-        self.factory = Faker('hi_IN')
+        self.fake = Faker('hi_IN')
+        Faker.seed(0)
 
     def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
+        city_name = self.fake.city_name()
+        assert isinstance(city_name, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
 
 class TestTaIN(unittest.TestCase):
     """ Tests addresses in the ta_IN locale """
 
     def setUp(self):
-        self.factory = Faker('ta_IN')
+        self.fake = Faker('ta_IN')
+        Faker.seed(0)
 
     def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
+        city_name = self.fake.city_name()
+        assert isinstance(city_name, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
 
 class TestFiFI(unittest.TestCase):
     """ Tests in addresses in the fi_FI locale """
 
     def setUp(self):
-        self.factory = Faker('fi_FI')
+        self.fake = Faker('fi_FI')
+        Faker.seed(0)
 
     def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in FiProvider.cities
 
     def test_street_suffix(self):
-        suffix = self.factory.street_suffix()
-        assert isinstance(suffix, string_types)
+        suffix = self.fake.street_suffix()
+        assert isinstance(suffix, str)
         assert suffix in FiProvider.street_suffixes
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in FiProvider.states
 
 
@@ -608,32 +632,34 @@ class TestHRHR(unittest.TestCase):
     """ Tests addresses in the hr_HR locale """
 
     def setUp(self):
-        self.factory = Faker('hr_HR')
+        self.fake = Faker('hr_HR')
+        Faker.seed(0)
 
     def test_city_name(self):
-        city_name = self.factory.city_name()
-        assert isinstance(city_name, string_types)
+        city_name = self.fake.city_name()
+        assert isinstance(city_name, str)
 
     def test_street_name(self):
-        street_name = self.factory.street_name()
-        assert isinstance(street_name, string_types)
+        street_name = self.fake.street_name()
+        assert isinstance(street_name, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
 
 class TestHuHU(unittest.TestCase):
     """ Tests addresses in the hu_HU locale """
 
     def setUp(self):
-        self.factory = Faker('hu_HU')
+        self.fake = Faker('hu_HU')
+        Faker.seed(0)
 
     def test_postcode_first_digit(self):
         # Hungarian postcodes begin with 'H-' followed by 4 digits.
         # The first digit may not begin with a zero.
         for _ in range(100):
-            pcd = self.factory.postcode()
+            pcd = self.fake.postcode()
             assert pcd[2] > "0"
 
     def test_street_address(self):
@@ -642,7 +668,7 @@ class TestHuHU(unittest.TestCase):
 
         A street address must consist of a street name, a place type and a number, and end in a period point.
         """
-        address = self.factory.street_address()
+        address = self.fake.street_address()
         assert address[-1] == '.'
         # Check for correct capitalisation of place type
         assert address.split(" ")[-2][0].islower()
@@ -656,7 +682,7 @@ class TestHuHU(unittest.TestCase):
         - contain a valid post code,
         - contain the place name validly capitalized.
         """
-        address = self.factory.street_address_with_county()
+        address = self.fake.street_address_with_county()
         # Number of rows
         assert len(address.split("\n")) == 3
         first, second, last = address.split("\n")
@@ -678,128 +704,129 @@ class TestHuHU(unittest.TestCase):
 
     def test_address(self):
         """ Tests the address provider in the hu_HU locale """
-        address = self.factory.address()
-        assert isinstance(address, string_types)
-        address_with_county = self.factory.street_address_with_county()
-        assert isinstance(address_with_county, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
+        address_with_county = self.fake.street_address_with_county()
+        assert isinstance(address_with_county, str)
 
 
 class TestHyAM(unittest.TestCase):
     """ Tests addresses in the hy_AM locale """
 
     def setUp(self):
-        self.factory = Faker('hy_AM')
+        self.fake = Faker('hy_AM')
+        Faker.seed(0)
 
     def test_address(self):
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
     def test_building_number(self):
-        building_number = self.factory.building_number()
-        assert isinstance(building_number, string_types)
+        building_number = self.fake.building_number()
+        assert isinstance(building_number, str)
         assert len(building_number) <= 3
 
     def test_city(self):
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in HyAmProvider.cities
 
     def test_city_prefix(self):
-        city_prefix = self.factory.city_prefix()
-        assert isinstance(city_prefix, string_types)
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
         assert city_prefix in HyAmProvider.city_prefixes
 
     def test_city_suffix(self):
-        city_suffix = self.factory.city_suffix()
-        assert isinstance(city_suffix, string_types)
+        city_suffix = self.fake.city_suffix()
+        assert isinstance(city_suffix, str)
 
     def test_country(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
         assert country in HyAmProvider.countries
 
     def test_alpha_2_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-2')
+        country_code = self.fake.country_code(representation='alpha-2')
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_2_country_codes_as_default(self):
-        country_code = Faker().country_code()
+        country_code = self.fake.country_code()
         assert len(country_code) == 2
         assert country_code.isalpha()
 
     def test_alpha_3_country_codes(self):
-        country_code = Faker().country_code(representation='alpha-3')
+        country_code = self.fake.country_code(representation='alpha-3')
         assert len(country_code) == 3
         assert country_code.isalpha()
 
     def test_bad_country_code_representation(self):
         with self.assertRaises(ValueError):
-            Faker().country_code(representation='hello')
+            self.fake.country_code(representation='hello')
 
     def test_postcode(self):
-        postcode = self.factory.postcode()
-        assert isinstance(postcode, string_types)
+        postcode = self.fake.postcode()
+        assert isinstance(postcode, str)
         assert re.match(r"\d{4}", postcode)
         assert int(postcode) >= 200
         assert int(postcode) <= 4299
 
     def test_postcode_in_state(self):
         for state_abbr in HyAmProvider.states_abbr:
-            code = self.factory.postcode_in_state(state_abbr)
+            code = self.fake.postcode_in_state(state_abbr)
             assert re.match(r"\d{4}", code)
             assert int(code) >= HyAmProvider.states_postcode[state_abbr][0]
             assert int(code) <= HyAmProvider.states_postcode[state_abbr][1]
 
         with self.assertRaises(Exception):
-            self.factory.postcode_in_state('XX')
+            self.fake.postcode_in_state('XX')
 
     def test_secondary_address(self):
-        secondary_address = self.factory.secondary_address()
-        assert isinstance(secondary_address, string_types)
+        secondary_address = self.fake.secondary_address()
+        assert isinstance(secondary_address, str)
 
     def test_state(self):
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
         assert state in HyAmProvider.states
 
     def test_state_abbr(self):
-        state_abbr = self.factory.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr()
+        assert isinstance(state_abbr, str)
         assert state_abbr in HyAmProvider.states_abbr
         assert state_abbr.isupper()
 
     def test_street(self):
-        street = self.factory.street()
-        assert isinstance(street, string_types)
+        street = self.fake.street()
+        assert isinstance(street, str)
         assert street in HyAmProvider.streets
 
     def test_street_address(self):
-        street_address = self.factory.street_address()
-        assert isinstance(street_address, string_types)
+        street_address = self.fake.street_address()
+        assert isinstance(street_address, str)
 
     def test_street_name(self):
-        street_name = self.factory.street_name()
-        assert isinstance(street_name, string_types)
+        street_name = self.fake.street_name()
+        assert isinstance(street_name, str)
 
     def test_street_prefix(self):
-        street_prefix = self.factory.street_prefix()
-        assert isinstance(street_prefix, string_types)
+        street_prefix = self.fake.street_prefix()
+        assert isinstance(street_prefix, str)
         assert street_prefix in HyAmProvider.street_prefixes
 
     def test_street_suffix(self):
-        suffix = self.factory.street_suffix()
-        assert isinstance(suffix, string_types)
+        suffix = self.fake.street_suffix()
+        assert isinstance(suffix, str)
         assert suffix in HyAmProvider.street_suffixes
 
     def test_village(self):
-        village = self.factory.village()
-        assert isinstance(village, string_types)
+        village = self.fake.village()
+        assert isinstance(village, str)
         assert village in HyAmProvider.villages
 
     def test_village_prefix(self):
-        village_prefix = self.factory.village_prefix()
-        assert isinstance(village_prefix, string_types)
+        village_prefix = self.fake.village_prefix()
+        assert isinstance(village_prefix, str)
         assert village_prefix in HyAmProvider.village_prefixes
 
 
@@ -807,71 +834,73 @@ class TestJaJP(unittest.TestCase):
     """ Tests addresses in the ja_JP locale """
 
     def setUp(self):
-        self.factory = Faker('ja')
+        self.fake = Faker('ja')
+        Faker.seed(0)
 
     def test_address(self):
         """ Test"""
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
         assert country in JaProvider.countries
 
-        prefecture = self.factory.prefecture()
-        assert isinstance(prefecture, string_types)
+        prefecture = self.fake.prefecture()
+        assert isinstance(prefecture, str)
         assert prefecture in JaProvider.prefectures
 
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in JaProvider.cities
 
-        town = self.factory.town()
-        assert isinstance(town, string_types)
+        town = self.fake.town()
+        assert isinstance(town, str)
         assert town in JaProvider.towns
 
-        chome = self.factory.chome()
-        assert isinstance(chome, string_types)
+        chome = self.fake.chome()
+        assert isinstance(chome, str)
         assert re.match(r"\d{1,2}丁目", chome)
 
-        ban = self.factory.ban()
-        assert isinstance(ban, string_types)
+        ban = self.fake.ban()
+        assert isinstance(ban, str)
         assert re.match(r"\d{1,2}番", ban)
 
-        gou = self.factory.gou()
-        assert isinstance(gou, string_types)
+        gou = self.fake.gou()
+        assert isinstance(gou, str)
         assert re.match(r"\d{1,2}号", gou)
 
-        building_name = self.factory.building_name()
-        assert isinstance(building_name, string_types)
+        building_name = self.fake.building_name()
+        assert isinstance(building_name, str)
         assert building_name in JaProvider.building_names
 
-        postcode = self.factory.postcode()
-        assert isinstance(postcode, string_types)
+        postcode = self.fake.postcode()
+        assert isinstance(postcode, str)
         assert re.match(r"\d{3}-\d{4}", postcode)
 
-        zipcode = self.factory.zipcode()
-        assert isinstance(zipcode, string_types)
+        zipcode = self.fake.zipcode()
+        assert isinstance(zipcode, str)
         assert re.match(r"\d{3}-\d{4}", zipcode)
 
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
 
 class TestKoKR(unittest.TestCase):
     """ Tests addresses in the ko_KR locale """
 
     def setUp(self):
-        self.factory = Faker('ko_KR')
+        self.fake = Faker('ko_KR')
+        Faker.seed(0)
 
     def test_address(self):
-        postcode = self.factory.postcode()
-        assert isinstance(postcode, string_types)
+        postcode = self.fake.postcode()
+        assert isinstance(postcode, str)
         assert re.match(r"\d{5}", postcode)
 
-        postal_code = self.factory.postal_code()
-        assert isinstance(postal_code, string_types)
+        postal_code = self.fake.postal_code()
+        assert isinstance(postal_code, str)
         assert re.match(r"\d{5}", postal_code)
 
-        old_postal_code = self.factory.old_postal_code()
-        assert isinstance(old_postal_code, string_types)
+        old_postal_code = self.fake.old_postal_code()
+        assert isinstance(old_postal_code, str)
         assert re.match(r"\d{3}-\d{3}", old_postal_code)
 
 
@@ -879,20 +908,21 @@ class TestNeNP(unittest.TestCase):
     """ Tests addresses in the ne_NP locale """
 
     def setUp(self):
-        self.factory = Faker('ne_NP')
+        self.fake = Faker('ne_NP')
+        Faker.seed(0)
 
     def test_address(self):
         """ Tests the street address in ne_NP locale """
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
         assert country in NeProvider.countries
 
-        district = self.factory.district()
-        assert isinstance(district, string_types)
+        district = self.fake.district()
+        assert isinstance(district, str)
         assert district in NeProvider.districts
 
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
         assert city in NeProvider.cities
 
 
@@ -900,116 +930,131 @@ class TestNoNO(unittest.TestCase):
     """ Tests the street address in no_NO locale """
 
     def setUp(self):
-        self.factory = Faker('no_NO')
+        self.fake = Faker('no_NO')
+        Faker.seed(0)
 
     def test_postcode(self):
         for _ in range(100):
-            assert re.match(r'^[0-9]{4}$', self.factory.postcode())
+            assert re.match(r'^[0-9]{4}$', self.fake.postcode())
 
     def test_city_suffix(self):
-        suffix = self.factory.city_suffix()
-        assert isinstance(suffix, string_types)
+        suffix = self.fake.city_suffix()
+        assert isinstance(suffix, str)
 
     def test_street_suffix(self):
-        suffix = self.factory.street_suffix()
-        assert isinstance(suffix, string_types)
+        suffix = self.fake.street_suffix()
+        assert isinstance(suffix, str)
 
     def test_address(self):
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
 
 class TestZhTW(unittest.TestCase):
     """ Tests addresses in the zh_tw locale """
 
     def setUp(self):
-        self.factory = Faker('zh_TW')
+        self.fake = Faker('zh_TW')
+        Faker.seed(0)
 
     def test_address(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
 
-        street = self.factory.street_name()
-        assert isinstance(street, string_types)
+        street = self.fake.street_name()
+        assert isinstance(street, str)
 
-        city = self.factory.city()
-        assert isinstance(city, string_types)
+        city = self.fake.city()
+        assert isinstance(city, str)
 
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
 
 class TestZhCN(unittest.TestCase):
     """ Tests addresses in the zh_cn locale """
 
     def setUp(self):
-        self.factory = Faker('zh_CN')
+        self.fake = Faker('zh_CN')
+        Faker.seed(0)
 
     def test_address(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
 
-        street = self.factory.street_name()
-        assert isinstance(street, string_types)
+        street = self.fake.street_name()
+        assert isinstance(street, str)
 
-        city = self.factory.street_address()
-        assert isinstance(city, string_types)
+        city = self.fake.street_address()
+        assert isinstance(city, str)
 
-        province = self.factory.province()
-        assert isinstance(province, string_types)
+        province = self.fake.province()
+        assert isinstance(province, str)
 
-        district = self.factory.district()
-        assert isinstance(district, string_types)
+        district = self.fake.district()
+        assert isinstance(district, str)
 
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
         for _ in range(100):
-            assert re.match(r'\d{5}', self.factory.postcode())
+            assert re.match(r'\d{5}', self.fake.postcode())
 
 
 class TestPtBr(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('pt_BR')
+        self.fake = Faker('pt_BR')
+        Faker.seed(0)
 
     def test_address(self):
-        country = self.factory.country()
-        assert isinstance(country, string_types)
+        country = self.fake.country()
+        assert isinstance(country, str)
 
-        street = self.factory.street_name()
-        assert isinstance(street, string_types)
+        street = self.fake.street_name()
+        assert isinstance(street, str)
 
-        city = self.factory.street_address()
-        assert isinstance(city, string_types)
+        city = self.fake.street_address()
+        assert isinstance(city, str)
 
-        neighborhood = self.factory.neighborhood()
-        assert isinstance(neighborhood, string_types)
+        neighborhood = self.fake.neighborhood()
+        assert isinstance(neighborhood, str)
 
-        state = self.factory.state()
-        assert isinstance(state, string_types)
+        state = self.fake.state()
+        assert isinstance(state, str)
 
-        state_abbr = self.factory.state_abbr()
-        assert isinstance(state_abbr, string_types)
+        state_abbr = self.fake.state_abbr()
+        assert isinstance(state_abbr, str)
 
-        address = self.factory.address()
-        assert isinstance(address, string_types)
+        address = self.fake.address()
+        assert isinstance(address, str)
 
 
 class TestPtPT(unittest.TestCase):
 
     def setUp(self):
-        self.factory = Faker('pt_PT')
+        self.fake = Faker('pt_PT')
+        Faker.seed(0)
 
     def test_distrito(self):
-        distrito = self.factory.distrito()
-        assert isinstance(distrito, string_types)
+        distrito = self.fake.distrito()
+        assert isinstance(distrito, str)
         assert distrito in PtPtProvider.distritos
 
+    def test_concelho(self):
+        concelho = self.fake.concelho()
+        assert isinstance(concelho, str)
+        assert concelho in PtPtProvider.concelhos
+
     def test_freguesia(self):
-        freguesia = self.factory.freguesia()
-        assert isinstance(freguesia, string_types)
+        freguesia = self.fake.freguesia()
+        assert isinstance(freguesia, str)
         assert freguesia in PtPtProvider.freguesias
+
+    def test_place_name(self):
+        place_name = self.fake.place_name()
+        assert isinstance(place_name, str)
+        assert place_name in PtPtProvider.places
 
 
 class TestEnPh(unittest.TestCase):
@@ -1023,10 +1068,11 @@ class TestEnPh(unittest.TestCase):
             r'^(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)$',
         )
         self.setup_constants()
-        self.setup_factory()
+        self.setup_faker()
 
-    def setup_factory(self):
-        self.factory = Faker('en_PH')
+    def setup_faker(self):
+        self.fake = Faker('en_PH')
+        Faker.seed(0)
 
     def setup_constants(self):
         from faker.providers.address.en_PH import Provider
@@ -1041,37 +1087,37 @@ class TestEnPh(unittest.TestCase):
 
     def test_PH_metro_manila_postcode(self):
         for i in range(self.num_sample_runs):
-            assert int(self.factory.metro_manila_postcode()) in self.metro_manila_postcodes
+            assert int(self.fake.metro_manila_postcode()) in self.metro_manila_postcodes
 
     def test_PH_luzon_province_postcode(self):
         for i in range(self.num_sample_runs):
-            assert int(self.factory.luzon_province_postcode()) in self.luzon_province_postcodes
+            assert int(self.fake.luzon_province_postcode()) in self.luzon_province_postcodes
 
     def test_PH_visayas_province_postcode(self):
         for i in range(self.num_sample_runs):
-            assert int(self.factory.visayas_province_postcode()) in self.visayas_province_postcodes
+            assert int(self.fake.visayas_province_postcode()) in self.visayas_province_postcodes
 
     def test_PH_mindanao_province_postcode(self):
         for i in range(self.num_sample_runs):
-            assert int(self.factory.mindanao_province_postcode()) in self.mindanao_province_postcodes
+            assert int(self.fake.mindanao_province_postcode()) in self.mindanao_province_postcodes
 
     def test_PH_postcode(self):
         for i in range(self.num_sample_runs):
-            assert int(self.factory.postcode()) in self.postcodes
+            assert int(self.fake.postcode()) in self.postcodes
 
     def test_PH_building_number(self):
         for i in range(self.num_sample_runs):
-            assert self.building_number_pattern.match(self.factory.building_number())
+            assert self.building_number_pattern.match(self.fake.building_number())
 
     def test_PH_floor_unit_number(self):
         for i in range(self.num_sample_runs):
-            number = self.factory.floor_unit_number()
+            number = self.fake.floor_unit_number()
             assert 2 <= int(number[:-2]) <= 99
             assert 1 <= int(number[-2:]) <= 40
 
     def test_PH_address(self):
         for i in range(self.num_sample_runs):
-            address = self.factory.address()
+            address = self.fake.address()
             match = self.address_pattern.match(address)
             street_address = match.group('street_address')
             lgu = match.group('lgu')
@@ -1083,23 +1129,12 @@ class TestEnPh(unittest.TestCase):
             assert int(postcode) in self.postcodes
             assert province in self.provinces or province == 'Metro Manila'
 
-
-class TestFilPh(TestEnPh):
-
-    def setup_factory(self):
-        self.factory = Faker('fil_PH')
-
-
-class TestTlPh(TestEnPh):
-
-    def setup_factory(self):
-        self.factory = Faker('tl_PH')
-
-
+     
 class TestEnNG(unittest.TestCase):
 
     def setUp(self):
         self.factory = Faker('en_NG')
+        Faker.seed(0)
 
     def test_address(self):
         country = self.factory.country()
@@ -1116,3 +1151,44 @@ class TestEnNG(unittest.TestCase):
 
         address = self.factory.address()
         assert isinstance(address, string_types)
+
+
+
+class TestRuRU(unittest.TestCase):
+    """ Tests addresses in the ru_RU locale """
+
+    def setUp(self):
+        self.fake = Faker('ru_RU')
+        Faker.seed(0)
+
+    def test_city_name(self):
+        city = self.fake.city_name()
+        assert isinstance(city, str)
+
+    def test_country(self):
+        country = self.fake.country()
+        assert isinstance(country, str)
+
+    def test_region(self):
+        region = self.fake.region()
+        assert isinstance(region, str)
+
+    def test_postcode(self):
+        postcode = self.fake.postcode()
+        assert isinstance(postcode, str)
+
+    def test_city_prefix(self):
+        city_prefix = self.fake.city_prefix()
+        assert isinstance(city_prefix, str)
+
+    def test_street_suffix(self):
+        street_suffix = self.fake.street_suffix()
+        assert isinstance(street_suffix, str)
+
+    def test_street_title(self):
+        street_title = self.fake.street_title()
+        assert isinstance(street_title, str)
+
+    def test_street_name(self):
+        street_name = self.fake.street_name()
+        assert isinstance(street_name, str)
