@@ -9,8 +9,6 @@ from faker import Faker
 from faker.providers.color import RandomColor
 from faker.providers.color.hy_AM import Provider as HyAmProvider
 from faker.providers.color.fa_IR import Provider as FaIrProvider
-import six
-from six import string_types
 
 
 class TestColor(unittest.TestCase):
@@ -280,10 +278,10 @@ class TestFaIr(unittest.TestCase):
 
     def test_color_name(self):
         color_name = self.fake.color_name()
-        assert isinstance(color_name, string_types)
+        assert isinstance(color_name, str)
         assert color_name in FaIrProvider.all_colors.keys()
 
     def test_safe_color_name(self):
         safe_color_name = self.fake.safe_color_name()
-        assert isinstance(safe_color_name, string_types)
+        assert isinstance(safe_color_name, str)
         assert safe_color_name in FaIrProvider.safe_colors
