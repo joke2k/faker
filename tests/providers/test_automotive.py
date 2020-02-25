@@ -139,10 +139,8 @@ class TestFrFR(unittest.TestCase):
     def setUp(self):
         self.fake = Faker('fr_FR')
         Faker.seed(0)
-        self.pattern = re.compile(r'^\d{3}-[A-Z]{3}-\d{2}$|^\d{3}-[A-Z]{3}-\d{2}')
+        self.pattern = re.compile(r'^\d{3}-[A-Z]{3}-\d{2}$|^[A-Z]{2}-\d{3}-[A-Z]{2}')
 
     def test_fr_FR_plate_format(self):
         plate = self.fake.license_plate()
         assert self.pattern.match(plate), "%s is not in the correct format." % plate
-        #assert (re.match(r"[\d{3}-[A-Z]{3}-\d{2}", plate) or re.match(r"[\d{3}-[A-Z]{3}-\d{2}", plate)), "%s is not in the correct format." % plate
-        #assert False, "%s is not in the correct format." % plate
