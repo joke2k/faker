@@ -76,6 +76,10 @@ class Provider(BaseProvider):
         '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
         '.asp',
     )
+    http_methods = (
+        'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
+        'PATCH',
+    )
 
     user_name_formats = (
         '{{last_name}}.{{first_name}}',
@@ -220,6 +224,15 @@ class Provider(BaseProvider):
 
     def tld(self):
         return self.random_element(self.tlds)
+
+    def http_method(self):
+        """Returns random HTTP method
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+        :rtype: str
+        """
+
+        return self.random_element(self.http_methods)
 
     def url(self, schemes=None):
         """
