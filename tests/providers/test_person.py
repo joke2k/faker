@@ -252,7 +252,7 @@ class TestPlPL(unittest.TestCase):
     @staticmethod
     def validate_nip(nip_str):
         """
-        Validates NIP using recomended code
+        Validates NIP using recommended code
         https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
         """
         nip_str = nip_str.replace('-', '')
