@@ -100,7 +100,7 @@ class Provider(AddressProvider):
     building_number_formats = ('%', '%#', '%#', '%#', '%##')
 
     postcode_raw_formats = ('########', )
-    postcode_all_formats = postcode_raw_formats + ( '#####-###', )
+    postcode_all_formats = postcode_raw_formats + ('#####-###', )
 
     bairros = (
         'Aarão Reis', 'Acaba Mundo', 'Acaiaca', 'Ademar Maldonado', 'Aeroporto', 'Aguas Claras', 'Alípio De Melo',
@@ -296,7 +296,7 @@ class Provider(AddressProvider):
         :example 'Serra'
         """
         return self.random_element(self.bairros)
-    
+
     def postcode(self, formatted=True):
         """
         Randomly returns a postcode.
@@ -304,7 +304,7 @@ class Provider(AddressProvider):
         :example formatted: '41224-212' '83992-291' '12324322'
         :example raw: '43920231' '34239530'
         """
-        template = postcode_all_formats if formatted else postcode_raw_formats
+        template = self.postcode_all_formats if formatted else self.postcode_raw_formats
         return self.bothify(self.random_element(template))
 
     # aliases

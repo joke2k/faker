@@ -1028,7 +1028,7 @@ class TestPtBr(unittest.TestCase):
 
         address = self.fake.address()
         assert isinstance(address, str)
-    
+
     def test_raw_postcode(self):
         for _ in range(100):
             postcode = self.fake.postcode(formatted=False)
@@ -1040,7 +1040,6 @@ class TestPtBr(unittest.TestCase):
             postcode = self.fake.postcode()
             assert isinstance(postcode, str)
             assert re.match(r'^\d{5}-?\d{3}$', postcode)
-        
 
 
 class TestPtPT(unittest.TestCase):
