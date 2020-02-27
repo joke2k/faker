@@ -134,6 +134,7 @@ class TestRuRU(unittest.TestCase):
         category = self.fake.vehicle_category()
         assert isinstance(category, str)
 
+
 class TestFrFR(unittest.TestCase):
 
     def setUp(self):
@@ -143,4 +144,5 @@ class TestFrFR(unittest.TestCase):
 
     def test_fr_FR_plate_format(self):
         plate = self.fake.license_plate()
-        assert self.pattern.match(plate), "%s is not in the correct format." % plate
+        assert isinstance(plate, str)
+        assert self.pattern.match(plate)
