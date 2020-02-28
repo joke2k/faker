@@ -1,9 +1,8 @@
 # coding=utf-8
 from .. import Provider as JobProvider
 
-# https://vi.wikipedia.org/wiki/Thể_loại:Nghề_nghiệp
 
-class Provider(JobProvider):
+class Provider(JobProvider):        # https://vi.wikipedia.org/wiki/Thể_loại:Nghề_nghiệp
     """Job generator"""
     jobs = (
         'Bác sĩ',

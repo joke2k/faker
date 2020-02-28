@@ -6,9 +6,8 @@ from collections import OrderedDict
 
 from .. import Provider as PersonProvider
 
-# I statstic with data from https://github.com/duyetdev/vietnamese-namedb
 
-class Provider(PersonProvider):
+class Provider(PersonProvider):     # I statstic with data from https://github.com/duyetdev/vietnamese-namedb
     """Provider for Vietnamese person generator"""
     formats_female = OrderedDict((
         ('{{first_name_female}} {{mid_name_female}} {{last_name_female}}',

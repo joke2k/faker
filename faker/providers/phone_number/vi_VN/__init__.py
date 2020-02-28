@@ -2,9 +2,8 @@
 
 from .. import Provider as PhoneNumberProvider
 
-# https://quantrimang.com/danh-sach-dau-so-cac-mang-di-dong-o-viet-nam-133203
 
-class Provider(PhoneNumberProvider):
+class Provider(PhoneNumberProvider):        # https://quantrimang.com/danh-sach-dau-so-cac-mang-di-dong-o-viet-nam-133203
     """Phone number generator for Vietnamese locale"""
     formats = (
         # Viettel

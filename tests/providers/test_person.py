@@ -21,8 +21,6 @@ from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 
 
-
-
 class TestAr(unittest.TestCase):
     """ Tests person in the ar locale """
 
