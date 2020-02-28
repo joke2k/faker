@@ -1,13 +1,7 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import string
 import sys
 
 from decimal import Decimal
-
-import six
 
 from .. import BaseProvider
 
@@ -143,7 +137,7 @@ class Provider(BaseProvider):
             variable_nb_elements=True,
             *value_types):
 
-        value_types = [t if isinstance(t, six.string_types) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
@@ -175,7 +169,7 @@ class Provider(BaseProvider):
 
     def pystruct(self, count=10, *value_types):
 
-        value_types = [t if isinstance(t, six.string_types) else getattr(t, '__name__', type(t).__name__).lower()
+        value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t != 'struct']

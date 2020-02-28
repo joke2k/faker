@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 from .. import BaseProvider
 from .isbn import ISBN, ISBN10, ISBN13
 from .rules import RULES

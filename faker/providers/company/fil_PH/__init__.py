@@ -1,6 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from collections import OrderedDict
 
 from ..en_PH import Provider as EnPhProvider
@@ -82,7 +79,7 @@ class Provider(EnPhProvider):
         return self.random_element(self.objects_of_concern)
 
     def english_catch_phrase(self):
-        return super(Provider, self).catch_phrase()
+        return super().catch_phrase()
 
     def catch_phrase(self):
         return self.random_element(self.catch_phrase_formats)

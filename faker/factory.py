@@ -1,7 +1,3 @@
-# coding=utf-8
-
-from __future__ import absolute_import, unicode_literals
-
 import locale as pylocale
 import logging
 import sys
@@ -22,7 +18,7 @@ else:
     logger.debug('Not in REPL -> leaving logger event level as is.')
 
 
-class Factory(object):
+class Factory:
 
     @classmethod
     def create(

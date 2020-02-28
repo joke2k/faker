@@ -1,18 +1,12 @@
-# coding=utf-8
-
-from __future__ import print_function, unicode_literals
-
 import os
 import pprint
 import sys
-
-import six
 
 DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
 
 
 def write(fh, s):
-    return fh.write(s.encode('utf-8'))
+    return fh.write(s.encode())
 
 
 def write_base_provider(fh, doc, base_provider):
@@ -39,7 +33,7 @@ def write_provider(fh, doc, provider, formatters, excludes=None):
             # `pprint` can't format sets of heterogenous types.
             if not isinstance(example, set):
                 example = pprint.pformat(example, indent=4)
-            lines = six.text_type(example).expandtabs().splitlines()
+            lines = str(example).expandtabs().splitlines()
         except UnicodeEncodeError:
             msg = 'error on "{}" with value "{}"'.format(signature, example)
             raise Exception(msg)
@@ -120,7 +114,7 @@ def _main(app, *args, **kwargs):
 
 
 def setup(app):
-    app.connect(str('builder-inited'), _main)
+    app.connect('builder-inited', _main)
 
 
 if __name__ == "__main__":

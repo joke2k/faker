@@ -1,10 +1,4 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import unittest
-
-import six
 
 from faker import Faker
 
@@ -20,7 +14,7 @@ class TestJob(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestJaJP(unittest.TestCase):
@@ -34,7 +28,7 @@ class TestJaJP(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestKoKR(unittest.TestCase):
@@ -48,7 +42,7 @@ class TestKoKR(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestHuHU(unittest.TestCase):
@@ -60,7 +54,7 @@ class TestHuHU(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestHyAm(unittest.TestCase):
@@ -72,7 +66,7 @@ class TestHyAm(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestDeDe(unittest.TestCase):
@@ -84,7 +78,7 @@ class TestDeDe(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestFrFr(unittest.TestCase):
@@ -96,7 +90,7 @@ class TestFrFr(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestElGr(unittest.TestCase):
@@ -108,7 +102,7 @@ class TestElGr(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestPtPt(unittest.TestCase):
@@ -120,7 +114,7 @@ class TestPtPt(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)
 
 
 class TestPtBR(unittest.TestCase):
@@ -132,4 +126,4 @@ class TestPtBR(unittest.TestCase):
 
     def test_job(self):
         job = self.fake.job()
-        assert isinstance(job, six.string_types)
+        assert isinstance(job, str)

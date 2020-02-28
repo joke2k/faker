@@ -1,16 +1,14 @@
 #!/usr/bin/env python
-# coding=utf-8
 
-import io
 import os
 
 from setuptools import find_packages, setup
 
 here = os.path.abspath(os.path.dirname(__file__))
-with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
     README = fp.read()
 
-with io.open(os.path.join(here, 'VERSION')) as version_file:
+with open(os.path.join(here, 'VERSION')) as version_file:
     VERSION = version_file.read().strip()
 
 
@@ -21,7 +19,7 @@ try:
     import zipimport
     zip_safe = hasattr(zipimport.zipimporter, "iter_modules") or \
         zipimport.zipimporter in pkgutil.iter_importer_modules.registry.keys()
-except (ImportError, AttributeError):
+except AttributeError:
     zip_safe = False
 
 setup(
@@ -38,9 +36,8 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -60,15 +57,9 @@ setup(
     packages=find_packages(exclude=["docs", "tests", "tests.*"]),
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
+    python_requires=">=3.4",
     install_requires=[
         "python-dateutil>=2.4",
-        "six>=1.10",
         "text-unidecode==1.3",
     ],
-    extras_require={
-        ':python_version<"3.3"': [
-            'ipaddress',
-        ],
-    },
 )

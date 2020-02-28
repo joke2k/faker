@@ -1,18 +1,12 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import random as random_module
 import re
-
-import six
 
 _re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 
-class Generator(object):
+class Generator:
 
     __config = {}
 
@@ -110,5 +104,5 @@ class Generator(object):
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
-        formatter[1] = six.text_type(self.format(formatter[1]))
+        formatter[1] = str(self.format(formatter[1]))
         return ''.join(formatter)

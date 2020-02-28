@@ -1,4 +1,3 @@
-# coding=utf-8
 from ..es_ES import Provider as BaseProvider
 
 

@@ -1,12 +1,8 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import datetime
 import re
 import unittest
 
-import six
+from unittest import mock
 
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
@@ -16,16 +12,13 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
+from faker.providers.person.ru_RU import Provider as RuProvider
+from faker.providers.person.ru_RU import translit
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.vi_VN import Provider as ViProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
 
 
 
@@ -41,20 +34,20 @@ class TestAr(unittest.TestCase):
         # General first name
         name = self.fake.first_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.first_names
 
         # Females first name
         name = self.fake.first_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.first_names
         assert name in ArProvider.first_names_female
 
         # Male first name
         name = self.fake.first_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.first_names
         assert name in ArProvider.first_names_male
 
@@ -68,20 +61,20 @@ class TestAr(unittest.TestCase):
         # General last name.
         name = self.fake.last_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.last_names
 
         # Females last name.
         name = self.fake.last_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.last_names
         assert name in ArProvider.last_names
 
         # Male last name.
         name = self.fake.last_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ArProvider.last_names
         assert name in ArProvider.last_names
 
@@ -96,55 +89,55 @@ class TestJaJP(unittest.TestCase):
     def test_person(self):
         name = self.fake.name()
         assert name
-        assert isinstance(name, six.string_types)
+        assert isinstance(name, str)
 
         first_name = self.fake.first_name()
         assert first_name
-        assert isinstance(first_name, six.string_types)
+        assert isinstance(first_name, str)
 
         last_name = self.fake.last_name()
         assert last_name
-        assert isinstance(last_name, six.string_types)
+        assert isinstance(last_name, str)
 
         kana_name = self.fake.kana_name()
         assert kana_name
-        assert isinstance(kana_name, six.string_types)
+        assert isinstance(kana_name, str)
 
         first_kana_name = self.fake.first_kana_name()
         assert first_kana_name
-        assert isinstance(first_kana_name, six.string_types)
+        assert isinstance(first_kana_name, str)
 
         first_kana_name_male = self.fake.first_kana_name_male()
         assert first_kana_name_male
-        assert isinstance(first_kana_name_male, six.string_types)
+        assert isinstance(first_kana_name_male, str)
 
         first_kana_name_female = self.fake.first_kana_name_female()
         assert first_kana_name_female
-        assert isinstance(first_kana_name_female, six.string_types)
+        assert isinstance(first_kana_name_female, str)
 
         last_kana_name = self.fake.last_kana_name()
         assert last_kana_name
-        assert isinstance(last_kana_name, six.string_types)
+        assert isinstance(last_kana_name, str)
 
         romanized_name = self.fake.romanized_name()
         assert romanized_name
-        assert isinstance(romanized_name, six.string_types)
+        assert isinstance(romanized_name, str)
 
         first_romanized_name = self.fake.first_romanized_name()
         assert first_romanized_name
-        assert isinstance(first_romanized_name, six.string_types)
+        assert isinstance(first_romanized_name, str)
 
         first_romanized_name_male = self.fake.first_romanized_name_male()
         assert first_romanized_name_male
-        assert isinstance(first_romanized_name_male, six.string_types)
+        assert isinstance(first_romanized_name_male, str)
 
         first_romanized_name_female = self.fake.first_romanized_name_female()
         assert first_romanized_name_female
-        assert isinstance(first_romanized_name_female, six.string_types)
+        assert isinstance(first_romanized_name_female, str)
 
         last_romanized_name = self.fake.last_romanized_name()
         assert last_romanized_name
-        assert isinstance(last_romanized_name, six.string_types)
+        assert isinstance(last_romanized_name, str)
 
 
 class TestNeNP(unittest.TestCase):
@@ -155,7 +148,7 @@ class TestNeNP(unittest.TestCase):
 
     def test_names(self):
         name = self.fake.name().split()
-        assert all(isinstance(n, six.string_types) for n in name)
+        assert all(isinstance(n, str) for n in name)
         # name should always be 2-3 words. If 3, first word
         # should be a prefix.
         assert name[-2] in NeProvider.first_names
@@ -173,18 +166,18 @@ class TestFiFI(unittest.TestCase):
 
     def test_gender_first_names(self):
         female_name = self.fake.first_name_female()
-        self.assertIsInstance(female_name, six.string_types)
+        self.assertIsInstance(female_name, str)
         assert female_name in FiProvider.first_names_female
         male_name = self.fake.first_name_male()
-        self.assertIsInstance(male_name, six.string_types)
+        self.assertIsInstance(male_name, str)
         assert male_name in FiProvider.first_names_male
         first_name = self.fake.first_name()
-        self.assertIsInstance(first_name, six.string_types)
+        self.assertIsInstance(first_name, str)
         assert first_name in FiProvider.first_names
 
     def test_last_names(self):
         last_name = self.fake.last_name()
-        self.assertIsInstance(last_name, six.string_types)
+        self.assertIsInstance(last_name, str)
         assert last_name in FiProvider.last_names
 
 
@@ -262,7 +255,7 @@ class TestPlPL(unittest.TestCase):
     @staticmethod
     def validate_nip(nip_str):
         """
-        Validates NIP using recomended code
+        Validates NIP using recommended code
         https://pl.wikibooks.org/wiki/Kody_%C5%BAr%C3%B3d%C5%82owe/Implementacja_NIP
         """
         nip_str = nip_str.replace('-', '')
@@ -343,66 +336,66 @@ class TestZhCN(unittest.TestCase):
         # General last name.
         name = self.fake.last_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.last_names
 
         # Females last name.
         name = self.fake.last_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.last_names
 
         # Male last name.
         name = self.fake.last_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.last_names
 
         # General last romanized name
         name = self.fake.last_romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.last_romanized_names
 
     def test_first_name(self):
         # General first name
         name = self.fake.first_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.first_names
 
         # Females first name
         name = self.fake.first_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.first_names
         assert name in ZhCNProvider.first_names_female
 
         # Male first name
         name = self.fake.first_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.first_names
         assert name in ZhCNProvider.first_names_male
 
         # General first romanized name
         name = self.fake.first_romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhCNProvider.first_romanized_names
 
     def test_name(self):
         # Full name
         name = self.fake.name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name[0] in ZhCNProvider.last_names or name[:2] in ZhCNProvider.last_names
         assert name[1:] in ZhCNProvider.first_names or name[2:] in ZhCNProvider.first_names
 
         # Full romanized name
         name = self.fake.romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         first_romanized_name, last_romanized_name = name.split(' ')
         assert first_romanized_name in ZhCNProvider.first_romanized_names
         assert last_romanized_name in ZhCNProvider.last_romanized_names
@@ -426,66 +419,66 @@ class TestZhTW(unittest.TestCase):
         # General last name.
         name = self.fake.last_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
         # Females last name.
         name = self.fake.last_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
         # Male last name.
         name = self.fake.last_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
         # General last romanized name
         name = self.fake.last_romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_romanized_names
 
     def test_first_name(self):
         # General first name
         name = self.fake.first_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.first_names
 
         # Females first name
         name = self.fake.first_name_female()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.first_names
         assert name in ZhTWProvider.first_names_female
 
         # Male first name
         name = self.fake.first_name_male()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.first_names
         assert name in ZhTWProvider.first_names_male
 
         # General first romanized name
         name = self.fake.first_romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in ZhTWProvider.first_romanized_names
 
     def test_name(self):
         # Full name
         name = self.fake.name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name[0] in ZhTWProvider.last_names or name[:2] in ZhTWProvider.last_names
         assert name[1:] in ZhTWProvider.first_names or name[2:] in ZhTWProvider.first_names
 
         # Full romanized name
         name = self.fake.romanized_name()
         assert name
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         first_romanized_name, last_romanized_name = name.split(' ')
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
@@ -501,31 +494,31 @@ class TestHyAM(unittest.TestCase):
     def test_name(self):
         # General name
         name = self.fake.name()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
 
         # Female name
         name = self.fake.name_female()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
 
         # Male name
         name = self.fake.name_male()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
 
     def test_first_name(self):
         # General first name
         name = self.fake.first_name()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.first_names
 
         # Female first name
         name = self.fake.first_name_female()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.first_names
         assert name in HyAmProvider.first_names_female
 
         # Male first name
         name = self.fake.first_name_male()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.first_names
         assert name in HyAmProvider.first_names_male
 
@@ -538,17 +531,17 @@ class TestHyAM(unittest.TestCase):
 
         # General last name.
         name = self.fake.last_name()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.last_names
 
         # Females last name.
         name = self.fake.last_name_female()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.last_names
 
         # Male last name.
         name = self.fake.last_name_male()
-        self.assertIsInstance(name, six.string_types)
+        self.assertIsInstance(name, str)
         assert name in HyAmProvider.last_names
 
 
@@ -579,3 +572,41 @@ class TestTaIN(unittest.TestCase):
         assert name in TaINProvider.first_names_male
         name = self.fake.first_name()
         assert name in TaINProvider.first_names
+
+
+class TestRuRU(unittest.TestCase):
+    """ Tests person in the ru_RU locale """
+
+    def setUp(self):
+        self.fake = Faker('ru_RU')
+        Faker.seed(0)
+
+    def test_translit(self):
+        assert translit('Александр Сергеевич Пушкин') == 'Aleksandr Sergeevich Pushkin'
+        assert translit('Анна Андреевна Ахматова') == 'Anna Andreevna Akhmatova'
+        assert translit('Михаил') == 'Mikhail'
+        assert translit('Фёдор') == 'Fedor'
+        assert translit('Екатерина') == 'Yekaterina'
+        assert translit('Анастасия') == 'Anastasiya'
+        assert translit('Юрьевич') == 'Yurevich'
+        assert translit('Никитична') == 'Nikitichna'
+        assert translit('Щербакова') == 'Shcherbakova'
+        assert translit('Маяковский') == 'Mayakovskiy'
+        assert translit('Петров-Водкин') == 'Petrov-Vodkin'
+        assert translit('Воронцова-Дашкова') == 'Vorontsova-Dashkova'
+
+    def test_name_female(self):
+        first_name = self.fake.first_name_female()
+        assert first_name in RuProvider.first_names_female
+        middle_name = self.fake.middle_name_female()
+        assert middle_name in RuProvider.middle_names_female
+        last_name = self.fake.last_name_female()
+        assert last_name in RuProvider.last_names_female
+
+    def test_name_male(self):
+        first_name = self.fake.first_name_male()
+        assert first_name in RuProvider.first_names_male
+        middle_name = self.fake.middle_name_male()
+        assert middle_name in RuProvider.middle_names_male
+        last_name = self.fake.last_name_male()
+        assert last_name in RuProvider.last_names_male

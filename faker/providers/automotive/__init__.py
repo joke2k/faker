@@ -1,5 +1,3 @@
-# coding=utf-8
-
 import re
 
 from string import ascii_uppercase
