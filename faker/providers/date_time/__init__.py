@@ -29,6 +29,29 @@ def timestamp_to_datetime(timestamp, tzinfo):
     return pick
 
 
+def change_year(current_date, year_diff):
+    """
+    Unless the current_date is February 29th, it is fine to just subtract years.
+    If it is a leap day, and we are rolling back to a non-leap year, it will
+    cause a ValueError.
+    Since this is relatively uncommon, just catch the error and roll forward to
+    March 1
+
+    current_date: date  object
+    year_diff: int year delta value, positive or negative
+    """
+    year = current_date.year + year_diff
+    try:
+        return current_date.replace(year=year)
+    except ValueError as e:
+        # ValueError thrown if trying to move date to a non-leap year if the current
+        # date is February 29th
+        if year != 0 and current_date.month == 2 and current_date.day == 29:
+            return current_date.replace(month=3, day=1, year=year)
+        else:
+            raise e
+
+
 class ParseError(ValueError):
     pass
 
@@ -1996,8 +2019,8 @@ class Provider(BaseProvider):
         # boundary.
 
         now = datetime.now(tzinfo).date()
-        start_date = now.replace(year=now.year - (maximum_age+1))
-        end_date = now.replace(year=now.year - minimum_age)
+        start_date = change_year(now, -(maximum_age + 1))
+        end_date = change_year(now, -minimum_age)
 
         dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
 
