@@ -81,7 +81,7 @@ class TestPtBr(unittest.TestCase):
         assert len(msisdn) == 13 or len(msisdn) == 12
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
-        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", test_msisdn)
+        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", msisdn)
 
 
     def test_cellphone(self):
