@@ -87,7 +87,7 @@ class TestPtBr(unittest.TestCase):
     def test_cellphone(self):
         cellphone = self.fake.cellphone_number()
         assert cellphone is not None
-        assert cellphone[0:2] == '+55'
+        assert cellphone[0:3] == '+55'
         re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", cellphone)
 
 
