@@ -1,7 +1,7 @@
 Changelog
 =========
 
-`4.0.1 - 17-February-2019 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
+`4.0.1 - 17-February-2020 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
 --------------------------------------------------------------------------------------
 
 * Provider improvements for Russian locale:
@@ -24,12 +24,12 @@ Changelog
 * Add Birth Number to czech locale. Thanks @Jengah.
 * Add persons provider for ``fr_QC``. Thanks @Lionesk.
 
-`4.0.0 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
+`4.0.0 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
 -------------------------------------------------------------------------------------
 
 * Breaking change: Remove support for end-of-life Python 2.7.
 
-`3.0.1 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
+`3.0.1 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
 -------------------------------------------------------------------------------------
 
 **NOTE**: This is the last release to support Python 2.7.x.
