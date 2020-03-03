@@ -876,6 +876,19 @@ class FactoryTestCase(unittest.TestCase):
             assert 1024 <= faker.port_number(is_user=True) <= 49151
             assert 49152 <= faker.port_number(is_dynamic=True) <= 65535
 
+    def test_http_method(self):
+        faker = Faker()
+        expected_methods = [
+            'CONNECT', 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST',
+            'PUT', 'TRACE',
+        ]
+
+        got_methods = set()
+        for _ in range(99):
+            got_methods.add(faker.http_method())
+
+        assert expected_methods == sorted(got_methods)
+
     def test_random_sample_unique(self):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
