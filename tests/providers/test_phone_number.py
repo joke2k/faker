@@ -83,7 +83,6 @@ class TestPtBr(unittest.TestCase):
         assert msisdn[0:4] in formats
         re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", msisdn)
 
-
     def test_cellphone(self):
         cellphone = self.fake.cellphone_number()
         assert cellphone is not None
