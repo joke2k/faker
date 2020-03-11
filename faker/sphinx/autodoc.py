@@ -10,7 +10,7 @@ def _create_source_files(app):
 def _process_docstring(app, what, name, obj, options, lines):
     docstring = ProviderMethodDocstring(app, what, name, obj, options, lines)
     if not docstring.skipped:
-        lines[:] = docstring.lines()[:]
+        lines[:] = docstring.lines[:]
 
 
 def setup(app):
