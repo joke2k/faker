@@ -1,14 +1,14 @@
 # coding=utf-8
 import sys
 import unittest
-from unittest.mock import patch
+from unittest import mock
 
 from faker.sphinx.validator import SampleCodeValidator
 
 
 class TestSampleCodeValidator(unittest.TestCase):
 
-    @patch('faker.sphinx.validator.ast.parse')
+    @mock.patch('faker.sphinx.validator.ast.parse')
     def test_ast_parser_called_in_eval_mode(self, mock_ast_parse):
         command = 'variable.method()'
         mock_ast_parse.assert_not_called()
