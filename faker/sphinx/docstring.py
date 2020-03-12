@@ -3,11 +3,10 @@ import re
 
 from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
 
-from sphinx.util import logging
-
 from faker import Faker
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
 from faker.sphinx.validator import SampleCodeValidator
+from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
 _fake = Faker(AVAILABLE_LOCALES)
