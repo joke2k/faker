@@ -64,7 +64,7 @@ class SampleCodeValidator(ast.NodeVisitor):
 
         try:
             self._tree = ast.parse(command, mode='eval')
-        except (SyntaxError, ValueError) as e:
+        except (SyntaxError, ValueError):
             self._log_error(traceback.format_exc())
         else:
             self._validate()

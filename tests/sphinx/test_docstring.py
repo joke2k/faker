@@ -1,5 +1,4 @@
 # coding=utf-8
-import inspect
 import unittest
 from unittest import mock
 from unittest.mock import MagicMock
@@ -96,7 +95,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
             ':sample: c=3, a=5,',           # This becomes 3rd sample line
             '         b=1    ',             # and continues to this line
             ':sample: a=1, b=5',            # This becomes 4th sample line
-            '   c="abc  def"     d=1  '     # and continues to this line
+            '   c="abc  def"     d=1  ',    # and continues to this line
         ]
         expected_output = [
             'a=1, b=2',

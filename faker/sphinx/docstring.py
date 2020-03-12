@@ -1,5 +1,5 @@
 # coding=utf-8
-from collections import OrderedDict     # Do not remove! The eval command needs this reference.
+from collections import OrderedDict     # noqa: F401 Do not remove! The eval command needs this reference.
 import re
 
 from sphinx.util import logging
@@ -17,7 +17,7 @@ _locale_provider_method_pattern = re.compile(
     r'^faker\.providers\.\w+'
     r'\.(?P<locale>[a-z]{2,3}_[A-Z]{2})'
     r'\.Provider'
-    r'\.(?P<method>\w+)$'
+    r'\.(?P<method>\w+)$',
 )
 
 
@@ -125,12 +125,12 @@ class ProviderMethodDocstring:
             if sample == 'default':
                 result = generator.format(self._method)
                 sample_output = '>>> fake.{method}()\n{result}\n'.format(
-                    method=self._method, result=result
+                    method=self._method, result=result,
                 )
                 sample_section_output += sample_output
             else:
                 command = 'generator.{method}({kwargs})'.format(
-                    method=self._method, kwargs=sample
+                    method=self._method, kwargs=sample,
                 )
                 validator = SampleCodeValidator(command)
                 if not validator.errors:
@@ -138,12 +138,12 @@ class ProviderMethodDocstring:
                         result = eval(command)
                     except Exception:
                         msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
-                            method=self._method, kwargs=sample
+                            method=self._method, kwargs=sample,
                         )
                         logger.warning(msg)
                     else:
                         sample_output = '>>> fake.{method}({kwargs})\n{result}\n'.format(
-                            method=self._method, kwargs=sample, result=result
+                            method=self._method, kwargs=sample, result=result,
                         )
                         sample_section_output += sample_output
 
