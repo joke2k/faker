@@ -1,5 +1,6 @@
 # coding=utf-8
 import ast
+from collections import OrderedDict
 import traceback
 
 
@@ -32,6 +33,14 @@ class SampleCodeValidator(ast.NodeVisitor):
     - The only literals allowed are numbers (integers, floats, or complex numbers),
       strings (but not f-strings), bytes, lists, tuples, sets, dictionaries, True,
       False, and None.
+
+    There is, however, an exception. In order to accommodate sample code with custom
+    probability distribution, variable access to `OrderedDict` will not count against
+    the maximum limit of variable access, and invoking `OrderedDict` constructor calls
+    will not count against the maximum limit of function/method calls. In order to
+    neuter the impact of code injection, please ensure that `OrderedDict` refers to
+    the standard library's `collections.OrderedDict` within the `eval()` scope before
+    passing the command string to `eval()` for execution. This can be done in code review.
     """
 
     _whitelisted_nodes = (
@@ -73,6 +82,19 @@ class SampleCodeValidator(ast.NodeVisitor):
     def _validate(self):
         self.visit(self._tree)
 
+    def _is_node_using_ordereddict(self, node):
+        is_valid = False
+
+        # If instance of function call, check if it is a call to the OrderedDict constructor
+        if isinstance(node, ast.Call):
+            is_valid = self._is_node_using_ordereddict(node.func)
+
+        # If instance of variable access, check if it is
+        elif isinstance(node, ast.Name) and node.id == OrderedDict.__name__:
+            is_valid = True
+
+        return is_valid
+
     def visit(self, node):
         # Check if code element type is allowed
         if not self._is_whitelisted(node):
@@ -82,12 +104,13 @@ class SampleCodeValidator(ast.NodeVisitor):
         return super().visit(node)
 
     def visit_Call(self, node):
-        # There can only be one instance of a function call
-        if self._function_call_count < self._max_function_call_count:
-            self._function_call_count += 1
-        else:
-            msg = 'There can only be one instance of a function/method call.'
-            self._log_error(msg)
+        if not self._is_node_using_ordereddict(node):
+            # There can only be one instance of a function call
+            if self._function_call_count < self._max_function_call_count:
+                self._function_call_count += 1
+            else:
+                msg = 'There can only be one instance of a function/method call.'
+                self._log_error(msg)
 
         # Proceed to child nodes
         self.generic_visit(node)
@@ -104,12 +127,13 @@ class SampleCodeValidator(ast.NodeVisitor):
         self.generic_visit(node)
 
     def visit_Name(self, node):
-        # There can only be one instance of variable access
-        if self._variable_access_count < self._max_variable_access_count:
-            self._variable_access_count += 1
-        else:
-            msg = 'There can only be one instance of variable access.'
-            self._log_error(msg)
+        if not self._is_node_using_ordereddict(node):
+            # There can only be one instance of variable access
+            if self._variable_access_count < self._max_variable_access_count:
+                self._variable_access_count += 1
+            else:
+                msg = 'There can only be one instance of variable access.'
+                self._log_error(msg)
 
         # Proceed to child nodes
         self.generic_visit(node)

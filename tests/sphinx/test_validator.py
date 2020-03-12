@@ -32,6 +32,25 @@ class TestSampleCodeValidator(unittest.TestCase):
         validator = SampleCodeValidator('[variable1, variable2]')
         assert validator.errors
 
+    def test_ordereddict_variable_access_exception(self):
+        validator = SampleCodeValidator('[OrderedDict]')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('[OrderedDict, variable1]')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('[OrderedDict, OrderedDict, OrderedDict, OrderedDict]')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('[OrderedDict, OrderedDict, OrderedDict, OrderedDict, variable1]')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('[OrderedDict, variable1, variable2]')
+        assert validator.errors
+
+        validator = SampleCodeValidator('[OrderedDict2, variable1]')
+        assert validator.errors
+
     def test_single_instance_of_attribute_access(self):
         validator = SampleCodeValidator('variable.attr1')
         assert not validator.errors
@@ -44,6 +63,22 @@ class TestSampleCodeValidator(unittest.TestCase):
         assert not validator.errors
 
         validator = SampleCodeValidator('variable.method1().method2()')
+        assert validator.errors
+
+    def test_ordereddict_constructor_exception(self):
+        validator = SampleCodeValidator('OrderedDict()')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('variable.method1(OrderedDict())')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('variable.method1(OrderedDict2())')
+        assert validator.errors
+
+        validator = SampleCodeValidator('variable.method1(OrderedDict(), OrderedDict(), OrderedDict())')
+        assert not validator.errors
+
+        validator = SampleCodeValidator('variable.method1().method2(OrderedDict())')
         assert validator.errors
 
     def test_allowed_literal_types(self):

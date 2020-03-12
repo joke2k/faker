@@ -1,4 +1,5 @@
 # coding=utf-8
+from collections import OrderedDict     # Do not remove! The eval command needs this reference.
 import re
 
 from sphinx.util import logging
