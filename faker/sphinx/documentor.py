@@ -3,7 +3,8 @@ import importlib
 import inspect
 import os
 
-from faker.config import AVAILABLE_LOCALES, PROVIDERS as STANDARD_PROVIDER_NAMES
+from faker.config import AVAILABLE_LOCALES
+from faker.config import PROVIDERS as STANDARD_PROVIDER_NAMES
 from faker.providers import BaseProvider
 
 DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))

@@ -1,7 +1,8 @@
 # coding=utf-8
 import ast
-from collections import OrderedDict
 import traceback
+
+from collections import OrderedDict
 
 
 class SampleCodeValidator(ast.NodeVisitor):

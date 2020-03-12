@@ -1,6 +1,7 @@
 # coding=utf-8
 import sys
 import unittest
+
 from unittest import mock
 
 from faker.sphinx.validator import SampleCodeValidator
