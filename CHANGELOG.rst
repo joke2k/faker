@@ -1,6 +1,19 @@
 Changelog
 =========
 
+`4.0.2 - 11-March-2019 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
+-----------------------------------------------------------------------------------
+
+* Add more data for ``ko_KR`` address provider. Thanks @alstn2468.
+* Improved ``pt_PT`` locale for address and bank. Thanks @mustakarhu.
+* Add ``port_number`` method to internet provider. Thanks @pishchalnikov.
+* Add color provider for ``fa_IR`` locale. Thanks @abtinmo.
+* Add formatting options for ``pt_BR`` postcodes. Thanks @perssonsimon1 and @klaraesr.
+* Add ``country_calling_code`` to ``phone_number`` provider. Thanks @perssonsimon1.
+* Fix leap year issue. Thanks @mmcmahon.
+* Add ``AutomotiveProvider`` for ``fr_FR`` locale. Thanks @clarissedescamps and @perssonsimon1.
+* Fix ``cellphone_formats`` in ``pt_BR`` ``PhoneNumberProvider``. Thanks @rodrigondec.
+
 `4.0.1 - 17-February-2020 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
 --------------------------------------------------------------------------------------
 
