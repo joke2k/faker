@@ -1,7 +1,7 @@
 # coding=utf-8
 import re
 
-from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
+from collections import namedtuple
 
 from faker import Faker
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
@@ -18,6 +18,25 @@ _locale_provider_method_pattern = re.compile(
     r'\.Provider'
     r'\.(?P<method>\w+)$',
 )
+_sample_line_pattern = re.compile(
+    r'^:sample'
+    r'(?: (?P<count>[1-9][0-9]*))?'
+    r'(?: seed=(?P<seed>[0-9]+))?'
+    r':'
+    r'(?: ?(?P<kwargs>.*))?$'
+)
+_command_template = 'generator.{method}({kwargs})'
+_sample_output_template = (
+    '>>> Faker.seed({seed})\n'
+    '>>> for _ in range({count}):\n'
+    '...     fake.{method}({kwargs})\n'
+    '...\n'
+    '{results}\n'
+)
+
+DEFAULT_SAMPLE_COUNT = 5
+DEFAULT_SEED = 0
+Sample = namedtuple('Sample', ['count', 'seed', 'kwargs'])
 
 
 class ProviderMethodDocstring:
@@ -29,7 +48,10 @@ class ProviderMethodDocstring:
       generated using a `Faker` object in the `DEFAULT_LOCALE`.
     - If the docstring belongs to a localized provider method, the correct locale will be used.
     - If the docstring does not belong to any provider method, docstring preprocessing will be skipped.
-    - The `Faker` objects used will be reseeded via `Faker.seed(0)` before each sample generation.
+    - Docstring lines will be parsed for potential sample sections, and the generation details of each
+      sample section will internally be represented as a ``Sample`` namedtuple.
+    - Each ``Sample`` will have info on the keyword arguments to pass to the provider method, how many
+      times the provider method will be called, and the initial seed value to ``Faker.seed()``.
     """
 
     def __init__(self, app, what, name, obj, options, lines):
@@ -70,12 +92,11 @@ class ProviderMethodDocstring:
             except StopIteration:
                 break
             else:
-                self._process_section(line)
-        self._kwargsify_samples()
+                self._parse_section(line)
 
-    def _process_section(self, section):
-        # No-op if section does not look like the start of a sample
-        if not section.startswith(':sample: '):
+    def _parse_section(self, section):
+        # No-op if section does not look like the start of a sample section
+        if not section.startswith(':sample'):
             self._parsed_lines.append(section)
             return
 
@@ -83,71 +104,122 @@ class ProviderMethodDocstring:
             next_line = next(self._line_iter)
         except StopIteration:
             # No more lines left to consume, so save current sample section
-            self._samples.append(section)
+            self._process_sample_section(section)
             return
 
-        # Next line is the start of a new sample section,
-        # so save current section, and start a new section
-        if next_line.startswith(':sample: '):
-            self._samples.append(section)
-            self._process_section(next_line)
+        # Next line is the start of a new sample section, so process
+        # current sample section, and start parsing the new section
+        if next_line.startswith(':sample'):
+            self._process_sample_section(section)
+            self._parse_section(next_line)
 
         # Next line is an empty line indicating the end of
-        # current sample section, so save current section
+        # current sample section, so process current section
         elif next_line == '':
-            self._samples.append(section)
+            self._process_sample_section(section)
 
         # Section is assumed to be multiline, so continue
         # adding lines to current sample section
         else:
-            section = section + ' ' + next_line
-            self._process_section(section)
+            section = section + next_line
+            self._parse_section(section)
 
-    def _kwargsify_samples(self):
-        def _kwargsify_sample(text):
-            def _repl(match):
-                quoted = match.group(1) or match.group(2)
-                return quoted if quoted else ' '
-            return re.sub(r'("[^"]*")|(\'[^\']*\')|[ \t]+', _repl, text).replace(':sample: ', '').strip()
+    def _process_sample_section(self, section):
+        match = _sample_line_pattern.match(section)
 
-        for idx, sample_line in enumerate(self._samples):
-            self._samples[idx] = _kwargsify_sample(sample_line)
+        # Discard sample section if malformed
+        if not match:
+            return
+
+        # Set sample generation defaults and do some beautification if necessary
+        groupdict = match.groupdict()
+        count = groupdict.get('count')
+        seed = groupdict.get('seed')
+        kwargs = groupdict.get('kwargs')
+        count = max(int(count), DEFAULT_SAMPLE_COUNT) if count else DEFAULT_SAMPLE_COUNT
+        seed = int(seed) if seed else DEFAULT_SEED
+        kwargs = self._beautify_kwargs(kwargs) if kwargs else ''
+
+        # Store sample generation details
+        sample = Sample(count, seed, kwargs)
+        self._samples.append(sample)
+
+    def _beautify_kwargs(self, kwargs):
+        def _repl_whitespace(match):
+            quoted = match.group(1) or match.group(2)
+            return quoted if quoted else ''
+
+        def _repl_comma(match):
+            quoted = match.group(1) or match.group(2)
+            return quoted if quoted else ', '
+
+        # First, remove all whitespaces and tabs not within quotes
+        result = re.sub(r'("[^"]*")|(\'[^\']*\')|[ \t]+', _repl_whitespace, kwargs)
+
+        # Next, insert a whitespace after each comma not within quotes
+        result = re.sub(r'("[^"]*")|(\'[^\']*\')|,', _repl_comma, result)
+
+        # Then return the result with all leading and trailing whitespaces stripped
+        return result.strip()
+
+    def _format_results(self, results):
+        def _stringify_result(value):
+            if value is None:
+                return value
+            elif value == '':
+                return "''"
+            else:
+                return str(value)
+
+        output = ''
+        for result in results:
+            output += '{}\n'.format(_stringify_result(result))
+        return output
+
+    def _generate_eval_scope(self):
+        from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
+        return {
+            'generator': _fake[self._locale],
+            'OrderedDict': OrderedDict,
+        }
 
     def _generate_samples(self):
         if not self._samples:
             return
 
-        sample_section_output = ''
-        generator = _fake[self._locale]
+        output = ''
+        eval_scope = self._generate_eval_scope()
         for sample in self._samples:
-            Faker.seed(0)
-            if sample == 'default':
-                result = generator.format(self._method)
-                sample_output = '>>> fake.{method}()\n{result}\n'.format(
-                    method=self._method, result=result,
+            command = _command_template.format(method=self._method, kwargs=sample.kwargs)
+            validator = SampleCodeValidator(command)
+            if validator.errors:
+                msg = (
+                    'Invalid code elements detected. Sample generation will be '
+                    'skipped for method `{method}` with arguments `{kwargs}`'
+                ).format(
+                    method=self._method, kwargs=sample.kwargs,
                 )
-                sample_section_output += sample_output
-            else:
-                command = 'generator.{method}({kwargs})'.format(
-                    method=self._method, kwargs=sample,
-                )
-                validator = SampleCodeValidator(command)
-                if not validator.errors:
-                    try:
-                        result = eval(command)
-                    except Exception:
-                        msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
-                            method=self._method, kwargs=sample,
-                        )
-                        logger.warning(msg)
-                    else:
-                        sample_output = '>>> fake.{method}({kwargs})\n{result}\n'.format(
-                            method=self._method, kwargs=sample, result=result,
-                        )
-                        sample_section_output += sample_output
+                logger.warning(msg)
+                continue
 
-        sample_section_output = ':examples:\n\n' + sample_section_output
-        self._parsed_lines.extend(sample_section_output.split('\n'))
+            try:
+                Faker.seed(sample.seed)
+                results = [eval(command, eval_scope) for _ in range(sample.count)]
+            except Exception as e:
+                msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
+                    method=self._method, kwargs=sample.kwargs,
+                )
+                logger.warning(msg)
+                continue
+            else:
+                output += _sample_output_template.format(
+                    seed=sample.seed, method=self._method, kwargs=sample.kwargs,
+                    count=sample.count, results=self._format_results(results),
+                )
+
+        if output:
+            output = ':examples:\n\n' + output
+            self._parsed_lines.extend(output.split('\n'))
 
     @property
     def skipped(self):

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
-from faker.sphinx.docstring import ProviderMethodDocstring
+from faker.sphinx.docstring import ProviderMethodDocstring, Sample, DEFAULT_SAMPLE_COUNT, DEFAULT_SEED
 
 
 class TestProviderMethodDocstring(unittest.TestCase):
@@ -81,28 +81,60 @@ class TestProviderMethodDocstring(unittest.TestCase):
             obj=MagicMock(), options=MagicMock(), lines=[':sample: a=1'],
         )
         assert not docstring.skipped
-        assert docstring._samples == ['a=1']
+        assert docstring._samples == [Sample(5, 0, 'a=1')]
 
     @mock.patch.object(ProviderMethodDocstring, '_generate_samples')
     def test_parsing_multiple_lines(self, mock_generate_samples):
         lines = [
-            'lorem',
-            'ipsum',
-            '',
-            ':sample: a=1, b=2',            # This becomes 1st sample line
-            ':sample: a=2, b=1, c=3',       # This becomes 2nd sample line
-            '',                             # Since empty, 2nd sample line will not include this
-            'sit',
-            ':sample: c=3, a=5,',           # This becomes 3rd sample line
-            '         b=1    ',             # and continues to this line
-            ':sample: a=1, b=5',            # This becomes 4th sample line
-            '   c="abc  def"     d=1  ',    # and continues to this line
+            'lorem',                        # No-op, not a sample line
+            ':sample:',                     # Valid, default sample count, default seed, empty kwargs, 1st in expected
+            ':sample 0:',                   # Invalid, sample count cannot be zero
+            ':sample 100:',                 # Valid, 100 samples, default seed, empty kwargs, 2nd in expected
+            ':sample 0100:',                # Invalid, leading zeroes are not allowed
+            ':sampler',                     # Invalid, starts with ":sample" but will not pass validation
+            ':sample :',                    # No-op, must be ":sample:" verbatim
+            ':sample seed=4761:',           # Valid, default sample count, seed value of 4761
+            '',                             # but line break was detected, so sample parsing stops here
+            'ipsum',                        # No-op, not a sample line
+            ':sample sede=123',             # Invalid, seed misspelled
+            ':sample 4 seed=100:',          # Valid, will reset to 5 samples, seed value of 100, empty kwargs, the 4th
+            ':sample seed=103 104:',        # Invalid, "seed=" prefix must come after sample count
+            ':sample: a=1, b=2',            # Valid, default count and seed with kwargs, the 5th
+            ':sample 2222: a=2, b=1, c=3',  # Valid, 2222 samples, default seed, and with kwargs, the 6th
+            ':sample 11 12:',               # Invalid, seed value must be set with "seed=" prefix
+            ':sample seed=3333: d=3',       # Valid, default count, seed value of 3333, with kwargs, the 7th
+            ':sample 3333 seed=2222: c=1',  # Valid, 3333 samples, seed value of 2222, with kwargs, the 8th
+
+            ':sample 10 seed=10:',          # Valid 9th, 10 samples, seed value of 10, with kwargs
+            '   arg1=1,',                   # and will continue reading the next few lines
+            '   arg2="val2",arg3="val3",',  # and will prettify (missing whitespace after comma)
+            ' arg4=4   ,    arg5=5,',       # and will remove excess whitespaces here
+            ' arg6="ar    g6",',            # but not if whitespaces are within double quotes
+            "       arg7='   ar  g 7',",    # or within single quotes
+            '    arg8="aaa,aaa"',           # and will not prettify commas within quotes
+
+            ':sample 20 seed=3456:',        # Valid 10th, 20 samples, seed value of 3456, with kwargs
+            'arg1="val1,val1,val1",',       # and this is very similar to previous sample
+            'arg2="val2",',                 # and it is ok not to have leading whitespaces in continuation lines
+            'arg3="val3    val3",',         # and it is ok to have a trailing comma after the last kwarg
         ]
+
         expected_output = [
-            'a=1, b=2',
-            'a=2, b=1, c=3',
-            'c=3, a=5, b=1',                # Multiple whitespaces not inside quotes will
-            'a=1, b=5 c="abc  def" d=1',    # be replaced by single whitespace
+            Sample(DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, ''),             # 1st sample parsed
+            Sample(100, DEFAULT_SEED, ''),                              # 2nd sample parsed
+            Sample(DEFAULT_SAMPLE_COUNT, 4761, ''),                     # 3rd sample parsed
+            Sample(5, 100, ''),                                      # 4th sample parsed
+            Sample(DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, 'a=1, b=2'),     # 5th sample parsed
+            Sample(2222, DEFAULT_SEED, 'a=2, b=1, c=3'),                # 6th sample parsed
+            Sample(DEFAULT_SAMPLE_COUNT, 3333, 'd=3'),                  # 7th sample parsed
+            Sample(3333, 2222, 'c=1'),                                  # 8th sample parsed
+            Sample(                                                     # 9th sample parsed
+                10, 10,
+                'arg1=1, arg2="val2", arg3="val3", arg4=4, arg5=5, arg6="ar    g6", arg7=\'   ar  g 7\', arg8="aaa,aaa"'
+            ),
+            Sample(                                                     # 10th sample parsed
+                20, 3456, 'arg1="val1,val1,val1", arg2="val2", arg3="val3    val3",'
+            )
         ]
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
@@ -110,20 +142,23 @@ class TestProviderMethodDocstring(unittest.TestCase):
             obj=MagicMock(), options=MagicMock(), lines=lines,
         )
         assert not docstring.skipped
+        print(docstring._samples)
         assert docstring._samples == expected_output
 
-    def test_generate_samples(self):
+    @mock.patch('faker.sphinx.docstring.logger.warning')
+    def test_end_to_end_sample_generation(self, mock_warning):
         fake = Faker(DEFAULT_LOCALE)
         non_sample_lines = ['lorem', 'ipsum', 'dolor', 'sit', 'amet']
-        sample_lines = [
-            ":sample: text='???###'",
-            ":sample: letters='abcde'",
-            ":sample: abcd='abcd'",         # Will be ignored due to failed sample generation
-            ":sample: text='???###', ",
+        valid_sample_lines = [
+            ":sample: invalid_arg='value'",             # Will fail during sample generation, 1st log warning
+            ":sample 3 seed=1000: text='???###'",       # 1st sample generation
+            ":sample: number=100**100**100",            # Will fail SampleCodeValidator validation, 2nd log warning
+            ":sample seed=3210: letters='abcde'",       # 2nd sample generation
+            ":sample 10 seed=1: abcd='abcd'",           # Will fail during sample generation, 3rd log warning
+            ":sample 20 seed=1234: text='???###', ",    # 3rd sample generation
             "         letters='abcde'",
-            ":sample: default",
         ]
-        lines = non_sample_lines + sample_lines
+        lines = non_sample_lines + valid_sample_lines
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
@@ -131,22 +166,58 @@ class TestProviderMethodDocstring(unittest.TestCase):
         )
 
         output = docstring.lines[len(non_sample_lines):]
-        assert output[0] == ":examples:"
-        assert output[1] == ""
+        assert output[0] == ':examples:'
 
-        Faker.seed(0)
-        assert output[2] == ">>> fake.bothify(text='???###')"
-        assert output[3] == fake.bothify(text='???###')
+        # 1st sample generation
+        Faker.seed(1000)
+        assert output[1] == ''
+        assert output[2] == '>>> Faker.seed(1000)'
+        assert output[3] == '>>> for _ in range(5):'
+        assert output[4] == "...     fake.bothify(text='???###')"
+        assert output[5] == '...'
+        for i in range(6, 11):
+            assert output[i] == fake.bothify(text='???###')
 
-        Faker.seed(0)
-        assert output[4] == ">>> fake.bothify(letters='abcde')"
-        assert output[5] == fake.bothify(letters='abcde')
+        # 2nd sample generation
+        Faker.seed(3210)
+        assert output[11] == ''
+        assert output[12] == '>>> Faker.seed(3210)'
+        assert output[13] == '>>> for _ in range(5):'
+        assert output[14] == "...     fake.bothify(letters='abcde')"
+        assert output[15] == '...'
+        for i in range(16, 21):
+            assert output[i] == fake.bothify(letters='abcde')
 
-        Faker.seed(0)
-        assert output[6] == ">>> fake.bothify(text='???###', letters='abcde')"
-        assert output[7] == fake.bothify(text='???###', letters='abcde')
+        # 3rd sample generation
+        Faker.seed(1234)
+        assert output[21] == ''
+        assert output[22] == '>>> Faker.seed(1234)'
+        assert output[23] == '>>> for _ in range(20):'
+        assert output[24] == "...     fake.bothify(text='???###', letters='abcde')"
+        assert output[25] == '...'
+        for i in range(26, 46):
+            assert output[i] == fake.bothify(text='???###', letters='abcde')
 
-        Faker.seed(0)
-        assert output[8] == '>>> fake.bothify()'
-        assert output[9] == fake.bothify()
-        assert output[10] == ''
+        calls = mock_warning.call_args_list
+        assert len(calls) == 3
+
+        # 1st log warning
+        args, kwargs = calls[0]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == "Sample generation failed for method `bothify` with arguments `invalid_arg='value'`"
+
+        # 2nd log warning
+        args, kwargs = calls[1]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == (
+            "Invalid code elements detected. Sample generation will be skipped for "
+            "method `bothify` with arguments `number=100**100**100`"
+        )
+
+        # 3rd log warning
+        args, kwargs = calls[2]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == "Sample generation failed for method `bothify` with arguments `abcd='abcd'`"
