@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
-from faker.sphinx.docstring import ProviderMethodDocstring, Sample, DEFAULT_SAMPLE_COUNT, DEFAULT_SEED
+from faker.sphinx.docstring import DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, ProviderMethodDocstring, Sample
 
 
 class TestProviderMethodDocstring(unittest.TestCase):
@@ -109,7 +109,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
             '   arg1=1,',                   # and will continue reading the next few lines
             '   arg2="val2",arg3="val3",',  # and will prettify (missing whitespace after comma)
             ' arg4=4   ,    arg5=5,',       # and will remove excess whitespaces here
-            ' arg6="ar    g6",',            # but not if whitespaces are within double quotes
+            ' arg6="ar  g6",',              # but not if whitespaces are within double quotes
             "       arg7='   ar  g 7',",    # or within single quotes
             '    arg8="aaa,aaa"',           # and will not prettify commas within quotes
 
@@ -130,11 +130,11 @@ class TestProviderMethodDocstring(unittest.TestCase):
             Sample(3333, 2222, 'c=1'),                                  # 8th sample parsed
             Sample(                                                     # 9th sample parsed
                 10, 10,
-                'arg1=1, arg2="val2", arg3="val3", arg4=4, arg5=5, arg6="ar    g6", arg7=\'   ar  g 7\', arg8="aaa,aaa"'
+                'arg1=1, arg2="val2", arg3="val3", arg4=4, arg5=5, arg6="ar  g6", arg7=\'   ar  g 7\', arg8="aaa,aaa"',
             ),
             Sample(                                                     # 10th sample parsed
-                20, 3456, 'arg1="val1,val1,val1", arg2="val2", arg3="val3    val3",'
-            )
+                20, 3456, 'arg1="val1,val1,val1", arg2="val2", arg3="val3    val3",',
+            ),
         ]
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',

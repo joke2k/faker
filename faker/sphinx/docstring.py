@@ -23,7 +23,7 @@ _sample_line_pattern = re.compile(
     r'(?: (?P<count>[1-9][0-9]*))?'
     r'(?: seed=(?P<seed>[0-9]+))?'
     r':'
-    r'(?: ?(?P<kwargs>.*))?$'
+    r'(?: ?(?P<kwargs>.*))?$',
 )
 _command_template = 'generator.{method}({kwargs})'
 _sample_output_template = (
@@ -205,7 +205,7 @@ class ProviderMethodDocstring:
             try:
                 Faker.seed(sample.seed)
                 results = [eval(command, eval_scope) for _ in range(sample.count)]
-            except Exception as e:
+            except Exception:
                 msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
                     method=self._method, kwargs=sample.kwargs,
                 )
