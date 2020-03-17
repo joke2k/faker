@@ -900,3 +900,14 @@ class TestTrTr(unittest.TestCase):
             first_ten_number = sample[:-1]
             last_part = sample[-1]
             assert sum(list(map(lambda x: int(x), '{}'.format(first_ten_number)))) % 10 == last_part
+
+
+
+class TestEnIn(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker('en_IN')
+        Faker.seed(0)
+
+    def check_length(self):
+        aadhar_id = self.fake.aadhar_id()
+        assert len(aadhar_id) == 12
