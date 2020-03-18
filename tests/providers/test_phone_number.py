@@ -78,10 +78,10 @@ class TestPtBr(unittest.TestCase):
 
         assert msisdn is not None
         assert isinstance(msisdn, str)
-        assert len(msisdn) == 13 or len(msisdn) == 12
+        assert len(msisdn) == 13
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
-        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", msisdn)
+        re.match(r"^[5]{2}\d{2}[9]\d{8}$", msisdn)
 
     def test_cellphone(self):
         cellphone = self.fake.cellphone_number()
