@@ -889,6 +889,14 @@ class FactoryTestCase(unittest.TestCase):
 
         assert expected_methods == sorted(got_methods)
 
+    def test_dga(self):
+        faker = Faker()
+
+        assert faker.dga() != faker.dga()
+
+        expected_domain = 'cqphixmpdfpptskr.com'
+        assert faker.dga(day=1, month=1, year=1000, tld='com', length=16) == expected_domain
+
     def test_random_sample_unique(self):
         from faker.providers import BaseProvider
         provider = BaseProvider(self.generator)
