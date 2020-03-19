@@ -20,7 +20,7 @@ _locale_provider_method_pattern = re.compile(
 )
 _sample_line_pattern = re.compile(
     r'^:sample'
-    r'(?: (?P<count>[1-9][0-9]*))?'
+    r'(?: size=(?P<size>[1-9][0-9]*))?'
     r'(?: seed=(?P<seed>[0-9]+))?'
     r':'
     r'(?: ?(?P<kwargs>.*))?$',
@@ -28,15 +28,15 @@ _sample_line_pattern = re.compile(
 _command_template = 'generator.{method}({kwargs})'
 _sample_output_template = (
     '>>> Faker.seed({seed})\n'
-    '>>> for _ in range({count}):\n'
+    '>>> for _ in range({size}):\n'
     '...     fake.{method}({kwargs})\n'
     '...\n'
     '{results}\n'
 )
 
-DEFAULT_SAMPLE_COUNT = 5
+DEFAULT_SAMPLE_SIZE = 5
 DEFAULT_SEED = 0
-Sample = namedtuple('Sample', ['count', 'seed', 'kwargs'])
+Sample = namedtuple('Sample', ['size', 'seed', 'kwargs'])
 
 
 class ProviderMethodDocstring:
@@ -133,15 +133,15 @@ class ProviderMethodDocstring:
 
         # Set sample generation defaults and do some beautification if necessary
         groupdict = match.groupdict()
-        count = groupdict.get('count')
+        size = groupdict.get('size')
         seed = groupdict.get('seed')
         kwargs = groupdict.get('kwargs')
-        count = max(int(count), DEFAULT_SAMPLE_COUNT) if count else DEFAULT_SAMPLE_COUNT
+        size = max(int(size), DEFAULT_SAMPLE_SIZE) if size else DEFAULT_SAMPLE_SIZE
         seed = int(seed) if seed else DEFAULT_SEED
         kwargs = self._beautify_kwargs(kwargs) if kwargs else ''
 
         # Store sample generation details
-        sample = Sample(count, seed, kwargs)
+        sample = Sample(size, seed, kwargs)
         self._samples.append(sample)
 
     def _beautify_kwargs(self, kwargs):
@@ -204,7 +204,7 @@ class ProviderMethodDocstring:
 
             try:
                 Faker.seed(sample.seed)
-                results = [eval(command, eval_scope) for _ in range(sample.count)]
+                results = [eval(command, eval_scope) for _ in range(sample.size)]
             except Exception:
                 msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
                     method=self._method, kwargs=sample.kwargs,
@@ -214,7 +214,7 @@ class ProviderMethodDocstring:
             else:
                 output += _sample_output_template.format(
                     seed=sample.seed, method=self._method, kwargs=sample.kwargs,
-                    count=sample.count, results=self._format_results(results),
+                    size=sample.size, results=self._format_results(results),
                 )
 
         if output:

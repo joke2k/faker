@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
-from faker.sphinx.docstring import DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, ProviderMethodDocstring, Sample
+from faker.sphinx.docstring import DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, ProviderMethodDocstring, Sample
 
 
 class TestProviderMethodDocstring(unittest.TestCase):
@@ -88,24 +88,27 @@ class TestProviderMethodDocstring(unittest.TestCase):
         lines = [
             'lorem',                        # No-op, not a sample line
             ':sample:',                     # Valid, default sample count, default seed, empty kwargs, 1st in expected
-            ':sample 0:',                   # Invalid, sample count cannot be zero
-            ':sample 100:',                 # Valid, 100 samples, default seed, empty kwargs, 2nd in expected
-            ':sample 0100:',                # Invalid, leading zeroes are not allowed
+            ':sample 10 2000:',             # Invalid, size and seed must be specified as "keyword arguments"
+            ':sample 10 seed=1000:',        # Invalid, size and seed must be specified as "keyword arguments"
+            ':sample size=10 1000:',        # Invalid, size and seed must be specified as "keyword arguments"
+            ':sample size=0:',              # Invalid, sample count cannot be zero
+            ':sample size=100:',            # Valid, 100 samples, default seed, empty kwargs, 2nd in expected
+            ':sample size=0100:',           # Invalid, leading zeroes are not allowed
             ':sampler',                     # Invalid, starts with ":sample" but will not pass validation
             ':sample :',                    # No-op, must be ":sample:" verbatim
             ':sample seed=4761:',           # Valid, default sample count, seed value of 4761
             '',                             # but line break was detected, so sample parsing stops here
             'ipsum',                        # No-op, not a sample line
             ':sample sede=123',             # Invalid, seed misspelled
-            ':sample 4 seed=100:',          # Valid, will reset to 5 samples, seed value of 100, empty kwargs, the 4th
-            ':sample seed=103 104:',        # Invalid, "seed=" prefix must come after sample count
+            ':sample size=4 seed=100:',     # Valid, will reset to 5 samples, seed value of 100, empty kwargs, the 4th
+            ':sample seed=103 size=104:',   # Invalid, "seed" kwarg must come after "size" kwarg
             ':sample: a=1, b=2',            # Valid, default count and seed with kwargs, the 5th
-            ':sample 2222: a=2, b=1, c=3',  # Valid, 2222 samples, default seed, and with kwargs, the 6th
+            ':sample size=2222: a=2, b=1',  # Valid, 2222 samples, default seed, and with kwargs, the 6th
             ':sample 11 12:',               # Invalid, seed value must be set with "seed=" prefix
             ':sample seed=3333: d=3',       # Valid, default count, seed value of 3333, with kwargs, the 7th
-            ':sample 3333 seed=2222: c=1',  # Valid, 3333 samples, seed value of 2222, with kwargs, the 8th
+            ':sample size=3333 seed=2222: c=1',  # Valid, 3333 samples, seed value of 2222, with kwargs, the 8th
 
-            ':sample 10 seed=10:',          # Valid 9th, 10 samples, seed value of 10, with kwargs
+            ':sample size=10 seed=10:',     # Valid 9th, 10 samples, seed value of 10, with kwargs
             '   arg1=1,',                   # and will continue reading the next few lines
             '   arg2="val2",arg3="val3",',  # and will prettify (missing whitespace after comma)
             ' arg4=4   ,    arg5=5,',       # and will remove excess whitespaces here
@@ -113,22 +116,22 @@ class TestProviderMethodDocstring(unittest.TestCase):
             "       arg7='   ar  g 7',",    # or within single quotes
             '    arg8="aaa,aaa"',           # and will not prettify commas within quotes
 
-            ':sample 20 seed=3456:',        # Valid 10th, 20 samples, seed value of 3456, with kwargs
+            ':sample size=20 seed=3456:',   # Valid 10th, 20 samples, seed value of 3456, with kwargs
             'arg1="val1,val1,val1",',       # and this is very similar to previous sample
             'arg2="val2",',                 # and it is ok not to have leading whitespaces in continuation lines
             'arg3="val3    val3",',         # and it is ok to have a trailing comma after the last kwarg
         ]
 
         expected_output = [
-            Sample(DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, ''),             # 1st sample parsed
-            Sample(100, DEFAULT_SEED, ''),                              # 2nd sample parsed
-            Sample(DEFAULT_SAMPLE_COUNT, 4761, ''),                     # 3rd sample parsed
-            Sample(5, 100, ''),                                      # 4th sample parsed
-            Sample(DEFAULT_SAMPLE_COUNT, DEFAULT_SEED, 'a=1, b=2'),     # 5th sample parsed
-            Sample(2222, DEFAULT_SEED, 'a=2, b=1, c=3'),                # 6th sample parsed
-            Sample(DEFAULT_SAMPLE_COUNT, 3333, 'd=3'),                  # 7th sample parsed
-            Sample(3333, 2222, 'c=1'),                                  # 8th sample parsed
-            Sample(                                                     # 9th sample parsed
+            Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, ''),          # 1st sample parsed
+            Sample(100, DEFAULT_SEED, ''),                          # 2nd sample parsed
+            Sample(DEFAULT_SAMPLE_SIZE, 4761, ''),                  # 3rd sample parsed
+            Sample(5, 100, ''),                                     # 4th sample parsed
+            Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, 'a=1, b=2'),  # 5th sample parsed
+            Sample(2222, DEFAULT_SEED, 'a=2, b=1'),                 # 6th sample parsed
+            Sample(DEFAULT_SAMPLE_SIZE, 3333, 'd=3'),               # 7th sample parsed
+            Sample(3333, 2222, 'c=1'),                              # 8th sample parsed
+            Sample(                                                 # 9th sample parsed
                 10, 10,
                 'arg1=1, arg2="val2", arg3="val3", arg4=4, arg5=5, arg6="ar  g6", arg7=\'   ar  g 7\', arg8="aaa,aaa"',
             ),
@@ -142,7 +145,6 @@ class TestProviderMethodDocstring(unittest.TestCase):
             obj=MagicMock(), options=MagicMock(), lines=lines,
         )
         assert not docstring.skipped
-        print(docstring._samples)
         assert docstring._samples == expected_output
 
     @mock.patch('faker.sphinx.docstring.logger.warning')
@@ -151,11 +153,11 @@ class TestProviderMethodDocstring(unittest.TestCase):
         non_sample_lines = ['lorem', 'ipsum', 'dolor', 'sit', 'amet']
         valid_sample_lines = [
             ":sample: invalid_arg='value'",             # Will fail during sample generation, 1st log warning
-            ":sample 3 seed=1000: text='???###'",       # 1st sample generation
+            ":sample size=3 seed=1000: text='???###'",  # 1st sample generation
             ":sample: number=100**100**100",            # Will fail SampleCodeValidator validation, 2nd log warning
             ":sample seed=3210: letters='abcde'",       # 2nd sample generation
-            ":sample 10 seed=1: abcd='abcd'",           # Will fail during sample generation, 3rd log warning
-            ":sample 20 seed=1234: text='???###', ",    # 3rd sample generation
+            ":sample size=10 seed=1: abcd='abcd'",           # Will fail during sample generation, 3rd log warning
+            ":sample size=20 seed=1234: text='???###', ",    # 3rd sample generation
             "         letters='abcde'",
         ]
         lines = non_sample_lines + valid_sample_lines
