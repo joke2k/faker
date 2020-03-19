@@ -163,7 +163,7 @@ class Provider(BaseProvider):
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         return dict(zip(
-            self.generator.words(nb_elements),
+            self.generator.words(nb_elements, unique=True),
             self._pyiterable(nb_elements, False, *value_types),
         ))
 
