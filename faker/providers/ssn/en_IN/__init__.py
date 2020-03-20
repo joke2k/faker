@@ -19,10 +19,10 @@ class Provider(BaseProvider):
         Details: https://en.wikipedia.org/wiki/Aadhaar
         Official Website: https://uidai.gov.in/my-aadhaar/about-your-aadhaar.html
         """
-        
+
         aadhaar_digits = self.numerify(self.random_element(self.aadhaar_id_formats))
         checksum = checksums.calculate_luhn(aadhaar_digits)
 
-        aadhaar_number = '{}{}'.format(aadhaar_digits,checksum)
+        aadhaar_number = '{}{}'.format(aadhaar_digits, checksum)
 
         return aadhaar_number

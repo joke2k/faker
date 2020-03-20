@@ -1,7 +1,7 @@
 import datetime
 import random
 
-from faker.utils.checksums import calculate_luhn, luhn_checksum
+from faker.utils.checksums import calculate_luhn
 
 from .. import Provider as SsnProvider
 

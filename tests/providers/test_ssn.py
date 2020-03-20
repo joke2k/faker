@@ -20,11 +20,10 @@ from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.utils.checksums import luhn_checksum
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
-
-from faker.utils.checksums import calculate_luhn, luhn_checksum
 
 
 class TestSvSE(unittest.TestCase):
@@ -908,7 +907,6 @@ class TestEnIn(unittest.TestCase):
     def setUp(self):
         self.fake = Faker('en_IN')
         Faker.seed(0)
-        
         test_samples = 10
         self.aadhaar_ids = [self.fake.aadhaar_id() for _ in range(test_samples)]
 

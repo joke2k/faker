@@ -115,4 +115,3 @@ class UtilsTestCase(unittest.TestCase):
         Example from wiki https://en.wikipedia.org/wiki/Luhn_algorithm
         """
         assert luhn_checksum("79927398714") != 0
-
