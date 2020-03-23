@@ -1,4 +1,5 @@
 # coding=utf-8
+import inspect
 import unittest
 
 from unittest import mock
@@ -13,22 +14,22 @@ class TestProviderMethodDocstring(unittest.TestCase):
 
     def test_what_is_not_method(self):
         docstring = ProviderMethodDocstring(
-            app=MagicMock(), what='not_a_method', name=MagicMock(),
-            obj=MagicMock(), options=MagicMock(), lines=MagicMock(),
+            app=MagicMock(), what='not_a_method', name='name',
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
         )
         assert docstring.skipped
 
     def test_name_is_not_dotted_path_to_provider_method(self):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',  name='faker.sphinx.docstring.ProviderMethodDocString._parse',
-            obj=MagicMock(), options=MagicMock(), lines=MagicMock(),
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
         )
         assert docstring.skipped
 
     def test_name_is_dotted_path_to_base_provider_method(self):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',  name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=MagicMock(),
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
         )
         assert not docstring.skipped
         assert docstring._method == 'bothify'
@@ -37,7 +38,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
     def test_name_is_dotted_path_to_standard_provider_method(self):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method', name='faker.providers.barcode.Provider.upc_a',
-            obj=MagicMock(), options=MagicMock(), lines=MagicMock(),
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
         )
         assert not docstring.skipped
         assert docstring._method == 'upc_a'
@@ -47,44 +48,72 @@ class TestProviderMethodDocstring(unittest.TestCase):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.automotive.en_PH.Provider.protocol_license_plate',
-            obj=MagicMock(), options=MagicMock(), lines=MagicMock(),
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
         )
         assert not docstring.skipped
         assert docstring._method == 'protocol_license_plate'
         assert docstring._locale == 'en_PH'
 
-    @mock.patch.object(ProviderMethodDocstring, '_generate_samples')
-    def test_parsing_empty_lines(self, mock_generate_samples):
+    @mock.patch('faker.sphinx.docstring.logger.warning')
+    def test_log_warning(self, mock_logger_warning):
+        path = inspect.getfile(MagicMock)
+        name = 'faker.providers.color.Provider'
+        docstring = ProviderMethodDocstring(
+            app=MagicMock(), what='method', name=name,
+            obj=MagicMock, options=MagicMock(), lines=MagicMock(),
+        )
+        docstring._log_warning('Test Warning 1')
+        docstring._log_warning('Test Warning 2')
+
+        assert docstring._log_prefix == '{path}:docstring of {name}: WARNING:'.format(path=path, name=name)
+
+        calls = mock_logger_warning.call_args_list
+        assert len(calls) == 2
+
+        # 1st call to logger.warning
+        args, kwargs = calls[0]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 1'.format(path=path, name=name)
+
+        # 2nd call to logger.warning
+        args, kwargs = calls[1]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 2'.format(path=path, name=name)
+
+    @mock.patch.object(ProviderMethodDocstring, '_log_warning')
+    def test_parsing_empty_lines(self, mock_log_warning):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=[],
+            obj=MagicMock, options=MagicMock(), lines=[],
         )
         assert not docstring.skipped
         assert not docstring._samples
 
-    @mock.patch.object(ProviderMethodDocstring, '_generate_samples')
-    def test_parsing_single_line_non_sample(self, mock_generate_samples):
+    @mock.patch.object(ProviderMethodDocstring, '_log_warning')
+    def test_parsing_single_line_non_sample(self, mock_log_warning):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=['lorem'],
+            obj=MagicMock, options=MagicMock(), lines=['lorem'],
         )
         assert not docstring.skipped
         assert not docstring._samples
 
-    @mock.patch.object(ProviderMethodDocstring, '_generate_samples')
-    def test_parsing_single_line_valid_sample(self, mock_generate_samples):
+    @mock.patch.object(ProviderMethodDocstring, '_log_warning')
+    def test_parsing_single_line_valid_sample(self, mock_log_warning):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=[':sample: a=1'],
+            obj=MagicMock, options=MagicMock(), lines=[':sample: a=1'],
         )
         assert not docstring.skipped
         assert docstring._samples == [Sample(5, 0, 'a=1')]
 
-    @mock.patch.object(ProviderMethodDocstring, '_generate_samples')
-    def test_parsing_multiple_lines(self, mock_generate_samples):
+    @mock.patch.object(ProviderMethodDocstring, '_log_warning')
+    def test_parsing_multiple_lines(self, mock_log_warning):
         lines = [
             'lorem',                        # No-op, not a sample line
             ':sample:',                     # Valid, default sample count, default seed, empty kwargs, 1st in expected
@@ -142,21 +171,22 @@ class TestProviderMethodDocstring(unittest.TestCase):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=lines,
+            obj=MagicMock, options=MagicMock(), lines=lines,
         )
         assert not docstring.skipped
         assert docstring._samples == expected_output
 
-    @mock.patch('faker.sphinx.docstring.logger.warning')
+    @mock.patch.object(ProviderMethodDocstring, '_log_warning')
     def test_end_to_end_sample_generation(self, mock_warning):
         fake = Faker(DEFAULT_LOCALE)
         non_sample_lines = ['lorem', 'ipsum', 'dolor', 'sit', 'amet']
         valid_sample_lines = [
-            ":sample: invalid_arg='value'",             # Will fail during sample generation, 1st log warning
+            ":sample 1234jdbvhjdbygdvbhxjhx",           # Will fail during sample section processing, 1st log warning
+            ":sample: invalid_arg='value'",             # Will fail during sample generation, 2nd log warning
             ":sample size=3 seed=1000: text='???###'",  # 1st sample generation
-            ":sample: number=100**100**100",            # Will fail SampleCodeValidator validation, 2nd log warning
+            ":sample: number=100**100**100",            # Will fail SampleCodeValidator validation, 3rd log warning
             ":sample seed=3210: letters='abcde'",       # 2nd sample generation
-            ":sample size=10 seed=1: abcd='abcd'",           # Will fail during sample generation, 3rd log warning
+            ":sample size=10 seed=1: abcd='abcd'",           # Will fail during sample generation, 4th log warning
             ":sample size=20 seed=1234: text='???###', ",    # 3rd sample generation
             "         letters='abcde'",
         ]
@@ -164,7 +194,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
-            obj=MagicMock(), options=MagicMock(), lines=lines,
+            obj=MagicMock, options=MagicMock(), lines=lines,
         )
 
         output = docstring.lines[len(non_sample_lines):]
@@ -201,25 +231,31 @@ class TestProviderMethodDocstring(unittest.TestCase):
             assert output[i] == fake.bothify(text='???###', letters='abcde')
 
         calls = mock_warning.call_args_list
-        assert len(calls) == 3
+        assert len(calls) == 4
 
-        # 1st log warning
+        # 1st call to _log_warning
         args, kwargs = calls[0]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == "Sample generation failed for method `bothify` with arguments `invalid_arg='value'`"
+        assert args[0] == "The section `:sample 1234jdbvhjdbygdvbhxjhx` is malformed and will be discarded."
 
-        # 2nd log warning
+        # 2nd call to _log_warning
         args, kwargs = calls[1]
+        assert len(args) == 1
+        assert not kwargs
+        assert args[0] == "Sample generation failed for method `bothify` with arguments `invalid_arg='value'`."
+
+        # 3rd call to _log_warning
+        args, kwargs = calls[2]
         assert len(args) == 1
         assert not kwargs
         assert args[0] == (
             "Invalid code elements detected. Sample generation will be skipped for "
-            "method `bothify` with arguments `number=100**100**100`"
+            "method `bothify` with arguments `number=100**100**100`."
         )
 
-        # 3rd log warning
-        args, kwargs = calls[2]
+        # 4th call to _log_warning
+        args, kwargs = calls[3]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == "Sample generation failed for method `bothify` with arguments `abcd='abcd'`"
+        assert args[0] == "Sample generation failed for method `bothify` with arguments `abcd='abcd'`."

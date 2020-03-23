@@ -1,4 +1,6 @@
 # coding=utf-8
+import inspect
+import logging
 import re
 
 from collections import namedtuple
@@ -6,7 +8,6 @@ from collections import namedtuple
 from faker import Faker
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
 from faker.sphinx.validator import SampleCodeValidator
-from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
 _fake = Faker(AVAILABLE_LOCALES)
@@ -59,6 +60,9 @@ class ProviderMethodDocstring:
         self._parsed_lines = []
         self._samples = []
         self._skipped = True
+        self._log_prefix = '{path}:docstring of {name}: WARNING:'.format(
+            path=inspect.getfile(obj), name=name,
+        )
 
         if what != 'method':
             return
@@ -84,6 +88,10 @@ class ProviderMethodDocstring:
         self._skipped = False
         self._parse()
         self._generate_samples()
+
+    def _log_warning(self, warning):
+        msg = '{prefix} {warning}'.format(prefix=self._log_prefix, warning=warning)
+        logger.warning(msg)
 
     def _parse(self):
         while True:
@@ -129,6 +137,8 @@ class ProviderMethodDocstring:
 
         # Discard sample section if malformed
         if not match:
+            msg = 'The section `{section}` is malformed and will be discarded.'.format(section=section)
+            self._log_warning(msg)
             return
 
         # Set sample generation defaults and do some beautification if necessary
@@ -195,21 +205,21 @@ class ProviderMethodDocstring:
             if validator.errors:
                 msg = (
                     'Invalid code elements detected. Sample generation will be '
-                    'skipped for method `{method}` with arguments `{kwargs}`'
+                    'skipped for method `{method}` with arguments `{kwargs}`.'
                 ).format(
                     method=self._method, kwargs=sample.kwargs,
                 )
-                logger.warning(msg)
+                self._log_warning(msg)
                 continue
 
             try:
                 Faker.seed(sample.seed)
                 results = [eval(command, eval_scope) for _ in range(sample.size)]
             except Exception:
-                msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`'.format(
+                msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`.'.format(
                     method=self._method, kwargs=sample.kwargs,
                 )
-                logger.warning(msg)
+                self._log_warning(msg)
                 continue
             else:
                 output += _sample_output_template.format(
