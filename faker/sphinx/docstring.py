@@ -32,7 +32,7 @@ _sample_output_template = (
     '>>> for _ in range({size}):\n'
     '...     fake.{method}({kwargs})\n'
     '...\n'
-    '{results}\n'
+    '{results}\n\n'
 )
 
 DEFAULT_SAMPLE_SIZE = 5
@@ -172,19 +172,21 @@ class ProviderMethodDocstring:
         # Then return the result with all leading and trailing whitespaces stripped
         return result.strip()
 
-    def _format_results(self, results):
-        def _stringify_result(value):
-            if value is None:
-                return value
-            elif value == '':
-                return "''"
-            else:
-                return str(value)
+    def _stringify_result(self, value):
+        def _repl_whitespace(match):
+            value = match.group(0)
+            if value == '\r':
+                return '\\r'
+            elif value == '\n':
+                return '\\n'
+            elif value == '\t':
+                return '\\t'
 
-        output = ''
-        for result in results:
-            output += '{}\n'.format(_stringify_result(result))
-        return output
+        if isinstance(value, str):
+            template = '"{}"' if '"' not in value and "'" in value else "'{}'"
+            return template.format(re.sub(r'[\r\n\t]', _repl_whitespace, value))
+        else:
+            return str(value)
 
     def _generate_eval_scope(self):
         from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
@@ -214,7 +216,10 @@ class ProviderMethodDocstring:
 
             try:
                 Faker.seed(sample.seed)
-                results = [eval(command, eval_scope) for _ in range(sample.size)]
+                results = '\n'.join([
+                    self._stringify_result(eval(command, eval_scope))
+                    for _ in range(sample.size)
+                ])
             except Exception:
                 msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`.'.format(
                     method=self._method, kwargs=sample.kwargs,
@@ -224,7 +229,7 @@ class ProviderMethodDocstring:
             else:
                 output += _sample_output_template.format(
                     seed=sample.seed, method=self._method, kwargs=sample.kwargs,
-                    size=sample.size, results=self._format_results(results),
+                    size=sample.size, results=results,
                 )
 
         if output:

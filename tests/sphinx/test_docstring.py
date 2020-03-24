@@ -82,6 +82,38 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert not kwargs
         assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 2'.format(path=path, name=name)
 
+    def test_stringify_results(self):
+        docstring = ProviderMethodDocstring(
+            app=MagicMock(), what='method',
+            name='faker.providers.BaseProvider.bothify',
+            obj=MagicMock, options=MagicMock(), lines=[],
+        )
+        results = [
+            '',                     # Empty string
+            '\'',                   # Single quote literal (escaped)
+            "'",                    # Single quote literal (unescaped)
+            '"',                    # Double quote literal (unescaped)
+            "\"",                   # Double quote literal (escaped)
+            'aa\taaaaa\r\n',        # String containing \t, \r, \n
+            b'abcdef',              # Bytes object
+            True,                   # Booleans
+            False,
+            None,                   # None types
+        ]
+        output = [docstring._stringify_result(result) for result in results]
+        assert output == [
+            "''",                       # Ends up as '' when printed
+            '"\'"',                     # Ends up as "'" when printed
+            '"\'"',                     # Ends up as "'" when printed
+            '\'"\'',                    # Ends up as '"' when printed
+            '\'"\'',                    # Ends up as '"' when printed
+            "'aa\\taaaaa\\r\\n'",       # Ends up as 'aa\\taaaaa\\r\\n' when printed
+            "b'abcdef'",                # Ends up as b'abcdef' when printed
+            'True',                     # Ends up as True when printed
+            'False',
+            'None',                     # Ends up as None when printed
+        ]
+
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
     def test_parsing_empty_lines(self, mock_log_warning):
         docstring = ProviderMethodDocstring(
@@ -208,7 +240,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert output[4] == "...     fake.bothify(text='???###')"
         assert output[5] == '...'
         for i in range(6, 11):
-            assert output[i] == fake.bothify(text='???###')
+            assert output[i] == docstring._stringify_result(fake.bothify(text='???###'))
 
         # 2nd sample generation
         Faker.seed(3210)
@@ -218,7 +250,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert output[14] == "...     fake.bothify(letters='abcde')"
         assert output[15] == '...'
         for i in range(16, 21):
-            assert output[i] == fake.bothify(letters='abcde')
+            assert output[i] == docstring._stringify_result(fake.bothify(letters='abcde'))
 
         # 3rd sample generation
         Faker.seed(1234)
@@ -228,7 +260,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert output[24] == "...     fake.bothify(text='???###', letters='abcde')"
         assert output[25] == '...'
         for i in range(26, 46):
-            assert output[i] == fake.bothify(text='???###', letters='abcde')
+            assert output[i] == docstring._stringify_result(fake.bothify(text='???###', letters='abcde'))
 
         calls = mock_warning.call_args_list
         assert len(calls) == 4
