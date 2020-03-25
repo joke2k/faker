@@ -346,7 +346,7 @@ class Provider(CompanyProvider):
     @staticmethod
     def _calculate_luhn(partial_number):
         check_digit = Provider._luhn_checksum(int(partial_number) * 10)
-        return check_digit if check_digit == 0 else 10 - check_digit    
+        return check_digit if check_digit == 0 else 10 - check_digit
 
     def catch_phrase(self):
         """
@@ -367,7 +367,6 @@ class Provider(CompanyProvider):
             result.append(self.random_element(word_list))
 
         return " ".join(result)
-
 
     def company_vat(self):
         """
