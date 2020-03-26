@@ -2,14 +2,14 @@ Writing Documentation
 =====================
 
 Everything under :doc:`Standard Providers <providers>` and :doc:`Localized Providers <locales>`
-are automatically generated using ``sphinx.ext.autodoc`` which pull docstrings from provider
+iss automatically generated using ``sphinx.ext.autodoc`` which pulls docstrings from provider
 methods during the ``sphinx-build`` process. This also means that the docstrings must be written
 in valid ``reStructuredText``.
 
 Furthermore, because of the nature of this library, it is imperative to include sample usage to
 best demonstrate the capabilities and the possibilities. Since there are so many provider methods
 and localized versions, keeping the docs updated would have been a nightmare if the sample usage
-section (with reproducible output) of each provider method is to be written by hand.
+section (with reproducible output) of each provider method were to be written by hand.
 
 Automating sample usage sections
 --------------------------------
@@ -216,6 +216,6 @@ Sample generation
 -----------------
 
 Once a ``:sample:`` line has been validated, the ``sphinx-build`` process will attempt to generate
-results based on the information provided. A sample run can still fail if ``KWARGS`` contain keyword
+results based on the information provided. A sample run can still fail if ``KWARGS`` contains keyword
 arguments that the provider method is not expecting or if executing the provider method results in
 an exception. Details of such instances will also be logged to the console as a warning.
