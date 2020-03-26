@@ -54,7 +54,9 @@ setup(
     author_email='joke2k@gmail.com',
     url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=["docs", "tests", "tests.*"]),
+    packages=find_packages(exclude=[
+        "docs", "tests", "tests.*", "faker.sphinx", "faker.sphinx.*",
+    ]),
     platforms=["any"],
     zip_safe=zip_safe,
     python_requires=">=3.4",
