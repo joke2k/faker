@@ -122,7 +122,8 @@ class TestProviderMethodDocstring(unittest.TestCase):
             obj=MagicMock, options=MagicMock(), lines=[],
         )
         assert not docstring.skipped
-        assert not docstring._samples
+        assert len(docstring._samples) == 1
+        assert docstring._samples[0] == Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, '')
 
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
     def test_parsing_single_line_non_sample(self, mock_log_warning):
@@ -132,7 +133,8 @@ class TestProviderMethodDocstring(unittest.TestCase):
             obj=MagicMock, options=MagicMock(), lines=['lorem'],
         )
         assert not docstring.skipped
-        assert not docstring._samples
+        assert len(docstring._samples) == 1
+        assert docstring._samples[0] == Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, '')
 
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
     def test_parsing_single_line_valid_sample(self, mock_log_warning):

@@ -195,9 +195,13 @@ class ProviderMethodDocstring:
             'OrderedDict': OrderedDict,
         }
 
+    def _inject_default_sample_section(self):
+        default_sample = Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, '')
+        self._samples.append(default_sample)
+
     def _generate_samples(self):
         if not self._samples:
-            return
+            self._inject_default_sample_section()
 
         output = ''
         eval_scope = self._generate_eval_scope()
