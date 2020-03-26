@@ -84,8 +84,7 @@ class BaseProvider:
         self.generator = generator
 
     def locale(self):
-        """
-        Return a random underscored i18n locale code (e.g. en_US).
+        """Generate a random underscored i18n locale code (e.g. en_US).
 
         :sample:
         """
@@ -95,51 +94,46 @@ class BaseProvider:
         )
 
     def language_code(self):
-        """
-        Return a random i18n language code (e.g. en).
+        """Generate a random i18n language code (e.g. en).
 
         :sample:
         """
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
     def random_int(self, min=0, max=9999, step=1):
-        """
-        Return a random integer between two integers ``min`` and ``max`` inclusive
+        """Generate a random integer between two integers ``min`` and ``max`` inclusive
         while observing the provided ``step`` value.
 
         This method is functionally equivalent to randomly sampling an integer
         from the sequence ``range(min, max + 1, step)``.
 
         :sample:
-        :sample 10: min=0, max=15
-        :sample 10: min=0, max=15, step=3
+        :sample size=10: min=0, max=15
+        :sample size=10: min=0, max=15, step=3
         """
         return self.generator.random.randrange(min, max + 1, step)
 
     def random_digit(self):
-        """
-        Return a random digit (0 to 9).
+        """Generate a random digit (0 to 9).
 
         :sample:
         """
         return self.generator.random.randint(0, 9)
 
     def random_digit_not_null(self):
-        """
-        Return a random non-zero digit (1 to 9).
+        """Generate a random non-zero digit (1 to 9).
 
         :sample:
         """
         return self.generator.random.randint(1, 9)
 
     def random_digit_or_empty(self):
-        """
-        Return a random digit (0 to 9) or an empty string.
+        """Generate a random digit (0 to 9) or an empty string.
 
         This method will return an empty string 50% of the time,
         and each digit has a 1/20 chance of being generated.
 
-        :sample 10:
+        :sample size=10:
         """
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(0, 9)
@@ -147,13 +141,12 @@ class BaseProvider:
             return ''
 
     def random_digit_not_null_or_empty(self):
-        """
-        Return a random non-zero digit (1 to 9) or an empty string.
+        """Generate a random non-zero digit (1 to 9) or an empty string.
 
         This method will return an empty string 50% of the time,
         and each digit has a 1/18 chance of being generated.
 
-        :sample 10:
+        :sample size=10:
         """
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(1, 9)
@@ -161,8 +154,7 @@ class BaseProvider:
             return ''
 
     def random_number(self, digits=None, fix_len=False):
-        """
-        Return a random integer according to the following rules:
+        """Generate a random integer according to the following rules:
 
         - If ``digits`` is ``None`` (default), its value will be set to a random
           integer from 1 to 9.
@@ -191,8 +183,7 @@ class BaseProvider:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
     def random_letter(self):
-        """
-        Return a random ASCII letter (a-z and A-Z).
+        """Generate a random ASCII letter (a-z and A-Z).
 
         :sample:
         """
@@ -200,8 +191,7 @@ class BaseProvider:
             getattr(string, 'letters', string.ascii_letters))
 
     def random_letters(self, length=16):
-        """
-        Return a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
+        """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
 
         :sample:
         :sample: length=10
@@ -212,24 +202,21 @@ class BaseProvider:
         )
 
     def random_lowercase_letter(self):
-        """
-        Return a random lowercase ASCII letter (a-z).
+        """Generate a random lowercase ASCII letter (a-z).
 
         :sample:
         """
         return self.generator.random.choice(string.ascii_lowercase)
 
     def random_uppercase_letter(self):
-        """
-        Return a random uppercase ASCII letter (A-Z).
+        """Generate a random uppercase ASCII letter (A-Z).
 
         :sample:
         """
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False):
-        """
-        Return a list of randomly sampled objects from ``elements``.
+        """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
         ``True`` for random sampling without replacement.
@@ -314,8 +301,7 @@ class BaseProvider:
         )
 
     def random_choices(self, elements=('a', 'b', 'c'), length=None):
-        """
-        Return a list of objects randomly sampled from ``elements`` with replacement.
+        """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
         :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
@@ -339,8 +325,7 @@ class BaseProvider:
         return self.random_elements(elements, length, unique=False)
 
     def random_element(self, elements=('a', 'b', 'c')):
-        """
-        Return a randomly sampled object from ``elements``.
+        """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
         :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
@@ -348,7 +333,7 @@ class BaseProvider:
         ``length`` argument set to ``1``.
 
         :sample: elements=('a', 'b', 'c', 'd')
-        :sample 10: elements=OrderedDict([
+        :sample size=10: elements=OrderedDict([
                      ("a", 0.45),
                      ("b", 0.35),
                      ("c", 0.15),
@@ -359,8 +344,7 @@ class BaseProvider:
         return self.random_elements(elements, length=1)[0]
 
     def random_sample(self, elements=('a', 'b', 'c'), length=None):
-        """
-        Return a list of objects randomly sampled from ``elements`` without replacement.
+        """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
         :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
@@ -378,8 +362,7 @@ class BaseProvider:
             ge=False,
             min=None,
             max=None):
-        """
-        Return a random integer near ``number`` according to the following rules:
+        """Generate a random integer near ``number`` according to the following rules:
 
         - If ``le`` is ``False`` (default), allow generation up to 140% of ``number``.
           If ``True``, upper bound generation is capped at 100%.
@@ -411,8 +394,7 @@ class BaseProvider:
         return nb
 
     def numerify(self, text='###'):
-        """
-        Return a string with each placeholder in ``text`` replaced according
+        """Generate a string with each placeholder in ``text`` replaced according
         to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
@@ -444,8 +426,7 @@ class BaseProvider:
         return text
 
     def lexify(self, text='????', letters=string.ascii_letters):
-        """
-        Return a string with each question mark ('?') in ``text``
+        """Generate a string with each question mark ('?') in ``text``
         replaced with a random character from ``letters``.
 
         By default, ``letters`` contains all ASCII letters, uppercase and lowercase.
@@ -456,8 +437,7 @@ class BaseProvider:
         return _re_qm.sub(lambda x: self.random_element(letters), text)
 
     def bothify(self, text='## ??', letters=string.ascii_letters):
-        """
-        Return a string with each placeholder in ``text`` replaced according
+        """Generate a string with each placeholder in ``text`` replaced according
         to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
@@ -470,14 +450,13 @@ class BaseProvider:
         signs and question marks respectively.
 
         :sample: letters='ABCDE'
-        :sample: text='Product Number: ????-########', letter
+        :sample: text='Product Number: ????-########'
         :sample: text='Product Number: ????-########', letters='ABCDE'
         """
         return self.lexify(self.numerify(text), letters=letters)
 
     def hexify(self, text='^^^^', upper=False):
-        """
-        Return a string with each circumflex ('^') in ``text``
+        """Generate a string with each circumflex ('^') in ``text``
         replaced with a random hexadecimal character.
 
         By default, ``upper`` is set to False. If set to ``True``, output
