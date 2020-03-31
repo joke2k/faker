@@ -146,3 +146,27 @@ class TestFrFR(unittest.TestCase):
         plate = self.fake.license_plate()
         assert isinstance(plate, str)
         assert self.pattern.match(plate)
+
+class TestEsES(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+        self.new_format_pattern = re.compile(r'\d{4}\s[A-Z]{3}')
+        self.old_format_pattern = re.compile(r'[A-Z]{1,2}\s\d{4}\s[A-Z]{2}')
+
+    def test_es_ES_plate_new_format(self):
+        plate = self.fake.license_plate_unified()
+        assert isinstance(plate, str)
+        assert self.new_format_pattern.match(plate)
+        
+    def test_es_ES_plate_old_format(self):
+        plate = self.fake.license_plate_by_province()
+        assert isinstance(plate, str)
+        assert self.old_format_pattern.match(plate)
+
+    def test_es_ES_plate_format(self):
+        plate = self.fake.license_plate()
+        assert isinstance(plate, str)
+        assert self.new_format_pattern.match(plate) or \
+            self.old_format_pattern.match(plate)
