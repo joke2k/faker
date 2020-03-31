@@ -14,10 +14,21 @@ csv.register_dialect('faker-csv', csv.excel, quoting=csv.QUOTE_ALL)
 
 
 class Provider(BaseProvider):
+
     def boolean(self, chance_of_getting_true=50):
+        """Generate a random boolean value based on ``chance_of_getting_true``.
+
+        :sample size=10: chance_of_getting_true=25
+        :sample size=10: chance_of_getting_true=50
+        :sample size=10: chance_of_getting_true=75
+        """
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
     def null_boolean(self):
+        """Generate ``None``, ``True``, or ``False``, each with equal probability.
+
+        :sample size=15:
+        """
         return {
             0: None,
             1: True,
@@ -25,17 +36,21 @@ class Provider(BaseProvider):
         }[self.generator.random.randint(-1, 1)]
 
     def binary(self, length=(1 * 1024 * 1024)):
-        """ Returns random binary blob.
+        """Generate a random binary blob of ``length`` bytes.
 
-        Default blob size is 1 Mb.
+        :sample: length=64
         """
         blob = [self.generator.random.randrange(256) for _ in range(length)]
         return bytes(blob)
 
     def md5(self, raw_output=False):
-        """
-        Calculates the md5 hash of a given string
-        :example 'cfcd208495d565ef66e7dff9f98764da'
+        """Generate a random MD5 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
         """
         res = hashlib.md5(str(self.generator.random.random()).encode())
         if raw_output:
@@ -43,9 +58,13 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha1(self, raw_output=False):
-        """
-        Calculates the sha1 hash of a given string
-        :example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
+        """Generate a random SHA1 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
         """
         res = hashlib.sha1(str(self.generator.random.random()).encode())
         if raw_output:
@@ -53,9 +72,13 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha256(self, raw_output=False):
-        """
-        Calculates the sha256 hash of a given string
-        :example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
+        """Generate a random SHA256 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
         """
         res = hashlib.sha256(
             str(self.generator.random.random()).encode())
@@ -64,10 +87,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def uuid4(self, cast_to=str):
-        """
-        Generates a random UUID4 string.
-        :param cast_to: Specify what type the UUID should be cast to. Default is `str`
-        :type cast_to: callable
+        """Generate a random UUID4 object and cast it to another type using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
         """
         # Based on http://stackoverflow.com/q/41186818
         return cast_to(uuid.UUID(int=self.generator.random.getrandbits(128), version=4))
@@ -79,14 +101,17 @@ class Provider(BaseProvider):
             digits=True,
             upper_case=True,
             lower_case=True):
-        """
-        Generates a random password.
-        @param length: Integer. Length of a password
-        @param special_chars: Boolean. Whether to use special characters !@#$%^&*()_+
-        @param digits: Boolean. Whether to use digits
-        @param upper_case: Boolean. Whether to use upper letters
-        @param lower_case: Boolean. Whether to use lower letters
-        @return: String. Random password
+        """Generate a random password of the specified ``length``.
+
+        The arguments ``special_chars``, ``digits``, ``upper_case``, and ``lower_case`` control
+        what category of characters will appear in the generated password. If set to ``True``
+        (default), at least one character from the corresponding category is guaranteed to appear.
+        Special characters are characters from ``!@#$%^&*()_+``, digits are characters from
+        ``0123456789``, and uppercase and lowercase characters are characters from the ASCII set of
+        letters.
+
+        :sample: length=12
+        :sample: length=40, special_chars=False, upper_case=False
         """
         choices = ""
         required_tokens = []
@@ -125,18 +150,25 @@ class Provider(BaseProvider):
         return ''.join(chars)
 
     def zip(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
+        """Generate a bytes object containing a random valid zip archive file.
+
+        The number and sizes of files contained inside the resulting archive can be controlled
+        using the following arguments:
+
+        - ``uncompressed_size`` - the total size of files before compression, 16 KiB by default
+        - ``num_files`` - the number of files archived in resulting zip file, 1 by default
+        - ``min_file_size`` - the minimum size of each file before compression, 4 KiB by default
+
+        No compression is used by default, but setting ``compression`` to one of the values listed
+        below will use the corresponding compression type.
+
+        - ``'bzip2'`` or ``'bz2'`` for BZIP2
+        - ``'lzma'`` or ``'xz'`` for LZMA
+        - ``'deflate'``, ``'gzip'``, or ``'gz'`` for GZIP
+
+        :sample: uncompressed_size=256, num_files=4, min_file_size=32
+        :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
-        Returns a random valid zip archive
-
-        :param uncompressed_size: Total size of files before compression, 16 KiB by default
-        :param num_files: Number of files archived in resulting zip file, 1 file by default
-        :param min_file_size: Minimum size of each file before compression, 4 KiB by default
-        :param compression: bzip2 or bz2 for BZIP2, lzma or xz for LZMA,
-                             deflate gzip or gz for GZIP, otherwise no compression
-
-        :return: Bytes object representation of zip archive
-        """
-
         if any([
             not isinstance(num_files, int) or num_files <= 0,
             not isinstance(min_file_size, int) or min_file_size <= 0,
@@ -176,16 +208,24 @@ class Provider(BaseProvider):
         return zip_buffer.getvalue()
 
     def tar(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
-        """
-        Returns a random valid tar
+        """Generate a bytes object containing a random valid tar file.
 
-        :param uncompressed_size: Total size of files before compression, 16 KiB by default
-        :param num_files: Number of files archived in resulting zip file, 1 file by default
-        :param min_file_size: Minimum size of each file before compression, 4 KiB by default
-        :param compression: gzip or gz for GZIP, bzip2 or bz2 for BZIP2,
-                            lzma or xz for LZMA, otherwise no compression
+        The number and sizes of files contained inside the resulting archive can be controlled
+        using the following arguments:
 
-        :return: Bytes object representation of tar
+        - ``uncompressed_size`` - the total size of files before compression, 16 KiB by default
+        - ``num_files`` - the number of files archived in resulting zip file, 1 by default
+        - ``min_file_size`` - the minimum size of each file before compression, 4 KiB by default
+
+        No compression is used by default, but setting ``compression`` to one of the values listed
+        below will use the corresponding compression type.
+
+        - ``'bzip2'`` or ``'bz2'`` for BZIP2
+        - ``'lzma'`` or ``'xz'`` for LZMA
+        - ``'gzip'`` or ``'gz'`` for GZIP
+
+        :sample: uncompressed_size=256, num_files=4, min_file_size=32
+        :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
         if any([
             not isinstance(num_files, int) or num_files <= 0,
@@ -234,22 +274,27 @@ class Provider(BaseProvider):
     def dsv(self, dialect='faker-csv', header=None,
             data_columns=('{{name}}', '{{address}}'),
             num_rows=10, include_row_ids=False, **fmtparams):
-        """
-        Generic method that returns delimiter-separated values
+        """Generate random delimiter-separated values.
 
-        This method's signature is mostly the same as the signature of csv.writer with some
-        additional keyword arguments for controlling data generation. Dialects and formatting
-        parameters are passed to the csv.writer object during its instantiation.
+        This method's behavior share some similarities with ``csv.writer``. The ``dialect`` and
+        ``**fmtparams`` arguments are the same arguments expected by ``csv.writer`` to control its
+        behavior, and instead of expecting a file-like object to where output will be written, the
+        output is controlled by additional keyword arguments and is returned as a string.
 
-        :param dialect: Name of a registered csv.Dialect subclass, defaults to 'faker-csv'
-                        which is a subclass of csv.excel with full quoting enabled
-        :param header: List of strings that will serve as the header row if supplied
-        :param data_columns: List of string tokens that will be passed to the pystr_format
-                             provider method during data generation
-        :param num_rows: Number of rows of data to generate
-        :param include_row_ids: True to include a sequential row ID column
-        :param fmtparams: Formatting parameters expected by csv.writer
-        :return: Delimiter-separated values, csv by default
+        The ``dialect`` argument defaults to ``'faker-csv'`` which is the name of a ``csv.excel``
+        subclass with full quoting enabled.
+
+        The ``header`` argument expects a list or a tuple of strings that will serve as the header row
+        if supplied. The ``data_columns`` argument expects a list or a tuple of string tokens, and these
+        string tokens will be passed to  :meth:`pystr_format() <faker.providers.python.Provider.pystr_format>`
+        for data generation. Both ``header`` and ``data_columns`` myst be of the same length.
+
+        The ``num_rows`` argument controls how many rows of data to generate, and the ``include_row_ids``
+        argument may be set to ``True`` to include a sequential row ID column.
+
+        :sample: dialect='excel', data_columns=('{{name}}', '{{address}}')
+        :sample: dialect='excel-tab', data_columns=('{{name}}', '{{address}}'), include_row_ids=True
+        :sample: data_columns=('{{name}}', '{{address}}'), num_rows=5, delimiter='$'
         """
 
         if not isinstance(num_rows, int) or num_rows <= 0:
@@ -281,48 +326,48 @@ class Provider(BaseProvider):
         return dsv_buffer.getvalue()
 
     def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
-        """
-        Helper method that returns comma-separated values using the faker-csv dialect
+        """Generate random comma-separated values.
 
-        :param header: List of strings that will serve as the header row if supplied
-        :param data_columns: List of strings expected by the pystr_format provider method
-        :param num_rows: Number of rows of data to generate
-        :param include_row_ids: True to include a sequential row ID column
-        :return: Comma-separated values
-        """
+        For more information on the different arguments of this method, please refer to
+        :meth:`dsv() <faker.providers.misc.Provider.dsv>` which is used under the hood.
 
+        :sample: data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False
+        :sample: header=('Name', 'Address', 'Favorite Color'),
+                data_columns=('{{name}}', '{{address}}', '{{safe_color_name}}'),
+                num_rows=10, include_row_ids=True
+        """
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
             include_row_ids=include_row_ids, delimiter=',',
         )
 
     def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
-        """
-        Helper method that returns tab-separated values using the faker-csv dialect
+        """Generate random tab-separated values.
 
-        :param header: List of strings that will serve as the header row if supplied
-        :param data_columns: List of strings expected by the pystr_format provider method
-        :param num_rows: Number of rows of data to generate
-        :param include_row_ids: True to include a sequential row ID column
-        :return: Tab-separated values
-        """
+        For more information on the different arguments of this method, please refer to
+        :meth:`dsv() <faker.providers.misc.Provider.dsv>` which is used under the hood.
 
+        :sample: data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False
+        :sample: header=('Name', 'Address', 'Favorite Color'),
+                data_columns=('{{name}}', '{{address}}', '{{safe_color_name}}'),
+                num_rows=10, include_row_ids=True
+        """
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
             include_row_ids=include_row_ids, delimiter='\t',
         )
 
     def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
-        """
-        Helper method that returns pipe-separated values using the faker-csv dialect
+        """Generate random pipe-separated values.
 
-        :param header: List of strings that will serve as the header row if supplied
-        :param data_columns: List of strings expected by the pystr_format provider method
-        :param num_rows: Number of rows of data to generate
-        :param include_row_ids: True to include a sequential row ID column
-        :return: Pipe-separated values
-        """
+        For more information on the different arguments of this method, please refer to
+        :meth:`dsv() <faker.providers.misc.Provider.dsv>` which is used under the hood.
 
+        :sample: data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False
+        :sample: header=('Name', 'Address', 'Favorite Color'),
+                data_columns=('{{name}}', '{{address}}', '{{safe_color_name}}'),
+                num_rows=10, include_row_ids=True
+        """
         return self.dsv(
             header=header, data_columns=data_columns, num_rows=num_rows,
             include_row_ids=include_row_ids, delimiter='|',

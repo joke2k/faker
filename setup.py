@@ -11,6 +11,10 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
 with open(os.path.join(here, 'VERSION')) as version_file:
     VERSION = version_file.read().strip()
 
+excluded_packages = ["docs", "tests", "tests.*"]
+if not os.environ.get('READTHEDOCS', False):
+    excluded_packages += ["faker.sphinx", "faker.sphinx.*"]
+
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
 # pkgutil.iter_importer_modules has registered a dispatch for the zipimporter.
@@ -54,7 +58,7 @@ setup(
     author_email='joke2k@gmail.com',
     url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=["docs", "tests", "tests.*"]),
+    packages=find_packages(exclude=excluded_packages),
     platforms=["any"],
     zip_safe=zip_safe,
     python_requires=">=3.4",

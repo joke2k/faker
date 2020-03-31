@@ -20,6 +20,7 @@ Contents
    communityproviders
    locales
    coding_style
+   writing-docs
 
 
 
