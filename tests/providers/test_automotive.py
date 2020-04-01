@@ -147,6 +147,7 @@ class TestFrFR(unittest.TestCase):
         assert isinstance(plate, str)
         assert self.pattern.match(plate)
 
+
 class TestEsES(unittest.TestCase):
 
     def setUp(self):
@@ -159,7 +160,7 @@ class TestEsES(unittest.TestCase):
         plate = self.fake.license_plate_unified()
         assert isinstance(plate, str)
         assert self.new_format_pattern.match(plate)
-        
+
     def test_es_ES_plate_old_format(self):
         plate = self.fake.license_plate_by_province()
         assert isinstance(plate, str)
