@@ -299,3 +299,18 @@ class TestFakerProxyClass(unittest.TestCase):
         self.fake = Faker(['en_US', 'en_PH'])
         with self.assertRaises(AttributeError):
             self.fake.obviously_invalid_provider_method_a23f()
+
+    def test_dir_include_all_providers_attribute_in_list(self):
+        self.fake = Faker(['en_US', 'en_PH'])
+        expected = set(dir(Faker) + [
+            '_factories', '_locales', '_factory_map', '_weights',
+        ])
+        for factory in self.fake.factories:
+            expected |= {
+                attr for attr in dir(factory) if not attr.startswith('_')
+            }
+        expected = sorted(expected)
+
+        attributes = dir(self.fake)
+
+        assert attributes == expected
