@@ -166,6 +166,12 @@ class TestEsES(unittest.TestCase):
         assert isinstance(plate, str)
         assert self.old_format_pattern.match(plate)
 
+    def test_es_ES_plate_old_format_explicit_province_prefix(self):
+        plate = self.fake.license_plate_by_province(province_prefix="CA")
+        assert isinstance(plate, str)
+        assert self.old_format_pattern.match(plate)
+        assert plate[:2] == "CA"
+
     def test_es_ES_plate_format(self):
         plate = self.fake.license_plate()
         assert isinstance(plate, str)
