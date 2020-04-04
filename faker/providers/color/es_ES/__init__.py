@@ -67,7 +67,7 @@ class Provider(ColorProvider):
         ("Ciruela", "#DDA0DD"),
         ("Coral", "#FF7F50"),
         ("Coral claro", "#F08080"),
-        ("Cornsilk", "Amarillo maíz dulce"),
+        ("Amarillo maíz dulce", "#FFF8DC"),
         ("Cyan oscuro", "#008B8B"),
         ("Fucsia", "#FF00FF"),
         ("Granate", "#800000"),
