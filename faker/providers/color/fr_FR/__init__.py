@@ -65,7 +65,7 @@ class Provider(ColorProvider):
         ("Beige antique", "#FAEBD7"),
         ("Beige papaye", "#FFEFD5"),
         ("Amande", "#FFEBCD"),
-        ("Bisque", "#ffe4c4"),
+        ("Bisque", "#FFE4C4"),
         ("Beige pêche", "#FFDAB9"),
         ("Beige mocassin", "#FFE4B5"),
         ("Jaune blanc navaro", "#FFDEAD"),
