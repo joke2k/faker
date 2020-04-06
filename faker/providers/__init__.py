@@ -84,43 +84,56 @@ class BaseProvider:
         self.generator = generator
 
     def locale(self):
+        """Generate a random underscored i18n locale code (e.g. en_US).
+
+        :sample:
+        """
         language_code = self.language_code()
         return language_code + '_' + self.random_element(
             BaseProvider.language_locale_codes[language_code],
         )
 
     def language_code(self):
+        """Generate a random i18n language code (e.g. en).
+
+        :sample:
+        """
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
     def random_int(self, min=0, max=9999, step=1):
-        """
-        Returns a random integer between two values.
+        """Generate a random integer between two integers ``min`` and ``max`` inclusive
+        while observing the provided ``step`` value.
 
-        :param min: lower bound value (inclusive; default=0)
-        :param max: upper bound value (inclusive; default=9999)
-        :param step: range step (default=1)
-        :returns: random integer between min and max
+        This method is functionally equivalent to randomly sampling an integer
+        from the sequence ``range(min, max + 1, step)``.
+
+        :sample:
+        :sample size=10: min=0, max=15
+        :sample size=10: min=0, max=15, step=3
         """
         return self.generator.random.randrange(min, max + 1, step)
 
     def random_digit(self):
-        """
-        Returns a random digit/number
-        between 0 and 9.
+        """Generate a random digit (0 to 9).
+
+        :sample:
         """
         return self.generator.random.randint(0, 9)
 
     def random_digit_not_null(self):
-        """
-        Returns a random non-zero digit/number
-        between 1 and 9.
+        """Generate a random non-zero digit (1 to 9).
+
+        :sample:
         """
         return self.generator.random.randint(1, 9)
 
     def random_digit_or_empty(self):
-        """
-        Returns a random digit/number
-        between 0 and 9 or an empty string.
+        """Generate a random digit (0 to 9) or an empty string.
+
+        This method will return an empty string 50% of the time,
+        and each digit has a 1/20 chance of being generated.
+
+        :sample size=10:
         """
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(0, 9)
@@ -128,9 +141,12 @@ class BaseProvider:
             return ''
 
     def random_digit_not_null_or_empty(self):
-        """
-        Returns a random non-zero digit/number
-        between 1 and 9 or and empty string.
+        """Generate a random non-zero digit (1 to 9) or an empty string.
+
+        This method will return an empty string 50% of the time,
+        and each digit has a 1/18 chance of being generated.
+
+        :sample size=10:
         """
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(1, 9)
@@ -138,15 +154,20 @@ class BaseProvider:
             return ''
 
     def random_number(self, digits=None, fix_len=False):
-        """
-        Returns a random number with 1 digit (default, when digits==None),
-        a random number with 0 to given number of digits, or a random number
-        with given number to given number of digits (when ``fix_len==True``).
+        """Generate a random integer according to the following rules:
 
-        :param digits: maximum number of digits
-        :param fix_len:  should the number have fixed length?
-        :returns: random number with 0 to given number of digits or
-            fixed length number
+        - If ``digits`` is ``None`` (default), its value will be set to a random
+          integer from 1 to 9.
+        - If ``fix_len`` is ``False`` (default), all integers that do not exceed
+          the number of ``digits`` can be generated.
+        - If ``fix_len`` is ``True``, only integers with the exact number of
+          ``digits`` can be generated.
+
+        :sample: fix_len=False
+        :sample: fix_len=True
+        :sample: digits=3
+        :sample: digits=3, fix_len=False
+        :sample: digits=3, fix_len=True
         """
         if digits is None:
             digits = self.random_digit_not_null()
@@ -162,26 +183,94 @@ class BaseProvider:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
     def random_letter(self):
-        """Returns a random letter (between a-z and A-Z)."""
+        """Generate a random ASCII letter (a-z and A-Z).
+
+        :sample:
+        """
         return self.generator.random.choice(
             getattr(string, 'letters', string.ascii_letters))
 
     def random_letters(self, length=16):
-        """Returns a random letter (between a-z and A-Z)."""
+        """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
+
+        :sample:
+        :sample: length=10
+        """
         return self.random_choices(
             getattr(string, 'letters', string.ascii_letters),
             length=length,
         )
 
     def random_lowercase_letter(self):
-        """Returns a random lowercase letter (between a-z)."""
+        """Generate a random lowercase ASCII letter (a-z).
+
+        :sample:
+        """
         return self.generator.random.choice(string.ascii_lowercase)
 
     def random_uppercase_letter(self):
-        """Returns a random letter (between A-Z)."""
+        """Generate a random uppercase ASCII letter (A-Z).
+
+        :sample:
+        """
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False):
+        """Generate a list of randomly sampled objects from ``elements``.
+
+        Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
+        ``True`` for random sampling without replacement.
+
+        If ``length`` is set to ``None`` or is omitted, ``length`` will be set to a random
+        integer from 1 to the size of ``elements``.
+
+        The value of ``length`` cannot be greater than the number of objects
+        in ``elements`` if ``unique`` is set to ``True``.
+
+        The value of ``elements`` can be any sequence type (``list``, ``tuple``, ``set``,
+        ``string``, etc) or an ``OrderedDict`` type. If it is the latter, the keys will be
+        used as the objects for sampling, and the values will be used as weighted probabilities
+        if ``unique`` is set to ``False``. For example:
+
+        .. code-block:: python
+
+            # Random sampling with replacement
+            fake.random_elements(
+                elements=OrderedDict([
+                    ("variable_1", 0.5),        # Generates "variable_1" 50% of the time
+                    ("variable_2", 0.2),        # Generates "variable_2" 20% of the time
+                    ("variable_3", 0.2),        # Generates "variable_3" 20% of the time
+                    ("variable_4": 0.1),        # Generates "variable_4" 10% of the time
+                ]), unique=False
+            )
+
+            # Random sampling without replacement (defaults to uniform distribution)
+            fake.random_elements(
+                elements=OrderedDict([
+                    ("variable_1", 0.5),
+                    ("variable_2", 0.2),
+                    ("variable_3", 0.2),
+                    ("variable_4": 0.1),
+                ]), unique=True
+            )
+
+        :sample: elements=('a', 'b', 'c', 'd'), unique=False
+        :sample: elements=('a', 'b', 'c', 'd'), unique=True
+        :sample: elements=('a', 'b', 'c', 'd'), length=10, unique=False
+        :sample: elements=('a', 'b', 'c', 'd'), length=4, unique=True
+        :sample: elements=OrderedDict([
+                        ("a", 0.45),
+                        ("b", 0.35),
+                       ("c", 0.15),
+                       ("d", 0.05),
+                   ]), length=20, unique=False
+        :sample: elements=OrderedDict([
+                       ("a", 0.45),
+                       ("b", 0.35),
+                       ("c", 0.15),
+                       ("d", 0.05),
+                   ]), unique=True
+        """
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
             raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
 
@@ -212,56 +301,57 @@ class BaseProvider:
         )
 
     def random_choices(self, elements=('a', 'b', 'c'), length=None):
-        """
-        Returns a list of random, non-unique elements from a passed object.
+        """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
-        If `elements` is an OrderedDict, the value will be used as a weighting
-        element. For example::
+        For information on the ``elements`` and ``length`` arguments, please refer to
+        :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
+        is used under the hood with the ``unique`` argument explicitly set to ``False``.
 
-            random_element(OrderedDict([
-                ("{{variable_1}}", 0.5),
-                ("{{variable_2}}", 0.2),
-                ("{{variable_3}}", 0.2),
-                ("{{variable_4}}": 0.1)
-            ])
-
-        will have the following distribution:
-            * `variable_1`: 50% probability
-            * `variable_2`: 20% probability
-            * `variable_3`: 20% probability
-            * `variable_4`: 10% probability
-
+        :sample: elements=('a', 'b', 'c', 'd')
+        :sample: elements=('a', 'b', 'c', 'd'), length=10
+        :sample: elements=OrderedDict([
+                     ("a", 0.45),
+                     ("b", 0.35),
+                     ("c", 0.15),
+                     ("d", 0.05),
+                 ])
+        :sample: elements=OrderedDict([
+                     ("a", 0.45),
+                     ("b", 0.35),
+                     ("c", 0.15),
+                     ("d", 0.05),
+                 ]), length=20
         """
         return self.random_elements(elements, length, unique=False)
 
     def random_element(self, elements=('a', 'b', 'c')):
-        """
-        Returns a random element from a passed object.
+        """Generate a randomly sampled object from ``elements``.
 
-        If `elements` is an OrderedDict, the value will be used as a weighting
-        element. For example::
+        For information on the ``elements`` argument, please refer to
+        :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
+        is used under the hood with the ``unique`` argument set to ``False`` and the
+        ``length`` argument set to ``1``.
 
-            random_element(OrderedDict([
-                ("{{variable_1}}", 0.5),
-                ("{{variable_2}}", 0.2),
-                ("{{variable_3}}", 0.2),
-                ("{{variable_4}}": 0.1)
-            ])
-
-        will have the following distribution:
-            * `variable_1`: 50% probability
-            * `variable_2`: 20% probability
-            * `variable_3`: 20% probability
-            * `variable_4`: 10% probability
-
+        :sample: elements=('a', 'b', 'c', 'd')
+        :sample size=10: elements=OrderedDict([
+                     ("a", 0.45),
+                     ("b", 0.35),
+                     ("c", 0.15),
+                     ("d", 0.05),
+                 ])
         """
 
         return self.random_elements(elements, length=1)[0]
 
     def random_sample(self, elements=('a', 'b', 'c'), length=None):
-        """
-        Returns a list of random unique elements for the specified length.
-        Multiple occurrences of the same value increase its probability to be in the output.
+        """Generate a list of objects randomly sampled from ``elements`` without replacement.
+
+        For information on the ``elements`` and ``length`` arguments, please refer to
+        :meth:`random_elements() <faker.providers.BaseProvider.random_elements>` which
+        is used under the hood with the ``unique`` argument explicitly set to ``True``.
+
+        :sample: elements=('a', 'b', 'c', 'd', 'e', 'f')
+        :sample: elements=('a', 'b', 'c', 'd', 'e', 'f'), length=3
         """
         return self.random_elements(elements, length, unique=True)
 
@@ -272,13 +362,25 @@ class BaseProvider:
             ge=False,
             min=None,
             max=None):
-        """
-        Returns a random value near number.
+        """Generate a random integer near ``number`` according to the following rules:
 
-        :param number: value to which the result must be near
-        :param le: result must be lower or equal to number
-        :param ge: result must be greater or equal to number
-        :returns: a random int near number
+        - If ``le`` is ``False`` (default), allow generation up to 140% of ``number``.
+          If ``True``, upper bound generation is capped at 100%.
+        - If ``ge`` is ``False`` (default), allow generation down to 60% of ``number``.
+          If ``True``, lower bound generation is capped at 100%.
+        - If a numerical value for ``min`` is provided, generated values less than ``min``
+          will be clamped at ``min``.
+        - If a numerical value for ``max`` is provided, generated values greater than
+          ``max`` will be clamped at ``max``.
+        - If both ``le`` and ``ge`` are ``True``, the value of ``number`` will automatically
+          be returned, regardless of the values supplied for ``min`` and ``max``.
+
+        :sample: number=100
+        :sample: number=100, ge=True
+        :sample: number=100, ge=True, min=120
+        :sample: number=100, le=True
+        :sample: number=100, le=True, max=80
+        :sample: number=79, le=True, ge=True, min=80
         """
         if le and ge:
             return number
@@ -292,17 +394,22 @@ class BaseProvider:
         return nb
 
     def numerify(self, text='###'):
-        """
-        Replaces all placeholders in given text with randomized values,
-        replacing: all hash sign ('#') occurrences with a random digit
-        (from 0 to 9); all percentage sign ('%') occurrences with a
-        random non-zero digit (from 1 to 9); all exclamation mark ('!')
-        occurrences with a random digit (from 0 to 9) or an empty string;
-        and all at symbol ('@') occurrences with a random non-zero digit
-        (from 1 to 9) or an empty string.
+        """Generate a string with each placeholder in ``text`` replaced according
+        to the following rules:
 
-        :param text: string to be parsed
-        :returns: string with all numerical placeholders filled in
+        - Number signs ('#') are replaced with a random digit (0 to 9).
+        - Percent signs ('%') are replaced with a random non-zero digit (1 to 9).
+        - Exclamation marks ('!') are replaced with a random digit or an empty string.
+        - At symbols ('@') are replaced with a random non-zero digit or an empty string.
+
+        Under the hood, this method uses :meth:`random_digit() <faker.providers.BaseProvider.random_digit>`,
+        :meth:`random_digit_not_null() <faker.providers.BaseProvider.random_digit_not_null>`,
+        :meth:`random_digit_or_empty() <faker.providers.BaseProvider.random_digit_or_empty>`,
+        and :meth:`random_digit_not_null_or_empty() <faker.providers.BaseProvider.random_digit_not_null_or_empty>`
+        to generate the random values.
+
+        :sample: text='Intel Core i%-%%##K vs AMD Ryzen % %%##X'
+        :sample: text='!!! !!@ !@! !@@ @!! @!@ @@! @@@'
         """
         text = _re_hash.sub(
             lambda x: str(self.random_digit()),
@@ -319,32 +426,44 @@ class BaseProvider:
         return text
 
     def lexify(self, text='????', letters=string.ascii_letters):
-        """
-        Replaces all question mark ('?') occurrences with a random letter.
+        """Generate a string with each question mark ('?') in ``text``
+        replaced with a random character from ``letters``.
 
-        :param text: string to be parsed
-        :param letters: a set of letters to choose from.
-        :returns: string with all letter placeholders filled in
+        By default, ``letters`` contains all ASCII letters, uppercase and lowercase.
+
+        :sample: text='Random Identifier: ??????????'
+        :sample: text='Random Identifier: ??????????', letters='ABCDE'
         """
         return _re_qm.sub(lambda x: self.random_element(letters), text)
 
     def bothify(self, text='## ??', letters=string.ascii_letters):
-        """
-        Replaces all placeholders with random numbers and letters.
+        """Generate a string with each placeholder in ``text`` replaced according
+        to the following rules:
 
-        :param text: string to be parsed
-        :returns: string with all numerical and letter placeholders filled in
+        - Number signs ('#') are replaced with a random digit (0 to 9).
+        - Question marks ('?') are replaced with a random character from ``letters``.
+
+        By default, ``letters`` contains all ASCII letters, uppercase and lowercase.
+
+        Under the hood, this method uses :meth:`numerify() <faker.providers.BaseProvider.numerify>` and
+        and :meth:`lexify() <faker.providers.BaseProvider.lexify>` to generate random values for number
+        signs and question marks respectively.
+
+        :sample: letters='ABCDE'
+        :sample: text='Product Number: ????-########'
+        :sample: text='Product Number: ????-########', letters='ABCDE'
         """
         return self.lexify(self.numerify(text), letters=letters)
 
     def hexify(self, text='^^^^', upper=False):
-        """
-        Replaces all circumflex ('^') occurrences with a random
-        hexadecimal character.
+        """Generate a string with each circumflex ('^') in ``text``
+        replaced with a random hexadecimal character.
 
-        :param text: string to be parsed
-        :param upper: Format as uppercase hexadecimal
-        :returns: string with all letter placeholders filled in
+        By default, ``upper`` is set to False. If set to ``True``, output
+        will be formatted using uppercase hexadecimal characters.
+
+        :sample: text='MAC Address: ^^:^^:^^:^^:^^:^^'
+        :sample: text='MAC Address: ^^:^^:^^:^^:^^:^^', upper=True
         """
         letters = string.hexdigits[:-6]
         if upper:
