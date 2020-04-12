@@ -273,13 +273,13 @@ How to create a Provider
     # first, import a similar Provider or use the default one
     from faker.providers import BaseProvider
 
-    # create new provider class. Note that the class name _must_ be ``Provider``.
-    class Provider(BaseProvider):
+    # create new provider class
+    class MyProvider(BaseProvider):
         def foo(self):
             return 'bar'
 
     # then add new provider to faker instance
-    fake.add_provider(Provider)
+    fake.add_provider(MyProvider)
 
     # now you can use:
     fake.foo()
