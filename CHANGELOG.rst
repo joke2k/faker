@@ -1,6 +1,23 @@
 Changelog
 =========
 
+`4.0.3 - 13-April-2019 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
+-----------------------------------------------------------------------------------
+
+* Fixed ``MSISDN`` for ``pt_BR``  to return only mobile numbers. Thanks @rodrigondec.
+* Added Domain Generator Algorithm by date. Thanks @pishchalnikov.
+* Fixed issue where ``pydict`` provider was not returning the correct number of elements. Thanks @mstellon.
+* Added support for Indian Aadhaar numbers. Thanks @curiousElf.
+* Added ``company_vat`` for ``it_IT``. Thanks @alitaker.
+* Improved autodocumentation of providers. Thanks @malefice.
+* Added provider for ``es_ES`` license plates. Thanks @mondeja.
+* Implemented ``__dir__`` method to Faker proxy for better autocompletion. Thanks @douglasfarinelli.
+* Uppercased HEX colors for all localized color providers. Thanks @mondeja.
+* Added bank provider for ``es_ES`` locale. Thanks @mondeja.
+* Added support for UK counties. Thanks @neilav.
+* Added color provider for ``no_NO`` license plates. Thanks @bjorskog.
+* Made ``value_types`` a keyword argument in ``python`` provider. Thanks @slafs.
+
 `4.0.2 - 11-March-2019 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
 -----------------------------------------------------------------------------------
 
