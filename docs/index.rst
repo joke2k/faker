@@ -19,6 +19,7 @@ Contents
    providers
    communityproviders
    locales
+   pytest-fixtures
    coding_style
    writing-docs
 

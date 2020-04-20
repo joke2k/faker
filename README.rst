@@ -80,6 +80,12 @@ to ``faker.Generator.format(method_name)``.
     # 'Wellington Koelpin II'
     # 'Ms. Karley Kiehn V'
 
+Pytest fixtures
+---------------
+
+``Faker`` also has its own ``pytest`` plugin which provides a ``faker`` fixture you can use in your
+tests. Please check out the `pytest fixture docs` to learn more.
+
 Providers
 ---------
 
@@ -378,6 +384,9 @@ Please note that as we keep updating datasets, results are not guaranteed to be
 consistent across patch versions. If you hardcode results in your test, make sure
 you pinned the version of ``Faker`` down to the patch number.
 
+If you are using ``pytest``, you can seed the ``faker`` fixture by defining a ``faker_seed``
+fixture. Please check out the `pytest fixture docs` to learn more.
+
 Tests
 -----
 
@@ -424,6 +433,7 @@ Credits
 .. _extended docs: https://faker.readthedocs.io/en/stable/
 .. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
 .. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
+.. _pytest fixture docs: https://faker.readthedocs.io/en/master/pytest-fixtures.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
