@@ -1,11 +1,12 @@
 Pytest Fixtures
----------------
+===============
 
 ``Faker`` includes a ``faker`` fixture for ``pytest``.
 
 .. code:: python
-    def test_faker(faker):
-        assert isinstance(faker.name(), str)
+
+   def test_faker(faker):
+       assert isinstance(faker.name(), str)
 
 Out of the box, the ``faker`` fixture returns a session-scoped ``Faker`` instance to be used across
 all tests in your test suite. This instance defaults to the ``en-US`` locale, and it is reseeded
