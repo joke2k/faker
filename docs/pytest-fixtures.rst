@@ -148,4 +148,26 @@ seed, you may drop ``autouse=True`` and use manual injection just as you would f
        # The faker fixture will use the seed value 12345
        pass
 
+If you need multiple different seeds for each test, or if you need to reseed halfway inside a test,
+you may still explicitly call ``seed_instance`` as you normally would with any ``Faker`` instance.
+Doing so will not affect other tests because of the ``faker`` fixture's seeding guarantee.
+
+.. code:: python
+
+   # Assume the active seed value is 54321 for these tests
+
+   def test_something_first(faker):
+       # The faker fixture, at first, uses seed value 54321
+       do_thing_a()
+
+       # Explicit call to seed_instance
+       faker.seed_instance(12345)
+
+       # The faker fixture now uses seed value 12345
+       do_thing_b()
+
+   def test_something_second(faker):
+       # The faker fixture's seed value is still 54321, not 12345
+       pass
+
 .. _pytest fixtures: https://docs.pytest.org/en/latest/fixture.html
