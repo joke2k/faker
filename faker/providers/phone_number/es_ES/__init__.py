@@ -2,6 +2,10 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    """
+    According to official specs:
+    https://avancedigital.gob.es/es-ES/Servicios/Numeracion/Documents/Descripcion_PNN.pdf
+    """
     formats = (
         '+34 9## ### ###',
         '+34 8## ### ###',
