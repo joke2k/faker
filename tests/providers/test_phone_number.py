@@ -267,3 +267,14 @@ class TestTaIN(unittest.TestCase):
     def test_phone_number(self):
         phone_number = self.fake.phone_number()
         re.match(r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$", phone_number)
+
+
+class TestEs_ES(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_phone_number(self):
+        phone_number = self.fake.phone_number()
+        re.match(r"(\+34)?((6([0-9]*){8})|(7[1-4]+([0-9]*){7})|((8|9)[1-9]+([0-9]*){7}))$", phone_number)
