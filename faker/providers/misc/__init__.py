@@ -92,6 +92,9 @@ class Provider(BaseProvider):
         By default, ``cast_to`` is set to ``str``.
 
         May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
         """
         # Based on http://stackoverflow.com/q/41186818
         generated_uuid = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
