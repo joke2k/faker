@@ -87,12 +87,20 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def uuid4(self, cast_to=str):
-        """Generate a random UUID4 object and cast it to another type using a callable ``cast_to``.
+        """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
         """
         # Based on http://stackoverflow.com/q/41186818
-        return cast_to(uuid.UUID(int=self.generator.random.getrandbits(128), version=4))
+        generated_uuid = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
+        if cast_to is not None:
+            generated_uuid = cast_to(generated_uuid)
+        return generated_uuid
 
     def password(
             self,
