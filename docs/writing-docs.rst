@@ -2,7 +2,7 @@ Writing Documentation
 =====================
 
 Everything under :doc:`Standard Providers <providers>` and :doc:`Localized Providers <locales>`
-iss automatically generated using ``sphinx.ext.autodoc`` which pulls docstrings from provider
+is automatically generated using ``sphinx.ext.autodoc`` which pulls docstrings from provider
 methods during the ``sphinx-build`` process. This also means that the docstrings must be written
 in valid ``reStructuredText``.
 

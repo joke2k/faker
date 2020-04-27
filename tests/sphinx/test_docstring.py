@@ -83,35 +83,53 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 2'.format(path=path, name=name)
 
     def test_stringify_results(self):
+
+        class TestObject:
+
+            def __repr__(self):
+                return 'abcdefg'
+
+        faker = Faker()
+        faker.seed_instance(0)
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
             obj=MagicMock, options=MagicMock(), lines=[],
         )
         results = [
-            '',                     # Empty string
-            '\'',                   # Single quote literal (escaped)
-            "'",                    # Single quote literal (unescaped)
-            '"',                    # Double quote literal (unescaped)
-            "\"",                   # Double quote literal (escaped)
-            'aa\taaaaa\r\n',        # String containing \t, \r, \n
-            b'abcdef',              # Bytes object
-            True,                   # Booleans
+            '',                             # Empty string
+            '\'',                           # Single quote literal (escaped)
+            "'",                            # Single quote literal (unescaped)
+            '"',                            # Double quote literal (unescaped)
+            "\"",                           # Double quote literal (escaped)
+            'aa\taaaaa\r\n',                # String containing \t, \r, \n
+            b'abcdef',                      # Bytes object
+            True,                           # Booleans
             False,
-            None,                   # None types
+            None,                           # None types
+            [1, 2, 3, 4, 5],                # Other non-primitives
+            (1, 2, 3, 4, 5),
+            {1: 2, 2: 3, 3: 4, 4: 5},
+            faker.uuid4(cast_to=None),
+            TestObject(),
         ]
         output = [docstring._stringify_result(result) for result in results]
         assert output == [
-            "''",                       # Ends up as '' when printed
-            '"\'"',                     # Ends up as "'" when printed
-            '"\'"',                     # Ends up as "'" when printed
-            '\'"\'',                    # Ends up as '"' when printed
-            '\'"\'',                    # Ends up as '"' when printed
-            "'aa\\taaaaa\\r\\n'",       # Ends up as 'aa\\taaaaa\\r\\n' when printed
-            "b'abcdef'",                # Ends up as b'abcdef' when printed
-            'True',                     # Ends up as True when printed
-            'False',
-            'None',                     # Ends up as None when printed
+            "''",                                               # Ends up as '' when printed
+            '"\'"',                                             # Ends up as "'" when printed
+            '"\'"',                                             # Ends up as "'" when printed
+            '\'"\'',                                            # Ends up as '"' when printed
+            '\'"\'',                                            # Ends up as '"' when printed
+            "'aa\\taaaaa\\r\\n'",                               # Ends up as 'aa\\taaaaa\\r\\n' when printed
+            "b'abcdef'",                                        # Ends up as b'abcdef' when printed
+            'True',                                             # Ends up as True when printed
+            'False',                                            # Ends up as False when printed
+            'None',                                             # Ends up as None when printed
+            '[1, 2, 3, 4, 5]',                                  # Ends up using object's __repr__
+            '(1, 2, 3, 4, 5)',
+            '{1: 2, 2: 3, 3: 4, 4: 5}',
+            "UUID('e3e70682-c209-4cac-a29f-6fbed82c07cd')",
+            'abcdefg',
         ]
 
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
