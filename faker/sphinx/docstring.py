@@ -173,20 +173,7 @@ class ProviderMethodDocstring:
         return result.strip()
 
     def _stringify_result(self, value):
-        def _repl_whitespace(match):
-            value = match.group(0)
-            if value == '\r':
-                return '\\r'
-            elif value == '\n':
-                return '\\n'
-            elif value == '\t':
-                return '\\t'
-
-        if isinstance(value, str):
-            template = '"{}"' if '"' not in value and "'" in value else "'{}'"
-            return template.format(re.sub(r'[\r\n\t]', _repl_whitespace, value))
-        else:
-            return str(value)
+        return repr(value)
 
     def _generate_eval_scope(self):
         from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
