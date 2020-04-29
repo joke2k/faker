@@ -36,6 +36,6 @@ def faker(_class_locale_faker, faker):
 def num_samples(request):
     try:
         num = int(request.cls.num_samples)
-    except:
+    except AttributeError:
         num = 100
     return num
