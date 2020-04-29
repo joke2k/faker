@@ -115,7 +115,7 @@ class Provider(PersonProvider):
         'Victor Manuel', 'Victoriano', 'Victorino', 'Vidal', 'Vinicio',
         'Virgilio', 'Vito', 'Víctor', 'Wilfredo', 'Wálter', 'Xavier',
         'Yago', 'Zacarías', 'Álvaro', 'Ángel', 'Édgar', 'Íñigo',
-        'Óscar'
+        'Óscar',
     )
 
     first_names_female = (
@@ -201,7 +201,7 @@ class Provider(PersonProvider):
         'Vilma', 'Violeta', 'Virginia', 'Visitación', 'Viviana',
         'Ximena', 'Xiomara', 'Yaiza', 'Yolanda', 'Yésica', 'Yéssica',
         'Zaida', 'Zaira', 'Zoraida', 'África', 'Ágata', 'Águeda',
-        'Ámbar', 'Ángela', 'Ángeles', 'Áurea', 'Íngrid', 'Úrsula'
+        'Ámbar', 'Ángela', 'Ángeles', 'Áurea', 'Íngrid', 'Úrsula',
     )
 
     first_names = first_names_male + first_names_female
