@@ -16,76 +16,14 @@ from faker.generator import random
 from faker.utils import decorators, text
 
 
-class BarProvider:
-
-    def foo_formatter(self):
-        return 'barfoo'
-
-
-class FooProvider:
-
-    def foo_formatter(self):
-        return 'foobar'
-
-    def foo_formatter_with_arguments(self, param='', append=''):
-        return 'baz' + param + append
-
-
 class FactoryTestCase(unittest.TestCase):
 
     def setUp(self):
         self.generator = Generator()
-        self.provider = FooProvider()
-        self.generator.add_provider(self.provider)
-
-    def test_add_provider_gives_priority_to_newly_added_provider(self):
-        self.generator.add_provider(BarProvider())
-        assert 'barfoo' == self.generator.format('foo_formatter')
-
-    def test_get_formatter_returns_callable(self):
-        formatter = self.generator.get_formatter('foo_formatter')
-        assert callable(formatter)
-
-    def test_get_formatter_returns_correct_formatter(self):
-        assert self.provider.foo_formatter == (
-                         self.generator.get_formatter('foo_formatter'))
-
-    def test_get_formatter_throws_exception_on_incorrect_formatter(self):
-        with pytest.raises(AttributeError) as exc:
-            self.generator.get_formatter('barFormatter')
-            assert exc.args[0] == 'Unknown formatter "barFormatter"'
-
-        fake = Faker('it_IT')
-        with pytest.raises(AttributeError) as exc:
-            fake.get_formatter('barFormatter')
-            assert exc.args[0] == 'Unknown formatter "barFormatter" with locale "it_IT"'
 
     def test_invalid_locale(self):
         with pytest.raises(AttributeError):
             Faker('foo_Bar')
-
-    def test_format_calls_formatter_on_provider(self):
-        assert 'foobar' == self.generator.format('foo_formatter')
-
-    def test_format_transfers_arguments_to_formatter(self):
-        result = self.generator.format('foo_formatter_with_arguments',
-                                       'foo', append='!')
-        assert 'bazfoo!' == result
-
-    def test_parse_returns_same_string_when_it_contains_no_curly_braces(self):
-        assert 'fooBar#?' == self.generator.parse('fooBar#?')
-
-    def test_parse_returns_string_with_tokens_replaced_by_formatters(self):
-        result = self.generator.parse(
-            'This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
-        assert 'This is foobar a text with " foobar "' == result
-
-    def test_magic_call_calls_format(self):
-        assert 'foobar' == self.generator.foo_formatter()
-
-    def test_magic_call_calls_format_with_arguments(self):
-        assert 'bazfoo' == (
-                         self.generator.foo_formatter_with_arguments('foo'))
 
     def test_documentor(self):
         from faker.cli import print_doc
@@ -94,8 +32,6 @@ class FactoryTestCase(unittest.TestCase):
         print_doc('address', output=output)
         print_doc('faker.providers.person.it_IT', output=output)
         assert output.getvalue()
-        with pytest.raises(AttributeError):
-            self.generator.get_formatter('barFormatter')
 
     def test_command(self):
         from faker.cli import Command
