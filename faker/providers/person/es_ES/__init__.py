@@ -30,6 +30,8 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
+    # 477 male first names, alphabetically.
+    # Source: Álvaro Mondéjar Rubio <mondejar1994@gmail.com>
     first_names_male = (
         'Aarón', 'Abel', 'Abilio', 'Abraham', 'Adalberto',
         'Adelardo', 'Adolfo', 'Adrián', 'Adán', 'Agapito', 'Agustín',
@@ -118,6 +120,8 @@ class Provider(PersonProvider):
         'Óscar',
     )
 
+    # 477 female first names, alphabetically.
+    # Source: Álvaro Mondéjar Rubio <mondejar1994@gmail.com>
     first_names_female = (
         'Abigaíl', 'Abril', 'Adela', 'Adelaida', 'Adelia',
         'Adelina', 'Adora', 'Adoración', 'Adriana', 'Agustina', 'Ainara',
