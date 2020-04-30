@@ -21,10 +21,6 @@ class FactoryTestCase(unittest.TestCase):
     def setUp(self):
         self.generator = Generator()
 
-    def test_invalid_locale(self):
-        with pytest.raises(AttributeError):
-            Faker('foo_Bar')
-
     def test_documentor(self):
         from faker.cli import print_doc
         output = io.StringIO()
