@@ -30,15 +30,15 @@ class Provider(BaseProvider):
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def _ean(self, length=13, leading_zero=None):
+    def _ean(self, length=13, prefixes=()):
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
         code = [self.random_digit() for _ in range(length - 1)]
-        if leading_zero is True:
-            code[0] = 0
-        elif leading_zero is False:
-            code[0] = self.random_int(1, 9)
+
+        if prefixes:
+            prefix = self.random_element(prefixes)
+            code[:len(prefix)] = prefix
 
         if length == 8:
             weights = [3, 1, 3, 1, 3, 1, 3]
@@ -110,28 +110,35 @@ class Provider(BaseProvider):
         code.append(check_digit)
         return ''.join(str(x) for x in code)
 
-    def ean(self, length=13):
+    def ean(self, length=13, prefixes=()):
         """Generate an EAN barcode of the specified ``length``.
 
         The value of ``length`` can only be ``8`` or ``13`` (default)  which will
         create an EAN-8 or an EAN-13 barcode respectively.
 
+        If ``prefixes`` are specified, the result will begin with one of the sequence in ``prefixes``
+
         :sample: length=13
         :sample: length=8
+        :sample: prefixes=((0,0),)
+        :sample: prefixes=((4,5), (4,9))
         """
-        return self._ean(length)
+        return self._ean(length, prefixes=prefixes)
 
-    def ean8(self):
+    def ean8(self, prefixes=()):
         """Generate an EAN-8 barcode.
 
         This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``8``.
 
-        :sample:
-        """
-        return self._ean(8)
+        If ``prefixes`` are specified, the result will begin with one of the sequence in ``prefixes``
 
-    def ean13(self, leading_zero=None):
+        :sample: prefixes=((0,0),)
+        :sample: prefixes=((4,5), (4,9))
+        """
+        return self._ean(8, prefixes=prefixes)
+
+    def ean13(self, prefixes=(), leading_zero=None):
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will be set
@@ -141,14 +148,25 @@ class Provider(BaseProvider):
         Note that an EAN-13 barcode that starts with a zero can be converted to UPC-A
         by dropping the leading zero.
 
+        If ``prefixes`` are specified, the result will begin with one of the sequence in ``prefixes``.
+        This option overrides the option ``leading_zero``
+
         This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``13``.
 
         :sample:
         :sample: leading_zero=False
         :sample: leading_zero=True
+        :sample: prefixes=((0,0),)
+        :sample: prefixes=((4,5), (4,9))
         """
-        return self._ean(13, leading_zero=leading_zero)
+        if not prefixes:
+            if leading_zero is True:
+                prefixes = ((0,),)
+            elif leading_zero is False:
+                prefixes = ((self.random_int(1, 9),),)
+
+        return self._ean(13, prefixes=prefixes)
 
     def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
         """Generate a 12-digit UPC-A barcode.
