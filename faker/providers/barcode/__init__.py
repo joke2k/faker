@@ -2,8 +2,11 @@ import re
 
 from .. import BaseProvider
 
+localized = True
+
 
 class Provider(BaseProvider):
+    local_prefixes = ()
 
     upc_e_base_pattern = re.compile(r'^\d{6}$')
     upc_ae_pattern1 = re.compile(
@@ -167,6 +170,38 @@ class Provider(BaseProvider):
                 prefixes = ((self.random_int(1, 9),),)
 
         return self._ean(13, prefixes=prefixes)
+
+    def localized_ean(self, length=13):
+        """Generate a localized EAN barcode of the specified ``length``.
+
+        The value of ``length`` can only be ``8`` or ``13`` (default)  which will
+        create an EAN-8 or an EAN-13 barcode respectively.
+
+        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
+        hood with the ``prefixes`` argument explicitly set to
+        :member:`local_prefixes <faker.providers.barcode.Provider.local_prefixes>`.
+
+        :sample: length=13
+        :sample: length=8
+        """
+        return self._ean(length, prefixes=self.local_prefixes)
+
+    def localized_ean8(self):
+        """Generate a localized EAN-8 barcode.
+
+        This method uses :meth:`localized_ean() <faker.providers.barcode.Provider.ean>` under the
+        hood with the ``length`` argument explicitly set to ``8``.
+        """
+        return self.localized_ean(8)
+
+    def localized_ean13(self):
+        """Generate a localized EAN-13 barcode.
+
+        This method uses :meth:`localized_ean() <faker.providers.barcode.Provider.ean>` under the
+        hood with the ``length`` argument explicitly set to ``13``.
+
+        """
+        return self.localized_ean(13)
 
     def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
         """Generate a 12-digit UPC-A barcode.
