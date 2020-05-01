@@ -2,9 +2,12 @@ import re
 import unittest
 
 from faker import Faker
+from faker.providers.barcode.en_US import Provider as EnUSProvider
+from faker.providers.barcode.en_CA import Provider as EnCAProvider
+from faker.providers.barcode.fr_CA import Provider as FrCAProvider
 
 
-class TestBarcodeProvider(unittest.TestCase):
+class TestBaseProvider(unittest.TestCase):
     """ Tests barcode provider """
 
     num_sample_runs = 1000
@@ -12,9 +15,7 @@ class TestBarcodeProvider(unittest.TestCase):
     def setUp(self):
         self.ean8_pattern = re.compile(r'^\d{8}$')
         self.ean13_pattern = re.compile(r'^\d{13}$')
-        self.upc_a_pattern = re.compile(r'^\d{12}$')
-        self.upc_e_pattern = re.compile(r'^[01]\d{7}$')
-        self.fake = Faker()
+        self.fake = Faker('')
         Faker.seed(0)
 
     def test_ean(self):
@@ -53,8 +54,22 @@ class TestBarcodeProvider(unittest.TestCase):
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
+
+class TestEnUS(unittest.TestCase):
+    """ Tests en_US barcode provider """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.ean8_pattern = re.compile(r'^\d{8}$')
+        self.ean13_pattern = re.compile(r'^\d{13}$')
+        self.upc_a_pattern = re.compile(r'^\d{12}$')
+        self.upc_e_pattern = re.compile(r'^[01]\d{7}$')
+        self.fake = Faker('en_US')
+        Faker.seed(0)
+
     def test_ean13_no_leading_zero(self):
-        for _ in range(1000):
+        for _ in range(self.num_sample_runs):
             ean13 = self.fake.ean13(leading_zero=False)
             assert self.ean13_pattern.match(ean13)
             assert ean13[0] != '0'
@@ -64,7 +79,7 @@ class TestBarcodeProvider(unittest.TestCase):
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
     def test_ean13_leading_zero(self):
-        for _ in range(1000):
+        for _ in range(self.num_sample_runs):
             ean13 = self.fake.ean13(leading_zero=True)
             assert self.ean13_pattern.match(ean13)
             assert ean13[0] == '0'
@@ -72,6 +87,53 @@ class TestBarcodeProvider(unittest.TestCase):
             # Included check digit must be correct
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+    def test_localized_ean(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean(8)
+            ean13 = self.fake.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in EnUSProvider.local_prefixes
+            )
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in EnUSProvider.local_prefixes
+            )
+
+    def test_localized_ean8(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean8()
+            assert self.ean8_pattern.match(ean8)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in EnUSProvider.local_prefixes
+            )
+
+    def test_localized_ean13(self):
+        for _ in range(self.num_sample_runs):
+            ean13 = self.fake.localized_ean13()
+            assert self.ean13_pattern.match(ean13)
+
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in EnUSProvider.local_prefixes
+            )
 
     def test_upc_a(self):
         for _ in range(self.num_sample_runs):
@@ -129,8 +191,7 @@ class TestBarcodeProvider(unittest.TestCase):
             assert upc_e_safe[-1] == upc_e_unsafe[-1]
 
     def test_upc_a2e_bad_values(self):
-        from faker.providers.barcode import Provider
-        provider = Provider(self.fake)
+        provider = EnUSProvider(self.fake)
 
         # Invalid data type
         with self.assertRaises(TypeError):
@@ -141,8 +202,7 @@ class TestBarcodeProvider(unittest.TestCase):
             provider._convert_upc_a2e('abcdef')
 
     def test_upc_a2e2a(self):
-        from faker.providers.barcode import Provider
-        provider = Provider(self.fake)
+        provider = EnUSProvider(self.fake)
 
         for _ in range(self.num_sample_runs):
             upc_a = self.fake.upc_a(upc_ae_mode=True)
@@ -164,8 +224,7 @@ class TestBarcodeProvider(unittest.TestCase):
             assert upc_a == new_upc_a
 
     def test_upc_e2a2e(self):
-        from faker.providers.barcode import Provider
-        provider = Provider(self.fake)
+        provider = EnUSProvider(self.fake)
 
         for _ in range(self.num_sample_runs):
             upc_e = self.fake.upc_e()
@@ -185,3 +244,123 @@ class TestBarcodeProvider(unittest.TestCase):
 
             # New UPC-E barcode must be the same as the original
             assert new_upc_e == upc_e
+
+
+class TestEnCA(unittest.TestCase):
+    """ Tests en_CA barcode provider """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.ean8_pattern = re.compile(r'^\d{8}$')
+        self.ean13_pattern = re.compile(r'^\d{13}$')
+        self.fake = Faker('en_CA')
+        Faker.seed(0)
+
+    def test_localized_ean(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean(8)
+            ean13 = self.fake.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in EnCAProvider.local_prefixes
+            )
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in EnCAProvider.local_prefixes
+            )
+
+    def test_localized_ean8(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean8()
+            assert self.ean8_pattern.match(ean8)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in EnCAProvider.local_prefixes
+            )
+
+    def test_localized_ean13(self):
+        for _ in range(self.num_sample_runs):
+            ean13 = self.fake.localized_ean13()
+            assert self.ean13_pattern.match(ean13)
+
+            ean13_digits = [int(digit) for digit in ean13]
+            if not ((sum(ean13_digits) + 2 * sum(ean13_digits[::2])) % 10 == 0):
+                print(ean13_digits)
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in EnCAProvider.local_prefixes
+            )
+
+
+class TestFrCA(unittest.TestCase):
+    """ Tests fr_CA barcode provider """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.ean8_pattern = re.compile(r'^\d{8}$')
+        self.ean13_pattern = re.compile(r'^\d{13}$')
+        self.fake = Faker('fr_CA')
+        Faker.seed(0)
+
+    def test_localized_ean(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean(8)
+            ean13 = self.fake.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in FrCAProvider.local_prefixes
+            )
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in FrCAProvider.local_prefixes
+            )
+
+    def test_localized_ean8(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean8()
+            assert self.ean8_pattern.match(ean8)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in FrCAProvider.local_prefixes
+            )
+
+    def test_localized_ean13(self):
+        for _ in range(self.num_sample_runs):
+            ean13 = self.fake.localized_ean13()
+            assert self.ean13_pattern.match(ean13)
+
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in FrCAProvider.local_prefixes
+            )
