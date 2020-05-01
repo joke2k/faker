@@ -74,13 +74,19 @@ class TestGenerator:
     def test_magic_call_calls_format_with_arguments(self, generator):
         assert generator.foo_formatter_with_arguments('foo') == 'bazfoo'
 
-    @patch('random.getstate')
+    @patch('faker.generator.random_module.getstate')
     def test_get_random(self, mock_system_random, generator):
         random_instance = generator.random
         random_instance.getstate()
         mock_system_random.assert_not_called()
 
-    @patch('random.seed')
+    @patch('faker.generator.random_module.seed')
     def test_random_seed_doesnt_seed_system_random(self, mock_system_random, generator):
+        # Save original state of shared random instance to avoid affecting other tests
+        state = generator.random.getstate()
+
         generator.seed(0)
         mock_system_random.assert_not_called()
+
+        # Restore state of shared random instance
+        generator.random.setstate(state)
