@@ -5,6 +5,7 @@ from faker import Faker
 from faker.providers.barcode.en_US import Provider as EnUSProvider
 from faker.providers.barcode.en_CA import Provider as EnCAProvider
 from faker.providers.barcode.fr_CA import Provider as FrCAProvider
+from faker.providers.barcode.ja_JP import Provider as JaJPProvider
 
 
 class TestBaseProvider(unittest.TestCase):
@@ -363,4 +364,63 @@ class TestFrCA(unittest.TestCase):
             assert any(
                 all(a == b for a, b in zip(ean13_digits, prefix))
                 for prefix in FrCAProvider.local_prefixes
+            )
+
+
+class TestJaCA(unittest.TestCase):
+    """ Tests ja_JP barcode provider """
+
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.ean8_pattern = re.compile(r'^\d{8}$')
+        self.ean13_pattern = re.compile(r'^\d{13}$')
+        self.fake = Faker('ja_JP')
+        Faker.seed(0)
+
+    def test_localized_ean(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean(8)
+            ean13 = self.fake.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in JaJPProvider.local_prefixes
+            )
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in JaJPProvider.local_prefixes
+            )
+
+    def test_localized_ean8(self):
+        for _ in range(self.num_sample_runs):
+            ean8 = self.fake.localized_ean8()
+            assert self.ean8_pattern.match(ean8)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean8_digits, prefix))
+                for prefix in JaJPProvider.local_prefixes
+            )
+
+    def test_localized_ean13(self):
+        for _ in range(self.num_sample_runs):
+            ean13 = self.fake.localized_ean13()
+            assert self.ean13_pattern.match(ean13)
+
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            assert any(
+                all(a == b for a, b in zip(ean13_digits, prefix))
+                for prefix in JaJPProvider.local_prefixes
             )
