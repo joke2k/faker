@@ -134,7 +134,7 @@ class Provider(BaseProvider):
     def ean13(self, leading_zero=None):
         """Generate an EAN-13 barcode.
 
-        If ``leading_digit`` is ``True``, the leftmost digit of the barcode will be set
+        If ``leading_zero`` is ``True``, the leftmost digit of the barcode will be set
         to ``0``. If ``False``, the leftmost digit cannot be ``0``. If ``None`` (default),
         the leftmost digit can be any digit.
 
