@@ -367,7 +367,7 @@ class TestFrCA(unittest.TestCase):
             )
 
 
-class TestJaCA(unittest.TestCase):
+class TestJaJP(unittest.TestCase):
     """ Tests ja_JP barcode provider """
 
     num_sample_runs = 1000
