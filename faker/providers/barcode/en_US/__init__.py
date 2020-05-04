@@ -2,10 +2,10 @@ import re
 
 from itertools import product
 
-from .. import Provider as BarCodeProvider
+from .. import Provider as BarcodeProvider
 
 
-class Provider(BarCodeProvider):
+class Provider(BarcodeProvider):
     # Source of GS1 country codes: https://gs1.org/standards/id-keys/company-prefix
     local_prefixes = (
         *product((0,), range(10)),

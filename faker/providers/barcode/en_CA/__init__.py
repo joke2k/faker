@@ -1,10 +1,10 @@
 from itertools import product
 
 # Canada uses UPC too
-from ..en_US import Provider as BarCodeProvider
+from ..en_US import Provider as BarcodeProvider
 
 
-class Provider(BarCodeProvider):
+class Provider(BarcodeProvider):
     # Source of GS1 country codes: https://gs1.org/standards/id-keys/company-prefix
     local_prefixes = (
         # The source above doesn't specify prefixes 00~01, 06~09 to be used in Canada also,

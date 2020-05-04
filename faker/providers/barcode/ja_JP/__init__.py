@@ -1,7 +1,7 @@
-from .. import Provider as BarCodeProvider
+from .. import Provider as BarcodeProvider
 
 
-class Provider(BarCodeProvider):
+class Provider(BarcodeProvider):
     # Source of GS1 country codes: https://gs1.org/standards/id-keys/company-prefix
     local_prefixes = (4, 5), (4, 9)
 
