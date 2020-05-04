@@ -11,5 +11,5 @@ class Provider(BarCodeProvider):
         # but it's referenced in numerous pages e.g.: https://www.nationwidebarcode.com/upc-country-codes/
         *product((0,), range(2)),
         *product((0,), range(6, 10)),
-        (7, 5)
+        (7, 5),
     )

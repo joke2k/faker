@@ -1,5 +1,6 @@
-from itertools import product
 import re
+
+from itertools import product
 
 from .. import Provider as BarCodeProvider
 

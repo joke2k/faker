@@ -2,8 +2,8 @@ import re
 import unittest
 
 from faker import Faker
-from faker.providers.barcode.en_US import Provider as EnUSProvider
 from faker.providers.barcode.en_CA import Provider as EnCAProvider
+from faker.providers.barcode.en_US import Provider as EnUSProvider
 from faker.providers.barcode.fr_CA import Provider as FrCAProvider
 from faker.providers.barcode.ja_JP import Provider as JaJPProvider
 
