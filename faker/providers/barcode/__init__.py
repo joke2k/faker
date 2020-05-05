@@ -51,6 +51,7 @@ class Provider(BaseProvider):
 
         If ``prefixes`` are specified, the result will begin with one of the sequence in ``prefixes``
 
+        :sample:
         :sample: prefixes=((0,0),)
         :sample: prefixes=((4,5), (4,9))
         """
@@ -64,7 +65,7 @@ class Provider(BaseProvider):
         This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``13``.
 
-        For compatibility with UPC codes, see :meth:`ean13() <faker.providers.barcode.Provider.en_US.ean13>`
+        For compatibility with UPC codes, see :meth:`ean13() <faker.providers.barcode.en_US.Provider.ean13>`
 
         :sample:
         :sample: prefixes=((0,0),)
@@ -80,9 +81,9 @@ class Provider(BaseProvider):
         create an EAN-8 or an EAN-13 barcode respectively.
 
         This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
-        hood with the ``prefixes`` argument explicitly set to
-        :member:`local_prefixes <faker.providers.barcode.Provider.local_prefixes>`.
+        hood with the ``prefixes`` argument explicitly set to ``self.local_prefixes``.
 
+        :sample:
         :sample: length=13
         :sample: length=8
         """
@@ -93,6 +94,8 @@ class Provider(BaseProvider):
 
         This method uses :meth:`localized_ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``8``.
+
+        :sample:
         """
         return self.localized_ean(8)
 
@@ -102,5 +105,6 @@ class Provider(BaseProvider):
         This method uses :meth:`localized_ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``13``.
 
+        :sample:
         """
         return self.localized_ean(13)
