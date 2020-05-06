@@ -44,13 +44,22 @@ class Provider(BarcodeProvider):
         to ``0``. If ``False``, the leftmost digit cannot be ``0``. If ``None`` (default),
         the leftmost digit can be any digit.
 
-        Note that an EAN-13 barcode that starts with a zero can be converted to UPC-A
-        by dropping the leading zero.
-
         If ``prefixes`` are specified, the result will begin with one of the sequence in ``prefixes``.
         This option overrides the option ``leading_zero``
 
-        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
+        .. note::
+
+            EAN-13 barcode that starts with a zero can be converted to UPC-A
+            by dropping the leading zero. This may cause problems with readers that treat
+            all of these code as UPC-A codes and drop the first digit when reading it.
+
+            You can set the argument ``prefixes`` ( or ``leading_zero`` for convenience) explicitly
+            to avoid or force the generated barcode to start with a zero.
+
+            You can also generate actual UPC-A barcode with
+            :meth:`upc_a() <faker.providers.barcode.en_US.Provider.upc_a>`.
+
+        This method uses :meth:`ean() <faker.providers.barcode.en_US.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``13``.
 
         :sample:

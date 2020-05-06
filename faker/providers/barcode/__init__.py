@@ -65,7 +65,12 @@ class Provider(BaseProvider):
         This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
         hood with the ``length`` argument explicitly set to ``13``.
 
-        For compatibility with UPC codes, see :meth:`ean13() <faker.providers.barcode.en_US.Provider.ean13>`
+        .. note::
+
+            Codes starting with a leading zero are treated specially in some barcode readers.
+
+            For more information about compatibility with UPC-A codes, see
+            :meth:`en_US.ean13() <faker.providers.barcode.en_US.Provider.ean13>`
 
         :sample:
         :sample: prefixes=('00',)
