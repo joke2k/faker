@@ -37,7 +37,7 @@ class Provider(BarcodeProvider):
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def ean13(self, prefixes=(), leading_zero=None):
+    def ean13(self, leading_zero=None, prefixes=()):
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will be set
