@@ -56,8 +56,8 @@ class Provider(BarcodeProvider):
         :sample:
         :sample: leading_zero=False
         :sample: leading_zero=True
-        :sample: prefixes=((0,0),)
-        :sample: prefixes=((4,5), (4,9))
+        :sample: prefixes=('00',)
+        :sample: prefixes=('45', '49')
         """
         if not prefixes:
             if leading_zero is True:
