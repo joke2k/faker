@@ -76,6 +76,10 @@ class Provider(BaseProvider):
         '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
         '.asp',
     )
+    http_methods = (
+        'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
+        'PATCH',
+    )
 
     user_name_formats = (
         '{{last_name}}.{{first_name}}',
@@ -218,8 +222,44 @@ class Provider(BaseProvider):
         company = self._to_ascii(company_elements.pop(0))
         return company
 
+    def dga(self, year=None, month=None, day=None, tld=None, length=None):
+        """Generates a domain name by given date
+        https://en.wikipedia.org/wiki/Domain_generation_algorithm
+
+        :type year: int
+        :type month: int
+        :type day: int
+        :type tld: str
+        :type length: int
+        :rtype: str
+        """
+
+        domain = ''
+        year = year or self.random_int(min=1, max=9999)
+        month = month or self.random_int(min=1, max=12)
+        day = day or self.random_int(min=1, max=30)
+        tld = tld or self.tld()
+        length = length or self.random_int(min=2, max=63)
+
+        for _ in range(length):
+            year = ((year ^ 8 * year) >> 11) ^ ((year & 0xFFFFFFF0) << 17)
+            month = ((month ^ 4 * month) >> 25) ^ 16 * (month & 0xFFFFFFF8)
+            day = ((day ^ (day << 13)) >> 19) ^ ((day & 0xFFFFFFFE) << 12)
+            domain += chr(((year ^ month ^ day) % 25) + 97)
+
+        return domain + '.' + tld
+
     def tld(self):
         return self.random_element(self.tlds)
+
+    def http_method(self):
+        """Returns random HTTP method
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+        :rtype: str
+        """
+
+        return self.random_element(self.http_methods)
 
     def url(self, schemes=None):
         """

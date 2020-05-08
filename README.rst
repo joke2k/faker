@@ -80,6 +80,12 @@ to ``faker.Generator.format(method_name)``.
     # 'Wellington Koelpin II'
     # 'Ms. Karley Kiehn V'
 
+Pytest fixtures
+---------------
+
+``Faker`` also has its own ``pytest`` plugin which provides a ``faker`` fixture you can use in your
+tests. Please check out the `pytest fixture docs` to learn more.
+
 Providers
 ---------
 
@@ -165,6 +171,7 @@ Included localized providers:
 -  `en\_AU <https://faker.readthedocs.io/en/master/locales/en_AU.html>`__ - English (Australia)
 -  `en\_CA <https://faker.readthedocs.io/en/master/locales/en_CA.html>`__ - English (Canada)
 -  `en\_GB <https://faker.readthedocs.io/en/master/locales/en_GB.html>`__ - English (Great Britain)
+-  `en\_IN <https://faker.readthedocs.io/en/master/locales/en_IN.html>`__ - English (India)
 -  `en\_NZ <https://faker.readthedocs.io/en/master/locales/en_NZ.html>`__ - English (New Zealand)
 -  `en\_US <https://faker.readthedocs.io/en/master/locales/en_US.html>`__ - English (United States)
 -  `es\_ES <https://faker.readthedocs.io/en/master/locales/es_ES.html>`__ - Spanish (Spain)
@@ -272,13 +279,13 @@ How to create a Provider
     # first, import a similar Provider or use the default one
     from faker.providers import BaseProvider
 
-    # create new provider class. Note that the class name _must_ be ``Provider``.
-    class Provider(BaseProvider):
+    # create new provider class
+    class MyProvider(BaseProvider):
         def foo(self):
             return 'bar'
 
     # then add new provider to faker instance
-    fake.add_provider(Provider)
+    fake.add_provider(MyProvider)
 
     # now you can use:
     fake.foo()
@@ -377,6 +384,9 @@ Please note that as we keep updating datasets, results are not guaranteed to be
 consistent across patch versions. If you hardcode results in your test, make sure
 you pinned the version of ``Faker`` down to the patch number.
 
+If you are using ``pytest``, you can seed the ``faker`` fixture by defining a ``faker_seed``
+fixture. Please check out the `pytest fixture docs` to learn more.
+
 Tests
 -----
 
@@ -423,6 +433,7 @@ Credits
 .. _extended docs: https://faker.readthedocs.io/en/stable/
 .. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
 .. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
+.. _pytest fixture docs: https://faker.readthedocs.io/en/master/pytest-fixtures.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy

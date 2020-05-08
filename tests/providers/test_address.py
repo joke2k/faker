@@ -337,6 +337,10 @@ class TestEnGB(unittest.TestCase):
         for _ in range(100):
             assert isinstance(parse_uk_postcode(self.fake.postcode()), tuple)
 
+    def test_county(self):
+        county = self.fake.county()
+        assert isinstance(county, str)
+
 
 class TestEnUS(unittest.TestCase):
     """ Tests addresses in the en_US locale """
@@ -1028,6 +1032,18 @@ class TestPtBr(unittest.TestCase):
 
         address = self.fake.address()
         assert isinstance(address, str)
+
+    def test_raw_postcode(self):
+        for _ in range(100):
+            postcode = self.fake.postcode(formatted=False)
+            assert isinstance(postcode, str)
+            assert re.match(r'^\d{8}$', postcode)
+
+    def test_formatted_postcode(self):
+        for _ in range(100):
+            postcode = self.fake.postcode()
+            assert isinstance(postcode, str)
+            assert re.match(r'^\d{5}-?\d{3}$', postcode)
 
 
 class TestPtPT(unittest.TestCase):

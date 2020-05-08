@@ -1,28 +1,12 @@
 import datetime
 import random
 
+from faker.utils.checksums import calculate_luhn
+
 from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
-    @staticmethod
-    def _luhn_checksum(number):
-        def digits_of(n):
-            return [int(d) for d in str(n)]
-        digits = digits_of(number)
-        odd_digits = digits[-1::-2]
-        even_digits = digits[-2::-2]
-        checksum = 0
-        checksum += sum(odd_digits)
-        for d in even_digits:
-            checksum += sum(digits_of(d * 2))
-        return checksum % 10
-
-    @staticmethod
-    def _calculate_luhn(partial_number):
-        check_digit = Provider._luhn_checksum(int(partial_number) * 10)
-        return check_digit if check_digit == 0 else 10 - check_digit
 
     @staticmethod
     def _org_to_vat(org_id):
@@ -52,7 +36,7 @@ class Provider(SsnProvider):
         pnr_date = birthday.strftime('{}%m%d'.format(yr_fmt))
         chk_date = pnr_date[2:] if long else pnr_date
         suffix = str(self.generator.random.randrange(0, 999)).zfill(3)
-        luhn_checksum = str(Provider._calculate_luhn(chk_date + suffix))
+        luhn_checksum = str(calculate_luhn(chk_date + suffix))
         hyphen = '-' if dash else ''
         pnr = '{}{}{}{}'.format(pnr_date, hyphen, suffix, luhn_checksum)
 
@@ -73,7 +57,7 @@ class Provider(SsnProvider):
         onr_one += str(self.generator.random.randrange(20, 99))
         onr_one += str(self.generator.random.randrange(0, 99)).zfill(2)
         onr_two = str(self.generator.random.randrange(0, 999)).zfill(3)
-        luhn_checksum = str(Provider._calculate_luhn(onr_one + onr_two))
+        luhn_checksum = str(calculate_luhn(onr_one + onr_two))
         prefix = '16' if long else ''
         hyphen = '-' if dash else ''
 

@@ -10,10 +10,12 @@ from datetime import date, datetime
 from datetime import time as datetime_time
 from datetime import timedelta, tzinfo
 
+import freezegun
 import pytest
 
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
+from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
@@ -369,8 +371,8 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_time_between(self):
         now = datetime.now()
-        _30_years_ago = now.replace(year=now.year - 30)
-        _20_years_ago = now.replace(year=now.year - 20)
+        _30_years_ago = change_year(now, -30)
+        _20_years_ago = change_year(now, -20)
 
         random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y')
 
@@ -379,8 +381,8 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_between(self):
         today = date.today()
-        _30_years_ago = today.replace(year=today.year - 30)
-        _20_years_ago = today.replace(year=today.year - 20)
+        _30_years_ago = change_year(today, -30)
+        _20_years_ago = change_year(today, -20)
 
         random_date = self.fake.date_between(start_date='-30y', end_date='-20y')
 
@@ -501,6 +503,20 @@ class TestDateTime(unittest.TestCase):
             if platform.system() != 'Windows':
                 del os.environ['TZ']
 
+    def test_change_year(self):
+        _2020_06_01 = datetime.strptime("2020-06-01", "%Y-%m-%d")
+        _20_years_ago = change_year(_2020_06_01, -20)
+        self.assertEqual(_20_years_ago.strftime("%Y-%m-%d"), "2000-06-01")
+        # Verify a leap day
+        today = datetime.strptime("2020-02-29", "%Y-%m-%d")
+        with self.assertRaises(ValueError):
+            _11_years_ago = today.replace(year=11)
+        _11_years_ago = change_year(today, -11)
+        self.assertEqual(_11_years_ago.strftime("%Y-%m-%d"), "2009-03-01")
+        # 0 is an invalid year, so it should still raise a ValueError
+        with self.assertRaises(ValueError):
+            change_year(today, -today.year)
+
 
 class TestPlPL(unittest.TestCase):
 
@@ -593,6 +609,15 @@ class DatesOfBirth(unittest.TestCase):
         dob = self.fake.date_of_birth()
         assert isinstance(dob, date)
 
+    @freezegun.freeze_time('2020-02-29')
+    def test_date_of_birth_on_leap_day(self):
+        """
+        Freeze the date to a leap day to verify that the date_of_birth method  does not
+        raise an error
+        """
+        dob = self.fake.date_of_birth()
+        assert isinstance(dob, date)
+
     def test_value_errors(self):
         with self.assertRaises(ValueError):
             self.fake.date_of_birth(minimum_age=-1)
@@ -622,7 +647,7 @@ class DatesOfBirth(unittest.TestCase):
             now = datetime.now(utc).date()
 
             days_since_now = now - now
-            days_since_six_years_ago = now - now.replace(year=now.year-6)
+            days_since_six_years_ago = now - change_year(now, -6)
 
             dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=5)
             days_since_dob = now - dob
@@ -635,7 +660,7 @@ class DatesOfBirth(unittest.TestCase):
             now = datetime.now(utc).date()
 
             days_since_now = now - now
-            days_since_nineteen_years_ago = now - now.replace(year=now.year-19)
+            days_since_nineteen_years_ago = now - change_year(now, -19)
 
             dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=18)
             days_since_dob = now - dob
@@ -647,8 +672,8 @@ class DatesOfBirth(unittest.TestCase):
         for _ in range(100):
             now = datetime.now(utc).date()
 
-            days_since_five_years_ago = now - now.replace(year=now.year-5)
-            days_since_six_years_ago = now - now.replace(year=now.year-6)
+            days_since_five_years_ago = now - change_year(now, -5)
+            days_since_six_years_ago = now - change_year(now, -6)
 
             dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=5, maximum_age=5)
             days_since_dob = now - dob
@@ -660,8 +685,8 @@ class DatesOfBirth(unittest.TestCase):
         for _ in range(100):
             now = datetime.now(utc).date()
 
-            days_since_one_hundred_years_ago = now - now.replace(year=now.year-100)
-            days_since_one_hundred_eleven_years_ago = now - now.replace(year=now.year-111)
+            days_since_one_hundred_years_ago = now - change_year(now, -100)
+            days_since_one_hundred_eleven_years_ago = now - change_year(now, -111)
 
             dob = self.fake.date_of_birth(minimum_age=100, maximum_age=110)
             days_since_dob = now - dob

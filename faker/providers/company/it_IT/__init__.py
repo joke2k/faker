@@ -1,3 +1,5 @@
+from faker.utils.checksums import calculate_luhn
+
 from .. import Provider as CompanyProvider
 
 
@@ -349,3 +351,11 @@ class Provider(CompanyProvider):
             result.append(self.random_element(word_list))
 
         return " ".join(result)
+
+    def company_vat(self):
+        """
+        Returns Italian VAT identification number (Partita IVA).
+        """
+        code = "0" + self.bothify('######') + str(self.generator.random.randrange(1, 121)).zfill(3)
+        luhn_checksum = str(calculate_luhn(code))
+        return 'IT{}{}'.format(code, luhn_checksum)
