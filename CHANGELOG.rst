@@ -1,7 +1,7 @@
 Changelog
 =========
 
-`4.0.3 - 13-April-2019 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
+`4.0.3 - 13-April-2020 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
 -----------------------------------------------------------------------------------
 
 * Fixed ``MSISDN`` for ``pt_BR``  to return only mobile numbers. Thanks @rodrigondec.
@@ -18,7 +18,7 @@ Changelog
 * Added color provider for ``no_NO`` license plates. Thanks @bjorskog.
 * Made ``value_types`` a keyword argument in ``python`` provider. Thanks @slafs.
 
-`4.0.2 - 11-March-2019 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
+`4.0.2 - 11-March-2020 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
 -----------------------------------------------------------------------------------
 
 * Add more data for ``ko_KR`` address provider. Thanks @alstn2468.
