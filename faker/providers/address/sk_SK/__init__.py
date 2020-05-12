@@ -10,8 +10,8 @@ class Provider(AddressProvider):
 
     building_number_formats = ('%', '%#', '%##')
 
-    street_suffixes_long = ('ulica', )
-    street_suffixes_short = ('ul.', )
+    street_suffixes_long = ('ulica', 'trieda', 'nábrežie', 'námestie')
+    street_suffixes_short = ('ul.', 'tr.', 'nábr.', 'nám.')
 
     postcode_formats = (
         "8## ##",

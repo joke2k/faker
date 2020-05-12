@@ -11,8 +11,8 @@ class Provider(AddressProvider):
 
     building_number_formats = ('%', '%#', '%##')
 
-    street_suffixes_long = ('náměstí', )
-    street_suffixes_short = ('nám.', )
+    street_suffixes_long = ('ulice', 'třída', 'nábřeží', 'náměstí')
+    street_suffixes_short = ('ul.', 'tř.', 'nábř.', 'nám.')
 
     postcode_formats = (
         "1## ##",
