@@ -13,7 +13,11 @@ class Provider(AddressProvider):
     street_suffixes_long = ('ulica', )
     street_suffixes_short = ('ul.', )
 
-    postcode_formats = ('### ##', )
+    postcode_formats = (
+        "8## ##",
+        "9## ##",
+        "0## ##",
+    )
 
     cities = (
         'Ábelová', 'Abovce', 'Abrahám', 'Abrahámovce', 'Abrahámovce',
