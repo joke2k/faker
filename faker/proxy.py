@@ -32,8 +32,8 @@ class Faker:
         elif isinstance(locale, (list, tuple, set)):
             assert all(isinstance(l, str) for l in locale)
             locales = []
-            for l in locale:
-                final_locale = l.replace('-', '_')
+            for code in locale:
+                final_locale = code.replace('-', '_')
                 if final_locale not in locales:
                     locales.append(final_locale)
 
