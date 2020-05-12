@@ -30,7 +30,7 @@ class Faker:
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
         elif isinstance(locale, (list, tuple, set)):
-            assert all(isinstance(l, str) for l in locale)
+            assert all(isinstance(local_code, str) for local_code in locale)
             locales = []
             for code in locale:
                 final_locale = code.replace('-', '_')
