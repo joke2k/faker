@@ -18,11 +18,17 @@ from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
+from faker.providers.date_time.cs_CZ import Provider as CsCzProvider
+from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
+from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
+from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
+from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
+from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 
 
 def is64bit():
@@ -785,3 +791,93 @@ class TestRuRu(unittest.TestCase):
             timezone = self.fake.timezone()
             assert isinstance(timezone, str)
             assert re.match(r'[А-Яа-я]', timezone)
+
+
+class TestCsCz(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('cs_CZ')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in CsCzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in CsCzProvider.MONTH_NAMES.values()
+
+
+class TestDeAt(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('de_AT')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in DeAtProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in DeAtProvider.MONTH_NAMES.values()
+
+
+class TestEsEs(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in EsEsProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in EsEsProvider.MONTH_NAMES.values()
+
+
+class TestItIt(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('it_IT')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in ItItProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in ItItProvider.MONTH_NAMES.values()
+
+
+class TestSkSk(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('sk_SK')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in SkSkProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in SkSkProvider.MONTH_NAMES.values()
+
+
+class TestTrTr(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('tr_TR')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in TrTrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in TrTrProvider.MONTH_NAMES.values()
