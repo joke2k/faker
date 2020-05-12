@@ -18,6 +18,7 @@ from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
+from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
@@ -516,6 +517,21 @@ class TestDateTime(unittest.TestCase):
         # 0 is an invalid year, so it should still raise a ValueError
         with self.assertRaises(ValueError):
             change_year(today, -today.year)
+
+
+class TestDeDe(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('de_DE')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in DeDeProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in DeDeProvider.MONTH_NAMES.values()
 
 
 class TestPlPL(unittest.TestCase):
