@@ -69,7 +69,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
     def test_items(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP', 'de-DE', 'ja-JP', 'en-US']
-        processed_locale = list({l.replace('-', '_') for l in locale})
+        processed_locale = list({code.replace('-', '_') for code in locale})
         self.fake = Faker(locale)
         for locale_name, factory in self.fake.items():
             assert locale_name in processed_locale
@@ -79,8 +79,8 @@ class TestFakerProxyClass(unittest.TestCase):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
         self.fake = Faker(locale)
 
-        for l in locale:
-            assert isinstance(self.fake[l], Generator)
+        for code in locale:
+            assert isinstance(self.fake[code], Generator)
 
         with self.assertRaises(KeyError):
             self.fake['en_GB']
