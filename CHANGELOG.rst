@@ -1,6 +1,16 @@
 Changelog
 =========
 
+`4.1.0 - 12-May-2020 <https://github.com/joke2k/faker/compare/v4.0.3...v4.1.0>`__
+---------------------------------------------------------------------------------
+
+* Add ``pytest`` plugin. Thanks @malefice.
+* Fix phone numbers for ``es_ES``. Thanks @pablofm.
+* Fix ``uuid`` provider to return a ``uuid4`` object when ``cast_to`` is set to ``None``. Thanks @rodrigondec.
+* Update names for ``es_ES`` person provider. Thanks @mondeja.
+* Add provider for ``sk_SK`` ``birth_number``. Thanks @eumiro.
+* Add ``day_of_week`` and ``month_name`` for ``de_DE`` provider. Thanks @eumiro.
+
 `4.0.3 - 13-April-2020 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
 -----------------------------------------------------------------------------------
 
