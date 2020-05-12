@@ -50,13 +50,58 @@ class Provider(BaseProvider):
             bill_type = self.random_element(self.bill_types.keys())
         return self._bill_types(bill_type).name
 
-    def bill_id(self, bill_type=None, company_code=None, client_case_code=None, provider_code=None):
+    def bill_id(self, bill_type=None):
         """ Returns a bill_id instance. """
-        bill_id = self._bill_id(
-            bill_type=bill_type, company_code=company_code,
-            client_case_code=client_case_code, provider_code=provider_code
+        return self._bill_id(
+            bill_type=bill_type
         )
-        return bill_id + str(self._make_control_number(bill_id))
+
+    def bill_payment_id(self, bill_type=None, bill_id=None):
+        """ Returns bill id with payment id """
+        if not bill_id:
+            bill_id = self.bill_id(bill_type=bill_type)
+        tpl = (
+               'bill id: {bill_id}\n'
+               'payment id: {payment_id}'
+        )
+        tpl = tpl.format(
+            bill_id=bill_id,
+            payment_id=self._payment_id(bill_id=bill_id),
+        )
+        return self.generator.parse(tpl)
+
+    def bill_full(self, bill_type=None):
+        """ Returns bill id, payment id, provider name and bill name """
+        bill = self._bill_types(bill_type)
+        bill_id = self.bill_id(bill_type=bill)
+        payment_id = self._payment_id()
+        tpl = ('{provider}\n'
+               '{name}\n'
+               'bill id: {bill_id}\n'
+               'payment id: {payment_id}'
+               )
+
+        tpl = tpl.format(
+            provider=bill.provider,
+            name=bill.name,
+            bill_id=bill_id,
+            payment_id=payment_id,
+        )
+        return self.generator.parse(tpl)
+
+    def _payment_id(self, bill_id=None):
+        """ Generates payment id """
+        if not bill_id:
+            bill_id = self.bill_id()
+        amount = str(self.random_int(1000, 99999999))
+        year = self.numerify("#")
+        bill_of_year = self.numerify("##")
+        payment_id = amount + year + bill_of_year
+        # make first control number
+        payment_id += self._make_control_number(payment_id)
+        # make second control number
+        payment_id += self._make_control_number(payment_id + bill_id)
+        return payment_id
 
     def _bill_types(self, bill_type=None):
         """ Returns a random bill instance. """
@@ -66,26 +111,25 @@ class Provider(BaseProvider):
             return bill_type
         return self.bill_types[bill_type]
 
-    def _bill_id(self, bill_type=None, company_code=None, client_case_code=None, provider_code=None):
+    def _bill_id(self, bill_type=None):
+        """ Generates bill id """
         bill = self._bill_types(bill_type)
-        if not company_code:
-            company_code = self.random_element(bill.company_codes)
-        if not client_case_code:
-            client_case_code = str(self.random_int(100, 10000000))
-        if not provider_code:
-            provider_code = bill.provider_code
+        company_code = self.random_element(bill.company_codes)
+        client_case_code = str(self.random_int(100, 99999999))
+        provider_code = bill.provider_code
         bill_id = client_case_code + company_code + provider_code
-        return bill_id
+        return bill_id + self._make_control_number(bill_id)
 
     @staticmethod
-    def _make_control_number(bill_id):
+    def _make_control_number(identifier):
+        """ Gets string and returns a number as string """
         sum_number = 0
         ctrl_number = 2
-        for number in bill_id[::-1]:
+        for number in identifier[::-1]:
             sum_number += int(number) * ctrl_number
             if ctrl_number == 7:
                 ctrl_number = 2
                 continue
             ctrl_number += 1
-        sum_number = sum_number % 11
-        return 11 - sum_number if sum_number > 1 else 0
+        ctrl_number = sum_number % 11
+        return str(11 - ctrl_number) if ctrl_number > 1 else "0"
