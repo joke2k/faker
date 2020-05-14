@@ -17,7 +17,7 @@ class TestMisc(unittest.TestCase):
         self.fake = Faker()
         Faker.seed(0)
 
-    def test_uuid4(self):
+    def test_uuid4_str(self):
         uuid4 = self.fake.uuid4()
         assert uuid4
         assert isinstance(uuid4, str)
@@ -28,7 +28,7 @@ class TestMisc(unittest.TestCase):
         assert isinstance(uuid4, int)
 
     def test_uuid4_uuid_object(self):
-        uuid4 = self.fake.uuid4(cast_to=lambda x: x)
+        uuid4 = self.fake.uuid4(cast_to=None)
         assert uuid4
         assert isinstance(uuid4, uuid.UUID)
 

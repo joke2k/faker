@@ -69,7 +69,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
     def test_items(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP', 'de-DE', 'ja-JP', 'en-US']
-        processed_locale = list({l.replace('-', '_') for l in locale})
+        processed_locale = list({code.replace('-', '_') for code in locale})
         self.fake = Faker(locale)
         for locale_name, factory in self.fake.items():
             assert locale_name in processed_locale
@@ -79,8 +79,8 @@ class TestFakerProxyClass(unittest.TestCase):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
         self.fake = Faker(locale)
 
-        for l in locale:
-            assert isinstance(self.fake[l], Generator)
+        for code in locale:
+            assert isinstance(self.fake[code], Generator)
 
         with self.assertRaises(KeyError):
             self.fake['en_GB']
@@ -299,3 +299,18 @@ class TestFakerProxyClass(unittest.TestCase):
         self.fake = Faker(['en_US', 'en_PH'])
         with self.assertRaises(AttributeError):
             self.fake.obviously_invalid_provider_method_a23f()
+
+    def test_dir_include_all_providers_attribute_in_list(self):
+        self.fake = Faker(['en_US', 'en_PH'])
+        expected = set(dir(Faker) + [
+            '_factories', '_locales', '_factory_map', '_weights',
+        ])
+        for factory in self.fake.factories:
+            expected |= {
+                attr for attr in dir(factory) if not attr.startswith('_')
+            }
+        expected = sorted(expected)
+
+        attributes = dir(self.fake)
+
+        assert attributes == expected

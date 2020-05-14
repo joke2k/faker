@@ -133,3 +133,58 @@ class TestRuRU(unittest.TestCase):
     def test_vehicle_category(self):
         category = self.fake.vehicle_category()
         assert isinstance(category, str)
+
+
+class TestFrFR(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('fr_FR')
+        Faker.seed(0)
+        self.pattern = re.compile(r'^\d{3}-[A-Z]{3}-\d{2}$|^[A-Z]{2}-\d{3}-[A-Z]{2}')
+
+    def test_fr_FR_plate_format(self):
+        plate = self.fake.license_plate()
+        assert isinstance(plate, str)
+        assert self.pattern.match(plate)
+
+
+class TestNoNO(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('no_NO')
+        Faker.seed(0)
+
+    def test_sv_SE_plate_format(self):
+        plate = self.fake.license_plate()
+        assert re.match(r"^[A-Z]{2} \d{5}$", plate), "%s is not in the correct format." % plate
+
+
+class TestEsES(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+        self.new_format_pattern = re.compile(r'\d{4}\s[A-Z]{3}')
+        self.old_format_pattern = re.compile(r'[A-Z]{1,2}\s\d{4}\s[A-Z]{2}')
+
+    def test_es_ES_plate_new_format(self):
+        plate = self.fake.license_plate_unified()
+        assert isinstance(plate, str)
+        assert self.new_format_pattern.match(plate)
+
+    def test_es_ES_plate_old_format(self):
+        plate = self.fake.license_plate_by_province()
+        assert isinstance(plate, str)
+        assert self.old_format_pattern.match(plate)
+
+    def test_es_ES_plate_old_format_explicit_province_prefix(self):
+        plate = self.fake.license_plate_by_province(province_prefix="CA")
+        assert isinstance(plate, str)
+        assert self.old_format_pattern.match(plate)
+        assert plate[:2] == "CA"
+
+    def test_es_ES_plate_format(self):
+        plate = self.fake.license_plate()
+        assert isinstance(plate, str)
+        assert self.new_format_pattern.match(plate) or \
+            self.old_format_pattern.match(plate)

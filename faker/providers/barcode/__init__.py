@@ -53,12 +53,9 @@ class Provider(BaseProvider):
 
     def _convert_upc_a2e(self, upc_a):
         """
-        Converts a 12-digit UPC-A barcode to its 8-digit UPC-E equivalent
+        Convert a 12-digit UPC-A barcode to its 8-digit UPC-E equivalent.
 
-        Not all UPC-A barcodes can be converted.
-
-        :param upc_a: UPC-A barcode to convert
-        :return: UPC-E equivalent barcode
+        Note that not all UPC-A barcodes can be converted.
         """
         if not isinstance(upc_a, str):
             raise TypeError('`upc_a` is not a string')
@@ -82,14 +79,15 @@ class Provider(BaseProvider):
 
     def _upc_ae(self, base=None, number_system_digit=None):
         """
-        Creates a 12-digit UPC-A barcode that can be converted to UPC-E
+        Create a 12-digit UPC-A barcode that can be converted to UPC-E.
 
-        Notes on this method:
-        - Please view notes on `upc_a()` and `upc_e()` first.
+        The expected value of ``base`` is a 6-digit string. If any other value is
+        provided, this method will use a random 6-digit string instead.
 
-        :param base: A 6-digit string
-        :param number_system_digit: 0 or 1
-        :return: 12-digit UPC-A barcode that can be converted to UPC-E
+        The expected value of ``number_system_digit`` is the integer ``0`` or ``1``.
+        If any other value is provided, this method will randomly choose from the two.
+
+        Please also view notes on `upc_a()` and `upc_e()` for more details.
         """
         if isinstance(base, str) and self.upc_e_base_pattern.match(base):
             base = [int(x) for x in base]
@@ -113,41 +111,76 @@ class Provider(BaseProvider):
         return ''.join(str(x) for x in code)
 
     def ean(self, length=13):
+        """Generate an EAN barcode of the specified ``length``.
+
+        The value of ``length`` can only be ``8`` or ``13`` (default)  which will
+        create an EAN-8 or an EAN-13 barcode respectively.
+
+        :sample: length=13
+        :sample: length=8
+        """
         return self._ean(length)
 
     def ean8(self):
+        """Generate an EAN-8 barcode.
+
+        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
+        hood with the ``length`` argument explicitly set to ``8``.
+
+        :sample:
+        """
         return self._ean(8)
 
     def ean13(self, leading_zero=None):
-        """
-        Creates an EAN-13 barcode
+        """Generate an EAN-13 barcode.
 
-        :param leading_zero: Leading digit will be 0 if True, 1-9 if False, and 0-9 otherwise
-        :return: An EAN-13 barcode
+        If ``leading_digit`` is ``True``, the leftmost digit of the barcode will be set
+        to ``0``. If ``False``, the leftmost digit cannot be ``0``. If ``None`` (default),
+        the leftmost digit can be any digit.
+
+        Note that an EAN-13 barcode that starts with a zero can be converted to UPC-A
+        by dropping the leading zero.
+
+        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
+        hood with the ``length`` argument explicitly set to ``13``.
+
+        :sample:
+        :sample: leading_zero=False
+        :sample: leading_zero=True
         """
         return self._ean(13, leading_zero=leading_zero)
 
     def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
-        """
-        Creates a 12-digit UPC-A barcode
+        """Generate a 12-digit UPC-A barcode.
 
-        Notes on UPC-A barcode and this method:
-        - EAN-13 is a superset of UPC-A. Simply put, leading zero + UPC-A = EAN-13.
-        - For the lack of a concise and better term, this provider uses the term "upc_ae" to mean
-          that a UPC-A barcode can be converted to UPC-E.
-        - If `upc_ae_mode` is enabled, this method will only return UPC-A barcodes that can be
-          converted to UPC-E. In this mode the leading digit (number system) of the UPC-A barcode
-          may only start with 0 or 1.
-        - When `upc_ae_mode` is enabled, the `number_system_digit` may be explicitly set to 0 or 1.
-          If it is not set or is invalid, either values will be chosen at random.
-        - When `upc_ae_mode` is enabled, a 6-digit UPC-E string `base` may be explicitly set. If it
-          is not set or is invalid, a random 6 digit combination will be used.
-        - If `upc_ae_mode` is disabled, the values of `base` and `number_system_digit` are ignored.
+        The value of ``upc_ae_mode`` controls how barcodes will be generated. If ``False``
+        (default), barcodes are not guaranteed to have a UPC-E equivalent. In this mode,
+        the method uses :meth:`ean13 <faker.providers.barcode.Provider.ean13>` under the hood,
+        and the values of ``base`` and ``number_system_digit`` will be ignored.
 
-        :param upc_ae_mode: Set to True explicitly to enable
-        :param base: A 6-digit string
-        :param number_system_digit: 0 or 1
-        :return: 12-digit UPC-A barcode
+        If ``upc_ae_mode`` is ``True``, the resulting barcodes are guaranteed to have a UPC-E
+        equivalent, and the values of ``base`` and ``number_system_digit`` will be used to
+        control what is generated.
+
+        Under this mode, ``base`` is expected to have a 6-digit string value. If any other value
+        is supplied, a random 6-digit string will be used instead. As for ``number_system_digit``,
+        the expected value is a ``0`` or a ``1``. If any other value is provided, this method
+        will randomly choose from the two.
+
+        .. important::
+
+           When ``upc_ae_mode`` is enabled, you might encounter instances where different values
+           of ``base`` (e.g. ``'120003'`` and ``'120004'``) produce the same UPC-A barcode. This
+           is normal, and the reason lies within the whole conversion process. To learn more about
+           this and what ``base`` and ``number_system_digit`` actually represent, please refer
+           to :meth:`upc_e() <faker.providers.barcode.Provider.upc_e>`.
+
+        :sample:
+        :sample: upc_ae_mode=True, number_system_digit=0
+        :sample: upc_ae_mode=True, number_system_digit=1
+        :sample: upc_ae_mode=True, base='123456', number_system_digit=0
+        :sample: upc_ae_mode=True, base='120003', number_system_digit=0
+        :sample: upc_ae_mode=True, base='120004', number_system_digit=0
         """
         if upc_ae_mode is True:
             return self._upc_ae(base=base, number_system_digit=number_system_digit)
@@ -156,37 +189,44 @@ class Provider(BaseProvider):
             return ean13[1:]
 
     def upc_e(self, base=None, number_system_digit=None, safe_mode=True):
-        """
-        Creates an 8-digit UPC-E barcode
+        """Generate an 8-digit UPC-E barcode.
 
-        Notes on UPC-E barcode and this method:
-        - UPC-E barcodes can be expressed in 6, 7, or 8-digit formats, but this method uses the
-          8 digit format, since it is trivial to convert to the other two formats.
-        - The first digit of the barcode denotes the number system used, either 0 or 1.
-        - The last digit is the check digit (more on that below).
-        - The remaining 6 digits are a bit more involved, but they are referred to as the `base`
-          argument elsewhere in this provider (for the lack of a concise and better term).
-        - Each UPC-E `base` have 2 UPC-A equivalents depending on the number system used.
-        - If the value of `number_system_digit` is not 0 or 1, either values will be chosen at random.
-        - A 6-digit string `base` may also be explicitly set. If invalid, it will be ignored, and a
-          new value for `base` will be generated.
-        - Internally, this method first generates a UPC-A barcode that can be converted to UPC-E, and
-          then actually performs a conversion for the result. This is because both the number
-          system and check digits of the UPC-E barcode are inherited from its UPC-A equivalent.
-        - Then there is `safe_mode`. Enabling this guarantees that every UPC-E barcode generated can
-          be converted to UPC-A, and that UPC-A value can be converted back again to UPC-E and still
-          be equal to the original value. In other words, the statement a2e(e2a(e)) == e holds True.
-        - As to why there is `safe_mode`, it is because there are some UPC-E values that share the
-          same UPC-A equivalent. For example, any UPC-E barcode of the form abc0000d, abc0003d, and
-          abc0004d share the same UPC-A value abc00000000d, but that UPC-A value will only convert
-          to abc0000d because of (a) how UPC-E is just a zero-suppressed version of UPC-A and
-          (b) the rules around the conversion.
+        UPC-E barcodes can be expressed in 6, 7, or 8-digit formats, but this method uses the
+        8 digit format, since it is trivial to convert to the other two formats. The first digit
+        (starting from the left) is controlled by ``number_system_digit``, and it can only be a
+        ``0`` or a ``1``. The last digit is the check digit that is inherited from the UPC-E barcode's
+        UPC-A equivalent. The middle six digits are collectively referred to as the ``base`` (for a
+        lack of a better term).
 
-        :param base: A 6-digit string
-        :param number_system_digit: First digit of the barcode
-        :param safe_mode: True or False. Guarantees that every UPC-E barcode generated can be
-                          converted back-and-forth between UPC-A and UPC-E.
-        :return: 8-digit UPC-E barcode
+        On that note, this method uses ``base`` and ``number_system_digit`` to first generate a
+        UPC-A barcode for the check digit, and what happens next depends on the value of ``safe_mode``.
+        The argument ``safe_mode`` exists, because there are some UPC-E values that share the same
+        UPC-A equivalent. For example, any UPC-E barcode of the form ``abc0000d``, ``abc0003d``, and
+        ``abc0004d`` share the same UPC-A value ``abc00000000d``, but that UPC-A value will only convert
+        to ``abc0000d`` because of (a) how UPC-E is just a zero-suppressed version of UPC-A and (b) the
+        rules around the conversion.
+
+        If ``safe_mode`` is ``True`` (default), this method performs another set of conversions to
+        guarantee that the UPC-E barcodes generated can be converted to UPC-A, and that UPC-A
+        barcode can be converted back to the original UPC-E barcode. Using the example above, even
+        if the bases ``120003`` or ``120004`` are used, the resulting UPC-E barcode will always
+        use the base ``120000``.
+
+        If ``safe_mode`` is ``False``, then the ``number_system_digit``, ``base``, and the computed
+        check digit will just be concatenated together to produce the UPC-E barcode, and attempting
+        to convert the barcode to UPC-A and back again to UPC-E will exhibit the behavior described
+        above.
+
+        :sample:
+        :sample: base='123456'
+        :sample: base='123456', number_system_digit=0
+        :sample: base='123456', number_system_digit=1
+        :sample: base='120000', number_system_digit=0
+        :sample: base='120003', number_system_digit=0
+        :sample: base='120004', number_system_digit=0
+        :sample: base='120000', number_system_digit=0, safe_mode=False
+        :sample: base='120003', number_system_digit=0, safe_mode=False
+        :sample: base='120004', number_system_digit=0, safe_mode=False
         """
         if safe_mode is not False:
             upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)

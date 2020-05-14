@@ -1,5 +1,6 @@
 import string
 import sys
+import warnings
 
 from decimal import Decimal
 
@@ -7,6 +8,23 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    default_value_types = (
+        'str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal',
+        'date_time', 'uri', 'email',
+    )
+
+    def _check_signature(self, value_types, allowed_types):
+        if value_types is not None and not isinstance(value_types, (list, tuple)):
+            value_types = [value_types]
+            warnings.warn(
+                'Passing value types as positional arguments is going to be '
+                'deprecated.  Pass them as a list or tuple instead.',
+                PendingDeprecationWarning,
+            )
+        if value_types is None:
+            value_types = ()
+        return tuple(value_types) + allowed_types
+
     def pybool(self):
         return self.random_int(0, 1) == 1
 
@@ -93,34 +111,39 @@ class Provider(BaseProvider):
             left_digits, right_digits, positive, min_value, max_value)
         return Decimal(str(float_))
 
-    def pytuple(self, nb_elements=10, variable_nb_elements=True, *value_types):
+    def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return tuple(
             self.pyset(
                 nb_elements,
                 variable_nb_elements,
-                *value_types))
+                value_types,
+                *allowed_types))
 
-    def pyset(self, nb_elements=10, variable_nb_elements=True, *value_types):
+    def pyset(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return set(
             self._pyiterable(
                 nb_elements,
                 variable_nb_elements,
-                *value_types))
+                value_types,
+                *allowed_types))
 
-    def pylist(self, nb_elements=10, variable_nb_elements=True, *value_types):
+    def pylist(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return list(
             self._pyiterable(
                 nb_elements,
                 variable_nb_elements,
-                *value_types))
+                value_types,
+                *allowed_types))
 
     def pyiterable(
             self,
             nb_elements=10,
             variable_nb_elements=True,
-            *value_types):
+            value_types=None,
+            *allowed_types):
+        value_types = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
-            nb_elements, variable_nb_elements, *value_types)
+            nb_elements, variable_nb_elements, value_types, *allowed_types)
 
     def _random_type(self, type_list):
         value_type = self.random_element(type_list)
@@ -135,15 +158,17 @@ class Provider(BaseProvider):
             self,
             nb_elements=10,
             variable_nb_elements=True,
-            *value_types):
+            value_types=None,
+            *allowed_types):
+
+        value_types = self._check_signature(value_types, allowed_types)
 
         value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
         if not value_types:
-            value_types = ['str', 'str', 'str', 'str', 'float',
-                           'int', 'int', 'decimal', 'date_time', 'uri', 'email']
+            value_types = self.default_value_types
 
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
@@ -151,7 +176,7 @@ class Provider(BaseProvider):
         for _ in range(nb_elements):
             yield self._random_type(value_types)
 
-    def pydict(self, nb_elements=10, variable_nb_elements=True, *value_types):
+    def pydict(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         """
         Returns a dictionary.
 
@@ -163,19 +188,19 @@ class Provider(BaseProvider):
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         return dict(zip(
-            self.generator.words(nb_elements),
-            self._pyiterable(nb_elements, False, *value_types),
+            self.generator.words(nb_elements, unique=True),
+            self._pyiterable(nb_elements, False, value_types, *allowed_types),
         ))
 
-    def pystruct(self, count=10, *value_types):
+    def pystruct(self, count=10, value_types=None, *allowed_types):
+        value_types = self._check_signature(value_types, allowed_types)
 
         value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t != 'struct']
         if not value_types:
-            value_types = ['str', 'str', 'str', 'str', 'float',
-                           'int', 'int', 'decimal', 'date_time', 'uri', 'email']
+            value_types = self.default_value_types
 
         types = []
         d = {}

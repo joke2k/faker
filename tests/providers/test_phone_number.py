@@ -68,20 +68,26 @@ class TestPtBr(unittest.TestCase):
         self.fake = Faker('pt_br')
         Faker.seed(0)
 
+    def test_phone_number(self):
+        phone_number = self.fake.phone_number()
+        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", phone_number)
+
     def test_msisdn(self):
         msisdn = self.fake.msisdn()
-        formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581')
+        formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581', '5584')
 
         assert msisdn is not None
         assert isinstance(msisdn, str)
         assert len(msisdn) == 13
         assert msisdn.isdigit()
         assert msisdn[0:4] in formats
+        re.match(r"^[5]{2}\d{2}[9]\d{8}$", msisdn)
 
     def test_cellphone(self):
         cellphone = self.fake.cellphone_number()
         assert cellphone is not None
-        assert len(cellphone) == 14
+        assert cellphone[0:3] == '+55'
+        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", cellphone)
 
 
 class TestHuHU(unittest.TestCase):
@@ -261,3 +267,14 @@ class TestTaIN(unittest.TestCase):
     def test_phone_number(self):
         phone_number = self.fake.phone_number()
         re.match(r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$", phone_number)
+
+
+class TestEs_ES(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_phone_number(self):
+        phone_number = self.fake.phone_number()
+        re.match(r"(\+34)?((6([0-9]*){8})|(7[1-4]+([0-9]*){7})|((8|9)[1-9]+([0-9]*){7}))$", phone_number)

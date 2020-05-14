@@ -30,10 +30,10 @@ class Faker:
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
         elif isinstance(locale, (list, tuple, set)):
-            assert all(isinstance(l, str) for l in locale)
+            assert all(isinstance(local_code, str) for local_code in locale)
             locales = []
-            for l in locale:
-                final_locale = l.replace('-', '_')
+            for code in locale:
+                final_locale = code.replace('-', '_')
                 if final_locale not in locales:
                     locales.append(final_locale)
 
@@ -54,6 +54,14 @@ class Faker:
 
         self._locales = locales
         self._factories = list(self._factory_map.values())
+
+    def __dir__(self):
+        attributes = set(super(Faker, self).__dir__())
+        for factory in self.factories:
+            attributes |= {
+                attr for attr in dir(factory) if not attr.startswith('_')
+            }
+        return sorted(attributes)
 
     def __getitem__(self, locale):
         return self._factory_map[locale.replace('-', '_')]

@@ -338,6 +338,10 @@ class TestEnGB(unittest.TestCase):
         for _ in range(100):
             assert isinstance(parse_uk_postcode(self.fake.postcode()), tuple)
 
+    def test_county(self):
+        county = self.fake.county()
+        assert isinstance(county, str)
+
 
 class TestEnUS(unittest.TestCase):
     """ Tests addresses in the en_US locale """

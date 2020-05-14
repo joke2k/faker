@@ -46,6 +46,7 @@ def find_available_locales(providers):
         if getattr(provider_module, 'localized', False):
             langs = list_module(provider_module)
             available_locales.update(langs)
+    available_locales = sorted(available_locales)
     return available_locales
 
 

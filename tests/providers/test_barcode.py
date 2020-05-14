@@ -30,7 +30,7 @@ class TestBarcodeProvider(unittest.TestCase):
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
     def test_ean_bad_length(self):
-        bad_lengths = [l for l in range(1, 15) if l not in (8, 13)]
+        bad_lengths = [size for size in range(1, 15) if size not in (8, 13)]
         for length in bad_lengths:
             with self.assertRaises(AssertionError):
                 self.fake.ean(length)

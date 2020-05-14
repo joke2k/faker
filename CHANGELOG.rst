@@ -1,7 +1,47 @@
 Changelog
 =========
 
-`4.0.1 - 17-February-2019 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
+`4.1.0 - 12-May-2020 <https://github.com/joke2k/faker/compare/v4.0.3...v4.1.0>`__
+---------------------------------------------------------------------------------
+
+* Add ``pytest`` plugin. Thanks @malefice.
+* Fix phone numbers for ``es_ES``. Thanks @pablofm.
+* Fix ``uuid`` provider to return a ``uuid4`` object when ``cast_to`` is set to ``None``. Thanks @rodrigondec.
+* Update names for ``es_ES`` person provider. Thanks @mondeja.
+* Add provider for ``sk_SK`` ``birth_number``. Thanks @eumiro.
+* Add ``day_of_week`` and ``month_name`` for ``de_DE`` provider. Thanks @eumiro.
+
+`4.0.3 - 13-April-2020 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
+-----------------------------------------------------------------------------------
+
+* Fixed ``MSISDN`` for ``pt_BR``  to return only mobile numbers. Thanks @rodrigondec.
+* Added Domain Generator Algorithm by date. Thanks @pishchalnikov.
+* Fixed issue where ``pydict`` provider was not returning the correct number of elements. Thanks @mstellon.
+* Added support for Indian Aadhaar numbers. Thanks @curiousElf.
+* Added ``company_vat`` for ``it_IT``. Thanks @alitaker.
+* Improved autodocumentation of providers. Thanks @malefice.
+* Added provider for ``es_ES`` license plates. Thanks @mondeja.
+* Implemented ``__dir__`` method to Faker proxy for better autocompletion. Thanks @douglasfarinelli.
+* Uppercased HEX colors for all localized color providers. Thanks @mondeja.
+* Added bank provider for ``es_ES`` locale. Thanks @mondeja.
+* Added support for UK counties. Thanks @neilav.
+* Added color provider for ``no_NO`` license plates. Thanks @bjorskog.
+* Made ``value_types`` a keyword argument in ``python`` provider. Thanks @slafs.
+
+`4.0.2 - 11-March-2020 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
+-----------------------------------------------------------------------------------
+
+* Add more data for ``ko_KR`` address provider. Thanks @alstn2468.
+* Improved ``pt_PT`` locale for address and bank. Thanks @mustakarhu.
+* Add ``port_number`` method to internet provider. Thanks @pishchalnikov.
+* Add color provider for ``fa_IR`` locale. Thanks @abtinmo.
+* Add formatting options for ``pt_BR`` postcodes. Thanks @perssonsimon1 and @klaraesr.
+* Add ``country_calling_code`` to ``phone_number`` provider. Thanks @perssonsimon1.
+* Fix leap year issue. Thanks @mmcmahon.
+* Add ``AutomotiveProvider`` for ``fr_FR`` locale. Thanks @clarissedescamps and @perssonsimon1.
+* Fix ``cellphone_formats`` in ``pt_BR`` ``PhoneNumberProvider``. Thanks @rodrigondec.
+
+`4.0.1 - 17-February-2020 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
 --------------------------------------------------------------------------------------
 
 * Provider improvements for Russian locale:
@@ -24,12 +64,12 @@ Changelog
 * Add Birth Number to czech locale. Thanks @Jengah.
 * Add persons provider for ``fr_QC``. Thanks @Lionesk.
 
-`4.0.0 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
+`4.0.0 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
 -------------------------------------------------------------------------------------
 
 * Breaking change: Remove support for end-of-life Python 2.7.
 
-`3.0.1 - 14-January-2019 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
+`3.0.1 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
 -------------------------------------------------------------------------------------
 
 **NOTE**: This is the last release to support Python 2.7.x.

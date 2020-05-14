@@ -110,3 +110,19 @@ class TestPtPt(unittest.TestCase):
     def test_iban(self):
         iban = self.fake.iban()
         assert re.match(r"PT\d{21}", iban)
+
+
+class TestEsES(unittest.TestCase):
+    """Tests the bank provider for es_ES locale"""
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_bban(self):
+        bban = self.fake.bban()
+        assert re.match(r"\d{20}", bban)
+
+    def test_iban(self):
+        iban = self.fake.iban()
+        assert re.match(r"ES\d{22}", iban)

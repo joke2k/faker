@@ -7,6 +7,7 @@ from re import search
 
 from faker import Faker
 from faker.providers.color import RandomColor
+from faker.providers.color.es_ES import Provider as EsEsProvider
 from faker.providers.color.fa_IR import Provider as FaIrProvider
 from faker.providers.color.hy_AM import Provider as HyAmProvider
 
@@ -285,3 +286,21 @@ class TestFaIr(unittest.TestCase):
         safe_color_name = self.fake.safe_color_name()
         assert isinstance(safe_color_name, str)
         assert safe_color_name in FaIrProvider.safe_colors
+
+
+class TestEsES(unittest.TestCase):
+    """ Tests colors in the es_ES locale """
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_color_name(self):
+        color_name = self.fake.color_name()
+        assert isinstance(color_name, str)
+        assert color_name in EsEsProvider.all_colors.keys()
+
+    def test_safe_color_name(self):
+        safe_color_name = self.fake.safe_color_name()
+        assert isinstance(safe_color_name, str)
+        assert safe_color_name in EsEsProvider.safe_colors

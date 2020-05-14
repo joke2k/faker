@@ -20,6 +20,7 @@ from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.utils.checksums import luhn_checksum
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -152,6 +153,23 @@ class TestCsCZ(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r'^CZ\d{8,10}$', self.fake.vat_id())
+
+    def test_birth_number(self):
+        for _ in range(100):
+            birth_number = self.fake.birth_number()
+            assert len(birth_number) in [10, 11]
+            assert birth_number[6] == "/"
+            assert int(birth_number.replace("/", "")) % 11 == 0
+
+
+class TestSkSK(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker('sk_SK')
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^SK\d{10}$', self.fake.vat_id())
 
     def test_birth_number(self):
         for _ in range(100):
@@ -900,3 +918,23 @@ class TestTrTr(unittest.TestCase):
             first_ten_number = sample[:-1]
             last_part = sample[-1]
             assert sum(list(map(lambda x: int(x), '{}'.format(first_ten_number)))) % 10 == last_part
+
+
+class TestEnIn(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker('en_IN')
+        Faker.seed(0)
+        test_samples = 10
+        self.aadhaar_ids = [self.fake.aadhaar_id() for _ in range(test_samples)]
+
+    def test_length(self):
+        for aadhaar_id in self.aadhaar_ids:
+            assert len(aadhaar_id) == 12
+
+    def test_first_digit_non_zero(self):
+        for aadhar_id in self.aadhaar_ids:
+            assert aadhar_id[0] != '0'
+
+    def test_valid_luhn(self):
+        for aadhaar_id in self.aadhaar_ids:
+            assert luhn_checksum(aadhaar_id) == 0
