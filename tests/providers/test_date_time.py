@@ -28,8 +28,8 @@ from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
-from faker.providers.date_time.vi_VN import Provider as ViProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.vi_VN import Provider as ViProvider
 
 
 def is64bit():
