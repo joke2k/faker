@@ -73,6 +73,7 @@ class UtilsTestCase(unittest.TestCase):
             'faker.providers.automotive',
             'faker.providers.bank',
             'faker.providers.barcode',
+            'faker.providers.bill',
             'faker.providers.color',
             'faker.providers.company',
             'faker.providers.credit_card',
