@@ -120,8 +120,7 @@ class Provider(BaseProvider):
         bill_id = client_case_code + company_code + provider_code
         return bill_id + self._make_control_number(bill_id)
 
-    @staticmethod
-    def _make_control_number(identifier):
+    def _make_control_number(self, identifier):
         """ Gets string and returns a number as string """
         sum_number = 0
         ctrl_number = 2
