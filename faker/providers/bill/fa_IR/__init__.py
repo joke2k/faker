@@ -1,6 +1,6 @@
-from .. import Provider as BaseProvider
 from collections import OrderedDict
 
+from .. import Provider as BaseProvider
 
 localized = True
 
@@ -52,9 +52,7 @@ class Provider(BaseProvider):
 
     def bill_id(self, bill_type=None):
         """ Returns a bill_id instance. """
-        return self._bill_id(
-            bill_type=bill_type
-        )
+        return self._bill_id(bill_type=bill_type)
 
     def bill_payment_id(self, bill_type=None, bill_id=None):
         """ Returns bill id with payment id """
