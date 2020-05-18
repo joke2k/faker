@@ -1,8 +1,9 @@
-import pytest
-
-import string
 import re
+import string
+
 from collections import OrderedDict
+
+import pytest
 
 from faker.providers import BaseProvider
 
@@ -21,7 +22,7 @@ class TestBaseProvider:
             assert locale in locales
 
     def test_language_code(self, faker, num_samples):
-        language_codes = [language for language in BaseProvider.language_locale_codes]
+        language_codes = list(BaseProvider.language_locale_codes)
         for _ in range(num_samples):
             language_code = faker.language_code()
             assert language_code in language_codes
@@ -66,7 +67,7 @@ class TestBaseProvider:
         ('!' * 100, r'[0-9]{,100}'),
         ('@' * 100, r'[0-9]{,100}'),
         ('##!abc %%@def##!' * 100, r'(?:[0-9]{2,3}abc [1-9]{2,3}def[0-9]{2,3}){100}'),
-        ('#@@#^?あ5漢!!%%@' * 100, r'(?:\d[1-9]{,2}\d\^\?あ5漢\d{,2}[1-9]{2}[1-9]*){100}')
+        ('#@@#^?あ5漢!!%%@' * 100, r'(?:\d[1-9]{,2}\d\^\?あ5漢\d{,2}[1-9]{2}[1-9]*){100}'),
     ], ids=[
         'empty_string',
         'no_valid_placeholders',

@@ -6,14 +6,13 @@ from unittest.mock import PropertyMock, patch
 
 import pytest
 
-from validators import domain as validate_domain
-from validators import email as validate_email
-
 from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.zh_CN import Provider as ZhCnInternetProvider
 from faker.providers.person.ja_JP import Provider as JaPersonProvider
 from faker.utils import text
+from validators import domain as validate_domain
+from validators import email as validate_email
 
 
 class TestInternetProvider:
@@ -423,7 +422,7 @@ class TestZhCn:
         mock_domain_word.return_value = 'li'
         for levels in range(3, 10):
             with patch('faker.providers.internet.zh_CN.Provider.domain_name',
-                            wraps=faker.domain_name) as mock_domain_name:
+                       wraps=faker.domain_name) as mock_domain_name:
                 mock_tld.reset_mock()
                 mock_domain_word.reset_mock()
                 mock_domain_name.reset_mock()
@@ -450,7 +449,7 @@ class TestZhCn:
         mock_domain_word.return_value = 'li'
         for levels in range(3, 10):
             with patch('faker.providers.internet.zh_CN.Provider.domain_name',
-                            wraps=faker.domain_name) as mock_domain_name:
+                       wraps=faker.domain_name) as mock_domain_name:
                 mock_tld.reset_mock()
                 mock_domain_word.reset_mock()
                 mock_domain_name.reset_mock()

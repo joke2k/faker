@@ -4,8 +4,6 @@ import string
 import sys
 import unittest
 
-from collections import OrderedDict
-
 import pytest
 
 from faker import Faker, Generator
