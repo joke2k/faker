@@ -140,26 +140,6 @@ class FactoryTestCase(unittest.TestCase):
         slug = fn("a'b/.cé")
         assert slug == 'abcé'
 
-    def test_random_element(self):
-        from faker.providers import BaseProvider
-        provider = BaseProvider(self.generator)
-
-        choices = ('a', 'b', 'c', 'd')
-        pick = provider.random_element(choices)
-        assert pick in choices
-
-        # dicts not allowed because they introduce dependency on PYTHONHASHSEED
-        with self.assertRaises(ValueError):
-            provider.random_element({})
-
-        choices = OrderedDict([('a', 5), ('b', 2), ('c', 2), ('d', 1)])
-        pick = provider.random_element(choices)
-        self.assertTrue(pick in choices)
-
-        choices = OrderedDict([('a', 0.5), ('b', 0.2), ('c', 0.2), ('d', 0.1)])
-        pick = provider.random_element(choices)
-        self.assertTrue(pick in choices)
-
     def test_binary(self):
         from faker.providers.misc import Provider
         provider = Provider(self.generator)
@@ -178,23 +158,6 @@ class FactoryTestCase(unittest.TestCase):
             binary2 = provider.binary(_)
 
             assert binary1 == binary2
-
-    def test_language_code(self):
-        from faker.providers.misc import Provider
-        provider = Provider(self.generator)
-
-        for _ in range(99):
-            language_code = provider.language_code()
-            assert isinstance(language_code, str)
-            assert re.match(r'^[a-z]{2,3}$', language_code)
-
-    def test_locale(self):
-        from faker.providers.misc import Provider
-        provider = Provider(self.generator)
-
-        for _ in range(99):
-            locale = provider.locale()
-            assert re.match(r'^[a-z]{2,3}_[A-Z]{2}$', locale)
 
     def test_password(self):
         from faker.providers.misc import Provider
@@ -468,50 +431,6 @@ class FactoryTestCase(unittest.TestCase):
             chksum_above = 97 - (ssn_above % 97)
             results = [chksum_above, chksum_below]
             assert gen_chksum_as_int in results
-
-    def test_random_sample_unique(self):
-        from faker.providers import BaseProvider
-        provider = BaseProvider(self.generator)
-
-        # Too many items requested
-        with self.assertRaises(ValueError):
-            provider.random_sample('abcde', 6)
-
-        # Same length
-        sample = provider.random_sample('abcd', 4)
-        assert sorted(sample) == list('abcd')
-
-        sample = provider.random_sample('abcde', 5)
-        assert sorted(sample) == list('abcde')
-
-        # Length = 3
-        sample = provider.random_sample('abcde', 3)
-        assert len(sample) == 3
-        assert set(sample).issubset(set('abcde'))
-
-        # Length = 1
-        sample = provider.random_sample('abcde', 1)
-        assert len(sample) == 1
-        assert set(sample).issubset(set('abcde'))
-
-        # Length = 0
-        sample = provider.random_sample('abcde', 0)
-        assert sample == []
-
-    def test_random_number(self):
-        from faker.providers import BaseProvider
-        provider = BaseProvider(self.generator)
-
-        number = provider.random_number(10, True)
-        assert len(str(number)) == 10
-
-        # Digits parameter < 0
-        with self.assertRaises(ValueError):
-            number = provider.random_number(-1, True)
-
-        # Digits parameter < 1 with fix_len=True
-        with self.assertRaises(ValueError):
-            number = provider.random_number(0, True)
 
     def test_instance_seed_chain(self):
         factory = Factory.create()
