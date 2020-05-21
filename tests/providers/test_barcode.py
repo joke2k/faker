@@ -278,3 +278,39 @@ class TestJaJp(_LocaleCommonMixin):
     def get_provider_class():
         from faker.providers.barcode.ja_JP import Provider
         return Provider
+
+    def test_jan(self, faker, num_samples, provider):
+        for _ in range(num_samples):
+            jan8 = faker.jan(8)
+            jan13 = faker.jan(13)
+            assert self.ean8_pattern.match(jan8)
+            assert self.ean13_pattern.match(jan13)
+
+            jan8_digits = [int(digit) for digit in jan8]
+            jan13_digits = [int(digit) for digit in jan13]
+            assert (sum(jan8_digits) + 2 * sum(jan8_digits[::2])) % 10 == 0
+            assert (sum(jan13_digits) + 2 * sum(jan13_digits[1::2])) % 10 == 0
+
+            self.assert_prefix(jan8_digits, provider.local_prefixes)
+            self.assert_prefix(jan13_digits, provider.local_prefixes)
+
+    def test_jan8(self, faker, num_samples, provider):
+        for _ in range(num_samples):
+            jan8 = faker.jan(8)
+            assert self.ean8_pattern.match(jan8)
+
+            jan8_digits = [int(digit) for digit in jan8]
+            assert (sum(jan8_digits) + 2 * sum(jan8_digits[::2])) % 10 == 0
+
+            self.assert_prefix(jan8_digits, provider.local_prefixes)
+
+    def test_jan13(self, faker, num_samples, provider):
+        for _ in range(num_samples):
+            jan13 = faker.jan(13)
+            assert self.ean13_pattern.match(jan13)
+
+            jan13_digits = [int(digit) for digit in jan13]
+            assert (sum(jan13_digits) + 2 * sum(jan13_digits[1::2])) % 10 == 0
+
+            self.assert_prefix(jan13_digits, provider.local_prefixes)
+
