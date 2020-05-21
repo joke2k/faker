@@ -313,4 +313,3 @@ class TestJaJp(_LocaleCommonMixin):
             assert (sum(jan13_digits) + 2 * sum(jan13_digits[1::2])) % 10 == 0
 
             self.assert_prefix(jan13_digits, provider.local_prefixes)
-
