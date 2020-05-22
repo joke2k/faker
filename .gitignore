@@ -49,6 +49,8 @@ cover/
 .idea
 .vscode/*
 .projectile
+.spyderproject
+.spyproject
 .ropeproject
 .DS_Store
 .venv
