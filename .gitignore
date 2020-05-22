@@ -31,10 +31,15 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+.nox
+.cache
 nosetests.xml
+.pytest_cache/
+cover/
 
 # Translations
 *.mo
+*.po
 
 # Mr Developer
 .mr.developer.cfg
@@ -42,6 +47,7 @@ nosetests.xml
 .pydevproject
 .python-version
 .idea
+.vscode/*
 .projectile
 .ropeproject
 .DS_Store
@@ -52,3 +58,6 @@ nosetests.xml
 *.iml
 *.ipr
 venv/
+
+# Local History for Visual Studio Code
+.history/
