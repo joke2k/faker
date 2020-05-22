@@ -20,6 +20,7 @@ eggs
 parts
 var
 sdist
+wheels
 develop-eggs
 .installed.cfg
 lib
