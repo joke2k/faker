@@ -1,7 +1,7 @@
 __pycache__/
 .mypy_cache/
 *.py[cod]
-
+MANIFEST
 # C extensions
 *.so
 
