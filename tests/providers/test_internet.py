@@ -7,6 +7,7 @@ from unittest.mock import PropertyMock, patch
 import pytest
 
 from faker.providers.internet import Provider as InternetProvider
+from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.zh_CN import Provider as ZhCnInternetProvider
 from faker.providers.person.ja_JP import Provider as JaPersonProvider
@@ -616,3 +617,15 @@ class TestFilPh(TestEnPh):
 class TestTlPh(TestFilPh):
     """Test tl_PH internet provider methods"""
     pass
+
+
+class TestEnGb:
+    """Tests for the en_GB locale."""
+
+    def test_free_email_domain(self, faker):
+        domain = faker.free_email_domain()
+        assert domain in EnGbInternetProvider.free_email_domains
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in EnGbInternetProvider.tlds
