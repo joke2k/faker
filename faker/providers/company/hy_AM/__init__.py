@@ -5,7 +5,7 @@ class Provider(CompanyProvider):
 
     formats = (
         '{{first_name}} և {{first_name}} {{company_suffix}}',
-        '{{last_name} {{company_suffix}}',
+        '{{last_name}} {{company_suffix}}',
         '{{last_name}} և {{last_name}} {{company_suffix}}'
         '{{last_name}}, {{last_name}} և {{last_name}} {{company_suffix}}',
     )
