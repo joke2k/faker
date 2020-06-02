@@ -10,6 +10,42 @@ class Provider(BaseProvider):
 
     last_names = ['Doe']
 
+    # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+    language_names = [
+        'Afar', 'Abkhazian', 'Avestan', 'Afrikaans', 'Akan', 'Amharic',
+        'Aragonese', 'Arabic', 'Assamese', 'Avaric', 'Aymara', 'Azerbaijani',
+        'Bashkir', 'Belarusian', 'Bulgarian', 'Bihari languages', 'Bislama',
+        'Bambara', 'Bengali', 'Tibetan', 'Breton', 'Bosnian', 'Catalan',
+        'Chechen', 'Chamorro', 'Corsican', 'Cree', 'Czech', 'Church Slavic',
+        'Chuvash', 'Welsh', 'Danish', 'German', 'Divehi', 'Dzongkha', 'Ewe',
+        'Greek', 'English', 'Esperanto', 'Spanish', 'Estonian', 'Basque',
+        'Persian', 'Fulah', 'Finnish', 'Fijian', 'Faroese', 'French',
+        'Western Frisian', 'Irish', 'Gaelic', 'Galician', 'Guarani',
+        'Gujarati', 'Manx', 'Hausa', 'Hebrew', 'Hindi', 'Hiri Motu',
+        'Croatian', 'Haitian', 'Hungarian', 'Armenian', 'Herero',
+        'Interlingua', 'Indonesian', 'Interlingue', 'Igbo', 'Sichuan Yi',
+        'Inupiaq', 'Ido', 'Icelandic', 'Italian', 'Inuktitut', 'Japanese',
+        'Javanese', 'Georgian', 'Kongo', 'Kikuyu', 'Kuanyama', 'Kazakh',
+        'Kalaallisut', 'Central Khmer', 'Kannada', 'Korean', 'Kanuri',
+        'Kashmiri', 'Kurdish', 'Komi', 'Cornish', 'Kirghiz', 'Latin',
+        'Luxembourgish', 'Ganda', 'Limburgan', 'Lingala', 'Lao', 'Lithuanian',
+        'Luba-Katanga', 'Latvian', 'Malagasy', 'Marshallese', 'Maori',
+        'Macedonian', 'Malayalam', 'Mongolian', 'Marathi', 'Malay', 'Maltese',
+        'Burmese', 'Nauru', 'North Ndebele', 'Nepali',
+        'Ndonga', 'Dutch', 'Norwegian Nynorsk', 'Norwegian', 'South Ndebele',
+        'Navajo', 'Chichewa', 'Occitan', 'Ojibwa', 'Oromo', 'Oriya',
+        'Ossetian', 'Panjabi', 'Pali', 'Polish', 'Pushto', 'Portuguese',
+        'Quechua', 'Romansh', 'Rundi', 'Romanian', 'Russian', 'Kinyarwanda',
+        'Sanskrit', 'Sardinian', 'Sindhi', 'Northern Sami', 'Sango', 'Sinhala',
+        'Slovak', 'Slovenian', 'Samoan', 'Shona', 'Somali', 'Albanian',
+        'Serbian', 'Swati', 'Sotho, Southern', 'Sundanese', 'Swedish',
+        'Swahili', 'Tamil', 'Telugu', 'Tajik', 'Thai', 'Tigrinya', 'Turkmen',
+        'Tagalog', 'Tswana', 'Tonga', 'Turkish', 'Tsonga', 'Tatar', 'Twi',
+        'Tahitian', 'Uighur', 'Ukrainian', 'Urdu', 'Uzbek', 'Venda',
+        'Vietnamese', 'Walloon', 'Wolof', 'Xhosa', 'Yiddish',
+        'Yoruba', 'Zhuang', 'Chinese', 'Zulu',
+    ]
+
     def name(self):
         """
         :example 'John Doe'
@@ -96,3 +132,7 @@ class Provider(BaseProvider):
         if hasattr(self, 'suffixes_female'):
             return self.random_element(self.suffixes_female)
         return self.suffix()
+
+    def language_name(self):
+        """Generate a random i18n language name (e.g. English)."""
+        return self.random_element(self.language_names)
