@@ -2,6 +2,8 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
+    # Data taken from
+    # https://github.com/fzaninotto/Faker/blob/master/src/Faker/Provider/en_GB/Internet.php
 
     free_email_domains = (
         'gmail.com',
