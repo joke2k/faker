@@ -594,3 +594,7 @@ class TestRuRU(unittest.TestCase):
         assert middle_name in RuProvider.middle_names_male
         last_name = self.fake.last_name_male()
         assert last_name in RuProvider.last_names_male
+
+    def test_language_name(self):
+        language_name = self.fake.language_name()
+        assert language_name in RuProvider.language_names
