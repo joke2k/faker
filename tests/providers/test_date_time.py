@@ -147,6 +147,16 @@ class TestDateTime(unittest.TestCase):
         today_back = datetime.fromtimestamp(timestamp, utc).date()
         assert today == today_back
 
+    def test_pytimezone(self):
+        import dateutil
+        pytz = self.fake.pytimezone()
+        assert isinstance(pytz, dateutil.tz.tz.tzfile)
+
+    def test_pytimezone_usable(self):
+        pytz = self.fake.pytimezone()
+        date = datetime(2000, 1, 1, tzinfo=pytz)
+        assert date.tzinfo == pytz
+
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
         # test using example provided in module
