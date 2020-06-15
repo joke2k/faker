@@ -73,7 +73,7 @@ class Provider(CurrencyProvider):
         ("IRR", "Rial iraní"),
         ("ISK", "Corona islandesa"),
         ("JEP", "Libra de Jersey"),
-        ("JMD", "Dolar jamaicano"),
+        ("JMD", "Dólar jamaicano"),
         ("JOD", "Dinar jordano"),
         ("JPY", "Yen japonés"),
         ("KES", "Chelín keniano"),
