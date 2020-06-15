@@ -7,6 +7,7 @@ from unittest import mock
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
+from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
@@ -598,3 +599,15 @@ class TestRuRU(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in RuProvider.language_names
+
+
+class TestEsES(unittest.TestCase):
+    """Tests person in the es_ES locale."""
+
+    def setUp(self):
+        self.fake = Faker('es_ES')
+        Faker.seed(0)
+
+    def test_language_name(self):
+        language_name = self.fake.language_name()
+        assert language_name in EsESProvider.language_names
