@@ -88,3 +88,25 @@ class TestRuRu:
         for _ in range(num_samples):
             name = faker.currency_name()
             assert isinstance(name, str) and name in self.currency_names
+
+
+class TestEsEs:
+    """Test es_ES currency provider"""
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.es_ES import Provider as EsEsCurrencyProvider
+        cls.provider = EsEsCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
