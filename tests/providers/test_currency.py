@@ -104,9 +104,9 @@ class TestEsEs:
     def test_currency(self, faker, num_samples):
         for _ in range(num_samples):
             cur = faker.currency()
-            assert isinstance(cur, tuple) and cur in self.currencies
+            assert cur in self.currencies
 
     def test_currency_name(self, faker, num_samples):
         for _ in range(num_samples):
             name = faker.currency_name()
-            assert isinstance(name, str) and name in self.currency_names
+            assert name in self.currency_names
