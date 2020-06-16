@@ -1,6 +1,18 @@
 Changelog
 =========
 
+`4.1.1 - 15-June-2020 <https://github.com/joke2k/faker/compare/v4.1.0...v4.1.1>`__
+----------------------------------------------------------------------------------
+
+* Add ``date_time`` providers for ``cs_CZ``, ``de_AT``, ``es_ES``, ``it_IT``, ``sk_SK``,
+  ``tr_TR``. Thanks @eumiro.
+* Add prefix support to BarcodeProvider. Thanks @yu-ichiro.
+* Fix company format for ``hy_AM`` provider. Thanks @mdantonio.
+* Add .uk email providers and TLDs for ``en_GB``. Thanks @craiga.
+* Add ``language_name`` generator. Thanks @ikhomutov and @mondeja.
+* Add ``pytimezone`` generator returning ``tzinfo`` objects. Thanks @OJFord.
+* Add ``es_ES`` currency provider. Thanks @mondeja.
+
 `4.1.0 - 12-May-2020 <https://github.com/joke2k/faker/compare/v4.0.3...v4.1.0>`__
 ---------------------------------------------------------------------------------
 
