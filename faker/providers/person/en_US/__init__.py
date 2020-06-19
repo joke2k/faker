@@ -747,7 +747,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male.copy()
     first_names.update(first_names_female)
-    
+
     first_names_nonbinary = first_names_male.copy()
     first_names_nonbinary.update(first_names_female)
 
