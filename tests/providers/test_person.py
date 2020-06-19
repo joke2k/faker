@@ -19,6 +19,7 @@ from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
+from faker.providers.person.en_US import Provider as EnUSProvider
 
 
 class TestAr(unittest.TestCase):
@@ -611,3 +612,70 @@ class TestEsES(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in EsESProvider.language_names
+
+class TestUs(unittest.TestCase):
+    """ Tests person in the en_US locale """
+
+    def setUp(self):
+        self.fake = Faker('en_US')
+        Faker.seed(0)
+
+    def test_first_names(self):
+        # General first name
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.first_names
+
+        # Female first name
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.first_names
+        assert name in EnUSProvider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.first_names
+        assert name in EnUSProvider.first_names_male
+
+        # Nonbinary first name
+        name = self.fake.first_name_nonbinary()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.first_names
+        assert name in EnUSProvider.first_names_nonbinary
+
+    def test_last_names(self):
+
+        # General last name
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.last_names
+
+        # Female last name
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.last_names
+
+        # Male last name
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.last_names
+
+        # Nonbinary last name
+        name = self.fake.last_name_nonbinary()
+        self.assertIsInstance(name, str)
+        assert name in EnUSProvider.last_names
+
+    def test_prefix(self):
+
+        # Nonbinary prefix
+        prefix = self.fake.prefix_nonbinary()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EnUSProvider.prefixes_nonbinary
+
+    def test_suffix(self):
+
+        # Nonbinary suffix
+        suffix = self.fake.suffix_nonbinary()
+        self.assertIsInstance(suffix, str)
+        assert suffix in EnUSProvider.suffixes_nonbinary

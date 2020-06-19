@@ -11,6 +11,13 @@ class Provider(PersonProvider):
         ('{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix_female}}', 0.005),
     ))
 
+    formats_nonbinary = OrderedDict((
+        ('{{first_name_nonbinary}} {{last_name}}', 0.97),
+        ('{{prefix_nonbinary}} {{first_name_nonbinary}} {{last_name}}', 0.015),
+        ('{{first_name_nonbinary}} {{last_name}} {{suffix_nonbinary}}', 0.02),
+        ('{{prefix_nonbinary}} {{first_name_nonbinary}} {{last_name}} {{suffix_nonbinary}}', 0.005),
+    ))
+
     formats_male = OrderedDict((
         ('{{first_name_male}} {{last_name}}', 0.97),
         ('{{prefix_male}} {{first_name_male}} {{last_name}}', 0.015),
@@ -740,6 +747,9 @@ class Provider(PersonProvider):
 
     first_names = first_names_male.copy()
     first_names.update(first_names_female)
+    
+    first_names_nonbinary = first_names_male.copy()
+    first_names_nonbinary.update(first_names_female)
 
     # Top 1000 US surnames from US Census data
     # Weighted by number of occurrences
@@ -1758,6 +1768,14 @@ class Provider(PersonProvider):
         ('Dr.', 0.3),
     ))
 
+    # https://en.wikipedia.org/wiki/Gender-neutral_title
+    prefixes_nonbinary = OrderedDict((
+        ('Mx.', 0.5),
+        ('Ind.', 0.1),
+        ('Misc.', 0.1),
+        ('Dr.', 0.3),
+    ))
+
     suffixes_female = OrderedDict((
         ('MD', 0.5),
         ('DDS', 0.3),
@@ -1777,3 +1795,5 @@ class Provider(PersonProvider):
         ('PhD', 0.1),
         ('DVM', 0.1),
     ))
+
+    suffixes_nonbinary = suffixes_male.copy()
