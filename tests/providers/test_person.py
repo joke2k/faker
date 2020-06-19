@@ -7,8 +7,8 @@ from unittest import mock
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
-from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
+from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
