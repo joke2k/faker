@@ -692,7 +692,7 @@ class TestEn(unittest.TestCase):
 
     def test_suffix(self):
 
-        # Traditional suffix
+        # Traditional suffix -- provider does not offer a nonbinary suffix at this time
         suffix = self.fake.suffix()
         self.assertIsInstance(suffix, str)
-        assert suffix in EnProvider.suffixes
+        assert suffix in EnProvider.suffixes_male or suffix in EnProvider.suffixes_female
