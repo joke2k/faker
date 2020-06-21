@@ -67,6 +67,14 @@ class Provider(BaseProvider):
         pattern = self.random_element(formats)
         return self.generator.parse(pattern)
 
+    def name_nonbinary(self):
+        if hasattr(self, 'formats_nonbinary'):
+            formats = self.formats_nonbinary
+        else:
+            formats = self.formats
+        pattern = self.random_element(formats)
+        return self.generator.parse(pattern)
+
     def name_female(self):
         if hasattr(self, 'formats_female'):
             formats = self.formats_female
@@ -80,6 +88,11 @@ class Provider(BaseProvider):
             return self.random_element(self.first_names_male)
         return self.first_name()
 
+    def first_name_nonbinary(self):
+        if hasattr(self, 'first_names_nonbinary'):
+            return self.random_element(self.first_names_nonbinary)
+        return self.first_name()
+
     def first_name_female(self):
         if hasattr(self, 'first_names_female'):
             return self.random_element(self.first_names_female)
@@ -90,6 +103,11 @@ class Provider(BaseProvider):
             return self.random_element(self.last_names_male)
         return self.last_name()
 
+    def last_name_nonbinary(self):
+        if hasattr(self, 'last_names_nonbinary'):
+            return self.random_element(self.last_names_nonbinary)
+        return self.last_name()
+
     def last_name_female(self):
         if hasattr(self, 'last_names_female'):
             return self.random_element(self.last_names_female)
@@ -98,6 +116,10 @@ class Provider(BaseProvider):
     def prefix(self):
         if hasattr(self, 'prefixes'):
             return self.random_element(self.prefixes)
+        if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female') and hasattr(self, 'prefixes_nonbinary'):
+            prefixes = self.random_element(
+                (self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary))
+            return self.random_element(prefixes)
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female'):
             prefixes = self.random_element(
                 (self.prefixes_male, self.prefixes_female))
@@ -109,6 +131,11 @@ class Provider(BaseProvider):
             return self.random_element(self.prefixes_male)
         return self.prefix()
 
+    def prefix_nonbinary(self):
+        if hasattr(self, 'prefixes_nonbinary'):
+            return self.random_element(self.prefixes_nonbinary)
+        return self.prefix()
+
     def prefix_female(self):
         if hasattr(self, 'prefixes_female'):
             return self.random_element(self.prefixes_female)
@@ -117,6 +144,10 @@ class Provider(BaseProvider):
     def suffix(self):
         if hasattr(self, 'suffixes'):
             return self.random_element(self.suffixes)
+        if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female') and hasattr(self, 'suffixes_nonbinary'):
+            suffixes = self.random_element(
+                (self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary))
+            return self.random_element(suffixes)
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female'):
             suffixes = self.random_element(
                 (self.suffixes_male, self.suffixes_female))
@@ -126,6 +157,11 @@ class Provider(BaseProvider):
     def suffix_male(self):
         if hasattr(self, 'suffixes_male'):
             return self.random_element(self.suffixes_male)
+        return self.suffix()
+
+    def suffix_nonbinary(self):
+        if hasattr(self, 'suffixes_nonbinary'):
+            return self.random_element(self.suffixes_nonbinary)
         return self.suffix()
 
     def suffix_female(self):
