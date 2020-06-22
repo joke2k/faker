@@ -39,6 +39,12 @@ class TestInternetProvider:
         email = faker.email(domain=domain)
         assert email.split('@')[1] == domain
 
+    def test_safe_domain_names(self, faker, num_samples):
+        expected_domains = ['example.com', 'example.org', 'example.net']
+        for _ in range(num_samples):
+            safe_domain_name = faker.safe_domain_name()
+            assert safe_domain_name in expected_domains
+
     @patch(
         'faker.providers.internet.Provider.image_placeholder_services',
         {'https://dummyimage.com/{width}x{height}'},
