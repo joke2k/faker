@@ -16,7 +16,7 @@ def _session_faker(request):
     if 'faker_session_locale' in request.fixturenames:
         locale = request.getfixturevalue('faker_session_locale')
     else:
-        locale = [DEFAULT_LOCALE]
+        locale = DEFAULT_LOCALE
     return Faker(locale=locale)
 
 
