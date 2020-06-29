@@ -62,7 +62,7 @@ setup(
     packages=find_packages(exclude=excluded_packages),
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.4",
+    python_requires=">=3.5",
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",
