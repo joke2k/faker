@@ -58,7 +58,7 @@ class _IPv4Constants:
 
 
 class Provider(BaseProvider):
-    safe_email_tlds = ('org', 'com', 'net')
+    safe_domain_names = ('example.org', 'example.com', 'example.net')
     free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
     tlds = (
         'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
@@ -128,10 +128,12 @@ class Provider(BaseProvider):
         return email
 
     @lowercase
+    def safe_domain_name(self):
+        return self.random_element(self.safe_domain_names)
+
+    @lowercase
     def safe_email(self):
-        return '{}@example.{}'.format(
-            self.user_name(), self.random_element(self.safe_email_tlds),
-        )
+        return self.user_name() + '@' + self.safe_domain_name()
 
     @lowercase
     def free_email(self):
@@ -154,11 +156,7 @@ class Provider(BaseProvider):
 
     @lowercase
     def ascii_safe_email(self):
-        return self._to_ascii(
-            self.user_name() +
-            '@example.' +
-            self.random_element(self.safe_email_tlds),
-        )
+        return self._to_ascii(self.user_name() + '@' + self.safe_domain_name())
 
     @lowercase
     def ascii_free_email(self):
