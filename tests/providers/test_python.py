@@ -91,6 +91,16 @@ class TestPyfloat(unittest.TestCase):
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
 
+    def test_max_value_and_positive(self):
+        """
+        Combining the max_value and positive keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pyfloat(positive=True, max_value=100)
+        self.assertLessEqual(result, 100)
+        self.assertGreaterEqual(result, 0)
+
 
 class TestPystrFormat(unittest.TestCase):
 
