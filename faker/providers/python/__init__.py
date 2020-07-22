@@ -66,6 +66,9 @@ class Provider(BaseProvider):
             raise ValueError('Min value cannot be greater than max value')
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError('Min and max value cannot be the same')
+        if positive and min_value is not None and min_value < 0:
+            raise ValueError(
+                'Cannot combine positive=True and negative min_value')
 
         left_digits = left_digits if left_digits is not None else (
             self.random_int(1, sys.float_info.dig))
@@ -77,7 +80,9 @@ class Provider(BaseProvider):
                 max_value += 1  # as the random_int will be generated up to max_value - 1
             if min_value is not None and min_value < 0:
                 min_value += 1  # as we then append digits after the left_number
-            left_number = self._safe_random_int(min_value, max_value)
+            left_number = self._safe_random_int(
+                min_value, max_value, positive,
+            )
         else:
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
@@ -88,7 +93,7 @@ class Provider(BaseProvider):
             self.random_number(right_digits),
         ))
 
-    def _safe_random_int(self, min_value, max_value):
+    def _safe_random_int(self, min_value, max_value, positive):
         orig_min_value = min_value
         orig_max_value = max_value
 
@@ -96,8 +101,11 @@ class Provider(BaseProvider):
             min_value = max_value - self.random_int()
         if max_value is None:
             max_value = min_value + self.random_int()
+        if positive:
+            min_value = max(min_value, 0)
+
         if min_value == max_value:
-            return self._safe_random_int(orig_min_value, orig_max_value)
+            return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
             return self.random_int(min_value, max_value - 1)
 
