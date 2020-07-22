@@ -25,7 +25,7 @@ class TestFiFi(unittest.TestCase):
 
     def test_bban(self):
         bban = self.fake.bban()
-        assert re.match(r"\d{16}", bban)
+        assert re.match(r"\d{14}", bban)
 
     def test_iban(self):
         iban = self.fake.iban()
