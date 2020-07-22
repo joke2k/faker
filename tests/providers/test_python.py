@@ -101,6 +101,21 @@ class TestPyfloat(unittest.TestCase):
         self.assertLessEqual(result, 100)
         self.assertGreaterEqual(result, 0)
 
+    def test_positive_and_min_value_incompatible(self):
+        """
+        An exception should be raised if positive=True is set, but
+        a negative min_value is provided.
+        """
+
+        expected_message = (
+            "Cannot combine positive=True and negative min_value"
+        )
+        with self.assertRaises(ValueError) as raises:
+            self.fake.pyfloat(min_value=-100, positive=True)
+
+        message = str(raises.exception)
+        self.assertEqual(message, expected_message)
+
 
 class TestPystrFormat(unittest.TestCase):
 
