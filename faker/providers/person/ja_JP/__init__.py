@@ -89,36 +89,34 @@ class Provider(PersonProvider):
     )
 
     first_kana_names_female = (
-        'アキラ', 'アケミ', 'アスカ',
+        'アケミ', 'アスカ',
         'カオリ', 'カナ', 'クミコ',
-        'サユリ',
-        'チヨ', 'ツバサ', 'トモミ',
-        'ナオコ', 'ナナカ',
+        'サユリ', 'サトミ',
+        'チヨ', 'ナオコ', 'ナナミ',
         'ハナコ', 'ハルカ',
-        'マアヤ', 'マイ', 'ミキ', 'モモコ',
-        'ユイ', 'ヨウコ', 'ユミコ',
-        'レイ', 'リカ',
+        'マアヤ', 'マイ', 'ミカコ', 'ミキ', 'モモコ',
+        'ユイ', 'ユミコ', 'ヨウコ', 'リカ',
     )
 
     first_kana_names_male = (
         'アキラ', 'アツシ', 'オサム',
-        'キョウスケ', 'ケンイチ',
-        'ジュン', 'ソウタロウ',
-        'タイチ', 'タクマ', 'タロウ', 'ツバサ', 'トモヤ',
+        'カズヤ', 'キョウスケ', 'ケンイチ',
+        'シュウヘイ', 'ショウタ', 'ジュン', 'ソウタロウ',
+        'タイチ', 'タロウ', 'タクマ', 'ツバサ', 'トモヤ',
         'ナオキ', 'ナオト',
         'ヒデキ', 'ヒロシ',
-        'マナブ', 'ミツル', 'ミノル', 'ヒロキ',
+        'マナブ', 'ミツル', 'ミノル', 'ユウキ',
         'ユウタ', 'ヤスヒロ', 'ヨウイチ', 'ヨウスケ',
-        'リョウスケ', 'リョウヘイ',
+        'リョウスケ', 'リョウヘイ', 'レイ',
     )
 
     first_kana_names = first_kana_names_male + first_kana_names_female
 
     last_kana_names = (
-        'アオタ', 'アオヤマ', 'イシダ', 'イダカ', 'イトウ', 'ウノ', 'エコダ', 'オオガキ',
-        'カノウ', 'カノウ', 'キジマ', 'キムラ', 'キリヤマ', 'クドウ', 'コイズミ', 'コバヤシ', 'コンドウ',
+        'アオタ', 'アオヤマ', 'イシダ', 'イダカ', 'イトウ', 'イノウエ', 'ウノ', 'エコダ', 'オオガキ',
+        'カトウ', 'カノウ', 'キジマ', 'キムラ', 'キリヤマ', 'クドウ', 'コイズミ', 'コバヤシ', 'コンドウ',
         'サイトウ', 'サカモト', 'ササキ', 'サトウ', 'ササダ', 'スズキ', 'スギヤマ',
-        'タカハシ', 'タナカ', 'タナベ', 'ツダ', 'ツチヤ',
+        'タカハシ', 'タナカ', 'タナベ', 'ツダ',
         'ナカジマ', 'ナカムラ', 'ナギサ', 'ナカツガワ', 'ニシノソノ', 'ノムラ',
         'ハラダ', 'ハマダ', 'ヒロカワ', 'フジモト',
         'マツモト', 'ミヤケ', 'ミヤザワ', 'ムラヤマ',
@@ -132,27 +130,25 @@ class Provider(PersonProvider):
     )
 
     first_romanized_names_female = (
-        'Akira', 'Akemi', 'Asuka',
+        'Akemi', 'Asuka',
         'Kaori', 'Kana', 'Kumiko',
-        'Sayuri',
-        'Chiyo', 'Tsubasa', 'Tomomi',
-        'Naoko', 'Nanaka',
+        'Sayuri', 'Satomi',
+        'Chiyo', 'Naoko', 'Nanami',
         'Hanako', 'Haruka',
-        'Maaya', 'Mai', 'Miki', 'Momoko',
-        'Yui', 'Yoko', 'Yumiko',
-        'Rei', 'Rika',
+        'Maaya', 'Mai', 'Mikako', 'Miki', 'Momoko',
+        'Yui', 'Yumiko', 'Yoko', 'Rika',
     )
 
     first_romanized_names_male = (
         'Akira', 'Atsushi', 'Osamu',
-        'Kyosuke', 'Kenichi',
-        'Jun', 'Sotaro',
-        'Taichi', 'Takuma', 'Taro', 'Tsubasa', 'Tomoya',
-        'Naoki', 'Naoto'
+        'Kazuya', 'Kyosuke', 'Kenichi',
+        'Shohei', 'Shota', 'Jun', 'Sotaro',
+        'Taichi', 'Taro', 'Takuma', 'Tsubasa', 'Tomoya',
+        'Naoki', 'Naoto',
         'Hideki', 'Hiroshi',
-        'Manabu', 'Mituru', 'Minoru', 'Hiroki',
+        'Manabu', 'Mituru', 'Minoru', 'Yuki',
         'Yuta', 'Yasuhiro', 'Yoichi', 'Yosuke',
-        'Ryosuke', 'Ryohei',
+        'Ryosuke', 'Ryohei', 'Rei',
     )
 
     first_romanized_names = first_romanized_names_male + first_romanized_names_female
@@ -163,6 +159,7 @@ class Provider(PersonProvider):
         'Ishida',
         'Idaka',
         'Ito',
+        'Inoue',
         'Uno',
         'Ekoda',
         'Ogaki',
@@ -186,7 +183,6 @@ class Provider(PersonProvider):
         'Tanaka',
         'Tanabe',
         'Tsuda',
-        'Tsuchiya',
         'Nakajima',
         'Nakamura',
         'Nagisa',
