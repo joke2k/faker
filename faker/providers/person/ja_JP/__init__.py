@@ -12,7 +12,7 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
-    # link: http://dic.nicovideo.jp/a/%E6%97%A5%E6%9C%AC%E4%BA%BA%E3%81%AE%E5%90%8D%E5%89%8D%E4%B8%80%E8%A6%A7
+    # link: http://dic.nicovideo.jp/a/日本人の名前一覧
     # link: http://www.meijiyasuda.co.jp/enjoy/ranking/
     first_names_female = (
         '明美', 'あすか', '香織', '加奈', 'くみ子', 'さゆり', '知実', '千代',
@@ -20,7 +20,7 @@ class Provider(PersonProvider):
         '桃子', '結衣', '裕美子', '陽子', '里佳',
     )
 
-    # link: http://dic.nicovideo.jp/a/%E6%97%A5%E6%9C%AC%E4%BA%BA%E3%81%AE%E5%90%8D%E5%89%8D%E4%B8%80%E8%A6%A7
+    # link: http://dic.nicovideo.jp/a/日本人の名前一覧
     # link: http://www.meijiyasuda.co.jp/enjoy/ranking/
     first_names_male = (
         '晃', '篤司', '治', '和也', '京助', '健一', '修平', '翔太',
@@ -31,7 +31,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    # link: http://dic.nicovideo.jp/a/%E6%97%A5%E6%9C%AC%E3%81%AE%E8%8B%97%E5%AD%97%28%E5%90%8D%E5%AD%97%29%E3%81%AE%E4%B8%80%E8%A6%A7
+    # link: https://dic.nicovideo.jp/a/日本の苗字(名字)の一覧
     last_names = (
         '青田', '青山', '石田', '井高', '伊藤', '井上', '宇野', '江古田',
         '大垣', '加藤', '加納', '喜嶋', '木村', '桐山', '工藤', '小泉',
@@ -110,7 +110,8 @@ class Provider(PersonProvider):
         'Ryohei', 'Rei',
     )
 
-    first_romanized_names = first_romanized_names_male + first_romanized_names_female
+    first_romanized_names = first_romanized_names_male \
+        + first_romanized_names_female
 
     last_romanized_names = (
         'Aota', 'Aoyama', 'Ishida', 'Idaka',
