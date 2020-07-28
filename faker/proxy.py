@@ -1,3 +1,4 @@
+import functools
 import random
 import re
 
@@ -7,7 +8,9 @@ from faker.config import DEFAULT_LOCALE
 from faker.factory import Factory
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
+from faker.exceptions import UniquenessSanityException
 
+_UNIQUE_ATTEMPTS = 1000
 
 class Faker:
     """Proxy class capable of supporting multiple locales"""
@@ -23,6 +26,7 @@ class Faker:
                  generator=None, includes=None, **config):
         self._factory_map = OrderedDict()
         self._weights = None
+        self._unique_proxy = UniqueProxy(self)
 
         if isinstance(locale, str):
             locales = [locale.replace('-', '_')]
@@ -103,6 +107,10 @@ class Faker:
         else:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
+
+    @property
+    def unique(self):
+        return self._unique_proxy
 
     def _select_factory(self, method_name):
         """
@@ -235,3 +243,44 @@ class Faker:
 
     def items(self):
         return self._factory_map.items()
+
+
+class UniqueProxy:
+    def __init__(self, proxy):
+        self._proxy = proxy
+        self._seen = {}
+        self._sentinel = object()
+
+    def clear(self):
+        self._seen = {}
+
+    def __getattr__(self, name: str):
+        obj = getattr(self._proxy, name)
+        if callable(obj):
+            return self._wrap(name, obj)
+        else:
+            return obj
+
+    def _wrap(self, name, function):
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
+            key = (name, *args, tuple(sorted(kwargs.items())))
+
+            generated = self._seen.setdefault(key, set([self._sentinel]))
+
+            # With use of a sentinel value rather than None, we leave
+            # None open as a valid return value.
+            retval = self._sentinel
+
+            for i in range(_UNIQUE_ATTEMPTS):
+                if retval not in generated:
+                    break
+                retval = function(*args, **kwargs)
+            else:
+                raise UniquenessSanityException
+
+            generated.add(retval)
+
+            return retval
+
+        return wrapper

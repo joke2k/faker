@@ -358,6 +358,34 @@ By default all generators share the same instance of ``random.Random``, which
 can be accessed with ``from faker.generator import random``. Using this may
 be useful for plugins that want to affect all faker instances.
 
+Unique values`
+-------------
+
+Through use of the ``.unique`` property on the generator, you can guarantee
+that any generated values are unique for this specific instance.
+
+.. code:: python
+
+   from faker import Faker
+   fake = Faker()
+   names = [fake.unique.first_name() for i in range(500)]
+   assert len(set(names)) == len(names)
+
+Calling ``fake.unique.clear()`` clears the already seen values.
+Note, to avoid infinite loops, after a number of attempts to find a unique
+value, Faker will throw a ``UniquenessSanityException``. Beware of the birthday
+paradox, collisions are more likely than you'd think.
+
+
+.. code:: python
+   from faker import Faker
+   fake = Faker()
+   for i in range(3):
+        # Raises a UniquenessSanityException
+        fake.unique.boolean()
+
+In addition, only hashable return values can be used with ``.unique``.
+
 Seeding the Generator
 ---------------------
 
