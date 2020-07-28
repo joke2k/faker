@@ -1,8 +1,8 @@
 from faker import Faker
-from unittest.mock import patch
 import pytest
 
 from faker.exceptions import UniquenessSanityException
+
 
 class TestUniquenessClass:
     def test_uniqueness(self):

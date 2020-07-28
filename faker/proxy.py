@@ -12,6 +12,7 @@ from faker.exceptions import UniquenessSanityException
 
 _UNIQUE_ATTEMPTS = 1000
 
+
 class Faker:
     """Proxy class capable of supporting multiple locales"""
 
@@ -266,7 +267,7 @@ class UniqueProxy:
         def wrapper(*args, **kwargs):
             key = (name, *args, tuple(sorted(kwargs.items())))
 
-            generated = self._seen.setdefault(key, set([self._sentinel]))
+            generated = self._seen.setdefault(key, {self._sentinel})
 
             # With use of a sentinel value rather than None, we leave
             # None open as a valid return value.
