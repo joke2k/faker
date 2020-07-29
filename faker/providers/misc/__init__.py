@@ -391,7 +391,7 @@ class Provider(BaseProvider):
         """
         Generate random JSON structured key/values
 
-        Using a list of records that is passed as data_columns, you define the structure that
+        Using a list of records that is passed as ``data_columns``, you define the structure that
         will be generated. Parameters are provider specific, and should be a dictionary that will
         be passed to the provider method.
 
@@ -407,8 +407,9 @@ class Provider(BaseProvider):
         :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ('home', 'address'))]
 
         The provider_name can also be a list of records, to create a list within the JSON data.
+        For value only entries within the list, set the 'field_name' to None.
 
-        :sample: data_columns=[('id', 'pyint'), ('details', [('name', 'name')])]
+        :sample: data_columns=[('id', 'pyint'), ('details', [(None, 'name'), (None, 'name'])]
 
         :param spec: specification for the data structure
         :type data_columns: list(tuple(str, str, dict)
@@ -418,19 +419,24 @@ class Provider(BaseProvider):
         :type indent: int
         :return: str
         """
+
         def create_json_entry(data_columns: list) -> OrderedDict:
             entry = OrderedDict()
             for field_name, provider_name, *parameters in data_columns:
-                params = parameters[0] if parameters else {}
-                if not isinstance(params, dict):
+                kwargs = parameters[0] if parameters else {}
+                if not isinstance(kwargs, dict):
                     raise TypeError("Parameters must be a dictionary")
+
+                if field_name is None:
+                    return self.generator.format(provider_name, **kwargs)
 
                 if isinstance(provider_name, tuple):
                     entry[field_name] = create_json_entry(provider_name)
                 elif isinstance(provider_name, list):
-                    entry[field_name] = [create_json_entry(provider_name)]
+                    entry[field_name] = [create_json_entry([item])
+                                         for item in provider_name]
                 else:
-                    entry[field_name] = self.generator.format(provider_name, **params)
+                    entry[field_name] = self.generator.format(provider_name, **kwargs)
             return entry
 
         if num_rows == 1:
@@ -473,11 +479,11 @@ class Provider(BaseProvider):
         for _ in range(num_rows):
             row = []
             for field_width, provider_name, *parameters in data_columns:
-                params = parameters[0] if parameters else {}
-                if not isinstance(params, dict):
+                kwargs = parameters[0] if parameters else {}
+                if not isinstance(kwargs, dict):
                     raise TypeError("Parameters must be a dictionary")
 
-                result = self.generator.format(provider_name, **params)
+                result = self.generator.format(provider_name, **kwargs)
                 field = "{0:%s%s}" % (align_map.get(align, '<'), field_width)
                 row.append(field.format(result)[:field_width])
             data.append(''.join(row))

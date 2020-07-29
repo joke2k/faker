@@ -454,16 +454,27 @@ class TestMisc(unittest.TestCase):
     def test_json_depth_structure(self):
         kwargs = {
             'data_columns': [
-                ('list', [('number', 'pyint'), ]),
-                ('dict', (('number', 'pyint'), )),
+                ('list1', [(None, 'pyint'), (None, 'pyint')]),
+                ('list2', [('number', 'pyint'), ('number', 'pyint')]),
+                ('dict', (('number', 'pyint'), ('number', 'pyint'))),
             ],
             'num_rows': 1,
         }
+
         json_string = self.fake.json(**kwargs)
         json_data = json.loads(json_string)
 
-        assert isinstance(json_data['list'], list)
+        assert isinstance(json_data['list1'], list)
+        assert isinstance(json_data['list2'], list)
         assert isinstance(json_data['dict'], dict)
+
+        # Check the Lists have values, and key/values
+        for item in json_data['list1']:
+            assert isinstance(item, int)
+
+        for item in json_data['list2']:
+            assert isinstance(item, dict)
+
 
     def test_json_invalid_parameter_type(self):
         kwargs = {
