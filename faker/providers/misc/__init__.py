@@ -398,10 +398,12 @@ class Provider(BaseProvider):
         Data Columns format
             [('field_name', 'provider_name', {'parameters'})]
 
+        :sample: data_columns=[('id', 'pyint', {'max_value': 20})]
+
         When creating a deep structures remember that for tuples with only a single entry, you
         must use a colon to stop unpacking.  e.g (str,)
 
-        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'),))]
+        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ))]
         :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ('home', 'address'))]
 
         The provider_name can also be a list of records, to create a list within the JSON data.

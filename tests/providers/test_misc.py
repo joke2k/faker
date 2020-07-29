@@ -454,8 +454,8 @@ class TestMisc(unittest.TestCase):
     def test_json_depth_structure(self):
         kwargs = {
             'data_columns': [
-                ('list', [('number', 'pyint'),]),
-                ('dict', (('number', 'pyint'),)),
+                ('list', [('number', 'pyint'), ]),
+                ('dict', (('number', 'pyint'), )),
             ],
             'num_rows': 1,
         }
