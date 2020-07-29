@@ -471,10 +471,8 @@ class TestMisc(unittest.TestCase):
         # Check the Lists have values, and key/values
         for item in json_data['list1']:
             assert isinstance(item, int)
-
         for item in json_data['list2']:
             assert isinstance(item, dict)
-
 
     def test_json_invalid_parameter_type(self):
         kwargs = {
