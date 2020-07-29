@@ -398,26 +398,22 @@ class Provider(BaseProvider):
         Data Columns format
             [('field_name', 'provider_name', {'parameters'})]
 
-        :sample: data_columns=[('id', 'pyint', {'max_value': 20})]
-
-        When creating a deep structures remember that for tuples with only a single entry, you
-        must use a colon to stop unpacking.  e.g (str,)
-
-        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ))]
-        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ('home', 'address'))]
-
         The provider_name can also be a list of records, to create a list within the JSON data.
         For value only entries within the list, set the 'field_name' to None.
 
-        :sample: data_columns=[('id', 'pyint'), ('details', [(None, 'name'), (None, 'name'])]
-
         :param spec: specification for the data structure
-        :type data_columns: list(tuple(str, str, dict)
+        :type data_columns: list
         :param num_rows: number of rows the returned
         :type num_rows: int
         :param indent: number of spaces to indent the fields
         :type indent: int
-        :return: str
+        :return: Serialized JSON data
+        :rtype: str
+
+        :sample: data_columns=[('id', 'pyint', {'max_value': 20})], num_rows=3
+        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'),))], num_rows=1
+        :sample: data_columns=[('id', 'pyint'), ('details', [(None, 'name'), (None, 'name')])], num_rows=1
+        :sample: data_columns=[('id', 'pyint'), ('details', [('name', 'name'), ('name', 'name')])], num_rows=1
         """
 
         def create_json_entry(data_columns: list) -> OrderedDict:
@@ -460,14 +456,15 @@ class Provider(BaseProvider):
             [('field_width', 'provider_name', {'parameters'})]
 
         :param data_columns: specification for the data structure
-        :type data_columns: list(tuple(str, str, dict)
+        :type data_columns: list
         :param num_rows: number of rows the generator will yield
         :type num_rows: int
-        :param align: positioning of the value.  (left, middle, right)
+        :param align: positioning of the value. (left, middle, right)
         :type align: str
-        :return: str
+        :return: Serialized Fixed Width data
+        :rtype: str
 
-        :sample: align='right', data_columns=[(20, 'name'), (3, 'pyint', {'max_value': 20})]
+        :sample: align='right', data_columns=[(20, 'name'), (3, 'pyint', {'max_value': 20})], num_rows=3
         """
         align_map = {
             'left': '<',
