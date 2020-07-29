@@ -451,6 +451,20 @@ class TestMisc(unittest.TestCase):
             assert 'word' in entry
             assert 'number' in entry
 
+    def test_json_depth_structure(self):
+        kwargs = {
+            'data_columns': [
+                ('list', [('number', 'pyint'),]),
+                ('dict', (('number', 'pyint'),)),
+            ],
+            'num_rows': 1,
+        }
+        json_string = self.fake.json(**kwargs)
+        json_data = json.loads(json_string)
+
+        assert isinstance(json_data['list'], list)
+        assert isinstance(json_data['dict'], dict)
+
     def test_json_invalid_parameter_type(self):
         kwargs = {
             'data_columns': [('word', 'name', ['wrong'])],

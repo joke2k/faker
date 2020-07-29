@@ -398,6 +398,12 @@ class Provider(BaseProvider):
         Data Columns format
             [('field_name', 'provider_name', {'parameters'})]
 
+        When creating a deep structures remember that for tuples with only a single entry, you
+        must use a colon to stop unpacking.  e.g (str,)
+
+        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'),))]
+        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'), ('home', 'address'))]
+
         The provider_name can also be a list of records, to create a list within the JSON data.
 
         :sample: data_columns=[('id', 'pyint'), ('details', [('name', 'name')])]
@@ -417,8 +423,10 @@ class Provider(BaseProvider):
                 if not isinstance(params, dict):
                     raise TypeError("Parameters must be a dictionary")
 
-                if isinstance(provider_name, list):
+                if isinstance(provider_name, tuple):
                     entry[field_name] = create_json_entry(provider_name)
+                elif isinstance(provider_name, list):
+                    entry[field_name] = [create_json_entry(provider_name)]
                 else:
                     entry[field_name] = self.generator.format(provider_name, **params)
             return entry
