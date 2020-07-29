@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import csv
 import hashlib
 import io
@@ -7,6 +6,8 @@ import string
 import tarfile
 import uuid
 import zipfile
+
+from collections import OrderedDict
 
 from .. import BaseProvider
 
@@ -397,7 +398,7 @@ class Provider(BaseProvider):
         Data Columns format
             [('field_name', 'provider_name', {'parameters'})]
 
-        The provider_name can also be a nested list of records, for nested JSON.
+        The provider_name can also be a list of records, to create a list within the JSON data.
 
         :sample: data_columns=[('id', 'pyint'), ('details', [('name', 'name')])]
 
