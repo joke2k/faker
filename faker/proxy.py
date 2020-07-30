@@ -8,7 +8,7 @@ from faker.config import DEFAULT_LOCALE
 from faker.factory import Factory
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
-from faker.exceptions import UniquenessSanityException
+from faker.exceptions import UniquenessException
 
 _UNIQUE_ATTEMPTS = 1000
 
@@ -260,7 +260,7 @@ class UniqueProxy:
         if callable(obj):
             return self._wrap(name, obj)
         else:
-            return obj
+            raise TypeError("Accessing non-functions through .unique is not supported.")
 
     def _wrap(self, name, function):
         @functools.wraps(function)
@@ -278,7 +278,7 @@ class UniqueProxy:
                     break
                 retval = function(*args, **kwargs)
             else:
-                raise UniquenessSanityException
+                raise UniquenessException("Got duplicated values after {0:,} iterations.".format(_UNIQUE_ATTEMPTS))
 
             generated.add(retval)
 

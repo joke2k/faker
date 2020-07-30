@@ -1,7 +1,7 @@
 from faker import Faker
 import pytest
 
-from faker.exceptions import UniquenessSanityException
+from faker.exceptions import UniquenessException
 
 
 class TestUniquenessClass:
@@ -23,7 +23,7 @@ class TestUniquenessClass:
         # Those of you who are especially astute may realise
         # there are only 2 booleans, so the third boolean cannot
         # be unique.
-        with pytest.raises(UniquenessSanityException):
+        with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
             for i in range(3):
                 _ = fake.unique.boolean()
 
@@ -51,3 +51,12 @@ class TestUniquenessClass:
         # Different signature, so new pool. If they shared a pool
         # this would throw a sanity exception
         fake.unique.random_int(min=2, max=10)
+
+    def test_functions_only(self):
+        """Accessing non-functions through the `.unique` attribute
+        will throw a TypeError."""
+
+        fake = Faker()
+
+        with pytest.raises(TypeError, match="Accessing non-functions through .unique is not supported."):
+            fake.unique.locales
