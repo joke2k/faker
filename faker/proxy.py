@@ -265,7 +265,7 @@ class UniqueProxy:
     def _wrap(self, name, function):
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
-            key = (name, *args, tuple(sorted(kwargs.items())))
+            key = (name, args, tuple(sorted(kwargs.items())))
 
             generated = self._seen.setdefault(key, {self._sentinel})
 
