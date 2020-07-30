@@ -1,10 +1,13 @@
 import csv
 import hashlib
 import io
+import json
 import string
 import tarfile
 import uuid
 import zipfile
+
+from collections import OrderedDict
 
 from .. import BaseProvider
 
@@ -380,3 +383,106 @@ class Provider(BaseProvider):
             header=header, data_columns=data_columns, num_rows=num_rows,
             include_row_ids=include_row_ids, delimiter='|',
         )
+
+    def json(self,
+             data_columns: list = [('name', 'name'), ('residency', 'address')],
+             num_rows: int = 10,
+             indent: int = None) -> str:
+        """
+        Generate random JSON structured key/values
+
+        Using a list of records that is passed as ``data_columns``, you define the structure that
+        will be generated. Parameters are provider specific, and should be a dictionary that will
+        be passed to the provider method.
+
+        Data Columns format
+            [('field_name', 'provider_name', {'parameters'})]
+
+        The provider_name can also be a list of records, to create a list within the JSON data.
+        For value only entries within the list, set the 'field_name' to None.
+
+        :param spec: specification for the data structure
+        :type data_columns: list
+        :param num_rows: number of rows the returned
+        :type num_rows: int
+        :param indent: number of spaces to indent the fields
+        :type indent: int
+        :return: Serialized JSON data
+        :rtype: str
+
+        :sample: data_columns=[('id', 'pyint', {'max_value': 20})], num_rows=3
+        :sample: data_columns=[('id', 'pyint'), ('details', (('name', 'name'),))], num_rows=1
+        :sample: data_columns=[('id', 'pyint'), ('details', [(None, 'name'), (None, 'name')])], num_rows=1
+        :sample: data_columns=[('id', 'pyint'), ('details', [('name', 'name'), ('name', 'name')])], num_rows=1
+        """
+
+        def create_json_entry(data_columns: list) -> OrderedDict:
+            entry = OrderedDict()
+            for field_name, provider_name, *parameters in data_columns:
+                kwargs = parameters[0] if parameters else {}
+                if not isinstance(kwargs, dict):
+                    raise TypeError("Parameters must be a dictionary")
+
+                if field_name is None:
+                    return self.generator.format(provider_name, **kwargs)
+
+                if isinstance(provider_name, tuple):
+                    entry[field_name] = create_json_entry(provider_name)
+                elif isinstance(provider_name, list):
+                    entry[field_name] = [create_json_entry([item])
+                                         for item in provider_name]
+                else:
+                    entry[field_name] = self.generator.format(provider_name, **kwargs)
+            return entry
+
+        if num_rows == 1:
+            return json.dumps(create_json_entry(data_columns), indent=indent)
+
+        data = [create_json_entry(data_columns) for _ in range(num_rows)]
+        return json.dumps(data, indent=indent)
+
+    def fixed_width(self,
+                    data_columns: list = [(20, 'name'), (3, 'pyint', {'max_value': 20})],
+                    num_rows: int = 10,
+                    align: str = 'left') -> str:
+        """
+        Generate random fixed width values.
+
+        Using a list of records that is passed as ``data_columns``, you define the structure that
+        will be generated. ``parameters`` are provider specific, and should be a dictionary that will
+        be passed to the provider method.
+
+        Data Columns format
+            [('field_width', 'provider_name', {'parameters'})]
+
+        :param data_columns: specification for the data structure
+        :type data_columns: list
+        :param num_rows: number of rows the generator will yield
+        :type num_rows: int
+        :param align: positioning of the value. (left, middle, right)
+        :type align: str
+        :return: Serialized Fixed Width data
+        :rtype: str
+
+        :sample: align='right', data_columns=[(20, 'name'), (3, 'pyint', {'max_value': 20})], num_rows=3
+        """
+        align_map = {
+            'left': '<',
+            'middle': '^',
+            'right': '>',
+        }
+
+        data = []
+        for _ in range(num_rows):
+            row = []
+            for field_width, provider_name, *parameters in data_columns:
+                kwargs = parameters[0] if parameters else {}
+                if not isinstance(kwargs, dict):
+                    raise TypeError("Parameters must be a dictionary")
+
+                result = self.generator.format(provider_name, **kwargs)
+                field = "{0:%s%s}" % (align_map.get(align, '<'), field_width)
+                row.append(field.format(result)[:field_width])
+            data.append(''.join(row))
+
+        return '\n'.join(data)

@@ -1,6 +1,7 @@
 import csv
 import io
 import itertools
+import json
 import tarfile
 import unittest
 import uuid
@@ -424,3 +425,77 @@ class TestMisc(unittest.TestCase):
             self.fake.psv(**kwargs)
             kwargs['delimiter'] = '|'
             mock_dsv.assert_called_once_with(**kwargs)
+
+    def test_json_single_entry(self):
+        kwargs = {
+            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
+            'num_rows': 1,
+        }
+        json_string = self.fake.json(**kwargs)
+        json_data = json.loads(json_string)
+
+        assert isinstance(json_data, dict)
+        assert 'word' in json_data
+        assert 'number' in json_data
+
+    def test_json_multiple_entries(self):
+        kwargs = {
+            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
+            'num_rows': 2,
+        }
+        json_string = self.fake.json(**kwargs)
+        json_data = json.loads(json_string)
+
+        assert isinstance(json_data, list)
+        for entry in json_data:
+            assert 'word' in entry
+            assert 'number' in entry
+
+    def test_json_depth_structure(self):
+        kwargs = {
+            'data_columns': [
+                ('list1', [(None, 'pyint'), (None, 'pyint')]),
+                ('list2', [('number', 'pyint'), ('number', 'pyint')]),
+                ('dict', (('number', 'pyint'), ('number', 'pyint'))),
+            ],
+            'num_rows': 1,
+        }
+
+        json_string = self.fake.json(**kwargs)
+        json_data = json.loads(json_string)
+
+        assert isinstance(json_data['list1'], list)
+        assert isinstance(json_data['list2'], list)
+        assert isinstance(json_data['dict'], dict)
+
+        # Check the Lists have values, and key/values
+        for item in json_data['list1']:
+            assert isinstance(item, int)
+        for item in json_data['list2']:
+            assert isinstance(item, dict)
+
+    def test_json_invalid_parameter_type(self):
+        kwargs = {
+            'data_columns': [('word', 'name', ['wrong'])],
+            'num_rows': 1,
+        }
+        with self.assertRaises(TypeError):
+            self.fake.json(**kwargs)
+
+    def test_fixed_width_row_lengths(self):
+        kwargs = {
+            'data_columns': [(20, 'name'), (3, 'pyint', {'max_value': 20})],
+            'num_rows': 2,
+        }
+        fixed_width_string = self.fake.fixed_width(**kwargs)
+
+        for row in fixed_width_string.split('\n'):
+            assert len(row) == 23
+
+    def test_fixed_width_invalid_parameter_type(self):
+        kwargs = {
+            'data_columns': [(20, 'name'), (3, 'pyint', ['error'])],
+            'num_rows': 1,
+        }
+        with self.assertRaises(TypeError):
+            self.fake.fixed_width(**kwargs)
