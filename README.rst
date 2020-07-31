@@ -19,8 +19,18 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-For more details, see the `extended docs`_, especially if you are upgrading
-from version ``2.0.4`` and below as there might be breaking changes.
+Compatibility
+-------------
+
+Starting from version ``4.0.0``, ``Faker`` dropped support for Python 2 and only supports Python
+3.5 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
+meantime, and please consider updating your codebase to support Python 3 so you can enjoy the
+latest features ``Faker`` has to offer. Please see the `extended docs`_ for more details, especially
+if you are upgrading from version ``2.0.4`` and below as there might be breaking changes.
+
+This package was also previously called ``fake-factory`` which was already deprecated by the end
+of 2016, and much has changed since then, so please ensure that your project and its dependencies
+do not depend on the old package.
 
 Basic Usage
 -----------
@@ -30,8 +40,6 @@ Install with pip:
 .. code:: bash
 
     pip install Faker
-
-*Note: this package was previously called* ``fake-factory``.
 
 Use ``faker.Faker()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
