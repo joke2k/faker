@@ -1,6 +1,5 @@
 from .. import Provider as SsnProvider
 
-
 """
 For more info on rijksregisternummer, see https://nl.wikipedia.org/wiki/Rijksregisternummer
 Dutch/French only for now ...
