@@ -2,7 +2,6 @@ import logging
 
 from faker.providers.bank import Provider as BankProvider
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -26,7 +25,7 @@ class Provider(BankProvider):
         'CBU', 'EQI', 'TSU', 'XXX',
     )
 
-    def bban(self, ):
+    def bban(self):
         """Generate a BBAN
 
         .. warning::
