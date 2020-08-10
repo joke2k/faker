@@ -131,6 +131,22 @@ class TestEsES(unittest.TestCase):
         assert re.match(r"ES\d{22}", iban)
 
 
+class TestFrFR(unittest.TestCase):
+    """Tests the bank provider for fr_FR locale"""
+
+    def setUp(self):
+        self.fake = Faker('fr_FR')
+        Faker.seed(0)
+
+    def test_bban(self):
+        bban = self.fake.bban()
+        assert re.match(r"\d{23}", bban)
+
+    def test_iban(self):
+        iban = self.fake.iban()
+        assert re.match(r"FR\d{25}", iban)
+
+
 class TestEnPh:
 
     def test_swift(self, faker, num_samples):
