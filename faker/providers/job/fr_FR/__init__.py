@@ -1,7 +1,7 @@
 from .. import Provider as BaseProvider
 
 # Source: ONISEP
-# data.gouv.fr/s/resources/liste-des-metiers-onisep/20150112-173428/metier.csv
+# https://www.data.gouv.fr/fr/datasets/r/462f1a98-6f37-4414-9e08-016b78cc4d08
 
 
 class Provider(BaseProvider):
