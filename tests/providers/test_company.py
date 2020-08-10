@@ -23,9 +23,10 @@ class TestFiFI(unittest.TestCase):
         self.fake.random.seed(6)
         company_id = self.fake.company_business_id()
         assert company_id.endswith('0')
-        for seed in range(0, 11):
-            self.fake.random.seed(seed)
-            self.fake.company_business_id()
+
+        for seed in range(0, 1000):
+            Faker.seed(seed)
+            assert (len(self.fake.company_business_id()) == 9)
 
 
 class TestHyAm(unittest.TestCase):
