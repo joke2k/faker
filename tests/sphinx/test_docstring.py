@@ -1,16 +1,14 @@
 # coding=utf-8
 import inspect
-import unittest
 
 from unittest import mock
 from unittest.mock import MagicMock
 
-from faker import Faker
 from faker.config import DEFAULT_LOCALE
 from faker.sphinx.docstring import DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, ProviderMethodDocstring, Sample
 
 
-class TestProviderMethodDocstring(unittest.TestCase):
+class TestProviderMethodDocstring:
 
     def test_what_is_not_method(self):
         docstring = ProviderMethodDocstring(
@@ -82,36 +80,52 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert not kwargs
         assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 2'.format(path=path, name=name)
 
-    def test_stringify_results(self):
+    def test_stringify_results(self, faker):
+
+        class TestObject:
+
+            def __repr__(self):
+                return 'abcdefg'
+
         docstring = ProviderMethodDocstring(
             app=MagicMock(), what='method',
             name='faker.providers.BaseProvider.bothify',
             obj=MagicMock, options=MagicMock(), lines=[],
         )
         results = [
-            '',                     # Empty string
-            '\'',                   # Single quote literal (escaped)
-            "'",                    # Single quote literal (unescaped)
-            '"',                    # Double quote literal (unescaped)
-            "\"",                   # Double quote literal (escaped)
-            'aa\taaaaa\r\n',        # String containing \t, \r, \n
-            b'abcdef',              # Bytes object
-            True,                   # Booleans
+            '',                             # Empty string
+            '\'',                           # Single quote literal (escaped)
+            "'",                            # Single quote literal (unescaped)
+            '"',                            # Double quote literal (unescaped)
+            "\"",                           # Double quote literal (escaped)
+            'aa\taaaaa\r\n',                # String containing \t, \r, \n
+            b'abcdef',                      # Bytes object
+            True,                           # Booleans
             False,
-            None,                   # None types
+            None,                           # None types
+            [1, 2, 3, 4, 5],                # Other non-primitives
+            (1, 2, 3, 4, 5),
+            {1: 2, 2: 3, 3: 4, 4: 5},
+            faker.uuid4(cast_to=None),
+            TestObject(),
         ]
         output = [docstring._stringify_result(result) for result in results]
         assert output == [
-            "''",                       # Ends up as '' when printed
-            '"\'"',                     # Ends up as "'" when printed
-            '"\'"',                     # Ends up as "'" when printed
-            '\'"\'',                    # Ends up as '"' when printed
-            '\'"\'',                    # Ends up as '"' when printed
-            "'aa\\taaaaa\\r\\n'",       # Ends up as 'aa\\taaaaa\\r\\n' when printed
-            "b'abcdef'",                # Ends up as b'abcdef' when printed
-            'True',                     # Ends up as True when printed
-            'False',
-            'None',                     # Ends up as None when printed
+            "''",                                               # Ends up as '' when printed
+            '"\'"',                                             # Ends up as "'" when printed
+            '"\'"',                                             # Ends up as "'" when printed
+            '\'"\'',                                            # Ends up as '"' when printed
+            '\'"\'',                                            # Ends up as '"' when printed
+            "'aa\\taaaaa\\r\\n'",                               # Ends up as 'aa\\taaaaa\\r\\n' when printed
+            "b'abcdef'",                                        # Ends up as b'abcdef' when printed
+            'True',                                             # Ends up as True when printed
+            'False',                                            # Ends up as False when printed
+            'None',                                             # Ends up as None when printed
+            '[1, 2, 3, 4, 5]',                                  # Ends up using object's __repr__
+            '(1, 2, 3, 4, 5)',
+            '{1: 2, 2: 3, 3: 4, 4: 5}',
+            "UUID('e3e70682-c209-4cac-a29f-6fbed82c07cd')",
+            'abcdefg',
         ]
 
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
@@ -211,8 +225,7 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert docstring._samples == expected_output
 
     @mock.patch.object(ProviderMethodDocstring, '_log_warning')
-    def test_end_to_end_sample_generation(self, mock_warning):
-        fake = Faker(DEFAULT_LOCALE)
+    def test_end_to_end_sample_generation(self, mock_warning, faker):
         non_sample_lines = ['lorem', 'ipsum', 'dolor', 'sit', 'amet']
         valid_sample_lines = [
             ":sample 1234jdbvhjdbygdvbhxjhx",           # Will fail during sample section processing, 1st log warning
@@ -235,34 +248,34 @@ class TestProviderMethodDocstring(unittest.TestCase):
         assert output[0] == ':examples:'
 
         # 1st sample generation
-        Faker.seed(1000)
+        faker.seed_instance(1000)
         assert output[1] == ''
         assert output[2] == '>>> Faker.seed(1000)'
         assert output[3] == '>>> for _ in range(5):'
         assert output[4] == "...     fake.bothify(text='???###')"
         assert output[5] == '...'
         for i in range(6, 11):
-            assert output[i] == docstring._stringify_result(fake.bothify(text='???###'))
+            assert output[i] == docstring._stringify_result(faker.bothify(text='???###'))
 
         # 2nd sample generation
-        Faker.seed(3210)
+        faker.seed_instance(3210)
         assert output[11] == ''
         assert output[12] == '>>> Faker.seed(3210)'
         assert output[13] == '>>> for _ in range(5):'
         assert output[14] == "...     fake.bothify(letters='abcde')"
         assert output[15] == '...'
         for i in range(16, 21):
-            assert output[i] == docstring._stringify_result(fake.bothify(letters='abcde'))
+            assert output[i] == docstring._stringify_result(faker.bothify(letters='abcde'))
 
         # 3rd sample generation
-        Faker.seed(1234)
+        faker.seed_instance(1234)
         assert output[21] == ''
         assert output[22] == '>>> Faker.seed(1234)'
         assert output[23] == '>>> for _ in range(20):'
         assert output[24] == "...     fake.bothify(text='???###', letters='abcde')"
         assert output[25] == '...'
         for i in range(26, 46):
-            assert output[i] == docstring._stringify_result(fake.bothify(text='???###', letters='abcde'))
+            assert output[i] == docstring._stringify_result(faker.bothify(text='???###', letters='abcde'))
 
         calls = mock_warning.call_args_list
         assert len(calls) == 4

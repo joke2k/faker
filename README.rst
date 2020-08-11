@@ -19,8 +19,18 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 
 ----
 
-For more details, see the `extended docs`_, especially if you are upgrading
-from version ``2.0.4`` and below as there might be breaking changes.
+Compatibility
+-------------
+
+Starting from version ``4.0.0``, ``Faker`` dropped support for Python 2 and only supports Python
+3.5 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
+meantime, and please consider updating your codebase to support Python 3 so you can enjoy the
+latest features ``Faker`` has to offer. Please see the `extended docs`_ for more details, especially
+if you are upgrading from version ``2.0.4`` and below as there might be breaking changes.
+
+This package was also previously called ``fake-factory`` which was already deprecated by the end
+of 2016, and much has changed since then, so please ensure that your project and its dependencies
+do not depend on the old package.
 
 Basic Usage
 -----------
@@ -30,8 +40,6 @@ Install with pip:
 .. code:: bash
 
     pip install Faker
-
-*Note: this package was previously called* ``fake-factory``.
 
 Use ``faker.Faker()`` to create and initialize a faker
 generator, which can generate data by accessing properties named after
@@ -79,6 +87,12 @@ to ``faker.Generator.format(method_name)``.
     # 'Keegan Thiel'
     # 'Wellington Koelpin II'
     # 'Ms. Karley Kiehn V'
+
+Pytest fixtures
+---------------
+
+``Faker`` also has its own ``pytest`` plugin which provides a ``faker`` fixture you can use in your
+tests. Please check out the `pytest fixture docs` to learn more.
 
 Providers
 ---------
@@ -378,6 +392,9 @@ Please note that as we keep updating datasets, results are not guaranteed to be
 consistent across patch versions. If you hardcode results in your test, make sure
 you pinned the version of ``Faker`` down to the patch number.
 
+If you are using ``pytest``, you can seed the ``faker`` fixture by defining a ``faker_seed``
+fixture. Please check out the `pytest fixture docs` to learn more.
+
 Tests
 -----
 
@@ -424,6 +441,7 @@ Credits
 .. _extended docs: https://faker.readthedocs.io/en/stable/
 .. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
 .. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
+.. _pytest fixture docs: https://faker.readthedocs.io/en/master/pytest-fixtures.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy

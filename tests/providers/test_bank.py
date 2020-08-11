@@ -1,7 +1,10 @@
 import re
 import unittest
 
+import pytest
+
 from faker import Faker
+from faker.providers.bank.en_PH import Provider as EnPhProvider
 
 
 class TestNoNO(unittest.TestCase):
@@ -25,7 +28,7 @@ class TestFiFi(unittest.TestCase):
 
     def test_bban(self):
         bban = self.fake.bban()
-        assert re.match(r"\d{16}", bban)
+        assert re.match(r"\d{14}", bban)
 
     def test_iban(self):
         iban = self.fake.iban()
@@ -126,3 +129,65 @@ class TestEsES(unittest.TestCase):
     def test_iban(self):
         iban = self.fake.iban()
         assert re.match(r"ES\d{22}", iban)
+
+
+class TestFrFR(unittest.TestCase):
+    """Tests the bank provider for fr_FR locale"""
+
+    def setUp(self):
+        self.fake = Faker('fr_FR')
+        Faker.seed(0)
+
+    def test_bban(self):
+        bban = self.fake.bban()
+        assert re.match(r"\d{23}", bban)
+
+    def test_iban(self):
+        iban = self.fake.iban()
+        assert re.match(r"FR\d{25}", iban)
+
+
+class TestEnPh:
+
+    def test_swift(self, faker, num_samples):
+        regex = re.compile('[A-Z]{4}PH[A-Z0-9]{2}(?:[A-Z0-9]{3})?')
+        for _ in range(num_samples):
+            code = faker.swift()
+            assert regex.fullmatch(code) is not None
+
+    def test_swift_invalid_length(self, faker):
+        faker.swift(length=8)
+        faker.swift(length=11)
+        with pytest.raises(AssertionError):
+            faker.swift(length=5)
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in EnPhProvider.swift_bank_codes
+            assert code[4:6] == EnPhProvider.country_code
+            assert code[6:8] in EnPhProvider.swift_location_codes
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in EnPhProvider.swift_bank_codes
+            assert code[4:6] == EnPhProvider.country_code
+            assert code[6:8] in EnPhProvider.swift_location_codes
+            assert code[8:11] in EnPhProvider.swift_branch_codes
+
+    def test_swift11_is_primary(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(primary=True)
+            assert len(code) == 11
+            assert code[8:11] == 'XXX'
+
+
+class TestFilPh(TestEnPh):
+    pass
+
+
+class TestTlPh(TestEnPh):
+    pass

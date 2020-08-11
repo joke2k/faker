@@ -1,6 +1,5 @@
 from .. import Provider as BaseProvider
 
-
 """
 Data is provided by the official list of professions from
 National institue for statistics

@@ -33,6 +33,7 @@ setup(
     long_description=README,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
+        'pytest11': ['faker = faker.contrib.pytest.plugin'],
     },
     classifiers=[
         # See https://pypi.org/pypi?%3Aaction=list_classifiers
@@ -61,7 +62,7 @@ setup(
     packages=find_packages(exclude=excluded_packages),
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.4",
+    python_requires=">=3.5",
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",

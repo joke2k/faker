@@ -23,6 +23,9 @@ Here's a list of Providers written by the community:
 +---------------+--------------------------+----------------------------------+
 | Microservice  | Fake microservice names  | `faker_microservice`_            |
 +---------------+--------------------------+----------------------------------+
+| Vehicle       | Fake vehicle information | `faker_vehicle`_                 |
+|               | includes Year Make Model |                                  |
++---------------+--------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -42,3 +45,4 @@ In order to be inlcuded, your provider must satisfy these requirement:
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
+.. _faker_vehicle: https://pypi.org/project/faker-vehicle/
