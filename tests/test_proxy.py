@@ -40,7 +40,7 @@ class TestFakerProxyClass:
     def test_locale_as_list_invalid_value_type(self):
         locale = [1, 2]
         with pytest.raises(TypeError) as exc:
-            fake = Faker(locale)
+            Faker(locale)
         assert str(exc.value) == 'The locale "1" must be a string.'
 
     def test_locale_as_ordereddict(self):
