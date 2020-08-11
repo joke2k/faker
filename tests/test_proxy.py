@@ -36,6 +36,12 @@ class TestFakerProxyClass:
         fake = Faker(locale)
         assert fake.locales == expected
         assert len(fake.factories) == len(expected)
+    
+    def test_locale_as_list_invalid_value_type(self):
+        locale = [1, 2]
+        with pytest.raises(TypeError) as exc:
+            fake = Faker(locale)
+        assert str(exc.value) == 'The locale "1" must be a string.'
 
     def test_locale_as_ordereddict(self):
         locale = OrderedDict([
