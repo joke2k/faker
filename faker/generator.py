@@ -114,8 +114,8 @@ class Generator:
                 params = eval(formatter[1].replace(':', 'dict(') + ')')
             except SyntaxError:
                 raise SyntaxError('Parameters need to be key=values, seperated by comas')
-            formatted = str(self.format(formatter[0].strip(), **params))
+            formatted = str(self.format(formatter[0], **params))
         else:
-            formatted = str(self.format(formatter[0].strip()))
+            formatted = str(self.format(formatter[0]))
 
         return ''.join(formatted)
