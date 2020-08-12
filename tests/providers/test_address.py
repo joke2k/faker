@@ -1,6 +1,8 @@
 import re
 import unittest
 
+from ukpostcodeparser.parser import parse_uk_postcode
+
 from faker import Faker
 from faker.providers.address.de_AT import Provider as DeAtProvider
 from faker.providers.address.de_DE import Provider as DeProvider
@@ -17,7 +19,6 @@ from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
-from ukpostcodeparser.parser import parse_uk_postcode
 
 
 class TestBaseProvider(unittest.TestCase):

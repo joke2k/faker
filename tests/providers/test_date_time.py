@@ -159,6 +159,7 @@ class TestDateTime(unittest.TestCase):
 
     def test_datetime_safe(self):
         from faker.utils import datetime_safe
+
         # test using example provided in module
         result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
         assert result == '1850/08/02 was a Friday'
