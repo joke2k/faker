@@ -102,7 +102,7 @@ class Generator:
         Parameters can be supplied using a colon, and then key=value
         pars. For example:
 
-        '{{ color:hue=(100,200) }} - {{ pyint:min_value=1, min_value=10 }}
+        '{{ color:hue=(100,200) }} - {{ pyint:min_value=1, min_value=10 }}'
         """
         return _re_token.sub(self.__format_token, text)
 
@@ -113,7 +113,7 @@ class Generator:
             try:
                 params = eval(formatter[1].replace(':', 'dict(') + ')')
             except SyntaxError:
-                raise SyntaxError('Parameters need to be key=values, seperated by comas')
+                raise SyntaxError('Parameters need to be comma seperated key=value pairs')
             formatted = str(self.format(formatter[0], **params))
         else:
             formatted = str(self.format(formatter[0]))

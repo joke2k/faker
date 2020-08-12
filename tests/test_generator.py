@@ -69,7 +69,7 @@ class TestGenerator:
     def test_parse_with_bad_parameters(self, generator):
         with pytest.raises(SyntaxError) as excinfo:
             generator.parse('{{ foo_formatter_with_arguments: {param:"-foo"} }}')
-        assert str(excinfo.value) == 'Parameters need to be key=values, seperated by comas'
+        assert str(excinfo.value) == 'Parameters need to be comma seperated key=value pairs'
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:
