@@ -61,7 +61,15 @@ class TestGenerator:
 
     def test_parse_with_valid_formatter_tokens(self, generator):
         result = generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
-        assert result == 'This is foobar a text with " foobar "'
+        assert result == 'This is foobar a text with "foobar"'
+
+    def test_parse_with_parameters(self, generator):
+        assert generator.parse('{{ foo_formatter_with_arguments: param="-foo" }}') == 'baz-foo'
+
+    def test_parse_with_bad_parameters(self, generator):
+        with pytest.raises(SyntaxError) as excinfo:
+            generator.parse('{{ foo_formatter_with_arguments: {param:"-foo"} }}')
+        assert str(excinfo.value) == 'Parameters need to be key=values, seperated by comas'
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:

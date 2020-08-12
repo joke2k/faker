@@ -1,7 +1,7 @@
 import random as random_module
 import re
 
-_re_token = re.compile(r'\{\{(\s?)(\w+)(\s?)\}\}')
+_re_token = re.compile(r'\{\{\s?(\w+)(:.*?)?\s?\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
@@ -71,7 +71,6 @@ class Generator:
         """
         This is a secure way to make a fake from another Provider.
         """
-        # TODO: data export?
         return self.get_formatter(formatter)(*args, **kwargs)
 
     def get_formatter(self, formatter):
@@ -99,10 +98,24 @@ class Generator:
         """
         Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
         with the result from the token method call.
+
+        Parameters can be supplied using a colon, and then key=value
+        pars. For example:
+
+        '{{ color:hue=(100,200) }} - {{ pyint:min_value=1, min_value=10 }}
         """
         return _re_token.sub(self.__format_token, text)
 
     def __format_token(self, matches):
         formatter = list(matches.groups())
-        formatter[1] = str(self.format(formatter[1]))
-        return ''.join(formatter)
+
+        if formatter[1]:
+            try:
+                params = eval(formatter[1].replace(':', 'dict(') + ')')
+            except SyntaxError:
+                raise SyntaxError('Parameters need to be key=values, seperated by comas')
+            formatted = str(self.format(formatter[0].strip(), **params))
+        else:
+            formatted = str(self.format(formatter[0].strip()))
+
+        return ''.join(formatted)
