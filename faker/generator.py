@@ -2,7 +2,7 @@ import json
 import random as random_module
 import re
 
-_re_token = re.compile(r'\{\{\s?(\w+)(:.*?)?\s?\}\}')
+_re_token = re.compile(r'\{\{\s*(\w+)(:.*?\}?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
@@ -128,9 +128,8 @@ class Generator:
 
     @staticmethod
     def __format_json_parser(string):
-        json_string = string.replace('=', ':')
-        json_string = re.sub(r'(\w+):', r'"\g<1>":', json_string)           # Safe Keys
-        json_string = re.sub(r':([a-zA-Z]\w+)', r':"\g<1>"', json_string)   # Safe Values
-        json_string = re.sub(r'\((.*)\)', r'[\g<1>]', json_string)          # Safe Tuple
-        json_string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', json_string)    # Wrapped
-        return json_string
+        string = re.sub(r'(\w+)\s*[:=]', r'"\g<1>":', string)      # Safe Keys
+        string = re.sub(r':\s*([a-zA-Z]\w+)', r':"\g<1>"', string) # Safe Values
+        string = re.sub(r'\((.*)\)', r'[\g<1>]', string)           # Safe Tuple
+        string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', string)     # Wrapped
+        return string
