@@ -1,5 +1,6 @@
 import random as random_module
 import re
+import json
 
 _re_token = re.compile(r'\{\{\s?(\w+)(:.*?)?\s?\}\}')
 random = random_module.Random()
@@ -9,6 +10,7 @@ mod_random = random  # compat with name released in 0.8
 class Generator:
 
     __config = {}
+    __format_cache = {}
 
     def __init__(self, **config):
         self.providers = []
@@ -99,23 +101,36 @@ class Generator:
         Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
         with the result from the token method call.
 
-        Parameters can be supplied using a colon, and then key=value
-        pars. For example:
+        Parameters can be supplied as comma seperated list of key=value pairs,
+        or a JSON string.
+
+        For example:
 
         '{{ color:hue=(100,200) }} - {{ pyint:min_value=1, min_value=10 }}'
+
+        '{{ color:{hue:[100,200]} }} - {{ pyint:{min_value:1, min_value:10} }}'
         """
         return _re_token.sub(self.__format_token, text)
 
     def __format_token(self, matches):
-        formatter = list(matches.groups())
+        formatter, parameters = list(matches.groups())
 
-        if formatter[1]:
-            try:
-                params = eval(formatter[1].replace(':', 'dict(') + ')')
-            except SyntaxError:
-                raise SyntaxError('Parameters need to be comma seperated key=value pairs')
-            formatted = str(self.format(formatter[0], **params))
+        if parameters is not None and parameters not in self.__format_cache:
+            safe_json = self.__format_json_parser(parameters.lstrip(':'))
+            self.__format_cache[parameters] = json.loads(safe_json)
+
+        if parameters:
+            formatted = str(self.format(formatter, **self.__format_cache[parameters]))
         else:
-            formatted = str(self.format(formatter[0]))
+            formatted = str(self.format(formatter))
 
         return ''.join(formatted)
+
+    @staticmethod
+    def __format_json_parser(string):
+        json_string = string.replace('=', ':')
+        json_string = re.sub(r'(\w+):', r'"\g<1>":', json_string)           # Safe Keys
+        json_string = re.sub(r':([a-zA-Z]\w+)', r':"\g<1>"', json_string)   # Safe Values
+        json_string = re.sub(r'\((.*)\)', r'[\g<1>]', json_string)          # Safe Tuple
+        json_string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', json_string)    # Wrapped
+        return json_string
