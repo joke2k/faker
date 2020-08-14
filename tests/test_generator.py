@@ -17,7 +17,9 @@ class FooProvider:
         return 'foobar'
 
     def foo_formatter_with_arguments(self, param='', append=''):
-        return 'baz' + param + append
+        if isinstance(append, (list, tuple)):
+            return 'baz' + str(param) + ''.join(append)
+        return 'baz' + str(param) + str(append)
 
 
 @pytest.fixture(autouse=True)
@@ -60,11 +62,33 @@ class TestGenerator:
         assert generator.parse('fooBar#?') == 'fooBar#?'
 
     def test_parse_with_valid_formatter_tokens(self, generator):
-        result = generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
+        result = generator.parse('This is {{foo_formatter}} a text with "{{  foo_formatter  }}"')
         assert result == 'This is foobar a text with "foobar"'
 
-    def test_parse_with_parameters(self, generator):
-        assert generator.parse('{{ foo_formatter_with_arguments: param="-foo" }}') == 'baz-foo'
+    def test_parse_with_json_parameters(self, generator):
+        table = [
+            ('{{foo_formatter_with_arguments:{"param":100,"append":200}}}', 'baz100200'),
+            ('{{foo_formatter_with_arguments:{"append":["-foo","-bar","-list"]}}}', 'baz-foo-bar-list'),
+            ('{{foo_formatter_with_arguments:{"param":"-foo","append":"-bar0"}}}', 'baz-foo-bar0'),
+            ('{{ foo_formatter_with_arguments: { "param" : "-foo" , "append" : "-bar1" } }}', 'baz-foo-bar1'),
+            ('{{  foo_formatter_with_arguments:  {  "param"  :  "-foo"  ,  "append"  :  "-bar2"  }  }}', 'baz-foo-bar2')
+        ]
+
+        for test in table:
+            assert generator.parse(test[0]) == test[1]
+
+    def test_parse_with_kv_parameters(self, generator):
+        table = [
+            ('{{foo_formatter_with_arguments:param=100,append:200}}', 'baz100200'),
+            ('{{foo_formatter_with_arguments:append=[ -foo , -bar , -list ]}}', 'baz-foo-bar-list'),
+            ('{{foo_formatter_with_arguments:append=( -foo , -bar , -list )}}', 'baz-foo-bar-list'),
+            ('{{foo_formatter_with_arguments:param=-foo,append=-bar0}}', 'baz-foo-bar0'),
+            ('{{ foo_formatter_with_arguments: param = -foo , append = -bar1 }}', 'baz-foo-bar1'),
+            ('{{  foo_formatter_with_arguments:  param  =  -foo  ,  append  =  -bar2  }}', 'baz-foo-bar2')
+        ]
+
+        for test in table:
+            assert generator.parse(test[0]) == test[1] 
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:

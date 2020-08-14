@@ -128,8 +128,12 @@ class Generator:
 
     @staticmethod
     def __format_json_parser(string):
-        string = re.sub(r'(\w+)\s*[:=]', r'"\g<1>":', string)      # Safe Keys
-        string = re.sub(r':\s*([a-zA-Z]\w+)', r':"\g<1>"', string) # Safe Values
-        string = re.sub(r'\((.*)\)', r'[\g<1>]', string)           # Safe Tuple
-        string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', string)     # Wrapped
+        string = re.sub(r'([-\w]+)\s*[:=]', r'"\g<1>":', string)            # Safe Keys
+        string = re.sub(r':\s*([^0-9\[\{\("][-\w]+)', r':"\g<1>"', string)  # Safe Values
+
+        string = re.sub(r'\((.*)\)', r'[\g<1>]', string)                    # Safe Lists
+        string = re.sub(r'(\[|\,)\s*([\w-]+)\s*(\,|\])', r'\g<1>"\g<2>"\g<3>', string)
+        string = re.sub(r'(\,)\s*([\w-]+)\s*(\,)', r'\g<1>"\g<2>"\g<3>', string)
+
+        string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', string)              # Wrapped
         return string
