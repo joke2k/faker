@@ -1,6 +1,6 @@
+import json
 import random as random_module
 import re
-import json
 
 _re_token = re.compile(r'\{\{\s?(\w+)(:.*?)?\s?\}\}')
 random = random_module.Random()
