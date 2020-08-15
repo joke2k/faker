@@ -2,7 +2,7 @@ import json
 import random as random_module
 import re
 
-_re_token = re.compile(r'\{\{\s*(\w+)(:.*?\}?)?\s*\}\}')
+_re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
@@ -10,7 +10,7 @@ mod_random = random  # compat with name released in 0.8
 class Generator:
 
     __config = {}
-    __format_cache = {}
+    formatting = {}
 
     def __init__(self, **config):
         self.providers = []
@@ -101,39 +101,27 @@ class Generator:
         Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
         with the result from the token method call.
 
-        Parameters can be supplied as comma seperated list of key=value pairs,
-        or a JSON string.
+        Arguments can be parsed through the formatting dictonary.
 
-        For example:
+        Example:
 
-        '{{ color:hue=(100,200) }} - {{ pyint:min_value=1, min_value=10 }}'
+        generator.formatting['red_rgb'] = {"hue": "red", "color_format"="rgb"}
+        generator.formatting['small'] = {"max_value": 10}
 
-        '{{ color:{hue:[100,200]} }} - {{ pyint:{min_value:1, min_value:10} }}'
+        generator.parse('{{ color:red_rgb }} - {{ pyint:small }}')
         """
         return _re_token.sub(self.__format_token, text)
 
     def __format_token(self, matches):
-        formatter, parameters = list(matches.groups())
+        formatter, format_name = list(matches.groups())
+        format_name = format_name.lstrip(":").strip() if format_name else ''
 
-        if parameters is not None and parameters not in self.__format_cache:
-            safe_json = self.__format_json_parser(parameters.lstrip(':'))
-            self.__format_cache[parameters] = json.loads(safe_json)
-
-        if parameters:
-            formatted = str(self.format(formatter, **self.__format_cache[parameters]))
+        if format_name and format_name not in self.formatting:
+            raise KeyError("Provider format name not found in formatting")
+        elif format_name:
+            formatted = str(self.format(formatter,
+                                        **self.formatting[format_name]))
         else:
             formatted = str(self.format(formatter))
 
         return ''.join(formatted)
-
-    @staticmethod
-    def __format_json_parser(string):
-        string = re.sub(r'([-\w]+)\s*[:=]', r'"\g<1>":', string)            # Safe Keys
-        string = re.sub(r':\s*([^0-9\[\{\("][-\w]+)', r':"\g<1>"', string)  # Safe Values
-
-        string = re.sub(r'\((.*)\)', r'[\g<1>]', string)                    # Safe Lists
-        string = re.sub(r'(\[|\,)\s*([\w-]+)\s*(\,|\])', r'\g<1>"\g<2>"\g<3>', string)
-        string = re.sub(r'(\,)\s*([\w-]+)\s*(\,)', r'\g<1>"\g<2>"\g<3>', string)
-
-        string = re.sub(r'^([^{].*[^}])$', r'{\g<1>}', string)              # Wrapped
-        return string
