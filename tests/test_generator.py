@@ -64,9 +64,14 @@ class TestGenerator:
         assert result == 'This is foobar a text with "foobar"'
 
     def test_parse_with_valid_formatter_arguments(self, generator):
-        generator.formatting['format_arguments'] = {"param":"foo", "append":"bar"}
-        result = generator.parse('This is "{{foo_formatter_with_arguments:format_arguments}}"')
+        generator.formatting['format_name'] = {"param":"foo", "append":"bar"}
+        result = generator.parse('This is "{{foo_formatter_with_arguments:format_name}}"')
+        del generator.formatting['format_name']
         assert result == 'This is "bazfoobar"'
+
+    def test_parse_with_invalid_formatter_arguments(self, generator):
+        result = generator.parse('This is "{{foo_formatter_with_arguments:missing_format_name}}"')
+        assert result == 'This is "baz"'
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:

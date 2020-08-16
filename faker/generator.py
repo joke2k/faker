@@ -116,11 +116,8 @@ class Generator:
         formatter, format_name = list(matches.groups())
         format_name = format_name.lstrip(":").strip() if format_name else ''
 
-        if format_name and format_name not in self.formatting:
-            raise KeyError("Provider format name not found in formatting")
-        elif format_name:
-            formatted = str(self.format(formatter,
-                                        **self.formatting[format_name]))
+        if format_name in self.formatting:
+            formatted = str(self.format(formatter, **self.formatting[format_name]))
         else:
             formatted = str(self.format(formatter))
 
