@@ -64,7 +64,7 @@ class TestGenerator:
         assert result == 'This is foobar a text with "foobar"'
 
     def test_parse_with_valid_formatter_arguments(self, generator):
-        generator.formatting['format_name'] = {"param":"foo", "append":"bar"}
+        generator.formatting['format_name'] = {"param": "foo", "append": "bar"}
         result = generator.parse('This is "{{foo_formatter_with_arguments:format_name}}"')
         del generator.formatting['format_name']
         assert result == 'This is "bazfoobar"'
