@@ -63,15 +63,39 @@ class TestGenerator:
         result = generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
         assert result == 'This is foobar a text with "foobar"'
 
+    def test_arguments_group_with_values(self, generator):
+        generator.add_arguments('group1', 'argument1', 1)
+        generator.add_arguments('group1', 'argument2', 2)
+        assert generator.get_arguments('group1', 'argument1') == 1
+        assert generator.del_arguments('group1', 'argument2') == 2
+        assert generator.get_arguments('group1', 'argument2') == None
+        assert generator.get_arguments('group1') == {'argument1': 1}
+
+    def test_arguments_group_with_dictionaries(self, generator):
+        generator.add_arguments('group2', {'argument1': 3, 'argument2': 4})
+        assert generator.get_arguments('group2') == {'argument1': 3, 'argument2': 4}
+        assert generator.del_arguments('group2') == {'argument1': 3, 'argument2': 4}
+        assert generator.get_arguments('group2') == None
+
+    def test_arguments_group_with_invalid_name(self, generator):
+        assert generator.get_arguments('group3') == None
+        assert generator.del_arguments('group3') == None
+
+    def test_arguments_group_with_invalid_argument_type(self, generator):
+        with pytest.raises(ValueError) as excinfo:
+            generator.add_arguments('group', ['foo', 'bar'])
+        assert str(excinfo.value) == "Arguments must be either a string or dictionary"
+
     def test_parse_with_valid_formatter_arguments(self, generator):
-        generator.formatting['format_name'] = {"param": "foo", "append": "bar"}
+        generator.add_arguments('format_name', {"param": "foo", "append": "bar"})
         result = generator.parse('This is "{{foo_formatter_with_arguments:format_name}}"')
-        del generator.formatting['format_name']
+        generator.del_arguments('format_name')
         assert result == 'This is "bazfoobar"'
 
-    def test_parse_with_invalid_formatter_arguments(self, generator):
-        result = generator.parse('This is "{{foo_formatter_with_arguments:missing_format_name}}"')
-        assert result == 'This is "baz"'
+    def test_parse_with_unknown_arguments_group(self, generator):
+        with pytest.raises(AttributeError) as excinfo:
+            generator.parse('This is "{{foo_formatter_with_arguments:unknown}}"')
+        assert str(excinfo.value) == 'Unknown argument group "unknown"'
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:
