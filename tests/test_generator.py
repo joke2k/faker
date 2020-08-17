@@ -64,30 +64,30 @@ class TestGenerator:
         assert result == 'This is foobar a text with "foobar"'
 
     def test_arguments_group_with_values(self, generator):
-        generator.add_arguments('group1', 'argument1', 1)
-        generator.add_arguments('group1', 'argument2', 2)
+        generator.set_arguments('group1', 'argument1', 1)
+        generator.set_arguments('group1', 'argument2', 2)
         assert generator.get_arguments('group1', 'argument1') == 1
         assert generator.del_arguments('group1', 'argument2') == 2
-        assert generator.get_arguments('group1', 'argument2') == None
+        assert generator.get_arguments('group1', 'argument2') is None
         assert generator.get_arguments('group1') == {'argument1': 1}
 
     def test_arguments_group_with_dictionaries(self, generator):
-        generator.add_arguments('group2', {'argument1': 3, 'argument2': 4})
+        generator.set_arguments('group2', {'argument1': 3, 'argument2': 4})
         assert generator.get_arguments('group2') == {'argument1': 3, 'argument2': 4}
         assert generator.del_arguments('group2') == {'argument1': 3, 'argument2': 4}
-        assert generator.get_arguments('group2') == None
+        assert generator.get_arguments('group2') is None
 
     def test_arguments_group_with_invalid_name(self, generator):
-        assert generator.get_arguments('group3') == None
-        assert generator.del_arguments('group3') == None
+        assert generator.get_arguments('group3') is None
+        assert generator.del_arguments('group3') is None
 
     def test_arguments_group_with_invalid_argument_type(self, generator):
         with pytest.raises(ValueError) as excinfo:
-            generator.add_arguments('group', ['foo', 'bar'])
+            generator.set_arguments('group', ['foo', 'bar'])
         assert str(excinfo.value) == "Arguments must be either a string or dictionary"
 
     def test_parse_with_valid_formatter_arguments(self, generator):
-        generator.add_arguments('format_name', {"param": "foo", "append": "bar"})
+        generator.set_arguments('format_name', {"param": "foo", "append": "bar"})
         result = generator.parse('This is "{{foo_formatter_with_arguments:format_name}}"')
         generator.del_arguments('format_name')
         assert result == 'This is "bazfoobar"'

@@ -96,13 +96,13 @@ class Generator:
         """
         setattr(self, name, method)
 
-    def add_arguments(self, group, argument, value=None):
+    def set_arguments(self, group, argument, value=None):
         """
         Creates an argument group, with an individual argument or a dictionary
         of arguments.  Used with the Generator.parse method.
 
-        generator.add_arguments('small', 'max_value', 10)
-        generator.add_arguments('small', {'min_value': 5, 'max_value': 10})
+        generator.set_arguments('small', 'max_value', 10)
+        generator.set_arguments('small', {'min_value': 5, 'max_value': 10})
         """
         if group not in self.__config['arguments']:
             self.__config['arguments'][group] = {}
@@ -155,8 +155,8 @@ class Generator:
 
         Example:
 
-        generator.add_arguments('red_rgb', {'hue': 'red', 'color_format': 'rgb'})
-        generator.add_arguments('small', {'max_value': 10})
+        generator.set_arguments('red_rgb', {'hue': 'red', 'color_format': 'rgb'})
+        generator.set_arguments('small', 'max_value', 10)
 
         generator.parse('{{ color:red_rgb }} - {{ pyint:small }}')
         """
