@@ -9,7 +9,7 @@ mod_random = random  # compat with name released in 0.8
 class Generator:
 
     __config = {
-        'arguments': {}
+        'arguments': {},
     }
 
     def __init__(self, **config):
