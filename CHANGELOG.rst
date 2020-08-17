@@ -1,6 +1,22 @@
 Changelog
 =========
 
+`4.1.2 - 1&-August-2020 <https://github.com/joke2k/faker/compare/v4.1.1...v4.1.2>`__
+------------------------------------------------------------------------------------
+
+* Extend Person Provider to support non-binary suffixes and prefixes. Thank you @crd.
+* Add ``safe_domain_name`` generator. Thanks @crd.
+* Fix max_value/positive ``pyfloat`` interaction. Thanks @coiax.
+* Update ``bban_format`` for ``fi_FI`` locale. Thanks @ALMP-SallaH.
+* Fix ``person.ja_JP`` kana and roman characters. Thanks @yameholo.
+* Add ``json`` and ``fixed_width`` generators. Thank you @johnbrandborg.
+* Add SWIFT code provider methods: ``swift``, ``swift8`` and ``swift11``. Thanks @malefice.
+* Add ``es_ES`` internet provider. Thanks @mondeja.
+* Update ``bban_format`` for ``fr_FR`` locale. Thanks @r3gis3r.
+* Update ``fr_FR`` ``job`` provider. Thanks @mondeja.
+* Add ``es_ES`` ``barcode`` provider. Thanks @mondeja.
+* Add parser argument support. Thanks @johnbrandborg.
+
 `4.1.1 - 15-June-2020 <https://github.com/joke2k/faker/compare/v4.1.0...v4.1.1>`__
 ----------------------------------------------------------------------------------
 
