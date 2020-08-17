@@ -66,7 +66,7 @@ class TestBarcodeProvider:
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
 
-@pytest.fixture('class')
+@pytest.fixture(scope='class')
 def provider_class(request):
     if hasattr(request.cls, 'get_provider_class') and callable(request.cls.get_provider_class):
         _provider_class = request.cls.get_provider_class()
