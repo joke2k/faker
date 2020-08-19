@@ -12,10 +12,25 @@ from unittest.mock import patch
 from faker import Faker
 
 
+class _FooBarProvider:
+
+    def foo_bar(self, param: str = None) -> str:
+        return 'FooBar' + str(param) if param else 'FooBar'
+
+    def test_integer(self, multi=1) -> int:
+        return 1 * multi
+
+    def test_float(self, multi=1) -> float:
+        return 1.1 * multi
+
+
 class TestMisc(unittest.TestCase):
     """Tests miscellaneous generators"""
     def setUp(self):
         self.fake = Faker()
+        self.fake.add_provider(_FooBarProvider())
+        self.fake.set_arguments('argument_group', 'param', 'Baz')
+        self.fake.set_arguments('double', 'multi', 2)
         Faker.seed(0)
 
     def test_uuid4_str(self):
@@ -426,76 +441,199 @@ class TestMisc(unittest.TestCase):
             kwargs['delimiter'] = '|'
             mock_dsv.assert_called_once_with(**kwargs)
 
-    def test_json_single_entry(self):
-        kwargs = {
-            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
-            'num_rows': 1,
-        }
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
-
-        assert isinstance(json_data, dict)
-        assert 'word' in json_data
-        assert 'number' in json_data
-
-    def test_json_multiple_entries(self):
-        kwargs = {
-            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
-            'num_rows': 2,
-        }
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
-
-        assert isinstance(json_data, list)
-        for entry in json_data:
-            assert 'word' in entry
-            assert 'number' in entry
-
-    def test_json_depth_structure(self):
+    def test_json_with_arguments(self):
         kwargs = {
             'data_columns': [
-                ('list1', [(None, 'pyint'), (None, 'pyint')]),
-                ('list2', [('number', 'pyint'), ('number', 'pyint')]),
-                ('dict', (('number', 'pyint'), ('number', 'pyint'))),
+                ('item1', '{{ foo_bar:argument_group }}'),
+                ('item2', 'foo_bar', {'param': 'BAZ'}),
             ],
             'num_rows': 1,
         }
+        json_data = json.loads(self.fake.json(**kwargs))
 
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
+        assert json_data.get('item1') == 'FooBarBaz'
+        assert json_data.get('item2') == 'FooBarBAZ'
 
-        assert isinstance(json_data['list1'], list)
-        assert isinstance(json_data['list2'], list)
-        assert isinstance(json_data['dict'], dict)
-
-        # Check the Lists have values, and key/values
-        for item in json_data['list1']:
-            assert isinstance(item, int)
-        for item in json_data['list2']:
-            assert isinstance(item, dict)
-
-    def test_json_invalid_parameter_type(self):
+    def test_json_multiple_rows(self):
         kwargs = {
-            'data_columns': [('word', 'name', ['wrong'])],
+            'data_columns': {'item': 'foo_bar'},
+            'num_rows': 2,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert isinstance(json_data, list) and len(json_data) == 2
+
+    def test_json_passthrough_int_float(self):
+        kwargs = {
+            'data_columns': {
+                'item1': 1,
+                'item2': 1.0,
+            },
             'num_rows': 1,
         }
-        with self.assertRaises(TypeError):
-            self.fake.json(**kwargs)
+        json_data = json.loads(self.fake.json(**kwargs))
 
-    def test_fixed_width_row_lengths(self):
+        assert json_data['item1'] == 1
+        assert json_data['item2'] == 1.0
+
+    def test_json_type_integrity_int(self):
         kwargs = {
-            'data_columns': [(20, 'name'), (3, 'pyint', {'max_value': 20})],
+            'data_columns': {
+                'item1': 'test_integer',
+                'item2': 'test_integer:double',
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+        assert isinstance(json_data['item1'], int)
+        assert json_data['item2'] == 2
+
+    def test_json_type_integrity_float(self):
+        kwargs = {
+            'data_columns': {
+                'item1': 'test_float',
+                'item2': 'test_float:double',
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+        assert isinstance(json_data['item1'], float)
+        assert json_data['item2'] == 2.2
+
+    def test_json_invalid_data_columns(self):
+        kwargs = {
+            'data_columns': (('item', 'foo_bar'),),
+            'num_rows': 1,
+        }
+        with self.assertRaises(TypeError) as excinfo:
+            json.loads(self.fake.json(**kwargs))
+        assert str(excinfo.exception) == 'Invalid data_columns type. Must be a dictionary or list'
+
+    def test_json_list_format_invalid_arguments_type(self):
+        kwargs = {
+            'data_columns': [('item', 'foo_bar', ['wrong'])],
+            'num_rows': 1,
+        }
+        with self.assertRaises(TypeError) as excinfo:
+            self.fake.json(**kwargs)
+        assert str(excinfo.exception) == 'Invalid arguments type. Must be a dictionary'
+
+    def test_json_list_format_nested_list_of_values(self):
+        kwargs = {
+            'data_columns': [
+                (
+                    'list', [
+                        (None, '{{ foo_bar }}s'),
+                        (None, 'foo_bar'),
+                    ],
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['list'][0] == 'FooBars'
+        assert json_data['list'][1] == 'FooBar'
+
+    def test_json_list_format_nested_list_of_objects(self):
+        kwargs = {
+            'data_columns': [
+                (
+                    'list', [
+                        ('item', '{{ foo_bar }}s'),
+                        ('item', 'foo_bar'),
+                    ],
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['list'][0]['item'] == 'FooBars'
+        assert json_data['list'][1]['item'] == 'FooBar'
+
+    def test_json_list_format_nested_objects(self):
+        kwargs = {
+            'data_columns': [
+                (
+                    'dict', (
+                        ('item1', '{{ foo_bar }}s'),
+                        ('item2', 'foo_bar'),
+                    ),
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['dict']['item1'] == 'FooBars'
+        assert json_data['dict']['item2'] == 'FooBar'
+
+    def test_json_dict_format_nested_list_of_values(self):
+        kwargs = {
+            'data_columns': {
+                'list': [
+                    '{{ foo_bar }}s',
+                    'foo_bar',
+                ],
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['list'][0] == 'FooBars'
+        assert json_data['list'][1] == 'FooBar'
+
+    def test_json_dict_format_nested_list_of_objects(self):
+        kwargs = {
+            'data_columns': {
+                'list': [
+                    {'item': '{{ foo_bar }}s'},
+                    {'item': 'foo_bar'},
+                ],
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['list'][0]['item'] == 'FooBars'
+        assert json_data['list'][1]['item'] == 'FooBar'
+
+    def test_json_dict_format_nested_objects(self):
+        kwargs = {
+            'data_columns': {
+                'dict': {
+                    'item1': '{{ foo_bar }}s',
+                    'item2': 'foo_bar',
+                },
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['dict']['item1'] == 'FooBars'
+        assert json_data['dict']['item2'] == 'FooBar'
+
+    def test_fixed_width_with_arguments(self):
+        kwargs = {
+            'data_columns': [
+                (9, '{{ foo_bar:argument_group }}'),
+                (9, 'foo_bar', {'param': 'BAR'}),
+            ],
             'num_rows': 2,
         }
         fixed_width_string = self.fake.fixed_width(**kwargs)
 
         for row in fixed_width_string.split('\n'):
-            assert len(row) == 23
+            assert len(row) == 18
+            assert row[0:9].strip() == 'FooBarBaz'
+            assert row[9:18].strip() == 'FooBarBAR'
 
-    def test_fixed_width_invalid_parameter_type(self):
+    def test_fixed_width_invalid_arguments_type(self):
         kwargs = {
-            'data_columns': [(20, 'name'), (3, 'pyint', ['error'])],
+            'data_columns': [(9, 'foo_bar', ['wrong'])],
             'num_rows': 1,
         }
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as excinfo:
             self.fake.fixed_width(**kwargs)
+        assert str(excinfo.exception) == 'Invalid arguments type. Must be a dictionary'
