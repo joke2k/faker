@@ -484,10 +484,10 @@ class Provider(BaseProvider):
                 return data
 
             for name, definition in data.items():
-                if isinstance(definition, (tuple, list, set)):
+                if isinstance(definition, (tuple, list)):
                     entry[name] = [process_dict_structure(item)
                                    for item in definition]
-                elif isinstance(definition, dict):
+                elif isinstance(definition, (dict, int, float)):
                     entry[name] = process_dict_structure(definition)
                 else:
                     entry[name] = self._format_selection(definition)

@@ -462,6 +462,19 @@ class TestMisc(unittest.TestCase):
 
         assert isinstance(json_data, list) and len(json_data) == 2
 
+    def test_json_passthrough_int_float(self):
+        kwargs = {
+            'data_columns': {
+                'item1': 1,
+                'item2': 1.0
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(self.fake.json(**kwargs))
+
+        assert json_data['item1'] == 1
+        assert json_data['item2'] == 1.0
+
     def test_json_type_integrity_int(self):
         kwargs = {
             'data_columns': {
