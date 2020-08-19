@@ -300,8 +300,8 @@ class Provider(BaseProvider):
         Both ``header`` and ``data_columns`` must be of the same length.
 
         Example:
-            fake.set_arguments('top_half',{'min_value':50,'max_value':100})
-            fake.dsv(data_columns=('{{name}}','{{pyint:top_half}}'))
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.dsv(data_columns=('{{ name }}', '{{ pyint:top_half }}'))
 
         The ``num_rows`` argument controls how many rows of data to generate, and the ``include_row_ids``
         argument may be set to ``True`` to include a sequential row ID column.
@@ -387,21 +387,6 @@ class Provider(BaseProvider):
             include_row_ids=include_row_ids, delimiter='|',
         )
 
-    def _format_selection(self, definition, **kwargs):
-        """
-        Formats the string with PyStr Format if special characters are found.
-        """
-        if '{{' in definition and '}}' in definition:
-            return self.generator.pystr_format(definition)
-
-        if definition.count(':') == 1:
-            definition, argument_group = definition.split(':')
-            arguments = self.generator.get_arguments(argument_group.strip())
-
-            return self.generator.format(definition.strip(), **arguments)
-
-        return self.generator.format(definition, **kwargs)
-
     def json(self,
              data_columns: list = None,
              num_rows: int = 10,
@@ -422,8 +407,8 @@ class Provider(BaseProvider):
         Argument Groups are used to pass arguments to the provider methods.
 
         Example:
-            fake.set_arguments('top_half',{'min_value':50,'max_value':100})
-            fake.json(data_columns={'Name':'name', 'Score': 'pyint:top_half'})
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.json(data_columns={'Name': 'name', 'Score': 'pyint:top_half'})
 
         Data Column List format:
             [('key name', 'definition', {'arguments'})]
@@ -441,11 +426,12 @@ class Provider(BaseProvider):
         :return: Serialized JSON data
         :rtype: str
 
-        :sample: data_columns={'ID': 'pyint', 'Details': {'Name': 'name'}},
+        :sample: data_columns={'ID': 'pyint', 'Details': {'Name': 'name',
+                'Address': 'address'}}, num_rows=1
+        :sample: data_columns={'Candidates': ['name', 'name', 'name']},
                 num_rows=1
-        :sample: data_columns={'ID': 'pyint', 'Details': ['name', '{{ name }}']},
-                num_rows=1
-        :sample: data_columns=[('ID', 'pyint', {'max_value': 20})], num_rows=1
+        :sample: data_columns=[('Name', 'name'), ('Points', 'pyint',
+                {'min_value': 50, 'max_value': 100})], num_rows=1
         """
         default_data_columns = {
             'name': '{{name}}',
@@ -531,8 +517,8 @@ class Provider(BaseProvider):
         but will override the arguments supplied in the tuple record.
 
         Example:
-            fake.set_arguments('top_half',{'min_value':50,'max_value':100})
-            fake.fixed_width(data_columns=[(20,'name'),(3,'pyint:top_half')])
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.fixed_width(data_columns=[(20, 'name'), (3, 'pyint:top_half')])
 
         :param data_columns: specification for the data structure
         :type data_columns: list
@@ -573,3 +559,18 @@ class Provider(BaseProvider):
 
             data.append(''.join(row))
         return '\n'.join(data)
+
+    def _format_selection(self, definition, **kwargs):
+        """
+        Formats the string with PyStr Format if special characters are found.
+        """
+        if '{{' in definition and '}}' in definition:
+            return self.generator.pystr_format(definition)
+
+        if definition.count(':') == 1:
+            definition, argument_group = definition.split(':')
+            arguments = self.generator.get_arguments(argument_group.strip())
+
+            return self.generator.format(definition.strip(), **arguments)
+
+        return self.generator.format(definition, **kwargs)
