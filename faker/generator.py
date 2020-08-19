@@ -99,7 +99,9 @@ class Generator:
     def set_arguments(self, group, argument, value=None):
         """
         Creates an argument group, with an individual argument or a dictionary
-        of arguments.  Used with the Generator.parse method.
+        of arguments. The argument groups is used to apply arguments to tokens,
+        when using the generator.parse() method. To further manage argument
+        groups, use get_arguments() and del_arguments() methods.
 
         generator.set_arguments('small', 'max_value', 10)
         generator.set_arguments('small', {'min_value': 5, 'max_value': 10})
@@ -117,7 +119,8 @@ class Generator:
     def get_arguments(self, group, argument=None):
         """
         Get the value of an argument configured within a argument group, or
-        the entire group as a dictionary.
+        the entire group as a dictionary. Used in conjunction with the
+        set_arguments() method.
 
         generator.get_arguments('small', 'max_value')
         generator.get_arguments('small')
@@ -131,8 +134,8 @@ class Generator:
 
     def del_arguments(self, group, argument=None):
         """
-        Delete an argument from an argument group or the entire
-        argument group.
+        Delete an argument from an argument group or the entire argument group.
+        Used in conjunction with the set_arguments() method.
 
         generator.del_arguments('small')
         generator.del_arguments('small', 'max_value')
@@ -149,9 +152,10 @@ class Generator:
 
     def parse(self, text):
         """
-        Replaces tokens (like '{{ tokenName }}' or '{{tokenName}}')
-        with the result from the token method call. Arguments can be
-        parsed by using an argument group. '{{ tokenName:group }}'
+        Replaces tokens like '{{ tokenName }}' or '{{tokenName}}' in a string with
+        the result from the token method call. Arguments can be parsed by using an
+        argument group. For more information on the use of argument groups, please
+        refer to the set_arguments() method.
 
         Example:
 
