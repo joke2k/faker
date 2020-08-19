@@ -416,9 +416,9 @@ class Provider(BaseProvider):
         Data Column Dictionary format:
             {'key name': 'definition'}}
 
-        The definition can simply be the 'name:argument_group' of a provider method,
-        or can also be string {{ tokens }} that are passed to :meth:`pystr_format()
-        <faker.providers.python.Provider.pystr_format>` for complex string generation.
+        The definition can simply be the 'name:argument_group' of a provider
+        method, or can also be string {{ tokens }} that are passed to python
+        provider pystr_format() method for complex string generation.
         Argument Groups are used to pass arguments to the provider methods.
 
         Example:
@@ -454,7 +454,7 @@ class Provider(BaseProvider):
         data_columns = data_columns if data_columns else default_data_columns
 
         def process_list_structure(data: list) -> dict:
-            entry = dict()
+            entry = {}
 
             for name, definition, *arguments in data:
                 kwargs = arguments[0] if arguments else {}
@@ -475,7 +475,7 @@ class Provider(BaseProvider):
             return entry
 
         def process_dict_structure(data: dict) -> dict:
-            entry = dict()
+            entry = {}
 
             if isinstance(data, str):
                 return self._format_selection(data)
@@ -525,9 +525,8 @@ class Provider(BaseProvider):
             [('field width', 'definition', {'arguments'})]
 
         The definition can simply be the 'name:argument_group' of a provider
-        method, or can also be string tokens that are passed to :meth:
-        `pystr_format() <faker.providers .python.Provider.pystr_format>` for
-        data generation.
+        method, or can also be string tokens that are passed to python
+        provider method pystr_format() for data generation.
         Argument Groups can be used to pass arguments to the provider methods,
         but will override the arguments supplied in the tuple record.
 
@@ -549,7 +548,7 @@ class Provider(BaseProvider):
         """
         default_data_columns = [
             (20, 'name'),
-            (3, 'pyint', {'max_value': 20})
+            (3, 'pyint', {'max_value': 20}),
         ]
         data_columns = data_columns if data_columns else default_data_columns
         align_map = {

@@ -23,6 +23,7 @@ class _FooBarProvider:
     def test_float(self, multi=1) -> float:
         return 1.1 * multi
 
+
 class TestMisc(unittest.TestCase):
     """Tests miscellaneous generators"""
     def setUp(self):
@@ -466,7 +467,7 @@ class TestMisc(unittest.TestCase):
         kwargs = {
             'data_columns': {
                 'item1': 1,
-                'item2': 1.0
+                'item2': 1.0,
             },
             'num_rows': 1,
         }
@@ -523,7 +524,7 @@ class TestMisc(unittest.TestCase):
                 (
                     'list', [
                         (None, '{{ foo_bar }}s'),
-                        (None, 'foo_bar')
+                        (None, 'foo_bar'),
                     ],
                 ),
             ],
@@ -573,7 +574,7 @@ class TestMisc(unittest.TestCase):
             'data_columns': {
                 'list': [
                     '{{ foo_bar }}s',
-                    'foo_bar'
+                    'foo_bar',
                 ],
             },
             'num_rows': 1,
@@ -603,7 +604,7 @@ class TestMisc(unittest.TestCase):
             'data_columns': {
                 'dict': {
                     'item1': '{{ foo_bar }}s',
-                    'item2': 'foo_bar'
+                    'item2': 'foo_bar',
                 },
             },
             'num_rows': 1,
