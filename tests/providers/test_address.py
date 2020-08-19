@@ -463,6 +463,16 @@ class TestEsES(unittest.TestCase):
         secondary_address = self.fake.secondary_address()
         assert isinstance(secondary_address, str)
 
+    def test_regions(self):
+        region = self.fake.region()
+        assert isinstance(region, str)
+        assert region in EsEsProvider.regions
+
+        # Spanish regions, also known as "autonomous communities"
+        autonomous_community = self.fake.autonomous_community()
+        assert isinstance(autonomous_community, str)
+        assert autonomous_community in EsEsProvider.regions
+
 
 class TestEsMX(unittest.TestCase):
     """ Tests the addresses in the es_MX locale """
