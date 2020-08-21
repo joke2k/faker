@@ -373,18 +373,20 @@ that any generated values are unique for this specific instance.
 
 Calling ``fake.unique.clear()`` clears the already seen values.
 Note, to avoid infinite loops, after a number of attempts to find a unique
-value, Faker will throw a ``UniquenessSanityException``. Beware of the birthday
-paradox, collisions are more likely than you'd think.
+value, Faker will throw a ``UniquenessException``. Beware of the [birthday
+paradox](https://en.wikipedia.org/wiki/Birthday_problem), collisions
+are more likely than you'd think.
 
 
 .. code:: python
    from faker import Faker
    fake = Faker()
    for i in range(3):
-        # Raises a UniquenessSanityException
+        # Raises a UniquenessException
         fake.unique.boolean()
 
-In addition, only hashable return values can be used with ``.unique``.
+In addition, only hashable arguments and return values can be used
+with ``.unique``.
 
 Seeding the Generator
 ---------------------
