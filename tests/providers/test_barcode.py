@@ -66,7 +66,7 @@ class TestBarcodeProvider:
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
 
-@pytest.fixture('class')
+@pytest.fixture(scope='class')
 def provider_class(request):
     if hasattr(request.cls, 'get_provider_class') and callable(request.cls.get_provider_class):
         _provider_class = request.cls.get_provider_class()
@@ -251,7 +251,7 @@ class TestEnUs(_LocaleNorthAmericaMixin):
 
 
 class TestEnCa(_LocaleNorthAmericaMixin):
-    """ Tests en_US barcode provider """
+    """ Tests en_CA barcode provider """
     num_samples = 1000
 
     @staticmethod
@@ -261,7 +261,7 @@ class TestEnCa(_LocaleNorthAmericaMixin):
 
 
 class TestFrCa(_LocaleNorthAmericaMixin):
-    """ Tests en_US barcode provider """
+    """ Tests fr_CA barcode provider """
     num_samples = 1000
 
     @staticmethod
@@ -271,7 +271,7 @@ class TestFrCa(_LocaleNorthAmericaMixin):
 
 
 class TestJaJp(_LocaleCommonMixin):
-    """ Tests en_US barcode provider """
+    """ Tests ja_JP barcode provider """
     num_samples = 1000
 
     @staticmethod
@@ -313,3 +313,28 @@ class TestJaJp(_LocaleCommonMixin):
             assert (sum(jan13_digits) + 2 * sum(jan13_digits[1::2])) % 10 == 0
 
             self.assert_prefix(jan13_digits, provider.local_prefixes)
+
+
+class TestEsEs(_LocaleCommonMixin):
+    """ Tests es_ES barcode provider """
+    num_samples = 1000
+
+    @staticmethod
+    def get_provider_class():
+        from faker.providers.barcode.es_ES import Provider
+        return Provider
+
+    def test_localized_ean(self, faker, num_samples, provider):
+        for _ in range(num_samples):
+            ean8 = faker.localized_ean(8)
+            ean13 = faker.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            self.assert_prefix(ean8_digits, provider.local_prefixes)
+            self.assert_prefix(ean13_digits, provider.local_prefixes)
