@@ -33,5 +33,6 @@ def faker(request):
     if 'faker_seed' in request.fixturenames:
         seed = request.getfixturevalue('faker_seed')
     fake.seed_instance(seed=seed)
+    fake.unique.clear()
 
     return fake
