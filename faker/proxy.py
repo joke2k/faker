@@ -5,10 +5,10 @@ import re
 from collections import OrderedDict
 
 from faker.config import DEFAULT_LOCALE
+from faker.exceptions import UniquenessException
 from faker.factory import Factory
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
-from faker.exceptions import UniquenessException
 
 _UNIQUE_ATTEMPTS = 1000
 
