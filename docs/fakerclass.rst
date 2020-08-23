@@ -292,10 +292,10 @@ a cheatsheet for new ``Faker`` in multiple locale mode.
 Unique Values
 -------------
 
-New in version ``VERSION-GOES-HERE`` is the ``.unique`` attribute on the
+New in version ``v4.2.0` is the ``.unique`` attribute on the
 ``Faker`` proxy.
 
-Accessing provider methods "through" this attribute guarantees that
+Accessing provider methods through this attribute guarantees that
 the returned values are unique for the lifetime of the ``Faker`` instance.
 
 
@@ -303,10 +303,11 @@ the returned values are unique for the lifetime of the ``Faker`` instance.
 
    import faker
    fake = faker.Faker()
+
    numbers = set(fake.unique.random_int() for i in range(1000))
    assert len(numbers) == 1000
 
-To clear "seen" values, simply call ``fake.unique.clear()``, which will
+To clear already seen values, simply call ``fake.unique.clear()``, which will
 allow previous values generated to be returned again.
 
 Different argument signatures for provider methods do not share
@@ -317,6 +318,7 @@ a uniqueness pool.
 
    import faker
    fake = faker.Faker()
+
    numbers = set(fake.unique.random_int(min=1, max=10) for i in range(10))
    other_numbers = set(fake.unique.random_int(min=1, max=5) for i in range(5))
 
@@ -333,6 +335,7 @@ be raised.
 .. code:: python
    import faker
    fake = faker.Faker()
+
    for i in range(3):
         fake.unique.boolean()  # UniquenessException!
 
@@ -345,4 +348,5 @@ fast membership testing.
 .. code:: python
    import faker
    fake = faker.Faker()
+
    fake.unique.profile()  # TypeError: unhashable type: 'dict'

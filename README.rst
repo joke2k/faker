@@ -373,8 +373,8 @@ that any generated values are unique for this specific instance.
 
 Calling ``fake.unique.clear()`` clears the already seen values.
 Note, to avoid infinite loops, after a number of attempts to find a unique
-value, Faker will throw a ``UniquenessException``. Beware of the [birthday
-paradox](https://en.wikipedia.org/wiki/Birthday_problem), collisions
+value, Faker will throw a ``UniquenessException``. Beware of the `birthday
+paradox <https://en.wikipedia.org/wiki/Birthday_problem>`_, collisions
 are more likely than you'd think.
 
 
