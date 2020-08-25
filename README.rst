@@ -379,6 +379,7 @@ are more likely than you'd think.
 
 
 .. code:: python
+
    from faker import Faker
 
    fake = Faker()
