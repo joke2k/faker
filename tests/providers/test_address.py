@@ -1,5 +1,7 @@
 import re
 
+from unittest import mock
+
 import pytest
 
 from ukpostcodeparser.parser import parse_uk_postcode
@@ -1356,3 +1358,43 @@ class TestRuRu:
         for _ in range(num_samples):
             street_name = faker.street_name()
             assert isinstance(street_name, str)
+
+    @pytest.mark.parametrize("street_title,street_suffix,expected", [
+        ("Фрунзе", "ул.", "ул. Фрунзе"),
+        ("Ставропольская", "ул.", "ул. Ставропольская"),
+        ("Фрунзе", "пр.", "пр. Фрунзе"),
+        ("Осенняя", "пр.", "пр. Осенний"),
+        ("Гвардейская", "пр.", "пр. Гвардейский"),
+        ("Рыбацкая", "пр.", "пр. Рыбацкий"),
+        ("Безымянная", "пр.", "пр. Безымянный"),
+        ("Проезжая", "ш.", "ш. Проезжее"),
+        ("Магистральная", "ш.", "ш. Магистральное"),
+    ], ids=[
+        "feminine_suffix_and_noflex_title",
+        "feminine_suffix_and_flex_title",
+        "non_feminine_suffix_and_noflex_title",
+        "masc_suffix_and_irregular_masc_title",
+        "masc_suffix_and_ck_street_stem",
+        "masc_suffix_and_uk_street_stem",
+        "masc_suffix_and_other_stem",
+        "neu_suffx_and_iregular_neu_street_title",
+        "neu_suffix_and_regular_street_title",
+    ])
+    def test_street_name_lexical(self, faker, street_title, street_suffix, expected):
+        """Test that random street names are formed correctly, given
+        the case of suffixes and streets that have been randomly selected.
+        """
+        title_patch = mock.patch(
+            "faker.providers.address.ru_RU.Provider.street_title",
+            autospec=True,
+            return_value=street_title,
+        )
+        suffix_patch = mock.patch(
+            "faker.providers.address.ru_RU.Provider.street_suffix",
+            autospec=True,
+            return_value=street_suffix,
+        )
+
+        with title_patch, suffix_patch:
+            result = faker.street_name()
+            assert result == expected
