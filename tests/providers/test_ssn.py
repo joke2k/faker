@@ -1,9 +1,9 @@
 import re
 import unittest
-from unittest import mock
 
 from datetime import datetime
 from itertools import cycle
+from unittest import mock
 
 import freezegun
 import pytest

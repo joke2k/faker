@@ -1,8 +1,10 @@
 import re
 import unittest
+
 from unittest import mock
 
 import pytest
+
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker
@@ -1217,13 +1219,14 @@ class TestRuRU(unittest.TestCase):
 @pytest.mark.parametrize(
     "region_suffix",
     RuProvider.region_suffixes,
-    ids=["republics", "krai", "oblast", "ao"]
+    ids=["republics", "krai", "oblast", "ao"],
 )
 def test_ru_region(region_suffix):
     fake = Faker('ru_RU')
     Faker.seed(0)
 
     first = True
+
     def _random_element(self, elements):
         # The first time this fake implementation is called, it
         # always returns the given region_suffix, otherwise
