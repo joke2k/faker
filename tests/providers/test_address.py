@@ -1,6 +1,8 @@
 import re
 import unittest
+from unittest import mock
 
+import pytest
 from ukpostcodeparser.parser import parse_uk_postcode
 
 from faker import Faker
@@ -19,6 +21,7 @@ from faker.providers.address.hy_AM import Provider as HyAmProvider
 from faker.providers.address.ja_JP import Provider as JaProvider
 from faker.providers.address.ne_NP import Provider as NeProvider
 from faker.providers.address.pt_PT import Provider as PtPtProvider
+from faker.providers.address.ru_RU import Provider as RuProvider
 
 
 class TestBaseProvider(unittest.TestCase):
@@ -1209,3 +1212,79 @@ class TestRuRU(unittest.TestCase):
     def test_street_name(self):
         street_name = self.fake.street_name()
         assert isinstance(street_name, str)
+
+
+@pytest.mark.parametrize(
+    "region_suffix",
+    RuProvider.region_suffixes,
+    ids=["republics", "krai", "oblast", "ao"]
+)
+def test_ru_region(region_suffix):
+    fake = Faker('ru_RU')
+    Faker.seed(0)
+
+    first = True
+    def _random_element(self, elements):
+        # The first time this fake implementation is called, it
+        # always returns the given region_suffix, otherwise
+        # it acts normally
+        nonlocal first
+        if first:
+            first = False
+            assert region_suffix in elements
+            return region_suffix
+        else:
+            return fake.random_element(elements)
+
+    with mock.patch(
+        "faker.providers.address.ru_RU.Provider.random_element",
+        side_effect=_random_element,
+        autospec=True,
+    ):
+        region = fake.region()
+
+    assert isinstance(region, str)
+
+    # Occasionally the region_suffix is at the beginning
+    assert region.startswith(region_suffix) or region.endswith(region_suffix)
+
+
+@pytest.mark.parametrize("street_title,street_suffix,expected", [
+    ("Фрунзе", "ул.", "ул. Фрунзе"),
+    ("Ставропольская", "ул.", "ул. Ставропольская"),
+    ("Фрунзе", "пр.", "пр. Фрунзе"),
+    ("Осенняя", "пр.", "пр. Осенний"),
+    ("Гвардейская", "пр.", "пр. Гвардейский"),
+    ("Рыбацкая", "пр.", "пр. Рыбацкий"),
+    ("Безымянная", "пр.", "пр. Безымянный"),
+    ("Проезжая", "ш.", "ш. Проезжее"),
+    ("Магистральная", "ш.", "ш. Магистральное"),
+], ids=[
+    "feminine_suffix_and_noflex_title",
+    "feminine_suffix_and_flex_title",
+    "non_feminine_suffix_and_noflex_title",
+    "masc_suffix_and_irregular_masc_title",
+    "masc_suffix_and_ck_street_stem",
+    "masc_suffix_and_uk_street_stem",
+    "masc_suffix_and_other_stem",
+    "neu_suffx_and_iregular_neu_street_title",
+    "neu_suffix_and_regular_street_title",
+])
+def test_ru_street_name(street_title, street_suffix, expected):
+    fake = Faker('ru_RU')
+    Faker.seed(0)  # At time of writing, street_nam
+
+    title_patch = mock.patch(
+        "faker.providers.address.ru_RU.Provider.street_title",
+        autospec=True,
+        return_value=street_title,
+    )
+    suffix_patch = mock.patch(
+        "faker.providers.address.ru_RU.Provider.street_suffix",
+        autospec=True,
+        return_value=street_suffix,
+    )
+
+    with title_patch, suffix_patch:
+        result = fake.street_name()
+        assert result == expected

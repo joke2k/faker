@@ -1,5 +1,6 @@
 import re
 import unittest
+from unittest import mock
 
 from datetime import datetime
 from itertools import cycle
@@ -665,6 +666,31 @@ class TestFrFR(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r'^FR[\w\d]{2} \d{9}$', self.fake.vat_id())
+
+
+class TestFrCH:
+    @pytest.mark.parametrize("digits,expected", [
+        ("22500105", "CHE225001055"),
+        ("60362354", "CHE603623540"),
+        ("36806684", "CHE368066842"),
+    ], ids=[
+        "checksum_remainder_11",
+        "checksum_remainder_10",
+        "checksum_remainder_other",
+    ])
+    def test_checksum(self, digits, expected):
+        """The checksum of the Swiss UID number is calculated correctly
+        given a certain input of 8 digits."""
+        fake = Faker("fr_CH")
+        Faker.seed(0)
+
+        with mock.patch(
+            "faker.providers.ssn.fr_CH.Provider.numerify",
+            return_value=digits,
+            autospec=True,
+        ):
+            result = fake.vat_id()
+            assert result == expected
 
 
 class TestEnGB(unittest.TestCase):
