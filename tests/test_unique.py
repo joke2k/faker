@@ -1,6 +1,6 @@
-from faker import Faker
 import pytest
 
+from faker import Faker
 from faker.exceptions import UniquenessException
 
 
