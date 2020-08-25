@@ -881,7 +881,7 @@ class TestHyAm:
 
 class TestJaJp:
     """Test ja_JP address provider methods"""
-    
+
     def test_chome(self, faker, num_samples):
         for _ in range(num_samples):
             chome = faker.chome()
@@ -889,7 +889,7 @@ class TestJaJp:
             match = re.fullmatch(r"(?P<chome_number>\d{1,2})丁目", chome)
             assert match
             assert 1 <= int(match.group('chome_number')) <= 42
-            
+
     def test_ban(self, faker, num_samples):
         for _ in range(num_samples):
             ban = faker.ban()
@@ -940,13 +940,13 @@ class TestJaJp:
         for _ in range(num_samples):
             address = faker.address()
             assert isinstance(address, str)
-        
+
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
             assert re.fullmatch(r'\d{3}-\d{4}', postcode)
-            
+
     def test_zipcode(self, faker, num_samples):
         for _ in range(num_samples):
             zipcode = faker.zipcode()
@@ -1314,7 +1314,7 @@ class TestRuRu:
             r'(?:респ\. (?P<region_republic>.*))|'
             r'(?:(?P<region_krai>.*?) край)|'
             r'(?:(?P<region_oblast>.*?) обл.)|'
-            r'(?:(?P<region_ao>.*?) АО)'
+            r'(?:(?P<region_ao>.*?) АО)',
         )
         for _ in range(num_samples):
             region = faker.region()
