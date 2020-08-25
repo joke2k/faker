@@ -379,7 +379,9 @@ are more likely than you'd think.
 
 
 .. code:: python
+
    from faker import Faker
+
    fake = Faker()
    for i in range(3):
         # Raises a UniquenessException
