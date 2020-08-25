@@ -10,7 +10,7 @@ def test_unique_clears(testdir):
 
         def test_another_boolean(faker):
             faker.unique.boolean()
-        """
+        """,
     )
 
     result = testdir.runpytest()
