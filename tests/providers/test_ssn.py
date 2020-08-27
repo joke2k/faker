@@ -25,7 +25,6 @@ from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
-from faker.providers.ssn.zh_CN import Provider as cn_Provider
 from faker.utils.checksums import luhn_checksum
 
 
