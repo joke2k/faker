@@ -25,6 +25,7 @@ from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
 from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
+from faker.providers.ssn.zh_CN import Provider as cn_Provider
 from faker.utils.checksums import luhn_checksum
 
 
@@ -965,3 +966,30 @@ class TestEnIn(unittest.TestCase):
     def test_valid_luhn(self):
         for aadhaar_id in self.aadhaar_ids:
             assert luhn_checksum(aadhaar_id) == 0
+
+
+class TestZhCN(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker('zh_CN')
+        Faker.seed(0)
+
+    def test_zh_CN_ssn(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert len(ssn) == 18
+
+    def test_zh_CN_ssn_invalid_gender_passed(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender='X')
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender='*')
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender='22')
+
+    def test_zh_CN_ssn_gender_passed(self):
+        # Females have even number at index 17
+        ssn = self.fake.ssn(gender='F')
+        assert int(ssn[16]) % 2 == 0
+        # Males have odd number at index 17
+        ssn = self.fake.ssn(gender='M')
+        assert int(ssn[16]) % 2 == 1
