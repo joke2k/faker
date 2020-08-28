@@ -1146,6 +1146,6 @@ class Provider(PersonProvider):
         'ହେମ୍ବ୍ରମ',
         'ହୋତା',
     )
-    
+
     def middle_name(self):
         return self.random_element(self.middle_names)
