@@ -4,8 +4,14 @@ import itertools
 import json
 import re
 import tarfile
+import unittest
 import uuid
 import zipfile
+
+try:
+    import PIL.Image
+except ImportError:
+    PIL = None
 
 from unittest.mock import patch
 
@@ -308,6 +314,15 @@ class TestMiscProvider:
                 # Verify tar has the correct number of files
                 members = tar_handle.getmembers()
                 assert len(members) == num_files
+
+    @unittest.skipUnless(PIL, 'requires the Python Image Library')
+    def test_image(self, faker):
+        img = PIL.Image.open(io.BytesIO(faker.image()))
+        assert img.size == (256, 256)
+        assert img.format == 'PNG'
+        img = PIL.Image.open(io.BytesIO(faker.image(size=(2, 2), image_format='tiff')))
+        assert img.size == (2, 2)
+        assert img.format == 'TIFF'
 
     def test_dsv_with_invalid_values(self, faker):
         with pytest.raises(ValueError):
