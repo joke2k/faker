@@ -8,7 +8,7 @@ class Provider(PersonProvider):
         '{{last_name}}, {{first_name}}',
     )
 
-    # All the names are extracted from Odia Wikipedia, 
+    # All the names are extracted from Odia Wikipedia,
     # 1. https://or.wikipedia.org/s/1duk and
     # 2. https://or.wikipedia.org/s/3vz
     first_names_female = (
@@ -184,7 +184,7 @@ class Provider(PersonProvider):
         'ସ୍ନିଗ୍ଧା',
         'ସ୍ନେହାଙ୍ଗିନୀ',
         'ସ୍ମିତା',
-        'ସ୍ୱାଗତିକା'
+        'ସ୍ୱାଗତିକା',
     )
     first_name_unisex = (
         'ଅଶ୍ୱିନୀ',
@@ -803,7 +803,7 @@ class Provider(PersonProvider):
         'ହାଡ଼ିବନ୍ଧୁ',
         'ହିମାଂଶୁ',
         'ହେମନ୍ତ',
-        'ହୋମସିଂହ'
+        'ହୋମସିଂହ',
     )
     first_names = first_names_male + first_names_female + first_name_unisex
     middle_names = (
@@ -1146,5 +1146,6 @@ class Provider(PersonProvider):
         'ହେମ୍ବ୍ରମ',
         'ହୋତା',
     )
+    
     def middle_name(self):
         return self.random_element(self.middle_names)
