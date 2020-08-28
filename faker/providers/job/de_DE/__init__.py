@@ -24,7 +24,7 @@ class Provider(BaseProvider):
         'Fachinformatiker',
         'Fleischer',
         'Florist',
-        'Forstwirst',
+        'Forstwirt',
         'Friseur',
         'Informatiker',
         'Programmierer',
