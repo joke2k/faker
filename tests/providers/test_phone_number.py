@@ -1,218 +1,178 @@
 import re
-import unittest
 
-from faker import Faker
-
-
-class TestPhoneNumber(unittest.TestCase):
-    """ Tests phone_number in the ja_JP locale """
-
-    def setUp(self):
-        self.fake = Faker()
-        Faker.seed(0)
-
-    def test_phone_number(self):
-        pn = self.fake.phone_number()
-
-        assert pn
-        assert isinstance(pn, str)
-
-    def test_country_calling_code(self):
-        cc = self.fake.country_calling_code()
-
-        assert cc
-        assert isinstance(cc, str)
-        assert cc.startswith('+')
-
-    def test_msisdn(self):
-        msisdn = self.fake.msisdn()
-
-        assert msisdn is not None
-        assert isinstance(msisdn, str)
-        assert len(msisdn) == 13
-        assert msisdn.isdigit()
+from faker.providers.phone_number import Provider as PhoneNumberProvider
+from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
 
 
-class TestJa(unittest.TestCase):
+class TestPhoneNumber:
+    """Test phone number provider methods"""
 
-    def setUp(self):
-        self.fake = Faker('ja')
-        Faker.seed(0)
+    def test_country_calling_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            cc = faker.country_calling_code()
+            assert cc in PhoneNumberProvider.country_calling_codes
 
-    def test_phone_number(self):
-        pn = self.fake.phone_number()
-        formats = ('070', '080', '090')
-
-        assert pn
-        assert isinstance(pn, str)
-        first, second, third = pn.split('-')
-        assert first
-        assert first.isdigit()
-        assert second
-        assert second.isdigit()
-        assert third
-        assert third.isdigit()
-        if len(first) == 2:
-            assert len(second) == 4
-            assert len(third) == 4
-        else:
-            assert len(first) == 3
-            assert len(second) == 4
-            assert len(third) == 4
-            assert first in formats
+    def test_msisdn(self, faker, num_samples):
+        for _ in range(num_samples):
+            msisdn = faker.msisdn()
+            assert isinstance(msisdn, str)
+            assert len(msisdn) == 13
+            assert msisdn.isdigit()
 
 
-class TestPtBr(unittest.TestCase):
+class TestJaJp:
+    """Test ja_JP phone number provider methods"""
 
-    def setUp(self):
-        self.fake = Faker('pt_br')
-        Faker.seed(0)
-
-    def test_phone_number(self):
-        phone_number = self.fake.phone_number()
-        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", phone_number)
-
-    def test_msisdn(self):
-        msisdn = self.fake.msisdn()
-        formats = ('5511', '5521', '5531', '5541', '5551', '5561', '5571', '5581', '5584')
-
-        assert msisdn is not None
-        assert isinstance(msisdn, str)
-        assert len(msisdn) == 13
-        assert msisdn.isdigit()
-        assert msisdn[0:4] in formats
-        re.match(r"^[5]{2}\d{2}[9]\d{8}$", msisdn)
-
-    def test_cellphone(self):
-        cellphone = self.fake.cellphone_number()
-        assert cellphone is not None
-        assert cellphone[0:3] == '+55'
-        re.match(r"^[+]?([0-9]{2})?[ ]?[(]?[0]?\d{2}[)]?[ ]?[09]?[ ]?\d{4}[ -]?\d{4}$", cellphone)
+    def test_phone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            pattern = re.compile(r'(?:0[789]0|\d{2})-\d{4}-\d{4}')
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
 
 
-class TestHuHU(unittest.TestCase):
+class TestPtBr:
+    """Test pt_BR phone number provider methods"""
 
-    def setUp(self):
-        self.fake = Faker('hu_HU')
-        Faker.seed(0)
-
-    def test_phone_number(self):
-        phone_number = self.fake.phone_number()
-        re.match(r"[1-9]\d/\d{3} \d{4}", phone_number)
-
-
-class TestThTH(unittest.TestCase):
-
-    def setUp(self):
-        self.fake = Faker('th_TH')
-        Faker.seed(0)
-
-    def test_phone_number_should_be_in_defined_format(self):
-        phone_number = self.fake.phone_number()
-
-        first, second, third = phone_number.split(' ')
-
-        formats = ('+66', '+668')
-        self.assertTrue(first in formats)
-
-        if len(first) == 3:
-            self.assertEqual(first, '+66')
-        elif len(first) == 4:
-            self.assertEqual(first, '+668')
-
-        self.assertEqual(len(second), 4)
-        self.assertEqual(len(third), 4)
-
-
-class TestHyAm(unittest.TestCase):
-    """ Tests phone_number in the hy_AM locale """
-
-    def setUp(self):
-        self.fake = Faker('hy_AM')
-        Faker.seed(0)
-
-    def test_phone_number(self):
-        pn = self.fake.phone_number()
-        assert isinstance(pn, str)
-
-
-class TestEnPh(unittest.TestCase):
-    num_sample_runs = 1000
-
-    def setUp(self):
-        self.mobile_number_pattern = re.compile(r'^(?:0|\+63)(\d+)-\d{3}-\d{4}$')
-        self.area2_landline_number_pattern = re.compile(r'^(?:0|\+63)2-(\d{4})-\d{4}')
-        self.non_area2_landline_number_pattern = re.compile(r'^(?:0|\+63)(\d{2})-(\d{3})-\d{4}')
-        self.setup_constants()
-        self.setup_faker()
-
-    def setup_faker(self):
-        self.fake = Faker('en_PH')
-        Faker.seed(0)
-
-    def setup_constants(self):
-        from faker.providers.phone_number.en_PH import Provider
-        self.globe_mobile_number_prefixes = Provider.globe_mobile_number_prefixes
-        self.smart_mobile_number_prefixes = Provider.smart_mobile_number_prefixes
-        self.sun_mobile_number_prefixes = Provider.sun_mobile_number_prefixes
-        self.mobile_number_prefixes = (
-            self.globe_mobile_number_prefixes + self.smart_mobile_number_prefixes + self.sun_mobile_number_prefixes
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'(?:\+55 )?'
+            r'(?:[1-8]1|84|\((?:0[1-8]1|084)\))'
+            r' \d{4}[ -]\d{4}'
         )
-        self.bayantel_landline_identifiers = Provider.bayantel_landline_identifiers
-        self.misc_landline_identifiers = Provider.misc_landline_identifiers
-        self.non_area2_landline_area_codes = Provider.non_area2_landline_area_codes
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
 
-    def test_PH_globe_mobile_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.globe_mobile_number()
+    def test_msisdn(self, faker, num_samples):
+        pattern = re.compile(r'55(?:[1-8]19|849)\d{8}')
+        for _ in range(num_samples):
+            msisdn = faker.msisdn()
+            assert pattern.fullmatch(msisdn)
+
+    def test_cellphone(self, faker, num_samples):
+        pattern = re.compile(
+            r'(?:\+55 )?'
+            r'(?:\d{2}|\(0?\d{2}\))'
+            r' 9 ?\d{4}[ -]\d{4}',
+        )
+        for _ in range(num_samples):
+            cellphone = faker.cellphone_number()
+            assert pattern.fullmatch(cellphone)
+
+
+class TestHuHu:
+    """Test hu_HU phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'(?:'
+            r'\+36 \d{2} |'
+            r'\(06\)\d{2}/|'
+            r'\(\d{2}\)/|'
+            r'\d{2}/|'
+            r'06-\d{1,2}/'
+            r')\d{3}[- ]\d{4}',
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestThTh:
+    """Test th_TH phone number provider methods"""
+
+    def test_phone_number_should_be_in_defined_format(self, faker, num_samples):
+        pattern = re.compile(r'\+668? \d{4} \d{4}')
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestHyAm:
+    """Test hy_AM phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'(?:[23]\d{2}-|\([23]\d{2}\) |[23]\d{2}\.)\d{5}|'
+            r'(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}'
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestEnPh:
+    """Test en_PH phone number provider methods"""
+
+    @classmethod
+    def setup_class(cls):
+        cls.mobile_number_pattern = re.compile(r'^(?:0|\+63)(\d+)-\d{3}-\d{4}$')
+        cls.area2_landline_number_pattern = re.compile(r'^(?:0|\+63)2-(\d{4})-\d{4}')
+        cls.non_area2_landline_number_pattern = re.compile(r'^(?:0|\+63)(\d{2})-(\d{3})-\d{4}')
+        cls.globe_mobile_number_prefixes = EnPhPhoneNumberProvider.globe_mobile_number_prefixes
+        cls.smart_mobile_number_prefixes = EnPhPhoneNumberProvider.smart_mobile_number_prefixes
+        cls.sun_mobile_number_prefixes = EnPhPhoneNumberProvider.sun_mobile_number_prefixes
+        cls.mobile_number_prefixes = (
+            cls.globe_mobile_number_prefixes + cls.smart_mobile_number_prefixes + cls.sun_mobile_number_prefixes
+        )
+        cls.bayantel_landline_identifiers = EnPhPhoneNumberProvider.bayantel_landline_identifiers
+        cls.misc_landline_identifiers = EnPhPhoneNumberProvider.misc_landline_identifiers
+        cls.non_area2_landline_area_codes = EnPhPhoneNumberProvider.non_area2_landline_area_codes
+
+    def test_globe_mobile_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.globe_mobile_number()
             match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.globe_mobile_number_prefixes
 
-    def test_PH_smart_mobile_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.smart_mobile_number()
+    def test_smart_mobile_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.smart_mobile_number()
             match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.smart_mobile_number_prefixes
 
-    def test_PH_sun_mobile_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.sun_mobile_number()
+    def test_sun_mobile_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.sun_mobile_number()
             match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.sun_mobile_number_prefixes
 
-    def test_PH_mobile_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.mobile_number()
+    def test_mobile_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.mobile_number()
             match = self.mobile_number_pattern.match(number)
             assert match and match.group(1) in self.mobile_number_prefixes
 
-    def test_PH_globe_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.globe_area2_landline_number()
+    def test_globe_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.globe_area2_landline_number()
             match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1).startswith('7')
 
-    def test_PH_pldt_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.pldt_area2_landline_number()
+    def test_pldt_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.pldt_area2_landline_number()
             match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1).startswith('8')
 
-    def test_PH_bayantel_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.bayantel_area2_landline_number()
+    def test_bayantel_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.bayantel_area2_landline_number()
             match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.bayantel_landline_identifiers
 
-    def test_PH_misc_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.misc_area2_landline_number()
+    def test_misc_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.misc_area2_landline_number()
             match = self.area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.misc_landline_identifiers
 
-    def test_PH_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.area2_landline_number()
+    def test_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.area2_landline_number()
             match = self.area2_landline_number_pattern.match(number)
             assert match and any([
                 match.group(1).startswith('7'),
@@ -221,15 +181,15 @@ class TestEnPh(unittest.TestCase):
                 match.group(1) in self.misc_landline_identifiers,
             ])
 
-    def test_PH_non_area2_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.non_area2_landline_number()
+    def test_non_area2_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.non_area2_landline_number()
             match = self.non_area2_landline_number_pattern.match(number)
             assert match and match.group(1) in self.non_area2_landline_area_codes
 
-    def test_PH_landline_number(self):
-        for i in range(self.num_sample_runs):
-            number = self.fake.landline_number()
+    def test_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.landline_number()
             area2_match = self.area2_landline_number_pattern.match(number)
             non_area2_match = self.non_area2_landline_number_pattern.match(number)
             assert area2_match or non_area2_match
@@ -245,36 +205,36 @@ class TestEnPh(unittest.TestCase):
 
 
 class TestFilPh(TestEnPh):
-
-    def setup_faker(self):
-        self.fake = Faker('fil_PH')
-        Faker.seed(0)
+    """Test fil_PH phone number provider methods"""
+    pass
 
 
 class TestTlPh(TestEnPh):
-
-    def setup_faker(self):
-        self.fake = Faker('tl_PH')
-        Faker.seed(0)
+    """Test tl_PH phone number provider methods"""
+    pass
 
 
-class TestTaIN(unittest.TestCase):
+class TestTaIn:
+    """Test ta_IN phone number provider methods"""
 
-    def setUp(self):
-        self.fake = Faker('ta_IN')
-        Faker.seed(0)
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'\+91 \d{3} ?\d{7}|'
+            r'0\d{2}(-)?\d{2}(?(1)| ?)\d{6}',
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
 
-    def test_phone_number(self):
-        phone_number = self.fake.phone_number()
-        re.match(r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$", phone_number)
 
+class TestEsEs:
+    """Test es_ES phone number provider methods"""
 
-class TestEs_ES(unittest.TestCase):
-
-    def setUp(self):
-        self.fake = Faker('es_ES')
-        Faker.seed(0)
-
-    def test_phone_number(self):
-        phone_number = self.fake.phone_number()
-        re.match(r"(\+34)?((6([0-9]*){8})|(7[1-4]+([0-9]*){7})|((8|9)[1-9]+([0-9]*){7}))$", phone_number)
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'\+34 ?(?:7[0-4]|[689]\d)\d'
+            r'(?: \d{3} \d{3}|\d{6}| \d{2} \d{2} \d{2})',
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
