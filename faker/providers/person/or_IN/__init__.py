@@ -2,13 +2,21 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{middle_name}} {{last_name}}',
-        '{{last_name}}, {{first_name}}',
+    formats_female = (
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_unisex}} {{last_name}}',
+        '{{prefix_female}} {{first_name_unisex}} {{last_name}}',
+        '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
+    formats_male = (
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{middle_name}} {{last_name}}',
+        '{{first_name_unisex}} {{middle_name}} {{last_name}}',
+        '{{prefix_male}} {{first_name_male}} {{last_name}}',
+    )
+    formats = formats_female + formats_male
 
-    # All the names are extracted from Odia Wikipedia,
+    # All the names are extracted from Odia Wikipedia by Soumendra Kumar Sahoo.
     # 1. https://or.wikipedia.org/s/1duk and
     # 2. https://or.wikipedia.org/s/3vz
     first_names_female = (
@@ -186,7 +194,7 @@ class Provider(PersonProvider):
         'ସ୍ମିତା',
         'ସ୍ୱାଗତିକା',
     )
-    first_name_unisex = (
+    first_names_unisex = (
         'ଅଶ୍ୱିନୀ',
         'ଅଶ୍ୱିନୀ',
         'କବି',
@@ -805,7 +813,7 @@ class Provider(PersonProvider):
         'ହେମନ୍ତ',
         'ହୋମସିଂହ',
     )
-    first_names = first_names_male + first_names_female + first_name_unisex
+    first_names = first_names_male + first_names_female + first_names_unisex
     middle_names = (
         'ଅଲ୍ଲୀ',
         'କିଶୋର',
@@ -1146,6 +1154,19 @@ class Provider(PersonProvider):
         'ହେମ୍ବ୍ରମ',
         'ହୋତା',
     )
+    prefixes_female = (
+        'ସୁଶ୍ରୀ',
+        'ଶ୍ରୀମତୀ',
+        'କୁମାରୀ',
+    )
+    prefixes_male = (
+        'ଶ୍ରୀ',
+        'ଶ୍ରୀମାନ',
+        'ଶ୍ରୀଯୁକ୍ତ',
+    )
+
+    def first_name_unisex(self):
+        return self.random_element(self.first_names_unisex)
 
     def middle_name(self):
         return self.random_element(self.middle_names)
