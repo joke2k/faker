@@ -13,6 +13,7 @@ from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
+from faker.providers.person.or_IN import Provider as OrINProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
 from faker.providers.person.ru_RU import Provider as RuProvider
@@ -696,3 +697,34 @@ class TestEn(unittest.TestCase):
         suffix = self.fake.suffix()
         self.assertIsInstance(suffix, str)
         assert suffix in EnProvider.suffixes_male or suffix in EnProvider.suffixes_female
+
+
+class TestOrIN(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('or_IN')
+        Faker.seed(0)
+
+    def test_first_names(self):
+        """simple test to verify that we are pulling gender specific names"""
+        name = self.fake.first_name_female()
+        assert name in OrINProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name in OrINProvider.first_names_male
+
+        name = self.fake.first_name_unisex()
+        assert name in OrINProvider.first_names_unisex
+
+        name = self.fake.first_name()
+        assert name in OrINProvider.first_names
+
+    def test_middle_names(self):
+        """ test the middle name """
+        name = self.fake.middle_name()
+        assert name in OrINProvider.middle_names
+
+    def test_last_names(self):
+        """ test the last name is generating from the provided tuple """
+        last_name = self.fake.last_name()
+        assert last_name in OrINProvider.last_names
