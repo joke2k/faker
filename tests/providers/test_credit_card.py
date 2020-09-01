@@ -1,7 +1,7 @@
 import re
 
-from faker.providers.credit_card import Provider as CreditCardProvider
 from faker.providers.bank.ru_RU import Provider as RuRuBankProvider
+from faker.providers.credit_card import Provider as CreditCardProvider
 
 
 class TestCreditCardProvider:

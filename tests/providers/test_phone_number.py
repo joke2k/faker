@@ -37,7 +37,7 @@ class TestPtBr:
         pattern = re.compile(
             r'(?:\+55 )?'
             r'(?:[1-8]1|84|\((?:0[1-8]1|084)\))'
-            r' \d{4}[ -]\d{4}'
+            r' \d{4}[ -]\d{4}',
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
@@ -96,7 +96,7 @@ class TestHyAm:
     def test_phone_number(self, faker, num_samples):
         pattern = re.compile(
             r'(?:[23]\d{2}-|\([23]\d{2}\) |[23]\d{2}\.)\d{5}|'
-            r'(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}'
+            r'(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}',
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
