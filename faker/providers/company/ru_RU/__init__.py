@@ -1,4 +1,4 @@
-from faker.utils.datetime_safe import datetime
+from datetime import datetime
 
 from .. import Provider as CompanyProvider
 

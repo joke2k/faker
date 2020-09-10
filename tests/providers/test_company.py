@@ -1,5 +1,7 @@
 import re
 
+from datetime import datetime
+
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
@@ -11,7 +13,6 @@ from faker.providers.company.pl_PL import company_vat_checksum, local_regon_chec
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum
-from faker.utils.datetime_safe import datetime
 
 
 class TestFiFi:
