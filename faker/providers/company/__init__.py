@@ -413,7 +413,6 @@ class Provider(BaseProvider):
          'web-enabled',
          'interactive',
          'dot-com',
-         'sexy',
          'back-end',
          'real-time',
          'efficient',
