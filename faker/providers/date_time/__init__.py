@@ -1,12 +1,10 @@
 import re
 
 from calendar import timegm
-from datetime import MAXYEAR, timedelta
+from datetime import MAXYEAR, date, datetime, timedelta
 
 from dateutil import relativedelta
 from dateutil.tz import gettz, tzlocal, tzutc
-
-from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
 
 from .. import BaseProvider
 
@@ -1532,7 +1530,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def _parse_date_time(cls, value, tzinfo=None):
-        if isinstance(value, (datetime, date, real_datetime, real_date)):
+        if isinstance(value, (datetime, date)):
             return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
@@ -1548,9 +1546,9 @@ class Provider(BaseProvider):
 
     @classmethod
     def _parse_date(cls, value):
-        if isinstance(value, (datetime, real_datetime)):
+        if isinstance(value, datetime):
             return value.date()
-        elif isinstance(value, (date, real_date)):
+        elif isinstance(value, date):
             return value
         today = date.today()
         if isinstance(value, timedelta):

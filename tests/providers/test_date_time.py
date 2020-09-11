@@ -157,30 +157,6 @@ class TestDateTime(unittest.TestCase):
         date = datetime(2000, 1, 1, tzinfo=pytz)
         assert date.tzinfo == pytz
 
-    def test_datetime_safe(self):
-        from faker.utils import datetime_safe
-
-        # test using example provided in module
-        result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
-        assert result == '1850/08/02 was a Friday'
-        # test against certain formatting strings used on pre-1900 dates
-        with pytest.raises(TypeError):
-            datetime_safe.date(1850, 8, 2).strftime('%s')
-        with pytest.raises(TypeError):
-            datetime_safe.date(1850, 8, 2).strftime('%y')
-        # test using 29-Feb-2012 and escaped percentage sign
-        result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
-        assert result == r'2012-02-29 was a 100% Wednesday'
-        # test that certain formatting strings are allowed on post-1900 dates
-        result = datetime_safe.date(2008, 2, 29).strftime('%y')
-        assert result == r'08'
-
-    def test_datetime_safe_new_date(self):
-        from faker.utils import datetime_safe
-        d = datetime_safe.date(1850, 8, 2)
-        result = datetime_safe.new_date(d)
-        assert result == date(1850, 8, 2)
-
     def test_datetimes_with_and_without_tzinfo(self):
         assert self.fake.date_time().tzinfo is None
         assert self.fake.date_time(utc).tzinfo == utc
@@ -384,7 +360,7 @@ class TestDateTime(unittest.TestCase):
         assert self.fake.date_this_month(before_today=False, after_today=True) >= date.today()
         assert (
             self.fake.date_this_month(before_today=False, after_today=False)) == (
-            datetime.now()
+            date.today()
         )
 
     def test_date_time_between(self):
