@@ -1,129 +1,90 @@
-import unittest
-
-from faker import Faker
-
-
-class TestJob(unittest.TestCase):
-    """
-    Test Job
-    """
-
-    def setUp(self):
-        self.fake = Faker()
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+from faker.providers.job import Provider as JobProvider
+from faker.providers.job.de_DE import Provider as DeDeJobProvider
+from faker.providers.job.el_GR import Provider as ElGrJobProvider
+from faker.providers.job.fr_FR import Provider as FrFrJobProvider
+from faker.providers.job.hu_HU import Provider as HuHuJobProvider
+from faker.providers.job.hy_AM import Provider as HyAmJobProvider
+from faker.providers.job.ja_JP import Provider as JaJpJobProvider
+from faker.providers.job.ko_KR import Provider as KoKrJobProvider
+from faker.providers.job.pt_BR import Provider as PtBrJobProvider
+from faker.providers.job.pt_PT import Provider as PtPtJobProvider
 
 
-class TestJaJP(unittest.TestCase):
-    """
-    Test Job ja_JP
-    """
+class TestJobProvider:
+    """Test job provider methods"""
 
-    def setUp(self):
-        self.fake = Faker('ja_JP')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in JobProvider.jobs
 
 
-class TestKoKR(unittest.TestCase):
-    """
-    Test Job ko_KR
-    """
+class TestJaJp:
+    """Test ja_JP job provider"""
 
-    def setUp(self):
-        self.fake = Faker('ko_KR')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in JaJpJobProvider.jobs
 
 
-class TestHuHU(unittest.TestCase):
-    "Tests the job module in the Hungarian locale."
+class TestKoKr:
+    """Test ko_KR job provider"""
 
-    def setUp(self):
-        self.fake = Faker('hu_HU')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in KoKrJobProvider.jobs
 
 
-class TestHyAm(unittest.TestCase):
-    """ Tests jobs in the hy_AM locale """
+class TestHuHu:
+    """Test hu_HU job provider"""
 
-    def setUp(self):
-        self.fake = Faker('hy_AM')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in HuHuJobProvider.jobs
 
 
-class TestDeDe(unittest.TestCase):
-    """ Tests jobs in the de_DE locale """
+class TestHyAm:
+    """Test hy_AM job provider"""
 
-    def setUp(self):
-        self.fake = Faker('de_DE')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in HyAmJobProvider.jobs
 
 
-class TestFrFr(unittest.TestCase):
-    """ Tests jobs in the fr_FR locale """
+class TestDeDe:
+    """Test de_DE job provider"""
 
-    def setUp(self):
-        self.fake = Faker('fr_FR')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in DeDeJobProvider.jobs
 
 
-class TestElGr(unittest.TestCase):
-    """ Tests jobs in the el_GR locale """
+class TestFrFr:
+    """Test fr_FR job provider"""
 
-    def setUp(self):
-        self.fake = Faker('el_GR')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in FrFrJobProvider.jobs
 
 
-class TestPtPt(unittest.TestCase):
-    """ Tests jobs in the pt_PT locale """
+class TestElGr:
+    """Test el_GR job provider"""
 
-    def setUp(self):
-        self.fake = Faker('pt_PT')
-        Faker.seed(0)
-
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in ElGrJobProvider.jobs
 
 
-class TestPtBR(unittest.TestCase):
-    """ Tests jobs in the pt_BR locale """
+class TestPtPt:
+    """Test pt_PT job provider"""
 
-    def setUp(self):
-        self.fake = Faker('pt_BR')
-        Faker.seed(0)
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in PtPtJobProvider.jobs
 
-    def test_job(self):
-        job = self.fake.job()
-        assert isinstance(job, str)
+
+class TestPtBr:
+    """Test de_DE job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in PtBrJobProvider.jobs

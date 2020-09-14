@@ -384,9 +384,10 @@ class Provider(AddressProvider):
                 if street in self.street_titles_irregular_masc.keys():
                     result = self.street_titles_irregular_masc[street]
                 else:
-                    result = stem + 'ый'
                     if stem.endswith('ск') or stem.endswith('цк'):
                         result = stem + 'ий'
+                    else:
+                        result = stem + 'ый'
             elif suffix in self.street_suffixes_neu:
                 if street in self.street_titles_irregular_neu.keys():
                     result = self.street_titles_irregular_neu[street]

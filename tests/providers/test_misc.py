@@ -2,88 +2,117 @@ import csv
 import io
 import itertools
 import json
+import re
 import tarfile
-import unittest
 import uuid
 import zipfile
 
 from unittest.mock import patch
 
+import pytest
+
 from faker import Faker
+from faker.contrib.pytest.plugin import DEFAULT_LOCALE, DEFAULT_SEED
 
 
-class TestMisc(unittest.TestCase):
-    """Tests miscellaneous generators"""
-    def setUp(self):
-        self.fake = Faker()
-        Faker.seed(0)
+@pytest.fixture(scope='class')
+def _class_faker_with_foobar():
+    _fake = Faker(locale=DEFAULT_LOCALE)
+    _fake.add_provider(_FooBarProvider())
+    _fake.set_arguments('argument_group', 'param', 'Baz')
+    _fake.set_arguments('double', 'multi', 2)
+    return _fake
 
-    def test_uuid4_str(self):
-        uuid4 = self.fake.uuid4()
-        assert uuid4
-        assert isinstance(uuid4, str)
 
-    def test_uuid4_int(self):
-        uuid4 = self.fake.uuid4(cast_to=int)
-        assert uuid4
-        assert isinstance(uuid4, int)
+@pytest.fixture()
+def faker_with_foobar(request):
+    fake = request.getfixturevalue('_class_faker_with_foobar')
+    seed = DEFAULT_SEED
+    if 'faker_seed' in request.fixturenames:
+        seed = request.getfixturevalue('faker_seed')
+    fake.seed_instance(seed=seed)
+    return fake
 
-    def test_uuid4_uuid_object(self):
-        uuid4 = self.fake.uuid4(cast_to=None)
-        assert uuid4
-        assert isinstance(uuid4, uuid.UUID)
 
-    def test_uuid4_seedability(self):
-        for _ in range(10):
-            random_seed = self.fake.random_int()
-            baseline_fake = Faker()
-            Faker.seed(random_seed)
-            expected_uuids = [baseline_fake.uuid4() for i in range(1000)]
+class _FooBarProvider:
 
-            new_fake = Faker()
-            Faker.seed(random_seed)
-            new_uuids = [new_fake.uuid4() for i in range(1000)]
+    def foo_bar(self, param: str = None) -> str:
+        return 'FooBar' + str(param) if param else 'FooBar'
+
+    def test_integer(self, multi=1) -> int:
+        return 1 * multi
+
+    def test_float(self, multi=1) -> float:
+        return 1.1 * multi
+
+
+class TestMiscProvider:
+    """Test miscellaneous provider methods"""
+    num_samples = 10
+
+    def test_uuid4_str(self, faker, num_samples):
+        pattern = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.uuid4())
+
+    def test_uuid4_int(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert isinstance(faker.uuid4(cast_to=int), int)
+
+    def test_uuid4_uuid_object(self, faker, num_samples):
+        for _ in range(num_samples):
+            uuid4 = faker.uuid4(cast_to=None)
+            assert isinstance(uuid4, uuid.UUID)
+            assert uuid4.version == 4
+
+    def test_uuid4_seedability(self, faker, num_samples):
+        for _ in range(num_samples):
+            random_seed = faker.random_int()
+            faker.seed_instance(random_seed)
+            expected_uuids = [faker.uuid4() for _ in range(100)]
+            faker.seed_instance(random_seed)
+            new_uuids = [faker.uuid4() for _ in range(100)]
             assert new_uuids == expected_uuids
 
-    def test_zip_invalid_file(self):
-        with self.assertRaises(ValueError):
-            self.fake.zip(num_files='1')
+    def test_zip_invalid_file(self, faker):
+        with pytest.raises(ValueError):
+            faker.zip(num_files='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.zip(num_files=0)
+        with pytest.raises(ValueError):
+            faker.zip(num_files=0)
 
-        with self.assertRaises(ValueError):
-            self.fake.zip(min_file_size='1')
+        with pytest.raises(ValueError):
+            faker.zip(min_file_size='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.zip(min_file_size=0)
+        with pytest.raises(ValueError):
+            faker.zip(min_file_size=0)
 
-        with self.assertRaises(ValueError):
-            self.fake.zip(uncompressed_size='1')
+        with pytest.raises(ValueError):
+            faker.zip(uncompressed_size='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.zip(uncompressed_size=0)
+        with pytest.raises(ValueError):
+            faker.zip(uncompressed_size=0)
 
-    def test_zip_one_byte_undersized(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
+    def test_zip_one_byte_undersized(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size - 1
 
             # Will always fail because of bad size requirements
-            with self.assertRaises(AssertionError):
-                self.fake.zip(
+            with pytest.raises(AssertionError):
+                faker.zip(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size,
                 )
 
-    def test_zip_exact_minimum_size(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
+    def test_zip_exact_minimum_size(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size
 
-            zip_bytes = self.fake.zip(
+            zip_bytes = faker.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -105,14 +134,14 @@ class TestMisc(unittest.TestCase):
                 # The file sizes should sum up to the specified uncompressed size
                 assert total_size == uncompressed_size
 
-    def test_zip_over_minimum_size(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
-            expected_extra_bytes = self.fake.random.randint(1, 1024 * 1024)
+    def test_zip_over_minimum_size(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
+            expected_extra_bytes = faker.random.randint(1, 1024 * 1024)
             uncompressed_size = num_files * min_file_size + expected_extra_bytes
 
-            zip_bytes = self.fake.zip(
+            zip_bytes = faker.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -139,7 +168,7 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
                 assert extra_bytes == expected_extra_bytes
 
-    def test_zip_compression_py3(self):
+    def test_zip_compression_py3(self, faker):
         num_files = 10
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -154,7 +183,7 @@ class TestMisc(unittest.TestCase):
             (None, zipfile.ZIP_STORED),
         ]
         for compression, compress_type in compression_mapping:
-            zip_bytes = self.fake.zip(
+            zip_bytes = faker.zip(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -167,45 +196,45 @@ class TestMisc(unittest.TestCase):
                 for info in zip_handle.infolist():
                     assert info.compress_type == compress_type
 
-    def test_tar_invalid_file(self):
-        with self.assertRaises(ValueError):
-            self.fake.tar(num_files='1')
+    def test_tar_invalid_file(self, faker):
+        with pytest.raises(ValueError):
+            faker.tar(num_files='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.tar(num_files=0)
+        with pytest.raises(ValueError):
+            faker.tar(num_files=0)
 
-        with self.assertRaises(ValueError):
-            self.fake.tar(min_file_size='1')
+        with pytest.raises(ValueError):
+            faker.tar(min_file_size='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.tar(min_file_size=0)
+        with pytest.raises(ValueError):
+            faker.tar(min_file_size=0)
 
-        with self.assertRaises(ValueError):
-            self.fake.tar(uncompressed_size='1')
+        with pytest.raises(ValueError):
+            faker.tar(uncompressed_size='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.tar(uncompressed_size=0)
+        with pytest.raises(ValueError):
+            faker.tar(uncompressed_size=0)
 
-    def test_tar_one_byte_undersized(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
+    def test_tar_one_byte_undersized(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size - 1
 
             # Will always fail because of conflicting size requirements
-            with self.assertRaises(AssertionError):
-                self.fake.tar(
+            with pytest.raises(AssertionError):
+                faker.tar(
                     uncompressed_size=uncompressed_size, num_files=num_files,
                     min_file_size=min_file_size,
                 )
 
-    def test_tar_exact_minimum_size(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
+    def test_tar_exact_minimum_size(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
             uncompressed_size = num_files * min_file_size
 
-            tar_bytes = self.fake.tar(
+            tar_bytes = faker.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -224,14 +253,14 @@ class TestMisc(unittest.TestCase):
                 # The file sizes should sum up to the specified uncompressed size
                 assert total_size == uncompressed_size
 
-    def test_tar_over_minimum_size(self):
-        for _ in range(10):
-            num_files = self.fake.random.randint(1, 100)
-            min_file_size = self.fake.random.randint(1, 1024)
-            expected_extra_bytes = self.fake.random.randint(1, 1024 * 1024)
+    def test_tar_over_minimum_size(self, faker, num_samples):
+        for _ in range(num_samples):
+            num_files = faker.random.randint(1, 100)
+            min_file_size = faker.random.randint(1, 1024)
+            expected_extra_bytes = faker.random.randint(1, 1024 * 1024)
             uncompressed_size = num_files * min_file_size + expected_extra_bytes
 
-            tar_bytes = self.fake.tar(
+            tar_bytes = faker.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size,
             )
@@ -255,7 +284,7 @@ class TestMisc(unittest.TestCase):
                 assert total_size == uncompressed_size
                 assert extra_bytes == expected_extra_bytes
 
-    def test_tar_compression_py3(self):
+    def test_tar_compression_py3(self, faker):
         num_files = 25
         min_file_size = 512
         uncompressed_size = 50 * 1024
@@ -270,7 +299,7 @@ class TestMisc(unittest.TestCase):
         ]
 
         for compression, read_mode in compression_mapping:
-            tar_bytes = self.fake.tar(
+            tar_bytes = faker.tar(
                 uncompressed_size=uncompressed_size, num_files=num_files,
                 min_file_size=min_file_size, compression=compression,
             )
@@ -280,27 +309,27 @@ class TestMisc(unittest.TestCase):
                 members = tar_handle.getmembers()
                 assert len(members) == num_files
 
-    def test_dsv_with_invalid_values(self):
-        with self.assertRaises(ValueError):
-            self.fake.dsv(num_rows='1')
+    def test_dsv_with_invalid_values(self, faker):
+        with pytest.raises(ValueError):
+            faker.dsv(num_rows='1')
 
-        with self.assertRaises(ValueError):
-            self.fake.dsv(num_rows=0)
+        with pytest.raises(ValueError):
+            faker.dsv(num_rows=0)
 
-        with self.assertRaises(TypeError):
-            self.fake.dsv(header=None, data_columns=1)
+        with pytest.raises(TypeError):
+            faker.dsv(header=None, data_columns=1)
 
-        with self.assertRaises(TypeError):
-            self.fake.dsv(header=1, data_columns=['???'])
+        with pytest.raises(TypeError):
+            faker.dsv(header=1, data_columns=['???'])
 
-        with self.assertRaises(ValueError):
-            self.fake.dsv(header=['Column 1', 'Column 2'], data_columns=['???'])
+        with pytest.raises(ValueError):
+            faker.dsv(header=['Column 1', 'Column 2'], data_columns=['???'])
 
-    def test_dsv_no_header(self):
+    def test_dsv_no_header(self, faker, num_samples):
         data_columns = ['????', '?????']
-        for _ in range(10):
-            num_rows = self.fake.random.randint(1, 1000)
-            dsv = self.fake.dsv(header=None, data_columns=data_columns, num_rows=num_rows)
+        for _ in range(num_samples):
+            num_rows = faker.random.randint(1, 1000)
+            dsv = faker.dsv(header=None, data_columns=data_columns, num_rows=num_rows)
             reader = csv.reader(io.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
@@ -310,12 +339,12 @@ class TestMisc(unittest.TestCase):
             # Verify correct number of lines read
             assert reader.line_num == num_rows
 
-    def test_dsv_with_valid_header(self):
+    def test_dsv_with_valid_header(self, faker, num_samples):
         header = ['Column 1', 'Column 2']
         data_columns = ['????', '?????']
-        for _ in range(10):
-            num_rows = self.fake.random.randint(1, 1000)
-            dsv = self.fake.dsv(header=header, data_columns=data_columns, num_rows=num_rows)
+        for _ in range(num_samples):
+            num_rows = faker.random.randint(1, 1000)
+            dsv = faker.dsv(header=header, data_columns=data_columns, num_rows=num_rows)
             reader = csv.reader(io.StringIO(dsv), dialect='faker-csv')
 
             # Verify each row has correct number of columns
@@ -325,12 +354,12 @@ class TestMisc(unittest.TestCase):
             # Verify correct number of lines read (additional header row)
             assert reader.line_num == num_rows + 1
 
-    def test_dsv_with_row_ids(self):
+    def test_dsv_with_row_ids(self, faker, num_samples):
         data_columns = ['????', '?????']
-        for _ in range(10):
+        for _ in range(num_samples):
             counter = 0
-            num_rows = self.fake.random.randint(1, 1000)
-            dsv = self.fake.dsv(
+            num_rows = faker.random.randint(1, 1000)
+            dsv = faker.dsv(
                 header=None, data_columns=data_columns,
                 num_rows=num_rows, include_row_ids=True,
             )
@@ -346,12 +375,12 @@ class TestMisc(unittest.TestCase):
             # Verify correct number of lines read
             assert reader.line_num == num_rows
 
-    def test_dsv_data_columns(self):
+    def test_dsv_data_columns(self, faker):
         num_rows = 10
         data_columns = ['{{name}}', '#??-####', '{{address}}', '{{phone_number}}']
-        with patch.object(self.fake['en_US'], 'pystr_format') as mock_pystr_format:
+        with patch.object(faker['en_US'], 'pystr_format') as mock_pystr_format:
             mock_pystr_format.assert_not_called()
-            self.fake.dsv(data_columns=data_columns, num_rows=num_rows)
+            faker.dsv(data_columns=data_columns, num_rows=num_rows)
 
             # pystr_format will be called for each data column and each row
             calls = mock_pystr_format.call_args_list
@@ -363,7 +392,7 @@ class TestMisc(unittest.TestCase):
                 assert args[0] == next(column_cycle)
                 assert kwargs == {}
 
-    def test_dsv_csvwriter_kwargs(self):
+    def test_dsv_csvwriter_kwargs(self, faker):
         data_keys = ['header', 'data_columns', 'num_rows', 'include_row_ids']
         test_kwargs = {
             'dialect': 'excel',
@@ -376,7 +405,7 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.csv.writer') as mock_writer:
             mock_writer.assert_not_called()
-            self.fake.dsv(**test_kwargs)
+            faker.dsv(**test_kwargs)
             assert mock_writer.call_count == 1
 
             # Remove all data generation kwargs
@@ -387,7 +416,7 @@ class TestMisc(unittest.TestCase):
             for args, kwargs in mock_writer.call_args_list:
                 assert kwargs == test_kwargs
 
-    def test_csv_helper_method(self):
+    def test_csv_helper_method(self, faker):
         kwargs = {
             'header': ['Column 1', 'Column 2'],
             'data_columns': ['????', '?????'],
@@ -396,11 +425,11 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.fake.csv(**kwargs)
+            faker.csv(**kwargs)
             kwargs['delimiter'] = ','
             mock_dsv.assert_called_once_with(**kwargs)
 
-    def test_tsv_helper_method(self):
+    def test_tsv_helper_method(self, faker):
         kwargs = {
             'header': ['Column 1', 'Column 2'],
             'data_columns': ['????', '?????'],
@@ -409,11 +438,11 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.fake.tsv(**kwargs)
+            faker.tsv(**kwargs)
             kwargs['delimiter'] = '\t'
             mock_dsv.assert_called_once_with(**kwargs)
 
-    def test_psv_helper_method(self):
+    def test_psv_helper_method(self, faker):
         kwargs = {
             'header': ['Column 1', 'Column 2'],
             'data_columns': ['????', '?????'],
@@ -422,80 +451,203 @@ class TestMisc(unittest.TestCase):
         }
         with patch('faker.providers.misc.Provider.dsv') as mock_dsv:
             mock_dsv.assert_not_called()
-            self.fake.psv(**kwargs)
+            faker.psv(**kwargs)
             kwargs['delimiter'] = '|'
             mock_dsv.assert_called_once_with(**kwargs)
 
-    def test_json_single_entry(self):
-        kwargs = {
-            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
-            'num_rows': 1,
-        }
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
-
-        assert isinstance(json_data, dict)
-        assert 'word' in json_data
-        assert 'number' in json_data
-
-    def test_json_multiple_entries(self):
-        kwargs = {
-            'data_columns': [('word', 'name'), ('number', 'pyint', {'max_value': 20})],
-            'num_rows': 2,
-        }
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
-
-        assert isinstance(json_data, list)
-        for entry in json_data:
-            assert 'word' in entry
-            assert 'number' in entry
-
-    def test_json_depth_structure(self):
+    def test_json_with_arguments(self, faker_with_foobar):
         kwargs = {
             'data_columns': [
-                ('list1', [(None, 'pyint'), (None, 'pyint')]),
-                ('list2', [('number', 'pyint'), ('number', 'pyint')]),
-                ('dict', (('number', 'pyint'), ('number', 'pyint'))),
+                ('item1', '{{ foo_bar:argument_group }}'),
+                ('item2', 'foo_bar', {'param': 'BAZ'}),
             ],
             'num_rows': 1,
         }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
 
-        json_string = self.fake.json(**kwargs)
-        json_data = json.loads(json_string)
+        assert json_data.get('item1') == 'FooBarBaz'
+        assert json_data.get('item2') == 'FooBarBAZ'
 
-        assert isinstance(json_data['list1'], list)
-        assert isinstance(json_data['list2'], list)
-        assert isinstance(json_data['dict'], dict)
-
-        # Check the Lists have values, and key/values
-        for item in json_data['list1']:
-            assert isinstance(item, int)
-        for item in json_data['list2']:
-            assert isinstance(item, dict)
-
-    def test_json_invalid_parameter_type(self):
+    def test_json_multiple_rows(self, faker_with_foobar):
         kwargs = {
-            'data_columns': [('word', 'name', ['wrong'])],
-            'num_rows': 1,
-        }
-        with self.assertRaises(TypeError):
-            self.fake.json(**kwargs)
-
-    def test_fixed_width_row_lengths(self):
-        kwargs = {
-            'data_columns': [(20, 'name'), (3, 'pyint', {'max_value': 20})],
+            'data_columns': {'item': 'foo_bar'},
             'num_rows': 2,
         }
-        fixed_width_string = self.fake.fixed_width(**kwargs)
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
 
-        for row in fixed_width_string.split('\n'):
-            assert len(row) == 23
+        assert isinstance(json_data, list) and len(json_data) == 2
 
-    def test_fixed_width_invalid_parameter_type(self):
+    def test_json_passthrough_int_float(self, faker_with_foobar):
         kwargs = {
-            'data_columns': [(20, 'name'), (3, 'pyint', ['error'])],
+            'data_columns': {
+                'item1': 1,
+                'item2': 1.0,
+            },
             'num_rows': 1,
         }
-        with self.assertRaises(TypeError):
-            self.fake.fixed_width(**kwargs)
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['item1'] == 1
+        assert json_data['item2'] == 1.0
+
+    def test_json_type_integrity_int(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': {
+                'item1': 'test_integer',
+                'item2': 'test_integer:double',
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+        assert isinstance(json_data['item1'], int)
+        assert json_data['item2'] == 2
+
+    def test_json_type_integrity_float(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': {
+                'item1': 'test_float',
+                'item2': 'test_float:double',
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+        assert isinstance(json_data['item1'], float)
+        assert json_data['item2'] == 2.2
+
+    def test_json_invalid_data_columns(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': (('item', 'foo_bar'),),
+            'num_rows': 1,
+        }
+        with pytest.raises(TypeError) as excinfo:
+            json.loads(faker_with_foobar.json(**kwargs))
+        assert str(excinfo.value) == 'Invalid data_columns type. Must be a dictionary or list'
+
+    def test_json_list_format_invalid_arguments_type(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [('item', 'foo_bar', ['wrong'])],
+            'num_rows': 1,
+        }
+        with pytest.raises(TypeError) as excinfo:
+            faker_with_foobar.json(**kwargs)
+        assert str(excinfo.value) == 'Invalid arguments type. Must be a dictionary'
+
+    def test_json_list_format_nested_list_of_values(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [
+                (
+                    'list', [
+                        (None, '{{ foo_bar }}s'),
+                        (None, 'foo_bar'),
+                    ],
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['list'][0] == 'FooBars'
+        assert json_data['list'][1] == 'FooBar'
+
+    def test_json_list_format_nested_list_of_objects(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [
+                (
+                    'list', [
+                        ('item', '{{ foo_bar }}s'),
+                        ('item', 'foo_bar'),
+                    ],
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['list'][0]['item'] == 'FooBars'
+        assert json_data['list'][1]['item'] == 'FooBar'
+
+    def test_json_list_format_nested_objects(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [
+                (
+                    'dict', (
+                        ('item1', '{{ foo_bar }}s'),
+                        ('item2', 'foo_bar'),
+                    ),
+                ),
+            ],
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['dict']['item1'] == 'FooBars'
+        assert json_data['dict']['item2'] == 'FooBar'
+
+    def test_json_dict_format_nested_list_of_values(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': {
+                'list': [
+                    '{{ foo_bar }}s',
+                    'foo_bar',
+                ],
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['list'][0] == 'FooBars'
+        assert json_data['list'][1] == 'FooBar'
+
+    def test_json_dict_format_nested_list_of_objects(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': {
+                'list': [
+                    {'item': '{{ foo_bar }}s'},
+                    {'item': 'foo_bar'},
+                ],
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['list'][0]['item'] == 'FooBars'
+        assert json_data['list'][1]['item'] == 'FooBar'
+
+    def test_json_dict_format_nested_objects(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': {
+                'dict': {
+                    'item1': '{{ foo_bar }}s',
+                    'item2': 'foo_bar',
+                },
+            },
+            'num_rows': 1,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+
+        assert json_data['dict']['item1'] == 'FooBars'
+        assert json_data['dict']['item2'] == 'FooBar'
+
+    def test_fixed_width_with_arguments(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [
+                (9, '{{ foo_bar:argument_group }}'),
+                (9, 'foo_bar', {'param': 'BAR'}),
+            ],
+            'num_rows': 2,
+        }
+        fixed_width_string = faker_with_foobar.fixed_width(**kwargs)
+
+        for row in fixed_width_string.split('\n'):
+            assert len(row) == 18
+            assert row[0:9].strip() == 'FooBarBaz'
+            assert row[9:18].strip() == 'FooBarBAR'
+
+    def test_fixed_width_invalid_arguments_type(self, faker_with_foobar):
+        kwargs = {
+            'data_columns': [(9, 'foo_bar', ['wrong'])],
+            'num_rows': 1,
+        }
+        with pytest.raises(TypeError) as excinfo:
+            faker_with_foobar.fixed_width(**kwargs)
+        assert str(excinfo.value) == 'Invalid arguments type. Must be a dictionary'
