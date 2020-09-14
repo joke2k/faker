@@ -42,7 +42,7 @@ class Provider(SsnProvider):
 
         return pnr
 
-    ORG_ID_DIGIT_1 = (1, 2, 3, 5, 6, 7, 8, 9)
+    ORG_ID_DIGIT_1 = (2, 5, 7, 8, 9)
 
     def org_id(self, long=False, dash=True):
         """

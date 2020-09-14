@@ -127,7 +127,7 @@ class TestSvSE(unittest.TestCase):
         for _ in range(100):
             vat_id = self.fake.vat_id()
             assert re.search(r'SE\d{12}', vat_id)
-            assert int(vat_id[2]) in (1, 2, 3, 5, 6, 7, 8, 9)
+            assert int(vat_id[2]) in (2, 5, 7, 8, 9)
             assert int(vat_id[6:8]) >= 20
 
     def test_org_and_vat_id(self):
