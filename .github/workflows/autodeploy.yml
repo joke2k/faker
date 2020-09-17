@@ -12,7 +12,7 @@ jobs:
         uses: "WyriHaximus/github-action-wait-for-status@0.1.0"
         with:
           ignoreActions: release
-          checkInterval: 13
+          checkInterval: 60
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: 'placeholder'
