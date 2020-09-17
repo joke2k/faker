@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: 'Wait for status checks'
         id: waitforstatuschecks
-        uses: "WyriHaximus/github-action-wait-for-status@v2"
+        uses: "WyriHaximus/github-action-wait-for-status@0.1.0"
         with:
           ignoreActions: release
           checkInterval: 13
