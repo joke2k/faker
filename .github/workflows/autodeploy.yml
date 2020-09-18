@@ -1,0 +1,24 @@
+name: Auto Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Wait for status checks'
+        id: waitforstatuschecks
+        uses: "fcurella/github-action-wait-for-status@ignore-contexts"
+        with:
+          ignoreActions: release
+          ignoreContexts: coverage/coveralls
+          checkInterval: 12
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: 'placeholder'
+        run: "echo hurray"
+        if: steps.waitforstatuschecks.outputs.status == 'success'
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          LABELS: release
