@@ -1271,6 +1271,11 @@ class TestEnPh:
             assert 2 <= int(number[:-2]) <= 99
             assert 1 <= int(number[-2:]) <= 40
 
+    def test_ordinal_floor_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            floor_number = faker.ordinal_floor_number()
+            assert floor_number[-2:] in ['th', 'st', 'nd', 'rd']
+
     def test_address(self, faker, num_samples):
         for _ in range(num_samples):
             address = faker.address()

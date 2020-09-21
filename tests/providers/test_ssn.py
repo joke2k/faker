@@ -614,6 +614,24 @@ class TestEtEE(unittest.TestCase):
         assert re.search(r'^\d{11}$', value)
         assert value.endswith('0')
 
+    @freezegun.freeze_time('2002-01-01')
+    def test_ssn_2000(self):
+        self.fake.random = random2.Random()
+
+        self.fake.seed_instance(0)
+        value = self.fake.ssn(min_age=0, max_age=1)
+        assert re.search(r'^\d{11}$', value)
+        assert value[0] in ('5', '6')
+
+    @freezegun.freeze_time('2101-01-01')
+    def test_ssn_2100(self):
+        self.fake.random = random2.Random()
+
+        self.fake.seed_instance(0)
+        value = self.fake.ssn(min_age=0, max_age=1)
+        assert re.search(r'^\d{11}$', value)
+        assert value[0] in ('7', '8')
+
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r'^EE\d{9}$', self.fake.vat_id())

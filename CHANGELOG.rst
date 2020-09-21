@@ -1,7 +1,17 @@
 Changelog
 =========
 
-`4.1.2 - 1&-August-2020 <https://github.com/joke2k/faker/compare/v4.1.1...v4.1.2>`__
+`4.1.3 - 14-September-2020 <https://github.com/joke2k/faker/compare/v4.1.2...v4.1.3>`__
+---------------------------------------------------------------------------------------
+
+* Add ``es_ES`` autonomous communities (Spanish regions). Thanks @mondeja.
+* Add JSON and Fixed Width argument group and parser support. Thanks @johnbrandborg.
+* Update ``zh_CN`` ssn provider to support gender. Thanks @mapoor.
+* Fix typo in ``de_DE`` job provider. Thanks @datadominik.
+* ``or_IN`` Odia person's name added. Thanks @soumendrak.
+* Remove ``datetime_safe`` shim subclass in favor of native Python ``datetime.datetime``. Thanks @samcrang.
+
+`4.1.2 - 17-August-2020 <https://github.com/joke2k/faker/compare/v4.1.1...v4.1.2>`__
 ------------------------------------------------------------------------------------
 
 * Extend Person Provider to support non-binary suffixes and prefixes. Thank you @crd.
