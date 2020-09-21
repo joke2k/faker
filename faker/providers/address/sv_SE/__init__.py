@@ -21,7 +21,10 @@ class Provider(AddressProvider):
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
-    postcode_formats = ('#####', )
+    # Postcode should be formatted as described in
+    # https://sv.wikipedia.org/wiki/Postnummer_i_Sverige and
+    # in 2nd chapter of https://www.postnord.se/siteassets/pdf/faktablad/postnummersystemet-i-sverige-171213.pdf.
+    postcode_formats = ('%####', )
 
     city_formats = ('{{city_name}}', )
 
