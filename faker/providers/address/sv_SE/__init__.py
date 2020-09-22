@@ -40,8 +40,8 @@ class Provider(AddressProvider):
         'Afghanistan', 'Albanien', 'Algeriet', 'Amerikanska Samoa', 'Andorra',
         'Angola', 'Anguilla', 'Antarktis', 'Antigua och Barbuda', 'Argentina',
         'Armenien', 'Aruba', 'Ascension', 'Australien', 'Azerbajdzjan',
-        'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belgien', 'Belize',
-        'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnien och Hercegovina',
+        'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgien',
+        'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnien och Hercegovina',
         'Botswana', 'Brasilien', 'Brittiska Jungfruöarna', 'Brunei',
         'Bulgarien', 'Burkina Faso', 'Burma', 'Burundi', 'Caymanöarna',
         'Centralafrikanska republiken', 'Chile', 'Colombia', 'Cooköarna',
@@ -83,7 +83,7 @@ class Provider(AddressProvider):
         'Tunisien', 'Turkiet', 'Turkmenistan', 'Turks-och Caicosöarna',
         'Tuvalu', 'Tyskland', 'Uganda', 'Ukraina', 'Ungern', 'Uruguay', 'USA',
         'Uzbekistan', 'Vanuatu', 'Vatikanstaten', 'Venezuela', 'Vietnam',
-        'Vitryssland', 'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
+        'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
         'Österrike', 'Östtimor',
     )
 
