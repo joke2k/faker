@@ -6,6 +6,8 @@ localized = True
 
 
 class Provider(ColorProvider):
+    """Implement color provider for ``es_ES`` locale."""
+
     all_colors = OrderedDict((
         ("Agua marina medio", "#66CDAA"),
         ("Agua-marina", "#7FFFD4"),

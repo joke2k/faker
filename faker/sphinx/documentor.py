@@ -73,6 +73,11 @@ def _write_title(fh, title, level=1):
     _write(fh, '\n\n')
 
 
+def _write_includes(fh):
+    _write(fh, '.. include:: ../includes/substitutions.rst')
+    _write(fh, '\n\n')
+
+
 def _write_standard_provider_index():
     fname = os.path.join(DOCS_ROOT, 'providers.rst')
     with open(fname, 'wb') as fh:
@@ -90,6 +95,7 @@ def _write_base_provider_docs():
     with open(fname, 'wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, '``faker.providers``')
+        _write_includes(fh)
         _write(fh, PROVIDER_AUTODOC_TEMPLATE.format(
             provider_class='faker.providers.BaseProvider',
             provider_methods=','.join(BASE_PROVIDER_METHOD_NAMES),
@@ -104,6 +110,7 @@ def _write_standard_provider_docs():
             provider_methods = _get_provider_methods(provider_class)
             _hide_edit_on_github(fh)
             _write_title(fh, '``{}``'.format(provider_name))
+            _write_includes(fh)
             _write(fh, PROVIDER_AUTODOC_TEMPLATE.format(
                 provider_class=provider_class,
                 provider_methods=provider_methods,
@@ -128,6 +135,7 @@ def _write_localized_provider_docs():
         with open(fname, 'wb') as fh:
             _hide_edit_on_github(fh)
             _write_title(fh, 'Locale {}'.format(locale))
+            _write_includes(fh)
             for provider_class, standard_provider_name in info:
                 provider_methods = _get_provider_methods(provider_class)
                 _write_title(fh, '``{}``'.format(standard_provider_name), level=2)

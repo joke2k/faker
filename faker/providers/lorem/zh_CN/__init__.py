@@ -2,6 +2,8 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
+    """Implement lorem provider for ``zh_CN`` locale."""
+
     word_connector = ''
     word_list = (
         '一个',

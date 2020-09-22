@@ -2,6 +2,8 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
+    """Implement lorem provider for ``ru_RU`` locale."""
+
     word_list = (
         'войти', 'монета', 'вскинуть', 'желание', 'экзамен', 'налоговый',
         'вытаскивать', 'приятель', 'вздрагивать', 'куча', 'порт', 'точно',

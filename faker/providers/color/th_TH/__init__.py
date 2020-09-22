@@ -5,10 +5,13 @@ from .. import Provider as ColorProvider
 localized = True
 
 
-# Reference
-# https://th.wikipedia.org/wiki/รายชื่อสี
-# on 2019-10-20
 class Provider(ColorProvider):
+    """Implement color provider for ``th_TH`` locale.
+
+    Sources:
+    - https://th.wikipedia.org/wiki/รายชื่อสี
+    """
+
     all_colors = OrderedDict((
         ('สีดำ', '#000000'),
         ('สีน้ำเงินเขียว', '#0095B6'),

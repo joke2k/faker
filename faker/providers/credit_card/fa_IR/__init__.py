@@ -5,8 +5,23 @@ from .. import Provider as CreditCardProvider
 
 
 class Provider(CreditCardProvider):
+    """Implement credit card provider for ``fa_IR`` locale.
 
-    # https://way2pay.ir/21653
+    For all methods that take ``card_type`` as an argument, a random card type
+    will be used if the supplied value is ``None``. The list of valid card types
+    includes ``'ansar'``, ``'bim'``, ``'day'``, ``'eghtesad_novin'``,
+    ``'ghavamin'``, ``'hekmat'``, ``'iran_zamin'``, ``'kar_afarin'``,
+    ``'keshavarzi'``, ``'kosar'``, ``'maskan'``, ``'mehre_ghtesad'``,
+    ``'meli'``, ``'mellal'``, ``'mellat'``, ``'parsian'``, ``'pasargad'``,
+    ``'post_bank'``, ``'refah'``, ``'saderat'``, ``'saman'``, ``'sarmayeh'``,
+    ``'sepah'``, ``'shahr'``, ``'sina'``, ``'tat'``, ``'tejarat'``, ``'tose'``,
+    and ``'tourism_bank'``.
+
+    Sources:
+
+    - https://way2pay.ir/21653
+    """
+
     prefix_ansar = ["627381"]
     prefix_iran_zamin = ["505785"]
     prefix_hekmat = ["636949"]
@@ -70,5 +85,13 @@ class Provider(CreditCardProvider):
     ))
 
     def credit_card_expire(self, start='now', end='+3y', date_format='%y/%m'):
+        """Generate a credit card expiry date.
+
+        This method uses |date_time_between| under the hood to generate the
+        expiry date, so the ``start`` and ``end`` arguments work in the same way
+        here as it would in that method. For the actual formatting of the expiry
+        date, |strftime| is used and ``date_format`` is simply passed
+        to that method.
+        """
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)

@@ -2,8 +2,13 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """th_TH word list is drawn from the Thailand's Ministry of Education
-    which can be found here: http://www.arts.chula.ac.th/~ling/TTC/id-4.html.
+    """Implement lorem provider for ``th_TH`` locale.
+
+    Word list is drawn from the Thailand's Ministry of Education.
+
+    Sources:
+
+    - http://www.arts.chula.ac.th/~ling/TTC/id-4.html.
     """
 
     word_list = (

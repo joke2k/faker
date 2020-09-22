@@ -1,4 +1,8 @@
-"""
+"""Internal module for human-friendly color generation.
+
+.. important::
+   End users of this library should not use anything in this module.
+
 Code adapted from:
 - https://github.com/davidmerfield/randomColor  (CC0)
 - https://github.com/kevinwuhoo/randomcolor-py  (MIT License)
@@ -75,6 +79,11 @@ COLOR_MAP = {
 
 
 class RandomColor:
+    """Implement random color generation in a human-friendly way.
+
+    This helper class encapsulates the internal implementation and logic of the
+    :meth:`color() <faker.providers.color.Provider.color>` method.
+    """
 
     def __init__(self, generator=None, seed=None):
         self.colormap = COLOR_MAP
@@ -99,6 +108,12 @@ class RandomColor:
             self.colormap[color_name]['brightness_range'] = [b_min, b_max]
 
     def generate(self, hue=None, luminosity=None, color_format='hex'):
+        """Generate a color.
+
+        Whenever :meth:`color() <faker.providers.color.Provider.color>` is
+        called, the arguments used are simply passed into this method, and this
+        method handles the rest.
+        """
         # First we pick a hue (H)
         h = self.pick_hue(hue)
 
@@ -112,6 +127,7 @@ class RandomColor:
         return self.set_format([h, s, b], color_format)
 
     def pick_hue(self, hue):
+        """Return a numerical hue value."""
         hue_range = self.get_hue_range(hue)
         hue = self.random_within(hue_range)
 
@@ -123,6 +139,7 @@ class RandomColor:
         return hue
 
     def pick_saturation(self, hue, hue_name, luminosity):
+        """Return a numerical saturation value."""
         if luminosity == 'random':
             return self.random_within([0, 100])
 
@@ -144,6 +161,7 @@ class RandomColor:
         return self.random_within([s_min, s_max])
 
     def pick_brightness(self, h, s, luminosity):
+        """Return a numerical brightness value."""
         b_min = self.get_minimum_brightness(h, s)
         b_max = 100
 
@@ -158,6 +176,7 @@ class RandomColor:
         return self.random_within([b_min, b_max])
 
     def set_format(self, hsv, color_format):
+        """Handle conversion of HSV values into desired format."""
         if color_format == 'hsv':
             color = 'hsv({}, {}, {})'.format(*hsv)
 
@@ -176,6 +195,7 @@ class RandomColor:
         return color
 
     def get_minimum_brightness(self, h, s):
+        """Return the minimum allowed brightness for ``h`` and ``s``."""
         lower_bounds = self.get_color_info(h)['lower_bounds']
 
         for i in range(len(lower_bounds) - 1):
@@ -194,6 +214,7 @@ class RandomColor:
         return 0
 
     def get_hue_range(self, color_input):
+        """Return the hue range for a given ``color_input``."""
         if isinstance(color_input, (int, float)) and 0 <= color_input <= 360:
             color_input = int(color_input)
             return [color_input, color_input]
@@ -221,9 +242,11 @@ class RandomColor:
             return [v1, v2]
 
     def get_saturation_range(self, hue):
+        """Return the saturation range for a given numerical ``hue`` value."""
         return self.get_color_info(hue)['saturation_range']
 
     def get_color_info(self, hue):
+        """Return the color info for a given numerical ``hue`` value."""
         # Maps red colors to make picking hue easier
         if 334 <= hue <= 360:
             hue -= 360
@@ -235,15 +258,15 @@ class RandomColor:
             raise ValueError('Value of hue `%s` is invalid.' % hue)
 
     def random_within(self, r):
+        """Return a random integer within the range ``r``."""
         return self.random.randint(int(r[0]), int(r[1]))
 
     @classmethod
     def hsv_to_rgb(cls, hsv):
-        """
-        Converts HSV to RGB
+        """Convert HSV to RGB.
 
-        :param hsv: 3-tuple of h, s, and v values
-        :return: 3-tuple of r, g, and b values
+        This method expects ``hsv`` to be a 3-tuple of H, S, and V values, and
+        it will return a 3-tuple of the equivalent R, G, and B values.
         """
         h, s, v = hsv
         h = 1 if h == 0 else h
@@ -258,11 +281,10 @@ class RandomColor:
 
     @classmethod
     def hsv_to_hsl(cls, hsv):
-        """
-        Converts HSV to HSL
+        """Convert HSV to HSL.
 
-        :param hsv: 3-tuple of h, s, and v values
-        :return: 3-tuple of h, s, and l values
+        This method expects ``hsv`` to be a 3-tuple of H, S, and V values, and
+        it will return a 3-tuple of the equivalent H, S, and L values.
         """
         h, s, v = hsv
 
