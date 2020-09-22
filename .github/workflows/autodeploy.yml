@@ -9,9 +9,8 @@ jobs:
     steps:
       - name: 'Wait for status checks'
         id: waitforstatuschecks
-        uses: "fcurella/github-action-wait-for-status@ignore-contexts"
+        uses: "fcurella/gh-status-check@main"
         with:
-          ignoreActions: release
           ignoreContexts: coverage/coveralls
           checkInterval: 12
         env:
