@@ -45,5 +45,6 @@ class Provider(AutomotiveProvider):
 
     def license_plate(self):
         """Generate a license plate."""
-        return self.random_element(self.license_plate_prefix) + \
-               self.lexify(self.numerify(self.random_element(self.license_plate_suffix)), string.ascii_uppercase)
+        prefix = self.random_element(self.license_plate_prefix)
+        suffix = self.bothify(self.random_element(self.license_plate_suffix), letters=string.ascii_uppercase)
+        return prefix + suffix
