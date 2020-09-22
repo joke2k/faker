@@ -4,6 +4,7 @@ from .. import Provider as ColorProvider
 
 
 class Provider(ColorProvider):
+    """Implement color provider for ``hy_AM`` locale."""
 
     all_colors = OrderedDict((
         ("Ալիսի կապույտ", "#F0F8FF"),
