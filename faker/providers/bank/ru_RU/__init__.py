@@ -2,11 +2,17 @@ from .. import Provider as BankProvider
 
 
 class Provider(BankProvider):
+    """Implement bank provider for ``ru_RU`` locale.
+
+    Sources for region codes, currency codes, and bank names:
+
+    - https://ru.wikipedia.org/wiki/Коды_субъектов_Российской_Федерации
+    - https://ru.wikipedia.org/wiki/Общероссийский_классификатор_валют
+    - http://cbr.ru/credit/coreports/ko17012020.zip
+    """
+
     country_code = 'RU'
 
-    """
-    See https://ru.wikipedia.org/wiki/Коды_субъектов_Российской_Федерации
-    """
     region_codes = (
         '01', '03', '04', '05', '07', '08', '10', '11', '12', '14', '15', '17', '18', '19', '20', '22',
         '24', '25', '26', '27', '28', '29', '30', '32', '33', '34', '35', '36', '37', '38', '40', '41',
@@ -32,7 +38,6 @@ class Provider(BankProvider):
         '01', '02', '03', '04',
     )
 
-    # See https://ru.wikipedia.org/wiki/Общероссийский_классификатор_валют
     currency_codes = (
         '008', '012', '032', '036', '044', '048', '050', '051', '052', '060', '064', '068', '072', '084', '090', '096',
         '104', '108', '116', '124', '132', '136', '144', '152', '156', '170', '174', '188', '191', '192', '203', '208',
@@ -47,10 +52,6 @@ class Provider(BankProvider):
         '973', '975', '976', '977', '978', '980', '981', '985', '986', '997', '998', '999',
     )
 
-    """
-    The list of Russian banks is based on Central Bank of Russia statistics
-    See http://cbr.ru/credit/coreports/ko17012020.zip
-    """
     banks = (
         'Абсолют Банк', 'Авангард', 'Аверс', 'Автоградбанк', 'Автокредитбанк', 'Автоторгбанк', 'Агора',
         'Агропромкредит', 'Агророс', 'Азиатско-Тихоокеанский Банк', 'Азия-Инвест Банк', 'Айсибиси Банк',
@@ -121,36 +122,39 @@ class Provider(BankProvider):
         'Эс-Би-Ай Банк', 'Ю Би Эс Банк', 'Юг-Инвестбанк', 'ЮМК Банк', 'Юникредит Банк', 'Юнистрим', 'Яринтербанк',
     )
 
-    """
-    BIC is a bank identification code that is used in Russia
-    See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код
-    """
-
     def bic(self):
+        """Generate a bank identification code (BIC).
+
+        BIC is a bank identification code that is used in Russia.
+        See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код.
+        """
         region = self.random_element(self.region_codes)
         department_code = self.numerify(self.random_element(self.department_code_formats))
         credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
         return '04' + region + department_code + credit_organization_code
 
-    """
-    Correspondent account is established to handle various financial operations between financial institutions
-    See https://en.wikipedia.org/wiki/Корреспондентский_счёт
-    """
-
     def correspondent_account(self):
+        """Generate a correspondent account number.
+
+        Correspondent account is established to handle various financial
+        operations between financial institutions.
+        See https://ru.wikipedia.org/wiki/Корреспондентский_счёт.
+        """
         credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
         return '301' + self.numerify('#' * 14) + credit_organization_code
 
-    """
-    Checking account is used in banks to handle financial operations of clients
-    See https://ru.wikipedia.org/wiki/Расчётный_счёт
-    """
-
     def checking_account(self):
+        """Generate a checking account number.
+
+        Checking account is used in banks to handle financial operations of
+        clients.
+        See https://ru.wikipedia.org/wiki/Расчётный_счёт.
+        """
         account = self.random_element(self.checking_account_codes)
         organization = self.random_element(self.organization_codes)
         currency = self.random_element(self.currency_codes)
         return account + organization + currency + self.numerify('#' * 12)
 
     def bank(self):
+        """Generate a bank name."""
         return self.random_element(self.banks)
