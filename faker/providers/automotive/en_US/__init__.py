@@ -2,8 +2,13 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # from
-    # https://en.wikipedia.org/wiki/United_States_license_plate_designs_and_serial_formats#Current_standard-issue_passenger_plate_designs_and_serial_formats
+    """Implement automotive provider for ``en_US`` locale.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/United_States_license_plate_designs_and_serial_formats#Current_standard-issue_passenger_plate_designs_and_serial_formats
+    """
+
     license_formats = (
         # Alabama
         '#??####',
@@ -32,7 +37,8 @@ class Provider(AutomotiveProvider):
         '??? ?##',
         '### ???',
         '?## #??',
-        '### #??',
+        '### #??',    # from
+    #
         # Georgia
         '???####',
         # Guam
