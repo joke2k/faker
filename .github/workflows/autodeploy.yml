@@ -7,8 +7,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: skip or not
+        id: skipornot
+        uses: fcurella/gh-action-commit-msg@main
       - name: 'Wait for status checks'
         id: waitforstatuschecks
+        if: ${{ !contains(steps.skipornot.outputs.message, 'skip ci') }}
         uses: "fcurella/gh-status-check@main"
         with:
           ignoreContexts: coverage/coveralls
