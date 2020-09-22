@@ -1,14 +1,23 @@
 from itertools import product
 
-# Canada uses UPC too
-from ..en_US import Provider as BarcodeProvider
+from ..en_US import Provider as EnUsBarcodeProvider
 
 
-class Provider(BarcodeProvider):
-    # Source of GS1 country codes: https://gs1.org/standards/id-keys/company-prefix
+class Provider(EnUsBarcodeProvider):
+    """Implement barcode provider for ``en_CA`` locale.
+
+    Canada uses UPC as well, so there are similarities between this and the
+    ``en_US`` implementation.
+
+    Sources:
+
+    - https://gs1.org/standards/id-keys/company-prefix
+    - https://www.nationwidebarcode.com/upc-country-codes/
+    """
+
     local_prefixes = (
-        # The source above doesn't specify prefixes 00~01, 06~09 to be used in Canada also,
-        # but it's referenced in numerous pages e.g.: https://www.nationwidebarcode.com/upc-country-codes/
+        # Some sources do not specify prefixes 00~01, 06~09 for use in Canada,
+        # but it's referenced in other pages
         *product((0,), range(2)),
         *product((0,), range(6, 10)),
         (7, 5),
