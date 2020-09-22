@@ -2,7 +2,12 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    # https://www.101languages.net/armenian/armenian-word-list
+    """Implement lorem provider for ``hy_AM`` locale.
+
+    Sources:
+
+    - https://www.101languages.net/armenian/armenian-word-list
+    """
 
     word_list = (
         'ես',

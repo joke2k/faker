@@ -2,6 +2,8 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
+    """Implement lorem provider for ``he_IL`` locale."""
+
     word_list = (
         "אאוגו", "אגת", "אדיפיסינג", "אדנדום", "אט", "איאקוליס", "איבן", "איף",
         "איפסום", "אלית", "אלמנקום", "אמט", "אס", "אפאח", "אקווזמן", "ארווס",
