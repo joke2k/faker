@@ -322,3 +322,13 @@ class TestRuRu:
             bs_words = bs.split()
             assert isinstance(bs, str)
             assert bs_words[0] in RuRuCompanyProvider.bsWords[0]
+
+class TestItIt:
+    """Test it_IT company provider methods"""
+
+    vat_regex = re.compile(r"^IT\d{7}(0\d{2}|100|120|121|888|999)\d$", flags=re.ASCII)
+
+    def test_company_vat(self, faker, num_samples):
+        for _ in range(num_samples):
+            company_vat = faker.company_vat()
+            assert self.vat_regex.match(company_vat)
