@@ -359,7 +359,7 @@ class Provider(CompanyProvider):
         See https://it.wikipedia.org/wiki/Partita_IVA#Tabella_degli_Uffici_IVA
         """
         val = self.generator.random.randint(1, 104)
-        
+
         # handle special cases
         if val == 101:
             return 120

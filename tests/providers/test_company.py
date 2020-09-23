@@ -1,6 +1,9 @@
 import re
+import pytest
 
 from datetime import datetime
+
+from unittest.mock import patch
 
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
@@ -332,3 +335,18 @@ class TestItIt:
         for _ in range(num_samples):
             company_vat = faker.company_vat()
             assert self.vat_regex.match(company_vat)
+
+    @pytest.mark.parametrize("value", (
+        101,
+        102,
+        103,
+        104,
+    ))
+    def test_company_vat_mock(self, faker, value):
+        # this test allows to get full code coverage for company_vat
+        title_patch = patch(
+            "faker.generator.random.randint",
+            autospec=True,
+            return_value=value,
+        )
+        assert self.vat_regex.match(faker.company_vat())
