@@ -350,8 +350,7 @@ class TestItIt:
         # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
         fake = ItItCompanyProvider(generator=Generator())
 
-        with patch.object(fake, "random_int", return_value=value, autospec=True) as mock_randint:
+        with patch.object(fake, "random_int", return_value=value, autospec=True):
             company_vat = fake.company_vat()
-            mock_randint.assert_called()
             assert self.vat_regex.match(company_vat)
             assert company_vat[9:12] == expected
