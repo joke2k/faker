@@ -1,14 +1,16 @@
 import re
-import pytest
 
 from datetime import datetime
-
 from unittest.mock import patch
 
+import pytest
+
+from faker import Generator
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
 from faker.providers.company.hy_AM import Provider as HyAmCompanyProvider
+from faker.providers.company.it_IT import Provider as ItItCompanyProvider
 from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
@@ -326,6 +328,7 @@ class TestRuRu:
             assert isinstance(bs, str)
             assert bs_words[0] in RuRuCompanyProvider.bsWords[0]
 
+
 class TestItIt:
     """Test it_IT company provider methods"""
 
@@ -336,17 +339,19 @@ class TestItIt:
             company_vat = faker.company_vat()
             assert self.vat_regex.match(company_vat)
 
-    @pytest.mark.parametrize("value", (
-        101,
-        102,
-        103,
-        104,
+    @pytest.mark.parametrize("value, expected", (
+        (100, "100"),
+        (101, "120"),
+        (102, "121"),
+        (103, "888"),
+        (104, "999"),
     ))
-    def test_company_vat_mock(self, faker, value):
-        # this test allows to get full code coverage for company_vat
-        title_patch = patch(
-            "faker.generator.random.randint",
-            autospec=True,
-            return_value=value,
-        )
-        assert self.vat_regex.match(faker.company_vat())
+    def test_company_vat_mock(self, value, expected):
+        # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
+        fake = ItItCompanyProvider(generator=Generator())
+
+        with patch.object(fake, "random_int", return_value=value, autospec=True) as mock_randint:
+            company_vat = fake.company_vat()
+            mock_randint.assert_called()
+            assert self.vat_regex.match(company_vat)
+            assert company_vat[9:12] == expected
