@@ -7,14 +7,16 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
       - name: skip or not
         id: skipornot
-        uses: fcurella/gh-action-commit-msg@main
+        uses: "fcurella/gh-action-commit-msg-match@main"
+        with:
+          matchWords: skip ci,release
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: 'Wait for status checks'
         id: waitforstatuschecks
-        if: ${{ !contains(steps.skipornot.outputs.message, 'skip ci') }}
+        if: steps.skipornot.outputs.match == 'false'
         uses: "fcurella/gh-status-check@main"
         with:
           ignoreContexts: coverage/coveralls
