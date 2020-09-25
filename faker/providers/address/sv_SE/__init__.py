@@ -21,7 +21,8 @@ class Provider(AddressProvider):
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
-    postcode_formats = ('#####', )
+    postcode_formats = ('1####', '2####', '3####', '4####', '5####', '6####',
+                        '7####', '8####', '9####')
 
     city_formats = ('{{city_name}}', )
 
