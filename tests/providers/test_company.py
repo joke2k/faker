@@ -5,7 +5,6 @@ from unittest.mock import patch
 
 import pytest
 
-from faker import Generator
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
@@ -346,9 +345,9 @@ class TestItIt:
         (103, "888"),
         (104, "999"),
     ))
-    def test_company_vat_mock(self, value, expected):
+    def test_company_vat_special_cases(self, faker, value, expected):
         # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
-        fake = ItItCompanyProvider(generator=Generator())
+        fake = ItItCompanyProvider(generator=faker)
 
         with patch.object(fake, "random_int", return_value=value, autospec=True):
             company_vat = fake.company_vat()
