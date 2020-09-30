@@ -1,6 +1,14 @@
 Changelog
 =========
 
+`4.1.4 - 2020-09-30 <https://github.com/joke2k/faker/compare/v4.1.3...v4.1.4>`_
+-------------------------------------------------------------------------------
+
+* Use "Belarus" instead of "Vitryssland" for ``sv_SE``. Thanks @Majsvaffla.
+* Added bank provider for ``tr_TR`` locale. Thanks @iamnotagentleman.
+* Improve VAT generation for IT provider. Thanks @LordGordonQ.
+* Use non-zero number for first digit of Swedish postal codes. Thanks @Majsvaffla.
+
 `4.1.3 - 2020-09-14 <https://github.com/joke2k/faker/compare/v4.1.2...v4.1.3>`_
 -------------------------------------------------------------------------------
 
