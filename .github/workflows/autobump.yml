@@ -1,0 +1,48 @@
+name: Bump Version
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  bumpversion:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged_at != null
+    strategy:
+      max-parallel: 1
+    steps:
+      - name: Wait for status checks
+        id: waitforstatuschecks
+        uses: "fcurella/gh-status-check@main"
+        with:
+          ignoreContexts: coverage/coveralls
+          ignoreActions: waitforstatuschecks
+          checkInterval: 12
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Next Part
+        id: nextpart
+        if: steps.waitforstatuschecks.outputs.status == 'success'
+        uses: "fcurella/gh-action-label-to-semver@main"
+        with:
+            major: "bump-version:major"
+            minor: "bump-version:minor"
+            defaultPart: "patch"
+      - uses: actions/checkout@v2
+      - name: Get Next Version
+        uses: "fcurella/gh-action-next-version@main"
+        id: nextversion
+        with:
+          part: ${{ steps.nextpart.outputs.part }}
+      - name: Update Changelog
+        uses: "fcurella/gh-action-update-changelog@main"
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          changelogPath: "CHANGELOG.rst"
+          changelogLine : 4
+          currentVersion: ${{ steps.nextversion.outputs.currentVersion }}
+          nextVersion: ${{ steps.nextversion.outputs.nextVersion }}
+      - name: Bump version
+        uses: "fcurella/gh-action-bump2version@main"
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          part: ${{ steps.nextpart.outputs.part }}

@@ -1,17 +1,10 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 
 from calendar import timegm
-from datetime import timedelta, MAXYEAR
+from datetime import MAXYEAR, date, datetime, timedelta
 
 from dateutil import relativedelta
-from dateutil.tz import tzlocal, tzutc
-
-from faker.utils import is_string
-from faker.utils.datetime_safe import date, datetime, real_date, real_datetime
+from dateutil.tz import gettz, tzlocal, tzutc
 
 from .. import BaseProvider
 
@@ -34,6 +27,29 @@ def timestamp_to_datetime(timestamp, tzinfo):
     return pick
 
 
+def change_year(current_date, year_diff):
+    """
+    Unless the current_date is February 29th, it is fine to just subtract years.
+    If it is a leap day, and we are rolling back to a non-leap year, it will
+    cause a ValueError.
+    Since this is relatively uncommon, just catch the error and roll forward to
+    March 1
+
+    current_date: date  object
+    year_diff: int year delta value, positive or negative
+    """
+    year = current_date.year + year_diff
+    try:
+        return current_date.replace(year=year)
+    except ValueError as e:
+        # ValueError thrown if trying to move date to a non-leap year if the current
+        # date is February 29th
+        if year != 0 and current_date.month == 2 and current_date.day == 29:
+            return current_date.replace(month=3, day=1, year=year)
+        else:
+            raise e
+
+
 class ParseError(ValueError):
     pass
 
@@ -41,7 +57,7 @@ class ParseError(ValueError):
 timedelta_pattern = r''
 for name, sym in [('years', 'y'), ('months', 'M'), ('weeks', 'w'), ('days', 'd'),
                   ('hours', 'h'), ('minutes', 'm'), ('seconds', 's')]:
-    timedelta_pattern += r'((?P<{0}>(?:\+|-)\d+?){1})?'.format(name, sym)
+    timedelta_pattern += r'((?P<{}>(?:\+|-)\d+?){})?'.format(name, sym)
 
 
 class Provider(BaseProvider):
@@ -1505,46 +1521,46 @@ class Provider(BaseProvider):
     def _parse_timedelta(cls, value):
         if isinstance(value, timedelta):
             return value.total_seconds()
-        if is_string(value):
+        if isinstance(value, str):
             time_params = cls._parse_date_string(value)
             return timedelta(**time_params).total_seconds()
         if isinstance(value, (int, float)):
             return value
-        raise ParseError("Invalid format for timedelta '{0}'".format(value))
+        raise ParseError("Invalid format for timedelta '{}'".format(value))
 
     @classmethod
     def _parse_date_time(cls, value, tzinfo=None):
-        if isinstance(value, (datetime, date, real_datetime, real_date)):
+        if isinstance(value, (datetime, date)):
             return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
             return datetime_to_timestamp(now + value)
-        if is_string(value):
+        if isinstance(value, str):
             if value == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
             time_params = cls._parse_date_string(value)
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(value, int):
             return datetime_to_timestamp(now + timedelta(value))
-        raise ParseError("Invalid format for date '{0}'".format(value))
+        raise ParseError("Invalid format for date '{}'".format(value))
 
     @classmethod
     def _parse_date(cls, value):
-        if isinstance(value, (datetime, real_datetime)):
+        if isinstance(value, datetime):
             return value.date()
-        elif isinstance(value, (date, real_date)):
+        elif isinstance(value, date):
             return value
         today = date.today()
         if isinstance(value, timedelta):
             return today + value
-        if is_string(value):
+        if isinstance(value, str):
             if value in ('today', 'now'):
                 return today
             time_params = cls._parse_date_string(value)
             return today + timedelta(**time_params)
         if isinstance(value, int):
             return today + timedelta(value)
-        raise ParseError("Invalid format for date '{0}'".format(value))
+        raise ParseError("Invalid format for date '{}'".format(value))
 
     def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """
@@ -1967,6 +1983,17 @@ class Provider(BaseProvider):
         return self.generator.random.choice(
             self.random_element(self.countries)['timezones'])
 
+    def pytimezone(self, *args, **kwargs):
+        """
+        Generate a random timezone (see `faker.timezone` for any args)
+        and return as a python object usable as a `tzinfo` to `datetime`
+        or other fakers.
+
+        :example faker.pytimezone()
+        :return dateutil.tz.tz.tzfile
+        """
+        return gettz(self.timezone(*args, **kwargs))
+
     def date_of_birth(self, tzinfo=None, minimum_age=0, maximum_age=115):
         """
         Generate a random date of birth represented as a Date object,
@@ -2001,8 +2028,8 @@ class Provider(BaseProvider):
         # boundary.
 
         now = datetime.now(tzinfo).date()
-        start_date = now.replace(year=now.year - (maximum_age+1))
-        end_date = now.replace(year=now.year - minimum_age)
+        start_date = change_year(now, -(maximum_age + 1))
+        end_date = change_year(now, -minimum_age)
 
         dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
 

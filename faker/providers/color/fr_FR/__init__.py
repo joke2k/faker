@@ -1,5 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import Provider as ColorProvider
@@ -8,6 +6,8 @@ localized = True
 
 
 class Provider(ColorProvider):
+    """Implement color provider for ``fr_FR`` locale."""
+
     all_colors = OrderedDict((
         ("Noir", "#000000"),
         ("Gris mat", "#696969"),
@@ -39,7 +39,7 @@ class Provider(ColorProvider):
         ("Violet orchidée", "#DA70D6"),
         ("Violet orchidée moyen", "#BA55D3"),
         ("Violet orchidée foncé", "#9932CC"),
-        (u"Violet foncé", "#9400D3"),
+        ("Violet foncé", "#9400D3"),
         ("Bleu violet", "#8A2BE2"),
         ("Indigo", "#4B0082"),
         ("Bleu ardoise moyen", "#7B68EE"),
@@ -67,7 +67,7 @@ class Provider(ColorProvider):
         ("Beige antique", "#FAEBD7"),
         ("Beige papaye", "#FFEFD5"),
         ("Amande", "#FFEBCD"),
-        ("Bisque", "#ffe4c4"),
+        ("Bisque", "#FFE4C4"),
         ("Beige pêche", "#FFDAB9"),
         ("Beige mocassin", "#FFE4B5"),
         ("Jaune blanc navaro", "#FFDEAD"),

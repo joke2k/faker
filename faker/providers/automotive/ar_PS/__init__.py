@@ -1,12 +1,14 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Source:
-    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Palestinian_National_Authority
+    """Implement automotive provider for ``ar_PS`` locale.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Palestinian_National_Authority
+    """
+
     license_formats = (
         # Private vehicles
         '{{district}}-####-3#',
@@ -40,6 +42,7 @@ class Provider(AutomotiveProvider):
     )
 
     def district(self):
+        """Generate a district code for license plates."""
         return self.random_element([
             # Gaza Strip
             '1',
@@ -59,5 +62,6 @@ class Provider(AutomotiveProvider):
         ])
 
     def license_plate(self):
+        """Generate a license plate."""
         pattern = self.random_element(self.license_formats)
         return self.numerify(self.generator.parse(pattern))

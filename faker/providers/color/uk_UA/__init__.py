@@ -1,13 +1,15 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from collections import OrderedDict
 
 from .. import Provider as ColorProvider
 
 
 class Provider(ColorProvider):
-    # Source: uk.wikipedia.org/wiki/Список_кольорів
+    """Implement color provider for ``uk_UA`` locale.
+
+    Sources:
+    - https://uk.wikipedia.org/wiki/Список_кольорів
+    """
+
     all_colors = OrderedDict((
         ('Абрикосовий', '#FBCEB1'),
         ('Аквамариновий', '#7FFFD4'),

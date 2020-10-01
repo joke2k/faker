@@ -1,14 +1,12 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """
-    List of 2000 most frequent words in Polish Wiktionary
+    """Implement lorem provider for ``pl_PL`` locale.
 
-    https://pl.wiktionary.org/wiki/Indeks:Polski_-_Najpopularniejsze_s%C5%82owa_1-2000
+    Sources:
+
+    - https://pl.wiktionary.org/wiki/Indeks:Polski_-_Najpopularniejsze_s%C5%82owa_1-2000
     """
 
     word_list = (

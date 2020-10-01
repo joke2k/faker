@@ -1,4 +1,3 @@
-# coding=utf-8
 from .. import Provider as BaseProvider
 
 
@@ -31,4 +30,4 @@ class Provider(BaseProvider):
         :return: a random Greek police ID
         """
 
-        return self.bothify(self.random_element(self.police_id_formats), letters=u'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ')
+        return self.bothify(self.random_element(self.police_id_formats), letters='ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ')

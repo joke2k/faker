@@ -1,16 +1,13 @@
-# coding=utf-8
-from __future__ import unicode_literals
+from ipaddress import IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
 
 from text_unidecode import unidecode
-
-from .. import BaseProvider
-
-from ipaddress import ip_address, ip_network, IPV4LENGTH, IPV6LENGTH
 
 # from faker.generator import random
 # from faker.providers.lorem.la import Provider as Lorem
 from faker.utils.decorators import lowercase, slugify, slugify_unicode
+from faker.utils.distribution import choices_distribution
 
+from .. import BaseProvider
 
 localized = True
 
@@ -29,12 +26,6 @@ class _IPv4Constants:
         'c': ip_network('192.0.0.0/3'),
     }
 
-    _linklocal_network = ip_network('169.254.0.0/16')
-
-    _loopback_network = ip_network('127.0.0.0/8')
-
-    _multicast_network = ip_network('224.0.0.0/4')
-
     # Three common private networks from class A, B and CIDR
     # to generate private addresses from.
     _private_networks = [
@@ -49,8 +40,8 @@ class _IPv4Constants:
     _excluded_networks = [
         ip_network('0.0.0.0/8'),
         ip_network('100.64.0.0/10'),
-        ip_network('127.0.0.0/8'),
-        ip_network('169.254.0.0/16'),
+        ip_network('127.0.0.0/8'),  # loopback network
+        ip_network('169.254.0.0/16'),  # linklocal network
         ip_network('192.0.0.0/24'),
         ip_network('192.0.2.0/24'),
         ip_network('192.31.196.0/24'),
@@ -60,17 +51,14 @@ class _IPv4Constants:
         ip_network('198.18.0.0/15'),
         ip_network('198.51.100.0/24'),
         ip_network('203.0.113.0/24'),
+        ip_network('224.0.0.0/4'),  # multicast network
         ip_network('240.0.0.0/4'),
         ip_network('255.255.255.255/32'),
-    ] + [
-        _linklocal_network,
-        _loopback_network,
-        _multicast_network,
     ]
 
 
 class Provider(BaseProvider):
-    safe_email_tlds = ('org', 'com', 'net')
+    safe_domain_names = ('example.org', 'example.com', 'example.net')
     free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
     tlds = (
         'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
@@ -87,6 +75,10 @@ class Provider(BaseProvider):
     uri_extensions = (
         '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
         '.asp',
+    )
+    http_methods = (
+        'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
+        'PATCH',
     )
 
     user_name_formats = (
@@ -129,17 +121,19 @@ class Provider(BaseProvider):
     @lowercase
     def email(self, domain=None):
         if domain:
-            email = '{0}@{1}'.format(self.user_name(), domain)
+            email = '{}@{}'.format(self.user_name(), domain)
         else:
             pattern = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))
         return email
 
     @lowercase
+    def safe_domain_name(self):
+        return self.random_element(self.safe_domain_names)
+
+    @lowercase
     def safe_email(self):
-        return '{}@example.{}'.format(
-            self.user_name(), self.random_element(self.safe_email_tlds),
-        )
+        return self.user_name() + '@' + self.safe_domain_name()
 
     @lowercase
     def free_email(self):
@@ -162,11 +156,7 @@ class Provider(BaseProvider):
 
     @lowercase
     def ascii_safe_email(self):
-        return self._to_ascii(
-            self.user_name() +
-            '@example.' +
-            self.random_element(self.safe_email_tlds),
-        )
+        return self._to_ascii(self.user_name() + '@' + self.safe_domain_name())
 
     @lowercase
     def ascii_free_email(self):
@@ -230,8 +220,44 @@ class Provider(BaseProvider):
         company = self._to_ascii(company_elements.pop(0))
         return company
 
+    def dga(self, year=None, month=None, day=None, tld=None, length=None):
+        """Generates a domain name by given date
+        https://en.wikipedia.org/wiki/Domain_generation_algorithm
+
+        :type year: int
+        :type month: int
+        :type day: int
+        :type tld: str
+        :type length: int
+        :rtype: str
+        """
+
+        domain = ''
+        year = year or self.random_int(min=1, max=9999)
+        month = month or self.random_int(min=1, max=12)
+        day = day or self.random_int(min=1, max=30)
+        tld = tld or self.tld()
+        length = length or self.random_int(min=2, max=63)
+
+        for _ in range(length):
+            year = ((year ^ 8 * year) >> 11) ^ ((year & 0xFFFFFFF0) << 17)
+            month = ((month ^ 4 * month) >> 25) ^ 16 * (month & 0xFFFFFFF8)
+            day = ((day ^ (day << 13)) >> 19) ^ ((day & 0xFFFFFFFE) << 12)
+            domain += chr(((year ^ month ^ day) % 25) + 97)
+
+        return domain + '.' + tld
+
     def tld(self):
         return self.random_element(self.tlds)
+
+    def http_method(self):
+        """Returns random HTTP method
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+        :rtype: str
+        """
+
+        return self.random_element(self.http_methods)
 
     def url(self, schemes=None):
         """
@@ -251,14 +277,123 @@ class Provider(BaseProvider):
 
         return self.generator.parse(pattern)
 
-    def _random_ipv4_address_from_subnet(self, subnet, network=False):
+    def _get_all_networks_and_weights(self, address_class=None):
+        """
+        Produces a 2-tuple of valid IPv4 networks and corresponding relative weights
+
+        :param address_class: IPv4 address class (a, b, or c)
+        """
+        # If `address_class` has an unexpected value, use the whole IPv4 pool
+        if address_class in _IPv4Constants._network_classes.keys():
+            networks_attr = '_cached_all_class_{}_networks'.format(address_class)
+            all_networks = [_IPv4Constants._network_classes[address_class]]
+        else:
+            networks_attr = '_cached_all_networks'
+            all_networks = [ip_network('0.0.0.0/0')]
+
+        # Return cached network and weight data if available
+        weights_attr = '{}_weights'.format(networks_attr)
+        if hasattr(self, networks_attr) and hasattr(self, weights_attr):
+            return getattr(self, networks_attr), getattr(self, weights_attr)
+
+        # Otherwise, compute for list of networks (excluding special networks)
+        all_networks = self._exclude_ipv4_networks(
+            all_networks,
+            _IPv4Constants._excluded_networks,
+        )
+
+        # Then compute for list of corresponding relative weights
+        weights = [network.num_addresses for network in all_networks]
+
+        # Then cache and return results
+        setattr(self, networks_attr, all_networks)
+        setattr(self, weights_attr, weights)
+        return all_networks, weights
+
+    def _get_private_networks_and_weights(self, address_class=None):
+        """
+        Produces an OrderedDict of valid private IPv4 networks and corresponding relative weights
+
+        :param address_class: IPv4 address class (a, b, or c)
+        """
+        # If `address_class` has an unexpected value, choose a valid value at random
+        if address_class not in _IPv4Constants._network_classes.keys():
+            address_class = self.ipv4_network_class()
+
+        # Return cached network and weight data if available for a specific address class
+        networks_attr = '_cached_private_class_{}_networks'.format(address_class)
+        weights_attr = '{}_weights'.format(networks_attr)
+        if hasattr(self, networks_attr) and hasattr(self, weights_attr):
+            return getattr(self, networks_attr), getattr(self, weights_attr)
+
+        # Otherwise, compute for list of private networks (excluding special networks)
+        supernet = _IPv4Constants._network_classes[address_class]
+        private_networks = [
+            subnet for subnet in _IPv4Constants._private_networks
+            if subnet.overlaps(supernet)
+        ]
+        private_networks = self._exclude_ipv4_networks(
+            private_networks,
+            _IPv4Constants._excluded_networks,
+        )
+
+        # Then compute for list of corresponding relative weights
+        weights = [network.num_addresses for network in private_networks]
+
+        # Then cache and return results
+        setattr(self, networks_attr, private_networks)
+        setattr(self, weights_attr, weights)
+        return private_networks, weights
+
+    def _get_public_networks_and_weights(self, address_class=None):
+        """
+        Produces a 2-tuple of valid public IPv4 networks and corresponding relative weights
+
+        :param address_class: IPv4 address class (a, b, or c)
+        """
+        # If `address_class` has an unexpected value, choose a valid value at random
+        if address_class not in _IPv4Constants._network_classes.keys():
+            address_class = self.ipv4_network_class()
+
+        # Return cached network and weight data if available for a specific address class
+        networks_attr = '_cached_public_class_{}_networks'.format(address_class)
+        weights_attr = '{}_weights'.format(networks_attr)
+        if hasattr(self, networks_attr) and hasattr(self, weights_attr):
+            return getattr(self, networks_attr), getattr(self, weights_attr)
+
+        # Otherwise, compute for list of public networks (excluding private and special networks)
+        public_networks = [_IPv4Constants._network_classes[address_class]]
+        public_networks = self._exclude_ipv4_networks(
+            public_networks,
+            _IPv4Constants._private_networks +
+            _IPv4Constants._excluded_networks,
+        )
+
+        # Then compute for list of corresponding relative weights
+        weights = [network.num_addresses for network in public_networks]
+
+        # Then cache and return results
+        setattr(self, networks_attr, public_networks)
+        setattr(self, weights_attr, weights)
+        return public_networks, weights
+
+    def _random_ipv4_address_from_subnets(self, subnets, weights=None, network=False):
         """
         Produces a random IPv4 address or network with a valid CIDR
-        from within a given subnet.
+        from within the given subnets using a distribution described
+        by weights.
 
-        :param subnet: IPv4Network to choose from within
+        :param subnets: List of IPv4Networks to choose from within
+        :param weights: List of weights corresponding to the individual IPv4Networks
         :param network: Return a network address, and not an IP address
+        :return:
         """
+        # If the weights argument has an invalid value, default to equal distribution
+        try:
+            subnet = choices_distribution(subnets, weights, random=self.generator.random, length=1)[0]
+        except (AssertionError, TypeError):
+            subnet = self.generator.random.choice(subnets)
+
         address = str(
             subnet[self.generator.random.randint(
                 0, subnet.num_addresses - 1,
@@ -283,6 +418,7 @@ class Provider(BaseProvider):
         :param networks_to_exclude: List of IPv4 networks to exclude
         :returns: Flat list of IPv4 networks
         """
+        networks_to_exclude.sort(key=lambda x: x.prefixlen)
         for network_to_exclude in networks_to_exclude:
             def _exclude_ipv4_network(network):
                 """
@@ -327,7 +463,7 @@ class Provider(BaseProvider):
 
     def ipv4(self, network=False, address_class=None, private=None):
         """
-        Produce a random IPv4 address or network with a valid CIDR.
+        Returns a random IPv4 address or network with a valid CIDR.
 
         :param network: Network address
         :param address_class: IPv4 address class (a, b, or c)
@@ -340,25 +476,9 @@ class Provider(BaseProvider):
         elif private is False:
             return self.ipv4_public(address_class=address_class,
                                     network=network)
-
-        # if neither private nor public is required explicitly,
-        # generate from whole requested address space
-        if address_class:
-            all_networks = [_IPv4Constants._network_classes[address_class]]
         else:
-            # if no address class is choosen, use whole IPv4 pool
-            all_networks = [ip_network('0.0.0.0/0')]
-
-        # exclude special networks
-        all_networks = self._exclude_ipv4_networks(
-            all_networks,
-            _IPv4Constants._excluded_networks,
-        )
-
-        # choose random network from the list
-        random_network = self.generator.random.choice(all_networks)
-
-        return self._random_ipv4_address_from_subnet(random_network, network)
+            all_networks, weights = self._get_all_networks_and_weights(address_class=address_class)
+            return self._random_ipv4_address_from_subnets(all_networks, weights=weights, network=network)
 
     def ipv4_private(self, network=False, address_class=None):
         """
@@ -368,26 +488,8 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Private IPv4
         """
-        # compute private networks from given class
-        supernet = _IPv4Constants._network_classes[
-            address_class or self.ipv4_network_class()
-        ]
-
-        private_networks = [
-            subnet for subnet in _IPv4Constants._private_networks
-            if subnet.overlaps(supernet)
-        ]
-
-        # exclude special networks
-        private_networks = self._exclude_ipv4_networks(
-            private_networks,
-            _IPv4Constants._excluded_networks,
-        )
-
-        # choose random private network from the list
-        private_network = self.generator.random.choice(private_networks)
-
-        return self._random_ipv4_address_from_subnet(private_network, network)
+        private_networks, weights = self._get_private_networks_and_weights(address_class=address_class)
+        return self._random_ipv4_address_from_subnets(private_networks, weights=weights, network=network)
 
     def ipv4_public(self, network=False, address_class=None):
         """
@@ -397,22 +499,8 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Public IPv4
         """
-        # compute public networks
-        public_networks = [_IPv4Constants._network_classes[
-            address_class or self.ipv4_network_class()
-        ]]
-
-        # exclude private and excluded special networks
-        public_networks = self._exclude_ipv4_networks(
-            public_networks,
-            _IPv4Constants._private_networks +
-            _IPv4Constants._excluded_networks,
-        )
-
-        # choose random public network from the list
-        public_network = self.generator.random.choice(public_networks)
-
-        return self._random_ipv4_address_from_subnet(public_network, network)
+        public_networks, weights = self._get_public_networks_and_weights(address_class=address_class)
+        return self._random_ipv4_address_from_subnets(public_networks, weights=weights, network=network)
 
     def ipv6(self, network=False):
         """Produce a random IPv6 address or network with a valid CIDR"""
@@ -426,6 +514,25 @@ class Provider(BaseProvider):
     def mac_address(self):
         mac = [self.generator.random.randint(0x00, 0xff) for _ in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
+
+    def port_number(self, is_system=False, is_user=False, is_dynamic=False):
+        """Returns a network port number
+        https://tools.ietf.org/html/rfc6335
+
+        :param is_system: System or well-known ports
+        :param is_user: User or registered ports
+        :param is_dynamic: Dynamic / private / ephemeral ports
+        :rtype: int
+        """
+
+        if is_system:
+            return self.random_int(min=0, max=1023)
+        elif is_user:
+            return self.random_int(min=1024, max=49151)
+        elif is_dynamic:
+            return self.random_int(min=49152, max=65535)
+
+        return self.random_int(min=0, max=65535)
 
     def uri_page(self):
         return self.random_element(self.uri_pages)

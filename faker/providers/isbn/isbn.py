@@ -1,11 +1,10 @@
-# coding=utf-8
 """
 This module is responsible for generating the check digit and formatting
 ISBN numbers.
 """
 
 
-class ISBN(object):
+class ISBN:
 
     MAX_LENGTH = 13
 
@@ -19,7 +18,7 @@ class ISBN(object):
 class ISBN13(ISBN):
 
     def __init__(self, *args, **kwargs):
-        super(ISBN13, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 
     def _check_digit(self):
@@ -43,7 +42,7 @@ class ISBN13(ISBN):
 class ISBN10(ISBN):
 
     def __init__(self, *args, **kwargs):
-        super(ISBN10, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 
     def _check_digit(self):

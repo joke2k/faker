@@ -1,6 +1,6 @@
-from __future__ import unicode_literals
-from .. import Provider as SsnProvider
 import datetime
+
+from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
@@ -511,7 +511,12 @@ class Provider(SsnProvider):
         "659003", "659004", "710000", "810000", "820000",
     ]
 
-    def ssn(self, min_age=18, max_age=90):
+    def ssn(self, min_age=18, max_age=90, gender=None):
+        """
+        Return 18 character chinese personal identity code
+
+        :param gender: F for female  M for male  None for default
+        """
         def checksum(s):
             return str((1 - 2 * int(s, 13)) % 11).replace('10', 'X')
 
@@ -521,5 +526,17 @@ class Provider(SsnProvider):
         birthday_str = birthday.strftime('%Y%m%d')
 
         ssn_without_checksum = self.numerify(
-            self.random_element(self.area_codes) + birthday_str + "###")
+            self.random_element(self.area_codes) + birthday_str + "##")
+
+        _number = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
+        if gender:
+            if gender in ('F', 'f'):
+                gender_num = self.generator.random.choice(_number[::2])
+            elif gender in ('M', 'm'):
+                gender_num = self.generator.random.choice(_number[1::2])
+            else:
+                raise ValueError('Gender must be one of F or M.')
+        else:
+            gender_num = self.generator.random.choice(_number)
+        ssn_without_checksum += gender_num
         return ssn_without_checksum + checksum(ssn_without_checksum)

@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import BaseProvider
 from .isbn import ISBN, ISBN10, ISBN13
 from .rules import RULES
@@ -52,7 +49,7 @@ class Provider(BaseProvider):
         :returns: A (registrant, publication) tuple of strings.
         """
         for rule in rules:
-            if rule.min <= reg_pub <= rule.max:
+            if rule.min <= reg_pub[:-1] <= rule.max:
                 reg_len = rule.registrant_length
                 break
         else:

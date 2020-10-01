@@ -1,8 +1,7 @@
-# coding=utf-8
-from __future__ import unicode_literals
-from .. import Provider as SsnProvider
 from functools import reduce
 from math import fmod
+
+from .. import Provider as SsnProvider
 
 
 def zfix(d):

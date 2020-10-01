@@ -1,14 +1,16 @@
-# coding=utf-8
-
-
-from __future__ import unicode_literals
-from .. import Provider as AutomotiveProvider
 import string
+
+from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
+    """Implement automotive provider for ``de_DE`` locale.
 
-    # http://berlin.de/daten/liste-der-kfz-kennzeichen/kfz-kennz-d.csv
+    Sources:
+
+    - http://berlin.de/daten/liste-der-kfz-kennzeichen/kfz-kennz-d.csv
+    """
+
     license_plate_prefix = (
         'A', 'AA', 'AB', 'ABI', 'ABG', 'AC', 'AE', 'AIC', 'AK', 'AM', 'AN', 'AÖ', 'AP', 'AS', 'AUR', 'AW', 'AZ', 'B',
         'BA', 'BAD', 'BAR', 'BB', 'BC', 'BD', 'BGL', 'BI', 'BIR', 'BIT', 'BK', 'BL', 'BLK', 'BM', 'BN', 'BO', 'BOR',
@@ -42,5 +44,7 @@ class Provider(AutomotiveProvider):
     )
 
     def license_plate(self):
-        return self.random_element(self.license_plate_prefix) + \
-               self.lexify(self.numerify(self.random_element(self.license_plate_suffix)), string.ascii_uppercase)
+        """Generate a license plate."""
+        prefix = self.random_element(self.license_plate_prefix)
+        suffix = self.bothify(self.random_element(self.license_plate_suffix), letters=string.ascii_uppercase)
+        return prefix + suffix

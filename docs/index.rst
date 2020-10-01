@@ -15,10 +15,13 @@ Contents
 .. toctree::
    :maxdepth: 2
 
+   fakerclass
    providers
    communityproviders
    locales
+   pytest-fixtures
    coding_style
+   writing-docs
 
 
 

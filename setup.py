@@ -1,17 +1,19 @@
 #!/usr/bin/env python
-# coding=utf-8
 
-import io
 import os
 
 from setuptools import find_packages, setup
 
 here = os.path.abspath(os.path.dirname(__file__))
-with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
     README = fp.read()
 
-with io.open(os.path.join(here, 'VERSION')) as version_file:
+with open(os.path.join(here, 'VERSION')) as version_file:
     VERSION = version_file.read().strip()
+
+excluded_packages = ["docs", "tests", "tests.*"]
+if not os.environ.get('READTHEDOCS', False):
+    excluded_packages += ["faker.sphinx", "faker.sphinx.*"]
 
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
@@ -21,7 +23,7 @@ try:
     import zipimport
     zip_safe = hasattr(zipimport.zipimporter, "iter_modules") or \
         zipimport.zipimporter in pkgutil.iter_importer_modules.registry.keys()
-except (ImportError, AttributeError):
+except AttributeError:
     zip_safe = False
 
 setup(
@@ -31,6 +33,7 @@ setup(
     long_description=README,
     entry_points={
         'console_scripts': ['faker=faker.cli:execute_from_command_line'],
+        'pytest11': ['faker = faker.contrib.pytest.plugin'],
     },
     classifiers=[
         # See https://pypi.org/pypi?%3Aaction=list_classifiers
@@ -38,13 +41,12 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -57,31 +59,12 @@ setup(
     author_email='joke2k@gmail.com',
     url='https://github.com/joke2k/faker',
     license='MIT License',
-    packages=find_packages(exclude=["docs", "tests", "tests.*"]),
+    packages=find_packages(exclude=excluded_packages),
     platforms=["any"],
-    test_suite='tests',
     zip_safe=zip_safe,
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
-    setup_requires=["pytest-runner"],
+    python_requires=">=3.5",
     install_requires=[
         "python-dateutil>=2.4",
-        "six>=1.10",
         "text-unidecode==1.3",
     ],
-    tests_require=[
-        "validators>=0.13.0",
-        "ukpostcodeparser>=1.1.1",
-        "mock ; python_version < '3.3'",
-        "pytest>=3.8.0,<3.9",
-        "more-itertools<6.0.0 ; python_version < '3.0'",
-        # restricted because they may drop python2 support in future versions
-        # https://github.com/joke2k/faker/issues/970
-        "random2<1.1",
-        "freezegun<0.4",
-    ],
-    extras_require={
-        ':python_version<"3.3"': [
-            'ipaddress',
-        ],
-    },
 )

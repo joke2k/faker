@@ -1,11 +1,11 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import BaseProvider
 
+localized = True
 
-class CreditCard(object):
+
+class CreditCard:
 
     def __init__(
             self,
@@ -22,14 +22,26 @@ class CreditCard(object):
 
 
 class Provider(BaseProvider):
+    """Implement default credit card provider for Faker.
 
-    # Prefixes from:
-    # * https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_.28IIN.29
-    # * https://www.regular-expressions.info/creditcard.html
-    # * https://creditcardjs.com/credit-card-type-detection
+    For all methods that take ``card_type`` as an argument, a random card type
+    will be used if the supplied value is ``None``. The list of valid card types
+    includes ``'amex'``, ``'diners'``, ``'discover'``, ``'jcb'``, ``'jcb15'``,
+    ``'jcb16'``, ``'maestro'``, ``'mastercard'``, ``'visa'``, ``'visa13'``,
+    ``'visa16'``, and ``'visa19'``.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_.28IIN.29
+    - https://www.regular-expressions.info/creditcard.html
+    - https://creditcardjs.com/credit-card-type-detection
+    """
+
     prefix_maestro = ['5018', '5020', '5038', '56##', '57##', '58##',
                       '6304', '6759', '6761', '6762', '6763', '0604', '6390']
-    prefix_mastercard = ['51', '52', '53', '54', '55', '222%']
+    prefix_mastercard = ['51', '52', '53', '54', '55', '222%', '223', '224',
+                         '225', '226', '227', '228', '229', '23', '24', '25',
+                         '26', '270', '271', '2720']
     prefix_visa = ['4']
     prefix_amex = ['34', '37']
     prefix_discover = ['6011', '65']
@@ -59,23 +71,32 @@ class Provider(BaseProvider):
                    '5': 1, '6': 3, '7': 5, '8': 7, '9': 9}
 
     def credit_card_provider(self, card_type=None):
-        """ Returns the provider's name of the credit card. """
+        """Generate a credit card provider name."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())
         return self._credit_card_type(card_type).name
 
     def credit_card_number(self, card_type=None):
-        """ Returns a valid credit card number. """
+        """Generate a valid credit card number."""
         card = self._credit_card_type(card_type)
         prefix = self.random_element(card.prefixes)
         number = self._generate_number(self.numerify(prefix), card.length)
         return number
 
     def credit_card_expire(self, start='now', end='+10y', date_format='%m/%y'):
+        """Generate a credit card expiry date.
+
+        This method uses |date_time_between| under the hood to generate the
+        expiry date, so the ``start`` and ``end`` arguments work in the same way
+        here as it would in that method. For the actual formatting of the expiry
+        date, |strftime| is used and ``date_format`` is simply passed
+        to that method.
+        """
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
     def credit_card_full(self, card_type=None):
+        """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 
         tpl = ('{provider}\n'
@@ -94,12 +115,12 @@ class Provider(BaseProvider):
         return self.generator.parse(tpl)
 
     def credit_card_security_code(self, card_type=None):
-        """ Returns a security code string. """
+        """Generate a credit card security code."""
         sec_len = self._credit_card_type(card_type).security_code_length
         return self.numerify('#' * sec_len)
 
     def _credit_card_type(self, card_type=None):
-        """ Returns a random credit card type instance. """
+        """Generate a random CreditCard instance of the specified card type."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())
         elif isinstance(card_type, CreditCard):
@@ -107,9 +128,11 @@ class Provider(BaseProvider):
         return self.credit_card_types[card_type]
 
     def _generate_number(self, prefix, length):
-        """
-        'prefix' is the start of the CC number as a string, any number of digits.
-        'length' is the length of the CC number to generate. Typically 13 or 16
+        """Generate a credit card number.
+
+        The ``prefix`` argument is the start of the CC number as a string which
+         may contain any number of digits. The ``length`` argument is the length
+         of the CC number to generate which is typically 13 or 16.
         """
         number = prefix
         # Generate random char digits

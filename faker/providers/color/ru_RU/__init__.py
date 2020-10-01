@@ -1,5 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import Provider as ColorProvider
@@ -8,6 +6,8 @@ localized = True
 
 
 class Provider(ColorProvider):
+    """Implement color provider for ``ru_RU`` locale."""
+
     all_colors = OrderedDict((
         ("Античный Белый", "#FAEBD7"),
         ("Аквамарин", "#7FFFD4"),

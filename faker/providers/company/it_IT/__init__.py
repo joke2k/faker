@@ -1,5 +1,5 @@
-# coding=utf-8
-from __future__ import unicode_literals
+from faker.utils.checksums import calculate_luhn
+
 from .. import Provider as CompanyProvider
 
 
@@ -351,3 +351,31 @@ class Provider(CompanyProvider):
             result.append(self.random_element(word_list))
 
         return " ".join(result)
+
+    def _random_vat_office(self):
+        """
+        Returns a random code identifying the VAT office needed to build a valid VAT with company_vat.
+
+        See https://it.wikipedia.org/wiki/Partita_IVA#Tabella_degli_Uffici_IVA
+        """
+        val = self.random_int(1, 104)
+
+        # handle special cases
+        if val == 101:
+            return 120
+        elif val == 102:
+            return 121
+        elif val == 103:
+            return 888
+        elif val == 104:
+            return 999
+        # else: between 1 and 100 are all valid
+        return val
+
+    def company_vat(self):
+        """
+        Returns Italian VAT identification number (Partita IVA).
+        """
+        code = self.bothify('#######') + str(self._random_vat_office()).zfill(3)
+        luhn_checksum = str(calculate_luhn(code))
+        return 'IT{}{}'.format(code, luhn_checksum)

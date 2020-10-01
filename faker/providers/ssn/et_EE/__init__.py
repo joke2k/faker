@@ -1,9 +1,7 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-from .. import Provider as SsnProvider
 import datetime
 import operator
+
+from .. import Provider as SsnProvider
 
 
 def checksum(digits):

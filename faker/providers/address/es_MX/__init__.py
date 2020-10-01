@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from ..es import Provider as AddressProvider
@@ -7,8 +5,8 @@ from ..es import Provider as AddressProvider
 
 class Provider(AddressProvider):
     city_prefixes = ('Sur', 'Norte')
-    city_adjetives = ('Nueva', 'Vieja')
-    city_suffixies = ('de la Montaña', 'los bajos', 'los altos')
+    city_adjectives = ('Nueva', 'Vieja')
+    city_suffixes = ('de la Montaña', 'los bajos', 'los altos')
     street_prefixes = (
         'Ampliación', 'Andador', 'Avenida', 'Boulevard', 'Calle', 'Callejón',
         'Calzada', 'Cerrada', 'Circuito', 'Circunvalación', 'Continuación',
@@ -75,7 +73,7 @@ class Provider(AddressProvider):
     ))
 
     city_formats = (
-        '{{city_adjetive}} {{country}}',
+        '{{city_adjective}} {{country}}',
         'San {{first_name}} {{city_suffix}}',
     )
     street_name_formats = (
@@ -97,10 +95,10 @@ class Provider(AddressProvider):
         return self.random_element(self.city_prefixes)
 
     def city_suffix(self):
-        return self.random_element(self.city_suffixies)
+        return self.random_element(self.city_suffixes)
 
-    def city_adjetive(self):
-        return self.random_element(self.city_adjetives)
+    def city_adjective(self):
+        return self.random_element(self.city_adjectives)
 
     def street_prefix(self):
         """

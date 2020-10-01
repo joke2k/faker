@@ -1,9 +1,8 @@
-# coding=utf-8
-from __future__ import unicode_literals
-from .. import Provider as InternetProvider
-
 import re
+
 from faker.utils.decorators import slugify_domain
+
+from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
@@ -42,7 +41,7 @@ def remove_accents(value):
             return replace[search.find(matched)]
         return matched
 
-    return re.sub(r'[{0}]+'.format(search), replace_accented_character, value)
+    return re.sub(r'[{}]+'.format(search), replace_accented_character, value)
 
 
 def latinize(value):
@@ -73,7 +72,7 @@ def latinize(value):
         value = map(lambda l: replace[search.find(l)], matched)
         return ''.join(value)
 
-    return re.sub(r'[{0}]+'.format(search),
+    return re.sub(r'[{}]+'.format(search),
                   replace_greek_character, re.sub(
         r'([ΘΧΨθχψ]+|ΟΥ|ΑΥ|ΕΥ|Ου|Αυ|Ευ|ου|αυ|ευ)',
         replace_double_character,

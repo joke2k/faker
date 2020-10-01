@@ -1,11 +1,10 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from collections import OrderedDict
+
 from .. import Provider as ColorProvider
 
 
 class Provider(ColorProvider):
+    """Implement color provider for ``hy_AM`` locale."""
 
     all_colors = OrderedDict((
         ("Ալիսի կապույտ", "#F0F8FF"),
@@ -39,7 +38,7 @@ class Provider(ColorProvider):
         ("Գունատ փիրուզագույն", "#AFEEEE"),
         ("Գրասենյակային կանաչ", "#008000"),
         ("Դարչնագույն ավազ", "#F4A460"),
-        ("Դարչնագույն", "#964b00"),
+        ("Դարչնագույն", "#964B00"),
         ("Դեղին", "#FFFF00"),
         ("Դեղձի կրեմ", "#FFDAB9"),
         ("Դեղնականաչ", "#9ACD3"),

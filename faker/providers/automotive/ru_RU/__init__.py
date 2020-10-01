@@ -1,14 +1,18 @@
-# coding=utf-8
-
-
-from __future__ import unicode_literals
 from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
+    """Implement automotive provider for ``ru_RU`` locale.
 
-    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
-    license_plate_letters = ('A', 'B', 'E', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
+    - https://ru.wikipedia.org/wiki/Категории_транспортных_средств
+    """
+
+    license_plate_letters = ('A', 'B', 'E', 'K', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+
+    vehicle_categories = ('M', 'A', 'A1', 'B', 'B1', 'BE', 'C', 'C1', 'C1E', 'CE', 'D', 'D1', 'DE', 'Tm', 'Tb')
 
     license_plate_suffix = (
         # Republic of Adygea
@@ -198,13 +202,58 @@ class Provider(AutomotiveProvider):
         '94',
     )
 
-    license_plate_number = (
-        '##%'
+    license_plate_formats = (
+        # Private vehicle plate
+        '{{plate_letter}}{{plate_number}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Public transport plate
+        '{{plate_letter}}{{plate_letter}}{{plate_number}} {{plate_suffix}}',
+        # Trailer plate
+        '{{plate_letter}}{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        # Police forces vehicle plate
+        '{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        # Military vehicle plate
+        '{{plate_number_extra}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        # Diplomatic vehicles
+        '{{plate_number_special}} {{plate_suffix}}',
+    )
+
+    plate_number_formats = (
+        '###',
+    )
+
+    plate_extra_formats = (
+        '####',
+    )
+
+    plate_special_formats = (
+        '00#CD#', '00#D###', '00#T###',
     )
 
     def license_plate(self):
-        return self.random_element(self.license_plate_letters) + \
-               self.numerify(self.generator.parse(self.license_plate_number)) + \
-               self.random_element(self.license_plate_letters) + \
-               self.random_element(self.license_plate_letters) + \
-               self.random_element(self.license_plate_suffix)
+        """Generate a license plate."""
+        pattern = self.random_element(self.license_plate_formats)
+        return self.generator.parse(pattern)
+
+    def plate_letter(self):
+        """Generate a letter for license plates."""
+        return self.random_element(self.license_plate_letters)
+
+    def plate_number(self):
+        """Generate a number for license plates."""
+        return self.numerify(self.random_element(self.plate_number_formats))
+
+    def plate_number_extra(self):
+        """Generate extra numerical code for license plates."""
+        return self.numerify(self.random_element(self.plate_extra_formats))
+
+    def plate_number_special(self):
+        """Generate a special code for license plates."""
+        return self.numerify(self.random_element(self.plate_special_formats))
+
+    def plate_suffix(self):
+        """Generate a suffix code for license plates."""
+        return self.random_element(self.license_plate_suffix)
+
+    def vehicle_category(self):
+        """Generate a vehicle category code for license plates."""
+        return self.random_element(self.vehicle_categories)

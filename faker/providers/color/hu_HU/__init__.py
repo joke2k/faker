@@ -1,9 +1,8 @@
-# coding=utf-8
-
 from faker.providers import BaseProvider
 
 
 class Provider(BaseProvider):
+    """Implement color provider for ``hu_HU`` locale."""
 
     safe_colors = (
         'fekete', 'bordó', 'zöld', 'királykék', 'oliva',

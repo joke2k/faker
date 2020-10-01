@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from .. import Provider as CompanyProvider
 
 
@@ -28,15 +27,21 @@ class Provider(CompanyProvider):
             sum_ = 0
             for x, y in zip(number, factors):
                 sum_ = sum_ + int(x) * y
+            if sum_ % 11 == 1:
+                raise ValueError('Checksum 1 is invalid')
             if sum_ % 11 == 0:
                 return '0'
             else:
                 return str(11 - sum_ % 11)
 
-        first_digit = str(self.random_digit_not_null())
-        body = first_digit + self.bothify('######')
-        cs = calculate_checksum(body)
-        return body + '-' + str(cs)
+        while True:
+            first_digit = str(self.random_digit_not_null())
+            body = first_digit + self.bothify('######')
+            try:
+                cs = calculate_checksum(body)
+            except ValueError:
+                continue
+            return body + '-' + str(cs)
 
     def company_vat(self):
         """

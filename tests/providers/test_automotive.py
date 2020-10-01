@@ -1,74 +1,161 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 import re
-import unittest
 
-from faker import Faker
-from six import string_types
-
-
-class TestPtBR(unittest.TestCase):
-
-    def setUp(self):
-        self.factory = Faker('pt_BR')
-        self.format = re.compile(r'[\w]{3}-[\d]{4}')
-
-    def test_plate_has_been_generated(self):
-        plate = self.factory.license_plate()
-        assert isinstance(plate, string_types)
-        assert self.format.match(plate), "%s is not in the correct format." % plate
+from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
+from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 
 
-class TestPtPT(unittest.TestCase):
+class _SimpleAutomotiveTestMixin:
+    """Use this test mixin for simple license plate validation"""
 
-    def setUp(self):
-        self.factory = Faker('pt_PT')
-        self.pattern = re.compile(r'^\d{2}-\d{2}-[aA-zZ]{2}$|^\d{2}-[aA-zZ]{2}-\d{2}$|^[aA-zZ]{2}-\d{2}-\d{2}$')
+    def perform_extra_checks(self, license_plate, match):
+        pass
 
-    def test_pt_PT_plate_format(self):
-        plate = self.factory.license_plate()
-        assert self.pattern.match(plate), "%s is not in the correct format." % plate
-
-
-class TestHuHU(unittest.TestCase):
-
-    def setUp(self):
-        self.factory = Faker('hu_HU')
-
-    def test_hu_HU_plate_format(self):
-        plate = self.factory.license_plate()
-        assert re.match(r"[A-Z]{3}-\d{3}", plate), "%s is not in the correct format." % plate
+    def test_license_plate(self, faker, num_samples):
+        for _ in range(num_samples):
+            license_plate = faker.license_plate()
+            match = self.license_plate_pattern.fullmatch(license_plate)
+            assert match
+            self.perform_extra_checks(license_plate, match)
 
 
-class TestDeDe(unittest.TestCase):
-
-    def setUp(self):
-        self.factory = Faker('de_DE')
-
-    def test_de_DE_plate_format(self):
-        plate = self.factory.license_plate()
-        assert re.match(r"[A-Z\u00D6\u00DC]{1,3}-[A-Z]{1,2}-\d{1,4}", plate, flags=re.UNICODE), \
-            "%s is not in the correct format." % plate
+class TestPtBr(_SimpleAutomotiveTestMixin):
+    """Test pt_BR automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{3}-\d{4}')
 
 
-class TestSvSE(unittest.TestCase):
+class TestPtPt(_SimpleAutomotiveTestMixin):
+    """Test pt_PT automotive provider methods"""
+    license_plate_pattern = re.compile(
+        r'\d{2}-\d{2}-[A-Z]{2}|'
+        r'\d{2}-[A-Z]{2}-\d{2}|'
+        r'[A-Z]{2}-\d{2}-\d{2}|'
+        r'[A-Z]{2}-\d{2}-[A-Z]{2}',
+    )
 
-    def setUp(self):
-        self.factory = Faker('sv_SE')
 
-    def test_sv_SE_plate_format(self):
-        plate = self.factory.license_plate()
-        assert re.match(r"[A-Z]{3} \d{2}[\dA-Z]{1}", plate), "%s is not in the correct format." % plate
+class TestHuHu(_SimpleAutomotiveTestMixin):
+    """Test hu_HU automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{3}-\d{3}')
 
 
-class TestPlPL(unittest.TestCase):
+class TestDeDe(_SimpleAutomotiveTestMixin):
+    """Test de_DE automotive provider methods"""
+    license_plate_pattern = re.compile(
+        r'(?P<prefix>[A-Z\u00D6\u00DC]{1,3})-[A-Z]{1,2}-[1-9]{1,4}',
+        re.UNICODE,
+    )
 
-    def setUp(self):
-        self.factory = Faker('pl_PL')
+    def perform_extra_checks(self, license_plate, match):
+        assert match.group('prefix') in DeDeAutomotiveProvider.license_plate_prefix
 
-    def test_pl_PL_plate_format(self):
-        plate = self.factory.license_plate()
-        patterns = self.factory.license_plate_regex_formats()
-        assert re.match(r'{patterns}'.format(patterns='|'.join(patterns)),
-                        plate), '{plate} is not the correct format.'.format(plate=plate)
+
+class TestSvSe(_SimpleAutomotiveTestMixin):
+    """Test sv_SE automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{3} \d{2}[\dA-Z]')
+
+
+class TestPlPl:
+
+    def test_License_plate(self, faker, num_samples):
+        pattern = re.compile(r'{patterns}'.format(patterns='|'.join(faker.license_plate_regex_formats())))
+        for _ in range(num_samples):
+            plate = faker.license_plate()
+            assert pattern.fullmatch(plate)
+
+
+class TestEnPh(_SimpleAutomotiveTestMixin):
+    """Test en_PH automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{2}\d{4,5}|[A-Z]{3}\d{3,4}')
+    motorcycle_pattern = re.compile(r'[A-Z]{2}\d{4,5}')
+    automobile_pattern = re.compile(r'[A-Z]{3}\d{3,4}')
+
+    def test_motorcycle_plate(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert self.motorcycle_pattern.match(faker.motorcycle_license_plate())
+
+    def test_automobile_plate(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert self.automobile_pattern.match(faker.automobile_license_plate())
+
+    def test_protocol_plate(self, faker, num_samples):
+        for _ in range(num_samples):
+            protocol_plate = faker.protocol_license_plate()
+            assert int(protocol_plate) != 15 and 1 <= int(protocol_plate) <= 17
+
+
+class TestFilPh(TestEnPh):
+    """Test fil_PH automotive provider methods"""
+    pass
+
+
+class TestTlPh(TestEnPh):
+    """Test tl_PH automotive provider methods"""
+    pass
+
+
+class TestRuRu(_SimpleAutomotiveTestMixin):
+    """Test ru_RU automotive provider methods"""
+    _plate_letters = ''.join(RuRuAutomotiveProvider.license_plate_letters)
+    license_plate_pattern = re.compile(
+        r'(?:'
+        r'(?P<private_plate_prefix>[{0}]\d\d\d[{0}][{0}])|'
+        r'(?P<public_transport_plate_prefix>[{0}][{0}]\d\d\d)|'
+        r'(?P<trailer_plate_prefix>[{0}][{0}]\d\d\d\d)|'
+        r'(?P<police_plate_prefix>[{0}]\d\d\d\d)|'
+        r'(?P<military_plate_prefix>\d\d\d\d[{0}][{0}])|'
+        r'(?P<plate_number_special>00\dCD\d|00\dD\d\d\d|00\dT\d\d\d)'
+        r') (?P<plate_suffix>.*)'.format(_plate_letters),
+    )
+
+    def perform_extra_checks(self, license_plate, match):
+        plate_suffix = match.group('plate_suffix')
+        assert plate_suffix in RuRuAutomotiveProvider.license_plate_suffix
+
+    def test_vehicle_category(self, faker, num_samples):
+        for _ in range(num_samples):
+            vehicle_category = faker.vehicle_category()
+            assert isinstance(vehicle_category, str)
+            assert vehicle_category in RuRuAutomotiveProvider.vehicle_categories
+
+
+class TestFrFr(_SimpleAutomotiveTestMixin):
+    """Test fr_FR automotive provider methods"""
+    license_plate_pattern = re.compile(r'\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}')
+
+
+class TestNoNo(_SimpleAutomotiveTestMixin):
+    """Test no_NO automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{2} \d{5}')
+
+
+class TestEsEs:
+    """Test es_ES automotive provider methods"""
+    new_format_pattern = re.compile(r'\d{4}\s[A-Z]{3}')
+    old_format_pattern = re.compile(r'(?P<province_prefix>[A-Z]{1,2})\s\d{4}\s[A-Z]{2}')
+
+    def test_plate_new_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_unified()
+            assert isinstance(plate, str)
+            assert self.new_format_pattern.match(plate)
+
+    def test_plate_old_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_by_province()
+            assert isinstance(plate, str)
+            match = self.old_format_pattern.match(plate)
+            assert match
+            assert match.group('province_prefix') in EsEsAutomotiveProvider.province_prefix
+
+    def test_plate_old_format_explicit_province_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_by_province(province_prefix="CA")
+            assert isinstance(plate, str)
+            assert self.old_format_pattern.match(plate)
+            assert plate[:2] == "CA"
+
+    def test_plate_format(self, faker):
+        plate = faker.license_plate()
+        assert isinstance(plate, str)
+        assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)

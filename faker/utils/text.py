@@ -1,9 +1,5 @@
-# coding=utf-8
-
 import re
 import unicodedata
-
-import six
 
 _re_pattern = re.compile(r'[^\w\s-]', flags=re.U)
 _re_pattern_allow_dots = re.compile(r'[^\.\w\s-]', flags=re.U)
@@ -23,7 +19,7 @@ def slugify(value, allow_dots=False, allow_unicode=False):
     else:
         pattern = _re_pattern
 
-    value = six.text_type(value)
+    value = str(value)
     if allow_unicode:
         value = unicodedata.normalize('NFKC', value)
         value = pattern.sub('', value).strip().lower()

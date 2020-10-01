@@ -1,15 +1,19 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
-
 import re
 
 from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Source:
-    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saudi_Arabia
+    """Implement automotive provider for ``ar_SA`` locale.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saudi_Arabia
+
+    .. |license_plate_en| replace::
+        :meth:`license_plate_en()`
+    """
+
     LICENSE_FORMAT_EN = '#### ???'
     LICENSE_FORMAT_AR = '? ? ? ####'
 
@@ -48,11 +52,19 @@ class Provider(AutomotiveProvider):
     }
 
     def license_plate_en(self):
+        """Generate a license plate in Latin/Western characters."""
         return self.bothify(
             self.LICENSE_FORMAT_EN, letters=self.PLATE_CHARS_EN,
         )
 
     def license_plate_ar(self):
+        """Generate a license plate in Arabic characters.
+
+        This method first generates a license plate in Latin/Western characters
+        using |license_plate_en|, and the result is translated internally to
+        generate the Arabic counterpart which serves as this method's return
+        value.
+        """
         english_plate = self.license_plate_en()
         return self._translate_license_plate(english_plate)
 
@@ -74,6 +86,13 @@ class Provider(AutomotiveProvider):
         return ar_plate
 
     def license_plate(self):
+        """Generate a license plate.
+
+        This method first generates a license plate in Latin/Western characters
+        using |license_plate_en|, and the result is translated internally to
+        generate the Arabic counterpart. A 2-tuple containing those results
+        will serve as the return value.
+        """
         en_palate = self.license_plate_en()
         ar_palate = self._translate_license_plate(en_palate)
 

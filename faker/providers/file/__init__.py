@@ -1,13 +1,13 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 import string
+
 from collections import OrderedDict
 
 from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    """Implement default file provider for Faker."""
+
     application_mime_types = (
 
         "application/atom+xml",  # Atom feeds
@@ -203,45 +203,78 @@ class Provider(BaseProvider):
     unix_device_prefixes = ('sd', 'vd', 'xvd')
 
     def mime_type(self, category=None):
-        """
-        :param category: application|audio|image|message|model|multipart|text|video
+        """Generate a mime type under the specified ``category``.
+
+        If ``category`` is ``None``, a random category will be used. The list of
+        valid categories include ``'application'``, ``'audio'``, ``'image'``,
+        ``'message'``, ``'model'``, ``'multipart'``, ``'text'``, and
+        ``'video'``.
+
+        :sample:
+        :sample: category='application'
         """
         category = category if category else self.random_element(
             list(self.mime_types.keys()))
         return self.random_element(self.mime_types[category])
 
     def file_name(self, category=None, extension=None):
-        """
-        :param category: audio|image|office|text|video
-        :param extension: file extension
+        """Generate a random file name with extension.
+
+        If ``extension`` is ``None``, a random extension will be created under
+        the hood using |file_extension| with the specified ``category``. If a
+        value for ``extension`` is provided, the value will be used instead,
+        and ``category`` will be ignored. The actual name part itself is
+        generated using |word|.
+
+        :sample size=10:
+        :sample: category='audio'
+        :sample: extension='abcdef'
+        :sample: category='audio', extension='abcdef'
         """
         extension = extension if extension else self.file_extension(category)
         filename = self.generator.word()
-        return '{0}.{1}'.format(filename, extension)
+        return '{}.{}'.format(filename, extension)
 
     def file_extension(self, category=None):
-        """
-        :param category: audio|image|office|text|video
+        """Generate a file extension under the specified ``category``.
+
+        If ``category`` is ``None``, a random category will be used. The list of
+        valid categories include: ``'audio'``, ``'image'``, ``'office'``,
+        ``'text'``, and ``'video'``.
+
+        :sample:
+        :sample: category='image'
         """
         category = category if category else self.random_element(
             list(self.file_extensions.keys()))
         return self.random_element(self.file_extensions[category])
 
     def file_path(self, depth=1, category=None, extension=None):
-        """
-        :param category: audio|image|office|text|video
-        :param extension: file extension
-        :param depth: depth of the file (depth >= 0)
+        """Generate an absolute pathname to a file.
+
+        This method uses |file_name| under the hood to generate the file name
+        itself, and ``depth`` controls the depth of the directory path, and
+        |word| is used under the hood to generate the different directory names.
+
+        :sample size=10:
+        :sample: depth=3
+        :sample: depth=5, category='video'
+        :sample: depth=5, category='video', extension='abcdef'
         """
         file = self.file_name(category, extension)
-        path = "/{0}".format(file)
+        path = "/{}".format(file)
         for _ in range(0, depth):
-            path = "/{0}{1}".format(self.generator.word(), path)
+            path = "/{}{}".format(self.generator.word(), path)
         return path
 
     def unix_device(self, prefix=None):
-        """
-        :param prefix: sd|vd|xvd
+        """Generate a Unix device file name.
+
+        If ``prefix`` is ``None``, a random prefix will be used. The list of
+        valid prefixes include: ``'sd'``, ``'vd'``, and ``'xvd'``.
+
+        :sample:
+        :sample: prefix='mmcblk'
         """
         prefix = prefix or self.random_element(self.unix_device_prefixes)
         suffix = self.random_element(string.ascii_lowercase)
@@ -249,8 +282,13 @@ class Provider(BaseProvider):
         return path
 
     def unix_partition(self, prefix=None):
-        """
-        :param prefix: sd|vd|xvd
+        """Generate a Unix partition name.
+
+        This method uses |unix_device| under the hood to create a device file
+        name with the specified ``prefix``.
+
+        :sample:
+        :sample: prefix='mmcblk'
         """
         path = self.unix_device(prefix=prefix)
         path += str(self.random_digit())

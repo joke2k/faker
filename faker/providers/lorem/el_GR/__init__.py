@@ -1,9 +1,9 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
+    """Implement lorem provider for ``el_GR`` locale."""
+
     common_words = (
         'άρα', 'ένα', 'ένας', 'έξι', 'έτσι', 'έχω', 'ήδη', 'ίδιο', 'αν', 'ανά',
         'από', 'ας', 'για', 'δε', 'δεν', 'δύο', 'εγώ', 'εδώ', 'εκτός', 'επί', 'θα',

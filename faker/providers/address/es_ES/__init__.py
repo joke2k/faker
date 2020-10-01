@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from ..es import Provider as AddressProvider
 
 
@@ -66,6 +63,30 @@ class Provider(AddressProvider):
         'Zamora',
         'Zaragoza')
 
+    # Source:
+    # https://administracionelectronica.gob.es/ctt/resources/Soluciones
+    # /238/Descargas/Catalogo-de-Comunidades-Autonomas.xlsx
+    regions = (
+        'Andalucía',
+        'Aragón',
+        'Principado de Asturias',
+        'Illes Balears',
+        'Canarias',
+        'Cantabria',
+        'Castilla y León',
+        'Castilla-La Mancha',
+        'Cataluña',
+        'Comunitat Valenciana',
+        'Extremadura',
+        'Galicia',
+        'Comunidad de Madrid',
+        'Región de Murcia',
+        'Comunidad Foral de Navarra',
+        'País Vasco',
+        'La Rioja',
+        'Ciudad Autónoma de Ceuta',
+        'Ciudad Autónoma de Melilla')
+
     city_formats = (
         '{{state_name}}',
     )
@@ -97,3 +118,8 @@ class Provider(AddressProvider):
 
     def state(self):
         return self.random_element(self.states)
+
+    def region(self):
+        return self.random_element(self.regions)
+
+    autonomous_community = region

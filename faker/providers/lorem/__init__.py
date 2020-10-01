@@ -7,35 +7,41 @@ default_locale = 'la'
 
 
 class Provider(BaseProvider):
-    """Will provide methods to retrieve lorem content
+    """Implement default lorem provider for Faker.
 
-    Attributes:
-        sentence_punctuation (str): End of sentence punctuation
-        word_connector (str): Default connector between words
-
-    Methods:
-        word: Generate a random word
-        words: Generate a list containing random words
-        sentence: Generate a random sentence
-        sentences: Generate a list containing sentences
-        paragraph: Generate a single paragraph
-        paragraphs: Generate many paragraphs
-        text: Generate a text string.
+    .. important::
+       The default locale of the lorem provider is ``la``. When using a locale
+       without a localized lorem provider, the ``la`` lorem provider will be
+       used, so generated words will be in pseudo-Latin. The locale used for
+       the standard provider docs was ``en_US``, and ``en_US`` has a localized
+       lorem provider which is why the samples here show words in American
+       English.
     """
+
     word_connector = ' '
     sentence_punctuation = '.'
 
     def words(self, nb=3, ext_word_list=None, unique=False):
-        """
-        :returns: An array of random words. for example: ['Lorem', 'ipsum', 'dolor']
+        """Generate a list of words.
 
-        Keyword arguments:
-        :param nb: how many words to return
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'
-        :param unique: If True, the returned word list will contain unique words
+        The ``nb`` argument controls the number of words in the resulting list,
+        and if ``ext_word_list`` is provided, words from that list will be used
+        instead of those from the locale provider's built-in word list.
 
-        :rtype: list
+        If ``unique`` is ``True``, this method will return a list containing
+        unique words. Under the hood, |random_sample| will be used for sampling
+        without replacement. If ``unique`` is ``False``, |random_choices| is
+        used instead, and the list returned may contain duplicates.
+
+        .. warning::
+           Depending on the length of a locale provider's built-in word list or
+           on the length of ``ext_word_list`` if provided, a large ``nb`` can
+           exhaust said lists if ``unique`` is ``True``, raising an exception.
+
+        :sample:
+        :sample: nb=5
+        :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
         word_list = ext_word_list if ext_word_list else self.word_list
         if unique:
@@ -43,29 +49,32 @@ class Provider(BaseProvider):
         return self.random_choices(word_list, length=nb)
 
     def word(self, ext_word_list=None):
-        """
-        :returns: A random word, eg: 'lorem'
+        """Generate a word.
 
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'
+        This method uses |words| under the hood with the ``nb`` argument set to
+        ``1`` to generate the result.
 
-        :rtype: str
+        :sample:
+        :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         return self.words(1, ext_word_list)[0]
 
     def sentence(self, nb_words=6, variable_nb_words=True, ext_word_list=None):
-        """
-        Generate a random sentence
-        :example 'Lorem ipsum dolor sit amet.'
+        """Generate a sentence.
 
-        :param nb_words: around how many words the sentence should contain
-        :param variable_nb_words: set to false if you want exactly ``nb``
-            words returned, otherwise the result may include a number of words
-            of ``nb`` +/-40% (with a minimum of 1)
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'.
+        The ``nb_words`` argument controls how many words the sentence will
+        contain, and setting ``variable_nb_words`` to ``False`` will generate
+        the exact amount, while setting it to ``True`` (default) will generate
+        a random amount (+/-40%, minimum of 1) using |randomize_nb_elements|.
 
-        :rtype: str
+        Under the hood, |words| is used to generate the words, so the argument
+        ``ext_word_list`` works in the same way here as it would in that method.
+
+        :sample: nb_words=10
+        :sample: nb_words=10, variable_nb_words=False
+        :sample: nb_words=10, ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: nb_words=10, variable_nb_words=True,
+                 ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         if nb_words <= 0:
             return ''
@@ -79,16 +88,16 @@ class Provider(BaseProvider):
         return self.word_connector.join(words) + self.sentence_punctuation
 
     def sentences(self, nb=3, ext_word_list=None):
-        """
-        Generate an array of sentences
-        :example ['Lorem ipsum dolor sit amet.', 'Consectetur adipisicing eli.']
+        """Generate a list of sentences.
 
-        Keyword arguments:
-        :param nb: how many sentences to return
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'.
+        This method uses |sentence| under the hood to generate sentences, and
+        the ``nb`` argument controls exactly how many sentences the list will
+        contain. The ``ext_word_list`` argument works in exactly the same way
+        as well.
 
-        :rtype: list
+        :sample:
+        :sample: nb=5
+        :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         return [self.sentence(ext_word_list=ext_word_list)
                 for _ in range(0, nb)]
@@ -98,19 +107,23 @@ class Provider(BaseProvider):
             nb_sentences=3,
             variable_nb_sentences=True,
             ext_word_list=None):
-        """
-        :returns: A single paragraph. For example: 'Sapiente sunt omnis. Ut
-            pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
+        """Generate a paragraph.
 
-        Keyword arguments:
-        :param nb_sentences: around how many sentences the paragraph should contain
-        :param variable_nb_sentences: set to false if you want exactly ``nb``
-            sentences returned, otherwise the result may include a number of
-            sentences of ``nb`` +/-40% (with a minimum of 1)
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'.
+        The ``nb_sentences`` argument controls how many sentences the paragraph
+        will contain, and setting ``variable_nb_sentences`` to ``False`` will
+        generate the exact amount, while setting it to ``True`` (default) will
+        generate a random amount (+/-40%, minimum of 1) using
+        |randomize_nb_elements|.
 
-        :rtype: str
+        Under the hood, |sentences| is used to generate the sentences, so the
+        argument ``ext_word_list`` works in the same way here as it would in
+        that method.
+
+        :sample: nb_sentences=5
+        :sample: nb_sentences=5, variable_nb_sentences=False
+        :sample: nb_sentences=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: nb_sentences=5, variable_nb_sentences=False,
+                 ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         if nb_sentences <= 0:
             return ''
@@ -125,30 +138,32 @@ class Provider(BaseProvider):
         return para
 
     def paragraphs(self, nb=3, ext_word_list=None):
-        """
-        Generate an array of paragraphs
-        :example [paragraph1, paragraph2, paragraph3]
-        :param nb: how many paragraphs to return
-        :param ext_word_list: a list of words you would like to have instead of
-            'Lorem ipsum'.
+        """Generate a list of paragraphs.
 
-        :rtype: list
-        """
+        This method uses |paragraph| under the hood to generate paragraphs, and
+        the ``nb`` argument controls exactly how many sentences the list will
+        contain. The ``ext_word_list`` argument works in exactly the same way
+        as well.
 
+        :sample: nb=5
+        :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        """
         return [self.paragraph(ext_word_list=ext_word_list)
                 for _ in range(0, nb)]
 
     def text(self, max_nb_chars=200, ext_word_list=None):
-        """
-        Generate a text string.
-        Depending on the ``max_nb_chars, returns a string made of words, sentences, or paragraphs.
-        :example 'Sapiente sunt omnis. Ut pariatur ad autem ducimus et. Voluptas rem voluptas sint modi dolorem amet.'
+        """Generate a text string.
 
-        Keyword arguments:
-        :param max_nb_chars: Maximum number of characters the text should contain (minimum 5)
-        :param ext_word_list: a list of words you would like to have instead of 'Lorem ipsum'.
+        The ``max_nb_chars`` argument controls the approximate number of
+        characters the text string will have, and depending on its value, this
+        method may use either |words|, |sentences|, or |paragraphs| for text
+        generation. The ``ext_word_list`` argument works in exactly the same way
+        it would in any of those methods.
 
-        :rtype str
+        :sample: max_nb_chars=20
+        :sample: max_nb_chars=80
+        :sample: max_nb_chars=160
+        :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         text = []
         if max_nb_chars < 5:
@@ -198,14 +213,17 @@ class Provider(BaseProvider):
         return "".join(text)
 
     def texts(self, nb_texts=3, max_nb_chars=200, ext_word_list=None):
-        """
-        Generate an array of texts
-        :example [text1, text2, text3]
-        :param nb_texts: How many texts to return
-        :param max_nb_chars: Maximum number of characters the text should contain (minimum 5)
-        :param ext_word_list: a list of words you would like to have instead of 'Lorem ipsum'.
+        """Generate a list of text strings.
 
-        :rtype: list
+        The ``nb_texts`` argument controls how many text strings the list will
+        contain, and this method uses |text| under the hood for text generation,
+        so the two remaining arguments, ``max_nb_chars`` and ``ext_word_list``
+        will work in exactly the same way as well.
+
+        :sample: nb_texts=5
+        :sample: nb_texts=5, max_nb_chars=50
+        :sample: nb_texts=5, max_nb_chars=50,
+                 ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         return [self.text(max_nb_chars, ext_word_list)
                 for _ in range(0, nb_texts)]

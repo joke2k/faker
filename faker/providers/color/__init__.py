@@ -1,13 +1,14 @@
-# coding=utf-8
-from __future__ import unicode_literals
 from collections import OrderedDict
 
 from .. import BaseProvider
+from .color import RandomColor
 
 localized = True
 
 
 class Provider(BaseProvider):
+    """Implement default color provider for Faker."""
+
     all_colors = OrderedDict((
         ("AliceBlue", "#F0F8FF"),
         ("AntiqueWhite", "#FAEBD7"),
@@ -158,25 +159,70 @@ class Provider(BaseProvider):
     )
 
     def color_name(self):
+        """Generate a color name."""
         return self.random_element(self.all_colors.keys())
 
     def safe_color_name(self):
+        """Generate a web-safe color name."""
         return self.random_element(self.safe_colors)
 
     def hex_color(self):
-        return "#{0}".format(
+        """Generate a color formatted as a hex triplet."""
+        return "#{}".format(
             ("%x" %
              self.random_int(
                  1, 16777215)).ljust(
                 6, '0'))
 
     def safe_hex_color(self):
+        """Generate a web-safe color formatted as a hex triplet."""
         color = ("%x" % self.random_int(0, 255)).ljust(3, '0')
         return "#{0}{0}{1}{1}{2}{2}".format(*color)
 
     def rgb_color(self):
+        """Generate a color formatted as a comma-separated RGB value."""
         return ','.join(map(str, (self.random_int(0, 255) for _ in range(3))))
 
     def rgb_css_color(self):
+        """Generate a color formatted as a CSS rgb() function."""
         return 'rgb(%s)' % ','.join(
             map(str, (self.random_int(0, 255) for _ in range(3))))
+
+    def color(self, hue=None, luminosity=None, color_format='hex'):
+        """Generate a color in a human-friendly way.
+
+        Under the hood, this method first creates a color represented in the HSV
+        color model and then converts it to the desired ``color_format``. The
+        argument ``hue`` controls the H value according to the following
+        rules:
+
+        - If the value is a number from ``0`` to ``360``, it will serve as the H
+          value of the generated color.
+        - If the value is a tuple/list of 2 numbers from 0 to 360, the color's H
+          value will be randomly selected from that range.
+        - If the value is a valid string, the color's H value will be randomly
+          selected from the H range corresponding to the supplied string. Valid
+          values are ``'monochrome'``, ``'red'``, ``'orange'``, ``'yellow'``,
+          ``'green'``, ``'blue'``, ``'purple'``, and ``'pink'``.
+
+        The argument ``luminosity`` influences both S and V values and is
+        partially affected by ``hue`` as well. The finer details of this
+        relationship are somewhat involved, so please refer to the source code
+        instead if you wish to dig deeper. To keep the interface simple, this
+        argument either can be omitted or can accept the following string
+        values:``'bright'``, ``'dark'``, ``'light'``, or ``'random'``.
+
+        The argument ``color_format`` controls in which color model the color is
+        represented. Valid values are ``'hsv'``, ``'hsl'``, ``'rgb'``, or
+        ``'hex'`` (default).
+
+        :sample: hue='red'
+        :sample: luminosity='light'
+        :sample: hue=(100, 200), color_format='rgb'
+        :sample: hue='orange', luminosity='bright'
+        :sample: hue=135, luminosity='dark', color_format='hsv'
+        :sample: hue=(300, 20), luminosity='random', color_format='hsl'
+        """
+        return RandomColor(self.generator).generate(
+            hue=hue, luminosity=luminosity, color_format=color_format,
+        )

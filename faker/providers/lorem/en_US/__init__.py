@@ -1,13 +1,16 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """en_US word list is drawn from Education First's "1000 Most Common Words in English":
-    http://www.ef.edu/english-resources/english-vocabulary/top-1000-words/
-    Some words have been removed to make this list appropriate for public testing"""
+    """Implement lorem provider for ``en_US`` locale.
+
+    Word list is based on the source(s) below, and some words have been removed
+    to make the word list appropriate for public testing.
+
+    Sources:
+
+    - http://www.ef.edu/english-resources/english-vocabulary/top-1000-words/
+    """
 
     word_list = (
         'a',

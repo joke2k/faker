@@ -1,6 +1,3 @@
-# coding=utf-8
-
-from __future__ import unicode_literals
 from .. import Provider as AddressProvider
 
 
@@ -24,7 +21,10 @@ class Provider(AddressProvider):
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
-    postcode_formats = ('#####', )
+    # Postcode should be formatted as described in
+    # https://sv.wikipedia.org/wiki/Postnummer_i_Sverige and
+    # in 2nd chapter of https://www.postnord.se/siteassets/pdf/faktablad/postnummersystemet-i-sverige-171213.pdf.
+    postcode_formats = ('%####', )
 
     city_formats = ('{{city_name}}', )
 
@@ -43,8 +43,8 @@ class Provider(AddressProvider):
         'Afghanistan', 'Albanien', 'Algeriet', 'Amerikanska Samoa', 'Andorra',
         'Angola', 'Anguilla', 'Antarktis', 'Antigua och Barbuda', 'Argentina',
         'Armenien', 'Aruba', 'Ascension', 'Australien', 'Azerbajdzjan',
-        'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belgien', 'Belize',
-        'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnien och Hercegovina',
+        'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgien',
+        'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnien och Hercegovina',
         'Botswana', 'Brasilien', 'Brittiska Jungfruöarna', 'Brunei',
         'Bulgarien', 'Burkina Faso', 'Burma', 'Burundi', 'Caymanöarna',
         'Centralafrikanska republiken', 'Chile', 'Colombia', 'Cooköarna',
@@ -86,7 +86,7 @@ class Provider(AddressProvider):
         'Tunisien', 'Turkiet', 'Turkmenistan', 'Turks-och Caicosöarna',
         'Tuvalu', 'Tyskland', 'Uganda', 'Ukraina', 'Ungern', 'Uruguay', 'USA',
         'Uzbekistan', 'Vanuatu', 'Vatikanstaten', 'Venezuela', 'Vietnam',
-        'Vitryssland', 'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
+        'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
         'Österrike', 'Östtimor',
     )
 
