@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged_at != null
     steps:
-      - name: 'Wait for status checks'
+      - name: Wait for status checks
         id: waitforstatuschecks
         uses: "fcurella/gh-status-check@main"
         with:
@@ -16,7 +16,7 @@ jobs:
           checkInterval: 12
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: get next part
+      - name: Get Next Part
         id: nextpart
         if: steps.waitforstatuschecks.outputs.status == 'success'
         uses: "fcurella/gh-action-label-to-semver@main"
