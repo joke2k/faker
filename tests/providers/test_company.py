@@ -1,11 +1,15 @@
 import re
 
 from datetime import datetime
+from unittest.mock import patch
+
+import pytest
 
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
 from faker.providers.company.hy_AM import Provider as HyAmCompanyProvider
+from faker.providers.company.it_IT import Provider as ItItCompanyProvider
 from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
@@ -322,3 +326,30 @@ class TestRuRu:
             bs_words = bs.split()
             assert isinstance(bs, str)
             assert bs_words[0] in RuRuCompanyProvider.bsWords[0]
+
+
+class TestItIt:
+    """Test it_IT company provider methods"""
+
+    vat_regex = re.compile(r"^IT\d{7}(0\d{2}|100|120|121|888|999)\d$", flags=re.ASCII)
+
+    def test_company_vat(self, faker, num_samples):
+        for _ in range(num_samples):
+            company_vat = faker.company_vat()
+            assert self.vat_regex.match(company_vat)
+
+    @pytest.mark.parametrize("value, expected", (
+        (100, "100"),
+        (101, "120"),
+        (102, "121"),
+        (103, "888"),
+        (104, "999"),
+    ))
+    def test_company_vat_special_cases(self, faker, value, expected):
+        # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
+        fake = ItItCompanyProvider(generator=faker)
+
+        with patch.object(fake, "random_int", return_value=value, autospec=True):
+            company_vat = fake.company_vat()
+            assert self.vat_regex.match(company_vat)
+            assert company_vat[9:12] == expected

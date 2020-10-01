@@ -165,54 +165,6 @@ providers package. The localization of Faker is an ongoing process, for
 which we need your help. Please don't hesitate to create a localized
 provider for your own locale and submit a Pull Request (PR).
 
-Included localized providers:
-
--  `ar\_EG <https://faker.readthedocs.io/en/master/locales/ar_EG.html>`__ - Arabic (Egypt)
--  `ar\_PS <https://faker.readthedocs.io/en/master/locales/ar_PS.html>`__ - Arabic (Palestine)
--  `ar\_SA <https://faker.readthedocs.io/en/master/locales/ar_SA.html>`__ - Arabic (Saudi Arabia)
--  `bg\_BG <https://faker.readthedocs.io/en/master/locales/bg_BG.html>`__ - Bulgarian
--  `bs\_BA <https://faker.readthedocs.io/en/master/locales/bs_BA.html>`__ - Bosnian
--  `cs\_CZ <https://faker.readthedocs.io/en/master/locales/cs_CZ.html>`__ - Czech
--  `de\_DE <https://faker.readthedocs.io/en/master/locales/de_DE.html>`__ - German
--  `dk\_DK <https://faker.readthedocs.io/en/master/locales/dk_DK.html>`__ - Danish
--  `el\_GR <https://faker.readthedocs.io/en/master/locales/el_GR.html>`__ - Greek
--  `en\_AU <https://faker.readthedocs.io/en/master/locales/en_AU.html>`__ - English (Australia)
--  `en\_CA <https://faker.readthedocs.io/en/master/locales/en_CA.html>`__ - English (Canada)
--  `en\_GB <https://faker.readthedocs.io/en/master/locales/en_GB.html>`__ - English (Great Britain)
--  `en\_IN <https://faker.readthedocs.io/en/master/locales/en_IN.html>`__ - English (India)
--  `en\_NZ <https://faker.readthedocs.io/en/master/locales/en_NZ.html>`__ - English (New Zealand)
--  `en\_US <https://faker.readthedocs.io/en/master/locales/en_US.html>`__ - English (United States)
--  `es\_ES <https://faker.readthedocs.io/en/master/locales/es_ES.html>`__ - Spanish (Spain)
--  `es\_MX <https://faker.readthedocs.io/en/master/locales/es_MX.html>`__ - Spanish (Mexico)
--  `et\_EE <https://faker.readthedocs.io/en/master/locales/et_EE.html>`__ - Estonian
--  `fa\_IR <https://faker.readthedocs.io/en/master/locales/fa_IR.html>`__ - Persian (Iran)
--  `fi\_FI <https://faker.readthedocs.io/en/master/locales/fi_FI.html>`__ - Finnish
--  `fr\_FR <https://faker.readthedocs.io/en/master/locales/fr_FR.html>`__ - French
--  `hi\_IN <https://faker.readthedocs.io/en/master/locales/hi_IN.html>`__ - Hindi
--  `hr\_HR <https://faker.readthedocs.io/en/master/locales/hr_HR.html>`__ - Croatian
--  `hu\_HU <https://faker.readthedocs.io/en/master/locales/hu_HU.html>`__ - Hungarian
--  `hy\_AM <https://faker.readthedocs.io/en/master/locales/hy_AM.html>`__ - Armenian
--  `it\_IT <https://faker.readthedocs.io/en/master/locales/it_IT.html>`__ - Italian
--  `ja\_JP <https://faker.readthedocs.io/en/master/locales/ja_JP.html>`__ - Japanese
--  `ka\_GE <https://faker.readthedocs.io/en/master/locales/ka_GE.html>`__ - Georgian (Georgia)
--  `ko\_KR <https://faker.readthedocs.io/en/master/locales/ko_KR.html>`__ - Korean
--  `lt\_LT <https://faker.readthedocs.io/en/master/locales/lt_LT.html>`__ - Lithuanian
--  `lv\_LV <https://faker.readthedocs.io/en/master/locales/lv_LV.html>`__ - Latvian
--  `ne\_NP <https://faker.readthedocs.io/en/master/locales/ne_NP.html>`__ - Nepali
--  `nl\_NL <https://faker.readthedocs.io/en/master/locales/nl_NL.html>`__ - Dutch (Netherlands)
--  `no\_NO <https://faker.readthedocs.io/en/master/locales/no_NO.html>`__ - Norwegian
--  `pl\_PL <https://faker.readthedocs.io/en/master/locales/pl_PL.html>`__ - Polish
--  `pt\_BR <https://faker.readthedocs.io/en/master/locales/pt_BR.html>`__ - Portuguese (Brazil)
--  `pt\_PT <https://faker.readthedocs.io/en/master/locales/pt_PT.html>`__ - Portuguese (Portugal)
--  `ro\_RO <https://faker.readthedocs.io/en/master/locales/ro_RO.html>`__ - Romanian
--  `ru\_RU <https://faker.readthedocs.io/en/master/locales/ru_RU.html>`__ - Russian
--  `sl\_SI <https://faker.readthedocs.io/en/master/locales/sl_SI.html>`__ - Slovene
--  `sv\_SE <https://faker.readthedocs.io/en/master/locales/sv_SE.html>`__ - Swedish
--  `tr\_TR <https://faker.readthedocs.io/en/master/locales/tr_TR.html>`__ - Turkish
--  `uk\_UA <https://faker.readthedocs.io/en/master/locales/uk_UA.html>`__ - Ukrainian
--  `zh\_CN <https://faker.readthedocs.io/en/master/locales/zh_CN.html>`__ - Chinese (China)
--  `zh\_TW <https://faker.readthedocs.io/en/master/locales/zh_TW.html>`__ - Chinese (Taiwan)
-
 Command line usage
 ------------------
 

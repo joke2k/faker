@@ -2,8 +2,13 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # from
-    # https://www.revolvy.com/main/index.php?s=Canadian%20licence%20plate%20designs%20and%20serial%20formats
+    """Implement automotive provider for ``en_CA`` locale.
+
+    Sources:
+
+    - https://www.revolvy.com/main/index.php?s=Canadian%20licence%20plate%20designs%20and%20serial%20formats
+    """
+
     license_formats = (
         # Alberta
         '???-####',

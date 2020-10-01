@@ -6,7 +6,19 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Source (english): https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Spain
+    """Implement automotive provider for ``es_ES`` locale.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Spain
+
+    .. |license_plate_unified| replace::
+       :meth:`license_plate_unified() <faker.providers.automotive.es_ES.Provider.license_plate_unified>`
+
+    .. |license_plate_by_province| replace::
+       :meth:`license_plate_by_province() <faker.providers.automotive.es_ES.Provider.license_plate_by_province>`
+    """
+
     license_formats = (
         # New format
         '#### ???',
@@ -78,6 +90,7 @@ class Provider(AutomotiveProvider):
     )
 
     def license_plate_unified(self):
+        """Generate a unified license plate."""
         temp = re.sub(r'\?',
                       lambda x: self.random_element(
                           self.license_plate_new_format_suffix_letters),
@@ -85,6 +98,12 @@ class Provider(AutomotiveProvider):
         return self.numerify(temp)
 
     def license_plate_by_province(self, province_prefix=None):
+        """Generate a provincial license plate.
+
+        If a value for ``province_prefix`` is provided, the value will be used
+        as the prefix regardless of validity. If ``None``, then a valid prefix
+        will be selected at random.
+        """
         province_prefix = province_prefix if province_prefix is not None else \
             self.random_element(self.province_prefix)
         temp = re.sub(r'\?',
@@ -94,6 +113,11 @@ class Provider(AutomotiveProvider):
         return province_prefix + " " + self.numerify(temp)
 
     def license_plate(self):
+        """Generate a license plate.
+
+        This method randomly chooses (50/50) between |license_plate_unified|
+        or |license_plate_by_province| to generate the result.
+        """
         if self.generator.random.randint(0, 1):
             return self.license_plate_unified()
         return self.license_plate_by_province()

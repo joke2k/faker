@@ -2,9 +2,15 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """fr_FR word list is drawn from the French Education Ministry's website Eduscol.
-    The "Lexical frequency list" can be found here:
-    http://eduscol.education.fr/cid47915/liste-des-mots-classee-par-ordre-alphabetique.html"""
+    """Implement lorem provider for ``fr_FR`` locale.
+
+    Word list is drawn from the French Education Ministry's website Eduscol. The
+    "lexical frequency list" can be found in the source(s) below.
+
+    Sources:
+
+    - http://eduscol.education.fr/cid47915/liste-des-mots-classee-par-ordre-alphabetique.html
+    """
 
     word_list = (
         "à",
