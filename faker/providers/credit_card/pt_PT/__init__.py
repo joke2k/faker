@@ -51,7 +51,7 @@ class Provider(CreditCardProvider):
     credit_card_types = OrderedDict((
         ('maestro', CreditCard('Maestro', prefix_maestro, 16, security_code='CVV2')),
         ('mastercard', CreditCard('Mastercard', prefix_mastercard, 16, security_code='CVV2')),
-        ('visa', CreditCard('Visa', prefix_visa, 16, security_code='CVV2'))
+        ('visa', CreditCard('Visa', prefix_visa, 16, security_code='CVV2')),
     ))
 
     def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
