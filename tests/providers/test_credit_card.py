@@ -125,3 +125,26 @@ class TestRuRu:
             card_data = faker.credit_card_full().split('\n')
             assert re.match('[A-Za-z]+', card_data[1])
             assert card_data[4] in RuRuBankProvider.banks
+
+
+class TestPtPt:
+    """Test pt_PT credit card provider methods"""
+
+    visa_pattern = re.compile(r'4[0-9]{15}')
+    mastercard_pattern = re.compile(r'5[1-5][0-9]{14}')
+    maestro_pattern = re.compile(r'(50|67)[0-9]{14}')
+
+    def test_visa(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number('visa')
+            assert self.visa_pattern.fullmatch(number)
+
+    def test_mastercard(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number('mastercard')
+            assert self.mastercard_pattern.fullmatch(number)
+
+    def test_maestro(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number('maestro')
+            assert self.maestro_pattern.fullmatch(number)
