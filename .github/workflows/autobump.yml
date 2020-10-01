@@ -16,8 +16,8 @@ jobs:
           checkInterval: 12
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: get next version
-        id: nextversion
+      - name: get next part
+        id: nextpart
         if: steps.waitforstatuschecks.outputs.status == 'success'
         uses: "fcurella/gh-action-label-to-semver@main"
         with:
@@ -29,7 +29,7 @@ jobs:
         uses: "fcurella/gh-action-next-version@main"
         id: nextversion
         with:
-          part: ${{ steps.waitforstatuschecks.outputs.part }}
+          part: ${{ steps.nextpart.outputs.part }}
       - name: Update Changelog
         uses: "fcurella/gh-action-update-changelog@main"
         with:
@@ -42,4 +42,4 @@ jobs:
         uses: "fcurella/gh-action-bump2version@main"
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          part: ${{ steps.waitforstatuschecks.outputs.part }}
+          part: ${{ steps.nextpart.outputs.part }}
