@@ -8,7 +8,7 @@ class Provider(CompanyProvider):
         '{{large_company}}'
     )
     # Source: https://www.capital.com.tr/listeler/capital-500
-    large_company = (
+    large_companies = (
         'Tüpraş', 'Türk Hava Yolları', 'Petrol Ofisi', 'Opet', 'BİM', 'Ford Otosan', 'Arçelik', 'Vestel',
         'Toyota Otomotiv', 'Oyak Renault', 'A101 Yeni Mağzacılık', 'Turkcell', 'Türk Telekom', 'Anadolu Efes', 'Migros',
         'LC Waikiki', 'Peak Games', 'Masomo', 'EnerjiSA', 'Tofaş', 'Şişecam', 'Selçuk Ecza', 'ŞOK Marketler', 'Petkim',
