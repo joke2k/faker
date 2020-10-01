@@ -13,6 +13,7 @@ from faker.providers.company.it_IT import Provider as ItItCompanyProvider
 from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
+from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
 from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
@@ -353,3 +354,19 @@ class TestItIt:
             company_vat = fake.company_vat()
             assert self.vat_regex.match(company_vat)
             assert company_vat[9:12] == expected
+
+
+class TestTrTr:
+    """Test tr_TR company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in TrTrCompanyProvider.company_suffixes
+
+    def test_large_companies(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.large_company()
+            assert isinstance(company, str)
+            assert company in TrTrCompanyProvider.large_companies
