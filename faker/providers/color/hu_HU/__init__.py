@@ -1,7 +1,7 @@
-from faker.providers import BaseProvider
+from .. import Provider as ColorProvider
 
 
-class Provider(BaseProvider):
+class Provider(ColorProvider):
     """Implement color provider for ``hu_HU`` locale."""
 
     safe_colors = (
