@@ -1,6 +1,10 @@
 Changelog
 =========
 
+`4.1.5 - 2020-10-01 <https://github.com/joke2k/faker/compare/v4.1.4...v4.1.5>`_
+-------------------------------------------------------------------------------
+* Remove duplicate jobs from the ``pt_PT`` provider (#1282). Thanks @gplgps.
+
 `4.1.4 - 2020-09-30 <https://github.com/joke2k/faker/compare/v4.1.3...v4.1.4>`_
 -------------------------------------------------------------------------------
 
