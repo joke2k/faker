@@ -883,3 +883,4 @@ class TestPtPt(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in PtPtProvider.MONTH_NAMES.values()
+
