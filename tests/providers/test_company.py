@@ -369,4 +369,4 @@ class TestTrTr:
         for _ in range(num_samples):
             company = faker.large_company()
             assert isinstance(company, str)
-            assert company in TrTrCompanyProvider.large_companies
+            assert company in TrTrCompanyProvider.large_company
