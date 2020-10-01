@@ -29,7 +29,6 @@ from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
-from faker.providers.date_time.pt_PT import Provider as PtPtProvider
 
 
 def is64bit():
@@ -869,18 +868,3 @@ class TestTrTr(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in TrTrProvider.MONTH_NAMES.values()
-
-
-class TestPtPt(unittest.TestCase):
-
-    def setUp(self):
-        self.fake = Faker('pt_PT')
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in PtPtProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in PtPtProvider.MONTH_NAMES.values()
