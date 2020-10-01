@@ -17,16 +17,15 @@ jobs:
           ignoreContexts: coverage/coveralls
           ignoreActions: waitforstatuschecks
           checkInterval: 12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Next Part
         id: nextpart
         if: steps.waitforstatuschecks.outputs.status == 'success'
         uses: "fcurella/gh-action-label-to-semver@main"
         with:
-            major: "bump-version:major"
-            minor: "bump-version:minor"
-            defaultPart: "patch"
+          major: "bump-version:major"
+          minor: "bump-version:minor"
+          defaultPart: "patch"
       - uses: actions/checkout@v2
       - name: Get Next Version
         uses: "fcurella/gh-action-next-version@main"
