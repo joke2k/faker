@@ -175,4 +175,4 @@ class TestTrTr(_SimpleAutomotiveTestMixin):
     def perform_extra_checks(self, license_plate, match):
         [city_code, letters, _] = license_plate.split(' ')
         assert int(city_code) in range(1, 82)
-        assert all([letter in TrTrAutomotiveProvider.ascii_uppercase_turkish for letter in letters])
+        assert all(letter in TrTrAutomotiveProvider.ascii_uppercase_turkish for letter in letters)
