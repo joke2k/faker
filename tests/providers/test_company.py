@@ -14,6 +14,7 @@ from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
+
 from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
