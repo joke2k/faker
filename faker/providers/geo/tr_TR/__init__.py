@@ -1,5 +1,5 @@
-
 from .. import Provider as GeoProvider
+
 
 class Provider(GeoProvider):
     land_coords = (
