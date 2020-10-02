@@ -49,6 +49,11 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           part: ${{ steps.nextpart.outputs.part }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          tags: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
