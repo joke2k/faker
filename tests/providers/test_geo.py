@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from faker import Faker
 from faker.providers.geo.pt_PT import Provider as PtPtProvider
-from faker.providers.geo.tr_TR import Provider as TrTrProvider
 
 
 class TestGlobal(unittest.TestCase):
