@@ -5,6 +5,7 @@ from decimal import Decimal
 
 from faker import Faker
 from faker.providers.geo.pt_PT import Provider as PtPtProvider
+from faker.providers.geo.tr_TR import Provider as TrTrProvider
 
 
 class TestGlobal(unittest.TestCase):
@@ -106,3 +107,9 @@ class TestPtPT(unittest.TestCase):
         nationality = self.fake.nationality()
         assert isinstance(nationality, str)
         assert nationality in PtPtProvider.nationalities
+
+
+class TestTrTr(TestEnUS):
+    def setUp(self):
+        self.fake = Faker('tr_TR')
+        Faker.seed(0)
