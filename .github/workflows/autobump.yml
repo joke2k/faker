@@ -14,7 +14,7 @@ jobs:
         id: waitforstatuschecks
         uses: "fcurella/gh-status-check@main"
         with:
-          ignoreContexts: coverage/coveralls
+          ignoreContexts: coverage/coveralls,continuous-integration/appveyor/branch
           ignoreActions: waitforstatuschecks
           checkInterval: 12
           githubToken: ${{ secrets.GITHUB_TOKEN }}
