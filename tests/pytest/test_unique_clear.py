@@ -9,7 +9,7 @@ def test_unique_clears(testdir):
 
         NUM_SAMPLES = 100
 
-        def test_fully_exhause_unique_booleans(faker):
+        def test_fully_exhaust_unique_booleans(faker):
             _dummy = [faker.boolean() for _ in range(NUM_SAMPLES)]
 
             faker.unique.boolean()
@@ -18,10 +18,10 @@ def test_unique_clears(testdir):
                 faker.unique.boolean()
             _dummy = [faker.boolean() for _ in range(NUM_SAMPLES)]
 
-        def test_do_not_exhause_booleans(faker):
+        def test_do_not_exhaust_booleans(faker):
             faker.unique.boolean()
 
-        def test_fully_exhause_unique_booleans_again(faker):
+        def test_fully_exhaust_unique_booleans_again(faker):
             _dummy = [faker.boolean() for _ in range(NUM_SAMPLES)]
 
             faker.unique.boolean()
