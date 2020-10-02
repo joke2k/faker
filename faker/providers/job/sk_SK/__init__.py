@@ -1,7 +1,7 @@
-from .. import Provider as JobsProvider
+from .. import Provider as JobProvider
 
 
-class Provider(JobsProvider):
+class Provider(JobProvider):
     """Derived from Base class"""
 
     jobs = (
