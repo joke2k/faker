@@ -8,6 +8,7 @@ from faker.providers.color import RandomColor
 from faker.providers.color.es_ES import Provider as EsEsColorProvider
 from faker.providers.color.fa_IR import Provider as FaIrColorProvider
 from faker.providers.color.hy_AM import Provider as HyAmColorProvider
+from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 
 
 class TestColorProvider:
@@ -290,3 +291,13 @@ class TestEsEs:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in EsEsColorProvider.safe_colors
+
+
+class TestSkSk:
+    """Test sk_SK color provider methods"""
+
+    def test_safe_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            safe_color_name = faker.safe_color_name()
+            assert isinstance(safe_color_name, str)
+            assert safe_color_name in SkSkColorProvider.safe_colors
