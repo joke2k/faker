@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.4.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.3.0...v4.4.0>`_
+-------------------------------------------------------------------------------
+
+* Added Company Provider for ``tr_TR`` locale. Thanks @iamnotagentleman.
+
 `4.3.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.2.0...v4.3.0>`_
 -------------------------------------------------------------------------------
 
