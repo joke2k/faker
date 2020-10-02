@@ -2,6 +2,7 @@ from .. import Provider as GeoProvider
 
 
 class Provider(GeoProvider):
+    # Source: https://tr.wikipedia.org/wiki/T%C3%BCrkiye%27nin_illeri
     land_coords = (
         ('37.003277000000004', '35.3261219', 'Adana',  'TR', 'Europe/Istanbul'),
         ('37.7640008', '38.2764355', 'Adıyaman', 'TR', 'Europe/Istanbul'),
