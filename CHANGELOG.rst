@@ -1,6 +1,10 @@
 Changelog
 =========
 
+`4.1.7 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.6...v4.1.7>`_
+-------------------------------------------------------------------------------
+* Bigger zipcode ranges for VA, TX and MD in ``en_US``. Thanks @Antetokounpo.
+
 `4.1.6 - 2020-10-01 <https://github.com/joke2k/faker/compare/v4.1.5...v4.1.6>`_
 -------------------------------------------------------------------------------
 * Add new style ``pt_PT`` automotive plates. Thanks @gplgps.
