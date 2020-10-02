@@ -502,6 +502,8 @@ class Provider(AddressProvider):
         'ईश्वरपुर',
     )
 
+    # district taken from
+    # https://www.election.gov.np/election/np/district-wise-constituency-map.html
     districts = (
         'अछाम',
         'अर्घाखाँची',
@@ -535,7 +537,8 @@ class Provider(AddressProvider):
         'धनकुटा',
         'धनुषा',
         'धादिङ',
-        'नवलपरासी',
+        'नवलपरासी (बर्दघाट सुस्ता पूर्व)',
+        'नवलपरासी (बर्दघाट सुस्ता पश्चिम)',
         'नुवाकोट',
         'पर्वत',
         'पर्सा',
@@ -559,7 +562,8 @@ class Provider(AddressProvider):
         'म्याग्दी',
         'रसुवा',
         'रामेछाप',
-        'रुकुम',
+        '‍रुकुम पूर्व',
+        'रुकुम पश्चिम',
         'रूपन्देही',
         'रोल्पा',
         'रौतहट',
@@ -580,6 +584,24 @@ class Provider(AddressProvider):
         'हुम्ला',
     )
 
+    # province taken from
+    # https://ne.wikipedia.org/wiki/%E0%A4%A8%E0%A5%87%E0%A4%AA%E0%A4%BE%E0%A4%B2%E0%A4%95%E0%A4%BE_%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A6%E0%A5%87%E0%A4%B6%E0%A4%B9%E0%A4%B0%E0%A5%82  # noqa: E501
+    provinces = (
+        'प्रदेश नं १',
+        'प्रदेश नं २',
+        'बाग्मती प्रदेश',
+        'गण्डकी प्रदेश',
+        'प्रदेश नं ५',
+        'कर्णाली प्रदेश',
+        'सुदूरपश्चिम प्रदेश',
+    )
+
+    def province(self):
+        """
+        :example सुदूरपश्चिम प्रदेश
+        """
+        return self.random_element(self.provinces)
+
     def district(self):
         """
         :example अछाम
@@ -588,7 +610,7 @@ class Provider(AddressProvider):
 
     def city(self):
         """
-        :example कावासोत
+        :example कावासोती
         """
         return self.random_element(self.cities)
 

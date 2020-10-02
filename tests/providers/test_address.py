@@ -981,6 +981,12 @@ class TestKoKr:
 class TestNeNp:
     """Test ne_NP address provider methods"""
 
+    def test_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in NeNpAddressProvider.provinces
+
     def test_district(self, faker, num_samples):
         for _ in range(num_samples):
             district = faker.district()
