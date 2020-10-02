@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.1.8 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.7...v4.1.8>`_
+-------------------------------------------------------------------------------
+
+* Fix ``hu_HU`` color provider inheritance. Thanks @n1ngu.
+
 `4.1.7 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.6...v4.1.7>`_
 -------------------------------------------------------------------------------
 * Bigger zipcode ranges for VA, TX and MD in ``en_US``. Thanks @Antetokounpo.
