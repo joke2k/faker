@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.2.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.8...v4.2.0>`_
+-------------------------------------------------------------------------------
+
+* Implement color provider for ``sk_SK`` locale. Thanks @pipozzz.
+
 `4.1.8 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.7...v4.1.8>`_
 -------------------------------------------------------------------------------
 
