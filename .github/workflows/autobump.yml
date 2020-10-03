@@ -14,7 +14,7 @@ jobs:
         id: waitforstatuschecks
         uses: "fcurella/gh-status-check@main"
         with:
-          ignoreContexts: coverage/coveralls
+          ignoreContexts: coverage/coveralls,continuous-integration/appveyor/branch
           ignoreActions: waitforstatuschecks
           checkInterval: 12
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -28,6 +28,8 @@ jobs:
           defaultPart: "patch"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Get Next Version
         uses: "fcurella/gh-action-next-version@main"
         id: nextversion
@@ -36,7 +38,6 @@ jobs:
       - name: Update Changelog
         uses: "fcurella/gh-action-update-changelog@main"
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           changelogPath: "CHANGELOG.rst"
           changelogLine : 4
           currentVersion: ${{ steps.nextversion.outputs.currentVersion }}
@@ -44,8 +45,12 @@ jobs:
       - name: Bump version
         uses: "fcurella/gh-action-bump2version@main"
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           part: ${{ steps.nextpart.outputs.part }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          tags: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
