@@ -101,10 +101,9 @@ class TestSkSk:
             assert isinstance(job, str)
             assert job in SkSkJobProvider.jobs
 
-            
+
 class TestTrTr:
     """Test tr_TR job provider"""
 
     def test_job(self, faker, num_samples):
         assert faker.job() in TrTrJobProvider.jobs
-
