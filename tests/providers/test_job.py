@@ -9,6 +9,7 @@ from faker.providers.job.ko_KR import Provider as KoKrJobProvider
 from faker.providers.job.pt_BR import Provider as PtBrJobProvider
 from faker.providers.job.pt_PT import Provider as PtPtJobProvider
 from faker.providers.job.sk_SK import Provider as SkSkJobProvider
+from faker.providers.job.tr_TR import Provider as TrTrJobProvider
 
 
 class TestJobProvider:
@@ -99,3 +100,11 @@ class TestSkSk:
             job = faker.job()
             assert isinstance(job, str)
             assert job in SkSkJobProvider.jobs
+
+            
+class TestTrTr:
+    """Test tr_TR job provider"""
+
+    def test_job(self, faker, num_samples):
+        assert faker.job() in TrTrJobProvider.jobs
+

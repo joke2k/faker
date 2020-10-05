@@ -1,6 +1,38 @@
 Changelog
 =========
 
+`4.4.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.3.0...v4.4.0>`_
+-------------------------------------------------------------------------------
+
+* Added Company Provider for ``tr_TR`` locale. Thanks @iamnotagentleman.
+
+`4.3.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.2.0...v4.3.0>`_
+-------------------------------------------------------------------------------
+
+* Add job providers for ``tr_TR``. Thanks @molcay.
+
+`4.2.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.8...v4.2.0>`_
+-------------------------------------------------------------------------------
+
+* Implement color provider for ``sk_SK`` locale. Thanks @pipozzz.
+
+`4.1.8 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.7...v4.1.8>`_
+-------------------------------------------------------------------------------
+
+* Fix ``hu_HU`` color provider inheritance. Thanks @n1ngu.
+
+`4.1.7 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.1.6...v4.1.7>`_
+-------------------------------------------------------------------------------
+* Bigger zipcode ranges for VA, TX and MD in ``en_US``. Thanks @Antetokounpo.
+
+`4.1.6 - 2020-10-01 <https://github.com/joke2k/faker/compare/v4.1.5...v4.1.6>`_
+-------------------------------------------------------------------------------
+* Add new style ``pt_PT`` automotive plates. Thanks @gplgps.
+
+`4.1.5 - 2020-10-01 <https://github.com/joke2k/faker/compare/v4.1.4...v4.1.5>`_
+-------------------------------------------------------------------------------
+* Remove duplicate jobs from the ``pt_PT`` provider (#1282). Thanks @gplgps.
+
 `4.1.4 - 2020-09-30 <https://github.com/joke2k/faker/compare/v4.1.3...v4.1.4>`_
 -------------------------------------------------------------------------------
 

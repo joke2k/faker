@@ -29,7 +29,8 @@ class TestPtPt(_SimpleAutomotiveTestMixin):
     license_plate_pattern = re.compile(
         r'\d{2}-\d{2}-[A-Z]{2}|'
         r'\d{2}-[A-Z]{2}-\d{2}|'
-        r'[A-Z]{2}-\d{2}-\d{2}',
+        r'[A-Z]{2}-\d{2}-\d{2}|'
+        r'[A-Z]{2}-\d{2}-[A-Z]{2}',
     )
 
 

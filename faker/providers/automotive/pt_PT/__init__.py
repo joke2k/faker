@@ -6,11 +6,13 @@ class Provider(AutomotiveProvider):
 
     Sources:
 
-    - https://pt.wikipedia.org/wiki/Matr%C3%ADculas_de_autom%C3%B3veis_em_Portugal
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Portugal
     """
 
     license_formats = (
         '##-##-??',
         '##-??-##',
         '??-##-##',
+        # New format since March 2020
+        '??-##-??',
     )
