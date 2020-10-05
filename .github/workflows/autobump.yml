@@ -29,7 +29,8 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+         persist-credentials: false
+         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Get Next Version
         uses: "fcurella/gh-action-next-version@main"
         id: nextversion
