@@ -1,7 +1,7 @@
 Changelog
 =========
 
-`4.5.0 - 2020-10-02 <https://github.com/joke2k/faker/compare/v4.4.0...v4.5.0>`_
+`4.5.0 - 2020-10-06 <https://github.com/joke2k/faker/compare/v4.4.0...v4.5.0>`_
 -------------------------------------------------------------------------------
 
 * Add ``pt_PT`` credit card provider. Thanks @rubenandre.
