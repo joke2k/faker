@@ -1406,7 +1406,7 @@ class Provider(BaseProvider):
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2005-08-16 20:39:21')
-        :return datetime
+        :return: datetime
         """
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue:
@@ -1419,7 +1419,7 @@ class Provider(BaseProvider):
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1265-03-22 21:15:52')
-        :return datetime
+        :return: datetime
         """
 
         # 1970-01-01 00:00:00 UTC minus 62135596800 seconds is
@@ -1571,7 +1571,7 @@ class Provider(BaseProvider):
         :param end_date Defaults to "now"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
@@ -1594,7 +1594,7 @@ class Provider(BaseProvider):
         :param start_date Defaults to 30 years ago
         :param end_date Defaults to "today"
         :example Date('1999-02-02')
-        :return Date
+        :return: Date
         """
 
         start_date = self._parse_date(start_date)
@@ -1610,7 +1610,7 @@ class Provider(BaseProvider):
         :param end_date Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         return self.date_time_between(
             start_date='+1s', end_date=end_date, tzinfo=tzinfo,
@@ -1625,7 +1625,7 @@ class Provider(BaseProvider):
         :param end_date Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         return self.date_between(start_date='+1d', end_date=end_date)
 
@@ -1638,7 +1638,7 @@ class Provider(BaseProvider):
         :param start_date Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         return self.date_time_between(
             start_date=start_date, end_date='-1s', tzinfo=tzinfo,
@@ -1653,7 +1653,7 @@ class Provider(BaseProvider):
         :param start_date Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         return self.date_between(start_date=start_date, end_date='-1d')
 
@@ -1671,7 +1671,7 @@ class Provider(BaseProvider):
         :param datetime_end: DateTime
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('1999-02-02 11:42:52')
-        :return DateTime
+        :return: DateTime
         """
         if datetime_start is None:
             datetime_start = datetime.now(tzinfo)
@@ -1703,7 +1703,7 @@ class Provider(BaseProvider):
 
         :param date_start: Date
         :param date_end: Date
-        :return Date
+        :return: Date
         """
         return self.date_time_between_dates(date_start, date_end).date()
 
@@ -1719,7 +1719,7 @@ class Provider(BaseProvider):
         :param after_now: include days in current century after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
-        :return DateTime
+        :return: DateTime
         """
         now = datetime.now(tzinfo)
         this_century_start = datetime(
@@ -1749,7 +1749,7 @@ class Provider(BaseProvider):
         :param after_now: include days in current decade after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
-        :return DateTime
+        :return: DateTime
         """
         now = datetime.now(tzinfo)
         this_decade_start = datetime(
@@ -1779,7 +1779,7 @@ class Provider(BaseProvider):
         :param after_now: include days in current year after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
-        :return DateTime
+        :return: DateTime
         """
         now = datetime.now(tzinfo)
         this_year_start = now.replace(
@@ -1808,7 +1808,7 @@ class Provider(BaseProvider):
         :param after_now: include days in current month after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
-        :return DateTime
+        :return: DateTime
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(
@@ -1833,7 +1833,7 @@ class Provider(BaseProvider):
         :param before_today: include days in current century before today
         :param after_today: include days in current century after today
         :example Date('2012-04-04')
-        :return Date
+        :return: Date
         """
         today = date.today()
         this_century_start = date(today.year - (today.year % 100), 1, 1)
@@ -1856,7 +1856,7 @@ class Provider(BaseProvider):
         :param before_today: include days in current decade before today
         :param after_today: include days in current decade after today
         :example Date('2012-04-04')
-        :return Date
+        :return: Date
         """
         today = date.today()
         this_decade_start = date(today.year - (today.year % 10), 1, 1)
@@ -1878,7 +1878,7 @@ class Provider(BaseProvider):
         :param before_today: include days in current year before today
         :param after_today: include days in current year after today
         :example Date('2012-04-04')
-        :return Date
+        :return: Date
         """
         today = date.today()
         this_year_start = today.replace(month=1, day=1)
@@ -1901,7 +1901,7 @@ class Provider(BaseProvider):
         :param after_today: include days in current month after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example DateTime('2012-04-04 11:02:02')
-        :return DateTime
+        :return: DateTime
         """
         today = date.today()
         this_month_start = today.replace(day=1)
@@ -1990,7 +1990,7 @@ class Provider(BaseProvider):
         or other fakers.
 
         :example faker.pytimezone()
-        :return dateutil.tz.tz.tzfile
+        :return: dateutil.tz.tz.tzfile
         """
         return gettz(self.timezone(*args, **kwargs))
 
@@ -2005,7 +2005,7 @@ class Provider(BaseProvider):
         :param maximum_age Defaults to 115.
 
         :example Date('1979-02-02')
-        :return Date
+        :return: Date
         """
 
         if not isinstance(minimum_age, int):
