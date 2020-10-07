@@ -6,7 +6,9 @@ class Provider(LoremProvider):
 
     Sources:
 
-    - https://pl.wiktionary.org/wiki/Indeks:Polski_-_Najpopularniejsze_s%C5%82owa_1-2000
+    - `Indeks:Polski - Najpopularniejsze słowa 1-2000`__
+
+    __ https://pl.wiktionary.org/wiki/Indeks:Polski_-_Najpopularniejsze_s%C5%82owa_1-2000
     """
 
     word_list = (

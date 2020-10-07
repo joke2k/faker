@@ -7,13 +7,9 @@ ALPHABET = string.ascii_uppercase
 
 class Provider(AddressProvider):
     """
-    Korean Address Provider
-    =======================
-
     Korea has two address and postal code system.
 
-    Address
-    -------
+    **Address**
 
     - Address based on land parcel numbers
       (지번 주소, OLD, but someone use consistently)
@@ -23,8 +19,7 @@ class Provider(AddressProvider):
     :meth:`road_address` generate Address based on road names and building
     numbers.
 
-    Postal code
-    -----------
+    **Postal code**
 
     - Old postal code (6-digit, OLD and dead)
     - New postal code (5-digit, New)
@@ -32,8 +27,7 @@ class Provider(AddressProvider):
     :meth:`old_postal_code` and :meth:`postcode` generate old 6-digit code
     and :meth:`postal_code` generate newer 5-digit code.
 
-    Reference
-    ---------
+    **Reference**
 
     - `Official Confirmation Prividing that Old and New Addresses are Identical`__
       (warn: cert error)

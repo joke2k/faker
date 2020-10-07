@@ -21,7 +21,7 @@ new ``Faker.seed()`` points to ``Generator.seed()``, in new ``Faker``, invocatio
 from a ``Faker`` object instance has been disabled, and attempting to do so will raise a
 ``TypeError`` as shown below.
 
-.. code:: python
+.. code:: text
 
     TypeError: Calling `.seed()` on instances is deprecated. Use the class method `Faker.seed()` instead.
 

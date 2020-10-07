@@ -12,6 +12,7 @@ class Provider(BaseProvider):
     provider methods are there to enable the creation of more "realistic" fake data for such cases.
 
     Additional Notes:
+
     - The Philippine telecommunication industry is dominated by the Globe-PLDT duopoly. Globe offers landline services
       under the Globe brand and mobile services under the Globe and TM brands. PLDT offers landline services under the
       PLDT brand, and its subsidiaries offer mobile services under the Smart, TNT, and SUN brands. The rest of the
@@ -25,6 +26,7 @@ class Provider(BaseProvider):
       digit landline number.
 
     Sources:
+
     - https://en.wikipedia.org/wiki/Telephone_numbers_in_the_Philippines
     - https://www.prefix.ph/prefixes/2019-updated-complete-list-of-philippine-mobile-network-prefixes/
     - https://powerpinoys.com/network-prefixes-philippines/
