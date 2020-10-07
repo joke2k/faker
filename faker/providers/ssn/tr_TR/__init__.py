@@ -10,7 +10,7 @@ class Provider(BaseProvider):
 
     def ssn(self):
         """
-        :example '89340691651'
+        :example: '89340691651'
         """
         first_part = self.random_element((1, 2, 3, 4, 5, 6, 7, 8, 9))
         middle_part = self.bothify('#########')

@@ -604,18 +604,18 @@ class Provider(AddressProvider):
 
     def district(self):
         """
-        :example अछाम
+        :example: अछाम
         """
         return self.random_element(self.districts)
 
     def city(self):
         """
-        :example कावासोती
+        :example: कावासोती
         """
         return self.random_element(self.cities)
 
     def building_prefix(self):
         """
-        :example वडा
+        :example: वडा
         """
         return self.random_element(self.building_prefixes)

@@ -149,7 +149,7 @@ class Provider(CompanyProvider):
 
     def catch_phrase(self):
         """
-        :example 'Robust full-range hub'
+        :example: 'Robust full-range hub'
         """
         result = []
         for word_list in self.catch_phrase_words:
@@ -159,7 +159,7 @@ class Provider(CompanyProvider):
 
     def bs(self):
         """
-        :example 'integrate extensible convergence'
+        :example: 'integrate extensible convergence'
         """
         result = []
         for word_list in self.bsWords:

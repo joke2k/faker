@@ -99,33 +99,33 @@ class Provider(AddressProvider):
 
     def street_prefix(self):
         """
-        :example 'rue'
+        :example: 'rue'
         """
         return self.random_element(self.street_prefixes)
 
     def city_prefix(self):
         """
-        :example 'rue'
+        :example: 'rue'
         """
         return self.random_element(self.city_prefixes)
 
     def canton(self):
         """
         Randomly returns a swiss canton ('Abbreviated' , 'Name').
-        :example ('VD' . 'Vaud')
+        :example: ('VD' . 'Vaud')
         """
         return self.random_element(self.cantons)
 
     def canton_name(self):
         """
         Randomly returns a Swiss canton name.
-        :example 'Vaud'
+        :example: 'Vaud'
         """
         return self.canton()[1]
 
     def canton_code(self):
         """
         Randomly returns a Swiss canton code.
-        :example 'VD'
+        :example: 'VD'
         """
         return self.canton()[0]

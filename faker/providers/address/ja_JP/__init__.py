@@ -304,49 +304,49 @@ class Provider(AddressProvider):
 
     def prefecture(self):
         """
-        :example '東京都'
+        :example: '東京都'
         """
         return self.random_element(self.prefectures)
 
     def city(self):
         """
-        :example '台東区'
+        :example: '台東区'
         """
         return self.random_element(self.cities)
 
     def town(self):
         """
-        :example '浅草'
+        :example: '浅草'
         """
         return self.random_element(self.towns)
 
     def chome(self):
         """
-        :example '1丁目'
+        :example: '1丁目'
         """
         return "%d丁目" % self.generator.random.randint(1, 42)
 
     def ban(self):
         """
-        :example '3番'
+        :example: '3番'
         """
         return "%d番" % self.generator.random.randint(1, 27)
 
     def gou(self):
         """
-        :example '10号'
+        :example: '10号'
         """
         return "%d号" % self.generator.random.randint(1, 20)
 
     def building_name(self):
         """
-        :example 'コーポ芝浦'
+        :example: 'コーポ芝浦'
         """
         return self.random_element(self.building_names)
 
     def postcode(self):
         """
-        :example '101-1212'
+        :example: '101-1212'
         """
         return "%03d-%04d" % (self.generator.random.randint(0, 999),
                               self.generator.random.randint(0, 9999))

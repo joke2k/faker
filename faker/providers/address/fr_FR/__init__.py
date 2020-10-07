@@ -137,33 +137,33 @@ class Provider(AddressProvider):
 
     def street_prefix(self):
         """
-        :example 'rue'
+        :example: 'rue'
         """
         return self.random_element(self.street_prefixes)
 
     def city_prefix(self):
         """
-        :example 'rue'
+        :example: 'rue'
         """
         return self.random_element(self.city_prefixes)
 
     def region(self):
         """
-        :example 'Guadeloupe'
+        :example: 'Guadeloupe'
         """
         return self.random_element(self.regions)
 
     def department(self):
         """
         Randomly returns a french department ('departmentNumber' , 'departmentName').
-        :example ('2B' . 'Haute-Corse')
+        :example: ('2B' . 'Haute-Corse')
         """
         return self.random_element(self.departments)
 
     def department_name(self):
         """
         Randomly returns a french department name.
-        :example 'Ardèche'
+        :example: 'Ardèche'
         """
         return self.department()[1]
 
@@ -171,6 +171,6 @@ class Provider(AddressProvider):
         """
         Randomly returns a french department number.
 
-        :example '59'
+        :example: '59'
         """
         return self.department()[0]

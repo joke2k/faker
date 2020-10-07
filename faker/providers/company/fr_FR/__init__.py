@@ -75,7 +75,7 @@ class Provider(CompanyProvider):
 
     def catch_phrase(self):
         """
-        :example 'integrate extensible convergence'
+        :example: 'integrate extensible convergence'
         """
         catch_phrase = ""
         while True:

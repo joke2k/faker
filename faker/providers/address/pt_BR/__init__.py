@@ -262,21 +262,21 @@ class Provider(AddressProvider):
 
     def street_prefix(self):
         """
-        :example 'rua'
+        :example: 'rua'
         """
         return self.random_element(self.street_prefixes)
 
     def estado(self):
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
-        :example ('MG' . 'Minas Gerais')
+        :example: ('MG' . 'Minas Gerais')
         """
         return self.random_element(self.estados)
 
     def estado_nome(self):
         """
         Randomly returns a Brazilian State Name
-        :example 'Minas Gerais'
+        :example: 'Minas Gerais'
         """
         return self.estado()[1]
 
@@ -284,7 +284,7 @@ class Provider(AddressProvider):
         """
         Randomly returns the abbreviation of a Brazilian State
 
-        :example 'MG'
+        :example: 'MG'
         """
         return self.estado()[0]
 
@@ -293,7 +293,7 @@ class Provider(AddressProvider):
         Randomly returns a bairro (neighborhood) name.
         The names were taken from the city of Belo Horizonte - Minas Gerais
 
-        :example 'Serra'
+        :example: 'Serra'
         """
         return self.random_element(self.bairros)
 
@@ -301,8 +301,8 @@ class Provider(AddressProvider):
         """
         Randomly returns a postcode.
         :param formatted: True to allow formatted postcodes, else False (default True)
-        :example formatted: '41224-212' '83992-291' '12324322'
-        :example raw: '43920231' '34239530'
+        :example: formatted: '41224-212' '83992-291' '12324322'
+        :example: raw: '43920231' '34239530'
         """
         template = self.postcode_all_formats if formatted else self.postcode_raw_formats
         return self.bothify(self.random_element(template))

@@ -491,20 +491,20 @@ class Provider(BaseProvider):
 
     def company(self):
         """
-        :example 'Acme Ltd'
+        :example: 'Acme Ltd'
         """
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
     def company_suffix(self):
         """
-        :example 'Ltd'
+        :example: 'Ltd'
         """
         return self.random_element(self.company_suffixes)
 
     def catch_phrase(self):
         """
-        :example 'Robust full-range hub'
+        :example: 'Robust full-range hub'
         """
         result = []
         for word_list in self.catch_phrase_words:
@@ -514,7 +514,7 @@ class Provider(BaseProvider):
 
     def bs(self):
         """
-        :example 'integrate extensible convergence'
+        :example: 'integrate extensible convergence'
         """
         result = []
         for word_list in self.bsWords:

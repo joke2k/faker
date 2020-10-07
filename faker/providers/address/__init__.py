@@ -22,52 +22,52 @@ class Provider(BaseProvider):
 
     def city_suffix(self):
         """
-        :example 'town'
+        :example: 'town'
         """
         return self.random_element(self.city_suffixes)
 
     def street_suffix(self):
         """
-        :example 'Avenue'
+        :example: 'Avenue'
         """
         return self.random_element(self.street_suffixes)
 
     def building_number(self):
         """
-        :example '791'
+        :example: '791'
         """
         return self.numerify(self.random_element(self.building_number_formats))
 
     def city(self):
         """
-        :example 'Sashabury'
+        :example: 'Sashabury'
         """
         pattern = self.random_element(self.city_formats)
         return self.generator.parse(pattern)
 
     def street_name(self):
         """
-        :example 'Crist Parks'
+        :example: 'Crist Parks'
         """
         pattern = self.random_element(self.street_name_formats)
         return self.generator.parse(pattern)
 
     def street_address(self):
         """
-        :example '791 Crist Parks'
+        :example: '791 Crist Parks'
         """
         pattern = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
     def postcode(self):
         """
-        :example 86039-9874
+        :example: 86039-9874
         """
         return self.bothify(self.random_element(self.postcode_formats)).upper()
 
     def address(self):
         """
-        :example '791 Crist Parks, Sashabury, IL 86039-9874'
+        :example: '791 Crist Parks, Sashabury, IL 86039-9874'
         """
         pattern = self.random_element(self.address_formats)
         return self.generator.parse(pattern)

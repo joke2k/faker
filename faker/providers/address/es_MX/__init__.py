@@ -102,13 +102,13 @@ class Provider(AddressProvider):
 
     def street_prefix(self):
         """
-        :example 'Avenida'
+        :example: 'Avenida'
         """
         return self.random_element(self.street_prefixes)
 
     def secondary_address(self):
         """
-        :example '020 Interior 999'
+        :example: '020 Interior 999'
         """
         return self.numerify(
             self.random_element(

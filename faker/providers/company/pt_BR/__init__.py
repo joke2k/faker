@@ -89,7 +89,7 @@ class Provider(CompanyProvider):
 
     def catch_phrase(self):
         """
-        :example 'a segurança de evoluir sem preocupação'
+        :example: 'a segurança de evoluir sem preocupação'
         """
         pattern = self.random_element(self.catch_phrase_formats)
         catch_phrase = self.generator.parse(pattern)
