@@ -1,6 +1,12 @@
 Changelog
 =========
 
+`4.7.0 - 2020-10-08 <https://github.com/joke2k/faker/compare/v4.6.0...v4.7.0>`_
+-------------------------------------------------------------------------------
+
+* Add province list and add 2 new district to ``ne_NP``. Thanks @iamsauravsharma.
+
+
 `4.6.0 - 2020-10-08 <https://github.com/joke2k/faker/compare/v4.5.0...v4.6.0>`_
 -------------------------------------------------------------------------------
 
