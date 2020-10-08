@@ -3,6 +3,7 @@ import re
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
+from faker.providers.automotive.tr_TR import Provider as TrTrAutomotiveProvider
 
 
 class _SimpleAutomotiveTestMixin:
@@ -159,3 +160,20 @@ class TestEsEs:
         plate = faker.license_plate()
         assert isinstance(plate, str)
         assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)
+
+
+class TestTrTr(_SimpleAutomotiveTestMixin):
+    """Test tr_TR automotive provider methods"""
+    license_plate_pattern = re.compile(
+        r'\d{2} [A-Z] \d{4}|'
+        r'\d{2} [A-Z] \d{5}|'
+        r'\d{2} [A-Z]{2} \d{3}|'
+        r'\d{2} [A-Z]{2} \d{4}|'
+        r'\d{2} [A-Z]{3} \d{2}|'
+        r'\d{2} [A-Z]{3} \d{3}',
+    )
+
+    def perform_extra_checks(self, license_plate, match):
+        [city_code, letters, _] = license_plate.split(' ')
+        assert int(city_code) in range(1, 82)
+        assert all(letter in TrTrAutomotiveProvider.ascii_uppercase_turkish for letter in letters)
