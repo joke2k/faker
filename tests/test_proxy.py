@@ -322,6 +322,7 @@ class TestFakerProxyClass:
         fake = Faker(['en_US', 'en_PH'])
         expected = set(dir(Faker) + [
             '_factories', '_locales', '_factory_map', '_weights',
+            '_unique_proxy',
         ])
         for factory in fake.factories:
             expected |= {

@@ -9,8 +9,9 @@ Pytest Fixtures
        assert isinstance(faker.name(), str)
 
 Out of the box, the ``faker`` fixture returns a session-scoped ``Faker`` instance to be used across
-all tests in your test suite. This instance defaults to the ``en-US`` locale, and it is reseeded
-using a seed value of ``0`` prior to each test.
+all tests in your test suite. This instance defaults to the ``en-US`` locale, it is reseeded
+using a seed value of ``0`` prior to each test, and the ``.unique`` remembered generated values
+are cleared.
 
 To change the default locale, you can define a session-scoped autouse ``faker_session_locale``
 fixture in your top level ``conftest.py``. To change the default seed value, you define a
