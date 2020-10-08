@@ -1,7 +1,7 @@
 Changelog
 =========
 
-`4.6.0 - 2020-10-06 <https://github.com/joke2k/faker/compare/v4.5.0...v4.6.0>`_
+`4.6.0 - 2020-10-08 <https://github.com/joke2k/faker/compare/v4.5.0...v4.6.0>`_
 -------------------------------------------------------------------------------
 
 * Add Currency provider for ``sv_SE``. Thanks @frangiz.
