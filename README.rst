@@ -310,7 +310,7 @@ By default all generators share the same instance of ``random.Random``, which
 can be accessed with ``from faker.generator import random``. Using this may
 be useful for plugins that want to affect all faker instances.
 
-Unique values`
+Unique values
 -------------
 
 Through use of the ``.unique`` property on the generator, you can guarantee
