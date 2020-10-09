@@ -67,4 +67,10 @@ setup(
         "python-dateutil>=2.4",
         "text-unidecode==1.3",
     ],
+    extras_require={
+        "docs": [
+            "sphinx",
+            "sphinx-rtd-theme",
+        ],
+    },
 )
