@@ -157,9 +157,15 @@ class TestEsEs:
             assert plate[:2] == "CA"
 
     def test_plate_format(self, faker):
+        faker.seed_instance(5600)
+
         plate = faker.license_plate()
         assert isinstance(plate, str)
-        assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)
+        assert self.new_format_pattern.match(plate)
+
+        plate = faker.license_plate()
+        assert isinstance(plate, str)
+        assert self.old_format_pattern.match(plate)
 
 
 class TestTrTr(_SimpleAutomotiveTestMixin):
