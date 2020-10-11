@@ -2,7 +2,7 @@ from .. import Provider as JobProvider
 
 
 class Provider(JobProvider):
-    """Derived from Base class"""
+    """Translated from Super class"""
 
     jobs = (
         'Administrátor, umenie',
