@@ -1,1 +1,1 @@
-from ..de_CH import Provider
+from ..de_CH import Provider  # noqa
