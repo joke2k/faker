@@ -8,22 +8,22 @@ Here's a list of Providers written by the community:
 +---------------+--------------------------+----------------------------------+
 | Provider name | Description              | URL                              |
 +===============+==========================+==================================+
-| WebProvider   | Web-related data such as | `faker_web`_                     +
-|               | mime-type and web server |                                  +
-|               | versions.                |                                  +
-+---------------+--------------------------+----------------------------------+
-| Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.       | `faker_wifi_essid`_              +
-+---------------+--------------------------+----------------------------------+
 | Credit Score  | Fake credit score data   | `faker_credit_score`_            |
 |               | for testing purposes     |                                  |
 +---------------+--------------------------+----------------------------------+
 | Microservice  | Fake microservice names  | `faker_microservice`_            |
 +---------------+--------------------------+----------------------------------+
+| Posts         | Fake posts in markdown   | `mdgen`_                         |
+|               | format                   |                                  |
++---------------+--------------------------+----------------------------------+
 | Vehicle       | Fake vehicle information | `faker_vehicle`_                 |
 |               | includes Year Make Model |                                  |
 +---------------+--------------------------+----------------------------------+
-| Posts         | Fake posts in markdown   | `mdgen`_                         |
-|               | format                   |                                  |
+| WebProvider   | Web-related data such as | `faker_web`_                     +
+|               | mime-type and web server |                                  +
+|               | versions.                |                                  +
++---------------+--------------------------+----------------------------------+
+| Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.       | `faker_wifi_essid`_              +
 +---------------+--------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
