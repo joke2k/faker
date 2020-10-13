@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.12.0 - 2020-10-13 <https://github.com/joke2k/faker/compare/v4.11.0...v4.12.0>`_
+----------------------------------------------------------------------------------
+
+* Geo provider added for ``tr_TR`` locale. Thanks @iamnotagentleman.
+
 `4.11.0 - 2020-10-13 <https://github.com/joke2k/faker/compare/v4.10.0...v4.11.0>`_
 ----------------------------------------------------------------------------------
 
