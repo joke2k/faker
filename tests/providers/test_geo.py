@@ -106,3 +106,9 @@ class TestPtPT(unittest.TestCase):
         nationality = self.fake.nationality()
         assert isinstance(nationality, str)
         assert nationality in PtPtProvider.nationalities
+
+
+class TestTrTr(TestEnUS):
+    def setUp(self):
+        self.fake = Faker('tr_TR')
+        Faker.seed(0)
