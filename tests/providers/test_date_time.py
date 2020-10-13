@@ -25,6 +25,7 @@ from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
+from faker.providers.date_time.pt_PT import Provider as PtPtProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
@@ -868,3 +869,18 @@ class TestTrTr(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in TrTrProvider.MONTH_NAMES.values()
+
+
+class TestPtPt(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('pt_PT')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PtPtProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PtPtProvider.MONTH_NAMES.values()
