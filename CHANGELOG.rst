@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.13.0 - 2020-10-13 <https://github.com/joke2k/faker/compare/v4.12.0...v4.13.0>`_
+----------------------------------------------------------------------------------
+
+* Split first names into male and female on ``pt_PT`` provider. Thanks @gplgps.
+
 `4.12.0 - 2020-10-13 <https://github.com/joke2k/faker/compare/v4.11.0...v4.12.0>`_
 ----------------------------------------------------------------------------------
 
