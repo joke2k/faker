@@ -1,6 +1,5 @@
 from .. import Provider as GeoProvider
 
-
 class Provider(GeoProvider):
     
     nationalities = (
@@ -18,8 +17,7 @@ class Provider(GeoProvider):
         "Tunisian", "Turkish", "Ukrainian", "Emirati", "British", "American", "Uruguayan", "Venezuelan", "Vietnamese",
         "Welsh", "Zambian", "Zimbabwean",
     )
-        
-        
+    
     def nationality(self):
         """
         :example 'American'
