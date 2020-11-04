@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.14.1 - 2020-11-04 <https://github.com/joke2k/faker/compare/v4.14.0...v4.14.1>`_
+----------------------------------------------------------------------------------
+
+* Add relative frequencies for japanese last names. Thanks @TianyiShi2001.
+
 `4.14.0 - 2020-10-13 <https://github.com/joke2k/faker/compare/v4.13.0...v4.14.0>`_
 ----------------------------------------------------------------------------------
 
