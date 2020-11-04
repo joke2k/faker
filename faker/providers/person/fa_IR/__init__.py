@@ -9,8 +9,6 @@ class Provider(PersonProvider):
         '{{first_name_female}} {{last_name}}',
         '{{first_name_female}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
-        '{{first_name_female}} {{last_name}} {{suffix}}',
-        '{{prefix_female}} {{first_name_female}} {{last_name}} {{suffix}}',
     )
 
     formats_male = (
@@ -20,8 +18,6 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{last_name}}',
         '{{first_name_male}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
-        '{{first_name_male}} {{last_name}} {{suffix}}',
-        '{{prefix_male}} {{first_name_male}} {{last_name}} {{suffix}}',
     )
 
     formats = formats_female + formats_male
