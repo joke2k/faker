@@ -16,7 +16,7 @@ def test_no_invalid_formats(locale):
     """
     For each locale, for each provider, search all the definitions of "formats"
     and make sure that all the providers in there (e.g. {{group}}) are valid
-    and do not emit empty strings. Empty strings are allows only if the group
+    and do not emit empty strings. Empty strings are allowed only if the group
     is not surrounded by spaces. This is a quick way to make sure that no
     string is generated with "double spaces", starting spaces or ending spaces.
     """
