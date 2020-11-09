@@ -17,7 +17,7 @@ class Provider(PersonProvider):
         ('知実', 'サトミ', 'Satomi'),
         ('千代', 'チヨ', 'Chiyo'),
         ('直子', 'ナオコ', 'Naoko'),
-        ('七夏', 'ナナカ', 'Nanaka'),
+        ('七夏', 'ナナミ', 'Nanami'),
         ('花子', 'ハナコ', 'Hanako'),
         ('春香', 'ハルカ', 'Haruka'),
         ('真綾', 'マアヤ', 'Maaya'),
