@@ -6,6 +6,11 @@ class Provider(AddressProvider):
     city_suffixes = ('a mare', 'lido', 'ligure', 'del friuli', 'salentino',
                      'calabro', 'veneto', 'nell\'emilia', 'umbro', 'laziale',
                      'terme', 'sardo')
+    regions = ('Valle d\'Aosta', 'Piemonte','Liguria', 'Lombardia', 'Veneto',
+               'Trentino-Alto Adige', 'Friuli Venezia Giulia', 'Emilia Romagna',
+               'Toscana', 'Marche','Umbria', 'Abruzzo', 'Lazio', 'Molise',
+               'Campania', 'Calabria', 'Basilicata', 'Puglia', 'Sicilia', 
+               'Sardegna')
     building_number_formats = ('###', '##', '#')
     street_suffixes = ('Piazza', 'Strada', 'Via', 'Borgo', 'Contrada',
                        'Rotonda', 'Incrocio', 'Viale', 'Stretto', 'Vicolo',
@@ -123,6 +128,9 @@ class Provider(AddressProvider):
 
     def state(self):
         return self.random_element(self.states)
-
+    
+    def regions(self):
+        return self.random_element(self.regions)
+    
     def state_abbr(self):
         return self.random_element(self.states_abbr)
