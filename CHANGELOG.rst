@@ -1,6 +1,11 @@
 Changelog
 =========
 
+`4.14.3 - 2020-11-16 <https://github.com/joke2k/faker/compare/v4.14.2...v4.14.3>`_
+----------------------------------------------------------------------------------
+
+* Add postcode format, country names, person prefix weights, and update phone number format for ``th_TH``. Thanks @bact.
+
 `4.14.2 - 2020-11-04 <https://github.com/joke2k/faker/compare/v4.14.1...v4.14.2>`_
 ----------------------------------------------------------------------------------
 
