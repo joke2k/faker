@@ -31,6 +31,7 @@ from faker.providers.address.pt_BR import Provider as PtBrAddressProvider
 from faker.providers.address.pt_PT import Provider as PtPtAddressProvider
 from faker.providers.address.ru_RU import Provider as RuRuAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
+from faker.providers.address.th_TH import Provider as ThThAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
 from faker.providers.address.zh_TW import Provider as ZhTwAddressProvider
 
@@ -1409,3 +1410,19 @@ class TestRuRu:
         with title_patch, suffix_patch:
             result = faker.street_name()
             assert result == expected
+
+
+class TestThTh:
+    """Test th_TH address provider methods"""
+
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in ThThAddressProvider.countries
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r'[1-9]\d{4}', postcode)
