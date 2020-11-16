@@ -90,7 +90,7 @@ class TestThTh:
             r'([23457][ -]?(\d[ -]?){6}\d|[689][ -]?(\d[ -]?){7}\d)'
             # extension
             r'([ ]?(x|ext|ต่อ)[\.]?[ ]?\d{1,5})?',
-            re.IGNORECASE
+            re.IGNORECASE,
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
