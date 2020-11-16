@@ -82,8 +82,16 @@ class TestHuHu:
 class TestThTh:
     """Test th_TH phone number provider methods"""
 
-    def test_phone_number_should_be_in_defined_format(self, faker, num_samples):
-        pattern = re.compile(r'\+668? \d{4} \d{4}')
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            # leading zero or internaional code
+            r'((\+66)|\+66[ -]?\(0\)|0)[ -]?'
+            # landline or mobile
+            r'([23457][ -]?(\d[ -]?){6}\d|[689][ -]?(\d[ -]?){7}\d)'
+            # extension
+            r'([ ]?(x|ext|ต่อ)[\.]?[ ]?\d{1,5})?',
+            re.IGNORECASE,
+        )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)

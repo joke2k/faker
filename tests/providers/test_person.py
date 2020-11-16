@@ -21,6 +21,7 @@ from faker.providers.person.ru_RU import Provider as RuProvider
 from faker.providers.person.ru_RU import translit
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
+from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 
@@ -318,6 +319,40 @@ class TestCsCZ(unittest.TestCase):
                 last_name = name_parts[2]
         assert first_name in CsCZProvider.first_names_female
         assert last_name in CsCZProvider.last_names_female
+
+
+class TestThTh(unittest.TestCase):
+    """ Tests person in the th_TH locale """
+
+    def setUp(self):
+        self.fake = Faker('th_TH')
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in ThThProvider.first_names
+
+    def test_last_name(self):
+        # There's no gender-specific last name in Thai.
+        assert not hasattr(ThThProvider, 'last_names_male')
+        assert not hasattr(ThThProvider, 'last_names_female')
+        # All last names apply for all genders.
+        assert hasattr(ThThProvider, 'last_names')
+
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in ThThProvider.last_names
+
+    def test_name(self):
+        # Full name
+        name = self.fake.name()
+        assert name
+        self.assertIsInstance(name, str)
 
 
 class TestZhCN(unittest.TestCase):
