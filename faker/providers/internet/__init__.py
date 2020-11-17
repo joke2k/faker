@@ -103,7 +103,7 @@ class Provider(BaseProvider):
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
     image_placeholder_services = (
-        'https://www.lorempixel.com/{width}/{height}',
+        'https://picsum.photos/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
         'https://placekitten.com/{width}/{height}',
         'https://placeimg.com/{width}/{height}/any',
