@@ -7,8 +7,8 @@ class Provider(PersonProvider):
     # weights are arbitrarily assigned
     formats = OrderedDict((
         ("{{first_name}} {{last_name}}", 0.97),
-        ("{{prefix}} {{first_name}} {{last_name}}", 0.015),
-        ("{{prefix}} {{first_name}} {{last_name}} {{suffix}}", 0.02),
+        ("{{prefix}}{{first_name}} {{last_name}}", 0.015),
+        ("{{prefix}}{{first_name}} {{last_name}} {{suffix}}", 0.02),
         ("{{first_name}} {{last_name}} {{suffix}}", 0.005),
     ))
 
