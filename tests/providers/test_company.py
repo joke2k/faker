@@ -362,15 +362,33 @@ class TestThTh:
 
     def test_company_prefix(self, faker, num_samples):
         for _ in range(num_samples):
-            suffix = faker.company_prefix()
-            assert isinstance(suffix, str)
-            assert suffix in ThThCompanyProvider.company_prefixes
+            prefix = faker.company_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in ThThCompanyProvider.company_prefixes
 
     def test_company_suffix(self, faker, num_samples):
         for _ in range(num_samples):
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in ThThCompanyProvider.company_suffixes
+
+    def test_company_limited_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.company_limited_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in ThThCompanyProvider.company_limited_prefixes
+
+    def test_company_limited_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_limited_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ThThCompanyProvider.company_limited_suffixes
+
+    def test_nonprofit_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.nonprofit_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in ThThCompanyProvider.nonprofit_prefixes
 
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):
