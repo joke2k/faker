@@ -1421,6 +1421,24 @@ class TestThTh:
             assert isinstance(country, str)
             assert country in ThThAddressProvider.countries
 
+    def test_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in ThThAddressProvider.provinces
+
+    def test_amphoe(self, faker, num_samples):
+        for _ in range(num_samples):
+            amphoe = faker.amphoe()
+            assert isinstance(amphoe, str)
+            assert amphoe in ThThAddressProvider.amphoes
+
+    def test_tambon(self, faker, num_samples):
+        for _ in range(num_samples):
+            tambon = faker.tambon()
+            assert isinstance(tambon, str)
+            assert tambon in ThThAddressProvider.tambons
+
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
