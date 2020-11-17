@@ -163,6 +163,16 @@ class TestEsEs:
             assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)
 
 
+class TestThTh(_SimpleAutomotiveTestMixin):
+    """Test th_TH automotive provider methods"""
+    license_plate_pattern = re.compile(
+        r'(\d [ก-ฮ]{2} \d{1,4})|'  # car
+        r'([ก-ฮ]{2} \d{1,4})|'  # car
+        r'([ก-ฮ]{3} \d{1,3})|'  # motorcycle
+        r'(\d{2}-\d{4})',  # truck
+        )
+
+
 class TestTrTr(_SimpleAutomotiveTestMixin):
     """Test tr_TR automotive provider methods"""
     license_plate_pattern = re.compile(
