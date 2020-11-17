@@ -372,6 +372,11 @@ class TestThTh:
             assert isinstance(suffix, str)
             assert suffix in ThThCompanyProvider.company_suffixes
 
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
 
 class TestTrTr:
     """Test tr_TR company provider methods"""
