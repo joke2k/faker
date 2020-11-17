@@ -26,12 +26,14 @@ class Provider(AutomotiveProvider):
         "##-####",
     )
 
+    thai_consonants = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ"
+
     def license_plate(self):
         """Generate a license plate."""
-        thai_consonants = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ"
+
         temp = re.sub(
             r"\?",
-            lambda x: self.random_element(thai_consonants),
+            lambda x: self.random_element(self.thai_consonants),
             self.random_element(self.license_formats),
         )
         return self.numerify(temp)

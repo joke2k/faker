@@ -8,16 +8,21 @@ class Provider(AddressProvider):
     street_address_formats = ("{{building_number}} {{street_name}}",)
 
     address_formats = OrderedDict((
-        ("{{street_address}} {{tambon}} {{amphoe}} {{province}} {{postcode}}", 30),
-        ("{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 30),
-        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}", 30),
-        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 20),
-        ("{{street_address}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 20),
-        ("{{street_address}} อ.{{amphoe}} {{province}} {{postcode}}", 20),
-        ("{{street_address}} {{amphoe}} {{province}} {{postcode}}", 15),
+        ("{{street_address}} {{tambon}} {{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 40),
+        ("{{street_address}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 30),
+        ("{{street_address}} อ.{{amphoe}} {{province}} {{postcode}}", 30),
+        ("{{street_address}} {{amphoe}} {{province}} {{postcode}}", 30),
         ("{{street_address}} {{tambon}} {{province}} {{postcode}}", 15),
+        ("{{street_address}} {{amphoe}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} {{tambon}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} ต.{{tambon}} จ.{{province}} {{postcode}}", 15),
         ("{{street_address}} {{province}} {{postcode}}", 15),
         ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}}", 15),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}}", 15),
         ("{{building_number}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}", 10),
         ("{{building_number}} หมู่บ้าน{{first_name}} {{amphoe}} {{province}} {{postcode}}", 10),
     ))
@@ -250,6 +255,15 @@ class Provider(AddressProvider):
         "นาหินลาด",
     )
 
+    tambon_suffixes = OrderedDict((
+        ("", 30),
+        ("เหนือ", 3),
+        ("ใต้", 3),
+        ("ใหญ่", 2),
+        ("กลาง", 1),
+        ("เล็ก", 1),
+    ))
+
     def street_prefix(self):
         """
         :example 'ถนน'
@@ -276,4 +290,4 @@ class Provider(AddressProvider):
         Currently it's total random and not necessarily matched with an amphoe or province.
         :example 'ห้วยนาง'
         """
-        return self.random_element(self.tambons)
+        return self.random_element(self.tambons) + self.random_element(self.tambon_suffixes)

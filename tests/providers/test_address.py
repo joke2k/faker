@@ -1437,7 +1437,6 @@ class TestThTh:
         for _ in range(num_samples):
             tambon = faker.tambon()
             assert isinstance(tambon, str)
-            assert tambon in ThThAddressProvider.tambons
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
