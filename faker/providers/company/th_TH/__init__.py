@@ -24,9 +24,10 @@ class Provider(CompanyProvider):
     ))
 
     nonprofit_prefixes = OrderedDict((
-        ("สมาคม", 0.5),
+        ("สมาคม", 0.4),
         ("มูลนิธิ", 0.3),
         ("ชมรม", 0.2),
+        ("สหภาพแรงงาน", 0.1),
     ))
 
     company_suffixes = (
