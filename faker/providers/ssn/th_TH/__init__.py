@@ -27,7 +27,9 @@ class Provider(BaseProvider):
         birth_book = randint(1, 99999)
         birth_sheet = randint(1, 99)
 
-        digits = f"{category}{province:02}{amphoe:02}{birth_book:05}{birth_sheet:02}"
+        digits = "{:01d}{:02d}{:02d}{:05d}{:02d}".format(
+            category, province, amphoe, birth_book, birth_sheet
+        )
         checksum = (
             (int(digits[0]) * 13)
             + (int(digits[1]) * 12)
@@ -47,7 +49,9 @@ class Provider(BaseProvider):
         if checksum > 9:
             checksum = checksum - 10
 
-        nat_id = f"{category}-{province}{amphoe:02}-{birth_book:05}-{birth_sheet:02}-{checksum}"
+        nat_id = "{:01d}-{:02d}{:02d}-{:05d}-{:02d}-{:01d}".format(
+            category, province, amphoe, birth_book, birth_sheet, checksum
+        )
 
         return nat_id
 
