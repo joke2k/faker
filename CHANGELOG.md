@@ -1,5 +1,8 @@
 ## Changelog
 
+### [4.16.0 - 2020-11-17](https://github.com/joke2k/faker/compare/v4.15.0...v4.16.0)
+
+* Add SSN, company name, address, and license plate providers for ``th_TH``. Thanks @bact.
 ### [4.15.0 - 2020-11-16](https://github.com/joke2k/faker/compare/v4.14.2...v4.15.0)
 
 * Add postcode format, country names, person prefix weights, and update phone number format for ``th_TH``. Thanks @bact.
