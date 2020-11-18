@@ -706,7 +706,7 @@ class DatesOfBirth(unittest.TestCase):
 
 
 class TestFilPh(unittest.TestCase):
-    num_sample_runs = 1000
+    num_sample_runs = 50
 
     def setUp(self):
         self.setup_constants()
@@ -722,11 +722,11 @@ class TestFilPh(unittest.TestCase):
         self.month_names = Provider.MONTH_NAMES.values()
 
     def test_PH_of_week(self):
-        for i in range(self.num_sample_runs):
+        for _ in range(self.num_sample_runs):
             assert self.fake.day_of_week() in self.day_names
 
     def test_PH_month_name(self):
-        for i in range(self.num_sample_runs):
+        for _ in range(self.num_sample_runs):
             assert self.fake.month_name() in self.month_names
 
 
@@ -854,6 +854,45 @@ class TestSkSk(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in SkSkProvider.MONTH_NAMES.values()
+
+
+class TestThTh(unittest.TestCase):
+    num_sample_runs = 20
+
+    def setUp(self):
+        self.fake = Faker('th_TH')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day.startswith("วัน")
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+
+    def test_date(self):
+        # default format is "%-d %b %Y"
+        # (date with no padding, abbreviated month, full year [4 digits])
+        date = self.fake.date(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(
+                    r'[๐-๙]{1,2} '
+                    r'(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.) '
+                    r'[๐-๙]{4}',
+                    date,
+                )
+
+    def test_time(self):
+        time = self.fake.time(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(r'[๐-๙]{2}:[๐-๙]{2}:[๐-๙]{2}', time)
+
+    def test_century(self):
+        century = self.fake.century()
+        assert isinstance(century, str)
+        assert len(century) <= 2
 
 
 class TestTrTr(unittest.TestCase):
