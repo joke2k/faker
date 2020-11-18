@@ -63,8 +63,8 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
     """
     str_ = ""
     try:
-        str_ = dt_obj.strftime(f"%{fmt_char}")
-        if str_ == f"%{fmt_char}":
+        str_ = dt_obj.strftime("%{}".format(fmt_char))
+        if str_ == "%{}".format(fmt_char):
             # normalize outputs for unsupported directives
             # in different platforms
             # unsupported "%Q" in platform A may return "Q"
@@ -75,8 +75,8 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
         # in that case just use the fmt_char
         warnings.warn(
             (
-                f"String format directive unknown/not support: %{fmt_char}"
-                f"The system raises this ValueError: {err}"
+                "String format directive unknown/not support: %{}".format(fmt_char)
+                "The system raises this ValueError: {}".format(err)
             ),
             UserWarning,
         )
