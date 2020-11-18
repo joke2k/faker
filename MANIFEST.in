@@ -1,7 +1,7 @@
 include README.rst
 include LICENSE.txt
 include CONTRIBUTING.rst
-include CHANGELOG.rst
+include CHANGELOG.md
 include RELEASE_PROCESS.rst
 include VERSION
 recursive-include tests *.json

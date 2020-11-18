@@ -939,6 +939,20 @@ class TestFilPh(TestEnPh):
         Faker.seed(0)
 
 
+class TestThTH(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker('th_TH')
+        Faker.seed(0)
+
+    def test_ssn(self):
+        for _ in range(100):
+            assert re.search(r'^[1-8]-[1-9]\d{3}-\d{5}-\d{2}-\d$', self.fake.ssn())
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r'^[1-8]-[1-9]\d{3}-\d{5}-\d{2}-\d$', self.fake.vat_id())
+
+
 class TestTlPh(TestEnPh):
 
     def setup_faker(self):

@@ -39,8 +39,8 @@ jobs:
       - name: Update Changelog
         uses: "fcurella/gh-action-update-changelog@main"
         with:
-          changelogPath: "CHANGELOG.rst"
-          changelogLine : 4
+          changelogPath: "CHANGELOG.md"
+          changelogLine : 3
           currentVersion: ${{ steps.nextversion.outputs.currentVersion }}
           nextVersion: ${{ steps.nextversion.outputs.nextVersion }}
       - name: Bump version
