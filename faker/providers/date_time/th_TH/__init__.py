@@ -179,9 +179,6 @@ def _thai_strftime(
             year,
             dt_obj.strftime("%H:%M:%S"),
         )
-    else:
-        # No known localization available, use Python's default
-        str_ = _std_strftime(dt_obj, fmt_char)
 
     return str_
 

@@ -983,21 +983,27 @@ class TestThTh(unittest.TestCase):
 
         # GNU libc extension,
         # no padding
-        date = self.fake.date("%-d")
-        assert isinstance(date, str)
-        assert date[0] != "0"
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%-d")
+            assert isinstance(date, str)
+            assert date[0] != "0"
 
         # GNU libc extension,
         # explicitly specify space (" ") for padding
-        date = self.fake.date("%_d")
-        assert isinstance(date, str)
-        assert date[0] != "0"
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%_d")
+            assert isinstance(date, str)
+            assert date[0] != "0"
 
         # GNU libc extension,
         # explicitly specify zero ("0") for padding
-        date = self.fake.date("%0d")
-        assert isinstance(date, str)
-        assert date[0] != " "
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%0d")
+            assert isinstance(date, str)
+            assert date[0] != " "
+            date = self.fake.date("%0Y")
+            assert isinstance(date, str)
+            assert date[0] != " "
 
         # GNU libc extension,
         # convert to upper case
