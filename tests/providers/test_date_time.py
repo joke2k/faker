@@ -857,7 +857,7 @@ class TestSkSk(unittest.TestCase):
 
 
 class TestThTh(unittest.TestCase):
-    num_sample_runs = 20
+    num_sample_runs = 50
 
     def setUp(self):
         self.fake = Faker('th_TH')
@@ -898,13 +898,23 @@ class TestThTh(unittest.TestCase):
             assert re.fullmatch(r'[๑-๒]?[๐-๙]', century)
 
     def test_date_pattern(self):
-        # unsupport directive
+        # unsupported or incomplete directive
         date = self.fake.date("%Q")
         assert date == "Q"
         date = self.fake.date("%%")
         assert date == "%"
+        date = self.fake.date("%-")
+        assert date == "-"
+        date = self.fake.date("% ")
+        assert date == " "
+        date = self.fake.date("%0")
+        assert date == "0"
         date = self.fake.date("%")
         assert date == "%"
+
+        # may be not supported on Windows, try for coverage
+        date = self.fake.date("%s")
+        date = self.fake.date("%f")
 
         # National representation of the full weekday name
         date = self.fake.date("%A")
