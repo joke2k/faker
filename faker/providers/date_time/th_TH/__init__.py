@@ -337,12 +337,15 @@ class Provider(DateTimeProvider):
             thai_digit,
         )
 
-    def century(self, thai_digit: bool = False):
+    def century(self, thai_digit: bool = False, buddhist_era: bool = True):
         """
         :param thai_digit use Thai digit or not
         :example '20'
         """
-        text = str(self.random_element(range(1, 22)))
+        end_century = 22
+        if buddhist_era:
+            end_century = 26
+        text = str(self.random_element(range(1, end_century)))
         if thai_digit:
             text = text.translate(_HA_TH_DIGITS)
         return text
