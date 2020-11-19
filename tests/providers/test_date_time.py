@@ -893,6 +893,136 @@ class TestThTh(unittest.TestCase):
         century = self.fake.century()
         assert isinstance(century, str)
         assert len(century) <= 2
+        century = self.fake.century(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(r'[๑-๒]?[๐-๙]', century)
+
+    def test_date_pattern(self):
+        # unsupport directive
+        date = self.fake.date("%Q")
+        assert date == "Q"
+        date = self.fake.date("%%")
+        assert date == "%"
+        date = self.fake.date("%")
+        assert date == "%"
+
+        # National representation of the full weekday name
+        date = self.fake.date("%A")
+        assert isinstance(date, str)
+
+        # National representation of the abbreviated weekday
+        date = self.fake.date("%a")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # National representation of the full month name
+        date = self.fake.date("%B")
+        assert isinstance(date, str)
+        assert "." not in date
+
+        # National representation of the abbreviated month name
+        date = self.fake.date("%b")
+        assert isinstance(date, str)
+        assert "." in date
+
+        # Century as decimal number
+        date = self.fake.date("%C")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate date and time representation
+        # พ   6 ต.ค. 01:40:00 2519  <-- left-aligned weekday, right-aligned day
+        date = self.fake.date("%c")
+        assert isinstance(date, str)
+
+        # Equivalent to ``%m/%d/%y''
+        date = self.fake.date("%D")
+        assert isinstance(date, str)
+
+        # Equivalent to ``%Y-%m-%d''
+        date = self.fake.date("%F")
+        assert isinstance(date, str)
+
+        # ISO 8601 year with century representing the year that contains
+        # the greater part of the ISO week (%V). Monday as the first day
+        # of the week.
+        date = self.fake.date("%G")
+        assert isinstance(date, str)
+
+        # Same year as in ``%G'',
+        # but as a decimal number without century (00-99).
+        date = self.fake.date("%g")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # BSD extension, ' 6-ต.ค.-2519'
+        date = self.fake.date("%v")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate time representation.
+        date = self.fake.date("%X")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate date representation.
+        date = self.fake.date("%x")
+        assert isinstance(date, str)
+
+        # Year with century
+        date = self.fake.date("%Y")
+        assert isinstance(date, str)
+
+        # Year without century
+        date = self.fake.date("%y")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # National representation of the date and time
+        # (the format is similar to that produced by date(1))
+        # Wed  6 Oct 1976 01:40:00
+        date = self.fake.date("%+")
+        assert isinstance(date, str)
+
+        # GNU libc extension,
+        # no padding
+        date = self.fake.date("%-d")
+        assert isinstance(date, str)
+        assert date[0] != "0"
+
+        # GNU libc extension,
+        # explicitly specify space (" ") for padding
+        date = self.fake.date("%_d")
+        assert isinstance(date, str)
+        assert date[0] != "0"
+
+        # GNU libc extension,
+        # explicitly specify zero ("0") for padding
+        date = self.fake.date("%0d")
+        assert isinstance(date, str)
+        assert date[0] != " "
+
+        # GNU libc extension,
+        # convert to upper case
+        date = self.fake.date("%^p")
+        assert isinstance(date, str)
+        assert date.isupper()
+
+        # GNU libc extension,
+        # swap case - useful for %Z
+        date = self.fake.date("%#p")
+        assert isinstance(date, str)
+        assert date.islower()
+
+        # POSIX extension,
+        # uses the locale's alternative representation
+        # Not implemented yet
+        # swap case - useful for %Z
+        date = self.fake.date("%Ed")
+        assert isinstance(date, str)
+
+        # POSIX extension,
+        # uses the locale's alternative numeric symbols
+        date = self.fake.date("%Od")
+        assert isinstance(date, str)
+        assert date[0] not in "0123456789"
 
 
 class TestTrTr(unittest.TestCase):
