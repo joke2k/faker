@@ -70,7 +70,7 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
             # unsupported "%Q" in platform A may return "Q"
             # unsupported "%Q" in platform A may return "%Q"
             str_ = fmt_char
-    except ValueError as err:
+    except ValueError as err:  # pragma: no cover
         # Unsupported directives may raise ValueError on Windows,
         # in that case just use the fmt_char
         warnings.warn(
