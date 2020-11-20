@@ -1008,10 +1008,7 @@ class TestThTh(unittest.TestCase):
         # GNU libc extension,
         # explicitly specify zero ("0") for padding
         for _ in range(self.num_sample_runs):
-            date = self.fake.date("%0d")
-            assert isinstance(date, str)
-            assert date[0] != " "
-            date = self.fake.date("%0Y")
+            date = self.fake.date("%0v")
             assert isinstance(date, str)
             assert date[0] != " "
 
