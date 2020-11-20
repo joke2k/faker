@@ -304,8 +304,8 @@ class Provider(DateTimeProvider):
         Get a date string between January 1, 1970 and now
         :param pattern format
         :param end_datetime datetime
-        :param thai_digit use Thai digit or not
-        :param buddhist_era use Buddhist Era or not
+        :param thai_digit use Thai digit or not (default: False)
+        :param buddhist_era use Buddist era or not (default: True)
         :example '08 พ.ย. 2563'
         :example '๐๘ พ.ย. 2563' (thai_digit = True)
         :example '8 พฤศิจกายน 2020' (pattern = "%-d %B %Y", buddhist_era = False)
@@ -324,7 +324,7 @@ class Provider(DateTimeProvider):
         Get a time string (24h format by default)
         :param pattern format
         :param end_datetime datetime
-        :param thai_digit use Thai digit or not
+        :param thai_digit use Thai digit or not (default: False)
         :example '15:02:34'
         :example '๑๕:๐๒:๓๔' (thai_digit = True)
         """
@@ -336,7 +336,8 @@ class Provider(DateTimeProvider):
 
     def century(self, thai_digit: bool = False, buddhist_era: bool = True):
         """
-        :param thai_digit use Thai digit or not
+        :param thai_digit use Thai digit or not (default: False)
+        :param buddhist_era use Buddist era or not (default: True)
         :example '20'
         """
         end_century = 22

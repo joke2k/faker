@@ -12,6 +12,7 @@ from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
 from faker.providers.bank.no_NO import Provider as NoNoBankProvider
 from faker.providers.bank.pl_PL import Provider as PlPlBankProvider
 from faker.providers.bank.pt_PT import Provider as PtPtBankProvider
+from faker.providers.bank.th_TH import Provider as ThThBankProvider
 from faker.providers.bank.tr_TR import Provider as TrTrBankProvider
 
 
@@ -233,3 +234,18 @@ class TestFrCh(TestDeCh):
 class TestItCh(TestDeCh):
     """Test it_CH bank provider"""
     pass
+
+
+class TestThTh:
+    """Test th_TH bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"\d{10}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == ThThBankProvider.country_code
+            assert re.fullmatch(r"\d{2}\d{10}", iban[2:])
