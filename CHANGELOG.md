@@ -1,6 +1,9 @@
 ## Changelog
 
-### [4.17.0 + 2020-11-19](https://github.com/joke2k/faker/compare/v4.16.0...v4.17.0)
+### [4.17.1 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.17.0...v4.17.1)
+
+* Correct spelling errors in city names for ``de_DE``. Thanks @AnjaGer.
+### [4.17.0 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.16.0...v4.17.0)
 
 * Add name pairs to get matched representation in ``ja_JP`` person provider. Thanks @yu-ichiro.
 
