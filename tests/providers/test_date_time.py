@@ -314,6 +314,10 @@ class TestDateTime(unittest.TestCase):
         # test century
         assert self.fake.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
+        assert (
+            self.fake.date_time_this_century(before_now=False, after_now=False, tzinfo=utc).
+            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
+        )
         # test decade
         assert self.fake.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
@@ -329,6 +333,10 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).
             replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
+        assert (
+            self.fake.date_time_this_year(before_now=True, after_now=True, tzinfo=utc).
+            year == datetime.now(utc).year
+        )
         # test month
         assert self.fake.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
@@ -336,32 +344,56 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).
             replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
+        assert (
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
+            month == datetime.now(utc).month
+        ) and (
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
+            year == datetime.now(utc).year
+        )
 
     @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_this_period(self):
         # test century
+        assert (
+            self.fake.date_this_century(before_today=True, after_today=True).
+            strftime("%G")[:2] == datetime.now().strftime("%G")[:2]
+        )
         assert self.fake.date_this_century(after_today=False) <= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=True) >= date.today()
+        assert self.fake.date_this_century(before_today=False, after_today=False) == date.today()
         # test decade
+        assert (
+            self.fake.date_this_decade(before_today=True, after_today=True).
+            strftime("%G")[:3] == datetime.now().strftime("%G")[:3]
+        )
         assert self.fake.date_this_decade(after_today=False) <= date.today()
         assert self.fake.date_this_decade(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_decade(before_today=False, after_today=False)) == (
-            date.today()
+            self.fake.date_this_decade(before_today=False, after_today=False) == date.today()
         )
         # test year
+        assert (
+            self.fake.date_this_year(before_today=True, after_today=True).
+            year == datetime.now().year
+        )
         assert self.fake.date_this_year(after_today=False) <= date.today()
         assert self.fake.date_this_year(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_year(before_today=False, after_today=False)) == (
-            date.today()
+            self.fake.date_this_year(before_today=False, after_today=False) == date.today()
         )
         # test month
+        assert (
+            self.fake.date_this_month(before_today=True, after_today=True).
+            month == datetime.now().month
+        ) and (
+            self.fake.date_this_month(before_today=True, after_today=True).
+            year == datetime.now().year
+        )
         assert self.fake.date_this_month(after_today=False) <= date.today()
         assert self.fake.date_this_month(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_month(before_today=False, after_today=False)) == (
-            date.today()
+            self.fake.date_this_month(before_today=False, after_today=False) == date.today()
         )
 
     def test_date_time_between(self):
