@@ -402,7 +402,14 @@ class TestDateTime(unittest.TestCase):
         _20_years_ago = change_year(now, -20)
 
         random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y')
+        assert isinstance(random_datetime, datetime)
+        self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
+        now = datetime.now(tz=utc)
+        _30_years_ago = change_year(now, -30)
+        _20_years_ago = change_year(now, -20)
+
+        random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y', tzinfo=utc)
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
