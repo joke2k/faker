@@ -210,7 +210,7 @@ Where:
 
 Examples:
 
-.. code:: bash
+.. code:: console
 
     $ faker address
     968 Bahringer Garden Apt. 722
