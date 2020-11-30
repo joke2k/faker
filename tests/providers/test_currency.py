@@ -68,6 +68,28 @@ class TestCurrencyProvider:
             assert isinstance(name, str) and name in self.cryptocurrency_names
 
 
+class TestAr:
+    """Test Ar currency provider"""
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.ar_AA import Provider as ArCurrencyProvider
+        cls.provider = ArCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert isinstance(cur, tuple) and cur in self.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert isinstance(name, str) and name in self.currency_names
+
+
 class TestRuRu:
     """Test ru_RU currency provider"""
     num_samples = 100
