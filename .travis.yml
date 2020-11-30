@@ -6,7 +6,7 @@ branches:
   only:
     - master
 
-matrix:
+jobs:
   include:
     - env: TOXENV=flake8
     - env: TOXENV=checkmanifest
