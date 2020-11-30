@@ -666,3 +666,15 @@ class TestMiscProvider:
         with pytest.raises(TypeError) as excinfo:
             faker_with_foobar.fixed_width(**kwargs)
         assert str(excinfo.value) == 'Invalid arguments type. Must be a dictionary'
+
+    def test_md5(self, faker):
+        assert isinstance(faker.md5(), str)
+        assert isinstance(faker.md5(raw_output=True), bytes)
+
+    def test_sha1(self, faker):
+        assert isinstance(faker.sha1(), str)
+        assert isinstance(faker.sha1(raw_output=True), bytes)
+
+    def test_sha256(self, faker):
+        assert isinstance(faker.sha256(), str)
+        assert isinstance(faker.sha256(raw_output=True), bytes)
