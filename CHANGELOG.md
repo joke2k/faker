@@ -1,5 +1,9 @@
 ## Changelog
 
+### [4.18.0 - 2020-11-30](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
+
+* Add ``date_time`` and ``bank`` providers for ``th_TH``. Thanks @bact.
+
 ### [4.17.1 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.17.0...v4.17.1)
 
 * Correct spelling errors in city names for ``de_DE``. Thanks @AnjaGer.

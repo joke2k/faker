@@ -170,7 +170,7 @@ Command line usage
 
 When installed, you can invoke faker from the command-line:
 
-.. code:: bash
+.. code:: console
 
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
@@ -210,7 +210,7 @@ Where:
 
 Examples:
 
-.. code:: bash
+.. code:: console
 
     $ faker address
     968 Bahringer Garden Apt. 722
