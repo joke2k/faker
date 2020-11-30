@@ -22,8 +22,10 @@ def choices_distribution_unique(a, p, random=None, length=1):
     if random is None:
         random = mod_random
 
-    assert len(a) == len(p)
-    assert len(a) >= length, "You can't request more unique samples than elements in the dataset."
+    if len(a) != len(p):
+        raise AssertionError
+    if len(a) < length:
+        raise AssertionError("You can't request more unique samples than elements in the dataset.")
 
     choices = []
     items = list(a)
@@ -45,7 +47,8 @@ def choices_distribution(a, p, random=None, length=1):
     if random is None:
         random = mod_random
 
-    assert len(a) == len(p)
+    if len(a) != len(p):
+        raise AssertionError
 
     if hasattr(random, 'choices'):
         choices = random.choices(a, weights=p, k=length)

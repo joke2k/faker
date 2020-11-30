@@ -44,7 +44,8 @@ class Faker:
                     locales.append(final_locale)
 
         elif isinstance(locale, OrderedDict):
-            assert all(isinstance(v, (int, float)) for v in locale.values())
+            if not all(isinstance(v, (int, float)) for v in locale.values()):
+                raise AssertionError
             odict = OrderedDict()
             for k, v in locale.items():
                 key = k.replace('-', '_')

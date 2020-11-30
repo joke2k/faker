@@ -38,8 +38,9 @@ class Provider(BaseProvider):
         if min_chars is None:
             return "".join(self.random_letters(length=max_chars))
         else:
-            assert (
-                max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
+            if (
+                max_chars < min_chars):
+                raise AssertionError("Maximum length must be greater than or equal to minium length")
             return "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),

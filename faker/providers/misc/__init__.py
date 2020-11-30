@@ -140,8 +140,9 @@ class Provider(BaseProvider):
                 self.generator.random.choice(string.ascii_lowercase))
             choices += string.ascii_lowercase
 
-        assert len(
-            required_tokens) <= length, "Required length is shorter than required characters"
+        if len(
+            required_tokens) > length:
+            raise AssertionError("Required length is shorter than required characters")
 
         # Generate a first version of the password
         chars = self.random_choices(choices, length=length)
