@@ -1,6 +1,6 @@
 ## Changelog
 
-### [4.18.0 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
+### [4.18.0 - 2020-11-30](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
 
 * Add ``date_time`` and ``bank`` providers for ``th_TH``. Thanks @bact.
 
