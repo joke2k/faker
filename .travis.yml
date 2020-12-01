@@ -19,7 +19,7 @@ jobs:
       env: TOXENV=py38
     - python: 3.9
       env: TOXENV=py39
-    - python: pypy3.5-6.0
+    - python: pypy3
       env: TOXENV=pypy3
     - python: 3.7
       env: TOXENV=32bit TEST_32BIT=1
