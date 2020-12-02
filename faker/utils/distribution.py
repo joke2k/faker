@@ -1,22 +1,30 @@
 import bisect
 
+from random import Random
+from typing import Generator, Iterable, List, Optional, TypeVar
+
 from faker.generator import random as mod_random
 
 
-def random_sample(random=None):
+def random_sample(random: Optional[Random] = None) -> float:
     if random is None:
         random = mod_random
     return random.uniform(0.0, 1.0)
 
 
-def cumsum(it):
-    total = 0
+def cumsum(it: Iterable[float]) -> Generator[float, None, None]:
+    total: float = 0
     for x in it:
         total += x
         yield total
 
 
-def choices_distribution_unique(a, p, random=None, length=1):
+T = TypeVar('T')
+
+
+def choices_distribution_unique(
+        a: List[T], p: List[float], random: Optional[Random] = None, length: int = 1,
+) -> List[T]:
     # As of Python 3.7, there isn't a way to sample unique elements that takes
     # weight into account.
     if random is None:
@@ -41,7 +49,7 @@ def choices_distribution_unique(a, p, random=None, length=1):
     return choices
 
 
-def choices_distribution(a, p, random=None, length=1):
+def choices_distribution(a: List[T], p: List[float], random: Optional[Random] = None, length: int = 1) -> List[T]:
     if random is None:
         random = mod_random
 
