@@ -1,5 +1,6 @@
 # https://ci.appveyor.com/project/joke2k/faker
 build: false
+image: Visual Studio 2019
 
 environment:
   matrix:
