@@ -88,7 +88,8 @@ class TestAr:
     def test_currency_name(self, faker, num_samples):
         for _ in range(num_samples):
             name = faker.currency_name()
-            assert isinstance(name, str) and name in self.currency_names
+            assert isinstance(name, str)
+            assert name in self.currency_names
 
 
 class TestRuRu:
