@@ -82,7 +82,8 @@ class TestAr:
     def test_currency(self, faker, num_samples):
         for _ in range(num_samples):
             cur = faker.currency()
-            assert isinstance(cur, tuple) and cur in self.currencies
+            assert isinstance(cur, tuple)
+            assert cur in self.currencies
 
     def test_currency_name(self, faker, num_samples):
         for _ in range(num_samples):
