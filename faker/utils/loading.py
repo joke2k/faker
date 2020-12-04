@@ -3,9 +3,11 @@ import pkgutil
 import sys
 
 from importlib import import_module
+from types import ModuleType
+from typing import List, Set
 
 
-def get_path(module):
+def get_path(module: ModuleType) -> str:
     if getattr(sys, 'frozen', False):
         # frozen
 
@@ -17,7 +19,7 @@ def get_path(module):
             base_dir = os.path.dirname(sys.executable)
             lib_dir = os.path.join(base_dir, "lib")
 
-        module_to_rel_path = os.path.join(*module.__package__.split("."))
+        module_to_rel_path = os.path.join(*module.__package__.split(".")) if module.__package__ else ''
         path = os.path.join(lib_dir, module_to_rel_path)
     else:
         # unfrozen
@@ -25,7 +27,7 @@ def get_path(module):
     return path
 
 
-def list_module(module):
+def list_module(module: ModuleType) -> List[str]:
     path = get_path(module)
 
     if getattr(sys, '_MEIPASS', False):
@@ -37,8 +39,8 @@ def list_module(module):
         return [name for _, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
 
 
-def find_available_locales(providers):
-    available_locales = set()
+def find_available_locales(providers: List[str]) -> List[str]:
+    available_locales: Set[str] = set()
 
     for provider_path in providers:
 
@@ -46,16 +48,17 @@ def find_available_locales(providers):
         if getattr(provider_module, 'localized', False):
             langs = list_module(provider_module)
             available_locales.update(langs)
-    available_locales = sorted(available_locales)
+    available_locales: List[str] = sorted(available_locales)
     return available_locales
 
 
-def find_available_providers(modules):
+def find_available_providers(modules: List[ModuleType]) -> List[str]:
     available_providers = set()
     for providers_mod in modules:
-        providers = [
-            '.'.join([providers_mod.__package__, mod])
-            for mod in list_module(providers_mod) if mod != '__pycache__'
-        ]
-        available_providers.update(providers)
+        if providers_mod.__package__:
+            providers = [
+                '.'.join([providers_mod.__package__, mod])
+                for mod in list_module(providers_mod) if mod != '__pycache__'
+            ]
+            available_providers.update(providers)
     return sorted(available_providers)
