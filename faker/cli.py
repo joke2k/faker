@@ -4,6 +4,8 @@ import os
 import random
 import sys
 
+from pathlib import Path
+
 from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
@@ -112,7 +114,7 @@ class Command:
 
     def __init__(self, argv=None):
         self.argv = argv or sys.argv[:]
-        self.prog_name = os.path.basename(self.argv[0])
+        self.prog_name = Path(self.argv[0]).name
 
     def execute(self):
         """
