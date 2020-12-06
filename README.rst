@@ -22,8 +22,8 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
 Compatibility
 -------------
 
-Starting from version ``5.0.0``, ``Faker`` dropped support for Python 2 and only supports Python
-3.6 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
+Starting from version ``4.0.0``, ``Faker`` dropped support for Python 2 and only supports Python
+3.5 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
 meantime, and please consider updating your codebase to support Python 3 so you can enjoy the
 latest features ``Faker`` has to offer. Please see the `extended docs`_ for more details, especially
 if you are upgrading from version ``2.0.4`` and below as there might be breaking changes.
