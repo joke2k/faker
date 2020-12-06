@@ -64,11 +64,10 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
     str_ = ""
     try:
         str_ = dt_obj.strftime("%{}".format(fmt_char))
-        if str_ == "%{}".format(fmt_char):
+        if not str_ or str_ == "%{}".format(fmt_char):
             # normalize outputs for unsupported directives
             # in different platforms
-            # unsupported "%Q" in platform A may return "Q"
-            # unsupported "%Q" in platform A may return "%Q"
+            # "%Q" may result "%Q", "Q", or "", make it "Q"
             str_ = fmt_char
     except ValueError as err:  # pragma: no cover
         # Unsupported directives may raise ValueError on Windows,
