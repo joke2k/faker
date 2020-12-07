@@ -13,6 +13,7 @@ global-exclude *.py[cod] __pycache__ *.so
 exclude Makefile tox.ini .coveragerc .bumpversion.cfg .dockerignore .isort.cfg
 exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
 exclude appveyor.yml readthedocs.yml
+exclude build-alpine.sh
 exclude build32bit.sh
 prune docs
 prune .circleci

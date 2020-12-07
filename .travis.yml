@@ -23,6 +23,8 @@ jobs:
       env: TOXENV=pypy3
     - python: 3.7
       env: TOXENV=32bit TEST_32BIT=1
+    - python: 3.7
+      env: TOXENV=alpine TEST_ALPINE=1
 
 install:
   - pip install tox
