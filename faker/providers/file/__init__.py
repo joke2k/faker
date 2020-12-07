@@ -233,7 +233,7 @@ class Provider(BaseProvider):
         """
         extension = extension if extension else self.file_extension(category)
         filename = self.generator.word()
-        return '{}.{}'.format(filename, extension)
+        return f'{filename}.{extension}'
 
     def file_extension(self, category=None):
         """Generate a file extension under the specified ``category``.
@@ -262,9 +262,9 @@ class Provider(BaseProvider):
         :sample: depth=5, category='video', extension='abcdef'
         """
         file = self.file_name(category, extension)
-        path = "/{}".format(file)
+        path = f'/{file}'
         for _ in range(0, depth):
-            path = "/{}{}".format(self.generator.word(), path)
+            path = f'/{self.generator.word()}{path}'
         return path
 
     def unix_device(self, prefix=None):

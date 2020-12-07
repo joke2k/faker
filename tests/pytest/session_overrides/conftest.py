@@ -4,9 +4,9 @@ import pytest
 
 EXCLUSIVE_SESSION_FLAG = '--exclusive-faker-session'
 SKIP_REASON = (
-    'This test is skipped by default since it depends on changes in the behavior of session-scoped fixtures. '
-    'Use a separate pytest run for tests like this with the "{flag}" flag specified.'
-).format(flag=EXCLUSIVE_SESSION_FLAG)
+    f'This test is skipped by default since it depends on changes in the behavior of session-scoped fixtures. '
+    f'Use a separate pytest run for tests like this with the "{EXCLUSIVE_SESSION_FLAG}" flag specified.'
+)
 
 
 def pytest_addoption(parser):

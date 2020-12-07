@@ -26,7 +26,7 @@ class Provider(BaseProvider):
         # The group number must be between 70 and 99 inclusively but not 89 or 93
         group = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
 
-        itin = "{:03d}-{:02d}-{:04d}".format(area, group, serial)
+        itin = f'{area:03d}-{group:02d}-{serial:04d}'
         return itin
 
     def ein(self):
@@ -133,7 +133,7 @@ class Provider(BaseProvider):
         ein_prefix = self.random_element(ein_prefix_choices)
         sequence = self.random_int(min=0, max=9999999)
 
-        ein = "{:s}-{:07d}".format(ein_prefix, sequence)
+        ein = f'{ein_prefix:s}-{sequence:07d}'
         return ein
 
     def invalid_ssn(self):
@@ -195,7 +195,7 @@ class Provider(BaseProvider):
             group = self.random_element([x for x in range(0, 100) if x not in itin_group_numbers])
             serial = self.random_int(0, 9999)
 
-        invalid_ssn = "{:03d}-{:02d}-{:04d}".format(area, group, serial)
+        invalid_ssn = f'{area:03d}-{group:02d}-{serial:04d}'
         return invalid_ssn
 
     def ssn(self, taxpayer_identification_number_type=SSN_TYPE):
@@ -223,7 +223,7 @@ class Provider(BaseProvider):
             group = self.random_int(1, 99)
             serial = self.random_int(1, 9999)
 
-            ssn = "{:03d}-{:02d}-{:04d}".format(area, group, serial)
+            ssn = f'{area:03d}-{group:02d}-{serial:04d}'
             return ssn
 
         else:

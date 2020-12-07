@@ -721,10 +721,8 @@ class Provider(PersonProvider):
         if date_of_birth is None:
             date_of_birth = self.generator.date_of_birth()
 
-        pesel_date = '{year}{month:02d}{day:02d}'.format(
-            year=date_of_birth.year, day=date_of_birth.day,
-            month=date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20)
-        pesel_date = pesel_date[2:]
+        month = date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20
+        pesel_date = f'{date_of_birth:%y}{month:02d}{date_of_birth:%d}'
 
         pesel_core = ''.join(map(str, (self.random_digit() for _ in range(3))))
         pesel_sex = self.random_digit()
@@ -732,7 +730,7 @@ class Provider(PersonProvider):
         if (sex == 'M' and pesel_sex % 2 == 0) or (sex == 'F' and pesel_sex % 2 == 1):
             pesel_sex = (pesel_sex + 1) % 10
 
-        pesel = '{date}{core}{sex}'.format(date=pesel_date, core=pesel_core, sex=pesel_sex)
+        pesel = f'{pesel_date}{pesel_core}{pesel_sex}'
         pesel += str(self.pesel_compute_check_digit(pesel))
 
         return pesel
@@ -755,7 +753,7 @@ class Provider(PersonProvider):
             core[-1] = (core[-1] + 1) % 10
             check_digit = self.pwz_doctor_compute_check_digit(core)
 
-        return '{}{}'.format(check_digit, ''.join(map(str, core)))
+        return f'{check_digit}{"".join(map(str, core))}'
 
     def pwz_nurse(self, kind='nurse'):
         """
@@ -771,7 +769,7 @@ class Provider(PersonProvider):
         core = [self.random_digit() for _ in range(5)]
         kind_char = 'A' if kind == 'midwife' else 'P'
 
-        return '{:02d}{}{}'.format(region, ''.join(map(str, core)), kind_char)
+        return f'{region:02d}{"".join(map(str, core))}{kind_char}'
 
     tax_office_codes = (
         '101', '102', '103', '104', '105', '106', '107', '108', '109', '111', '112', '113', '114', '115', '116', '117',

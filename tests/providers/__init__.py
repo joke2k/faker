@@ -13,7 +13,7 @@ class TestBaseProvider:
 
     def test_locale(self, faker, num_samples):
         locales = [
-            '{}_{}'.format(language, region)
+            f'{language}_{region}'
             for language, regions in BaseProvider.language_locale_codes.items()
             for region in regions
         ]
@@ -218,7 +218,7 @@ class TestBaseProvider:
         for _ in range(num_samples):
             res = faker.randomize_nb_elements(number=number, le=True)
             assert res >= lower_bound
-            assert res <= number, "'{}' is not <= than '{}'".format(res, number)
+            assert res <= number, f'{res!r} is not <= than {number!r}'
 
         for _ in range(num_samples):
             res = faker.randomize_nb_elements(number=number, ge=True)

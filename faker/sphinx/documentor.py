@@ -44,13 +44,13 @@ def _get_localized_provider_info(locale):
     info = []
     for provider_name in STANDARD_PROVIDER_NAMES:
         try:
-            locale_module_path = '{}.{}'.format(provider_name, locale)
+            locale_module_path = f'{provider_name}.{locale}'
             locale_module = importlib.import_module(locale_module_path)
             provider = getattr(locale_module, 'Provider')
         except (ModuleNotFoundError, AttributeError):
             continue
         else:
-            provider_class = '{}.Provider'.format(provider.__module__)
+            provider_class = f'{provider.__module__}.Provider'
             info.append((provider_class, provider_name))
     return info
 
@@ -69,7 +69,7 @@ def _write_title(fh, title, level=1):
     if level <= 2:
         _write(fh, SECTION_ADORNMENTS[level - 1] * len(title))
         _write(fh, '\n')
-    _write(fh, '{}\n'.format(title))
+    _write(fh, f'{title}\n')
     _write(fh, SECTION_ADORNMENTS[level - 1] * len(title))
     _write(fh, '\n\n')
 
@@ -87,7 +87,7 @@ def _write_standard_provider_index():
         _write(fh, '   :maxdepth: 2\n\n')
         _write(fh, '   providers/baseprovider\n')
         for provider_name in STANDARD_PROVIDER_NAMES:
-            _write(fh, '   providers/{}\n'.format(provider_name))
+            _write(fh, f'   providers/{provider_name}\n')
 
 
 def _write_base_provider_docs():
@@ -103,11 +103,11 @@ def _write_base_provider_docs():
 
 def _write_standard_provider_docs():
     for provider_name in STANDARD_PROVIDER_NAMES:
-        with (DOCS_ROOT / 'providers' / '{}.rst'.format(provider_name)) as fh:
-            provider_class = '{}.Provider'.format(provider_name)
+        with (DOCS_ROOT / 'providers' / f'{provider_name}.rst') as fh:
+            provider_class = f'{provider_name}.Provider'
             provider_methods = _get_provider_methods(provider_class)
             _hide_edit_on_github(fh)
-            _write_title(fh, '``{}``'.format(provider_name))
+            _write_title(fh, f'``{provider_name}``')
             _write_includes(fh)
             _write(fh, PROVIDER_AUTODOC_TEMPLATE.format(
                 provider_class=provider_class,
@@ -122,7 +122,7 @@ def _write_localized_provider_index():
         _write(fh, '.. toctree::\n')
         _write(fh, '   :maxdepth: 2\n\n')
         for locale in AVAILABLE_LOCALES:
-            _write(fh, '   locales/{}\n'.format(locale))
+            _write(fh, f'   locales/{locale}\n')
 
 
 def _write_localized_provider_docs():
@@ -130,11 +130,11 @@ def _write_localized_provider_docs():
         info = _get_localized_provider_info(locale)
         with (DOCS_ROOT / 'locales' / '{}.rst'.format(locale)).open('wb') as fh:
             _hide_edit_on_github(fh)
-            _write_title(fh, 'Locale {}'.format(locale))
+            _write_title(fh, f'Locale {locale}')
             _write_includes(fh)
             for provider_class, standard_provider_name in info:
                 provider_methods = _get_provider_methods(provider_class)
-                _write_title(fh, '``{}``'.format(standard_provider_name), level=2)
+                _write_title(fh, f'``{standard_provider_name}``', level=2)
                 _write(fh, PROVIDER_AUTODOC_TEMPLATE.format(
                     provider_class=provider_class,
                     provider_methods=provider_methods,

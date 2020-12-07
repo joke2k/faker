@@ -72,8 +72,8 @@ def provider_class(request):
         _provider_class = request.cls.get_provider_class()
         if isinstance(_provider_class, type):
             return _provider_class
-    raise NotImplementedError("Using the provider_class requires {}.get_provider_class() to be present, which has to "
-                              "return the Provider class it uses.".format(request.cls.__name__))
+    raise NotImplementedError(f'Using the provider_class requires {request.cls.__name__}.get_provider_class() '
+                              'to be present, which has to return the Provider class it uses.')
 
 
 @pytest.fixture()
@@ -90,10 +90,9 @@ class _LocaleCommonMixin:
         for prefix in prefixes:
             if all(a == b for a, b in zip(barcode_digits, map(int, prefix))):
                 return
-        raise AssertionError("{} doesn't match any of the prefixes: {}".format(
-            ''.join(map(str, barcode_digits)),
-            ', '.join(map(lambda _prefix: ''.join(map(str, _prefix)), prefixes)),
-        ))
+        str_barc = ''.join(str(x) for x in barcode_digits)
+        str_pref = ', '.join(map(lambda _prefix: ''.join(str(x) for x in _prefix)), prefixes)
+        raise AssertionError(f"{str_barc} doesn't match any of the prefixes: {str_pref}")
 
     def test_localized_ean(self, faker, num_samples, provider):
         for _ in range(num_samples):
@@ -167,7 +166,7 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
         # so we do not have to wait for RNG to produce the right combinations.
         for _ in range(100):
             # Be aware that there are other unsafe combinations
-            unsafe_base = '{:02}000{}'.format(faker.random_int(0, 99), faker.random_int(3, 4))
+            unsafe_base = f'{faker.random_int(0, 99):02}000{faker.random_int(3, 4)}'
             safe_base = unsafe_base[:2] + '0000'
             number_system_digit = faker.random_int(0, 1)
 

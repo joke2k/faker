@@ -37,12 +37,12 @@ class TestGenerator:
     def test_get_formatter_with_unknown_formatter(self, generator):
         with pytest.raises(AttributeError) as excinfo:
             generator.get_formatter('barFormatter')
-        assert str(excinfo.value) == 'Unknown formatter "barFormatter"'
+        assert str(excinfo.value) == "Unknown formatter 'barFormatter'"
 
         fake = Faker('it_IT')
         with pytest.raises(AttributeError) as excinfo:
             fake.get_formatter('barFormatter')
-        assert str(excinfo.value) == 'Unknown formatter "barFormatter" with locale "it_IT"'
+        assert str(excinfo.value) == "Unknown formatter 'barFormatter' with locale 'it_IT'"
 
     def test_format_calls_formatter_on_provider(self, generator):
         assert generator.format('foo_formatter') == 'foobar'
@@ -95,12 +95,12 @@ class TestGenerator:
     def test_parse_with_unknown_arguments_group(self, generator):
         with pytest.raises(AttributeError) as excinfo:
             generator.parse('This is "{{foo_formatter_with_arguments:unknown}}"')
-        assert str(excinfo.value) == 'Unknown argument group "unknown"'
+        assert str(excinfo.value) == "Unknown argument group 'unknown'"
 
     def test_parse_with_unknown_formatter_token(self, generator):
         with pytest.raises(AttributeError) as excinfo:
             generator.parse('{{barFormatter}}')
-        assert str(excinfo.value) == 'Unknown formatter "barFormatter"'
+        assert str(excinfo.value) == "Unknown formatter 'barFormatter'"
 
     def test_magic_call_calls_format(self, generator):
         assert generator.foo_formatter() == 'foobar'

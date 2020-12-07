@@ -1497,7 +1497,7 @@ class Provider(BaseProvider):
     def _parse_date_string(cls, value):
         parts = cls.regex.match(value)
         if not parts:
-            raise ParseError("Can't parse date string `{}`.".format(value))
+            raise ParseError(f"Can't parse date string `{value}`")
         parts = parts.groupdict()
         time_params = {}
         for (name_, param_) in parts.items():
@@ -1514,7 +1514,7 @@ class Provider(BaseProvider):
             time_params['days'] += 30.42 * time_params.pop('months')
 
         if not time_params:
-            raise ParseError("Can't parse date string `{}`.".format(value))
+            raise ParseError(f"Can't parse date string `{value}`")
         return time_params
 
     @classmethod
@@ -1526,7 +1526,7 @@ class Provider(BaseProvider):
             return timedelta(**time_params).total_seconds()
         if isinstance(value, (int, float)):
             return value
-        raise ParseError("Invalid format for timedelta '{}'".format(value))
+        raise ParseError(f"Invalid format for timedelta {value!r}")
 
     @classmethod
     def _parse_date_time(cls, value, tzinfo=None):
@@ -1542,7 +1542,7 @@ class Provider(BaseProvider):
             return datetime_to_timestamp(now + timedelta(**time_params))
         if isinstance(value, int):
             return datetime_to_timestamp(now + timedelta(value))
-        raise ParseError("Invalid format for date '{}'".format(value))
+        raise ParseError(f"Invalid format for date {value!r}")
 
     @classmethod
     def _parse_date(cls, value):
@@ -1560,7 +1560,7 @@ class Provider(BaseProvider):
             return today + timedelta(**time_params)
         if isinstance(value, int):
             return today + timedelta(value)
-        raise ParseError("Invalid format for date '{}'".format(value))
+        raise ParseError(f"Invalid format for date {value!r}")
 
     def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
         """
@@ -1946,8 +1946,7 @@ class Provider(BaseProvider):
             def distrib(dt): return self.generator.random.uniform(0, precision)  # noqa
 
         if not callable(distrib):
-            raise ValueError(
-                "`distrib` must be a callable. Got {} instead.".format(distrib))
+            raise ValueError(f"`distrib` must be a callable. Got {distrib} instead.")
 
         datapoint = start_date
         while datapoint < end_date:

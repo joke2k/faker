@@ -168,16 +168,11 @@ class Provider(BaseProvider):
 
     def hex_color(self):
         """Generate a color formatted as a hex triplet."""
-        return "#{}".format(
-            ("%x" %
-             self.random_int(
-                 1, 16777215)).ljust(
-                6, '0'))
+        return f'#{self.random_int(1, 16777215):06x}'
 
     def safe_hex_color(self):
         """Generate a web-safe color formatted as a hex triplet."""
-        color = ("%x" % self.random_int(0, 255)).ljust(3, '0')
-        return "#{0}{0}{1}{1}{2}{2}".format(*color)
+        return f'#{self.random_int(0, 15) * 17:02x}{self.random_int(0, 15) * 17:02x}{self.random_int(0, 15) * 17:02x}'
 
     def rgb_color(self):
         """Generate a color formatted as a comma-separated RGB value."""
@@ -185,8 +180,7 @@ class Provider(BaseProvider):
 
     def rgb_css_color(self):
         """Generate a color formatted as a CSS rgb() function."""
-        return 'rgb(%s)' % ','.join(
-            map(str, (self.random_int(0, 255) for _ in range(3))))
+        return f'rgb({self.random_int(0, 255)},{self.random_int(0, 255)},{self.random_int(0, 255)})'
 
     def color(self, hue=None, luminosity=None, color_format='hex'):
         """Generate a color in a human-friendly way.
