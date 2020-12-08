@@ -7,10 +7,12 @@ import sys
 from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
+from typing import Dict, Optional, TextIO, List, Any
+
 __author__ = 'joke2k'
 
 
-def print_provider(doc, provider, formatters, excludes=None, output=None):
+def print_provider(doc, provider: List[str], formatters: Dict[str, Any], excludes=None, output: Optional[TextIO]=None) -> None:
     output = output or sys.stdout
     if excludes is None:
         excludes = []
@@ -48,8 +50,8 @@ def print_provider(doc, provider, formatters, excludes=None, output=None):
 
 
 def print_doc(provider_or_field=None,
-              args=None, lang=DEFAULT_LOCALE, output=None, seed=None,
-              includes=None):
+              args=None, lang: str=DEFAULT_LOCALE, output=None, seed=None,
+              includes=None) -> None:
     args = args or []
     output = output or sys.stdout
     fake = Faker(locale=lang, includes=includes)
@@ -110,11 +112,11 @@ def print_doc(provider_or_field=None,
 
 class Command:
 
-    def __init__(self, argv=None):
+    def __init__(self, argv=None) -> None:
         self.argv = argv or sys.argv[:]
         self.prog_name = os.path.basename(self.argv[0])
 
-    def execute(self):
+    def execute(self) -> None:
         """
         Given the command-line arguments, this creates a parser appropriate
         to that command, and runs it.
@@ -254,7 +256,7 @@ examples:
                 break
 
 
-def execute_from_command_line(argv=None):
+def execute_from_command_line(argv=None) -> None:
     """A simple method that runs a Command."""
     if sys.stdout.encoding is None:
         print('please set python env PYTHONIOENCODING=UTF-8, example: '
