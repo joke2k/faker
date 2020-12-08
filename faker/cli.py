@@ -12,7 +12,12 @@ from typing import Dict, Optional, TextIO, List, Any
 __author__ = 'joke2k'
 
 
-def print_provider(doc, provider: List[str], formatters: Dict[str, Any], excludes=None, output: Optional[TextIO]=None) -> None:
+def print_provider(doc,
+                   provider: List[str],
+                   formatters: Dict[str, Any],
+                   excludes=None,
+                   output: Optional[TextIO] = None) -> None:
+
     output = output or sys.stdout
     if excludes is None:
         excludes = []
@@ -50,7 +55,7 @@ def print_provider(doc, provider: List[str], formatters: Dict[str, Any], exclude
 
 
 def print_doc(provider_or_field=None,
-              args=None, lang: str=DEFAULT_LOCALE, output=None, seed=None,
+              args=None, lang: str = DEFAULT_LOCALE, output=None, seed=None,
               includes=None) -> None:
     args = args or []
     output = output or sys.stdout
@@ -266,4 +271,3 @@ def execute_from_command_line(argv=None) -> None:
 
     command = Command(argv)
     command.execute()
-    
