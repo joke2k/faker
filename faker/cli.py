@@ -4,10 +4,10 @@ import os
 import random
 import sys
 
+from typing import Any, Dict, List, Optional, TextIO
+
 from faker import VERSION, Faker, documentor
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
-
-from typing import Dict, Optional, TextIO, List, Any
 
 __author__ = 'joke2k'
 
