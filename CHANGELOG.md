@@ -1,4 +1,5 @@
 ## Changelog
+
 ### [5.0.1 - 2020-12-07](https://github.com/joke2k/faker/compare/v5.0.0...v5.0.1)
 
 * ``th_TH`` ``strftime``: normalize output for unsupported directive on ``musl``-based Linux. Thanks @bact.
