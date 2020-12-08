@@ -4,6 +4,7 @@ import os
 import random
 import sys
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional, TextIO
 
 from faker import VERSION, Faker, documentor
@@ -119,7 +120,7 @@ class Command:
 
     def __init__(self, argv=None) -> None:
         self.argv = argv or sys.argv[:]
-        self.prog_name = os.path.basename(self.argv[0])
+        self.prog_name = Path(self.argv[0]).name
 
     def execute(self) -> None:
         """
