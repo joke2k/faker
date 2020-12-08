@@ -1,8 +1,8 @@
-import os
 import pkgutil
 import sys
 
 from importlib import import_module
+from pathlib import Path
 from types import ModuleType
 from typing import List, Set
 
@@ -13,17 +13,15 @@ def get_path(module: ModuleType) -> str:
 
         if getattr(sys, '_MEIPASS', False):
             # PyInstaller
-            lib_dir = getattr(sys, '_MEIPASS')
+            lib_dir = Path(getattr(sys, '_MEIPASS'))
         else:
             # others
-            base_dir = os.path.dirname(sys.executable)
-            lib_dir = os.path.join(base_dir, "lib")
+            lib_dir = Path(sys.executable).parent / 'lib'
 
-        module_to_rel_path = os.path.join(*module.__package__.split(".")) if module.__package__ else ''
-        path = os.path.join(lib_dir, module_to_rel_path)
+        path = lib_dir.joinpath(*module.__package__.split("."))
     else:
         # unfrozen
-        path = os.path.dirname(os.path.realpath(module.__file__))
+        path = Path(module.__file__).parent
     return path
 
 
@@ -32,9 +30,7 @@ def list_module(module: ModuleType) -> List[str]:
 
     if getattr(sys, '_MEIPASS', False):
         # PyInstaller
-        return [name for name in os.listdir(path)
-                if os.path.isdir(os.path.join(path, name)) and
-                "__init__.py" in os.listdir(os.path.join(path, name))]
+        return [file.parent.name for file in Path(path).glob('*/__init__.py')]
     else:
         return [name for _, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
 
