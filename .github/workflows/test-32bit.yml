@@ -1,6 +1,6 @@
 name: Python Test 32 bit
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test:
