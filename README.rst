@@ -438,8 +438,8 @@ Credits
     :target: https://coveralls.io/r/joke2k/faker?branch=master
     :alt: Test coverage
 
-.. |unix_build| image:: https://img.shields.io/travis/joke2k/faker/master.svg?style=flat-square&label=unix%20build
-    :target: http://travis-ci.org/joke2k/faker
+.. |unix_build| image:: https://github.com/joke2k/faker/workflows/Python%20Tests/badge.svg
+    :target: https://github.com/joke2k/faker/actions?query=workflow%3A%22Python+Tests%22
     :alt: Build status of the master branch on Mac/Linux
 
 .. |windows_build|  image:: https://img.shields.io/appveyor/ci/joke2k/faker/master.svg?style=flat-square&label=windows%20build
