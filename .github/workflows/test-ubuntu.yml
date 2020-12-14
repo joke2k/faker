@@ -3,7 +3,7 @@ name: Python Tests
 on: [push, pull_request]
 
 jobs:
-  test:
+  test_ubuntu:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,3 +24,39 @@ jobs:
         run: coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test_alpine:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install tox
+    - name: Run tests
+      run: tox
+      env:
+        TOXENV: alpine
+        TEST_ALPINE: 1
+
+  test_32bit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install tox
+    - name: Run tests
+      run: tox
+      env:
+        TOXENV: 32bit
+        TEST_32BIT: 1
