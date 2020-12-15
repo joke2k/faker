@@ -17,11 +17,6 @@ if inREPL:
 else:
     logger.debug('Not in REPL -> leaving logger event level as is.')
 
-# By default, use weightings for backwards compatibility
-USE_WEIGHTING_DEFAULT = True
-# By default, cache lists   
-use_internal_caches_DEFAULT = False
-
 class Factory:
 
     @classmethod
