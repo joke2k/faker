@@ -1,4 +1,5 @@
 import bisect
+import itertools
 
 from random import Random
 from typing import Generator, Iterable, List, Optional, TypeVar
@@ -53,13 +54,17 @@ def choices_distribution(a: List[T], p: List[float], random: Optional[Random] = 
     if random is None:
         random = mod_random
 
-    assert len(a) == len(p)
+    if p is not None:
+        assert len(a) == len(p)
 
     if hasattr(random, 'choices'):
         choices = random.choices(a, weights=p, k=length)
         return choices
     else:
         choices = []
+
+        if p is None:
+            p = itertools.repeat(1, len(a))
 
         cdf = list(cumsum(p))
         normal = cdf[-1]

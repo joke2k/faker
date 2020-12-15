@@ -17,6 +17,10 @@ if inREPL:
 else:
     logger.debug('Not in REPL -> leaving logger event level as is.')
 
+# By default, use weightings for backwards compatibility
+USE_WEIGHTING_DEFAULT = True
+# By default, cache lists   
+use_internal_caches_DEFAULT = False
 
 class Factory:
 
@@ -27,6 +31,11 @@ class Factory:
             providers=None,
             generator=None,
             includes=None,
+            # Should we use weightings (more realistic) or weight every element equally (faster)?
+            # By default, use weightings for backwards compatibility & realism
+            use_weighting=True,
+            # Should we cache lists (less memory efficient) or shouldn't we (less CPU efficient).
+            use_internal_caches=True,
             **config):
         if includes is None:
             includes = []
@@ -51,6 +60,8 @@ class Factory:
 
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
             provider = prov_cls(faker)
+            provider.__use_weighting__ = use_weighting
+            provider.__use_internal_caches__ = use_internal_caches
             provider.__provider__ = prov_name
             provider.__lang__ = lang_found
             faker.add_provider(provider)

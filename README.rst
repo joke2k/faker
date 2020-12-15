@@ -165,6 +165,20 @@ providers package. The localization of Faker is an ongoing process, for
 which we need your help. Please don't hesitate to create a localized
 provider for your own locale and submit a Pull Request (PR).
 
+Optimizations
+-------------
+The Faker constructor takes two performance-related arguments. One is
+``use_weighting``, which specifies whether to attempt to have the frequency
+of values match real-world frequencies (e.g. the English name Gary would
+be much more frequent than the name Lorimer). If ``use_weighting`` is ``False``,
+then all items have an equal chance of being selected, and the selection
+process is much faster. The default is ``True``.
+
+The second performance option is ``use_internal_caches`` which does not change the
+output at all but determines whether Faker uses some internal memory caches
+to reduce CPU usage in exchange for using a bit more RAM. It defaults to
+``True`` because the trade-off is generally worth it on modern computers.
+
 Command line usage
 ------------------
 
