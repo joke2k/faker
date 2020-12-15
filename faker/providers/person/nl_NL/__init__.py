@@ -144,7 +144,7 @@ class Provider(PersonProvider):
         'Huisman', 'Huls', 'Hulshouts', 'Hulskes', 'Hulst', 'Huurdeman',
         'Höning', 'Jaceps', 'Jacobi', 'Jacobs', 'Jacobs', 'Jacquot', 'Jans',
         'Jansdr', 'Janse', 'Jansen', 'Jansen', 'Jansen', 'Jansse', 'Janssen',
-        'Janssen', 'Janssens', 'Jasperdr.', 'Jdotte', 'Jeggij', 'Jekel',
+        'Janssen', 'Janssens', 'Jdotte', 'Jeggij', 'Jekel',
         'Jerusalem', 'Jochems', 'Jones', 'Jonker', 'Jonkman', 'Joosten',
         'Jorlink', 'Jorrisen', 'Jurrijens', 'Kallen', 'Kalman', 'Kamp',
         'Kamper', 'Karels', 'Kas', 'Kathagen', 'Keijser', 'Keijzer',
