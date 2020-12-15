@@ -17,6 +17,7 @@ if inREPL:
 else:
     logger.debug('Not in REPL -> leaving logger event level as is.')
 
+
 class Factory:
 
     @classmethod
@@ -43,6 +44,8 @@ class Factory:
             raise AttributeError(msg)
 
         config['locale'] = locale
+        config['use_weighting'] = use_weighting
+        config['use_internal_caches'] = use_internal_caches
         providers = providers or PROVIDERS
 
         providers += includes
