@@ -30,8 +30,6 @@ class Factory:
             # Should we use weightings (more realistic) or weight every element equally (faster)?
             # By default, use weightings for backwards compatibility & realism
             use_weighting=True,
-            # Should we cache lists (less memory efficient) or shouldn't we (less CPU efficient).
-            use_internal_caches=True,
             **config):
         if includes is None:
             includes = []
@@ -45,7 +43,6 @@ class Factory:
 
         config['locale'] = locale
         config['use_weighting'] = use_weighting
-        config['use_internal_caches'] = use_internal_caches
         providers = providers or PROVIDERS
 
         providers += includes
@@ -59,7 +56,6 @@ class Factory:
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
             provider = prov_cls(faker)
             provider.__use_weighting__ = use_weighting
-            provider.__use_internal_caches__ = use_internal_caches
             provider.__provider__ = prov_name
             provider.__lang__ = lang_found
             faker.add_provider(provider)

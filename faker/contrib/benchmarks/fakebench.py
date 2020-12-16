@@ -1,15 +1,13 @@
-from unittest.mock import patch
-import random
-from collections import OrderedDict
+import timeit
 
 import faker
-import timeit
+
 
 def bench(use_weighting, use_internal_caches, message):
     print(f"{message} : use_weighting = {use_weighting} use_internal_caches = {use_internal_caches}")
     f = faker.Faker(use_weighting=use_weighting, use_internal_caches=use_internal_caches)
 
-    print(timeit.timeit(lambda:f.first_name(), number=100000))
+    print(timeit.timeit(lambda: f.first_name(), number=100000))
 
 
 def all_bench():

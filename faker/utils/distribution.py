@@ -2,7 +2,7 @@ import bisect
 import itertools
 
 from random import Random
-from typing import Generator, Iterable, List, Optional, TypeVar
+from typing import Generator, Iterable, Optional, Sequence, TypeVar
 
 from faker.generator import random as mod_random
 
@@ -24,8 +24,8 @@ T = TypeVar('T')
 
 
 def choices_distribution_unique(
-        a: List[T], p: List[float], random: Optional[Random] = None, length: int = 1,
-) -> List[T]:
+        a: Sequence[T], p: Sequence[float], random: Optional[Random] = None, length: int = 1,
+) -> Sequence[T]:
     # As of Python 3.7, there isn't a way to sample unique elements that takes
     # weight into account.
     if random is None:
@@ -38,7 +38,7 @@ def choices_distribution_unique(
     items = list(a)
     probabilities = list(p)
     for i in range(length):
-        cdf = list(cumsum(probabilities))
+        cdf = tuple(cumsum(probabilities))
         normal = cdf[-1]
         cdf2 = [float(i) / float(normal) for i in cdf]
         uniform_sample = random_sample(random=random)
@@ -50,7 +50,9 @@ def choices_distribution_unique(
     return choices
 
 
-def choices_distribution(a: List[T], p: List[float], random: Optional[Random] = None, length: int = 1) -> List[T]:
+def choices_distribution(
+    a: Sequence[T], p: Sequence[float], random: Optional[Random] = None, length: int = 1,
+) -> Sequence[T]:
     if random is None:
         random = mod_random
 
@@ -58,8 +60,10 @@ def choices_distribution(a: List[T], p: List[float], random: Optional[Random] = 
         assert len(a) == len(p)
 
     if hasattr(random, 'choices'):
-        choices = random.choices(a, weights=p, k=length)
-        return choices
+        if length == 1 and p is None:
+            return (random.choice(a),)
+        else:
+            return random.choices(a, weights=p, k=length)
     else:
         choices = []
 

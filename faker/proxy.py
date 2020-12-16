@@ -25,7 +25,7 @@ class Faker:
 
     def __init__(self, locale=None, providers=None,
                  generator=None, includes=None,
-                 use_weighting=True, use_internal_caches=True, **config):
+                 use_weighting=True, **config):
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
@@ -59,7 +59,6 @@ class Faker:
         for locale in locales:
             self._factory_map[locale] = Factory.create(locale, providers, generator, includes,
                                                        use_weighting=use_weighting,
-                                                       use_internal_caches=use_internal_caches,
                                                        **config)
 
         self._locales = locales

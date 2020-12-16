@@ -18,7 +18,6 @@ class BaseProvider:
     __provider__ = 'base'
     __lang__ = None
     __use_weighting__ = None
-    __use_internal_caches__ = None
 
     # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`
     language_locale_codes = {
@@ -218,7 +217,7 @@ class BaseProvider:
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False,
-                        use_weighting=None, use_internal_caches=None):
+                        use_weighting=None):
         """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
@@ -277,7 +276,6 @@ class BaseProvider:
         use_weighting = (use_weighting
                          if use_weighting is not None
                          else self.__use_weighting__)
-        use_internal_caches = use_internal_caches if use_internal_caches is not None else self.__use_internal_caches__
 
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
             raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
@@ -292,14 +290,11 @@ class BaseProvider:
                 "Sample length cannot be longer than the number of unique elements to pick from.")
 
         if isinstance(elements, dict):
-            if self.__use_internal_caches__:
-                if not hasattr(elements, "_key_cache"):
-                    elements._key_cache = tuple(elements.keys())
+            if not hasattr(elements, "_key_cache"):
+                elements._key_cache = tuple(elements.keys())
 
-                choices = elements._key_cache
-            else:
-                choices = tuple(elements.keys())
-            probabilities = list(elements.values()) if use_weighting else None
+            choices = elements._key_cache
+            probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:
                 # shortcut
@@ -308,7 +303,7 @@ class BaseProvider:
             probabilities = None
 
         return fn(
-            list(choices),
+            tuple(choices),
             probabilities,
             self.generator.random,
             length=length,

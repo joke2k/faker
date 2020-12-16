@@ -1,3 +1,5 @@
+import random
+
 from collections import OrderedDict
 from unittest.mock import PropertyMock, patch
 
@@ -317,6 +319,63 @@ class TestFakerProxyClass:
         fake = Faker(['en_US', 'en_PH'])
         with pytest.raises(AttributeError):
             fake.obviously_invalid_provider_method_a23f()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices')
+    def test_weighting_disabled_single_choice(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=False)
+        fake.first_name()
+        mock_choice_fn.assert_called()
+        mock_choices_fn.assert_not_called()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_with_locales(self, mock_choices_fn, mock_choice_fn):
+        locale = OrderedDict([
+            ('de_DE', 3),
+            ('en-US', 2),
+            ('en-PH', 1),
+            ('ja_JP', 5),
+        ])
+        fake = Faker(locale, use_weighting=False)
+        fake.first_name()
+        mock_choices_fn.assert_called()  # select provider
+        mock_choice_fn.assert_called()   # select within provider
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_multiple_locales(self, mock_choices_fn, mock_choice_fn):
+        locale = OrderedDict([
+            ('de_DE', 3),
+            ('en-US', 2),
+            ('en-PH', 1),
+            ('ja_JP', 5),
+        ])
+        fake = Faker(locale, use_weighting=False)
+        fake.first_name()
+        print(mock_choices_fn.mock_calls)
+        mock_choices_fn.assert_called()  # select provider
+        mock_choice_fn.assert_called()   # select within provider
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_multiple_choices(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=False)
+        fake.uri_path(deep=3)
+
+        assert mock_choices_fn.mock_calls[0][2]["k"] == 3
+        assert mock_choices_fn.mock_calls[0][2]["weights"] is None
+        mock_choice_fn.assert_not_called()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_enabled_multiple_choices(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=True)
+        fake.uri_path(deep=3)
+
+        assert mock_choices_fn.mock_calls[0][2]["k"] == 3
+        assert mock_choices_fn.mock_calls[0][2]["weights"] is None
+        mock_choice_fn.assert_not_called()
 
     def test_dir_include_all_providers_attribute_in_list(self):
         fake = Faker(['en_US', 'en_PH'])
