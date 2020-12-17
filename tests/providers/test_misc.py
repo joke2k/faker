@@ -491,7 +491,7 @@ class TestMiscProvider:
 
         assert json_data['item1'] == 1
         assert json_data['item2'] == 1.0
-        assert json_data['item3']
+        assert json_data['item3'] is True
         assert json_data['item4'] == 'fixed'
 
     def test_json_type_integrity_int(self, faker_with_foobar):
