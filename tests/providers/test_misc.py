@@ -477,11 +477,13 @@ class TestMiscProvider:
 
         assert isinstance(json_data, list) and len(json_data) == 2
 
-    def test_json_passthrough_int_float(self, faker_with_foobar):
+    def test_json_passthrough_values(self, faker_with_foobar):
         kwargs = {
             'data_columns': {
                 'item1': 1,
                 'item2': 1.0,
+                'item3': True,
+                'item4': '@fixed',
             },
             'num_rows': 1,
         }
@@ -489,6 +491,8 @@ class TestMiscProvider:
 
         assert json_data['item1'] == 1
         assert json_data['item2'] == 1.0
+        assert json_data['item3']
+        assert json_data['item4'] == 'fixed'
 
     def test_json_type_integrity_int(self, faker_with_foobar):
         kwargs = {
