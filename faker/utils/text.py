@@ -6,7 +6,7 @@ _re_pattern_allow_dots = re.compile(r'[^\.\w\s-]', flags=re.U)
 _re_spaces = re.compile(r'[-\s]+', flags=re.U)
 
 
-def slugify(value, allow_dots=False, allow_unicode=False):
+def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -> str:
     """
     Converts to lowercase, removes non-word characters (alphanumerics and
     underscores) and converts spaces to hyphens. Also strips leading and

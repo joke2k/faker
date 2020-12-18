@@ -1,5 +1,5 @@
-from .. import Provider as PythonProvider
+from .. import Provider as PythonProvider  # pragma: no cover
 
 
-class Provider(PythonProvider):
+class Provider(PythonProvider):  # pragma: no cover
     pass

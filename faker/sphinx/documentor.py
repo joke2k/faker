@@ -1,13 +1,14 @@
 # coding=utf-8
 import importlib
 import inspect
-import os
+
+from pathlib import Path
 
 from faker.config import AVAILABLE_LOCALES
 from faker.config import PROVIDERS as STANDARD_PROVIDER_NAMES
 from faker.providers import BaseProvider
 
-DOCS_ROOT = os.path.abspath(os.path.join('..', 'docs'))
+DOCS_ROOT = Path(__file__).resolve().parents[1] / 'docs'
 
 SECTION_ADORNMENTS = '#*=-~'
 
@@ -79,8 +80,7 @@ def _write_includes(fh):
 
 
 def _write_standard_provider_index():
-    fname = os.path.join(DOCS_ROOT, 'providers.rst')
-    with open(fname, 'wb') as fh:
+    with (DOCS_ROOT / 'providers.rst').open('wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, 'Standard Providers')
         _write(fh, '.. toctree::\n')
@@ -91,8 +91,7 @@ def _write_standard_provider_index():
 
 
 def _write_base_provider_docs():
-    fname = os.path.join(DOCS_ROOT, 'providers', 'baseprovider.rst')
-    with open(fname, 'wb') as fh:
+    with (DOCS_ROOT / 'providers' / 'baseprovider.rst').open('wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, '``faker.providers``')
         _write_includes(fh)
@@ -104,8 +103,7 @@ def _write_base_provider_docs():
 
 def _write_standard_provider_docs():
     for provider_name in STANDARD_PROVIDER_NAMES:
-        fname = os.path.join(DOCS_ROOT, 'providers', '%s.rst' % provider_name)
-        with open(fname, 'wb') as fh:
+        with (DOCS_ROOT / 'providers' / '{}.rst'.format(provider_name)) as fh:
             provider_class = '{}.Provider'.format(provider_name)
             provider_methods = _get_provider_methods(provider_class)
             _hide_edit_on_github(fh)
@@ -118,8 +116,7 @@ def _write_standard_provider_docs():
 
 
 def _write_localized_provider_index():
-    fname = os.path.join(DOCS_ROOT, 'locales.rst')
-    with open(fname, 'wb') as fh:
+    with(DOCS_ROOT / 'locales.rst').open('wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, 'Localized Providers')
         _write(fh, '.. toctree::\n')
@@ -131,8 +128,7 @@ def _write_localized_provider_index():
 def _write_localized_provider_docs():
     for locale in AVAILABLE_LOCALES:
         info = _get_localized_provider_info(locale)
-        fname = os.path.join(DOCS_ROOT, 'locales', '{}.rst'.format(locale))
-        with open(fname, 'wb') as fh:
+        with (DOCS_ROOT / 'locales' / '{}.rst'.format(locale)).open('wb') as fh:
             _hide_edit_on_github(fh)
             _write_title(fh, 'Locale {}'.format(locale))
             _write_includes(fh)

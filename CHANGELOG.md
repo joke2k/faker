@@ -1,5 +1,18 @@
 ## Changelog
 
+### [5.0.1 - 2020-12-07](https://github.com/joke2k/faker/compare/v5.0.0...v5.0.1)
+
+* ``th_TH`` ``strftime``: normalize output for unsupported directive on ``musl``-based Linux. Thanks @bact.
+
+### [5.0.0 - 2020-12-03](https://github.com/joke2k/faker/compare/v4.18.0...v5.0.0)
+
+* Drop support for Python 3.5. Thanks @cclaus.
+* Add support fro Python 3.9. Thanks @cclaus.
+
+### [4.18.0 - 2020-11-30](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
+
+* Add ``date_time`` and ``bank`` providers for ``th_TH``. Thanks @bact.
+
 ### [4.17.1 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.17.0...v4.17.1)
 
 * Correct spelling errors in city names for ``de_DE``. Thanks @AnjaGer.

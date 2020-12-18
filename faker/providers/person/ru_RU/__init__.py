@@ -309,11 +309,7 @@ class Provider(PersonProvider):
         return self.random_element(self.middle_names)
 
     def middle_name_male(self):
-        if hasattr(self, 'middle_names_male'):
-            return self.random_element(self.middle_names_male)
-        return self.middle_name()
+        return self.random_element(self.middle_names_male)
 
     def middle_name_female(self):
-        if hasattr(self, 'middle_names_female'):
-            return self.random_element(self.middle_names_female)
-        return self.middle_name()
+        return self.random_element(self.middle_names_female)

@@ -1,5 +1,8 @@
-def luhn_checksum(number):
-    def digits_of(n):
+from typing import List
+
+
+def luhn_checksum(number: float) -> int:
+    def digits_of(n: float) -> List[int]:
         return [int(d) for d in str(n)]
 
     digits = digits_of(number)
@@ -12,7 +15,7 @@ def luhn_checksum(number):
     return checksum % 10
 
 
-def calculate_luhn(partial_number):
+def calculate_luhn(partial_number: float) -> int:
     """
     Generates the Checksum using Luhn's algorithm
     """
