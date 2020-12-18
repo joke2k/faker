@@ -17,7 +17,7 @@ class BaseProvider:
 
     __provider__ = 'base'
     __lang__ = None
-    __use_weighting__ = None
+    __use_weighting__ = False
 
     # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`
     language_locale_codes = {
