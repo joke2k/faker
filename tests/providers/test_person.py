@@ -806,13 +806,13 @@ class TestOrIN(unittest.TestCase):
         last_name = self.fake.last_name()
         assert last_name in OrINProvider.last_names
 
+
 class TestEnIN(unittest.TestCase):
     """ Tests person in the en_IN locale """
 
     def setUp(self):
         self.fake = Faker('en_IN')
         Faker.seed(0)
-
 
     def test_first_name(self):
         first_name = self.fake.first_name()

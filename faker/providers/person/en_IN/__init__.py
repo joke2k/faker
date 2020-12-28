@@ -8,7 +8,7 @@ class Provider(PersonProvider):
         '{{last_name}}, {{first_name}}',
     )
 
-    # First names are from https://www.babycenter.in/a25010193/modern-indian-baby-names 
+    # First names are from https://www.babycenter.in/a25010193/modern-indian-baby-names
     # Last names are from https://www.familyeducation.com/baby-names/browse-origin/surname/indian
 
     first_names = (
@@ -211,7 +211,7 @@ class Provider(PersonProvider):
         'Yasmin',
         'Zaina',
         'Zara',
-        'Zoya'
+        'Zoya',
     )
 
     last_names = (
@@ -678,5 +678,5 @@ class Provider(PersonProvider):
         'Yogi',
         'Yohannan',
         'Zacharia',
-        'Zachariah'
+        'Zachariah',
     )
