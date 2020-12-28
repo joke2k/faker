@@ -8,6 +8,7 @@ from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.en import Provider as EnProvider
+from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
@@ -804,3 +805,19 @@ class TestOrIN(unittest.TestCase):
         """ test the last name is generating from the provided tuple """
         last_name = self.fake.last_name()
         assert last_name in OrINProvider.last_names
+
+class TestEnIN(unittest.TestCase):
+    """ Tests person in the en_IN locale """
+
+    def setUp(self):
+        self.fake = Faker('en_IN')
+        Faker.seed(0)
+
+
+    def test_first_name(self):
+        first_name = self.fake.first_name()
+        assert first_name in EnINProvider.first_names
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in EnINProvider.last_names
