@@ -4,8 +4,6 @@ from .. import Provider as PersonProvider
 class Provider(PersonProvider):
     formats = (
         '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{last_name}}, {{first_name}}',
     )
 
     # First names are from https://www.babycenter.in/a25010193/modern-indian-baby-names
