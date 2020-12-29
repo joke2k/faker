@@ -15,7 +15,7 @@
 ### [5.0.0 - 2020-12-03](https://github.com/joke2k/faker/compare/v4.18.0...v5.0.0)
 
 * Drop support for Python 3.5. Thanks @cclaus.
-* Add support fro Python 3.9. Thanks @cclaus.
+* Add support for Python 3.9. Thanks @cclaus.
 
 ### [4.18.0 - 2020-11-30](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
 
