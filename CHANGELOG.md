@@ -1,5 +1,9 @@
 ## Changelog
 
+### [5.3.0 - 2020-12-30](https://github.com/joke2k/faker/compare/v5.3.0...v5.2.0)
+
+* ``json`` and ``fixed_width`` now allow for strings to be fixed or pinned to a static value by prepending ``@``. Thanks @johnbrandborg.
+
 ### [5.2.0 - 2020-12-30](https://github.com/joke2k/faker/compare/v5.2.0...v5.1.0)
 
 * Add ``en_IN`` address + phone number provider. Thanks @pulkitgupta2k.
