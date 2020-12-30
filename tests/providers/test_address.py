@@ -292,7 +292,7 @@ class TestEnCa:
     """Test en_CA address provider methods"""
 
     valid_postcode_letter_re = r'[{}]'.format(
-            ''.join(EnCaAddressProvider.postal_code_letters))
+        ''.join(EnCaAddressProvider.postal_code_letters))
     valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(valid_postcode_letter_re)
 
     def test_postcode(self, faker, num_samples):
