@@ -1,6 +1,10 @@
 ## Changelog
 
-### [5.1.0 - 2020-12-28](https://github.com/joke2k/faker/compare/v5.2.0...v5.0.1)
+### [5.2.0 - 2020-12-30](https://github.com/joke2k/faker/compare/v5.2.0...v5.1.0)
+
+* Add ``en_IN`` address + phone number provider. Thanks @pulkitgupta2k.
+
+### [5.1.0 - 2020-12-28](https://github.com/joke2k/faker/compare/v5.1.0...v5.0.1)
 
 * Add ``en_IN`` person provider. Thanks @pulkitgupta2k.
 
