@@ -13,6 +13,7 @@ from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
 from faker.providers.address.en_CA import Provider as EnCaAddressProvider
 from faker.providers.address.en_GB import Provider as EnGbAddressProvider
+from faker.providers.address.en_IN import Provider as EnInAddressProvider
 from faker.providers.address.en_PH import Provider as EnPhAddressProvider
 from faker.providers.address.en_US import Provider as EnUsAddressProvider
 from faker.providers.address.es_ES import Provider as EsEsAddressProvider
@@ -291,7 +292,7 @@ class TestEnCa:
     """Test en_CA address provider methods"""
 
     valid_postcode_letter_re = r'[{}]'.format(
-            ''.join(EnCaAddressProvider.postal_code_letters))
+        ''.join(EnCaAddressProvider.postal_code_letters))
     valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(valid_postcode_letter_re)
 
     def test_postcode(self, faker, num_samples):
@@ -1443,3 +1444,19 @@ class TestThTh:
             postcode = faker.postcode()
             assert isinstance(postcode, str)
             assert re.fullmatch(r'[1-9]\d{4}', postcode)
+
+
+class TestEnIn:
+    """Test en_IN address provider methods"""
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_name = faker.city_name()
+            assert isinstance(city_name, str)
+            assert city_name in EnInAddressProvider.cities
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in EnInAddressProvider.states
