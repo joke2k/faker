@@ -9,7 +9,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
 from faker.providers.address.de_DE import Provider as DeDeAddressProvider
-from faker.providers.address.dk_DK import Provider as DkDkAddressProvider
+from faker.providers.address.Dk_Dk import Provider as DkDkAddressProvider
 from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
 from faker.providers.address.en_CA import Provider as EnCaAddressProvider
@@ -203,6 +203,34 @@ class TestDeDe:
             assert isinstance(city_with_postcode, str)
             match = re.fullmatch(r'\d{5} (?P<city>.*)', city_with_postcode)
             assert match.groupdict()['city'] in DeDeAddressProvider.cities
+
+
+class TestDkDk:
+    """Test dk_DK address provider methods"""
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_prefix = faker.street_prefix()
+            assert isinstance(street_prefix, str)
+            assert street_prefix in DkDkAddressProvider.street_prefixes
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in DkDkAddressProvider.cities
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in DkDkAddressProvider.states
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{4}", postcode)
 
 
 class TestElGr:
@@ -1444,31 +1472,3 @@ class TestThTh:
             postcode = faker.postcode()
             assert isinstance(postcode, str)
             assert re.fullmatch(r'[1-9]\d{4}', postcode)
-
-
-class TestDkDk:
-    """Test dk_DK address provider methods"""
-
-    def test_street_prefix(self, faker, num_samples):
-        for _ in range(num_samples):
-            street_prefix = faker.street_prefix()
-            assert isinstance(street_prefix, str)
-            assert street_prefix in DkDkAddressProvider.street_prefixes
-
-    def test_city_name(self, faker, num_samples):
-        for _ in range(num_samples):
-            city = faker.city_name()
-            assert isinstance(city, str)
-            assert city in DkDkAddressProvider.cities
-
-    def test_state(self, faker, num_samples):
-        for _ in range(num_samples):
-            state = faker.state()
-            assert isinstance(state, str)
-            assert state in DkDkAddressProvider.states
-
-    def test_postcode(self, faker, num_samples):
-        for _ in range(num_samples):
-            postcode = faker.postcode()
-            assert isinstance(postcode, str)
-            assert re.fullmatch(r"\d{4}", postcode)

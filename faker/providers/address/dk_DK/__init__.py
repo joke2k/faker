@@ -24,7 +24,7 @@ class Provider(AddressProvider):
 
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
 
-    # Postcode should be formatted as described in https://pastebin.com/NcLj96e7
+    # Postcode should be formatted as described in http://www.nr.dk/danmark.html
     postcode_formats = ('%###', )
 
     city_formats = ('{{city_name}}', )
