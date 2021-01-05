@@ -9,7 +9,7 @@ from ukpostcodeparser.parser import parse_uk_postcode
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
 from faker.providers.address.de_DE import Provider as DeDeAddressProvider
-from faker.providers.address.Dk_Dk import Provider as DkDkAddressProvider
+from faker.providers.address.dk_DK import Provider as DkDkAddressProvider
 from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
 from faker.providers.address.en_CA import Provider as EnCaAddressProvider
