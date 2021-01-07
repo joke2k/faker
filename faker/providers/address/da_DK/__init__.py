@@ -1,0 +1,107 @@
+from .. import Provider as AddressProvider
+
+
+class Provider(AddressProvider):
+
+    # Building numbers dont go higher than a 1000
+    building_number_formats = ('%##', '%#', '%')
+
+    street_name_formats = ('{{street_prefix}} {{street_suffix}}', )
+
+    street_address_formats = ('{{street_name}} {{building_number}}',)
+
+    street_prefixes = (
+        'Gade', 'Allé', 'Parkere', 'Baggade', 'Gyde', 'Motorvej',
+    )
+
+    street_suffixes = (
+        'Åbenrå', 'Adelgade', 'Lavendelstræde', 'Nygade', 'Pilestræde',
+        'Rigensgade', 'Silkegade', 'Toldbodgade', 'Blekingegade',
+        'Amalievej', 'Bülowsvej', 'Godthåbsvej', 'Howitzvej',
+        'Kingosgade', 'Martinsvej', 'Rolighedsvej', 'Schønbergsgade',
+        'Åboulevard', 'Ewaldsgade', 'Heinesgade', 'Kapelvej',
+    )
+
+    address_formats = ("{{street_address}}\n{{postcode}} {{city}}", )
+
+    # Postcode should be formatted as described in http://www.nr.dk/danmark.html
+    postcode_formats = ('%###', )
+
+    city_formats = ('{{city_name}}', )
+
+    cities = (
+        'Copenhagen', 'Aarhus', 'Odense', 'Aalborg', 'Esbjerg', 'Randers',
+        'Kolding', 'Horsens', 'Vejle', 'Roskilde', 'Herning', 'Hørsholm',
+        'Elsinore', 'Silkeborg', 'Næstved', 'Fredericia', 'Viborg', 'Køge',
+        'Holstebro', 'Taastrup', 'Slagelse', 'Hillerød', 'Holbæk', 'Sønderborg',
+        'Svendborg', 'Hjørring', 'Frederikshavn', 'Nørresundby', 'Ringsted',
+        'Haderslev', 'Stenløse', 'Skive', 'Birkerød', 'Farum', 'Smørumnedre',
+        'Skanderborg', 'Nyborg', 'Nykøbing F', 'Lillerød', 'Kalundborg',
+        'Frederikssund', 'Aabenraa', 'Solrød Strand', 'Ikast', 'Middelfart',
+        'Grenaa', 'Korsør', 'Varde', 'Rønne', 'Thisted',
+    )
+
+    countries = (
+        'Afghanistan', 'Albanien', 'Algeriet', 'Amerikanska Samoa', 'Andorra',
+        'Angola', 'Anguilla', 'Antarktis', 'Antigua och Barbuda', 'Argentina',
+        'Armenien', 'Aruba', 'Ascension', 'Australien', 'Azerbajdzjan',
+        'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgien',
+        'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnien och Hercegovina',
+        'Botswana', 'Brasilien', 'Brittiska Jungfruöarna', 'Brunei',
+        'Bulgarien', 'Burkina Faso', 'Burma', 'Burundi', 'Caymanöarna',
+        'Centralafrikanska republiken', 'Chile', 'Colombia', 'Cooköarna',
+        'Costa Rica', 'Cypern', 'Danmark', 'Diego Garcia', 'Djibouti',
+        'Dominica', 'Dominikanska republiken', 'Ecuador', 'Egypten',
+        'Ekvatorialguinea', 'Elfenbenskusten', 'El Salvador', 'Eritrea',
+        'Estland', 'Etiopien', 'England', 'Falklandsöarna', 'Fiji',
+        'Filippinerna', 'Finland', 'Frankrike', 'Franska Guyana',
+        'Franska Polynesien', 'Färöarna', 'Förenade Arabemiraten', 'Gabon',
+        'Gambia', 'Georgien', 'Ghana', 'Gibraltar', 'Grekland', 'Grenada',
+        'Grönland', 'Guadeloupe', 'Guatemala', 'Guinea', 'Guinea-Bissau',
+        'Guyana', 'Haiti', 'Honduras', 'Hongkong', 'Indien', 'Indonesien',
+        'Irak', 'Iran', 'Irland', 'Island', 'Israel', 'Italien', 'Jamaica',
+        'Japan', 'Jemen', 'Jordanien', 'Kambodja', 'Kamerun', 'Kanada',
+        'Kap Verde', 'Kazakstan', 'Kenya', 'Kina', 'Kirgizistan', 'Kiribati',
+        'Komorerna', 'Kongo-Brazzaville', 'Kongo-Kinshasa', 'Kosovo',
+        'Kroatien', 'Kuba', 'Kuwait', 'Laos', 'Lesotho', 'Lettland', 'Libanon',
+        'Liberia', 'Libyen', 'Liechtenstein', 'Litauen', 'Luxemburg', 'Macao',
+        'Madagaskar', 'Makedonien', 'Malawi', 'Malaysia', 'Maldiverna', 'Mali',
+        'Malta', 'Marianerna', 'Marocko', 'Marshallöarna', 'Martinique',
+        'Mauretanien', 'Mauritius', 'Mayotte', 'Mexiko', 'Midwayöarna',
+        'Mikronesiens federerade stater', 'Moçambique', 'Moldavien', 'Monaco',
+        'Mongoliet', 'Montenegro', 'Montserrat', 'Namibia', 'Nauru',
+        'Nederländerna', 'Nederländska Antillerna', 'Nepal',
+        'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Nordkorea', 'Nordmarianerna',
+        'Norfolkön', 'Norge', 'Nya Kaledonien', 'Nya Zeeland', 'Oman',
+        'Pakistan', 'Palau', 'Palestina', 'Panama', 'Papua Nya Guinea',
+        'Paraguay', 'Peru', 'Pitcairnöarna', 'Polen', 'Portugal', 'Qatar',
+        'Réunion', 'Rumänien', 'Rwanda', 'Ryssland', 'Saint Kitts och Nevis',
+        'Saint Lucia', 'Saint-Pierre och Miquelon',
+        'Saint Vincent och Grenadinerna', 'Salomonöarna', 'Samoa',
+        'Sankta Helena', 'San Marino', 'São Tomé och Príncipe',
+        'Saudiarabien', 'Schweiz', 'Senegal', 'Serbien', 'Seychellerna',
+        'SierraLeone', 'Singapore', 'Sint Maarten', 'Slovakien', 'Slovenien',
+        'Somalia', 'Spanien', 'Sri Lanka', 'Storbritannien', 'Sudan',
+        'Surinam', 'Sverige', 'Swaziland', 'Sydafrika', 'Sydkorea', 'Sydsudan',
+        'Syrien', 'Tadzjikistan', 'Taiwan', 'Tanzania', 'Tchad', 'Thailand',
+        'Tjeckien', 'Togo', 'Tokelauöarna', 'Tonga', 'Trinidad och Tobago',
+        'Tunisien', 'Turkiet', 'Turkmenistan', 'Turks-och Caicosöarna',
+        'Tuvalu', 'Tyskland', 'Uganda', 'Ukraina', 'Ungern', 'Uruguay', 'USA',
+        'Uzbekistan', 'Vanuatu', 'Vatikanstaten', 'Venezuela', 'Vietnam',
+        'Wake', 'Wallis-och Futunaöarna', 'Zambia', 'Zimbabwe',
+        'Österrike', 'Östtimor',
+    )
+
+    # Known as regions in Denmark
+    states = (
+        'Hovedstaden', 'Midtjylland', 'Nordjylland', 'Sjælland', 'Syddanmark',
+    )
+
+    def street_prefix(self):
+        return self.random_element(self.street_prefixes)
+
+    def city_name(self):
+        return self.random_element(self.cities)
+
+    def state(self):
+        return self.random_element(self.states)
