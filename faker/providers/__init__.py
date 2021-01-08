@@ -436,7 +436,7 @@ class BaseProvider:
         """
         return _re_qm.sub(lambda x: self.random_element(letters), text)
 
-    def bothify(self, text='## ??', letters=string.ascii_letters):
+    def bothify(self, text='## ??', letters=string.ascii_letters, upper=False):
         """Generate a string with each placeholder in ``text`` replaced according
         to the following rules:
 
@@ -453,7 +453,8 @@ class BaseProvider:
         :sample: text='Product Number: ????-########'
         :sample: text='Product Number: ????-########', letters='ABCDE'
         """
-        return self.lexify(self.numerify(text), letters=letters)
+        result = self.lexify(self.numerify(text), letters=letters)
+        return result.upper() if upper else result
 
     def hexify(self, text='^^^^', upper=False):
         """Generate a string with each circumflex ('^') in ``text``
