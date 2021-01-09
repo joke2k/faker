@@ -5,8 +5,7 @@ The name list was sourced from UCD and DCU project
 first names from
 https://www.nisra.gov.uk/publications/baby-names-2016
 """
-# from .. import Provider as PersonProvider
-from faker.providers.person import Provider as PersonProvider
+from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
