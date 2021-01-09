@@ -55,7 +55,7 @@ class Provider(PersonProvider):
         "Shane", "Shaun", "Shay", "Shea", "Simon", "Stefan", "Stephen", "Steven", "Stewart", "Stuart", "Taylor",
         "Terence", "Thomas", "Tiarnan", "Tiernan", "Timothy", "Tobias", "Toby", "Tom", "Tomas", "Tony", "Travis",
         "Trevor", "Tristan", "Troy", "Tyler", "Tyrone", "Vincent", "Warren", "Wayne", "William", "Zac", "Zach",
-        "Zachary", "Zak"
+        "Zachary", "Zak",
     )
 
     first_names_female = (
@@ -102,7 +102,7 @@ class Provider(PersonProvider):
         "Siobhan", "Siofra", "Sophia", "Sophie", "Sophie-Louise", "Sorcha", "Stacey", "Stephanie", "Susan", "Susanna",
         "Susannah", "Suzanne", "Tamara", "Tammy", "Tanya", "Tara", "Taylor", "Teresa", "Terri", "Tess", "Tessa",
         "Theresa", "Therese", "Tia", "Tiarna", "Tiegan", "Tiffany", "Toni", "Tonicha", "Tori", "Tory", "Tracey",
-        "Tyler", "Una", "Ursula", "Vanessa", "Victoria", "Whitney", "Yasmin", "Yasmine", "Zara", "Zoe"
+        "Tyler", "Una", "Ursula", "Vanessa", "Victoria", "Whitney", "Yasmin", "Yasmine", "Zara", "Zoe",
     )
 
     first_names = first_names_male + first_names_female
@@ -336,7 +336,7 @@ class Provider(PersonProvider):
         "Waldron", "Wall", "Wallace", "Walls", "Walsh", "Walshe", "Walter", "Walters", "Ward", "Warren", "Waters",
         "Watters", "Watts", "Weaver", "Weever", "Weir", "Weldon", "Whalen", "Whelan", "Whelehan", "White", "Whitty",
         "Whyte", "Wilkins", "Wilkinson", "Williams", "Wilson", "Winters", "Wolfe", "Woods", "Woolley", "Woulfe", "Wren",
-        "Wrenn", "Wright", "Wrynn", "Wynne", "Young", "de Courcey", "de Lacy", "Ó Corra"
+        "Wrenn", "Wright", "Wrynn", "Wynne", "Young", "de Courcey", "de Lacy", "Ó Corra",
     )
 
     prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.')

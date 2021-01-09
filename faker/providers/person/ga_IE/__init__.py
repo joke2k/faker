@@ -107,7 +107,7 @@ class Provider(PersonProvider):
         "Stella", "Stephanie", "Susan", "Susanna", "Susanne", "Suzanne", "Sylvia", "Tania", "Tanya", "Tara", "Teresa",
         "Thelma", "Theresa", "Therese", "Tina", "Toni", "Tonya", "Tracey", "Tracy", "Treacy", "Treasa", "Trina",
         "Triona", "Una", "Ursula", "Valerie", "Vanessa", "Vera", "Veronica", "Victoria", "Violet", "Virginia", "Vivian",
-        "Vivien", "Vivienne", "Wendy", "Winifred", "Yolanda", "Yvette", "Yvonne", "Zita", "Zoe"
+        "Vivien", "Vivienne", "Wendy", "Winifred", "Yolanda", "Yvette", "Yvonne", "Zita", "Zoe",
     )
 
     first_names = first_names_male + first_names_female
@@ -442,7 +442,7 @@ class Provider(PersonProvider):
         "Ó Tuathlainn", "Ó Tuile", "Ó Tuimlin", "Ó Turraoin", "Ó Téacháin", "Ó Téidheacháin", "Ó Tóláin", "Ó Tórpaigh",
         "Ó hAithchir", "Ó hAlmhain", "Ó hAnáin", "Ó hAoidhgin", "Ó hAonacháin", "Ó hEachairn", "Ó hEagáin", "Ó hEanna",
         "Ó hEarchaidh", "Ó hEarchú", "Ó hIfearnáin", "Ó hOileáin", "Ó hÉadhnú", "Ó hÉalaí", "Ó hÉaluighthe",
-        "Ó hÉidhniú", "Ó hÉidhní", "Ó hÉimhigh", "Ó hÉinniú", "Ó Ánusaigh", "ÓBroinín"
+        "Ó hÉidhniú", "Ó hÉidhní", "Ó hÉimhigh", "Ó hÉinniú", "Ó Ánusaigh", "ÓBroinín",
     )
 
     prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.')
