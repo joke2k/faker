@@ -11,7 +11,7 @@ locales = AVAILABLE_LOCALES
 find_group = re.compile(r"\{\{(\w+)\}\}")
 
 
-@pytest.mark.parametrize("locale", locales)
+@pytest.mark.parametrize("locale", ("ar_AA", ))
 def test_no_invalid_formats(locale):
     """
     For each locale, for each provider, search all the definitions of "formats"
@@ -44,6 +44,7 @@ def test_no_invalid_formats(locale):
                 for match in find_group.finditer(format):
                     group = match.group(1)
                     try:
+                        faker.seed_instance(342974)
                         attr = faker.format(group)
                     except AttributeError as e:
                         errors.append(str(e))
