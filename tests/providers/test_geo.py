@@ -118,5 +118,3 @@ class TestEnIe(TestEnUS):
     def setUp(self):
         self.fake = Faker('en_IE')
         Faker.seed(0)
-
-
