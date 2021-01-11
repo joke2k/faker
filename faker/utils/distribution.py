@@ -55,18 +55,5 @@ def choices_distribution(a: List[T], p: List[float], random: Optional[Random] = 
 
     assert len(a) == len(p)
 
-    if hasattr(random, 'choices'):
-        choices = random.choices(a, weights=p, k=length)
-        return choices
-    else:
-        choices = []
-
-        cdf = list(cumsum(p))
-        normal = cdf[-1]
-        cdf2 = [float(i) / float(normal) for i in cdf]
-        for i in range(length):
-            uniform_sample = random_sample(random=random)
-            idx = bisect.bisect_right(cdf2, uniform_sample)
-            item = a[idx]
-            choices.append(item)
-        return choices
+    choices = random.choices(a, weights=p, k=length)
+    return choices
