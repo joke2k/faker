@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v5.4.1 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.0...v5.4.1)
+
+* Remove empty string from  `ar_AA` Person Provider (#1364). Thanks @fcurella.
+
 ### [5.4.0 - 2021-01-07](https://github.com/joke2k/faker/compare/v5.4.0...v5.3.0)
 
 * Add ``da_DK`` address provider. Thanks @JoseNavy.
