@@ -1,5 +1,10 @@
 ## Changelog
 
+### [5.5.0 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.1...v5.5.0)
+
+* Add elements caching and other optimizations. Thanks @prescod.
+* Add ``use_weighting`` parameter for improved performance. Thanks @prescod.
+ 
 ### [5.4.1 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.0...v5.4.1)
 
 * Remove empty string from  ``ar_AA`` Person Provider.
