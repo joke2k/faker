@@ -17,6 +17,7 @@ class BaseProvider:
 
     __provider__ = 'base'
     __lang__ = None
+    __use_weighting__ = False
 
     # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`
     language_locale_codes = {
@@ -215,7 +216,8 @@ class BaseProvider:
         """
         return self.generator.random.choice(string.ascii_uppercase)
 
-    def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False):
+    def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False,
+                        use_weighting=None):
         """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
@@ -271,6 +273,10 @@ class BaseProvider:
                        ("d", 0.05),
                    ]), unique=True
         """
+        use_weighting = (use_weighting
+                         if use_weighting is not None
+                         else self.__use_weighting__)
+
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
             raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
 
@@ -284,18 +290,21 @@ class BaseProvider:
                 "Sample length cannot be longer than the number of unique elements to pick from.")
 
         if isinstance(elements, dict):
-            choices = elements.keys()
-            probabilities = elements.values()
+            if not hasattr(elements, "_key_cache"):
+                elements._key_cache = tuple(elements.keys())
+
+            choices = elements._key_cache
+            probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:
                 # shortcut
                 return self.generator.random.sample(elements, length)
             choices = elements
-            probabilities = [1.0 for _ in range(len(choices))]
+            probabilities = None
 
         return fn(
-            list(choices),
-            list(probabilities),
+            tuple(choices),
+            probabilities,
             self.generator.random,
             length=length,
         )

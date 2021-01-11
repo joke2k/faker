@@ -236,7 +236,7 @@ class TestInternetProvider:
         list_of_invalid_weights = [
             [1, 2, 3],   # List size does not match subnet list size
             ['a', 'b'],  # List size matches, but elements are invalid
-            None,        # Not a list or valid iterable
+            11,        # Not a list or valid iterable
         ]
 
         with patch('faker.providers.internet.choices_distribution',
