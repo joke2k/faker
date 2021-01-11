@@ -165,6 +165,15 @@ providers package. The localization of Faker is an ongoing process, for
 which we need your help. Please don't hesitate to create a localized
 provider for your own locale and submit a Pull Request (PR).
 
+Optimizations
+-------------
+The Faker constructor takes a performance-related argument called
+``use_weighting``. It specifies whether to attempt to have the frequency
+of values match real-world frequencies (e.g. the English name Gary would
+be much more frequent than the name Lorimer). If ``use_weighting`` is ``False``,
+then all items have an equal chance of being selected, and the selection
+process is much faster. The default is ``True``.
+
 Command line usage
 ------------------
 
