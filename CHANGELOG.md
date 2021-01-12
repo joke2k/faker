@@ -1,5 +1,9 @@
 ## Changelog
 
+### [5.5.1 - 2021-01-12](https://github.com/joke2k/faker/compare/v5.5.0...v5.5.1)
+
+* Fix lorem provider ``sentence`` method.
+
 ### [5.5.0 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.1...v5.5.0)
 
 * Add elements caching and other optimizations. Thanks @prescod.
