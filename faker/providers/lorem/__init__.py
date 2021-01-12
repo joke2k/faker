@@ -22,7 +22,7 @@ class Provider(BaseProvider):
     sentence_punctuation = '.'
 
     def words(self, nb=3, ext_word_list=None, unique=False):
-        """Generate a list of words.
+        """Generate a tuple of words.
 
         The ``nb`` argument controls the number of words in the resulting list,
         and if ``ext_word_list`` is provided, words from that list will be used
@@ -82,7 +82,7 @@ class Provider(BaseProvider):
         if variable_nb_words:
             nb_words = self.randomize_nb_elements(nb_words, min=1)
 
-        words = self.words(nb=nb_words, ext_word_list=ext_word_list)
+        words = list(self.words(nb=nb_words, ext_word_list=ext_word_list))
         words[0] = words[0].title()
 
         return self.word_connector.join(words) + self.sentence_punctuation
