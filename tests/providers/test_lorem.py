@@ -88,6 +88,10 @@ class TestLoremProvider:
                 words = sentence.lower().replace('.', '').split()
                 assert all(isinstance(word, str) and word in self.custom_word_list for word in words)
 
+    def test_sentence_single_word(self, faker):
+        word = faker.sentence(1)
+        assert str.isupper(word[0])
+
     def test_paragraph_no_sentences(self, faker, num_samples):
         for _ in range(num_samples):
             assert faker.paragraph(0) == ''
