@@ -183,10 +183,10 @@ OrderedDict with more than one valid locale, post-normalization. For example:
         ('ja-JP', 2),
         ('en_US', 2),
     ])
-    fake2 = Faker(odict)
+    fake2 = Faker(locale_odict)
 
     # Will return ['en_US', 'ja_JP']
-    fake1.locales
+    fake2.locales
 
 In this mode, calling a prospective provider method from the new ``Faker`` instance will run
 factory/selection logic in this order:
