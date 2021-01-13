@@ -7,7 +7,18 @@ from .. import Provider as CreditCardProvider
 
 
 class Provider(CreditCardProvider):
-    # Prefixes from: https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_(IIN)
+    """Implement credit card provider for ``ru_RU`` locale.
+
+    For all methods that take ``card_type`` as an argument, a random card type
+    will be used if the supplied value is ``None``. The list of valid card types
+    includes ``'amex'``, ``'maestro'``, ``'mastercard'``, ``'mir'``,
+    ``'unionpay'``, and ``'visa'``.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_(IIN)
+    """
+
     prefix_visa = ['4']
     prefix_mastercard = ['51', '52', '53', '54', '55', '222%', '223', '224', '225', '226',
                          '227', '228', '229', '23', '24', '25', '26', '270', '271', '2720']
@@ -26,10 +37,19 @@ class Provider(CreditCardProvider):
     ))
 
     def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
+        """Generate a credit card expiry date.
+
+        This method uses |date_time_between| under the hood to generate the
+        expiry date, so the ``start`` and ``end`` arguments work in the same way
+        here as it would in that method. For the actual formatting of the expiry
+        date, |strftime| is used and ``date_format`` is simply passed
+        to that method.
+        """
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
     def credit_card_full(self, card_type=None):
+        """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 
         tpl = ('{provider}\n'

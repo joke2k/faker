@@ -1,45 +1,49 @@
-import unittest
+import random
 
 from collections import OrderedDict
 from unittest.mock import PropertyMock, patch
+
+import pytest
 
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
 from faker.generator import Generator
 
 
-class TestFakerProxyClass(unittest.TestCase):
-
-    def setUp(self):
-        self.fake = None
+class TestFakerProxyClass:
+    """Test Faker proxy class"""
 
     def test_unspecified_locale(self):
-        self.fake = Faker()
-        assert len(self.fake.locales) == 1
-        assert len(self.fake.factories) == 1
-        assert self.fake.locales[0] == DEFAULT_LOCALE
+        fake = Faker()
+        assert len(fake.locales) == 1
+        assert len(fake.factories) == 1
+        assert fake.locales[0] == DEFAULT_LOCALE
 
     def test_locale_as_string(self):
         locale = 'en_US'
-        self.fake = Faker()
-        assert len(self.fake.locales) == 1
-        assert len(self.fake.factories) == 1
-        assert self.fake.locales[0] == locale
+        fake = Faker(locale)
+        assert len(fake.locales) == 1
+        assert len(fake.factories) == 1
+        assert fake.locales[0] == locale
 
     def test_locale_as_list(self):
         locale = ['en-US', 'en_PH', 'ja_JP', 'de-DE']
         expected = ['en_US', 'en_PH', 'ja_JP', 'de_DE']
-        for _ in range(10):
-            self.fake = Faker(locale)
-            assert self.fake.locales == expected
-            assert len(self.fake.factories) == len(expected)
+        fake = Faker(locale)
+        assert fake.locales == expected
+        assert len(fake.factories) == len(expected)
 
         locale = ['en-US', 'en_PH', 'ja_JP', 'de-DE', 'ja-JP', 'de_DE', 'en-US'] * 3
         expected = ['en_US', 'en_PH', 'ja_JP', 'de_DE']
-        for _ in range(10):
-            self.fake = Faker(locale)
-            assert self.fake.locales == expected
-            assert len(self.fake.factories) == len(expected)
+        fake = Faker(locale)
+        assert fake.locales == expected
+        assert len(fake.factories) == len(expected)
+
+    def test_locale_as_list_invalid_value_type(self):
+        locale = [1, 2]
+        with pytest.raises(TypeError) as exc:
+            Faker(locale)
+        assert str(exc.value) == 'The locale "1" must be a string.'
 
     def test_locale_as_ordereddict(self):
         locale = OrderedDict([
@@ -49,10 +53,10 @@ class TestFakerProxyClass(unittest.TestCase):
             ('ja_JP', 5),
         ])
 
-        self.fake = Faker(locale)
-        assert len(self.fake.locales) == 4
-        assert self.fake.locales == ['de_DE', 'en_US', 'en_PH', 'ja_JP']
-        assert self.fake.weights == [3, 2, 1, 5]
+        fake = Faker(locale)
+        assert fake.locales == ['de_DE', 'en_US', 'en_PH', 'ja_JP']
+        assert len(fake.factories) == 4
+        assert fake.weights == [3, 2, 1, 5]
 
         locale = OrderedDict([
             ('de_DE', 3),
@@ -63,34 +67,50 @@ class TestFakerProxyClass(unittest.TestCase):
             ('ja-JP', 2),
             ('en-US', 1),
         ])
-        self.fake = Faker(locale)
-        assert self.fake.locales == ['de_DE', 'en_US', 'en_PH', 'ja_JP']
-        assert self.fake.weights == [4, 1, 1, 2]
+        fake = Faker(locale)
+        assert fake.locales == ['de_DE', 'en_US', 'en_PH', 'ja_JP']
+        assert len(fake.factories) == 4
+        assert fake.weights == [4, 1, 1, 2]
+
+    def test_invalid_locale(self):
+        with pytest.raises(AttributeError):
+            Faker('foo_Bar')
+
+        with pytest.raises(AttributeError):
+            Faker(['en_US', 'foo_Bar'])
+
+        with pytest.raises(AttributeError):
+            Faker(OrderedDict([
+                ('de_DE', 3),
+                ('en-US', 2),
+                ('en-PH', 1),
+                ('foo_Bar', 5),
+            ]))
 
     def test_items(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP', 'de-DE', 'ja-JP', 'en-US']
         processed_locale = list({code.replace('-', '_') for code in locale})
-        self.fake = Faker(locale)
-        for locale_name, factory in self.fake.items():
+        fake = Faker(locale)
+        for locale_name, factory in fake.items():
             assert locale_name in processed_locale
             assert isinstance(factory, Generator)
 
     def test_dunder_getitem(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
-        self.fake = Faker(locale)
+        fake = Faker(locale)
 
         for code in locale:
-            assert isinstance(self.fake[code], Generator)
+            assert isinstance(fake[code], Generator)
 
-        with self.assertRaises(KeyError):
-            self.fake['en_GB']
+        with pytest.raises(KeyError):
+            fake['en_GB']
 
     def test_seed_classmethod(self):
-        self.fake = Faker()
+        fake = Faker()
 
         # Verify `seed()` is not callable from a class instance
-        with self.assertRaises(TypeError):
-            self.fake.seed(0)
+        with pytest.raises(TypeError):
+            fake.seed(0)
 
         # Verify calls to `seed()` from a class object are proxied properly
         with patch('faker.generator.Generator.seed') as mock_seed:
@@ -100,11 +120,11 @@ class TestFakerProxyClass(unittest.TestCase):
 
     def test_seed_instance(self):
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
-        self.fake = Faker(locale)
+        fake = Faker(locale)
 
         with patch('faker.generator.Generator.seed_instance') as mock_seed_instance:
             mock_seed_instance.assert_not_called()
-            self.fake.seed_instance(0)
+            fake.seed_instance(0)
 
             # Verify `seed_instance(0)` was called 4 times (one for each locale)
             calls = mock_seed_instance.call_args_list
@@ -118,17 +138,17 @@ class TestFakerProxyClass(unittest.TestCase):
         from faker.generator import random as shared_random_instance
 
         locale = ['de_DE', 'en-US', 'en-PH', 'ja_JP']
-        self.fake = Faker(locale)
+        fake = Faker(locale)
 
         # Get current state of each factory's random instance
         states = {}
-        for locale, factory in self.fake.items():
+        for locale, factory in fake.items():
             states[locale] = factory.random.getstate()
 
         # Create a new random instance for en_US factory with seed value
-        self.fake.seed_locale('en_US', 0)
+        fake.seed_locale('en_US', 0)
 
-        for locale, factory in self.fake.items():
+        for locale, factory in fake.items():
             # en_US factory should have changed
             if locale == 'en_US':
                 assert factory.random != shared_random_instance
@@ -140,65 +160,65 @@ class TestFakerProxyClass(unittest.TestCase):
                 assert factory.random.getstate() == states[locale]
 
     def test_single_locale_proxy_behavior(self):
-        self.fake = Faker()
-        internal_factory = self.fake.factories[0]
+        fake = Faker()
+        internal_factory = fake.factories[0]
 
         # Test if `Generator` attributes are proxied properly
-        for attr in self.fake.generator_attrs:
-            assert getattr(self.fake, attr) == getattr(internal_factory, attr)
+        for attr in fake.generator_attrs:
+            assert getattr(fake, attr) == getattr(internal_factory, attr)
 
         # Test if `random` getter and setter are proxied properly
-        tmp_random = self.fake.random
+        tmp_random = fake.random
         assert internal_factory.random != 1
-        self.fake.random = 1
+        fake.random = 1
         assert internal_factory.random == 1
-        self.fake.random = tmp_random
+        fake.random = tmp_random
 
         # Test if a valid provider method is proxied properly
         # Factory selection logic should not be triggered
         with patch('faker.proxy.Faker._select_factory') as mock_select_factory:
             mock_select_factory.assert_not_called()
-            assert self.fake.name == internal_factory.name
-            self.fake.name()
+            assert fake.name == internal_factory.name
+            fake.name()
             mock_select_factory.assert_not_called()
 
     def test_multiple_locale_proxy_behavior(self):
-        self.fake = Faker(['de-DE', 'en-US', 'en-PH', 'ja-JP'])
+        fake = Faker(['de-DE', 'en-US', 'en-PH', 'ja-JP'])
 
         # `Generator` attributes are not implemented
-        for attr in self.fake.generator_attrs:
-            with self.assertRaises(NotImplementedError):
-                getattr(self.fake, attr)
+        for attr in fake.generator_attrs:
+            with pytest.raises(NotImplementedError):
+                getattr(fake, attr)
 
         # The `random` getter is not implemented
-        with self.assertRaises(NotImplementedError):
-            random = self.fake.random
+        with pytest.raises(NotImplementedError):
+            random = fake.random
             random.seed(0)
 
         # The `random` setter is not implemented
-        with self.assertRaises(NotImplementedError):
-            self.fake.random = 1
+        with pytest.raises(NotImplementedError):
+            fake.random = 1
 
     def test_multiple_locale_caching_behavior(self):
-        self.fake = Faker(['de_DE', 'en-US', 'en-PH', 'ja_JP'])
+        fake = Faker(['de_DE', 'en-US', 'en-PH', 'ja_JP'])
 
         with patch('faker.proxy.Faker._map_provider_method',
-                   wraps=self.fake._map_provider_method) as mock_map_method:
+                   wraps=fake._map_provider_method) as mock_map_method:
             mock_map_method.assert_not_called()
-            assert not hasattr(self.fake, '_cached_name_mapping')
+            assert not hasattr(fake, '_cached_name_mapping')
 
             # Test cache creation
-            self.fake.name()
-            assert hasattr(self.fake, '_cached_name_mapping')
+            fake.name()
+            assert hasattr(fake, '_cached_name_mapping')
             mock_map_method.assert_called_once_with('name')
 
             # Test subsequent cache access
             with patch.object(Faker, '_cached_name_mapping', create=True,
                               new_callable=PropertyMock) as mock_cached_map:
                 # Keep test fast by patching the cached mapping to return something simpler
-                mock_cached_map.return_value = [self.fake['en_US']], [1]
+                mock_cached_map.return_value = [fake['en_US']], [1]
                 for _ in range(100):
-                    self.fake.name()
+                    fake.name()
 
                 # Python's hasattr() internally calls getattr()
                 # So each call to name() accesses the cached mapping twice
@@ -207,28 +227,28 @@ class TestFakerProxyClass(unittest.TestCase):
     @patch('faker.proxy.random.choice')
     @patch('faker.proxy.choices_distribution')
     def test_multiple_locale_factory_selection_no_weights(self, mock_choices_fn, mock_random_choice):
-        self.fake = Faker(['de_DE', 'en-US', 'en-PH', 'ja_JP'])
+        fake = Faker(['de_DE', 'en-US', 'en-PH', 'ja_JP'])
 
         # There are no distribution weights, so factory selection logic will use `random.choice`
         # if multiple factories have the specified provider method
         with patch('faker.proxy.Faker._select_factory',
-                   wraps=self.fake._select_factory) as mock_select_factory:
+                   wraps=fake._select_factory) as mock_select_factory:
             mock_select_factory.assert_not_called()
             mock_choices_fn.assert_not_called()
             mock_random_choice.assert_not_called()
 
             # All factories for the listed locales have the `name` provider method
-            self.fake.name()
+            fake.name()
             mock_select_factory.assert_called_once_with('name')
             mock_choices_fn.assert_not_called()
-            mock_random_choice.assert_called_once_with(self.fake.factories)
+            mock_random_choice.assert_called_once_with(fake.factories)
             mock_select_factory.reset_mock()
             mock_choices_fn.reset_mock()
             mock_random_choice.reset_mock()
 
             # Only `en_PH` factory has provider method `luzon_province`, so there is no
             # need for `random.choice` factory selection logic to run
-            self.fake.luzon_province()
+            fake.luzon_province()
             mock_select_factory.assert_called_with('luzon_province')
             mock_choices_fn.assert_not_called()
             mock_random_choice.assert_not_called()
@@ -237,11 +257,11 @@ class TestFakerProxyClass(unittest.TestCase):
             mock_random_choice.reset_mock()
 
             # Both `en_US` and `ja_JP` factories have provider method `zipcode`
-            self.fake.zipcode()
+            fake.zipcode()
             mock_select_factory.assert_called_once_with('zipcode')
             mock_choices_fn.assert_not_called()
             mock_random_choice.assert_called_once_with(
-                [self.fake['en_US'], self.fake['ja_JP']],
+                [fake['en_US'], fake['ja_JP']],
             )
             mock_select_factory.reset_mock()
             mock_choices_fn.reset_mock()
@@ -256,19 +276,19 @@ class TestFakerProxyClass(unittest.TestCase):
             ('en-PH', 1),
             ('ja_JP', 5),
         ])
-        self.fake = Faker(locale)
+        fake = Faker(locale)
         mock_choices_fn.assert_not_called()
         mock_random_choice.assert_not_called()
 
         # Distribution weights have been specified, so factory selection logic will use
         # `choices_distribution` if multiple factories have the specified provider method
         with patch('faker.proxy.Faker._select_factory',
-                   wraps=self.fake._select_factory) as mock_select_factory:
+                   wraps=fake._select_factory) as mock_select_factory:
 
             # All factories for the listed locales have the `name` provider method
-            self.fake.name()
+            fake.name()
             mock_select_factory.assert_called_once_with('name')
-            mock_choices_fn.assert_called_once_with(self.fake.factories, self.fake.weights, length=1)
+            mock_choices_fn.assert_called_once_with(fake.factories, fake.weights, length=1)
             mock_random_choice.assert_not_called()
             mock_select_factory.reset_mock()
             mock_choices_fn.reset_mock()
@@ -276,7 +296,7 @@ class TestFakerProxyClass(unittest.TestCase):
 
             # Only `en_PH` factory has provider method `luzon_province`, so there is no
             # need for `choices_distribution` factory selection logic to run
-            self.fake.luzon_province()
+            fake.luzon_province()
             mock_select_factory.assert_called_once_with('luzon_province')
             mock_choices_fn.assert_not_called()
             mock_random_choice.assert_not_called()
@@ -285,10 +305,10 @@ class TestFakerProxyClass(unittest.TestCase):
             mock_random_choice.reset_mock()
 
             # Both `en_US` and `ja_JP` factories have provider method `zipcode`
-            self.fake.zipcode()
+            fake.zipcode()
             mock_select_factory.assert_called_once_with('zipcode')
             mock_choices_fn.assert_called_once_with(
-                [self.fake['en_US'], self.fake['ja_JP']], [2, 5], length=1,
+                [fake['en_US'], fake['ja_JP']], [2, 5], length=1,
             )
             mock_random_choice.assert_not_called()
             mock_select_factory.reset_mock()
@@ -296,21 +316,76 @@ class TestFakerProxyClass(unittest.TestCase):
             mock_random_choice.reset_mock()
 
     def test_multiple_locale_factory_selection_unsupported_method(self):
-        self.fake = Faker(['en_US', 'en_PH'])
-        with self.assertRaises(AttributeError):
-            self.fake.obviously_invalid_provider_method_a23f()
+        fake = Faker(['en_US', 'en_PH'])
+        with pytest.raises(AttributeError):
+            fake.obviously_invalid_provider_method_a23f()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices')
+    def test_weighting_disabled_single_choice(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=False)
+        fake.first_name()
+        mock_choice_fn.assert_called()
+        mock_choices_fn.assert_not_called()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_with_locales(self, mock_choices_fn, mock_choice_fn):
+        locale = OrderedDict([
+            ('de_DE', 3),
+            ('en-US', 2),
+            ('en-PH', 1),
+            ('ja_JP', 5),
+        ])
+        fake = Faker(locale, use_weighting=False)
+        fake.first_name()
+        mock_choices_fn.assert_called()  # select provider
+        mock_choice_fn.assert_called()   # select within provider
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_multiple_locales(self, mock_choices_fn, mock_choice_fn):
+        locale = OrderedDict([
+            ('de_DE', 3),
+            ('en-US', 2),
+            ('en-PH', 1),
+            ('ja_JP', 5),
+        ])
+        fake = Faker(locale, use_weighting=False)
+        fake.first_name()
+        mock_choices_fn.assert_called()  # select provider
+        mock_choice_fn.assert_called()   # select within provider
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_disabled_multiple_choices(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=False)
+        fake.uri_path(deep=3)
+
+        assert mock_choices_fn.mock_calls[0][2]["k"] == 3
+        assert mock_choices_fn.mock_calls[0][2]["weights"] is None
+        mock_choice_fn.assert_not_called()
+
+    @patch('random.Random.choice')
+    @patch('random.Random.choices', wraps=random.Random().choices)
+    def test_weighting_enabled_multiple_choices(self, mock_choices_fn, mock_choice_fn):
+        fake = Faker(use_weighting=True)
+        fake.uri_path(deep=3)
+
+        assert mock_choices_fn.mock_calls[0][2]["k"] == 3
+        assert mock_choices_fn.mock_calls[0][2]["weights"] is None
+        mock_choice_fn.assert_not_called()
 
     def test_dir_include_all_providers_attribute_in_list(self):
-        self.fake = Faker(['en_US', 'en_PH'])
+        fake = Faker(['en_US', 'en_PH'])
         expected = set(dir(Faker) + [
             '_factories', '_locales', '_factory_map', '_weights',
+            '_unique_proxy',
         ])
-        for factory in self.fake.factories:
+        for factory in fake.factories:
             expected |= {
                 attr for attr in dir(factory) if not attr.startswith('_')
             }
         expected = sorted(expected)
-
-        attributes = dir(self.fake)
-
+        attributes = dir(fake)
         assert attributes == expected

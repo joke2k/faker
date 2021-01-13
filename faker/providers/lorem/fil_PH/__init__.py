@@ -2,14 +2,16 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """
-    Provider for generating Filipino lorem content
+    """Implement lorem provider for ``fil_PH`` locale.
 
-    Word list is based on the link below with some filtering, de-conjugating, and additional common words.
+    Word list is based on the source(s) below with some filtering,
+    de-conjugating, and additional common words.
 
     Sources:
+
     - https://1000mostcommonwords.com/1000-most-common-filipino-words/
     """
+
     word_list = (
         'abo', 'abot', 'aga', 'agham', 'akin', 'aklat', 'ako', 'akyat', 'alam', 'alang-alang', 'alikabok', 'alin',
         'alok', 'alon', 'ama', 'amin', 'amoy', 'anak', 'ang', 'angkop', 'anim', 'ano', 'antas', 'apat', 'aral', 'araw',

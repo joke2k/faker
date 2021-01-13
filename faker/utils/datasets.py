@@ -2,9 +2,10 @@ import operator
 
 from collections import Counter
 from functools import reduce
+from typing import Dict, Tuple
 
 
-def add_dicts(*args):
+def add_dicts(*args: Tuple[Dict, ...]) -> Dict:
     """
     Adds two or more dicts together. Common keys will have their values added.
 

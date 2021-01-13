@@ -2,51 +2,70 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{last_name}}',
-        '{{first_name}} {{prefix}} {{last_name}}',
-        '{{first_name}} {{last_name}}-{{last_name}}',
-        '{{first_name}}-{{first_name}} {{last_name}}',
+    formats_male = (
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}',
+        '{{first_name_male}} {{prefix}} {{last_name}}',
+        '{{first_name_male}} {{last_name}}-{{last_name}}',
     )
 
-    first_names = (
-        'Adriana', 'Afonso', 'Alex', 'Alexandra', 'Alexandre', 'Alice',
-        'Alícia', 'Amélia', 'Ana', 'Andreia', 'André', 'Anita', 'António',
-        'Ariana', 'Artur', 'Beatriz', 'Benedita', 'Benjamim', 'Bernardo',
-        'Bianca', 'Brian', 'Bruna', 'Bruno', 'Bryan', 'Bárbara', 'Caetana',
-        'Camila', 'Carlos', 'Carlota', 'Carminho', 'Carolina', 'Catarina',
-        'Clara', 'Cláudio', 'Constança', 'Cristiano', 'César', 'Daniel',
-        'Daniela', 'David', 'Denis', 'Diana', 'Diego', 'Dinis', 'Diogo',
-        'Duarte', 'Débora', 'Edgar', 'Eduarda', 'Eduardo', 'Ema', 'Emanuel',
-        'Emma', 'Emília', 'Enzo', 'Erica', 'Erika', 'Eva', 'Fabiana',
-        'Fernando', 'Filipa', 'Filipe', 'Flor', 'Francisca', 'Francisco',
-        'Frederico', 'Fábio', 'Gabriel', 'Gabriela', 'Gaspar', 'Gil', 'Gonçalo',
-        'Guilherme', 'Gustavo', 'Helena', 'Henrique', 'Hugo', 'Iara', 'Igor',
-        'Inês', 'Irina', 'Isaac', 'Isabel', 'Isabela', 'Ivan', 'Ivo', 'Jaime',
-        'Joana', 'Joaquim', 'Joel', 'Jorge', 'José', 'João', 'Juliana',
-        'Jéssica', 'Júlia', 'Kelly', 'Kevin', 'Kyara', 'Kévim', 'Lara',
-        'Larissa', 'Laura', 'Leandro', 'Leonardo', 'Leonor', 'Letícia', 'Lia',
-        'Lisandro', 'Lorena', 'Lourenço', 'Luana', 'Luca', 'Lucas', 'Luciana',
-        'Luna', 'Luís', 'Luísa', 'Lúcia', 'Madalena', 'Mafalda', 'Manuel',
-        'Mara', 'Marco', 'Marcos', 'Margarida', 'Maria', 'Mariana', 'Marta',
-        'Martim', 'Mateus', 'Matias', 'Matilde', 'Mauro', 'Melissa', 'Mia',
-        'Micael', 'Miguel', 'Miriam', 'Márcio', 'Mário', 'Mélanie', 'Naiara',
-        'Nair', 'Nelson', 'Nicole', 'Noa', 'Noah', 'Nuno', 'Nádia', 'Núria',
-        'Patrícia', 'Paulo', 'Pedro', 'Petra', 'Pilar', 'Rafael', 'Rafaela',
-        'Raquel', 'Renata', 'Renato', 'Ricardo', 'Rita', 'Rodrigo', 'Rui',
-        'Rúben', 'Salomé', 'Salvador', 'Samuel', 'Sandro', 'Santiago', 'Sara',
-        'Sebastião', 'Simão', 'Sofia', 'Soraia', 'Sérgio', 'Tatiana', 'Teresa',
-        'Tiago', 'Tomás', 'Tomé', 'Valentim', 'Valentina', 'Vasco', 'Vera',
-        'Vicente', 'Victória', 'Violeta', 'Vitória', 'Vítor', 'William',
-        'Wilson', 'Xavier', 'Yara', 'Yasmin', 'Álvaro', 'Ângela', 'Ângelo',
-        'Érica', 'Íris',
+    formats_female = (
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}',
+        '{{first_name_female}} {{prefix}} {{last_name}}',
+        '{{first_name_female}} {{last_name}}-{{last_name}}',
+        '{{first_name_female}}-{{first_name_female}} {{last_name}}',
     )
+
+    formats = formats_male + formats_female
+
+    first_names_male = (
+        'Afonso', 'Alexandre', 'Álvaro', 'André', 'Ângelo', 'António', 'Artur',
+        'Benjamim', 'Bernardo', 'Brian', 'Bruno', 'Bryan', 'Carlos',
+        'Cláudio', 'Cristiano', 'César', 'Daniel', 'David', 'Denis',
+        'Diego', 'Dinis', 'Diogo', 'Duarte', 'Edgar', 'Eduardo', 'Emanuel',
+        'Enzo', 'Fernando', 'Filipe', 'Francisco', 'Frederico', 'Fábio',
+        'Gabriel', 'Gaspar', 'Gil', 'Gonçalo', 'Guilherme', 'Gustavo',
+        'Henrique', 'Hugo', 'Igor', 'Isaac', 'Ismael', 'Ivan', 'Ivo', 'Jaime',
+        'Joaquim', 'Joel', 'Jorge', 'José', 'João', 'Kevin', 'Kévim',
+        'Leandro', 'Leonardo', 'Lisandro', 'Lourenço', 'Luca', 'Lucas',
+        'Luís', 'Manuel', 'Marco', 'Marcos', 'Martim', 'Mateus',
+        'Matias', 'Mauro', 'Micael', 'Miguel', 'Márcio', 'Mário',
+        'Nelson', 'Noa', 'Noah', 'Nuno', 'Paulo', 'Pedro', 'Rafael',
+        'Renato', 'Ricardo', 'Rodrigo', 'Rui', 'Rúben', 'Salvador',
+        'Samuel', 'Sandro', 'Santiago', 'Sebastião', 'Simão', 'Sérgio', 'Tiago',
+        'Tomás', 'Tomé', 'Valentim', 'Vasco', 'Vicente', 'Vítor', 'William',
+        'Wilson', 'Xavier',
+    )
+
+    first_names_female = (
+        'Adriana', 'Alexandra', 'Alice', 'Alícia', 'Amélia', 'Ana', 'Andreia',
+        'Ângela', 'Anita', 'Ariana', 'Beatriz', 'Benedita', 'Bianca', 'Bruna',
+        'Bárbara', 'Caetana', 'Camila', 'Carlota', 'Carminho', 'Carolina',
+        'Catarina', 'Clara', 'Constança', 'Daniela', 'Diana', 'Débora', 'Eduarda',
+        'Ema', 'Emma', 'Emília', 'Erica', 'Érica', 'Erika', 'Eva', 'Fabiana',
+        'Filipa', 'Flor', 'Francisca', 'Gabriela', 'Helena', 'Iara', 'Inês',
+        'Irina', 'Íris', 'Isabel', 'Isabela', 'Joana', 'Juliana', 'Jéssica',
+        'Júlia', 'Kelly', 'Kyara', 'Lara', 'Larissa', 'Laura', 'Leonor', 'Letícia',
+        'Lia', 'Lorena', 'Luana', 'Luciana', 'Luna', 'Luísa', 'Lúcia', 'Madalena',
+        'Mafalda', 'Mara', 'Margarida', 'Maria', 'Mariana', 'Marta', 'Matilde',
+        'Melissa', 'Mia', 'Miriam', 'Mélanie', 'Naiara', 'Nair', 'Nicole', 'Nádia',
+        'Núria', 'Patrícia', 'Petra', 'Pilar', 'Rafaela', 'Raquel', 'Renata',
+        'Rita', 'Salomé', 'Sara', 'Sofia', 'Soraia', 'Tatiana', 'Teresa',
+        'Valentina', 'Vera', 'Victória', 'Violeta', 'Vitória', 'Yara', 'Yasmin',
+    )
+
+    first_names = first_names_male + first_names_female
 
     last_names = (
         'Abreu', 'Almeida', 'Alves', 'Amaral', 'Amorim', 'Andrade', 'Anjos',

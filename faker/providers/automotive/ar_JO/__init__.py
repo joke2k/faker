@@ -2,14 +2,20 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Source:
-    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Jordan
+    """Implement automotive provider for ``ar_JO`` locale.
+
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Jordan
+    """
+
     license_formats = (
         '{{initials}}-####',
         '{{initials}}-#####',
     )
 
     def initials(self):
+        """Generate an initial number for license plates."""
         return self.random_element([
             '1',  # Ministers
             '2', '3',  # Parliament
@@ -36,5 +42,6 @@ class Provider(AutomotiveProvider):
         ])
 
     def license_plate(self):
+        """Generate a license plate."""
         pattern = self.random_element(self.license_formats)
         return self.numerify(self.generator.parse(pattern))

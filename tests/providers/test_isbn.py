@@ -1,5 +1,3 @@
-import unittest
-
 import pytest
 
 from faker.providers.isbn import ISBN10, ISBN13
@@ -7,7 +5,7 @@ from faker.providers.isbn.en_US import Provider as ISBNProvider
 from faker.providers.isbn.rules import RegistrantRule
 
 
-class TestISBN10(unittest.TestCase):
+class TestISBN10:
 
     def test_check_digit_is_correct(self):
         isbn = ISBN10(group='1', registrant='4516', publication='7331')
@@ -22,7 +20,7 @@ class TestISBN10(unittest.TestCase):
         assert len(isbn.format()) == 10
 
 
-class TestISBN13(unittest.TestCase):
+class TestISBN13:
 
     def test_check_digit_is_correct(self):
         isbn = ISBN13(ean='978', group='1', registrant='4516', publication='7331')
@@ -37,10 +35,9 @@ class TestISBN13(unittest.TestCase):
         assert len(isbn.format()) == 13
 
 
-class TestProvider(unittest.TestCase):
+class TestProvider:
 
-    def setUp(self):
-        self.prov = ISBNProvider(None)
+    prov = ISBNProvider(None)
 
     def test_reg_pub_separation(self):
         r1 = RegistrantRule('0000000', '0000001', 1)

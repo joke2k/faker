@@ -1,8 +1,183 @@
-Changelog
-=========
+## Changelog
 
-`4.1.0 - 12-May-2020 <https://github.com/joke2k/faker/compare/v4.0.3...v4.1.0>`__
----------------------------------------------------------------------------------
+### [5.5.1 - 2021-01-12](https://github.com/joke2k/faker/compare/v5.5.0...v5.5.1)
+
+* Fix lorem provider ``sentence`` method.
+
+### [5.5.0 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.1...v5.5.0)
+
+* Add elements caching and other optimizations. Thanks @prescod.
+* Add ``use_weighting`` parameter for improved performance. Thanks @prescod.
+ 
+### [5.4.1 - 2021-01-11](https://github.com/joke2k/faker/compare/v5.4.0...v5.4.1)
+
+* Remove empty string from  ``ar_AA`` Person Provider.
+
+### [5.4.0 - 2021-01-07](https://github.com/joke2k/faker/compare/v5.3.0...v5.4.0)
+
+* Add ``da_DK`` address provider. Thanks @JoseNavy.
+
+### [5.3.0 - 2020-12-30](https://github.com/joke2k/faker/compare/v5.2.0...v5.3.0)
+
+* ``json`` and ``fixed_width`` now allow for strings to be fixed or pinned to a static value by prepending ``@``. Thanks @johnbrandborg.
+
+### [5.2.0 - 2020-12-30](https://github.com/joke2k/faker/compare/v5.1.0...v5.2.0)
+
+* Add ``en_IN`` address + phone number provider. Thanks @pulkitgupta2k.
+
+### [5.1.0 - 2020-12-28](https://github.com/joke2k/faker/compare/v5.0.1...v5.1.0)
+
+* Add ``en_IN`` person provider. Thanks @pulkitgupta2k.
+
+### [5.0.2 - 2020-12-15](https://github.com/joke2k/faker/compare/v5.0.1...v5.0.2)
+
+* Remove invalid surname in `nl_NL`. Thanks @TheoSinnige.
+
+### [5.0.1 - 2020-12-07](https://github.com/joke2k/faker/compare/v5.0.0...v5.0.1)
+
+* ``th_TH`` ``strftime``: normalize output for unsupported directive on ``musl``-based Linux. Thanks @bact.
+
+### [5.0.0 - 2020-12-03](https://github.com/joke2k/faker/compare/v4.18.0...v5.0.0)
+
+* Drop support for Python 3.5. Thanks @cclaus.
+* Add support for Python 3.9. Thanks @cclaus.
+
+### [4.18.0 - 2020-11-30](https://github.com/joke2k/faker/compare/v4.17.1...v4.18.0)
+
+* Add ``date_time`` and ``bank`` providers for ``th_TH``. Thanks @bact.
+
+### [4.17.1 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.17.0...v4.17.1)
+
+* Correct spelling errors in city names for ``de_DE``. Thanks @AnjaGer.
+### [4.17.0 - 2020-11-19](https://github.com/joke2k/faker/compare/v4.16.0...v4.17.0)
+
+* Add name pairs to get matched representation in ``ja_JP`` person provider. Thanks @yu-ichiro.
+
+### [4.16.0 - 2020-11-17](https://github.com/joke2k/faker/compare/v4.15.0...v4.16.0)
+
+* Add SSN, company name, address, and license plate providers for ``th_TH``. Thanks @bact.
+
+### [4.15.0 - 2020-11-16](https://github.com/joke2k/faker/compare/v4.14.2...v4.15.0)
+
+* Add postcode format, country names, person prefix weights, and update phone number format for ``th_TH``. Thanks @bact.
+
+### [4.14.2 - 2020-11-04](https://github.com/joke2k/faker/compare/v4.14.1...v4.14.2)
+
+* Fix generation of names ending with spaces. Thanks @edomora97.
+
+### [4.14.1 - 2020-11-04](https://github.com/joke2k/faker/compare/v4.14.0...v4.14.1)
+
+* Add relative frequencies for japanese last names. Thanks @TianyiShi2001.
+
+### [4.14.0 - 2020-10-13](https://github.com/joke2k/faker/compare/v4.13.0...v4.14.0)
+
+* Add Swiss bank provider locales. Thanks @mondeja.
+
+### [4.13.0 - 2020-10-13](https://github.com/joke2k/faker/compare/v4.12.0...v4.13.0)
+
+* Split first names into male and female on ``pt_PT`` provider. Thanks @gplgps.
+
+### [4.12.0 - 2020-10-13](https://github.com/joke2k/faker/compare/v4.11.0...v4.12.0)
+
+* Geo provider added for ``tr_TR`` locale. Thanks @iamnotagentleman.
+
+### [4.11.0 - 2020-10-13](https://github.com/joke2k/faker/compare/v4.10.0...v4.11.0)
+
+* Add ``sk_SK`` Job provider. Thanks @pipozzz.
+
+### [4.10.0 - 2020-10-13](https://github.com/joke2k/faker/compare/v4.9.0...v4.10.0)
+
+* Add ``date_time`` provider for ``pt_PT``. Thanks @gplgps.
+
+### [4.9.0 - 2020-10-08](https://github.com/joke2k/faker/compare/v4.8.0...v4.9.0)
+
+* Add ``.unique()`` for unique values. Thanks @coiax.
+
+### [4.8.0 - 2020-10-08](https://github.com/joke2k/faker/compare/v4.7.0...v4.8.0)
+
+* Add automotive provider for ``tr_TR``. Thanks @molcay.
+
+### [4.7.0 - 2020-10-08](https://github.com/joke2k/faker/compare/v4.6.0...v4.7.0)
+
+* Add province list and add 2 new district to ``ne_NP``. Thanks @iamsauravsharma.
+
+
+### [4.6.0 - 2020-10-08](https://github.com/joke2k/faker/compare/v4.5.0...v4.6.0)
+
+* Add Currency provider for ``sv_SE``. Thanks @frangiz.
+
+### [4.5.0 - 2020-10-06](https://github.com/joke2k/faker/compare/v4.4.0...v4.5.0)
+
+* Add ``pt_PT`` credit card provider. Thanks @rubenandre.
+
+### [4.4.0 - 2020-10-02](https://github.com/joke2k/faker/compare/v4.3.0...v4.4.0)
+
+* Added Company Provider for ``tr_TR`` locale. Thanks @iamnotagentleman.
+
+### [4.3.0 - 2020-10-02](https://github.com/joke2k/faker/compare/v4.2.0...v4.3.0)
+
+* Add job providers for ``tr_TR``. Thanks @molcay.
+
+### [4.2.0 - 2020-10-02](https://github.com/joke2k/faker/compare/v4.1.8...v4.2.0)
+
+* Implement color provider for ``sk_SK`` locale. Thanks @pipozzz.
+
+### [4.1.8 - 2020-10-02](https://github.com/joke2k/faker/compare/v4.1.7...v4.1.8)
+
+* Fix ``hu_HU`` color provider inheritance. Thanks @n1ngu.
+
+### [4.1.7 - 2020-10-02](https://github.com/joke2k/faker/compare/v4.1.6...v4.1.7)
+* Bigger zipcode ranges for VA, TX and MD in ``en_US``. Thanks @Antetokounpo.
+
+### [4.1.6 - 2020-10-01](https://github.com/joke2k/faker/compare/v4.1.5...v4.1.6)
+* Add new style ``pt_PT`` automotive plates. Thanks @gplgps.
+
+### [4.1.5 - 2020-10-01](https://github.com/joke2k/faker/compare/v4.1.4...v4.1.5)
+* Remove duplicate jobs from the ``pt_PT`` provider (#1282). Thanks @gplgps.
+
+### [4.1.4 - 2020-09-30](https://github.com/joke2k/faker/compare/v4.1.3...v4.1.4)
+
+* Use "Belarus" instead of "Vitryssland" for ``sv_SE``. Thanks @Majsvaffla.
+* Added bank provider for ``tr_TR`` locale. Thanks @iamnotagentleman.
+* Improve VAT generation for IT provider. Thanks @LordGordonQ.
+* Use non-zero number for first digit of Swedish postal codes. Thanks @Majsvaffla.
+
+### [4.1.3 - 2020-09-14](https://github.com/joke2k/faker/compare/v4.1.2...v4.1.3)
+
+* Add ``es_ES`` autonomous communities (Spanish regions). Thanks @mondeja.
+* Add JSON and Fixed Width argument group and parser support. Thanks @johnbrandborg.
+* Update ``zh_CN`` ssn provider to support gender. Thanks @mapoor.
+* Fix typo in ``de_DE`` job provider. Thanks @datadominik.
+* ``or_IN`` Odia person's name added. Thanks @soumendrak.
+* Remove ``datetime_safe`` shim subclass in favor of native Python ``datetime.datetime``. Thanks @samcrang.
+
+### [4.1.2 - 2020-08-17](https://github.com/joke2k/faker/compare/v4.1.1...v4.1.2)
+
+* Extend Person Provider to support non-binary suffixes and prefixes. Thank you @crd.
+* Add ``safe_domain_name`` generator. Thanks @crd.
+* Fix max_value/positive ``pyfloat`` interaction. Thanks @coiax.
+* Update ``bban_format`` for ``fi_FI`` locale. Thanks @ALMP-SallaH.
+* Fix ``person.ja_JP`` kana and roman characters. Thanks @yameholo.
+* Add ``json`` and ``fixed_width`` generators. Thank you @johnbrandborg.
+* Add SWIFT code provider methods: ``swift``, ``swift8`` and ``swift11``. Thanks @malefice.
+* Add ``es_ES`` internet provider. Thanks @mondeja.
+* Update ``bban_format`` for ``fr_FR`` locale. Thanks @r3gis3r.
+* Update ``fr_FR`` ``job`` provider. Thanks @mondeja.
+* Add ``es_ES`` ``barcode`` provider. Thanks @mondeja.
+* Add parser argument support. Thanks @johnbrandborg.
+
+### [4.1.1 - 2020-06-15](https://github.com/joke2k/faker/compare/v4.1.0...v4.1.1)
+
+* Add ``date_time`` providers for ``cs_CZ``, ``de_AT``, ``es_ES``, ``it_IT``, ``sk_SK``,
+  ``tr_TR``. Thanks @eumiro.
+* Add prefix support to BarcodeProvider. Thanks @yu-ichiro.
+* Fix company format for ``hy_AM`` provider. Thanks @mdantonio.
+* Add .uk email providers and TLDs for ``en_GB``. Thanks @craiga.
+* Add ``language_name`` generator. Thanks @ikhomutov and @mondeja.
+* Add ``pytimezone`` generator returning ``tzinfo`` objects. Thanks @OJFord.
+* Add ``es_ES`` currency provider. Thanks @mondeja.
+
+### [4.1.0 - 2020-05-12](https://github.com/joke2k/faker/compare/v4.0.3...v4.1.0)
 
 * Add ``pytest`` plugin. Thanks @malefice.
 * Fix phone numbers for ``es_ES``. Thanks @pablofm.
@@ -11,8 +186,7 @@ Changelog
 * Add provider for ``sk_SK`` ``birth_number``. Thanks @eumiro.
 * Add ``day_of_week`` and ``month_name`` for ``de_DE`` provider. Thanks @eumiro.
 
-`4.0.3 - 13-April-2020 <https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3>`__
------------------------------------------------------------------------------------
+### [4.0.3 - 2020-04-13](https://github.com/joke2k/faker/compare/v4.0.2...v4.0.3)
 
 * Fixed ``MSISDN`` for ``pt_BR``  to return only mobile numbers. Thanks @rodrigondec.
 * Added Domain Generator Algorithm by date. Thanks @pishchalnikov.
@@ -28,8 +202,7 @@ Changelog
 * Added color provider for ``no_NO`` license plates. Thanks @bjorskog.
 * Made ``value_types`` a keyword argument in ``python`` provider. Thanks @slafs.
 
-`4.0.2 - 11-March-2020 <https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2>`__
------------------------------------------------------------------------------------
+### [4.0.2 - 2020-03-11](https://github.com/joke2k/faker/compare/v4.0.1...v4.0.2)
 
 * Add more data for ``ko_KR`` address provider. Thanks @alstn2468.
 * Improved ``pt_PT`` locale for address and bank. Thanks @mustakarhu.
@@ -41,8 +214,7 @@ Changelog
 * Add ``AutomotiveProvider`` for ``fr_FR`` locale. Thanks @clarissedescamps and @perssonsimon1.
 * Fix ``cellphone_formats`` in ``pt_BR`` ``PhoneNumberProvider``. Thanks @rodrigondec.
 
-`4.0.1 - 17-February-2020 <https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1>`__
---------------------------------------------------------------------------------------
+### [4.0.1 - 2020-02-17](https://github.com/joke2k/faker/compare/v4.0.0...v4.0.1)
 
 * Provider improvements for Russian locale:
     * added city suffixes, regions and country list
@@ -64,13 +236,11 @@ Changelog
 * Add Birth Number to czech locale. Thanks @Jengah.
 * Add persons provider for ``fr_QC``. Thanks @Lionesk.
 
-`4.0.0 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0>`__
--------------------------------------------------------------------------------------
+### [4.0.0 - 2020-01-14](https://github.com/joke2k/faker/compare/v3.0.1...v4.0.0)
 
 * Breaking change: Remove support for end-of-life Python 2.7.
 
-`3.0.1 - 14-January-2020 <https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1>`__
--------------------------------------------------------------------------------------
+### [3.0.1 - 2020-01-14](https://github.com/joke2k/faker/compare/v3.0.0...v3.0.1)
 
 **NOTE**: This is the last release to support Python 2.7.x.
 
@@ -86,14 +256,12 @@ Changelog
 * Fix ``Faker.random_number`` intermittent exceptions. Thanks @Jengah.
 
 
-`3.0.0 - 04-December-2019 <https://github.com/joke2k/faker/compare/v2.0.5...v3.0.0>`__
---------------------------------------------------------------------------------------
+### [3.0.0 - 2019-12-04](https://github.com/joke2k/faker/compare/v2.0.5...v3.0.0)
 
 * Breaking change: Add support for multiple locale data generation.
   Thanks @malefice.
 
-`2.0.5 - 03-December-2019 <https://github.com/joke2k/faker/compare/v2.0.4...v2.0.5>`__
---------------------------------------------------------------------------------------
+### [2.0.5 - 2019-12-03](https://github.com/joke2k/faker/compare/v2.0.4...v2.0.5)
 
 * Add Iranian credit card. Thanks @abtinmo.
 * Improve color provider. Thanks @malefice.
@@ -101,8 +269,7 @@ Changelog
 * Change NY zipcode range. Thanks @arielkaluzhny.
 * Fix pyfloat out of min/max range. Thanks @bryan-brancotte.
 
-`2.0.4 - 12-November-2019 <https://github.com/joke2k/faker/compare/v2.0.3...v2.0.4>`__
---------------------------------------------------------------------------------------
+### [2.0.4 - 2019-11-12](https://github.com/joke2k/faker/compare/v2.0.3...v2.0.4)
 
 * Drop python 3.4.
 * Fix master card number generator. Thanks @nkthanh98.
@@ -122,8 +289,7 @@ Changelog
 * Improve barcode provider. Thanks @malefice.
 * Fix for pyfloat empty randrange. Thanks @jcardali.
 
-`2.0.3 - 14-October-2019 <https://github.com/joke2k/faker/compare/v2.0.2...v2.0.3>`__
--------------------------------------------------------------------------------------
+### [2.0.3 - 2019-10-14](https://github.com/joke2k/faker/compare/v2.0.2...v2.0.3)
 
 * Use the provider's RNG instead of the random module in ``invalid_ssn``. Thanks @luser.
 * Fix ``randomize_nb_elements`` ``max`` argument. Thanks @jorrit-wehelp.
@@ -133,26 +299,22 @@ Changelog
 * Add police id for ``el_GR``. Thanks @athaks.
 * Add jobs for for ``pt_PT``. Thanks @rubenandre.
 
-`2.0.2 - 17-September-2019 <https://github.com/joke2k/faker/compare/v2.0.1...v2.0.2>`__
----------------------------------------------------------------------------------------
+### [2.0.2 - 2019-09-17](https://github.com/joke2k/faker/compare/v2.0.1...v2.0.2)
 
 * Fix typos, misspellings. Add locations, names, dates in ``hi_IN`` providers. Thanks @kathawala.
 * Bump required version ``text-unidecode`` to 1.3. Thanks @moggers87.
 * Bug fix for ``pyfloat`` going over ``max_value``. Thanks @fgs-dbudwin.
 
-`2.0.1 - 20-August-2019 <https://github.com/joke2k/faker/compare/v2.0.0...v2.0.1>`__
-------------------------------------------------------------------------------------
+### [2.0.1 - 2019-08-20](https://github.com/joke2k/faker/compare/v2.0.0...v2.0.1)
 
 * Add nationalities for locale ``pt_PT``. Thanks @tng10.
 * Add ``ios()`` and ``android()`` to ``user_agent`` provider. Thanks @gsilvan.
 * Update ``zh_CN`` provinces. Thanks @casen27.
 
-`2.0.0 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.8...v2.0.0>`__
-----------------------------------------------------------------------------------
+### [2.0.0 - 2019-07-15](https://github.com/joke2k/faker/compare/v1.0.8...v2.0.0)
 * Breaking change: Only allow providers to use ``OrderedDict`` s, to avoid any more ``PYTHONHASHSEED`` problems. Thanks @adamchainz.
 
-`1.0.8 - 15-July-2019 <https://github.com/joke2k/faker/compare/v1.0.7...v1.0.8>`__
-----------------------------------------------------------------------------------
+### [1.0.8 - 2019-06-15](https://github.com/joke2k/faker/compare/v1.0.7...v1.0.8)
 
 * Rename ``pyint`` ``min`` and ``max`` to ``min_value`` and ``max_value``.
   Thanks @francoisfreitag.
@@ -171,8 +333,7 @@ Changelog
 * Fix datetime parsing on environments with negative offsets.
   Thanks @bluesheeptoken.
 
-`1.0.7 - 14-May-2019 <https://github.com/joke2k/faker/compare/v1.0.6...v1.0.7>`__
----------------------------------------------------------------------------------
+### [1.0.7 - 2019-05-14](https://github.com/joke2k/faker/compare/v1.0.6...v1.0.7)
 
 * Remove dead url from ``image_placeholder_services``. Thanks @Monstrofil.
 * Fix missing ``first_names`` in Romanian person provider. Thanks @xlotlu.
@@ -182,15 +343,13 @@ Changelog
   Thanks @adwojak.
 * Corrected behavior for ``pyfloat``. Thanks @ariksu.
 
-`1.0.6 - 26-April-2019 <https://github.com/joke2k/faker/compare/v1.0.5...v1.0.6>`__
------------------------------------------------------------------------------------
+### [1.0.6 - 2019-04-26](https://github.com/joke2k/faker/compare/v1.0.5...v1.0.6)
 
 * Add missing commas to company/nl_NL provider. Thanks @francoisfreitag.
 * Add bounds to ``pyint``. Thanks @francoisfreitag.
 * Accept step argument in ``random_int()``. Thanks @francoisfreitag.
 
-`1.0.5 - 12-April-2019 <https://github.com/joke2k/faker/compare/v1.0.4...v1.0.5>`__
------------------------------------------------------------------------------------
+### [1.0.5 - 2019-04-12](https://github.com/joke2k/faker/compare/v1.0.4...v1.0.5)
 
 * Add min and max values for ``pyfloat`` and ``pydecimal``. Thanks @Lrcezimbra.
 * Add ``months`` and ``M`` to the syntax for ``start_date`` and ``end_date``.
@@ -201,13 +360,11 @@ Changelog
   Thanks @stephane.
 * Add Armenian locale ``hy_AM``. Thanks @hovikman.
 
-`1.0.4 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.3...v1.0.4>`__
------------------------------------------------------------------------------------
+`1.0.4 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.3...v1.0.4>`_
 
 * Fix erratic test.
 
-`1.0.3 - 12-March-2019 <https://github.com/joke2k/faker/compare/v1.0.2...v1.0.3>`__
------------------------------------------------------------------------------------
+### [1.0.3 - 2019-03-12](https://github.com/joke2k/faker/compare/v1.0.2...v1.0.3)
 
 * Fix ``AttributeError`` in ``user_Agent`` provider. Thanks @Mattwmaster58 for
   the report.
@@ -225,8 +382,7 @@ Changelog
 * Add Brazilian RG (identity card). Thanks @davizucon.
 * Allow overriding of random generator class.
 
-`1.0.2 - 22-January-2019 <https://github.com/joke2k/faker/compare/v1.0.1...v1.0.2>`__
--------------------------------------------------------------------------------------
+### [1.0.2 - 2019-01-22](https://github.com/joke2k/faker/compare/v1.0.1...v1.0.2)
 
 * Fix state abbreviations for ``id_ID`` to be 2-letters. Thanks @dt-ap.
 * Fix format for ``city_with_postcode`` on ``de_DE`` locale. Thanks @TZanke.
@@ -235,24 +391,21 @@ Changelog
   a zipcode for a specified state. Thanks @mattyg.
 * Group first names by gender on ``zh_CN`` provider. Thanks @TimeFinger.
 
-`1.0.1 - 12-December-2018 <https://github.com/joke2k/faker/compare/v1.0.0...v1.0.1>`__
---------------------------------------------------------------------------------------
+### [1.0.1 - 2018-12-12](https://github.com/joke2k/faker/compare/v1.0.0...v1.0.1)
 
 * Fix number of digits in ``phone_number`` provider for ``no_NO``.
   Thanks @aleksanb.
 * Add categories to ``jp_JP`` company provider. Thanks @shirakia.
 * Add trunk prefix for ``ru_RU`` phone numbers. thanks @pishchalnikov.
 
-`1.0.0 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.3...v1.0.0>`__
---------------------------------------------------------------------------------------
+### [1.0.0 - 2018-11-13](https://github.com/joke2k/faker/compare/v0.9.3...v1.0.0)
 
 * Breaking change: ``latlng``, ``latitude`` and ``longitude`` no longer return
   coordinates that are close the locale's country. Use the ``local_latlng``,
   ``local_latitude`` and ``local_longitude`` instead.
 * Add ``location_on_land`` provider. Thanks @shacker.
 
-`0.9.3 - 13-November-2018 <https://github.com/joke2k/faker/compare/v0.9.2...v0.9.3>`__
---------------------------------------------------------------------------------------
+### [0.9.3 - 2018-11-13](https://github.com/joke2k/faker/compare/v0.9.2...v0.9.3)
 
 * Add ``cellphone_number`` method for ``pt_BR``. Thanks @Newman101.
 * Fix urls generated by from `image_url`. Thanks @tsiaGeorge.
@@ -276,8 +429,7 @@ Changelog
 * Add license plates for ``sv_SE``. Thanks @vilhelmmelkstam.
 * Allow ``uuid4`` to return a ``UUID`` object. Thanks @ediblesushi.
 
-`0.9.2 - 12-October-2018 <https://github.com/joke2k/faker/compare/v0.9.1...v0.9.2>`__
--------------------------------------------------------------------------------------
+### [0.9.2 - 2018-10-12](https://github.com/joke2k/faker/compare/v0.9.1...v0.9.2)
 
 * Add company names to ``pl_PL`` provider. Thanks @@twkrol.
 * Add replacements for non-ascii characters in ``pt_BR``. Thanks @clarmso.
@@ -290,8 +442,7 @@ Changelog
 * Lots of work on internal cleanup and optimizing the CI. Thanks @jdufresne.
 * Add ``flake8`` to the CI. Thanks @andrzej3393.
 
-`0.9.1 - 13-September-2018 <https://github.com/joke2k/faker/compare/v0.9.0...v0.9.1>`__
----------------------------------------------------------------------------------------
+### [0.9.1 - 2018-09-13](https://github.com/joke2k/faker/compare/v0.9.0...v0.9.1)
 
 * Fix missing and misplaced comma's in many providers. Thanks @153957.
 * Refactor IPv4 address generation to leverage ``ipaddress`` module.
@@ -304,9 +455,8 @@ Changelog
   provider. Thanks @micahstrube.
 * Add support for Python 3.7. Thanks @michael-k.
 
-`0.9.0 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.18...v0.9.0>`__
--------------------------------------------------------------------------------------
-
+### [0.9.0 - 2018-08-13](https://github.com/joke2k/faker/compare/v0.8.18...v0.9.0)
+-
 * ``.random_sample()`` now returns a list of unique elements instead of a set.
 * ``.random_sample_unique()`` is removed in favor of ``.random_sample()``.
 * Added ``random_choices()``, ``random_elements()`` and ``random_letters()``.
@@ -314,8 +464,7 @@ Changelog
 * ``words()``, ``password()``, ``uri_path`` and ``pystr()`` now use the new the
   ``random_choices()`` method.
 
-`0.8.18 - 13-August-2018 <https://github.com/joke2k/faker/compare/v0.8.17...v0.8.18>`__
----------------------------------------------------------------------------------------
+### [0.8.18 - 2018-08-13](https://github.com/joke2k/faker/compare/v0.8.17...v0.8.18)
 
 * Change blood group from ``0`` (zero) to ``O`` (capital letter O). Some
   locales do use 'zero', but ``O`` is more common and it is the medical
@@ -330,8 +479,7 @@ Changelog
 * Use tzinfo when provided in ``date_of_birth``. Thanks @Kelledin.
 
 
-`0.8.17 - 12-July-2018 <https://github.com/joke2k/faker/compare/v0.8.16...v0.8.17>`__
--------------------------------------------------------------------------------------
+### [0.8.17 - 2018-07-12](https://github.com/joke2k/faker/compare/v0.8.16...v0.8.17)
 
 * Add ``ein``, ``itin`` and refactored ``ssn`` Provider for ``en_US``.
   Thanks @crd.
@@ -339,29 +487,25 @@ Changelog
 * Add ``date_of_birth`` provider. Thanks @cdr.
 * Add alpha-3 representation option for ``country-code`` provider. Thanks @cdr.
 
-`0.8.16 - 15-June-2018 <https://github.com/joke2k/faker/compare/v0.8.15...v0.8.16>`__
--------------------------------------------------------------------------------------
+### [0.8.16 - 2018-06-15](https://github.com/joke2k/faker/compare/v0.8.15...v0.8.16)
 
 * Fix test for CPF (Brazilian SSN). Thanks Rubens Takiguti Ribeiro.
 * Fix Canadian SIN generation. Thanks @crd.
 * Fix Norwegian SSN date portion. Thanks @frangiz.
 * Add ``start_datetime`` argument for ``unix_time()``. Thanks @crd.
 
-`0.8.15 - 14-May-2018 <https://github.com/joke2k/faker/compare/v0.8.14...v0.8.15>`__
-------------------------------------------------------------------------------------
+### [0.8.15 - 2018-05-14](https://github.com/joke2k/faker/compare/v0.8.14...v0.8.15)
 
 * Change logging level to ``DEBUG``.
 
-`0.8.14 - 11-May-2018 <https://github.com/joke2k/faker/compare/v0.8.13...v0.8.14>`__
-------------------------------------------------------------------------------------
+### [0.8.14 - 2018-05-11](https://github.com/joke2k/faker/compare/v0.8.13...v0.8.14)
 
 * Add possibility to make artificial ssn numbers for ``FI_fi``. Thanks @kivipe.
 * Update ``ko_KR`` person data based on statistics. Thanks @unace.
 * Improved logging. Thanks @confirmationbias616.
 
 
-`0.8.13 - 12-April-2018 <https://github.com/joke2k/faker/compare/v0.8.12...v0.8.13>`__
---------------------------------------------------------------------------------------
+### [0.8.13 - 2018-04-12](https://github.com/joke2k/faker/compare/v0.8.12...v0.8.13)
 
 * Add ``no_NO`` bank provider. Thanks @cloveras.
 * Add ``ipv4_network_class``, ``ipv4_private``, ``ipv4_public`` providers.
@@ -381,8 +525,7 @@ Changelog
 * Clarify CLI help. Thanks @confirmationbias616.
 
 
-`0.8.12 - 12-March-2018 <https://github.com/joke2k/faker/compare/v0.8.11...v0.8.12>`__
---------------------------------------------------------------------------------------
+### [0.8.12 - 2018-03-12](https://github.com/joke2k/faker/compare/v0.8.11...v0.8.12)
 
 * Fix issue with ``cx_Freeze``. Thanks @sedominik.
 * Add dutch ``nl_NL`` bank provider. Thanks @PatSousa.
@@ -400,22 +543,19 @@ Changelog
 * Fix incorrect value in list of middle name for locale ``ru_RU``.
   Thanks @damirazo.
 
-`0.8.11 - 12-February-2018 <https://github.com/joke2k/faker/compare/v0.8.10...v0.8.11>`__
------------------------------------------------------------------------------------------
+### [0.8.11 - 2018-02-12](https://github.com/joke2k/faker/compare/v0.8.10...v0.8.11)
 
 * Add scheme selection for internet ``url`` provider. Thanks @ProvoK.
 * Increase lower bound on AD date generation. Thanks @prophile.
 * Add the ability to specify the min and max age for some ssn locales.
   Thanks @frangiz.
 
-`0.8.10 - 16-January-2018 <https://github.com/joke2k/faker/compare/v0.8.9...v0.8.10>`__
----------------------------------------------------------------------------------------
-
+### [0.8.10 - 2018-01-16](https://github.com/joke2k/faker/compare/v0.8.9...v0.8.10)
+--
 * Pass ``python_requires`` argument to ``setuptools``. Thanks @jdufresne.
 * Remove some words from ``en_US`` lorem ipsum provider. Thanks @Pomax.
 
-`0.8.9 - 12-January-2018 <https://github.com/joke2k/faker/compare/v0.8.8...v0.8.9>`__
--------------------------------------------------------------------------------------
+### [0.8.9 - 2018-01-12](https://github.com/joke2k/faker/compare/v0.8.8...v0.8.9)
 
 * Remove support for Python 3.3. Thanks @jdufresne.
 * Allow past dates within a second. Thanks @DanEEstar.
@@ -427,8 +567,7 @@ Changelog
 * Added ``domain`` argument to ``email`` provider. Thanks @lcd1232.
 
 
-`0.8.8 - 19-December-2017 <https://github.com/joke2k/faker/compare/v0.8.7...v0.8.8>`__
---------------------------------------------------------------------------------------
+### [0.8.8 - 2017-12-19](https://github.com/joke2k/faker/compare/v0.8.7...v0.8.8)
 
 * made ``seed_instance`` return ``self`` for chainability.
 * Add ``en_US`` locale for ``lorem``. Thanks @shacker.
@@ -436,8 +575,7 @@ Changelog
 * ``fi_FI`` address and job lists updated. Thanks @mikkhola.
 * Add ``iban`` provider. Thanks @cdaller.
 
-`0.8.7 - 14-November-2017 <https://github.com/joke2k/faker/compare/v0.8.6...v0.8.7>`__
---------------------------------------------------------------------------------------
+### [0.8.7 - 2017-11-14](https://github.com/joke2k/faker/compare/v0.8.6...v0.8.7)
 
 * Corrected some issues with the Hungarian (``hu_HU``) providers, such as
   incorrectly capitalized company suffixes, street/road type names and place
@@ -452,14 +590,12 @@ Changelog
 * Fix ResourceWarning in ``setup.py``. Thanks @jdufresne.
 * Update test requirements.
 
-`0.8.6 - 16-October-2017 <https://github.com/joke2k/faker/compare/v0.8.5...v0.8.6>`__
--------------------------------------------------------------------------------------
+### [0.8.6 - 2017-10-16](https://github.com/joke2k/faker/compare/v0.8.5...v0.8.6)
 
 * Replace ``unidecode`` dependency in favor of ``text-unidecode``. Faker now
-  requires `text-unidecode <https://pypi.org/project/text-unidecode/>`_.
+  requires [text-unidecode](https://pypi.org/project/text-unidecode/).
 
-`0.8.5 - 13-October-2017 <https://github.com/joke2k/faker/compare/v0.8.4...v0.8.5>`__
--------------------------------------------------------------------------------------
+### [0.8.5 - 2017-10-13](https://github.com/joke2k/faker/compare/v0.8.4...v0.8.5)
 
 * Add ASCII emails. Thanks @barseghyanartur.
 * Add ``id_ID`` Providers. Thanks Sidi Ahmad.
@@ -468,12 +604,9 @@ Changelog
 * Create a provider to Brazilian license plates. Thanks @diegoholiveira.
 * Use a proper international format for Ukrainian phone numbers.
   Thanks @illia-v.
-* Faker now requires Unidecode_.
+* Faker now requires [Unidecode](https://pypi.org/project/Unidecode/).
 
-.. _Unidecode: https://pypi.org/project/Unidecode/
-
-`0.8.4 - 22-September-2017 <https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4>`__
----------------------------------------------------------------------------------------
+### [0.8.4 - 2017-09-22](https://github.com/joke2k/faker/compare/v0.8.3...v0.8.4)
 
 * Move ``email_validator`` to ``test_requires`` and unpinned the
   version number.
@@ -482,25 +615,22 @@ Changelog
 * Add Arabic locales. Thanks @ahmedaljazzar.
 * Fix datetime issue on Windows. Thanks @kungfu71186.
 
-`0.8.3 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.2...v0.8.3>`__
----------------------------------------------------------------------------------------
+### [0.8.3 - 2017-09-05](https://github.com/joke2k/faker/compare/v0.8.2...v0.8.3)
 
 * Fix release build.
 
-`0.8.2 - 05-September-2017 <https://github.com/joke2k/faker/compare/v0.8.1...v0.8.2>`__
----------------------------------------------------------------------------------------
+### [0.8.2 - 2017-09-05](https://github.com/joke2k/faker/compare/v0.8.1...v0.8.2)
 
 * Revert name change of ``faker.generator.random``. Thanks @adamchainz.
 * Document the global shared ``random.Random`` and ``seed_instance()``.
   Thanks @adamchainz.
 
-`0.8.1 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.8.0...v0.8.1>`__
-------------------------------------------------------------------------------------
+### [0.8.1 - 2017-08-28](https://github.com/joke2k/faker/compare/v0.8.0...v0.8.1)
 
 * Rolled back breaking change in ``randomize_nb_elements``.
 
-`0.8.0 - 28-August-2017 <https://github.com/joke2k/faker/compare/v0.7.18...v0.8.0>`__
--------------------------------------------------------------------------------------
+### [0.8.0 - 2017-08-28](https://github.com/joke2k/faker/compare/v0.7.18...v0.8.0)
+
 * Add ``identity_card_number`` for ``pl_PL`` ``person`` provider. Thanks @pdaw.
 * More descriptive error message when a formatter is not found.
   Thanks @fcurella.
@@ -508,8 +638,7 @@ Changelog
 * Add per-instance seeding via ``.seed_instance`` method. Thanks @reverbc.
 * Fix ``tz_TW`` ``address`` provider. Thanks @clarmso.
 
-`0.7.18 - 19-July-2017 <https://github.com/joke2k/faker/compare/v0.7.17...v0.7.18>`__
--------------------------------------------------------------------------------------
+### [0.7.18 - 2017-07-19](https://github.com/joke2k/faker/compare/v0.7.17...v0.7.18)
 
 * Generate proper dates before 1970. Thanks @kungfu71186.
 * Made it possible to seed ``.binary()``. Thanks @kungfu71186.
@@ -536,30 +665,25 @@ Changelog
   Thanks @catleeball.
 * Refactor RGB color methods. Thanks @catleeball.
 
-`0.7.17 - 12-June-2017 <https://github.com/joke2k/faker/compare/v0.7.16...v0.7.17>`__
--------------------------------------------------------------------------------------
+### [0.7.17 - 2017-06-12](https://github.com/joke2k/faker/compare/v0.7.16...v0.7.17)
 
 * Fix a timezone issue with the ``date_time_between_dates`` provider.
 
-`0.7.16 - 09-June-2017 <https://github.com/joke2k/faker/compare/v0.7.15...v0.7.16>`__
--------------------------------------------------------------------------------------
+### [0.7.16 - 2017-06-09](https://github.com/joke2k/faker/compare/v0.7.15...v0.7.16)
 
 * fix timezone issues with ``date_time_between`` provider.
-* Add ``ext_word_list`` parameter to methods in the `Lorem` generator.
+* Add ``ext_word_list`` parameter to methods in the ``Lorem`` generator.
   Thanks @guinslym.
 
-`0.7.15 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.14...v0.7.15>`__
--------------------------------------------------------------------------------------
+### [0.7.15 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.14...v0.7.15)
 
 * fix start and end date for datetime provider methods.
 
-`0.7.14 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.13...v0.7.14>`__
--------------------------------------------------------------------------------------
+### [0.7.14 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.13...v0.7.14)
 
 * fix ``future_date``, `and ``past_date`` bounds.
 
-`0.7.13 - 02-June-2017 <https://github.com/joke2k/faker/compare/v0.7.12...v0.7.13>`__
--------------------------------------------------------------------------------------
+### [0.7.13 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.12...v0.7.13)
 
 * Remove capitalisation from ``hu_HU`` addresses. Thanks @Newman101.
 * Add ``et_EE`` (Estonian) provider: names and ssn. Thanks @trtd.
@@ -571,12 +695,11 @@ Changelog
   to DateTime Provider
 
 
-`0.7.12 - 10-May-2017 <https://github.com/joke2k/faker/compare/v0.7.11...v0.7.12>`__
-------------------------------------------------------------------------------------
+### [0.7.12 - 2017-05-10](https://github.com/joke2k/faker/compare/v0.7.11...v0.7.12)
 
 * Add Japanese lorem provider. Thanks @richmondwang.
-* Add hr_HR names of month and names of days. Thanks @mislavcimpersak.
-* Add sl_SI names of month and names of days. Thanks @mislavcimpersak.
+* Add ``hr_HR`` names of month and names of days. Thanks @mislavcimpersak.
+* Add ``sl_SI`` names of month and names of days. Thanks @mislavcimpersak.
 * Update the provider ``user_agent``. Thanks @illia-v.
 * Add russian words for date_time. Thanks @iskhomutov.
 * Add Georgian (``ka_GE``) person and address providers.
@@ -584,62 +707,54 @@ Changelog
 * Add company provider to hu_HU locale. Thanks @Newman101.
 * Allow subdomains for ``domain_name`` provider. Thanks @hiagofigueiro.
 * Implement hu_HU months + days. Thanks @Newman101.
-* Replacement rules for emails à->a, è->e in `de_DE` internet provider.
+* Replacement rules for emails à->a, è->e in ``de_DE`` internet provider.
   Thanks @Bergil32.
 
 
-`0.7.11 - 09-April-2017 <https://github.com/joke2k/faker/compare/v0.7.10...v0.7.11>`__
---------------------------------------------------------------------------------------
-
+### [0.7.11 - 2017-04-09](https://github.com/joke2k/faker/compare/v0.7.10...v0.7.11)
+-
 * Added french words for days and months. Thanks @sblondon.
 * Reorganized tests. Thanks @grantbachman.
 * Added file path provider. Thanks @diegommarino.
 * Fixed packaging issue with tests module. Thanks @eukreign for the report.
 
-`0.7.10 - 13-March-2017 <https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10>`__
--------------------------------------------------------------------------------------
-
+### [0.7.10 - 2017-03-13](https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10)
+--
 * Add ISBN-10 and ISBN-13. Thanks @grantbachman.
-* Add colors for `fr_FR`. Thanks @sblondon.
+* Add colors for ``fr_FR``. Thanks @sblondon.
 
-`0.7.9 - 24-February-2017 <https://github.com/joke2k/faker/compare/v0.7.8...v0.7.9>`__
---------------------------------------------------------------------------------------
+### [0.7.9 - 2017-02-24](https://github.com/joke2k/faker/compare/v0.7.8...v0.7.9)
 
-* Fix packaging isssue. Thanks @jorti.
+* Fix packaging issue. Thanks @jorti.
 
-`0.7.8 - 24-February-2017 <https://github.com/joke2k/faker/compare/v0.7.7...v0.7.8>`__
---------------------------------------------------------------------------------------
+### [0.7.8 - 2017-02-24](https://github.com/joke2k/faker/compare/v0.7.7...v0.7.8)
 
 * Add a Russian language to color provider. Thanks @kotyara1005.
 * Correct UnboundLocalError in Finnish SSN generator. Thanks @lamby.
 * Create internet IT provider. Thanks @GlassGruber.
-* Add `fix_len` parameter to 'random_number'. Thanks @vlad-ki.
+* Add ``fix_len`` parameter to ``random_number``. Thanks @vlad-ki.
 * Support zh_CN lorem. Thanks @yihuang.
 * Customize chinese word connector. Thanks @yihuang.
-* Add more company data to `fa_IR`. Thanks @aminalaee.
+* Add more company data to ``fa_IR``. Thanks @aminalaee.
 * Python 3.6 support. Thanks @stephane.
-* Add `hu_HU` providers. Thanks @chrisvoncsefalvay.
+* Add ``hu_HU`` providers. Thanks @chrisvoncsefalvay.
 * Fix tests failures.
 
-`0.7.7 - 20-December-2016 <https://github.com/joke2k/faker/compare/v0.7.6...v0.7.7>`__
---------------------------------------------------------------------------------------
+### [0.7.7 - 2016-12-20](https://github.com/joke2k/faker/compare/v0.7.6...v0.7.7)
 
-* Fix no_NO postcodes. Thanks @kdeldycke.
-* Fix fa_IR city generator. Thanks @kdeldycke.
+* Fix ``no_NO`` postcodes. Thanks @kdeldycke.
+* Fix ``fa_IR`` city generator. Thanks @kdeldycke.
 
-`0.7.6 - 19-December-2016 <https://github.com/joke2k/faker/compare/v0.7.5...v0.7.6>`__
---------------------------------------------------------------------------------------
+### [0.7.6 - 2016-12-19](https://github.com/joke2k/faker/compare/v0.7.5...v0.7.6)
+-
+* Fix packaging issue with ``docs`` directory. Thanks @wyattanderson.
 
-* Fix packaging issue with `docs` directory. Thanks @wyattanderson.
+### [0.7.5 - 2016-12-16](https://github.com/joke2k/faker/compare/v0.7.4...v0.7.5)
 
-`0.7.5 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.4...v0.7.5>`__
---------------------------------------------------------------------------------------
+* Deprecate ``fake-factory`` package on PyPI.
 
-* Deprecate ``facke-factory`` package on PyPI.
-
-`0.7.4 - 16-December-2016 <https://github.com/joke2k/faker/compare/v0.7.3...v0.7.4>`__
---------------------------------------------------------------------------------------
-
+### [0.7.4 - 2016-12-16](https://github.com/joke2k/faker/compare/v0.7.3...v0.7.4)
+-
 * Add Ukrainian ``address`` provider. Thanks @illia-v.
 * Add Ukrainian ``internet`` provider. Thanks @illia-v.
 * Middle name support for ``person.ru_RU`` provider. Thanks @zeal18.
@@ -661,8 +776,7 @@ Changelog
 * Allow left/right_digits=0 for pyfloat. Thanks @mnalt.
 * update fa_IR person names and phone numbers. Thanks @aminalaee.
 
-`0.7.3 - 16-September-2016 <https://github.com/joke2k/faker/compare/v0.6.0...v0.7.3>`__
----------------------------------------------------------------------------------------
+### [0.7.3 - 2016-09-16](https://github.com/joke2k/faker/compare/v0.6.0...v0.7.3)
 
 * ``date_time_this_century`` now returns ``datetime`` s outside the current
   decade. Thanks @JarUrb.
@@ -670,14 +784,12 @@ Changelog
 * Adding support for Croatian ``hr_HR`` ssn (oib). Thanks @mislavcimpersak.
 * Rename PyPI package to ``Faker``.
 
-`0.6.0 - 09-August-2016 <https://github.com/joke2k/faker/compare/v0.5.11...v0.6.0>`__
--------------------------------------------------------------------------------------
-
+### [0.6.0 - 2016-08-09](https://github.com/joke2k/faker/compare/v0.5.11...v0.6.0)
+-
 * Dropped Python 2.6 support
 
 
-`0.5.11 - 09-August-2016 <https://github.com/joke2k/faker/compare/v0.5.10...v0.5.11>`__
----------------------------------------------------------------------------------------
+### [0.5.11 - 2016-08-09](https://github.com/joke2k/faker/compare/v0.5.10...v0.5.11)
 
 * Add optional parameter `sex` to `profile` and `simple_profile`.
   Thanks @navyad.
@@ -685,21 +797,18 @@ Changelog
 * Fix utf8 coding issue with ``address/fi_FI`` provider. Thanks @delneg.
 * ! Latest version to support Python 2.6
 
-`0.5.10 - 01-August-2016 <https://github.com/joke2k/faker/compare/v0.5.9...v0.5.10>`__
---------------------------------------------------------------------------------------
+### [0.5.10 - 2016-08-01](https://github.com/joke2k/faker/compare/v0.5.9...v0.5.10)
 
 * Fix random_sample_unique. Thanks @cecedille1.
 
-`0.5.9 - 08-July-2016 <https://github.com/joke2k/faker/compare/v0.5.8...v0.5.9>`__
-----------------------------------------------------------------------------------
+### [0.5.9 - 2016-06-08](https://github.com/joke2k/faker/compare/v0.5.8...v0.5.9)
 
 * Add more ``pt_BR`` names. Thanks @cuducos.
 * Added ``en_GB`` names. Thanks @jonny5532.
 * Add romanized internet provider for ``zh_CN``.
 * Add ``fr_CH`` providers. Thanks @gfavre.
 
-`0.5.8 - 28-June-2016 <https://github.com/joke2k/faker/compare/v0.5.7...v0.5.8>`__
-----------------------------------------------------------------------------------
+### [0.5.8 - 2016-06-28](https://github.com/joke2k/faker/compare/v0.5.7...v0.5.8)
 
 * Improve CLI output and help. Thanks @cbaines.
 * Update ``en_US`` anmes to be more realistic. Thanks @dethpickle.
@@ -710,24 +819,20 @@ Changelog
 * Reduce the maximum value of start timestamps. Thanks @cbaines.
 * Add `random_sample` and `random_sample_unique`. Thanks @bengolder.
 
-`0.5.7 - 07-March-2016 <https://github.com/joke2k/faker/compare/v0.5.6...v0.5.7>`__
------------------------------------------------------------------------------------
+### [0.5.7 - 2016-03-07](https://github.com/joke2k/faker/compare/v0.5.6...v0.5.7)
 
 * Repackage to resolve PyPI issue.
 
-`0.5.6 - 07-March-2016 <https://github.com/joke2k/faker/compare/v0.5.5...v0.5.6>`__
------------------------------------------------------------------------------------
+### [0.5.6 - 2016-03-07](https://github.com/joke2k/faker/compare/v0.5.5...v0.5.6)
 
 * Add date handling for datetime functions. Thanks @rpkilby.
 * Discern male and female first names in pt_BR. Thanks @gabrielusvicente.
 
-`0.5.5 - 29-February-2016 <https://github.com/joke2k/faker/compare/v0.5.4...v0.5.5>`__
---------------------------------------------------------------------------------------
+### [0.5.5 - 2016-02-29](https://github.com/joke2k/faker/compare/v0.5.4...v0.5.5)
 
 * Specify help text for command line. Thanks @cbaines.
 
-`0.5.4 - 29-February-2016 <https://github.com/joke2k/faker/compare/v0.5.3...v0.5.4>`__
---------------------------------------------------------------------------------------
+### [0.5.4 - 2016-02-29](https://github.com/joke2k/faker/compare/v0.5.3...v0.5.4)
 
 * Expose Provider's random instance. Thank @gsingers for the suggestion.
 * Make sure required characters are in the password. Thanks @craig552uk.
@@ -759,8 +864,7 @@ Changelog
 * Fix chinese random language code. Thanks @kdeldycke.
 * Remove duplicate words from Lorem provider. Thanks @jeffwidman.
 
-`0.5.3 - 21-September-2015 <https://github.com/joke2k/faker/compare/v0.5.2...v0.5.3>`__
----------------------------------------------------------------------------------------
+### [0.5.3 - 2015-09-21](https://github.com/joke2k/faker/compare/v0.5.2...v0.5.3)
 
 * Added ``company_vat`` to company ``fi_FI`` provider. Thanks @kivipe.
 * Seed a Random instance instead of the module. Thanks Amy Hanlon.
@@ -780,9 +884,8 @@ Changelog
 * Fixed provider's example formatting in documentation.
 * Added en_AU provider. Thanks @xfxf.
 
-`0.5.2 - 11-June-2015 <https://github.com/joke2k/faker/compare/v0.5.1...v0.5.2>`__
-----------------------------------------------------------------------------------
-
+### [0.5.2 - 2015-06-11](https://github.com/joke2k/faker/compare/v0.5.1...v0.5.2)
+-
 * Added ``uuid4`` to ``misc`` provider. Thanks Jared Culp.
 * Fixed ``jcb15`` and ``jcb16`` in ``credit_card`` provider.
   Thanks Rodrigo Braz.
@@ -792,8 +895,8 @@ Changelog
 * Added ``country_code`` to `address`` provider. Thanks @elad101 and Tobin Brown.
 
 
-`0.5.1 - 21-May-2015 <https://github.com/joke2k/faker/compare/v0.5...v0.5.1>`__
--------------------------------------------------------------------------------
+### [0.5.1 - 2015-05-21](https://github.com/joke2k/faker/compare/v0.5...v0.5.1)
+-----------------------------------------------------------------------------
 
 * Fixed egg installation. Thanks David R. MacIver, @kecaps
 * Updated person names for ``ru_RU``. Thanks @mousebaiker.
@@ -822,8 +925,8 @@ Changelog
 * Removed ``miscelleneous`` provider. It is superceded by the
   ``misc`` provider.
 
-`0.5.0 - 16-Feb-2015 <https://github.com/joke2k/faker/compare/v0.4.2...v0.5>`__
--------------------------------------------------------------------------------
+### [0.5.0 - 2015-02-16](https://github.com/joke2k/faker/compare/v0.4.2...v0.5)
+------------------------------------------------------------------------------
 
 * Localized providers
 * Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
@@ -838,13 +941,11 @@ Changelog
 * Added ``ne_NP`` provider. Thanks Sudip Kafle.
 * Added provider for Austrian ``de_AT``. Thanks Bernhard Essl.
 
-`0.4.2 - 20-Aug-2014 <https://github.com/joke2k/faker/compare/v0.4.1...v0.4.2>`__
----------------------------------------------------------------------------------
+### [0.4.2 - 2014-08-20](https://github.com/joke2k/faker/compare/v0.4.1...v0.4.2)
 
 * Fixed setup
 
-`0.4.1 - 20-Aug-2014 <https://github.com/joke2k/faker/compare/v0.4...v0.4.1>`__
--------------------------------------------------------------------------------
+### [0.4.1 - 2014-08-20](https://github.com/joke2k/faker/compare/v0.4...v0.4.1)
 
 * Added MAC address provider. Thanks Sébastien Béal.
 * Added ``lt_LT`` and ``lv_LV`` localized providers. Thanks Edgar Gavrik.
@@ -856,8 +957,7 @@ Changelog
 * Fixed ``date_time_ad`` on 32bit Linux. Thanks @mdxs.
 * Fixed ``domain_word`` to output slugified strings.
 
-`0.4 - 30-Mar-2014 <https://github.com/joke2k/faker/compare/v0.3.2...v0.4>`__
------------------------------------------------------------------------------
+### [0.4 - 2014-03-30](https://github.com/joke2k/faker/compare/v0.3.2...v0.4)
 
 * Modified en_US ``person.py`` to ouput female and male names.
   Thanks Adrian Klaver.
@@ -865,21 +965,16 @@ Changelog
 * Added ``hi_IN`` localized provider. Thanks Pratik Kabra.
 * Refactoring of command line
 
-0.3.2 - 11-Nov-2013
--------------------
+### 0.3.2 - 2013-11-11
 
 * New provider: Credit card generator
 * Improved Documentor
 
-
-0.3.1
------
+### 0.3.1 - 2013-10-18
 
 * FIX setup.py
 
-
-0.3 - 18-Oct-2013
------------------
+### 0.3 - 2013-10-18
 
 * PEP8 style conversion (old camelCased methods are deprecated!)
 * New language: ``pt_BR`` (thanks to @rvnovaes)
@@ -888,8 +983,7 @@ Changelog
 * FIX tests for python 2.6
 
 
-0.2 - 01-Dec-2012
------------------
+### 0.2 - 2010-12-01
 
 * New providers: ``Python``, ``File``
 * Providers imported with ``__import__``
@@ -898,7 +992,6 @@ Changelog
 * New language: French
 * Rewrite module ``__main__`` and new Documentor class
 
-0.1 - 13-Nov-2012
------------------
+### 0.1 - 2012-11-13
 
 * First release

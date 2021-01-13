@@ -27,6 +27,9 @@ class Factory:
             providers=None,
             generator=None,
             includes=None,
+            # Should we use weightings (more realistic) or weight every element equally (faster)?
+            # By default, use weightings for backwards compatibility & realism
+            use_weighting=True,
             **config):
         if includes is None:
             includes = []
@@ -39,6 +42,7 @@ class Factory:
             raise AttributeError(msg)
 
         config['locale'] = locale
+        config['use_weighting'] = use_weighting
         providers = providers or PROVIDERS
 
         providers += includes
@@ -51,6 +55,7 @@ class Factory:
 
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
             provider = prov_cls(faker)
+            provider.__use_weighting__ = use_weighting
             provider.__provider__ = prov_name
             provider.__lang__ = lang_found
             faker.add_provider(provider)

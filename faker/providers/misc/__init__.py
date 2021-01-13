@@ -1,6 +1,8 @@
 import csv
 import hashlib
 import io
+import json
+import re
 import string
 import tarfile
 import uuid
@@ -295,7 +297,12 @@ class Provider(BaseProvider):
         The ``header`` argument expects a list or a tuple of strings that will serve as the header row
         if supplied. The ``data_columns`` argument expects a list or a tuple of string tokens, and these
         string tokens will be passed to  :meth:`pystr_format() <faker.providers.python.Provider.pystr_format>`
-        for data generation. Both ``header`` and ``data_columns`` myst be of the same length.
+        for data generation. Argument Groups are used to pass arguments to the provider methods.
+        Both ``header`` and ``data_columns`` must be of the same length.
+
+        Example:
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.dsv(data_columns=('{{ name }}', '{{ pyint:top_half }}'))
 
         The ``num_rows`` argument controls how many rows of data to generate, and the ``include_row_ids``
         argument may be set to ``True`` to include a sequential row ID column.
@@ -380,3 +387,207 @@ class Provider(BaseProvider):
             header=header, data_columns=data_columns, num_rows=num_rows,
             include_row_ids=include_row_ids, delimiter='|',
         )
+
+    def json(self,
+             data_columns: list = None,
+             num_rows: int = 10,
+             indent: int = None) -> str:
+        """
+        Generate random JSON structure values.
+
+        Using a dictionary or list of records that is passed as ``data_columns``,
+        define the structure that is used to build JSON structures.  For complex
+        data structures it is recommended to use the dictionary format.
+
+        Data Column Dictionary format:
+            {'key name': 'definition'}
+
+        The definition can be 'provider', 'provider:argument_group', tokenized
+        'string {{ provider:argument_group }}' that is passed to the python
+        provider method pystr_format() for generation, or a fixed '@word'.
+        Using Lists, Tuples, and Dicts as a definition for structure.
+
+        Example:
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.json(data_columns={'Name': 'name', 'Score': 'pyint:top_half'})
+
+        Data Column List format:
+            [('key name', 'definition', {'arguments'})]
+
+        With the list format the definition can be a list of records, to create
+        a list within the structure data.  For literal entries within the list,
+        set the 'field_name' to None.
+
+        :param data_columns: specification for the data structure
+        :type data_columns: dict
+        :param num_rows: number of rows the returned
+        :type num_rows: int
+        :param indent: number of spaces to indent the fields
+        :type indent: int
+        :return: Serialized JSON data
+        :rtype: str
+
+        :sample: data_columns={'Spec': '@1.0.1', 'ID': 'pyint',
+                'Details': {'Name': 'name', 'Address': 'address'}}, num_rows=2
+        :sample: data_columns={'Candidates': ['name', 'name', 'name']},
+                num_rows=1
+        :sample: data_columns=[('Name', 'name'), ('Points', 'pyint',
+                {'min_value': 50, 'max_value': 100})], num_rows=1
+        """
+        default_data_columns = {
+            'name': '{{name}}',
+            'residency': '{{address}}',
+        }
+        data_columns = data_columns if data_columns else default_data_columns
+
+        def process_list_structure(data: list) -> dict:
+            entry = {}
+
+            for name, definition, *arguments in data:
+                kwargs = arguments[0] if arguments else {}
+
+                if not isinstance(kwargs, dict):
+                    raise TypeError('Invalid arguments type. Must be a dictionary')
+
+                if name is None:
+                    return self._value_format_selection(definition, **kwargs)
+
+                if isinstance(definition, tuple):
+                    entry[name] = process_list_structure(definition)
+                elif isinstance(definition, (list, set)):
+                    entry[name] = [process_list_structure([item])
+                                   for item in definition]
+                else:
+                    entry[name] = self._value_format_selection(definition, **kwargs)
+            return entry
+
+        def process_dict_structure(data: dict) -> dict:
+            entry = {}
+
+            if isinstance(data, str):
+                return self._value_format_selection(data)
+
+            if isinstance(data, dict):
+                for name, definition in data.items():
+                    if isinstance(definition, (tuple, list, set)):
+                        entry[name] = [process_dict_structure(item)
+                                       for item in definition]
+                    elif isinstance(definition, (dict, int, float, bool)):
+                        entry[name] = process_dict_structure(definition)
+                    else:
+                        entry[name] = self._value_format_selection(definition)
+                return entry
+
+            return data
+
+        def create_json_structure(data_columns) -> dict:
+            if isinstance(data_columns, dict):
+                return process_dict_structure(data_columns)
+
+            if isinstance(data_columns, list):
+                return process_list_structure(data_columns)
+
+            raise TypeError('Invalid data_columns type. Must be a dictionary or list')
+
+        if num_rows == 1:
+            return json.dumps(create_json_structure(data_columns), indent=indent)
+
+        data = [create_json_structure(data_columns) for _ in range(num_rows)]
+        return json.dumps(data, indent=indent)
+
+    def fixed_width(self,
+                    data_columns: list = None,
+                    num_rows: int = 10,
+                    align: str = 'left') -> str:
+        """
+        Generate random fixed width values.
+
+        Using a list of tuple records that is passed as ``data_columns``, that
+        defines the structure that will be generated. Arguments within the
+        record are provider specific, and should be a dictionary that will be
+        passed to the provider method.
+
+        Data Column List format
+            [('field width', 'definition', {'arguments'})]
+
+        The definition can be 'provider', 'provider:argument_group', tokenized
+        'string {{ provider:argument_group }}' that is passed to the python
+        provider method pystr_format() for generation, or a fixed '@word'.
+        Using Lists, Tuples, and Dicts as a definition for structure.
+
+        Argument Groups can be used to pass arguments to the provider methods,
+        but will override the arguments supplied in the tuple record.
+
+        Example:
+            fake.set_arguments('top_half', {'min_value': 50, 'max_value': 100})
+            fake.fixed_width(data_columns=[(20, 'name'), (3, 'pyint:top_half')])
+
+        :param data_columns: specification for the data structure
+        :type data_columns: list
+        :param num_rows: number of rows the generator will yield
+        :type num_rows: int
+        :param align: positioning of the value. (left, middle, right)
+        :type align: str
+        :return: Serialized Fixed Width data
+        :rtype: str
+
+        :sample: data_columns=[(20, 'name'), (3, 'pyint', {'min_value': 50,
+                'max_value': 100})], align='right', num_rows=2
+        """
+        default_data_columns = [
+            (20, 'name'),
+            (3, 'pyint', {'max_value': 20}),
+        ]
+        data_columns = data_columns if data_columns else default_data_columns
+        align_map = {
+            'left': '<',
+            'middle': '^',
+            'right': '>',
+        }
+        data = []
+
+        for _ in range(num_rows):
+            row = []
+
+            for width, definition, *arguments in data_columns:
+                kwargs = arguments[0] if arguments else {}
+
+                if not isinstance(kwargs, dict):
+                    raise TypeError('Invalid arguments type. Must be a dictionary')
+
+                result = self._value_format_selection(definition, **kwargs)
+                field = "{0:%s%s}" % (align_map.get(align, '<'), width)
+                row.append(field.format(result)[:width])
+
+            data.append(''.join(row))
+        return '\n'.join(data)
+
+    def _value_format_selection(self, definition, **kwargs):
+        """
+        Formats the string in different ways depending on it's contents.
+
+        The return can be the '@word' itself, a '{{ token }}' passed to PyStr,
+        or a 'provider:argument_group' format field that returns potentially
+        a non-string type.
+
+        This ensures that Numbers, Boolean types that are generated in the
+        JSON structures in there proper type, and not just strings.
+        """
+
+        # Check for PyStr first as complex strings may start with @
+        if re.match(r'.*\{\{.*\}\}.*', definition):
+            return self.generator.pystr_format(definition)
+
+        # Check for fixed @words that won't be generated
+        if re.match(r'^@.*', definition):
+            return definition.lstrip('@')
+
+        # Check if a argument group has been supplied
+        if re.match(r'^[a-zA-Z0-9_-]*:\w', definition):
+            definition, argument_group = definition.split(':')
+            arguments = self.generator.get_arguments(argument_group.strip())
+
+            return self.generator.format(definition.strip(), **arguments)
+
+        # Assume the string is refering to a provider
+        return self.generator.format(definition, **kwargs)

@@ -2,10 +2,16 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
+    """Implement automotive provider for ``ru_RU`` locale.
 
-    # https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
+    Sources:
+
+    - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia
+    - https://ru.wikipedia.org/wiki/Категории_транспортных_средств
+    """
+
     license_plate_letters = ('A', 'B', 'E', 'K', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
-    # https://ru.wikipedia.org/wiki/Категории_транспортных_средств
+
     vehicle_categories = ('M', 'A', 'A1', 'B', 'B1', 'BE', 'C', 'C1', 'C1E', 'CE', 'D', 'D1', 'DE', 'Tm', 'Tb')
 
     license_plate_suffix = (
@@ -224,23 +230,30 @@ class Provider(AutomotiveProvider):
     )
 
     def license_plate(self):
+        """Generate a license plate."""
         pattern = self.random_element(self.license_plate_formats)
         return self.generator.parse(pattern)
 
     def plate_letter(self):
+        """Generate a letter for license plates."""
         return self.random_element(self.license_plate_letters)
 
     def plate_number(self):
+        """Generate a number for license plates."""
         return self.numerify(self.random_element(self.plate_number_formats))
 
     def plate_number_extra(self):
+        """Generate extra numerical code for license plates."""
         return self.numerify(self.random_element(self.plate_extra_formats))
 
     def plate_number_special(self):
+        """Generate a special code for license plates."""
         return self.numerify(self.random_element(self.plate_special_formats))
 
     def plate_suffix(self):
+        """Generate a suffix code for license plates."""
         return self.random_element(self.license_plate_suffix)
 
     def vehicle_category(self):
+        """Generate a vehicle category code for license plates."""
         return self.random_element(self.vehicle_categories)

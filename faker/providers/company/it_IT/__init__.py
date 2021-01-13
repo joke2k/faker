@@ -352,10 +352,30 @@ class Provider(CompanyProvider):
 
         return " ".join(result)
 
+    def _random_vat_office(self):
+        """
+        Returns a random code identifying the VAT office needed to build a valid VAT with company_vat.
+
+        See https://it.wikipedia.org/wiki/Partita_IVA#Tabella_degli_Uffici_IVA
+        """
+        val = self.random_int(1, 104)
+
+        # handle special cases
+        if val == 101:
+            return 120
+        elif val == 102:
+            return 121
+        elif val == 103:
+            return 888
+        elif val == 104:
+            return 999
+        # else: between 1 and 100 are all valid
+        return val
+
     def company_vat(self):
         """
         Returns Italian VAT identification number (Partita IVA).
         """
-        code = "0" + self.bothify('######') + str(self.generator.random.randrange(1, 121)).zfill(3)
+        code = self.bothify('#######') + str(self._random_vat_office()).zfill(3)
         luhn_checksum = str(calculate_luhn(code))
         return 'IT{}{}'.format(code, luhn_checksum)

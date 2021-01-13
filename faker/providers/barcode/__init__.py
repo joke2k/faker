@@ -1,44 +1,27 @@
-import re
-
 from .. import BaseProvider
+
+localized = True
 
 
 class Provider(BaseProvider):
+    """Implement default barcode provider for Faker.
 
-    upc_e_base_pattern = re.compile(r'^\d{6}$')
-    upc_ae_pattern1 = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{2})'              # the first 2 digits make up the manufacturer code,
-        r'(?:(?P<extra>[012])0{4})'         # if immediately followed by 00000, 10000, or 20000,
-        r'(?P<product_code>\d{3})'          # a 3-digit product code,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
-    )
-    upc_ae_pattern2 = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{3,4}?)'           # the first 3 or 4 digits make up the manufacturer code,
-        r'(?:0{5})'                         # if immediately followed by 00000,
-        r'(?P<product_code>\d{1,2})'        # a 2-digit or single digit product code,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
-    )
-    upc_ae_pattern3 = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{5})'              # the first 5 digits make up the manufacturer code,
-        r'(?:0{4}(?P<extra>[5-9]))'         # if immediately followed by 0000 and a 5, 6, 7, 8, or 9,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
-    )
+    Sources:
 
-    def _ean(self, length=13, leading_zero=None):
+    - https://gs1.org/standards/id-keys/company-prefix
+    """
+
+    local_prefixes = ()
+
+    def _ean(self, length=13, prefixes=()):
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
         code = [self.random_digit() for _ in range(length - 1)]
-        if leading_zero is True:
-            code[0] = 0
-        elif leading_zero is False:
-            code[0] = self.random_int(1, 9)
+
+        if prefixes:
+            prefix = self.random_element(prefixes)
+            code[:len(prefix)] = map(int, prefix)
 
         if length == 8:
             weights = [3, 1, 3, 1, 3, 1, 3]
@@ -51,186 +34,85 @@ class Provider(BaseProvider):
 
         return ''.join(str(x) for x in code)
 
-    def _convert_upc_a2e(self, upc_a):
-        """
-        Convert a 12-digit UPC-A barcode to its 8-digit UPC-E equivalent.
-
-        Note that not all UPC-A barcodes can be converted.
-        """
-        if not isinstance(upc_a, str):
-            raise TypeError('`upc_a` is not a string')
-        m1 = self.upc_ae_pattern1.match(upc_a)
-        m2 = self.upc_ae_pattern2.match(upc_a)
-        m3 = self.upc_ae_pattern3.match(upc_a)
-        if not any([m1, m2, m3]):
-            raise ValueError('`upc_a` has an invalid value')
-        upc_e_template = '{number_system_digit}{mfr_code}{product_code}{extra}{check_digit}'
-        if m1:
-            upc_e = upc_e_template.format(**m1.groupdict())
-        elif m2:
-            groupdict = m2.groupdict()
-            groupdict['extra'] = str(len(groupdict.get('mfr_code')))
-            upc_e = upc_e_template.format(**groupdict)
-        else:
-            groupdict = m3.groupdict()
-            groupdict['product_code'] = ''
-            upc_e = upc_e_template.format(**groupdict)
-        return upc_e
-
-    def _upc_ae(self, base=None, number_system_digit=None):
-        """
-        Create a 12-digit UPC-A barcode that can be converted to UPC-E.
-
-        The expected value of ``base`` is a 6-digit string. If any other value is
-        provided, this method will use a random 6-digit string instead.
-
-        The expected value of ``number_system_digit`` is the integer ``0`` or ``1``.
-        If any other value is provided, this method will randomly choose from the two.
-
-        Please also view notes on `upc_a()` and `upc_e()` for more details.
-        """
-        if isinstance(base, str) and self.upc_e_base_pattern.match(base):
-            base = [int(x) for x in base]
-        else:
-            base = [self.random_int(0, 9) for _ in range(6)]
-        if number_system_digit not in [0, 1]:
-            number_system_digit = self.random_int(0, 1)
-
-        if base[-1] <= 2:
-            code = base[:2] + base[-1:] + [0] * 4 + base[2:-1]
-        elif base[-1] <= 4:
-            code = base[:base[-1]] + [0] * 5 + base[base[-1]:-1]
-        else:
-            code = base[:5] + [0] * 4 + base[-1:]
-
-        code.insert(0, number_system_digit)
-        weights = [3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
-        weighted_sum = sum(x * y for x, y in zip(code, weights))
-        check_digit = (10 - weighted_sum % 10) % 10
-        code.append(check_digit)
-        return ''.join(str(x) for x in code)
-
-    def ean(self, length=13):
+    def ean(self, length=13, prefixes=()):
         """Generate an EAN barcode of the specified ``length``.
 
-        The value of ``length`` can only be ``8`` or ``13`` (default)  which will
+        The value of ``length`` can only be ``8`` or ``13`` (default) which will
         create an EAN-8 or an EAN-13 barcode respectively.
+
+        If a value for ``prefixes`` is specified, the result will begin with one
+        of the sequences in ``prefixes``.
 
         :sample: length=13
         :sample: length=8
+        :sample: prefixes=('00',)
+        :sample: prefixes=('45', '49')
         """
-        return self._ean(length)
+        return self._ean(length, prefixes=prefixes)
 
-    def ean8(self):
+    def ean8(self, prefixes=()):
         """Generate an EAN-8 barcode.
 
-        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
-        hood with the ``length`` argument explicitly set to ``8``.
+        This method uses |ean| under the hood with the ``length`` argument
+        explicitly set to ``8``.
+
+        If a value for ``prefixes`` is specified, the result will begin with one
+        of the sequences in ``prefixes``.
 
         :sample:
+        :sample: prefixes=('00',)
+        :sample: prefixes=('45', '49')
         """
-        return self._ean(8)
+        return self._ean(8, prefixes=prefixes)
 
-    def ean13(self, leading_zero=None):
+    def ean13(self, prefixes=()):
         """Generate an EAN-13 barcode.
 
-        If ``leading_digit`` is ``True``, the leftmost digit of the barcode will be set
-        to ``0``. If ``False``, the leftmost digit cannot be ``0``. If ``None`` (default),
-        the leftmost digit can be any digit.
+        This method uses |ean| under the hood with the ``length`` argument
+        explicitly set to ``13``.
 
-        Note that an EAN-13 barcode that starts with a zero can be converted to UPC-A
-        by dropping the leading zero.
+        If a value for ``prefixes`` is specified, the result will begin with one
+        of the sequences in ``prefixes``.
 
-        This method uses :meth:`ean() <faker.providers.barcode.Provider.ean>` under the
-        hood with the ``length`` argument explicitly set to ``13``.
-
-        :sample:
-        :sample: leading_zero=False
-        :sample: leading_zero=True
-        """
-        return self._ean(13, leading_zero=leading_zero)
-
-    def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
-        """Generate a 12-digit UPC-A barcode.
-
-        The value of ``upc_ae_mode`` controls how barcodes will be generated. If ``False``
-        (default), barcodes are not guaranteed to have a UPC-E equivalent. In this mode,
-        the method uses :meth:`ean13 <faker.providers.barcode.Provider.ean13>` under the hood,
-        and the values of ``base`` and ``number_system_digit`` will be ignored.
-
-        If ``upc_ae_mode`` is ``True``, the resulting barcodes are guaranteed to have a UPC-E
-        equivalent, and the values of ``base`` and ``number_system_digit`` will be used to
-        control what is generated.
-
-        Under this mode, ``base`` is expected to have a 6-digit string value. If any other value
-        is supplied, a random 6-digit string will be used instead. As for ``number_system_digit``,
-        the expected value is a ``0`` or a ``1``. If any other value is provided, this method
-        will randomly choose from the two.
-
-        .. important::
-
-           When ``upc_ae_mode`` is enabled, you might encounter instances where different values
-           of ``base`` (e.g. ``'120003'`` and ``'120004'``) produce the same UPC-A barcode. This
-           is normal, and the reason lies within the whole conversion process. To learn more about
-           this and what ``base`` and ``number_system_digit`` actually represent, please refer
-           to :meth:`upc_e() <faker.providers.barcode.Provider.upc_e>`.
+        .. note::
+           Codes starting with a leading zero are treated specially in some
+           barcode readers. For more information on compatibility with UPC-A
+           codes, see |EnUsBarcodeProvider.ean13|.
 
         :sample:
-        :sample: upc_ae_mode=True, number_system_digit=0
-        :sample: upc_ae_mode=True, number_system_digit=1
-        :sample: upc_ae_mode=True, base='123456', number_system_digit=0
-        :sample: upc_ae_mode=True, base='120003', number_system_digit=0
-        :sample: upc_ae_mode=True, base='120004', number_system_digit=0
+        :sample: prefixes=('00',)
+        :sample: prefixes=('45', '49')
         """
-        if upc_ae_mode is True:
-            return self._upc_ae(base=base, number_system_digit=number_system_digit)
-        else:
-            ean13 = self.ean13(leading_zero=True)
-            return ean13[1:]
+        return self._ean(13, prefixes=prefixes)
 
-    def upc_e(self, base=None, number_system_digit=None, safe_mode=True):
-        """Generate an 8-digit UPC-E barcode.
+    def localized_ean(self, length=13):
+        """Generate a localized EAN barcode of the specified ``length``.
 
-        UPC-E barcodes can be expressed in 6, 7, or 8-digit formats, but this method uses the
-        8 digit format, since it is trivial to convert to the other two formats. The first digit
-        (starting from the left) is controlled by ``number_system_digit``, and it can only be a
-        ``0`` or a ``1``. The last digit is the check digit that is inherited from the UPC-E barcode's
-        UPC-A equivalent. The middle six digits are collectively referred to as the ``base`` (for a
-        lack of a better term).
+        The value of ``length`` can only be ``8`` or ``13`` (default) which will
+        create an EAN-8 or an EAN-13 barcode respectively.
 
-        On that note, this method uses ``base`` and ``number_system_digit`` to first generate a
-        UPC-A barcode for the check digit, and what happens next depends on the value of ``safe_mode``.
-        The argument ``safe_mode`` exists, because there are some UPC-E values that share the same
-        UPC-A equivalent. For example, any UPC-E barcode of the form ``abc0000d``, ``abc0003d``, and
-        ``abc0004d`` share the same UPC-A value ``abc00000000d``, but that UPC-A value will only convert
-        to ``abc0000d`` because of (a) how UPC-E is just a zero-suppressed version of UPC-A and (b) the
-        rules around the conversion.
-
-        If ``safe_mode`` is ``True`` (default), this method performs another set of conversions to
-        guarantee that the UPC-E barcodes generated can be converted to UPC-A, and that UPC-A
-        barcode can be converted back to the original UPC-E barcode. Using the example above, even
-        if the bases ``120003`` or ``120004`` are used, the resulting UPC-E barcode will always
-        use the base ``120000``.
-
-        If ``safe_mode`` is ``False``, then the ``number_system_digit``, ``base``, and the computed
-        check digit will just be concatenated together to produce the UPC-E barcode, and attempting
-        to convert the barcode to UPC-A and back again to UPC-E will exhibit the behavior described
-        above.
+        This method uses the standard barcode provider's |ean| under the hood
+        with the ``prefixes`` argument explicitly set to ``local_prefixes`` of
+        a localized barcode provider implementation.
 
         :sample:
-        :sample: base='123456'
-        :sample: base='123456', number_system_digit=0
-        :sample: base='123456', number_system_digit=1
-        :sample: base='120000', number_system_digit=0
-        :sample: base='120003', number_system_digit=0
-        :sample: base='120004', number_system_digit=0
-        :sample: base='120000', number_system_digit=0, safe_mode=False
-        :sample: base='120003', number_system_digit=0, safe_mode=False
-        :sample: base='120004', number_system_digit=0, safe_mode=False
+        :sample: length=13
+        :sample: length=8
         """
-        if safe_mode is not False:
-            upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
-            return self._convert_upc_a2e(upc_ae)
-        else:
-            upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
-            return upc_ae[0] + ''.join(str(x) for x in base) + upc_ae[-1]
+        return self._ean(length, prefixes=self.local_prefixes)
+
+    def localized_ean8(self):
+        """Generate a localized EAN-8 barcode.
+
+        This method uses |localized_ean| under the hood with the ``length``
+        argument explicitly set to ``8``.
+        """
+        return self.localized_ean(8)
+
+    def localized_ean13(self):
+        """Generate a localized EAN-13 barcode.
+
+        This method uses |localized_ean| under the hood with the ``length``
+        argument explicitly set to ``13``.
+        """
+        return self.localized_ean(13)

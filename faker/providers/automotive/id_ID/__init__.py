@@ -2,7 +2,8 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    # Currently this is my own work
+    """Implement automotive provider for ``id_ID`` locale."""
+
     license_formats = (
         '? ### ??',
         '? ### ???',

@@ -4,8 +4,13 @@ from .. import Provider as ColorProvider
 
 
 class Provider(ColorProvider):
-    # https://www.seyedrezabazyar.com/fa/name-and-code-of-colors/
-    # https://bit.ly/353BBiY
+    """Implement color provider for ``fa_IR`` locale.
+
+    Sources:
+    - https://www.seyedrezabazyar.com/fa/name-and-code-of-colors/
+    - https://bit.ly/353BBiY
+    """
+
     all_colors = OrderedDict((
         ("نیلی محو", "#F0F8FF"),
         ("بژ تیره", "#FAEBD7"),

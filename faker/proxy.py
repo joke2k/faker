@@ -1,12 +1,16 @@
+import functools
 import random
 import re
 
 from collections import OrderedDict
 
 from faker.config import DEFAULT_LOCALE
+from faker.exceptions import UniquenessException
 from faker.factory import Factory
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution
+
+_UNIQUE_ATTEMPTS = 1000
 
 
 class Faker:
@@ -20,9 +24,11 @@ class Faker:
     ]
 
     def __init__(self, locale=None, providers=None,
-                 generator=None, includes=None, **config):
+                 generator=None, includes=None,
+                 use_weighting=True, **config):
         self._factory_map = OrderedDict()
         self._weights = None
+        self._unique_proxy = UniqueProxy(self)
 
         if isinstance(locale, str):
             locales = [locale.replace('-', '_')]
@@ -30,9 +36,10 @@ class Faker:
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
         elif isinstance(locale, (list, tuple, set)):
-            assert all(isinstance(local_code, str) for local_code in locale)
             locales = []
             for code in locale:
+                if not isinstance(code, str):
+                    raise TypeError('The locale "%s" must be a string.' % str(code))
                 final_locale = code.replace('-', '_')
                 if final_locale not in locales:
                     locales.append(final_locale)
@@ -50,7 +57,9 @@ class Faker:
             locales = [DEFAULT_LOCALE]
 
         for locale in locales:
-            self._factory_map[locale] = Factory.create(locale, providers, generator, includes, **config)
+            self._factory_map[locale] = Factory.create(locale, providers, generator, includes,
+                                                       use_weighting=use_weighting,
+                                                       **config)
 
         self._locales = locales
         self._factories = list(self._factory_map.values())
@@ -103,6 +112,10 @@ class Faker:
         else:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
+
+    @property
+    def unique(self):
+        return self._unique_proxy
 
     def _select_factory(self, method_name):
         """
@@ -235,3 +248,44 @@ class Faker:
 
     def items(self):
         return self._factory_map.items()
+
+
+class UniqueProxy:
+    def __init__(self, proxy):
+        self._proxy = proxy
+        self._seen = {}
+        self._sentinel = object()
+
+    def clear(self):
+        self._seen = {}
+
+    def __getattr__(self, name: str):
+        obj = getattr(self._proxy, name)
+        if callable(obj):
+            return self._wrap(name, obj)
+        else:
+            raise TypeError("Accessing non-functions through .unique is not supported.")
+
+    def _wrap(self, name, function):
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
+            key = (name, args, tuple(sorted(kwargs.items())))
+
+            generated = self._seen.setdefault(key, {self._sentinel})
+
+            # With use of a sentinel value rather than None, we leave
+            # None open as a valid return value.
+            retval = self._sentinel
+
+            for i in range(_UNIQUE_ATTEMPTS):
+                if retval not in generated:
+                    break
+                retval = function(*args, **kwargs)
+            else:
+                raise UniquenessException("Got duplicated values after {0:,} iterations.".format(_UNIQUE_ATTEMPTS))
+
+            generated.add(retval)
+
+            return retval
+
+        return wrapper

@@ -25,6 +25,7 @@ from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
+from faker.providers.date_time.pt_PT import Provider as PtPtProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
@@ -148,28 +149,15 @@ class TestDateTime(unittest.TestCase):
         today_back = datetime.fromtimestamp(timestamp, utc).date()
         assert today == today_back
 
-    def test_datetime_safe(self):
-        from faker.utils import datetime_safe
-        # test using example provided in module
-        result = datetime_safe.date(1850, 8, 2).strftime('%Y/%m/%d was a %A')
-        assert result == '1850/08/02 was a Friday'
-        # test against certain formatting strings used on pre-1900 dates
-        with pytest.raises(TypeError):
-            datetime_safe.date(1850, 8, 2).strftime('%s')
-        with pytest.raises(TypeError):
-            datetime_safe.date(1850, 8, 2).strftime('%y')
-        # test using 29-Feb-2012 and escaped percentage sign
-        result = datetime_safe.date(2012, 2, 29).strftime('%Y-%m-%d was a 100%% %A')
-        assert result == r'2012-02-29 was a 100% Wednesday'
-        # test that certain formatting strings are allowed on post-1900 dates
-        result = datetime_safe.date(2008, 2, 29).strftime('%y')
-        assert result == r'08'
+    def test_pytimezone(self):
+        import dateutil
+        pytz = self.fake.pytimezone()
+        assert isinstance(pytz, dateutil.tz.tz.tzfile)
 
-    def test_datetime_safe_new_date(self):
-        from faker.utils import datetime_safe
-        d = datetime_safe.date(1850, 8, 2)
-        result = datetime_safe.new_date(d)
-        assert result == date(1850, 8, 2)
+    def test_pytimezone_usable(self):
+        pytz = self.fake.pytimezone()
+        date = datetime(2000, 1, 1, tzinfo=pytz)
+        assert date.tzinfo == pytz
 
     def test_datetimes_with_and_without_tzinfo(self):
         assert self.fake.date_time().tzinfo is None
@@ -327,6 +315,10 @@ class TestDateTime(unittest.TestCase):
         # test century
         assert self.fake.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
+        assert (
+            self.fake.date_time_this_century(before_now=False, after_now=False, tzinfo=utc).
+            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
+        )
         # test decade
         assert self.fake.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
@@ -342,6 +334,10 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).
             replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
+        assert (
+            self.fake.date_time_this_year(before_now=True, after_now=True, tzinfo=utc).
+            year == datetime.now(utc).year
+        )
         # test month
         assert self.fake.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
@@ -349,32 +345,56 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).
             replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
         )
+        assert (
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
+            month == datetime.now(utc).month
+        ) and (
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
+            year == datetime.now(utc).year
+        )
 
     @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_this_period(self):
         # test century
+        assert (
+            self.fake.date_this_century(before_today=True, after_today=True).
+            strftime("%G")[:2] == datetime.now().strftime("%G")[:2]
+        )
         assert self.fake.date_this_century(after_today=False) <= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=True) >= date.today()
+        assert self.fake.date_this_century(before_today=False, after_today=False) == date.today()
         # test decade
+        assert (
+            self.fake.date_this_decade(before_today=True, after_today=True).
+            strftime("%G")[:3] == datetime.now().strftime("%G")[:3]
+        )
         assert self.fake.date_this_decade(after_today=False) <= date.today()
         assert self.fake.date_this_decade(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_decade(before_today=False, after_today=False)) == (
-            date.today()
+            self.fake.date_this_decade(before_today=False, after_today=False) == date.today()
         )
         # test year
+        assert (
+            self.fake.date_this_year(before_today=True, after_today=True).
+            year == datetime.now().year
+        )
         assert self.fake.date_this_year(after_today=False) <= date.today()
         assert self.fake.date_this_year(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_year(before_today=False, after_today=False)) == (
-            date.today()
+            self.fake.date_this_year(before_today=False, after_today=False) == date.today()
         )
         # test month
+        assert (
+            self.fake.date_this_month(before_today=True, after_today=True).
+            month == datetime.now().month
+        ) and (
+            self.fake.date_this_month(before_today=True, after_today=True).
+            year == datetime.now().year
+        )
         assert self.fake.date_this_month(after_today=False) <= date.today()
         assert self.fake.date_this_month(before_today=False, after_today=True) >= date.today()
         assert (
-            self.fake.date_this_month(before_today=False, after_today=False)) == (
-            datetime.now()
+            self.fake.date_this_month(before_today=False, after_today=False) == date.today()
         )
 
     def test_date_time_between(self):
@@ -383,7 +403,14 @@ class TestDateTime(unittest.TestCase):
         _20_years_ago = change_year(now, -20)
 
         random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y')
+        assert isinstance(random_datetime, datetime)
+        self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
+        now = datetime.now(tz=utc)
+        _30_years_ago = change_year(now, -30)
+        _20_years_ago = change_year(now, -20)
+
+        random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y', tzinfo=utc)
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
@@ -732,7 +759,7 @@ class ViDatetimeTest(unittest.TestCase):
 
 
 class TestFilPh(unittest.TestCase):
-    num_sample_runs = 1000
+    num_sample_runs = 50
 
     def setUp(self):
         self.setup_constants()
@@ -748,11 +775,11 @@ class TestFilPh(unittest.TestCase):
         self.month_names = Provider.MONTH_NAMES.values()
 
     def test_PH_of_week(self):
-        for i in range(self.num_sample_runs):
+        for _ in range(self.num_sample_runs):
             assert self.fake.day_of_week() in self.day_names
 
     def test_PH_month_name(self):
-        for i in range(self.num_sample_runs):
+        for _ in range(self.num_sample_runs):
             assert self.fake.month_name() in self.month_names
 
 
@@ -882,6 +909,188 @@ class TestSkSk(unittest.TestCase):
         assert month in SkSkProvider.MONTH_NAMES.values()
 
 
+class TestThTh(unittest.TestCase):
+    num_sample_runs = 50
+
+    def setUp(self):
+        self.fake = Faker('th_TH')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day.startswith("วัน")
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+
+    def test_date(self):
+        # default format is "%-d %b %Y"
+        # (date with no padding, abbreviated month, full year [4 digits])
+        date = self.fake.date(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(
+                    r'[๐-๙]{1,2} '
+                    r'(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.) '
+                    r'[๐-๙]{4}',
+                    date,
+                )
+
+    def test_time(self):
+        time = self.fake.time(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(r'[๐-๙]{2}:[๐-๙]{2}:[๐-๙]{2}', time)
+
+    def test_century(self):
+        century = self.fake.century()
+        assert isinstance(century, str)
+        assert len(century) <= 2
+        century = self.fake.century(thai_digit=True)
+        for _ in range(self.num_sample_runs):
+            assert re.fullmatch(r'[๑-๒]?[๐-๙]', century)
+
+    def test_date_pattern(self):
+        # unsupported or incomplete directive
+        date = self.fake.date("%Q")
+        assert date == "Q"
+        date = self.fake.date("%%")
+        assert date == "%"
+        date = self.fake.date("%-")
+        assert date == "-"
+        date = self.fake.date("% ")
+        assert date == " "
+        date = self.fake.date("%0")
+        assert date == "0"
+        date = self.fake.date("%")
+        assert date == "%"
+
+        # may be not supported on Windows, try for coverage
+        date = self.fake.date("%s")
+        date = self.fake.date("%f")
+
+        # National representation of the full weekday name
+        date = self.fake.date("%A")
+        assert isinstance(date, str)
+
+        # National representation of the abbreviated weekday
+        date = self.fake.date("%a")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # National representation of the full month name
+        date = self.fake.date("%B")
+        assert isinstance(date, str)
+        assert "." not in date
+
+        # National representation of the abbreviated month name
+        date = self.fake.date("%b")
+        assert isinstance(date, str)
+        assert "." in date
+
+        # Century as decimal number
+        date = self.fake.date("%C")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate date and time representation
+        # พ   6 ต.ค. 01:40:00 2519  <-- left-aligned weekday, right-aligned day
+        date = self.fake.date("%c")
+        assert isinstance(date, str)
+
+        # Equivalent to ``%m/%d/%y''
+        date = self.fake.date("%D")
+        assert isinstance(date, str)
+
+        # Equivalent to ``%Y-%m-%d''
+        date = self.fake.date("%F")
+        assert isinstance(date, str)
+
+        # ISO 8601 year with century representing the year that contains
+        # the greater part of the ISO week (%V). Monday as the first day
+        # of the week.
+        date = self.fake.date("%G")
+        assert isinstance(date, str)
+
+        # Same year as in ``%G'',
+        # but as a decimal number without century (00-99).
+        date = self.fake.date("%g")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # BSD extension, ' 6-ต.ค.-2519'
+        date = self.fake.date("%v")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate time representation.
+        date = self.fake.date("%X")
+        assert isinstance(date, str)
+
+        # Locale’s appropriate date representation.
+        date = self.fake.date("%x")
+        assert isinstance(date, str)
+
+        # Year with century
+        date = self.fake.date("%Y")
+        assert isinstance(date, str)
+
+        # Year without century
+        date = self.fake.date("%y")
+        assert isinstance(date, str)
+        assert len(date) <= 2
+
+        # National representation of the date and time
+        # (the format is similar to that produced by date(1))
+        # Wed  6 Oct 1976 01:40:00
+        date = self.fake.date("%+")
+        assert isinstance(date, str)
+
+        # GNU libc extension,
+        # no padding
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%-d")
+            assert isinstance(date, str)
+            assert date[0] != "0"
+
+        # GNU libc extension,
+        # explicitly specify space (" ") for padding
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%_d")
+            assert isinstance(date, str)
+            assert date[0] != "0"
+
+        # GNU libc extension,
+        # explicitly specify zero ("0") for padding
+        for _ in range(self.num_sample_runs):
+            date = self.fake.date("%0v")
+            assert isinstance(date, str)
+            assert date[0] != " "
+
+        # GNU libc extension,
+        # convert to upper case
+        date = self.fake.date("%^p")
+        assert isinstance(date, str)
+        assert date.isupper()
+
+        # GNU libc extension,
+        # swap case - useful for %Z
+        date = self.fake.date("%#p")
+        assert isinstance(date, str)
+        assert date.islower()
+
+        # POSIX extension,
+        # uses the locale's alternative representation
+        # Not implemented yet
+        # swap case - useful for %Z
+        date = self.fake.date("%Ed")
+        assert isinstance(date, str)
+
+        # POSIX extension,
+        # uses the locale's alternative numeric symbols
+        date = self.fake.date("%Od")
+        assert isinstance(date, str)
+        assert date[0] not in "0123456789"
+
+
 class TestTrTr(unittest.TestCase):
 
     def setUp(self):
@@ -895,3 +1104,18 @@ class TestTrTr(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in TrTrProvider.MONTH_NAMES.values()
+
+
+class TestPtPt(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('pt_PT')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PtPtProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PtPtProvider.MONTH_NAMES.values()

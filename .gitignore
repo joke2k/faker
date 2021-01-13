@@ -52,3 +52,4 @@ nosetests.xml
 *.iml
 *.ipr
 venv/
+.vscode

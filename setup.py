@@ -2,14 +2,13 @@
 
 import os
 
+from pathlib import Path
+
 from setuptools import find_packages, setup
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.rst'), encoding='utf-8') as fp:
-    README = fp.read()
-
-with open(os.path.join(here, 'VERSION')) as version_file:
-    VERSION = version_file.read().strip()
+here = Path(__file__).resolve().parent
+README = (here / 'README.rst').read_text(encoding='utf-8')
+VERSION = (here / 'VERSION').read_text(encoding='utf-8').strip()
 
 excluded_packages = ["docs", "tests", "tests.*"]
 if not os.environ.get('READTHEDOCS', False):
@@ -43,10 +42,10 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -62,7 +61,7 @@ setup(
     packages=find_packages(exclude=excluded_packages),
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.4",
+    python_requires=">=3.6",
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",

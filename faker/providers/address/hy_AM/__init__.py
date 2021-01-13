@@ -3,6 +3,7 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
+    city_formats = ('{{first_name}}',)
     city_prefixes = ('ք.',)
     city_suffixes = ('',)
     street_prefixes = ('փողոց', 'պողոտա')

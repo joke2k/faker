@@ -2,6 +2,8 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
+    """Implement lorem provider for ``ja_JP`` locale."""
+
     word_connector = ''
     sentence_punctuation = '。'
     word_list = (

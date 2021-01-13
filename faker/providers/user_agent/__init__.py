@@ -6,6 +6,8 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
+    """Implement default user agent provider for Faker."""
+
     user_agents = (
         'chrome', 'firefox', 'internet_explorer', 'opera', 'safari',
     )
@@ -36,17 +38,21 @@ class Provider(BaseProvider):
     )
 
     def mac_processor(self):
+        """Generate a MacOS processor token used in user agent strings."""
         return self.random_element(self.mac_processors)
 
     def linux_processor(self):
+        """Generate a Linux processor token used in user agent strings."""
         return self.random_element(self.linux_processors)
 
     def user_agent(self):
+        """Generate a random web browser user agent string."""
         name = self.random_element(self.user_agents)
         return getattr(self, name)()
 
     def chrome(self, version_from=13, version_to=63,
                build_from=800, build_to=899):
+        """Generate a Chrome web browser user agent string."""
         saf = '{}.{}'.format(self.generator.random.randint(531, 536),
                              self.generator.random.randint(0, 2))
         bld = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
@@ -85,6 +91,7 @@ class Provider(BaseProvider):
         return 'Mozilla/5.0 ' + self.random_element(platforms)
 
     def firefox(self):
+        """Generate a Mozilla Firefox web browser user agent string."""
         ver = (
             'Gecko/{} Firefox/{}.0'.format(
                 self.generator.date_time_between(
@@ -133,6 +140,7 @@ class Provider(BaseProvider):
         return 'Mozilla/5.0 ' + self.random_element(platforms)
 
     def safari(self):
+        """Generate a Safari web browser user agent string."""
         saf = "{}.{}.{}".format(self.generator.random.randint(531, 535),
                                 self.generator.random.randint(1, 50),
                                 self.generator.random.randint(1, 7))
@@ -173,6 +181,7 @@ class Provider(BaseProvider):
         return 'Mozilla/5.0 ' + self.random_element(platforms)
 
     def opera(self):
+        """Generate an Opera web browser user agent string."""
         platform = '({}; {}) Presto/2.9.{} Version/{}.00'.format(
             (
                 self.linux_platform_token()
@@ -190,6 +199,7 @@ class Provider(BaseProvider):
         )
 
     def internet_explorer(self):
+        """Generate an IE web browser user agent string."""
         tmplt = 'Mozilla/5.0 (compatible; MSIE {0}.0; {1}; Trident/{2}.{3})'
         return tmplt.format(self.generator.random.randint(5, 9),
                             self.windows_platform_token(),
@@ -197,13 +207,16 @@ class Provider(BaseProvider):
                             self.generator.random.randint(0, 1))
 
     def windows_platform_token(self):
+        """Generate a Windows platform token used in user agent strings."""
         return self.random_element(self.windows_platform_tokens)
 
     def linux_platform_token(self):
+        """Generate a Linux platform token used in user agent strings."""
         return 'X11; Linux {}'.format(
             self.random_element(self.linux_processors))
 
     def mac_platform_token(self):
+        """Generate a MacOS platform token used in user agent strings."""
         return 'Macintosh; {} Mac OS X 10_{}_{}'.format(
             self.random_element(self.mac_processors),
             self.generator.random.randint(5, 12),
@@ -211,9 +224,11 @@ class Provider(BaseProvider):
         )
 
     def android_platform_token(self):
+        """Generate an Android platform token used in user agent strings."""
         return 'Android {}'.format(self.random_element(self.android_versions))
 
     def ios_platform_token(self):
+        """Generate an iOS platform token used in user agent strings."""
         return '{0}; CPU {0} OS {1} like Mac OS X'.format(
             self.random_element(self.apple_devices),
             self.random_element(self.ios_versions).replace('.', '_'),
