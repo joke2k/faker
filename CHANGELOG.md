@@ -1,5 +1,10 @@
 ## Changelog
 
+### [5.6.0 - 2021-01-13](https://github.com/joke2k/faker/compare/v5.5.1...v5.6.0)
+
+* Add ``address``, ``bank``, ``geo`` and ``person`` provider for ``en_IE``. Thanks @NiL.
+* Add ``person`` provider for ``ga_IE``. Thanks @NiL.
+
 ### [5.5.1 - 2021-01-12](https://github.com/joke2k/faker/compare/v5.5.0...v5.5.1)
 
 * Fix lorem provider ``sentence`` method.
