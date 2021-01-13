@@ -14,6 +14,7 @@ from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
 from faker.providers.address.en_CA import Provider as EnCaAddressProvider
 from faker.providers.address.en_GB import Provider as EnGbAddressProvider
+from faker.providers.address.en_IE import Provider as EnIeAddressProvider
 from faker.providers.address.en_IN import Provider as EnInAddressProvider
 from faker.providers.address.en_PH import Provider as EnPhAddressProvider
 from faker.providers.address.en_US import Provider as EnUsAddressProvider
@@ -387,6 +388,23 @@ class TestEnGb:
             county = faker.county()
             assert isinstance(county, str)
             assert county in EnGbAddressProvider.counties
+
+
+class TestEnIe:
+    """Test en_IE address provider methods"""
+
+    def test_postcode(self, faker, num_samples):
+        """https://stackoverflow.com/questions/33391412/validation-for-irish-eircode"""
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r'(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$', postcode)
+
+    def test_county(self, faker, num_samples):
+        for _ in range(num_samples):
+            county = faker.county()
+            assert isinstance(county, str)
+            assert county in EnIeAddressProvider.counties
 
 
 class TestEnUS:

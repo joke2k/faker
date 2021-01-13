@@ -8,10 +8,12 @@ from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.en import Provider as EnProvider
+from faker.providers.person.en_IE import Provider as EnIEProvider
 from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
+from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -725,7 +727,6 @@ class TestUs(unittest.TestCase):
         assert name in EnUSProvider.first_names_nonbinary
 
     def test_last_names(self):
-
         # General last name
         name = self.fake.last_name()
         self.assertIsInstance(name, str)
@@ -747,14 +748,12 @@ class TestUs(unittest.TestCase):
         assert name in EnUSProvider.last_names
 
     def test_prefix(self):
-
         # Nonbinary prefix
         prefix = self.fake.prefix_nonbinary()
         self.assertIsInstance(prefix, str)
         assert prefix in EnUSProvider.prefixes_nonbinary
 
     def test_suffix(self):
-
         # Nonbinary suffix
         suffix = self.fake.suffix_nonbinary()
         self.assertIsInstance(suffix, str)
@@ -769,7 +768,6 @@ class TestEn(unittest.TestCase):
         Faker.seed(0)
 
     def test_suffix(self):
-
         # Traditional suffix -- provider does not offer a nonbinary suffix at this time
         suffix = self.fake.suffix()
         self.assertIsInstance(suffix, str)
@@ -821,3 +819,67 @@ class TestEnIN(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         assert last_name in EnINProvider.last_names
+
+
+class TestEnIE(unittest.TestCase):
+    """ Tests person in the en-IE locale """
+
+    def setUp(self):
+        self.fake = Faker('en-ie')
+        self.provider = EnIEProvider
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+    def test_last_name(self):
+        assert not hasattr(self.provider, 'last_names_male')
+        assert not hasattr(self.provider, 'last_names_female')
+        # All last names apply for all genders.
+        assert hasattr(self.provider, 'last_names')
+
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+        assert name in self.provider.last_names
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+
+class TestGaIE(TestEnIE):
+    """ Tests person in the ga-IE locale """
+
+    def setUp(self):
+        self.fake = Faker('ga-ie')
+        self.provider = GaIEProvider
+        Faker.seed(0)
