@@ -641,6 +641,11 @@ class TestRuRU(unittest.TestCase):
         assert translit('Маяковский') == 'Mayakovskiy'
         assert translit('Петров-Водкин') == 'Petrov-Vodkin'
         assert translit('Воронцова-Дашкова') == 'Vorontsova-Dashkova'
+        assert translit('А.С.Пушкин') == 'A.S.Pushkin'
+        assert translit('А. С. Пушкин') == 'A. S. Pushkin'
+        assert translit('тов. И.И.Сидоров') == 'tov. I.I.Sidorov'
+        assert translit('г-н А.Б.Петров') == 'g-n A.B.Petrov'
+        assert translit('г-жа Ю.М.Петрова') == 'g-zha Yu.M.Petrova'
 
     def test_name_female(self):
         first_name = self.fake.first_name_female()
