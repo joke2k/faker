@@ -1,5 +1,9 @@
 ## Changelog
 
+### [5.6.1 - 2021-01-15](https://github.com/joke2k/faker/compare/v5.6.0...v5.6.1)
+
+* Fix transliteration for ``ru_RU`` ``person`` provider. Thanks @valestel.
+
 ### [5.6.0 - 2021-01-13](https://github.com/joke2k/faker/compare/v5.5.1...v5.6.0)
 
 * Add ``address``, ``bank``, ``geo`` and ``person`` provider for ``en_IE``. Thanks @NiL.
