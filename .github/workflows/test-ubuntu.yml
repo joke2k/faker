@@ -20,6 +20,12 @@ jobs:
       - name: Run Tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
+      - name: Publish coverage
+        run: coveralls --service=github
+        env:
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test_alpine:
     runs-on: ubuntu-latest
@@ -32,12 +38,18 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        python -m pip install tox
+        python -m pip install tox coveralls
     - name: Run tests
       run: tox
       env:
         TOXENV: alpine
         TEST_ALPINE: 1
+    - name: Publish coverage
+      run: coveralls --service=github
+      env:
+        COVERALLS_PARALLEL: true
+        COVERALLS_FLAG_NAME: run-alpine
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test_32bit:
     runs-on: ubuntu-latest
@@ -50,9 +62,26 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        python -m pip install tox
+        python -m pip install tox coveralls
     - name: Run tests
       run: tox
       env:
         TOXENV: 32bit
         TEST_32BIT: 1
+    - name: Publish coverage
+      run: coveralls --service=github
+      env:
+        COVERALLS_PARALLEL: true
+        COVERALLS_FLAG_NAME: run-32bit
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  finish:
+    needs: [test_ubuntu, test_alpine, test_32bit]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
