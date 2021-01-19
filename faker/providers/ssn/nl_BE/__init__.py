@@ -41,7 +41,7 @@ class Provider(SsnProvider):
         # Simulate the gender/sequence - should be 3 digits
         seq = self.generator.random_int(1, 998)
         # Right justify sequence and append to list
-        seq_str = "{:0>3}".format(seq)
+        seq_str = f'{seq:0>3}'
         elms.append(seq_str)
         # Now convert list to an integer so the checksum can be calculated
         date_as_int = int("".join(elms))
@@ -49,7 +49,7 @@ class Provider(SsnProvider):
             date_as_int += 2000000000
         # Generate checksum
         s = _checksum(date_as_int)
-        s_rjust = "{:0>2}".format(s)
+        s_rjust = f'{s:0>2}'
         # return result as a string
         elms.append(s_rjust)
         return "".join(elms)

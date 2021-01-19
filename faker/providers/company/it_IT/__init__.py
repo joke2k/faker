@@ -378,4 +378,4 @@ class Provider(CompanyProvider):
         """
         code = self.bothify('#######') + str(self._random_vat_office()).zfill(3)
         luhn_checksum = str(calculate_luhn(code))
-        return 'IT{}{}'.format(code, luhn_checksum)
+        return f'IT{code}{luhn_checksum}'

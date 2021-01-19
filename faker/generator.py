@@ -80,13 +80,9 @@ class Generator:
             return getattr(self, formatter)
         except AttributeError:
             if 'locale' in self.__config:
-                msg = 'Unknown formatter "{}" with locale "{}"'.format(
-                    formatter, self.__config['locale'],
-                )
+                msg = f'Unknown formatter {formatter!r} with locale {self.__config["locale"]!r}'
             else:
-                raise AttributeError('Unknown formatter "{}"'.format(
-                    formatter,
-                ))
+                raise AttributeError(f'Unknown formatter {formatter!r}')
             raise AttributeError(msg)
 
     def set_formatter(self, name, method):
@@ -174,7 +170,7 @@ class Generator:
             try:
                 arguments = self.__config['arguments'][argument_group]
             except KeyError:
-                raise AttributeError('Unknown argument group "{}"'.format(argument_group))
+                raise AttributeError(f'Unknown argument group {argument_group!r}')
 
             formatted = str(self.format(formatter, **arguments))
         else:

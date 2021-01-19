@@ -63,8 +63,8 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
     """
     str_ = ""
     try:
-        str_ = dt_obj.strftime("%{}".format(fmt_char))
-        if not str_ or str_ == "%{}".format(fmt_char):
+        str_ = dt_obj.strftime(f'%{fmt_char}')
+        if not str_ or str_ == f'%{fmt_char}':
             # normalize outputs for unsupported directives
             # in different platforms
             # "%Q" may result "%Q", "Q", or "", make it "Q"
@@ -74,8 +74,8 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
         # in that case just use the fmt_char
         warnings.warn(
             (
-                "String format directive unknown/not support: %{}"
-                "The system raises this ValueError: {}".format(fmt_char, err)
+                f"String format directive unknown/not support: %{fmt_char}"
+                f"The system raises this ValueError: {err}"
             ),
             UserWarning,
         )
@@ -116,21 +116,14 @@ def _thai_strftime(
         # Locale’s appropriate date and time representation
         # Wed  6 Oct 01:40:00 1976
         # พ   6 ต.ค. 01:40:00 2519  <-- left-aligned weekday, right-aligned day
-        str_ = "{:<2} {:>2} {} {} {}".format(
-            _TH_ABBR_WEEKDAYS[dt_obj.weekday()],
-            dt_obj.day,
-            _TH_ABBR_MONTHS[dt_obj.month - 1],
-            dt_obj.strftime("%H:%M:%S"),
-            str(year).zfill(4),
-        )
+        str_ = (f'{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} '
+                f'{_TH_ABBR_MONTHS[dt_obj.month - 1]} {dt_obj:%H:%M:%S} {year:04}')
     elif fmt_char == "D":
         # Equivalent to ``%m/%d/%y''
-        str_ = "{}/{}".format(
-            dt_obj.strftime("%m/%d"), (str(year)[-2:]).zfill(2),
-        )
+        str_ = f'{dt_obj:%m/%d}/{year % 100:02}'
     elif fmt_char == "F":
         # Equivalent to ``%Y-%m-%d''
-        str_ = "{}-{}".format(str(year).zfill(4), dt_obj.strftime("%m-%d"))
+        str_ = f'{year:04}-{dt_obj:%m-%d}'
     elif fmt_char == "G":
         # ISO 8601 year with century representing the year that contains
         # the greater part of the ISO week (%V). Monday as the first day
@@ -138,46 +131,35 @@ def _thai_strftime(
         year_G = int(dt_obj.strftime("%G"))
         if buddhist_era:
             year_G = year_G + _BE_AD_DIFFERENCE
-        str_ = str(year_G).zfill(4)
+        str_ = f'{year_G:04}'
     elif fmt_char == "g":
         # Same year as in ``%G'',
         # but as a decimal number without century (00-99).
         year_G = int(dt_obj.strftime("%G"))
         if buddhist_era:
             year_G = year_G + _BE_AD_DIFFERENCE
-        str_ = (str(year_G)[-2:]).zfill(2)
+        str_ = f'{year_G % 100:02}'
     elif fmt_char == "v":
         # BSD extension, ' 6-Oct-1976'
-        str_ = "{:>2}-{}-{}".format(
-            dt_obj.day, _TH_ABBR_MONTHS[dt_obj.month - 1], str(year).zfill(4),
-        )
+        str_ = f'{dt_obj.day:>2}-{_TH_ABBR_MONTHS[dt_obj.month - 1]}-{year:04}'
     elif fmt_char == "X":
         # Locale’s appropriate time representation.
-        str_ = dt_obj.strftime("%H:%M:%S")
+        str_ = f'{dt_obj:%H:%M:%S}'
     elif fmt_char == "x":
         # Locale’s appropriate date representation.
-        str_ = "{}/{}/{}".format(
-            str(dt_obj.day).zfill(2),
-            str(dt_obj.month).zfill(2),
-            str(year).zfill(4),
-        )
+        str_ = f'{dt_obj:%d/%m}/{year:04}'
     elif fmt_char == "Y":
         # Year with century
-        str_ = (str(year)).zfill(4)
+        str_ = f'{year:04}'
     elif fmt_char == "y":
         # Year without century
-        str_ = (str(year)[-2:]).zfill(2)
+        str_ = f'{year % 100:02}'
     elif fmt_char == "+":
         # National representation of the date and time
         # (the format is similar to that produced by date(1))
         # Wed  6 Oct 1976 01:40:00
-        str_ = "{:<2} {:>2} {} {} {}".format(
-            _TH_ABBR_WEEKDAYS[dt_obj.weekday()],
-            dt_obj.day,
-            _TH_ABBR_MONTHS[dt_obj.month - 1],
-            year,
-            dt_obj.strftime("%H:%M:%S"),
-        )
+        str_ = (f'{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} '
+                f'{_TH_ABBR_MONTHS[dt_obj.month - 1]} {year} {dt_obj:%H:%M:%S}')
 
     return str_
 

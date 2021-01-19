@@ -103,5 +103,4 @@ class Provider(CompanyProvider):
 
     def cnpj(self):
         digits = self.company_id()
-        return '{}.{}.{}/{}-{}'.format(digits[:2], digits[2:5], digits[5:8],
-                                       digits[8:12], digits[12:])
+        return f'{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}'

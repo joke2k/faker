@@ -26,17 +26,17 @@ class Provider(BaseProvider):
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia
         """
         birthdate = self.generator.date_of_birth()
-        year = '%.2d' % (birthdate.year % 100)
+        year = f'{birthdate:%y}'
         month = self.random_element(self.national_id_months)
-        day = '%.2d' % birthdate.day
+        day = f'{birthdate:%d}'
         if birthdate.year > 1953:
             sn = self.random_number(4, True)
         else:
             sn = self.random_number(3, True)
-        number = int('{}{}{}{}'.format(year, month, day, sn))
+        number = int(f'{year}{month}{day}{sn}')
         birth_number = str(ceil(number / 11) * 11)
         if year == '00':
             birth_number = '00' + birth_number
         elif year[0] == '0':
             birth_number = '0' + birth_number
-        return '{}/{}'.format(birth_number[:6], birth_number[6::])
+        return f'{birth_number[:6]}/{birth_number[6:]}'
