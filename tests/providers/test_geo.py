@@ -59,7 +59,7 @@ class TestEnUS(unittest.TestCase):
 
     def test_coordinate_rounded(self):
         loc = self.fake.coordinate(center=23, radius=3)
-        assert round(loc) >= 20 <= 26
+        assert 20 <= round(loc) <= 26
 
     def test_location_on_land(self):
         loc = self.fake.location_on_land()

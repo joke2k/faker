@@ -438,13 +438,13 @@ class TestDateTime(unittest.TestCase):
 
         td = timedelta(days=7)
         seconds = Provider._parse_timedelta(td)
-        assert seconds == 604800.0
+        assert seconds == 604800
 
         seconds = Provider._parse_timedelta('+1w')
-        assert seconds == 604800.0
+        assert seconds == 604800
 
         seconds = Provider._parse_timedelta('+1y')
-        assert seconds == 31556736.0
+        assert seconds == 31556736
 
         with pytest.raises(ValueError):
             Provider._parse_timedelta('foobar')
