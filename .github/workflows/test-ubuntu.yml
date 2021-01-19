@@ -1,6 +1,6 @@
 name: Python Tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test_ubuntu:
@@ -21,7 +21,7 @@ jobs:
         # Run tox using the version of Python in `PATH`
         run: tox -e py
       - name: Publish coverage
-        run: coveralls
+        run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
