@@ -592,8 +592,7 @@ class Provider(BaseProvider):
                     raise TypeError('Invalid arguments type. Must be a dictionary')
 
                 result = self._value_format_selection(definition, **kwargs)
-                field = "{0:%s%s}" % (align_map.get(align, '<'), width)
-                row.append(field.format(result)[:width])
+                row.append(f'{result:{align_map.get(align, "<")}{width}}'[:width])
 
             data.append(''.join(row))
         return '\n'.join(data)

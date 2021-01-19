@@ -13,7 +13,7 @@ class Provider(SsnProvider):
         org_id = org_id.replace('-', '')
         if len(org_id) == 10:
             org_id = '16' + org_id
-        return 'SE{}01'.format(org_id)
+        return f'SE{org_id}01'
 
     def ssn(self, min_age=18, max_age=90, long=False, dash=True):
         """
@@ -33,12 +33,12 @@ class Provider(SsnProvider):
             days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.datetime.now() - age
         yr_fmt = '%Y' if long else '%y'
-        pnr_date = birthday.strftime('{}%m%d'.format(yr_fmt))
+        pnr_date = f'{birthday:{yr_fmt}%m%d}'
         chk_date = pnr_date[2:] if long else pnr_date
-        suffix = str(self.generator.random.randrange(0, 999)).zfill(3)
+        suffix = f'{self.generator.random.randrange(0, 999):03}'
         luhn_checksum = str(calculate_luhn(chk_date + suffix))
         hyphen = '-' if dash else ''
-        pnr = '{}{}{}{}'.format(pnr_date, hyphen, suffix, luhn_checksum)
+        pnr = f'{pnr_date}{hyphen}{suffix}{luhn_checksum}'
 
         return pnr
 
@@ -61,7 +61,7 @@ class Provider(SsnProvider):
         prefix = '16' if long else ''
         hyphen = '-' if dash else ''
 
-        org_id = '{}{}{}{}{}'.format(prefix, onr_one, hyphen, onr_two, luhn_checksum)
+        org_id = f'{prefix}{onr_one}{hyphen}{onr_two}{luhn_checksum}'
         return org_id
 
     def vat_id(self):

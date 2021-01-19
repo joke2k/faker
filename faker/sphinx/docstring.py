@@ -60,9 +60,7 @@ class ProviderMethodDocstring:
         self._parsed_lines = []
         self._samples = []
         self._skipped = True
-        self._log_prefix = '{path}:docstring of {name}: WARNING:'.format(
-            path=inspect.getfile(obj), name=name,
-        )
+        self._log_prefix = f'{inspect.getfile(obj)}:docstring of {name}: WARNING:'
 
         if what != 'method':
             return
@@ -90,8 +88,7 @@ class ProviderMethodDocstring:
         self._generate_samples()
 
     def _log_warning(self, warning):
-        msg = '{prefix} {warning}'.format(prefix=self._log_prefix, warning=warning)
-        logger.warning(msg)
+        logger.warning(f'{self._log_prefix} {warning}')
 
     def _parse(self):
         while True:
@@ -137,7 +134,7 @@ class ProviderMethodDocstring:
 
         # Discard sample section if malformed
         if not match:
-            msg = 'The section `{section}` is malformed and will be discarded.'.format(section=section)
+            msg = f'The section `{section}` is malformed and will be discarded.'
             self._log_warning(msg)
             return
 
@@ -197,10 +194,8 @@ class ProviderMethodDocstring:
             validator = SampleCodeValidator(command)
             if validator.errors:
                 msg = (
-                    'Invalid code elements detected. Sample generation will be '
-                    'skipped for method `{method}` with arguments `{kwargs}`.'
-                ).format(
-                    method=self._method, kwargs=sample.kwargs,
+                    f'Invalid code elements detected. Sample generation will be '
+                    f'skipped for method `{self._method}` with arguments `{sample.kwargs}`.'
                 )
                 self._log_warning(msg)
                 continue
@@ -212,9 +207,7 @@ class ProviderMethodDocstring:
                     for _ in range(sample.size)
                 ])
             except Exception:
-                msg = 'Sample generation failed for method `{method}` with arguments `{kwargs}`.'.format(
-                    method=self._method, kwargs=sample.kwargs,
-                )
+                msg = f'Sample generation failed for method `{self._method}` with arguments `{sample.kwargs}`.'
                 self._log_warning(msg)
                 continue
             else:

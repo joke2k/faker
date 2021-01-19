@@ -63,7 +63,7 @@ class TestProviderMethodDocstring:
         docstring._log_warning('Test Warning 1')
         docstring._log_warning('Test Warning 2')
 
-        assert docstring._log_prefix == '{path}:docstring of {name}: WARNING:'.format(path=path, name=name)
+        assert docstring._log_prefix == f'{path}:docstring of {name}: WARNING:'
 
         calls = mock_logger_warning.call_args_list
         assert len(calls) == 2
@@ -72,13 +72,13 @@ class TestProviderMethodDocstring:
         args, kwargs = calls[0]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 1'.format(path=path, name=name)
+        assert args[0] == f'{path}:docstring of {name}: WARNING: Test Warning 1'
 
         # 2nd call to logger.warning
         args, kwargs = calls[1]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == '{path}:docstring of {name}: WARNING: Test Warning 2'.format(path=path, name=name)
+        assert args[0] == f'{path}:docstring of {name}: WARNING: Test Warning 2'
 
     def test_stringify_results(self, faker):
 

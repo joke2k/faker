@@ -24,8 +24,7 @@ def print_provider(doc,
         excludes = []
 
     print(file=output)
-    print("### {}".format(
-          doc.get_provider_name(provider)), file=output)
+    print(f"### {doc.get_provider_name(provider)}", file=output)
     print(file=output)
 
     for signature, example in formatters.items():
@@ -39,19 +38,13 @@ def print_provider(doc,
             # try to `print` the line.
             lines = ["<bytes>"]
         except UnicodeEncodeError:
-            raise Exception('error on "{}" with value "{}"'.format(
-                            signature, example))
+            raise Exception(f'error on {signature!r} with value {example!r}')
         margin = max(30, doc.max_name_len + 1)
         remains = 150 - margin
         separator = '#'
         for line in lines:
             for i in range(0, (len(line) // remains) + 1):
-                print("\t{fake:<{margin}}{separator} {example}".format(
-                    fake=signature,
-                    separator=separator,
-                    example=line[i * remains:(i + 1) * remains],
-                    margin=margin,
-                ), file=output)
+                print(f"\t{signature:<{margin}}{separator} {line[i * remains:(i + 1) * remains]}", file=output)
                 signature = separator = ' '
 
 
@@ -89,8 +82,7 @@ def print_doc(provider_or_field=None,
                     end='',
                     file=output)
             except AttributeError:
-                raise ValueError('No faker found for "{}({})"'.format(
-                    provider_or_field, args))
+                raise ValueError(f'No faker found for "{provider_or_field}({args})"')
 
     else:
         doc = documentor.Documentor(fake)
@@ -105,7 +97,7 @@ def print_doc(provider_or_field=None,
             if language == lang:
                 continue
             print(file=output)
-            print('## LANGUAGE {}'.format(language), file=output)
+            print(f'## LANGUAGE {language}', file=output)
             fake = Faker(locale=language)
             fake.seed_instance(seed)
             d = documentor.Documentor(fake)
@@ -133,18 +125,18 @@ class Command:
         if default_locale not in AVAILABLE_LOCALES:
             default_locale = DEFAULT_LOCALE
 
-        epilog = """supported locales:
+        epilog = f"""supported locales:
 
-  {0}
+  {', '.join(sorted(AVAILABLE_LOCALES))}
 
   Faker can take a locale as an optional argument, to return localized data. If
   no locale argument is specified, the factory falls back to the user's OS
   locale as long as it is supported by at least one of the providers.
-     - for this user, the default locale is {1}.
+     - for this user, the default locale is {default_locale}.
 
   If the optional argument locale and/or user's default locale is not available
   for the specified provider, the factory falls back to faker's default locale,
-  which is {2}.
+  which is {DEFAULT_LOCALE}.
 
 examples:
 
@@ -164,19 +156,17 @@ examples:
   Josiah Maggio;
   Gayla Schmitt;
 
-""".format(', '.join(sorted(AVAILABLE_LOCALES)),
-           default_locale,
-           DEFAULT_LOCALE)
+"""
 
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
             prog=self.prog_name,
-            description='{} version {}'.format(self.prog_name, VERSION),
+            description=f'{self.prog_name} version {VERSION}',
             epilog=epilog,
             formatter_class=formatter_class)
 
         parser.add_argument("--version", action="version",
-                            version="%(prog)s {}".format(VERSION))
+                            version=f'%(prog)s {VERSION}')
 
         parser.add_argument('-v',
                             '--verbose',

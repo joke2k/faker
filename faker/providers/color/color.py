@@ -178,19 +178,19 @@ class RandomColor:
     def set_format(self, hsv, color_format):
         """Handle conversion of HSV values into desired format."""
         if color_format == 'hsv':
-            color = 'hsv({}, {}, {})'.format(*hsv)
+            color = f'hsv({hsv[0]}, {hsv[1]}, {hsv[2]})'
 
         elif color_format == 'hsl':
-            hsl = self.hsv_to_hsl(hsv)
-            color = 'hsl({}, {}, {})'.format(*hsl)
+            hsl = tuple(self.hsv_to_hsl(hsv))
+            color = f'hsl({hsl[0]}, {hsl[1]}, {hsl[2]})'
 
         elif color_format == 'rgb':
-            rgb = self.hsv_to_rgb(hsv)
-            color = 'rgb({}, {}, {})'.format(*rgb)
+            rgb = tuple(self.hsv_to_rgb(hsv))
+            color = f'rgb({rgb[0]}, {rgb[1]}, {rgb[2]})'
 
         else:
-            rgb = self.hsv_to_rgb(hsv)
-            color = '#{:02x}{:02x}{:02x}'.format(*rgb)
+            rgb = tuple(self.hsv_to_rgb(hsv))
+            color = f'#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}'
 
         return color
 

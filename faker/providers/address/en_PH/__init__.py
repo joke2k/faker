@@ -366,7 +366,7 @@ class Provider(AddressProvider):
         return str(num) + suffix
 
     def _create_postcode(self, postcodes):
-        return '{postcode:04d}'.format(postcode=self.random_element(postcodes))
+        return f'{self.random_element(postcodes):04d}'
 
     def _create_address(self, address_formats):
         return self.generator.parse(self.random_element(address_formats))
@@ -423,10 +423,7 @@ class Provider(AddressProvider):
         return self._ordinal_string(self.floor_number())
 
     def floor_unit_number(self):
-        return '{floor_number}{unit_number:02d}'.format(
-            floor_number=self.floor_number(),
-            unit_number=self.random_int(1, 40),
-        )
+        return f'{self.floor_number()}{self.random_int(1, 40):02d}'
 
     def building_unit_number(self):
         return self.generator.parse(self.random_element(self.building_unit_number_formats))
@@ -438,10 +435,10 @@ class Provider(AddressProvider):
         return self.numerify(self.random_element(self.building_name_suffixes))
 
     def subdivision_block_number(self):
-        return '{block_number:02d}'.format(block_number=self.random_int(1, 25))
+        return f'{self.random_int(1, 25):02d}'
 
     def subdivision_lot_number(self):
-        return '{lot_number:02d}'.format(lot_number=self.random_int(1, 99))
+        return f'{self.random_int(1, 99):02d}'
 
     def subdivision_unit_number(self):
         return self.generator.parse(self.random_element(self.subdivision_unit_number_formats))

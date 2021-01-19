@@ -60,7 +60,7 @@ class TestSvSE(unittest.TestCase):
             return False
 
         try:
-            if date_str != datetime.strptime(date_str, '{}%m%d'.format(year_fmt)).strftime('{}%m%d'.format(year_fmt)):
+            if date_str != datetime.strptime(date_str, f'{year_fmt}%m%d').strftime(f'{year_fmt}%m%d'):
                 raise ValueError
             return True
         except ValueError:
@@ -758,10 +758,9 @@ class TestHuHU(unittest.TestCase):
             assert len(ssn) <= 12
 
         for _ in range(100):
-            dob_val = '{:02d}{:02d}{:02d}'.format(
-                self.fake.random_int(0, 99),
-                self.fake.random_int(1, 12),
-                self.fake.random_int(1, 31))
+            dob_val = (f'{self.fake.random_int(0, 99):02d}'
+                       f'{self.fake.random_int(1, 12):02d}'
+                       f'{self.fake.random_int(1, 31):02d}')
             dob = self.fake.random.choice([None, dob_val])
             gender = self.fake.random.choice([None, 'F', 'M', 'z'])
             try:
@@ -976,7 +975,7 @@ class TestTrTr(unittest.TestCase):
         for sample in self.samples:
             first_ten_number = sample[:-1]
             last_part = sample[-1]
-            assert sum(list(map(lambda x: int(x), '{}'.format(first_ten_number)))) % 10 == last_part
+            assert sum(int(x) for x in f'{first_ten_number}') % 10 == last_part
 
 
 class TestEnIn(unittest.TestCase):

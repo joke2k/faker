@@ -127,7 +127,7 @@ class Faker:
 
         factories, weights = self._map_provider_method(method_name)
         if len(factories) == 0:
-            msg = "No generator object has attribute '{}'".format(method_name)
+            msg = f'No generator object has attribute {method_name!r}'
             raise AttributeError(msg)
         elif len(factories) == 1:
             return factories[0]
@@ -150,7 +150,7 @@ class Faker:
         """
 
         # Return cached mapping if it exists for given method
-        attr = '_cached_{}_mapping'.format(method_name)
+        attr = f'_cached_{method_name}_mapping'
         if hasattr(self, attr):
             return getattr(self, attr)
 
@@ -282,7 +282,7 @@ class UniqueProxy:
                     break
                 retval = function(*args, **kwargs)
             else:
-                raise UniquenessException("Got duplicated values after {0:,} iterations.".format(_UNIQUE_ATTEMPTS))
+                raise UniquenessException(f'Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.')
 
             generated.add(retval)
 

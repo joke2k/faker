@@ -61,7 +61,7 @@ class TestInternetProvider:
         my_width = 500
         my_height = 1024
         url = faker.image_url(my_width, my_height)
-        assert 'https://dummyimage.com/{}x{}'.format(my_width, my_height) == url
+        assert f'https://dummyimage.com/{my_width}x{my_height}' == url
         url = faker.image_url()
         assert 'https://dummyimage.com/' in url
 
@@ -105,8 +105,8 @@ class TestInternetProvider:
             if address_class is None:
                 networks_attr = '_cached_all_networks'
             else:
-                networks_attr = '_cached_all_class_{}_networks'.format(address_class)
-            weights_attr = '{}_weights'.format(networks_attr)
+                networks_attr = f'_cached_all_class_{address_class}_networks'
+            weights_attr = f'{networks_attr}_weights'
             provider = InternetProvider(faker)
 
             # First, test cache creation
@@ -168,8 +168,8 @@ class TestInternetProvider:
         from faker.providers.internet import _IPv4Constants
 
         for address_class in _IPv4Constants._network_classes.keys():
-            networks_attr = '_cached_public_class_{}_networks'.format(address_class)
-            weights_attr = '{}_weights'.format(networks_attr)
+            networks_attr = f'_cached_public_class_{address_class}_networks'
+            weights_attr = f'{networks_attr}_weights'
             provider = InternetProvider(faker)
 
             # First, test cache creation
@@ -308,7 +308,7 @@ class TestInternetProviderUrl:
 
     @staticmethod
     def is_correct_scheme(url, schemes):
-        return any(url.startswith('{}://'.format(scheme)) for scheme in schemes)
+        return any(url.startswith(f'{scheme}://') for scheme in schemes)
 
     def test_url_default_schemes(self, faker):
         for _ in range(100):
