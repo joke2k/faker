@@ -979,7 +979,7 @@ class Provider(BaseProvider):
         Optionally center the coord and pick a point within radius.
         """
         if center is None:
-            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000.0)).quantize(
+            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000)).quantize(
                 Decimal(".000001"),
             )
         else:

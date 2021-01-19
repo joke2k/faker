@@ -272,11 +272,7 @@ class RandomColor:
         h = 1 if h == 0 else h
         h = 359 if h == 360 else h
 
-        h = float(h)/360
-        s = float(s)/100
-        v = float(v)/100
-
-        rgb = colorsys.hsv_to_rgb(h, s, v)
+        rgb = colorsys.hsv_to_rgb(h / 360, s / 100, v / 100)
         return (int(c * 255) for c in rgb)
 
     @classmethod
@@ -288,8 +284,8 @@ class RandomColor:
         """
         h, s, v = hsv
 
-        s = float(s)/100
-        v = float(v)/100
+        s = s / 100
+        v = v / 100
         l = 0.5 * v * (2 - s)   # noqa: E741
 
         if l in [0, 1]:
