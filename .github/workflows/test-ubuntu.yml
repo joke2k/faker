@@ -21,8 +21,10 @@ jobs:
         # Run tox using the version of Python in `PATH`
         run: tox -e py
       - name: Publish coverage
-        run: coveralls
+        run: coveralls --service=github
         env:
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_SERVICE_NAME: github
 
@@ -61,3 +63,14 @@ jobs:
       env:
         TOXENV: 32bit
         TEST_32BIT: 1
+
+
+  finish:
+    needs: [test_ubuntu, test_alpine, test_32bit]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
