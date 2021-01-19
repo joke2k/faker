@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v5.6.3 - 2021-01-19](https://github.com/joke2k/faker/compare/v5.6.2...v5.6.3)
+
+* try fixing coveralls (#1382). Thanks @fcurella.
+
 ### [v5.6.2 - 2021-01-19](https://github.com/joke2k/faker/compare/v5.6.1...v5.6.2)
 
 * fix coveralls (#1374). Thanks @joke2k.
