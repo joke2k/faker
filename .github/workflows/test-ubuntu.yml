@@ -16,10 +16,17 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
-        run: python -m pip install tox coveralls
+        run: python -m pip install tox
       - name: Run Tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
+      - name: Coveralls Parallel
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-ubuntu-${{ matrix.python }}
+          parallel: true
+          base-path: '.tox'
 
   test_alpine:
     runs-on: ubuntu-latest
@@ -38,6 +45,13 @@ jobs:
       env:
         TOXENV: alpine
         TEST_ALPINE: 1
+    - name: Coveralls Parallel
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: run-alpine
+        parallel: true
+        base-path: '.tox'
 
   test_32bit:
     runs-on: ubuntu-latest
@@ -56,3 +70,21 @@ jobs:
       env:
         TOXENV: 32bit
         TEST_32BIT: 1
+    - name: Coveralls Parallel
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: run-32bit
+        parallel: true
+        base-path: '.tox'
+
+  finish:
+    needs: [test_ubuntu, test_alpine, test_32bit]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        base-path: '.tox'
+        parallel-finished: true
