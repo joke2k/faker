@@ -1,12 +1,16 @@
 ## Changelog
 
+### [v5.6.4 - 2021-01-20](https://github.com/joke2k/faker/compare/v5.6.3...v5.6.4)
+
+* Synchronize ``cs_CZ`` and ``sk_SK`` address provider and split postcodes (#1174). Thanks @eumiro.
+
 ### [v5.6.3 - 2021-01-19](https://github.com/joke2k/faker/compare/v5.6.2...v5.6.3)
 
-* try fixing coveralls (#1382). Thanks @fcurella.
+* Enable parallel coveralls builds (#1382). Thanks @fcurella.
 
 ### [v5.6.2 - 2021-01-19](https://github.com/joke2k/faker/compare/v5.6.1...v5.6.2)
 
-* fix coveralls (#1374). Thanks @joke2k.
+* Fix coveralls (#1374). Thanks @joke2k.
 
 ### [5.6.1 - 2021-01-15](https://github.com/joke2k/faker/compare/v5.6.0...v5.6.1)
 
