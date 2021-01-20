@@ -16,8 +16,8 @@ class Provider(LoremProvider):
     - https://www.sanook.com/campus/1392241/
     """
 
-    word_connector = ""
-    sentence_punctuation = " "
+    word_connector = ""  # Thai writing has no word divider
+    sentence_punctuation = " "  # single space
     word_list = (
         "กตัญญู",
         "กบ",
