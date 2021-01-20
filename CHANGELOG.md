@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v5.6.5 - 2021-01-20](https://github.com/joke2k/faker/compare/v5.6.4...v5.6.5)
+
+* Update ``th_TH`` Lorem text provider's punctuations, reduce size of word list (#1376). Thanks @bact.
+
 ### [v5.6.4 - 2021-01-20](https://github.com/joke2k/faker/compare/v5.6.3...v5.6.4)
 
 * Synchronize ``cs_CZ`` and ``sk_SK`` address provider and split postcodes (#1174). Thanks @eumiro.
