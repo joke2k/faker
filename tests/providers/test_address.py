@@ -33,6 +33,7 @@ from faker.providers.address.no_NO import Provider as NoNoAddressProvider
 from faker.providers.address.pt_BR import Provider as PtBrAddressProvider
 from faker.providers.address.pt_PT import Provider as PtPtAddressProvider
 from faker.providers.address.ru_RU import Provider as RuRuAddressProvider
+from faker.providers.address.sk_SK import Provider as SkSkAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
 from faker.providers.address.th_TH import Provider as ThThAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
@@ -1507,3 +1508,51 @@ class TestEnIn:
             state = faker.state()
             assert isinstance(state, str)
             assert state in EnInAddressProvider.states
+
+
+class TestSkSk:
+    """Test sk_SK address provider methods"""
+
+    def test_street_suffix_short(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix_short = faker.street_suffix_short()
+            assert isinstance(street_suffix_short, str)
+            assert street_suffix_short in SkSkAddressProvider.street_suffixes_short
+
+    def test_street_suffix_long(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix_long = faker.street_suffix_long()
+            assert isinstance(street_suffix_long, str)
+            assert street_suffix_long in SkSkAddressProvider.street_suffixes_long
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in SkSkAddressProvider.cities
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+            assert street_name in SkSkAddressProvider.streets
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in SkSkAddressProvider.states
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r'\d{3} \d{2}', postcode)
+
+    def test_city_with_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_with_postcode = faker.city_with_postcode()
+            assert isinstance(city_with_postcode, str)
+            match = re.fullmatch(r'\d{3} \d{2} (?P<city>.*)',
+                                 city_with_postcode)
+            assert match.group('city') in SkSkAddressProvider.cities

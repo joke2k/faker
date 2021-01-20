@@ -8,12 +8,16 @@ class Provider(AddressProvider):
     street_address_formats = ('{{street_name}} {{building_number}}', )
     address_formats = ('{{street_address}}\n{{postcode}} {{city}}', )
 
-    building_number_formats = ('####', '###', '##', '#', '#/#')
+    building_number_formats = ('%', '%#', '%##')
 
-    street_suffixes_long = ('ulica', )
-    street_suffixes_short = ('ul.', )
+    street_suffixes_long = ('ulica', 'trieda', 'nábrežie', 'námestie')
+    street_suffixes_short = ('ul.', 'tr.', 'nábr.', 'nám.')
 
-    postcode_formats = ('### ##', )
+    postcode_formats = (
+        "8## ##",
+        "9## ##",
+        "0## ##",
+    )
 
     cities = (
         'Ábelová', 'Abovce', 'Abrahám', 'Abrahámovce', 'Abrahámovce',
@@ -1157,3 +1161,6 @@ class Provider(AddressProvider):
 
     def state(self):
         return self.random_element(self.states)
+
+    def city_with_postcode(self):
+        return self.postcode() + " " + self.random_element(self.cities)
