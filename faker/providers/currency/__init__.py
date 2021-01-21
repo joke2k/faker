@@ -237,6 +237,8 @@ class Provider(BaseProvider):
         'XCD': '\u0024', 'YER': '\uFDFC', 'ZWD': '\u0024',
     }
 
+    price_formats = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
+
     def currency(self):
         return self.random_element(self.currencies)
 
@@ -262,3 +264,10 @@ class Provider(BaseProvider):
 
     def cryptocurrency_name(self):
         return self.cryptocurrency()[1]
+
+    def pricetag(self):
+        return (
+            self.random_element(self.currencies)[0]
+            + "\N{no-break space}"
+            + self.numerify(self.random_element(self.price_formats))
+        )
