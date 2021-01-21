@@ -169,3 +169,11 @@ class Provider(CurrencyProvider):
         ("ZMW", "Kwacha zambiano"),
         ("ZWD", "Dólar zimbabuense"),
     )
+
+    price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
+
+    def pricetag(self):
+        return (
+            self.numerify(self.random_element(self.price_formats))
+            + "\N{no-break space}\N{euro sign}"
+        )

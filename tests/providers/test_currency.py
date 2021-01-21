@@ -67,6 +67,11 @@ class TestCurrencyProvider:
             name = faker.cryptocurrency_name()
             assert isinstance(name, str) and name in self.cryptocurrency_names
 
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
 
 class TestRuRu:
     """Test ru_RU currency provider"""
@@ -89,9 +94,95 @@ class TestRuRu:
             name = faker.currency_name()
             assert isinstance(name, str) and name in self.currency_names
 
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestCsCz:
+    """Test cs_CZ currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.cs_CZ import Provider as CsCzCurrencyProvider
+        cls.provider = CsCzCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestDeAt:
+    """Test de_AT currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.de_AT import Provider as DeAtCurrencyProvider
+        cls.provider = DeAtCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestDeDe:
+    """Test de_DE currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.de_DE import Provider as DeDeCurrencyProvider
+        cls.provider = DeDeCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestEnAu:
+    """Test en_AU currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.en_AU import Provider as EnAuCurrencyProvider
+        cls.provider = EnAuCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestEnCa:
+    """Test en_CA currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.en_CA import Provider as EnCaCurrencyProvider
+        cls.provider = EnCaCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
 
 class TestEsEs:
     """Test es_ES currency provider"""
+
     num_samples = 100
 
     @classmethod
@@ -110,6 +201,91 @@ class TestEsEs:
         for _ in range(num_samples):
             name = faker.currency_name()
             assert name in self.currency_names
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestFrCa:
+    """Test fr_CA currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.fr_CA import Provider as FrCaCurrencyProvider
+        cls.provider = FrCaCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestFrFr:
+    """Test fr_FR currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.fr_FR import Provider as FrFrCurrencyProvider
+        cls.provider = FrFrCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestItIt:
+    """Test it_IT currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.it_IT import Provider as ItItCurrencyProvider
+        cls.provider = ItItCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestPlPl:
+    """Test pl_PL currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.pl_PL import Provider as PlPlCurrencyProvider
+        cls.provider = PlPlCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
+class TestSkSk:
+    """Test sk_SK currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.sk_SK import Provider as SkSkCurrencyProvider
+        cls.provider = SkSkCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
 
 
 class TestSvSe:
