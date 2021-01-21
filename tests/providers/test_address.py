@@ -4,8 +4,6 @@ from unittest import mock
 
 import pytest
 
-from ukpostcodeparser.parser import parse_uk_postcode
-
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.da_DK import Provider as DaDkAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
@@ -381,8 +379,9 @@ class TestEnGb:
     """Test en_GB address provider methods"""
 
     def test_postcode(self, faker, num_samples):
+        ukpcp = pytest.importorskip('ukpostcodeparser.parser')
         for _ in range(num_samples):
-            assert isinstance(parse_uk_postcode(faker.postcode()), tuple)
+            assert isinstance(ukpcp.parse_uk_postcode(faker.postcode()), tuple)
 
     def test_county(self, faker, num_samples):
         for _ in range(num_samples):
