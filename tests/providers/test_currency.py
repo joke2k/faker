@@ -309,6 +309,7 @@ class TestSvSe:
             name = faker.currency_name()
             assert name in self.currency_names
 
+
 class TestThTh:
     """Test th_TH currency provider"""
     num_samples = 100
