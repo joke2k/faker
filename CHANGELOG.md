@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v5.7.0 - 2021-01-25](https://github.com/joke2k/faker/compare/v5.6.5...v5.7.0)
+
+* Add new currency provider ``pricetag()``. Thanks @eumiro.
+
 ### [v5.6.5 - 2021-01-20](https://github.com/joke2k/faker/compare/v5.6.4...v5.6.5)
 
 * Update ``th_TH`` Lorem text provider's punctuations, reduce size of word list (#1376). Thanks @bact.
