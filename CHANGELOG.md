@@ -1,6 +1,6 @@
 ## Changelog
 
-### [v5.8.0 - 2021-01-25](https://github.com/joke2k/faker/compare/v5.7.0...v5.8.0)
+### [v5.8.0 - 2021-01-26](https://github.com/joke2k/faker/compare/v5.7.0...v5.8.0)
 
 * Add currency names for ``th_TH``. Thanks @bact.
 
