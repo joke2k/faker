@@ -121,7 +121,7 @@ class TestPyfloat(unittest.TestCase):
         Choose the right_digits and max_value so it's guaranteed to return zero,
         then watch as it doesn't because positive=True
         """
-        result = self.fake.pyfloat(positive=True, right_digits=0, max_value = 1)
+        result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
 
