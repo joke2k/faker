@@ -63,7 +63,7 @@ class TestPyfloat(unittest.TestCase):
     def test_positive(self):
         result = self.fake.pyfloat(positive=True)
 
-        self.assertGreaterEqual(result, 0)
+        self.assertGreater(result, 0)
         self.assertEqual(result, abs(result))
 
     def test_min_value(self):
@@ -99,7 +99,7 @@ class TestPyfloat(unittest.TestCase):
 
         result = self.fake.pyfloat(positive=True, max_value=100)
         self.assertLessEqual(result, 100)
-        self.assertGreaterEqual(result, 0)
+        self.assertGreater(result, 0)
 
     def test_positive_and_min_value_incompatible(self):
         """
@@ -115,6 +115,14 @@ class TestPyfloat(unittest.TestCase):
 
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
+
+    def test_positive_doesnt_return_zero(self):
+        """
+        Choose the right_digits and max_value so it's guaranteed to return zero,
+        then watch as it doesn't because positive=True
+        """
+        result = self.fake.pyfloat(positive=True, right_digits=0, max_value = 1)
+        self.assertGreater(result, 0)
 
 
 class TestPystrFormat(unittest.TestCase):
