@@ -66,9 +66,9 @@ class Provider(BaseProvider):
             raise ValueError('Min value cannot be greater than max value')
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError('Min and max value cannot be the same')
-        if positive and min_value is not None and min_value < 0:
+        if positive and min_value is not None and min_value <= 0:
             raise ValueError(
-                'Cannot combine positive=True and negative min_value')
+                'Cannot combine positive=True with negative or zero min_value')
 
         left_digits = left_digits if left_digits is not None else (
             self.random_int(1, sys.float_info.dig))
@@ -87,7 +87,10 @@ class Provider(BaseProvider):
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
 
-        return float(f'{sign}{left_number}.{self.random_number(right_digits)}')
+        result = float(f'{sign}{left_number}.{self.random_number(right_digits)}')
+        if positive and result == 0:
+            result += sys.float_info.epsilon
+        return result
 
     def _safe_random_int(self, min_value, max_value, positive):
         orig_min_value = min_value
