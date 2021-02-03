@@ -108,7 +108,7 @@ class TestPyfloat(unittest.TestCase):
         """
 
         expected_message = (
-            "Cannot combine positive=True and negative min_value"
+            "Cannot combine positive=True with negative or zero min_value"
         )
         with self.assertRaises(ValueError) as raises:
             self.fake.pyfloat(min_value=-100, positive=True)

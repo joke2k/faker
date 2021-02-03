@@ -66,9 +66,9 @@ class Provider(BaseProvider):
             raise ValueError('Min value cannot be greater than max value')
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError('Min and max value cannot be the same')
-        if positive and min_value is not None and min_value < 0:
+        if positive and min_value is not None and min_value <= 0:
             raise ValueError(
-                'Cannot combine positive=True and negative min_value')
+                'Cannot combine positive=True with negative or zero min_value')
 
         left_digits = left_digits if left_digits is not None else (
             self.random_int(1, sys.float_info.dig))
