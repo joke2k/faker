@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.0.0 - 2021-02-03](https://github.com/joke2k/faker/compare/v5.8.0...v6.0.0)
+
+* Fix ``pyfloat`` returning zeros when ```positive=True```. Thanks @sciencectn.
+
 ### [v5.8.0 - 2021-01-26](https://github.com/joke2k/faker/compare/v5.7.0...v5.8.0)
 
 * Add currency names for ``th_TH``. Thanks @bact.
