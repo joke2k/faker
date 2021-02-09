@@ -1376,6 +1376,18 @@ class Provider(BaseProvider):
                   'continent': 'Europe',
                   'name': 'United Kingdom',
                   'capital': 'London'},
+                 {'timezones': ['Asia/Taipei'],
+                  'alpha-2-code': 'TW',
+                  'alpha-3-code': 'TWN',
+                  'continent': 'Asia',
+                  'name': 'Taiwan',
+                  'capital': 'Taipei'},
+                 {'timezones': ['Asia/Gaza', 'Asia/Hebron'],
+                  'alpha-2-code': 'PS',
+                  'alpha-3-code': 'PSE',
+                  'continent': 'Asia',
+                  'name': 'Palestine',
+                  'capital': 'Ramallah'},
                  ]
 
     regex = re.compile(timedelta_pattern)
