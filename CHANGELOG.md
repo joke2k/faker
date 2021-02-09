@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.1.0 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.0.0...v6.0.1)
+
+* Rename ``fr_QC`` to ``fr_CA``. Thanks @prescod.
+
 ### [v6.0.0 - 2021-02-03](https://github.com/joke2k/faker/compare/v5.8.0...v6.0.0)
 
 * Fix ``pyfloat`` returning zeros when ```positive=True```. Thanks @sciencectn.
