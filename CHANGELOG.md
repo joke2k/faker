@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v6.1.0 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.0.0...v6.0.1)
+### [v6.1.1 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.1.0...v6.1.1)
+
+* Add Taiwanese and Palestinian time zones. Thanks @prescod.
+
+### [v6.1.0 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.0.0...v6.1.0)
 
 * Rename ``fr_QC`` to ``fr_CA``. Thanks @prescod.
 
