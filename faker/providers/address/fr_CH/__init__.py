@@ -116,12 +116,14 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.cantons)
 
-    def canton_name(self):
+    def administrative_unit(self):
         """
         Randomly returns a Swiss canton name.
         :example 'Vaud'
         """
         return self.canton()[1]
+
+    canton_name = administrative_unit
 
     def canton_code(self):
         """

@@ -580,8 +580,10 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{postcode}}\n{{city}}",
     )
 
-    def province(self):
+    def administrative_unit(self):
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def city(self):
         return self.random_element(self.cities)

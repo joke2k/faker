@@ -302,11 +302,13 @@ class Provider(AddressProvider):
         'パレス', 'ハイツ', 'コーポ', 'アーバン', 'クレスト', 'パーク', 'シティ', 'シャルム', 'コート',
     )
 
-    def prefecture(self):
+    def administrative_unit(self):
         """
         :example '東京都'
         """
         return self.random_element(self.prefectures)
+
+    prefecture = administrative_unit
 
     def city(self):
         """

@@ -83,9 +83,11 @@ class Documentor:
             # build fake method signature
             signature = f"{prefix}{name}({', '.join(arguments)})"
 
-            # make a fake example
-            example = self.generator.format(name, *faker_args, **faker_kwargs)
-
+            try:
+                # make a fake example
+                example = self.generator.format(name, *faker_args, **faker_kwargs)
+            except (AttributeError, ValueError):
+                continue
             formatters[signature] = example
 
             self.max_name_len = max(self.max_name_len, len(signature))

@@ -114,11 +114,13 @@ class Provider(AddressProvider):
             self.random_element(
                 self.secondary_address_formats))
 
-    def state(self):
+    def administrative_unit(self):
         """
         example: u'Guerrero'
         """
         return self.random_element(self.states)[1]
+
+    state = administrative_unit
 
     def state_abbr(self):
         """

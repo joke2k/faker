@@ -4,6 +4,7 @@ from unittest import mock
 
 import pytest
 
+from faker import Faker, providers
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.da_DK import Provider as DaDkAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
@@ -63,6 +64,47 @@ class TestBaseProvider:
         for _ in range(num_samples):
             with pytest.raises(ValueError):
                 faker.country_code(representation='hello')
+
+    def _collect_fakers_for_locales(self):
+        cached_locales = []
+        language_locale_codes = providers.BaseProvider.language_locale_codes
+        for code, countries in language_locale_codes.items():
+            for country in countries:
+                name = f"{code}_{country}"
+                try:
+                    faker = Faker(name)
+                    cached_locales.append(faker)
+                except AttributeError as e:
+                    print(f"Cannot generate faker for {name}: {e}. Skipped")
+
+        return cached_locales
+
+    def _fakers_for_locales(self):
+        if not hasattr(self.__class__, "cached_locales"):
+            self.__class__.cached_locales = self._collect_fakers_for_locales()
+        return self.cached_locales
+
+    def test_administrative_unit_all_locales(self):
+        for faker in self._fakers_for_locales():
+            if faker.current_country_code() not in ["IL", "GE", "TW", "UA", "NZ"]:
+                try:
+                    assert isinstance(faker.administrative_unit(), str)
+                except Exception as e:
+                    raise e.__class__(faker.current_country_code(), *e.args)
+
+    def test_country_code_all_locales(self):
+        for faker in self._fakers_for_locales():
+            assert isinstance(faker.current_country(), str)
+
+    def test_current_country_errors(self):
+        dt = providers.date_time
+        countries_duplicated = [*dt.Provider.countries, *dt.Provider.countries]
+        with mock.patch.object(dt.Provider, "countries", countries_duplicated), pytest.raises(ValueError) as e:
+            Faker("en_US").current_country()
+        assert "Ambiguous" in str(e)
+        country_code = "faker.providers.address.Provider.current_country_code"
+        with pytest.raises(ValueError), mock.patch(country_code, lambda self: "en_ZZ"):
+            Faker("en_US").current_country()
 
 
 class TestCsCz:
@@ -308,7 +350,8 @@ class TestEnNz:
     def test_state(self, faker, num_samples):
         for _ in range(num_samples):
             # No states in New Zealand
-            assert faker.state() == ''
+            with pytest.raises(AttributeError):
+                faker.state()
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
