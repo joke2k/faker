@@ -1,4 +1,5 @@
 import inspect
+import warnings
 
 
 class Documentor:
@@ -86,7 +87,8 @@ class Documentor:
             try:
                 # make a fake example
                 example = self.generator.format(name, *faker_args, **faker_kwargs)
-            except (AttributeError, ValueError):
+            except (AttributeError, ValueError) as e:
+                warnings.warn(str(e))
                 continue
             formatters[signature] = example
 
