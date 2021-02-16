@@ -3,6 +3,7 @@ import re
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
+from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
 from faker.providers.automotive.tr_TR import Provider as TrTrAutomotiveProvider
 
 
@@ -18,6 +19,14 @@ class _SimpleAutomotiveTestMixin:
             match = self.license_plate_pattern.fullmatch(license_plate)
             assert match
             self.perform_extra_checks(license_plate, match)
+
+
+class TestSkSk(_SimpleAutomotiveTestMixin):
+    """Test sk_SK automotive provider methods"""
+    license_plate_pattern = re.compile(r'(?P<prefix>[A-Z]{2})\d{3}[A-Z]{2}')
+
+    def perform_extra_checks(self, license_plate, match):
+        assert match.group('prefix') in SkSkAutomotiveProvider.license_plate_prefix
 
 
 class TestPtBr(_SimpleAutomotiveTestMixin):
