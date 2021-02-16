@@ -162,14 +162,12 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.departments)
 
-    def administrative_unit(self):
+    def department_name(self):
         """
         Randomly returns a french department name.
         :example 'Ardèche'
         """
         return self.department()[1]
-
-    department_name = administrative_unit
 
     def department_number(self):
         """
