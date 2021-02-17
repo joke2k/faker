@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.3.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.2.0...v6.3.0)
+
+* Add ``sk_SK`` automotive provider. Thanks @matusvalo. 
+
 ### [v6.2.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.1.1...v6.2.0)
 
 *  Add current_country, current_country_code and administrative_unit. Thanks @prescod.
