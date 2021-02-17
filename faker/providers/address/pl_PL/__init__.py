@@ -180,8 +180,10 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.cities)
 
-    def region(self):
+    def administrative_unit(self):
         """
         :example 'Wielkopolskie'
         """
         return self.random_element(self.regions)
+
+    region = administrative_unit

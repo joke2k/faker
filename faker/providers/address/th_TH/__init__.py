@@ -270,11 +270,13 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.street_prefixes)
 
-    def province(self):
+    def administrative_unit(self):
         """
         :example 'อุบลราชธานี'
         """
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def amphoe(self):
         """

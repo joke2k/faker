@@ -80,8 +80,10 @@ class Provider(AddressProvider):
     def city_name(self):
         return self.random_element(self.cities)
 
-    def province(self):
+    def administrative_unit(self):
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def district(self):
         return self.random_element(self.districts)

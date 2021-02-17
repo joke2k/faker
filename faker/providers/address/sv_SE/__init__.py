@@ -106,5 +106,7 @@ class Provider(AddressProvider):
     def city_name(self):
         return self.random_element(self.cities)
 
-    def state(self):
+    def administrative_unit(self):
         return self.random_element(self.states)
+
+    state = administrative_unit

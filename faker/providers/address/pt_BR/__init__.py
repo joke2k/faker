@@ -311,8 +311,10 @@ class Provider(AddressProvider):
     def neighborhood(self):
         return self.bairro()
 
-    def state(self):
+    def administrative_unit(self):
         return self.estado_nome()
+
+    state = administrative_unit
 
     def state_abbr(self):
         return self.estado_sigla()

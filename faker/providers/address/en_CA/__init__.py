@@ -305,10 +305,12 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
-    def province(self):
+    def administrative_unit(self):
         """
         """
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def province_abbr(self):
         return self.random_element(self.provinces_abbr)

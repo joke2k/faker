@@ -147,11 +147,13 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.city_prefixes)
 
-    def region(self):
+    def administrative_unit(self):
         """
         :example 'Guadeloupe'
         """
         return self.random_element(self.regions)
+
+    region = administrative_unit
 
     def department(self):
         """
