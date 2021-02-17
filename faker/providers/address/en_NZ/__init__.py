@@ -224,10 +224,6 @@ class Provider(AddressProvider):
         'Level %',
     )
 
-    def state(self):
-        # New Zealand does not have states.
-        return ''
-
     def te_reo_part(self):
         return self.random_element(self.te_reo_parts)
 

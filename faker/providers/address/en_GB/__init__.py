@@ -426,5 +426,7 @@ class Provider(AddressProvider):
     def secondary_address(self):
         return self.bothify(self.random_element(self.secondary_address_formats))
 
-    def county(self):
+    def administrative_unit(self):
         return self.random_element(self.counties)
+
+    county = administrative_unit

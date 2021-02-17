@@ -25,5 +25,7 @@ class Provider(AddressProvider):
             postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode
 
-    def county(self):
+    def administrative_unit(self):
         return self.random_element(self.counties)
+
+    county = administrative_unit

@@ -596,11 +596,13 @@ class Provider(AddressProvider):
         'सुदूरपश्चिम प्रदेश',
     )
 
-    def province(self):
+    def administrative_unit(self):
         """
         :example सुदूरपश्चिम प्रदेश
         """
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def district(self):
         """

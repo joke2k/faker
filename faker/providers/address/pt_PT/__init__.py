@@ -399,11 +399,13 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.cities)
 
-    def distrito(self):
+    def administrative_unit(self):
         """
         :example 'Bragança'
         """
         return self.random_element(self.distritos)
+
+    distrito = administrative_unit
 
     def concelho(self):
         """

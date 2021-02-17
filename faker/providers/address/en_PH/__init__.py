@@ -395,8 +395,10 @@ class Provider(AddressProvider):
     def mindanao_province(self):
         return self.random_element(self.mindanao_provinces)
 
-    def province(self):
+    def administrative_unit(self):
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def standalone_building_number(self):
         return str(self.random_int(min=1))

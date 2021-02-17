@@ -75,8 +75,10 @@ class Provider(AddressProvider):
     def city(self):
         return self.random_element(self.cities)
 
-    def region(self):
+    def administrative_unit(self):
         return self.random_element(self.regions)
+
+    region = administrative_unit
 
     # Ονόματα πρωτευουσών νομών
     cities = (
