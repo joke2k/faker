@@ -31,6 +31,7 @@ jobs:
         with:
          persist-credentials: false
          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+         ref: master
       - name: Get Next Version
         uses: "fcurella/gh-action-next-version@main"
         id: nextversion
