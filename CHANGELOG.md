@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.2.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.1.1...v6.2.0)
+
+*  Add current_country, current_country_code and administrative_unit. Thanks @prescod.
+
 ### [v6.1.1 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.1.0...v6.1.1)
 
 * Add Taiwanese and Palestinian time zones. Thanks @prescod.
