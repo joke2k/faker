@@ -7,7 +7,7 @@ class Provider(LoremProvider):
     Word list is drawn from the SYN2015.
     (representative corpus of contemporary written Czech published in December 2015)
 
-    The word list is a list of the 2000 most common lemmas, shortcuts and first names were removed.
+    The word list is a list of the 2000 most common lemmas. Abbreviations and first names were removed.
 
     Sources:
     - https://wiki.korpus.cz/lib/exe/fetch.php/seznamy:syn2015_lemma_utf8.zip
@@ -156,7 +156,7 @@ class Provider(LoremProvider):
         'těšit', 'těžko', 'těžký', 'třeba', 'třetina', 'třetí', 'tři', 'třicet', 'třída', 'u', 'ucho', 'udržet',
         'udržovat', 'událost', 'udělat', 'ukazovat', 'ukázat', 'ulice', 'uložit', 'umožnit', 'umožňovat', 'umístit',
         'umělec', 'umělecký', 'umělý', 'umění', 'umět', 'unie', 'univerzita', 'upozornit', 'uprostřed', 'určený',
-        'určit', 'určitý', 'určitě', 'USA', 'uskutečnit', 'usmát', 'usmívat', 'utkání', 'utéci', 'uvažovat', 'uvedený',
+        'určit', 'určitý', 'určitě', 'uskutečnit', 'usmát', 'usmívat', 'utkání', 'utéci', 'uvažovat', 'uvedený',
         'uvidět', 'uvnitř', 'uvádět', 'uvést', 'uvědomit', 'uvědomovat', 'uzavřít', 'učinit', 'učit', 'učitel', 'už',
         'uživatel', 'užívat', 'v', 'vadit', 'varianta', 'vazba', 'vedení', 'vedle', 'vedoucí', 'vejít', 'velice',
         'velikost', 'veliký', 'velký', 'velmi', 'ven', 'venku', 'verze', 'vesmír', 'vesnice', 'večer', 'večeře',
