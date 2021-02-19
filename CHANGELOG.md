@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.4.0 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.3.0...v6.4.0)
+
+* Add ``cs_CZ`` lorem - word list. Thanks @jakubno.
+
 ### [v6.3.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.2.0...v6.3.0)
 
 * Add ``sk_SK`` automotive provider. Thanks @matusvalo. 
