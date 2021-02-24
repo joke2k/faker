@@ -1603,18 +1603,18 @@ class TestSkSk:
 
 class TestDeCh:
     """Test de_CH address provider methods"""
-    
+
     def test_canton_name(self, faker, num_samples):
         for _ in range(num_samples):
             canton_name = faker.canton_name()
             assert isinstance(canton_name, str)
-            assert any(canton_name == cantons[1] for cantons in DeChAddressProvider.cantons) 
+            assert any(canton_name == cantons[1] for cantons in DeChAddressProvider.cantons)
 
     def test_canton_code(self, faker, num_samples):
         for _ in range(num_samples):
             canton_code = faker.canton_code()
             assert isinstance(canton_code, str)
-            assert any(canton_code == cantons[0] for cantons in DeChAddressProvider.cantons) 
+            assert any(canton_code == cantons[0] for cantons in DeChAddressProvider.cantons)
 
     def test_canton(self, faker, num_samples):
         for _ in range(num_samples):
