@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.5.0 - 2021-02-24](https://github.com/joke2k/faker/compare/v6.4.1...v6.5.0)
+
+* Add ``address`` provider for ``de_CH``. Thanks @andre-dasilva.
+
 ### [v6.4.1 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.4.0...v6.4.1)
 
 *  user_agent: bump platform versions. Thanks @gsilvan.
