@@ -8,6 +8,7 @@ from faker import Faker, providers
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.da_DK import Provider as DaDkAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
+from faker.providers.address.de_CH import Provider as DeChAddressProvider
 from faker.providers.address.de_DE import Provider as DeDeAddressProvider
 from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
@@ -1598,3 +1599,25 @@ class TestSkSk:
             match = re.fullmatch(r'\d{3} \d{2} (?P<city>.*)',
                                  city_with_postcode)
             assert match.group('city') in SkSkAddressProvider.cities
+
+
+class TestDeCh:
+    """Test de_CH address provider methods"""
+
+    def test_canton_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            canton_name = faker.canton_name()
+            assert isinstance(canton_name, str)
+            assert any(canton_name == cantons[1] for cantons in DeChAddressProvider.cantons)
+
+    def test_canton_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            canton_code = faker.canton_code()
+            assert isinstance(canton_code, str)
+            assert any(canton_code == cantons[0] for cantons in DeChAddressProvider.cantons)
+
+    def test_canton(self, faker, num_samples):
+        for _ in range(num_samples):
+            canton = faker.canton()
+            assert isinstance(canton, tuple)
+            assert canton in DeChAddressProvider.cantons
