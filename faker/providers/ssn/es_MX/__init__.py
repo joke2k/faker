@@ -221,6 +221,7 @@ class Provider(BaseProvider):
             second_surname = random.choice(ALPHABET)
             given_name = random.choice(ALPHABET)
             name_initials = first_surname + second_surname + given_name
+            name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
         else:
             name_initials = (
                 self.random_uppercase_letter() +
