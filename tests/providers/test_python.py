@@ -3,7 +3,31 @@ import warnings
 
 from unittest.mock import patch
 
+import pytest
+
 from faker import Faker
+
+
+@pytest.mark.parametrize(
+    'mock_random_number_source, right_digits, expected_decimal_part',
+    (
+        ('1234567', 5, '12345'),
+        ('1234567', 0, '1'),  # This is kinda interesting - same as 1 digit
+        ('1234567', 1, '1'),
+        ('1234567', 2, '12'),
+        ('0123', 1, '220446049250313e-16'),
+    ),
+)
+def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
+
+    # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
+    def mock_random_number(self, digits=None, fix_len=False):
+        return int(mock_random_number_source[:digits or 1])
+
+    with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+        result = Faker().pyfloat(left_digits=1, right_digits=right_digits, positive=True)
+        decimal_part = str(result).split('.')[1]
+        assert decimal_part == expected_decimal_part
 
 
 class TestPyint(unittest.TestCase):
