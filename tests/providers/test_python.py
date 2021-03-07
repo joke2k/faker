@@ -15,7 +15,7 @@ from faker import Faker
         ('1234567', 0, '1'),  # This is kinda interesting - same as 1 digit
         ('1234567', 1, '1'),
         ('1234567', 2, '12'),
-        ('0123', 1, '220446049250313e-16'),
+        ('0123', 1, '1'),
     ),
 )
 def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
