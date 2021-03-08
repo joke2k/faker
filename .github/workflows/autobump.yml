@@ -7,7 +7,6 @@ on:
 jobs:
   bumpversion:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged_at != null
     strategy:
       max-parallel: 1
     steps:
