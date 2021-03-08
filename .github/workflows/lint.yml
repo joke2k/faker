@@ -1,6 +1,9 @@
 name: Python Lint
 
-on: [push, pull_request]
+on:
+  push:
+    tags-ignore:
+      - *
 
 jobs:
   lint:
