@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.5.1 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.0...v6.5.1)
+
+* Replace ``es_MX`` ``RFC`` name initials when they are forbidden words. Thanks @briferz.
+
 ### [v6.5.0 - 2021-02-24](https://github.com/joke2k/faker/compare/v6.4.1...v6.5.0)
 
 * Add ``address`` provider for ``de_CH``. Thanks @andre-dasilva.
