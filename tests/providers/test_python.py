@@ -1,3 +1,4 @@
+import sys
 import unittest
 import warnings
 
@@ -28,6 +29,31 @@ def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right
         result = Faker().pyfloat(left_digits=1, right_digits=right_digits, positive=True)
         decimal_part = str(result).split('.')[1]
         assert decimal_part == expected_decimal_part
+
+
+def test_pyfloat_right_or_left_digit_overflow():
+
+    max_float_digits = sys.float_info.dig
+    faker = Faker()
+
+    # Make random_int always return the maximum value input - makes it easy to reason about the code below
+    def mock_random_int(self, min=0, max=9999, step=1):
+        return max
+
+    # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
+    def mock_random_number(self, digits=None, fix_len=False):
+        return int('12345678901234567890'[:digits or 1])
+
+    with patch('faker.providers.BaseProvider.random_int', mock_random_int):
+        with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+            result = faker.pyfloat(left_digits=10, right_digits=10, positive=True)
+            assert str(result) == '1234567890.1234567'
+
+            result = faker.pyfloat(left_digits=17, positive=True)
+            assert str(result) == '1.2345678901234568e+16'
+
+            result = faker.pyfloat(right_digits=17, positive=True)
+            assert str(result) == '123456789012345.12'
 
 
 class TestPyint(unittest.TestCase):
