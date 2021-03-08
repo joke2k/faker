@@ -46,14 +46,23 @@ def test_pyfloat_right_or_left_digit_overflow():
 
     with patch('faker.providers.BaseProvider.random_int', mock_random_int):
         with patch('faker.providers.BaseProvider.random_number', mock_random_number):
-            result = faker.pyfloat(left_digits=10, right_digits=10, positive=True)
-            assert str(result) == '1234567890.1234567'
 
-            result = faker.pyfloat(left_digits=17, positive=True)
-            assert str(result) == '1.2345678901234568e+16'
+            # A bit too much, but ~half on either side
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(left_digits=max_float_digits // 2 + 1, right_digits=max_float_digits // 2 + 1)
 
-            result = faker.pyfloat(right_digits=17, positive=True)
-            assert str(result) == '123456789012345.12'
+            # Asking for max digits on either side also fails, because we need one digit on the other side, i.e.
+            # 0.123123123, or 123123123.0 (at least needs to lead with `0.` or trail with `.0`).
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(left_digits=max_float_digits)
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(right_digits=max_float_digits)
+
+            # Just the right amount of max digits on either side
+            result = faker.pyfloat(left_digits=max_float_digits - 1)
+            assert str(abs(result)) == '12345678901234.1'
+            result = faker.pyfloat(right_digits=max_float_digits - 1)
+            assert str(abs(result)) == '1.12345678901234'
 
 
 class TestPyint(unittest.TestCase):
