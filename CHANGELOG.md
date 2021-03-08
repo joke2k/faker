@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v6.5.2 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.1...v6.5.2)
+
+* Fix a problem with ``pyfloat`` where it can return ``sys.epsilon`` when ``right_digits=N`` and ``positive=True``. Thanks @tomage.
+
 ### [v6.5.1 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.0...v6.5.1)
 
 * Replace ``es_MX`` ``RFC`` name initials when they are forbidden words. Thanks @briferz.
