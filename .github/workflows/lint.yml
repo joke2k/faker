@@ -3,7 +3,7 @@ name: Python Lint
 on:
   push:
     tags-ignore:
-      - *
+      - "*"
 
 jobs:
   lint:
