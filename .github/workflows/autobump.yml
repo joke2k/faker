@@ -1,12 +1,12 @@
 name: Bump Version
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [closed]
 
 jobs:
   bumpversion:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged_at != null
     strategy:
       max-parallel: 1
     steps:
@@ -15,7 +15,7 @@ jobs:
         uses: "fcurella/gh-status-check@main"
         with:
           ignoreContexts: coverage/coveralls,continuous-integration/appveyor/branch
-          ignoreActions: bumpversion
+          ignoreActions: autobump
           checkInterval: 12
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Next Part
