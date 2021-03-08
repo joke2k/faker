@@ -89,7 +89,10 @@ class Provider(BaseProvider):
 
         result = float(f'{sign}{left_number}.{self.random_number(right_digits)}')
         if positive and result == 0:
-            result += sys.float_info.epsilon
+            if right_digits:
+                result = float('0.' + '0' * (right_digits - 1) + '1')
+            else:
+                result += sys.float_info.epsilon
         return result
 
     def _safe_random_int(self, min_value, max_value, positive):
