@@ -2,6 +2,7 @@ import re
 
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
 from faker.providers.automotive.tr_TR import Provider as TrTrAutomotiveProvider
@@ -197,3 +198,12 @@ class TestTrTr(_SimpleAutomotiveTestMixin):
         [city_code, letters, _] = license_plate.split(' ')
         assert int(city_code) in range(1, 82)
         assert all(letter in TrTrAutomotiveProvider.ascii_uppercase_turkish for letter in letters)
+
+
+class TestRoRo(_SimpleAutomotiveTestMixin):
+    """Test ro_RO automotive provider methods"""
+    license_plate_pattern = re.compile(
+        r'(?P<prefix>[A-Z]{1,2})-\d{2,3}-[A-Z]{3}')
+
+    def perform_extra_checks(self, license_plate, match):
+        assert match.group('prefix') in RoRoAutomotiveProvider.license_plate_prefix
