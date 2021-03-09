@@ -15,6 +15,7 @@ from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
 from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
+from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
@@ -410,3 +411,13 @@ class TestTrTr:
             company = faker.large_company()
             assert isinstance(company, str)
             assert company in TrTrCompanyProvider.large_companies
+
+
+class TestRoRo:
+    """Test ro_RO company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in RoRoCompanyProvider.company_suffixes

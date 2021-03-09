@@ -32,6 +32,7 @@ from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
 from faker.providers.address.pt_BR import Provider as PtBrAddressProvider
 from faker.providers.address.pt_PT import Provider as PtPtAddressProvider
+from faker.providers.address.ro_RO import Provider as RoRoAddressProvider
 from faker.providers.address.ru_RU import Provider as RuRuAddressProvider
 from faker.providers.address.sk_SK import Provider as SkSkAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
@@ -1621,3 +1622,84 @@ class TestDeCh:
             canton = faker.canton()
             assert isinstance(canton, tuple)
             assert canton in DeChAddressProvider.cantons
+
+
+class TestRoRo:
+    """Test ro_RO address provider methods"""
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
+
+    def test_street_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_address = faker.street_address()
+            assert isinstance(street_address, str)
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_prefix = faker.street_prefix()
+            assert isinstance(street_prefix, str)
+            assert street_prefix in RoRoAddressProvider.street_prefixes
+
+    def test_building_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number()
+            assert isinstance(building_number, str)
+            assert building_number[:3] == 'Nr.'
+
+    def test_secondary_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            secondary_address = faker.secondary_address()
+            assert isinstance(secondary_address, str)
+            assert re.fullmatch(
+                r'Bl. \d{2}  Sc. \d{2} Ap. \d{3}',
+                secondary_address,
+            )
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in RoRoAddressProvider.cities
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in RoRoAddressProvider.cities
+
+    def test_state(self, faker, num_samples):
+        states = [state_name for state_abbr, state_name in RoRoAddressProvider.states]
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in states
+
+    def test_state_abbr(self, faker, num_samples):
+        state_abbrs = [state_abbr for state_abbr, state_name in RoRoAddressProvider.states]
+        for _ in range(num_samples):
+            state_abbr = faker.state_abbr()
+            assert isinstance(state_abbr, str)
+            assert state_abbr in state_abbrs
+            assert state_abbr.isupper()
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r'\d{6}', postcode)
+
+    def test_city_with_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_with_postcode = faker.city_with_postcode()
+            assert isinstance(city_with_postcode, str)
+            match = re.fullmatch(r'\d{6} (?P<city>.*)',
+                                 city_with_postcode)
+            assert match.group('city') in RoRoAddressProvider.cities
