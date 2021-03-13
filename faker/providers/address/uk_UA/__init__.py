@@ -54,6 +54,8 @@ class Provider(AddressProvider):
     ]
     street_suffixes = ['узвіз']
 
+    # https://data.gov.ua/en/dataset/__-120/resource/76e2684f-e75c-45e5-a0b2-6d5596ab47f8
+    # https://opendata.drohobych-rada.gov.ua/sites/default/files/%D0%90%D0%B4%D1%80%D0%B5%D1%81%D0%B8%20%D0%94%D1%80%D0%BE%D0%B3%D0%BE%D0%B1%D0%B8%D1%87.xlsx
     street_titles = [
         '22 Січня',
         'Адама Міцкевича',
