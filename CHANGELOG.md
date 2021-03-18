@@ -1,12 +1,16 @@
 ## Changelog
 
+### [v6.6.2 - 2021-03-18](https://github.com/joke2k/faker/compare/v6.6.1...v6.6.2)
+
+*  Fix ``ro_RO`` phone numbers generation. Thanks @feketemihai.
+
 ### [v6.6.1 - 2021-03-15](https://github.com/joke2k/faker/compare/v6.6.0...v6.6.1)
 
-*  set ``uk_UA`` address street titles to proper language. Thanks @fessua.
+* set ``uk_UA`` address street titles to proper language. Thanks @fessua.
 
 ### [v6.6.0 - 2021-03-09](https://github.com/joke2k/faker/compare/v6.5.2...v6.6.0)
 
-*  Add ``address`` provider for ``ro_RO``. Thanks @feketemihai.
+* Add ``address`` provider for ``ro_RO``. Thanks @feketemihai.
 
 ### [v6.5.2 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.1...v6.5.2)
 
