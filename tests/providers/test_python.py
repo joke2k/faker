@@ -195,6 +195,21 @@ class TestPython(unittest.TestCase):
         with self.assertRaises(AssertionError):
             self.factory.pystr(min_chars=5, max_chars=5)
 
+    def test_pytuple(self):
+        with warnings.catch_warnings(record=True) as w:
+            some_tuple = Faker().pytuple()
+            assert len(w) == 0
+        assert some_tuple
+        assert isinstance(some_tuple, tuple)
+
+    def test_pytuple_size(self):
+        def mock_pyint(self, *args, **kwargs):
+            return 1
+
+        with patch('faker.providers.python.Provider.pyint', mock_pyint):
+            some_tuple = Faker().pytuple(nb_elements=3, variable_nb_elements=False, value_types=[int])
+            assert some_tuple == (1, 1, 1,)
+
     def test_pylist(self):
         with warnings.catch_warnings(record=True) as w:
             some_list = self.factory.pylist()
