@@ -208,7 +208,7 @@ class TestPython(unittest.TestCase):
 
         with patch('faker.providers.python.Provider.pyint', mock_pyint):
             some_tuple = Faker().pytuple(nb_elements=3, variable_nb_elements=False, value_types=[int])
-            assert some_tuple == (1, 1, 1,)
+            assert some_tuple == (1, 1, 1)
 
     def test_pylist(self):
         with warnings.catch_warnings(record=True) as w:
