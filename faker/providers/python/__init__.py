@@ -123,7 +123,7 @@ class Provider(BaseProvider):
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return tuple(
-            self.pyset(
+            self._pyiterable(
                 nb_elements,
                 variable_nb_elements,
                 value_types,
