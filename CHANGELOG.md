@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v6.6.3 - 2021-03-25](https://github.com/joke2k/faker/compare/v6.6.2...v6.6.3)
+
+* Ensure ``pytuple`` returns the correct number of items. Thanks @rossjones.
+
 ### [v6.6.2 - 2021-03-18](https://github.com/joke2k/faker/compare/v6.6.1...v6.6.2)
 
-*  Fix ``ro_RO`` phone numbers generation. Thanks @feketemihai.
+* Fix ``ro_RO`` phone numbers generation. Thanks @feketemihai.
 
 ### [v6.6.1 - 2021-03-15](https://github.com/joke2k/faker/compare/v6.6.0...v6.6.1)
 
@@ -26,7 +30,7 @@
 
 ### [v6.4.1 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.4.0...v6.4.1)
 
-*  user_agent: bump platform versions. Thanks @gsilvan.
+* user_agent: bump platform versions. Thanks @gsilvan.
 
 ### [v6.4.0 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.3.0...v6.4.0)
 
