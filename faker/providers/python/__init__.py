@@ -70,10 +70,24 @@ class Provider(BaseProvider):
             raise ValueError(
                 'Cannot combine positive=True with negative or zero min_value')
 
-        left_digits = left_digits if left_digits is not None else (
-            self.random_int(1, sys.float_info.dig))
-        right_digits = right_digits if right_digits is not None else (
-            self.random_int(0, sys.float_info.dig - left_digits))
+        # Make sure at least either left or right is set
+        if left_digits is None and right_digits is None:
+            left_digits = self.random_int(1, sys.float_info.dig - 1)
+
+        # If only one side is set, choose #digits for other side
+        if (left_digits is None) ^ (right_digits is None):
+            if left_digits is None:
+                left_digits = max(1, sys.float_info.dig - right_digits)
+            else:
+                right_digits = max(1, sys.float_info.dig - left_digits)
+
+        # Make sure we don't ask for too many digits!
+        if left_digits + right_digits > sys.float_info.dig:
+            raise ValueError(
+                f'Asking for too many digits ({left_digits} + {right_digits} == {left_digits + right_digits} > '
+                f'{sys.float_info.dig})',
+            )
+
         sign = ''
         if (min_value is not None) or (max_value is not None):
             if max_value is not None and max_value < 0:
