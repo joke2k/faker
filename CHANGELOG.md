@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v7.0.1 - 2021-03-29](https://github.com/joke2k/faker/compare/v7.0.0...v7.0.1)
+
+* Fix faker module loader to use strings rather than Paths. Thanks @mgorny.
+
 ### [v7.0.0 - 2021-03-29](https://github.com/joke2k/faker/compare/v6.6.3...v7.0.0)
 
 * Make sure `pyfloat` fails when asked to produce more digits than the system supports. Thanks @rossjones.
