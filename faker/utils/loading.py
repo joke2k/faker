@@ -22,7 +22,7 @@ def get_path(module: ModuleType) -> str:
     else:
         # unfrozen
         path = Path(module.__file__).parent
-    return path
+    return str(path)
 
 
 def list_module(module: ModuleType) -> List[str]:
