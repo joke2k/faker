@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v7.0.0 - 2021-03-29](https://github.com/joke2k/faker/compare/v6.6.3...v7.0.0)
+
+* Make sure `pyfloat` fails when asked to produce more digits than the system supports. Thanks @rossjones.
+
 ### [v6.6.3 - 2021-03-25](https://github.com/joke2k/faker/compare/v6.6.2...v6.6.3)
 
 * Ensure ``pytuple`` returns the correct number of items. Thanks @rossjones.
