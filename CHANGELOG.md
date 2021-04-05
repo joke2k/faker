@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.0.0 - 2021-04-05](https://github.com/joke2k/faker/compare/v7.0.1...v8.0.0)
+
+* Fix CLI only giving 10 possible outputs. Thanks @andrewdotn.
+
 ### [v7.0.1 - 2021-03-29](https://github.com/joke2k/faker/compare/v7.0.0...v7.0.1)
 
 * Fix faker module loader to use strings rather than Paths. Thanks @mgorny.
