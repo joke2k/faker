@@ -721,7 +721,19 @@ class Provider(PersonProvider):
         if date_of_birth is None:
             date_of_birth = self.generator.date_of_birth()
 
-        month = date_of_birth.month if date_of_birth.year < 2000 else date_of_birth.month + 20
+        if 1800 <= date_of_birth.year <= 1899:
+            month = date_of_birth.month + 80
+        elif 1900 <= date_of_birth.year <= 1999:
+            month = date_of_birth.month
+        elif 2000 <= date_of_birth.year <= 2099:
+            month = date_of_birth.month + 20
+        elif 2100 <= date_of_birth.year <= 2199:
+            month = date_of_birth.month + 40
+        elif 2200 <= date_of_birth.year <= 2299:
+            month = date_of_birth.month + 60
+        else:
+            raise ValueError("Date of birth is out of supported range 1800-2299")
+        
         pesel_date = f'{date_of_birth:%y}{month:02d}{date_of_birth:%d}'
 
         pesel_core = ''.join(map(str, (self.random_digit() for _ in range(3))))
