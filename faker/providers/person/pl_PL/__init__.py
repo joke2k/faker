@@ -733,7 +733,7 @@ class Provider(PersonProvider):
             month = date_of_birth.month + 60
         else:
             raise ValueError("Date of birth is out of supported range 1800-2299")
-        
+
         pesel_date = f'{date_of_birth:%y}{month:02d}{date_of_birth:%d}'
 
         pesel_core = ''.join(map(str, (self.random_digit() for _ in range(3))))
