@@ -242,7 +242,7 @@ class TestPlPL(unittest.TestCase):
 
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pesel_birth_date(self, mock_random_digit):
-        mock_random_digit.side_effect = [3, 5, 8, 8, 7, 9, 9, 3]
+        mock_random_digit.side_effect = [3, 5, 8, 8, 3, 5, 8, 8, 7, 9, 9, 3, 7, 9, 9, 3, 7, 9, 9, 3]
         assert self.fake.pesel(datetime.date(1899, 12, 31)) == '99923135889'
         assert self.fake.pesel(datetime.date(1999, 12, 31)) == '99123135885'
         assert self.fake.pesel(datetime.date(2000, 1, 1)) == '00210179936'
