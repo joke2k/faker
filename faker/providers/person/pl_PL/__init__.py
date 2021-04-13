@@ -739,8 +739,9 @@ class Provider(PersonProvider):
         else:
             raise ValueError("Date of birth is out of supported range 1800-2299")
 
-        pesel_date = f'{date_of_birth.strftime("%y")}{month:02d}{date_of_birth.day:02d}'
+        year = date_of_birth.year % 100
 
+        pesel_date = f'{year:02d}{month:02d}{date_of_birth.day:02d}'
         pesel_core = ''.join(map(str, (self.random_digit() for _ in range(3))))
         pesel_sex = self.random_digit()
 
