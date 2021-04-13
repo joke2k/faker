@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.1.0 - 2021-04-05](https://github.com/joke2k/faker/compare/8.0.0...v8.1.0)
+
+* Extend ``pl_PL`` Pesel To support greater range of dates. Thanks @IlfirinPL.
+
 ### [v8.0.0 - 2021-04-05](https://github.com/joke2k/faker/compare/v7.0.1...v8.0.0)
 
 * Fix CLI only giving 10 possible outputs. Thanks @andrewdotn.
