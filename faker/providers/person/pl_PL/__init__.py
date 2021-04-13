@@ -712,8 +712,13 @@ class Provider(PersonProvider):
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
 
         PESEL has 11 digits which identifies just one person.
-        pesel_date: if person was born in 1900-2000, december is 12. If person was born > 2000, we have to add 20 to
-        month, so december is 32.
+        pesel_date: if person was born in 
+                1900-1999 - month field number is not modified
+                2000–2099 – month field number is increased by 20
+                2100–2199 – month + 40
+                2200–2299 – month + 60
+                1800–1899 – month + 80
+                outside range 1800-2299 function will raise ValueError
         pesel_sex: last digit identifies person's sex. Even for females, odd for males.
 
         https://en.wikipedia.org/wiki/PESEL
