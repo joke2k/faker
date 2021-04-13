@@ -261,6 +261,10 @@ class TestPlPL(unittest.TestCase):
         assert self.fake.pesel(datetime.date(2007, 4, 13), 'F') == '07241349161'
         assert self.fake.pesel(datetime.date(1933, 12, 16), 'F') == '33121661744'
 
+    def test_pesel_value_error(self):
+        self.assertRaises(ValueError, self.fake.pesel, datetime.date(2300, 1, 1))
+        self.assertRaises(ValueError, self.fake.pesel, datetime.date(1799, 12, 31))
+
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pwz_doctor(self, mock_random_digit):
         mock_random_digit.side_effect = [6, 9, 1, 9, 6, 5, 2, 7, 9, 9, 1, 5]
