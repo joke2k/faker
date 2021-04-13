@@ -712,7 +712,7 @@ class Provider(PersonProvider):
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
 
         PESEL has 11 digits which identifies just one person.
-        pesel_date: if person was born in 
+        pesel_date: if person was born in
                 1900-1999 - month field number is not modified
                 2000–2099 – month field number is increased by 20
                 2100–2199 – month + 40
