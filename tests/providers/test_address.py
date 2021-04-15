@@ -1514,6 +1514,12 @@ class TestThTh:
             assert isinstance(country, str)
             assert country in ThThAddressProvider.countries
 
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in ThThAddressProvider.cities
+
     def test_province(self, faker, num_samples):
         for _ in range(num_samples):
             province = faker.province()
