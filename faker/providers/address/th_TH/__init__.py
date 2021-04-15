@@ -7,48 +7,28 @@ class Provider(AddressProvider):
     street_name_formats = ("{{street_prefix}}{{last_name}}",)
     street_address_formats = ("{{building_number}} {{street_name}}",)
 
-    address_formats = OrderedDict(
-        (
-            ("{{street_address}} {{tambon}} {{amphoe}} {{province}} {{postcode}}", 50),
-            (
-                "{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} {{province}} {{postcode}}",
-                50,
-            ),
-            (
-                "{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}",
-                50,
-            ),
-            (
-                "{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}} {{postcode}}",
-                40,
-            ),
-            ("{{street_address}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 30),
-            ("{{street_address}} อ.{{amphoe}} {{province}} {{postcode}}", 30),
-            ("{{street_address}} {{amphoe}} {{province}} {{postcode}}", 30),
-            ("{{street_address}} {{tambon}} {{province}} {{postcode}}", 15),
-            ("{{street_address}} {{amphoe}} จ.{{province}} {{postcode}}", 15),
-            ("{{street_address}} {{tambon}} จ.{{province}} {{postcode}}", 15),
-            ("{{street_address}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 15),
-            ("{{street_address}} ต.{{tambon}} จ.{{province}} {{postcode}}", 15),
-            ("{{street_address}} อำเภอ{{amphoe}} จังหวัด{{province}} {{postcode}}", 15),
-            (
-                "{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} จังหวัด{{province}} {{postcode}}",
-                10,
-            ),
-            ("{{street_address}} {{province}} {{postcode}}", 15),
-            ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}}", 15),
-            ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}}", 15),
-            ("{{street_address}} ตำบล{{tambon}} จังหวัด{{province}} {{postcode}}", 10),
-            (
-                "{{building_number}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}",
-                10,
-            ),
-            (
-                "{{building_number}} หมู่บ้าน{{first_name}} {{amphoe}} {{province}} {{postcode}}",
-                10,
-            ),
-        )
-    )
+    address_formats = OrderedDict((
+        ("{{street_address}} {{tambon}} {{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}", 50),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 40),
+        ("{{street_address}} อำเภอ{{amphoe}} {{province}} {{postcode}}", 30),
+        ("{{street_address}} อ.{{amphoe}} {{province}} {{postcode}}", 30),
+        ("{{street_address}} {{amphoe}} {{province}} {{postcode}}", 30),
+        ("{{street_address}} {{tambon}} {{province}} {{postcode}}", 15),
+        ("{{street_address}} {{amphoe}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} {{tambon}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} อ.{{amphoe}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} ต.{{tambon}} จ.{{province}} {{postcode}}", 15),
+        ("{{street_address}} อำเภอ{{amphoe}} จังหวัด{{province}} {{postcode}}", 15),
+        ("{{street_address}} ตำบล{{tambon}} อำเภอ{{amphoe}} จังหวัด{{province}} {{postcode}}", 10),
+        ("{{street_address}} {{province}} {{postcode}}", 15),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} {{province}}", 15),
+        ("{{street_address}} ต.{{tambon}} อ.{{amphoe}} จ.{{province}}", 15),
+        ("{{street_address}} ตำบล{{tambon}} จังหวัด{{province}} {{postcode}}", 10),
+        ("{{building_number}} ต.{{tambon}} อ.{{amphoe}} {{province}} {{postcode}}", 10),
+        ("{{building_number}} หมู่บ้าน{{first_name}} {{amphoe}} {{province}} {{postcode}}", 10),
+    ))
 
     city_formats = ("{{city_name}}",)
     cities = (
@@ -96,16 +76,15 @@ class Provider(AddressProvider):
         "##/##",
         "#/#",
         "## หมู่ #",
+        "## หมู่ ##",
     )
 
-    street_prefixes = OrderedDict(
-        (
-            ("ถนน", 0.5),
-            ("ถ.", 0.4),
-            ("ซอย", 0.02),
-            ("ซ.", 0.02),
-        )
-    )
+    street_prefixes = OrderedDict((
+        ("ถนน", 0.5),
+        ("ถ.", 0.4),
+        ("ซอย", 0.02),
+        ("ซ.", 0.02),
+    ))
 
     postcode_formats = (
         # as per https://en.wikipedia.org/wiki/Postal_codes_in_Thailand
@@ -314,30 +293,26 @@ class Provider(AddressProvider):
         "นาหินลาด",
     )
 
-    tambon_prefixes = OrderedDict(
-        (
-            ("", 40),
-            ("วัด", 2),
-            ("บ้าน", 2),
-            ("บ่อ", 2),
-            ("บึง", 2),
-            ("ป่า", 1),
-            ("ห้วย", 1),
-        )
-    )
+    tambon_prefixes = OrderedDict((
+        ("", 40),
+        ("วัด", 2),
+        ("บ้าน", 2),
+        ("บ่อ", 2),
+        ("บึง", 2),
+        ("ป่า", 1),
+        ("ห้วย", 1),
+    ))
 
-    tambon_suffixes = OrderedDict(
-        (
-            ("", 30),
-            ("เหนือ", 3),
-            ("ใต้", 3),
-            ("ใหญ่", 2),
-            ("กลาง", 1),
-            ("เล็ก", 1),
-            ("ใหม่", 1),
-            ("เดิม", 0.1),
-        )
-    )
+    tambon_suffixes = OrderedDict((
+        ("", 30),
+        ("เหนือ", 3),
+        ("ใต้", 3),
+        ("ใหญ่", 2),
+        ("กลาง", 1),
+        ("เล็ก", 1),
+        ("ใหม่", 1),
+        ("เดิม", 0.1),
+    ))
 
     city_suffixes = ("นคร",)
 
