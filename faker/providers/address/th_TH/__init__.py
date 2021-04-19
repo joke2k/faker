@@ -30,6 +30,8 @@ class Provider(AddressProvider):
         ("{{building_number}} หมู่บ้าน{{first_name}} {{amphoe}} {{province}} {{postcode}}", 10),
     ))
 
+    # city names are actual city municipalities in Thailand
+    # source: Wikipedia: https://th.wikipedia.org/wiki/เทศบาลนครในประเทศไทย
     city_formats = ("{{city_name}}",)
     cities = (
         "กรุงเทพมหานคร",
