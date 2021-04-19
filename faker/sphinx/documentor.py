@@ -8,7 +8,7 @@ from faker.config import AVAILABLE_LOCALES
 from faker.config import PROVIDERS as STANDARD_PROVIDER_NAMES
 from faker.providers import BaseProvider
 
-DOCS_ROOT = Path(__file__).resolve().parents[1] / 'docs'
+DOCS_ROOT = Path(__file__).resolve().parents[2] / 'docs'
 
 SECTION_ADORNMENTS = '#*=-~'
 
