@@ -142,6 +142,7 @@ def _write_localized_provider_docs():
 
 
 def write_provider_docs():
+    DOCS_ROOT.mkdir(parents=True, exist_ok=True)
     _write_standard_provider_index()
     _write_base_provider_docs()
     _write_standard_provider_docs()
