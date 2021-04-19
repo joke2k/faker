@@ -91,6 +91,7 @@ def _write_standard_provider_index():
 
 
 def _write_base_provider_docs():
+    (DOCS_ROOT / 'providers').mkdir(parents=True, exist_ok=True)
     with (DOCS_ROOT / 'providers' / 'baseprovider.rst').open('wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, '``faker.providers``')
