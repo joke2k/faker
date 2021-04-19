@@ -103,7 +103,7 @@ def _write_base_provider_docs():
 
 def _write_standard_provider_docs():
     for provider_name in STANDARD_PROVIDER_NAMES:
-        with (DOCS_ROOT / 'providers' / f'{provider_name}.rst') as fh:
+        with (DOCS_ROOT / 'providers' / f'{provider_name}.rst').open('wb') as fh:
             provider_class = f'{provider_name}.Provider'
             provider_methods = _get_provider_methods(provider_class)
             _hide_edit_on_github(fh)
