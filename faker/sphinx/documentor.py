@@ -1,6 +1,7 @@
 # coding=utf-8
 import importlib
 import inspect
+import os
 
 from pathlib import Path
 
@@ -8,7 +9,12 @@ from faker.config import AVAILABLE_LOCALES
 from faker.config import PROVIDERS as STANDARD_PROVIDER_NAMES
 from faker.providers import BaseProvider
 
-DOCS_ROOT = Path(__file__).resolve().parents[1] / 'docs'
+if os.environ.get("READTHEDOCS", False):
+    version = os.environ["READTHEDOCS_VERSION"]
+    HOME = Path("/home/docs/checkouts/readthedocs.org/user_builds/faker/checkouts") / version
+    DOCS_ROOT = HOME / "docs"
+else:
+    DOCS_ROOT = Path(__file__).resolve().parents[2] / 'docs'
 
 SECTION_ADORNMENTS = '#*=-~'
 
