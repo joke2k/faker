@@ -9,9 +9,9 @@ class Provider(InternetProvider):
         'gmail.com',
         'yahoo.com',
         'hotmail.com',
-        'gmail.co.uk',
         'yahoo.co.uk',
         'hotmail.co.uk',
+        'outlook.com',
     )
 
     tlds = ('com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org', 'co.uk')
