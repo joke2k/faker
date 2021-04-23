@@ -1,7 +1,5 @@
 from collections import OrderedDict
 
-from faker.utils.decorators import slugify
-
 from .. import Provider as InternetProvider
 
 
