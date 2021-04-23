@@ -4,13 +4,6 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-    user_name_formats = (
-        '{{last_romanized_name}}.{{first_romanized_name}}',
-        '{{first_romanized_name}}.{{last_romanized_name}}',
-        '{{first_romanized_name}}##',
-        '?{{last_romanized_name}}',
-    )
-
     tlds = OrderedDict((
         ('in.th', 100),
         ('co.th', 80),
