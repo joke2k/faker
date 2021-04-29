@@ -28,6 +28,10 @@ Here's a list of Providers written by the community:
 | Airtravel     | Airport names, airport   | `faker_airtravel`_               |
 |               | codes, and flights.      |                                  |
 +---------------+--------------------------+----------------------------------+
+| Optional      | Wrap over other          | `faker_optional`_                |
+|               | providers to return      |                                  |
+|               | their value or `None`.   |                                  |
++---------------+--------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -49,3 +53,4 @@ In order to be inlcuded, your provider must satisfy these requirement:
 .. _faker_vehicle: https://pypi.org/project/faker-vehicle/
 .. _mdgen: https://pypi.org/project/mdgen/
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
+.. _faker_optional: https://pypi.org/project/faker-optional
