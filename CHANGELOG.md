@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v8.1.2 - 2021-04-29](https://github.com/joke2k/faker/compare/8.1.1...v8.1.2)
+
+* Fix company suffix typo for ``th_TH``. Thanks @bact.
+
 ### [v8.1.1 - 2021-04-23](https://github.com/joke2k/faker/compare/8.1.0...v8.1.1)
 
-* Remove ``gmail.co.uk`` from ``en_GB`` email Provider. Thanle @bact.
+* Remove ``gmail.co.uk`` from ``en_GB`` email Provider. Thanks @bact.
 
 ### [v8.1.0 - 2021-04-05](https://github.com/joke2k/faker/compare/8.0.0...v8.1.0)
 
