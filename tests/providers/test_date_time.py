@@ -15,7 +15,7 @@ import pytest
 
 from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
-from faker.providers.date_time import change_year, convert_timestamp_to_datetime
+from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.cs_CZ import Provider as CsCzProvider
@@ -231,7 +231,7 @@ class TestDateTime(unittest.TestCase):
 
     def test_date_time_between_long_past_dates(self):
         random_date = self.fake.date_between("-100y", "-50y")
-
+        assert random_date
 
     def _datetime_to_time(self, value):
         return int(time.mktime(value.timetuple()))

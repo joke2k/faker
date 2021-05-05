@@ -2049,10 +2049,10 @@ class Provider(BaseProvider):
 
         return dob if dob != start_date else dob + timedelta(days=1)
 
+
 def convert_timestamp_to_datetime(timestamp, tzinfo):
     import datetime as dt
-    if timestamp >=0:
+    if timestamp >= 0:
         return dt.datetime.fromtimestamp(timestamp, tzinfo)
     else:
         return dt.datetime(1970, 1, 1, tzinfo=tzinfo) + dt.timedelta(seconds=int(timestamp))
-    
