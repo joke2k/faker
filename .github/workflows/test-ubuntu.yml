@@ -1,9 +1,6 @@
 name: Python Tests
 
-on:
-  push:
-    tags-ignore:
-      - "*"
+on: [push]
 
 jobs:
   test_ubuntu:
