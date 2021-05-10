@@ -32,7 +32,7 @@ def list_module(module: ModuleType) -> List[str]:
         # PyInstaller
         return [file.parent.name for file in Path(path).glob('*/__init__.py')]
     else:
-        return [name for _, name, is_pkg in pkgutil.iter_modules([path]) if is_pkg]
+        return [name for _, name, is_pkg in pkgutil.iter_modules([str(path)]) if is_pkg]
 
 
 def find_available_locales(providers: List[str]) -> List[str]:
