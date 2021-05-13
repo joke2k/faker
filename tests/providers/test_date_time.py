@@ -229,6 +229,10 @@ class TestDateTime(unittest.TestCase):
         assert date_start <= random_date
         assert date_end >= random_date
 
+    def test_date_time_between_long_past_dates(self):
+        random_date = self.fake.date_between("-100y", "-50y")
+        assert random_date
+
     def _datetime_to_time(self, value):
         return int(time.mktime(value.timetuple()))
 
