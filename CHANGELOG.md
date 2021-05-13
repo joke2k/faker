@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.1.4 - 2021-05-13](https://github.com/joke2k/faker/compare/v8.1.3...v8.1.4)
+
+* Support distant past dates on Windows. Thanks @prescod.
+
 ### [v8.1.3 - 2021-05-10](https://github.com/joke2k/faker/compare/v8.1.2...v8.1.3)
 
 * Fixes #1439: Cast Path to a string for `pkgutil.iter_modules` (#1441). Thanks @fcurella.
