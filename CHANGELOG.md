@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.2.0 - 2021-05-18](https://github.com/joke2k/faker/compare/v8.1.4...v8.2.0)
+
+*  Add ``city_name()`` and cities to ``support .city()`` for ``th_TH``. Thanks @bact.
+
 ### [v8.1.4 - 2021-05-13](https://github.com/joke2k/faker/compare/v8.1.3...v8.1.4)
 
 * Support distant past dates on Windows. Thanks @prescod.
