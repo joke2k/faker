@@ -6,7 +6,10 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
     )
 
-    # First names are from https://www.babycenter.in/a25010193/modern-indian-baby-names
+    # First names are from
+    #   https://www.babycenter.in/a25010193/modern-indian-baby-names
+    #   https://en.wikipedia.org/wiki/Category:Male_actors_in_Malayalam_cinema (not used exhaustively)
+    #   https://en.wikipedia.org/wiki/List_of_Tamil_film_actors (not used exhaustively)
     # Last names are from https://www.familyeducation.com/baby-names/browse-origin/surname/indian
 
     first_names = (
