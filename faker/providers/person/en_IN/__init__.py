@@ -6,7 +6,10 @@ class Provider(PersonProvider):
         '{{first_name}} {{last_name}}',
     )
 
-    # First names are from https://www.babycenter.in/a25010193/modern-indian-baby-names
+    # First names are from
+    #   https://www.babycenter.in/a25010193/modern-indian-baby-names
+    #   https://en.wikipedia.org/wiki/Category:Male_actors_in_Malayalam_cinema (not used exhaustively)
+    #   https://en.wikipedia.org/wiki/List_of_Tamil_film_actors (not used exhaustively)
     # Last names are from https://www.familyeducation.com/baby-names/browse-origin/surname/indian
 
     first_names = (
@@ -23,11 +26,15 @@ class Provider(PersonProvider):
         'Arnav',
         'Azad',
         'Badal',
+        'Baiju',
         'Bhavin',
+        'Biju',
         'Chirag',
         'Darshit',
         'Devansh',
         'Dhanuk',
+        'Dhanush',
+        'Dharmajan',
         'Dhruv',
         'Divij',
         'Divit',
@@ -45,9 +52,11 @@ class Provider(PersonProvider):
         'Hridaan',
         'Hunar',
         'Indrajit',
+        'Indrans',
         'Indranil',
         'Ishaan',
         'Ivan',
+        'Jayan',
         'Jayant',
         'Jayesh',
         'Jivin',
@@ -61,6 +70,7 @@ class Provider(PersonProvider):
         'Lakshit',
         'Madhav',
         'Madhup',
+        'Mamooty',
         'Manikya',
         'Mehul',
         'Miraan',
@@ -164,6 +174,7 @@ class Provider(PersonProvider):
         'Miraya',
         'Misha',
         'Mishti',
+        'Mohanlal',
         'Myra',
         'Navya',
         'Nayantara',
