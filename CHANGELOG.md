@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.2.1 - 2021-05-21](https://github.com/joke2k/faker/compare/v8.2.0...v8.2.1)
+
+*  Add few more names in ``en_IN`` person provider. Thanks @Felix-Raj.
+
 ### [v8.2.0 - 2021-05-18](https://github.com/joke2k/faker/compare/v8.1.4...v8.2.0)
 
 *  Add ``city_name()`` and cities to ``support .city()`` for ``th_TH``. Thanks @bact.
