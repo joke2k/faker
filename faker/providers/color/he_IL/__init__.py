@@ -67,3 +67,4 @@ class Provider(ColorProvider):
        "מג'נטה",
        "לבן",
     )
+    
