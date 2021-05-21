@@ -12,7 +12,6 @@ from faker.providers.color.hy_AM import Provider as HyAmColorProvider
 from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 
 
-
 class TestColorProvider:
     """Test color provider methods"""
     num_samples = 10000
@@ -304,7 +303,8 @@ class TestSkSk:
             assert isinstance(safe_color_name, str)
             assert safe_color_name in SkSkColorProvider.safe_colors
 
-class TestHeIL:
+
+class TestHeIl:
     """Test he_IL color provider methods"""
 
     def test_color_name(self, faker, num_samples):
@@ -317,4 +317,4 @@ class TestHeIL:
         for _ in range(num_samples):
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
-            assert safe_color_name in  HeILColorProvider.safe_colors
+            assert safe_color_name in HeILColorProvider.safe_colors
