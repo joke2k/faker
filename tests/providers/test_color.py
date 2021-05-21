@@ -9,6 +9,7 @@ from faker.providers.color.es_ES import Provider as EsEsColorProvider
 from faker.providers.color.fa_IR import Provider as FaIrColorProvider
 from faker.providers.color.hy_AM import Provider as HyAmColorProvider
 from faker.providers.color.sk_SK import Provider as SkSkColorProvider
+from faker.providers.color.he_IL import Provider as HeILColorProvider
 
 
 class TestColorProvider:
@@ -301,3 +302,18 @@ class TestSkSk:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in SkSkColorProvider.safe_colors
+
+class TestHeIL:
+    """Test he_IL color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in HeILColorProvider.all_colors.keys()
+
+    def test_safe_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            safe_color_name = faker.safe_color_name()
+            assert isinstance(safe_color_name, str)
+            assert safe_color_name in  HeILColorProvider.safe_colors
