@@ -14,6 +14,7 @@ from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
+from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -685,6 +686,30 @@ class TestEsES(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in EsESProvider.language_names
+
+class TestHeIL(unittest.TestCase):
+    """Tests person in the he_IL locale."""
+
+    def setUp(self):
+        self.fake = Faker('he_IL')
+        Faker.seed(0)
+
+    def test_language_name(self):
+        language_name = self.fake.language_name()
+        assert language_name in HeILProvider.language_names
+
+    def test_male_first_name(self):
+        first_name_male = self.fake.first_name_male()
+        assert first_name_male in HeILProvider.first_names_male
+
+    def test_female_first_name(self):
+        first_name_female = self.fake.first_name_female()
+        assert first_name_female in HeILProvider.first_names_female
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in HeILProvider.last_names
+
 
 
 class TestPtPt(unittest.TestCase):
