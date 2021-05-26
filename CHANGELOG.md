@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.3.0 - 2021-05-26](https://github.com/joke2k/faker/compare/v8.2.1...v8.3.0)
+
+*  Add colors for ``he_IL``. Thanks @AndreyRub.
+
 ### [v8.2.1 - 2021-05-21](https://github.com/joke2k/faker/compare/v8.2.0...v8.2.1)
 
 *  Add few more names in ``en_IN`` person provider. Thanks @Felix-Raj.
