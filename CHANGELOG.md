@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.4.0 - 2021-05-27](https://github.com/joke2k/faker/compare/v8.3.0...v8.4.0)
+
+* Add license plates and language names for ``he_IL`` locale. Thanks @AndreyRub.
+
 ### [v8.3.0 - 2021-05-26](https://github.com/joke2k/faker/compare/v8.2.1...v8.3.0)
 
 *  Add colors for ``he_IL``. Thanks @AndreyRub.
