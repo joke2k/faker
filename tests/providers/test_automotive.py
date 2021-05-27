@@ -45,6 +45,10 @@ class TestPtPt(_SimpleAutomotiveTestMixin):
     )
 
 
+class TestHeIl(_SimpleAutomotiveTestMixin):
+    license_plate_pattern = re.compile(r'(\d{3}-\d{2}-\d{3})|(\d{2}-\d{3}-\d{2})')
+
+
 class TestHuHu(_SimpleAutomotiveTestMixin):
     """Test hu_HU automotive provider methods"""
     license_plate_pattern = re.compile(r'[A-Z]{3}-\d{3}')
