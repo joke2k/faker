@@ -687,6 +687,7 @@ class TestEsES(unittest.TestCase):
         language_name = self.fake.language_name()
         assert language_name in EsESProvider.language_names
 
+
 class TestHeIL(unittest.TestCase):
     """Tests person in the he_IL locale."""
 
@@ -709,7 +710,6 @@ class TestHeIL(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         assert last_name in HeILProvider.last_names
-
 
 
 class TestPtPt(unittest.TestCase):

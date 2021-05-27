@@ -1272,12 +1272,10 @@ class Provider(PersonProvider):
         ("תורג'מן", 0.0004513035),
         ("תורגמן", 0.0005209364),
         ("תמיר", 0.0002928914),
-
     ))
 
-
-    ##Source :https://he.transperfect.com/services/languages.html
-    language_names = ( 
+    # Source :https://he.transperfect.com/services/languages.html
+    language_names = (
         "אוג'יבווי",
         "אוזבקית",
         "אויגור",
@@ -1490,5 +1488,5 @@ class Provider(PersonProvider):
         "שנחאית",
         "שפת הסימנים האמריקאית",
         "תאילנדית",
-        "תיגרינית",        
+        "תיגרינית",
     )

@@ -2,7 +2,6 @@ import re
 
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
-from faker.providers.automotive.he_IL import Provider as HeIlAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
@@ -45,8 +44,10 @@ class TestPtPt(_SimpleAutomotiveTestMixin):
         r'[A-Z]{2}-\d{2}-[A-Z]{2}',
     )
 
+
 class TestHeIl(_SimpleAutomotiveTestMixin):
     license_plate_pattern = re.compile(r'(\d{3}-\d{2}-\d{3})|(\d{2}-\d{3}-\d{2})')
+
 
 class TestHuHu(_SimpleAutomotiveTestMixin):
     """Test hu_HU automotive provider methods"""
