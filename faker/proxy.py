@@ -1,3 +1,4 @@
+import copy
 import functools
 import random
 import re
@@ -100,7 +101,6 @@ class Faker:
         :param attr: attribute name
         :return: the appropriate attribute
         """
-
         if len(self._factories) == 1:
             return getattr(self._factories[0], attr)
         elif attr in self.generator_attrs:
@@ -112,6 +112,20 @@ class Faker:
         else:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
+
+    def __deepcopy__(self, memodict={}):
+        cls = self.__class__
+        result = cls.__new__(cls)
+        result._locales = copy.deepcopy(self._locales)
+        result._factories = copy.deepcopy(self._factories)
+        result._factory_map = copy.deepcopy(self._factory_map)
+        result._weights = copy.deepcopy(self._weights)
+        result._unique_proxy = UniqueProxy(self)
+        result._unique_proxy._seen = {
+            k: {result._unique_proxy._sentinel}
+            for k in self._unique_proxy._seen.keys()
+        }
+        return result
 
     @property
     def unique(self):
