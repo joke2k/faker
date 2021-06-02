@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.5.0 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.4.0...v8.5.0)
+
+*  Add  ``image`` provider. Thanks @n1ngu.
+
 ### [v8.4.0 - 2021-05-27](https://github.com/joke2k/faker/compare/v8.3.0...v8.4.0)
 
 * Add license plates and language names for ``he_IL`` locale. Thanks @AndreyRub.
