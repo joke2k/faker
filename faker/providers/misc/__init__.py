@@ -8,6 +8,8 @@ import tarfile
 import uuid
 import zipfile
 
+from faker.exceptions import UnsupportedFeature
+
 from .. import BaseProvider
 
 localized = True
@@ -299,8 +301,12 @@ class Provider(BaseProvider):
         :sample size=2: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
         :sample size=2: size=(16, 16), hue=[90,270], image_format='ico'
         """
-        import PIL.Image
-        import PIL.ImageDraw
+        try:
+            import PIL.Image
+            import PIL.ImageDraw
+        except ImportError:
+            raise UnsupportedFeature("`image` requires the `Pillow` python library.")
+
         (width, height) = size
         image = PIL.Image.new('RGB', size, self.generator.color(hue=hue, luminosity=luminosity))
         draw = PIL.ImageDraw.Draw(image)

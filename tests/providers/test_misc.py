@@ -17,7 +17,7 @@ from unittest.mock import patch
 
 import pytest
 
-from faker import Faker
+from faker import Faker, exceptions
 from faker.contrib.pytest.plugin import DEFAULT_LOCALE, DEFAULT_SEED
 
 
@@ -323,6 +323,11 @@ class TestMiscProvider:
         img = PIL.Image.open(io.BytesIO(faker.image(size=(2, 2), image_format='tiff')))
         assert img.size == (2, 2)
         assert img.format == 'TIFF'
+
+    def test_image_no_pillow(self, faker):
+        with patch.dict("sys.modules", {"PIL": None}):
+            with pytest.raises(exceptions.UnsupportedFeature):
+                faker.image()
 
     def test_dsv_with_invalid_values(self, faker):
         with pytest.raises(ValueError):
