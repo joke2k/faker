@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.5.1 - 2021-06-03](https://github.com/joke2k/faker/compare/v8.5.0...v8.5.1)
+
+* Fix  deepcopy for Faker instances.
+
 ### [v8.5.0 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.4.0...v8.5.0)
 
 *  Add  ``image`` provider. Thanks @n1ngu.
