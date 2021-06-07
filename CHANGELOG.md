@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.6.0 - 2021-06-07](https://github.com/joke2k/faker/compare/v8.5.1...v8.6.0)
+
+*  Add ``aba()`` method to generate ABA routing numbers. Thanks @mstellon.
+
 ### [v8.5.1 - 2021-06-03](https://github.com/joke2k/faker/compare/v8.5.0...v8.5.1)
 
 * Fix  deepcopy for Faker instances.
