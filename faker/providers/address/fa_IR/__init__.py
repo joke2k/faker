@@ -82,5 +82,7 @@ class Provider(AddressProvider):
             self.random_element(
                 self.secondary_address_formats))
 
-    def state(self):
+    def administrative_unit(self):
         return self.random_element(self.states)
+
+    state = administrative_unit

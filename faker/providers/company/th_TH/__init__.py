@@ -7,12 +7,14 @@ class Provider(CompanyProvider):
     formats = OrderedDict((
         ("{{company_limited_prefix}}{{last_name}} {{company_limited_suffix}}", 0.2),
         ("{{company_limited_prefix}}{{last_name}}{{company_suffix}} {{company_limited_suffix}}", 0.2),
+        ("{{company_limited_prefix}}{{last_name}} {{company_limited_suffix}}", 0.2),
         ("{{company_prefix}}{{last_name}}", 0.2),
         ("{{company_prefix}}{{last_name}}{{company_suffix}}", 0.2),
         ("{{last_name}}{{company_suffix}}", 0.1),
         ("{{nonprofit_prefix}}{{last_name}}", 0.1),
         ("{{last_name}}-{{last_name}}", 0.05),
         ("{{last_name}}และ{{last_name}}", 0.05),
+        ("{{company_limited_prefix}}{{last_name}}", 0.01),
     ))
 
     company_prefixes = OrderedDict((
@@ -21,6 +23,7 @@ class Provider(CompanyProvider):
         ("บจก.", 0.1),
         ("บมจ.", 0.1),
         ("ห้างหุ้นส่วนสามัญ ", 0.1),
+        ("หสน.", 0.01),
     ))
 
     nonprofit_prefixes = OrderedDict((
@@ -45,7 +48,7 @@ class Provider(CompanyProvider):
         "พืชผล",
         "เอเยนซี",
         "เอ็นจิเนียริ่ง",
-        "คอนสครัคชั่น",
+        "คอนสตรัคชั่น",
         "วิศวกรรม",
         "วิศวการ",
         "คอมพิวเตอร์",
@@ -68,13 +71,16 @@ class Provider(CompanyProvider):
         "บรรจุภัณฑ์",
         "แพคกิ้ง",
         "มอเตอร์",
+        "โอสถ",
+        "การบัญชี",
+        "สโตร์",
     )
 
     company_limited_prefixes = OrderedDict((
         ("บริษัท ", 0.95),
         ("ธนาคาร", 0.03),
-        ("บริษัทหลักทรัพย์ ", 0.01),
-        ("กองทุนรวม", 0.01),
+        ("บริษัทหลักทรัพย์ ", 0.005),
+        ("กองทุนรวม", 0.005),
     ))
 
     company_limited_suffixes = OrderedDict((

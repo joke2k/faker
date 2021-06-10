@@ -308,3 +308,41 @@ class TestSvSe:
         for _ in range(num_samples):
             name = faker.currency_name()
             assert name in self.currency_names
+
+
+class TestThTh:
+    """Test th_TH currency provider"""
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.th_TH import Provider as ThThCurrencyProvider
+        cls.provider = ThThCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
+
+
+class TestRoRo:
+    """Test ro_RO currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.ro_RO import Provider as RoRoCurrencyProvider
+        cls.provider = RoRoCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)

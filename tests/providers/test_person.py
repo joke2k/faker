@@ -14,6 +14,7 @@ from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es_ES import Provider as EsESProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
+from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -242,9 +243,12 @@ class TestPlPL(unittest.TestCase):
 
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pesel_birth_date(self, mock_random_digit):
-        mock_random_digit.side_effect = [3, 5, 8, 8, 7, 9, 9, 3]
+        mock_random_digit.side_effect = [3, 5, 8, 8, 3, 5, 8, 8, 7, 9, 9, 3, 7, 9, 9, 3, 7, 9, 9, 3]
+        assert self.fake.pesel(datetime.date(1899, 12, 31)) == '99923135889'
         assert self.fake.pesel(datetime.date(1999, 12, 31)) == '99123135885'
         assert self.fake.pesel(datetime.date(2000, 1, 1)) == '00210179936'
+        assert self.fake.pesel(datetime.date(2100, 1, 1)) == '00410179932'
+        assert self.fake.pesel(datetime.date(2200, 1, 1)) == '00610179938'
 
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pesel_sex_male(self, mock_random_digit):
@@ -257,6 +261,10 @@ class TestPlPL(unittest.TestCase):
         mock_random_digit.side_effect = [4, 9, 1, 6, 6, 1, 7, 3]
         assert self.fake.pesel(datetime.date(2007, 4, 13), 'F') == '07241349161'
         assert self.fake.pesel(datetime.date(1933, 12, 16), 'F') == '33121661744'
+
+    def test_pesel_value_error(self):
+        self.assertRaises(ValueError, self.fake.pesel, datetime.date(2300, 1, 1))
+        self.assertRaises(ValueError, self.fake.pesel, datetime.date(1799, 12, 31))
 
     @mock.patch.object(PlPLProvider, 'random_digit')
     def test_pwz_doctor(self, mock_random_digit):
@@ -678,6 +686,30 @@ class TestEsES(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in EsESProvider.language_names
+
+
+class TestHeIL(unittest.TestCase):
+    """Tests person in the he_IL locale."""
+
+    def setUp(self):
+        self.fake = Faker('he_IL')
+        Faker.seed(0)
+
+    def test_language_name(self):
+        language_name = self.fake.language_name()
+        assert language_name in HeILProvider.language_names
+
+    def test_male_first_name(self):
+        first_name_male = self.fake.first_name_male()
+        assert first_name_male in HeILProvider.first_names_male
+
+    def test_female_first_name(self):
+        first_name_female = self.fake.first_name_female()
+        assert first_name_female in HeILProvider.first_names_female
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in HeILProvider.last_names
 
 
 class TestPtPt(unittest.TestCase):

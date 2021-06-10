@@ -1,6 +1,7 @@
 # coding=utf-8
 import importlib
 import inspect
+import os
 
 from pathlib import Path
 
@@ -8,7 +9,12 @@ from faker.config import AVAILABLE_LOCALES
 from faker.config import PROVIDERS as STANDARD_PROVIDER_NAMES
 from faker.providers import BaseProvider
 
-DOCS_ROOT = Path(__file__).resolve().parents[1] / 'docs'
+if os.environ.get("READTHEDOCS", False):
+    version = os.environ["READTHEDOCS_VERSION"]
+    HOME = Path("/home/docs/checkouts/readthedocs.org/user_builds/faker/checkouts") / version
+    DOCS_ROOT = HOME / "docs"
+else:
+    DOCS_ROOT = Path(__file__).resolve().parents[2] / 'docs'
 
 SECTION_ADORNMENTS = '#*=-~'
 
@@ -91,6 +97,7 @@ def _write_standard_provider_index():
 
 
 def _write_base_provider_docs():
+    (DOCS_ROOT / 'providers').mkdir(parents=True, exist_ok=True)
     with (DOCS_ROOT / 'providers' / 'baseprovider.rst').open('wb') as fh:
         _hide_edit_on_github(fh)
         _write_title(fh, '``faker.providers``')
@@ -102,8 +109,9 @@ def _write_base_provider_docs():
 
 
 def _write_standard_provider_docs():
+    (DOCS_ROOT / 'providers').mkdir(parents=True, exist_ok=True)
     for provider_name in STANDARD_PROVIDER_NAMES:
-        with (DOCS_ROOT / 'providers' / f'{provider_name}.rst') as fh:
+        with (DOCS_ROOT / 'providers' / f'{provider_name}.rst').open('wb') as fh:
             provider_class = f'{provider_name}.Provider'
             provider_methods = _get_provider_methods(provider_class)
             _hide_edit_on_github(fh)
@@ -126,6 +134,7 @@ def _write_localized_provider_index():
 
 
 def _write_localized_provider_docs():
+    (DOCS_ROOT / 'locales').mkdir(parents=True, exist_ok=True)
     for locale in AVAILABLE_LOCALES:
         info = _get_localized_provider_info(locale)
         with (DOCS_ROOT / 'locales' / '{}.rst'.format(locale)).open('wb') as fh:
@@ -142,6 +151,7 @@ def _write_localized_provider_docs():
 
 
 def write_provider_docs():
+    DOCS_ROOT.mkdir(parents=True, exist_ok=True)
     _write_standard_provider_index()
     _write_base_provider_docs()
     _write_standard_provider_docs()

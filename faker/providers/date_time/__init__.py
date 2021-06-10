@@ -19,10 +19,10 @@ def datetime_to_timestamp(dt):
 
 def timestamp_to_datetime(timestamp, tzinfo):
     if tzinfo is None:
-        pick = datetime.fromtimestamp(timestamp, tzlocal())
+        pick = convert_timestamp_to_datetime(timestamp, tzlocal())
         pick = pick.astimezone(tzutc()).replace(tzinfo=None)
     else:
-        pick = datetime.fromtimestamp(timestamp, tzinfo)
+        pick = convert_timestamp_to_datetime(timestamp, tzinfo)
 
     return pick
 
@@ -1376,6 +1376,18 @@ class Provider(BaseProvider):
                   'continent': 'Europe',
                   'name': 'United Kingdom',
                   'capital': 'London'},
+                 {'timezones': ['Asia/Taipei'],
+                  'alpha-2-code': 'TW',
+                  'alpha-3-code': 'TWN',
+                  'continent': 'Asia',
+                  'name': 'Taiwan',
+                  'capital': 'Taipei'},
+                 {'timezones': ['Asia/Gaza', 'Asia/Hebron'],
+                  'alpha-2-code': 'PS',
+                  'alpha-3-code': 'PSE',
+                  'continent': 'Asia',
+                  'name': 'Palestine',
+                  'capital': 'Ramallah'},
                  ]
 
     regex = re.compile(timedelta_pattern)
@@ -1685,8 +1697,11 @@ class Provider(BaseProvider):
         )
         try:
             if tzinfo is None:
-                pick = datetime.fromtimestamp(timestamp, tzlocal())
-                pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+                pick = convert_timestamp_to_datetime(timestamp, tzlocal())
+                try:
+                    pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+                except OSError:
+                    pass
             else:
                 pick = datetime.fromtimestamp(timestamp, tzinfo)
         except OverflowError:
@@ -2033,3 +2048,11 @@ class Provider(BaseProvider):
         dob = self.date_time_ad(tzinfo=tzinfo, start_datetime=start_date, end_datetime=end_date).date()
 
         return dob if dob != start_date else dob + timedelta(days=1)
+
+
+def convert_timestamp_to_datetime(timestamp, tzinfo):
+    import datetime as dt
+    if timestamp >= 0:
+        return dt.datetime.fromtimestamp(timestamp, tzinfo)
+    else:
+        return dt.datetime(1970, 1, 1, tzinfo=tzinfo) + dt.timedelta(seconds=int(timestamp))

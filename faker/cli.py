@@ -234,7 +234,7 @@ examples:
             logging.basicConfig(level=logging.CRITICAL)
 
         random.seed(arguments.seed)
-        seeds = random.sample(range(arguments.repeat*10), arguments.repeat)
+        seeds = [random.random() for _ in range(arguments.repeat)]
 
         for i in range(arguments.repeat):
 
@@ -262,3 +262,7 @@ def execute_from_command_line(argv=None) -> None:
 
     command = Command(argv)
     command.execute()
+
+
+if __name__ == '__main__':
+    execute_from_command_line()

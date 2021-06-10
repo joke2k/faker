@@ -357,7 +357,7 @@ class Provider(AddressProvider):
     def country(self):
         return self.random_element(self.countries)
 
-    def region(self):
+    def administrative_unit(self):
         regions_suffix = self.random_element(self.region_suffixes)
         if regions_suffix == 'респ.':
             return regions_suffix + ' ' + self.random_element(self.region_republics)
@@ -367,6 +367,8 @@ class Provider(AddressProvider):
             return self.random_element(self.region_oblast) + ' ' + regions_suffix
         elif regions_suffix == 'АО':
             return self.random_element(self.region_ao) + ' ' + regions_suffix
+
+    region = administrative_unit
 
     def street_suffix(self):
         return self.random_element(self.street_suffixes)

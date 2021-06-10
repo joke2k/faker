@@ -1,3 +1,4 @@
+import copy
 import random
 
 from collections import OrderedDict
@@ -389,3 +390,9 @@ class TestFakerProxyClass:
         expected = sorted(expected)
         attributes = dir(fake)
         assert attributes == expected
+
+    def test_copy(self):
+        fake = Faker("it_IT")
+        fake2 = copy.deepcopy(fake)
+        assert fake.locales == fake2.locales
+        assert fake.locales is not fake2.locales

@@ -1,5 +1,129 @@
 ## Changelog
 
+### [v8.6.0 - 2021-06-07](https://github.com/joke2k/faker/compare/v8.5.1...v8.6.0)
+
+*  Add ``aba()`` method to generate ABA routing numbers. Thanks @mstellon.
+
+### [v8.5.1 - 2021-06-03](https://github.com/joke2k/faker/compare/v8.5.0...v8.5.1)
+
+* Fix  deepcopy for Faker instances.
+
+### [v8.5.0 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.4.0...v8.5.0)
+
+*  Add  ``image`` provider. Thanks @n1ngu.
+
+### [v8.4.0 - 2021-05-27](https://github.com/joke2k/faker/compare/v8.3.0...v8.4.0)
+
+* Add license plates and language names for ``he_IL`` locale. Thanks @AndreyRub.
+
+### [v8.3.0 - 2021-05-26](https://github.com/joke2k/faker/compare/v8.2.1...v8.3.0)
+
+*  Add colors for ``he_IL``. Thanks @AndreyRub.
+
+### [v8.2.1 - 2021-05-21](https://github.com/joke2k/faker/compare/v8.2.0...v8.2.1)
+
+*  Add few more names in ``en_IN`` person provider. Thanks @Felix-Raj.
+
+### [v8.2.0 - 2021-05-18](https://github.com/joke2k/faker/compare/v8.1.4...v8.2.0)
+
+*  Add ``city_name()`` and cities to ``support .city()`` for ``th_TH``. Thanks @bact.
+
+### [v8.1.4 - 2021-05-13](https://github.com/joke2k/faker/compare/v8.1.3...v8.1.4)
+
+* Support distant past dates on Windows. Thanks @prescod.
+
+### [v8.1.3 - 2021-05-10](https://github.com/joke2k/faker/compare/v8.1.2...v8.1.3)
+
+* Fixes #1439: Cast Path to a string for `pkgutil.iter_modules` (#1441). Thanks @fcurella.
+
+### [v8.1.2 - 2021-04-29](https://github.com/joke2k/faker/compare/8.1.1...v8.1.2)
+
+* Fix company suffix typo for ``th_TH``. Thanks @bact.
+
+### [v8.1.1 - 2021-04-23](https://github.com/joke2k/faker/compare/8.1.0...v8.1.1)
+
+* Remove ``gmail.co.uk`` from ``en_GB`` email Provider. Thanks @bact.
+
+### [v8.1.0 - 2021-04-05](https://github.com/joke2k/faker/compare/8.0.0...v8.1.0)
+
+* Extend ``pl_PL`` Pesel To support greater range of dates. Thanks @IlfirinPL.
+
+### [v8.0.0 - 2021-04-05](https://github.com/joke2k/faker/compare/v7.0.1...v8.0.0)
+
+* Fix CLI only giving 10 possible outputs. Thanks @andrewdotn.
+
+### [v7.0.1 - 2021-03-29](https://github.com/joke2k/faker/compare/v7.0.0...v7.0.1)
+
+* Fix faker module loader to use strings rather than Paths. Thanks @mgorny.
+
+### [v7.0.0 - 2021-03-29](https://github.com/joke2k/faker/compare/v6.6.3...v7.0.0)
+
+* Make sure `pyfloat` fails when asked to produce more digits than the system supports. Thanks @rossjones.
+
+### [v6.6.3 - 2021-03-25](https://github.com/joke2k/faker/compare/v6.6.2...v6.6.3)
+
+* Ensure ``pytuple`` returns the correct number of items. Thanks @rossjones.
+
+### [v6.6.2 - 2021-03-18](https://github.com/joke2k/faker/compare/v6.6.1...v6.6.2)
+
+* Fix ``ro_RO`` phone numbers generation. Thanks @feketemihai.
+
+### [v6.6.1 - 2021-03-15](https://github.com/joke2k/faker/compare/v6.6.0...v6.6.1)
+
+* set ``uk_UA`` address street titles to proper language. Thanks @fessua.
+
+### [v6.6.0 - 2021-03-09](https://github.com/joke2k/faker/compare/v6.5.2...v6.6.0)
+
+* Add ``address`` provider for ``ro_RO``. Thanks @feketemihai.
+
+### [v6.5.2 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.1...v6.5.2)
+
+* Fix a problem with ``pyfloat`` where it can return ``sys.epsilon`` when ``right_digits=N`` and ``positive=True``. Thanks @tomage.
+
+### [v6.5.1 - 2021-03-08](https://github.com/joke2k/faker/compare/v6.5.0...v6.5.1)
+
+* Replace ``es_MX`` ``RFC`` name initials when they are forbidden words. Thanks @briferz.
+
+### [v6.5.0 - 2021-02-24](https://github.com/joke2k/faker/compare/v6.4.1...v6.5.0)
+
+* Add ``address`` provider for ``de_CH``. Thanks @andre-dasilva.
+
+### [v6.4.1 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.4.0...v6.4.1)
+
+* user_agent: bump platform versions. Thanks @gsilvan.
+
+### [v6.4.0 - 2021-02-19](https://github.com/joke2k/faker/compare/v6.3.0...v6.4.0)
+
+* Add ``cs_CZ`` lorem - word list. Thanks @jakubno.
+
+### [v6.3.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.2.0...v6.3.0)
+
+* Add ``sk_SK`` automotive provider. Thanks @matusvalo. 
+
+### [v6.2.0 - 2021-02-17](https://github.com/joke2k/faker/compare/v6.1.1...v6.2.0)
+
+*  Add current_country, current_country_code and administrative_unit. Thanks @prescod.
+
+### [v6.1.1 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.1.0...v6.1.1)
+
+* Add Taiwanese and Palestinian time zones. Thanks @prescod.
+
+### [v6.1.0 - 2021-02-09](https://github.com/joke2k/faker/compare/v6.0.0...v6.1.0)
+
+* Rename ``fr_QC`` to ``fr_CA``. Thanks @prescod.
+
+### [v6.0.0 - 2021-02-03](https://github.com/joke2k/faker/compare/v5.8.0...v6.0.0)
+
+* Fix ``pyfloat`` returning zeros when ```positive=True```. Thanks @sciencectn.
+
+### [v5.8.0 - 2021-01-26](https://github.com/joke2k/faker/compare/v5.7.0...v5.8.0)
+
+* Add currency names for ``th_TH``. Thanks @bact.
+
+### [v5.7.0 - 2021-01-25](https://github.com/joke2k/faker/compare/v5.6.5...v5.7.0)
+
+* Add new currency provider ``pricetag()``. Thanks @eumiro.
+
 ### [v5.6.5 - 2021-01-20](https://github.com/joke2k/faker/compare/v5.6.4...v5.6.5)
 
 * Update ``th_TH`` Lorem text provider's punctuations, reduce size of word list (#1376). Thanks @bact.

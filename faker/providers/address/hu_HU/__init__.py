@@ -210,8 +210,10 @@ class Provider(AddressProvider):
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
         "Zöld-foki szigetek")
 
-    def county(self):
+    def administrative_unit(self):
         return self.random_element(self.counties)
+
+    county = administrative_unit
 
     def street_address_with_county(self):
         return f'{self.street_address()}\n{self.county()} megye\n{self.postcode()} {self.city().capitalize()}'

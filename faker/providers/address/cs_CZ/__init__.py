@@ -760,8 +760,10 @@ class Provider(AddressProvider):
     def street_name(self):
         return self.random_element(self.streets)
 
-    def state(self):
+    def administrative_unit(self):
         return self.random_element(self.states)
+
+    state = administrative_unit
 
     def city_with_postcode(self):
         return self.postcode() + " " + self.random_element(self.cities)

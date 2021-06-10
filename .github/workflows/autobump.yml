@@ -15,7 +15,7 @@ jobs:
         uses: "fcurella/gh-status-check@main"
         with:
           ignoreContexts: coverage/coveralls,continuous-integration/appveyor/branch
-          ignoreActions: waitforstatuschecks
+          ignoreActions: autobump
           checkInterval: 12
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Next Part
@@ -29,7 +29,6 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
         with:
-         persist-credentials: false
          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Get Next Version
         uses: "fcurella/gh-action-next-version@main"

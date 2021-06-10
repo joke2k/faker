@@ -82,3 +82,21 @@ class Provider(BaseProvider):
             return self.random_element(self.alpha_3_country_codes)
         else:
             raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
+
+    def current_country_code(self):
+        try:
+            return self.__lang__.split("_")[1]
+        except IndexError:
+            raise AttributeError("Country code cannot be determined from locale")
+
+    def current_country(self):
+        current_country_code = self.current_country_code()
+        current_country = [tz['name']
+                           for tz in date_time.Provider.countries
+                           if tz['alpha-2-code'] == current_country_code]
+        if len(current_country) == 1:
+            return current_country[0]
+        elif len(current_country) > 1:
+            raise ValueError(f"Ambiguous country for country code {current_country_code}: {current_country}")
+        else:
+            raise ValueError(f"No appropriate country for country code {current_country_code}")

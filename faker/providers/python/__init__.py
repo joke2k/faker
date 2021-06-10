@@ -39,7 +39,7 @@ class Provider(BaseProvider):
             return "".join(self.random_letters(length=max_chars))
         else:
             assert (
-                max_chars >= min_chars), "Maximum length must be greater than or equal to minium length"
+                max_chars >= min_chars), "Maximum length must be greater than or equal to minimum length"
             return "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
@@ -66,14 +66,28 @@ class Provider(BaseProvider):
             raise ValueError('Min value cannot be greater than max value')
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError('Min and max value cannot be the same')
-        if positive and min_value is not None and min_value < 0:
+        if positive and min_value is not None and min_value <= 0:
             raise ValueError(
-                'Cannot combine positive=True and negative min_value')
+                'Cannot combine positive=True with negative or zero min_value')
 
-        left_digits = left_digits if left_digits is not None else (
-            self.random_int(1, sys.float_info.dig))
-        right_digits = right_digits if right_digits is not None else (
-            self.random_int(0, sys.float_info.dig - left_digits))
+        # Make sure at least either left or right is set
+        if left_digits is None and right_digits is None:
+            left_digits = self.random_int(1, sys.float_info.dig - 1)
+
+        # If only one side is set, choose #digits for other side
+        if (left_digits is None) ^ (right_digits is None):
+            if left_digits is None:
+                left_digits = max(1, sys.float_info.dig - right_digits)
+            else:
+                right_digits = max(1, sys.float_info.dig - left_digits)
+
+        # Make sure we don't ask for too many digits!
+        if left_digits + right_digits > sys.float_info.dig:
+            raise ValueError(
+                f'Asking for too many digits ({left_digits} + {right_digits} == {left_digits + right_digits} > '
+                f'{sys.float_info.dig})',
+            )
+
         sign = ''
         if (min_value is not None) or (max_value is not None):
             if max_value is not None and max_value < 0:
@@ -87,7 +101,13 @@ class Provider(BaseProvider):
             sign = '+' if positive else self.random_element(('+', '-'))
             left_number = self.random_number(left_digits)
 
-        return float(f'{sign}{left_number}.{self.random_number(right_digits)}')
+        result = float(f'{sign}{left_number}.{self.random_number(right_digits)}')
+        if positive and result == 0:
+            if right_digits:
+                result = float('0.' + '0' * (right_digits - 1) + '1')
+            else:
+                result += sys.float_info.epsilon
+        return result
 
     def _safe_random_int(self, min_value, max_value, positive):
         orig_min_value = min_value
@@ -117,7 +137,7 @@ class Provider(BaseProvider):
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return tuple(
-            self.pyset(
+            self._pyiterable(
                 nb_elements,
                 variable_nb_elements,
                 value_types,

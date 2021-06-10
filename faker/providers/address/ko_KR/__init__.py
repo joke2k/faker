@@ -374,11 +374,13 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.metropolitan_cities)
 
-    def province(self):
+    def administrative_unit(self):
         """
         :example 경기도
         """
         return self.random_element(self.provinces)
+
+    province = administrative_unit
 
     def city(self):
         """

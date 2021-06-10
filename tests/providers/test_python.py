@@ -1,9 +1,68 @@
+import sys
 import unittest
 import warnings
 
 from unittest.mock import patch
 
+import pytest
+
 from faker import Faker
+
+
+@pytest.mark.parametrize(
+    'mock_random_number_source, right_digits, expected_decimal_part',
+    (
+        ('1234567', 5, '12345'),
+        ('1234567', 0, '1'),  # This is kinda interesting - same as 1 digit
+        ('1234567', 1, '1'),
+        ('1234567', 2, '12'),
+        ('0123', 1, '1'),
+    ),
+)
+def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
+
+    # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
+    def mock_random_number(self, digits=None, fix_len=False):
+        return int(mock_random_number_source[:digits or 1])
+
+    with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+        result = Faker().pyfloat(left_digits=1, right_digits=right_digits, positive=True)
+        decimal_part = str(result).split('.')[1]
+        assert decimal_part == expected_decimal_part
+
+
+def test_pyfloat_right_or_left_digit_overflow():
+
+    max_float_digits = sys.float_info.dig
+    faker = Faker()
+
+    # Make random_int always return the maximum value input - makes it easy to reason about the code below
+    def mock_random_int(self, min=0, max=9999, step=1):
+        return max
+
+    # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
+    def mock_random_number(self, digits=None, fix_len=False):
+        return int('12345678901234567890'[:digits or 1])
+
+    with patch('faker.providers.BaseProvider.random_int', mock_random_int):
+        with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+
+            # A bit too much, but ~half on either side
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(left_digits=max_float_digits // 2 + 1, right_digits=max_float_digits // 2 + 1)
+
+            # Asking for max digits on either side also fails, because we need one digit on the other side, i.e.
+            # 0.123123123, or 123123123.0 (at least needs to lead with `0.` or trail with `.0`).
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(left_digits=max_float_digits)
+            with pytest.raises(ValueError, match='Asking for too many digits'):
+                faker.pyfloat(right_digits=max_float_digits)
+
+            # Just the right amount of max digits on either side
+            result = faker.pyfloat(left_digits=max_float_digits - 1)
+            assert str(abs(result)) == '12345678901234.1'
+            result = faker.pyfloat(right_digits=max_float_digits - 1)
+            assert str(abs(result)) == '1.12345678901234'
 
 
 class TestPyint(unittest.TestCase):
@@ -63,7 +122,7 @@ class TestPyfloat(unittest.TestCase):
     def test_positive(self):
         result = self.fake.pyfloat(positive=True)
 
-        self.assertGreaterEqual(result, 0)
+        self.assertGreater(result, 0)
         self.assertEqual(result, abs(result))
 
     def test_min_value(self):
@@ -99,7 +158,7 @@ class TestPyfloat(unittest.TestCase):
 
         result = self.fake.pyfloat(positive=True, max_value=100)
         self.assertLessEqual(result, 100)
-        self.assertGreaterEqual(result, 0)
+        self.assertGreater(result, 0)
 
     def test_positive_and_min_value_incompatible(self):
         """
@@ -108,13 +167,21 @@ class TestPyfloat(unittest.TestCase):
         """
 
         expected_message = (
-            "Cannot combine positive=True and negative min_value"
+            "Cannot combine positive=True with negative or zero min_value"
         )
         with self.assertRaises(ValueError) as raises:
             self.fake.pyfloat(min_value=-100, positive=True)
 
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
+
+    def test_positive_doesnt_return_zero(self):
+        """
+        Choose the right_digits and max_value so it's guaranteed to return zero,
+        then watch as it doesn't because positive=True
+        """
+        result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
+        self.assertGreater(result, 0)
 
 
 class TestPystrFormat(unittest.TestCase):
@@ -162,6 +229,21 @@ class TestPython(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             self.factory.pystr(min_chars=5, max_chars=5)
+
+    def test_pytuple(self):
+        with warnings.catch_warnings(record=True) as w:
+            some_tuple = Faker().pytuple()
+            assert len(w) == 0
+        assert some_tuple
+        assert isinstance(some_tuple, tuple)
+
+    def test_pytuple_size(self):
+        def mock_pyint(self, *args, **kwargs):
+            return 1
+
+        with patch('faker.providers.python.Provider.pyint', mock_pyint):
+            some_tuple = Faker().pytuple(nb_elements=3, variable_nb_elements=False, value_types=[int])
+            assert some_tuple == (1, 1, 1)
 
     def test_pylist(self):
         with warnings.catch_warnings(record=True) as w:
