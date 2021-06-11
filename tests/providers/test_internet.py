@@ -14,6 +14,7 @@ from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
+from faker.providers.internet.th_TH import Provider as ThThInternetProvider
 from faker.providers.internet.zh_CN import Provider as ZhCnInternetProvider
 from faker.providers.person.ja_JP import Provider as JaPersonProvider
 from faker.utils import text
@@ -664,3 +665,11 @@ class TestRoRo:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in PlPlInternetProvider.tlds
+
+
+class TestThTh:
+    """Test th_TH internet provider methods"""
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in ThThInternetProvider.tlds
