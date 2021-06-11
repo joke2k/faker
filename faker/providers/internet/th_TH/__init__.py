@@ -28,5 +28,5 @@ class Provider(InternetProvider):
             ("net", 20),
             ("com", 150),
             ("org", 50),
-        )
+        ),
     )
