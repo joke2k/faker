@@ -116,7 +116,7 @@ class Provider(AddressProvider):
         'Päijät-Häme',
         'Satakunta',
         'Uusimaa',
-        'Varsinais-Suomi'
+        'Varsinais-Suomi',
     )
 
     street_suffixes = ('tie', 'katu', 'polku', 'kuja', 'bulevardi')
