@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.7.0 - 2021-06-11](https://github.com/joke2k/faker/compare/v8.6.0...v8.7.0)
+
+* Add tlds for ``th_TH`` internet provider. Thanks @bact.
+
 ### [v8.6.0 - 2021-06-07](https://github.com/joke2k/faker/compare/v8.5.1...v8.6.0)
 
 *  Add ``aba()`` method to generate ABA routing numbers. Thanks @mstellon.
