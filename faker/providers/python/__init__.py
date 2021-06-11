@@ -1,3 +1,4 @@
+import math
 import string
 import sys
 import warnings
@@ -69,10 +70,13 @@ class Provider(BaseProvider):
         if positive and min_value is not None and min_value <= 0:
             raise ValueError(
                 'Cannot combine positive=True with negative or zero min_value')
+        if left_digits is not None and max_value is not None and math.ceil(math.log10(max_value)) > left_digits:
+            raise ValueError('Max value must fit within left digits')
 
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
-            left_digits = self.random_int(1, sys.float_info.dig - 1)
+            needed_left_digits = max(1, math.ceil(math.log10(max(max_value or 1, min_value or 1))))
+            right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
 
         # If only one side is set, choose #digits for other side
         if (left_digits is None) ^ (right_digits is None):
@@ -90,6 +94,9 @@ class Provider(BaseProvider):
 
         sign = ''
         if (min_value is not None) or (max_value is not None):
+            # Make sure left_digits still respected
+            if max_value is None and left_digits is not None:
+                max_value = 10 ** left_digits  # minus smallest representable, adjusted later
             if max_value is not None and max_value < 0:
                 max_value += 1  # as the random_int will be generated up to max_value - 1
             if min_value is not None and min_value < 0:
@@ -107,6 +114,12 @@ class Provider(BaseProvider):
                 result = float('0.' + '0' * (right_digits - 1) + '1')
             else:
                 result += sys.float_info.epsilon
+
+        if right_digits:
+            result = min(result, 10 ** left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
+        else:
+            result = min(result, 10 ** left_digits - 1)
+
         return result
 
     def _safe_random_int(self, min_value, max_value, positive):
