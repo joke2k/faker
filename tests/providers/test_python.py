@@ -132,6 +132,16 @@ class TestPyfloat(unittest.TestCase):
             result = self.fake.pyfloat(min_value=min_value)
             self.assertGreaterEqual(result, min_value)
 
+    def test_min_value_and_left_digits(self):
+        """
+        Combining the min_value and left_digits keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pyfloat(left_digits=1, min_value=0)
+        self.assertLess(result, 10)
+        self.assertGreaterEqual(result, 0)
+
     def test_max_value(self):
         max_values = (0, 10, -1000, 1000, 999999)
 
