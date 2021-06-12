@@ -23,6 +23,7 @@ from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
+from faker.utils.checksums import luhn_checksum
 
 
 class TestAzAz:
@@ -58,6 +59,22 @@ class TestFiFi:
             company_id = faker.company_business_id()
             assert len(company_id) == 9
             assert self._has_valid_checksum(company_id)
+
+
+class TestFrFr:
+    """Test fr_FR company provider methods"""
+
+    def test_siren(self, faker, num_samples):
+        for _ in range(num_samples):
+            siren = faker.siren()
+            assert len(siren) == 11
+            assert luhn_checksum(siren.replace(" ", "")) == 0
+
+    def test_siret(self, faker, num_samples):
+        for _ in range(num_samples):
+            siret = faker.siret()
+            assert len(siret) == 17
+            assert luhn_checksum(siret.replace(" ", "")) == 0
 
 
 class TestHyAm:
