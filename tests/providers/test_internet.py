@@ -304,6 +304,10 @@ class TestInternetProvider:
         expected_domain = 'cqphixmpdfpptskr.com'
         assert faker.dga(day=1, month=1, year=1000, tld='com', length=16) == expected_domain
 
+    def test_iana_id(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert 1 <= int(faker.iana_id()) <= 8888888
+
 
 class TestInternetProviderUrl:
     """ Test internet url generation """
