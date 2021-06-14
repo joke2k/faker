@@ -563,3 +563,12 @@ class Provider(BaseProvider):
         height_ = height or self.random_int(max=1024)
         placeholder_url = self.random_element(self.image_placeholder_services)
         return placeholder_url.format(width=width_, height=height_)
+
+    def iana_id(self):
+        """Returns IANA Registrar ID
+        https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml
+
+        :rtype: str
+        """
+
+        return str(self.random_int(min=1, max=8888888))
