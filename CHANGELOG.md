@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.8.0 - 2021-06-14](https://github.com/joke2k/faker/compare/v8.7.0...v8.8.0)
+
+* Add ``iana_id``, IANA Registrar ID. Thanks @pishchalnikov.
+
 ### [v8.7.0 - 2021-06-11](https://github.com/joke2k/faker/compare/v8.6.0...v8.7.0)
 
 * Add tlds for ``th_TH`` internet provider. Thanks @bact.
