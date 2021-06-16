@@ -97,8 +97,12 @@ class Provider(BaseProvider):
         sign = ''
         if (min_value is not None) or (max_value is not None):
             # Make sure left_digits still respected
-            if max_value is None and left_digits is not None:
-                max_value = 10 ** left_digits  # minus smallest representable, adjusted later
+            if left_digits is not None:
+                if max_value is None:
+                    max_value = 10 ** left_digits  # minus smallest representable, adjusted later
+                if min_value is None:
+                    min_value = -(10 ** left_digits)  # plus smallest representable, adjusted later
+
             if max_value is not None and max_value < 0:
                 max_value += 1  # as the random_int will be generated up to max_value - 1
             if min_value is not None and min_value < 0:
@@ -119,8 +123,10 @@ class Provider(BaseProvider):
 
         if right_digits:
             result = min(result, 10 ** left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
+            result = max(result, -(10 ** left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
         else:
             result = min(result, 10 ** left_digits - 1)
+            result = max(result, -(10 ** left_digits + 1))
 
         return result
 
