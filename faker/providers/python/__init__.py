@@ -70,8 +70,10 @@ class Provider(BaseProvider):
         if positive and min_value is not None and min_value <= 0:
             raise ValueError(
                 'Cannot combine positive=True with negative or zero min_value')
-        if left_digits is not None and max_value is not None and math.ceil(math.log10(max_value)) > left_digits:
+        if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
             raise ValueError('Max value must fit within left digits')
+        if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
+            raise ValueError('Min value must fit within left digits')
 
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
