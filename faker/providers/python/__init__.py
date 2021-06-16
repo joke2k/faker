@@ -77,7 +77,7 @@ class Provider(BaseProvider):
 
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
-            needed_left_digits = max(1, math.ceil(math.log10(max(max_value or 1, min_value or 1))))
+            needed_left_digits = max(1, math.ceil(math.log10(max(abs(max_value or 1), abs(min_value or 1)))))
             right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
 
         # If only one side is set, choose #digits for other side

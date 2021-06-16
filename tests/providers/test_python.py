@@ -180,6 +180,17 @@ class TestPyfloat(unittest.TestCase):
         self.assertLessEqual(result, 100)
         self.assertGreater(result, 0)
 
+    def test_max_and_min_value_negative(self):
+        """
+        Combining the max_value and min_value keyword arguments with
+        negative values for each produces numbers that obey both of
+        those constraints.
+        """
+
+        result = self.fake.pyfloat(max_value=-100, min_value=-200)
+        self.assertLessEqual(result, -100)
+        self.assertGreaterEqual(result, -200)
+
     def test_positive_and_min_value_incompatible(self):
         """
         An exception should be raised if positive=True is set, but
