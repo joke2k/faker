@@ -1,7 +1,9 @@
 import re
 
 from calendar import timegm
-from datetime import MAXYEAR, date, datetime, timedelta
+from datetime import MAXYEAR
+from datetime import date as dtdate
+from datetime import datetime, timedelta
 
 from dateutil import relativedelta
 from dateutil.tz import gettz, tzlocal, tzutc
@@ -1542,7 +1544,7 @@ class Provider(BaseProvider):
 
     @classmethod
     def _parse_date_time(cls, value, tzinfo=None):
-        if isinstance(value, (datetime, date)):
+        if isinstance(value, (datetime, dtdate)):
             return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
@@ -1560,9 +1562,9 @@ class Provider(BaseProvider):
     def _parse_date(cls, value):
         if isinstance(value, datetime):
             return value.date()
-        elif isinstance(value, date):
+        elif isinstance(value, dtdate):
             return value
-        today = date.today()
+        today = dtdate.today()
         if isinstance(value, timedelta):
             return today + value
         if isinstance(value, str):
@@ -1850,9 +1852,9 @@ class Provider(BaseProvider):
         :example Date('2012-04-04')
         :return Date
         """
-        today = date.today()
-        this_century_start = date(today.year - (today.year % 100), 1, 1)
-        next_century_start = date(this_century_start.year + 100, 1, 1)
+        today = dtdate.today()
+        this_century_start = dtdate(today.year - (today.year % 100), 1, 1)
+        next_century_start = dtdate(this_century_start.year + 100, 1, 1)
 
         if before_today and after_today:
             return self.date_between_dates(
@@ -1873,9 +1875,9 @@ class Provider(BaseProvider):
         :example Date('2012-04-04')
         :return Date
         """
-        today = date.today()
-        this_decade_start = date(today.year - (today.year % 10), 1, 1)
-        next_decade_start = date(this_decade_start.year + 10, 1, 1)
+        today = dtdate.today()
+        this_decade_start = dtdate(today.year - (today.year % 10), 1, 1)
+        next_decade_start = dtdate(this_decade_start.year + 10, 1, 1)
 
         if before_today and after_today:
             return self.date_between_dates(this_decade_start, next_decade_start)
@@ -1895,9 +1897,9 @@ class Provider(BaseProvider):
         :example Date('2012-04-04')
         :return Date
         """
-        today = date.today()
+        today = dtdate.today()
         this_year_start = today.replace(month=1, day=1)
-        next_year_start = date(today.year + 1, 1, 1)
+        next_year_start = dtdate(today.year + 1, 1, 1)
 
         if before_today and after_today:
             return self.date_between_dates(this_year_start, next_year_start)
@@ -1918,7 +1920,7 @@ class Provider(BaseProvider):
         :example DateTime('2012-04-04 11:02:02')
         :return DateTime
         """
-        today = date.today()
+        today = dtdate.today()
         this_month_start = today.replace(day=1)
 
         next_month_start = this_month_start + \

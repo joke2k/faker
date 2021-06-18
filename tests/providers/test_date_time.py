@@ -83,6 +83,12 @@ class TestDateTime(unittest.TestCase):
         assert date <= end_date
         assert date >= start_date
 
+    def test_date(self):
+        date_format = '%Y-%m-%d'
+        date_string = self.fake.date(pattern=date_format)
+        assert isinstance(date_string, str)
+        assert isinstance(datetime.strptime(date_string, date_format), datetime)
+
     def test_day(self):
         day = self.fake.day_of_week()
         assert isinstance(day, str)
