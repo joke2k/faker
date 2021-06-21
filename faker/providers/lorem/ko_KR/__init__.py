@@ -5,8 +5,8 @@ class Provider(LoremProvider):
     """Implement lorem provider for ``ko_KR`` locale.
 
     Word list is based on the source(s) below.
-    Among the 6,000 words in the "Korean Learning Vocabulary" 
-    published by the National Institute of the Korean Language in December 2004, 
+    Among the 6,000 words in the "Korean Learning Vocabulary"
+    published by the National Institute of the Korean Language in December 2004,
     these are 5,888 basic words used frequently in Korean, excluding proper nouns.
 
     Sources:
