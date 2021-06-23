@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.8.2 - 2021-06-23](https://github.com/joke2k/faker/compare/v8.8.1...v8.8.2)
+
+* Avoid collision for ``date`` in ``datetime`` provider. Thanks @mattshin.
+
 ### [v8.8.1 - 2021-06-16](https://github.com/joke2k/faker/compare/v8.8.0...v8.8.1)
 
 * Fix ``left_digits`` ignored if ``min_value`` is given. Thanks @OJFord.q
