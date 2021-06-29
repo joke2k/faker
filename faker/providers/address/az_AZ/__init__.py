@@ -9,12 +9,13 @@ class Provider(AddressProvider):
     district_suffixes = ('rayonu', 'ray.')
     settlement_suffixes = ('qəsəbəsi', 'qəs.')
 
-    building_number_formats = ('#', '##', '###')
+    building_number_formats = ('#',)
+    house_number_formats = ('#', '##', '###')
     address_formats = (
-        '{{city}} {{city_suffix }}, {{street_name}} {{street_suffix}}, m. {{building_number}}',
-        '{{district}} {{district_suffix }}, {{street_name}} {{street_suffix}}, m. {{building_number}}',
-        '{{district}} {{district_suffix }}, {{village}} {{village_suffix}}, {{street_name}} {{street_suffix}}, m. {{building_number}}',
-        '{{district}} {{district_suffix }}, {{settlement}} {{settlement_suffix}}, {{street_name}} {{street_suffix}}, m. {{building_number}}',
+        '{{city}} {{city_suffix }}, {{street_name}} {{street_suffix}}, b. {{building_number}}, m. {{house_number}}',
+        '{{district}} {{district_suffix }}, {{street_name}} {{street_suffix}}, b. {{building_number}}, m. {{house_number}}',
+        '{{district}} {{district_suffix }}, {{village}} {{village_suffix}}, {{street_name}} {{street_suffix}}',
+        '{{district}} {{district_suffix }}, {{settlement}} {{settlement_suffix}}, {{street_name}} {{street_suffix}}, b. {{building_number}}, m. {{house_number}}',
     )
     street_name_formats = ('{{street}}',)
     cities = [
@@ -604,6 +605,12 @@ class Provider(AddressProvider):
         , 'Axundlu'
         , 'Məlikçobanli'
     ]
+
+    def house_number(self):
+        """
+        :example 'm. 49'
+        """
+        return self.numerify(self.random_element(self.house_number_formats))
 
     def city(self):
         """
