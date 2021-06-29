@@ -572,3 +572,14 @@ class Provider(BaseProvider):
         """
 
         return str(self.random_int(min=1, max=8888888))
+
+    def ripe_id(self):
+        """Returns RIPE Organization ID
+        https://www.ripe.net/manage-ips-and-asns/db/support/organisation-object-in-the-ripe-database
+
+        :rtype: str
+        """
+
+        lex = '?' * self.random_int(min=2, max=4)
+        num = '%' * self.random_int(min=1, max=5)
+        return self.bothify(f'ORG-{lex}{num}-RIPE').upper()

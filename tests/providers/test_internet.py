@@ -308,6 +308,11 @@ class TestInternetProvider:
         for _ in range(num_samples):
             assert 1 <= int(faker.iana_id()) <= 8888888
 
+    def test_ripe_id(self, faker, num_samples):
+        pattern = re.compile(r'^ORG-[A-Z]{2,4}[1-9]\d{0,4}-RIPE$')
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.ripe_id())
+
 
 class TestInternetProviderUrl:
     """ Test internet url generation """
