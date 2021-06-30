@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.9.0 - 2021-06-30](https://github.com/joke2k/faker/compare/v8.8.2...v8.9.0)
+
+* Add RIPE ID. Thanks @pishchalnikov.
+
 ### [v8.8.2 - 2021-06-23](https://github.com/joke2k/faker/compare/v8.8.1...v8.8.2)
 
 * Avoid collision for ``date`` in ``datetime`` provider. Thanks @mattshin.
