@@ -305,7 +305,7 @@ class Provider(BaseProvider):
             import PIL.Image
             import PIL.ImageDraw
         except ImportError:
-            raise UnsupportedFeature("`image` requires the `Pillow` python library.")
+            raise UnsupportedFeature("`image` requires the `Pillow` python library.", "image")
 
         (width, height) = size
         image = PIL.Image.new('RGB', size, self.generator.color(hue=hue, luminosity=luminosity))
