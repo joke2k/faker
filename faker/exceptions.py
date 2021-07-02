@@ -10,3 +10,6 @@ class UniquenessException(BaseFakerException):
 
 class UnsupportedFeature(BaseFakerException):
     """The requested feature is not available on this system."""
+    def __init__(self, msg, name):
+        self.name = name
+        super().__init__(msg)

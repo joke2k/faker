@@ -326,8 +326,10 @@ class TestMiscProvider:
 
     def test_image_no_pillow(self, faker):
         with patch.dict("sys.modules", {"PIL": None}):
-            with pytest.raises(exceptions.UnsupportedFeature):
+            with pytest.raises(exceptions.UnsupportedFeature) as excinfo:
                 faker.image()
+
+            assert excinfo.value.name == "image"
 
     def test_dsv_with_invalid_values(self, faker):
         with pytest.raises(ValueError):

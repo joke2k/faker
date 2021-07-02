@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, TextIO
 
-from faker import VERSION, Faker, documentor
+from faker import VERSION, Faker, documentor, exceptions
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 
 __author__ = 'joke2k'
@@ -86,8 +86,15 @@ def print_doc(provider_or_field=None,
 
     else:
         doc = documentor.Documentor(fake)
+        unsupported = []
 
-        formatters = doc.get_formatters(with_args=True, with_defaults=True)
+        while True:
+            try:
+                formatters = doc.get_formatters(with_args=True, with_defaults=True, excludes=unsupported)
+            except exceptions.UnsupportedFeature as e:
+                unsupported.append(e.name)
+            else:
+                break
 
         for provider, fakers in formatters:
 
@@ -104,7 +111,7 @@ def print_doc(provider_or_field=None,
 
             for p, fs in d.get_formatters(with_args=True, with_defaults=True,
                                           locale=language,
-                                          excludes=base_provider_formatters):
+                                          excludes=base_provider_formatters + unsupported):
                 print_provider(d, p, fs, output=output)
 
 
