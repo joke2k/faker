@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.9.1 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.9.0...v8.9.1)
+
+* Skip UnsupportedFeature's on the command line. Thanks @therefromhere.
+
 ### [v8.9.0 - 2021-06-30](https://github.com/joke2k/faker/compare/v8.8.2...v8.9.0)
 
 * Add RIPE ID. Thanks @pishchalnikov.
