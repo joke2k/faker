@@ -264,7 +264,7 @@ class TestArAe:
         r'600\d{6}|'
         r'800\d{3,7}'
     )
-    service_pattern = (
+    service_phone_pattern = (
         r'9(?:9(?:9|8|7|6|1)|01|22)'
     )
 
@@ -286,8 +286,8 @@ class TestArAe:
             toll = faker.toll_number()
             assert pattern.fullmatch(toll)
 
-    def test_service_number(self, faker, num_samples):
-        pattern = re.compile(self.service_pattern)
+    def test_service_phone_number(self, faker, num_samples):
+        pattern = re.compile(self.service_phone_pattern)
         for _ in range(num_samples):
             service = faker.service_phone_number()
             assert pattern.fullmatch(service)
@@ -297,7 +297,7 @@ class TestArAe:
             rf'{self.cellphone_pattern}|'
             rf'{self.telephone_pattern}|'
             rf'{self.toll_pattern}|'
-            rf'{self.service_pattern}',
+            rf'{self.service_phone_pattern}',
         )
         for _ in range(num_samples):
             phone = faker.phone_number()
