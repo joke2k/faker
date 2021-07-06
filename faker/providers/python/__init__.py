@@ -48,7 +48,7 @@ class Provider(BaseProvider):
             )
 
     def pystr_format(self, string_format='?#-###{{random_int}}{{random_letter}}', letters=string.ascii_letters):
-        return self.bothify(self.generator.parse(string_format), letters=letters)
+        return self.lexify(self.generator.parse(string_format), letters=letters)
 
     def pyfloat(self, left_digits=None, right_digits=None, positive=False,
                 min_value=None, max_value=None):
