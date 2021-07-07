@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v8.9.1 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.9.0...v8.9.1)
+### [v8.10.0 - 2021-07-07](https://github.com/joke2k/faker/compare/v8.9.1...v8.10.0)
+
+* Add ``ar_AE`` (UAE) phone numbers. Thanks @sshishov.
+
+### [v8.9.1 - 2021-07-02](https://github.com/joke2k/faker/compare/v8.9.0...v8.9.1)
 
 * Skip UnsupportedFeature's on the command line. Thanks @therefromhere.
 
