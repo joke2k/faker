@@ -60,6 +60,12 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+    
+    def realmd5(self):
+        lines = open('passlist.txt').read()
+        random_hash = random.choice(lines)
+        res = hashlib.md5(random_hash.encode('utf-8'))
+        return res.hexdigest()
 
     def sha1(self, raw_output=False):
         """Generate a random SHA1 hash.
