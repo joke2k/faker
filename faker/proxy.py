@@ -127,6 +127,9 @@ class Faker:
         }
         return result
 
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
     @property
     def unique(self):
         return self._unique_proxy
@@ -279,6 +282,16 @@ class UniqueProxy:
             return self._wrap(name, obj)
         else:
             raise TypeError("Accessing non-functions through .unique is not supported.")
+
+    def __getstate__(self):
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
 
     def _wrap(self, name, function):
         @functools.wraps(function)
