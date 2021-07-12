@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.10.1 - 2021-07-12](https://github.com/joke2k/faker/compare/v8.10.0...v8.10.1)
+
+* enable faker instances to be unpickled (#1480). Thanks @fcurella.
+
 ### [v8.10.0 - 2021-07-07](https://github.com/joke2k/faker/compare/v8.9.1...v8.10.0)
 
 * Add ``ar_AE`` (UAE) phone numbers. Thanks @sshishov.
