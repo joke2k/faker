@@ -1,4 +1,5 @@
 import copy
+import pickle
 import random
 
 from collections import OrderedDict
@@ -396,3 +397,8 @@ class TestFakerProxyClass:
         fake2 = copy.deepcopy(fake)
         assert fake.locales == fake2.locales
         assert fake.locales is not fake2.locales
+
+    def test_pickle(self):
+        fake = Faker()
+        pickled = pickle.dumps(fake)
+        pickle.loads(pickled)
