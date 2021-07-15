@@ -686,32 +686,33 @@ class Provider(PersonProvider):
                        'Abdullaoğlu', 'Muxtaroğlu', 'Bakıxanov', 'Nağıoğlu', 'Mirələmov', 'Ədiloğlu', 'Məcnunbəyov',
                        'Mirəhmədov', 'Qafarov', 'Səmədoğlu', 'Abbasov', 'Sədaqətoğlu', 'Əsgərov', 'Çingizoğlu',
                        'Fərəcov', 'Rövşənov', 'İbrahimov']
+
     last_names_female = ['Aslanova', 'İsmayılqızı', 'Səlimova', 'İbrahimova', 'Nəzirova', 'Əsgərova', 'Nəsibova',
                          'Şərifova', 'Bağırova', 'Anarqızı', 'Abdullayeva', 'Rəhmanova', 'Babayeva', 'Cəfərova',
                          'Sadıxova', 'Mürvətqızı', 'Kərimova', 'Nəbiqızı', 'Əmirova', 'Əfəndiyeva', 'Mahmudova',
                          'Abbasova', 'Axundova', 'Hüseynova', 'Musabəyova', 'Yusifqızı', 'Nərimanova', 'Əkbərova',
                          'Əliyeva', 'Ağayeva', 'Vəliyeva']
-    last_names_unisex = ['Şahbuzlu', 'Tağızadə', 'Məhərrəmoğlu', 'Aslanova', 'Əlləzoğlu', 'Səlimova', 'Əlibəyli',
-                         'İbrahimova', 'Baharlı', 'Nəzirova', 'Əsgərova', 'Nəsibova', 'Talıblı', 'Əlioğlu', 'Ələkbərli',
-                         'Abdullazadə', 'Şərifova', 'Çəmənzəminli', 'Hüseynoğlu', 'Atakişioğlu', 'İmanzadə', 'Nurəli',
-                         'Seyidbəyli', 'Şirvanzadə', 'Lətifxanlı', 'Şamiloğlu', 'Əbdülrəhmanlı', 'Cabbarlı',
+
+    last_names_unisex = ['Şahbuzlu', 'Tağızadə', 'Əlibəyli', 'Baharlı', 'Talıblı', 'Ələkbərli',
+                         'Abdullazadə', 'Çəmənzəminli', 'İmanzadə', 'Nurəli',
+                         'Seyidbəyli', 'Şirvanzadə', 'Lətifxanlı', 'Əbdülrəhmanlı', 'Cabbarlı',
                          'Cəfərzadə', 'Süleymanlı', 'Kərimli', 'Abbaszadə', 'Məhərrəmzadə', 'Tapdıqoğlu',
-                         'Məmmədquluzadə', 'Nəbibəyli', 'Məmmədxanlı', 'Qənizadə', 'Bağırova', 'Budaqlı', 'Hacızadə',
-                         'Nəsirli', 'Məhərrəmli', 'Əzimzadə', 'Makulu', 'Abdullayeva', 'Rəhmanova', 'İldırımoğlu',
-                         'Yusifzadə', 'Babayeva', 'Qutqaşınlı', 'Cəfərova', 'Rzaquluzadə', 'Nəzərli', 'Qurbanlı',
-                         'Qabiloğlu', 'Şeyxzadə', 'Qoşalı', 'Bəşiroğlu', 'Hüseynbəyli', 'Sadıxova', 'Məmmədzadə',
-                         'Əhmədli', 'Tahirzadə', 'Əlixanlı', 'Kərimova', 'Cuvarlı', 'Dağlı', 'Şahsuvarlı', 'Ağaoğlu',
-                         'İsaxanlı', 'Bünyadzadə', 'Əmirova', 'Həsənzadə', 'Əfəndiyeva', 'Turallı', 'Gəncəli',
-                         'Əfəndizadə', 'Məlikzadə', 'Qoçulu', 'Mahmudova', 'Cəfəroğlu', 'Arzulu', 'İbrahimoğlu',
-                         'Abbaslı', 'Arazlı', 'Sultanlı', 'Vəziroğlu', 'Abbasova', 'Musaxanlı', 'Yusifoğlu', 'Nəbioğlu',
-                         'Fikrətoğlu', 'Qarabağlı', 'İdrisoğlu', 'Axundova', 'Elatlı', 'Salamoğlu', 'Əhmədzadə',
-                         'Rəsulzadə', 'Vəfalı', 'Əlizadə', 'Səfərli', 'Hüseynova', 'Məmmədli', 'Əsgəroğlu', 'Uğurlu',
-                         'Musabəyova', 'Vəlioğlu', 'Şükürlü', 'Şıxlı', 'Muğanlı', 'Eyvazlı', 'Nərimanova', 'Əylisli',
-                         'Vilayətoğlu', 'Qəhrəmanlı', 'Əkbərova', 'Abdullaoğlu', 'Muxtaroğlu', 'Köçərli', 'Musazadə',
-                         'Sədalı', 'Nağıoğlu', 'Təhmasibli', 'Eyvazalı', 'Ədiloğlu', 'Kərimzadə', 'Babanlı', 'Veysəlli',
-                         'Səmədoğlu', 'Dəmirbəyli', 'Tapdıqlı', 'Əliyeva', 'Ağayeva', 'Sədaqətoğlu', 'Nəzirli',
-                         'Rəhimli', 'Seyidzadə', 'Çingizoğlu', 'Axundzadə', 'İsabəyli', 'Çəmənli', 'Heydərli',
-                         'Qədirzadə', 'Hacıbəyli', 'Qafurbəyli', 'Əmirli', 'Vəliyeva', 'Ələkbərzadə']
+                         'Məmmədquluzadə', 'Nəbibəyli', 'Məmmədxanlı', 'Qənizadə', 'Budaqlı', 'Hacızadə',
+                         'Nəsirli', 'Məhərrəmli', 'Əzimzadə', 'Makulu',
+                         'Yusifzadə', 'Qutqaşınlı', 'Rzaquluzadə', 'Nəzərli', 'Qurbanlı',
+                         'Şeyxzadə', 'Qoşalı', 'Hüseynbəyli', 'Məmmədzadə',
+                         'Əhmədli', 'Tahirzadə', 'Əlixanlı', 'Cuvarlı', 'Dağlı', 'Şahsuvarlı',
+                         'İsaxanlı', 'Bünyadzadə', 'Həsənzadə', 'Turallı', 'Gəncəli',
+                         'Əfəndizadə', 'Məlikzadə', 'Qoçulu', 'Arzulu', 'İbrahimli',
+                         'Abbaslı', 'Arazlı', 'Sultanlı', 'Vəziroğlu', 'Musaxanlı', 'Nəbioğlu', 'Qarabağlı', 'İdrisli',
+                         'Axundlu', 'Elatlı', 'Salamoğlu', 'Əhmədzadə',
+                         'Rəsulzadə', 'Vəfalı', 'Əlizadə', 'Səfərli', 'Hüseynli', 'Məmmədli', 'Əsgərli', 'Uğurlu',
+                         'Vəlizadə', 'Şükürlü', 'Şıxlı', 'Muğanlı', 'Eyvazlı', 'Əylisli', 'Qəhrəmanlı', 'Əkbərzadə',
+                         'Köçərli', 'Musazadə',
+                         'Sədalı', 'Təhmasibli', 'Eyvazalı', 'Kərimzadə', 'Babanlı', 'Veysəlli', 'Dəmirbəyli',
+                         'Tapdıqlı', 'Nəzirli',
+                         'Rəhimli', 'Seyidzadə', 'Axundzadə', 'İsabəyli', 'Çəmənli', 'Heydərli',
+                         'Qədirzadə', 'Hacıbəyli', 'Qafurbəyli', 'Əmirli', 'Ələkbərzadə']
     prefixes_female = ('Xanım',)
     prefixes_male = ('Cənab', 'Bəy', 'Müəllim')
 
