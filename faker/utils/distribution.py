@@ -61,7 +61,7 @@ def choices_distribution(
 
     if hasattr(random, 'choices'):
         if length == 1 and p is None:
-            return (random.choice(a),)
+            return [random.choice(a)]
         else:
             return random.choices(a, weights=p, k=length)
     else:
