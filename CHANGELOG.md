@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.10.2 - 2021-07-23](https://github.com/joke2k/faker/compare/v8.10.1...v8.10.2)
+
+* Return list instead of tuple in ``choices_distribution``. Thanks @svisser.
+
 ### [v8.10.1 - 2021-07-12](https://github.com/joke2k/faker/compare/v8.10.0...v8.10.1)
 
 * enable faker instances to be unpickled (#1480). Thanks @fcurella.
