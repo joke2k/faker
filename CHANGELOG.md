@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.10.3 - 2021-07-26](https://github.com/joke2k/faker/compare/v8.10.2...v8.10.3)
+
+* Remove potentially offensive surname in ``it_IT``. Thanks @lordgordon.
+
 ### [v8.10.2 - 2021-07-23](https://github.com/joke2k/faker/compare/v8.10.1...v8.10.2)
 
 * Return list instead of tuple in ``choices_distribution``. Thanks @svisser.
