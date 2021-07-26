@@ -243,7 +243,7 @@ class Provider(PersonProvider):
         'Sokolov', 'Solari', 'Solimena', 'Sollima', 'Sommaruga', 'Sonnino', 'Soprano',
         'Soranzo', 'Sordi', 'Sorrentino', 'Spadafora', 'Spallanzani', 'Spanevello', 'Speri',
         'Spinelli', 'Spinola', 'Squarcione', 'Sraffa', 'Staglieno', 'Stefanelli', 'Stein',
-        'Stoppani', 'Storladi', 'Stradivari', 'Strangio', 'Stucchi', 'Surian', 'T',
+        'Stoppani', 'Storladi', 'Stradivari', 'Strangio', 'Stucchi', 'Surian',
         'Tacchini', 'Taccola', 'Tafuri', 'Tagliafierro', 'Taliani', 'Taliercio', 'Tamborini',
         'Tamburello', 'Tamburi', 'Tamburini', 'Tanzini', 'Tarantini', 'Tarantino', 'Tarchetti',
         'Tartaglia', 'Tartini', 'Tasca', 'Tasso', 'Tassoni', 'Tebaldi', 'Tedesco', 'Telesio',
