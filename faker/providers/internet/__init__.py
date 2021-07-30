@@ -583,3 +583,25 @@ class Provider(BaseProvider):
         lex = '?' * self.random_int(min=2, max=4)
         num = '%' * self.random_int(min=1, max=5)
         return self.bothify(f'ORG-{lex}{num}-RIPE').upper()
+
+    def nic_handle(self, suffix='FAKE'):
+        """Returns NIC Handle ID
+        https://www.apnic.net/manage-ip/using-whois/guide/person/
+
+        :rtype: str
+        """
+
+        if len(suffix) < 2:
+            raise ValueError('suffix length must be greater than or equal to 2')
+
+        lex = '?' * self.random_int(min=2, max=4)
+        num = '%' * self.random_int(min=1, max=5)
+        return self.bothify(f'{lex}{num}-{suffix}').upper()
+
+    def nic_handles(self, count=1, suffix='????'):
+        """Returns NIC Handle ID list
+
+        :rtype: list[str]
+        """
+
+        return [self.nic_handle(suffix=suffix) for _ in range(count)]

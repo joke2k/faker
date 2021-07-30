@@ -313,6 +313,21 @@ class TestInternetProvider:
         for _ in range(num_samples):
             assert pattern.fullmatch(faker.ripe_id())
 
+    def test_nic_handles(self, faker, num_samples):
+        pattern = re.compile(r'^[A-Z]{2,4}[1-9]\d{0,4}-[A-Z]*')
+        for _ in range(num_samples):
+            nhs = faker.nic_handles()
+            for nh in nhs:
+                assert pattern.fullmatch(nh)
+
+        nhs = faker.nic_handles(suffix='??', count=num_samples)
+        assert len(nhs) == num_samples
+        for nh in nhs:
+            assert pattern.fullmatch(nh)
+
+        with pytest.raises(ValueError):
+            faker.nic_handles(suffix='')
+
 
 class TestInternetProviderUrl:
     """ Test internet url generation """
