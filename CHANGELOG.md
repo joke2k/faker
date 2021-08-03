@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.11.0 - 2021-08-03](https://github.com/joke2k/faker/compare/v8.10.3...v8.11.0)
+
+*  Add ``nic_handle``. Thanks @pishchalnikov.
+
 ### [v8.10.3 - 2021-07-26](https://github.com/joke2k/faker/compare/v8.10.2...v8.10.3)
 
 * Remove potentially offensive surname in ``it_IT``. Thanks @lordgordon.
