@@ -14,6 +14,7 @@ from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
+from faker.providers.internet.ru_RU import Provider as RuRuInternetProvider
 from faker.providers.internet.th_TH import Provider as ThThInternetProvider
 from faker.providers.internet.zh_CN import Provider as ZhCnInternetProvider
 from faker.providers.person.ja_JP import Provider as JaPersonProvider
@@ -689,6 +690,43 @@ class TestRoRo:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in PlPlInternetProvider.tlds
+
+
+class TestRuRu:
+    """Test ru_RU internet provider methods"""
+
+    def test_free_email_domain(self, faker):
+        assert faker.free_email_domain() in RuRuInternetProvider.free_email_domains
+
+    def test_tld(self, faker):
+        assert faker.tld() in RuRuInternetProvider.tlds
+
+    @patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'ИванИванов',
+    )
+    def test_ascii_safe_email(self, faker):
+        email = faker.ascii_safe_email()
+        validate_email(email)
+        assert email.split('@')[0] == 'ivanivanov'
+
+    @patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'АлександрСмирнов',
+    )
+    def test_ascii_free_email(self, faker):
+        email = faker.ascii_free_email()
+        validate_email(email)
+        assert email.split('@')[0] == 'aleksandrsmirnov'
+
+    @patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'СергейКузнецов',
+    )
+    def test_ascii_company_email(self, faker):
+        email = faker.ascii_company_email()
+        validate_email(email)
+        assert email.split('@')[0] == 'sergekuznetsov'
 
 
 class TestThTh:
