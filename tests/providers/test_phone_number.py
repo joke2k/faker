@@ -37,7 +37,8 @@ class TestPtBr:
         pattern = re.compile(
             r'(?:\+55 )?'
             r'(?:[1-8]1|84|\((?:0[1-8]1|084)\))'
-            r' \d{4}[ -]\d{4}',
+            r' \d{4}[ -]\d{4}|'
+            r'\d{4}?[ -]\d{3}[ -]\d{4}',
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
@@ -58,6 +59,12 @@ class TestPtBr:
         for _ in range(num_samples):
             cellphone = faker.cellphone_number()
             assert pattern.fullmatch(cellphone)
+
+    def test_service_phone(self, faker, num_samples):
+        pattern = re.compile(r'1(?:0|2|5|8|9)?(?:[0-9])')
+        for _ in range(num_samples):
+            service = faker.service_phone_number()
+            assert pattern.fullmatch(service)
 
 
 class TestHuHu:
