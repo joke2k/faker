@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v8.12.0 - 2021-08-20](https://github.com/joke2k/faker/compare/v8.11.0...v8.12.0)
+
+* Added non-geo numbers and services phones format for ``pt_BR``. Thanks @leogregianin.
+* Add datetime formats in ``pt_BR``. Thanks @leogregianin.
+* Add currency formats in ``pt_BR``. Thanks @leogregianin.
+
 ### [v8.11.0 - 2021-08-03](https://github.com/joke2k/faker/compare/v8.10.3...v8.11.0)
 
 *  Add ``nic_handle``. Thanks @pishchalnikov.
