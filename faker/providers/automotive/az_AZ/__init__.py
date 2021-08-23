@@ -1,5 +1,5 @@
-from .. import Provider as AutoProvider
 import re
+from .. import Provider as AutoProvider
 
 
 class Provider(AutoProvider):
