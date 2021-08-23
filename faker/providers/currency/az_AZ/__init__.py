@@ -52,7 +52,6 @@ class Provider(CurrencyProvider):
         ('JOD', 'İordaniya dinarı'), ('IRR', 'İran rialı'), ('IQD', 'İraq dinarı'), ('ISK', 'İslandiya kronası'),
         ('SEK', 'İsveç kronu'), ('CHF', 'İsveçrə frankı'), ('KPW', 'Şimali Koreya vonası'), ('LKR', 'Şri-Lanka rupisi'),
         ('XCD', 'Şərqi Karib dolları'), ('AFN', 'Əfqanıstan əfqanisi'), ('DZD', 'Əlcəzair dinarı')
-
     )
 
     price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
