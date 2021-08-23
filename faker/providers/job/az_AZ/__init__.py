@@ -29,7 +29,7 @@ class Provider(BaseProvider):
         "Cərrah",
         "DJ",
         "Dalğıc",
-        "Daşçı"
+        "Daşçı",
         "Dekan",
         "Dermatoloq",
         "Diler",
@@ -89,7 +89,7 @@ class Provider(BaseProvider):
         "Tarixçi",
         "Torpaqçı",
         "Təcili yardım həkimi",
-        "Təhlükəsizlik Mühəndisi"
+        "Təhlükəsizlik Mühəndisi",
         "Təmizlikçi",
         "Təxribatçı",
         "Uçuş mühəndisi",
@@ -106,7 +106,7 @@ class Provider(BaseProvider):
         "Çörəkçi",
         "İmmunoloq",
         "İnfeksionist",
-        "İnşaat mühəndisi"
+        "İnşaat mühəndisi",
         "İşsiz",
-        "Şərqşünas"
+        "Şərqşünas",
     ]

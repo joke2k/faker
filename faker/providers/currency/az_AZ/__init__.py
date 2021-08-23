@@ -51,7 +51,7 @@ class Provider(CurrencyProvider):
         ('CLP', 'Çili pesosu'), ('CNY', 'Çin yuanı'), ('UZS', 'Özbək somu'), ('IDR', 'İndoneziya rupiası'),
         ('JOD', 'İordaniya dinarı'), ('IRR', 'İran rialı'), ('IQD', 'İraq dinarı'), ('ISK', 'İslandiya kronası'),
         ('SEK', 'İsveç kronu'), ('CHF', 'İsveçrə frankı'), ('KPW', 'Şimali Koreya vonası'), ('LKR', 'Şri-Lanka rupisi'),
-        ('XCD', 'Şərqi Karib dolları'), ('AFN', 'Əfqanıstan əfqanisi'), ('DZD', 'Əlcəzair dinarı')
+        ('XCD', 'Şərqi Karib dolları'), ('AFN', 'Əfqanıstan əfqanisi'), ('DZD', 'Əlcəzair dinarı'),
     )
 
     price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]

@@ -25,7 +25,7 @@ class Provider(InternetProvider):
         'mail.ru',
         'yandex.ru',
         'box.az',
-        'amail.az',)
+        'amail.az')
 
     tlds = ('az', 'com', 'biz', 'info', 'net', 'org', 'edu')
 
