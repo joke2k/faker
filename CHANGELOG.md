@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.12.1 - 2021-08-24](https://github.com/joke2k/faker/compare/v8.12.0...v8.12.1)
+
+* Add missing diacritics in ``fr_FR`` ``person`` provider. Thanks @laowantong.
+
 ### [v8.12.0 - 2021-08-20](https://github.com/joke2k/faker/compare/v8.11.0...v8.12.0)
 
 * Added non-geo numbers and services phones format for ``pt_BR``. Thanks @leogregianin.
