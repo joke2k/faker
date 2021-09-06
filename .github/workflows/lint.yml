@@ -2,8 +2,11 @@ name: Python Lint
 
 on:
   push:
-    tags-ignore:
-      - "*"
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   lint:
