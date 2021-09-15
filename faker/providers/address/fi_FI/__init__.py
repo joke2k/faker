@@ -95,25 +95,28 @@ class Provider(AddressProvider):
         'Yhdistynyt kuningaskunta', 'Yhdysvallat', 'Zimbabwe',
     )
 
+    # Data from Finnish legislation:
+    # https://www.finlex.fi/fi/laki/alkup/2019/20190978
     states = (
-        'Turun ja Porin lääni', 'Uudenmaan ja Hämeen lääni', 'Pohjanmaan lääni',
-        'Viipurin ja Savonlinnan lääni', 'Käkisalmen lääni',
-        'Savonlinnan ja Kymenkartanon lääni', 'Kymenkartanon ja Savon lääni',
-        'Vaasan lääni', 'Oulun lääni', 'Kymenkartanon lääni',
-        'Savon ja Karjalan lääni', 'Viipurin lääni', 'Uudenmaan lääni',
-        'Hämeen lääni', 'Mikkelin lääni', 'Kuopion lääni', 'Ahvenanmaan lääni',
-        'Petsamon lääni', 'Lapin lääni', 'Kymen lääni', 'Keski-Suomen lääni',
-        'Pohjois-Karjalan lääni', 'Etelä-Suomen lääni', 'Länsi-Suomen lääni',
-        'Itä-Suomen lääni', '', 'Turun ja Porin lääni',
-        'Uudenmaan ja Hämeen lääni', 'Pohjanmaan lääni',
-        'Viipurin ja Savonlinnan lääni', 'Käkisalmen lääni',
-        'Savonlinnan ja Kymenkartanon lääni', 'Kymenkartanon ja Savon lääni',
-        'Vaasan lääni', 'Oulun lääni', 'Kymenkartanon lääni',
-        'Savon ja Karjalan lääni', 'Viipurin lääni', 'Uudenmaan lääni',
-        'Hämeen lääni', 'Mikkelin lääni', 'Kuopion lääni', 'Ahvenanmaan lääni',
-        'Petsamon lääni', 'Lapin lääni', 'Kymen lääni', 'Keski-Suomen lääni',
-        'Pohjois-Karjalan lääni', 'Etelä-Suomen lääni', 'Länsi-Suomen lääni',
-        'Itä-Suomen lääni',
+        'Ahvenanmaa',
+        'Etelä-Karjala',
+        'Etelä-Pohjanmaa',
+        'Etelä-Savo',
+        'Kainuu',
+        'Kanta-Häme',
+        'Keski-Pohjanmaa',
+        'Keski-Suomi',
+        'Kymenlaakso',
+        'Lappi',
+        'Pirkanmaa',
+        'Pohjanmaa',
+        'Pohjois-Karjala',
+        'Pohjois-Pohjanmaa',
+        'Pohjois-Savo',
+        'Päijät-Häme',
+        'Satakunta',
+        'Uusimaa',
+        'Varsinais-Suomi',
     )
 
     street_suffixes = ('tie', 'katu', 'polku', 'kuja', 'bulevardi')
