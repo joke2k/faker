@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.12.3 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.2...v8.12.3)
+
+* Fix missing underscores in ``mac_platform_token``. Thanks @iamkeyur.
+
 ### [v8.12.2 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.1...v8.12.2)
 
 *  Remove period/fullstop from ``en_GB`` prefixes. Thanks @stephengruppetta.
