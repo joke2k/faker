@@ -120,8 +120,9 @@ class Command:
     def __init__(self, argv=None) -> None:
         self.argv = argv or sys.argv[:]
         self.prog_name = Path(self.argv[0]).name
+        self.parser = self.create_parser()
 
-    def execute(self) -> None:
+    def create_parser(self) -> None:
         """
         Given the command-line arguments, this creates a parser appropriate
         to that command, and runs it.
@@ -233,7 +234,10 @@ examples:
                                  "list of comma separated field names as the "
                                  "first argument)")
 
-        arguments = parser.parse_args(self.argv[1:])
+        return parser       
+
+    def execute(self) -> None:
+        arguments = self.parser.parse_args(self.argv[1:]) 
 
         if arguments.verbose:
             logging.basicConfig(level=logging.DEBUG)
@@ -260,16 +264,29 @@ examples:
 
 
 def execute_from_command_line(argv=None) -> None:
-    """A simple method that runs a Command."""
-    if sys.stdout.encoding is None:
-        print('please set python env PYTHONIOENCODING=UTF-8, example: '
-              'export PYTHONIOENCODING=UTF-8, when writing to stdout',
-              file=sys.stderr)
-        exit(1)
+    try: 
+        """A simple method that runs a Command."""
+        if sys.stdout.encoding is None:
+            print('please set python env PYTHONIOENCODING=UTF-8, example: '
+                'export PYTHONIOENCODING=UTF-8, when writing to stdout',
+                file=sys.stderr)
+            exit(1)
 
-    command = Command(argv)
-    command.execute()
+        command = Command(argv)
+        argv = argv or sys.argv[:]
+        if len(argv) < 2:
+            print("Please provide a command or type '?' or  'help'")
+            sys.exit(1)
+        elif argv[1] == 'help' or argv[1] == '?':
+            command.parser.print_help()
+        else:
+            command.execute()
 
+        sys.stdout.flush()
+    except BrokenPipeError:
+        devnull = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(devnull, sys.stdout.fileno())
+        sys.exit(1)
 
 if __name__ == '__main__':
     execute_from_command_line()
