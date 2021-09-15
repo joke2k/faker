@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.13.2 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.13.1...v8.13.2)
+
+* Fixed: region_codes for bic must have 9 digits. Thanks @MikeVL.
+
 ### [v8.13.1 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.13.0...v8.13.1)
 
 * Change ``fi_FI`` Provinces to Regions. Thanks @LKajan.
