@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.13.0 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.3...v8.13.0)
+
+* ``uk_UA`` address provider - fix streets and cities names, added regions. Thanks @o-vasyliev.
+
 ### [v8.12.3 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.2...v8.12.3)
 
 * Fix missing underscores in ``mac_platform_token``. Thanks @iamkeyur.
