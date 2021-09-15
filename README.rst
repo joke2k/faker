@@ -106,7 +106,7 @@ Localization
 
 ``faker.Faker`` can take a locale as an argument, to return localized
 data. If no localized provider is found, the factory falls back to the
-default LCID string for US english, viz en\_US.
+default LCID string for US english, ie: ``en_US``.
 
 .. code:: python
 
