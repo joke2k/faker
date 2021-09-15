@@ -20,7 +20,7 @@ class TestUserAgentProvider:
             match = self.ios_token_pattern.fullmatch(faker.ios_platform_token())
             assert match.group('apple_device') in UaProvider.apple_devices
             assert match.group('ios_version').replace('_', '.') in UaProvider.ios_versions
-    
+
     def test_mac_platform_token(self, faker, num_samples):
         for _ in range(num_samples):
             match = self.mac_token_pattern.fullmatch(faker.mac_platform_token())
