@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.13.1 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.13.0...v8.13.1)
+
+* Change ``fi_FI`` Provinces to Regions. Thanks @LKajan.
+
 ### [v8.13.0 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.3...v8.13.0)
 
 * ``uk_UA`` address provider - fix streets and cities names, added regions. Thanks @o-vasyliev.
