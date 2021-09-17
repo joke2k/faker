@@ -275,9 +275,9 @@ def execute_from_command_line(argv=None) -> None:
         command = Command(argv)
         argv = argv or sys.argv[:]
         if len(argv) < 2:
-            print("Please provide a command or type '?' or  'help'")
+            print("Please use a provider or type '?' for help")
             sys.exit(1)
-        elif argv[1] == 'help' or argv[1] == '?':
+        elif argv[1] == '?':
             command.parser.print_help()
         else:
             command.execute()
