@@ -18,6 +18,7 @@ from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
+from faker.providers.date_time.bn_BD import Provider as BnBdProvider
 from faker.providers.date_time.cs_CZ import Provider as CsCzProvider
 from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
@@ -1147,3 +1148,18 @@ class TestRoRo(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in RoRoProvider.MONTH_NAMES.values()
+
+
+class TestBnBd(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('bn_BD')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in BnBdProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in BnBdProvider.MONTH_NAMES.values()
