@@ -678,4 +678,14 @@ class Provider(AddressProvider):
         """
         :example 'Xankəndi'
         """
-        return self.random_element(self.districts+self.cities)
+        return self.random_element(self.districts + self.cities)
+
+    def postcode(self):
+        """
+        :example 'AZ1027'
+        """
+        index = self.generator.random.randint(900, 6600)
+        return "AZ%04d" % index if index > 999 else "AZ0%03d" % index
+
+    def postalcode(self):
+        return self.postcode()
