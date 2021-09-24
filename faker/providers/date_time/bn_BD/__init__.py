@@ -1,7 +1,7 @@
 from .. import Provider as DateTimeProvider
 
 
-class Provider(DateTimeProvider):    
+class Provider(DateTimeProvider):
 
     DAY_NAMES = {
         "0": "রবিবার",
