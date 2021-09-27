@@ -21,6 +21,10 @@ class _SimpleAutomotiveTestMixin:
             assert match
             self.perform_extra_checks(license_plate, match)
 
+class TestAzAz(_SimpleAutomotiveTestMixin):
+    """Test az_AZ automotive provider methods"""
+    license_plate_pattern = re.compile(r'\d{2}-[A-Z]{2}-\d{3}')
+
 
 class TestSkSk(_SimpleAutomotiveTestMixin):
     """Test sk_SK automotive provider methods"""

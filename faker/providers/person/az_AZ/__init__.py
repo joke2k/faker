@@ -713,15 +713,24 @@ class Provider(PersonProvider):
                          'Tapdıqlı', 'Nəzirli',
                          'Rəhimli', 'Seyidzadə', 'Axundzadə', 'İsabəyli', 'Çəmənli', 'Heydərli',
                          'Qədirzadə', 'Hacıbəyli', 'Qafurbəyli', 'Əmirli', 'Ələkbərzadə']
+
+    last_names = last_names_male+last_names_female+last_names_unisex
+
     prefixes_female = ('Xanım',)
     prefixes_male = ('Cənab', 'Bəy', 'Müəllim')
 
     prefixes = prefixes_female + prefixes_male
 
     def last_name_male(self):
+        return self.random_element(self.last_names_male+self.last_names_unisex)
+
+    def last_name_unique_to_male(self):
         return self.random_element(self.last_names_male)
 
     def last_name_female(self):
+        return self.random_element(self.last_names_female+self.last_names_unisex)
+
+    def last_name_unique_to_female(self):
         return self.random_element(self.last_names_female)
 
     def last_name_unisex(self):

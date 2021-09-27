@@ -28,18 +28,13 @@ class Provider(PhoneNumberProvider):
         return self.random_element(self.provider_codes)
 
     def area_code(self):
-        return self.random_element([
-            '00972',
-            '+972',
-            '00970',
-            '+970',
-        ])
+        return self.random_element(self.area_codes)
 
     def cellphone_number(self):
         pattern = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def telephone_number(self):
+    def landline_number(self):
         pattern = self.random_element(self.telephone_formats)
         return self.numerify(self.generator.parse(pattern))
 

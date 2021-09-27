@@ -89,7 +89,6 @@ class Provider(LoremProvider):
         "iş",
         "hissə",
         "almaq",
-        "almaq",
         "yer",
         "etdi",
         "yaşamaq",
