@@ -19,6 +19,7 @@ from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.az_AZ import Provider as AzAzProvider
+from faker.providers.date_time.bn_BD import Provider as BnBdProvider
 from faker.providers.date_time.cs_CZ import Provider as CsCzProvider
 from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
@@ -26,6 +27,7 @@ from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
+from faker.providers.date_time.pt_BR import Provider as PtBrProvider
 from faker.providers.date_time.pt_PT import Provider as PtPtProvider
 from faker.providers.date_time.ro_RO import Provider as RoRoProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
@@ -83,6 +85,12 @@ class TestDateTime(unittest.TestCase):
     def assertBetween(self, date, start_date, end_date):
         assert date <= end_date
         assert date >= start_date
+
+    def test_date(self):
+        date_format = '%Y-%m-%d'
+        date_string = self.fake.date(pattern=date_format)
+        assert isinstance(date_string, str)
+        assert isinstance(datetime.strptime(date_string, date_format), datetime)
 
     def test_day(self):
         day = self.fake.day_of_week()
@@ -1114,6 +1122,21 @@ class TestTrTr(unittest.TestCase):
         assert month in TrTrProvider.MONTH_NAMES.values()
 
 
+class TestPtBr(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('pt_BR')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PtBrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PtBrProvider.MONTH_NAMES.values()
+
+
 class TestPtPt(unittest.TestCase):
 
     def setUp(self):
@@ -1142,3 +1165,18 @@ class TestRoRo(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in RoRoProvider.MONTH_NAMES.values()
+
+
+class TestBnBd(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker('bn_BD')
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in BnBdProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in BnBdProvider.MONTH_NAMES.values()

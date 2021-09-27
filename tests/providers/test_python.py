@@ -132,12 +132,32 @@ class TestPyfloat(unittest.TestCase):
             result = self.fake.pyfloat(min_value=min_value)
             self.assertGreaterEqual(result, min_value)
 
+    def test_min_value_and_left_digits(self):
+        """
+        Combining the min_value and left_digits keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pyfloat(left_digits=1, min_value=0)
+        self.assertLess(result, 10)
+        self.assertGreaterEqual(result, 0)
+
     def test_max_value(self):
         max_values = (0, 10, -1000, 1000, 999999)
 
         for max_value in max_values:
             result = self.fake.pyfloat(max_value=max_value)
             self.assertLessEqual(result, max_value)
+
+    def test_max_value_zero_and_left_digits(self):
+        """
+        Combining the max_value and left_digits keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pyfloat(left_digits=2, max_value=0)
+        self.assertLessEqual(result, 0)
+        self.assertGreater(result, -100)
 
     def test_max_value_should_be_greater_than_min_value(self):
         """
@@ -159,6 +179,17 @@ class TestPyfloat(unittest.TestCase):
         result = self.fake.pyfloat(positive=True, max_value=100)
         self.assertLessEqual(result, 100)
         self.assertGreater(result, 0)
+
+    def test_max_and_min_value_negative(self):
+        """
+        Combining the max_value and min_value keyword arguments with
+        negative values for each produces numbers that obey both of
+        those constraints.
+        """
+
+        result = self.fake.pyfloat(max_value=-100, min_value=-200)
+        self.assertLessEqual(result, -100)
+        self.assertGreaterEqual(result, -200)
 
     def test_positive_and_min_value_incompatible(self):
         """

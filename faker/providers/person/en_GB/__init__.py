@@ -588,5 +588,5 @@ class Provider(PersonProvider):
         ('Watkins', 0.06),
     ))
 
-    prefixes_female = ('Mrs.', 'Ms.', 'Miss', 'Dr.')
-    prefixes_male = ('Mr.', 'Dr.')
+    prefixes_female = ('Mrs', 'Ms', 'Miss', 'Dr')
+    prefixes_male = ('Mr', 'Dr')

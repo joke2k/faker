@@ -1,6 +1,7 @@
 import re
 import string
 
+from math import ceil
 from string import ascii_uppercase
 
 from .. import BaseProvider
@@ -28,6 +29,19 @@ class Provider(BaseProvider):
     ALPHA = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
     bban_format = '????#############'
     country_code = 'GB'
+
+    def aba(self):
+        """Generate an ABA routing transit number."""
+        fed_num = self.random_int(min=1, max=12)
+        rand = self.numerify('######')
+        aba = f"{fed_num:02}{rand}"
+
+        # calculate check digit
+        d = [int(n) for n in aba]
+        chk_digit = 3*(d[0] + d[3] + d[6]) + 7*(d[1] + d[4] + d[7]) + d[2] + d[5]
+        chk_digit = ceil(chk_digit/10)*10 - chk_digit
+
+        return f"{aba}{chk_digit}"
 
     def bank_country(self):
         """Generate the bank provider's ISO 3166-1 alpha-2 country code."""
