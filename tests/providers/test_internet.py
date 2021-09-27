@@ -10,6 +10,7 @@ from validators import domain as validate_domain
 from validators import email as validate_email
 
 from faker.providers.internet import Provider as InternetProvider
+from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
@@ -582,6 +583,24 @@ class TestArAa:
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
 
+class TestAzAz:
+    """Test az_AZ internet provider methods"""
+    @patch(
+        'faker.providers.internet.Provider.user_name',
+    lambda x: 'AğamüşviqƏlövsətov',
+    )
+    def test_ascii_free_email(self, faker):
+        email = faker.ascii_free_email()
+        validate_email(email)
+        assert email.split('@')[0] == 'agamushviqelovsetov'
+
+    def test_free_email_domain(self, faker):
+        domain = faker.free_email_domain()
+        assert domain in AzAzInternetProvider.free_email_domains
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in AzAzInternetProvider.tlds
 
 class TestPtBr:
     """Test pt_BR internet provider methods"""
