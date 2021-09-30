@@ -23,7 +23,7 @@ from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
 
 class TestAzAz:
-    """Test nl_NL company provider methods"""
+    """Test az_AZ company provider methods"""
 
     def test_company_suffix(self, faker, num_samples):
         for _ in range(num_samples):
