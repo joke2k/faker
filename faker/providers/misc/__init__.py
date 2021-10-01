@@ -8,6 +8,8 @@ import tarfile
 import uuid
 import zipfile
 
+from faker.exceptions import UnsupportedFeature
+
 from .. import BaseProvider
 
 localized = True
@@ -280,6 +282,46 @@ class Provider(BaseProvider):
                 tar_handle.addfile(tarinfo, file_buffer)
                 file_buffer.close()
         return tar_buffer.getvalue()
+
+    def image(self, size=(256, 256), image_format='png', hue=None, luminosity=None):
+        """Generate an image and draw a random polygon on it using the Python Image Library.
+        Without it installed, this provider won't be functional. Returns the bytes representing
+        the image in a given format.
+
+        The argument ``size`` must be a 2-tuple containing (width, height) in pixels. Defaults to 256x256.
+
+        The argument ``image_format`` can be any valid format to the underlying library like ``'tiff'``,
+        ``'jpeg'``, ``'pdf'`` or ``'png'`` (default). Note that some formats need present system libraries
+        prior to building the Python Image Library.
+        Refer to https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html for details.
+
+        The arguments ``hue`` and ``luminosity`` are the same as in the color provider and are simply forwarded to
+        it to generate both the background and the shape colors. Therefore, you can ask for a "dark blue" image, etc.
+
+        :sample size=2: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
+        :sample size=2: size=(16, 16), hue=[90,270], image_format='ico'
+        """
+        try:
+            import PIL.Image
+            import PIL.ImageDraw
+        except ImportError:
+            raise UnsupportedFeature("`image` requires the `Pillow` python library.", "image")
+
+        (width, height) = size
+        image = PIL.Image.new('RGB', size, self.generator.color(hue=hue, luminosity=luminosity))
+        draw = PIL.ImageDraw.Draw(image)
+        draw.polygon(
+            [
+                (self.random_int(0, width), self.random_int(0, height))
+                for _ in range(self.random_int(3, 12))
+            ],
+            fill=self.generator.color(hue=hue, luminosity=luminosity),
+            outline=self.generator.color(hue=hue, luminosity=luminosity),
+        )
+        with io.BytesIO() as fobj:
+            image.save(fobj, format=image_format)
+            fobj.seek(0)
+            return fobj.read()
 
     def dsv(self, dialect='faker-csv', header=None,
             data_columns=('{{name}}', '{{address}}'),

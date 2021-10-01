@@ -192,7 +192,7 @@ class Provider(BaseProvider):
 
     def mac_platform_token(self):
         """Generate a MacOS platform token used in user agent strings."""
-        return (f'Macintosh; {self.random_element(self.mac_processors)} Mac OS X 10 '
+        return (f'Macintosh; {self.random_element(self.mac_processors)} Mac OS X 10_'
                 f'{self.generator.random.randint(5, 12)}_{self.generator.random.randint(0, 9)}')
 
     def android_platform_token(self):

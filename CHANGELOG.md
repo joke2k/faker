@@ -1,5 +1,103 @@
 ## Changelog
 
+### [v8.14.0 - 2021-09-24](https://github.com/joke2k/faker/compare/v8.13.1...v8.14.0)
+
+* Add datetime provider for ``bn_BD``. Thanks @jabertuhin.
+
+### [v8.13.1 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.13.0...v8.13.1)
+
+* Change ``fi_FI`` Provinces to Regions. Thanks @LKajan.
+
+### [v8.13.0 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.3...v8.13.0)
+
+* ``uk_UA`` address provider - fix streets and cities names, added regions. Thanks @o-vasyliev.
+
+### [v8.12.3 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.2...v8.12.3)
+
+* Fix missing underscores in ``mac_platform_token``. Thanks @iamkeyur.
+
+### [v8.12.2 - 2021-09-15](https://github.com/joke2k/faker/compare/v8.12.1...v8.12.2)
+
+*  Remove period/fullstop from ``en_GB`` prefixes. Thanks @stephengruppetta.
+
+### [v8.12.1 - 2021-08-24](https://github.com/joke2k/faker/compare/v8.12.0...v8.12.1)
+
+* Add missing diacritics in ``fr_FR`` ``person`` provider. Thanks @laowantong.
+
+### [v8.12.0 - 2021-08-20](https://github.com/joke2k/faker/compare/v8.11.0...v8.12.0)
+
+* Added non-geo numbers and services phones format for ``pt_BR``. Thanks @leogregianin.
+* Add datetime formats in ``pt_BR``. Thanks @leogregianin.
+* Add currency formats in ``pt_BR``. Thanks @leogregianin.
+
+### [v8.11.0 - 2021-08-03](https://github.com/joke2k/faker/compare/v8.10.3...v8.11.0)
+
+*  Add ``nic_handle``. Thanks @pishchalnikov.
+
+### [v8.10.3 - 2021-07-26](https://github.com/joke2k/faker/compare/v8.10.2...v8.10.3)
+
+* Remove potentially offensive surname in ``it_IT``. Thanks @lordgordon.
+
+### [v8.10.2 - 2021-07-23](https://github.com/joke2k/faker/compare/v8.10.1...v8.10.2)
+
+* Return list instead of tuple in ``choices_distribution``. Thanks @svisser.
+
+### [v8.10.1 - 2021-07-12](https://github.com/joke2k/faker/compare/v8.10.0...v8.10.1)
+
+* enable faker instances to be unpickled (#1480). Thanks @fcurella.
+
+### [v8.10.0 - 2021-07-07](https://github.com/joke2k/faker/compare/v8.9.1...v8.10.0)
+
+* Add ``ar_AE`` (UAE) phone numbers. Thanks @sshishov.
+
+### [v8.9.1 - 2021-07-02](https://github.com/joke2k/faker/compare/v8.9.0...v8.9.1)
+
+* Skip UnsupportedFeature's on the command line. Thanks @therefromhere.
+
+### [v8.9.0 - 2021-06-30](https://github.com/joke2k/faker/compare/v8.8.2...v8.9.0)
+
+* Add RIPE ID. Thanks @pishchalnikov.
+
+### [v8.8.2 - 2021-06-23](https://github.com/joke2k/faker/compare/v8.8.1...v8.8.2)
+
+* Avoid collision for ``date`` in ``datetime`` provider. Thanks @mattshin.
+
+### [v8.8.1 - 2021-06-16](https://github.com/joke2k/faker/compare/v8.8.0...v8.8.1)
+
+* Fix ``left_digits`` ignored if ``min_value`` is given. Thanks @OJFord.q
+
+### [v8.8.0 - 2021-06-14](https://github.com/joke2k/faker/compare/v8.7.0...v8.8.0)
+
+* Add ``iana_id``, IANA Registrar ID. Thanks @pishchalnikov.
+
+### [v8.7.0 - 2021-06-11](https://github.com/joke2k/faker/compare/v8.6.0...v8.7.0)
+
+* Add tlds for ``th_TH`` internet provider. Thanks @bact.
+
+### [v8.6.0 - 2021-06-07](https://github.com/joke2k/faker/compare/v8.5.1...v8.6.0)
+
+*  Add ``aba()`` method to generate ABA routing numbers. Thanks @mstellon.
+
+### [v8.5.1 - 2021-06-03](https://github.com/joke2k/faker/compare/v8.5.0...v8.5.1)
+
+* Fix  deepcopy for Faker instances.
+
+### [v8.5.0 - 2021-06-02](https://github.com/joke2k/faker/compare/v8.4.0...v8.5.0)
+
+*  Add  ``image`` provider. Thanks @n1ngu.
+
+### [v8.4.0 - 2021-05-27](https://github.com/joke2k/faker/compare/v8.3.0...v8.4.0)
+
+* Add license plates and language names for ``he_IL`` locale. Thanks @AndreyRub.
+
+### [v8.3.0 - 2021-05-26](https://github.com/joke2k/faker/compare/v8.2.1...v8.3.0)
+
+*  Add colors for ``he_IL``. Thanks @AndreyRub.
+
+### [v8.2.1 - 2021-05-21](https://github.com/joke2k/faker/compare/v8.2.0...v8.2.1)
+
+*  Add few more names in ``en_IN`` person provider. Thanks @Felix-Raj.
+
 ### [v8.2.0 - 2021-05-18](https://github.com/joke2k/faker/compare/v8.1.4...v8.2.0)
 
 *  Add ``city_name()`` and cities to ``support .city()`` for ``th_TH``. Thanks @bact.

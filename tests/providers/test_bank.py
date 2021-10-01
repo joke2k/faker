@@ -41,6 +41,11 @@ class TestAzAz:
 
 class TestNoNo:
     """Test no_NO bank provider"""
+    def test_aba(self, faker, num_samples):
+        for _ in range(num_samples):
+            aba = faker.aba()
+            assert len(aba) == 9
+            assert is_valid_aba(aba)
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):

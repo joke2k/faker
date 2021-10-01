@@ -90,7 +90,7 @@ class Provider(PhoneNumberProvider):
 
     )
 
-    toll_foramts = (
+    toll_formats = (
         '1 700 ### ###',
         '1-700-###-###',
         '1 800 ### ###',
@@ -106,7 +106,7 @@ class Provider(PhoneNumberProvider):
     formats = cellphone_formats + \
         telephone_formats + \
         services_phones_formats + \
-        toll_foramts
+        toll_formats
 
     def provider_code(self):
         return self.random_element([
@@ -135,7 +135,7 @@ class Provider(PhoneNumberProvider):
         return self.numerify(self.generator.parse(pattern))
 
     def toll_number(self):
-        pattern = self.random_element(self.toll_foramts)
+        pattern = self.random_element(self.toll_formats)
         return self.numerify(self.generator.parse(pattern))
 
     def phone_number(self):

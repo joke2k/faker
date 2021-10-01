@@ -1,0 +1,9 @@
+authors: 
+  - family-names: Faraglia
+    given-names: Daniele
+  - name: "Other Contributors"
+cff-version: 1.2.0
+license: MIT
+message: If you use this software, please cite it using these metadata.
+repository-code: "https://github.com/joke2k/faker"
+title: "Faker"

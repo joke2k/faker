@@ -59,6 +59,9 @@ setup(
     url='https://github.com/joke2k/faker',
     license='MIT License',
     packages=find_packages(exclude=excluded_packages),
+    package_data={
+        "faker": ["py.typed"],
+    },
     platforms=["any"],
     zip_safe=zip_safe,
     python_requires=">=3.6",
