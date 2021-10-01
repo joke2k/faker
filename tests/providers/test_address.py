@@ -114,7 +114,7 @@ class TestAzAz:
     """Test az_AZ address provider methods"""
 
     def test_street_suffix_long(self, faker, num_samples):
-       for _ in range(num_samples):
+        for _ in range(num_samples):
             street_suffix_long = faker.street_suffix()
             assert isinstance(street_suffix_long, str)
             assert street_suffix_long in AzAzAddressProvider.street_suffixes
@@ -149,6 +149,7 @@ class TestAzAz:
             assert isinstance(postcode, str)
             assert re.fullmatch(r"AZ\d{4}", postcode)
             assert int(postcode[2:]) in range(900, 6600)
+
 
 class TestCsCz:
     """Test cs_CZ address provider methods"""

@@ -26,10 +26,10 @@ class TestAzAz:
     @classmethod
     def setup_class(cls):
         cls.cellphone_patterns = re.compile(
-            r'\+994\d{9}|0\d{2}-\d{3}-\d{2}-\d{2}|0\d{2} \d{3} \d{2} \d{2}'
+            r'\+994\d{9}|0\d{2}-\d{3}-\d{2}-\d{2}|0\d{2} \d{3} \d{2} \d{2}',
         )
         cls.landline_patterns = re.compile(
-            r'0\d{2} \d{3} \d{2} \d{2}'
+            r'0\d{2} \d{3} \d{2} \d{2}',
         )
 
     def test_phone_number(self, faker, num_samples):

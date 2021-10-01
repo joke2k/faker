@@ -2,6 +2,7 @@ from .. import Provider as PersonProvider
 
 
 def translit(text):
+
     translit_dict = {
         'Ə': 'E', 'I': 'I', 'Ü': 'U', 'Ş': 'SH', 'Ç': 'CH', 'Ğ': 'G', 'Ö': 'O',
         'ə': 'e', 'ı': 'i', 'ü': 'u', 'ş': 's', 'ç': 'c', 'ğ': 'g', 'ö': 'o',
@@ -714,7 +715,7 @@ class Provider(PersonProvider):
                          'Rəhimli', 'Seyidzadə', 'Axundzadə', 'İsabəyli', 'Çəmənli', 'Heydərli',
                          'Qədirzadə', 'Hacıbəyli', 'Qafurbəyli', 'Əmirli', 'Ələkbərzadə']
 
-    last_names = last_names_male+last_names_female+last_names_unisex
+    last_names = last_names_male + last_names_female + last_names_unisex
 
     prefixes_female = ('Xanım',)
     prefixes_male = ('Cənab', 'Bəy', 'Müəllim')
@@ -722,13 +723,13 @@ class Provider(PersonProvider):
     prefixes = prefixes_female + prefixes_male
 
     def last_name_male(self):
-        return self.random_element(self.last_names_male+self.last_names_unisex)
+        return self.random_element(self.last_names_male + self.last_names_unisex)
 
     def last_name_unique_to_male(self):
         return self.random_element(self.last_names_male)
 
     def last_name_female(self):
-        return self.random_element(self.last_names_female+self.last_names_unisex)
+        return self.random_element(self.last_names_female + self.last_names_unisex)
 
     def last_name_unique_to_female(self):
         return self.random_element(self.last_names_female)

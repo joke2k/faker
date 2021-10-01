@@ -22,8 +22,9 @@ class TestJobProvider:
         for _ in range(num_samples):
             assert faker.job() in JobProvider.jobs
 
+
 class TestAzAz:
-    """Test ko_KR job provider"""
+    """Test az_AZ job provider"""
 
     def test_job(self, faker, num_samples):
         for _ in range(num_samples):
