@@ -230,7 +230,7 @@ Examples:
     94812 Biedenkopf
 
     $ faker profile ssn,birthdate
-    {'ssn': u'628-10-1085', 'birthdate': '2008-03-29'}
+    {'ssn': '628-10-1085', 'birthdate': '2008-03-29'}
 
     $ faker -r=3 -s=";" name
     Willam Kertzmann;
