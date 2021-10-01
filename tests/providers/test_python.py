@@ -1,7 +1,7 @@
+import decimal
 import sys
 import unittest
 import warnings
-import decimal
 
 from unittest.mock import patch
 
