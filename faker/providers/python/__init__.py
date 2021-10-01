@@ -151,10 +151,58 @@ class Provider(BaseProvider):
 
     def pydecimal(self, left_digits=None, right_digits=None, positive=False,
                   min_value=None, max_value=None):
+        if left_digits is not None and left_digits < 0:
+            raise ValueError(
+                'A decimal number cannot have less than 0 digits in its '
+                'integer part')
+        if right_digits is not None and right_digits < 0:
+            raise ValueError(
+                'A decimal number cannot have less than 0 digits in its '
+                'fractional part')
+        if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
+            raise ValueError(
+                'A decimal number cannot have 0 digits in total')
+        if None not in (min_value, max_value) and min_value > max_value:
+            raise ValueError('Min value cannot be greater than max value')
+        if None not in (min_value, max_value) and min_value == max_value:
+            raise ValueError('Min and max value cannot be the same')
+        if positive and min_value is not None and min_value <= 0:
+            raise ValueError(
+                'Cannot combine positive=True with negative or zero min_value')
+        if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
+            raise ValueError('Max value must fit within left digits')
+        if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
+            raise ValueError('Min value must fit within left digits')
 
-        float_ = self.pyfloat(
-            left_digits, right_digits, positive, min_value, max_value)
-        return Decimal(str(float_))
+        # if either left or right digits are not specified we randomly choose a length
+        max_random_digits = 100
+        minimum_left_digits = len(str(min_value)) if min_value is not None else 1
+        if left_digits is None and right_digits is None:
+            right_digits = self.random_int(1, max_random_digits)
+            left_digits = self.random_int(minimum_left_digits, max_random_digits)
+        if left_digits is not None and right_digits is None:
+            right_digits = self.random_int(1, max_random_digits)
+        if left_digits is None and right_digits is not None:
+            left_digits = self.random_int(minimum_left_digits, max_random_digits)
+
+        sign = ''
+        left_number = ''.join([str(self.random_digit()) for i in range(0, left_digits)]) or '0'
+        if right_digits is not None:
+            right_number = ''.join([str(self.random_digit()) for i in range(0, right_digits)])
+        else:
+            right_number = ''
+        sign = '+' if positive else self.random_element(('+', '-'))
+
+        result = Decimal(f'{sign}{left_number}.{right_number}')
+
+        # Because the random result might have the same number of decimals as max_value the random number
+        # might be above max_value or below min_value
+        if max_value is not None and result > max_value:
+            result = max_value
+        if min_value is not None and result < min_value:
+            result = min_value
+
+        return result
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
         return tuple(

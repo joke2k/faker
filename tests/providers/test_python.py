@@ -1,3 +1,4 @@
+import decimal
 import sys
 import unittest
 import warnings
@@ -212,6 +213,129 @@ class TestPyfloat(unittest.TestCase):
         then watch as it doesn't because positive=True
         """
         result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
+        self.assertGreater(result, 0)
+
+
+class TestPydecimal(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        Faker.seed(0)
+
+    def test_pydecimal(self):
+        result = self.fake.pydecimal()
+
+        self.assertIsInstance(result, decimal.Decimal)
+
+    def test_left_digits(self):
+        expected_left_digits = 10
+
+        result = self.fake.pydecimal(left_digits=expected_left_digits)
+
+        left_digits = len(str(abs(int(result))))
+        self.assertGreaterEqual(expected_left_digits, left_digits)
+
+    def test_right_digits(self):
+        expected_right_digits = 10
+
+        result = self.fake.pydecimal(right_digits=expected_right_digits)
+
+        right_digits = len(str(result).split('.')[1])
+        self.assertGreaterEqual(expected_right_digits, right_digits)
+
+    def test_positive(self):
+        result = self.fake.pydecimal(positive=True)
+
+        self.assertGreater(result, 0)
+        abs_result = -result if result < 0 else result  # abs() result returns scientific notation
+        self.assertEqual(result, abs_result)
+
+    def test_min_value(self):
+        min_values = (0, 10, -1000, 1000, 999999)
+
+        for min_value in min_values:
+            result = self.fake.pydecimal(min_value=min_value)
+            self.assertGreaterEqual(result, min_value)
+
+    def test_min_value_and_left_digits(self):
+        """
+        Combining the min_value and left_digits keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pydecimal(left_digits=1, min_value=0)
+        self.assertLess(result, 10)
+        self.assertGreaterEqual(result, 0)
+
+    def test_max_value(self):
+        max_values = (0, 10, -1000, 1000, 999999)
+
+        for max_value in max_values:
+            result = self.fake.pydecimal(max_value=max_value)
+            self.assertLessEqual(result, max_value)
+
+    def test_max_value_zero_and_left_digits(self):
+        """
+        Combining the max_value and left_digits keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pydecimal(left_digits=2, max_value=0)
+        self.assertLessEqual(result, 0)
+        self.assertGreater(result, -100)
+
+    def test_max_value_should_be_greater_than_min_value(self):
+        """
+        An exception should be raised if min_value is greater than max_value
+        """
+        expected_message = 'Min value cannot be greater than max value'
+        with self.assertRaises(ValueError) as raises:
+            self.fake.pydecimal(min_value=100, max_value=0)
+
+        message = str(raises.exception)
+        self.assertEqual(message, expected_message)
+
+    def test_max_value_and_positive(self):
+        """
+        Combining the max_value and positive keyword arguments produces
+        numbers that obey both of those constraints.
+        """
+
+        result = self.fake.pydecimal(positive=True, max_value=100)
+        self.assertLessEqual(result, 100)
+        self.assertGreater(result, 0)
+
+    def test_max_and_min_value_negative(self):
+        """
+        Combining the max_value and min_value keyword arguments with
+        negative values for each produces numbers that obey both of
+        those constraints.
+        """
+
+        result = self.fake.pydecimal(max_value=-100, min_value=-200)
+        self.assertLessEqual(result, -100)
+        self.assertGreaterEqual(result, -200)
+
+    def test_positive_and_min_value_incompatible(self):
+        """
+        An exception should be raised if positive=True is set, but
+        a negative min_value is provided.
+        """
+
+        expected_message = (
+            "Cannot combine positive=True with negative or zero min_value"
+        )
+        with self.assertRaises(ValueError) as raises:
+            self.fake.pydecimal(min_value=-100, positive=True)
+
+        message = str(raises.exception)
+        self.assertEqual(message, expected_message)
+
+    def test_positive_doesnt_return_zero(self):
+        """
+        Choose the right_digits and max_value so it's guaranteed to return zero,
+        then watch as it doesn't because positive=True
+        """
+        result = self.fake.pydecimal(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
 
