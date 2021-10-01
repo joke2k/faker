@@ -185,7 +185,6 @@ class Provider(BaseProvider):
         if left_digits is None and right_digits is not None:
             left_digits = self.random_int(minimum_left_digits, max_random_digits)
 
-
         sign = ''
         left_number = ''.join([str(self.random_digit()) for i in range(0, left_digits)]) or '0'
         if right_digits is not None:
