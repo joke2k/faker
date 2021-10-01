@@ -238,7 +238,9 @@ class FactoryTestCase(unittest.TestCase):
     def test_arbitrary_digits_pydecimal(self):
         # tests for https://github.com/joke2k/faker/issues/1462
         fake = Faker()
-        assert any(len(str(fake.pydecimal(left_digits=sys.float_info.dig + i))) > sys.float_info.dig for i in range(100))
+        assert any(
+            len(str(fake.pydecimal(left_digits=sys.float_info.dig + i))) > sys.float_info.dig for i in range(100)
+        )
         assert any(len(str(fake.pydecimal())) > sys.float_info.dig for _ in range(100))
 
     def test_pyfloat_empty_range_error(self):
