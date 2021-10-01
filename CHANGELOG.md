@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.14.1 - 2021-10-01](https://github.com/joke2k/faker/compare/v8.14.0...v8.14.1)
+
+* Fix `pydecimal` precision. Thanks @joidegn.
+
 ### [v8.14.0 - 2021-09-24](https://github.com/joke2k/faker/compare/v8.13.1...v8.14.0)
 
 * Add datetime provider for ``bn_BD``. Thanks @jabertuhin.
