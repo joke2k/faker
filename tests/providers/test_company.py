@@ -22,6 +22,7 @@ from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
 
+
 class TestAzAz:
     """Test az_AZ company provider methods"""
 
@@ -358,11 +359,11 @@ class TestItIt:
             assert self.vat_regex.match(company_vat)
 
     @pytest.mark.parametrize("value, expected", (
-        (100, "100"),
-        (101, "120"),
-        (102, "121"),
-        (103, "888"),
-        (104, "999"),
+            (100, "100"),
+            (101, "120"),
+            (102, "121"),
+            (103, "888"),
+            (104, "999"),
     ))
     def test_company_vat_special_cases(self, faker, value, expected):
         # this test allows to get full code coverage for company_vat fixing the internal state of the random generator

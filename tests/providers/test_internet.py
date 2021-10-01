@@ -238,9 +238,9 @@ class TestInternetProvider:
         subnets = [ip_network('10.0.0.0/8'), ip_network('11.0.0.0/8')]
         valid_weights = [1, 1]
         list_of_invalid_weights = [
-            [1, 2, 3],   # List size does not match subnet list size
+            [1, 2, 3],  # List size does not match subnet list size
             ['a', 'b'],  # List size matches, but elements are invalid
-            11,        # Not a list or valid iterable
+            11,  # Not a list or valid iterable
         ]
 
         with patch('faker.providers.internet.choices_distribution',
@@ -609,11 +609,13 @@ class TestArAa:
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
 
+
 class TestAzAz:
     """Test az_AZ internet provider methods"""
+
     @patch(
         'faker.providers.internet.Provider.user_name',
-    lambda x: 'AğamüşviqƏlövsətov',
+        lambda x: 'AğamüşviqƏlövsətov',
     )
     def test_ascii_free_email(self, faker):
         email = faker.ascii_free_email()
@@ -627,6 +629,7 @@ class TestAzAz:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in AzAzInternetProvider.tlds
+
 
 class TestPtBr:
     """Test pt_BR internet provider methods"""

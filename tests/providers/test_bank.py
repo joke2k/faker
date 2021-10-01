@@ -23,6 +23,7 @@ def is_valid_iban(iban):
     check = int(''.join(BankProvider.ALPHA.get(c, c) for c in check))
     return check % 97 == 1
 
+
 class TestAzAz:
     """Test az_AZ bank provider"""
 
@@ -36,13 +37,6 @@ class TestAzAz:
             assert is_valid_iban(iban)
             assert iban[:2] == AzAzBankProvider.country_code
             assert re.fullmatch(r"\d{2}[A-Z]{4}\d{20}", iban[2:])
-
-def is_valid_aba(aba):
-    d = [int(n) for n in aba]
-    chkdgt = (3*(d[0]+d[3]+d[6]) + 7*(d[1]+d[4]+d[7]) + (d[2]+d[5]+d[8]))
-    if chkdgt % 10 == 0:
-        return True
-    return False
 
 
 class TestNoNo:

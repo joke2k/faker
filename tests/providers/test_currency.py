@@ -72,6 +72,7 @@ class TestCurrencyProvider:
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
 
+
 class TestAzAz:
     """Test az_AZ currency provider"""
     num_samples = 100
