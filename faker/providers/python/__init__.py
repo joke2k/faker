@@ -159,7 +159,7 @@ class Provider(BaseProvider):
             raise ValueError(
                 'A decimal number cannot have less than 0 digits in its '
                 'fractional part')
-        if (not left_digits is None and left_digits == 0) and (not right_digits is None and right_digits == 0):
+        if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
             raise ValueError(
                 'A decimal number cannot have 0 digits in total')
         if None not in (min_value, max_value) and min_value > max_value:
