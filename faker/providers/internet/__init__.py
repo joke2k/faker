@@ -123,7 +123,7 @@ class Provider(BaseProvider):
         if domain:
             email = f'{self.user_name()}@{domain}'
         elif safe:
-            email = f'{self.user_name()}@{self.safe_domain_name}'
+            email = f'{self.user_name()}@{self.safe_domain_name()}'
         else:
             pattern = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))
