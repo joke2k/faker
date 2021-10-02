@@ -1,5 +1,6 @@
 from .. import Provider as PersonProvider
 
+
 # source: https://www.azerbaijans.com/content_597_az.html
 # https://www.azerbaijans.com/content_598_az.html
 def translit(text):
