@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.14.2 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.1...v8.14.2)
+
+* Fix bug in ``pydecimal`` when returning max/min. Thanks @wilbertom.
+
 ### [v8.14.1 - 2021-10-01](https://github.com/joke2k/faker/compare/v8.14.0...v8.14.1)
 
 * Fix `pydecimal` precision. Thanks @joidegn.
