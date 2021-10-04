@@ -256,6 +256,13 @@ class TestPydecimal(unittest.TestCase):
             result = self.fake.pydecimal(min_value=min_value)
             self.assertGreaterEqual(result, min_value)
 
+    def test_min_value_always_returns_a_decimal(self):
+        min_values = (0, 10, -1000, 1000, 999999)
+
+        for min_value in min_values:
+            result = self.fake.pydecimal(min_value=min_value)
+            self.assertIsInstance(result, decimal.Decimal)
+
     def test_min_value_and_left_digits(self):
         """
         Combining the min_value and left_digits keyword arguments produces
@@ -272,6 +279,13 @@ class TestPydecimal(unittest.TestCase):
         for max_value in max_values:
             result = self.fake.pydecimal(max_value=max_value)
             self.assertLessEqual(result, max_value)
+
+    def test_max_value_always_returns_a_decimal(self):
+        max_values = (0, 10, -1000, 1000, 999999)
+
+        for max_value in max_values:
+            result = self.fake.pydecimal(max_value=max_value)
+            self.assertIsInstance(result, decimal.Decimal)
 
     def test_max_value_zero_and_left_digits(self):
         """
