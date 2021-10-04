@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.16.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.15.0...v8.16.0)
+
+* Add ``date_time`` provider for ``nl_NL``. Thanks @MarcelRobeer.
+
 ### [v8.15.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.2...v8.15.0)
 
 * Added ``bg_BG`` color provider. Thanks @iradonov.
