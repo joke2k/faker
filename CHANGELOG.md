@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.15.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.2...v8.15.0)
+
+* Added ``bg_BG`` color provider. Thanks @iradonov.
+
 ### [v8.14.2 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.1...v8.14.2)
 
 * Fix bug in ``pydecimal`` when returning max/min. Thanks @wilbertom.
