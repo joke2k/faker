@@ -5,6 +5,7 @@ import re
 import pytest
 
 from faker.providers.color import RandomColor
+from faker.providers.color.bg_BG import Provider as BgBgColorProvider
 from faker.providers.color.es_ES import Provider as EsEsColorProvider
 from faker.providers.color.fa_IR import Provider as FaIrColorProvider
 from faker.providers.color.he_IL import Provider as HeILColorProvider
@@ -276,6 +277,22 @@ class TestFaIr:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in FaIrColorProvider.safe_colors
+
+
+class TestBgBg:
+    """Test bg_BG color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in BgBgColorProvider.all_colors.keys()
+
+    def test_safe_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            safe_color_name = faker.safe_color_name()
+            assert isinstance(safe_color_name, str)
+            assert safe_color_name in BgBgColorProvider.safe_colors
 
 
 class TestEsEs:
