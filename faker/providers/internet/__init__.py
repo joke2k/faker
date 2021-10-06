@@ -119,9 +119,11 @@ class Provider(BaseProvider):
         return string
 
     @lowercase
-    def email(self, domain=None):
+    def email(self, safe=True, domain=None):
         if domain:
             email = f'{self.user_name()}@{domain}'
+        elif safe:
+            email = f'{self.user_name()}@{self.safe_domain_name()}'
         else:
             pattern = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))

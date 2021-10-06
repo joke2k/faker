@@ -39,6 +39,18 @@ class TestInternetProvider:
             email = faker.email()
             assert '@' in email
 
+    def test_safe_default_email(self, faker, num_samples):
+        expected_domains = ['example.com', 'example.org', 'example.net']
+        for _ in range(num_samples):
+            email = faker.email()
+            assert email.split('@')[1] in expected_domains
+
+    def test_unsafe_email(self, faker, num_samples):
+        not_expected_domains = ['example.com', 'example.org', 'example.net']
+        for _ in range(num_samples):
+            email = faker.email(safe=False)
+            assert email.split('@')[1] not in not_expected_domains
+
     def test_email_with_domain(self, faker):
         domain = 'example.com'
         email = faker.email(domain=domain)
