@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.0.0 - 2021-10-06](https://github.com/joke2k/faker/compare/v8.16.0...v9.0.0)
+
+* Changes default email generator to use safe domain names. Thanks @errbufferoverfl.
+
 ### [v8.16.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.15.0...v8.16.0)
 
 * Add ``date_time`` provider for ``nl_NL``. Thanks @MarcelRobeer.
