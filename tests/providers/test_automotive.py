@@ -184,16 +184,16 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
         r'\d{2}-[BDFGHJKLNPRSTVXZ][A-Z]{2}-\d|'
         r'\d-[KSTVXZ][A-Z]{2}-\d{2}|'
         r'[BDFGHJKLNPRSTVXZ][A-Z]-\d{3}-[A-Z]|'
-        r'[BDFGHJKLNPRSTVXZ]-\d{3}-[A-Z]{2}'
+        r'[BDFGHJKLNPRSTVXZ]-\d{3}-[A-Z]{2}',
     )
 
     license_plate_motorbike_pattern = re.compile(
         r'M[A-Z]-[A-Z]{2}-\d{2}|'
-        r'\d{2}-M[A-Z]-[A-Z]{2}'
+        r'\d{2}-M[A-Z]-[A-Z]{2}',
     )
 
     license_plate_pattern = re.compile(
-        license_plate_car_pattern.pattern + '|' + license_plate_motorbike_pattern.pattern
+        license_plate_car_pattern.pattern + '|' + license_plate_motorbike_pattern.pattern,
     )
 
     def test_plate_car(self, faker, num_samples):
