@@ -1,7 +1,7 @@
-from .. import Provider as AutomotiveProvider
-
 import re
 import string
+
+from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
