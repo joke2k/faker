@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v9.1.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.1.0)
+### [v9.2.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.2.0)
+
+* Add ``color`` and ``date_time`` provider for ``el_GR``. Thanks @nikosmichas.
+
+### [v9.1.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.1...v9.1.0)
 
 * Add currency provider for ``nl_NL``. Thanks @MarcelRobeer.
 
