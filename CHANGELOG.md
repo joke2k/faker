@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.0.1 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.0...v9.0.1)
+
+* Fix ``pydecimal`` returning ``min_value`` or ``max_value`` too frequently. Thanks @zivkovic.
+
 ### [v9.0.0 - 2021-10-06](https://github.com/joke2k/faker/compare/v8.16.0...v9.0.0)
 
 * Changes default email generator to use safe domain names. Thanks @errbufferoverfl.
