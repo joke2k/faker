@@ -185,13 +185,18 @@ class Provider(BaseProvider):
         if left_digits is None and right_digits is not None:
             left_digits = self.random_int(minimum_left_digits, max_random_digits)
 
-        sign = ''
         left_number = ''.join([str(self.random_digit()) for i in range(0, left_digits)]) or '0'
         if right_digits is not None:
             right_number = ''.join([str(self.random_digit()) for i in range(0, right_digits)])
         else:
             right_number = ''
-        sign = '+' if positive else self.random_element(('+', '-'))
+
+        if min_value is not None and min_value >= 0:
+            sign = '+'
+        elif max_value is not None and max_value <= 0:
+            sign = '-'
+        else:
+            sign = '+' if positive else self.random_element(('+', '-'))
 
         result = Decimal(f'{sign}{left_number}.{right_number}')
 
