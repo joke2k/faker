@@ -33,7 +33,7 @@ class Provider(AutomotiveProvider):
         "%?-###-?",
 
         # Format 10
-        "%-###-??"
+        "%-###-??",
     )
 
     # License formats for motorbikes.
@@ -46,7 +46,7 @@ class Provider(AutomotiveProvider):
     # Base first letters of format
     license_plate_prefix_letters = "BDFGHJKLNPRSTVXZ"
 
-    # For Format 8 (9-XXX-99) "BDFGHJLNPR" are not used, 
+    # For Format 8 (9-XXX-99) "BDFGHJLNPR" are not used,
     # as to not clash with former export license plates
     license_plate_prefix_letters_format_8 = "KSTVXZ"
 
