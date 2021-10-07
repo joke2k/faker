@@ -1,5 +1,21 @@
 ## Changelog
 
+### [v9.0.0 - 2021-10-06](https://github.com/joke2k/faker/compare/v8.16.0...v9.0.0)
+
+* Changes default email generator to use safe domain names. Thanks @errbufferoverfl.
+
+### [v8.16.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.15.0...v8.16.0)
+
+* Add ``date_time`` provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v8.15.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.2...v8.15.0)
+
+* Added ``bg_BG`` color provider. Thanks @iradonov.
+
+### [v8.14.2 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.1...v8.14.2)
+
+* Fix bug in ``pydecimal`` when returning max/min. Thanks @wilbertom.
+
 ### [v8.14.1 - 2021-10-01](https://github.com/joke2k/faker/compare/v8.14.0...v8.14.1)
 
 * Fix `pydecimal` precision. Thanks @joidegn.
