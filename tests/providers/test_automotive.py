@@ -177,6 +177,38 @@ class TestEsEs:
             assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)
 
 
+class TestNlNl(_SimpleAutomotiveTestMixin):
+    """Test nl_NL automotive provider methods"""
+    license_plate_car_pattern = re.compile(
+        r'\d{2}-[BDFGHJKLNPRSTVXZ][A-Z]-[A-Z]{2}|'
+        r'\d{2}-[BDFGHJKLNPRSTVXZ][A-Z]{2}-\d|'
+        r'\d-[KSTVXZ][A-Z]{2}-\d{2}|'
+        r'[BDFGHJKLNPRSTVXZ][A-Z]-\d{3}-[A-Z]|'
+        r'[BDFGHJKLNPRSTVXZ]-\d{3}-[A-Z]{2}'
+    )
+
+    license_plate_motorbike_pattern = re.compile(
+        r'M[A-Z]-[A-Z]{2}-\d{2}|'
+        r'\d{2}-M[A-Z]-[A-Z]{2}'
+    )
+
+    license_plate_pattern = re.compile(
+        license_plate_car_pattern.pattern + '|' + license_plate_motorbike_pattern.pattern
+    )
+
+    def test_plate_car(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_car()
+            assert isinstance(plate, str)
+            assert self.license_plate_car_pattern.match(plate)
+
+    def test_plate_motorbike(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_motorbike()
+            assert isinstance(plate, str)
+            assert self.license_plate_motorbike_pattern.match(plate)
+
+
 class TestThTh(_SimpleAutomotiveTestMixin):
     """Test th_TH automotive provider methods"""
     license_plate_pattern = re.compile(
