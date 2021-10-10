@@ -33,5 +33,5 @@ class Provider(CompanyProvider):
 
     company_suffixes = ("", "有限公司", "股份有限公司", "資訊有限公司")
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         return self.random_element(self.company_prefixes)

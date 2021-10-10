@@ -3,7 +3,7 @@ from datetime import datetime
 from .. import Provider as CompanyProvider
 
 
-def calculate_checksum(value):
+def calculate_checksum(value: str) -> str:
     factors = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8][-len(value):]
     check_sum = 0
     for number, factor in zip(value, factors):
@@ -233,7 +233,7 @@ class Provider(CompanyProvider):
          'отношений', 'парадигм', 'партнерств', 'платформ', 'пользователей', 'порталов', 'приложений', 'результатов',
          'решений', 'рынков', 'сетей', 'систем', 'систем снабжения', 'сообществ', 'схем', 'технологий', 'функций'))
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example: 'Адаптивный и масштабируемый графический интерфейс'
         """
@@ -249,19 +249,19 @@ class Provider(CompanyProvider):
             adj_second = adj_second[:-2] + 'ое'
         return adj_first + ' и ' + adj_second + ' ' + noun
 
-    def large_company(self):
+    def large_company(self) -> str:
         """
         :example: 'АвтоВАЗ'
         """
         return self.random_element(self.large_companies)
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         :example: 'ООО'
         """
         return self.random_element(self.company_prefixes)
 
-    def businesses_inn(self):
+    def businesses_inn(self) -> str:
         """
         Returns tax identification number for businesses (ru. идентификационный номер налогоплательщика, ИНН).
         """
@@ -272,7 +272,7 @@ class Provider(CompanyProvider):
 
         return result + calculate_checksum(result)
 
-    def individuals_inn(self):
+    def individuals_inn(self) -> str:
         """
         Returns tax identification number for individuals (ru. идентификационный номер налогоплательщика, ИНН).
         """
@@ -284,7 +284,7 @@ class Provider(CompanyProvider):
 
         return result + calculate_checksum(result)
 
-    def businesses_ogrn(self):
+    def businesses_ogrn(self) -> str:
         """
         Returns primary state registration number for businesses
         (ru. основной государственный регистрационный номер, ОГРН).
@@ -298,7 +298,7 @@ class Provider(CompanyProvider):
 
         return result + str((int(result) % 11) % 10)
 
-    def individuals_ogrn(self):
+    def individuals_ogrn(self) -> str:
         """
         Returns primary state registration number for individuals
         (ru. основной государственный регистрационный номер, ОГРН).
@@ -311,7 +311,7 @@ class Provider(CompanyProvider):
 
         return result + str((int(result) % 13) % 10)
 
-    def kpp(self):
+    def kpp(self) -> str:
         """
         Returns tax registration reason code (ru. код причины постановки на учет, КПП).
         """

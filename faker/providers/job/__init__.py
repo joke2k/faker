@@ -646,5 +646,5 @@ class Provider(BaseProvider):
         "Youth worker",
     )
 
-    def job(self):
+    def job(self) -> str:
         return self.random_element(self.jobs)

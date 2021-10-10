@@ -12,7 +12,7 @@ class Provider(BaseProvider):
         '%##########',
     )
 
-    def aadhaar_id(self):
+    def aadhaar_id(self) -> str:
         """
         Aadhaar is a 12 digit person identifier generated for residents of
         India.

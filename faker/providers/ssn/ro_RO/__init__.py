@@ -1,7 +1,7 @@
 from .. import Provider as BaseProvider
 
 
-def ssn_checksum(number):
+def ssn_checksum(number: str) -> int:
     """
     Calculate the checksum for the romanian SSN (CNP).
     """
@@ -10,7 +10,7 @@ def ssn_checksum(number):
     return 1 if check == 10 else check
 
 
-def vat_checksum(number):
+def vat_checksum(number: str) -> int:
     """
     Calculate the check digit for romanian VAT numbers.
     """
@@ -46,7 +46,7 @@ class Provider(BaseProvider):
         '9########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         https://ro.wikipedia.org/wiki/Cod_de_identificare_fiscal%C4%83
         :return: A random Romanian VAT ID
@@ -62,7 +62,7 @@ class Provider(BaseProvider):
 
     ssn_formats = ("#############",)
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Romanian Social Security Number.
 

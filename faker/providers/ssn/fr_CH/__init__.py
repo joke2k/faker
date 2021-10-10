@@ -4,7 +4,7 @@ from .. import Provider as SsnProvider
 class Provider(SsnProvider):
     ssn_formats = ("###.####.####.##",)
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Returns a 13 digits Swiss SSN named AHV (German) or
                                             AVS (French and Italian)
@@ -29,7 +29,7 @@ class Provider(SsnProvider):
                          + digits[11:]
         return ssn
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         :return: Swiss UID number
         """

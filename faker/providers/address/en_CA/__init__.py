@@ -1,6 +1,7 @@
 import re
 
 from ..en import Provider as AddressProvider
+from typing import Optional
 
 
 class Provider(AddressProvider):
@@ -305,32 +306,32 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         """
         return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def province_abbr(self):
+    def province_abbr(self) -> str:
         return self.random_element(self.provinces_abbr)
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.numerify(
             self.random_element(
                 self.secondary_address_formats))
 
-    def postal_code_letter(self):
+    def postal_code_letter(self) -> str:
         """
         Returns a random letter from the list of allowable
         letters in a canadian postal code
         """
         return self.random_element(self.postal_code_letters)
 
-    def _postcode_replace(self, postal_code_format):
+    def _postcode_replace(self, postal_code_format: str) -> str:
         """
         Replaces all question mark ('?') occurrences with a random letter
         from given postal_code_format, then passes result to numerify to insert
@@ -341,14 +342,14 @@ class Provider(AddressProvider):
                       postal_code_format)
         return self.numerify(temp)
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
         Returns a random postcode
         """
         return self._postcode_replace(
             self.random_element(self.postal_code_formats))
 
-    def postcode_in_province(self, province_abbr=None):
+    def postcode_in_province(self, province_abbr: Optional[str] = None) -> str:
         """
         Returns a random postcode within the provided province abbreviation
         """
@@ -366,8 +367,8 @@ class Provider(AddressProvider):
         else:
             raise Exception('Province Abbreviation not found in list')
 
-    def postalcode_in_province(self, province_abbr=None):
+    def postalcode_in_province(self, province_abbr: Optional[str] = None) -> str:
         return self.postcode_in_province(province_abbr)
 
-    def postalcode(self):
+    def postalcode(self) -> str:
         return self.postcode()

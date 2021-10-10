@@ -84,7 +84,7 @@ class Provider(CreditCardProvider):
         ('bim', CreditCard('صنعت و معدن', prefix_bim, 16, security_code='CVV2')),
     ))
 
-    def credit_card_expire(self, start='now', end='+3y', date_format='%y/%m'):
+    def credit_card_expire(self, start: str = 'now', end: str = '+3y', date_format: str = '%y/%m') -> str:
         """Generate a credit card expiry date.
 
         This method uses |date_time_between| under the hood to generate the

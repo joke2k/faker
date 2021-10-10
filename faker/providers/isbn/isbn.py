@@ -2,13 +2,14 @@
 This module is responsible for generating the check digit and formatting
 ISBN numbers.
 """
+from typing import Optional
 
 
 class ISBN:
 
     MAX_LENGTH = 13
 
-    def __init__(self, ean=None, group=None, registrant=None, publication=None):
+    def __init__(self, ean: Optional[str] = None, group: Optional[str] = None, registrant: Optional[str] = None, publication: Optional[str] = None) -> None:
         self.ean = ean
         self.group = group
         self.registrant = registrant
@@ -17,11 +18,11 @@ class ISBN:
 
 class ISBN13(ISBN):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 
-    def _check_digit(self):
+    def _check_digit(self) -> str:
         """ Calculate the check digit for ISBN-13.
         See https://en.wikipedia.org/wiki/International_Standard_Book_Number
         for calculation.
@@ -34,18 +35,18 @@ class ISBN13(ISBN):
         check_digit = 0 if diff == 10 else diff
         return str(check_digit)
 
-    def format(self, separator=''):
+    def format(self, separator: str = '') -> str:
         return separator.join([self.ean, self.group, self.registrant,
                                self.publication, self.check_digit])
 
 
 class ISBN10(ISBN):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 
-    def _check_digit(self):
+    def _check_digit(self) -> str:
         """ Calculate the check digit for ISBN-10.
         See https://en.wikipedia.org/wiki/International_Standard_Book_Number
         for calculation.
@@ -56,6 +57,6 @@ class ISBN10(ISBN):
         check_digit = 'X' if remainder == 10 else str(remainder)
         return str(check_digit)
 
-    def format(self, separator=''):
+    def format(self, separator: str = '') -> str:
         return separator.join([self.group, self.registrant, self.publication,
                                self.check_digit])

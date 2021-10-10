@@ -23,7 +23,7 @@ class Provider(BarcodeProvider):
 
     local_prefixes = (4, 5), (4, 9)
 
-    def jan(self, length=13):
+    def jan(self, length: int = 13) -> str:
         """Generate a JAN barcode of the specified ``length``.
 
         This method is an alias for |JaJpProvider.localized_ean|.
@@ -34,14 +34,14 @@ class Provider(BarcodeProvider):
         """
         return self.localized_ean(length)
 
-    def jan8(self):
+    def jan8(self) -> str:
         """Generate a 8 digit JAN barcode.
 
         This method is an alias for |JaJpProvider.localized_ean8|.
         """
         return self.localized_ean8()
 
-    def jan13(self):
+    def jan13(self) -> str:
         """Generate a 13 digit JAN barcode.
 
         This method is an alias for |JaJpProvider.localized_ean13|.

@@ -14,5 +14,5 @@ class Provider(CompanyProvider):
         'LOC', 'OC1', 'OC2', 'OC3', 'PFA', 'RA', 'SCS', 'SPI', 'URL',
     )
 
-    def company_suffix(self):
+    def company_suffix(self) -> str:
         return self.random_element(self.company_suffixes)

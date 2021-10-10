@@ -262,6 +262,6 @@ class Provider(PhoneNumberProvider):
         '+44(0)9098790###',
     )
 
-    def cellphone_number(self):
+    def cellphone_number(self) -> str:
         pattern = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))

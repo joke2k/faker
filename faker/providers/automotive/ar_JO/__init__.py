@@ -14,7 +14,7 @@ class Provider(AutomotiveProvider):
         '{{initials}}-#####',
     )
 
-    def initials(self):
+    def initials(self) -> str:
         """Generate an initial number for license plates."""
         return self.random_element([
             '1',  # Ministers
@@ -41,7 +41,7 @@ class Provider(AutomotiveProvider):
             '99',  # Police
         ])
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate."""
         pattern = self.random_element(self.license_formats)
         return self.numerify(self.generator.parse(pattern))

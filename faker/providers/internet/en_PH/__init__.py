@@ -33,7 +33,7 @@ class Provider(InternetProvider):
 
     @lowercase
     @slugify
-    def domain_word(self):
+    def domain_word(self) -> str:
         check = self.random_int(0, 99)
         if check % 100 < 40:
             company_acronym = self.generator.format('random_company_acronym')

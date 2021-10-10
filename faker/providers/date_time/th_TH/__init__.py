@@ -3,6 +3,8 @@ import warnings
 from datetime import datetime
 
 from .. import Provider as DateTimeProvider
+from ....typing import DateTime
+from typing import Optional
 
 # thai_strftime() code adapted from
 # https://gist.github.com/bact/b8afe49cb1ae62913e6c1e899dcddbdb
@@ -277,10 +279,10 @@ class Provider(DateTimeProvider):
     def date(
         self,
         pattern: str = "%-d %b %Y",
-        end_datetime=None,
+        end_datetime: DateTime = None,
         thai_digit: bool = False,
         buddhist_era: bool = True,
-    ):
+    ) -> str:
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
@@ -299,8 +301,8 @@ class Provider(DateTimeProvider):
         )
 
     def time(
-        self, pattern="%H:%M:%S", end_datetime=None, thai_digit: bool = False,
-    ):
+        self, pattern: str = "%H:%M:%S", end_datetime: DateTime = None, thai_digit: bool = False,
+    ) -> str:
         """
         Get a time string (24h format by default)
         :param pattern format
@@ -315,7 +317,7 @@ class Provider(DateTimeProvider):
             thai_digit,
         )
 
-    def century(self, thai_digit: bool = False, buddhist_era: bool = True):
+    def century(self, thai_digit: bool = False, buddhist_era: bool = True) -> str:
         """
         :param thai_digit use Thai digit or not (default: False)
         :param buddhist_era use Buddist era or not (default: True)

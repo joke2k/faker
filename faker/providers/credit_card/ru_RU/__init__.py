@@ -4,6 +4,7 @@ from faker.providers.person.ru_RU import translit
 
 from .. import CreditCard
 from .. import Provider as CreditCardProvider
+from typing import Optional, Union
 
 
 class Provider(CreditCardProvider):
@@ -36,7 +37,7 @@ class Provider(CreditCardProvider):
         ('unionpay', CreditCard('Union Pay', prefix_unionpay)),
     ))
 
-    def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
+    def credit_card_expire(self, start: str = 'now', end: str = '+4y', date_format: str = '%m/%y') -> str:
         """Generate a credit card expiry date.
 
         This method uses |date_time_between| under the hood to generate the
@@ -48,7 +49,7 @@ class Provider(CreditCardProvider):
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
-    def credit_card_full(self, card_type=None):
+    def credit_card_full(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
         """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 

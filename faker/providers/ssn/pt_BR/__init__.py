@@ -1,7 +1,8 @@
 from .. import Provider as SsnProvider
+from typing import List
 
 
-def checksum(digits):
+def checksum(digits: List[int]) -> int:
     """
     Returns the checksum of CPF digits.
     References to the algorithm:
@@ -29,7 +30,7 @@ class Provider(SsnProvider):
     The cpf return a valid number formatted with brazilian mask. eg nnn.nnn.nnn-nn
     """
 
-    def ssn(self):
+    def ssn(self) -> str:
         digits = self.generator.random.sample(range(10), 9)
 
         dv = checksum(digits)
@@ -38,11 +39,11 @@ class Provider(SsnProvider):
 
         return ''.join(map(str, digits))
 
-    def cpf(self):
+    def cpf(self) -> str:
         c = self.ssn()
         return c[:3] + '.' + c[3:6] + '.' + c[6:9] + '-' + c[9:]
 
-    def rg(self):
+    def rg(self) -> str:
         """
         Brazilian RG, return plain numbers.
         Check:  https://www.ngmatematica.com/2014/02/como-determinar-o-digito-verificador-do.html

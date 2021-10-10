@@ -409,7 +409,7 @@ class Provider(AddressProvider):
     secondary_address_formats = (
         'Flat #', 'Flat ##', 'Flat ##?', 'Studio #', 'Studio ##', 'Studio ##?')
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
         See
         http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
@@ -420,13 +420,13 @@ class Provider(AddressProvider):
             postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.bothify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.counties)
 
     county = administrative_unit

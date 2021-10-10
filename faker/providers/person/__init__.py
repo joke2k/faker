@@ -46,20 +46,20 @@ class Provider(BaseProvider):
         'Yoruba', 'Zhuang', 'Chinese', 'Zulu',
     ]
 
-    def name(self):
+    def name(self) -> str:
         """
         :example 'John Doe'
         """
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    def first_name(self):
+    def first_name(self) -> str:
         return self.random_element(self.first_names)
 
-    def last_name(self):
+    def last_name(self) -> str:
         return self.random_element(self.last_names)
 
-    def name_male(self):
+    def name_male(self) -> str:
         if hasattr(self, 'formats_male'):
             formats = self.formats_male
         else:
@@ -67,7 +67,7 @@ class Provider(BaseProvider):
         pattern = self.random_element(formats)
         return self.generator.parse(pattern)
 
-    def name_nonbinary(self):
+    def name_nonbinary(self) -> str:
         if hasattr(self, 'formats_nonbinary'):
             formats = self.formats_nonbinary
         else:
@@ -75,7 +75,7 @@ class Provider(BaseProvider):
         pattern = self.random_element(formats)
         return self.generator.parse(pattern)
 
-    def name_female(self):
+    def name_female(self) -> str:
         if hasattr(self, 'formats_female'):
             formats = self.formats_female
         else:
@@ -83,37 +83,37 @@ class Provider(BaseProvider):
         pattern = self.random_element(formats)
         return self.generator.parse(pattern)
 
-    def first_name_male(self):
+    def first_name_male(self) -> str:
         if hasattr(self, 'first_names_male'):
             return self.random_element(self.first_names_male)
         return self.first_name()
 
-    def first_name_nonbinary(self):
+    def first_name_nonbinary(self) -> str:
         if hasattr(self, 'first_names_nonbinary'):
             return self.random_element(self.first_names_nonbinary)
         return self.first_name()
 
-    def first_name_female(self):
+    def first_name_female(self) -> str:
         if hasattr(self, 'first_names_female'):
             return self.random_element(self.first_names_female)
         return self.first_name()
 
-    def last_name_male(self):
+    def last_name_male(self) -> str:
         if hasattr(self, 'last_names_male'):
             return self.random_element(self.last_names_male)
         return self.last_name()
 
-    def last_name_nonbinary(self):
+    def last_name_nonbinary(self) -> str:
         if hasattr(self, 'last_names_nonbinary'):
             return self.random_element(self.last_names_nonbinary)
         return self.last_name()
 
-    def last_name_female(self):
+    def last_name_female(self) -> str:
         if hasattr(self, 'last_names_female'):
             return self.random_element(self.last_names_female)
         return self.last_name()
 
-    def prefix(self):
+    def prefix(self) -> str:
         if hasattr(self, 'prefixes'):
             return self.random_element(self.prefixes)
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female') and hasattr(self, 'prefixes_nonbinary'):
@@ -126,22 +126,22 @@ class Provider(BaseProvider):
             return self.random_element(prefixes)
         return ''
 
-    def prefix_male(self):
+    def prefix_male(self) -> str:
         if hasattr(self, 'prefixes_male'):
             return self.random_element(self.prefixes_male)
         return self.prefix()
 
-    def prefix_nonbinary(self):
+    def prefix_nonbinary(self) -> str:
         if hasattr(self, 'prefixes_nonbinary'):
             return self.random_element(self.prefixes_nonbinary)
         return self.prefix()
 
-    def prefix_female(self):
+    def prefix_female(self) -> str:
         if hasattr(self, 'prefixes_female'):
             return self.random_element(self.prefixes_female)
         return self.prefix()
 
-    def suffix(self):
+    def suffix(self) -> str:
         if hasattr(self, 'suffixes'):
             return self.random_element(self.suffixes)
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female') and hasattr(self, 'suffixes_nonbinary'):
@@ -154,21 +154,21 @@ class Provider(BaseProvider):
             return self.random_element(suffixes)
         return ''
 
-    def suffix_male(self):
+    def suffix_male(self) -> str:
         if hasattr(self, 'suffixes_male'):
             return self.random_element(self.suffixes_male)
         return self.suffix()
 
-    def suffix_nonbinary(self):
+    def suffix_nonbinary(self) -> str:
         if hasattr(self, 'suffixes_nonbinary'):
             return self.random_element(self.suffixes_nonbinary)
         return self.suffix()
 
-    def suffix_female(self):
+    def suffix_female(self) -> str:
         if hasattr(self, 'suffixes_female'):
             return self.random_element(self.suffixes_female)
         return self.suffix()
 
-    def language_name(self):
+    def language_name(self) -> str:
         """Generate a random i18n language name (e.g. English)."""
         return self.random_element(self.language_names)

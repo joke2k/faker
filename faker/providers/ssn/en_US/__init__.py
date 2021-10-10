@@ -7,7 +7,7 @@ class Provider(BaseProvider):
     ITIN_TYPE = 'ITIN'
     EIN_TYPE = 'EIN'
 
-    def itin(self):
+    def itin(self) -> str:
         """Generate a random United States Individual Taxpayer Identification Number (ITIN).
 
         An United States Individual Taxpayer Identification Number
@@ -29,7 +29,7 @@ class Provider(BaseProvider):
         itin = f'{area:03d}-{group:02d}-{serial:04d}'
         return itin
 
-    def ein(self):
+    def ein(self) -> str:
         """Generate a random United States Employer Identification Number (EIN).
 
          An United States An Employer Identification Number (EIN) is
@@ -136,7 +136,7 @@ class Provider(BaseProvider):
         ein = f'{ein_prefix:s}-{sequence:07d}'
         return ein
 
-    def invalid_ssn(self):
+    def invalid_ssn(self) -> str:
         """ Generate a random invalid United States Social Security Identification Number (SSN).
 
         Invalid SSNs have the following characteristics:
@@ -198,7 +198,7 @@ class Provider(BaseProvider):
         invalid_ssn = f'{area:03d}-{group:02d}-{serial:04d}'
         return invalid_ssn
 
-    def ssn(self, taxpayer_identification_number_type=SSN_TYPE):
+    def ssn(self, taxpayer_identification_number_type: str = SSN_TYPE) -> str:
         """ Generate a random United States Taxpayer Identification Number of the specified type.
 
         If no type is specified, a US SSN is returned.

@@ -18,7 +18,7 @@ class Provider(BaseProvider):
         'ZZ ###### T',
     )
 
-    def ssn(self):
+    def ssn(self) -> str:
         pattern = self.random_element(self.nino_formats)
         return self.numerify(self.generator.parse(pattern))
 
@@ -29,7 +29,7 @@ class Provider(BaseProvider):
         'GBHA###',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random British VAT ID

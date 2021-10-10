@@ -141,13 +141,13 @@ class Provider(CompanyProvider):
     company_suffixes = ('A.C.', 'S.A.', 'S.A. de C.V.', 'S.C.',
                         'S. R.L. de C.V.', 'e Hijos', 'y Asociados')
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         Ejemplo: Grupo
         """
         return self.random_element(self.company_preffixes)
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'Robust full-range hub'
         """
@@ -157,7 +157,7 @@ class Provider(CompanyProvider):
 
         return " ".join(result)
 
-    def bs(self):
+    def bs(self) -> str:
         """
         :example 'integrate extensible convergence'
         """

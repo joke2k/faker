@@ -10,7 +10,7 @@ class Provider(BaseProvider):
         'DK########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         Returns a random generated Danish Tax ID
         """

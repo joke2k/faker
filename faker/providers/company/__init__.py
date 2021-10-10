@@ -489,20 +489,20 @@ class Provider(BaseProvider):
          'web services',
          'methodologies'))
 
-    def company(self):
+    def company(self) -> str:
         """
         :example 'Acme Ltd'
         """
         pattern = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    def company_suffix(self):
+    def company_suffix(self) -> str:
         """
         :example 'Ltd'
         """
         return self.random_element(self.company_suffixes)
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'Robust full-range hub'
         """
@@ -512,7 +512,7 @@ class Provider(BaseProvider):
 
         return " ".join(result)
 
-    def bs(self):
+    def bs(self) -> str:
         """
         :example 'integrate extensible convergence'
         """

@@ -60,12 +60,12 @@ class Provider(BaseProvider):
         '#############',
     )
 
-    def phone_number(self):
+    def phone_number(self) -> str:
         return self.numerify(self.random_element(self.formats))
 
-    def country_calling_code(self):
+    def country_calling_code(self) -> str:
         return self.random_element(self.country_calling_codes)
 
-    def msisdn(self):
+    def msisdn(self) -> str:
         """ https://en.wikipedia.org/wiki/MSISDN """
         return self.numerify(self.random_element(self.msisdn_formats))

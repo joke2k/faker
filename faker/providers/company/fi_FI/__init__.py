@@ -13,7 +13,7 @@ class Provider(CompanyProvider):
         'As Oy', 'Tmi', 'Oy', 'Oyj', 'Ky', 'Osk', 'ry',
     )
 
-    def company_business_id(self):
+    def company_business_id(self) -> str:
         """
         Returns Finnish company Business Identity Code (y-tunnus).
         Format is 8 digits - e.g. FI99999999,[8] last digit is a check
@@ -43,7 +43,7 @@ class Provider(CompanyProvider):
                 continue
             return body + '-' + str(cs)
 
-    def company_vat(self):
+    def company_vat(self) -> str:
         """
         Returns Finnish VAT identification number (Arvonlisaveronumero).
         This can be calculated from company business identity code by

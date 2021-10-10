@@ -315,33 +315,33 @@ class Provider(AddressProvider):
     street_address_formats = road_address_formats
     address_formats = road_address_formats
 
-    def land_number(self):
+    def land_number(self) -> str:
         """
         :example 507
         """
         return self.bothify(self.random_element(self.land_numbers))
 
-    def land_address(self):
+    def land_address(self) -> str:
         """
         :example 세종특별자치시 어진동 507
         """
         pattern = self.random_element(self.land_address_formats)
         return self.generator.parse(pattern)
 
-    def road_number(self):
+    def road_number(self) -> str:
         """
         :example 24
         """
         return self.bothify(self.random_element(self.road_numbers))
 
-    def road_address(self):
+    def road_address(self) -> str:
         """
         :example 세종특별자치시 도움5로 19 (어진동)
         """
         pattern = self.random_element(self.road_address_formats)
         return self.generator.parse(pattern)
 
-    def address_detail(self):
+    def address_detail(self) -> str:
         """
         :example 가나아파트 가동 102호
         """
@@ -349,32 +349,32 @@ class Provider(AddressProvider):
             self.address_detail_formats))
         return self.generator.parse(pattern)
 
-    def road(self):
+    def road(self) -> str:
         """
         :example 도움5로
         """
         pattern = self.random_element(self.road_formats)
         return self.generator.parse(pattern)
 
-    def road_name(self):
+    def road_name(self) -> str:
         """
         :example 압구정
         """
         return self.random_element(self.road_names)
 
-    def road_suffix(self):
+    def road_suffix(self) -> str:
         """
         :example 길
         """
         return self.random_element(self.road_suffixes)
 
-    def metropolitan_city(self):
+    def metropolitan_city(self) -> str:
         """
         :example 서울특별시
         """
         return self.random_element(self.metropolitan_cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example 경기도
         """
@@ -382,64 +382,64 @@ class Provider(AddressProvider):
 
     province = administrative_unit
 
-    def city(self):
+    def city(self) -> str:
         """
         :example 고양시
         """
         pattern = self.random_element(self.cities)
         return self.generator.parse(pattern)
 
-    def borough(self):
+    def borough(self) -> str:
         """
         :example 중구
         """
         return self.random_element(self.boroughs)
 
-    def town(self):
+    def town(self) -> str:
         """
         :example 가나동
         """
         pattern = self.random_element(self.town_formats)
         return self.generator.parse(pattern)
 
-    def town_suffix(self):
+    def town_suffix(self) -> str:
         """
         :example 동
         """
         return self.random_element(self.town_suffixes)
 
-    def building_name(self):
+    def building_name(self) -> str:
         """
         :example 김구아파트
         """
         pattern = self.random_element(self.building_name_formats)
         return self.generator.parse(pattern)
 
-    def building_suffix(self):
+    def building_suffix(self) -> str:
         """
         :example 아파트
         """
         return self.random_element(self.building_suffixes)
 
-    def building_dong(self):
+    def building_dong(self) -> str:
         """
         :example 가
         """
         return self.bothify(self.random_element(self.building_dongs))
 
-    def old_postal_code(self):
+    def old_postal_code(self) -> str:
         """
         :example 123-456
         """
         return self.bothify(self.random_element(self.postcode_formats))
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
         :example 12345
         """
         return self.bothify(self.random_element(self.new_postal_code_formats))
 
-    def postal_code(self):
+    def postal_code(self) -> str:
         """
         :example 12345
         """

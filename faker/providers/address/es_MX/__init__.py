@@ -91,22 +91,22 @@ class Provider(AddressProvider):
     secondary_address_formats = ('### ###', '### Interior ###',
                                  '### Edif. ### , Depto. ###')
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def city_suffix(self):
+    def city_suffix(self) -> str:
         return self.random_element(self.city_suffixes)
 
-    def city_adjective(self):
+    def city_adjective(self) -> str:
         return self.random_element(self.city_adjectives)
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'Avenida'
         """
         return self.random_element(self.street_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         """
         :example '020 Interior 999'
         """
@@ -114,7 +114,7 @@ class Provider(AddressProvider):
             self.random_element(
                 self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         example: u'Guerrero'
         """
@@ -122,7 +122,7 @@ class Provider(AddressProvider):
 
     state = administrative_unit
 
-    def state_abbr(self):
+    def state_abbr(self) -> str:
         """
         example: u'GRO'
         """

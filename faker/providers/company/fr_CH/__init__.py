@@ -4,7 +4,7 @@ from ..fr_FR import Provider as CompanyProvider
 class Provider(CompanyProvider):
     company_suffixes = ('SA', 'Sàrl.')
 
-    def ide(self):
+    def ide(self) -> str:
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html

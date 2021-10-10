@@ -5,7 +5,7 @@ from .. import Provider as SsnProvider
 
 class Provider(SsnProvider):
 
-    def ssn(self, min_age=0, max_age=105, artificial=False):
+    def ssn(self, min_age: int = 0, max_age: int = 105, artificial: bool = False) -> str:
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). This function assigns random
@@ -39,7 +39,7 @@ class Provider(SsnProvider):
         return hetu
 
     @staticmethod
-    def _get_century_code(year):
+    def _get_century_code(year: int) -> str:
         """Returns the century code for a given year"""
         if 2000 <= year < 3000:
             separator = 'A'
@@ -55,7 +55,7 @@ class Provider(SsnProvider):
         'FI########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Finnish VAT ID

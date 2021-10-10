@@ -1,7 +1,8 @@
 import re
 
 from calendar import timegm
-from datetime import MAXYEAR
+from datetime import date, time, MAXYEAR
+from datetime import tzinfo as TzInfo
 from datetime import date as dtdate
 from datetime import datetime, timedelta
 
@@ -9,11 +10,14 @@ from dateutil import relativedelta
 from dateutil.tz import gettz, tzlocal, tzutc
 
 from .. import BaseProvider
+from ...typing import DateTime
+from dateutil.tz.tz import tzfile, tzlocal
+from typing import Callable, Dict, Optional, Union
 
 localized = True
 
 
-def datetime_to_timestamp(dt):
+def datetime_to_timestamp(dt: Union[date, datetime]) -> int:
     if getattr(dt, 'tzinfo', None) is not None:
         dt = dt.astimezone(tzutc())
     return timegm(dt.timetuple())
@@ -29,7 +33,7 @@ def timestamp_to_datetime(timestamp, tzinfo):
     return pick
 
 
-def change_year(current_date, year_diff):
+def change_year(current_date: date, year_diff: int) -> datetime:
     """
     Unless the current_date is February 29th, it is fine to just subtract years.
     If it is a leap day, and we are rolling back to a non-leap year, it will
@@ -1394,7 +1398,7 @@ class Provider(BaseProvider):
 
     regex = re.compile(timedelta_pattern)
 
-    def unix_time(self, end_datetime=None, start_datetime=None):
+    def unix_time(self, end_datetime: DateTime = None, start_datetime: DateTime = None) -> int:
         """
         Get a timestamp between January 1, 1970 and now, unless passed
         explicit start_datetime or end_datetime values.
@@ -1404,7 +1408,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         return self.generator.random.randint(start_datetime, end_datetime)
 
-    def time_delta(self, end_datetime=None):
+    def time_delta(self, end_datetime: DateTime = None) -> timedelta:
         """
         Get a timedelta object
         """
@@ -1415,7 +1419,7 @@ class Provider(BaseProvider):
         ts = self.generator.random.randint(*sorted([0, seconds]))
         return timedelta(seconds=ts)
 
-    def date_time(self, tzinfo=None, end_datetime=None):
+    def date_time(self, tzinfo: TzInfo = None, end_datetime: DateTime = None) -> datetime:
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -1428,7 +1432,10 @@ class Provider(BaseProvider):
         return datetime(1970, 1, 1, tzinfo=tzinfo) + \
             timedelta(seconds=self.unix_time(end_datetime=end_datetime))
 
-    def date_time_ad(self, tzinfo=None, end_datetime=None, start_datetime=None):
+    def date_time_ad(self,
+                     tzinfo: TzInfo = None,
+                     end_datetime: Optional[date] = None,
+                     start_datetime: Optional[date] = None) -> datetime:
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -1455,14 +1462,14 @@ class Provider(BaseProvider):
         #       https://bugs.python.org/issue30684
         return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
 
-    def iso8601(self, tzinfo=None, end_datetime=None):
+    def iso8601(self, tzinfo: TzInfo = None, end_datetime: DateTime = None) -> str:
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example '2003-10-21T16:05:52+0000'
         """
         return self.date_time(tzinfo, end_datetime=end_datetime).isoformat()
 
-    def date(self, pattern='%Y-%m-%d', end_datetime=None):
+    def date(self, pattern: str = '%Y-%m-%d', end_datetime: DateTime = None) -> str:
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
@@ -1470,14 +1477,14 @@ class Provider(BaseProvider):
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
-    def date_object(self, end_datetime=None):
+    def date_object(self, end_datetime: DateTime = None) -> datetime:
         """
         Get a date object between January 1, 1970 and now
         :example datetime.date(2016, 9, 20)
         """
         return self.date_time(end_datetime=end_datetime).date()
 
-    def time(self, pattern='%H:%M:%S', end_datetime=None):
+    def time(self, pattern: str = '%H:%M:%S', end_datetime: DateTime = None) -> str:
         """
         Get a time string (24h format by default)
         :param pattern format
@@ -1486,7 +1493,7 @@ class Provider(BaseProvider):
         return self.date_time(
             end_datetime=end_datetime).time().strftime(pattern)
 
-    def time_object(self, end_datetime=None):
+    def time_object(self, end_datetime: DateTime = None) -> time:
         """
         Get a time object
         :example datetime.time(15, 56, 56, 772876)
@@ -1494,21 +1501,21 @@ class Provider(BaseProvider):
         return self.date_time(end_datetime=end_datetime).time()
 
     @classmethod
-    def _parse_start_datetime(cls, value):
+    def _parse_start_datetime(cls, value: Optional[Union[date, str]]) -> int:
         if value is None:
             return 0
 
         return cls._parse_date_time(value)
 
     @classmethod
-    def _parse_end_datetime(cls, value):
+    def _parse_end_datetime(cls, value: Optional[date]) -> int:
         if value is None:
             return datetime_to_timestamp(datetime.now())
 
         return cls._parse_date_time(value)
 
     @classmethod
-    def _parse_date_string(cls, value):
+    def _parse_date_string(cls, value: str) -> Dict[str, Union[float, int]]:
         parts = cls.regex.match(value)
         if not parts:
             raise ParseError(f"Can't parse date string `{value}`")
@@ -1543,7 +1550,7 @@ class Provider(BaseProvider):
         raise ParseError(f"Invalid format for timedelta {value!r}")
 
     @classmethod
-    def _parse_date_time(cls, value, tzinfo=None):
+    def _parse_date_time(cls, value: Datetime, tzinfo: TzInfo = None) -> int:
         if isinstance(value, (datetime, dtdate)):
             return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
@@ -1559,7 +1566,7 @@ class Provider(BaseProvider):
         raise ParseError(f"Invalid format for date {value!r}")
 
     @classmethod
-    def _parse_date(cls, value):
+    def _parse_date(cls, value: str) -> datetime:
         if isinstance(value, datetime):
             return value.date()
         elif isinstance(value, dtdate):
@@ -1576,7 +1583,10 @@ class Provider(BaseProvider):
             return today + timedelta(value)
         raise ParseError(f"Invalid format for date {value!r}")
 
-    def date_time_between(self, start_date='-30y', end_date='now', tzinfo=None):
+    def date_time_between(self,
+                          start_date: Union[datetime, str] = '-30y',
+                          end_date: Union[datetime, str] = 'now',
+                          tzinfo: TzInfo = None) -> datetime:
         """
         Get a DateTime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -1600,7 +1610,7 @@ class Provider(BaseProvider):
                 datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)
             ).astimezone(tzinfo)
 
-    def date_between(self, start_date='-30y', end_date='today'):
+    def date_between(self, start_date: DateTime = '-30y', end_date: DateTime = 'today') -> datetime:
         """
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -1615,7 +1625,7 @@ class Provider(BaseProvider):
         end_date = self._parse_date(end_date)
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
-    def future_datetime(self, end_date='+30d', tzinfo=None):
+    def future_datetime(self, end_date: DateTime = '+30d', tzinfo: TzInfo = None) -> datetime:
         """
         Get a DateTime object based on a random date between 1 second form now
         and a given date.
@@ -1630,7 +1640,7 @@ class Provider(BaseProvider):
             start_date='+1s', end_date=end_date, tzinfo=tzinfo,
         )
 
-    def future_date(self, end_date='+30d', tzinfo=None):
+    def future_date(self, end_date: DateTime = '+30d', tzinfo: TzInfo = None) -> datetime:
         """
         Get a Date object based on a random date between 1 day from now and a
         given date.
@@ -1643,7 +1653,7 @@ class Provider(BaseProvider):
         """
         return self.date_between(start_date='+1d', end_date=end_date)
 
-    def past_datetime(self, start_date='-30d', tzinfo=None):
+    def past_datetime(self, start_date: DateTime = '-30d', tzinfo: TzInfo = None) -> datetime:
         """
         Get a DateTime object based on a random date between a given date and 1
         second ago.
@@ -1658,7 +1668,7 @@ class Provider(BaseProvider):
             start_date=start_date, end_date='-1s', tzinfo=tzinfo,
         )
 
-    def past_date(self, start_date='-30d', tzinfo=None):
+    def past_date(self, start_date: DateTime = '-30d', tzinfo: TzInfo = None) -> datetime:
         """
         Get a Date object based on a random date between a given date and 1 day
         ago.
@@ -1673,9 +1683,9 @@ class Provider(BaseProvider):
 
     def date_time_between_dates(
             self,
-            datetime_start=None,
-            datetime_end=None,
-            tzinfo=None):
+            datetime_start: Optional[Union[date, datetime]] = None,
+            datetime_end: Optional[Union[date, datetime]] = None,
+            tzinfo: TzInfo = None) -> datetime:
         """
         Takes two DateTime objects and returns a random datetime between the two
         given datetimes.
@@ -1713,7 +1723,7 @@ class Provider(BaseProvider):
             )
         return pick
 
-    def date_between_dates(self, date_start=None, date_end=None):
+    def date_between_dates(self, date_start: Optional[date] = None, date_end: Optional[date] = None) -> datetime:
         """
         Takes two Date objects and returns a random date between the two given dates.
         Accepts Date or Datetime objects
@@ -1726,9 +1736,9 @@ class Provider(BaseProvider):
 
     def date_time_this_century(
             self,
-            before_now=True,
-            after_now=False,
-            tzinfo=None):
+            before_now: bool = True,
+            after_now: bool = False,
+            tzinfo: TzInfo = None) -> datetime:
         """
         Gets a DateTime object for the current century.
 
@@ -1756,9 +1766,9 @@ class Provider(BaseProvider):
 
     def date_time_this_decade(
             self,
-            before_now=True,
-            after_now=False,
-            tzinfo=None):
+            before_now: bool = True,
+            after_now: bool = False,
+            tzinfo: TzInfo = None) -> datetime:
         """
         Gets a DateTime object for the decade year.
 
@@ -1786,9 +1796,9 @@ class Provider(BaseProvider):
 
     def date_time_this_year(
             self,
-            before_now=True,
-            after_now=False,
-            tzinfo=None):
+            before_now: bool = True,
+            after_now: bool = False,
+            tzinfo: TzInfo = None) -> datetime:
         """
         Gets a DateTime object for the current year.
 
@@ -1815,9 +1825,9 @@ class Provider(BaseProvider):
 
     def date_time_this_month(
             self,
-            before_now=True,
-            after_now=False,
-            tzinfo=None):
+            before_now: bool = True,
+            after_now: bool = False,
+            tzinfo: TzInfo = None) -> datetime:
         """
         Gets a DateTime object for the current month.
 
@@ -1843,7 +1853,7 @@ class Provider(BaseProvider):
         else:
             return now
 
-    def date_this_century(self, before_today=True, after_today=False):
+    def date_this_century(self, before_today: bool = True, after_today: bool = False) -> datetime:
         """
         Gets a Date object for the current century.
 
@@ -1866,7 +1876,7 @@ class Provider(BaseProvider):
         else:
             return today
 
-    def date_this_decade(self, before_today=True, after_today=False):
+    def date_this_decade(self, before_today: bool = True, after_today: bool = False) -> datetime:
         """
         Gets a Date object for the decade year.
 
@@ -1888,7 +1898,7 @@ class Provider(BaseProvider):
         else:
             return today
 
-    def date_this_year(self, before_today=True, after_today=False):
+    def date_this_year(self, before_today: bool = True, after_today: bool = False) -> datetime:
         """
         Gets a Date object for the current year.
 
@@ -1910,7 +1920,7 @@ class Provider(BaseProvider):
         else:
             return today
 
-    def date_this_month(self, before_today=True, after_today=False):
+    def date_this_month(self, before_today: bool = True, after_today: bool = False) -> datetime:
         """
         Gets a Date object for the current month.
 
@@ -1936,11 +1946,11 @@ class Provider(BaseProvider):
 
     def time_series(
             self,
-            start_date='-30d',
-            end_date='now',
-            precision=None,
-            distrib=None,
-            tzinfo=None):
+            start_date: DateTime = '-30d',
+            end_date: DateTime = 'now',
+            precision: Optional[float] = None,
+            distrib: Callable[[datetime], DateTime] = None,
+            tzinfo: TzInfo = None):
         """
         Returns a generator yielding tuples of ``(<datetime>, <value>)``.
 
@@ -1971,35 +1981,35 @@ class Provider(BaseProvider):
             datapoint += precision
             yield (dt, distrib(dt))
 
-    def am_pm(self):
+    def am_pm(self) -> str:
         return self.date('%p')
 
-    def day_of_month(self):
+    def day_of_month(self) -> str:
         return self.date('%d')
 
-    def day_of_week(self):
+    def day_of_week(self) -> str:
         return self.date('%A')
 
-    def month(self):
+    def month(self) -> str:
         return self.date('%m')
 
-    def month_name(self):
+    def month_name(self) -> str:
         return self.date('%B')
 
-    def year(self):
+    def year(self) -> str:
         return self.date('%Y')
 
-    def century(self):
+    def century(self) -> str:
         """
         :example 'XVII'
         """
         return self.random_element(self.centuries)
 
-    def timezone(self):
+    def timezone(self) -> str:
         return self.generator.random.choice(
             self.random_element(self.countries)['timezones'])
 
-    def pytimezone(self, *args, **kwargs):
+    def pytimezone(self, *args, **kwargs) -> Optional[tzfile]:
         """
         Generate a random timezone (see `faker.timezone` for any args)
         and return as a python object usable as a `tzinfo` to `datetime`
@@ -2010,7 +2020,7 @@ class Provider(BaseProvider):
         """
         return gettz(self.timezone(*args, **kwargs))
 
-    def date_of_birth(self, tzinfo=None, minimum_age=0, maximum_age=115):
+    def date_of_birth(self, tzinfo: TzInfo = None, minimum_age: int = 0, maximum_age: int = 115) -> datetime:
         """
         Generate a random date of birth represented as a Date object,
         constrained by optional miminimum_age and maximum_age
@@ -2052,7 +2062,7 @@ class Provider(BaseProvider):
         return dob if dob != start_date else dob + timedelta(days=1)
 
 
-def convert_timestamp_to_datetime(timestamp, tzinfo):
+def convert_timestamp_to_datetime(timestamp: int, tzinfo: tzlocal) -> datetime:
     import datetime as dt
     if timestamp >= 0:
         return dt.datetime.fromtimestamp(timestamp, tzinfo)

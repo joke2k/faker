@@ -1,7 +1,8 @@
 from .. import Provider as SsnProvider
+from typing import List
 
 
-def checksum(digits):
+def checksum(digits: List[int]) -> int:
     """
     Calculate and return control digit for given list of digits based on
     ISO7064, MOD 11,10 standard.
@@ -30,7 +31,7 @@ class Provider(SsnProvider):
     (international standard ISO 7064, module 11.10).
     """
 
-    def ssn(self):
+    def ssn(self) -> str:
         digits = self.generator.random.sample(range(10), 10)
 
         digits.append(checksum(digits))
@@ -41,7 +42,7 @@ class Provider(SsnProvider):
         'HR###########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Croatian VAT ID

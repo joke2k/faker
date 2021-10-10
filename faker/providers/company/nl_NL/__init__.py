@@ -93,13 +93,13 @@ class Provider(CompanyProvider):
         'DKG Groep', 'Bruynzeel Keukens', 'Janssen de Jong Groep', 'ProRail', 'Solid Professionals', 'Hermes Partners',
     )
 
-    def large_company(self):
+    def large_company(self) -> str:
         """
         :example: 'Bol.com'
         """
         return self.random_element(self.large_companies)
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         :example 'Stichting'
         """

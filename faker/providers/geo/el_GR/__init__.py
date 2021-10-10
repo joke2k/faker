@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from .. import Provider as GeoProvider
+from typing import Tuple
 
 
 class Provider(GeoProvider):
@@ -12,15 +13,15 @@ class Provider(GeoProvider):
         (34.15370, 22.58810),
     )
 
-    def local_latlng(self):
+    def local_latlng(self) -> Tuple[float, float]:
         return float(self.local_latitude()), float(self.local_longitude())
 
-    def local_latitude(self):
+    def local_latitude(self) -> Decimal:
         latitudes = list(map(lambda t: int(t[0] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(
             min(latitudes), max(latitudes)) / 10000000)).quantize(Decimal('.000001'))
 
-    def local_longitude(self):
+    def local_longitude(self) -> Decimal:
         longitudes = list(map(lambda t: int(t[1] * 10000000), self.poly))
         return Decimal(str(self.generator.random.randint(
             min(longitudes), max(longitudes)) / 10000000)).quantize(Decimal('.000001'))

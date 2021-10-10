@@ -43,7 +43,7 @@ class Provider(PhoneNumberProvider):
         services_phones_formats + \
         toll_formats
 
-    def cellphone_provider_code(self):
+    def cellphone_provider_code(self) -> str:
         return self.random_element([
             '50',
             '52',
@@ -53,7 +53,7 @@ class Provider(PhoneNumberProvider):
             '58',
         ])
 
-    def telephone_provider_code(self):
+    def telephone_provider_code(self) -> str:
         return self.random_element([
             '1',
             '2',
@@ -64,28 +64,28 @@ class Provider(PhoneNumberProvider):
             '9',
         ])
 
-    def area_code(self):
+    def area_code(self) -> str:
         return self.random_element([
             '00971',
             '+971',
         ])
 
-    def cellphone_number(self):
+    def cellphone_number(self) -> str:
         pattern = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def telephone_number(self):
+    def telephone_number(self) -> str:
         pattern = self.random_element(self.telephone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def service_phone_number(self):
+    def service_phone_number(self) -> str:
         pattern = self.random_element(self.services_phones_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def toll_number(self):
+    def toll_number(self) -> str:
         pattern = self.random_element(self.toll_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def phone_number(self):
+    def phone_number(self) -> str:
         pattern = self.random_element(self.formats)
         return self.numerify(self.generator.parse(pattern))

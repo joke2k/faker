@@ -10,7 +10,7 @@ class Provider(BaseProvider):
         'ATU########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: a random Austrian VAT ID

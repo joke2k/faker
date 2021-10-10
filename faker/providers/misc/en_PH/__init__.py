@@ -38,17 +38,17 @@ class Provider(MiscProvider):
     )
     random_object_names = gemstone_names + mountain_names + plant_names + space_object_names
 
-    def gemstone_name(self):
+    def gemstone_name(self) -> str:
         return self.random_element(self.gemstone_names)
 
-    def mountain_name(self):
+    def mountain_name(self) -> str:
         return self.random_element(self.mountain_names)
 
-    def plant_name(self):
+    def plant_name(self) -> str:
         return self.random_element(self.plant_names)
 
-    def space_object_name(self):
+    def space_object_name(self) -> str:
         return self.random_element(self.space_object_names)
 
-    def random_object_name(self):
+    def random_object_name(self) -> str:
         return self.random_element(self.random_object_names)

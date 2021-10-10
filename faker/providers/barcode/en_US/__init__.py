@@ -3,6 +3,7 @@ import re
 from itertools import product
 
 from .. import Provider as BarcodeProvider
+from typing import Optional, Tuple
 
 
 class Provider(BarcodeProvider):
@@ -43,7 +44,7 @@ class Provider(BarcodeProvider):
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def ean13(self, leading_zero=None, prefixes=()):
+    def ean13(self, leading_zero: Optional[bool] = None, prefixes: Tuple[()] = ()) -> str:
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will
@@ -82,7 +83,7 @@ class Provider(BarcodeProvider):
 
         return super().ean13(prefixes=prefixes)
 
-    def _convert_upc_a2e(self, upc_a):
+    def _convert_upc_a2e(self, upc_a: str) -> str:
         """Convert a 12-digit UPC-A barcode to its 8-digit UPC-E equivalent.
 
         .. warning::
@@ -108,7 +109,7 @@ class Provider(BarcodeProvider):
             upc_e = upc_e_template.format(**groupdict)
         return upc_e
 
-    def _upc_ae(self, base=None, number_system_digit=None):
+    def _upc_ae(self, base: Optional[str] = None, number_system_digit: Optional[int] = None) -> str:
         """Create a 12-digit UPC-A barcode that can be converted to UPC-E.
 
         The expected value of ``base`` is a 6-digit string. If any other value
@@ -142,7 +143,10 @@ class Provider(BarcodeProvider):
         code.append(check_digit)
         return ''.join(str(x) for x in code)
 
-    def upc_a(self, upc_ae_mode=False, base=None, number_system_digit=None):
+    def upc_a(self,
+              upc_ae_mode: bool = False,
+              base: Optional[str] = None,
+              number_system_digit: Optional[int] = None) -> str:
         """Generate a 12-digit UPC-A barcode.
 
         The value of ``upc_ae_mode`` controls how barcodes will be generated. If
@@ -182,7 +186,10 @@ class Provider(BarcodeProvider):
             ean13 = self.ean13(leading_zero=True)
             return ean13[1:]
 
-    def upc_e(self, base=None, number_system_digit=None, safe_mode=True):
+    def upc_e(self,
+              base: Optional[str] = None,
+              number_system_digit: Optional[int] = None,
+              safe_mode: bool = True) -> str:
         """Generate an 8-digit UPC-E barcode.
 
         UPC-E barcodes can be expressed in 6, 7, or 8-digit formats, but this

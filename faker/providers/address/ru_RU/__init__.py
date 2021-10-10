@@ -348,16 +348,16 @@ class Provider(AddressProvider):
         'Эсватини', 'Эстония', 'Эфиопия', 'ЮАР', 'Южный Судан', 'Ямайка', 'Япония',
     )
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.city_names)
 
-    def country(self):
+    def country(self) -> str:
         return self.random_element(self.countries)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         regions_suffix = self.random_element(self.region_suffixes)
         if regions_suffix == 'респ.':
             return regions_suffix + ' ' + self.random_element(self.region_republics)
@@ -370,13 +370,13 @@ class Provider(AddressProvider):
 
     region = administrative_unit
 
-    def street_suffix(self):
+    def street_suffix(self) -> str:
         return self.random_element(self.street_suffixes)
 
-    def street_title(self):
+    def street_title(self) -> str:
         return self.random_element(self.street_titles + self.street_titles_noflex)
 
-    def street_name(self):
+    def street_name(self) -> str:
         suffix = self.street_suffix()
         street = self.street_title()
         stem = street[:-2]

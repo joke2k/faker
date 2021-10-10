@@ -2,9 +2,10 @@ from functools import reduce
 from math import fmod
 
 from .. import Provider as SsnProvider
+from typing import Optional, Union
 
 
-def zfix(d):
+def zfix(d: int) -> Union[int, str]:
     if d < 10:
         return "0" + str(d)
     else:
@@ -12,7 +13,7 @@ def zfix(d):
 
 
 class Provider(SsnProvider):
-    def ssn(self, dob=None, gender=None):
+    def ssn(self, dob: Optional[str] = None, gender: Optional[str] = None) -> str:
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 
@@ -131,7 +132,7 @@ class Provider(SsnProvider):
         'HU########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Hungarian VAT ID

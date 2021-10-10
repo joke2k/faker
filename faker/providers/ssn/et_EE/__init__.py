@@ -2,9 +2,10 @@ import datetime
 import operator
 
 from .. import Provider as SsnProvider
+from typing import List
 
 
-def checksum(digits):
+def checksum(digits: List[int]) -> int:
     """Calculate checksum of Estonian personal identity code.
 
     Checksum is calculated with "Modulo 11" method using level I or II scale:
@@ -30,7 +31,7 @@ class Provider(SsnProvider):
     scale1 = (1, 2, 3, 4, 5, 6, 7, 8, 9, 1)
     scale2 = (3, 4, 5, 6, 7, 8, 9, 1, 2, 3)
 
-    def ssn(self, min_age=16, max_age=90):
+    def ssn(self, min_age: int = 16, max_age: int = 90) -> str:
         """
         Returns 11 character Estonian personal identity code (isikukood, IK).
 
@@ -65,7 +66,7 @@ class Provider(SsnProvider):
         'EE#########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Estonian VAT ID

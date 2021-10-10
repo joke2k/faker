@@ -214,8 +214,8 @@ class Provider(PersonProvider):
 
     prefixes = OrderedDict((("Dr.", 0.95), ("Prof. Dr.", 0.05)))
 
-    def first_name_male_abbreviated(self):
+    def first_name_male_abbreviated(self) -> str:
         return self.random_element(self.first_names_male)[0] + "."
 
-    def first_name_female_abbreviated(self):
+    def first_name_female_abbreviated(self) -> str:
         return self.random_element(self.first_names_female)[0] + "."

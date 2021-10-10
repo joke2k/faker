@@ -1,7 +1,8 @@
 from .. import Provider as CompanyProvider
+from typing import List
 
 
-def regon_checksum(digits):
+def regon_checksum(digits: List[int]) -> int:
     """
     Calculates and returns a control digit for given list of digits basing on REGON standard.
     """
@@ -19,7 +20,7 @@ def regon_checksum(digits):
     return check_digit
 
 
-def local_regon_checksum(digits):
+def local_regon_checksum(digits: List[int]) -> int:
     """
     Calculates and returns a control digit for given list of digits basing on local REGON standard.
     """
@@ -37,7 +38,7 @@ def local_regon_checksum(digits):
     return check_digit
 
 
-def company_vat_checksum(digits):
+def company_vat_checksum(digits: List[int]) -> int:
     """
     Calculates and returns a control digit for given list of digits basing on NIP standard.
     """
@@ -66,13 +67,13 @@ class Provider(CompanyProvider):
 
     company_suffixes = ('Sp. z o.o.', 'S.A.', 'Sp. z o.o. Sp.k.', 'Sp.j.', 's.c.', 'Sp.k.', 'i syn s.c.')
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         :example 'Grupa'
         """
         return self.random_element(self.company_prefixes)
 
-    def regon(self):
+    def regon(self) -> str:
         """
         Returns 9 character Polish National Business Registry Number,
         Polish: Rejestr Gospodarki Narodowej - REGON.
@@ -89,7 +90,7 @@ class Provider(CompanyProvider):
 
         return ''.join(str(digit) for digit in regon_digits)
 
-    def local_regon(self):
+    def local_regon(self) -> str:
         """
         Returns 14 character Polish National Business Registry Number,
         local entity number.
@@ -105,7 +106,7 @@ class Provider(CompanyProvider):
 
         return ''.join(str(digit) for digit in regon_digits)
 
-    def company_vat(self):
+    def company_vat(self) -> str:
         """
         Returns 10 character tax identification number,
         Polish: Numer identyfikacji podatkowej.

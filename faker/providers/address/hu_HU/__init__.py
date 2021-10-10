@@ -210,33 +210,33 @@ class Provider(AddressProvider):
         "Uruguay", "Üzbegisztán", "Vanuatu", "Venezuela", "Vietnam", "Wallis és Futuna", "Zambia", "Zimbabwe",
         "Zöld-foki szigetek")
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.counties)
 
     county = administrative_unit
 
-    def street_address_with_county(self):
+    def street_address_with_county(self) -> str:
         return f'{self.street_address()}\n{self.county()} megye\n{self.postcode()} {self.city().capitalize()}'
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefs)
 
-    def city_part(self):
+    def city_part(self) -> str:
         return self.random_element(self.city_parts)
 
-    def real_city_name(self):
+    def real_city_name(self) -> str:
         return self.random_element(self.real_city_names)
 
-    def frequent_street_name(self):
+    def frequent_street_name(self) -> str:
         return self.random_element(self.frequent_street_names)
 
-    def postcode(self):
+    def postcode(self) -> str:
         return (f'H-{super().random_digit_not_null()}{super().random_digit()}'
                 f'{super().random_digit()}{super().random_digit()}')
 
-    def street_name(self):
+    def street_name(self) -> str:
         return super().street_name().capitalize()
 
-    def building_number(self):
+    def building_number(self) -> str:
         numeric_part = super().random_int(1, 250)
         return str(numeric_part) + "."

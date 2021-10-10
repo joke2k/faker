@@ -1,4 +1,5 @@
 from .. import BaseProvider
+from typing import Optional, Tuple
 
 localized = True
 
@@ -239,16 +240,16 @@ class Provider(BaseProvider):
 
     price_formats = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
 
-    def currency(self):
+    def currency(self) -> Tuple[str, str]:
         return self.random_element(self.currencies)
 
-    def currency_code(self):
+    def currency_code(self) -> str:
         return self.currency()[0]
 
-    def currency_name(self):
+    def currency_name(self) -> str:
         return self.currency()[1]
 
-    def currency_symbol(self, code=None):
+    def currency_symbol(self, code: Optional[str] = None) -> str:
         """
         :example: $
         """
@@ -256,16 +257,16 @@ class Provider(BaseProvider):
             code = self.random_element(self.currency_symbols.keys())
         return self.currency_symbols[code]
 
-    def cryptocurrency(self):
+    def cryptocurrency(self) -> Tuple[str, str]:
         return self.random_element(self.cryptocurrencies)
 
-    def cryptocurrency_code(self):
+    def cryptocurrency_code(self) -> str:
         return self.cryptocurrency()[0]
 
-    def cryptocurrency_name(self):
+    def cryptocurrency_name(self) -> str:
         return self.cryptocurrency()[1]
 
-    def pricetag(self):
+    def pricetag(self) -> str:
         return (
             self.random_element(self.currencies)[0]
             + "\N{no-break space}"

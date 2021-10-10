@@ -12,7 +12,7 @@ class Provider(BaseProvider):
 
     national_id_months = ['%.2d' % i for i in range(1, 13)] + ['%.2d' % i for i in range(51, 63)]
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Czech VAT ID
@@ -20,7 +20,7 @@ class Provider(BaseProvider):
 
         return self.bothify(self.random_element(self.vat_id_formats))
 
-    def birth_number(self):
+    def birth_number(self) -> str:
         """
         Birth Number (Czech/Slovak: rodné číslo (RČ))
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia

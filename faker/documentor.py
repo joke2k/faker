@@ -1,10 +1,14 @@
 import inspect
 import warnings
 
+from .generator import Generator
+from .providers import BaseProvider
+from typing import Dict, List, Optional, Tuple
+
 
 class Documentor:
 
-    def __init__(self, generator):
+    def __init__(self, generator: Generator) -> None:
         """
         :param generator: a localized Generator with providers filled,
                           for which to write the documentation
@@ -14,7 +18,10 @@ class Documentor:
         self.max_name_len = 0
         self.already_generated = []
 
-    def get_formatters(self, locale=None, excludes=None, **kwargs):
+    def get_formatters(self,
+                       locale: Optional[str] = None,
+                       excludes: Optional[List[str]]=None,
+                       **kwargs) -> List[Tuple[BaseProvider, Dict[str, BaseProvider]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
@@ -27,8 +34,11 @@ class Documentor:
             )
         return formatters
 
-    def get_provider_formatters(self, provider, prefix='fake.',
-                                with_args=True, with_defaults=True):
+    def get_provider_formatters(self,
+                                provider: BaseProvider,
+                                prefix: str = 'fake.',
+                                with_args: bool = True,
+                                with_defaults: bool = True) -> Dict[str, BaseProvider]:
 
         formatters = {}
 
@@ -98,5 +108,5 @@ class Documentor:
         return formatters
 
     @staticmethod
-    def get_provider_name(provider_class):
+    def get_provider_name(provider_class: BaseProvider) -> str:
         return provider_class.__provider__

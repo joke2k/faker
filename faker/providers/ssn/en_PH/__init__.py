@@ -33,21 +33,21 @@ class Provider(BaseProvider):
     pagibig_formats = ('####-####-####',)
     umid_formats = ('####-#######-#',)
 
-    def sss(self):
+    def sss(self) -> str:
         return self.numerify(self.random_element(self.sss_formats))
 
-    def gsis(self):
+    def gsis(self) -> str:
         return self.numerify(self.random_element(self.gsis_formats))
 
-    def pagibig(self):
+    def pagibig(self) -> str:
         return self.numerify(self.random_element(self.pagibig_formats))
 
-    def philhealth(self):
+    def philhealth(self) -> str:
         return self.numerify(self.random_element(self.philhealth_formats))
 
-    def umid(self):
+    def umid(self) -> str:
         return self.numerify(self.random_element(self.umid_formats))
 
-    def ssn(self):
+    def ssn(self) -> str:
         # Use UMID as SSN in the interim till its deprecation
         return self.umid()

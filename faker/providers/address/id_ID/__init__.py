@@ -147,25 +147,25 @@ class Provider(AddressProvider):
         'Zimbabwe',
     )
 
-    def street(self):
+    def street(self) -> str:
         return self.random_element(self.streets)
 
-    def street_prefix_short(self):
+    def street_prefix_short(self) -> str:
         return self.random_element(self.street_prefixes_short)
 
-    def street_prefix_long(self):
+    def street_prefix_long(self) -> str:
         return self.random_element(self.street_prefixes_long)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit
 
-    def state_abbr(self):
+    def state_abbr(self) -> str:
         return self.random_element(self.states_abbr)
 
-    def country(self):
+    def country(self) -> str:
         return self.random_element(self.countries)

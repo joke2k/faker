@@ -50,12 +50,12 @@ class Provider(AutomotiveProvider):
     # as to not clash with former export license plates
     license_plate_prefix_letters_format_8 = "KSTVXZ"
 
-    def license_plate_motorbike(self):
+    def license_plate_motorbike(self) -> str:
         """Generate a license plate for motorbikes."""
         return self.bothify(self.random_element(self.license_formats_motorbike),
                             letters=string.ascii_uppercase)
 
-    def license_plate_car(self):
+    def license_plate_car(self) -> str:
         """Generate a license plate for cars."""
         # Replace % with license_plate_prefix_letters
         temp = re.sub(r"\%",
@@ -69,7 +69,7 @@ class Provider(AutomotiveProvider):
 
         return self.bothify(temp, letters=string.ascii_uppercase)
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate.
         This method randomly chooses 10% between |license_plate_motorbike|
         or 90% |license_plate_car| to generate the result.

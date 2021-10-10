@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from .. import BaseProvider
+from typing import Optional, Tuple, Union
 
 localized = True
 
@@ -974,7 +975,7 @@ class Provider(BaseProvider):
         ("-24.19436", "29.00974", "Mokopane", "ZA", "Africa/Johannesburg"),
     )
 
-    def coordinate(self, center=None, radius=0.001):
+    def coordinate(self, center: Optional[float] = None, radius: Union[float, int] = 0.001) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
         """
@@ -988,17 +989,17 @@ class Provider(BaseProvider):
             geo = self.generator.random.uniform(center - radius, center + radius)
             return Decimal(str(geo)).quantize(Decimal(".000001"))
 
-    def latitude(self):
+    def latitude(self) -> Decimal:
         # Latitude has a range of -90 to 90, so divide by two.
         return self.coordinate() / 2
 
-    def longitude(self):
+    def longitude(self) -> Decimal:
         return self.coordinate()
 
-    def latlng(self):
+    def latlng(self) -> Tuple[Decimal, Decimal]:
         return (self.latitude(), self.longitude())
 
-    def local_latlng(self, country_code='US', coords_only=False):
+    def local_latlng(self, country_code: str = 'US', coords_only: bool = False) -> Optional[Tuple[str, str, str, str, str]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """
@@ -1007,7 +1008,7 @@ class Provider(BaseProvider):
             place = self.random_element(results)
             return (place[0], place[1]) if coords_only else place
 
-    def location_on_land(self, coords_only=False):
+    def location_on_land(self, coords_only: bool = False) -> Tuple[str, str, str, str, str]:
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
         Format is `(latitude, longitude, place name, two-letter country code, timezone)`
         Pass `coords_only` to return coordinates without metadata.

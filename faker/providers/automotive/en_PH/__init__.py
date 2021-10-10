@@ -1,6 +1,7 @@
 from string import ascii_uppercase
 
 from ... import BaseProvider
+from typing import Tuple, Union
 
 
 class Provider(BaseProvider):
@@ -29,10 +30,10 @@ class Provider(BaseProvider):
     )
     license_formats = motorcycle_license_formats + automobile_license_formats
 
-    def _license_plate(self, license_format):
+    def _license_plate(self, license_format: Union[Tuple[str, str, str, str], Tuple[str, str]]) -> str:
         return self.bothify(self.random_element(license_format), ascii_uppercase)
 
-    def protocol_license_plate(self):
+    def protocol_license_plate(self) -> str:
         """Generate a protocol license plate.
 
         .. note::
@@ -41,7 +42,7 @@ class Provider(BaseProvider):
         """
         return self.random_element(self.protocol_licenses)
 
-    def motorcycle_license_plate(self):
+    def motorcycle_license_plate(self) -> str:
         """Generate a motorcycle license plate.
 
         .. note::
@@ -50,7 +51,7 @@ class Provider(BaseProvider):
         """
         return self._license_plate(self.motorcycle_license_formats)
 
-    def automobile_license_plate(self):
+    def automobile_license_plate(self) -> str:
         """Generate an automobile license plate.
 
         .. note::
@@ -59,7 +60,7 @@ class Provider(BaseProvider):
         """
         return self._license_plate(self.automobile_license_formats)
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate.
 
         .. note::

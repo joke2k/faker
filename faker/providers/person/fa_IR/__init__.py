@@ -85,5 +85,5 @@ class Provider(PersonProvider):
     prefixes_male = ('جناب آقای', 'جناب آقای دکتر')
     prefixes_female = ('سرکار خانم', 'سرکار خانم دکتر')
 
-    def suffix(self):
+    def suffix(self) -> str:
         return ''

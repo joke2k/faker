@@ -297,8 +297,8 @@ class Provider(AddressProvider):
         'ჯვარი',
     )
 
-    def street_title(self):
+    def street_title(self) -> str:
         return self.random_element(self.street_titles)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.city_names)

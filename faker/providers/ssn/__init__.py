@@ -6,5 +6,5 @@ localized = True
 class Provider(BaseProvider):
     ssn_formats = ("###-##-####",)
 
-    def ssn(self):
+    def ssn(self) -> str:
         return self.bothify(self.random_element(self.ssn_formats))

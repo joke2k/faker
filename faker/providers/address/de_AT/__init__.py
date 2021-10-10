@@ -70,20 +70,20 @@ class Provider(AddressProvider):
         'Oberösterreich', 'Salzburg', 'Kärnten', 'Vorarlberg',
     )
 
-    def street_suffix_short(self):
+    def street_suffix_short(self) -> str:
         return self.random_element(self.street_suffixes_short)
 
-    def street_suffix_long(self):
+    def street_suffix_long(self) -> str:
         return self.random_element(self.street_suffixes_long)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit
 
-    def city_with_postcode(self):
+    def city_with_postcode(self) -> str:
         pattern = self.random_element(self.city_with_postcode_formats)
         return self.generator.parse(pattern)

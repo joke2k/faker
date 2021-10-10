@@ -164,26 +164,26 @@ class Provider(PersonProvider):
                       'Štšerbakov', 'Žukov', 'Žuravljov')
     last_names = set(last_names_est + last_names_rus)
 
-    def first_name_male_est(self):
+    def first_name_male_est(self) -> str:
         return self.random_element(self.first_names_male_est)
 
-    def first_name_female_est(self):
+    def first_name_female_est(self) -> str:
         return self.random_element(self.first_names_female_est)
 
-    def first_name_male_rus(self):
+    def first_name_male_rus(self) -> str:
         return self.random_element(self.first_names_male_rus)
 
-    def first_name_female_rus(self):
+    def first_name_female_rus(self) -> str:
         return self.random_element(self.first_names_female_rus)
 
-    def first_name_est(self):
+    def first_name_est(self) -> str:
         return self.random_element(self.first_names_est)
 
-    def first_name_rus(self):
+    def first_name_rus(self) -> str:
         return self.random_element(self.first_names_rus)
 
-    def last_name_est(self):
+    def last_name_est(self) -> str:
         return self.random_element(self.last_names_est)
 
-    def last_name_rus(self):
+    def last_name_rus(self) -> str:
         return self.random_element(self.last_names_rus)

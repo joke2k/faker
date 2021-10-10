@@ -1,6 +1,8 @@
 from .. import BaseProvider
 from .isbn import ISBN, ISBN10, ISBN13
 from .rules import RULES
+from faker.providers.isbn.rules import RegistrantRule
+from typing import List, Tuple
 
 
 class Provider(BaseProvider):
@@ -17,7 +19,7 @@ class Provider(BaseProvider):
     list of rules pertaining to each prefix/registration group.
     """
 
-    def _body(self):
+    def _body(self) -> List[str]:
         """ Generate the information required to create an ISBN-10 or
         ISBN-13.
         """
@@ -39,7 +41,7 @@ class Provider(BaseProvider):
         return [ean, reg_group, registrant, publication]
 
     @staticmethod
-    def _registrant_publication(reg_pub, rules):
+    def _registrant_publication(reg_pub: str, rules: List[RegistrantRule]) -> Tuple[str, str]:
         """ Separate the registration from the publication in a given
         string.
         :param reg_pub: A string of digits representing a registration
@@ -58,12 +60,12 @@ class Provider(BaseProvider):
         registrant, publication = reg_pub[:reg_len], reg_pub[reg_len:]
         return registrant, publication
 
-    def isbn13(self, separator='-'):
+    def isbn13(self, separator: str = '-') -> str:
         ean, group, registrant, publication = self._body()
         isbn = ISBN13(ean, group, registrant, publication)
         return isbn.format(separator)
 
-    def isbn10(self, separator='-'):
+    def isbn10(self, separator: str = '-') -> str:
         ean, group, registrant, publication = self._body()
         isbn = ISBN10(ean, group, registrant, publication)
         return isbn.format(separator)

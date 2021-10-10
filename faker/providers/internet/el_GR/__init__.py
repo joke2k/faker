@@ -14,12 +14,12 @@ class Provider(InternetProvider):
     tlds = ('com', 'com', 'com', 'net', 'org', 'gr', 'gr', 'gr')
 
     @slugify_domain
-    def user_name(self):
+    def user_name(self) -> str:
         pattern = self.random_element(self.user_name_formats)
         return latinize(self.bothify(self.generator.parse(pattern)))
 
     @slugify_domain
-    def domain_word(self):
+    def domain_word(self) -> str:
         company = self.generator.format('company')
         company_elements = company.split(' ')
         company = latinize(company_elements.pop(0))
@@ -28,7 +28,7 @@ class Provider(InternetProvider):
 
 # ``slugify`` doesn't replace greek glyphs.
 
-def remove_accents(value):
+def remove_accents(value: str) -> str:
     """
     Remove accents from characters in the given string.
     """
@@ -44,7 +44,7 @@ def remove_accents(value):
     return re.sub(r'[{}]+'.format(search), replace_accented_character, value)
 
 
-def latinize(value):
+def latinize(value: str) -> str:
     """
     Converts (transliterates) greek letters to latin equivalents.
     """

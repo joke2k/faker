@@ -2,9 +2,10 @@ import datetime
 import operator
 
 from .. import Provider as SsnProvider
+from typing import List, Optional, Tuple, Union
 
 
-def checksum(digits, scale):
+def checksum(digits: Union[Tuple[int, int, int, int, int, int, int, int, int], Tuple[int, int, int, int, int, int, int, int, int, int]], scale: List[int]) -> int:
     """
     Calculate checksum of Norwegian personal identity code.
 
@@ -27,7 +28,7 @@ class Provider(SsnProvider):
     scale1 = (3, 7, 6, 1, 8, 9, 4, 5, 2)
     scale2 = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-    def ssn(self, dob=None, gender=None):
+    def ssn(self, dob: Optional[str] = None, gender: Optional[str] = None) -> str:
         """
         Returns 11 character Norwegian personal identity code (Fødselsnummer).
 

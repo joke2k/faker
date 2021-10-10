@@ -13,5 +13,5 @@ class Provider(InternetProvider):
     tlds = ('com', 'com', 'com', 'net', 'org', 'jp', 'jp', 'jp')
 
     @slugify
-    def domain_word(self):
+    def domain_word(self) -> str:
         return self.generator.format('last_romanized_name')

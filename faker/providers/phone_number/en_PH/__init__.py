@@ -1,4 +1,5 @@
 from ... import BaseProvider
+from typing import Tuple, Union
 
 
 class Provider(BaseProvider):
@@ -86,10 +87,10 @@ class Provider(BaseProvider):
         '+632-{{misc_landline_identifier}}-####',
     )
     area2_landline_number_formats = (
-            globe_area2_landline_number_formats
-            + pldt_area2_landline_number_formats
-            + bayantel_area2_landline_number_formats
-            + misc_area2_landline_number_formats
+        globe_area2_landline_number_formats
+        + pldt_area2_landline_number_formats
+        + bayantel_area2_landline_number_formats
+        + misc_area2_landline_number_formats
     )
     non_area2_landline_number_formats = (
         '0{{non_area2_landline_area_code}}-###-####',
@@ -97,57 +98,57 @@ class Provider(BaseProvider):
     )
     landline_number_formats = area2_landline_number_formats + non_area2_landline_number_formats
 
-    def _create_phone_number(self, formats):
+    def _create_phone_number(self, formats: Union[Tuple[str, str], Tuple[str, str, str, str, str, str], Tuple[str, str, str, str, str, str, str, str], Tuple[str, str, str, str, str, str, str, str, str, str]]) -> str:
         pattern = self.random_element(formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def globe_mobile_number_prefix(self):
+    def globe_mobile_number_prefix(self) -> str:
         return self.random_element(self.globe_mobile_number_prefixes)
 
-    def smart_mobile_number_prefix(self):
+    def smart_mobile_number_prefix(self) -> str:
         return self.random_element(self.smart_mobile_number_prefixes)
 
-    def sun_mobile_number_prefix(self):
+    def sun_mobile_number_prefix(self) -> str:
         return self.random_element(self.sun_mobile_number_prefixes)
 
-    def bayantel_landline_identifier(self):
+    def bayantel_landline_identifier(self) -> str:
         return self.random_element(self.bayantel_landline_identifiers)
 
-    def misc_landline_identifier(self):
+    def misc_landline_identifier(self) -> str:
         return self.random_element(self.misc_landline_identifiers)
 
-    def non_area2_landline_area_code(self):
+    def non_area2_landline_area_code(self) -> str:
         return self.random_element(self.non_area2_landline_area_codes)
 
-    def globe_mobile_number(self):
+    def globe_mobile_number(self) -> str:
         return self._create_phone_number(self.globe_mobile_number_formats)
 
-    def smart_mobile_number(self):
+    def smart_mobile_number(self) -> str:
         return self._create_phone_number(self.smart_mobile_number_formats)
 
-    def sun_mobile_number(self):
+    def sun_mobile_number(self) -> str:
         return self._create_phone_number(self.sun_mobile_number_formats)
 
-    def mobile_number(self):
+    def mobile_number(self) -> str:
         return self._create_phone_number(self.mobile_number_formats)
 
-    def globe_area2_landline_number(self):
+    def globe_area2_landline_number(self) -> str:
         return self._create_phone_number(self.globe_area2_landline_number_formats)
 
-    def pldt_area2_landline_number(self):
+    def pldt_area2_landline_number(self) -> str:
         return self._create_phone_number(self.pldt_area2_landline_number_formats)
 
-    def bayantel_area2_landline_number(self):
+    def bayantel_area2_landline_number(self) -> str:
         return self._create_phone_number(self.bayantel_area2_landline_number_formats)
 
-    def misc_area2_landline_number(self):
+    def misc_area2_landline_number(self) -> str:
         return self._create_phone_number(self.misc_area2_landline_number_formats)
 
-    def area2_landline_number(self):
+    def area2_landline_number(self) -> str:
         return self._create_phone_number(self.area2_landline_number_formats)
 
-    def non_area2_landline_number(self):
+    def non_area2_landline_number(self) -> str:
         return self._create_phone_number(self.non_area2_landline_number_formats)
 
-    def landline_number(self):
+    def landline_number(self) -> str:
         return self._create_phone_number(self.landline_number_formats)

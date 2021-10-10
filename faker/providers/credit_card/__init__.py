@@ -1,6 +1,8 @@
 from collections import OrderedDict
 
 from .. import BaseProvider
+from ..date_time import DateTime
+from typing import List, Optional, Union
 
 localized = True
 
@@ -9,11 +11,11 @@ class CreditCard:
 
     def __init__(
             self,
-            name,
-            prefixes,
-            length=16,
-            security_code='CVC',
-            security_code_length=3):
+            name: str,
+            prefixes: List[str],
+            length: int = 16,
+            security_code: str = 'CVC',
+            security_code_length: int = 3) -> None:
         self.name = name
         self.prefixes = prefixes
         self.length = length
@@ -70,20 +72,20 @@ class Provider(BaseProvider):
     luhn_lookup = {'0': 0, '1': 2, '2': 4, '3': 6, '4': 8,
                    '5': 1, '6': 3, '7': 5, '8': 7, '9': 9}
 
-    def credit_card_provider(self, card_type=None):
+    def credit_card_provider(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
         """Generate a credit card provider name."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())
         return self._credit_card_type(card_type).name
 
-    def credit_card_number(self, card_type=None):
+    def credit_card_number(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
         """Generate a valid credit card number."""
         card = self._credit_card_type(card_type)
         prefix = self.random_element(card.prefixes)
         number = self._generate_number(self.numerify(prefix), card.length)
         return number
 
-    def credit_card_expire(self, start='now', end='+10y', date_format='%m/%y'):
+    def credit_card_expire(self, start: DateTime = 'now', end: DateTime = '+10y', date_format: str = '%m/%y') -> str:
         """Generate a credit card expiry date.
 
         This method uses |date_time_between| under the hood to generate the
@@ -95,7 +97,7 @@ class Provider(BaseProvider):
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
-    def credit_card_full(self, card_type=None):
+    def credit_card_full(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
         """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 
@@ -114,12 +116,12 @@ class Provider(BaseProvider):
 
         return self.generator.parse(tpl)
 
-    def credit_card_security_code(self, card_type=None):
+    def credit_card_security_code(self, card_type: Optional[CreditCard] = None) -> str:
         """Generate a credit card security code."""
         sec_len = self._credit_card_type(card_type).security_code_length
         return self.numerify('#' * sec_len)
 
-    def _credit_card_type(self, card_type=None):
+    def _credit_card_type(self, card_type: Optional[Union[CreditCard, str]] = None) -> CreditCard:
         """Generate a random CreditCard instance of the specified card type."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())
@@ -127,7 +129,7 @@ class Provider(BaseProvider):
             return card_type
         return self.credit_card_types[card_type]
 
-    def _generate_number(self, prefix, length):
+    def _generate_number(self, prefix: str, length: int) -> str:
         """Generate a credit card number.
 
         The ``prefix`` argument is the start of the CC number as a string which

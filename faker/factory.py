@@ -8,6 +8,8 @@ from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
 from faker.generator import Generator
 from faker.utils.loading import list_module
 
+from typing import List, Optional
+
 logger = logging.getLogger(__name__)
 
 # identify if python is being run in interactive mode. If so, disable logging.
@@ -23,13 +25,13 @@ class Factory:
     @classmethod
     def create(
             cls,
-            locale=None,
-            providers=None,
-            generator=None,
-            includes=None,
+            locale: Optional[str] = None,
+            providers: Optional[List[str]] = None,
+            generator: Generator = None,
+            includes: Optional[List[str]] = None,
             # Should we use weightings (more realistic) or weight every element equally (faster)?
             # By default, use weightings for backwards compatibility & realism
-            use_weighting=True,
+            use_weighting: bool = True,
             **config):
         if includes is None:
             includes = []
@@ -63,7 +65,7 @@ class Factory:
         return faker
 
     @classmethod
-    def _get_provider_class(cls, provider, locale=''):
+    def _get_provider_class(cls, provider: str, locale: Optional[str] = ''):
 
         provider_class = cls._find_provider_class(provider, locale)
 
@@ -85,7 +87,7 @@ class Factory:
         raise ValueError(msg)
 
     @classmethod
-    def _find_provider_class(cls, provider_path, locale=None):
+    def _find_provider_class(cls, provider_path: str, locale: Optional[str] = None):
 
         provider_module = import_module(provider_path)
 
@@ -117,4 +119,4 @@ class Factory:
             if locale is not None:
                 provider_module = import_module(provider_path)
 
-        return provider_module.Provider
+        return provider_module.Provider  # type: ignore

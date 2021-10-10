@@ -8,7 +8,7 @@ class Provider(BaseProvider):
     # First number can't be zero
     # Eleventh number is result of division after sum first number
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         :example '89340691651'
         """

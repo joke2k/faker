@@ -5,6 +5,7 @@ from math import ceil
 from string import ascii_uppercase
 
 from .. import BaseProvider
+from typing import Optional
 
 localized = True
 default_locale = 'en_GB'
@@ -30,7 +31,7 @@ class Provider(BaseProvider):
     bban_format = '????#############'
     country_code = 'GB'
 
-    def aba(self):
+    def aba(self) -> str:
         """Generate an ABA routing transit number."""
         fed_num = self.random_int(min=1, max=12)
         rand = self.numerify('######')
@@ -43,18 +44,18 @@ class Provider(BaseProvider):
 
         return f"{aba}{chk_digit}"
 
-    def bank_country(self):
+    def bank_country(self) -> str:
         """Generate the bank provider's ISO 3166-1 alpha-2 country code."""
         return self.country_code
 
-    def bban(self):
+    def bban(self) -> str:
         """Generate a Basic Bank Account Number (BBAN)."""
         temp = re.sub(r'\?',
                       lambda x: self.random_element(ascii_uppercase),
                       self.bban_format)
         return self.numerify(temp)
 
-    def iban(self):
+    def iban(self) -> str:
         """Generate an International Bank Account Number (IBAN)."""
         bban = self.bban()
 
@@ -65,7 +66,7 @@ class Provider(BaseProvider):
 
         return self.country_code + check + bban
 
-    def swift8(self, use_dataset=False):
+    def swift8(self, use_dataset: bool = False) -> str:
         """Generate an 8-digit SWIFT code.
 
         This method uses |swift| under the hood with the ``length`` argument set
@@ -77,7 +78,7 @@ class Provider(BaseProvider):
         """
         return self.swift(length=8, use_dataset=use_dataset)
 
-    def swift11(self, primary=None, use_dataset=False):
+    def swift11(self, primary: bool = False, use_dataset: bool = False) -> str:
         """Generate an 11-digit SWIFT code.
 
         This method uses |swift| under the hood with the ``length`` argument set
@@ -90,7 +91,7 @@ class Provider(BaseProvider):
         """
         return self.swift(length=11, primary=primary, use_dataset=use_dataset)
 
-    def swift(self, length=None, primary=None, use_dataset=False):
+    def swift(self, length: Optional[int] = None, primary: bool = False, use_dataset: bool = False) -> str:
         """Generate a SWIFT code.
 
         SWIFT codes, reading from left to right, are composed of a 4 alphabet

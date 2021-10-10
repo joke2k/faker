@@ -11,6 +11,7 @@ import zipfile
 from faker.exceptions import UnsupportedFeature
 
 from .. import BaseProvider
+from typing import Optional, Sequence, Tuple, Type, Union
 
 localized = True
 
@@ -19,7 +20,7 @@ csv.register_dialect('faker-csv', csv.excel, quoting=csv.QUOTE_ALL)
 
 class Provider(BaseProvider):
 
-    def boolean(self, chance_of_getting_true=50):
+    def boolean(self, chance_of_getting_true: int = 50) -> bool:
         """Generate a random boolean value based on ``chance_of_getting_true``.
 
         :sample size=10: chance_of_getting_true=25
@@ -28,7 +29,7 @@ class Provider(BaseProvider):
         """
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
-    def null_boolean(self):
+    def null_boolean(self) -> Optional[bool]:
         """Generate ``None``, ``True``, or ``False``, each with equal probability.
 
         :sample size=15:
@@ -39,7 +40,7 @@ class Provider(BaseProvider):
             -1: False,
         }[self.generator.random.randint(-1, 1)]
 
-    def binary(self, length=(1 * 1024 * 1024)):
+    def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
 
         :sample: length=64
@@ -47,7 +48,7 @@ class Provider(BaseProvider):
         blob = [self.generator.random.randrange(256) for _ in range(length)]
         return bytes(blob)
 
-    def md5(self, raw_output=False):
+    def md5(self, raw_output: bool = False) -> str:
         """Generate a random MD5 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
@@ -61,7 +62,7 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
-    def sha1(self, raw_output=False):
+    def sha1(self, raw_output: bool = False) -> str:
         """Generate a random SHA1 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
@@ -75,7 +76,7 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
-    def sha256(self, raw_output=False):
+    def sha256(self, raw_output: bool = False) -> str:
         """Generate a random SHA256 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
@@ -90,7 +91,7 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
-    def uuid4(self, cast_to=str):
+    def uuid4(self, cast_to: Type[str] = str) -> str:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
@@ -108,11 +109,11 @@ class Provider(BaseProvider):
 
     def password(
             self,
-            length=10,
-            special_chars=True,
-            digits=True,
-            upper_case=True,
-            lower_case=True):
+            length: int = 10,
+            special_chars: bool = True,
+            digits: bool = True,
+            upper_case: bool = True,
+            lower_case: bool = True) -> str:
         """Generate a random password of the specified ``length``.
 
         The arguments ``special_chars``, ``digits``, ``upper_case``, and ``lower_case`` control
@@ -161,7 +162,11 @@ class Provider(BaseProvider):
 
         return ''.join(chars)
 
-    def zip(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
+    def zip(self,
+            uncompressed_size: int = 65536,
+            num_files: int = 1,
+            min_file_size: int = 4096,
+            compression: Optional[str] = None) -> bytes:
         """Generate a bytes object containing a random valid zip archive file.
 
         The number and sizes of files contained inside the resulting archive can be controlled
@@ -219,7 +224,11 @@ class Provider(BaseProvider):
                 zip_handle.writestr(filename, data)
         return zip_buffer.getvalue()
 
-    def tar(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
+    def tar(self,
+            uncompressed_size: int = 65536,
+            num_files: int = 1,
+            min_file_size: int = 4096,
+            compression: Optional[str] = None) -> bytes:
         """Generate a bytes object containing a random valid tar file.
 
         The number and sizes of files contained inside the resulting archive can be controlled
@@ -283,7 +292,11 @@ class Provider(BaseProvider):
                 file_buffer.close()
         return tar_buffer.getvalue()
 
-    def image(self, size=(256, 256), image_format='png', hue=None, luminosity=None):
+    def image(self,
+              size: Tuple[int, int] = (256, 256),
+              image_format: str = 'png',
+              hue: Optional[Union[int, Sequence[int], str]] = None,
+              luminosity: Optional[str] = None) -> bytes:
         """Generate an image and draw a random polygon on it using the Python Image Library.
         Without it installed, this provider won't be functional. Returns the bytes representing
         the image in a given format.
@@ -323,9 +336,10 @@ class Provider(BaseProvider):
             fobj.seek(0)
             return fobj.read()
 
-    def dsv(self, dialect='faker-csv', header=None,
-            data_columns=('{{name}}', '{{address}}'),
-            num_rows=10, include_row_ids=False, **fmtparams):
+    def dsv(self, dialect: str = 'faker-csv', header: None = None,
+            data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
+            num_rows: int = 10, include_row_ids: bool = False, **fmtparams
+            ) -> str:
         """Generate random delimiter-separated values.
 
         This method's behavior share some similarities with ``csv.writer``. The ``dialect`` and
@@ -382,7 +396,7 @@ class Provider(BaseProvider):
 
         return dsv_buffer.getvalue()
 
-    def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def csv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
         """Generate random comma-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -398,7 +412,7 @@ class Provider(BaseProvider):
             include_row_ids=include_row_ids, delimiter=',',
         )
 
-    def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def tsv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
         """Generate random tab-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -414,7 +428,7 @@ class Provider(BaseProvider):
             include_row_ids=include_row_ids, delimiter='\t',
         )
 
-    def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def psv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
         """Generate random pipe-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -603,7 +617,7 @@ class Provider(BaseProvider):
             data.append(''.join(row))
         return '\n'.join(data)
 
-    def _value_format_selection(self, definition, **kwargs):
+    def _value_format_selection(self, definition: str, **kwargs) -> Union[int, str]:
         """
         Formats the string in different ways depending on it's contents.
 

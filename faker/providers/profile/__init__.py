@@ -1,6 +1,9 @@
 import itertools
 
 from .. import BaseProvider
+from datetime import date
+from decimal import Decimal
+from typing import Dict, List, Optional, Tuple, Union
 
 
 class Provider(BaseProvider):
@@ -9,7 +12,7 @@ class Provider(BaseProvider):
 
     """
 
-    def simple_profile(self, sex=None):
+    def simple_profile(self, sex: Optional[str] = None) -> Dict[str, Union[str, date]]:
         """
         Generates a basic profile with personal informations
         """
@@ -29,7 +32,9 @@ class Provider(BaseProvider):
             "birthdate": self.generator.date_of_birth(),
         }
 
-    def profile(self, fields=None, sex=None):
+    def profile(self,
+                fields: Optional[List[str]] = None,
+                sex: Optional[str] = None) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], date]]:
         """
         Generates a complete profile.
         If "fields" is not empty, only the fields in the list will be returned

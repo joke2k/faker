@@ -97,13 +97,13 @@ class Provider(AddressProvider):
         'Hovedstaden', 'Midtjylland', 'Nordjylland', 'Sjælland', 'Syddanmark',
     )
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         return self.random_element(self.street_prefixes)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit

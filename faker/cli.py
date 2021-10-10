@@ -9,14 +9,16 @@ from typing import Any, Dict, List, Optional, TextIO
 
 from faker import VERSION, Faker, documentor, exceptions
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
+from faker.documentor import Documentor
+from io import TextIOWrapper
 
 __author__ = 'joke2k'
 
 
-def print_provider(doc,
+def print_provider(doc: Documentor,
                    provider: List[str],
                    formatters: Dict[str, Any],
-                   excludes=None,
+                   excludes: Optional[List[str]] = None,
                    output: Optional[TextIO] = None) -> None:
 
     output = output or sys.stdout
@@ -48,9 +50,9 @@ def print_provider(doc,
                 signature = separator = ' '
 
 
-def print_doc(provider_or_field=None,
-              args=None, lang: str = DEFAULT_LOCALE, output=None, seed=None,
-              includes=None) -> None:
+def print_doc(provider_or_field: None = None,
+              args: Optional[List[Any]] = None, lang: str = DEFAULT_LOCALE, output: Optional[TextIOWrapper] = None, seed: Optional[float] = None,
+              includes: Optional[List[str]] = None) -> None:
     args = args or []
     output = output or sys.stdout
     fake = Faker(locale=lang, includes=includes)
@@ -117,7 +119,7 @@ def print_doc(provider_or_field=None,
 
 class Command:
 
-    def __init__(self, argv=None) -> None:
+    def __init__(self, argv: Optional[str] = None) -> None:
         self.argv = argv or sys.argv[:]
         self.prog_name = Path(self.argv[0]).name
 
@@ -259,7 +261,7 @@ examples:
                 break
 
 
-def execute_from_command_line(argv=None) -> None:
+def execute_from_command_line(argv: Optional[str] = None) -> None:
     """A simple method that runs a Command."""
     if sys.stdout.encoding is None:
         print('please set python env PYTHONIOENCODING=UTF-8, example: '

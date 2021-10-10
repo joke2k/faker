@@ -47,7 +47,7 @@ class Provider(SsnProvider):
     # This function reverses the checksum steps to create a random
     # valid nine-digit Canadian SIN (Social Insurance Number) in the
     # format '### ### ###'.
-    def ssn(self):
+    def ssn(self) -> str:
 
         # Create an array of 8 elements initialized randomly.
         digits = self.generator.random.sample(range(9), 8)

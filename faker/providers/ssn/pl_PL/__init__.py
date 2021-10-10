@@ -1,7 +1,9 @@
 from .. import Provider as SsnProvider
+from datetime import datetime
+from typing import List
 
 
-def checksum(digits):
+def checksum(digits: List[int]) -> int:
     """
     Calculates and returns a control digit for given list of digits basing on PESEL standard.
     """
@@ -16,7 +18,7 @@ def checksum(digits):
     return check_digit
 
 
-def calculate_month(birth_date):
+def calculate_month(birth_date: datetime) -> int:
     """
     Calculates and returns a month number basing on PESEL standard.
     """
@@ -28,7 +30,7 @@ def calculate_month(birth_date):
 
 class Provider(SsnProvider):
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Returns 11 character Polish national identity code (Public Electronic Census System,
         Polish: Powszechny Elektroniczny System Ewidencji Ludności - PESEL).
@@ -64,7 +66,7 @@ class Provider(SsnProvider):
         'PL##########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Polish VAT ID

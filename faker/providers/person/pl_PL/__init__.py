@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from .. import Provider as PersonProvider
+from typing import List, Optional, Union
 
 
-def checksum_identity_card_number(characters):
+def checksum_identity_card_number(characters: List[Union[str, int]]) -> int:
     """
     Calculates and returns a control digit for given list of characters basing on Identity Card Number standards.
     """
@@ -673,10 +676,10 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    def last_name(self):
+    def last_name(self) -> str:
         return self.random_element(self.unisex_last_names)
 
-    def identity_card_number(self):
+    def identity_card_number(self) -> str:
         """
         Returns 9 character Polish Identity Card Number,
         Polish: Numer Dowodu Osobistego.
@@ -702,11 +705,11 @@ class Provider(PersonProvider):
         return ''.join(str(character) for character in identity)
 
     @staticmethod
-    def pesel_compute_check_digit(pesel):
+    def pesel_compute_check_digit(pesel: str) -> int:
         checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
         return sum(int(a) * b for a, b in zip(pesel, checksum_values)) % 10
 
-    def pesel(self, date_of_birth=None, sex=None):
+    def pesel(self, date_of_birth: Optional[datetime] = None, sex: Optional[str] = None) -> str:
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
@@ -754,10 +757,10 @@ class Provider(PersonProvider):
         return pesel
 
     @staticmethod
-    def pwz_doctor_compute_check_digit(x):
+    def pwz_doctor_compute_check_digit(x: List[int]) -> int:
         return sum((i + 1) * d for i, d in enumerate(x)) % 11
 
-    def pwz_doctor(self):
+    def pwz_doctor(self) -> str:
         """
         Function generates an identification number for medical doctors
         Polish: Prawo Wykonywania Zawodu (PWZ)
@@ -773,7 +776,7 @@ class Provider(PersonProvider):
 
         return f'{check_digit}{"".join(map(str, core))}'
 
-    def pwz_nurse(self, kind='nurse'):
+    def pwz_nurse(self, kind: str = 'nurse') -> str:
         """
         Function generates an identification number for nurses and midwives
         Polish: Prawo Wykonywania Zawodu (PWZ)
@@ -840,7 +843,7 @@ class Provider(PersonProvider):
         '987', '988', '989', '991', '992', '993', '994', '995', '996', '997', '998',
     )
 
-    def nip(self):
+    def nip(self) -> str:
         """
         Returns 10 digit of Number of tax identification.
         Polish: Numer identyfikacji podatkowej (NIP).

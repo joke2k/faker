@@ -97,13 +97,13 @@ class Provider(AddressProvider):
         ('VL', 'Vâlcea'), ('VN', 'Vrancea'), ('VS', 'Vaslui'),
     )
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'Strada'
         """
         return self.random_element(self.street_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         """
         :example 'Bl. 123 Sc. 2 Ap. 15'
         """
@@ -111,13 +111,13 @@ class Provider(AddressProvider):
             self.random_element(
                 self.secondary_address_formats))
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def city_with_postcode(self):
+    def city_with_postcode(self) -> str:
         return self.postcode() + " " + self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         example: u'Timiș'
         """
@@ -125,7 +125,7 @@ class Provider(AddressProvider):
 
     state = administrative_unit
 
-    def state_abbr(self):
+    def state_abbr(self) -> str:
         """
         example: u'TM'
         """

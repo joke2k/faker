@@ -54,7 +54,7 @@ class Provider(CreditCardProvider):
         ('visa', CreditCard('Visa', prefix_visa, 16, security_code='CVV2')),
     ))
 
-    def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
+    def credit_card_expire(self, start: str = 'now', end: str = '+4y', date_format: str = '%m/%y') -> str:
         """Generate a credit card expiry date.
 
         This method uses |date_time_between| under the hood to generate the

@@ -122,7 +122,7 @@ class Provider(BankProvider):
         'Эс-Би-Ай Банк', 'Ю Би Эс Банк', 'Юг-Инвестбанк', 'ЮМК Банк', 'Юникредит Банк', 'Юнистрим', 'Яринтербанк',
     )
 
-    def bic(self):
+    def bic(self) -> str:
         """Generate a bank identification code (BIC).
 
         BIC is a bank identification code that is used in Russia.
@@ -133,7 +133,7 @@ class Provider(BankProvider):
         credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
         return '04' + region + department_code + credit_organization_code
 
-    def correspondent_account(self):
+    def correspondent_account(self) -> str:
         """Generate a correspondent account number.
 
         Correspondent account is established to handle various financial
@@ -143,7 +143,7 @@ class Provider(BankProvider):
         credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
         return '301' + self.numerify('#' * 14) + credit_organization_code
 
-    def checking_account(self):
+    def checking_account(self) -> str:
         """Generate a checking account number.
 
         Checking account is used in banks to handle financial operations of
@@ -155,6 +155,6 @@ class Provider(BankProvider):
         currency = self.random_element(self.currency_codes)
         return account + organization + currency + self.numerify('#' * 12)
 
-    def bank(self):
+    def bank(self) -> str:
         """Generate a bank name."""
         return self.random_element(self.banks)

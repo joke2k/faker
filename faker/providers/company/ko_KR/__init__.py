@@ -357,7 +357,7 @@ class Provider(CompanyProvider):
 
     company_suffixes = ('(주)', '주식회사', '(유)', '유한회사')
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'Robust full-range hub'
         """
@@ -367,7 +367,7 @@ class Provider(CompanyProvider):
 
         return " ".join(result)
 
-    def bs(self):
+    def bs(self) -> str:
         """
         :example 'integrate extensible convergence'
         """

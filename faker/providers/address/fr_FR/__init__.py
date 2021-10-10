@@ -1,4 +1,5 @@
 from .. import Provider as AddressProvider
+from typing import Tuple
 
 
 class Provider(AddressProvider):
@@ -135,19 +136,19 @@ class Provider(AddressProvider):
         ('976', 'Mayotte'),
     )
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'rue'
         """
         return self.random_element(self.street_prefixes)
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         """
         :example 'rue'
         """
         return self.random_element(self.city_prefixes)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example 'Guadeloupe'
         """
@@ -155,21 +156,21 @@ class Provider(AddressProvider):
 
     region = administrative_unit
 
-    def department(self):
+    def department(self) -> Tuple[str, str]:
         """
         Randomly returns a french department ('departmentNumber' , 'departmentName').
         :example ('2B' . 'Haute-Corse')
         """
         return self.random_element(self.departments)
 
-    def department_name(self):
+    def department_name(self) -> str:
         """
         Randomly returns a french department name.
         :example 'Ardèche'
         """
         return self.department()[1]
 
-    def department_number(self):
+    def department_number(self) -> str:
         """
         Randomly returns a french department number.
 

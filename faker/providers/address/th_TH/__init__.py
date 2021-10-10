@@ -318,13 +318,13 @@ class Provider(AddressProvider):
 
     city_suffixes = ("นคร",)
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'ถนน'
         """
         return self.random_element(self.street_prefixes)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example 'อุบลราชธานี'
         """
@@ -332,7 +332,7 @@ class Provider(AddressProvider):
 
     province = administrative_unit
 
-    def amphoe(self):
+    def amphoe(self) -> str:
         """
         Get a random Amphoe (district) name.
         Currently it's total random and not necessarily matched with a province.
@@ -340,7 +340,7 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.amphoes)
 
-    def tambon(self):
+    def tambon(self) -> str:
         """
         Get a random Tambon (subdistrict) name.
         Currently it's total random and not necessarily matched with an amphoe or province.
@@ -352,5 +352,5 @@ class Provider(AddressProvider):
             + self.random_element(self.tambon_suffixes)
         )
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
