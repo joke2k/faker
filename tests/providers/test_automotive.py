@@ -211,3 +211,9 @@ class TestRoRo(_SimpleAutomotiveTestMixin):
 
     def perform_extra_checks(self, license_plate, match):
         assert match.group('prefix') in RoRoAutomotiveProvider.license_plate_prefix
+
+
+class TestElGr(_SimpleAutomotiveTestMixin):
+    """Test el_GR automotive provider methods"""
+
+    license_plate_pattern = re.compile(r'^(?P<prefix>[A-Z]{2,3}) \d{4}$')
