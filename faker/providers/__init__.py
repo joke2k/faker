@@ -495,7 +495,7 @@ class DynamicProvider(BaseProvider):
     ):
         """
         A faker Provider capable of getting a list of elements to randomly select from,
-        Instead of using the predefined list of elements which exist in the default providers in faker.
+        instead of using the predefined list of elements which exist in the default providers in faker.
 
         :param provider_name: Name of provider, which would translate into the function name e.g. faker.my_fun().
         :param elements: List of values to randomly select from
