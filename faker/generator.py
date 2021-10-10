@@ -1,10 +1,13 @@
 import random as random_module
 import re
 
-from typing import Any, Callable, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
 
-from .providers import BaseProvider
 from .typing import Seed
+
+if TYPE_CHECKING:
+    from .providers import BaseProvider
+
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
