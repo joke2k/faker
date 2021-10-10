@@ -2,7 +2,9 @@ import re
 import string
 
 from collections import OrderedDict
+from typing import List, Optional
 
+from faker.generator import Generator
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
@@ -81,7 +83,11 @@ class BaseProvider:
         'zu': ('ZA',),
     }
 
-    def __init__(self, generator):
+    def __init__(self, generator: Generator):
+        """
+        Base class for fake data providers
+        :param generator: `Generator` instance
+        """
         self.generator = generator
 
     def locale(self):
@@ -478,3 +484,51 @@ class BaseProvider:
         if upper:
             letters = letters.upper()
         return _re_cir.sub(lambda x: self.random_element(letters), text)
+
+
+class DynamicProvider(BaseProvider):
+    def __init__(
+        self,
+        provider_name: str,
+        elements: Optional[List[str]] = None,
+        generator: Optional[Generator] = None,
+    ):
+        """
+        A faker Provider capable of getting a list of elements to randomly select from,
+        Instead of using the predefined list of elements which exist in the default providers in faker.
+
+        :param provider_name: Name of provider, which would translate into the function name e.g. faker.my_fun().
+        :param elements: List of values to randomly select from
+        :param generator: Generator object. If missing, the default Generator is used.
+
+        :example:
+        >>>from faker import Faker
+        >>>from faker.providers import DynamicProvider
+
+        >>>medical_professions_provider = DynamicProvider(
+        >>>     provider_name="medical_profession",
+        >>>     elements=["dr.", "doctor", "nurse", "surgeon", "clerk"],
+        >>>)
+        >>>fake = Faker()
+        >>>fake.add_provider(medical_professions_provider)
+
+        >>>fake.medical_professions()
+        "dr."
+
+        """
+
+        if not generator:
+            generator = Generator()
+        super().__init__(generator)
+        if provider_name.startswith("__"):
+            raise ValueError("Provider name cannot start with __ as it would be ignored by Faker")
+        self.provider_name = provider_name
+
+        if not elements or len(elements) == 0:
+            raise ValueError("Elements should be a list of values the provider samples from")
+
+        self.elements = elements
+        setattr(self, provider_name, self.get_random_value)
+
+    def get_random_value(self):
+        return self.random_element(self.elements)
