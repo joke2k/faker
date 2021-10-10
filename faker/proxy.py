@@ -5,14 +5,13 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Dict, List, Optional
-from typing import OrderedDict as OrderedDictType
-from typing import Sequence, Tuple, Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
 from .generator import Generator
+from .typing import OrderedDict as OrderedDictType
 from .typing import Seed
 from .utils.distribution import choices_distribution
 
