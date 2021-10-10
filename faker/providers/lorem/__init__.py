@@ -1,5 +1,6 @@
-from .. import BaseProvider
 from typing import List, Optional, Sequence
+
+from .. import BaseProvider
 
 localized = True
 

@@ -1,10 +1,11 @@
 import datetime
 import random
 
+from typing import Tuple
+
 from faker.utils.checksums import calculate_luhn
 
 from .. import Provider as SsnProvider
-from typing import Tuple
 
 
 class Provider(SsnProvider):

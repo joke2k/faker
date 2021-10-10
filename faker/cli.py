@@ -4,13 +4,13 @@ import os
 import random
 import sys
 
+from io import TextIOWrapper
 from pathlib import Path
 from typing import Any, Dict, List, Optional, TextIO
 
 from faker import VERSION, Faker, documentor, exceptions
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 from faker.documentor import Documentor
-from io import TextIOWrapper
 
 __author__ = 'joke2k'
 

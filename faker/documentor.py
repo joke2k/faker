@@ -1,9 +1,10 @@
 import inspect
 import warnings
 
+from typing import Dict, List, Optional, Tuple
+
 from .generator import Generator
 from .providers import BaseProvider
-from typing import Dict, List, Optional, Tuple
 
 
 class Documentor:

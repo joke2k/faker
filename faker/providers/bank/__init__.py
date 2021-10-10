@@ -3,9 +3,9 @@ import string
 
 from math import ceil
 from string import ascii_uppercase
+from typing import Optional
 
 from .. import BaseProvider
-from typing import Optional
 
 localized = True
 default_locale = 'en_GB'

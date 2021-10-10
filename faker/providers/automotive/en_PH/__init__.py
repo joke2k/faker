@@ -1,7 +1,7 @@
 from string import ascii_uppercase
+from typing import List
 
 from ... import BaseProvider
-from typing import List
 
 
 class Provider(BaseProvider):

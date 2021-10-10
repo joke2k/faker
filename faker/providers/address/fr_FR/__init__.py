@@ -1,5 +1,6 @@
-from .. import Provider as AddressProvider
 from typing import Tuple
+
+from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):

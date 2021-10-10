@@ -1,6 +1,7 @@
-from .. import Provider as SsnProvider
 from datetime import datetime
 from typing import List
+
+from .. import Provider as SsnProvider
 
 
 def checksum(digits: List[int]) -> int:

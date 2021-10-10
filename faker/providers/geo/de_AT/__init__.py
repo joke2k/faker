@@ -1,5 +1,6 @@
-from .. import Provider as GeoProvider
 from decimal import Decimal
+
+from .. import Provider as GeoProvider
 
 
 class Provider(GeoProvider):

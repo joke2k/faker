@@ -1,8 +1,9 @@
 import datetime
 import operator
 
-from .. import Provider as SsnProvider
 from typing import List, Optional, Sequence
+
+from .. import Provider as SsnProvider
 
 
 def checksum(digits: Sequence[int], scale: List[int]) -> int:

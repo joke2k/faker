@@ -1,17 +1,18 @@
 import re
 
 from calendar import timegm
-from datetime import date, MAXYEAR
-from datetime import tzinfo as TzInfo
+from datetime import MAXYEAR
+from datetime import date
 from datetime import date as dtdate
 from datetime import datetime, timedelta
+from datetime import tzinfo as TzInfo
+from typing import Callable, Dict, Optional, Union
 
 from dateutil import relativedelta
-from dateutil.tz import gettz, tzutc, tzlocal, tzfile
+from dateutil.tz import gettz, tzfile, tzlocal, tzutc
 
-from .. import BaseProvider
 from ...typing import DateTime
-from typing import Callable, Dict, Optional, Union
+from .. import BaseProvider
 
 localized = True
 

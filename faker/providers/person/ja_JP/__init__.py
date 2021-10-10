@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from operator import itemgetter
+from typing import Tuple
 
 from .. import Provider as PersonProvider
-from typing import Tuple
 
 
 class Provider(PersonProvider):

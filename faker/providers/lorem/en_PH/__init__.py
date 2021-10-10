@@ -1,6 +1,7 @@
+from typing import List
+
 from ..en_US import Provider as EnUsProvider
 from ..la import Provider as LoremProvider
-from typing import List
 
 
 class Provider(LoremProvider):

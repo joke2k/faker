@@ -1,10 +1,10 @@
 from collections import OrderedDict
+from typing import Optional, Union
 
 from faker.providers.person.ru_RU import translit
 
 from .. import CreditCard
 from .. import Provider as CreditCardProvider
-from typing import Optional, Union
 
 
 class Provider(CreditCardProvider):

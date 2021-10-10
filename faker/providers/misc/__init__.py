@@ -8,10 +8,11 @@ import tarfile
 import uuid
 import zipfile
 
+from typing import Optional, Sequence, Tuple, Type, Union
+
 from faker.exceptions import UnsupportedFeature
 
 from .. import BaseProvider
-from typing import Optional, Sequence, Tuple, Type, Union
 
 localized = True
 

@@ -1,7 +1,7 @@
 from collections import OrderedDict
+from typing import Optional
 
 from ..en import Provider as AddressProvider
-from typing import Optional
 
 
 class Provider(AddressProvider):

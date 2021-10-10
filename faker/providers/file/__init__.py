@@ -1,9 +1,9 @@
 import string
 
 from collections import OrderedDict
+from typing import Optional
 
 from .. import BaseProvider
-from typing import Optional
 
 
 class Provider(BaseProvider):

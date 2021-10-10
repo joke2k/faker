@@ -1,8 +1,10 @@
+from typing import List, Tuple
+
+from faker.providers.isbn.rules import RegistrantRule
+
 from .. import BaseProvider
 from .isbn import ISBN, ISBN10, ISBN13
 from .rules import RULES
-from faker.providers.isbn.rules import RegistrantRule
-from typing import List, Tuple
 
 
 class Provider(BaseProvider):

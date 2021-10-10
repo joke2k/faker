@@ -1,10 +1,10 @@
 import random as random_module
 import re
 
-from .providers import BaseProvider
-from typing import Any, Dict, Callable, List, Optional
-from .typing import Seed
+from typing import Any, Callable, Dict, List, Optional
 
+from .providers import BaseProvider
+from .typing import Seed
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()

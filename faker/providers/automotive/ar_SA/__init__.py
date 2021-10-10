@@ -1,7 +1,8 @@
 import re
 
-from .. import Provider as AutomotiveProvider
 from typing import Tuple
+
+from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):

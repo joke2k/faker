@@ -1,7 +1,7 @@
 from decimal import Decimal
+from typing import Optional, Tuple, Union
 
 from .. import BaseProvider
-from typing import Optional, Tuple, Union
 
 localized = True
 

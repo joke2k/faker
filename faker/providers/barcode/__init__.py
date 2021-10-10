@@ -1,5 +1,6 @@
-from .. import BaseProvider
 from typing import Any, Tuple, Union
+
+from .. import BaseProvider
 
 localized = True
 

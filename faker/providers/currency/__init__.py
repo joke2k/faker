@@ -1,5 +1,6 @@
-from .. import BaseProvider
 from typing import Optional, Tuple
+
+from .. import BaseProvider
 
 localized = True
 

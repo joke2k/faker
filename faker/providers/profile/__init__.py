@@ -1,9 +1,10 @@
 import itertools
 
-from .. import BaseProvider
 from datetime import date
 from decimal import Decimal
 from typing import Dict, List, Optional, Tuple, Union
+
+from .. import BaseProvider
 
 
 class Provider(BaseProvider):

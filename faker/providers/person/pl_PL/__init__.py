@@ -1,7 +1,7 @@
 from datetime import datetime
+from typing import List, Optional, Union
 
 from .. import Provider as PersonProvider
-from typing import List, Optional, Union
 
 
 def checksum_identity_card_number(characters: List[Union[str, int]]) -> int:

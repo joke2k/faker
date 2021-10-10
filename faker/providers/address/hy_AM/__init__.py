@@ -1,5 +1,6 @@
-from .. import Provider as AddressProvider
 from typing import Optional
+
+from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):

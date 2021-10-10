@@ -5,15 +5,14 @@ import re
 
 from collections import OrderedDict, _OrderedDictItemsView
 from random import Random
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
 from .generator import Generator
-from .utils.distribution import choices_distribution
-
-from typing import Any, Dict, List, Optional, Tuple, Union
 from .typing import Seed
+from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
 

@@ -3,12 +3,11 @@ import logging
 import sys
 
 from importlib import import_module
+from typing import List, Optional
 
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
 from faker.generator import Generator
 from faker.utils.loading import list_module
-
-from typing import List, Optional
 
 logger = logging.getLogger(__name__)
 

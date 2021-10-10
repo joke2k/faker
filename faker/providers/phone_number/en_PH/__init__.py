@@ -1,5 +1,6 @@
-from ... import BaseProvider
 from typing import Sequence
+
+from ... import BaseProvider
 
 
 class Provider(BaseProvider):

@@ -1,9 +1,9 @@
 import re
 
 from itertools import product
+from typing import Optional, Tuple
 
 from .. import Provider as BarcodeProvider
-from typing import Optional, Tuple
 
 
 class Provider(BarcodeProvider):

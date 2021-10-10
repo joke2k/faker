@@ -1,5 +1,6 @@
-from .. import Provider as CompanyProvider
 from typing import List
+
+from .. import Provider as CompanyProvider
 
 
 def regon_checksum(digits: List[int]) -> int:

@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from string import ascii_uppercase
+from typing import Sequence, Tuple, Union
 
 from .. import Provider as AddressProvider
-from typing import Sequence, Tuple, Union
 
 
 class Provider(AddressProvider):

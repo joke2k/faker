@@ -1,8 +1,8 @@
 from collections import OrderedDict
+from typing import Optional, Sequence, Union
 
 from .. import BaseProvider
 from .color import RandomColor
-from typing import Optional, Sequence, Union
 
 localized = True
 

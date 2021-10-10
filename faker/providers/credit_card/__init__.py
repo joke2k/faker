@@ -1,8 +1,8 @@
 from collections import OrderedDict
+from typing import List, Optional, Union
 
 from .. import BaseProvider
 from ..date_time import DateTime
-from typing import List, Optional, Union
 
 localized = True
 

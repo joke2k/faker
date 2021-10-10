@@ -1,4 +1,5 @@
-from ipaddress import IPv4Network, IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
+from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
+from typing import List, Optional, Tuple
 
 from text_unidecode import unidecode
 
@@ -8,7 +9,6 @@ from faker.utils.decorators import lowercase, slugify, slugify_unicode
 from faker.utils.distribution import choices_distribution
 
 from .. import BaseProvider
-from typing import List, Optional, Tuple
 
 localized = True
 

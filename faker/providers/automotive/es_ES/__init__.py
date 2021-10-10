@@ -2,8 +2,9 @@
 
 import re
 
-from .. import Provider as AutomotiveProvider
 from typing import Optional
+
+from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):

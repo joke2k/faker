@@ -1,7 +1,7 @@
 from decimal import Decimal
+from typing import Tuple
 
 from .. import Provider as GeoProvider
-from typing import Tuple
 
 
 class Provider(GeoProvider):

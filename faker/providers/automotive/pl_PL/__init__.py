@@ -1,5 +1,6 @@
-from .. import Provider as AutomotiveProvider
 from typing import List
+
+from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):

@@ -1,8 +1,8 @@
 from functools import reduce
 from math import fmod
+from typing import Optional, Union
 
 from .. import Provider as SsnProvider
-from typing import Optional, Union
 
 
 def zfix(d: int) -> Union[int, str]:
