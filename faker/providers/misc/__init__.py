@@ -340,8 +340,9 @@ class Provider(BaseProvider):
             dialect: str = 'faker-csv',
             header: Optional[Sequence[str]] = None,
             data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
-            num_rows: int = 10, include_row_ids: bool = False, **fmtparams
-            ) -> str:
+            num_rows: int = 10,
+            include_row_ids: bool = False,
+            **fmtparams) -> str:
         """Generate random delimiter-separated values.
 
         This method's behavior share some similarities with ``csv.writer``. The ``dialect`` and

@@ -1001,7 +1001,7 @@ class Provider(BaseProvider):
 
     def local_latlng(self,
                      country_code: str = 'US',
-                     coords_only: bool = False
+                     coords_only: bool = False,
                      ) -> Optional[Union[Tuple[str, str], Tuple[str, str, str, str, str]]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
