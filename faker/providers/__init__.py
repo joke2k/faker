@@ -4,7 +4,8 @@ import string
 from collections import OrderedDict
 from typing import Any, Optional, Sequence, Union
 
-from faker.utils.distribution import choices_distribution, choices_distribution_unique
+from ..typing import Elements
+from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
 _re_perc = re.compile(r'%')
@@ -218,7 +219,7 @@ class BaseProvider:
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self,
-                        elements: Union[Sequence[Any], OrderedDict] = ('a', 'b', 'c'),
+                        elements: Elements = ('a', 'b', 'c'),
                         length: Optional[int] = None,
                         unique: bool = False,
                         use_weighting: Optional[bool] = None):
@@ -314,7 +315,7 @@ class BaseProvider:
         )
 
     def random_choices(self,
-                       elements: Union[Sequence[Any], OrderedDict] = ('a', 'b', 'c'),
+                       elements: Elements = ('a', 'b', 'c'),
                        length: Optional[int] = None) -> Sequence[Any]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
@@ -339,7 +340,8 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self, elements: Sequence[Any] = ('a', 'b', 'c')) -> Any:
+    def random_element(self,
+                       elements: Elements = ('a', 'b', 'c')) -> Any:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -358,7 +360,9 @@ class BaseProvider:
 
         return self.random_elements(elements, length=1)[0]
 
-    def random_sample(self, elements: Sequence[Any] = ('a', 'b', 'c'), length: Optional[int] = None):
+    def random_sample(self,
+                      elements: Elements = ('a', 'b', 'c'),
+                      length: Optional[int] = None):
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to

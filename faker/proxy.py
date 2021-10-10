@@ -3,9 +3,11 @@ import functools
 import random
 import re
 
-from collections import OrderedDict, _OrderedDictItemsView
+from collections import OrderedDict
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional
+from typing import OrderedDict as OrderedDictType
+from typing import Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
@@ -28,7 +30,7 @@ class Faker:
     ]
 
     def __init__(self,
-                 locale: Optional[str] = None,
+                 locale: Optional[Union[str, Sequence[str], OrderedDictType[str, Union[int, float]]]] = None,
                  providers: Optional[List[str]] = None,
                  generator: Optional[Generator] = None,
                  includes: Optional[List[str]] = None,
@@ -189,11 +191,11 @@ class Faker:
             mapping = list(factories), list(weights)
         else:
             value = [
-                factory
+                factory  # type: ignore
                 for factory in self.factories
                 if hasattr(factory, method_name)
             ]
-            mapping = value, None
+            mapping = value, None  # type: ignore
 
         # Then cache and return results
         setattr(self, attr, mapping)
@@ -270,8 +272,8 @@ class Faker:
     def factories(self) -> List[Generator]:
         return self._factories
 
-    def items(self) -> _OrderedDictItemsView[str, Generator]:
-        return self._factory_map.items()
+    def items(self) -> List[Tuple[str, Generator]]:
+        return list(self._factory_map.items())
 
 
 class UniqueProxy:
