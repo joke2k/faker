@@ -512,7 +512,7 @@ class DynamicProvider(BaseProvider):
         >>>fake = Faker()
         >>>fake.add_provider(medical_professions_provider)
 
-        >>>fake.medical_professions()
+        >>>fake.medical_profession()
         "dr."
 
         """
