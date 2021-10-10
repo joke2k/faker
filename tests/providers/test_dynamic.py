@@ -27,7 +27,7 @@ class TestDynamicProvider:
 
         assert faker.medical_profession() in elements
 
-    def test_with_dynamic_special_provider_name(self):
+    def test_dynamic_with_special_provider_name(self):
         elements = ["dr.", "doctor", "nurse", "surgeon", "clerk"]
         provider_name = "__special__"  # The provider name cannot start with __
 
@@ -40,15 +40,33 @@ class TestDynamicProvider:
                 elements=elements,
             )
 
-    def test_with_empty_elements(self):
+    def test_dynamic_with_empty_elements(self):
         elements = []
         provider_name = "my_provider"
+        provider = DynamicProvider(
+                provider_name=provider_name,
+                elements=elements,
+            )
+        faker = Faker()
+        faker.add_provider(provider)
 
         with pytest.raises(
             ValueError,
             match="Elements should be a list of values the provider samples from",
         ):
-            DynamicProvider(
+            faker.my_provider()
+
+    def test_dynamic_add_element(self):
+        elements = []
+        provider_name = "my_provider"
+        provider = DynamicProvider(
                 provider_name=provider_name,
                 elements=elements,
             )
+        faker = Faker()
+        faker.add_provider(provider)
+
+        provider.add_element("one")
+        provider.add_element("two")
+
+        assert faker.my_provider() in ("one", "two")

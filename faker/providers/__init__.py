@@ -522,13 +522,22 @@ class DynamicProvider(BaseProvider):
         super().__init__(generator)
         if provider_name.startswith("__"):
             raise ValueError("Provider name cannot start with __ as it would be ignored by Faker")
+            raise ValueError(
+                "Provider name cannot start with __ as it would be ignored by Faker"
+            )
         self.provider_name = provider_name
-
-        if not elements or len(elements) == 0:
-            raise ValueError("Elements should be a list of values the provider samples from")
-
         self.elements = elements
-        setattr(self, provider_name, self.get_random_value)
+        setattr(self, provider_name, self.get_random_value) # Add a method for the provider_name value
+
+    def add_element(self, element: str):
+        """Add new element."""
+        self.elements.append(element)
 
     def get_random_value(self):
+
+        if not self.elements or len(self.elements) == 0:
+            raise ValueError(
+                "Elements should be a list of values the provider samples from"
+            )
+
         return self.random_element(self.elements)
