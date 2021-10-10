@@ -2,6 +2,7 @@ import re
 import string
 
 from collections import OrderedDict
+from typing import Any, Optional, Sequence, Union
 
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 
@@ -101,7 +102,7 @@ class BaseProvider:
         """
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
-    def random_int(self, min=0, max=9999, step=1):
+    def random_int(self, min: int = 0, max: int = 9999, step: int = 1):
         """Generate a random integer between two integers ``min`` and ``max`` inclusive
         while observing the provided ``step`` value.
 
@@ -114,21 +115,21 @@ class BaseProvider:
         """
         return self.generator.random.randrange(min, max + 1, step)
 
-    def random_digit(self):
+    def random_digit(self) -> int:
         """Generate a random digit (0 to 9).
 
         :sample:
         """
         return self.generator.random.randint(0, 9)
 
-    def random_digit_not_null(self):
+    def random_digit_not_null(self) -> int:
         """Generate a random non-zero digit (1 to 9).
 
         :sample:
         """
         return self.generator.random.randint(1, 9)
 
-    def random_digit_or_empty(self):
+    def random_digit_or_empty(self) -> Union[int, str]:
         """Generate a random digit (0 to 9) or an empty string.
 
         This method will return an empty string 50% of the time,
@@ -141,7 +142,7 @@ class BaseProvider:
         else:
             return ''
 
-    def random_digit_not_null_or_empty(self):
+    def random_digit_not_null_or_empty(self) -> Union[int, str]:
         """Generate a random non-zero digit (1 to 9) or an empty string.
 
         This method will return an empty string 50% of the time,
@@ -154,7 +155,7 @@ class BaseProvider:
         else:
             return ''
 
-    def random_number(self, digits=None, fix_len=False):
+    def random_number(self, digits: Optional[int] = None, fix_len: bool = False) -> int:
         """Generate a random integer according to the following rules:
 
         - If ``digits`` is ``None`` (default), its value will be set to a random
@@ -183,7 +184,7 @@ class BaseProvider:
         else:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
-    def random_letter(self):
+    def random_letter(self) -> str:
         """Generate a random ASCII letter (a-z and A-Z).
 
         :sample:
@@ -191,7 +192,7 @@ class BaseProvider:
         return self.generator.random.choice(
             getattr(string, 'letters', string.ascii_letters))
 
-    def random_letters(self, length=16):
+    def random_letters(self, length: int = 16) -> str:
         """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
 
         :sample:
@@ -202,22 +203,25 @@ class BaseProvider:
             length=length,
         )
 
-    def random_lowercase_letter(self):
+    def random_lowercase_letter(self) -> str:
         """Generate a random lowercase ASCII letter (a-z).
 
         :sample:
         """
         return self.generator.random.choice(string.ascii_lowercase)
 
-    def random_uppercase_letter(self):
+    def random_uppercase_letter(self) -> str:
         """Generate a random uppercase ASCII letter (A-Z).
 
         :sample:
         """
         return self.generator.random.choice(string.ascii_uppercase)
 
-    def random_elements(self, elements=('a', 'b', 'c'), length=None, unique=False,
-                        use_weighting=None):
+    def random_elements(self,
+                        elements: Union[Sequence[Any], OrderedDict] = ('a', 'b', 'c'),
+                        length: Optional[int] = None,
+                        unique: bool = False,
+                        use_weighting: Optional[bool] = None):
         """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
@@ -309,7 +313,9 @@ class BaseProvider:
             length=length,
         )
 
-    def random_choices(self, elements=('a', 'b', 'c'), length=None):
+    def random_choices(self,
+                       elements: Union[Sequence[Any], OrderedDict] = ('a', 'b', 'c'),
+                       length: Optional[int] = None) -> Sequence[Any]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -333,7 +339,7 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self, elements=('a', 'b', 'c')):
+    def random_element(self, elements: Sequence[Any] = ('a', 'b', 'c')) -> Any:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -352,7 +358,7 @@ class BaseProvider:
 
         return self.random_elements(elements, length=1)[0]
 
-    def random_sample(self, elements=('a', 'b', 'c'), length=None):
+    def random_sample(self, elements: Sequence[Any] = ('a', 'b', 'c'), length: Optional[int] = None):
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -364,13 +370,12 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=True)
 
-    def randomize_nb_elements(
-            self,
-            number=10,
-            le=False,
-            ge=False,
-            min=None,
-            max=None):
+    def randomize_nb_elements(self,
+                              number: int = 10,
+                              le: bool = False,
+                              ge: bool = False,
+                              min: Optional[int] = None,
+                              max: Optional[int] = None) -> int:
         """Generate a random integer near ``number`` according to the following rules:
 
         - If ``le`` is ``False`` (default), allow generation up to 140% of ``number``.
@@ -402,7 +407,7 @@ class BaseProvider:
             nb = max
         return nb
 
-    def numerify(self, text='###'):
+    def numerify(self, text: str = '###') -> str:
         """Generate a string with each placeholder in ``text`` replaced according
         to the following rules:
 
@@ -434,7 +439,7 @@ class BaseProvider:
             text)
         return text
 
-    def lexify(self, text='????', letters=string.ascii_letters):
+    def lexify(self, text: str = '????', letters: str = string.ascii_letters) -> str:
         """Generate a string with each question mark ('?') in ``text``
         replaced with a random character from ``letters``.
 
@@ -445,9 +450,8 @@ class BaseProvider:
         """
         return _re_qm.sub(lambda x: self.random_element(letters), text)
 
-    def bothify(self, text='## ??', letters=string.ascii_letters):
-        """Generate a string with each placeholder in ``text`` replaced according
-        to the following rules:
+    def bothify(self, text: str = '## ??', letters: str = string.ascii_letters) -> str:
+        """Generate a string with each placeholder in ``text`` replaced according to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
         - Question marks ('?') are replaced with a random character from ``letters``.
@@ -464,7 +468,7 @@ class BaseProvider:
         """
         return self.lexify(self.numerify(text), letters=letters)
 
-    def hexify(self, text='^^^^', upper=False):
+    def hexify(self, text: str = '^^^^', upper: bool = False) -> str:
         """Generate a string with each circumflex ('^') in ``text``
         replaced with a random hexadecimal character.
 

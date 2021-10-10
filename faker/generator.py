@@ -1,13 +1,9 @@
 import random as random_module
 import re
 
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from .typing import Seed
-
-if TYPE_CHECKING:
-    from .providers import BaseProvider
-
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
@@ -21,12 +17,12 @@ class Generator:
     }
 
     def __init__(self, **config) -> None:
-        self.providers: List[BaseProvider] = []
+        self.providers: List[object] = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider: BaseProvider) -> None:
+    def add_provider(self, provider: object) -> None:
 
         if isinstance(provider, type):
             provider = provider(self)
@@ -44,15 +40,15 @@ class Generator:
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
-    def provider(self, name: str) -> Optional[BaseProvider]:
+    def provider(self, name: str) -> Optional[object]:
         try:
             lst = [p for p in self.get_providers()
-                   if p.__provider__ == name.lower()]
+                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]  # type: ignore
             return lst[0]
         except IndexError:
             return None
 
-    def get_providers(self) -> List[BaseProvider]:
+    def get_providers(self) -> List[object]:
         """Returns added providers."""
         return self.providers
 
@@ -83,7 +79,7 @@ class Generator:
         """
         return self.get_formatter(formatter)(*args, **kwargs)  # type: ignore
 
-    def get_formatter(self, formatter: str) -> BaseProvider:
+    def get_formatter(self, formatter: str) -> object:
         try:
             return getattr(self, formatter)
         except AttributeError:
