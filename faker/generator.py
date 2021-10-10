@@ -2,7 +2,7 @@ import random as random_module
 import re
 
 from .providers import BaseProvider
-from typing import Any, Dict, Callable, List, Optional, Union
+from typing import Any, Dict, Callable, List, Optional
 from .typing import Seed
 
 

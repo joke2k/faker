@@ -107,13 +107,12 @@ class Provider(BaseProvider):
             generated_uuid = cast_to(generated_uuid)
         return generated_uuid
 
-    def password(
-            self,
-            length: int = 10,
-            special_chars: bool = True,
-            digits: bool = True,
-            upper_case: bool = True,
-            lower_case: bool = True) -> str:
+    def password(self,
+                 length: int = 10,
+                 special_chars: bool = True,
+                 digits: bool = True,
+                 upper_case: bool = True,
+                 lower_case: bool = True) -> str:
         """Generate a random password of the specified ``length``.
 
         The arguments ``special_chars``, ``digits``, ``upper_case``, and ``lower_case`` control
@@ -336,7 +335,9 @@ class Provider(BaseProvider):
             fobj.seek(0)
             return fobj.read()
 
-    def dsv(self, dialect: str = 'faker-csv', header: None = None,
+    def dsv(self,
+            dialect: str = 'faker-csv',
+            header: Optional[Sequence[str]] = None,
             data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
             num_rows: int = 10, include_row_ids: bool = False, **fmtparams
             ) -> str:
@@ -396,7 +397,11 @@ class Provider(BaseProvider):
 
         return dsv_buffer.getvalue()
 
-    def csv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
+    def csv(self,
+            header: Optional[Sequence[str]] = None,
+            data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
+            num_rows: int = 10,
+            include_row_ids: bool = False) -> str:
         """Generate random comma-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -412,7 +417,11 @@ class Provider(BaseProvider):
             include_row_ids=include_row_ids, delimiter=',',
         )
 
-    def tsv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
+    def tsv(self,
+            header: Optional[Sequence[str]] = None,
+            data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
+            num_rows: int = 10,
+            include_row_ids: bool = False) -> str:
         """Generate random tab-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -428,7 +437,11 @@ class Provider(BaseProvider):
             include_row_ids=include_row_ids, delimiter='\t',
         )
 
-    def psv(self, header: None = None, data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'), num_rows: int = 10, include_row_ids: bool = False) -> str:
+    def psv(self,
+            header: Optional[Sequence[str]] = None,
+            data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
+            num_rows: int = 10,
+            include_row_ids: bool = False) -> str:
         """Generate random pipe-separated values.
 
         For more information on the different arguments of this method, please refer to

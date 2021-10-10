@@ -2,10 +2,10 @@ import datetime
 import operator
 
 from .. import Provider as SsnProvider
-from typing import List, Optional, Tuple, Union
+from typing import List, Optional, Sequence
 
 
-def checksum(digits: Union[Tuple[int, int, int, int, int, int, int, int, int], Tuple[int, int, int, int, int, int, int, int, int, int]], scale: List[int]) -> int:
+def checksum(digits: Sequence[int], scale: List[int]) -> int:
     """
     Calculate checksum of Norwegian personal identity code.
 

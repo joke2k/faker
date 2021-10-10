@@ -20,7 +20,7 @@ class Documentor:
 
     def get_formatters(self,
                        locale: Optional[str] = None,
-                       excludes: Optional[List[str]]=None,
+                       excludes: Optional[List[str]] = None,
                        **kwargs) -> List[Tuple[BaseProvider, Dict[str, BaseProvider]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]

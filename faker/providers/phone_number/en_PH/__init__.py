@@ -1,5 +1,5 @@
 from ... import BaseProvider
-from typing import Tuple, Union
+from typing import Sequence
 
 
 class Provider(BaseProvider):
@@ -98,7 +98,7 @@ class Provider(BaseProvider):
     )
     landline_number_formats = area2_landline_number_formats + non_area2_landline_number_formats
 
-    def _create_phone_number(self, formats: Union[Tuple[str, str], Tuple[str, str, str, str, str, str], Tuple[str, str, str, str, str, str, str, str], Tuple[str, str, str, str, str, str, str, str, str, str]]) -> str:
+    def _create_phone_number(self, formats: Sequence[str]) -> str:
         pattern = self.random_element(formats)
         return self.numerify(self.generator.parse(pattern))
 

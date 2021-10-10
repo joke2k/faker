@@ -51,7 +51,10 @@ def print_provider(doc: Documentor,
 
 
 def print_doc(provider_or_field: None = None,
-              args: Optional[List[Any]] = None, lang: str = DEFAULT_LOCALE, output: Optional[TextIOWrapper] = None, seed: Optional[float] = None,
+              args: Optional[List[Any]] = None,
+              lang: str = DEFAULT_LOCALE,
+              output: Optional[TextIOWrapper] = None,
+              seed: Optional[float] = None,
               includes: Optional[List[str]] = None) -> None:
     args = args or []
     output = output or sys.stdout

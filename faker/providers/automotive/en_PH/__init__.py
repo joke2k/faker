@@ -1,7 +1,7 @@
 from string import ascii_uppercase
 
 from ... import BaseProvider
-from typing import Tuple, Union
+from typing import List
 
 
 class Provider(BaseProvider):
@@ -19,18 +19,18 @@ class Provider(BaseProvider):
     - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Philippines
     """
 
-    protocol_licenses = tuple(str(x) for x in range(1, 18) if x != 15)
-    motorcycle_license_formats = (
+    protocol_licenses = [str(x) for x in range(1, 18) if x != 15]
+    motorcycle_license_formats = [
         '??####',     # 1981 series
         '??#####',    # 2014 series
-    )
-    automobile_license_formats = (
+    ]
+    automobile_license_formats = [
         '???###',    # 1981 series
         '???####',   # 2014 series
-    )
+    ]
     license_formats = motorcycle_license_formats + automobile_license_formats
 
-    def _license_plate(self, license_format: Union[Tuple[str, str, str, str], Tuple[str, str]]) -> str:
+    def _license_plate(self, license_format: List[str]) -> str:
         return self.bothify(self.random_element(license_format), ascii_uppercase)
 
     def protocol_license_plate(self) -> str:

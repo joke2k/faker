@@ -4,7 +4,6 @@ from datetime import datetime
 
 from .. import Provider as DateTimeProvider
 from ....typing import DateTime
-from typing import Optional
 
 # thai_strftime() code adapted from
 # https://gist.github.com/bact/b8afe49cb1ae62913e6c1e899dcddbdb

@@ -315,7 +315,8 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return all_networks, weights
 
-    def _get_private_networks_and_weights(self, address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
+    def _get_private_networks_and_weights(self,
+                                          address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces an OrderedDict of valid private IPv4 networks and corresponding relative weights
 
@@ -350,7 +351,8 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return private_networks, weights
 
-    def _get_public_networks_and_weights(self, address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
+    def _get_public_networks_and_weights(self,
+                                         address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces a 2-tuple of valid public IPv4 networks and corresponding relative weights
 
@@ -382,7 +384,10 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return public_networks, weights
 
-    def _random_ipv4_address_from_subnets(self, subnets: List[IPv4Network], weights: Optional[List[int]] = None, network: bool = False) -> str:
+    def _random_ipv4_address_from_subnets(self,
+                                          subnets: List[IPv4Network],
+                                          weights: Optional[List[int]] = None,
+                                          network: bool = False) -> str:
         """
         Produces a random IPv4 address or network with a valid CIDR
         from within the given subnets using a distribution described
@@ -414,7 +419,9 @@ class Provider(BaseProvider):
 
         return address
 
-    def _exclude_ipv4_networks(self, networks: List[IPv4Network], networks_to_exclude: List[IPv4Network]) -> List[IPv4Network]:
+    def _exclude_ipv4_networks(self,
+                               networks: List[IPv4Network],
+                               networks_to_exclude: List[IPv4Network]) -> List[IPv4Network]:
         """
         Exclude the list of networks from another list of networks
         and return a flat list of new networks.

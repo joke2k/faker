@@ -1,17 +1,16 @@
 import re
 
 from calendar import timegm
-from datetime import date, time, MAXYEAR
+from datetime import date, MAXYEAR
 from datetime import tzinfo as TzInfo
 from datetime import date as dtdate
 from datetime import datetime, timedelta
 
 from dateutil import relativedelta
-from dateutil.tz import gettz, tzlocal, tzutc
+from dateutil.tz import gettz, tzutc, tzlocal, tzfile
 
 from .. import BaseProvider
 from ...typing import DateTime
-from dateutil.tz.tz import tzfile, tzlocal
 from typing import Callable, Dict, Optional, Union
 
 localized = True
@@ -23,7 +22,7 @@ def datetime_to_timestamp(dt: Union[date, datetime]) -> int:
     return timegm(dt.timetuple())
 
 
-def timestamp_to_datetime(timestamp, tzinfo):
+def timestamp_to_datetime(timestamp: int, tzinfo: Optional[TzInfo]) -> datetime:
     if tzinfo is None:
         pick = convert_timestamp_to_datetime(timestamp, tzlocal())
         pick = pick.astimezone(tzutc()).replace(tzinfo=None)
@@ -1550,7 +1549,7 @@ class Provider(BaseProvider):
         raise ParseError(f"Invalid format for timedelta {value!r}")
 
     @classmethod
-    def _parse_date_time(cls, value: Datetime, tzinfo: TzInfo = None) -> int:
+    def _parse_date_time(cls, value: DateTime, tzinfo: TzInfo = None) -> int:
         if isinstance(value, (datetime, dtdate)):
             return datetime_to_timestamp(value)
         now = datetime.now(tzinfo)
@@ -1726,7 +1725,7 @@ class Provider(BaseProvider):
     def date_between_dates(self, date_start: Optional[date] = None, date_end: Optional[date] = None) -> datetime:
         """
         Takes two Date objects and returns a random date between the two given dates.
-        Accepts Date or Datetime objects
+        Accepts Date or DateTime objects
 
         :param date_start: Date
         :param date_end: Date

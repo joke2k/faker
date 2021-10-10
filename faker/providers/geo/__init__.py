@@ -999,7 +999,10 @@ class Provider(BaseProvider):
     def latlng(self) -> Tuple[Decimal, Decimal]:
         return (self.latitude(), self.longitude())
 
-    def local_latlng(self, country_code: str = 'US', coords_only: bool = False) -> Optional[Tuple[str, str, str, str, str]]:
+    def local_latlng(self,
+                     country_code: str = 'US',
+                     coords_only: bool = False
+                     ) -> Optional[Union[Tuple[str, str], Tuple[str, str, str, str, str]]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """
@@ -1008,7 +1011,7 @@ class Provider(BaseProvider):
             place = self.random_element(results)
             return (place[0], place[1]) if coords_only else place
 
-    def location_on_land(self, coords_only: bool = False) -> Tuple[str, str, str, str, str]:
+    def location_on_land(self, coords_only: bool = False) -> Union[Tuple[str, str], Tuple[str, str, str, str, str]]:
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
         Format is `(latitude, longitude, place name, two-letter country code, timezone)`
         Pass `coords_only` to return coordinates without metadata.

@@ -9,7 +9,11 @@ class ISBN:
 
     MAX_LENGTH = 13
 
-    def __init__(self, ean: Optional[str] = None, group: Optional[str] = None, registrant: Optional[str] = None, publication: Optional[str] = None) -> None:
+    def __init__(self,
+                 ean: Optional[str] = None,
+                 group: Optional[str] = None,
+                 registrant: Optional[str] = None,
+                 publication: Optional[str] = None) -> None:
         self.ean = ean
         self.group = group
         self.registrant = registrant
