@@ -1,3 +1,5 @@
+from typing import List
+
 from .. import Provider as SsnProvider
 
 
@@ -15,19 +17,15 @@ class Provider(SsnProvider):
             oddsum = sum(digits[1::2])
             return (10 - ((evensum + oddsum * 3) % 10)) % 10
 
-        digits = [7, 5, 6]
+        digits: List[int] = [7, 5, 6]
         # create an array of first 9 elements initialized randomly
         digits += self.generator.random.sample(range(10), 9)
         # determine the last digit to make it qualify the test
         digits.append(_checksum(digits))
         # repeat steps until it does qualify the test
 
-        digits = ''.join([str(d) for d in digits])
-        ssn = digits[:3] + '.' \
-                         + digits[3:7] + '.' \
-                         + digits[7:11] + '.' \
-                         + digits[11:]
-        return ssn
+        digits_ = ''.join([str(d) for d in digits])
+        return f'{digits_[:3]}.{digits_[3:7]}.{digits_[7:11]}.{digits_[11:]}'
 
     def vat_id(self) -> str:
         """
@@ -42,5 +40,5 @@ class Provider(SsnProvider):
                 return 5
             return remainder
 
-        vat_id = self.numerify('########')
+        vat_id: str = self.numerify('########')
         return 'CHE' + vat_id + str(_checksum(vat_id))

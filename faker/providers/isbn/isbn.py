@@ -32,16 +32,16 @@ class ISBN13(ISBN):
         for calculation.
         """
         weights = (1 if x % 2 == 0 else 3 for x in range(12))
-        body = ''.join([self.ean, self.group, self.registrant,
-                        self.publication])
+        body = ''.join([part for part in [self.ean, self.group, self.registrant, self.publication] if part is not None])
         remainder = sum(int(b) * w for b, w in zip(body, weights)) % 10
         diff = 10 - remainder
         check_digit = 0 if diff == 10 else diff
         return str(check_digit)
 
     def format(self, separator: str = '') -> str:
-        return separator.join([self.ean, self.group, self.registrant,
-                               self.publication, self.check_digit])
+        return separator.join([part for part in
+                               [self.ean, self.group, self.registrant, self.publication, self.check_digit]
+                               if part is not None])
 
 
 class ISBN10(ISBN):
@@ -56,11 +56,12 @@ class ISBN10(ISBN):
         for calculation.
         """
         weights = range(1, 10)
-        body = ''.join([self.group, self.registrant, self.publication])
+        body = ''.join([part for part in [self.group, self.registrant, self.publication] if part is not None])
         remainder = sum(int(b) * w for b, w in zip(body, weights)) % 11
         check_digit = 'X' if remainder == 10 else str(remainder)
         return str(check_digit)
 
     def format(self, separator: str = '') -> str:
-        return separator.join([self.group, self.registrant, self.publication,
-                               self.check_digit])
+        return separator.join([part for part in
+                               [self.group, self.registrant, self.publication, self.check_digit]
+                               if part is not None])

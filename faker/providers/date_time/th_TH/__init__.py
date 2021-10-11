@@ -290,7 +290,7 @@ class Provider(DateTimeProvider):
         :param buddhist_era use Buddist era or not (default: True)
         :example '08 พ.ย. 2563'
         :example '๐๘ พ.ย. 2563' (thai_digit = True)
-        :example '8 พฤศิจกายน 2020' (pattern = "%-d %B %Y", buddhist_era = False)
+        :example '8 พฤศิจกายน 2020' (pattern: str = "%-d %B %Y", buddhist_era = False)
         """
         return thai_strftime(
             self.date_time(end_datetime=end_datetime),

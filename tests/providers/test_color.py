@@ -38,7 +38,7 @@ class TestColorProvider:
             assert 0 <= b <= 255
 
     def test_rgb_css_color(self, faker, num_samples):
-        pattern = re.compile(r'rgb\((?P<rgb>\d{1,3},\d{1,3},\d{1,3})\)')
+        pattern: Pattern = re.compile(r'rgb\((?P<rgb>\d{1,3},\d{1,3},\d{1,3})\)')
         for _ in range(num_samples):
             match = pattern.fullmatch(faker.rgb_css_color())
             rgb = match.group('rgb')
@@ -62,25 +62,25 @@ class TestRandomColor:
     """Test RandomColor class"""
     num_samples = 1000
     seed = 4761
-    hsv_color_pattern = re.compile(
+    hsv_color_pattern: Pattern = re.compile(
         r'hsv\('
         r'(?P<h>\d|[1-9]\d|[1-3]\d{2}), '
         r'(?P<s>\d|[1-9]\d|100), '
         r'(?P<v>\d|[1-9]\d|100)\)',
     )
-    hsl_color_pattern = re.compile(
+    hsl_color_pattern: Pattern = re.compile(
         r'hsl\('
         r'(?P<h>\d|[1-9]\d|[1-3]\d{2}), '
         r'(?P<s>\d|[1-9]\d|[1-3]\d{2}), '
         r'(?P<l>\d|[1-9]\d|[1-3]\d{2})\)',
     )
-    rgb_color_pattern = re.compile(
+    rgb_color_pattern: Pattern = re.compile(
         r'rgb\('
         r'(?P<r>\d|[1-9]\d|[1-3]\d{2}), '
         r'(?P<g>\d|[1-9]\d|[1-3]\d{2}), '
         r'(?P<b>\d|[1-9]\d|[1-3]\d{2})\)',
     )
-    hex_color_pattern = re.compile(r'#[0-9a-f]{6}')
+    hex_color_pattern: Pattern = re.compile(r'#[0-9a-f]{6}')
 
     def setup_method(self):
         self.random_color = RandomColor(seed=self.seed)

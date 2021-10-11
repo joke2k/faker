@@ -1,14 +1,15 @@
 import datetime
 
-from typing import Optional
+from typing import List, Optional
 
+from ....typing import Gender
 from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
     # Extracted from
     # http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201504/t20150415_712722.html
-    area_codes = [
+    area_codes: List[str] = [
         "110000", "110100", "110101", "110102", "110105", "110106", "110107",
         "110108", "110109", "110111", "110112", "110113", "110114", "110115",
         "110116", "110117", "110200", "110228", "110229", "120000", "120100",
@@ -513,7 +514,7 @@ class Provider(SsnProvider):
         "659003", "659004", "710000", "810000", "820000",
     ]
 
-    def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[str] = None) -> str:
+    def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[Gender] = None) -> str:
         """
         Return 18 character chinese personal identity code
 
@@ -527,8 +528,8 @@ class Provider(SsnProvider):
         birthday = datetime.date.today() - age
         birthday_str = birthday.strftime('%Y%m%d')
 
-        ssn_without_checksum = self.numerify(
-            self.random_element(self.area_codes) + birthday_str + "##")
+        area_code: str = self.random_element(self.area_codes)
+        ssn_without_checksum = self.numerify(area_code + birthday_str + "##")
 
         _number = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
         if gender:

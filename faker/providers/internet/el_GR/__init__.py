@@ -15,7 +15,7 @@ class Provider(InternetProvider):
 
     @slugify_domain
     def user_name(self) -> str:
-        pattern = self.random_element(self.user_name_formats)
+        pattern: str = self.random_element(self.user_name_formats)
         return latinize(self.bothify(self.generator.parse(pattern)))
 
     @slugify_domain

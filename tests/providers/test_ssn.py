@@ -901,11 +901,11 @@ class TestEnPh(unittest.TestCase):
     num_sample_runs = 1000
 
     def setUp(self):
-        self.sss_pattern = re.compile(r'^\d{2}-\d{7}-\d$')
-        self.gsis_pattern = re.compile(r'^\d{11}$')
-        self.philhealth_pattern = re.compile(r'^\d{2}-\d{9}-\d$')
-        self.pagibig_pattern = re.compile(r'^\d{4}-\d{4}-\d{4}$')
-        self.umid_pattern = re.compile(r'^\d{4}-\d{7}-\d$')
+        self.sss_pattern: Pattern = re.compile(r'^\d{2}-\d{7}-\d$')
+        self.gsis_pattern: Pattern = re.compile(r'^\d{11}$')
+        self.philhealth_pattern: Pattern = re.compile(r'^\d{2}-\d{9}-\d$')
+        self.pagibig_pattern: Pattern = re.compile(r'^\d{4}-\d{4}-\d{4}$')
+        self.umid_pattern: Pattern = re.compile(r'^\d{4}-\d{7}-\d$')
         self.setup_faker()
 
     def setup_faker(self):

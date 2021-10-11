@@ -42,21 +42,21 @@ class Provider(BaseProvider):
         """
         :example 'Sashabury'
         """
-        pattern = self.random_element(self.city_formats)
+        pattern: str = self.random_element(self.city_formats)
         return self.generator.parse(pattern)
 
     def street_name(self) -> str:
         """
         :example 'Crist Parks'
         """
-        pattern = self.random_element(self.street_name_formats)
+        pattern: str = self.random_element(self.street_name_formats)
         return self.generator.parse(pattern)
 
     def street_address(self) -> str:
         """
         :example '791 Crist Parks'
         """
-        pattern = self.random_element(self.street_address_formats)
+        pattern: str = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
     def postcode(self) -> str:
@@ -69,7 +69,7 @@ class Provider(BaseProvider):
         """
         :example '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        pattern = self.random_element(self.address_formats)
+        pattern: str = self.random_element(self.address_formats)
         return self.generator.parse(pattern)
 
     def country(self) -> str:

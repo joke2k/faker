@@ -415,7 +415,7 @@ class Provider(AddressProvider):
         http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
         """
         postcode = ''
-        pattern = self.random_element(self.postcode_formats)
+        pattern: str = self.random_element(self.postcode_formats)
         for placeholder in pattern:
             postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode

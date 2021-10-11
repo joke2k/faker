@@ -38,7 +38,7 @@ class Provider(SsnProvider):
         pnr_date = f'{birthday:{yr_fmt}%m%d}'
         chk_date = pnr_date[2:] if long else pnr_date
         suffix = f'{self.generator.random.randrange(0, 999):03}'
-        luhn_checksum = str(calculate_luhn(chk_date + suffix))
+        luhn_checksum = str(calculate_luhn(int(chk_date + suffix)))
         hyphen = '-' if dash else ''
         pnr = f'{pnr_date}{hyphen}{suffix}{luhn_checksum}'
 
@@ -59,7 +59,7 @@ class Provider(SsnProvider):
         onr_one += str(self.generator.random.randrange(20, 99))
         onr_one += str(self.generator.random.randrange(0, 99)).zfill(2)
         onr_two = str(self.generator.random.randrange(0, 999)).zfill(3)
-        luhn_checksum = str(calculate_luhn(onr_one + onr_two))
+        luhn_checksum = str(calculate_luhn(int(onr_one + onr_two)))
         prefix = '16' if long else ''
         hyphen = '-' if dash else ''
 

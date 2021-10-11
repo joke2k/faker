@@ -10,12 +10,13 @@ https://www.isbn-international.org/range_file_generation
 """
 
 from collections import namedtuple
+from typing import Dict, List
 
 RegistrantRule = namedtuple(
     'RegistrantRule', ['min', 'max', 'registrant_length'])
 
 # Structure: RULES[`EAN Prefix`][`Registration Group`] = [Rule1, Rule2, ...]
-RULES = {
+RULES: Dict[str, Dict[str, List[RegistrantRule]]] = {
     '978': {
         '0': [
             RegistrantRule('0000000', '1999999', 2),

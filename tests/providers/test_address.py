@@ -1147,7 +1147,7 @@ class TestZhTw:
             assert city_suffix in ZhTwAddressProvider.city_suffixes
 
     def test_city(self, faker, num_samples):
-        city_pattern = re.compile(r'(?P<city_name>.*?)[市縣]?')
+        city_pattern: Pattern = re.compile(r'(?P<city_name>.*?)[市縣]?')
         for _ in range(num_samples):
             city = faker.city()
             assert isinstance(city, str)
@@ -1195,7 +1195,7 @@ class TestZhCn:
             assert city_suffix in ZhCnAddressProvider.city_suffixes
 
     def test_city(self, faker, num_samples):
-        city_pattern = re.compile(r'.*?[市县]')
+        city_pattern: Pattern = re.compile(r'.*?[市县]')
         for _ in range(num_samples):
             city = faker.city()
             assert isinstance(city, str)
@@ -1326,10 +1326,10 @@ class TestEnPh:
 
     @classmethod
     def setup_class(cls):
-        cls.building_number_pattern = re.compile(
+        cls.building_number_pattern: Pattern = re.compile(
             r'(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?',
         )
-        cls.address_pattern = re.compile(
+        cls.address_pattern: Pattern = re.compile(
             r'(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)',
         )
         cls.metro_manila_postcodes = EnPhAddressProvider.metro_manila_postcodes
@@ -1417,7 +1417,7 @@ class TestRuRu:
             assert country in RuRuAddressProvider.countries
 
     def test_region(self, faker, num_samples):
-        region_pattern = re.compile(
+        region_pattern: Pattern = re.compile(
             r'(?:респ\. (?P<region_republic>.*))|'
             r'(?:(?P<region_krai>.*?) край)|'
             r'(?:(?P<region_oblast>.*?) обл.)|'

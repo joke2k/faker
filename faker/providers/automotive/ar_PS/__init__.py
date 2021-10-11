@@ -63,5 +63,5 @@ class Provider(AutomotiveProvider):
 
     def license_plate(self) -> str:
         """Generate a license plate."""
-        pattern = self.random_element(self.license_formats)
+        pattern: str = self.random_element(self.license_formats)
         return self.numerify(self.generator.parse(pattern))

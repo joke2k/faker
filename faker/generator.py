@@ -1,9 +1,9 @@
 import random as random_module
 import re
 
-from typing import Any, Callable, Dict, List, Optional
+from typing import Callable, Dict, Hashable, List, Optional
 
-from .typing import Seed
+from .typing import T
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
@@ -12,7 +12,7 @@ mod_random = random  # compat with name released in 0.8
 
 class Generator:
 
-    __config: Dict[str, Any] = {
+    __config: Dict[str, T] = {
         'arguments': {},
     }
 
@@ -60,7 +60,7 @@ class Generator:
     def random(self, value: random_module.Random) -> None:
         self.__random = value
 
-    def seed_instance(self, seed: Optional[Seed] = None):
+    def seed_instance(self, seed: Optional[Hashable] = None):
         """Calls random.seed"""
         if self.__random == random:
             # create per-instance random obj when first time seed_instance() is
@@ -70,7 +70,7 @@ class Generator:
         return self
 
     @classmethod
-    def seed(cls, seed: Optional[Seed] = None):
+    def seed(cls, seed: Optional[Hashable] = None):
         random.seed(seed)
 
     def format(self, formatter: str, *args, **kwargs):
@@ -96,7 +96,7 @@ class Generator:
         """
         setattr(self, name, method)
 
-    def set_arguments(self, group: str, argument: str, value: Any = None):
+    def set_arguments(self, group: str, argument: str, value: T = None):
         """
         Creates an argument group, with an individual argument or a dictionary
         of arguments. The argument groups is used to apply arguments to tokens,

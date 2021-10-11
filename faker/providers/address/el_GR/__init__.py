@@ -55,7 +55,7 @@ class Provider(AddressProvider):
     )
 
     def line_address(self) -> str:
-        pattern = self.random_element(self.line_address_formats)
+        pattern: str = self.random_element(self.line_address_formats)
         return self.generator.parse(pattern)
 
     def street_prefix(self) -> str:

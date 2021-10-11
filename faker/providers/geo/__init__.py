@@ -5,6 +5,8 @@ from .. import BaseProvider
 
 localized = True
 
+PlaceType = Tuple[str, str, str, str, str]
+
 
 class Provider(BaseProvider):
     """
@@ -14,7 +16,7 @@ class Provider(BaseProvider):
     Timezones are canonical (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
     """
 
-    land_coords = (
+    land_coords: Tuple[PlaceType, ...] = (
         ("42.50729", "1.53414", "les Escaldes", "AD", "Europe/Andorra"),
         ("36.21544", "65.93249", "Sar-e Pul", "AF", "Asia/Kabul"),
         ("40.49748", "44.7662", "Hrazdan", "AM", "Asia/Yerevan"),
@@ -1002,19 +1004,20 @@ class Provider(BaseProvider):
     def local_latlng(self,
                      country_code: str = 'US',
                      coords_only: bool = False,
-                     ) -> Optional[Union[Tuple[str, str], Tuple[str, str, str, str, str]]]:
+                     ) -> Optional[Tuple[str, ...]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """
         results = [loc for loc in self.land_coords if loc[3] == country_code]
         if results:
-            place = self.random_element(results)
+            place: PlaceType = self.random_element(results)
             return (place[0], place[1]) if coords_only else place
+        return None
 
-    def location_on_land(self, coords_only: bool = False) -> Union[Tuple[str, str], Tuple[str, str, str, str, str]]:
+    def location_on_land(self, coords_only: bool = False) -> Tuple[str, ...]:
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
         Format is `(latitude, longitude, place name, two-letter country code, timezone)`
         Pass `coords_only` to return coordinates without metadata.
         """
-        place = self.random_element(self.land_coords)
+        place: PlaceType = self.random_element(self.land_coords)
         return (place[0], place[1]) if coords_only else place

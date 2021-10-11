@@ -1,6 +1,7 @@
 from collections import OrderedDict
-from typing import Optional, Sequence, Union
+from typing import Optional, Tuple
 
+from ...typing import HueType
 from .. import BaseProvider
 from .color import RandomColor
 
@@ -153,7 +154,7 @@ class Provider(BaseProvider):
         ("YellowGreen", "#9ACD32"),
     ))
 
-    safe_colors = (
+    safe_colors: Tuple[str, ...] = (
         'black', 'maroon', 'green', 'navy', 'olive',
         'purple', 'teal', 'lime', 'blue', 'silver',
         'gray', 'yellow', 'fuchsia', 'aqua', 'white',
@@ -184,7 +185,7 @@ class Provider(BaseProvider):
         return f'rgb({self.random_int(0, 255)},{self.random_int(0, 255)},{self.random_int(0, 255)})'
 
     def color(self,
-              hue: Optional[Union[int, Sequence[int], str]] = None,
+              hue: Optional[HueType] = None,
               luminosity: Optional[str] = None,
               color_format: str = 'hex') -> str:
         """Generate a color in a human-friendly way.

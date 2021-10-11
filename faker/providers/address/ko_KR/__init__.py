@@ -325,7 +325,7 @@ class Provider(AddressProvider):
         """
         :example 세종특별자치시 어진동 507
         """
-        pattern = self.random_element(self.land_address_formats)
+        pattern: str = self.random_element(self.land_address_formats)
         return self.generator.parse(pattern)
 
     def road_number(self) -> str:
@@ -338,14 +338,14 @@ class Provider(AddressProvider):
         """
         :example 세종특별자치시 도움5로 19 (어진동)
         """
-        pattern = self.random_element(self.road_address_formats)
+        pattern: str = self.random_element(self.road_address_formats)
         return self.generator.parse(pattern)
 
     def address_detail(self) -> str:
         """
         :example 가나아파트 가동 102호
         """
-        pattern = self.bothify(self.random_element(
+        pattern: str = self.bothify(self.random_element(
             self.address_detail_formats))
         return self.generator.parse(pattern)
 
@@ -353,7 +353,7 @@ class Provider(AddressProvider):
         """
         :example 도움5로
         """
-        pattern = self.random_element(self.road_formats)
+        pattern: str = self.random_element(self.road_formats)
         return self.generator.parse(pattern)
 
     def road_name(self) -> str:
@@ -386,7 +386,7 @@ class Provider(AddressProvider):
         """
         :example 고양시
         """
-        pattern = self.random_element(self.cities)
+        pattern: str = self.random_element(self.cities)
         return self.generator.parse(pattern)
 
     def borough(self) -> str:
@@ -399,7 +399,7 @@ class Provider(AddressProvider):
         """
         :example 가나동
         """
-        pattern = self.random_element(self.town_formats)
+        pattern: str = self.random_element(self.town_formats)
         return self.generator.parse(pattern)
 
     def town_suffix(self) -> str:
@@ -412,7 +412,7 @@ class Provider(AddressProvider):
         """
         :example 김구아파트
         """
-        pattern = self.random_element(self.building_name_formats)
+        pattern: str = self.random_element(self.building_name_formats)
         return self.generator.parse(pattern)
 
     def building_suffix(self) -> str:

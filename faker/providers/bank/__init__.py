@@ -60,9 +60,9 @@ class Provider(BaseProvider):
         bban = self.bban()
 
         check = bban + self.country_code + '00'
-        check = int(''.join(self.ALPHA.get(c, c) for c in check))
-        check = 98 - (check % 97)
-        check = str(check).zfill(2)
+        check_ = int(''.join(self.ALPHA.get(c, c) for c in check))
+        check_ = 98 - (check_ % 97)
+        check = str(check_).zfill(2)
 
         return self.country_code + check + bban
 
@@ -130,12 +130,12 @@ class Provider(BaseProvider):
             raise AssertionError('length can only be 8 or 11')
 
         if use_dataset and hasattr(self, 'swift_bank_codes'):
-            bank_code = self.random_element(self.swift_bank_codes)
+            bank_code: str = self.random_element(self.swift_bank_codes)
         else:
             bank_code = self.lexify('????', letters=string.ascii_uppercase)
 
         if use_dataset and hasattr(self, 'swift_location_codes'):
-            location_code = self.random_element(self.swift_location_codes)
+            location_code: str = self.random_element(self.swift_location_codes)
         else:
             location_code = self.lexify('??', letters=string.ascii_uppercase + string.digits)
 

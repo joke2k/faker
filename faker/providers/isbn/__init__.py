@@ -25,20 +25,20 @@ class Provider(BaseProvider):
         """ Generate the information required to create an ISBN-10 or
         ISBN-13.
         """
-        ean = self.random_element(RULES.keys())
-        reg_group = self.random_element(RULES[ean].keys())
+        ean: str = self.random_element(RULES.keys())
+        reg_group: str = self.random_element(RULES[ean].keys())
 
         # Given the chosen ean/group, decide how long the
         #   registrant/publication string may be.
         # We must allocate for the calculated check digit, so
         #   subtract 1
-        reg_pub_len = ISBN.MAX_LENGTH - len(ean) - len(reg_group) - 1
+        reg_pub_len: int = ISBN.MAX_LENGTH - len(ean) - len(reg_group) - 1
 
         # Generate a registrant/publication combination
-        reg_pub = self.numerify('#' * reg_pub_len)
+        reg_pub: str = self.numerify('#' * reg_pub_len)
 
         # Use rules to separate the registrant from the publication
-        rules = RULES[ean][reg_group]
+        rules: RegistrantRule = RULES[ean][reg_group]
         registrant, publication = self._registrant_publication(reg_pub, rules)
         return [ean, reg_group, registrant, publication]
 

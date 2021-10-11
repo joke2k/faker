@@ -17,7 +17,7 @@ class Provider(AddressProvider):
         ('L', 'ACDEFHKNPRTVWXY'),
         ('A', 'ACDEFHKNPRTVWXY0123456789'),
     ))
-    postcode_pattern = "LNN AAAA"
+    postcode_pattern: str = "LNN AAAA"
 
     def postcode(self) -> str:
         postcode = ''

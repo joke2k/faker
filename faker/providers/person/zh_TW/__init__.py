@@ -477,7 +477,7 @@ class Provider(PersonProvider):
         '''
         @example 'Chao Bai'
         '''
-        pattern = self.random_element(self.romanized_formats)
+        pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
     def first_romanized_name(self) -> str:

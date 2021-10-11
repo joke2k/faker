@@ -85,5 +85,5 @@ class Provider(AddressProvider):
     state = administrative_unit
 
     def city_with_postcode(self) -> str:
-        pattern = self.random_element(self.city_with_postcode_formats)
+        pattern: str = self.random_element(self.city_with_postcode_formats)
         return self.generator.parse(pattern)

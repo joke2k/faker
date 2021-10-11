@@ -5,14 +5,14 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+from typing import Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
 from .generator import Generator
 from .typing import OrderedDict as OrderedDictType
-from .typing import Seed
+from .typing import T
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
@@ -21,7 +21,7 @@ _UNIQUE_ATTEMPTS = 1000
 class Faker:
     """Proxy class capable of supporting multiple locales"""
 
-    cache_pattern = re.compile(r'^_cached_\w*_mapping$')
+    cache_pattern: Pattern = re.compile(r'^_cached_\w*_mapping$')
     generator_attrs = [
         attr for attr in dir(Generator)
         if not attr.startswith('__')
@@ -84,7 +84,7 @@ class Faker:
     def __getitem__(self, locale: str) -> Generator:
         return self._factory_map[locale.replace('-', '_')]
 
-    def __getattribute__(self, attr: str) -> Any:
+    def __getattribute__(self, attr: str) -> T:
         """
         Handles the "attribute resolution" behavior for declared members of this proxy class
 
@@ -102,7 +102,7 @@ class Faker:
         else:
             return super().__getattribute__(attr)
 
-    def __getattr__(self, attr: str) -> Any:
+    def __getattr__(self, attr: str) -> T:
         """
         Handles cache access and proxying behavior
 
@@ -142,7 +142,7 @@ class Faker:
     def unique(self) -> 'UniqueProxy':
         return self._unique_proxy
 
-    def _select_factory(self, method_name: str) -> Generator:
+    def _select_factory(self, method_name: str) -> Factory:
         """
         Returns a random factory that supports the provider method
 
@@ -163,7 +163,7 @@ class Faker:
             factory = random.choice(factories)
         return factory
 
-    def _map_provider_method(self, method_name: str) -> Tuple[List[Generator], Optional[List[float]]]:
+    def _map_provider_method(self, method_name: str) -> Tuple[List[Factory], Optional[List[float]]]:
         """
         Creates a 2-tuple of factories and weights for the given provider method name
 
@@ -201,15 +201,15 @@ class Faker:
         return mapping
 
     @classmethod
-    def seed(cls, seed: Optional[Seed] = None) -> None:
+    def seed(cls, seed: Optional[Hashable] = None) -> None:
         """
-        Seeds the shared `random.Random` object across all factories
+        Hashables the shared `random.Random` object across all factories
 
         :param seed: seed value
         """
         Generator.seed(seed)
 
-    def seed_instance(self, seed: Optional[Seed] = None) -> None:
+    def seed_instance(self, seed: Optional[Hashable] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for each factory
 
@@ -218,7 +218,7 @@ class Faker:
         for factory in self._factories:
             factory.seed_instance(seed)
 
-    def seed_locale(self, locale, seed: Optional[Seed] = None) -> None:
+    def seed_locale(self, locale, seed: Optional[Hashable] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 
@@ -244,7 +244,7 @@ class Faker:
             raise NotImplementedError(msg)
 
     @random.setter
-    def random(self, value: Any) -> None:
+    def random(self, value: Hashable) -> None:
         """
         Proxies `random` setter calls
 
@@ -284,7 +284,7 @@ class UniqueProxy:
     def clear(self) -> None:
         self._seen = {}
 
-    def __getattr__(self, name: str) -> Any:
+    def __getattr__(self, name: str) -> T:
         obj = getattr(self._proxy, name)
         if callable(obj):
             return self._wrap(name, obj)

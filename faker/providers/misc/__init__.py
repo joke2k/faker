@@ -49,7 +49,7 @@ class Provider(BaseProvider):
         blob = [self.generator.random.randrange(256) for _ in range(length)]
         return bytes(blob)
 
-    def md5(self, raw_output: bool = False) -> str:
+    def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
@@ -58,12 +58,12 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.md5(str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.md5(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def sha1(self, raw_output: bool = False) -> str:
+    def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA1 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
@@ -72,12 +72,12 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.sha1(str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.sha1(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def sha256(self, raw_output: bool = False) -> str:
+    def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA256 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
@@ -86,13 +86,12 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.sha256(
-            str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.sha256(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def uuid4(self, cast_to: Type[str] = str) -> str:
+    def uuid4(self, cast_to: Optional[Union[Type[str], Type[bytes]]] = str) -> Union[bytes, str, uuid.UUID]:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
@@ -103,7 +102,7 @@ class Provider(BaseProvider):
         :sample: cast_to=None
         """
         # Based on http://stackoverflow.com/q/41186818
-        generated_uuid = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
+        generated_uuid: uuid.UUID = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
         if cast_to is not None:
             generated_uuid = cast_to(generated_uuid)
         return generated_uuid
@@ -199,13 +198,13 @@ class Provider(BaseProvider):
                 '`uncompressed_size` is smaller than the calculated minimum required size',
             )
         if compression in ['bzip2', 'bz2']:
-            compression = zipfile.ZIP_BZIP2
+            compression = zipfile.ZIP_BZIP2  # type: ignore
         elif compression in ['lzma', 'xz']:
-            compression = zipfile.ZIP_LZMA
+            compression = zipfile.ZIP_LZMA  # type: ignore
         elif compression in ['deflate', 'gzip', 'gz']:
-            compression = zipfile.ZIP_DEFLATED
+            compression = zipfile.ZIP_DEFLATED  # type: ignore
         else:
-            compression = zipfile.ZIP_STORED
+            compression = zipfile.ZIP_STORED  # type: ignore
 
         zip_buffer = io.BytesIO()
         remaining_size = uncompressed_size

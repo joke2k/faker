@@ -37,7 +37,7 @@ class Provider(InternetProvider):
 
     @slugify
     def domain_word(self) -> str:
-        pattern = self.random_element(self.domain_formats)
+        pattern: str = self.random_element(self.domain_formats)
         if '#' in pattern or '?' in pattern:
             return self.bothify(pattern)
         else:

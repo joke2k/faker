@@ -93,7 +93,7 @@ class Provider(CompanyProvider):
         """
         :example 'a segurança de evoluir sem preocupação'
         """
-        pattern = self.random_element(self.catch_phrase_formats)
+        pattern: str = self.random_element(self.catch_phrase_formats)
         catch_phrase = self.generator.parse(pattern)
         catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
         return catch_phrase

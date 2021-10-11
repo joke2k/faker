@@ -1,4 +1,4 @@
-from typing import Any, Tuple, Union
+from typing import Tuple
 
 from .. import BaseProvider
 
@@ -15,7 +15,7 @@ class Provider(BaseProvider):
 
     local_prefixes = ()
 
-    def _ean(self, length: int = 13, prefixes: Any = ()) -> str:
+    def _ean(self, length: int = 13, prefixes: Tuple[str, ...] = ()) -> str:
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
@@ -36,7 +36,7 @@ class Provider(BaseProvider):
 
         return ''.join(str(x) for x in code)
 
-    def ean(self, length: int = 13, prefixes: Tuple[()] = ()) -> str:
+    def ean(self, length: int = 13, prefixes: Tuple[str, ...] = ()) -> str:
         """Generate an EAN barcode of the specified ``length``.
 
         The value of ``length`` can only be ``8`` or ``13`` (default) which will
@@ -67,7 +67,7 @@ class Provider(BaseProvider):
         """
         return self._ean(8, prefixes=prefixes)
 
-    def ean13(self, prefixes: Union[Tuple[()], Tuple[Tuple[int]]] = ()) -> str:
+    def ean13(self, prefixes: Tuple[str, ...] = ()) -> str:
         """Generate an EAN-13 barcode.
 
         This method uses |ean| under the hood with the ``length`` argument

@@ -6,7 +6,7 @@ import sys
 
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Any, Dict, List, Optional, TextIO
+from typing import Dict, List, Optional, T, TextIO
 
 from faker import VERSION, Faker, documentor, exceptions
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
@@ -17,7 +17,7 @@ __author__ = 'joke2k'
 
 def print_provider(doc: Documentor,
                    provider: List[str],
-                   formatters: Dict[str, Any],
+                   formatters: Dict[str, T],
                    excludes: Optional[List[str]] = None,
                    output: Optional[TextIO] = None) -> None:
 
@@ -51,7 +51,7 @@ def print_provider(doc: Documentor,
 
 
 def print_doc(provider_or_field: None = None,
-              args: Optional[List[Any]] = None,
+              args: Optional[List[T]] = None,
               lang: str = DEFAULT_LOCALE,
               output: Optional[TextIOWrapper] = None,
               seed: Optional[float] = None,

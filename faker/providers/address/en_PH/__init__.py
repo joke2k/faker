@@ -405,7 +405,7 @@ class Provider(AddressProvider):
         return str(self.random_int(min=1))
 
     def partitioned_building_number(self) -> str:
-        pattern = self.lexify(
+        pattern: str = self.lexify(
             self.random_element(self.partitioned_building_number_formats), letters=ascii_uppercase[:10],
         )
         return self.generator.parse(pattern)

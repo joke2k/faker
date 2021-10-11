@@ -59,58 +59,58 @@ class _IPv4Constants:
 
 
 class Provider(BaseProvider):
-    safe_domain_names = ('example.org', 'example.com', 'example.net')
-    free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
-    tlds = (
+    safe_domain_names: Tuple[str, ...] = ('example.org', 'example.com', 'example.net')
+    free_email_domains: Tuple[str, ...] = ('gmail.com', 'yahoo.com', 'hotmail.com')
+    tlds: Tuple[str, ...] = (
         'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
     )
-    hostname_prefixes = ('db', 'srv', 'desktop', 'laptop', 'lt', 'email', 'web')
-    uri_pages = (
+    hostname_prefixes: Tuple[str, ...] = ('db', 'srv', 'desktop', 'laptop', 'lt', 'email', 'web')
+    uri_pages: Tuple[str, ...] = (
         'index', 'home', 'search', 'main', 'post', 'homepage', 'category',
         'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author',
     )
-    uri_paths = (
+    uri_paths: Tuple[str, ...] = (
         'app', 'main', 'wp-content', 'search', 'category', 'tag', 'categories',
         'tags', 'blog', 'posts', 'list', 'explore',
     )
-    uri_extensions = (
+    uri_extensions: Tuple[str, ...] = (
         '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
         '.asp',
     )
-    http_methods = (
+    http_methods: Tuple[str, ...] = (
         'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
         'PATCH',
     )
 
-    user_name_formats = (
+    user_name_formats: Tuple[str, ...] = (
         '{{last_name}}.{{first_name}}',
         '{{first_name}}.{{last_name}}',
         '{{first_name}}##',
         '?{{last_name}}',
     )
-    email_formats = (
+    email_formats: Tuple[str, ...] = (
         '{{user_name}}@{{domain_name}}',
         '{{user_name}}@{{free_email_domain}}',
     )
-    url_formats = (
+    url_formats: Tuple[str, ...] = (
         'www.{{domain_name}}/',
         '{{domain_name}}/',
     )
-    uri_formats = (
+    uri_formats: Tuple[str, ...] = (
         '{{url}}',
         '{{url}}{{uri_page}}/',
         '{{url}}{{uri_page}}{{uri_extension}}',
         '{{url}}{{uri_path}}/{{uri_page}}/',
         '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
     )
-    image_placeholder_services = (
+    image_placeholder_services: Tuple[str, ...] = (
         'https://www.lorempixel.com/{width}/{height}',
         'https://dummyimage.com/{width}x{height}',
         'https://placekitten.com/{width}/{height}',
         'https://placeimg.com/{width}/{height}/any',
     )
 
-    replacements = ()
+    replacements: Tuple[Tuple[str, str], ...] = ()
 
     def _to_ascii(self, string: str) -> str:
         for search, replace in self.replacements:
@@ -126,7 +126,7 @@ class Provider(BaseProvider):
         elif safe:
             email = f'{self.user_name()}@{self.safe_domain_name()}'
         else:
-            pattern = self.random_element(self.email_formats)
+            pattern: str = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))
         return email
 
@@ -152,7 +152,7 @@ class Provider(BaseProvider):
 
     @lowercase
     def ascii_email(self) -> str:
-        pattern = self.random_element(self.email_formats)
+        pattern: str = self.random_element(self.email_formats)
         return self._to_ascii(
             "".join(self.generator.parse(pattern).split(" ")),
         )
@@ -175,11 +175,8 @@ class Provider(BaseProvider):
 
     @slugify_unicode
     def user_name(self) -> str:
-        pattern = self.random_element(self.user_name_formats)
-        username = self._to_ascii(
-            self.bothify(self.generator.parse(pattern)).lower(),
-        )
-        return username
+        pattern: str = self.random_element(self.user_name_formats)
+        return self._to_ascii(self.bothify(self.generator.parse(pattern)).lower())
 
     @lowercase
     def hostname(self, levels: int = 1) -> str:
@@ -193,9 +190,10 @@ class Provider(BaseProvider):
         >>> hostname(2)
         web-12.williamson-hopkins.jackson.com
         """
-        if levels < 1:
-            return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##')
-        return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##') + '.' + self.domain_name(levels)
+        hostname_prefix: str = self.random_element(self.hostname_prefixes)
+        hostname_prefix_first_level: str = hostname_prefix + '-' + self.numerify('##')
+        return hostname_prefix_first_level if levels < 1 \
+            else hostname_prefix_first_level + '.' + self.domain_name(levels)
 
     @lowercase
     def domain_name(self, levels: int = 1) -> str:
@@ -212,16 +210,14 @@ class Provider(BaseProvider):
             raise ValueError("levels must be greater than or equal to 1")
         if levels == 1:
             return self.domain_word() + '.' + self.tld()
-        else:
-            return self.domain_word() + '.' + self.domain_name(levels - 1)
+        return self.domain_word() + '.' + self.domain_name(levels - 1)
 
     @lowercase
     @slugify_unicode
     def domain_word(self) -> str:
-        company = self.generator.format('company')
-        company_elements = company.split(' ')
-        company = self._to_ascii(company_elements.pop(0))
-        return company
+        company: str = self.generator.format('company')
+        company_elements: List[str] = company.split(' ')
+        return self._to_ascii(company_elements.pop(0))
 
     def dga(self,
             year: Optional[int] = None,
@@ -278,7 +274,7 @@ class Provider(BaseProvider):
         if schemes is None:
             schemes = ['http', 'https']
 
-        pattern = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        pattern: str = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
 
         return self.generator.parse(pattern)
 
@@ -559,7 +555,7 @@ class Provider(BaseProvider):
         return self.random_element(self.uri_extensions)
 
     def uri(self) -> str:
-        pattern = self.random_element(self.uri_formats)
+        pattern: str = self.random_element(self.uri_formats)
         return self.generator.parse(pattern)
 
     @slugify
@@ -576,7 +572,7 @@ class Provider(BaseProvider):
         """
         width_ = width or self.random_int(max=1024)
         height_ = height or self.random_int(max=1024)
-        placeholder_url = self.random_element(self.image_placeholder_services)
+        placeholder_url: str = self.random_element(self.image_placeholder_services)
         return placeholder_url.format(width=width_, height=height_)
 
     def iana_id(self) -> str:

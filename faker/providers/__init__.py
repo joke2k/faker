@@ -2,9 +2,9 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import Any, Optional, Sequence, Union
+from typing import Optional, Sequence, Union
 
-from ..typing import Elements
+from ..typing import ElementsType, T
 from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
@@ -83,10 +83,10 @@ class BaseProvider:
         'zu': ('ZA',),
     }
 
-    def __init__(self, generator):
+    def __init__(self, generator) -> None:
         self.generator = generator
 
-    def locale(self):
+    def locale(self) -> str:
         """Generate a random underscored i18n locale code (e.g. en_US).
 
         :sample:
@@ -96,14 +96,14 @@ class BaseProvider:
             BaseProvider.language_locale_codes[language_code],
         )
 
-    def language_code(self):
+    def language_code(self) -> str:
         """Generate a random i18n language code (e.g. en).
 
         :sample:
         """
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
-    def random_int(self, min: int = 0, max: int = 9999, step: int = 1):
+    def random_int(self, min: int = 0, max: int = 9999, step: int = 1) -> int:
         """Generate a random integer between two integers ``min`` and ``max`` inclusive
         while observing the provided ``step`` value.
 
@@ -219,10 +219,10 @@ class BaseProvider:
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(self,
-                        elements: Elements = ('a', 'b', 'c'),
+                        elements: ElementsType = ('a', 'b', 'c'),
                         length: Optional[int] = None,
                         unique: bool = False,
-                        use_weighting: Optional[bool] = None):
+                        use_weighting: Optional[bool] = None) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
@@ -315,8 +315,8 @@ class BaseProvider:
         )
 
     def random_choices(self,
-                       elements: Elements = ('a', 'b', 'c'),
-                       length: Optional[int] = None) -> Sequence[Any]:
+                       elements: ElementsType = ('a', 'b', 'c'),
+                       length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -341,7 +341,7 @@ class BaseProvider:
         return self.random_elements(elements, length, unique=False)
 
     def random_element(self,
-                       elements: Elements = ('a', 'b', 'c')) -> Any:
+                       elements: ElementsType = ('a', 'b', 'c')) -> T:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -361,8 +361,8 @@ class BaseProvider:
         return self.random_elements(elements, length=1)[0]
 
     def random_sample(self,
-                      elements: Elements = ('a', 'b', 'c'),
-                      length: Optional[int] = None):
+                      elements: ElementsType = ('a', 'b', 'c'),
+                      length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to

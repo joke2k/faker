@@ -271,40 +271,40 @@ class Provider(PersonProvider):
         """
         @example 'サトウ アケミ'
         """
-        pattern = self.random_element(self.kana_formats)
+        pattern: str = self.random_element(self.kana_formats)
         return self.generator.parse(pattern)
 
     def kana_name_male(self) -> str:
         """
         @example 'サトウ アキラ'
         """
-        pattern = self.random_element(self.kana_formats_male)
+        pattern: str = self.random_element(self.kana_formats_male)
         return self.generator.parse(pattern)
 
     def kana_name_female(self) -> str:
         """
         @example 'サトウ アケミ'
         """
-        pattern = self.random_element(self.kana_formats_female)
+        pattern: str = self.random_element(self.kana_formats_female)
         return self.generator.parse(pattern)
 
     def romanized_name(self) -> str:
         """
         @example 'Akemi Sato'
         """
-        pattern = self.random_element(self.romanized_formats)
+        pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
     def romanized_name_male(self) -> str:
         """
         @example 'Akira Sato'
         """
-        pattern = self.random_element(self.romanized_formats_male)
+        pattern: str = self.random_element(self.romanized_formats_male)
         return self.generator.parse(pattern)
 
     def romanized_name_female(self) -> str:
         """
         @example 'Akemi Sato'
         """
-        pattern = self.random_element(self.romanized_formats_female)
+        pattern: str = self.random_element(self.romanized_formats_female)
         return self.generator.parse(pattern)

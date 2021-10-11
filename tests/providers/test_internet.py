@@ -24,11 +24,11 @@ from faker.utils import text
 class TestInternetProvider:
     """Test internet provider methods"""
     num_samples = 100
-    ipv4_pattern = re.compile(
+    ipv4_pattern: Pattern = re.compile(
         r'^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}'
         r'(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
     )
-    ipv4_network_pattern = re.compile(
+    ipv4_network_pattern: Pattern = re.compile(
         r'^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}'
         r'(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
         r'/(?:\d|[12]\d|3[0-2])$',
@@ -322,12 +322,12 @@ class TestInternetProvider:
             assert 1 <= int(faker.iana_id()) <= 8888888
 
     def test_ripe_id(self, faker, num_samples):
-        pattern = re.compile(r'^ORG-[A-Z]{2,4}[1-9]\d{0,4}-RIPE$')
+        pattern: Pattern = re.compile(r'^ORG-[A-Z]{2,4}[1-9]\d{0,4}-RIPE$')
         for _ in range(num_samples):
             assert pattern.fullmatch(faker.ripe_id())
 
     def test_nic_handles(self, faker, num_samples):
-        pattern = re.compile(r'^[A-Z]{2,4}[1-9]\d{0,4}-[A-Z]*')
+        pattern: Pattern = re.compile(r'^[A-Z]{2,4}[1-9]\d{0,4}-[A-Z]*')
         for _ in range(num_samples):
             nhs = faker.nic_handles()
             for nh in nhs:

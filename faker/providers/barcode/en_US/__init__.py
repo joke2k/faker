@@ -1,7 +1,7 @@
 import re
 
 from itertools import product
-from typing import Optional, Tuple
+from typing import Optional, Pattern, Tuple
 
 from .. import Provider as BarcodeProvider
 
@@ -19,8 +19,8 @@ class Provider(BarcodeProvider):
         *product((1,), range(4)),
     )
 
-    upc_e_base_pattern = re.compile(r'^\d{6}$')
-    upc_ae_pattern1 = re.compile(
+    upc_e_base_pattern: Pattern = re.compile(r'^\d{6}$')
+    upc_ae_pattern1: Pattern = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
         r'(?=\d{11}$)'                      # followed by 11 digits of which
         r'(?P<mfr_code>\d{2})'              # the first 2 digits make up the manufacturer code,
@@ -28,7 +28,7 @@ class Provider(BarcodeProvider):
         r'(?P<product_code>\d{3})'          # a 3-digit product code,
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
-    upc_ae_pattern2 = re.compile(
+    upc_ae_pattern2: Pattern = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
         r'(?=\d{11}$)'                      # followed by 11 digits of which
         r'(?P<mfr_code>\d{3,4}?)'           # the first 3 or 4 digits make up the manufacturer code,
@@ -36,7 +36,7 @@ class Provider(BarcodeProvider):
         r'(?P<product_code>\d{1,2})'        # a 2-digit or single digit product code,
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
-    upc_ae_pattern3 = re.compile(
+    upc_ae_pattern3: Pattern = re.compile(
         r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
         r'(?=\d{11}$)'                      # followed by 11 digits of which
         r'(?P<mfr_code>\d{5})'              # the first 5 digits make up the manufacturer code,
@@ -44,7 +44,7 @@ class Provider(BarcodeProvider):
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def ean13(self, leading_zero: Optional[bool] = None, prefixes: Tuple[()] = ()) -> str:
+    def ean13(self, leading_zero: Optional[bool] = None, prefixes: Tuple[str, ...] = ()) -> str:
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will

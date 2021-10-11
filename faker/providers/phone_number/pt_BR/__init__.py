@@ -132,9 +132,9 @@ class Provider(PhoneNumberProvider):
     )
 
     def cellphone_number(self) -> str:
-        pattern = self.random_element(self.cellphone_formats)
+        pattern: str = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
     def service_phone_number(self) -> str:
-        pattern = self.random_element(self.services_phones_formats)
+        pattern: str = self.random_element(self.services_phones_formats)
         return self.numerify(self.generator.parse(pattern))

@@ -1,7 +1,7 @@
 import platform
 
 from datetime import date, datetime, timedelta
-from typing import Any, Dict, Sequence, Union
+from typing import Dict, Literal, Sequence, TypeVar, Union
 
 major, minor, patchlevel = (int(version) for version in platform.python_version_tuple())
 
@@ -12,6 +12,10 @@ elif major == 3 and (minor < 7 or minor == 7 and patchlevel < 2):  # Python 3.7.
 else:
     from typing import OrderedDict
 
-DateTime = Union[datetime, date, timedelta, str]
-Elements = Union[Sequence[Any], Dict[str, Any], OrderedDict[str, Any]]
-Seed = Union[int, float, str, bytes, bytearray]
+
+T = TypeVar('T')
+
+DateParseType = Union[date, datetime, timedelta, str, int]
+Gender = Literal['M', 'F']
+HueType = TypeVar('HueType', str, float, Sequence[int])
+ElementsType = Union[Sequence[T], Dict[str, T], OrderedDict[str, T]]

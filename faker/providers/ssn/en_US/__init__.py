@@ -1,3 +1,5 @@
+from typing import List
+
 from .. import Provider as BaseProvider
 
 
@@ -24,7 +26,7 @@ class Provider(BaseProvider):
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
-        group = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
+        group: int = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
 
         itin = f'{area:03d}-{group:02d}-{serial:04d}'
         return itin
@@ -45,7 +47,7 @@ class Provider(BaseProvider):
         #
         # https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
 
-        ein_prefix_choices = [
+        ein_prefix_choices: List[str] = [
             '01',
             '02',
             '03',
@@ -130,7 +132,7 @@ class Provider(BaseProvider):
             '98',
             '99']
 
-        ein_prefix = self.random_element(ein_prefix_choices)
+        ein_prefix: str = self.random_element(ein_prefix_choices)
         sequence = self.random_int(min=0, max=9999999)
 
         ein = f'{ein_prefix:s}-{sequence:07d}'

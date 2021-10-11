@@ -29,7 +29,7 @@ class Provider(BaseProvider):
         """
         birthdate = self.generator.date_of_birth()
         year = f'{birthdate:%y}'
-        month = self.random_element(self.national_id_months)
+        month: str = self.random_element(self.national_id_months)
         day = f'{birthdate:%d}'
         if birthdate.year > 1953:
             sn = self.random_number(4, True)

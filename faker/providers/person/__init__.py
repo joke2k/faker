@@ -1,3 +1,5 @@
+from typing import List
+
 from .. import BaseProvider
 
 localized = True
@@ -6,12 +8,12 @@ localized = True
 class Provider(BaseProvider):
     formats = ['{{first_name}} {{last_name}}']
 
-    first_names = ['John', 'Jane']
+    first_names: List[str] = ['John', 'Jane']
 
-    last_names = ['Doe']
+    last_names: List[str] = ['Doe']
 
     # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-    language_names = [
+    language_names: List[str] = [
         'Afar', 'Abkhazian', 'Avestan', 'Afrikaans', 'Akan', 'Amharic',
         'Aragonese', 'Arabic', 'Assamese', 'Avaric', 'Aymara', 'Azerbaijani',
         'Bashkir', 'Belarusian', 'Bulgarian', 'Bihari languages', 'Bislama',
@@ -50,7 +52,7 @@ class Provider(BaseProvider):
         """
         :example 'John Doe'
         """
-        pattern = self.random_element(self.formats)
+        pattern: str = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
     def first_name(self) -> str:
@@ -64,7 +66,7 @@ class Provider(BaseProvider):
             formats = self.formats_male
         else:
             formats = self.formats
-        pattern = self.random_element(formats)
+        pattern: str = self.random_element(formats)
         return self.generator.parse(pattern)
 
     def name_nonbinary(self) -> str:
@@ -72,7 +74,7 @@ class Provider(BaseProvider):
             formats = self.formats_nonbinary
         else:
             formats = self.formats
-        pattern = self.random_element(formats)
+        pattern: str = self.random_element(formats)
         return self.generator.parse(pattern)
 
     def name_female(self) -> str:
@@ -80,7 +82,7 @@ class Provider(BaseProvider):
             formats = self.formats_female
         else:
             formats = self.formats
-        pattern = self.random_element(formats)
+        pattern: str = self.random_element(formats)
         return self.generator.parse(pattern)
 
     def first_name_male(self) -> str:

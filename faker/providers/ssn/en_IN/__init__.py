@@ -21,7 +21,7 @@ class Provider(BaseProvider):
         """
 
         aadhaar_digits = self.numerify(self.random_element(self.aadhaar_id_formats))
-        checksum = checksums.calculate_luhn(aadhaar_digits)
+        checksum = checksums.calculate_luhn(int(aadhaar_digits))
 
         aadhaar_number = f'{aadhaar_digits}{checksum}'
 

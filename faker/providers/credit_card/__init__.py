@@ -1,10 +1,12 @@
 from collections import OrderedDict
-from typing import List, Optional, Union
+from typing import List, Optional, TypeVar
 
+from ...typing import DateParseType
 from .. import BaseProvider
-from ..date_time import DateTime
 
 localized = True
+
+CardType = TypeVar('CardType', 'CreditCard', str)
 
 
 class CreditCard:
@@ -72,20 +74,23 @@ class Provider(BaseProvider):
     luhn_lookup = {'0': 0, '1': 2, '2': 4, '3': 6, '4': 8,
                    '5': 1, '6': 3, '7': 5, '8': 7, '9': 9}
 
-    def credit_card_provider(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
+    def credit_card_provider(self, card_type: Optional[CardType] = None) -> str:
         """Generate a credit card provider name."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())
         return self._credit_card_type(card_type).name
 
-    def credit_card_number(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
+    def credit_card_number(self, card_type: Optional[CardType] = None) -> str:
         """Generate a valid credit card number."""
         card = self._credit_card_type(card_type)
         prefix = self.random_element(card.prefixes)
         number = self._generate_number(self.numerify(prefix), card.length)
         return number
 
-    def credit_card_expire(self, start: DateTime = 'now', end: DateTime = '+10y', date_format: str = '%m/%y') -> str:
+    def credit_card_expire(self,
+                           start: DateParseType = 'now',
+                           end: DateParseType = '+10y',
+                           date_format: str = '%m/%y') -> str:
         """Generate a credit card expiry date.
 
         This method uses |date_time_between| under the hood to generate the
@@ -97,7 +102,7 @@ class Provider(BaseProvider):
         expire_date = self.generator.date_time_between(start, end)
         return expire_date.strftime(date_format)
 
-    def credit_card_full(self, card_type: Optional[Union[CreditCard, str]] = None) -> str:
+    def credit_card_full(self, card_type: Optional[CardType] = None) -> str:
         """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 
@@ -116,12 +121,12 @@ class Provider(BaseProvider):
 
         return self.generator.parse(tpl)
 
-    def credit_card_security_code(self, card_type: Optional[CreditCard] = None) -> str:
+    def credit_card_security_code(self, card_type: Optional[CardType] = None) -> str:
         """Generate a credit card security code."""
         sec_len = self._credit_card_type(card_type).security_code_length
         return self.numerify('#' * sec_len)
 
-    def _credit_card_type(self, card_type: Optional[Union[CreditCard, str]] = None) -> CreditCard:
+    def _credit_card_type(self, card_type: Optional[CardType] = None) -> CreditCard:
         """Generate a random CreditCard instance of the specified card type."""
         if card_type is None:
             card_type = self.random_element(self.credit_card_types.keys())

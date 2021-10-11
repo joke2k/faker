@@ -25,7 +25,7 @@ class TestJaJp:
 
     def test_phone_number(self, faker, num_samples):
         for _ in range(num_samples):
-            pattern = re.compile(r'(?:0[789]0|\d{2})-\d{4}-\d{4}')
+            pattern: Pattern = re.compile(r'(?:0[789]0|\d{2})-\d{4}-\d{4}')
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
@@ -34,7 +34,7 @@ class TestPtBr:
     """Test pt_BR phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'(?:\+55 )?'
             r'(?:[1-8]1|84|\((?:0[1-8]1|084)\))'
             r' \d{4}[ -]\d{4}|'
@@ -45,13 +45,13 @@ class TestPtBr:
             assert pattern.fullmatch(phone_number)
 
     def test_msisdn(self, faker, num_samples):
-        pattern = re.compile(r'55(?:[1-8]19|849)\d{8}')
+        pattern: Pattern = re.compile(r'55(?:[1-8]19|849)\d{8}')
         for _ in range(num_samples):
             msisdn = faker.msisdn()
             assert pattern.fullmatch(msisdn)
 
     def test_cellphone(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'(?:\+55 )?'
             r'(?:\d{2}|\(0?\d{2}\))'
             r' 9 ?\d{4}[ -]\d{4}',
@@ -61,7 +61,7 @@ class TestPtBr:
             assert pattern.fullmatch(cellphone)
 
     def test_service_phone(self, faker, num_samples):
-        pattern = re.compile(r'1(?:0|2|5|8|9)?(?:[0-9])')
+        pattern: Pattern = re.compile(r'1(?:0|2|5|8|9)?(?:[0-9])')
         for _ in range(num_samples):
             service = faker.service_phone_number()
             assert pattern.fullmatch(service)
@@ -71,7 +71,7 @@ class TestHuHu:
     """Test hu_HU phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'(?:'
             r'\+36 \d{2} |'
             r'\(06\)\d{2}/|'
@@ -90,7 +90,7 @@ class TestThTh:
     """Test th_TH phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             # leading zero or internaional code
             r'((\+66)|\+66[ -]?\(0\)|0)[ -]?'
             # landline or mobile
@@ -109,7 +109,7 @@ class TestHyAm:
     """Test hy_AM phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'(?:[23]\d{2}-|\([23]\d{2}\) |[23]\d{2}\.)\d{5}|'
             r'(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}',
         )
@@ -124,9 +124,9 @@ class TestEnPh:
 
     @classmethod
     def setup_class(cls):
-        cls.mobile_number_pattern = re.compile(r'^(?:0|\+63)(\d+)-\d{3}-\d{4}$')
-        cls.area2_landline_number_pattern = re.compile(r'^(?:0|\+63)2-(\d{4})-\d{4}')
-        cls.non_area2_landline_number_pattern = re.compile(r'^(?:0|\+63)(\d{2})-(\d{3})-\d{4}')
+        cls.mobile_number_pattern: Pattern = re.compile(r'^(?:0|\+63)(\d+)-\d{3}-\d{4}$')
+        cls.area2_landline_number_pattern: Pattern = re.compile(r'^(?:0|\+63)2-(\d{4})-\d{4}')
+        cls.non_area2_landline_number_pattern: Pattern = re.compile(r'^(?:0|\+63)(\d{2})-(\d{3})-\d{4}')
         cls.globe_mobile_number_prefixes = EnPhPhoneNumberProvider.globe_mobile_number_prefixes
         cls.smart_mobile_number_prefixes = EnPhPhoneNumberProvider.smart_mobile_number_prefixes
         cls.sun_mobile_number_prefixes = EnPhPhoneNumberProvider.sun_mobile_number_prefixes
@@ -233,7 +233,7 @@ class TestTaIn:
     """Test ta_IN phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'\+91 \d{3} ?\d{7}|'
             r'0\d{2}(-)?\d{2}(?(1)| ?)\d{6}',
         )
@@ -246,7 +246,7 @@ class TestEsEs:
     """Test es_ES phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             r'\+34 ?(?:7[0-4]|[689]\d)\d'
             r'(?: \d{3} \d{3}|\d{6}| \d{2} \d{2} \d{2})',
         )
@@ -258,49 +258,49 @@ class TestEsEs:
 class TestArAe:
     """Test ar_AE phone number provider methods"""
 
-    cellphone_pattern = (
+    cellphone_pattern: str = (
         r'(?:\+|00)971\s?5[024568]\s?\d{3}\s?\d{4}|'
         r'05[024568]\s?\d{3}\s?\d{4}'
     )
-    telephone_pattern = (
+    telephone_pattern: str = (
         r'(?:\+|00)971\s?[1234679]\s?\d{3}\s?\d{4}|'
         r'0[1234679]\s?\d{3}\s?\d{4}'
     )
-    toll_pattern = (
+    toll_pattern: str = (
         r'200\d{4}|'
         r'600\d{6}|'
         r'800\d{3,7}'
     )
-    service_phone_pattern = (
+    service_phone_pattern: str = (
         r'9(?:9(?:9|8|7|6|1)|01|22)'
     )
 
     def test_cellphone_number(self, faker, num_samples):
-        pattern = re.compile(self.cellphone_pattern)
+        pattern: Pattern = re.compile(self.cellphone_pattern)
         for _ in range(num_samples):
             cellphone = faker.cellphone_number()
             assert pattern.fullmatch(cellphone)
 
     def test_telephone_number(self, faker, num_samples):
-        pattern = re.compile(self.telephone_pattern)
+        pattern: Pattern = re.compile(self.telephone_pattern)
         for _ in range(num_samples):
             telephone = faker.telephone_number()
             assert pattern.fullmatch(telephone)
 
     def test_toll_number(self, faker, num_samples):
-        pattern = re.compile(self.toll_pattern)
+        pattern: Pattern = re.compile(self.toll_pattern)
         for _ in range(num_samples):
             toll = faker.toll_number()
             assert pattern.fullmatch(toll)
 
     def test_service_phone_number(self, faker, num_samples):
-        pattern = re.compile(self.service_phone_pattern)
+        pattern: Pattern = re.compile(self.service_phone_pattern)
         for _ in range(num_samples):
             service = faker.service_phone_number()
             assert pattern.fullmatch(service)
 
     def test_phone_number(self, faker, num_samples):
-        pattern = re.compile(
+        pattern: Pattern = re.compile(
             rf'{self.cellphone_pattern}|'
             rf'{self.telephone_pattern}|'
             rf'{self.toll_pattern}|'
