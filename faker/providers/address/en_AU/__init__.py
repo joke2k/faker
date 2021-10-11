@@ -114,14 +114,14 @@ class Provider(AddressProvider):
 
     street_address_formats = (
         '{{building_number}} {{street_name}}',
-        '{{secondary_address}}\n {{building_number}} {{street_name}}',
+        '{{secondary_address}}{{building_number}} {{street_name}}',
     )
 
     address_formats = (
         "{{street_address}}\n{{city}}, {{state_abbr}}, {{postcode}}", )
 
-    secondary_address_formats = ('Apt. ###', 'Flat ##', 'Suite ###', 'Unit ##',
-                                 'Level #', '### /', '## /', '# /')
+    secondary_address_formats = ('Apt. ### ', 'Flat ## ', 'Suite ### ', 'Unit ## ',
+                                 'Level # ', '###/', '##/', '#/')
 
     def city_prefix(self):
         return self.random_element(self.city_prefixes)
