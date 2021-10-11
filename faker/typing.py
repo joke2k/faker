@@ -1,11 +1,16 @@
+import platform
+
 from datetime import date, datetime, timedelta
 from typing import Any, Dict, Sequence, Union
 
-try:
+major, minor, patchlevel = (int(version) for version in platform.python_version_tuple())
+
+if major >= 3 or major == 3 and minor >= 10:
+    from collections import OrderedDict
+elif major == 3 and (minor < 7 or minor == 7 and patchlevel < 2):
+    from typing import MutableMapping as OrderedDict
+else:
     from typing import OrderedDict
-except ImportError:
-    from typing import MutableMapping
-    OrderedDict = MutableMapping
 
 DateTime = Union[datetime, date, timedelta, str]
 Elements = Union[Sequence[Any], Dict[str, Any], OrderedDict[str, Any]]
