@@ -14,7 +14,7 @@ class Provider(AutomotiveProvider):
         '?? ####',
     )
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate."""
         temp = re.sub(r'\?',
                       lambda x: self.random_element(self.uppercase_letters),
