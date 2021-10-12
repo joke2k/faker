@@ -356,23 +356,3 @@ class Provider(CompanyProvider):
          '방법론'))
 
     company_suffixes = ('(주)', '주식회사', '(유)', '유한회사')
-
-    def catch_phrase(self) -> str:
-        """
-        :example 'Robust full-range hub'
-        """
-        result = []
-        for word_list in self.catch_phrase_words:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)
-
-    def bs(self) -> str:
-        """
-        :example 'integrate extensible convergence'
-        """
-        result = []
-        for word_list in self.bsWords:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)

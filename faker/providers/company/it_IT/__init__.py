@@ -332,26 +332,6 @@ class Provider(CompanyProvider):
 
     company_suffixes = ('SPA', 'e figli', 'Group', 's.r.l.')
 
-    def catch_phrase(self) -> str:
-        """
-        :example 'Robust full-range hub'
-        """
-        result = []
-        for word_list in self.catch_phrase_words:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)
-
-    def bs(self) -> str:
-        """
-        :example 'integrate extensible convergence'
-        """
-        result = []
-        for word_list in self.bsWords:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)
-
     def _random_vat_office(self) -> int:
         """
         Returns a random code identifying the VAT office needed to build a valid VAT with company_vat.
@@ -377,5 +357,5 @@ class Provider(CompanyProvider):
         Returns Italian VAT identification number (Partita IVA).
         """
         code = self.bothify('#######') + str(self._random_vat_office()).zfill(3)
-        luhn_checksum = str(calculate_luhn(code))
+        luhn_checksum = str(calculate_luhn(int(code)))
         return f'IT{code}{luhn_checksum}'

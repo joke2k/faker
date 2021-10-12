@@ -99,7 +99,8 @@ class Provider(CompanyProvider):
         return catch_phrase
 
     def company_id(self) -> str:
-        digits = self.random_sample(range(10), 8) + [0, 0, 0, 1]
+        digits: List[int] = list(self.random_sample(range(10), 8))
+        digits += [0, 0, 0, 1]
         digits += company_id_checksum(digits)
         return ''.join(str(d) for d in digits)
 
