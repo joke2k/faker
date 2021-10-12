@@ -1,8 +1,8 @@
 import re
 
-import pytest
-
 from typing import Pattern
+
+import pytest
 
 
 class TestBarcodeProvider:

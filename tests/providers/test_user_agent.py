@@ -1,5 +1,7 @@
 import re
 
+from typing import Pattern
+
 from faker.providers.user_agent import Provider as UaProvider
 
 

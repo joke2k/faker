@@ -2,9 +2,9 @@ import copy
 import random
 import re
 
-import pytest
-
 from typing import Pattern
+
+import pytest
 
 from faker.providers.color import RandomColor
 from faker.providers.color.bg_BG import Provider as BgBgColorProvider
