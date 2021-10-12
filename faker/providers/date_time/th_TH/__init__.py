@@ -1,9 +1,10 @@
 import warnings
 
 from datetime import datetime
+from typing import Optional
 
-from ....typing import DateTime
-from .. import Provider as DateTimeProvider
+from ....typing import DateParseType
+from .. import Provider as DateParseTypeProvider
 
 # thai_strftime() code adapted from
 # https://gist.github.com/bact/b8afe49cb1ae62913e6c1e899dcddbdb
@@ -274,11 +275,11 @@ def thai_strftime(
     return thaidate_text
 
 
-class Provider(DateTimeProvider):
+class Provider(DateParseTypeProvider):
     def date(
         self,
         pattern: str = "%-d %b %Y",
-        end_datetime: DateTime = None,
+        end_datetime: Optional[DateParseType] = None,
         thai_digit: bool = False,
         buddhist_era: bool = True,
     ) -> str:
@@ -300,7 +301,7 @@ class Provider(DateTimeProvider):
         )
 
     def time(
-        self, pattern: str = "%H:%M:%S", end_datetime: DateTime = None, thai_digit: bool = False,
+        self, pattern: str = "%H:%M:%S", end_datetime: Optional[DateParseType] = None, thai_digit: bool = False,
     ) -> str:
         """
         Get a time string (24h format by default)
