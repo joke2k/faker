@@ -60,7 +60,7 @@ def print_doc(provider_or_field: Optional[str] = None,
               seed: Optional[float] = None,
               includes: Optional[List[str]] = None) -> None:
     if args is None:
-        args = args
+        args = []
     if output is None:
         output = sys.stdout
     fake = Faker(locale=lang, includes=includes)

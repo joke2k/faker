@@ -244,7 +244,7 @@ class TestRandomColor:
 
         # If we remove 62 from the yellow range, calling the previous function should fail
         colormap = copy.deepcopy(self.random_color.colormap)
-        colormap['yellow']['hue_range'] = [47, 61]
+        colormap['yellow']['hue_range'] = [(47, 61)]
         self.random_color.colormap = colormap
         with pytest.raises(ValueError):
             self.random_color.generate(hue=62)

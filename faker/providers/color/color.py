@@ -225,9 +225,10 @@ class RandomColor:
         elif color_input is None:
             return (0, 360)
 
-        if isinstance(color_input, list) and len(color_input) >= 2:
-            color_input = tuple(color_input[:2])
-        if isinstance(color_input, tuple):
+        if isinstance(color_input, list):
+            color_input = tuple(color_input)
+        if (isinstance(color_input, tuple) and len(color_input) == 2
+                and all(isinstance(c, (float, int)) for c in color_input)):
             v1 = int(color_input[0])
             v2 = int(color_input[1])
 
@@ -236,8 +237,7 @@ class RandomColor:
             v1 = max(v1, 0)
             v2 = min(v2, 360)
             return (v1, v2)
-        else:
-            raise TypeError('Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.')
+        raise TypeError('Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.')
 
     def get_saturation_range(self, hue: int) -> Tuple[int, int]:
         """Return the saturation range for a given numerical ``hue`` value."""
@@ -285,7 +285,7 @@ class RandomColor:
 
         s_: float = s / 100.0
         v_: float = v / 100.0
-        l = 0.5 * v_ * (2 - s_)   # noqa: E741
+        l = 0.5 * (v_) * (2 - s_)   # noqa: E741
 
         s_ = 0.0 if l in [0, 1] else v_ * s_ / (1 - math.fabs(2 * l - 1))
-        return (int(h), int(s * 100), int(l * 100))
+        return (int(h), int(s_ * 100), int(l * 100))
