@@ -19,7 +19,7 @@ localized = True
 
 
 def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
-    if getattr(dt, 'tzinfo', None) is not None:
+    if isinstance(dt, datetime) and getattr(dt, 'tzinfo', None) is not None:
         dt = dt.astimezone(tzutc())
     return timegm(dt.timetuple())
 

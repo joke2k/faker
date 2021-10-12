@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as CompanyProvider
 
 
@@ -51,7 +53,7 @@ class Provider(CompanyProvider):
         'de manière sûre',
         'en toute sécurité')
 
-    company_suffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
+    company_suffixes: Tuple[str, ...] = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
     siren_format = "### ### ###"
 

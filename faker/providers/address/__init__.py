@@ -95,7 +95,7 @@ class Provider(BaseProvider):
                            for tz in date_time.Provider.countries
                            if tz['alpha-2-code'] == current_country_code]
         if len(current_country) == 1:
-            return current_country[0]
+            return current_country[0]  # type: ignore
         elif len(current_country) > 1:
             raise ValueError(f"Ambiguous country for country code {current_country_code}: {current_country}")
         else:

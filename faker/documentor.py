@@ -1,32 +1,33 @@
 import inspect
 import warnings
 
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 
 from .generator import Generator
 from .providers import BaseProvider
+from .proxy import Faker
 
 
 class Documentor:
 
-    def __init__(self, generator: Generator) -> None:
+    def __init__(self, generator: Union[Generator, Faker]) -> None:
         """
         :param generator: a localized Generator with providers filled,
                           for which to write the documentation
         :type generator: faker.Generator()
         """
         self.generator = generator
-        self.max_name_len = 0
-        self.already_generated = []
+        self.max_name_len: int = 0
+        self.already_generated: List[str] = []
 
     def get_formatters(self,
                        locale: Optional[str] = None,
                        excludes: Optional[List[str]] = None,
-                       **kwargs) -> List[Tuple[BaseProvider, Dict[str, BaseProvider]]]:
+                       **kwargs) -> List[Tuple[BaseProvider, Dict[str, str]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
-        providers = self.generator.get_providers()
+        providers: List[BaseProvider] = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
             if locale and provider.__lang__ != locale:
                 continue
@@ -39,8 +40,7 @@ class Documentor:
                                 provider: BaseProvider,
                                 prefix: str = 'fake.',
                                 with_args: bool = True,
-                                with_defaults: bool = True) -> Dict[str, BaseProvider]:
-
+                                with_defaults: bool = True) -> Dict[str, str]:
         formatters = {}
 
         for name, method in inspect.getmembers(provider, inspect.ismethod):
@@ -49,7 +49,7 @@ class Documentor:
                 continue
 
             arguments = []
-            faker_args = []
+            faker_args: List[str] = []
             faker_kwargs = {}
 
             if name == 'binary':

@@ -8,21 +8,22 @@ random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 T = TypeVar('T')
+BaseProvider = TypeVar('BaseProvider')
 
 
 class Generator:
 
-    __config: Dict[str, T] = {
+    __config: Dict[str, Dict[Hashable, T]] = {
         'arguments': {},
     }
 
     def __init__(self, **config) -> None:
-        self.providers: List[object] = []
+        self.providers: List[BaseProvider] = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider: object) -> None:
+    def add_provider(self, provider: BaseProvider) -> None:
 
         if isinstance(provider, type):
             provider = provider(self)
@@ -40,15 +41,15 @@ class Generator:
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
-    def provider(self, name: str) -> Optional[object]:
+    def provider(self, name: str) -> Optional[BaseProvider]:
         try:
             lst = [p for p in self.get_providers()
-                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]  # type: ignore
+                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]  # type: ignore[attr-defined]
             return lst[0]
         except IndexError:
             return None
 
-    def get_providers(self) -> List[object]:
+    def get_providers(self) -> List[BaseProvider]:
         """Returns added providers."""
         return self.providers
 
@@ -73,13 +74,13 @@ class Generator:
     def seed(cls, seed: Optional[Hashable] = None):
         random.seed(seed)
 
-    def format(self, formatter: str, *args, **kwargs):
+    def format(self, formatter: str, *args, **kwargs) -> str:
         """
         This is a secure way to make a fake from another Provider.
         """
-        return self.get_formatter(formatter)(*args, **kwargs)  # type: ignore
+        return self.get_formatter(formatter)(*args, **kwargs)
 
-    def get_formatter(self, formatter: str) -> object:
+    def get_formatter(self, formatter: str) -> Callable:
         try:
             return getattr(self, formatter)
         except AttributeError:
@@ -126,7 +127,7 @@ class Generator:
         generator.get_arguments('small')
         """
         if group in self.__config['arguments'] and argument:
-            result = self.__config['arguments'][group].get(argument)
+            result = self.__config['arguments'][group].get(argument)  # type: ignore[attr-defined]
         else:
             result = self.__config['arguments'].get(group)
 
@@ -142,7 +143,7 @@ class Generator:
         """
         if group in self.__config['arguments']:
             if argument:
-                result = self.__config['arguments'][group].pop(argument)
+                result = self.__config['arguments'][group].pop(argument)  # type: ignore[attr-defined]
             else:
                 result = self.__config['arguments'].pop(group)
         else:

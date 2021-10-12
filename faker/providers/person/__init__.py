@@ -1,3 +1,5 @@
+from typing import Sequence
+
 from .. import BaseProvider, ElementsType
 
 localized = True
@@ -117,7 +119,7 @@ class Provider(BaseProvider):
         if hasattr(self, 'prefixes'):
             return self.random_element(self.prefixes)  # type: ignore[attr-defined]
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female') and hasattr(self, 'prefixes_nonbinary'):
-            prefixes = self.random_element(
+            prefixes: Sequence[ElementsType] = self.random_element(
                 (self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary))  # type: ignore[attr-defined]
             return self.random_element(prefixes)
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female'):
@@ -145,7 +147,7 @@ class Provider(BaseProvider):
         if hasattr(self, 'suffixes'):
             return self.random_element(self.suffixes)  # type: ignore[attr-defined]
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female') and hasattr(self, 'suffixes_nonbinary'):
-            suffixes = self.random_element(
+            suffixes: Sequence[ElementsType] = self.random_element(
                 (self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary))  # type: ignore[attr-defined]
             return self.random_element(suffixes)
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female'):

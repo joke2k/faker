@@ -312,7 +312,7 @@ class Provider(DateParseTypeProvider):
         :example '๑๕:๐๒:๓๔' (thai_digit = True)
         """
         return thai_strftime(
-            self.date_time(end_datetime=end_datetime).time(),
+            self.date_time(end_datetime=end_datetime),
             pattern,
             thai_digit,
         )

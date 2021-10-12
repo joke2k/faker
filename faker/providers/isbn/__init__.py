@@ -38,7 +38,7 @@ class Provider(BaseProvider):
         reg_pub: str = self.numerify('#' * reg_pub_len)
 
         # Use rules to separate the registrant from the publication
-        rules: RegistrantRule = RULES[ean][reg_group]
+        rules: List[RegistrantRule] = RULES[ean][reg_group]
         registrant, publication = self._registrant_publication(reg_pub, rules)
         return [ean, reg_group, registrant, publication]
 

@@ -299,9 +299,9 @@ class BaseProvider:
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
-                elements._key_cache = tuple(elements.keys())
+                elements._key_cache = tuple(elements.keys())  # type: ignore[attr-defined]
 
-            choices = elements._key_cache
+            choices = elements._key_cache  # type: ignore[attr-defined]
             probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:

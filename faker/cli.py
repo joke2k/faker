@@ -6,22 +6,25 @@ import sys
 
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Dict, List, Optional, T, TextIO
+from typing import Dict, List, Optional, TextIO, TypeVar, Union
 
-from faker import VERSION, Faker, documentor, exceptions
-from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
-from faker.documentor import Documentor
+from . import VERSION, Faker, documentor, exceptions
+from .config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
+from .documentor import Documentor
+from .providers import BaseProvider
 
 __author__ = 'joke2k'
 
+T = TypeVar('T')
+
 
 def print_provider(doc: Documentor,
-                   provider: List[str],
+                   provider: BaseProvider,
                    formatters: Dict[str, T],
                    excludes: Optional[List[str]] = None,
                    output: Optional[TextIO] = None) -> None:
-
-    output = output or sys.stdout
+    if output is None:
+        output = sys.stdout
     if excludes is None:
         excludes = []
 
@@ -50,14 +53,16 @@ def print_provider(doc: Documentor,
                 signature = separator = ' '
 
 
-def print_doc(provider_or_field: None = None,
+def print_doc(provider_or_field: Optional[str] = None,
               args: Optional[List[T]] = None,
               lang: str = DEFAULT_LOCALE,
-              output: Optional[TextIOWrapper] = None,
+              output: Optional[Union[TextIO, TextIOWrapper]] = None,
               seed: Optional[float] = None,
               includes: Optional[List[str]] = None) -> None:
-    args = args or []
-    output = output or sys.stdout
+    if args is None:
+        args = args
+    if output is None:
+        output = sys.stdout
     fake = Faker(locale=lang, includes=includes)
     fake.seed_instance(seed)
 
@@ -91,7 +96,7 @@ def print_doc(provider_or_field: None = None,
 
     else:
         doc = documentor.Documentor(fake)
-        unsupported = []
+        unsupported: List[str] = []
 
         while True:
             try:
@@ -102,7 +107,6 @@ def print_doc(provider_or_field: None = None,
                 break
 
         for provider, fakers in formatters:
-
             print_provider(doc, provider, fakers, output=output)
 
         for language in AVAILABLE_LOCALES:

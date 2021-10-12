@@ -1,7 +1,5 @@
 import re
 
-from typing import Tuple
-
 from .. import Provider as AutomotiveProvider
 
 
@@ -87,15 +85,5 @@ class Provider(AutomotiveProvider):
 
         return ar_plate
 
-    def license_plate(self) -> Tuple[str, str]:
-        """Generate a license plate.
-
-        This method first generates a license plate in Latin/Western characters
-        using |license_plate_en|, and the result is translated internally to
-        generate the Arabic counterpart. A 2-tuple containing those results
-        will serve as the return value.
-        """
-        en_palate = self.license_plate_en()
-        ar_palate = self._translate_license_plate(en_palate)
-
-        return en_palate, ar_palate
+    def license_plate(self, ar: bool = True) -> str:
+        return self.license_plate_ar() if ar else self.license_plate_en()
