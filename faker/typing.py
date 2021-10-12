@@ -1,7 +1,7 @@
 import platform
 
 from datetime import date, datetime, timedelta
-from typing import Literal, Sequence, TypeVar, Union
+from typing import Sequence, TypeVar, Union
 
 major, minor, patchlevel = (int(version) for version in platform.python_version_tuple())
 
@@ -12,8 +12,13 @@ elif major == 3 and (minor < 7 or minor == 7 and patchlevel < 2):  # Python 3.7.
 else:
     from typing import OrderedDict as OrderedDictType
 
+if major > 3 or major == 3 and minor >= 8:
+    from typing import Literal
+    GenderType = Literal['M', 'F']
+else:
+    GenderType = str
+
 DateParseType = Union[date, datetime, timedelta, str, int]
-GenderType = Literal['M', 'F']
 HueType = TypeVar('HueType', str, float, Sequence[int])
 
 
