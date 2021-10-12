@@ -1,20 +1,22 @@
+from typing import Tuple
+
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_female = (
+    formats_female: Tuple[str, ...] = (
         '{{first_name_female}} {{last_name}}',
         '{{prefix_female}} {{first_name_female}} {{last_name}}',
     )
 
-    formats_male = (
+    formats_male: Tuple[str, ...] = (
         '{{first_name_male}} {{last_name}}',
         '{{prefix_male}} {{first_name_male}} {{last_name}}',
     )
 
     formats = formats_male + formats_female
 
-    first_names_female = (
+    first_names_female: Tuple[str, ...] = (
         'اصيل', 'آلاء', 'آيات', 'ايمان', 'بهجة', 'تمام', 'بشري', 'حياة',
         'خاشعة', 'دانية', 'دعاء', 'زكية', 'نغم', 'لارا', 'زهرة', 'سبأ',
         'ضحى', 'ضياء', 'عالية', 'مريم', 'فداء', 'فرات', 'فردوس',
@@ -41,7 +43,7 @@ class Provider(PersonProvider):
         'ريف', 'بارعة', 'باسمة', 'باهرة', 'بتول', 'بثينة', 'أحمد',
     )
 
-    first_names_male = (
+    first_names_male: Tuple[str, ...] = (
         'تاج', 'تامر', 'تحسين', 'تقي', 'تمّام', 'تميم', 'توفيق', 'ترف',
         'تاج الدّين', 'تقيّ الدّين', 'ثائر', 'ثابت', 'ثامر', 'ثروت',
         'ثقيف', 'ثاقب', 'جابر', 'جاد', 'جاسم', 'جرير', 'جسور',
@@ -134,7 +136,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    last_names = (
+    last_names: Tuple[str, ...] = (
         'الخالدي', 'البديري', 'الشهابي', 'العفيفي', 'جزار',
         'الخطيب بني جماعة الكناني', 'الدجاني', 'الغوانمة', 'جار الله',
         'السروري', 'الامام', 'النقيب', 'المفتي', 'ابو السعود',
@@ -190,7 +192,7 @@ class Provider(PersonProvider):
         'بنو يعلى', 'يافع', 'يشكر',
     )
 
-    prefixes_female = (
+    prefixes_female: Tuple[str, ...] = (
         'السيدة', 'الآنسة', 'الدكتورة', 'الأستاذة', 'المهندسة',
     )
-    prefixes_male = ('السيد', 'المهندس', 'الدكتور', 'الأستاذ')
+    prefixes_male: Tuple[str, ...] = ('السيد', 'المهندس', 'الدكتور', 'الأستاذ')

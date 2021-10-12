@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from ....typing import OrderedDictType
 from .. import Provider as PersonProvider
 
 
@@ -21,8 +22,8 @@ class Provider(PersonProvider):
     #
     # https://www.dia.govt.nz/diawebsite.nsf/wpg_URL/Services-Births-Deaths-and-Marriages-Most-Popular-Male-and-Female-First-Names
 
-    first_names_male = OrderedDict((
-        ("Aaron", 9912),
+    first_names_male: OrderedDictType[str, float] = OrderedDict((
+        ("Aaron", 9912.),
         ("Adam", 7639),
         ("Adrian", 2420),
         ("Aidan", 1521),
@@ -373,8 +374,8 @@ class Provider(PersonProvider):
         ("Wiremu", 1923),
     ))
 
-    first_names_female = OrderedDict((
-        ("Aaliyah", 1042),
+    first_names_female: OrderedDictType[str, float] = OrderedDict((
+        ("Aaliyah", 1042.),
         ("Abbey", 40),
         ("Abby", 503),
         ("Abigail", 2017),
@@ -803,7 +804,7 @@ class Provider(PersonProvider):
         ("Wikitoria", 583),
     ))
 
-    first_names = first_names_male.copy()
+    first_names: OrderedDictType[str, float] = first_names_male.copy()
     first_names.update(first_names_female)
 
     # New Zealand surnames compiled (and cleaned up) from the following sources:
@@ -812,7 +813,7 @@ class Provider(PersonProvider):
     #    https://catalogue.data.govt.nz/dataset?q=cemetery+plots
 
     last_names = OrderedDict((
-        ("Smith", 948),
+        ("Smith", 948.),
         ("Anderson", 394),
         ("Jones", 386),
         ("Taylor", 364),

@@ -84,7 +84,7 @@ class Provider(PersonProvider):
     first_name_pairs = first_name_male_pairs + first_name_female_pairs
 
     last_name_pairs = OrderedDict((
-        (("佐藤", "サトウ", "Sato"), 366803),
+        (("佐藤", "サトウ", "Sato"), 366803.),
         (("鈴木", "スズキ", "Suzuki"), 321135),
         (("高橋", "タカハシ", "Takahashi"), 266782),
         (("田中", "タナカ", "Tanaka"), 245821),

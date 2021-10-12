@@ -1,8 +1,10 @@
+from typing import Tuple
+
 from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_male = (
+    formats_male: Tuple[str, ...] = (
         '{{first_name_male}} {{last_name}} {{last_name}}',
         '{{first_name_male}} {{last_name}} {{last_name}}',
         '{{first_name_male}} {{last_name}} {{last_name}}',
@@ -15,7 +17,7 @@ class Provider(PersonProvider):
         '{{first_name_male}} {{first_name_male}} {{last_name}} {{last_name}}',
     )
 
-    formats_female = (
+    formats_female: Tuple[str, ...] = (
         '{{first_name_female}} {{last_name}} {{last_name}}',
         '{{first_name_female}} {{last_name}} {{last_name}}',
         '{{first_name_female}} {{last_name}} {{last_name}}',
@@ -28,11 +30,11 @@ class Provider(PersonProvider):
         '{{first_name_female}} {{first_name_female}} {{last_name}} {{last_name}}',
     )
 
-    formats = formats_male + formats_female
+    formats: Tuple[str, ...] = formats_male + formats_female
 
     # 477 male first names, alphabetically.
     # Source: Álvaro Mondéjar Rubio <mondejar1994@gmail.com>
-    first_names_male = (
+    first_names_male: Tuple[str, ...] = (
         'Aarón', 'Abel', 'Abilio', 'Abraham', 'Adalberto',
         'Adelardo', 'Adolfo', 'Adrián', 'Adán', 'Agapito', 'Agustín',
         'Aitor', 'Albano', 'Albert', 'Alberto', 'Albino', 'Alcides',
@@ -122,7 +124,7 @@ class Provider(PersonProvider):
 
     # 477 female first names, alphabetically.
     # Source: Álvaro Mondéjar Rubio <mondejar1994@gmail.com>
-    first_names_female = (
+    first_names_female: Tuple[str, ...] = (
         'Abigaíl', 'Abril', 'Adela', 'Adelaida', 'Adelia',
         'Adelina', 'Adora', 'Adoración', 'Adriana', 'Agustina', 'Ainara',
         'Ainoa', 'Aitana', 'Alba', 'Albina', 'Ale', 'Alejandra',

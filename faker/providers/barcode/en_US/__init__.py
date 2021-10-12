@@ -3,7 +3,8 @@ import re
 from itertools import product
 from typing import Optional, Pattern
 
-from .. import Provider as BarcodeProvider, PrefixType
+from .. import PrefixType
+from .. import Provider as BarcodeProvider
 
 
 class Provider(BarcodeProvider):
