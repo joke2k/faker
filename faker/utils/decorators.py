@@ -1,8 +1,9 @@
 from functools import wraps
-from typing import Callable, Dict, Tuple
+from typing import Callable, Dict, Tuple, TypeVar
 
-from ..typing import T
 from ..utils import text
+
+T = TypeVar('T')
 
 
 def slugify(fn: Callable) -> Callable:
