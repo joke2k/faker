@@ -4,7 +4,7 @@ from .. import BaseProvider
 
 localized = True
 
-PrefixType = Tuple[Tuple[Union[int, str], ...], ...]
+PrefixType = Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...]
 
 
 class Provider(BaseProvider):

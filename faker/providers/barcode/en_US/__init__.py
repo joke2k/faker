@@ -3,7 +3,7 @@ import re
 from itertools import product
 from typing import Optional, Pattern, Tuple
 
-from .. import Provider as BarcodeProvider
+from .. import Provider as BarcodeProvider, PrefixType
 
 
 class Provider(BarcodeProvider):
@@ -44,7 +44,7 @@ class Provider(BarcodeProvider):
         r'(?P<check_digit>\d)$',            # and finally a check digit.
     )
 
-    def ean13(self, leading_zero: Optional[bool] = None, prefixes: Tuple[str, ...] = ()) -> str:
+    def ean13(self, prefixes: PrefixType = (), leading_zero: Optional[bool] = None) -> str:
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will
@@ -122,19 +122,17 @@ class Provider(BarcodeProvider):
         Please also view notes on |EnUsBarcodeProvider.upc_a| and
         |EnUsBarcodeProvider.upc_e| for more details.
         """
-        if isinstance(base, str) and self.upc_e_base_pattern.match(base):
-            base = [int(x) for x in base]
-        else:
-            base = [self.random_int(0, 9) for _ in range(6)]
+        base_ = [int(x) for x in base] if isinstance(base, str) and self.upc_e_base_pattern.match(base) \
+            else [self.random_int(0, 9) for _ in range(6)]
         if number_system_digit not in [0, 1]:
             number_system_digit = self.random_int(0, 1)
 
-        if base[-1] <= 2:
-            code = base[:2] + base[-1:] + [0] * 4 + base[2:-1]
-        elif base[-1] <= 4:
-            code = base[:base[-1]] + [0] * 5 + base[base[-1]:-1]
+        if base_[-1] <= 2:
+            code = base_[:2] + base_[-1:] + [0] * 4 + base_[2:-1]
+        elif base_[-1] <= 4:
+            code = base_[:base_[-1]] + [0] * 5 + base_[base_[-1]:-1]
         else:
-            code = base[:5] + [0] * 4 + base[-1:]
+            code = base_[:5] + [0] * 4 + base_[-1:]
 
         code.insert(0, number_system_digit)
         weights = [3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
