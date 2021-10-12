@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as AddressProvider
 
 
@@ -83,7 +85,7 @@ class Provider(AddressProvider):
         'Rasinari', 'Sebis', 'Raducaneni', 'Siria', 'Paunesti', 'Saveni', 'Tunari',
     )
 
-    states = (
+    states: Tuple[Tuple[str, str], ...] = (
         ('AB', 'Alba'), ('AG', 'Argeș'), ('AR', 'Arad'), ('B', 'București'),
         ('BC', 'Bacău'), ('BH', 'Bihor'), ('BN', 'Bistrița-Năsăud'),
         ('BR', 'Brăila'), ('BT', 'Botoșani'), ('BV', 'Brașov'), ('BZ', 'Buzău'),
@@ -121,7 +123,7 @@ class Provider(AddressProvider):
         """
         example: u'Timiș'
         """
-        return self.random_element(self.states)[1]
+        return self.random_element(self.states)[1]  # type: ignore
 
     state = administrative_unit
 
@@ -129,4 +131,4 @@ class Provider(AddressProvider):
         """
         example: u'TM'
         """
-        return self.random_element(self.states)[0]
+        return self.random_element(self.states)[0]  # type: ignore

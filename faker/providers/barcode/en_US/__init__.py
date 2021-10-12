@@ -1,7 +1,7 @@
 import re
 
 from itertools import product
-from typing import Optional, Pattern, Tuple
+from typing import Optional, Pattern
 
 from .. import Provider as BarcodeProvider, PrefixType
 

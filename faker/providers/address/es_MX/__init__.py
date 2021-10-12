@@ -118,7 +118,7 @@ class Provider(AddressProvider):
         """
         example: u'Guerrero'
         """
-        return self.random_element(self.states)[1]
+        return self.random_element(self.states)[1]  # type: ignore
 
     state = administrative_unit
 
@@ -126,4 +126,4 @@ class Provider(AddressProvider):
         """
         example: u'GRO'
         """
-        return self.random_element(self.states)[0]
+        return self.random_element(self.states)[0]  # type: ignore

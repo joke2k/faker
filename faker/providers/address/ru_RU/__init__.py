@@ -358,15 +358,17 @@ class Provider(AddressProvider):
         return self.random_element(self.countries)
 
     def administrative_unit(self) -> str:
-        regions_suffix = self.random_element(self.region_suffixes)
+        regions_suffix: str = self.random_element(self.region_suffixes)
         if regions_suffix == 'респ.':
-            return regions_suffix + ' ' + self.random_element(self.region_republics)
+            return f'{regions_suffix} {self.random_element(self.region_republics)}'
         elif regions_suffix == 'край':
-            return self.random_element(self.region_krai) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_krai)} {regions_suffix}'
         elif regions_suffix == 'обл.':
-            return self.random_element(self.region_oblast) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_oblast)} {regions_suffix}'
         elif regions_suffix == 'АО':
-            return self.random_element(self.region_ao) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_ao)} {regions_suffix}'
+        else:
+            raise ValueError(f'Unknown region "{regions_suffix}"')
 
     region = administrative_unit
 
@@ -395,4 +397,4 @@ class Provider(AddressProvider):
                     result = self.street_titles_irregular_neu[street]
                 else:
                     result = stem + 'ое'
-        return suffix + ' ' + result
+        return f'{suffix} {result}'

@@ -164,7 +164,7 @@ class Provider(AddressProvider):
         Randomly returns an abbreviation of the street prefix.
         :example 'al.'
         """
-        return self.random_element(self.street_prefixes)[:2] + '.'
+        return self.random_element(self.street_prefixes)[:2] + '.'  # type: ignore
 
     def street_name(self) -> str:
         """

@@ -358,7 +358,7 @@ class Provider(AddressProvider):
             province_abbr = self.random_element(self.provinces_abbr)
 
         if province_abbr in self.provinces_abbr:
-            postal_code_format = self.random_element(self.postal_code_formats)
+            postal_code_format: str = self.random_element(self.postal_code_formats)
             postal_code_format = postal_code_format.replace(
                 '?',
                 self.generator.random_element(

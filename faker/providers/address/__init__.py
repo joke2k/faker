@@ -85,7 +85,7 @@ class Provider(BaseProvider):
 
     def current_country_code(self) -> str:
         try:
-            return self.__lang__.split("_")[1]
+            return self.__lang__.split("_")[1]  # type: ignore
         except IndexError:
             raise AttributeError("Country code cannot be determined from locale")
 

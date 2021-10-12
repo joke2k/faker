@@ -228,7 +228,7 @@ class Provider(AddressProvider):
         return self.random_element(self.te_reo_parts)
 
     def te_reo_first(self) -> str:
-        return self.random_element(self.te_reo_parts).capitalize()
+        return str(self.random_element(self.te_reo_parts)).capitalize()
 
     def te_reo_ending(self) -> str:
         return self.random_element(self.te_reo_parts + self.te_reo_endings)
