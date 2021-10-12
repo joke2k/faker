@@ -3,6 +3,7 @@ import unittest
 
 from datetime import datetime
 from itertools import cycle
+from typing import Pattern
 from unittest import mock
 
 import freezegun

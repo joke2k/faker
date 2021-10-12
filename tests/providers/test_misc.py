@@ -13,6 +13,7 @@ try:
 except ImportError:
     PIL = None
 
+from typing import Pattern
 from unittest.mock import patch
 
 import pytest

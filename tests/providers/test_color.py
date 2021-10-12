@@ -4,6 +4,8 @@ import re
 
 import pytest
 
+from typing import Pattern
+
 from faker.providers.color import RandomColor
 from faker.providers.color.bg_BG import Provider as BgBgColorProvider
 from faker.providers.color.el_GR import Provider as ElGrColorProvider

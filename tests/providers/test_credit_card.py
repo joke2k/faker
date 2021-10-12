@@ -1,5 +1,7 @@
 import re
 
+from typing import Pattern
+
 from faker.providers.bank.ru_RU import Provider as RuRuBankProvider
 from faker.providers.credit_card import Provider as CreditCardProvider
 

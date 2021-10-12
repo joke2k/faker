@@ -2,6 +2,8 @@ import re
 
 import pytest
 
+from typing import Pattern
+
 
 class TestBarcodeProvider:
     """Test barcode provider methods"""

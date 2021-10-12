@@ -2,6 +2,7 @@ import re
 
 from ipaddress import ip_address, ip_network
 from itertools import cycle
+from typing import Pattern
 from unittest.mock import PropertyMock, patch
 
 import pytest

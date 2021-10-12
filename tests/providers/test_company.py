@@ -1,6 +1,7 @@
 import re
 
 from datetime import datetime
+from typing import Pattern
 from unittest.mock import patch
 
 import pytest
