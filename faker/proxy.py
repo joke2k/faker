@@ -10,9 +10,8 @@ from typing import Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Uni
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
-from .generator import Generator
-from .typing import OrderedDict as OrderedDictType
-from .typing import T
+from .generator import Generator, T
+from .typing import OrderedDictType as OrderedDictType
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000

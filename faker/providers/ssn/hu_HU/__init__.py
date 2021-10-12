@@ -2,7 +2,7 @@ from functools import reduce
 from math import fmod
 from typing import Optional
 
-from ....typing import Gender
+from ....typing import GenderType
 from .. import Provider as SsnProvider
 
 
@@ -11,7 +11,7 @@ def zfix(d: int) -> str:
 
 
 class Provider(SsnProvider):
-    def ssn(self, dob: Optional[str] = None, gender: Optional[Gender] = None) -> str:
+    def ssn(self, dob: Optional[str] = None, gender: Optional[GenderType] = None) -> str:
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 

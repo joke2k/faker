@@ -2,9 +2,9 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import Optional, Sequence, Union
+from typing import Dict, KeysView, Optional, Sequence, TypeVar, Union
 
-from ..typing import ElementsType, T
+from ..typing import OrderedDictType
 from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
@@ -13,6 +13,9 @@ _re_excl = re.compile(r'!')
 _re_at = re.compile(r'@')
 _re_qm = re.compile(r'\?')
 _re_cir = re.compile(r'\^')
+
+T = TypeVar('T')
+ElementsType = Union[Sequence[T], Dict[T, float], OrderedDictType[T, float], KeysView[T]]
 
 
 class BaseProvider:

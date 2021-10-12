@@ -1,15 +1,16 @@
 import string
 
 from collections import OrderedDict
-from typing import Optional, Tuple
+from typing import Optional
 
-from .. import BaseProvider
+from ...typing import OrderedDictType
+from .. import BaseProvider, ElementsType
 
 
 class Provider(BaseProvider):
     """Implement default file provider for Faker."""
 
-    application_mime_types: Tuple[str, ...] = (
+    application_mime_types: ElementsType = (
 
         "application/atom+xml",  # Atom feeds
         "application/ecmascript",
@@ -50,7 +51,7 @@ class Provider(BaseProvider):
         "application/gzip",         # Gzip, Defined in RFC 6713
     )
 
-    audio_mime_types: Tuple[str, ...] = (
+    audio_mime_types: ElementsType = (
         "audio/basic",  # mulaw audio at 8 kHz, 1 channel; Defined in RFC 2046
         "audio/L24",  # 24bit Linear PCM audio at 8-48 kHz, 1-N channels; Defined in RFC 3190
         "audio/mp4",  # MP4 audio
@@ -63,7 +64,7 @@ class Provider(BaseProvider):
         "audio/webm",               # WebM open media format
     )
 
-    image_mime_types: Tuple[str, ...] = (
+    image_mime_types: ElementsType = (
         "image/gif",  # GIF image; Defined in RFC 2045 and RFC 2046
         "image/jpeg",  # JPEG JFIF image; Defined in RFC 2045 and RFC 2046
         "image/pjpeg",
@@ -77,7 +78,7 @@ class Provider(BaseProvider):
         "image/vnd.microsoft.icon",  # ICO image; Registered[11]
     )
 
-    message_mime_types: Tuple[str, ...] = (
+    message_mime_types: ElementsType = (
         "message/http",  # Defined in RFC 2616
         "message/imdn+xml",  # IMDN Instant Message Disposition Notification; Defined in RFC 5438
         "message/partial",  # Email; Defined in RFC 2045 and RFC 2046
@@ -86,7 +87,7 @@ class Provider(BaseProvider):
         "message/rfc822",
     )
 
-    model_mime_types: Tuple[str, ...] = (
+    model_mime_types: ElementsType = (
         "model/example",  # Defined in RFC 4735
         "model/iges",  # IGS files, IGES files; Defined in RFC 2077
         "model/mesh",  # MSH files, MESH files; Defined in RFC 2077, SILO files
@@ -98,7 +99,7 @@ class Provider(BaseProvider):
         "model/x3d+xml",  # X3D ISO standard for representing 3D computer graphics, X3D XML files
     )
 
-    multipart_mime_types: Tuple[str, ...] = (
+    multipart_mime_types: ElementsType = (
         "multipart/mixed",  # MIME Email; Defined in RFC 2045 and RFC 2046
         "multipart/alternative",  # MIME Email; Defined in RFC 2045 and RFC 2046
         # MIME Email; Defined in RFC 2387 and used by MHTML (HTML mail)
@@ -108,7 +109,7 @@ class Provider(BaseProvider):
         "multipart/encrypted",  # Defined in RFC 1847
     )
 
-    text_mime_types: Tuple[str, ...] = (
+    text_mime_types: ElementsType = (
         "text/cmd",  # commands; subtype resident in Gecko browsers like Firefox 3.5
         "text/css",  # Cascading Style Sheets; Defined in RFC 2318
         "text/csv",  # Comma-separated values; Defined in RFC 4180
@@ -124,7 +125,7 @@ class Provider(BaseProvider):
         "text/xml",  # Extensible Markup Language; Defined in RFC 3023
     )
 
-    video_mime_types: Tuple[str, ...] = (
+    video_mime_types: ElementsType = (
         "video/mpeg",  # MPEG-1 video with multiplexed audio; Defined in RFC 2045 and RFC 2046
         "video/mp4",  # MP4 video; Defined in RFC 4337
         # Ogg Theora or other video (with audio); Defined in RFC 5334
@@ -136,7 +137,7 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types = OrderedDict((
+    mime_types: OrderedDictType[str, ElementsType] = OrderedDict((
         ('application', application_mime_types),
         ('audio', audio_mime_types),
         ('image', image_mime_types),
@@ -147,13 +148,13 @@ class Provider(BaseProvider):
         ('video', video_mime_types),
     ))
 
-    audio_file_extensions: Tuple[str, ...] = (
+    audio_file_extensions: ElementsType = (
         "flac",
         "mp3",
         "wav",
     )
 
-    image_file_extensions: Tuple[str, ...] = (
+    image_file_extensions: ElementsType = (
         "bmp",
         "gif",
         "jpeg",
@@ -162,7 +163,7 @@ class Provider(BaseProvider):
         "tiff",
     )
 
-    text_file_extensions: Tuple[str, ...] = (
+    text_file_extensions: ElementsType = (
         "css",
         "csv",
         "html",
@@ -171,14 +172,14 @@ class Provider(BaseProvider):
         "txt",
     )
 
-    video_file_extensions: Tuple[str, ...] = (
+    video_file_extensions: ElementsType = (
         "mp4",
         "avi",
         "mov",
         "webm",
     )
 
-    office_file_extensions: Tuple[str, ...] = (
+    office_file_extensions: ElementsType = (
         "doc",  # legacy MS Word
         "docx",  # MS Word
         "xls",  # legacy MS Excel
@@ -194,14 +195,14 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions = OrderedDict((
+    file_extensions: OrderedDictType[str, ElementsType] = OrderedDict((
         ("audio", audio_file_extensions),
         ("image", image_file_extensions),
         ("office", office_file_extensions),
         ("text", text_file_extensions),
         ("video", video_file_extensions),
     ))
-    unix_device_prefixes: Tuple[str, ...] = ('sd', 'vd', 'xvd')
+    unix_device_prefixes: ElementsType = ('sd', 'vd', 'xvd')
 
     def mime_type(self, category: Optional[str] = None) -> str:
         """Generate a mime type under the specified ``category``.
@@ -232,7 +233,8 @@ class Provider(BaseProvider):
         :sample: extension='abcdef'
         :sample: category='audio', extension='abcdef'
         """
-        extension = extension if extension else self.file_extension(category)
+        if extension is None:
+            extension = self.file_extension(category)
         filename: str = self.generator.word()
         return f'{filename}.{extension}'
 
@@ -246,8 +248,8 @@ class Provider(BaseProvider):
         :sample:
         :sample: category='image'
         """
-        category: str = category if category else self.random_element(
-            list(self.file_extensions.keys()))
+        if category is None:
+            category = self.random_element(list(self.file_extensions.keys()))
         return self.random_element(self.file_extensions[category])
 
     def file_path(self, depth: int = 1, category: Optional[str] = None, extension: Optional[str] = None) -> str:
@@ -277,7 +279,8 @@ class Provider(BaseProvider):
         :sample:
         :sample: prefix='mmcblk'
         """
-        prefix = prefix if prefix else self.random_element(self.unix_device_prefixes)
+        if prefix is None:
+            prefix = self.random_element(self.unix_device_prefixes)
         suffix: str = self.random_element(string.ascii_lowercase)
         path = '/dev/%s%s' % (prefix, suffix)
         return path

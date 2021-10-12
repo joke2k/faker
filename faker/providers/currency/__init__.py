@@ -1,13 +1,13 @@
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
     # Format: (code, name)
-    currencies = (
+    currencies: ElementsType[Tuple[str, str]] = (
         ("AED", "United Arab Emirates dirham"),
         ("AFN", "Afghan afghani"),
         ("ALL", "Albanian lek"),
@@ -175,7 +175,7 @@ class Provider(BaseProvider):
     )
 
     # Source: https://en.wikipedia.org/wiki/List_of_cryptocurrencies
-    cryptocurrencies = (
+    cryptocurrencies: ElementsType[Tuple[str, str]] = (
         ('AMP', "AMP"),
         ('AUR', "Auroracoin"),
         ('BC', "BlackCoin"),
@@ -222,7 +222,7 @@ class Provider(BaseProvider):
     )
 
     # List of currency symbols in Unicode, source: https://www.unicode.org/charts/beta/nameslist/n_20A0.html
-    currency_symbols = {
+    currency_symbols: Dict[str, str] = {
         'AFN': '\u060B', 'ANG': '\u0192', 'ARS': '\u0024', 'AUD': '\u0024', 'AWG': '\u0192', 'BBD': '\u0024',
         'BDT': '\u09F3', 'BMD': '\u0024', 'BND': '\u0024', 'BOB': '\u0024', 'BRL': '\u0024', 'BSD': '\u0024',
         'BZD': '\u0024', 'CAD': '\u0024', 'CLP': '\u0024', 'CNY': '\u00A5', 'COP': '\u0024', 'CRC': '\u20A1',
@@ -239,7 +239,7 @@ class Provider(BaseProvider):
         'XCD': '\u0024', 'YER': '\uFDFC', 'ZWD': '\u0024',
     }
 
-    price_formats = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
+    price_formats: ElementsType = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
 
     def currency(self) -> Tuple[str, str]:
         return self.random_element(self.currencies)

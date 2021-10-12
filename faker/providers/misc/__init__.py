@@ -8,7 +8,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Optional, Sequence, Tuple, Type, Union
+from typing import Callable, Optional, Sequence, Set, Tuple, Union
 
 from faker.exceptions import UnsupportedFeature
 
@@ -91,7 +91,9 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
-    def uuid4(self, cast_to: Optional[Union[Type[str], Type[bytes]]] = str) -> Union[bytes, str, uuid.UUID]:
+    def uuid4(self,
+              cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
+              ) -> Union[bytes, str, uuid.UUID]:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
@@ -147,17 +149,17 @@ class Provider(BaseProvider):
             required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
-        chars = self.random_choices(choices, length=length)
+        chars: str = self.random_choices(choices, length=length)  # type: ignore
 
         # Pick some unique locations
-        random_indexes = set()
+        random_indexes: Set[int] = set()
         while len(random_indexes) < len(required_tokens):
             random_indexes.add(
                 self.generator.random.randint(0, len(chars) - 1))
 
         # Replace them with the required characters
         for i, index in enumerate(random_indexes):
-            chars[index] = required_tokens[i]
+            chars[index] = required_tokens[i]  # type: ignore
 
         return ''.join(chars)
 
@@ -198,17 +200,17 @@ class Provider(BaseProvider):
                 '`uncompressed_size` is smaller than the calculated minimum required size',
             )
         if compression in ['bzip2', 'bz2']:
-            compression = zipfile.ZIP_BZIP2  # type: ignore
+            compression_ = zipfile.ZIP_BZIP2
         elif compression in ['lzma', 'xz']:
-            compression = zipfile.ZIP_LZMA  # type: ignore
+            compression_ = zipfile.ZIP_LZMA
         elif compression in ['deflate', 'gzip', 'gz']:
-            compression = zipfile.ZIP_DEFLATED  # type: ignore
+            compression_ = zipfile.ZIP_DEFLATED
         else:
-            compression = zipfile.ZIP_STORED  # type: ignore
+            compression_ = zipfile.ZIP_STORED
 
         zip_buffer = io.BytesIO()
         remaining_size = uncompressed_size
-        with zipfile.ZipFile(zip_buffer, mode='w', compression=compression) as zip_handle:
+        with zipfile.ZipFile(zip_buffer, mode='w', compression=compression_) as zip_handle:
             for file_number in range(1, num_files + 1):
                 filename = self.generator.pystr() + str(file_number)
 

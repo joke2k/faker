@@ -55,7 +55,7 @@ class Provider(InternetProvider):
         elif levels == 2:
             my_tld = self.tld()
             if my_tld == 'cn':
-                my_second_level = self.random_element(self.second_level_domains)
+                my_second_level: str = self.random_element(self.second_level_domains)
             else:
                 my_second_level = self.domain_word()
             return self.domain_word() + '.' + my_second_level + '.' + my_tld

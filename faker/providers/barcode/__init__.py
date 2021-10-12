@@ -1,8 +1,10 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 from .. import BaseProvider
 
 localized = True
+
+PrefixType = Tuple[Tuple[Union[int, str], ...], ...]
 
 
 class Provider(BaseProvider):
@@ -13,16 +15,16 @@ class Provider(BaseProvider):
     - https://gs1.org/standards/id-keys/company-prefix
     """
 
-    local_prefixes = ()
+    local_prefixes: PrefixType = ()
 
-    def _ean(self, length: int = 13, prefixes: Tuple[str, ...] = ()) -> str:
+    def _ean(self, length: int = 13, prefixes: PrefixType = ()) -> str:
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
         code = [self.random_digit() for _ in range(length - 1)]
 
         if prefixes:
-            prefix = self.random_element(prefixes)
+            prefix: str = self.random_element(prefixes)
             code[:len(prefix)] = map(int, prefix)
 
         if length == 8:
@@ -36,7 +38,7 @@ class Provider(BaseProvider):
 
         return ''.join(str(x) for x in code)
 
-    def ean(self, length: int = 13, prefixes: Tuple[str, ...] = ()) -> str:
+    def ean(self, length: int = 13, prefixes: PrefixType = ()) -> str:
         """Generate an EAN barcode of the specified ``length``.
 
         The value of ``length`` can only be ``8`` or ``13`` (default) which will
@@ -67,7 +69,7 @@ class Provider(BaseProvider):
         """
         return self._ean(8, prefixes=prefixes)
 
-    def ean13(self, prefixes: Tuple[str, ...] = ()) -> str:
+    def ean13(self, prefixes: PrefixType = ()) -> str:
         """Generate an EAN-13 barcode.
 
         This method uses |ean| under the hood with the ``length`` argument

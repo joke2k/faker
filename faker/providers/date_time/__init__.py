@@ -12,7 +12,7 @@ from dateutil import relativedelta
 from dateutil.tz import gettz, tzfile, tzlocal, tzutc
 
 from ...typing import DateParseType
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
@@ -64,7 +64,7 @@ for name, sym in [('years', 'y'), ('months', 'M'), ('weeks', 'w'), ('days', 'd')
 
 
 class Provider(BaseProvider):
-    centuries = [
+    centuries: ElementsType = [
         'I',
         'II',
         'III',

@@ -1,11 +1,13 @@
 from collections import OrderedDict
+from typing import Dict, Sequence
 
+from ....typing import OrderedDictType
 from .. import Provider as PersonProvider
 
 
 # See transliteration table https://en.wikipedia.org/wiki/Romanization_of_Russian#Transliteration_table
 def translit(text: str) -> str:
-    translit_dict = {
+    translit_dict: Dict[str, str] = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y',
         'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f',
         'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu',
@@ -20,13 +22,13 @@ def translit(text: str) -> str:
 
 
 class Provider(PersonProvider):
-    formats_male = OrderedDict((
+    formats_male: OrderedDictType[str, float] = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.49),
         ('{{first_name_male}} {{middle_name_male}} {{last_name_male}}', 0.49),
         ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.02),
     ))
 
-    formats_female = OrderedDict((
+    formats_female: OrderedDictType[str, float] = OrderedDict((
         ('{{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.49),
         ('{{first_name_female}} {{middle_name_female}} {{last_name_female}}', 0.49),
         ('{{prefix_female}} {{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.02),
@@ -36,7 +38,7 @@ class Provider(PersonProvider):
     #     formats = formats_male + formats_female
     # has to be replaced with something dict and python 2.x compatible
 
-    formats = formats_male.copy()
+    formats: OrderedDictType[str, float] = formats_male.copy()
     formats.update(formats_female)
 
     first_names_male = (
@@ -301,9 +303,9 @@ class Provider(PersonProvider):
         'Вьетнамский', 'Идиш', 'Йоруба', 'Китайский', 'Зулу',
     )
 
-    prefixes_male = ('г-н', 'тов.')
+    prefixes_male: Sequence[str] = ('г-н', 'тов.')
 
-    prefixes_female = ('г-жа', 'тов.')
+    prefixes_female: Sequence[str] = ('г-жа', 'тов.')
 
     def middle_name(self) -> str:
         return self.random_element(self.middle_names)

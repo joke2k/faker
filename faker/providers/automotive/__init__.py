@@ -2,7 +2,7 @@ import re
 
 from string import ascii_uppercase
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
@@ -10,7 +10,7 @@ localized = True
 class Provider(BaseProvider):
     """Implement default automotive provider for Faker."""
 
-    license_formats = ()
+    license_formats: ElementsType = ()
 
     def license_plate(self) -> str:
         """Generate a license plate."""

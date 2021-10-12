@@ -1,30 +1,29 @@
 import string
 
 from datetime import datetime
-from typing import Tuple
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 
 class Provider(BaseProvider):
     """Implement default user agent provider for Faker."""
 
-    user_agents: Tuple[str, ...] = (
+    user_agents: ElementsType = (
         'chrome', 'firefox', 'internet_explorer', 'opera', 'safari',
     )
 
-    windows_platform_tokens: Tuple[str, ...] = (
+    windows_platform_tokens: ElementsType = (
         'Windows 95', 'Windows 98', 'Windows 98; Win 9x 4.90', 'Windows CE',
         'Windows NT 4.0', 'Windows NT 5.0', 'Windows NT 5.01',
         'Windows NT 5.1', 'Windows NT 5.2', 'Windows NT 6.0', 'Windows NT 6.1',
         'Windows NT 6.2', 'Windows NT 10.0',
     )
 
-    linux_processors: Tuple[str, ...] = ('i686', 'x86_64')
+    linux_processors: ElementsType = ('i686', 'x86_64')
 
-    mac_processors: Tuple[str, ...] = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
+    mac_processors: ElementsType = ('Intel', 'PPC', 'U; Intel', 'U; PPC')
 
-    android_versions: Tuple[str, ...] = (
+    android_versions: ElementsType = (
         '1.0', '1.1', '1.5', '1.6', '2.0', '2.0.1', '2.1', '2.2', '2.2.1', '2.2.2', '2.2.3', '2.3', '2.3.1', '2.3.2',
         '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7', '3.0', '3.1', '3.2', '3.2.1', '3.2.2', '3.2.3', '3.2.4', '3.2.5',
         '3.2.6', '4.0', '4.0.1', '4.0.2', '4.0.3', '4.0.4', '4.1', '4.1.1', '4.1.2', '4.2', '4.2.1', '4.2.2', '4.3',
@@ -32,9 +31,9 @@ class Provider(BaseProvider):
         '7.0', '7.1', '7.1.1', '7.1.2', '8.0.0', '8.1.0', '9', '10', '11',
     )
 
-    apple_devices: Tuple[str, ...] = ('iPhone', 'iPad')
+    apple_devices: ElementsType = ('iPhone', 'iPad')
 
-    ios_versions: Tuple[str, ...] = (
+    ios_versions: ElementsType = (
         '3.1.3', '4.2.1', '5.1.1', '6.1.6', '7.1.2', '9.3.5', '9.3.6', '10.3.3', '10.3.4', '12.4.8', '14.2', '14.2.1',
     )
 
@@ -60,7 +59,7 @@ class Provider(BaseProvider):
                      ' Chrome/{2}.0.{3}.0 Safari/{4}'
         tmplt_ios: str = '({0}) AppleWebKit/{1} (KHTML, like Gecko)' \
                          ' CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}'
-        platforms: Tuple[str, ...] = (
+        platforms: ElementsType = (
             tmplt.format(self.linux_platform_token(),
                          saf,
                          self.generator.random.randint(version_from, version_to),
@@ -92,7 +91,7 @@ class Provider(BaseProvider):
 
     def firefox(self) -> str:
         """Generate a Mozilla Firefox web browser user agent string."""
-        ver: Tuple[str, ...] = (
+        ver: ElementsType = (
             (f'Gecko/{self.generator.date_time_between(datetime(2011, 1, 1))} '
              f'Firefox/{self.generator.random.randint(4, 15)}.0'),
             (f'Gecko/{self.generator.date_time_between(datetime(2010, 1, 1))} '
@@ -108,7 +107,7 @@ class Provider(BaseProvider):
                                   self.generator.random.randint(0, 2))
         bld: str = self.lexify(self.numerify('##?###'), string.ascii_uppercase)
         bld2: str = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
-        platforms: Tuple[str, ...] = (
+        platforms: ElementsType = (
             tmplt_win.format(self.windows_platform_token(),
                              self.generator.locale().replace('_', '-'),
                              self.generator.random.randint(0, 2),
@@ -148,7 +147,7 @@ class Provider(BaseProvider):
                           ' AppleWebKit/{3} (KHTML, like Gecko) Version/{4}.0.5' \
                           ' Mobile/8B{5} Safari/6{6}'
         locale: str = self.generator.locale().replace('_', '-')
-        platforms: Tuple[str, ...] = (
+        platforms: ElementsType = (
             tmplt_win.format(self.windows_platform_token(),
                              saf,
                              ver,

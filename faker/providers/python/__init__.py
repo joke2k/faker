@@ -5,11 +5,11 @@ import warnings
 
 from decimal import Decimal
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 
 class Provider(BaseProvider):
-    default_value_types = (
+    default_value_types: ElementsType = (
         'str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal',
         'date_time', 'uri', 'email',
     )

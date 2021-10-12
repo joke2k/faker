@@ -16,10 +16,7 @@ def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -
 
     Adapted from Django 1.9
     """
-    if allow_dots:
-        pattern: str = _re_pattern_allow_dots
-    else:
-        pattern: str = _re_pattern
+    pattern: Pattern = _re_pattern_allow_dots if allow_dots else _re_pattern
 
     value = str(value)
     if allow_unicode:

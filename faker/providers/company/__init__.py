@@ -1,20 +1,20 @@
 from typing import Tuple
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
-    formats: Tuple[str, ...] = (
+    formats: ElementsType = (
         '{{last_name}} {{company_suffix}}',
         '{{last_name}}-{{last_name}}',
         '{{last_name}}, {{last_name}} and {{last_name}}',
     )
 
-    company_suffixes: Tuple[str, ...] = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
+    company_suffixes: ElementsType = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
 
-    catch_phrase_words: Tuple[Tuple[str, ...], ...] = (
+    catch_phrase_words: Tuple[ElementsType, ...] = (
         ('Adaptive',
          'Advanced',
          'Ameliorated',
@@ -321,7 +321,7 @@ class Provider(BaseProvider):
          'website',
          'workforce'))
 
-    bsWords: Tuple[Tuple[str, ...], ...] = (
+    bsWords: Tuple[ElementsType, ...] = (
         ('implement',
          'utilize',
          'integrate',

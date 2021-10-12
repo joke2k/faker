@@ -1,10 +1,10 @@
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
-    jobs = (
+    jobs: ElementsType = (
         "Academic librarian",
         "Accommodation manager",
         "Accountant, chartered",

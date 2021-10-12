@@ -1,6 +1,4 @@
-from typing import Tuple
-
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 # Data source
 #
@@ -15,7 +13,7 @@ localized = True
 
 class Provider(BaseProvider):
 
-    country_calling_codes: Tuple[str, ...] = (
+    country_calling_codes: ElementsType = (
         '+93', '+358 18', '+355', '+213', '+1 684', '+376', '+244', '+1 264',
         '+1 268', '+54', '+374', '+297', '+247', '+61', '+672 1', '+672', '+43',
         '+994', '+1 242', '+973', '+880', '+1 246', '+1 268', '+375', '+32',
@@ -56,9 +54,9 @@ class Provider(BaseProvider):
         '+260', '+255 24', '+263',
     )
 
-    formats: Tuple[str, ...] = ('###-###-###',)
+    formats: ElementsType = ('###-###-###',)
 
-    msisdn_formats: Tuple[str, ...] = (
+    msisdn_formats: ElementsType = (
         '#############',
     )
 

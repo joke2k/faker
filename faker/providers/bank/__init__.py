@@ -3,7 +3,7 @@ import string
 
 from math import ceil
 from string import ascii_uppercase
-from typing import Optional
+from typing import Dict, Optional
 
 from .. import BaseProvider
 
@@ -27,9 +27,9 @@ class Provider(BaseProvider):
     - https://www.theswiftcodes.com/swift-code-checker/
     """
 
-    ALPHA = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
-    bban_format = '????#############'
-    country_code = 'GB'
+    ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
+    bban_format: str = '????#############'
+    country_code: str = 'GB'
 
     def aba(self) -> str:
         """Generate an ABA routing transit number."""

@@ -1,8 +1,8 @@
 from collections import OrderedDict
-from typing import Optional, Tuple
+from typing import Optional
 
-from ...typing import HueType
-from .. import BaseProvider
+from ...typing import HueType, OrderedDictType
+from .. import BaseProvider, ElementsType
 from .color import RandomColor
 
 localized = True
@@ -11,7 +11,7 @@ localized = True
 class Provider(BaseProvider):
     """Implement default color provider for Faker."""
 
-    all_colors = OrderedDict((
+    all_colors: OrderedDictType[str, str] = OrderedDict((
         ("AliceBlue", "#F0F8FF"),
         ("AntiqueWhite", "#FAEBD7"),
         ("Aqua", "#00FFFF"),
@@ -154,7 +154,7 @@ class Provider(BaseProvider):
         ("YellowGreen", "#9ACD32"),
     ))
 
-    safe_colors: Tuple[str, ...] = (
+    safe_colors: ElementsType = (
         'black', 'maroon', 'green', 'navy', 'olive',
         'purple', 'teal', 'lime', 'blue', 'silver',
         'gray', 'yellow', 'fuchsia', 'aqua', 'white',

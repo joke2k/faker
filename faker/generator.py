@@ -1,13 +1,13 @@
 import random as random_module
 import re
 
-from typing import Callable, Dict, Hashable, List, Optional
-
-from .typing import T
+from typing import Callable, Dict, Hashable, List, Optional, TypeVar
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
+
+T = TypeVar('T')
 
 
 class Generator:

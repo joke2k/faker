@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from typing import List, Optional, TypeVar
 
-from ...typing import DateParseType
+from ...typing import DateParseType, OrderedDictType
 from .. import BaseProvider
 
 localized = True
@@ -41,28 +41,25 @@ class Provider(BaseProvider):
     - https://creditcardjs.com/credit-card-type-detection
     """
 
-    prefix_maestro = ['5018', '5020', '5038', '56##', '57##', '58##',
-                      '6304', '6759', '6761', '6762', '6763', '0604', '6390']
-    prefix_mastercard = ['51', '52', '53', '54', '55', '222%', '223', '224',
-                         '225', '226', '227', '228', '229', '23', '24', '25',
-                         '26', '270', '271', '2720']
-    prefix_visa = ['4']
-    prefix_amex = ['34', '37']
-    prefix_discover = ['6011', '65']
-    prefix_diners = ['300', '301', '302', '303', '304', '305', '36', '38']
-    prefix_jcb16 = ['35']
-    prefix_jcb15 = ['2131', '1800']
+    prefix_maestro: List[str] = ['5018', '5020', '5038', '56##', '57##', '58##',
+                                 '6304', '6759', '6761', '6762', '6763', '0604', '6390']
+    prefix_mastercard: List[str] = ['51', '52', '53', '54', '55', '222%', '223', '224',
+                                    '225', '226', '227', '228', '229', '23', '24', '25',
+                                    '26', '270', '271', '2720']
+    prefix_visa: List[str] = ['4']
+    prefix_amex: List[str] = ['34', '37']
+    prefix_discover: List[str] = ['6011', '65']
+    prefix_diners: List[str] = ['300', '301', '302', '303', '304', '305', '36', '38']
+    prefix_jcb16: List[str] = ['35']
+    prefix_jcb15: List[str] = ['2131', '1800']
 
-    credit_card_types = OrderedDict((
-        ('maestro', CreditCard('Maestro',
-                                    prefix_maestro, 12, security_code='CVV')),
-        ('mastercard', CreditCard('Mastercard',
-                                  prefix_mastercard, 16, security_code='CVV')),
+    credit_card_types: OrderedDictType[str, CreditCard] = OrderedDict((
+        ('maestro', CreditCard('Maestro', prefix_maestro, 12, security_code='CVV')),
+        ('mastercard', CreditCard('Mastercard', prefix_mastercard, 16, security_code='CVV')),
         ('visa16', CreditCard('VISA 16 digit', prefix_visa)),
         ('visa13', CreditCard('VISA 13 digit', prefix_visa, 13)),
         ('visa19', CreditCard('VISA 19 digit', prefix_visa, 19)),
-        ('amex', CreditCard('American Express', prefix_amex,
-                            15, security_code='CID', security_code_length=4)),
+        ('amex', CreditCard('American Express', prefix_amex, 15, security_code='CID', security_code_length=4)),
         ('discover', CreditCard('Discover', prefix_discover)),
         ('diners', CreditCard('Diners Club / Carte Blanche', prefix_diners, 14)),
         ('jcb15', CreditCard('JCB 15 digit', prefix_jcb15, 15)),
@@ -83,7 +80,7 @@ class Provider(BaseProvider):
     def credit_card_number(self, card_type: Optional[CardType] = None) -> str:
         """Generate a valid credit card number."""
         card = self._credit_card_type(card_type)
-        prefix = self.random_element(card.prefixes)
+        prefix: str = self.random_element(card.prefixes)
         number = self._generate_number(self.numerify(prefix), card.length)
         return number
 

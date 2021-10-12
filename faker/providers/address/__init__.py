@@ -1,24 +1,24 @@
-from .. import BaseProvider, date_time
+from .. import BaseProvider, ElementsType, date_time
 
 localized = True
 
 
 class Provider(BaseProvider):
-    city_suffixes = ['Ville']
-    street_suffixes = ['Street']
-    city_formats = ('{{first_name}} {{city_suffix}}', )
-    street_name_formats = ('{{last_name}} {{street_suffix}}', )
-    street_address_formats = ('{{building_number}} {{street_name}}', )
-    address_formats = ('{{street_address}} {{postcode}} {{city}}', )
-    building_number_formats = ('##', )
-    postcode_formats = ('#####', )
-    countries = [tz['name'] for tz in date_time.Provider.countries]
+    city_suffixes: ElementsType = ['Ville']
+    street_suffixes: ElementsType = ['Street']
+    city_formats: ElementsType = ('{{first_name}} {{city_suffix}}', )
+    street_name_formats: ElementsType = ('{{last_name}} {{street_suffix}}', )
+    street_address_formats: ElementsType = ('{{building_number}} {{street_name}}', )
+    address_formats: ElementsType = ('{{street_address}} {{postcode}} {{city}}', )
+    building_number_formats: ElementsType = ('##', )
+    postcode_formats: ElementsType = ('#####', )
+    countries: ElementsType = [tz['name'] for tz in date_time.Provider.countries]
 
     ALPHA_2 = 'alpha-2'
     ALPHA_3 = 'alpha-3'
 
-    alpha_2_country_codes = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
-    alpha_3_country_codes = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
+    alpha_2_country_codes: ElementsType = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
+    alpha_3_country_codes: ElementsType = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
 
     def city_suffix(self) -> str:
         """

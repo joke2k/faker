@@ -1,19 +1,17 @@
-from typing import List
-
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
-    formats = ['{{first_name}} {{last_name}}']
+    formats: ElementsType = ['{{first_name}} {{last_name}}']
 
-    first_names: List[str] = ['John', 'Jane']
+    first_names: ElementsType = ['John', 'Jane']
 
-    last_names: List[str] = ['Doe']
+    last_names: ElementsType = ['Doe']
 
     # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-    language_names: List[str] = [
+    language_names: ElementsType = [
         'Afar', 'Abkhazian', 'Avestan', 'Afrikaans', 'Akan', 'Amharic',
         'Aragonese', 'Arabic', 'Assamese', 'Avaric', 'Aymara', 'Azerbaijani',
         'Bashkir', 'Belarusian', 'Bulgarian', 'Bihari languages', 'Bislama',
