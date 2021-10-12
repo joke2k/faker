@@ -45,7 +45,7 @@ class Provider(BaseProvider):
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
-        word_list = ext_word_list if ext_word_list else self.word_list
+        word_list = ext_word_list if ext_word_list else self.word_list  # type: ignore[attr-defined]
         if unique:
             return self.random_sample(word_list, length=nb)
         return self.random_choices(word_list, length=nb)

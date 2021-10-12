@@ -130,12 +130,12 @@ class Provider(BaseProvider):
             raise AssertionError('length can only be 8 or 11')
 
         if use_dataset and hasattr(self, 'swift_bank_codes'):
-            bank_code: str = self.random_element(self.swift_bank_codes)
+            bank_code: str = self.random_element(self.swift_bank_codes)  # type: ignore[attr-defined]
         else:
             bank_code = self.lexify('????', letters=string.ascii_uppercase)
 
         if use_dataset and hasattr(self, 'swift_location_codes'):
-            location_code: str = self.random_element(self.swift_location_codes)
+            location_code: str = self.random_element(self.swift_location_codes)  # type: ignore[attr-defined]
         else:
             location_code = self.lexify('??', letters=string.ascii_uppercase + string.digits)
 
@@ -145,7 +145,7 @@ class Provider(BaseProvider):
         if primary:
             branch_code = 'XXX'
         elif use_dataset and hasattr(self, 'swift_branch_codes'):
-            branch_code = self.random_element(self.swift_branch_codes)
+            branch_code = self.random_element(self.swift_branch_codes)  # type: ignore[attr-defined]
         else:
             branch_code = self.lexify('???', letters=string.ascii_uppercase + string.digits)
 

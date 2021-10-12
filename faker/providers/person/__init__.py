@@ -61,7 +61,7 @@ class Provider(BaseProvider):
 
     def name_male(self) -> str:
         if hasattr(self, 'formats_male'):
-            formats = self.formats_male
+            formats = self.formats_male  # type: ignore[attr-defined]
         else:
             formats = self.formats
         pattern: str = self.random_element(formats)
@@ -69,7 +69,7 @@ class Provider(BaseProvider):
 
     def name_nonbinary(self) -> str:
         if hasattr(self, 'formats_nonbinary'):
-            formats = self.formats_nonbinary
+            formats = self.formats_nonbinary  # type: ignore[attr-defined]
         else:
             formats = self.formats
         pattern: str = self.random_element(formats)
@@ -77,7 +77,7 @@ class Provider(BaseProvider):
 
     def name_female(self) -> str:
         if hasattr(self, 'formats_female'):
-            formats = self.formats_female
+            formats = self.formats_female  # type: ignore[attr-defined]
         else:
             formats = self.formats
         pattern: str = self.random_element(formats)
@@ -85,88 +85,88 @@ class Provider(BaseProvider):
 
     def first_name_male(self) -> str:
         if hasattr(self, 'first_names_male'):
-            return self.random_element(self.first_names_male)
+            return self.random_element(self.first_names_male)  # type: ignore[attr-defined]
         return self.first_name()
 
     def first_name_nonbinary(self) -> str:
         if hasattr(self, 'first_names_nonbinary'):
-            return self.random_element(self.first_names_nonbinary)
+            return self.random_element(self.first_names_nonbinary)  # type: ignore[attr-defined]
         return self.first_name()
 
     def first_name_female(self) -> str:
         if hasattr(self, 'first_names_female'):
-            return self.random_element(self.first_names_female)
+            return self.random_element(self.first_names_female)  # type: ignore[attr-defined]
         return self.first_name()
 
     def last_name_male(self) -> str:
         if hasattr(self, 'last_names_male'):
-            return self.random_element(self.last_names_male)
+            return self.random_element(self.last_names_male)  # type: ignore[attr-defined]
         return self.last_name()
 
     def last_name_nonbinary(self) -> str:
         if hasattr(self, 'last_names_nonbinary'):
-            return self.random_element(self.last_names_nonbinary)
+            return self.random_element(self.last_names_nonbinary)  # type: ignore[attr-defined]
         return self.last_name()
 
     def last_name_female(self) -> str:
         if hasattr(self, 'last_names_female'):
-            return self.random_element(self.last_names_female)
+            return self.random_element(self.last_names_female)  # type: ignore[attr-defined]
         return self.last_name()
 
     def prefix(self) -> str:
         if hasattr(self, 'prefixes'):
-            return self.random_element(self.prefixes)
+            return self.random_element(self.prefixes)  # type: ignore[attr-defined]
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female') and hasattr(self, 'prefixes_nonbinary'):
             prefixes = self.random_element(
-                (self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary))
+                (self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary))  # type: ignore[attr-defined]
             return self.random_element(prefixes)
         if hasattr(self, 'prefixes_male') and hasattr(self, 'prefixes_female'):
             prefixes = self.random_element(
-                (self.prefixes_male, self.prefixes_female))
+                (self.prefixes_male, self.prefixes_female))  # type: ignore[attr-defined]
             return self.random_element(prefixes)
         return ''
 
     def prefix_male(self) -> str:
         if hasattr(self, 'prefixes_male'):
-            return self.random_element(self.prefixes_male)
+            return self.random_element(self.prefixes_male)  # type: ignore[attr-defined]
         return self.prefix()
 
     def prefix_nonbinary(self) -> str:
         if hasattr(self, 'prefixes_nonbinary'):
-            return self.random_element(self.prefixes_nonbinary)
+            return self.random_element(self.prefixes_nonbinary)  # type: ignore[attr-defined]
         return self.prefix()
 
     def prefix_female(self) -> str:
         if hasattr(self, 'prefixes_female'):
-            return self.random_element(self.prefixes_female)
+            return self.random_element(self.prefixes_female)  # type: ignore[attr-defined]
         return self.prefix()
 
     def suffix(self) -> str:
         if hasattr(self, 'suffixes'):
-            return self.random_element(self.suffixes)
+            return self.random_element(self.suffixes)  # type: ignore[attr-defined]
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female') and hasattr(self, 'suffixes_nonbinary'):
             suffixes = self.random_element(
-                (self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary))
+                (self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary))  # type: ignore[attr-defined]
             return self.random_element(suffixes)
         if hasattr(self, 'suffixes_male') and hasattr(self, 'suffixes_female'):
             suffixes = self.random_element(
-                (self.suffixes_male, self.suffixes_female))
+                (self.suffixes_male, self.suffixes_female))  # type: ignore[attr-defined]
             return self.random_element(suffixes)
         return ''
 
     def suffix_male(self) -> str:
         if hasattr(self, 'suffixes_male'):
-            return self.random_element(self.suffixes_male)
+            return self.random_element(self.suffixes_male)  # type: ignore[attr-defined]
         return self.suffix()
 
     def suffix_nonbinary(self) -> str:
         if hasattr(self, 'suffixes_nonbinary'):
-            return self.random_element(self.suffixes_nonbinary)
+            return self.random_element(self.suffixes_nonbinary)  # type: ignore[attr-defined]
         return self.suffix()
 
     def suffix_female(self) -> str:
         if hasattr(self, 'suffixes_female'):
-            return self.random_element(self.suffixes_female)
+            return self.random_element(self.suffixes_female)  # type: ignore[attr-defined]
         return self.suffix()
 
     def language_name(self) -> str:
