@@ -3,7 +3,9 @@ import re
 from calendar import timegm
 from datetime import MAXYEAR
 from datetime import date as dtdate
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import time as dttime
+from datetime import timedelta
 from datetime import tzinfo as TzInfo
 from typing import Callable, Dict, Optional, Union
 
@@ -29,7 +31,7 @@ def timestamp_to_datetime(timestamp: int, tzinfo: Optional[TzInfo]) -> datetime:
     return convert_timestamp_to_datetime(timestamp, tzinfo)
 
 
-def change_year(current_date: dtdate, year_diff: int) -> datetime:
+def change_year(current_date: dtdate, year_diff: int) -> dtdate:
     """
     Unless the current_date is February 29th, it is fine to just subtract years.
     If it is a leap day, and we are rolling back to a non-leap year, it will
@@ -1491,7 +1493,7 @@ class Provider(BaseProvider):
         return self.date_time(
             end_datetime=end_datetime).time().strftime(pattern)
 
-    def time_object(self, end_datetime: Optional[DateParseType] = None) -> datetime:
+    def time_object(self, end_datetime: Optional[DateParseType] = None) -> dttime:
         """
         Get a time object
         :example datetime.time(15, 56, 56, 772876)
@@ -1662,7 +1664,7 @@ class Provider(BaseProvider):
         """
         return self.date_time_between(start_date=start_date, end_date='-1s', tzinfo=tzinfo)
 
-    def past_date(self, start_date: DateParseType = '-30d', tzinfo: Optional[TzInfo] = None) -> datetime:
+    def past_date(self, start_date: DateParseType = '-30d', tzinfo: Optional[TzInfo] = None) -> dtdate:
         """
         Get a Date object based on a random date between a given date and 1 day
         ago.
@@ -1691,16 +1693,12 @@ class Provider(BaseProvider):
         :example datetime('1999-02-02 11:42:52')
         :return datetime
         """
-        if datetime_start is None:
-            datetime_start = datetime.now(tzinfo)
+        datetime_start_ = datetime_to_timestamp(datetime.now(tzinfo)) if datetime_start is None \
+            else self._parse_date_time(datetime_start)
+        datetime_end_ = datetime_to_timestamp(datetime.now(tzinfo)) if datetime_end is None \
+            else self._parse_date_time(datetime_end)
 
-        if datetime_end is None:
-            datetime_end = datetime.now(tzinfo)
-
-        timestamp = self.generator.random.randint(
-            datetime_to_timestamp(datetime_start),
-            datetime_to_timestamp(datetime_end),
-        )
+        timestamp = self.generator.random.randint(datetime_start_, datetime_end_)
         try:
             if tzinfo is None:
                 pick = convert_timestamp_to_datetime(timestamp, tzlocal())
@@ -1938,10 +1936,10 @@ class Provider(BaseProvider):
 
     def time_series(
             self,
-            start_date: datetime = '-30d',
-            end_date: datetime = 'now',
+            start_date: DateParseType = '-30d',
+            end_date: DateParseType = 'now',
             precision: Optional[float] = None,
-            distrib: Callable[[datetime], datetime] = None,
+            distrib: Callable[[datetime], float] = None,
             tzinfo: Optional[TzInfo] = None):
         """
         Returns a generator yielding tuples of ``(<datetime>, <value>)``.
@@ -1951,26 +1949,23 @@ class Provider(BaseProvider):
         ``distrib`` is a callable that accepts ``<datetime>`` and returns ``<value>``
 
         """
-        start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
-        end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
+        start_date_ = self._parse_date_time(start_date, tzinfo=tzinfo)
+        end_date_ = self._parse_date_time(end_date, tzinfo=tzinfo)
 
-        if end_date < start_date:
+        if end_date_ < start_date_:
             raise ValueError("`end_date` must be greater than `start_date`.")
 
-        if precision is None:
-            precision = (end_date - start_date) / 30
-
-        precision = self._parse_timedelta(precision)
+        precision_ = self._parse_timedelta((end_date_ - start_date_) / 30 if precision is None else precision)
         if distrib is None:
-            def distrib(dt): return self.generator.random.uniform(0, precision)  # noqa
+            def distrib(dt): return self.generator.random.uniform(0, precision_)  # noqa
 
         if not callable(distrib):
             raise ValueError(f"`distrib` must be a callable. Got {distrib} instead.")
 
-        datapoint = start_date
-        while datapoint < end_date:
+        datapoint = start_date_
+        while datapoint < end_date_:
             dt = timestamp_to_datetime(datapoint, tzinfo)
-            datapoint += precision
+            datapoint += precision_
             yield (dt, distrib(dt))
 
     def am_pm(self) -> str:
@@ -2012,7 +2007,7 @@ class Provider(BaseProvider):
         """
         return gettz(self.timezone(*args, **kwargs))
 
-    def date_of_birth(self, tzinfo: Optional[TzInfo] = None, minimum_age: int = 0, maximum_age: int = 115) -> datetime:
+    def date_of_birth(self, tzinfo: Optional[TzInfo] = None, minimum_age: int = 0, maximum_age: int = 115) -> dtdate:
         """
         Generate a random date of birth represented as a Date object,
         constrained by optional miminimum_age and maximum_age
