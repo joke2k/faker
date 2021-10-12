@@ -1939,7 +1939,7 @@ class Provider(BaseProvider):
             start_date: DateParseType = '-30d',
             end_date: DateParseType = 'now',
             precision: Optional[float] = None,
-            distrib: Callable[[datetime], float] = None,
+            distrib: Optional[Callable[[datetime], float]] = None,
             tzinfo: Optional[TzInfo] = None):
         """
         Returns a generator yielding tuples of ``(<datetime>, <value>)``.

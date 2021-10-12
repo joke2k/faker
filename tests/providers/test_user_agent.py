@@ -9,7 +9,8 @@ class TestUserAgentProvider:
     """Test user agent provider methods"""
     num_samples = 1000
     android_token_pattern: Pattern = re.compile(r'Android (?P<android_version>\d+(?:\.\d){0,2})')
-    ios_token_pattern: Pattern = re.compile(r'^(?P<apple_device>.*?); CPU \1 OS (?P<ios_version>\d+(?:_\d){0,2}) like Mac OS X')
+    ios_token_pattern: Pattern = re.compile(r'^(?P<apple_device>.*?); CPU \1 OS ' +
+                                            r'(?P<ios_version>\d+(?:_\d){0,2}) like Mac OS X')
     mac_token_pattern: Pattern = re.compile(r'Macintosh; (?P<mac_processor>.*?) Mac OS X 10_([5-9]|1[0-2])_(\d)')
 
     def test_android_platform_token(self, faker, num_samples):
