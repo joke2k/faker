@@ -128,9 +128,9 @@ class Provider(BankProvider):
         BIC is a bank identification code that is used in Russia.
         See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код.
         """
-        region = self.random_element(self.region_codes)
-        department_code = self.numerify(self.random_element(self.department_code_formats))
-        credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
+        region: str = self.random_element(self.region_codes)
+        department_code: str = self.numerify(self.random_element(self.department_code_formats))
+        credit_organization_code: str = self.numerify(self.random_element(self.credit_organization_code_formats))
         return '04' + region + department_code + credit_organization_code
 
     def correspondent_account(self) -> str:
@@ -150,9 +150,9 @@ class Provider(BankProvider):
         clients.
         See https://ru.wikipedia.org/wiki/Расчётный_счёт.
         """
-        account = self.random_element(self.checking_account_codes)
-        organization = self.random_element(self.organization_codes)
-        currency = self.random_element(self.currency_codes)
+        account: str = self.random_element(self.checking_account_codes)
+        organization: str = self.random_element(self.organization_codes)
+        currency: str = self.random_element(self.currency_codes)
         return account + organization + currency + self.numerify('#' * 12)
 
     def bank(self) -> str:

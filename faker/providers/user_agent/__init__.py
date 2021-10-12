@@ -109,7 +109,7 @@ class Provider(BaseProvider):
         bld2: str = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
         platforms: ElementsType = (
             tmplt_win.format(self.windows_platform_token(),
-                             self.generator.locale().replace('_', '-'),
+                             self.generator.locale().replace('_', '-'),  # type: ignore
                              self.generator.random.randint(0, 2),
                              self.generator.random.choice(ver)),
             tmplt_lin.format(self.linux_platform_token(),
