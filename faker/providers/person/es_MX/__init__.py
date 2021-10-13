@@ -1,4 +1,4 @@
-from .. import Provider as PersonProvider
+from ..es import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
