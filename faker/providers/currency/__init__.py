@@ -268,8 +268,9 @@ class Provider(BaseProvider):
         return self.cryptocurrency()[1]
 
     def pricetag(self) -> str:
+        currency: Tuple[str, str] = self.random_element(self.currencies)
         return (
-            self.random_element(self.currencies)[0]
+            currency[0]
             + "\N{no-break space}"
             + self.numerify(self.random_element(self.price_formats))
         )

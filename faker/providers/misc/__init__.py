@@ -8,7 +8,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Callable, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Union
 
 from faker.exceptions import UnsupportedFeature
 
@@ -106,7 +106,7 @@ class Provider(BaseProvider):
         # Based on http://stackoverflow.com/q/41186818
         generated_uuid: uuid.UUID = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
         if cast_to is not None:
-            generated_uuid = cast_to(generated_uuid)
+            return cast_to(generated_uuid)
         return generated_uuid
 
     def password(self,
@@ -343,7 +343,7 @@ class Provider(BaseProvider):
             data_columns: Tuple[str, str] = ('{{name}}', '{{address}}'),
             num_rows: int = 10,
             include_row_ids: bool = False,
-            **fmtparams) -> str:
+            **fmtparams: Any) -> str:
         """Generate random delimiter-separated values.
 
         This method's behavior share some similarities with ``csv.writer``. The ``dialect`` and
@@ -461,7 +461,7 @@ class Provider(BaseProvider):
         )
 
     def json(self,
-             data_columns: list = None,
+             data_columns: List = None,
              num_rows: int = 10,
              indent: int = None) -> str:
         """
@@ -510,10 +510,10 @@ class Provider(BaseProvider):
             'name': '{{name}}',
             'residency': '{{address}}',
         }
-        data_columns = data_columns if data_columns else default_data_columns
+        data_columns: Union[List, Dict] = data_columns if data_columns else default_data_columns
 
-        def process_list_structure(data: list) -> dict:
-            entry = {}
+        def process_list_structure(data: Sequence[Any]) -> Any:
+            entry: Dict[str, Any] = {}
 
             for name, definition, *arguments in data:
                 kwargs = arguments[0] if arguments else {}
@@ -533,8 +533,8 @@ class Provider(BaseProvider):
                     entry[name] = self._value_format_selection(definition, **kwargs)
             return entry
 
-        def process_dict_structure(data: dict) -> dict:
-            entry = {}
+        def process_dict_structure(data: Union[int, float, bool, Dict[str, Any]]) -> Any:
+            entry: Dict[str, Any] = {}
 
             if isinstance(data, str):
                 return self._value_format_selection(data)
@@ -552,7 +552,7 @@ class Provider(BaseProvider):
 
             return data
 
-        def create_json_structure(data_columns) -> dict:
+        def create_json_structure(data_columns: Union[Dict, List]) -> dict:
             if isinstance(data_columns, dict):
                 return process_dict_structure(data_columns)
 
@@ -633,7 +633,7 @@ class Provider(BaseProvider):
             data.append(''.join(row))
         return '\n'.join(data)
 
-    def _value_format_selection(self, definition: str, **kwargs) -> Union[int, str]:
+    def _value_format_selection(self, definition: str, **kwargs: Any) -> Union[int, str]:
         """
         Formats the string in different ways depending on it's contents.
 

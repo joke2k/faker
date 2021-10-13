@@ -21,7 +21,7 @@ class Provider(CompanyProvider):
         organizations. This function provides current codes starting with
         non-zero.
         """
-        def calculate_checksum(number):
+        def calculate_checksum(number: str) -> str:
             """Calculate the checksum using mod 11,2 method"""
             factors = [7, 9, 10, 5, 8, 4, 2]
             sum_ = 0
@@ -49,7 +49,7 @@ class Provider(CompanyProvider):
         This can be calculated from company business identity code by
         adding prefix "FI" and removing dash before checksum.
         """
-        def convert_to_vat(business_id):
+        def convert_to_vat(business_id: str) -> str:
             """
             Convert business id to VATIN
             """

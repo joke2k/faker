@@ -1,29 +1,31 @@
 import random as random_module
 import re
 
-from typing import Callable, Dict, Hashable, List, Optional, TypeVar
+from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional, TypeVar
+
+if TYPE_CHECKING:
+    from .providers import BaseProvider
 
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 T = TypeVar('T')
-BaseProvider = TypeVar('BaseProvider')
 
 
 class Generator:
 
-    __config: Dict[str, Dict[Hashable, T]] = {
+    __config: Dict[str, Dict[Hashable, Any]] = {
         'arguments': {},
     }
 
-    def __init__(self, **config) -> None:
-        self.providers: List[BaseProvider] = []
+    def __init__(self, **config: Dict) -> None:
+        self.providers: List["BaseProvider"] = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider: BaseProvider) -> None:
+    def add_provider(self, provider: "BaseProvider") -> None:
 
         if isinstance(provider, type):
             provider = provider(self)
@@ -41,15 +43,15 @@ class Generator:
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
-    def provider(self, name: str) -> Optional[BaseProvider]:
+    def provider(self, name: str) -> Optional["BaseProvider"]:
         try:
             lst = [p for p in self.get_providers()
-                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]  # type: ignore[attr-defined]
+                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]
             return lst[0]
         except IndexError:
             return None
 
-    def get_providers(self) -> List[BaseProvider]:
+    def get_providers(self) -> List["BaseProvider"]:
         """Returns added providers."""
         return self.providers
 
@@ -61,7 +63,7 @@ class Generator:
     def random(self, value: random_module.Random) -> None:
         self.__random = value
 
-    def seed_instance(self, seed: Optional[Hashable] = None):
+    def seed_instance(self, seed: Optional[Hashable] = None) -> "Generator":
         """Calls random.seed"""
         if self.__random == random:
             # create per-instance random obj when first time seed_instance() is
@@ -71,10 +73,10 @@ class Generator:
         return self
 
     @classmethod
-    def seed(cls, seed: Optional[Hashable] = None):
+    def seed(cls, seed: Optional[Hashable] = None) -> None:
         random.seed(seed)
 
-    def format(self, formatter: str, *args, **kwargs) -> str:
+    def format(self, formatter: str, *args: Any, **kwargs: Any) -> str:
         """
         This is a secure way to make a fake from another Provider.
         """
@@ -97,7 +99,7 @@ class Generator:
         """
         setattr(self, name, method)
 
-    def set_arguments(self, group: str, argument: str, value: T = None):
+    def set_arguments(self, group: str, argument: str, value: Optional[Any] = None) -> None:
         """
         Creates an argument group, with an individual argument or a dictionary
         of arguments. The argument groups is used to apply arguments to tokens,
@@ -117,7 +119,7 @@ class Generator:
         else:
             self.__config['arguments'][group][argument] = value
 
-    def get_arguments(self, group: str, argument: Optional[str] = None):
+    def get_arguments(self, group: str, argument: Optional[str] = None) -> Any:
         """
         Get the value of an argument configured within a argument group, or
         the entire group as a dictionary. Used in conjunction with the
@@ -127,13 +129,13 @@ class Generator:
         generator.get_arguments('small')
         """
         if group in self.__config['arguments'] and argument:
-            result = self.__config['arguments'][group].get(argument)  # type: ignore[attr-defined]
+            result = self.__config['arguments'][group].get(argument)
         else:
             result = self.__config['arguments'].get(group)
 
         return result
 
-    def del_arguments(self, group: str, argument: Optional[str] = None):
+    def del_arguments(self, group: str, argument: Optional[str] = None) -> Any:
         """
         Delete an argument from an argument group or the entire argument group.
         Used in conjunction with the set_arguments() method.
@@ -143,7 +145,7 @@ class Generator:
         """
         if group in self.__config['arguments']:
             if argument:
-                result = self.__config['arguments'][group].pop(argument)  # type: ignore[attr-defined]
+                result = self.__config['arguments'][group].pop(argument)
             else:
                 result = self.__config['arguments'].pop(group)
         else:

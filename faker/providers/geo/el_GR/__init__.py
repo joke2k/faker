@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Tuple
+from typing import Any, Tuple
 
 from .. import Provider as GeoProvider
 
@@ -13,7 +13,7 @@ class Provider(GeoProvider):
         ('34.15370', '22.58810'),
     )
 
-    def local_latlng(self, *args, **kwargs) -> Tuple[str, str]:
+    def local_latlng(self, *args: Any, **kwargs: Any) -> Tuple[str, str]:
         return str(self.local_latitude()), str(self.local_longitude())
 
     def local_latitude(self) -> Decimal:

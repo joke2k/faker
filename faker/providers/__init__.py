@@ -2,9 +2,8 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import Dict, KeysView, Optional, Sequence, TypeVar, Union
+from typing import Any, Dict, KeysView, Optional, Sequence, TypeVar, Union
 
-from ..typing import OrderedDictType
 from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
@@ -15,7 +14,7 @@ _re_qm = re.compile(r'\?')
 _re_cir = re.compile(r'\^')
 
 T = TypeVar('T')
-ElementsType = Union[Sequence[T], Dict[T, float], OrderedDictType[T, float], KeysView[T]]
+ElementsType = Union[Sequence[T], Dict[T, float], KeysView[T]]
 
 
 class BaseProvider:
@@ -86,7 +85,7 @@ class BaseProvider:
         'zu': ('ZA',),
     }
 
-    def __init__(self, generator) -> None:
+    def __init__(self, generator: Any) -> None:
         self.generator = generator
 
     def locale(self) -> str:
@@ -196,7 +195,7 @@ class BaseProvider:
         return self.generator.random.choice(
             getattr(string, 'letters', string.ascii_letters))
 
-    def random_letters(self, length: int = 16) -> str:
+    def random_letters(self, length: int = 16) -> Sequence[str]:
         """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
 
         :sample:
@@ -299,7 +298,7 @@ class BaseProvider:
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
-                elements._key_cache = tuple(elements.keys())  # type: ignore[attr-defined]
+                elements._key_cache = tuple(elements.keys())  # type: ignore
 
             choices = elements._key_cache  # type: ignore[attr-defined]
             probabilities = tuple(elements.values()) if use_weighting else None

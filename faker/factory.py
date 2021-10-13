@@ -3,7 +3,7 @@ import logging
 import sys
 
 from importlib import import_module
-from typing import List, Optional
+from typing import Any, List, Optional, Tuple
 
 from .config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
 from .generator import Generator
@@ -31,7 +31,7 @@ class Factory:
             # Should we use weightings (more realistic) or weight every element equally (faster)?
             # By default, use weightings for backwards compatibility & realism
             use_weighting: bool = True,
-            **config):
+            **config: Any) -> Generator:
         if includes is None:
             includes = []
 
@@ -64,7 +64,7 @@ class Factory:
         return faker
 
     @classmethod
-    def _get_provider_class(cls, provider: str, locale: Optional[str] = ''):
+    def _get_provider_class(cls, provider: str, locale: Optional[str] = '') -> Tuple[Any, Optional[str]]:
 
         provider_class = cls._find_provider_class(provider, locale)
 
@@ -86,7 +86,7 @@ class Factory:
         raise ValueError(msg)
 
     @classmethod
-    def _find_provider_class(cls, provider_path: str, locale: Optional[str] = None):
+    def _find_provider_class(cls, provider_path: str, locale: Optional[str] = None) -> Any:
 
         provider_module = import_module(provider_path)
 

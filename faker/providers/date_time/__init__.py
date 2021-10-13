@@ -7,10 +7,10 @@ from datetime import datetime
 from datetime import time as dttime
 from datetime import timedelta
 from datetime import tzinfo as TzInfo
-from typing import Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
 
 from dateutil import relativedelta
-from dateutil.tz import gettz, tzfile, tzlocal, tzutc
+from dateutil.tz import gettz, tzlocal, tzutc
 
 from ...typing import DateParseType
 from .. import BaseProvider, ElementsType
@@ -24,7 +24,7 @@ def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
     return timegm(dt.timetuple())
 
 
-def timestamp_to_datetime(timestamp: int, tzinfo: Optional[TzInfo]) -> datetime:
+def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]) -> datetime:
     if tzinfo is None:
         pick = convert_timestamp_to_datetime(timestamp, tzlocal())
         return pick.astimezone(tzutc()).replace(tzinfo=None)
@@ -1520,7 +1520,7 @@ class Provider(BaseProvider):
         if not parts:
             raise ParseError(f"Can't parse date string `{value}`")
         parts = parts.groupdict()
-        time_params = {}
+        time_params: Dict[str, float] = {}
         for (name_, param_) in parts.items():
             if param_:
                 time_params[name_] = int(param_)
@@ -1539,12 +1539,12 @@ class Provider(BaseProvider):
         return time_params
 
     @classmethod
-    def _parse_timedelta(cls, value: Union[timedelta, str, float]):
+    def _parse_timedelta(cls, value: Union[timedelta, str, float]) -> Union[float, int]:
         if isinstance(value, timedelta):
             return value.total_seconds()
         if isinstance(value, str):
             time_params = cls._parse_date_string(value)
-            return timedelta(**time_params).total_seconds()
+            return timedelta(**time_params).total_seconds()  # type: ignore
         if isinstance(value, (int, float)):
             return value
         raise ParseError(f"Invalid format for timedelta {value!r}")
@@ -1560,7 +1560,7 @@ class Provider(BaseProvider):
             if value == 'now':
                 return datetime_to_timestamp(datetime.now(tzinfo))
             time_params = cls._parse_date_string(value)
-            return datetime_to_timestamp(now + timedelta(**time_params))
+            return datetime_to_timestamp(now + timedelta(**time_params))  # type: ignore
         if isinstance(value, int):
             return datetime_to_timestamp(now + timedelta(value))
         raise ParseError(f"Invalid format for date {value!r}")
@@ -1578,7 +1578,7 @@ class Provider(BaseProvider):
             if value in ('today', 'now'):
                 return today
             time_params = cls._parse_date_string(value)
-            return today + timedelta(**time_params)
+            return today + timedelta(**time_params)  # type: ignore
         if isinstance(value, int):
             return today + timedelta(value)
         raise ParseError(f"Invalid format for date {value!r}")
@@ -1610,7 +1610,7 @@ class Provider(BaseProvider):
                 datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)
             ).astimezone(tzinfo)
 
-    def date_between(self, start_date: DateParseType = '-30y', end_date: DateParseType = 'today') -> datetime:
+    def date_between(self, start_date: DateParseType = '-30y', end_date: DateParseType = 'today') -> dtdate:
         """
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
@@ -1638,7 +1638,7 @@ class Provider(BaseProvider):
         """
         return self.date_time_between(start_date='+1s', end_date=end_date, tzinfo=tzinfo)
 
-    def future_date(self, end_date: DateParseType = '+30d', tzinfo: Optional[TzInfo] = None) -> datetime:
+    def future_date(self, end_date: DateParseType = '+30d', tzinfo: Optional[TzInfo] = None) -> dtdate:
         """
         Get a Date object based on a random date between 1 day from now and a
         given date.
@@ -1940,7 +1940,7 @@ class Provider(BaseProvider):
             end_date: DateParseType = 'now',
             precision: Optional[float] = None,
             distrib: Optional[Callable[[datetime], float]] = None,
-            tzinfo: Optional[TzInfo] = None):
+            tzinfo: Optional[TzInfo] = None) -> Iterator[Tuple[datetime, Any]]:
         """
         Returns a generator yielding tuples of ``(<datetime>, <value>)``.
 
@@ -1962,7 +1962,7 @@ class Provider(BaseProvider):
         if not callable(distrib):
             raise ValueError(f"`distrib` must be a callable. Got {distrib} instead.")
 
-        datapoint = start_date_
+        datapoint: Union[float, int] = start_date_
         while datapoint < end_date_:
             dt = timestamp_to_datetime(datapoint, tzinfo)
             datapoint += precision_
@@ -1994,9 +1994,9 @@ class Provider(BaseProvider):
 
     def timezone(self) -> str:
         return self.generator.random.choice(
-            self.random_element(self.countries)['timezones'])
+            self.random_element(self.countries)['timezones'])  # type: ignore
 
-    def pytimezone(self, *args, **kwargs) -> Optional[tzfile]:
+    def pytimezone(self, *args: Any, **kwargs: Any) -> Optional[TzInfo]:
         """
         Generate a random timezone (see `faker.timezone` for any args)
         and return as a python object usable as a `tzinfo` to `datetime`
@@ -2005,7 +2005,7 @@ class Provider(BaseProvider):
         :example faker.pytimezone()
         :return dateutil.tz.tz.tzfile
         """
-        return gettz(self.timezone(*args, **kwargs))
+        return gettz(self.timezone(*args, **kwargs))  # type: ignore
 
     def date_of_birth(self, tzinfo: Optional[TzInfo] = None, minimum_age: int = 0, maximum_age: int = 115) -> dtdate:
         """
@@ -2049,7 +2049,7 @@ class Provider(BaseProvider):
         return dob if dob != start_date else dob + timedelta(days=1)
 
 
-def convert_timestamp_to_datetime(timestamp: int, tzinfo: tzlocal) -> datetime:
+def convert_timestamp_to_datetime(timestamp: Union[int, float], tzinfo: TzInfo) -> datetime:
     import datetime as dt
     if timestamp >= 0:
         return dt.datetime.fromtimestamp(timestamp, tzinfo)

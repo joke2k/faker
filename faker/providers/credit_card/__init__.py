@@ -1,7 +1,7 @@
 from collections import OrderedDict
-from typing import List, Optional, TypeVar
+from typing import Dict, List, Optional, TypeVar
 
-from ...typing import DateParseType, OrderedDictType
+from ...typing import DateParseType
 from .. import BaseProvider
 
 localized = True
@@ -53,7 +53,7 @@ class Provider(BaseProvider):
     prefix_jcb16: List[str] = ['35']
     prefix_jcb15: List[str] = ['2131', '1800']
 
-    credit_card_types: OrderedDictType[str, CreditCard] = OrderedDict((
+    credit_card_types: Dict[str, CreditCard] = OrderedDict((
         ('maestro', CreditCard('Maestro', prefix_maestro, 12, security_code='CVV')),
         ('mastercard', CreditCard('Mastercard', prefix_mastercard, 16, security_code='CVV')),
         ('visa16', CreditCard('VISA 16 digit', prefix_visa)),

@@ -109,7 +109,7 @@ class Provider(BaseProvider):
         bld2: str = self.lexify(self.numerify('#?####'), string.ascii_lowercase)
         platforms: ElementsType = (
             tmplt_win.format(self.windows_platform_token(),
-                             self.generator.locale().replace('_', '-'),  # type: ignore
+                             self.generator.locale().replace('_', '-'),
                              self.generator.random.randint(0, 2),
                              self.generator.random.choice(ver)),
             tmplt_lin.format(self.linux_platform_token(),
@@ -204,5 +204,6 @@ class Provider(BaseProvider):
     def ios_platform_token(self) -> str:
         """Generate an iOS platform token used in user agent strings."""
         apple_device: str = self.random_element(self.apple_devices)
+        ios_version: str = self.random_element(self.ios_versions)
         return (f'{apple_device}; CPU {apple_device} '
-                f'OS {self.random_element(self.ios_versions).replace(".", "_")} like Mac OS X')
+                f'OS {ios_version.replace(".", "_")} like Mac OS X')

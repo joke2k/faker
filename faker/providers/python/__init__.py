@@ -4,8 +4,11 @@ import sys
 import warnings
 
 from decimal import Decimal
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union, no_type_check
 
 from .. import BaseProvider, ElementsType
+
+ValueTypes = Optional[Union[List[str], Tuple[str, ...]]]
 
 
 class Provider(BaseProvider):
@@ -14,7 +17,7 @@ class Provider(BaseProvider):
         'date_time', 'uri', 'email',
     )
 
-    def _check_signature(self, value_types, allowed_types):
+    def _check_signature(self, value_types: ValueTypes, allowed_types: Tuple[str]) -> Tuple[str, ...]:
         if value_types is not None and not isinstance(value_types, (list, tuple)):
             value_types = [value_types]
             warnings.warn(
@@ -233,18 +236,19 @@ class Provider(BaseProvider):
                 value_types,
                 *allowed_types))
 
+    @no_type_check
     def pyiterable(
             self,
-            nb_elements=10,
-            variable_nb_elements=True,
-            value_types=None,
-            *allowed_types):
+            nb_elements: int = 10,
+            variable_nb_elements: bool = True,
+            value_types: ValueTypes = None,
+            *allowed_types: str) -> Iterable[Any]:
         value_types = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
             nb_elements, variable_nb_elements, value_types, *allowed_types)
 
-    def _random_type(self, type_list):
-        value_type = self.random_element(type_list)
+    def _random_type(self, type_list: List[str]) -> str:
+        value_type: str = self.random_element(type_list)
 
         method_name = f'py{value_type}'
         if hasattr(self, method_name):
@@ -254,19 +258,19 @@ class Provider(BaseProvider):
 
     def _pyiterable(
             self,
-            nb_elements=10,
-            variable_nb_elements=True,
-            value_types=None,
-            *allowed_types):
+            nb_elements: int = 10,
+            variable_nb_elements: bool = True,
+            value_types: ValueTypes = None,
+            *allowed_types: str) -> Iterator:
 
-        value_types = self._check_signature(value_types, allowed_types)
+        value_types = self._check_signature(value_types, allowed_types)  # type: ignore
 
         value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
         if not value_types:
-            value_types = self.default_value_types
+            value_types = self.default_value_types  # type: ignore
 
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
@@ -290,15 +294,15 @@ class Provider(BaseProvider):
             self._pyiterable(nb_elements, False, value_types, *allowed_types),
         ))
 
-    def pystruct(self, count=10, value_types=None, *allowed_types):
-        value_types = self._check_signature(value_types, allowed_types)
+    def pystruct(self, count: int = 10, value_types: ValueTypes = None, *allowed_types: str) -> Tuple[List, Dict, Dict]:
+        value_types = self._check_signature(value_types, allowed_types)  # type: ignore
 
         value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
                        for t in value_types
                        # avoid recursion
                        if t != 'struct']
         if not value_types:
-            value_types = self.default_value_types
+            value_types = self.default_value_types  # type: ignore
 
         types = []
         d = {}
