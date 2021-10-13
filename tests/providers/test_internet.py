@@ -272,7 +272,7 @@ class TestInternetProvider:
                     mock_choices_fn.reset_mock()
 
                     provider._random_ipv4_address_from_subnets(subnets, invalid_weights)
-                    assert mock_choices_fn.call_count == 1
+                    assert mock_choices_fn.call_count == 0
                     assert mock_random_choice.call_count == 1
 
     def test_ipv6(self, faker, num_samples):

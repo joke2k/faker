@@ -398,12 +398,13 @@ class Provider(BaseProvider):
             raise ValueError('No subnets to choose from')
 
         # If the weights argument has an invalid value, default to equal distribution
-        if weights is None or not isinstance(weights, list):
-            subnet = self.generator.random.choice(subnets)
-        else:
+        if (isinstance(weights, list) and len(subnets) == len(weights) and
+                all(isinstance(w, (float, int)) for w in weights)):
             subnet = choices_distribution(subnets,
                                           [float(w) for w in weights],
                                           random=self.generator.random, length=1)[0]
+        else:
+            subnet = self.generator.random.choice(subnets)
 
         address = str(
             subnet[self.generator.random.randint(
