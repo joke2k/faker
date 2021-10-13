@@ -372,6 +372,11 @@ class TestPydecimal(unittest.TestCase):
         result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=-100)
         self.assertLess(result, -100)
 
+    def test_min_value_10_pow_1000_return_greater_number(self):
+        Faker.seed('2')
+        result = self.fake.pydecimal(min_value=10**1000)
+        self.assertGreater(result, 10**1000)
+
 
 class TestPystrFormat(unittest.TestCase):
 
