@@ -250,7 +250,7 @@ How to create a Provider
 
     # create new provider class
     class MyProvider(BaseProvider):
-        def foo(self):
+        def foo(self) -> str:
             return 'bar'
 
     # then add new provider to faker instance

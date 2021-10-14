@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
+from faker.providers.company.el_GR import Provider as ElGrCompanyProvider
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
@@ -422,3 +423,13 @@ class TestRoRo:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in RoRoCompanyProvider.company_suffixes
+
+
+class TestElGr:
+    """Test el_GR company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ElGrCompanyProvider.company_suffixes
