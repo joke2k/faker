@@ -80,13 +80,13 @@ def print_doc(provider_or_field: Optional[str] = None,
             doc.already_generated = base_provider_formatters
             print_provider(
                 doc,
-                fake.get_providers()[0],  # type: ignore
-                doc.get_provider_formatters(fake.get_providers()[0]),  # type: ignore
+                fake.get_providers()[0],
+                doc.get_provider_formatters(fake.get_providers()[0]),
                 output=output)
         else:
             try:
                 print(
-                    fake.format(  # type: ignore
+                    fake.format(
                         provider_or_field,
                         *args),
                     end='',

@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Seque
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
-from .generator import Generator, T
+from .generator import Generator
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
@@ -82,7 +82,7 @@ class Faker:
     def __getitem__(self, locale: str) -> Generator:
         return self._factory_map[locale.replace('-', '_')]
 
-    def __getattribute__(self, attr: str) -> T:
+    def __getattribute__(self, attr: str) -> Any:
         """
         Handles the "attribute resolution" behavior for declared members of this proxy class
 
@@ -100,7 +100,7 @@ class Faker:
         else:
             return super().__getattribute__(attr)
 
-    def __getattr__(self, attr: str) -> T:
+    def __getattr__(self, attr: str) -> Any:
         """
         Handles cache access and proxying behavior
 

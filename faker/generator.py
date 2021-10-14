@@ -1,7 +1,7 @@
 import random as random_module
 import re
 
-from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional, TypeVar
+from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional
 
 if TYPE_CHECKING:
     from .providers import BaseProvider
@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
-
-T = TypeVar('T')
 
 
 class Generator:

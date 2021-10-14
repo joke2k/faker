@@ -27,7 +27,7 @@ class Documentor:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
-        providers: List[BaseProvider] = self.generator.get_providers()  # type: ignore
+        providers: List[BaseProvider] = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
             if locale and provider.__lang__ != locale:
                 continue
@@ -97,7 +97,7 @@ class Documentor:
 
             try:
                 # make a fake example
-                example = self.generator.format(name, *faker_args, **faker_kwargs)  # type: ignore
+                example = self.generator.format(name, *faker_args, **faker_kwargs)
             except (AttributeError, ValueError) as e:
                 warnings.warn(str(e))
                 continue
