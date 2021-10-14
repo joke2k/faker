@@ -1,5 +1,13 @@
 ## Changelog
 
+### [v9.3.1 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.3.0...v9.3.1)
+
+*  Change to secondary address format in ``en_AU`` locale to reflect the common usage. Thanks @deboraelkin2.
+
+### [v9.3.0 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.2.0...v9.3.0)
+
+* Add ``currency``, ``automotive``, ``company`` and ``bank`` providers for ``el_GR``. Thanks @nikosmichas.
+
 ### [v9.2.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.2.0)
 
 * Add ``color`` and ``date_time`` provider for ``el_GR``. Thanks @nikosmichas.
