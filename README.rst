@@ -15,7 +15,7 @@ Faker is heavily inspired by `PHP Faker`_, `Perl Faker`_, and by `Ruby Faker`_.
     _|      _|    _|  _|  _|    _|        _|
     _|        _|_|_|  _|    _|    _|_|_|  _|
 
-|pypi| |unix_build| |windows_build| |coverage| |license|
+|pypi| |build| |coverage| |license|
 
 ----
 
@@ -447,13 +447,9 @@ Credits
     :target: https://coveralls.io/r/joke2k/faker?branch=master
     :alt: Test coverage
 
-.. |unix_build| image:: https://github.com/joke2k/faker/workflows/Python%20Tests/badge.svg
-    :target: https://github.com/joke2k/faker/actions?query=workflow%3A%22Python+Tests%22
+.. |build| image:: https://github.com/joke2k/faker/workflows/Python%20Tests/badge.svg?branch=master&event=push
+    :target: https://github.com/joke2k/faker/actions?query=workflow%3A%22Python+Tests%22+branch%3Amaster+event%3Apush
     :alt: Build status of the master branch on Mac/Linux
-
-.. |windows_build|  image:: https://img.shields.io/appveyor/ci/joke2k/faker/master.svg?style=flat-square&label=windows%20build
-    :target: https://ci.appveyor.com/project/joke2k/faker
-    :alt: Build status of the master branch on Windows
 
 .. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://raw.githubusercontent.com/joke2k/faker/master/LICENSE.txt
