@@ -1,4 +1,4 @@
-from typing import List, Optional, Sequence
+from typing import List, Optional, Sequence, cast
 
 from .. import BaseProvider
 
@@ -47,8 +47,10 @@ class Provider(BaseProvider):
         """
         word_list = ext_word_list if ext_word_list else self.word_list  # type: ignore[attr-defined]
         if unique:
-            return self.random_sample(word_list, length=nb)
-        return self.random_choices(word_list, length=nb)
+            unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
+            return unique_samples
+        samples = cast(List[str], self.random_choices(word_list, length=nb))
+        return samples
 
     def word(self, ext_word_list: Optional[Sequence[str]] = None) -> str:
         """Generate a word.
@@ -170,7 +172,7 @@ class Provider(BaseProvider):
         :sample: max_nb_chars=160
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        text = []
+        text: List[str] = []
         if max_nb_chars < 5:
             raise ValueError(
                 'text() can only generate text of at least 5 characters')

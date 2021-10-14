@@ -1,7 +1,7 @@
 import re
 
 from itertools import product
-from typing import Optional, Pattern
+from typing import Dict, Optional, Pattern
 
 from .. import PrefixType
 from .. import Provider as BarcodeProvider
@@ -101,10 +101,11 @@ class Provider(BarcodeProvider):
         if m1:
             upc_e = upc_e_template.format(**m1.groupdict())
         elif m2:
-            groupdict = m2.groupdict()
-            groupdict['extra'] = str(len(groupdict.get('mfr_code')))
+            groupdict: Dict[str, str] = m2.groupdict()
+            mfr_code = groupdict.get('mfr_code') or ""
+            groupdict['extra'] = str(len(mfr_code))
             upc_e = upc_e_template.format(**groupdict)
-        else:
+        elif m3:
             groupdict = m3.groupdict()
             groupdict['product_code'] = ''
             upc_e = upc_e_template.format(**groupdict)
@@ -238,4 +239,4 @@ class Provider(BarcodeProvider):
             return self._convert_upc_a2e(upc_ae)
         else:
             upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
-            return upc_ae[0] + ''.join(str(x) for x in base) + upc_ae[-1]
+            return upc_ae[0] + ''.join(str(x) for x in base or "") + upc_ae[-1]

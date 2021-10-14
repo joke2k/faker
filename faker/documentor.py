@@ -1,7 +1,7 @@
 import inspect
 import warnings
 
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from .generator import Generator
 from .providers import BaseProvider
@@ -23,11 +23,11 @@ class Documentor:
     def get_formatters(self,
                        locale: Optional[str] = None,
                        excludes: Optional[List[str]] = None,
-                       **kwargs) -> List[Tuple[BaseProvider, Dict[str, str]]]:
+                       **kwargs: Any) -> List[Tuple[BaseProvider, Dict[str, str]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
-        providers: List[BaseProvider] = self.generator.get_providers()
+        providers: List[BaseProvider] = self.generator.get_providers()  # type: ignore
         for provider in providers[::-1]:  # reverse
             if locale and provider.__lang__ != locale:
                 continue
@@ -97,7 +97,7 @@ class Documentor:
 
             try:
                 # make a fake example
-                example = self.generator.format(name, *faker_args, **faker_kwargs)
+                example = self.generator.format(name, *faker_args, **faker_kwargs)  # type: ignore
             except (AttributeError, ValueError) as e:
                 warnings.warn(str(e))
                 continue

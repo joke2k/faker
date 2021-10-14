@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from typing import Dict, Sequence
 
-from ....typing import OrderedDictType
 from .. import Provider as PersonProvider
 
 
@@ -22,13 +21,13 @@ def translit(text: str) -> str:
 
 
 class Provider(PersonProvider):
-    formats_male: OrderedDictType[str, float] = OrderedDict((
+    formats_male: Dict[str, float] = OrderedDict((
         ('{{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.49),
         ('{{first_name_male}} {{middle_name_male}} {{last_name_male}}', 0.49),
         ('{{prefix_male}} {{last_name_male}} {{first_name_male}} {{middle_name_male}}', 0.02),
     ))
 
-    formats_female: OrderedDictType[str, float] = OrderedDict((
+    formats_female: Dict[str, float] = OrderedDict((
         ('{{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.49),
         ('{{first_name_female}} {{middle_name_female}} {{last_name_female}}', 0.49),
         ('{{prefix_female}} {{last_name_female}} {{first_name_female}} {{middle_name_female}}', 0.02),
@@ -38,7 +37,7 @@ class Provider(PersonProvider):
     #     formats = formats_male + formats_female
     # has to be replaced with something dict and python 2.x compatible
 
-    formats: OrderedDictType[str, float] = formats_male.copy()
+    formats: Dict[str, float] = formats_male.copy()
     formats.update(formats_female)
 
     first_names_male = (

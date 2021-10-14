@@ -2,7 +2,7 @@
 This module is responsible for generating the check digit and formatting
 ISBN numbers.
 """
-from typing import Optional
+from typing import Any, Optional
 
 
 class ISBN:
@@ -22,7 +22,7 @@ class ISBN:
 
 class ISBN13(ISBN):
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 
@@ -46,7 +46,7 @@ class ISBN13(ISBN):
 
 class ISBN10(ISBN):
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.check_digit = self._check_digit()
 

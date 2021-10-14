@@ -318,8 +318,8 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         """
         # If `address_class` has an unexpected value, choose a valid value at random
-        if address_class not in _IPv4Constants._network_classes.keys():
-            address_class = self.ipv4_network_class()  # type: ignore
+        if not address_class or address_class not in _IPv4Constants._network_classes.keys():
+            address_class = self.ipv4_network_class()
 
         # Return cached network and weight data if available for a specific address class
         networks_attr = f'_cached_private_class_{address_class}_networks'
@@ -458,8 +458,8 @@ class Provider(BaseProvider):
                     else:
                         return [network]
 
-            networks = list(map(_exclude_ipv4_network, networks))
-            networks = [item for nested in networks for item in nested]
+            nested_networks = list(map(_exclude_ipv4_network, networks))
+            networks = [item for nested in nested_networks for item in nested]
 
         return networks
 

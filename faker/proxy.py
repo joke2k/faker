@@ -5,13 +5,12 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
 from .generator import Generator, T
-from .typing import OrderedDictType as OrderedDictType
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
@@ -28,12 +27,12 @@ class Faker:
     ]
 
     def __init__(self,
-                 locale: Optional[Union[str, Sequence[str], OrderedDictType[str, Union[int, float]]]] = None,
+                 locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
                  providers: Optional[List[str]] = None,
                  generator: Optional[Generator] = None,
                  includes: Optional[List[str]] = None,
                  use_weighting: bool = True,
-                 **config) -> None:
+                 **config: Any) -> None:
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
@@ -120,7 +119,7 @@ class Faker:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
 
-    def __deepcopy__(self, memodict: dict = {}) -> 'Faker':
+    def __deepcopy__(self, memodict: Dict = {}) -> 'Faker':
         cls = self.__class__
         result = cls.__new__(cls)
         result._locales = copy.deepcopy(self._locales)
@@ -134,7 +133,7 @@ class Faker:
         }
         return result
 
-    def __setstate__(self, state) -> None:
+    def __setstate__(self, state: Any) -> None:
         self.__dict__.update(state)
 
     @property
@@ -217,7 +216,7 @@ class Faker:
         for factory in self._factories:
             factory.seed_instance(seed)
 
-    def seed_locale(self, locale, seed: Optional[Hashable] = None) -> None:
+    def seed_locale(self, locale: str, seed: Optional[Hashable] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 
@@ -243,7 +242,7 @@ class Faker:
             raise NotImplementedError(msg)
 
     @random.setter
-    def random(self, value: Hashable) -> None:
+    def random(self, value: Random) -> None:
         """
         Proxies `random` setter calls
 
@@ -283,7 +282,7 @@ class UniqueProxy:
     def clear(self) -> None:
         self._seen = {}
 
-    def __getattr__(self, name: str) -> T:
+    def __getattr__(self, name: str) -> Any:
         obj = getattr(self._proxy, name)
         if callable(obj):
             return self._wrap(name, obj)
@@ -300,7 +299,7 @@ class UniqueProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
-    def _wrap(self, name, function):
+    def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
             key = (name, args, tuple(sorted(kwargs.items())))

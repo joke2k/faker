@@ -1,9 +1,8 @@
 import string
 
 from collections import OrderedDict
-from typing import Optional
+from typing import Dict, Optional
 
-from ...typing import OrderedDictType
 from .. import BaseProvider, ElementsType
 
 
@@ -137,7 +136,7 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types: OrderedDictType[str, ElementsType] = OrderedDict((
+    mime_types: Dict[str, ElementsType] = OrderedDict((
         ('application', application_mime_types),
         ('audio', audio_mime_types),
         ('image', image_mime_types),
@@ -195,7 +194,7 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions: OrderedDictType[str, ElementsType] = OrderedDict((
+    file_extensions: Dict[str, ElementsType] = OrderedDict((
         ("audio", audio_file_extensions),
         ("image", image_file_extensions),
         ("office", office_file_extensions),
