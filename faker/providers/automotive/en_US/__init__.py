@@ -5,7 +5,7 @@ class Provider(AutomotiveProvider):
     """Implement automotive provider for ``en_US`` locale.
 
     Sources:
-
+    - https://en.wikipedia.org/wiki/Vehicle_identification_number
     - https://en.wikipedia.org/wiki/United_States_license_plate_designs_and_serial_formats
     """
     vin_formats = (
