@@ -2,7 +2,7 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import List, Optional, Dict, Union, Callable
+from typing import List, Optional
 
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
@@ -513,7 +513,7 @@ class DynamicProvider(BaseProvider):
         >>>fake = Faker()
         >>>fake.add_provider(medical_professions_provider)
 
-        >>>fake.medical_professions()
+        >>>fake.medical_profession()
         "dr."
 
         """
@@ -526,7 +526,7 @@ class DynamicProvider(BaseProvider):
 
         self.provider_name = provider_name
         self.elements = elements
-        setattr(self, provider_name, self.get_random_value) # Add a method for the provider_name value
+        setattr(self, provider_name, self.get_random_value)  # Add a method for the provider_name value
 
     def add_element(self, element: str):
         """Add new element."""
