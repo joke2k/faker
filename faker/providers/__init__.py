@@ -2,10 +2,11 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import List, Optional
+from typing import List, Optional, Dict, Union, Callable
 
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
+
 
 _re_hash = re.compile(r'#')
 _re_perc = re.compile(r'%')
@@ -490,7 +491,7 @@ class DynamicProvider(BaseProvider):
     def __init__(
         self,
         provider_name: str,
-        elements: Optional[List[str]] = None,
+        elements: Optional[List] = None,
         generator: Optional[Generator] = None,
     ):
         """
