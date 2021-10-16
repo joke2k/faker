@@ -4,8 +4,7 @@ from typing import Sequence, TypeVar, Union
 try:
     from typing import Literal
 except ImportError:
-    from typing_extensions import Literal  # type: ignore
-
+    from typing_extensions import Literal  # type: ignore[misc]
 
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = TypeVar('HueType', str, float, Sequence[int])
