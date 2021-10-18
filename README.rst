@@ -260,6 +260,24 @@ How to create a Provider
     fake.foo()
     # 'bar'
 
+How to create a Dynamic Provider
+------------------------
+Dynamic providers can read elements from an external source.
+
+.. code:: python
+    from faker import Faker
+    from faker.providers import DynamicProvider
+
+    medical_professions_provider = DynamicProvider(
+         provider_name="medical_profession",
+         elements=["dr.", "doctor", "nurse", "surgeon", "clerk"],
+    )
+    fake = Faker()
+    fake.add_provider(medical_professions_provider)
+
+    fake.medical_profession()
+    # 'dr.'
+
 How to customize the Lorem Provider
 -----------------------------------
 

@@ -535,8 +535,6 @@ class DynamicProvider(BaseProvider):
     def get_random_value(self):
 
         if not self.elements or len(self.elements) == 0:
-            raise ValueError(
-                "Elements should be a list of values the provider samples from"
-            )
+            raise ValueError("Elements should be a list of values the provider samples from")
 
         return self.random_element(self.elements)
