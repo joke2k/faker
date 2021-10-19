@@ -316,7 +316,7 @@ class Provider(PersonProvider):
         'Fabiszak', 'Cibor', 'Ryczko', 'Rudolf', 'Jędrzejek', 'Bekus', 'Bek', 'Wolan', 'Radzio',
         'Kuliberda', 'Kolanko', 'Szykuła', 'Skowyra', 'Porwoł', 'Kosiak', 'Kasica', 'Jakiel',
         'Piejko', 'Owczarczak', 'Michnik', 'Linke', 'Kutera', 'Bobryk', 'Szabla', 'Powała',
-        'Marciniszyn', 'Gorgol', 'Czerwionka', 'Ledzion', 'Dykas', 'Zygmuntowicz', 'Sequencewan',
+        'Marciniszyn', 'Gorgol', 'Czerwionka', 'Ledzion', 'Dykas', 'Zygmuntowicz', 'Listwan',
         'Bobrowicz', 'Żurawik', 'Migała', 'Merchel', 'Bogumił', 'Wojsa', 'Sadura', 'Łyjak', 'Giers',
         'Gałat', 'Parafiniuk', 'Kryszkiewicz', 'Wyrostek', 'Wałek', 'Rembisz', 'Paściak', 'Maksym',
         'Kusio', 'Kostek', 'Kalisiak', 'Bździuch', 'Szlufik', 'Pogorzelec', 'Pielech', 'Kafel',

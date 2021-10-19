@@ -1646,8 +1646,8 @@ class Provider(BaseProvider):
 
         :param end_date Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example dtdate('2030-01-01')
+        :return dtdate
         """
         return self.date_between(start_date='+1d', end_date=end_date)
 
@@ -1672,8 +1672,8 @@ class Provider(BaseProvider):
 
         :param start_date Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example dtdate('1999-02-02')
+        :return dtdate
         """
         return self.date_between(start_date=start_date, end_date='-1d')
 
@@ -1916,9 +1916,8 @@ class Provider(BaseProvider):
 
         :param before_today: include days in current month before today
         :param after_today: include days in current month after today
-        :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2012-04-04 11:02:02')
-        :return datetime
+        :example dtdate('2012-04-04')
+        :return dtdate
         """
         today = dtdate.today()
         this_month_start = today.replace(day=1)
