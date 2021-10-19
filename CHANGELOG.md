@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.4.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.3.1...v9.4.0)
+
+* Add Typing. Thanks @MarcelRobeer, @nicarl.
+
 ### [v9.3.1 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.3.0...v9.3.1)
 
 *  Change to secondary address format in ``en_AU`` locale to reflect the common usage. Thanks @deboraelkin2.
