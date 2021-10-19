@@ -385,21 +385,21 @@ class Provider(AddressProvider):
         "da Carvalhosa", "da Companhia", "da Ilha do Ferro", "da Pedreira", "da Senhora da Lapa", "das Andrezas",
         "de Grijó", "de Lamas", "de S. Brás", "de Santana", "do Anjo", "do Anjo da Guarda",
         "do Buraco", "do José da Mestra", "do Monte da Pena", "do Picoto", "do Sobreirinho",
-        )
+    )
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'Rua'
         """
         return self.random_element(self.street_prefixes)
 
-    def city_name(self):
+    def city_name(self) -> str:
         """
         :example 'Amora'
         """
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example 'Bragança'
         """
@@ -407,19 +407,19 @@ class Provider(AddressProvider):
 
     distrito = administrative_unit
 
-    def concelho(self):
+    def concelho(self) -> str:
         """
         :example 'Tondela'
         """
         return self.random_element(self.concelhos)
 
-    def freguesia(self):
+    def freguesia(self) -> str:
         """
         :example 'Miranda do Douro'
         """
         return self.random_element(self.freguesias)
 
-    def place_name(self):
+    def place_name(self) -> str:
         """
         :example "do Pombal"
         """

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -599,25 +601,25 @@ class Provider(AddressProvider):
         'Սարիգյուղ',
     )
 
-    def city(self):
+    def city(self) -> str:
         """
         :example 'Բյուրեղավան'
         """
         return self.random_element(self.cities)
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         """
         :example 'ք.'
         """
         return self.random_element(self.city_prefixes)
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
         :example '3159'
         """
         return "%04d" % self.generator.random.randint(200, 4299)
 
-    def postcode_in_state(self, state_abbr=None):
+    def postcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         """
         :example '4703'
         """
@@ -626,8 +628,8 @@ class Provider(AddressProvider):
 
         if state_abbr in self.states_abbr:
             postcode = "%d" % (self.generator.random.randint(
-                            self.states_postcode[state_abbr][0],
-                            self.states_postcode[state_abbr][1]))
+                self.states_postcode[state_abbr][0],
+                self.states_postcode[state_abbr][1]))
 
             if len(postcode) == 3:
                 postcode = "0%s" % postcode
@@ -637,13 +639,13 @@ class Provider(AddressProvider):
         else:
             raise Exception('State Abbreviation not found in list')
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         """
         :example 'բն. 49'
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example 'Կոտայք'
         """
@@ -651,31 +653,31 @@ class Provider(AddressProvider):
 
     state = administrative_unit
 
-    def state_abbr(self):
+    def state_abbr(self) -> str:
         """
         :example 'ՎՁ'
         """
         return self.random_element(self.states_abbr)
 
-    def street(self):
+    def street(self) -> str:
         """
         :example 'Ոսկերիչների'
         """
         return self.random_element(self.streets)
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'փողոց'
         """
         return self.random_element(self.street_prefixes)
 
-    def village(self):
+    def village(self) -> str:
         """
         :example 'Ոսկեվազ'
         """
         return self.random_element(self.villages)
 
-    def village_prefix(self):
+    def village_prefix(self) -> str:
         """
         :example 'գ.'
         """

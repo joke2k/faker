@@ -10,7 +10,7 @@ class Provider(BaseProvider):
         'CY#########?',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         Returns a random generated Cypriot Tax ID
         """

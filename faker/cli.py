@@ -4,22 +4,27 @@ import os
 import random
 import sys
 
+from io import TextIOWrapper
 from pathlib import Path
-from typing import Any, Dict, List, Optional, TextIO
+from typing import Dict, List, Optional, TextIO, TypeVar, Union
 
-from faker import VERSION, Faker, documentor, exceptions
-from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
+from . import VERSION, Faker, documentor, exceptions
+from .config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
+from .documentor import Documentor
+from .providers import BaseProvider
 
 __author__ = 'joke2k'
 
+T = TypeVar('T')
 
-def print_provider(doc,
-                   provider: List[str],
-                   formatters: Dict[str, Any],
-                   excludes=None,
+
+def print_provider(doc: Documentor,
+                   provider: BaseProvider,
+                   formatters: Dict[str, T],
+                   excludes: Optional[List[str]] = None,
                    output: Optional[TextIO] = None) -> None:
-
-    output = output or sys.stdout
+    if output is None:
+        output = sys.stdout
     if excludes is None:
         excludes = []
 
@@ -48,11 +53,16 @@ def print_provider(doc,
                 signature = separator = ' '
 
 
-def print_doc(provider_or_field=None,
-              args=None, lang: str = DEFAULT_LOCALE, output=None, seed=None,
-              includes=None) -> None:
-    args = args or []
-    output = output or sys.stdout
+def print_doc(provider_or_field: Optional[str] = None,
+              args: Optional[List[T]] = None,
+              lang: str = DEFAULT_LOCALE,
+              output: Optional[Union[TextIO, TextIOWrapper]] = None,
+              seed: Optional[float] = None,
+              includes: Optional[List[str]] = None) -> None:
+    if args is None:
+        args = []
+    if output is None:
+        output = sys.stdout
     fake = Faker(locale=lang, includes=includes)
     fake.seed_instance(seed)
 
@@ -86,7 +96,7 @@ def print_doc(provider_or_field=None,
 
     else:
         doc = documentor.Documentor(fake)
-        unsupported = []
+        unsupported: List[str] = []
 
         while True:
             try:
@@ -97,7 +107,6 @@ def print_doc(provider_or_field=None,
                 break
 
         for provider, fakers in formatters:
-
             print_provider(doc, provider, fakers, output=output)
 
         for language in AVAILABLE_LOCALES:
@@ -117,7 +126,7 @@ def print_doc(provider_or_field=None,
 
 class Command:
 
-    def __init__(self, argv=None) -> None:
+    def __init__(self, argv: Optional[str] = None) -> None:
         self.argv = argv or sys.argv[:]
         self.prog_name = Path(self.argv[0]).name
 
@@ -259,7 +268,7 @@ examples:
                 break
 
 
-def execute_from_command_line(argv=None) -> None:
+def execute_from_command_line(argv: Optional[str] = None) -> None:
     """A simple method that runs a Command."""
     if sys.stdout.encoding is None:
         print('please set python env PYTHONIOENCODING=UTF-8, example: '

@@ -4,12 +4,14 @@ import random
 import re
 
 from collections import OrderedDict
+from random import Random
+from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
 
-from faker.config import DEFAULT_LOCALE
-from faker.exceptions import UniquenessException
-from faker.factory import Factory
-from faker.generator import Generator
-from faker.utils.distribution import choices_distribution
+from .config import DEFAULT_LOCALE
+from .exceptions import UniquenessException
+from .factory import Factory
+from .generator import Generator
+from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
 
@@ -17,16 +19,20 @@ _UNIQUE_ATTEMPTS = 1000
 class Faker:
     """Proxy class capable of supporting multiple locales"""
 
-    cache_pattern = re.compile(r'^_cached_\w*_mapping$')
+    cache_pattern: Pattern = re.compile(r'^_cached_\w*_mapping$')
     generator_attrs = [
         attr for attr in dir(Generator)
         if not attr.startswith('__')
         and attr not in ['seed', 'seed_instance', 'random']
     ]
 
-    def __init__(self, locale=None, providers=None,
-                 generator=None, includes=None,
-                 use_weighting=True, **config):
+    def __init__(self,
+                 locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
+                 providers: Optional[List[str]] = None,
+                 generator: Optional[Generator] = None,
+                 includes: Optional[List[str]] = None,
+                 use_weighting: bool = True,
+                 **config: Any) -> None:
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
@@ -73,10 +79,10 @@ class Faker:
             }
         return sorted(attributes)
 
-    def __getitem__(self, locale):
+    def __getitem__(self, locale: str) -> Generator:
         return self._factory_map[locale.replace('-', '_')]
 
-    def __getattribute__(self, attr):
+    def __getattribute__(self, attr: str) -> Any:
         """
         Handles the "attribute resolution" behavior for declared members of this proxy class
 
@@ -94,7 +100,7 @@ class Faker:
         else:
             return super().__getattribute__(attr)
 
-    def __getattr__(self, attr):
+    def __getattr__(self, attr: str) -> Any:
         """
         Handles cache access and proxying behavior
 
@@ -113,7 +119,7 @@ class Faker:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
 
-    def __deepcopy__(self, memodict={}):
+    def __deepcopy__(self, memodict: Dict = {}) -> 'Faker':
         cls = self.__class__
         result = cls.__new__(cls)
         result._locales = copy.deepcopy(self._locales)
@@ -127,14 +133,14 @@ class Faker:
         }
         return result
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: Any) -> None:
         self.__dict__.update(state)
 
     @property
-    def unique(self):
+    def unique(self) -> 'UniqueProxy':
         return self._unique_proxy
 
-    def _select_factory(self, method_name):
+    def _select_factory(self, method_name: str) -> Factory:
         """
         Returns a random factory that supports the provider method
 
@@ -155,7 +161,7 @@ class Faker:
             factory = random.choice(factories)
         return factory
 
-    def _map_provider_method(self, method_name):
+    def _map_provider_method(self, method_name: str) -> Tuple[List[Factory], Optional[List[float]]]:
         """
         Creates a 2-tuple of factories and weights for the given provider method name
 
@@ -182,26 +188,26 @@ class Faker:
             mapping = list(factories), list(weights)
         else:
             value = [
-                factory
+                factory  # type: ignore
                 for factory in self.factories
                 if hasattr(factory, method_name)
             ]
-            mapping = value, None
+            mapping = value, None  # type: ignore
 
         # Then cache and return results
         setattr(self, attr, mapping)
         return mapping
 
     @classmethod
-    def seed(cls, seed=None):
+    def seed(cls, seed: Optional[Hashable] = None) -> None:
         """
-        Seeds the shared `random.Random` object across all factories
+        Hashables the shared `random.Random` object across all factories
 
         :param seed: seed value
         """
         Generator.seed(seed)
 
-    def seed_instance(self, seed=None):
+    def seed_instance(self, seed: Optional[Hashable] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for each factory
 
@@ -210,7 +216,7 @@ class Faker:
         for factory in self._factories:
             factory.seed_instance(seed)
 
-    def seed_locale(self, locale, seed=None):
+    def seed_locale(self, locale: str, seed: Optional[Hashable] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 
@@ -220,7 +226,7 @@ class Faker:
         self._factory_map[locale.replace('-', '_')].seed_instance(seed)
 
     @property
-    def random(self):
+    def random(self) -> Random:
         """
         Proxies `random` getter calls
 
@@ -236,7 +242,7 @@ class Faker:
             raise NotImplementedError(msg)
 
     @random.setter
-    def random(self, value):
+    def random(self, value: Random) -> None:
         """
         Proxies `random` setter calls
 
@@ -252,31 +258,31 @@ class Faker:
             raise NotImplementedError(msg)
 
     @property
-    def locales(self):
+    def locales(self) -> List[str]:
         return list(self._locales)
 
     @property
-    def weights(self):
+    def weights(self) -> Optional[List[Union[int, float]]]:
         return self._weights
 
     @property
-    def factories(self):
+    def factories(self) -> List[Generator]:
         return self._factories
 
-    def items(self):
-        return self._factory_map.items()
+    def items(self) -> List[Tuple[str, Generator]]:
+        return list(self._factory_map.items())
 
 
 class UniqueProxy:
-    def __init__(self, proxy):
+    def __init__(self, proxy: Faker):
         self._proxy = proxy
-        self._seen = {}
+        self._seen: Dict = {}
         self._sentinel = object()
 
-    def clear(self):
+    def clear(self) -> None:
         self._seen = {}
 
-    def __getattr__(self, name: str):
+    def __getattr__(self, name: str) -> Any:
         obj = getattr(self._proxy, name)
         if callable(obj):
             return self._wrap(name, obj)
@@ -293,7 +299,7 @@ class UniqueProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
-    def _wrap(self, name, function):
+    def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
             key = (name, args, tuple(sorted(kwargs.items())))

@@ -16,7 +16,7 @@ class Provider(PersonProvider):
 
     # https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%9D%98_%EC%84%B1%EC%94%A8%EC%99%80_%EC%9D%B4%EB%A6%84
     first_names_female = OrderedDict((
-        ('경숙', 1),
+        ('경숙', 1.),
         ('경자', 1),
         ('경희', 1),
         ('명숙', 1),
@@ -84,7 +84,7 @@ class Provider(PersonProvider):
     ))
 
     first_names_male = OrderedDict((
-        ('건우', 1),
+        ('건우', 1.),
         ('경수', 1),
         ('광수', 1),
         ('도윤', 1),

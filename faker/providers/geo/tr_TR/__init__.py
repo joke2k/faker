@@ -85,4 +85,4 @@ class Provider(GeoProvider):
         ('38.415342100000004', '27.144474', 'İzmir', 'TR', 'Europe/Istanbul'),
         ('37.2595198', '39.0408174', 'Şanlıurfa', 'TR', 'Europe/Istanbul'),
         ('37.455253000000006', '42.5212049', 'Şırnak', 'TR', 'Europe/Istanbul'),
-        )
+    )

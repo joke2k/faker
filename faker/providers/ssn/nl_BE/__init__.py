@@ -8,7 +8,7 @@ Dutch/French only for now ...
 
 class Provider(SsnProvider):
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Returns a 11 digits Belgian SSN called "rijksregisternummer" as a string
 
@@ -58,7 +58,7 @@ class Provider(SsnProvider):
         'BE##########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Belgian VAT ID

@@ -39,9 +39,9 @@ class Provider(PhoneNumberProvider):
         '9',  # Auckland
     ]
 
-    def area_code(self):
+    def area_code(self) -> str:
         return self.numerify(self.random_element(self.area_codes))
 
-    def phone_number(self):
-        pattern = self.random_element(self.formats)
+    def phone_number(self) -> str:
+        pattern: str = self.random_element(self.formats)
         return self.numerify(self.generator.parse(pattern))

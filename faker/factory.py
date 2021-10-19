@@ -3,10 +3,11 @@ import logging
 import sys
 
 from importlib import import_module
+from typing import Any, List, Optional, Tuple
 
-from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
-from faker.generator import Generator
-from faker.utils.loading import list_module
+from .config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
+from .generator import Generator
+from .utils.loading import list_module
 
 logger = logging.getLogger(__name__)
 
@@ -23,14 +24,14 @@ class Factory:
     @classmethod
     def create(
             cls,
-            locale=None,
-            providers=None,
-            generator=None,
-            includes=None,
+            locale: Optional[str] = None,
+            providers: Optional[List[str]] = None,
+            generator: Generator = None,
+            includes: Optional[List[str]] = None,
             # Should we use weightings (more realistic) or weight every element equally (faster)?
             # By default, use weightings for backwards compatibility & realism
-            use_weighting=True,
-            **config):
+            use_weighting: bool = True,
+            **config: Any) -> Generator:
         if includes is None:
             includes = []
 
@@ -63,7 +64,7 @@ class Factory:
         return faker
 
     @classmethod
-    def _get_provider_class(cls, provider, locale=''):
+    def _get_provider_class(cls, provider: str, locale: Optional[str] = '') -> Tuple[Any, Optional[str]]:
 
         provider_class = cls._find_provider_class(provider, locale)
 
@@ -85,7 +86,7 @@ class Factory:
         raise ValueError(msg)
 
     @classmethod
-    def _find_provider_class(cls, provider_path, locale=None):
+    def _find_provider_class(cls, provider_path: str, locale: Optional[str] = None) -> Any:
 
         provider_module = import_module(provider_path)
 
@@ -117,4 +118,4 @@ class Factory:
             if locale is not None:
                 provider_module = import_module(provider_path)
 
-        return provider_module.Provider
+        return provider_module.Provider  # type: ignore

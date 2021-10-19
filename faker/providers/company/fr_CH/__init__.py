@@ -1,15 +1,17 @@
+from typing import List
+
 from ..fr_FR import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
     company_suffixes = ('SA', 'Sàrl.')
 
-    def ide(self):
+    def ide(self) -> str:
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
         """
-        def _checksum(digits):
+        def _checksum(digits: List[int]) -> int:
             factors = (5, 4, 3, 2, 7, 6, 5, 4)
             sum_ = 0
             for i in range(len(digits)):

@@ -88,25 +88,25 @@ class Provider(CompanyProvider):
         ("จำกัด (มหาชน)", 0.15),
     ))
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         :example 'ห้างหุ้นส่วนจำกัด'
         """
         return self.random_element(self.company_prefixes)
 
-    def company_limited_prefix(self):
+    def company_limited_prefix(self) -> str:
         """
         :example 'บริษัท'
         """
         return self.random_element(self.company_limited_prefixes)
 
-    def company_limited_suffix(self):
+    def company_limited_suffix(self) -> str:
         """
         :example 'จำกัด'
         """
         return self.random_element(self.company_limited_suffixes)
 
-    def nonprofit_prefix(self):
+    def nonprofit_prefix(self) -> str:
         """
         :example 'มูลนิธิ'
         """

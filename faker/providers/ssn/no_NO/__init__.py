@@ -1,10 +1,13 @@
 import datetime
 import operator
 
+from typing import List, Optional, Sequence
+
+from ....typing import GenderType
 from .. import Provider as SsnProvider
 
 
-def checksum(digits, scale):
+def checksum(digits: Sequence[int], scale: List[int]) -> int:
     """
     Calculate checksum of Norwegian personal identity code.
 
@@ -27,7 +30,7 @@ class Provider(SsnProvider):
     scale1 = (3, 7, 6, 1, 8, 9, 4, 5, 2)
     scale2 = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-    def ssn(self, dob=None, gender=None):
+    def ssn(self, dob: Optional[str] = None, gender: Optional[GenderType] = None) -> str:
         """
         Returns 11 character Norwegian personal identity code (Fødselsnummer).
 

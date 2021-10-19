@@ -1,6 +1,7 @@
 import re
 
 from datetime import datetime
+from typing import Pattern
 from unittest.mock import patch
 
 import pytest
@@ -209,7 +210,7 @@ class TestEnPh:
         cls.company_types = EnPhCompanyProvider.company_types
         cls.company_suffixes = EnPhCompanyProvider.company_suffixes.keys()
         cls.company_products = EnPhCompanyProvider.company_products
-        cls.national_corporation_pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
+        cls.national_corporation_pattern: Pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
 
     def test_random_company_noun_chain(self, faker, num_samples):
         for _ in range(num_samples):

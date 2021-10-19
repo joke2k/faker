@@ -1,21 +1,17 @@
+from datetime import datetime
+from typing import List, Optional, Sequence, Tuple, Union
+
 from .. import Provider as PersonProvider
 
 
-def checksum_identity_card_number(characters):
+def checksum_identity_card_number(characters: Sequence[Union[str, int]]) -> int:
     """
     Calculates and returns a control digit for given list of characters basing on Identity Card Number standards.
     """
     weights_for_check_digit = [7, 3, 1, 0, 7, 3, 1, 7, 3]
-    check_digit = 0
-
-    for i in range(3):
-        check_digit += weights_for_check_digit[i] * (ord(characters[i]) - 55)
-
-    for i in range(4, 9):
-        check_digit += weights_for_check_digit[i] * characters[i]
-
-    check_digit %= 10
-
+    integer_characters = [(ord(character) - 55) if isinstance(character, str) else character
+                          for character in characters]
+    check_digit = sum(weight * ch for weight, ch in zip(weights_for_check_digit, integer_characters)) % 10
     return check_digit
 
 
@@ -31,7 +27,7 @@ class Provider(PersonProvider):
         '{{prefix_male}} {{first_name_male}} {{last_name_male}}',
     )
 
-    first_names_male = (
+    first_names_male: Tuple[str, ...] = (
         'Jakub',
         'Jan',
         'Mateusz',
@@ -133,7 +129,7 @@ class Provider(PersonProvider):
         'Ernest',
         'Tobiasz')
 
-    first_names_female = (
+    first_names_female: Tuple[str, ...] = (
         'Kamila',
         'Ewa',
         'Blanka',
@@ -188,7 +184,7 @@ class Provider(PersonProvider):
         'Tola',
         'Gaja')
 
-    unisex_last_names = (
+    unisex_last_names: Tuple[str, ...] = (
         'Wandzel', 'Pajda', 'Dzienis', 'Borysewicz', 'Szlaga', 'Krzysiek', 'Iwańczyk', 'Cierpisz',
         'Borczyk', 'Szymula', 'Pietrasiak', 'Minkiewicz', 'Hojka', 'Goral', 'Staś', 'Smoter',
         'Bosek', 'Bitner', 'Kondej', 'Furgał', 'Durlik', 'Kusa', 'Pacewicz', 'Masiak', 'Kucz',
@@ -637,7 +633,7 @@ class Provider(PersonProvider):
         'Płocharczyk', 'Ostręga', 'Łęgowik', 'Ludwik', 'Kopik', 'Kleinschmidt', 'Karczmarek',
         'Gładka', 'Czylok', 'Wawrzynkiewicz',
     )
-    male_last_names = (
+    male_last_names: Tuple[str, ...] = (
         'Kowalski', 'Wiśniewski', 'Dąbrowski', 'Lewandowski', 'Wójcik', 'Kamiński', 'Kowalczyk',
         'Zieliński', 'Szymański', 'Woźniak', 'Kozłowski', 'Jankowski', 'Wojciechowski',
         'Kwiatkowski', 'Kaczmarek', 'Mazur', 'Krawczyk', 'Piotrowski', 'Grabowski', 'Nowakowski',
@@ -668,15 +664,15 @@ class Provider(PersonProvider):
         'Bukowski', 'Leśniak',
     )
 
-    prefixes_male = ('pan',)
-    prefixes_female = ('pani',)
+    prefixes_male: Tuple[str, ...] = ('pan',)
+    prefixes_female: Tuple[str, ...] = ('pani',)
 
     first_names = first_names_male + first_names_female
 
-    def last_name(self):
+    def last_name(self) -> str:
         return self.random_element(self.unisex_last_names)
 
-    def identity_card_number(self):
+    def identity_card_number(self) -> str:
         """
         Returns 9 character Polish Identity Card Number,
         Polish: Numer Dowodu Osobistego.
@@ -686,7 +682,7 @@ class Provider(PersonProvider):
 
         https://en.wikipedia.org/wiki/Polish_identity_card
         """
-        identity = []
+        identity: List[Union[int, str]] = []
 
         for _ in range(3):
             identity.append(self.random_letter().upper())
@@ -702,11 +698,11 @@ class Provider(PersonProvider):
         return ''.join(str(character) for character in identity)
 
     @staticmethod
-    def pesel_compute_check_digit(pesel):
+    def pesel_compute_check_digit(pesel: str) -> int:
         checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
         return sum(int(a) * b for a, b in zip(pesel, checksum_values)) % 10
 
-    def pesel(self, date_of_birth=None, sex=None):
+    def pesel(self, date_of_birth: Optional[datetime] = None, sex: Optional[str] = None) -> str:
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
@@ -754,10 +750,10 @@ class Provider(PersonProvider):
         return pesel
 
     @staticmethod
-    def pwz_doctor_compute_check_digit(x):
+    def pwz_doctor_compute_check_digit(x: Sequence[int]) -> int:
         return sum((i + 1) * d for i, d in enumerate(x)) % 11
 
-    def pwz_doctor(self):
+    def pwz_doctor(self) -> str:
         """
         Function generates an identification number for medical doctors
         Polish: Prawo Wykonywania Zawodu (PWZ)
@@ -773,7 +769,7 @@ class Provider(PersonProvider):
 
         return f'{check_digit}{"".join(map(str, core))}'
 
-    def pwz_nurse(self, kind='nurse'):
+    def pwz_nurse(self, kind: str = 'nurse') -> str:
         """
         Function generates an identification number for nurses and midwives
         Polish: Prawo Wykonywania Zawodu (PWZ)
@@ -789,7 +785,7 @@ class Provider(PersonProvider):
 
         return f'{region:02d}{"".join(map(str, core))}{kind_char}'
 
-    tax_office_codes = (
+    tax_office_codes: Tuple[str, ...] = (
         '101', '102', '103', '104', '105', '106', '107', '108', '109', '111', '112', '113', '114', '115', '116', '117',
         '118', '119', '121', '122', '123', '124', '125', '126', '127', '128', '129', '131', '132', '133', '134', '135',
         '136', '137', '138', '139', '141', '142', '143', '144', '145', '146', '147', '148', '149', '151', '152', '153',
@@ -840,7 +836,7 @@ class Provider(PersonProvider):
         '987', '988', '989', '991', '992', '993', '994', '995', '996', '997', '998',
     )
 
-    def nip(self):
+    def nip(self) -> str:
         """
         Returns 10 digit of Number of tax identification.
         Polish: Numer identyfikacji podatkowej (NIP).
@@ -851,7 +847,7 @@ class Provider(PersonProvider):
 
         """
 
-        nip = [int(i) for i in self.random_element(self.tax_office_codes)]
+        nip = [int(i) for i in self.random_element(self.tax_office_codes)]  # type: ignore
         for _ in range(6):
             nip.append(self.random_digit())
 

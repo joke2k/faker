@@ -87,5 +87,5 @@ class Provider(PersonProvider):
 
     prefixes = ('de', 'da', 'do')
 
-    def prefix(self):
+    def prefix(self) -> str:
         return self.random_element(self.prefixes)

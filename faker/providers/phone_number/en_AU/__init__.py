@@ -33,13 +33,13 @@ class Provider(PhoneNumberProvider):
         '+61.4##.###.###',
     )
 
-    def area_code(self):
+    def area_code(self) -> str:
         return self.numerify(self.random_element(
             ['2',
              '3',
              '7',
              '8']))
 
-    def phone_number(self):
-        pattern = self.random_element(self.formats)
+    def phone_number(self) -> str:
+        pattern: str = self.random_element(self.formats)
         return self.numerify(self.generator.parse(pattern))

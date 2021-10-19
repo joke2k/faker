@@ -13,6 +13,7 @@ try:
 except ImportError:
     PIL = None
 
+from typing import Pattern
 from unittest.mock import patch
 
 import pytest
@@ -57,7 +58,7 @@ class TestMiscProvider:
     num_samples = 10
 
     def test_uuid4_str(self, faker, num_samples):
-        pattern = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        pattern: Pattern = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
         for _ in range(num_samples):
             assert pattern.fullmatch(faker.uuid4())
 

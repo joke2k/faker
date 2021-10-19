@@ -4,7 +4,7 @@ import sys
 from importlib import import_module
 from pathlib import Path
 from types import ModuleType
-from typing import List, Set
+from typing import List
 
 
 def get_path(module: ModuleType) -> str:
@@ -18,7 +18,7 @@ def get_path(module: ModuleType) -> str:
             # others
             lib_dir = Path(sys.executable).parent / 'lib'
 
-        path = lib_dir.joinpath(*module.__package__.split("."))
+        path = lib_dir.joinpath(*module.__package__.split("."))  # type: ignore
     else:
         # unfrozen
         path = Path(module.__file__).parent
@@ -36,7 +36,7 @@ def list_module(module: ModuleType) -> List[str]:
 
 
 def find_available_locales(providers: List[str]) -> List[str]:
-    available_locales: Set[str] = set()
+    available_locales = set()
 
     for provider_path in providers:
 
@@ -44,8 +44,7 @@ def find_available_locales(providers: List[str]) -> List[str]:
         if getattr(provider_module, 'localized', False):
             langs = list_module(provider_module)
             available_locales.update(langs)
-    available_locales: List[str] = sorted(available_locales)
-    return available_locales
+    return sorted(available_locales)
 
 
 def find_available_providers(modules: List[ModuleType]) -> List[str]:

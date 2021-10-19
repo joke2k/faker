@@ -103,7 +103,7 @@ FORBIDDEN_WORDS = {
 CURP_CHARACTERS = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
 
 
-def _reduce_digits(number):
+def _reduce_digits(number: int) -> int:
     """
     Sum of digits of a number until sum becomes single digit.
 
@@ -118,7 +118,7 @@ def _reduce_digits(number):
     return number % 9
 
 
-def ssn_checksum(digits):
+def ssn_checksum(digits: map) -> int:
     """
     Calculate the checksum for the mexican SSN (IMSS).
     """
@@ -128,7 +128,7 @@ def ssn_checksum(digits):
     ) % 10
 
 
-def curp_checksum(characters):
+def curp_checksum(characters: str) -> int:
     """
     Calculate the checksum for the mexican CURP.
     """
@@ -145,7 +145,7 @@ class Provider(BaseProvider):
     """
     ssn_formats = ("###########",)
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Mexican Social Security Number, as given by IMSS.
 
@@ -163,7 +163,7 @@ class Provider(BaseProvider):
 
         return num
 
-    def curp(self):
+    def curp(self) -> str:
         """
         See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n.
 
@@ -205,7 +205,7 @@ class Provider(BaseProvider):
 
         return random_curp
 
-    def rfc(self, natural=True):
+    def rfc(self, natural: bool = True) -> str:
         """
         See https://es.wikipedia.org/wiki/Registro_Federal_de_Contribuyentes
 

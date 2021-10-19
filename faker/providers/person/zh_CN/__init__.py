@@ -475,20 +475,20 @@ class Provider(PersonProvider):
         'Zhou', 'Zhu', 'Zou',
     )
 
-    def romanized_name(self):
+    def romanized_name(self) -> str:
         '''
         @example 'Chao Bai'
         '''
-        pattern = self.random_element(self.romanized_formats)
+        pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
-    def first_romanized_name(self):
+    def first_romanized_name(self) -> str:
         '''
         @example 'Chao'
         '''
         return self.random_element(self.first_romanized_names)
 
-    def last_romanized_name(self):
+    def last_romanized_name(self) -> str:
         '''
         @example 'Chao'
         '''

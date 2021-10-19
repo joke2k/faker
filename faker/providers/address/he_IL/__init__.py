@@ -614,8 +614,8 @@ class Provider(AddressProvider):
         "שתולים",
         "תלמי אליהו")
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.city_names)
 
-    def street_title(self):
+    def street_title(self) -> str:
         return self.random_element(self.street_titles)

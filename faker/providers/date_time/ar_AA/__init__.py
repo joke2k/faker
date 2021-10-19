@@ -1141,14 +1141,14 @@ class Provider(DateTimeProvider):
         'PM': 'م',
     }
 
-    def month_name(self):
+    def month_name(self) -> str:
         month = self.date('%m')
         return self.MONTH_NAMES[month]
 
-    def am_pm(self):
+    def am_pm(self) -> str:
         date = self.date('%p')
         return self.AM_PM[date]
 
-    def day_of_week(self):
+    def day_of_week(self) -> str:
         day = self.date('%w')
         return self.DAY_NAMES[day]

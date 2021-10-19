@@ -1,13 +1,15 @@
 import re
 
+from typing import Pattern
+
 import pytest
 
 
 class TestBarcodeProvider:
     """Test barcode provider methods"""
     num_samples = 1000
-    ean8_pattern = re.compile(r'\d{8}')
-    ean13_pattern = re.compile(r'\d{13}')
+    ean8_pattern: Pattern = re.compile(r'\d{8}')
+    ean13_pattern: Pattern = re.compile(r'\d{13}')
 
     def test_ean(self, faker, num_samples):
         for _ in range(num_samples):
@@ -82,8 +84,8 @@ def provider(faker, provider_class):
 
 
 class _LocaleCommonMixin:
-    ean8_pattern = re.compile(r'\d{8}')
-    ean13_pattern = re.compile(r'\d{13}')
+    ean8_pattern: Pattern = re.compile(r'\d{8}')
+    ean13_pattern: Pattern = re.compile(r'\d{13}')
 
     @staticmethod
     def assert_prefix(barcode_digits, prefixes):
@@ -131,8 +133,8 @@ class _LocaleCommonMixin:
 
 
 class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
-    upc_a_pattern = re.compile(r'\d{12}')
-    upc_e_pattern = re.compile(r'[01]\d{7}')
+    upc_a_pattern: Pattern = re.compile(r'\d{12}')
+    upc_e_pattern: Pattern = re.compile(r'[01]\d{7}')
 
     def test_upc_a(self, faker, num_samples):
         for _ in range(num_samples):

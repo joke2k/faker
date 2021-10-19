@@ -229,31 +229,31 @@ class Provider(AutomotiveProvider):
         '00#CD#', '00#D###', '00#T###',
     )
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate."""
-        pattern = self.random_element(self.license_plate_formats)
+        pattern: str = self.random_element(self.license_plate_formats)
         return self.generator.parse(pattern)
 
-    def plate_letter(self):
+    def plate_letter(self) -> str:
         """Generate a letter for license plates."""
         return self.random_element(self.license_plate_letters)
 
-    def plate_number(self):
+    def plate_number(self) -> str:
         """Generate a number for license plates."""
         return self.numerify(self.random_element(self.plate_number_formats))
 
-    def plate_number_extra(self):
+    def plate_number_extra(self) -> str:
         """Generate extra numerical code for license plates."""
         return self.numerify(self.random_element(self.plate_extra_formats))
 
-    def plate_number_special(self):
+    def plate_number_special(self) -> str:
         """Generate a special code for license plates."""
         return self.numerify(self.random_element(self.plate_special_formats))
 
-    def plate_suffix(self):
+    def plate_suffix(self) -> str:
         """Generate a suffix code for license plates."""
         return self.random_element(self.license_plate_suffix)
 
-    def vehicle_category(self):
+    def vehicle_category(self) -> str:
         """Generate a vehicle category code for license plates."""
         return self.random_element(self.vehicle_categories)

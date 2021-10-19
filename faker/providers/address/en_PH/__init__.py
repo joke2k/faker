@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from string import ascii_uppercase
+from typing import Sequence, Tuple, Union
 
 from .. import Provider as AddressProvider
 
@@ -357,7 +358,7 @@ class Provider(AddressProvider):
         (mindanao_province_address_formats, 0.239017),
     ])
 
-    def _ordinal_string(self, num):
+    def _ordinal_string(self, num: Union[int, str]) -> str:
         if isinstance(num, str):
             num = int(num)
         suffix = ['th', 'st', 'nd', 'rd', 'th'][min(num % 10, 4)]
@@ -365,109 +366,109 @@ class Provider(AddressProvider):
             suffix = 'th'
         return str(num) + suffix
 
-    def _create_postcode(self, postcodes):
+    def _create_postcode(self, postcodes: Sequence[int]) -> str:
         return f'{self.random_element(postcodes):04d}'
 
-    def _create_address(self, address_formats):
+    def _create_address(self, address_formats: Tuple[str]) -> str:
         return self.generator.parse(self.random_element(address_formats))
 
-    def metro_manila_postcode(self):
+    def metro_manila_postcode(self) -> str:
         return self._create_postcode(self.metro_manila_postcodes)
 
-    def luzon_province_postcode(self):
+    def luzon_province_postcode(self) -> str:
         return self._create_postcode(self.luzon_province_postcodes)
 
-    def visayas_province_postcode(self):
+    def visayas_province_postcode(self) -> str:
         return self._create_postcode(self.visayas_province_postcodes)
 
-    def mindanao_province_postcode(self):
+    def mindanao_province_postcode(self) -> str:
         return self._create_postcode(self.mindanao_province_postcodes)
 
-    def postcode(self):
+    def postcode(self) -> str:
         return self._create_postcode(self.postcodes)
 
-    def luzon_province(self):
+    def luzon_province(self) -> str:
         return self.random_element(self.luzon_provinces)
 
-    def visayas_province(self):
+    def visayas_province(self) -> str:
         return self.random_element(self.visayas_provinces)
 
-    def mindanao_province(self):
+    def mindanao_province(self) -> str:
         return self.random_element(self.mindanao_provinces)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def standalone_building_number(self):
+    def standalone_building_number(self) -> str:
         return str(self.random_int(min=1))
 
-    def partitioned_building_number(self):
-        pattern = self.lexify(
+    def partitioned_building_number(self) -> str:
+        pattern: str = self.lexify(
             self.random_element(self.partitioned_building_number_formats), letters=ascii_uppercase[:10],
         )
         return self.generator.parse(pattern)
 
-    def building_number(self):
+    def building_number(self) -> str:
         if self.random_int() % 2 == 0:
             return self.standalone_building_number()
         else:
             return self.partitioned_building_number()
 
-    def ordinal_street_number(self):
+    def ordinal_street_number(self) -> str:
         return self._ordinal_string(self.random_int(1, 99))
 
-    def floor_number(self):
+    def floor_number(self) -> str:
         return self.random_element(self.floor_numbers)
 
-    def ordinal_floor_number(self):
+    def ordinal_floor_number(self) -> str:
         return self._ordinal_string(self.floor_number())
 
-    def floor_unit_number(self):
+    def floor_unit_number(self) -> str:
         return f'{self.floor_number()}{self.random_int(1, 40):02d}'
 
-    def building_unit_number(self):
+    def building_unit_number(self) -> str:
         return self.generator.parse(self.random_element(self.building_unit_number_formats))
 
-    def building_name(self):
+    def building_name(self) -> str:
         return self.generator.parse(self.random_element(self.building_name_formats))
 
-    def building_name_suffix(self):
+    def building_name_suffix(self) -> str:
         return self.numerify(self.random_element(self.building_name_suffixes))
 
-    def subdivision_block_number(self):
+    def subdivision_block_number(self) -> str:
         return f'{self.random_int(1, 25):02d}'
 
-    def subdivision_lot_number(self):
+    def subdivision_lot_number(self) -> str:
         return f'{self.random_int(1, 99):02d}'
 
-    def subdivision_unit_number(self):
+    def subdivision_unit_number(self) -> str:
         return self.generator.parse(self.random_element(self.subdivision_unit_number_formats))
 
-    def subdivision_name(self):
+    def subdivision_name(self) -> str:
         return self.generator.parse(self.random_element(self.subdivision_name_formats))
 
-    def subdivision_name_suffix(self):
+    def subdivision_name_suffix(self) -> str:
         return self.numerify(self.random_element(self.subdivision_name_suffixes))
 
-    def metro_manila_lgu(self):
+    def metro_manila_lgu(self) -> str:
         return self.random_element(self.metro_manila_lgus)
 
-    def province_lgu(self):
+    def province_lgu(self) -> str:
         return self.random_element(self.province_lgus)
 
-    def metro_manila_address(self):
+    def metro_manila_address(self) -> str:
         return self._create_address(self.metro_manila_address_formats)
 
-    def luzon_province_address(self):
+    def luzon_province_address(self) -> str:
         return self._create_address(self.luzon_province_address_formats)
 
-    def visayas_province_address(self):
+    def visayas_province_address(self) -> str:
         return self._create_address(self.visayas_province_address_formats)
 
-    def mindanao_province_address(self):
+    def mindanao_province_address(self) -> str:
         return self._create_address(self.mindanao_province_address_formats)
 
-    def address(self):
+    def address(self) -> str:
         return self._create_address(self.random_element(self.address_formats))

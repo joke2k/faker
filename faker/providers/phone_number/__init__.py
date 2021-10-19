@@ -1,4 +1,4 @@
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 # Data source
 #
@@ -13,7 +13,7 @@ localized = True
 
 class Provider(BaseProvider):
 
-    country_calling_codes = (
+    country_calling_codes: ElementsType = (
         '+93', '+358 18', '+355', '+213', '+1 684', '+376', '+244', '+1 264',
         '+1 268', '+54', '+374', '+297', '+247', '+61', '+672 1', '+672', '+43',
         '+994', '+1 242', '+973', '+880', '+1 246', '+1 268', '+375', '+32',
@@ -54,18 +54,18 @@ class Provider(BaseProvider):
         '+260', '+255 24', '+263',
     )
 
-    formats = ('###-###-###',)
+    formats: ElementsType = ('###-###-###',)
 
-    msisdn_formats = (
+    msisdn_formats: ElementsType = (
         '#############',
     )
 
-    def phone_number(self):
+    def phone_number(self) -> str:
         return self.numerify(self.random_element(self.formats))
 
-    def country_calling_code(self):
+    def country_calling_code(self) -> str:
         return self.random_element(self.country_calling_codes)
 
-    def msisdn(self):
+    def msisdn(self) -> str:
         """ https://en.wikipedia.org/wiki/MSISDN """
         return self.numerify(self.random_element(self.msisdn_formats))

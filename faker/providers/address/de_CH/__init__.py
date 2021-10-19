@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as AddressProvider
 
 
@@ -20,14 +22,14 @@ class Provider(AddressProvider):
                ('SZ', 'Schwyz'), ('TG', 'Thurgau'), ('TI', 'Tessin'), ('UR', 'Uri'),
                ('VD', 'Waadt'), ('VS', 'Wallis'), ('ZG', 'Zug'), ('ZH', 'Zürich'))
 
-    def canton(self):
+    def canton(self) -> Tuple[str, str]:
         """
         Randomly returns a swiss canton ('Abbreviated', 'Name').
         :example ('ZH', 'Zürich')
         """
         return self.random_element(self.cantons)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         Randomly returns a Swiss canton name.
         :example 'Zürich'
@@ -36,7 +38,7 @@ class Provider(AddressProvider):
 
     canton_name = administrative_unit
 
-    def canton_code(self):
+    def canton_code(self) -> str:
         """
         Randomly returns a Swiss canton code.
         :example 'ZH'

@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as AddressProvider
 
 
@@ -260,27 +262,27 @@ class Provider(AddressProvider):
         ('SE', 'Sergipe'), ('TO', 'Tocantins'),
     )
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         """
         :example 'rua'
         """
         return self.random_element(self.street_prefixes)
 
-    def estado(self):
+    def estado(self) -> Tuple[str, str]:
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example ('MG' . 'Minas Gerais')
         """
         return self.random_element(self.estados)
 
-    def estado_nome(self):
+    def estado_nome(self) -> str:
         """
         Randomly returns a Brazilian State Name
         :example 'Minas Gerais'
         """
         return self.estado()[1]
 
-    def estado_sigla(self):
+    def estado_sigla(self) -> str:
         """
         Randomly returns the abbreviation of a Brazilian State
 
@@ -288,7 +290,7 @@ class Provider(AddressProvider):
         """
         return self.estado()[0]
 
-    def bairro(self):
+    def bairro(self) -> str:
         """
         Randomly returns a bairro (neighborhood) name.
         The names were taken from the city of Belo Horizonte - Minas Gerais
@@ -297,7 +299,7 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.bairros)
 
-    def postcode(self, formatted=True):
+    def postcode(self, formatted: bool = True) -> str:
         """
         Randomly returns a postcode.
         :param formatted: True to allow formatted postcodes, else False (default True)
@@ -308,13 +310,13 @@ class Provider(AddressProvider):
         return self.bothify(self.random_element(template))
 
     # aliases
-    def neighborhood(self):
+    def neighborhood(self) -> str:
         return self.bairro()
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.estado_nome()
 
     state = administrative_unit
 
-    def state_abbr(self):
+    def state_abbr(self) -> str:
         return self.estado_sigla()

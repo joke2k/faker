@@ -596,7 +596,7 @@ class Provider(AddressProvider):
         'सुदूरपश्चिम प्रदेश',
     )
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example सुदूरपश्चिम प्रदेश
         """
@@ -604,19 +604,19 @@ class Provider(AddressProvider):
 
     province = administrative_unit
 
-    def district(self):
+    def district(self) -> str:
         """
         :example अछाम
         """
         return self.random_element(self.districts)
 
-    def city(self):
+    def city(self) -> str:
         """
         :example कावासोती
         """
         return self.random_element(self.cities)
 
-    def building_prefix(self):
+    def building_prefix(self) -> str:
         """
         :example वडा
         """

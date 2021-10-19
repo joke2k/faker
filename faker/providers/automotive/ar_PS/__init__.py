@@ -41,7 +41,7 @@ class Provider(AutomotiveProvider):
         '3-####-5#',
     )
 
-    def district(self):
+    def district(self) -> str:
         """Generate a district code for license plates."""
         return self.random_element([
             # Gaza Strip
@@ -61,7 +61,7 @@ class Provider(AutomotiveProvider):
             '9',
         ])
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate."""
-        pattern = self.random_element(self.license_formats)
+        pattern: str = self.random_element(self.license_formats)
         return self.numerify(self.generator.parse(pattern))

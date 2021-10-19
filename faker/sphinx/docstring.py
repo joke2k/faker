@@ -4,6 +4,7 @@ import logging
 import re
 
 from collections import namedtuple
+from typing import Pattern
 
 from faker import Faker
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
@@ -11,15 +12,15 @@ from faker.sphinx.validator import SampleCodeValidator
 
 logger = logging.getLogger(__name__)
 _fake = Faker(AVAILABLE_LOCALES)
-_base_provider_method_pattern = re.compile(r'^faker\.providers\.BaseProvider\.(?P<method>\w+)$')
-_standard_provider_method_pattern = re.compile(r'^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$')
-_locale_provider_method_pattern = re.compile(
+_base_provider_method_pattern: Pattern = re.compile(r'^faker\.providers\.BaseProvider\.(?P<method>\w+)$')
+_standard_provider_method_pattern: Pattern = re.compile(r'^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$')
+_locale_provider_method_pattern: Pattern = re.compile(
     r'^faker\.providers\.\w+'
     r'\.(?P<locale>[a-z]{2,3}_[A-Z]{2})'
     r'\.Provider'
     r'\.(?P<method>\w+)$',
 )
-_sample_line_pattern = re.compile(
+_sample_line_pattern: Pattern = re.compile(
     r'^:sample'
     r'(?: size=(?P<size>[1-9][0-9]*))?'
     r'(?: seed=(?P<seed>[0-9]+))?'

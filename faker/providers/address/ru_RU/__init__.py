@@ -348,35 +348,37 @@ class Provider(AddressProvider):
         'Эсватини', 'Эстония', 'Эфиопия', 'ЮАР', 'Южный Судан', 'Ямайка', 'Япония',
     )
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.city_names)
 
-    def country(self):
+    def country(self) -> str:
         return self.random_element(self.countries)
 
-    def administrative_unit(self):
-        regions_suffix = self.random_element(self.region_suffixes)
+    def administrative_unit(self) -> str:
+        regions_suffix: str = self.random_element(self.region_suffixes)
         if regions_suffix == 'респ.':
-            return regions_suffix + ' ' + self.random_element(self.region_republics)
+            return f'{regions_suffix} {self.random_element(self.region_republics)}'
         elif regions_suffix == 'край':
-            return self.random_element(self.region_krai) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_krai)} {regions_suffix}'
         elif regions_suffix == 'обл.':
-            return self.random_element(self.region_oblast) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_oblast)} {regions_suffix}'
         elif regions_suffix == 'АО':
-            return self.random_element(self.region_ao) + ' ' + regions_suffix
+            return f'{self.random_element(self.region_ao)} {regions_suffix}'
+        else:
+            raise ValueError(f'Unknown region "{regions_suffix}"')
 
     region = administrative_unit
 
-    def street_suffix(self):
+    def street_suffix(self) -> str:
         return self.random_element(self.street_suffixes)
 
-    def street_title(self):
+    def street_title(self) -> str:
         return self.random_element(self.street_titles + self.street_titles_noflex)
 
-    def street_name(self):
+    def street_name(self) -> str:
         suffix = self.street_suffix()
         street = self.street_title()
         stem = street[:-2]
@@ -395,4 +397,4 @@ class Provider(AddressProvider):
                     result = self.street_titles_irregular_neu[street]
                 else:
                     result = stem + 'ое'
-        return suffix + ' ' + result
+        return f'{suffix} {result}'

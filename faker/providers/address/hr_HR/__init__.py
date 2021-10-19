@@ -164,13 +164,13 @@ class Provider(AddressProvider):
         "Wallis i Futuna", "Zambija", "Zapadna Sahara", "Zeleni Rt",
     )
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def street_name(self):
+    def street_name(self) -> str:
         return self.random_element(self.streets)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit

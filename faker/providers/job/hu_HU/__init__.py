@@ -1,4 +1,4 @@
-from .. import BaseProvider
+from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
@@ -413,5 +413,5 @@ class Provider(BaseProvider):
         'Szerszámköszörűs',
         'Építőipari szakmai irányító')
 
-    def job(self):
+    def job(self) -> str:
         return self.random_element(self.jobs)

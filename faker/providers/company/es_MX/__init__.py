@@ -141,28 +141,8 @@ class Provider(CompanyProvider):
     company_suffixes = ('A.C.', 'S.A.', 'S.A. de C.V.', 'S.C.',
                         'S. R.L. de C.V.', 'e Hijos', 'y Asociados')
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         """
         Ejemplo: Grupo
         """
         return self.random_element(self.company_preffixes)
-
-    def catch_phrase(self):
-        """
-        :example 'Robust full-range hub'
-        """
-        result = []
-        for word_list in self.catch_phrase_words:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)
-
-    def bs(self):
-        """
-        :example 'integrate extensible convergence'
-        """
-        result = []
-        for word_list in self.bsWords:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)

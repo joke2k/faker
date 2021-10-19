@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as CompanyProvider
 
 
@@ -51,36 +53,36 @@ class Provider(CompanyProvider):
         'de manière sûre',
         'en toute sécurité')
 
-    company_suffixes = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
+    company_suffixes: Tuple[str, ...] = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
 
     siren_format = "### ### ###"
 
-    def catch_phrase_noun(self):
+    def catch_phrase_noun(self) -> str:
         """
         Returns a random catch phrase noun.
         """
         return self.random_element(self.nouns)
 
-    def catch_phrase_attribute(self):
+    def catch_phrase_attribute(self) -> str:
         """
         Returns a random catch phrase attribute.
         """
         return self.random_element(self.attributes)
 
-    def catch_phrase_verb(self):
+    def catch_phrase_verb(self) -> str:
         """
         Returns a random catch phrase verb.
         """
         return self.random_element(self.verbs)
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'integrate extensible convergence'
         """
         catch_phrase = ""
         while True:
 
-            pattern = self.random_element(self.catch_phrase_formats)
+            pattern: str = self.random_element(self.catch_phrase_formats)
             catch_phrase = self.generator.parse(pattern)
             catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
 
@@ -92,7 +94,7 @@ class Provider(CompanyProvider):
     # An array containing string which should not appear twice in a catch phrase
     words_which_should_not_appear_twice = ('sécurité', 'simpl')
 
-    def _is_catch_phrase_valid(self, catch_phrase):
+    def _is_catch_phrase_valid(self, catch_phrase: str) -> bool:
         """
         Validates a french catch phrase.
 
@@ -108,13 +110,13 @@ class Provider(CompanyProvider):
 
         return True
 
-    def siren(self):
+    def siren(self) -> str:
         """
         Generates a siren number (9 digits).
         """
         return self.numerify(self.siren_format)
 
-    def siret(self, max_sequential_digits=2):
+    def siret(self, max_sequential_digits: int = 2) -> str:
         """
         Generates a siret number (14 digits).
         It is in fact the result of the concatenation of a siren number (9 digits),

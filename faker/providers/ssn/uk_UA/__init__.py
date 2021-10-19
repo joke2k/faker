@@ -4,7 +4,7 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Ukrainian "Реєстраційний номер облікової картки платника податків"
         also known as "Ідентифікаційний номер фізичної особи".

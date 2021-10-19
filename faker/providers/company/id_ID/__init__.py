@@ -23,5 +23,5 @@ class Provider(CompanyProvider):
         '(Persero) Tbk', 'Tbk',
     )
 
-    def company_prefix(self):
+    def company_prefix(self) -> str:
         return self.random_element(self.company_prefixes)

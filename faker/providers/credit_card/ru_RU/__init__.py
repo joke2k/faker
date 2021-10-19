@@ -1,8 +1,9 @@
 from collections import OrderedDict
+from typing import Optional
 
 from faker.providers.person.ru_RU import translit
 
-from .. import CreditCard
+from .. import CardType, CreditCard
 from .. import Provider as CreditCardProvider
 
 
@@ -36,19 +37,7 @@ class Provider(CreditCardProvider):
         ('unionpay', CreditCard('Union Pay', prefix_unionpay)),
     ))
 
-    def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
-        """Generate a credit card expiry date.
-
-        This method uses |date_time_between| under the hood to generate the
-        expiry date, so the ``start`` and ``end`` arguments work in the same way
-        here as it would in that method. For the actual formatting of the expiry
-        date, |strftime| is used and ``date_format`` is simply passed
-        to that method.
-        """
-        expire_date = self.generator.date_time_between(start, end)
-        return expire_date.strftime(date_format)
-
-    def credit_card_full(self, card_type=None):
+    def credit_card_full(self, card_type: Optional[CardType] = None) -> str:
         """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 

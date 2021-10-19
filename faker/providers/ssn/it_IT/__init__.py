@@ -13,7 +13,7 @@ CHECKSUM_TABLE = (
      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25))
 
 
-def checksum(value):
+def checksum(value: str) -> str:
     """
     Calculates the checksum char used for the 16th char.
     Author: Vincenzo Palazzo
@@ -28,7 +28,7 @@ class Provider(SsnProvider):
     """
     fiscal_code_format = '??????##?##?###'
 
-    def ssn(self):
+    def ssn(self) -> str:
         code = self.bothify(self.fiscal_code_format).upper()
         return code + checksum(code)
 
@@ -36,7 +36,7 @@ class Provider(SsnProvider):
         'IT###########',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Italian VAT ID

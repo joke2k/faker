@@ -1,6 +1,10 @@
+from typing import Tuple, Union
+
 from .. import BaseProvider
 
 localized = True
+
+PrefixType = Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...]
 
 
 class Provider(BaseProvider):
@@ -11,16 +15,16 @@ class Provider(BaseProvider):
     - https://gs1.org/standards/id-keys/company-prefix
     """
 
-    local_prefixes = ()
+    local_prefixes: PrefixType = ()
 
-    def _ean(self, length=13, prefixes=()):
+    def _ean(self, length: int = 13, prefixes: PrefixType = ()) -> str:
         if length not in (8, 13):
             raise AssertionError("length can only be 8 or 13")
 
         code = [self.random_digit() for _ in range(length - 1)]
 
         if prefixes:
-            prefix = self.random_element(prefixes)
+            prefix: str = self.random_element(prefixes)
             code[:len(prefix)] = map(int, prefix)
 
         if length == 8:
@@ -34,7 +38,7 @@ class Provider(BaseProvider):
 
         return ''.join(str(x) for x in code)
 
-    def ean(self, length=13, prefixes=()):
+    def ean(self, length: int = 13, prefixes: PrefixType = ()) -> str:
         """Generate an EAN barcode of the specified ``length``.
 
         The value of ``length`` can only be ``8`` or ``13`` (default) which will
@@ -50,7 +54,7 @@ class Provider(BaseProvider):
         """
         return self._ean(length, prefixes=prefixes)
 
-    def ean8(self, prefixes=()):
+    def ean8(self, prefixes: Tuple[()] = ()) -> str:
         """Generate an EAN-8 barcode.
 
         This method uses |ean| under the hood with the ``length`` argument
@@ -65,7 +69,7 @@ class Provider(BaseProvider):
         """
         return self._ean(8, prefixes=prefixes)
 
-    def ean13(self, prefixes=()):
+    def ean13(self, prefixes: PrefixType = ()) -> str:
         """Generate an EAN-13 barcode.
 
         This method uses |ean| under the hood with the ``length`` argument
@@ -85,7 +89,7 @@ class Provider(BaseProvider):
         """
         return self._ean(13, prefixes=prefixes)
 
-    def localized_ean(self, length=13):
+    def localized_ean(self, length: int = 13) -> str:
         """Generate a localized EAN barcode of the specified ``length``.
 
         The value of ``length`` can only be ``8`` or ``13`` (default) which will
@@ -101,7 +105,7 @@ class Provider(BaseProvider):
         """
         return self._ean(length, prefixes=self.local_prefixes)
 
-    def localized_ean8(self):
+    def localized_ean8(self) -> str:
         """Generate a localized EAN-8 barcode.
 
         This method uses |localized_ean| under the hood with the ``length``
@@ -109,7 +113,7 @@ class Provider(BaseProvider):
         """
         return self.localized_ean(8)
 
-    def localized_ean13(self):
+    def localized_ean13(self) -> str:
         """Generate a localized EAN-13 barcode.
 
         This method uses |localized_ean| under the hood with the ``length``

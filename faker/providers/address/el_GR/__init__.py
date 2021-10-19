@@ -54,28 +54,28 @@ class Provider(AddressProvider):
         "{{street_address}}, {{postcode}} {{city}}",
     )
 
-    def line_address(self):
-        pattern = self.random_element(self.line_address_formats)
+    def line_address(self) -> str:
+        pattern: str = self.random_element(self.line_address_formats)
         return self.generator.parse(pattern)
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         return self.random_element(
             self.street_prefixes_short +
             self.street_prefixes_long)
 
-    def street_prefix_short(self):
+    def street_prefix_short(self) -> str:
         return self.random_element(self.street_prefixes_short)
 
-    def street_prefix_long(self):
+    def street_prefix_long(self) -> str:
         return self.random_element(self.street_prefixes_long)
 
-    def street(self):
+    def street(self) -> str:
         return self.random_element(self.localities)
 
-    def city(self):
+    def city(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.regions)
 
     region = administrative_unit

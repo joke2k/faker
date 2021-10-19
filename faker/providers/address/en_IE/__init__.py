@@ -17,15 +17,15 @@ class Provider(AddressProvider):
         ('L', 'ACDEFHKNPRTVWXY'),
         ('A', 'ACDEFHKNPRTVWXY0123456789'),
     ))
-    postcode_pattern = "LNN AAAA"
+    postcode_pattern: str = "LNN AAAA"
 
-    def postcode(self):
+    def postcode(self) -> str:
         postcode = ''
         for placeholder in self.postcode_pattern:
             postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.counties)
 
     county = administrative_unit

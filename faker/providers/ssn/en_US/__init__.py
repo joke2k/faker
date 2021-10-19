@@ -1,3 +1,5 @@
+from typing import List
+
 from .. import Provider as BaseProvider
 
 
@@ -7,7 +9,7 @@ class Provider(BaseProvider):
     ITIN_TYPE = 'ITIN'
     EIN_TYPE = 'EIN'
 
-    def itin(self):
+    def itin(self) -> str:
         """Generate a random United States Individual Taxpayer Identification Number (ITIN).
 
         An United States Individual Taxpayer Identification Number
@@ -24,12 +26,12 @@ class Provider(BaseProvider):
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
-        group = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
+        group: int = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
 
         itin = f'{area:03d}-{group:02d}-{serial:04d}'
         return itin
 
-    def ein(self):
+    def ein(self) -> str:
         """Generate a random United States Employer Identification Number (EIN).
 
          An United States An Employer Identification Number (EIN) is
@@ -45,7 +47,7 @@ class Provider(BaseProvider):
         #
         # https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
 
-        ein_prefix_choices = [
+        ein_prefix_choices: List[str] = [
             '01',
             '02',
             '03',
@@ -130,13 +132,13 @@ class Provider(BaseProvider):
             '98',
             '99']
 
-        ein_prefix = self.random_element(ein_prefix_choices)
+        ein_prefix: str = self.random_element(ein_prefix_choices)
         sequence = self.random_int(min=0, max=9999999)
 
         ein = f'{ein_prefix:s}-{sequence:07d}'
         return ein
 
-    def invalid_ssn(self):
+    def invalid_ssn(self) -> str:
         """ Generate a random invalid United States Social Security Identification Number (SSN).
 
         Invalid SSNs have the following characteristics:
@@ -198,7 +200,7 @@ class Provider(BaseProvider):
         invalid_ssn = f'{area:03d}-{group:02d}-{serial:04d}'
         return invalid_ssn
 
-    def ssn(self, taxpayer_identification_number_type=SSN_TYPE):
+    def ssn(self, taxpayer_identification_number_type: str = SSN_TYPE) -> str:
         """ Generate a random United States Taxpayer Identification Number of the specified type.
 
         If no type is specified, a US SSN is returned.

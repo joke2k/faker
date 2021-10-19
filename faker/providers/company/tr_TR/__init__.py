@@ -18,7 +18,7 @@ class Provider(CompanyProvider):
         'A.Ş.', 'Ltd.', 'Şti.',
     )
 
-    def large_company(self):
+    def large_company(self) -> str:
         """
         :example: 'Peak Games'
         """

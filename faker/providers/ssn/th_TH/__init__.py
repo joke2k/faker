@@ -13,7 +13,7 @@ class Provider(BaseProvider):
     # Digits 6-12: Birth certificate number
     # Digit 13: Checksum
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Thai national ID
         """
@@ -51,7 +51,7 @@ class Provider(BaseProvider):
 
         return nat_id
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         Personal VAT ID is the same as national ID
         (Corporate VAT ID is different)
