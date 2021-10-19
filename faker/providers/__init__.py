@@ -2,12 +2,10 @@ import re
 import string
 
 from collections import OrderedDict
+from typing import Any, Dict, KeysView, List, Optional, Sequence, TypeVar, Union
 
-from typing import Any, Dict, KeysView, Optional, Sequence, TypeVar, Union
-
-from faker.generator import Generator
-from faker.utils.utils.distribution import choices_distribution, choices_distribution_unique
-
+from ..generator import Generator
+from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r'#')
 _re_perc = re.compile(r'%')
@@ -88,12 +86,11 @@ class BaseProvider:
         'zu': ('ZA',),
     }
 
-    def __init__(self, generator: Generator) -> None:
+    def __init__(self, generator: Any) -> None:
         """
         Base class for fake data providers
         :param generator: `Generator` instance
         """
-    def __init__(self, generator: Any) -> None:
         self.generator = generator
 
     def locale(self) -> str:
@@ -503,7 +500,7 @@ class DynamicProvider(BaseProvider):
         self,
         provider_name: str,
         elements: Optional[List] = None,
-        generator: Optional[Generator] = None,
+        generator: Optional[Any] = None,
     ):
         """
         A faker Provider capable of getting a list of elements to randomly select from,
@@ -536,10 +533,14 @@ class DynamicProvider(BaseProvider):
             raise ValueError("Provider name cannot start with __ as it would be ignored by Faker")
 
         self.provider_name = provider_name
-        self.elements = elements
+
+        self.elements = []
+        if elements:
+            self.elements = elements
+
         setattr(self, provider_name, self.get_random_value)  # Add a method for the provider_name value
 
-    def add_element(self, element: str):
+    def add_element(self, element: str) -> None:
         """Add new element."""
         self.elements.append(element)
 
