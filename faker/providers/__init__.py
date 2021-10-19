@@ -7,7 +7,6 @@ from typing import List, Optional
 from faker.generator import Generator
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 
-
 _re_hash = re.compile(r'#')
 _re_perc = re.compile(r'%')
 _re_excl = re.compile(r'!')
