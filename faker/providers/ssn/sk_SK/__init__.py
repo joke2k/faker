@@ -14,7 +14,7 @@ class Provider(BaseProvider):
 
     national_id_months = ['%.2d' % i for i in range(1, 13)] + ['%.2d' % i for i in range(51, 63)]
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: a random Slovakian VAT ID
@@ -22,14 +22,14 @@ class Provider(BaseProvider):
 
         return self.bothify(self.random_element(self.vat_id_formats))
 
-    def birth_number(self):
+    def birth_number(self) -> str:
         """
         Birth Number (Czech/Slovak: rodné číslo (RČ))
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia
         """
         birthdate = self.generator.date_of_birth()
         year = f'{birthdate:%y}'
-        month = self.random_element(self.national_id_months)
+        month: str = self.random_element(self.national_id_months)
         day = f'{birthdate:%d}'
         if birthdate.year > 1953:
             sn = self.random_number(4, True)

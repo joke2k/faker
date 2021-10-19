@@ -1,8 +1,10 @@
 import warnings
 
 from datetime import datetime
+from typing import Optional
 
-from .. import Provider as DateTimeProvider
+from ....typing import DateParseType
+from .. import Provider as DateParseTypeProvider
 
 # thai_strftime() code adapted from
 # https://gist.github.com/bact/b8afe49cb1ae62913e6c1e899dcddbdb
@@ -273,14 +275,14 @@ def thai_strftime(
     return thaidate_text
 
 
-class Provider(DateTimeProvider):
+class Provider(DateParseTypeProvider):
     def date(
         self,
         pattern: str = "%-d %b %Y",
-        end_datetime=None,
+        end_datetime: Optional[DateParseType] = None,
         thai_digit: bool = False,
         buddhist_era: bool = True,
-    ):
+    ) -> str:
         """
         Get a date string between January 1, 1970 and now
         :param pattern format
@@ -289,7 +291,7 @@ class Provider(DateTimeProvider):
         :param buddhist_era use Buddist era or not (default: True)
         :example '08 พ.ย. 2563'
         :example '๐๘ พ.ย. 2563' (thai_digit = True)
-        :example '8 พฤศิจกายน 2020' (pattern = "%-d %B %Y", buddhist_era = False)
+        :example '8 พฤศิจกายน 2020' (pattern: str = "%-d %B %Y", buddhist_era = False)
         """
         return thai_strftime(
             self.date_time(end_datetime=end_datetime),
@@ -299,8 +301,8 @@ class Provider(DateTimeProvider):
         )
 
     def time(
-        self, pattern="%H:%M:%S", end_datetime=None, thai_digit: bool = False,
-    ):
+        self, pattern: str = "%H:%M:%S", end_datetime: Optional[DateParseType] = None, thai_digit: bool = False,
+    ) -> str:
         """
         Get a time string (24h format by default)
         :param pattern format
@@ -310,12 +312,12 @@ class Provider(DateTimeProvider):
         :example '๑๕:๐๒:๓๔' (thai_digit = True)
         """
         return thai_strftime(
-            self.date_time(end_datetime=end_datetime).time(),
+            self.date_time(end_datetime=end_datetime),
             pattern,
             thai_digit,
         )
 
-    def century(self, thai_digit: bool = False, buddhist_era: bool = True):
+    def century(self, thai_digit: bool = False, buddhist_era: bool = True) -> str:
         """
         :param thai_digit use Thai digit or not (default: False)
         :param buddhist_era use Buddist era or not (default: True)

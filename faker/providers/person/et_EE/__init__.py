@@ -27,7 +27,7 @@ class Provider(PersonProvider):
     prefixes_neutral = ('doktor', 'dr', 'prof')
     prefixes_male = ('härra', 'hr') + prefixes_neutral
     prefixes_female = ('proua', 'pr') + prefixes_neutral
-    prefixes = set(prefixes_male + prefixes_female)
+    prefixes = list(set(prefixes_male + prefixes_female))
 
     suffixes = ('PhD', 'MSc', 'BSc')
 
@@ -64,9 +64,9 @@ class Provider(PersonProvider):
 
     first_names_rus = first_names_male_rus + first_names_female_rus
 
-    first_names_male = set(first_names_male_est + first_names_male_rus)
-    first_names_female = set(first_names_female_est + first_names_female_rus)
-    first_names = first_names_male | first_names_female
+    first_names_male = list(set(first_names_male_est + first_names_male_rus))
+    first_names_female = list(set(first_names_female_est + first_names_female_rus))
+    first_names = list(set(first_names_male) | set(first_names_female))
 
     # http://ekspress.delfi.ee/kuum/\
     # top-500-eesti-koige-levinumad-perekonnanimed?id=27677149
@@ -162,28 +162,28 @@ class Provider(PersonProvider):
                       'Vlassov', 'Volkov', 'Vorobjov', 'Voronin', 'Zahharov',
                       'Zaitsev', 'Zujev', 'Ševtšenko', 'Štšerbakov',
                       'Štšerbakov', 'Žukov', 'Žuravljov')
-    last_names = set(last_names_est + last_names_rus)
+    last_names = list(set(last_names_est + last_names_rus))
 
-    def first_name_male_est(self):
+    def first_name_male_est(self) -> str:
         return self.random_element(self.first_names_male_est)
 
-    def first_name_female_est(self):
+    def first_name_female_est(self) -> str:
         return self.random_element(self.first_names_female_est)
 
-    def first_name_male_rus(self):
+    def first_name_male_rus(self) -> str:
         return self.random_element(self.first_names_male_rus)
 
-    def first_name_female_rus(self):
+    def first_name_female_rus(self) -> str:
         return self.random_element(self.first_names_female_rus)
 
-    def first_name_est(self):
+    def first_name_est(self) -> str:
         return self.random_element(self.first_names_est)
 
-    def first_name_rus(self):
+    def first_name_rus(self) -> str:
         return self.random_element(self.first_names_rus)
 
-    def last_name_est(self):
+    def last_name_est(self) -> str:
         return self.random_element(self.last_names_est)
 
-    def last_name_rus(self):
+    def last_name_rus(self) -> str:
         return self.random_element(self.last_names_rus)

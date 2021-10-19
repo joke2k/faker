@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Dict
 
 from .. import Provider as PersonProvider
 
@@ -25,7 +26,7 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_male = OrderedDict((
+    formats_male: Dict[str, float] = OrderedDict((
         ('{{last_name}} {{first_name_male}}', 0.1),
         ('{{last_name}} {{last_name}} {{first_name_male}}', 0.1),
         ('{{last_name}} {{first_name_male}} {{first_name_male}}', 0.1),
@@ -38,7 +39,7 @@ class Provider(PersonProvider):
         ('{{prefix}} {{last_name}} {{first_name_male_abbreviated}} {{first_name_male}}', 0.05),
     ))
 
-    formats_female = OrderedDict((
+    formats_female: Dict[str, float] = OrderedDict((
         ('{{last_name}} {{first_name_female}}', 0.1),
         ('{{last_name}} {{last_name}} {{first_name_female}}', 0.1),
         ('{{last_name}} {{first_name_female}} {{first_name_female}}', 0.1),
@@ -63,7 +64,7 @@ class Provider(PersonProvider):
         ('{{last_name}}né {{prefix}} {{last_name}} {{first_name_female}} {{first_name_female}}', 0.05),
     ))
 
-    formats = formats_male.copy()
+    formats: Dict[str, float] = formats_male.copy()
     formats.update(formats_female)
 
     last_names = OrderedDict((
@@ -103,7 +104,7 @@ class Provider(PersonProvider):
         ("Sárközi", 0.00298),
     ))
 
-    first_names_male = OrderedDict((
+    first_names_male: Dict[str, float] = OrderedDict((
         ("László", 0.06640477), ("István", 0.060906051),
         ("József", 0.054476881), ("János", 0.047506017),
         ("Zoltán", 0.045579697), ("Sándor", 0.037170944),
@@ -156,7 +157,7 @@ class Provider(PersonProvider):
         ("Tivadar", 0.000786573), ("Henrik", 0.000758063),
     ))
 
-    first_names_female = OrderedDict((
+    first_names_female: Dict[str, float] = OrderedDict((
         ("Mária", 0.076200074), ("Erzsébet", 0.058002384),
         ("Katalin", 0.0429636), ("Éva", 0.039004017),
         ("Ilona", 0.038027669), ("Anna", 0.030819538),
@@ -209,13 +210,13 @@ class Provider(PersonProvider):
         ("Gréta", 0.002515835), ("Rebeka", 0.002513351),
     ))
 
-    first_names = first_names_male.copy()
+    first_names: Dict[str, float] = first_names_male.copy()
     first_names.update(first_names_female)
 
-    prefixes = OrderedDict((("Dr.", 0.95), ("Prof. Dr.", 0.05)))
+    prefixes: Dict[str, float] = OrderedDict((("Dr.", 0.95), ("Prof. Dr.", 0.05)))
 
-    def first_name_male_abbreviated(self):
-        return self.random_element(self.first_names_male)[0] + "."
+    def first_name_male_abbreviated(self) -> str:
+        return self.random_element(self.first_names_male)[0] + "."  # type: ignore
 
-    def first_name_female_abbreviated(self):
-        return self.random_element(self.first_names_female)[0] + "."
+    def first_name_female_abbreviated(self) -> str:
+        return self.random_element(self.first_names_female)[0] + "."  # type: ignore

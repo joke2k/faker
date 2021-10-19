@@ -2,6 +2,8 @@
 
 import re
 
+from typing import Optional
+
 from .. import Provider as AutomotiveProvider
 
 
@@ -89,7 +91,7 @@ class Provider(AutomotiveProvider):
         "ZA",  # Zamora
     )
 
-    def license_plate_unified(self):
+    def license_plate_unified(self) -> str:
         """Generate a unified license plate."""
         temp = re.sub(r'\?',
                       lambda x: self.random_element(
@@ -97,7 +99,7 @@ class Provider(AutomotiveProvider):
                       self.license_formats[0])
         return self.numerify(temp)
 
-    def license_plate_by_province(self, province_prefix=None):
+    def license_plate_by_province(self, province_prefix: Optional[str] = None) -> str:
         """Generate a provincial license plate.
 
         If a value for ``province_prefix`` is provided, the value will be used
@@ -112,7 +114,7 @@ class Provider(AutomotiveProvider):
                       "#### ??")
         return province_prefix + " " + self.numerify(temp)
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate.
 
         This method randomly chooses (50/50) between |license_plate_unified|

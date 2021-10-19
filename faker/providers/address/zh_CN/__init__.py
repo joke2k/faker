@@ -74,16 +74,16 @@ class Provider(AddressProvider):
         "也门", "南斯拉夫", "扎伊尔", "赞比亚", "桑给巴尔", "津巴布韦", "中华人民共和国", "中国",
     )
 
-    def building_number(self):
+    def building_number(self) -> str:
         return self.lexify(self.random_element(self.building_number_formats))
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def district(self):
+    def district(self) -> str:
         return self.random_element(self.districts)

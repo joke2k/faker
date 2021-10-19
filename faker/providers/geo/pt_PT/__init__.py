@@ -20,7 +20,7 @@ class Provider(GeoProvider):
         "Monegasca", "Maliana", "Mongol", "Mauritana", "Malaia", "Panamiana", "Saudita", "Singapurense", "Togolesa",
     )
 
-    def nationality(self):
+    def nationality(self) -> str:
         """
         :example 'Portuguesa'
         """

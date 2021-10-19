@@ -36,14 +36,14 @@ class Provider(InternetProvider):
     )
 
     @slugify
-    def domain_word(self):
-        pattern = self.random_element(self.domain_formats)
+    def domain_word(self) -> str:
+        pattern: str = self.random_element(self.domain_formats)
         if '#' in pattern or '?' in pattern:
             return self.bothify(pattern)
         else:
             return self.generator.parse(pattern)
 
-    def domain_name(self, levels=1):
+    def domain_name(self, levels: int = 1) -> str:
         if levels < 1:
             raise ValueError("levels must be greater than or equal to 1")
         if levels == 1:
@@ -55,7 +55,7 @@ class Provider(InternetProvider):
         elif levels == 2:
             my_tld = self.tld()
             if my_tld == 'cn':
-                my_second_level = self.random_element(self.second_level_domains)
+                my_second_level: str = self.random_element(self.second_level_domains)
             else:
                 my_second_level = self.domain_word()
             return self.domain_word() + '.' + my_second_level + '.' + my_tld

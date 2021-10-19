@@ -114,18 +114,18 @@ class Provider(CompanyProvider):
         'Prime',
     )
 
-    def company_type(self):
+    def company_type(self) -> str:
         return self.random_element(self.company_types)
 
-    def random_company_adjective(self):
+    def random_company_adjective(self) -> str:
         return self.random_element(self.company_adjectives)
 
-    def random_company_noun_chain(self):
+    def random_company_noun_chain(self) -> str:
         return ' '.join(self.random_elements(self.company_nouns, length=self.random_int(1, 2), unique=True))
 
-    def random_company_product(self):
+    def random_company_product(self) -> str:
         return self.random_element(self.company_products)
 
-    def random_company_acronym(self):
+    def random_company_acronym(self) -> str:
         letters = self.random_letters(self.random_int(2, 4))
         return ''.join(letters).upper()

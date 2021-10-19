@@ -1,18 +1,20 @@
-from .. import BaseProvider
+from typing import Tuple
+
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
-    formats = (
+    formats: ElementsType = (
         '{{last_name}} {{company_suffix}}',
         '{{last_name}}-{{last_name}}',
         '{{last_name}}, {{last_name}} and {{last_name}}',
     )
 
-    company_suffixes = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
+    company_suffixes: ElementsType = ('Inc', 'and Sons', 'LLC', 'Group', 'PLC', 'Ltd')
 
-    catch_phrase_words = (
+    catch_phrase_words: Tuple[ElementsType, ...] = (
         ('Adaptive',
          'Advanced',
          'Ameliorated',
@@ -319,7 +321,7 @@ class Provider(BaseProvider):
          'website',
          'workforce'))
 
-    bsWords = (
+    bsWords: Tuple[ElementsType, ...] = (
         ('implement',
          'utilize',
          'integrate',
@@ -489,35 +491,27 @@ class Provider(BaseProvider):
          'web services',
          'methodologies'))
 
-    def company(self):
+    def company(self) -> str:
         """
         :example 'Acme Ltd'
         """
-        pattern = self.random_element(self.formats)
+        pattern: str = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    def company_suffix(self):
+    def company_suffix(self) -> str:
         """
         :example 'Ltd'
         """
         return self.random_element(self.company_suffixes)
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'Robust full-range hub'
         """
-        result = []
-        for word_list in self.catch_phrase_words:
-            result.append(self.random_element(word_list))
+        return ' '.join([self.random_element(word_list) for word_list in self.catch_phrase_words])
 
-        return " ".join(result)
-
-    def bs(self):
+    def bs(self) -> str:
         """
         :example 'integrate extensible convergence'
         """
-        result = []
-        for word_list in self.bsWords:
-            result.append(self.random_element(word_list))
-
-        return " ".join(result)
+        return ' '.join([self.random_element(word_list) for word_list in self.bsWords])

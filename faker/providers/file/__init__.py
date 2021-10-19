@@ -1,14 +1,15 @@
 import string
 
 from collections import OrderedDict
+from typing import Dict, Optional
 
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 
 class Provider(BaseProvider):
     """Implement default file provider for Faker."""
 
-    application_mime_types = (
+    application_mime_types: ElementsType = (
 
         "application/atom+xml",  # Atom feeds
         "application/ecmascript",
@@ -49,7 +50,7 @@ class Provider(BaseProvider):
         "application/gzip",         # Gzip, Defined in RFC 6713
     )
 
-    audio_mime_types = (
+    audio_mime_types: ElementsType = (
         "audio/basic",  # mulaw audio at 8 kHz, 1 channel; Defined in RFC 2046
         "audio/L24",  # 24bit Linear PCM audio at 8-48 kHz, 1-N channels; Defined in RFC 3190
         "audio/mp4",  # MP4 audio
@@ -62,7 +63,7 @@ class Provider(BaseProvider):
         "audio/webm",               # WebM open media format
     )
 
-    image_mime_types = (
+    image_mime_types: ElementsType = (
         "image/gif",  # GIF image; Defined in RFC 2045 and RFC 2046
         "image/jpeg",  # JPEG JFIF image; Defined in RFC 2045 and RFC 2046
         "image/pjpeg",
@@ -76,7 +77,7 @@ class Provider(BaseProvider):
         "image/vnd.microsoft.icon",  # ICO image; Registered[11]
     )
 
-    message_mime_types = (
+    message_mime_types: ElementsType = (
         "message/http",  # Defined in RFC 2616
         "message/imdn+xml",  # IMDN Instant Message Disposition Notification; Defined in RFC 5438
         "message/partial",  # Email; Defined in RFC 2045 and RFC 2046
@@ -85,7 +86,7 @@ class Provider(BaseProvider):
         "message/rfc822",
     )
 
-    model_mime_types = (
+    model_mime_types: ElementsType = (
         "model/example",  # Defined in RFC 4735
         "model/iges",  # IGS files, IGES files; Defined in RFC 2077
         "model/mesh",  # MSH files, MESH files; Defined in RFC 2077, SILO files
@@ -97,7 +98,7 @@ class Provider(BaseProvider):
         "model/x3d+xml",  # X3D ISO standard for representing 3D computer graphics, X3D XML files
     )
 
-    multipart_mime_types = (
+    multipart_mime_types: ElementsType = (
         "multipart/mixed",  # MIME Email; Defined in RFC 2045 and RFC 2046
         "multipart/alternative",  # MIME Email; Defined in RFC 2045 and RFC 2046
         # MIME Email; Defined in RFC 2387 and used by MHTML (HTML mail)
@@ -107,7 +108,7 @@ class Provider(BaseProvider):
         "multipart/encrypted",  # Defined in RFC 1847
     )
 
-    text_mime_types = (
+    text_mime_types: ElementsType = (
         "text/cmd",  # commands; subtype resident in Gecko browsers like Firefox 3.5
         "text/css",  # Cascading Style Sheets; Defined in RFC 2318
         "text/csv",  # Comma-separated values; Defined in RFC 4180
@@ -123,7 +124,7 @@ class Provider(BaseProvider):
         "text/xml",  # Extensible Markup Language; Defined in RFC 3023
     )
 
-    video_mime_types = (
+    video_mime_types: ElementsType = (
         "video/mpeg",  # MPEG-1 video with multiplexed audio; Defined in RFC 2045 and RFC 2046
         "video/mp4",  # MP4 video; Defined in RFC 4337
         # Ogg Theora or other video (with audio); Defined in RFC 5334
@@ -135,7 +136,7 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types = OrderedDict((
+    mime_types: Dict[str, ElementsType] = OrderedDict((
         ('application', application_mime_types),
         ('audio', audio_mime_types),
         ('image', image_mime_types),
@@ -146,13 +147,13 @@ class Provider(BaseProvider):
         ('video', video_mime_types),
     ))
 
-    audio_file_extensions = (
+    audio_file_extensions: ElementsType = (
         "flac",
         "mp3",
         "wav",
     )
 
-    image_file_extensions = (
+    image_file_extensions: ElementsType = (
         "bmp",
         "gif",
         "jpeg",
@@ -161,7 +162,7 @@ class Provider(BaseProvider):
         "tiff",
     )
 
-    text_file_extensions = (
+    text_file_extensions: ElementsType = (
         "css",
         "csv",
         "html",
@@ -170,14 +171,14 @@ class Provider(BaseProvider):
         "txt",
     )
 
-    video_file_extensions = (
+    video_file_extensions: ElementsType = (
         "mp4",
         "avi",
         "mov",
         "webm",
     )
 
-    office_file_extensions = (
+    office_file_extensions: ElementsType = (
         "doc",  # legacy MS Word
         "docx",  # MS Word
         "xls",  # legacy MS Excel
@@ -193,16 +194,16 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions = OrderedDict((
+    file_extensions: Dict[str, ElementsType] = OrderedDict((
         ("audio", audio_file_extensions),
         ("image", image_file_extensions),
         ("office", office_file_extensions),
         ("text", text_file_extensions),
         ("video", video_file_extensions),
     ))
-    unix_device_prefixes = ('sd', 'vd', 'xvd')
+    unix_device_prefixes: ElementsType = ('sd', 'vd', 'xvd')
 
-    def mime_type(self, category=None):
+    def mime_type(self, category: Optional[str] = None) -> str:
         """Generate a mime type under the specified ``category``.
 
         If ``category`` is ``None``, a random category will be used. The list of
@@ -217,7 +218,7 @@ class Provider(BaseProvider):
             list(self.mime_types.keys()))
         return self.random_element(self.mime_types[category])
 
-    def file_name(self, category=None, extension=None):
+    def file_name(self, category: Optional[str] = None, extension: Optional[str] = None) -> str:
         """Generate a random file name with extension.
 
         If ``extension`` is ``None``, a random extension will be created under
@@ -231,11 +232,12 @@ class Provider(BaseProvider):
         :sample: extension='abcdef'
         :sample: category='audio', extension='abcdef'
         """
-        extension = extension if extension else self.file_extension(category)
-        filename = self.generator.word()
+        if extension is None:
+            extension = self.file_extension(category)
+        filename: str = self.generator.word()
         return f'{filename}.{extension}'
 
-    def file_extension(self, category=None):
+    def file_extension(self, category: Optional[str] = None) -> str:
         """Generate a file extension under the specified ``category``.
 
         If ``category`` is ``None``, a random category will be used. The list of
@@ -245,11 +247,11 @@ class Provider(BaseProvider):
         :sample:
         :sample: category='image'
         """
-        category = category if category else self.random_element(
-            list(self.file_extensions.keys()))
+        if category is None:
+            category = self.random_element(list(self.file_extensions.keys()))
         return self.random_element(self.file_extensions[category])
 
-    def file_path(self, depth=1, category=None, extension=None):
+    def file_path(self, depth: int = 1, category: Optional[str] = None, extension: Optional[str] = None) -> str:
         """Generate an absolute pathname to a file.
 
         This method uses |file_name| under the hood to generate the file name
@@ -261,13 +263,13 @@ class Provider(BaseProvider):
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
         """
-        file = self.file_name(category, extension)
-        path = f'/{file}'
+        file: str = self.file_name(category, extension)
+        path: str = f'/{file}'
         for _ in range(0, depth):
             path = f'/{self.generator.word()}{path}'
         return path
 
-    def unix_device(self, prefix=None):
+    def unix_device(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix device file name.
 
         If ``prefix`` is ``None``, a random prefix will be used. The list of
@@ -276,12 +278,13 @@ class Provider(BaseProvider):
         :sample:
         :sample: prefix='mmcblk'
         """
-        prefix = prefix or self.random_element(self.unix_device_prefixes)
-        suffix = self.random_element(string.ascii_lowercase)
+        if prefix is None:
+            prefix = self.random_element(self.unix_device_prefixes)
+        suffix: str = self.random_element(string.ascii_lowercase)
         path = '/dev/%s%s' % (prefix, suffix)
         return path
 
-    def unix_partition(self, prefix=None):
+    def unix_partition(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix partition name.
 
         This method uses |unix_device| under the hood to create a device file
@@ -290,6 +293,6 @@ class Provider(BaseProvider):
         :sample:
         :sample: prefix='mmcblk'
         """
-        path = self.unix_device(prefix=prefix)
+        path: str = self.unix_device(prefix=prefix)
         path += str(self.random_digit())
         return path

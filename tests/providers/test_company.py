@@ -1,10 +1,12 @@
 import re
 
 from datetime import datetime
+from typing import Pattern
 from unittest.mock import patch
 
 import pytest
 
+from faker.providers.company.el_GR import Provider as ElGrCompanyProvider
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
 from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
@@ -208,7 +210,7 @@ class TestEnPh:
         cls.company_types = EnPhCompanyProvider.company_types
         cls.company_suffixes = EnPhCompanyProvider.company_suffixes.keys()
         cls.company_products = EnPhCompanyProvider.company_products
-        cls.national_corporation_pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
+        cls.national_corporation_pattern: Pattern = re.compile(r'^National (.*?) Corporation of the Philippines$')
 
     def test_random_company_noun_chain(self, faker, num_samples):
         for _ in range(num_samples):
@@ -421,3 +423,13 @@ class TestRoRo:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in RoRoCompanyProvider.company_suffixes
+
+
+class TestElGr:
+    """Test el_GR company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ElGrCompanyProvider.company_suffixes

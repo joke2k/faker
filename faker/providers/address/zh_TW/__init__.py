@@ -87,25 +87,25 @@ class Provider(AddressProvider):
                  "羅馬尼亞", "葉門", "俄羅斯", "尚比亞", "盧安達", "辛巴威",
                  "聖克里斯多福及尼維斯")
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.numerify(
             self.random_element(
                 self.secondary_address_formats))
 
-    def building_number(self):
+    def building_number(self) -> str:
         return self.numerify(self.random_element(self.building_number_formats))
 
-    def street_name(self):
+    def street_name(self) -> str:
         return self.random_element(self.street_names)
 
-    def street_name_suffix(self):
+    def street_name_suffix(self) -> str:
         return self.random_element(self.street_suffixes)
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def city_name_suffix(self):
+    def city_name_suffix(self) -> str:
         return self.random_element(self.city_suffixes)
 
-    def section_number(self):
+    def section_number(self) -> str:
         return self.numerify(self.random_element(self.section_formats))

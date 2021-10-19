@@ -1,12 +1,40 @@
 ## Changelog
 
+### [v9.4.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.3.1...v9.4.0)
+
+* Add Typing. Thanks @MarcelRobeer, @nicarl.
+
+### [v9.3.1 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.3.0...v9.3.1)
+
+*  Change to secondary address format in ``en_AU`` locale to reflect the common usage. Thanks @deboraelkin2.
+
+### [v9.3.0 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.2.0...v9.3.0)
+
+* Add ``currency``, ``automotive``, ``company`` and ``bank`` providers for ``el_GR``. Thanks @nikosmichas.
+
+### [v9.2.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.2.0)
+
+* Add ``color`` and ``date_time`` provider for ``el_GR``. Thanks @nikosmichas.
+
+### [v9.1.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.1...v9.1.0)
+
+* Add currency provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v9.0.1 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.0...v9.0.1)
+
+* Fix ``pydecimal`` returning ``min_value`` or ``max_value`` too frequently. Thanks @zivkovic.
+
+### [v9.0.0 - 2021-10-06](https://github.com/joke2k/faker/compare/v8.16.0...v9.0.0)
+
+* Change default email generator to use safe domain names. Thanks @errbufferoverfl.
+
 ### [v8.16.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.15.0...v8.16.0)
 
 * Add ``date_time`` provider for ``nl_NL``. Thanks @MarcelRobeer.
 
 ### [v8.15.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.2...v8.15.0)
 
-* Added ``bg_BG`` color provider. Thanks @iradonov.
+* Add ``bg_BG`` color provider. Thanks @iradonov.
 
 ### [v8.14.2 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.1...v8.14.2)
 

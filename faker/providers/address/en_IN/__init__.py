@@ -392,10 +392,10 @@ class Provider(AddressProvider):
         'West Bengal',
     )
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit

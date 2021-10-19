@@ -411,10 +411,10 @@ class Provider(AddressProvider):
         'மொன்செராட்',
     )
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.cities)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit

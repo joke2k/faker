@@ -3,7 +3,7 @@ from .. import Provider as SsnProvider
 
 class Provider(SsnProvider):
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Returns a 9 digits Dutch SSN called "burgerservicenummer (BSN)".
 
@@ -39,7 +39,7 @@ class Provider(SsnProvider):
         'NL#########B##',
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Dutch VAT ID

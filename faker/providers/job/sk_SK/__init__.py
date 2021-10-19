@@ -509,5 +509,5 @@ class Provider(JobProvider):
         'Špeditér',
         'Šľachtiteľ rastlín / genetik')
 
-    def job(self):
+    def job(self) -> str:
         return self.random_element(self.jobs)

@@ -1110,5 +1110,5 @@ class Provider(CompanyProvider):
         'الک تیک',
     ]
 
-    def company(self):
+    def company(self) -> str:
         return self.random_element(self.company_names)

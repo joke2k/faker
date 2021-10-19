@@ -1,5 +1,7 @@
 import re
 
+from typing import Pattern
+
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
@@ -24,7 +26,7 @@ class _SimpleAutomotiveTestMixin:
 
 class TestSkSk(_SimpleAutomotiveTestMixin):
     """Test sk_SK automotive provider methods"""
-    license_plate_pattern = re.compile(r'(?P<prefix>[A-Z]{2})\d{3}[A-Z]{2}')
+    license_plate_pattern: Pattern = re.compile(r'(?P<prefix>[A-Z]{2})\d{3}[A-Z]{2}')
 
     def perform_extra_checks(self, license_plate, match):
         assert match.group('prefix') in SkSkAutomotiveProvider.license_plate_prefix
@@ -32,12 +34,12 @@ class TestSkSk(_SimpleAutomotiveTestMixin):
 
 class TestPtBr(_SimpleAutomotiveTestMixin):
     """Test pt_BR automotive provider methods"""
-    license_plate_pattern = re.compile(r'[A-Z]{3}-\d{4}')
+    license_plate_pattern: Pattern = re.compile(r'[A-Z]{3}-\d{4}')
 
 
 class TestPtPt(_SimpleAutomotiveTestMixin):
     """Test pt_PT automotive provider methods"""
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'\d{2}-\d{2}-[A-Z]{2}|'
         r'\d{2}-[A-Z]{2}-\d{2}|'
         r'[A-Z]{2}-\d{2}-\d{2}|'
@@ -46,17 +48,17 @@ class TestPtPt(_SimpleAutomotiveTestMixin):
 
 
 class TestHeIl(_SimpleAutomotiveTestMixin):
-    license_plate_pattern = re.compile(r'(\d{3}-\d{2}-\d{3})|(\d{2}-\d{3}-\d{2})')
+    license_plate_pattern: Pattern = re.compile(r'(\d{3}-\d{2}-\d{3})|(\d{2}-\d{3}-\d{2})')
 
 
 class TestHuHu(_SimpleAutomotiveTestMixin):
     """Test hu_HU automotive provider methods"""
-    license_plate_pattern = re.compile(r'[A-Z]{3}-\d{3}')
+    license_plate_pattern: Pattern = re.compile(r'[A-Z]{3}-\d{3}')
 
 
 class TestDeDe(_SimpleAutomotiveTestMixin):
     """Test de_DE automotive provider methods"""
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'(?P<prefix>[A-Z\u00D6\u00DC]{1,3})-[A-Z]{1,2}-[1-9]{1,4}',
         re.UNICODE,
     )
@@ -67,13 +69,13 @@ class TestDeDe(_SimpleAutomotiveTestMixin):
 
 class TestSvSe(_SimpleAutomotiveTestMixin):
     """Test sv_SE automotive provider methods"""
-    license_plate_pattern = re.compile(r'[A-Z]{3} \d{2}[\dA-Z]')
+    license_plate_pattern: Pattern = re.compile(r'[A-Z]{3} \d{2}[\dA-Z]')
 
 
 class TestPlPl:
 
     def test_License_plate(self, faker, num_samples):
-        pattern = re.compile(r'{patterns}'.format(patterns='|'.join(faker.license_plate_regex_formats())))
+        pattern: Pattern = re.compile(r'{patterns}'.format(patterns='|'.join(faker.license_plate_regex_formats())))
         for _ in range(num_samples):
             plate = faker.license_plate()
             assert pattern.fullmatch(plate)
@@ -81,9 +83,9 @@ class TestPlPl:
 
 class TestEnPh(_SimpleAutomotiveTestMixin):
     """Test en_PH automotive provider methods"""
-    license_plate_pattern = re.compile(r'[A-Z]{2}\d{4,5}|[A-Z]{3}\d{3,4}')
-    motorcycle_pattern = re.compile(r'[A-Z]{2}\d{4,5}')
-    automobile_pattern = re.compile(r'[A-Z]{3}\d{3,4}')
+    license_plate_pattern: Pattern = re.compile(r'[A-Z]{2}\d{4,5}|[A-Z]{3}\d{3,4}')
+    motorcycle_pattern: Pattern = re.compile(r'[A-Z]{2}\d{4,5}')
+    automobile_pattern: Pattern = re.compile(r'[A-Z]{3}\d{3,4}')
 
     def test_motorcycle_plate(self, faker, num_samples):
         for _ in range(num_samples):
@@ -112,7 +114,7 @@ class TestTlPh(TestEnPh):
 class TestRuRu(_SimpleAutomotiveTestMixin):
     """Test ru_RU automotive provider methods"""
     _plate_letters = ''.join(RuRuAutomotiveProvider.license_plate_letters)
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'(?:'
         r'(?P<private_plate_prefix>[{0}]\d\d\d[{0}][{0}])|'
         r'(?P<public_transport_plate_prefix>[{0}][{0}]\d\d\d)|'
@@ -136,18 +138,18 @@ class TestRuRu(_SimpleAutomotiveTestMixin):
 
 class TestFrFr(_SimpleAutomotiveTestMixin):
     """Test fr_FR automotive provider methods"""
-    license_plate_pattern = re.compile(r'\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}')
+    license_plate_pattern: Pattern = re.compile(r'\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}')
 
 
 class TestNoNo(_SimpleAutomotiveTestMixin):
     """Test no_NO automotive provider methods"""
-    license_plate_pattern = re.compile(r'[A-Z]{2} \d{5}')
+    license_plate_pattern: Pattern = re.compile(r'[A-Z]{2} \d{5}')
 
 
 class TestEsEs:
     """Test es_ES automotive provider methods"""
-    new_format_pattern = re.compile(r'\d{4}\s[A-Z]{3}')
-    old_format_pattern = re.compile(r'(?P<province_prefix>[A-Z]{1,2})\s\d{4}\s[A-Z]{2}')
+    new_format_pattern: Pattern = re.compile(r'\d{4}\s[A-Z]{3}')
+    old_format_pattern: Pattern = re.compile(r'(?P<province_prefix>[A-Z]{1,2})\s\d{4}\s[A-Z]{2}')
 
     def test_plate_new_format(self, faker, num_samples):
         for _ in range(num_samples):
@@ -179,7 +181,7 @@ class TestEsEs:
 
 class TestThTh(_SimpleAutomotiveTestMixin):
     """Test th_TH automotive provider methods"""
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'(\d [ก-ฮ]{2} \d{1,4})|'  # car
         r'([ก-ฮ]{2} \d{1,4})|'  # car
         r'([ก-ฮ]{3} \d{1,3})|'  # motorcycle
@@ -189,7 +191,7 @@ class TestThTh(_SimpleAutomotiveTestMixin):
 
 class TestTrTr(_SimpleAutomotiveTestMixin):
     """Test tr_TR automotive provider methods"""
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'\d{2} [A-Z] \d{4}|'
         r'\d{2} [A-Z] \d{5}|'
         r'\d{2} [A-Z]{2} \d{3}|'
@@ -206,8 +208,14 @@ class TestTrTr(_SimpleAutomotiveTestMixin):
 
 class TestRoRo(_SimpleAutomotiveTestMixin):
     """Test ro_RO automotive provider methods"""
-    license_plate_pattern = re.compile(
+    license_plate_pattern: Pattern = re.compile(
         r'(?P<prefix>[A-Z]{1,2})-\d{2,3}-[A-Z]{3}')
 
     def perform_extra_checks(self, license_plate, match):
         assert match.group('prefix') in RoRoAutomotiveProvider.license_plate_prefix
+
+
+class TestElGr(_SimpleAutomotiveTestMixin):
+    """Test el_GR automotive provider methods"""
+
+    license_plate_pattern = re.compile(r'^(?P<prefix>[A-Z]{2,3}) \d{4}$')

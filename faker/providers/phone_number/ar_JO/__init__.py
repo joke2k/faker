@@ -29,7 +29,7 @@ class Provider(PhoneNumberProvider):
         telephone_formats + \
         services_phones_formats
 
-    def operator_id(self):
+    def operator_id(self) -> str:
         return self.random_element([
             '4',
             '7',
@@ -37,7 +37,7 @@ class Provider(PhoneNumberProvider):
             '9',
         ])
 
-    def area_code(self):
+    def area_code(self) -> str:
         return self.random_element([
             '2',
             '3',
@@ -46,18 +46,18 @@ class Provider(PhoneNumberProvider):
             '7',
         ])
 
-    def cellphone_number(self):
-        pattern = self.random_element(self.cellphone_formats)
+    def cellphone_number(self) -> str:
+        pattern: str = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def telephone_number(self):
-        pattern = self.random_element(self.telephone_formats)
+    def telephone_number(self) -> str:
+        pattern: str = self.random_element(self.telephone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def service_phone_number(self):
-        pattern = self.random_element(self.services_phones_formats)
+    def service_phone_number(self) -> str:
+        pattern: str = self.random_element(self.services_phones_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def phone_number(self):
-        pattern = self.random_element(self.formats)
+    def phone_number(self) -> str:
+        pattern: str = self.random_element(self.formats)
         return self.numerify(self.generator.parse(pattern))

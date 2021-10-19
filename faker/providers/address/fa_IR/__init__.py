@@ -74,15 +74,15 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('سوئیت ###', 'واحد ###')
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.numerify(
             self.random_element(
                 self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit

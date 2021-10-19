@@ -1,6 +1,8 @@
 from collections import OrderedDict
+from typing import Dict, Optional
 
-from .. import BaseProvider
+from ...typing import HueType
+from .. import BaseProvider, ElementsType
 from .color import RandomColor
 
 localized = True
@@ -9,7 +11,7 @@ localized = True
 class Provider(BaseProvider):
     """Implement default color provider for Faker."""
 
-    all_colors = OrderedDict((
+    all_colors: Dict[str, str] = OrderedDict((
         ("AliceBlue", "#F0F8FF"),
         ("AntiqueWhite", "#FAEBD7"),
         ("Aqua", "#00FFFF"),
@@ -152,37 +154,40 @@ class Provider(BaseProvider):
         ("YellowGreen", "#9ACD32"),
     ))
 
-    safe_colors = (
+    safe_colors: ElementsType = (
         'black', 'maroon', 'green', 'navy', 'olive',
         'purple', 'teal', 'lime', 'blue', 'silver',
         'gray', 'yellow', 'fuchsia', 'aqua', 'white',
     )
 
-    def color_name(self):
+    def color_name(self) -> str:
         """Generate a color name."""
         return self.random_element(self.all_colors.keys())
 
-    def safe_color_name(self):
+    def safe_color_name(self) -> str:
         """Generate a web-safe color name."""
         return self.random_element(self.safe_colors)
 
-    def hex_color(self):
+    def hex_color(self) -> str:
         """Generate a color formatted as a hex triplet."""
         return f'#{self.random_int(1, 16777215):06x}'
 
-    def safe_hex_color(self):
+    def safe_hex_color(self) -> str:
         """Generate a web-safe color formatted as a hex triplet."""
         return f'#{self.random_int(0, 15) * 17:02x}{self.random_int(0, 15) * 17:02x}{self.random_int(0, 15) * 17:02x}'
 
-    def rgb_color(self):
+    def rgb_color(self) -> str:
         """Generate a color formatted as a comma-separated RGB value."""
         return ','.join(map(str, (self.random_int(0, 255) for _ in range(3))))
 
-    def rgb_css_color(self):
+    def rgb_css_color(self) -> str:
         """Generate a color formatted as a CSS rgb() function."""
         return f'rgb({self.random_int(0, 255)},{self.random_int(0, 255)},{self.random_int(0, 255)})'
 
-    def color(self, hue=None, luminosity=None, color_format='hex'):
+    def color(self,
+              hue: Optional[HueType] = None,
+              luminosity: Optional[str] = None,
+              color_format: str = 'hex') -> str:
         """Generate a color in a human-friendly way.
 
         Under the hood, this method first creates a color represented in the HSV

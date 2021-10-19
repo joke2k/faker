@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from ..en import Provider as AddressProvider
 
@@ -329,34 +330,30 @@ class Provider(AddressProvider):
         '{{building_number}} {{street_name}} {{secondary_address}}',
     )
 
-    address_formats = (
-        "{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}",
-    )
-
     address_formats = OrderedDict((
-        ("{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}", 25),
+        ("{{street_address}}\n{{city}}, {{state_abbr}} {{postcode}}", 25.),
         #  military address formatting.
-        ("{{military_apo}}\nAPO {{military_state}} {{postcode}}", 1),
-        ("{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}", 1),
-        ("{{military_dpo}}\nDPO {{military_state}} {{postcode}}", 1),
+        ("{{military_apo}}\nAPO {{military_state}} {{postcode}}", 1.),
+        ("{{military_ship}} {{last_name}}\nFPO {{military_state}} {{postcode}}", 1.),
+        ("{{military_dpo}}\nDPO {{military_state}} {{postcode}}", 1.),
     ))
 
     secondary_address_formats = ('Apt. ###', 'Suite ###')
 
-    def city_prefix(self):
+    def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.numerify(
             self.random_element(
                 self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit
 
-    def state_abbr(self, include_territories=True):
+    def state_abbr(self, include_territories: bool = True) -> str:
         """
         :returns: A random state or territory abbreviation.
 
@@ -367,14 +364,14 @@ class Provider(AddressProvider):
             self.random_element(self.states_and_territories_abbr)
         return self.random_element(self.states_abbr)
 
-    def postcode(self):
+    def postcode(self) -> str:
         return "%05d" % self.generator.random.randint(501, 99950)
 
-    def zipcode_plus4(self):
+    def zipcode_plus4(self) -> str:
         return "%s-%04d" % (self.zipcode(),
                             self.generator.random.randint(1, 9999))
 
-    def postcode_in_state(self, state_abbr=None):
+    def postcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         """
         :returns: A random postcode within the provided state abbreviation
 
@@ -385,8 +382,8 @@ class Provider(AddressProvider):
 
         if state_abbr in self.states_abbr:
             postcode = "%d" % (self.generator.random.randint(
-                            self.states_postcode[state_abbr][0],
-                            self.states_postcode[state_abbr][1]))
+                self.states_postcode[state_abbr][0],
+                self.states_postcode[state_abbr][1]))
 
             if len(postcode) == 4:
                 postcode = "0%s" % postcode
@@ -396,42 +393,42 @@ class Provider(AddressProvider):
         else:
             raise Exception('State Abbreviation not found in list')
 
-    def military_ship(self):
+    def military_ship(self) -> str:
         """
         :example 'USS'
         """
         return self.random_element(self.military_ship_prefix)
 
-    def military_state(self):
+    def military_state(self) -> str:
         """
         :example 'APO'
         """
         return self.random_element(self.military_state_abbr)
 
-    def military_apo(self):
+    def military_apo(self) -> str:
         """
         :example 'PSC 5394 Box 3492
         """
         return self.numerify(self.military_apo_format)
 
-    def military_dpo(self):
+    def military_dpo(self) -> str:
         """
         :example 'Unit 3333 Box 9342'
         """
         return self.numerify(self.military_dpo_format)
 
     # Aliases
-    def zipcode(self):
+    def zipcode(self) -> str:
         return self.postcode()
 
-    def zipcode_in_state(self, state_abbr=None):
+    def zipcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         return self.postcode_in_state(state_abbr)
 
-    def postalcode(self):
+    def postalcode(self) -> str:
         return self.postcode()
 
-    def postalcode_in_state(self, state_abbr=None):
+    def postalcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         return self.postcode_in_state(state_abbr)
 
-    def postalcode_plus4(self):
+    def postalcode_plus4(self) -> str:
         return self.zipcode_plus4()

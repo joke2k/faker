@@ -266,7 +266,7 @@ class Provider(PersonProvider):
         'Zaccardo', 'Zacchia', 'Zacco', 'Zaguri', 'Zamengo', 'Zamorani', 'Zampa', 'Zanazzo',
         'Zanichelli', 'Zanzi', 'Zarlino', 'Zecchini', 'Zeffirelli', 'Zetticci', 'Ziani',
         'Zichichi', 'Zito', 'Zola', 'Zoppetti', 'Zoppetto',
-        )
+    )
 
     prefixes_female = ('Dott.', 'Sig.ra')
     prefixes_male = ('Dott.', 'Sig.')

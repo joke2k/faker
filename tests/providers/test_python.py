@@ -352,6 +352,26 @@ class TestPydecimal(unittest.TestCase):
         result = self.fake.pydecimal(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
+    def test_min_value_zero_doesnt_return_negative(self):
+        Faker.seed('1')
+        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=0, max_value=999)
+        self.assertGreater(result, 0)
+
+    def test_min_value_one_hundred_doesnt_return_negative(self):
+        Faker.seed('1')
+        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=100, max_value=999)
+        self.assertGreater(result, 100)
+
+    def test_min_value_minus_one_doesnt_return_positive(self):
+        Faker.seed('5')
+        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=0)
+        self.assertLess(result, 0)
+
+    def test_min_value_minus_one_hundred_doesnt_return_positive(self):
+        Faker.seed('5')
+        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=-100)
+        self.assertLess(result, -100)
+
 
 class TestPystrFormat(unittest.TestCase):
 

@@ -1165,8 +1165,8 @@ class Provider(PersonProvider):
         'ଶ୍ରୀଯୁକ୍ତ',
     )
 
-    def first_name_unisex(self):
+    def first_name_unisex(self) -> str:
         return self.random_element(self.first_names_unisex)
 
-    def middle_name(self):
+    def middle_name(self) -> str:
         return self.random_element(self.middle_names)

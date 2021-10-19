@@ -1,6 +1,11 @@
 import random as random_module
 import re
 
+from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional
+
+if TYPE_CHECKING:
+    from .providers import BaseProvider
+
 _re_token = re.compile(r'\{\{\s*(\w+)(:\s*\w+?)?\s*\}\}')
 random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
@@ -8,17 +13,17 @@ mod_random = random  # compat with name released in 0.8
 
 class Generator:
 
-    __config = {
+    __config: Dict[str, Dict[Hashable, Any]] = {
         'arguments': {},
     }
 
-    def __init__(self, **config):
-        self.providers = []
+    def __init__(self, **config: Dict) -> None:
+        self.providers: List["BaseProvider"] = []
         self.__config = dict(
             list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider):
+    def add_provider(self, provider: "BaseProvider") -> None:
 
         if isinstance(provider, type):
             provider = provider(self)
@@ -36,27 +41,27 @@ class Generator:
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
 
-    def provider(self, name):
+    def provider(self, name: str) -> Optional["BaseProvider"]:
         try:
             lst = [p for p in self.get_providers()
-                   if p.__provider__ == name.lower()]
+                   if hasattr(p, '__provider__') and p.__provider__ == name.lower()]
             return lst[0]
         except IndexError:
             return None
 
-    def get_providers(self):
+    def get_providers(self) -> List["BaseProvider"]:
         """Returns added providers."""
         return self.providers
 
     @property
-    def random(self):
+    def random(self) -> random_module.Random:
         return self.__random
 
     @random.setter
-    def random(self, value):
+    def random(self, value: random_module.Random) -> None:
         self.__random = value
 
-    def seed_instance(self, seed=None):
+    def seed_instance(self, seed: Optional[Hashable] = None) -> "Generator":
         """Calls random.seed"""
         if self.__random == random:
             # create per-instance random obj when first time seed_instance() is
@@ -66,16 +71,16 @@ class Generator:
         return self
 
     @classmethod
-    def seed(cls, seed=None):
+    def seed(cls, seed: Optional[Hashable] = None) -> None:
         random.seed(seed)
 
-    def format(self, formatter, *args, **kwargs):
+    def format(self, formatter: str, *args: Any, **kwargs: Any) -> str:
         """
         This is a secure way to make a fake from another Provider.
         """
         return self.get_formatter(formatter)(*args, **kwargs)
 
-    def get_formatter(self, formatter):
+    def get_formatter(self, formatter: str) -> Callable:
         try:
             return getattr(self, formatter)
         except AttributeError:
@@ -85,14 +90,14 @@ class Generator:
                 raise AttributeError(f'Unknown formatter {formatter!r}')
             raise AttributeError(msg)
 
-    def set_formatter(self, name, method):
+    def set_formatter(self, name: str, method: Callable) -> None:
         """
         This method adds a provider method to generator.
         Override this method to add some decoration or logging stuff.
         """
         setattr(self, name, method)
 
-    def set_arguments(self, group, argument, value=None):
+    def set_arguments(self, group: str, argument: str, value: Optional[Any] = None) -> None:
         """
         Creates an argument group, with an individual argument or a dictionary
         of arguments. The argument groups is used to apply arguments to tokens,
@@ -112,7 +117,7 @@ class Generator:
         else:
             self.__config['arguments'][group][argument] = value
 
-    def get_arguments(self, group, argument=None):
+    def get_arguments(self, group: str, argument: Optional[str] = None) -> Any:
         """
         Get the value of an argument configured within a argument group, or
         the entire group as a dictionary. Used in conjunction with the
@@ -128,7 +133,7 @@ class Generator:
 
         return result
 
-    def del_arguments(self, group, argument=None):
+    def del_arguments(self, group: str, argument: Optional[str] = None) -> Any:
         """
         Delete an argument from an argument group or the entire argument group.
         Used in conjunction with the set_arguments() method.
@@ -146,7 +151,7 @@ class Generator:
 
         return result
 
-    def parse(self, text):
+    def parse(self, text: str) -> str:
         """
         Replaces tokens like '{{ tokenName }}' or '{{tokenName}}' in a string with
         the result from the token method call. Arguments can be parsed by using an

@@ -1,7 +1,9 @@
+from typing import List
+
 from .. import Provider as CompanyProvider
 
 
-def company_id_checksum(digits):
+def company_id_checksum(digits: List[int]) -> List[int]:
     digits = list(digits)
     weights = 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2
 
@@ -69,38 +71,39 @@ class Provider(CompanyProvider):
 
     company_suffixes = ('S/A', 'S.A.', 'Ltda.', '- ME', '- EI', 'e Filhos')
 
-    def catch_phrase_noun(self):
+    def catch_phrase_noun(self) -> str:
         """
         Returns a random catch phrase noun.
         """
         return self.random_element(self.nouns)
 
-    def catch_phrase_attribute(self):
+    def catch_phrase_attribute(self) -> str:
         """
         Returns a random catch phrase attribute.
         """
         return self.random_element(self.attributes)
 
-    def catch_phrase_verb(self):
+    def catch_phrase_verb(self) -> str:
         """
         Returns a random catch phrase verb.
         """
         return self.random_element(self.verbs)
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         """
         :example 'a segurança de evoluir sem preocupação'
         """
-        pattern = self.random_element(self.catch_phrase_formats)
+        pattern: str = self.random_element(self.catch_phrase_formats)
         catch_phrase = self.generator.parse(pattern)
         catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
         return catch_phrase
 
-    def company_id(self):
-        digits = self.random_sample(range(10), 8) + [0, 0, 0, 1]
+    def company_id(self) -> str:
+        digits: List[int] = list(self.random_sample(range(10), 8))
+        digits += [0, 0, 0, 1]
         digits += company_id_checksum(digits)
         return ''.join(str(d) for d in digits)
 
-    def cnpj(self):
+    def cnpj(self) -> str:
         digits = self.company_id()
         return f'{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}'

@@ -105,23 +105,23 @@ class Provider(AddressProvider):
     )
     secondary_address_formats = ('Apt. ##', 'Piso #', 'Puerta #')
 
-    def state_name(self):
+    def state_name(self) -> str:
         return self.random_element(self.states)
 
-    def street_prefix(self):
+    def street_prefix(self) -> str:
         return self.random_element(self.street_prefixes)
 
-    def secondary_address(self):
+    def secondary_address(self) -> str:
         return self.numerify(
             self.random_element(
                 self.secondary_address_formats))
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         return self.random_element(self.states)
 
     state = administrative_unit
 
-    def region(self):
+    def region(self) -> str:
         return self.random_element(self.regions)
 
     autonomous_community = region

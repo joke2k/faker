@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Sequence
 
 from ..en_PH import Provider as EnPhProvider
 
@@ -65,21 +66,21 @@ class Provider(EnPhProvider):
         'tahanan',
     ]
 
-    def random_noun_ish_good_trait(self):
+    def random_noun_ish_good_trait(self) -> str:
         return self.random_element(self.noun_ish_good_traits)
 
-    def random_good_service_adjective(self):
+    def random_good_service_adjective(self) -> str:
         return self.random_element(self.good_service_adjectives)
 
-    def random_good_service_adjective_chain(self):
-        adjectives = self.random_elements(self.good_service_adjectives, length=2, unique=True)
+    def random_good_service_adjective_chain(self) -> str:
+        adjectives: Sequence[str] = self.random_elements(self.good_service_adjectives, length=2, unique=True)
         return ' at '.join(adjectives)
 
-    def random_object_of_concern(self):
+    def random_object_of_concern(self) -> str:
         return self.random_element(self.objects_of_concern)
 
-    def english_catch_phrase(self):
+    def english_catch_phrase(self) -> str:
         return super().catch_phrase()
 
-    def catch_phrase(self):
+    def catch_phrase(self) -> str:
         return self.random_element(self.catch_phrase_formats)

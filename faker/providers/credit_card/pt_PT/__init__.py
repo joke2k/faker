@@ -53,16 +53,3 @@ class Provider(CreditCardProvider):
         ('mastercard', CreditCard('Mastercard', prefix_mastercard, 16, security_code='CVV2')),
         ('visa', CreditCard('Visa', prefix_visa, 16, security_code='CVV2')),
     ))
-
-    def credit_card_expire(self, start='now', end='+4y', date_format='%m/%y'):
-        """Generate a credit card expiry date.
-
-        This method uses |date_time_between| under the hood to generate the
-        expiry date, so the ``start`` and ``end`` arguments work in the same way
-        here as it would in that method. For the actual formatting of the expiry
-        date, |strftime| is used and ``date_format`` is simply passed
-        to that method.
-        """
-
-        expire_date = self.generator.date_time_between(start, end)
-        return expire_date.strftime(date_format)
