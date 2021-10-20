@@ -68,5 +68,6 @@ setup(
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",
+        "mypy==0.910",
     ],
 )
