@@ -68,6 +68,6 @@ setup(
     install_requires=[
         "python-dateutil>=2.4",
         "text-unidecode==1.3",
-        "mypy==0.910",
+        "typing-extensions>=3.10.0.2",
     ],
 )
