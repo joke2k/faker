@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.5.1 - 2021-10-20](https://github.com/joke2k/faker/compare/v9.5.0...v9.5.1)
+
+*  Add ``typing-extensions`` as dependency and pin ``mypy`` version. Thanks @nicarl.
+
 ### [v9.5.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.4.0...v9.5.0)
 
 * Add automotive provider for ``nl_NL``. Thanks @MarcelRobeer.
