@@ -292,7 +292,7 @@ a cheatsheet for new ``Faker`` in multiple locale mode.
 Unique Values
 -------------
 
-New in version ``v4.2.0` is the ``.unique`` attribute on the
+New in version ``v4.2.0`` is the ``.unique`` attribute on the
 ``Faker`` proxy.
 
 Accessing provider methods through this attribute guarantees that
