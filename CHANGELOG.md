@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.5.2 - 2021-10-21](https://github.com/joke2k/faker/compare/v9.5.1...v9.5.2)
+
+*  Limit ``typing_extensions`` dependency to Python < 3.8. Thanks @mgorny.
+
 ### [v9.5.1 - 2021-10-20](https://github.com/joke2k/faker/compare/v9.5.0...v9.5.1)
 
 *  Add ``typing-extensions`` as dependency and pin ``mypy`` version. Thanks @nicarl.
