@@ -8,30 +8,30 @@ from faker.providers.geo.pt_PT import Provider as PtPtProvider
 
 
 class TestGlobal(unittest.TestCase):
-    """ Tests geographic locations regardless of locale"""
+    """Tests geographic locations regardless of locale"""
 
     def setUp(self):
         self.fake = Faker()  # No locale specified, gets global for this provider
         Faker.seed(0)
 
     def test_local_latlng(self):
-        loc = self.fake.local_latlng(country_code='US')
+        loc = self.fake.local_latlng(country_code="US")
         assert isinstance(loc, tuple)
         assert len(loc) == 5
         assert Decimal(loc[0])
         assert Decimal(loc[1])
 
-        loc_short = self.fake.local_latlng(country_code='US', coords_only=True)
+        loc_short = self.fake.local_latlng(country_code="US", coords_only=True)
         assert len(loc_short) == 2
         assert Decimal(loc_short[0])
         assert Decimal(loc_short[1])
 
 
 class TestEnUS(unittest.TestCase):
-    """ Tests geographic locations in the en_US locale """
+    """Tests geographic locations in the en_US locale"""
 
     def setUp(self):
-        self.fake = Faker('en_US')
+        self.fake = Faker("en_US")
         Faker.seed(0)
 
     def test_latitude(self):
@@ -81,10 +81,10 @@ class TestEnUS(unittest.TestCase):
 
 
 class TestDeAT(unittest.TestCase):
-    """ Tests in addresses in the de_AT locale """
+    """Tests in addresses in the de_AT locale"""
 
     def setUp(self):
-        self.fake = Faker('de_AT')
+        self.fake = Faker("de_AT")
         Faker.seed(0)
 
     def test_local_latitude(self):
@@ -97,9 +97,8 @@ class TestDeAT(unittest.TestCase):
 
 
 class TestPtPT(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('pt_PT')
+        self.fake = Faker("pt_PT")
         Faker.seed(0)
 
     def test_nationality(self):
@@ -110,11 +109,11 @@ class TestPtPT(unittest.TestCase):
 
 class TestTrTr(TestEnUS):
     def setUp(self):
-        self.fake = Faker('tr_TR')
+        self.fake = Faker("tr_TR")
         Faker.seed(0)
 
 
 class TestEnIe(TestEnUS):
     def setUp(self):
-        self.fake = Faker('en_IE')
+        self.fake = Faker("en_IE")
         Faker.seed(0)

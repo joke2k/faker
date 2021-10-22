@@ -6,15 +6,13 @@ class Provider(BaseProvider):
     A Faker provider for the Greek VAT IDs and Greek police IDs
     """
 
-    vat_id_formats = (
-        'EL#########',
-    )
+    vat_id_formats = ("EL#########",)
 
     police_id_formats = (
-        '?######',
-        '??######',
-        '? ######',
-        '?? ######',
+        "?######",
+        "??######",
+        "? ######",
+        "?? ######",
     )
 
     def vat_id(self) -> str:
@@ -30,4 +28,7 @@ class Provider(BaseProvider):
         :return: a random Greek police ID
         """
 
-        return self.bothify(self.random_element(self.police_id_formats), letters='ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ')
+        return self.bothify(
+            self.random_element(self.police_id_formats),
+            letters="ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
+        )

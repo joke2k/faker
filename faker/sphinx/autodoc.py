@@ -14,6 +14,6 @@ def _process_docstring(app, what, name, obj, options, lines):
 
 
 def setup(app):
-    app.setup_extension('sphinx.ext.autodoc')
-    app.connect('builder-inited', _create_source_files)
-    app.connect('autodoc-process-docstring', _process_docstring)
+    app.setup_extension("sphinx.ext.autodoc")
+    app.connect("builder-inited", _create_source_files)
+    app.connect("autodoc-process-docstring", _process_docstring)

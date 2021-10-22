@@ -10,36 +10,42 @@ class Provider(AutomotiveProvider):
     """
 
     license_formats = (
-        '{{initials}}-####',
-        '{{initials}}-#####',
+        "{{initials}}-####",
+        "{{initials}}-#####",
     )
 
     def initials(self) -> str:
         """Generate an initial number for license plates."""
-        return self.random_element([
-            '1',  # Ministers
-            '2', '3',  # Parliament
-            '5',  # General Government
-
-            '6',  # Aqaba free zone
-            '7', '8',  # Diplomatic
-            '9',  # Temporary
-            '10', '23',  # Passenger cars
-            '38', '39',  # Crew cabs
-            '41', '42',  # Light goods vehicles
-            '44',  # Tractors
-            '46',  # Motorcycles and scooters
-            '50',  # Taxi
-            '56',  # Small buses
-            '58',  # Coaches
-            '60',  # HGVs
-            '70',  # Rental Cars
-            '71',  # Trailer
-            '90',  # Army
-            '95',  # Ambulance
-            '96',  # Gendarmerie
-            '99',  # Police
-        ])
+        return self.random_element(
+            [
+                "1",  # Ministers
+                "2",
+                "3",  # Parliament
+                "5",  # General Government
+                "6",  # Aqaba free zone
+                "7",
+                "8",  # Diplomatic
+                "9",  # Temporary
+                "10",
+                "23",  # Passenger cars
+                "38",
+                "39",  # Crew cabs
+                "41",
+                "42",  # Light goods vehicles
+                "44",  # Tractors
+                "46",  # Motorcycles and scooters
+                "50",  # Taxi
+                "56",  # Small buses
+                "58",  # Coaches
+                "60",  # HGVs
+                "70",  # Rental Cars
+                "71",  # Trailer
+                "90",  # Army
+                "95",  # Ambulance
+                "96",  # Gendarmerie
+                "99",  # Police
+            ]
+        )
 
     def license_plate(self) -> str:
         """Generate a license plate."""

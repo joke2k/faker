@@ -16,54 +16,62 @@ class Provider(EnPhProvider):
     phrases in pure Filipino randomly alongside the English ones.
     """
 
-    catch_phrase_formats = OrderedDict([
-        ('{{english_catch_phrase}}', 0.64),
-        ('Ang {{random_noun_ish_good_trait}} ng {{random_object_of_concern}}!', 0.12),
-        ('Serbisyong {{random_good_service_adjective}} para sa {{random_object_of_concern}}!', 0.12),
-        ('Kahit kailan, {{random_good_service_adjective_chain}}!', 0.12),
-    ])
+    catch_phrase_formats = OrderedDict(
+        [
+            ("{{english_catch_phrase}}", 0.64),
+            (
+                "Ang {{random_noun_ish_good_trait}} ng {{random_object_of_concern}}!",
+                0.12,
+            ),
+            (
+                "Serbisyong {{random_good_service_adjective}} para sa {{random_object_of_concern}}!",
+                0.12,
+            ),
+            ("Kahit kailan, {{random_good_service_adjective_chain}}!", 0.12),
+        ]
+    )
     noun_ish_good_traits = (
-        'bida',
-        'ginhawa',
-        'haligi',
-        'karangalan',
-        'lingkod',
-        'liwanag',
-        'numero uno',
-        'pag-asa',
-        'tulay',
+        "bida",
+        "ginhawa",
+        "haligi",
+        "karangalan",
+        "lingkod",
+        "liwanag",
+        "numero uno",
+        "pag-asa",
+        "tulay",
     )
     good_service_adjectives = (
-        'bida',
-        'dekalidad',
-        'hindi umaatras',
-        'kakaiba',
-        'maasahan',
-        'magaling',
-        'mapatitiwalaan',
-        'numero uno',
-        'panalo',
-        'tagumpay',
-        'tama',
-        'tapat',
-        'totoo',
-        'tunay',
-        'walang kapantay',
-        'walang katulad',
-        'walang tatalo',
+        "bida",
+        "dekalidad",
+        "hindi umaatras",
+        "kakaiba",
+        "maasahan",
+        "magaling",
+        "mapatitiwalaan",
+        "numero uno",
+        "panalo",
+        "tagumpay",
+        "tama",
+        "tapat",
+        "totoo",
+        "tunay",
+        "walang kapantay",
+        "walang katulad",
+        "walang tatalo",
     )
     objects_of_concern = [
-        'Filipino',
-        'Pilipinas',
-        'Pilipino',
-        'Pinoy',
-        'bahay',
-        'bansa',
-        'bayan',
-        'buhay',
-        'mamamayan',
-        'mundo',
-        'tahanan',
+        "Filipino",
+        "Pilipinas",
+        "Pilipino",
+        "Pinoy",
+        "bahay",
+        "bansa",
+        "bayan",
+        "buhay",
+        "mamamayan",
+        "mundo",
+        "tahanan",
     ]
 
     def random_noun_ish_good_trait(self) -> str:
@@ -74,7 +82,7 @@ class Provider(EnPhProvider):
 
     def random_good_service_adjective_chain(self) -> str:
         adjectives: Sequence[str] = self.random_elements(self.good_service_adjectives, length=2, unique=True)
-        return ' at '.join(adjectives)
+        return " at ".join(adjectives)
 
     def random_object_of_concern(self) -> str:
         return self.random_element(self.objects_of_concern)

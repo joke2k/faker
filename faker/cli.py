@@ -13,16 +13,18 @@ from .config import AVAILABLE_LOCALES, DEFAULT_LOCALE, META_PROVIDERS_MODULES
 from .documentor import Documentor
 from .providers import BaseProvider
 
-__author__ = 'joke2k'
+__author__ = "joke2k"
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
-def print_provider(doc: Documentor,
-                   provider: BaseProvider,
-                   formatters: Dict[str, T],
-                   excludes: Optional[List[str]] = None,
-                   output: Optional[TextIO] = None) -> None:
+def print_provider(
+    doc: Documentor,
+    provider: BaseProvider,
+    formatters: Dict[str, T],
+    excludes: Optional[List[str]] = None,
+    output: Optional[TextIO] = None,
+) -> None:
     if output is None:
         output = sys.stdout
     if excludes is None:
@@ -43,22 +45,27 @@ def print_provider(doc: Documentor,
             # try to `print` the line.
             lines = ["<bytes>"]
         except UnicodeEncodeError:
-            raise Exception(f'error on {signature!r} with value {example!r}')
+            raise Exception(f"error on {signature!r} with value {example!r}")
         margin = max(30, doc.max_name_len + 1)
         remains = 150 - margin
-        separator = '#'
+        separator = "#"
         for line in lines:
             for i in range(0, (len(line) // remains) + 1):
-                print(f"\t{signature:<{margin}}{separator} {line[i * remains:(i + 1) * remains]}", file=output)
-                signature = separator = ' '
+                print(
+                    f"\t{signature:<{margin}}{separator} {line[i * remains:(i + 1) * remains]}",
+                    file=output,
+                )
+                signature = separator = " "
 
 
-def print_doc(provider_or_field: Optional[str] = None,
-              args: Optional[List[T]] = None,
-              lang: str = DEFAULT_LOCALE,
-              output: Optional[Union[TextIO, TextIOWrapper]] = None,
-              seed: Optional[float] = None,
-              includes: Optional[List[str]] = None) -> None:
+def print_doc(
+    provider_or_field: Optional[str] = None,
+    args: Optional[List[T]] = None,
+    lang: str = DEFAULT_LOCALE,
+    output: Optional[Union[TextIO, TextIOWrapper]] = None,
+    seed: Optional[float] = None,
+    includes: Optional[List[str]] = None,
+) -> None:
     if args is None:
         args = []
     if output is None:
@@ -67,14 +74,14 @@ def print_doc(provider_or_field: Optional[str] = None,
     fake.seed_instance(seed)
 
     from faker.providers import BaseProvider
+
     base_provider_formatters = list(dir(BaseProvider))
 
     if provider_or_field:
-        if '.' in provider_or_field:
-            parts = provider_or_field.split('.')
+        if "." in provider_or_field:
+            parts = provider_or_field.split(".")
             locale = parts[-2] if parts[-2] in AVAILABLE_LOCALES else lang
-            fake = Faker(locale, providers=[
-                         provider_or_field], includes=includes)
+            fake = Faker(locale, providers=[provider_or_field], includes=includes)
             fake.seed_instance(seed)
             doc = documentor.Documentor(fake)
             doc.already_generated = base_provider_formatters
@@ -82,15 +89,11 @@ def print_doc(provider_or_field: Optional[str] = None,
                 doc,
                 fake.get_providers()[0],
                 doc.get_provider_formatters(fake.get_providers()[0]),
-                output=output)
+                output=output,
+            )
         else:
             try:
-                print(
-                    fake.format(
-                        provider_or_field,
-                        *args),
-                    end='',
-                    file=output)
+                print(fake.format(provider_or_field, *args), end="", file=output)
             except AttributeError:
                 raise ValueError(f'No faker found for "{provider_or_field}({args})"')
 
@@ -113,19 +116,21 @@ def print_doc(provider_or_field: Optional[str] = None,
             if language == lang:
                 continue
             print(file=output)
-            print(f'## LANGUAGE {language}', file=output)
+            print(f"## LANGUAGE {language}", file=output)
             fake = Faker(locale=language)
             fake.seed_instance(seed)
             d = documentor.Documentor(fake)
 
-            for p, fs in d.get_formatters(with_args=True, with_defaults=True,
-                                          locale=language,
-                                          excludes=base_provider_formatters + unsupported):
+            for p, fs in d.get_formatters(
+                with_args=True,
+                with_defaults=True,
+                locale=language,
+                excludes=base_provider_formatters + unsupported,
+            ):
                 print_provider(d, p, fs, output=output)
 
 
 class Command:
-
     def __init__(self, argv: Optional[str] = None) -> None:
         self.argv = argv or sys.argv[:]
         self.prog_name = Path(self.argv[0]).name
@@ -137,7 +142,7 @@ class Command:
         """
 
         # retrieve default language from system environment
-        default_locale = os.environ.get('LANG', 'en_US').split('.')[0]
+        default_locale = os.environ.get("LANG", "en_US").split(".")[0]
         if default_locale not in AVAILABLE_LOCALES:
             default_locale = DEFAULT_LOCALE
 
@@ -177,70 +182,90 @@ examples:
         formatter_class = argparse.RawDescriptionHelpFormatter
         parser = argparse.ArgumentParser(
             prog=self.prog_name,
-            description=f'{self.prog_name} version {VERSION}',
+            description=f"{self.prog_name} version {VERSION}",
             epilog=epilog,
-            formatter_class=formatter_class)
+            formatter_class=formatter_class,
+        )
 
-        parser.add_argument("--version", action="version",
-                            version=f'%(prog)s {VERSION}')
+        parser.add_argument("--version", action="version", version=f"%(prog)s {VERSION}")
 
-        parser.add_argument('-v',
-                            '--verbose',
-                            action='store_true',
-                            help="show INFO logging events instead "
-                            "of CRITICAL, which is the default. These logging "
-                            "events provide insight into localization of "
-                            "specific providers.")
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            action="store_true",
+            help="show INFO logging events instead "
+            "of CRITICAL, which is the default. These logging "
+            "events provide insight into localization of "
+            "specific providers.",
+        )
 
-        parser.add_argument('-o', metavar="output",
-                            type=argparse.FileType('w'),
-                            default=sys.stdout,
-                            help="redirect output to a file")
+        parser.add_argument(
+            "-o",
+            metavar="output",
+            type=argparse.FileType("w"),
+            default=sys.stdout,
+            help="redirect output to a file",
+        )
 
-        parser.add_argument('-l', '--lang',
-                            choices=AVAILABLE_LOCALES,
-                            default=default_locale,
-                            metavar='LOCALE',
-                            help="specify the language for a localized "
-                            "provider (e.g. de_DE)")
-        parser.add_argument('-r', '--repeat',
-                            default=1,
-                            type=int,
-                            help="generate the specified number of outputs")
-        parser.add_argument('-s', '--sep',
-                            default='\n',
-                            help="use the specified separator after each "
-                            "output")
+        parser.add_argument(
+            "-l",
+            "--lang",
+            choices=AVAILABLE_LOCALES,
+            default=default_locale,
+            metavar="LOCALE",
+            help="specify the language for a localized " "provider (e.g. de_DE)",
+        )
+        parser.add_argument(
+            "-r",
+            "--repeat",
+            default=1,
+            type=int,
+            help="generate the specified number of outputs",
+        )
+        parser.add_argument(
+            "-s",
+            "--sep",
+            default="\n",
+            help="use the specified separator after each " "output",
+        )
 
-        parser.add_argument('--seed', metavar='SEED',
-                            type=int,
-                            help="specify a seed for the random generator so "
-                            "that results are repeatable. Also compatible "
-                            "with 'repeat' option")
+        parser.add_argument(
+            "--seed",
+            metavar="SEED",
+            type=int,
+            help="specify a seed for the random generator so "
+            "that results are repeatable. Also compatible "
+            "with 'repeat' option",
+        )
 
-        parser.add_argument('-i',
-                            '--include',
-                            default=META_PROVIDERS_MODULES,
-                            nargs='*',
-                            help="list of additional custom providers to "
-                            "user, given as the import path of the module "
-                            "containing your Provider class (not the provider "
-                            "class itself)")
+        parser.add_argument(
+            "-i",
+            "--include",
+            default=META_PROVIDERS_MODULES,
+            nargs="*",
+            help="list of additional custom providers to "
+            "user, given as the import path of the module "
+            "containing your Provider class (not the provider "
+            "class itself)",
+        )
 
-        parser.add_argument('fake',
-                            action='store',
-                            nargs='?',
-                            help="name of the fake to generate output for "
-                                 "(e.g. profile)")
+        parser.add_argument(
+            "fake",
+            action="store",
+            nargs="?",
+            help="name of the fake to generate output for " "(e.g. profile)",
+        )
 
-        parser.add_argument('fake_args',
-                            metavar="fake argument",
-                            action='store',
-                            nargs='*',
-                            help="optional arguments to pass to the fake "
-                                 "(e.g. the profile fake takes an optional "
-                                 "list of comma separated field names as the "
-                                 "first argument)")
+        parser.add_argument(
+            "fake_args",
+            metavar="fake argument",
+            action="store",
+            nargs="*",
+            help="optional arguments to pass to the fake "
+            "(e.g. the profile fake takes an optional "
+            "list of comma separated field names as the "
+            "first argument)",
+        )
 
         arguments = parser.parse_args(self.argv[1:])
 
@@ -254,13 +279,14 @@ examples:
 
         for i in range(arguments.repeat):
 
-            print_doc(arguments.fake,
-                      arguments.fake_args,
-                      lang=arguments.lang,
-                      output=arguments.o,
-                      seed=seeds[i],
-                      includes=arguments.include,
-                      )
+            print_doc(
+                arguments.fake,
+                arguments.fake_args,
+                lang=arguments.lang,
+                output=arguments.o,
+                seed=seeds[i],
+                includes=arguments.include,
+            )
             print(arguments.sep, file=arguments.o)
 
             if not arguments.fake:
@@ -271,14 +297,16 @@ examples:
 def execute_from_command_line(argv: Optional[str] = None) -> None:
     """A simple method that runs a Command."""
     if sys.stdout.encoding is None:
-        print('please set python env PYTHONIOENCODING=UTF-8, example: '
-              'export PYTHONIOENCODING=UTF-8, when writing to stdout',
-              file=sys.stderr)
+        print(
+            "please set python env PYTHONIOENCODING=UTF-8, example: "
+            "export PYTHONIOENCODING=UTF-8, when writing to stdout",
+            file=sys.stderr,
+        )
         exit(1)
 
     command = Command(argv)
     command.execute()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     execute_from_command_line()

@@ -2,7 +2,6 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
     def ssn(self) -> str:
         """
         Returns a 9 digits Dutch SSN called "burgerservicenummer (BSN)".
@@ -35,9 +34,7 @@ class Provider(SsnProvider):
         # finally return our random but valid BSN
         return bsn
 
-    vat_id_formats = (
-        'NL#########B##',
-    )
+    vat_id_formats = ("NL#########B##",)
 
     def vat_id(self) -> str:
         """

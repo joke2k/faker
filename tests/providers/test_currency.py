@@ -5,11 +5,13 @@ import pytest
 
 class TestCurrencyProvider:
     """Test currency provider methods"""
+
     num_samples = 100
 
     @classmethod
     def setup_class(cls):
         from faker.providers.currency import Provider as CurrencyProvider
+
         cls.provider = CurrencyProvider
         cls.currencies = cls.provider.currencies
         cls.cryptocurrencies = cls.provider.cryptocurrencies
@@ -38,15 +40,15 @@ class TestCurrencyProvider:
             assert isinstance(symbol, str)
             assert symbol in self.provider.currency_symbols.values()
 
-    @patch('faker.providers.currency.Provider.random_element')
+    @patch("faker.providers.currency.Provider.random_element")
     def test_currency_symbol_with_valid_code(self, mock_random_element, faker):
-        symbol = faker.currency_symbol(code='USD')
-        assert symbol == '$'
+        symbol = faker.currency_symbol(code="USD")
+        assert symbol == "$"
         mock_random_element.assert_not_called()
 
-    @patch('faker.providers.currency.Provider.random_element')
+    @patch("faker.providers.currency.Provider.random_element")
     def test_currency_symbol_with_invalid_code(self, mock_random_element, faker):
-        invalid_code = 'FTW'
+        invalid_code = "FTW"
         with pytest.raises(KeyError):
             faker.currency_symbol(code=invalid_code)
         mock_random_element.assert_not_called()
@@ -75,11 +77,13 @@ class TestCurrencyProvider:
 
 class TestRuRu:
     """Test ru_RU currency provider"""
+
     num_samples = 100
 
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.ru_RU import Provider as RuRuCurrencyProvider
+
         cls.provider = RuRuCurrencyProvider
         cls.currencies = cls.provider.currencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
@@ -108,6 +112,7 @@ class TestCsCz:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.cs_CZ import Provider as CsCzCurrencyProvider
+
         cls.provider = CsCzCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -124,6 +129,7 @@ class TestDeAt:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.de_AT import Provider as DeAtCurrencyProvider
+
         cls.provider = DeAtCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -140,6 +146,7 @@ class TestDeDe:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.de_DE import Provider as DeDeCurrencyProvider
+
         cls.provider = DeDeCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -156,6 +163,7 @@ class TestEnAu:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.en_AU import Provider as EnAuCurrencyProvider
+
         cls.provider = EnAuCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -172,6 +180,7 @@ class TestEnCa:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.en_CA import Provider as EnCaCurrencyProvider
+
         cls.provider = EnCaCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -188,6 +197,7 @@ class TestEsEs:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.es_ES import Provider as EsEsCurrencyProvider
+
         cls.provider = EsEsCurrencyProvider
         cls.currencies = cls.provider.currencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
@@ -216,6 +226,7 @@ class TestFrCa:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.fr_CA import Provider as FrCaCurrencyProvider
+
         cls.provider = FrCaCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -232,6 +243,7 @@ class TestFrFr:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.fr_FR import Provider as FrFrCurrencyProvider
+
         cls.provider = FrFrCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -248,6 +260,7 @@ class TestItIt:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.it_IT import Provider as ItItCurrencyProvider
+
         cls.provider = ItItCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -264,6 +277,7 @@ class TestPlPl:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.pl_PL import Provider as PlPlCurrencyProvider
+
         cls.provider = PlPlCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -280,6 +294,7 @@ class TestSkSk:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.sk_SK import Provider as SkSkCurrencyProvider
+
         cls.provider = SkSkCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -290,11 +305,13 @@ class TestSkSk:
 
 class TestSvSe:
     """Test sv_SE currency provider"""
+
     num_samples = 100
 
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.sv_SE import Provider as SvSeCurrencyProvider
+
         cls.provider = SvSeCurrencyProvider
         cls.currencies = cls.provider.currencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
@@ -312,11 +329,13 @@ class TestSvSe:
 
 class TestThTh:
     """Test th_TH currency provider"""
+
     num_samples = 100
 
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.th_TH import Provider as ThThCurrencyProvider
+
         cls.provider = ThThCurrencyProvider
         cls.currencies = cls.provider.currencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
@@ -340,6 +359,7 @@ class TestRoRo:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.ro_RO import Provider as RoRoCurrencyProvider
+
         cls.provider = RoRoCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -356,6 +376,7 @@ class TestPtBr:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.pt_BR import Provider as PtBrCurrencyProvider
+
         cls.provider = PtBrCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -372,6 +393,7 @@ class TestNlNl:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.nl_NL import Provider as NlCurrencyProvider
+
         cls.provider = NlCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):
@@ -388,6 +410,7 @@ class TestElGr:
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.el_GR import Provider as ElGrCurrencyProvider
+
         cls.provider = ElGrCurrencyProvider
 
     def test_pricetag(self, faker, num_samples):

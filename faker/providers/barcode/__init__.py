@@ -25,7 +25,7 @@ class Provider(BaseProvider):
 
         if prefixes:
             prefix: str = self.random_element(prefixes)
-            code[:len(prefix)] = map(int, prefix)
+            code[: len(prefix)] = map(int, prefix)
 
         if length == 8:
             weights = [3, 1, 3, 1, 3, 1, 3]
@@ -36,7 +36,7 @@ class Provider(BaseProvider):
         check_digit = (10 - weighted_sum % 10) % 10
         code.append(check_digit)
 
-        return ''.join(str(x) for x in code)
+        return "".join(str(x) for x in code)
 
     def ean(self, length: int = 13, prefixes: PrefixType = ()) -> str:
         """Generate an EAN barcode of the specified ``length``.

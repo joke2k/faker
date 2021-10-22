@@ -3,9 +3,9 @@ import unicodedata
 
 from typing import Pattern
 
-_re_pattern: Pattern = re.compile(r'[^\w\s-]', flags=re.U)
-_re_pattern_allow_dots: Pattern = re.compile(r'[^\.\w\s-]', flags=re.U)
-_re_spaces: Pattern = re.compile(r'[-\s]+', flags=re.U)
+_re_pattern: Pattern = re.compile(r"[^\w\s-]", flags=re.U)
+_re_pattern_allow_dots: Pattern = re.compile(r"[^\.\w\s-]", flags=re.U)
+_re_spaces: Pattern = re.compile(r"[-\s]+", flags=re.U)
 
 
 def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -> str:
@@ -20,10 +20,9 @@ def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -
 
     value = str(value)
     if allow_unicode:
-        value = unicodedata.normalize('NFKC', value)
-        value = pattern.sub('', value).strip().lower()
-        return _re_spaces.sub('-', value)
-    value = unicodedata.normalize('NFKD', value).encode(
-        'ascii', 'ignore').decode('ascii')
-    value = pattern.sub('', value).strip().lower()
-    return _re_spaces.sub('-', value)
+        value = unicodedata.normalize("NFKC", value)
+        value = pattern.sub("", value).strip().lower()
+        return _re_spaces.sub("-", value)
+    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    value = pattern.sub("", value).strip().lower()
+    return _re_spaces.sub("-", value)

@@ -8,7 +8,7 @@ from typing import Dict, Optional
 from .. import BaseProvider
 
 localized = True
-default_locale = 'en_GB'
+default_locale = "en_GB"
 
 
 class Provider(BaseProvider):
@@ -28,19 +28,19 @@ class Provider(BaseProvider):
     """
 
     ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
-    bban_format: str = '????#############'
-    country_code: str = 'GB'
+    bban_format: str = "????#############"
+    country_code: str = "GB"
 
     def aba(self) -> str:
         """Generate an ABA routing transit number."""
         fed_num = self.random_int(min=1, max=12)
-        rand = self.numerify('######')
+        rand = self.numerify("######")
         aba = f"{fed_num:02}{rand}"
 
         # calculate check digit
         d = [int(n) for n in aba]
-        chk_digit = 3*(d[0] + d[3] + d[6]) + 7*(d[1] + d[4] + d[7]) + d[2] + d[5]
-        chk_digit = ceil(chk_digit/10)*10 - chk_digit
+        chk_digit = 3 * (d[0] + d[3] + d[6]) + 7 * (d[1] + d[4] + d[7]) + d[2] + d[5]
+        chk_digit = ceil(chk_digit / 10) * 10 - chk_digit
 
         return f"{aba}{chk_digit}"
 
@@ -50,17 +50,15 @@ class Provider(BaseProvider):
 
     def bban(self) -> str:
         """Generate a Basic Bank Account Number (BBAN)."""
-        temp = re.sub(r'\?',
-                      lambda x: self.random_element(ascii_uppercase),
-                      self.bban_format)
+        temp = re.sub(r"\?", lambda x: self.random_element(ascii_uppercase), self.bban_format)
         return self.numerify(temp)
 
     def iban(self) -> str:
         """Generate an International Bank Account Number (IBAN)."""
         bban = self.bban()
 
-        check = bban + self.country_code + '00'
-        check_ = int(''.join(self.ALPHA.get(c, c) for c in check))
+        check = bban + self.country_code + "00"
+        check_ = int("".join(self.ALPHA.get(c, c) for c in check))
         check_ = 98 - (check_ % 97)
         check = str(check_).zfill(2)
 
@@ -91,7 +89,12 @@ class Provider(BaseProvider):
         """
         return self.swift(length=11, primary=primary, use_dataset=use_dataset)
 
-    def swift(self, length: Optional[int] = None, primary: bool = False, use_dataset: bool = False) -> str:
+    def swift(
+        self,
+        length: Optional[int] = None,
+        primary: bool = False,
+        use_dataset: bool = False,
+    ) -> str:
         """Generate a SWIFT code.
 
         SWIFT codes, reading from left to right, are composed of a 4 alphabet
@@ -127,26 +130,26 @@ class Provider(BaseProvider):
         if length is None:
             length = self.random_element((8, 11))
         if length not in (8, 11):
-            raise AssertionError('length can only be 8 or 11')
+            raise AssertionError("length can only be 8 or 11")
 
-        if use_dataset and hasattr(self, 'swift_bank_codes'):
+        if use_dataset and hasattr(self, "swift_bank_codes"):
             bank_code: str = self.random_element(self.swift_bank_codes)  # type: ignore[attr-defined]
         else:
-            bank_code = self.lexify('????', letters=string.ascii_uppercase)
+            bank_code = self.lexify("????", letters=string.ascii_uppercase)
 
-        if use_dataset and hasattr(self, 'swift_location_codes'):
+        if use_dataset and hasattr(self, "swift_location_codes"):
             location_code: str = self.random_element(self.swift_location_codes)  # type: ignore[attr-defined]
         else:
-            location_code = self.lexify('??', letters=string.ascii_uppercase + string.digits)
+            location_code = self.lexify("??", letters=string.ascii_uppercase + string.digits)
 
         if length == 8:
             return bank_code + self.country_code + location_code
 
         if primary:
-            branch_code = 'XXX'
-        elif use_dataset and hasattr(self, 'swift_branch_codes'):
+            branch_code = "XXX"
+        elif use_dataset and hasattr(self, "swift_branch_codes"):
             branch_code = self.random_element(self.swift_branch_codes)  # type: ignore[attr-defined]
         else:
-            branch_code = self.lexify('???', letters=string.ascii_uppercase + string.digits)
+            branch_code = self.lexify("???", letters=string.ascii_uppercase + string.digits)
 
         return bank_code + self.country_code + location_code + branch_code

@@ -12,38 +12,38 @@ from .utils.loading import list_module
 logger = logging.getLogger(__name__)
 
 # identify if python is being run in interactive mode. If so, disable logging.
-inREPL = bool(getattr(sys, 'ps1', False))
+inREPL = bool(getattr(sys, "ps1", False))
 if inREPL:
     logger.setLevel(logging.CRITICAL)
 else:
-    logger.debug('Not in REPL -> leaving logger event level as is.')
+    logger.debug("Not in REPL -> leaving logger event level as is.")
 
 
 class Factory:
-
     @classmethod
     def create(
-            cls,
-            locale: Optional[str] = None,
-            providers: Optional[List[str]] = None,
-            generator: Generator = None,
-            includes: Optional[List[str]] = None,
-            # Should we use weightings (more realistic) or weight every element equally (faster)?
-            # By default, use weightings for backwards compatibility & realism
-            use_weighting: bool = True,
-            **config: Any) -> Generator:
+        cls,
+        locale: Optional[str] = None,
+        providers: Optional[List[str]] = None,
+        generator: Generator = None,
+        includes: Optional[List[str]] = None,
+        # Should we use weightings (more realistic) or weight every element equally (faster)?
+        # By default, use weightings for backwards compatibility & realism
+        use_weighting: bool = True,
+        **config: Any,
+    ) -> Generator:
         if includes is None:
             includes = []
 
         # fix locale to package name
-        locale = locale.replace('-', '_') if locale else DEFAULT_LOCALE
-        locale = pylocale.normalize(locale).split('.')[0]
+        locale = locale.replace("-", "_") if locale else DEFAULT_LOCALE
+        locale = pylocale.normalize(locale).split(".")[0]
         if locale not in AVAILABLE_LOCALES:
-            msg = f'Invalid configuration for faker locale `{locale}`'
+            msg = f"Invalid configuration for faker locale `{locale}`"
             raise AttributeError(msg)
 
-        config['locale'] = locale
-        config['use_weighting'] = use_weighting
+        config["locale"] = locale
+        config["use_weighting"] = use_weighting
         providers = providers or PROVIDERS
 
         providers += includes
@@ -51,7 +51,7 @@ class Factory:
         faker = generator or Generator(**config)
 
         for prov_name in providers:
-            if prov_name == 'faker.providers':
+            if prov_name == "faker.providers":
                 continue
 
             prov_cls, lang_found = cls._get_provider_class(prov_name, locale)
@@ -64,7 +64,7 @@ class Factory:
         return faker
 
     @classmethod
-    def _get_provider_class(cls, provider: str, locale: Optional[str] = '') -> Tuple[Any, Optional[str]]:
+    def _get_provider_class(cls, provider: str, locale: Optional[str] = "") -> Tuple[Any, Optional[str]]:
 
         provider_class = cls._find_provider_class(provider, locale)
 
@@ -82,7 +82,7 @@ class Factory:
         if provider_class:
             return provider_class, None
 
-        msg = f'Unable to find provider `{provider}` with locale `{locale}`'
+        msg = f"Unable to find provider `{provider}` with locale `{locale}`"
         raise ValueError(msg)
 
     @classmethod
@@ -90,30 +90,45 @@ class Factory:
 
         provider_module = import_module(provider_path)
 
-        if getattr(provider_module, 'localized', False):
+        if getattr(provider_module, "localized", False):
 
-            logger.debug('Looking for locale `%s` in provider `%s`.', locale, provider_module.__name__)
+            logger.debug(
+                "Looking for locale `%s` in provider `%s`.",
+                locale,
+                provider_module.__name__,
+            )
 
             available_locales = list_module(provider_module)
             if not locale or locale not in available_locales:
                 unavailable_locale = locale
-                locale = getattr(
-                    provider_module, 'default_locale', DEFAULT_LOCALE)
-                logger.debug('Specified locale `%s` is not available for '
-                             'provider `%s`. Locale reset to `%s` for this '
-                             'provider.',
-                             unavailable_locale, provider_module.__name__, locale)
+                locale = getattr(provider_module, "default_locale", DEFAULT_LOCALE)
+                logger.debug(
+                    "Specified locale `%s` is not available for "
+                    "provider `%s`. Locale reset to `%s` for this "
+                    "provider.",
+                    unavailable_locale,
+                    provider_module.__name__,
+                    locale,
+                )
             else:
-                logger.debug('Provider `%s` has been localized to `%s`.', provider_module.__name__, locale)
+                logger.debug(
+                    "Provider `%s` has been localized to `%s`.",
+                    provider_module.__name__,
+                    locale,
+                )
 
-            path = f'{provider_path}.{locale}'
+            path = f"{provider_path}.{locale}"
             provider_module = import_module(path)
 
         else:
 
-            logger.debug('Provider `%s` does not feature localization. '
-                         'Specified locale `%s` is not utilized for this '
-                         'provider.', provider_module.__name__, locale)
+            logger.debug(
+                "Provider `%s` does not feature localization. "
+                "Specified locale `%s` is not utilized for this "
+                "provider.",
+                provider_module.__name__,
+                locale,
+            )
 
             if locale is not None:
                 provider_module = import_module(provider_path)

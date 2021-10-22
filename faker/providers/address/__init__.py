@@ -4,21 +4,21 @@ localized = True
 
 
 class Provider(BaseProvider):
-    city_suffixes: ElementsType = ['Ville']
-    street_suffixes: ElementsType = ['Street']
-    city_formats: ElementsType = ('{{first_name}} {{city_suffix}}', )
-    street_name_formats: ElementsType = ('{{last_name}} {{street_suffix}}', )
-    street_address_formats: ElementsType = ('{{building_number}} {{street_name}}', )
-    address_formats: ElementsType = ('{{street_address}} {{postcode}} {{city}}', )
-    building_number_formats: ElementsType = ('##', )
-    postcode_formats: ElementsType = ('#####', )
-    countries: ElementsType = [tz['name'] for tz in date_time.Provider.countries]
+    city_suffixes: ElementsType = ["Ville"]
+    street_suffixes: ElementsType = ["Street"]
+    city_formats: ElementsType = ("{{first_name}} {{city_suffix}}",)
+    street_name_formats: ElementsType = ("{{last_name}} {{street_suffix}}",)
+    street_address_formats: ElementsType = ("{{building_number}} {{street_name}}",)
+    address_formats: ElementsType = ("{{street_address}} {{postcode}} {{city}}",)
+    building_number_formats: ElementsType = ("##",)
+    postcode_formats: ElementsType = ("#####",)
+    countries: ElementsType = [tz["name"] for tz in date_time.Provider.countries]
 
-    ALPHA_2 = 'alpha-2'
-    ALPHA_3 = 'alpha-3'
+    ALPHA_2 = "alpha-2"
+    ALPHA_3 = "alpha-3"
 
-    alpha_2_country_codes: ElementsType = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
-    alpha_3_country_codes: ElementsType = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
+    alpha_2_country_codes: ElementsType = [tz["alpha-2-code"] for tz in date_time.Provider.countries]
+    alpha_3_country_codes: ElementsType = [tz["alpha-3-code"] for tz in date_time.Provider.countries]
 
     def city_suffix(self) -> str:
         """
@@ -91,9 +91,9 @@ class Provider(BaseProvider):
 
     def current_country(self) -> str:
         current_country_code = self.current_country_code()
-        current_country = [tz['name']
-                           for tz in date_time.Provider.countries
-                           if tz['alpha-2-code'] == current_country_code]
+        current_country = [
+            tz["name"] for tz in date_time.Provider.countries if tz["alpha-2-code"] == current_country_code
+        ]
         if len(current_country) == 1:
             return current_country[0]  # type: ignore
         elif len(current_country) > 1:

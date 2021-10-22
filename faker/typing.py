@@ -7,5 +7,5 @@ except ImportError:
     from typing_extensions import Literal  # type: ignore
 
 DateParseType = Union[date, datetime, timedelta, str, int]
-HueType = TypeVar('HueType', str, float, Sequence[int])
-GenderType = TypeVar("GenderType", bound=Literal['M', 'F'])
+HueType = TypeVar("HueType", str, float, Sequence[int])
+GenderType = TypeVar("GenderType", bound=Literal["M", "F"])

@@ -12,24 +12,25 @@ from faker.utils import decorators, text
 
 
 class FactoryTestCase(unittest.TestCase):
-
     def setUp(self):
         self.generator = Generator()
 
     def test_documentor(self):
         from faker.cli import print_doc
+
         output = io.StringIO()
         print_doc(output=output)
-        print_doc('address', output=output)
-        print_doc('faker.providers.person.it_IT', output=output)
+        print_doc("address", output=output)
+        print_doc("faker.providers.person.it_IT", output=output)
         assert output.getvalue()
 
     def test_command(self):
         from faker.cli import Command
+
         orig_stdout = sys.stdout
         try:
             sys.stdout = io.StringIO()
-            command = Command(['faker', 'address'])
+            command = Command(["faker", "address"])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
@@ -37,10 +38,11 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_command_custom_provider(self):
         from faker.cli import Command
+
         orig_stdout = sys.stdout
         try:
             sys.stdout = io.StringIO()
-            command = Command(['faker', 'foo', '-i', 'tests.mymodule.en_US'])
+            command = Command(["faker", "foo", "-i", "tests.mymodule.en_US"])
             command.execute()
             assert sys.stdout.getvalue()
         finally:
@@ -48,45 +50,54 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_cli_seed(self):
         from faker.cli import Command
+
         orig_stdout = sys.stdout
         try:
             sys.stdout = io.StringIO()
-            base_args = ['faker', 'address']
-            target_args = ['--seed', '967']
-            commands = [Command(base_args + target_args), Command(base_args + target_args)]
+            base_args = ["faker", "address"]
+            target_args = ["--seed", "967"]
+            commands = [
+                Command(base_args + target_args),
+                Command(base_args + target_args),
+            ]
             cli_output = [None] * 2
             for i in range(2):
                 commands[i].execute()
                 cli_output[i] = sys.stdout.getvalue()
-            cli_output[1] = cli_output[1][len(cli_output[0]):]
+            cli_output[1] = cli_output[1][len(cli_output[0]) :]
             assert cli_output[0][:10] == cli_output[1][:10]
         finally:
             sys.stdout = orig_stdout
 
     def test_cli_seed_with_repeat(self):
         from faker.cli import Command
+
         orig_stdout = sys.stdout
         try:
             sys.stdout = io.StringIO()
-            base_args = ['faker', 'address', '-r', '3']
-            target_args = ['--seed', '967']
-            commands = [Command(base_args + target_args), Command(base_args + target_args)]
+            base_args = ["faker", "address", "-r", "3"]
+            target_args = ["--seed", "967"]
+            commands = [
+                Command(base_args + target_args),
+                Command(base_args + target_args),
+            ]
             cli_output = [None] * 2
             for i in range(2):
                 commands[i].execute()
                 cli_output[i] = sys.stdout.getvalue()
-            cli_output[1] = cli_output[1][len(cli_output[0]):]
+            cli_output[1] = cli_output[1][len(cli_output[0]) :]
             assert cli_output[0] == cli_output[1]
         finally:
             sys.stdout = orig_stdout
 
     def test_cli_verbosity(self):
         from faker.cli import Command
+
         orig_stdout = sys.stdout
         try:
             sys.stdout = io.StringIO()
-            base_args = ['faker', 'address', '--seed', '769']
-            target_args = ['-v']
+            base_args = ["faker", "address", "--seed", "769"]
+            target_args = ["-v"]
             commands = [Command(base_args), Command(base_args + target_args)]
             cli_output = [None] * 2
             for i in range(2):
@@ -99,46 +110,47 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_slugify(self):
         slug = text.slugify("a'b/c")
-        assert slug == 'abc'
+        assert slug == "abc"
 
         slug = text.slugify("àeìöú")
-        assert slug == 'aeiou'
+        assert slug == "aeiou"
 
         slug = text.slugify("àeì.öú")
-        assert slug == 'aeiou'
+        assert slug == "aeiou"
 
         slug = text.slugify("àeì.öú", allow_dots=True)
-        assert slug == 'aei.ou'
+        assert slug == "aei.ou"
 
         slug = text.slugify("àeì.öú", allow_unicode=True)
-        assert slug == 'àeìöú'
+        assert slug == "àeìöú"
 
         slug = text.slugify("àeì.öú", allow_unicode=True, allow_dots=True)
-        assert slug == 'àeì.öú'
+        assert slug == "àeì.öú"
 
         @decorators.slugify
         def fn(s):
             return s
 
         slug = fn("a'b/c")
-        assert slug == 'abc'
+        assert slug == "abc"
 
         @decorators.slugify_domain
         def fn(s):
             return s
 
         slug = fn("a'b/.c")
-        assert slug == 'ab.c'
+        assert slug == "ab.c"
 
         @decorators.slugify_unicode
         def fn(s):
             return s
 
         slug = fn("a'b/.cé")
-        assert slug == 'abcé'
+        assert slug == "abcé"
 
     def test_binary(self):
         from faker.providers.misc import Provider
+
         provider = Provider(self.generator)
 
         for _ in range(999):
@@ -158,6 +170,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_password(self):
         from faker.providers.misc import Provider
+
         provider = Provider(self.generator)
 
         def in_string(char, _str):
@@ -184,6 +197,7 @@ class FactoryTestCase(unittest.TestCase):
 
     def test_random_pystr_characters(self):
         from faker.providers.python import Provider
+
         provider = Provider(self.generator)
 
         characters = provider.pystr()
@@ -191,14 +205,15 @@ class FactoryTestCase(unittest.TestCase):
         characters = provider.pystr(max_chars=255)
         assert len(characters) == 255
         characters = provider.pystr(max_chars=0)
-        assert characters == ''
+        assert characters == ""
         characters = provider.pystr(max_chars=-10)
-        assert characters == ''
+        assert characters == ""
         characters = provider.pystr(min_chars=10, max_chars=255)
-        assert (len(characters) >= 10)
+        assert len(characters) >= 10
 
     def test_random_pyfloat(self):
         from faker.providers.python import Provider
+
         provider = Provider(self.generator)
 
         assert 0 <= abs(provider.pyfloat(left_digits=1)) < 10
@@ -262,14 +277,14 @@ class FactoryTestCase(unittest.TestCase):
         for i in range(1000):
             ssn = provider.ssn()
             assert len(ssn) == 11
-            assert ssn[0] != '9'
-            assert ssn[0:3] != '666'
-            assert ssn[0:3] != '000'
-            assert ssn[4:6] != '00'
-            assert ssn[7:11] != '0000'
+            assert ssn[0] != "9"
+            assert ssn[0:3] != "666"
+            assert ssn[0:3] != "000"
+            assert ssn[4:6] != "00"
+            assert ssn[7:11] != "0000"
 
     def test_nl_BE_ssn_valid(self):
-        fake = Faker('nl_BE')
+        fake = Faker("nl_BE")
 
         for i in range(1000):
             ssn = fake.ssn()
@@ -294,11 +309,11 @@ class FactoryTestCase(unittest.TestCase):
     def test_instance_seed_chain(self):
         factory = Factory.create()
 
-        names = ['Real Name0', 'Real Name1', 'Real Name2', 'Real Name0', 'Real Name2']
+        names = ["Real Name0", "Real Name1", "Real Name2", "Real Name0", "Real Name2"]
         anonymized = [factory.seed_instance(name).name() for name in names]
         assert anonymized[0] == anonymized[3]
         assert anonymized[2] == anonymized[4]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()  # pragma: no cover

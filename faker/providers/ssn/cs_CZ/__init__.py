@@ -6,12 +6,12 @@ from .. import Provider as BaseProvider
 
 class Provider(BaseProvider):
     vat_id_formats: Tuple[str, ...] = (
-        'CZ########',
-        'CZ#########',
-        'CZ##########',
+        "CZ########",
+        "CZ#########",
+        "CZ##########",
     )
 
-    national_id_months: List[str] = ['%.2d' % i for i in range(1, 13)] + ['%.2d' % i for i in range(51, 63)]
+    national_id_months: List[str] = ["%.2d" % i for i in range(1, 13)] + ["%.2d" % i for i in range(51, 63)]
 
     def vat_id(self) -> str:
         """
@@ -26,17 +26,17 @@ class Provider(BaseProvider):
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia
         """
         birthdate = self.generator.date_of_birth()
-        year = f'{birthdate:%y}'
+        year = f"{birthdate:%y}"
         month: str = self.random_element(self.national_id_months)
-        day = f'{birthdate:%d}'
+        day = f"{birthdate:%d}"
         if birthdate.year > 1953:
             sn = self.random_number(4, True)
         else:
             sn = self.random_number(3, True)
-        number = int(f'{year}{month}{day}{sn}')
+        number = int(f"{year}{month}{day}{sn}")
         birth_number = str(ceil(number / 11) * 11)
-        if year == '00':
-            birth_number = '00' + birth_number
-        elif year[0] == '0':
-            birth_number = '0' + birth_number
-        return f'{birth_number[:6]}/{birth_number[6:]}'
+        if year == "00":
+            birth_number = "00" + birth_number
+        elif year[0] == "0":
+            birth_number = "0" + birth_number
+        return f"{birth_number[:6]}/{birth_number[6:]}"

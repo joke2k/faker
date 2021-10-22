@@ -2,7 +2,6 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
     def ssn(self) -> str:
         """
         Returns an Israeli identity number, known as Teudat Zehut ("tz").

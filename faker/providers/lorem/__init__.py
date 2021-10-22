@@ -5,7 +5,7 @@ from .. import BaseProvider
 localized = True
 
 # 'Latin' is the default locale
-default_locale = 'la'
+default_locale = "la"
 
 
 class Provider(BaseProvider):
@@ -20,10 +20,15 @@ class Provider(BaseProvider):
        English.
     """
 
-    word_connector = ' '
-    sentence_punctuation = '.'
+    word_connector = " "
+    sentence_punctuation = "."
 
-    def words(self, nb: int = 3, ext_word_list: Optional[Sequence[str]] = None, unique: bool = False) -> List[str]:
+    def words(
+        self,
+        nb: int = 3,
+        ext_word_list: Optional[Sequence[str]] = None,
+        unique: bool = False,
+    ) -> List[str]:
         """Generate a tuple of words.
 
         The ``nb`` argument controls the number of words in the resulting list,
@@ -63,10 +68,12 @@ class Provider(BaseProvider):
         """
         return self.words(1, ext_word_list)[0]
 
-    def sentence(self,
-                 nb_words: int = 6,
-                 variable_nb_words: bool = True,
-                 ext_word_list: Optional[Sequence[str]] = None) -> str:
+    def sentence(
+        self,
+        nb_words: int = 6,
+        variable_nb_words: bool = True,
+        ext_word_list: Optional[Sequence[str]] = None,
+    ) -> str:
         """Generate a sentence.
 
         The ``nb_words`` argument controls how many words the sentence will
@@ -84,7 +91,7 @@ class Provider(BaseProvider):
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         if nb_words <= 0:
-            return ''
+            return ""
 
         if variable_nb_words:
             nb_words = self.randomize_nb_elements(nb_words, min=1)
@@ -106,14 +113,14 @@ class Provider(BaseProvider):
         :sample: nb=5
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        return [self.sentence(ext_word_list=ext_word_list)
-                for _ in range(0, nb)]
+        return [self.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     def paragraph(
-            self,
-            nb_sentences: int = 3,
-            variable_nb_sentences: bool = True,
-            ext_word_list: Optional[Sequence[str]] = None) -> str:
+        self,
+        nb_sentences: int = 3,
+        variable_nb_sentences: bool = True,
+        ext_word_list: Optional[Sequence[str]] = None,
+    ) -> str:
         """Generate a paragraph.
 
         The ``nb_sentences`` argument controls how many sentences the paragraph
@@ -133,14 +140,17 @@ class Provider(BaseProvider):
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         if nb_sentences <= 0:
-            return ''
+            return ""
 
         if variable_nb_sentences:
             nb_sentences = self.randomize_nb_elements(nb_sentences, min=1)
 
-        para = self.word_connector.join(self.sentences(
-            nb_sentences, ext_word_list=ext_word_list,
-        ))
+        para = self.word_connector.join(
+            self.sentences(
+                nb_sentences,
+                ext_word_list=ext_word_list,
+            )
+        )
 
         return para
 
@@ -155,8 +165,7 @@ class Provider(BaseProvider):
         :sample: nb=5
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        return [self.paragraph(ext_word_list=ext_word_list)
-                for _ in range(0, nb)]
+        return [self.paragraph(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     def text(self, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None) -> str:
         """Generate a text string.
@@ -174,8 +183,7 @@ class Provider(BaseProvider):
         """
         text: List[str] = []
         if max_nb_chars < 5:
-            raise ValueError(
-                'text() can only generate text of at least 5 characters')
+            raise ValueError("text() can only generate text of at least 5 characters")
 
         if max_nb_chars < 25:
             # join words
@@ -184,8 +192,7 @@ class Provider(BaseProvider):
                 # determine how many words are needed to reach the $max_nb_chars
                 # once;
                 while size < max_nb_chars:
-                    word = (self.word_connector if size else '') + \
-                        self.word(ext_word_list=ext_word_list)
+                    word = (self.word_connector if size else "") + self.word(ext_word_list=ext_word_list)
                     text.append(word)
                     size += len(word)
                 text.pop()
@@ -199,8 +206,7 @@ class Provider(BaseProvider):
                 # determine how many sentences are needed to reach the
                 # $max_nb_chars once
                 while size < max_nb_chars:
-                    sentence = (self.word_connector if size else '') + \
-                        self.sentence(ext_word_list=ext_word_list)
+                    sentence = (self.word_connector if size else "") + self.sentence(ext_word_list=ext_word_list)
                     text.append(sentence)
                     size += len(sentence)
                 text.pop()
@@ -211,18 +217,19 @@ class Provider(BaseProvider):
                 # determine how many paragraphs are needed to reach the
                 # $max_nb_chars once
                 while size < max_nb_chars:
-                    paragraph = ('\n' if size else '') + \
-                        self.paragraph(ext_word_list=ext_word_list)
+                    paragraph = ("\n" if size else "") + self.paragraph(ext_word_list=ext_word_list)
                     text.append(paragraph)
                     size += len(paragraph)
                 text.pop()
 
         return "".join(text)
 
-    def texts(self,
-              nb_texts: int = 3,
-              max_nb_chars: int = 200,
-              ext_word_list: Optional[Sequence[str]] = None) -> List[str]:
+    def texts(
+        self,
+        nb_texts: int = 3,
+        max_nb_chars: int = 200,
+        ext_word_list: Optional[Sequence[str]] = None,
+    ) -> List[str]:
         """Generate a list of text strings.
 
         The ``nb_texts`` argument controls how many text strings the list will
@@ -235,5 +242,4 @@ class Provider(BaseProvider):
         :sample: nb_texts=5, max_nb_chars=50,
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        return [self.text(max_nb_chars, ext_word_list)
-                for _ in range(0, nb_texts)]
+        return [self.text(max_nb_chars, ext_word_list) for _ in range(0, nb_texts)]

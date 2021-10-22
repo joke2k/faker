@@ -4,7 +4,6 @@ from .. import Provider as GeoProvider
 
 
 class Provider(GeoProvider):
-
     def local_latitude(self) -> Decimal:
         return self.coordinate(center=47.60707, radius=1)
 

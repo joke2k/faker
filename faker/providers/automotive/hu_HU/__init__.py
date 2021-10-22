@@ -9,6 +9,4 @@ class Provider(AutomotiveProvider):
     - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Hungary
     """
 
-    license_formats = (
-        '???-###',
-    )
+    license_formats = ("???-###",)

@@ -9,9 +9,9 @@ class Provider(BaseProvider):
     """
 
     vat_id_formats = (
-        'ES?########',
-        'ES########?',
-        'ES?#######?',
+        "ES?########",
+        "ES########?",
+        "ES?#######?",
     )
 
     def vat_id(self) -> str:
@@ -48,7 +48,7 @@ class Provider(BaseProvider):
         :return: a random Spanish CIF
         """
 
-        first_chr = random.choice('ABCDEFGHJNPQRSUVW')
+        first_chr = random.choice("ABCDEFGHJNPQRSUVW")
         doi_body = str(random.randrange(0, 10000000)).zfill(7)
         cif = first_chr + doi_body
         return cif + self._calculate_control_cif(cif)
@@ -69,7 +69,7 @@ class Provider(BaseProvider):
         :return: DOI control character
         """
 
-        lookup = 'TRWAGMYFPDXBNJZSQVHLCKE'
+        lookup = "TRWAGMYFPDXBNJZSQVHLCKE"
         return lookup[int(doi) % 23]
 
     @classmethod
@@ -95,9 +95,9 @@ class Provider(BaseProvider):
             sum_ = sum_
         sum_ = 10 - (sum_ % 10)
 
-        if first_chr in ['F', 'J', 'K', 'N', 'P', 'Q', 'R', 'S', 'U', 'V', 'W']:
+        if first_chr in ["F", "J", "K", "N", "P", "Q", "R", "S", "U", "V", "W"]:
             return chr(64 + sum_)
-        elif first_chr in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'L', 'M']:
+        elif first_chr in ["A", "B", "C", "D", "E", "F", "G", "H", "L", "M"]:
             if sum_ == 10:
                 sum_ = 0
             return str(sum_)

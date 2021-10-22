@@ -10,7 +10,6 @@ class Provider(BaseProvider):
     """Implement default file provider for Faker."""
 
     application_mime_types: ElementsType = (
-
         "application/atom+xml",  # Atom feeds
         "application/ecmascript",
         # ECMAScript/JavaScript; Defined in RFC 4329 (equivalent to
@@ -47,7 +46,7 @@ class Provider(BaseProvider):
         "application/xml-dtd",  # DTD files; Defined by RFC 3023
         "application/xop+xml",  # XOP
         "application/zip",  # ZIP archive files; Registered[8]
-        "application/gzip",         # Gzip, Defined in RFC 6713
+        "application/gzip",  # Gzip, Defined in RFC 6713
     )
 
     audio_mime_types: ElementsType = (
@@ -60,7 +59,7 @@ class Provider(BaseProvider):
         # RealAudio; Documented in RealPlayer Help[9]
         "audio/vnd.rn-realaudio",
         "audio/vnd.wave",  # WAV audio; Defined in RFC 2361
-        "audio/webm",               # WebM open media format
+        "audio/webm",  # WebM open media format
     )
 
     image_mime_types: ElementsType = (
@@ -136,16 +135,18 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types: Dict[str, ElementsType] = OrderedDict((
-        ('application', application_mime_types),
-        ('audio', audio_mime_types),
-        ('image', image_mime_types),
-        ('message', message_mime_types),
-        ('model', model_mime_types),
-        ('multipart', multipart_mime_types),
-        ('text', text_mime_types),
-        ('video', video_mime_types),
-    ))
+    mime_types: Dict[str, ElementsType] = OrderedDict(
+        (
+            ("application", application_mime_types),
+            ("audio", audio_mime_types),
+            ("image", image_mime_types),
+            ("message", message_mime_types),
+            ("model", model_mime_types),
+            ("multipart", multipart_mime_types),
+            ("text", text_mime_types),
+            ("video", video_mime_types),
+        )
+    )
 
     audio_file_extensions: ElementsType = (
         "flac",
@@ -194,14 +195,16 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions: Dict[str, ElementsType] = OrderedDict((
-        ("audio", audio_file_extensions),
-        ("image", image_file_extensions),
-        ("office", office_file_extensions),
-        ("text", text_file_extensions),
-        ("video", video_file_extensions),
-    ))
-    unix_device_prefixes: ElementsType = ('sd', 'vd', 'xvd')
+    file_extensions: Dict[str, ElementsType] = OrderedDict(
+        (
+            ("audio", audio_file_extensions),
+            ("image", image_file_extensions),
+            ("office", office_file_extensions),
+            ("text", text_file_extensions),
+            ("video", video_file_extensions),
+        )
+    )
+    unix_device_prefixes: ElementsType = ("sd", "vd", "xvd")
 
     def mime_type(self, category: Optional[str] = None) -> str:
         """Generate a mime type under the specified ``category``.
@@ -214,8 +217,7 @@ class Provider(BaseProvider):
         :sample:
         :sample: category='application'
         """
-        category = category if category else self.random_element(
-            list(self.mime_types.keys()))
+        category = category if category else self.random_element(list(self.mime_types.keys()))
         return self.random_element(self.mime_types[category])
 
     def file_name(self, category: Optional[str] = None, extension: Optional[str] = None) -> str:
@@ -235,7 +237,7 @@ class Provider(BaseProvider):
         if extension is None:
             extension = self.file_extension(category)
         filename: str = self.generator.word()
-        return f'{filename}.{extension}'
+        return f"{filename}.{extension}"
 
     def file_extension(self, category: Optional[str] = None) -> str:
         """Generate a file extension under the specified ``category``.
@@ -251,7 +253,12 @@ class Provider(BaseProvider):
             category = self.random_element(list(self.file_extensions.keys()))
         return self.random_element(self.file_extensions[category])
 
-    def file_path(self, depth: int = 1, category: Optional[str] = None, extension: Optional[str] = None) -> str:
+    def file_path(
+        self,
+        depth: int = 1,
+        category: Optional[str] = None,
+        extension: Optional[str] = None,
+    ) -> str:
         """Generate an absolute pathname to a file.
 
         This method uses |file_name| under the hood to generate the file name
@@ -264,9 +271,9 @@ class Provider(BaseProvider):
         :sample: depth=5, category='video', extension='abcdef'
         """
         file: str = self.file_name(category, extension)
-        path: str = f'/{file}'
+        path: str = f"/{file}"
         for _ in range(0, depth):
-            path = f'/{self.generator.word()}{path}'
+            path = f"/{self.generator.word()}{path}"
         return path
 
     def unix_device(self, prefix: Optional[str] = None) -> str:
@@ -281,7 +288,7 @@ class Provider(BaseProvider):
         if prefix is None:
             prefix = self.random_element(self.unix_device_prefixes)
         suffix: str = self.random_element(string.ascii_lowercase)
-        path = '/dev/%s%s' % (prefix, suffix)
+        path = "/dev/%s%s" % (prefix, suffix)
         return path
 
     def unix_partition(self, prefix: Optional[str] = None) -> str:

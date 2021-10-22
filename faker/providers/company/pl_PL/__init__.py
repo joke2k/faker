@@ -57,16 +57,32 @@ def company_vat_checksum(digits: List[int]) -> int:
 class Provider(CompanyProvider):
 
     formats = (
-        '{{last_name}} {{company_suffix}}',
-        '{{last_name}}-{{last_name}} {{company_suffix}}',
-        '{{company_prefix}} {{last_name}}',
-        '{{company_prefix}} {{last_name}} {{company_suffix}}',
-        '{{company_prefix}} {{last_name}}-{{last_name}} {{company_suffix}}',
+        "{{last_name}} {{company_suffix}}",
+        "{{last_name}}-{{last_name}} {{company_suffix}}",
+        "{{company_prefix}} {{last_name}}",
+        "{{company_prefix}} {{last_name}} {{company_suffix}}",
+        "{{company_prefix}} {{last_name}}-{{last_name}} {{company_suffix}}",
     )
 
-    company_prefixes = ('Grupa', 'Spółdzielnia', 'Stowarzyszenie', 'Fundacja', 'PPUH', 'FPUH', 'Gabinety')
+    company_prefixes = (
+        "Grupa",
+        "Spółdzielnia",
+        "Stowarzyszenie",
+        "Fundacja",
+        "PPUH",
+        "FPUH",
+        "Gabinety",
+    )
 
-    company_suffixes = ('Sp. z o.o.', 'S.A.', 'Sp. z o.o. Sp.k.', 'Sp.j.', 's.c.', 'Sp.k.', 'i syn s.c.')
+    company_suffixes = (
+        "Sp. z o.o.",
+        "S.A.",
+        "Sp. z o.o. Sp.k.",
+        "Sp.j.",
+        "s.c.",
+        "Sp.k.",
+        "i syn s.c.",
+    )
 
     def company_prefix(self) -> str:
         """
@@ -89,7 +105,7 @@ class Provider(CompanyProvider):
 
         regon_digits.append(regon_checksum(regon_digits))
 
-        return ''.join(str(digit) for digit in regon_digits)
+        return "".join(str(digit) for digit in regon_digits)
 
     def local_regon(self) -> str:
         """
@@ -105,7 +121,7 @@ class Provider(CompanyProvider):
 
         regon_digits.append(local_regon_checksum(regon_digits))
 
-        return ''.join(str(digit) for digit in regon_digits)
+        return "".join(str(digit) for digit in regon_digits)
 
     def company_vat(self) -> str:
         """
@@ -131,4 +147,4 @@ class Provider(CompanyProvider):
 
         vat_digits.append(check_digit)
 
-        return ''.join(str(digit) for digit in vat_digits)
+        return "".join(str(digit) for digit in vat_digits)

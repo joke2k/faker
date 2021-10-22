@@ -15,9 +15,9 @@ class Provider(BaseProvider):
     # few 'styles' have been included below for the sake of realism.
 
     nino_formats: Tuple[str, ...] = (
-        'ZZ ## ## ## T',
-        'ZZ######T',
-        'ZZ ###### T',
+        "ZZ ## ## ## T",
+        "ZZ######T",
+        "ZZ ###### T",
     )
 
     def ssn(self) -> str:
@@ -25,10 +25,10 @@ class Provider(BaseProvider):
         return self.numerify(self.generator.parse(pattern))
 
     vat_id_formats: Tuple[str, ...] = (
-        'GB### #### ##',
-        'GB### #### ## ###',
-        'GBGD###',
-        'GBHA###',
+        "GB### #### ##",
+        "GB### #### ## ###",
+        "GBGD###",
+        "GBHA###",
     )
 
     def vat_id(self) -> str:

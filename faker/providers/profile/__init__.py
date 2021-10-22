@@ -18,10 +18,10 @@ class Provider(BaseProvider):
         """
         Generates a basic profile with personal informations
         """
-        sex_ = self.random_element(['F', 'M']) if sex is None else sex
-        if sex_ == 'F':
+        sex_ = self.random_element(["F", "M"]) if sex is None else sex
+        if sex_ == "F":
             name = self.generator.name_female()
-        elif sex_ == 'M':
+        elif sex_ == "M":
             name = self.generator.name_male()
         return {
             "username": self.generator.user_name(),
@@ -32,9 +32,9 @@ class Provider(BaseProvider):
             "birthdate": self.generator.date_of_birth(),
         }
 
-    def profile(self,
-                fields: Optional[List[str]] = None,
-                sex: Optional[GenderType] = None) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], date]]:
+    def profile(
+        self, fields: Optional[List[str]] = None, sex: Optional[GenderType] = None
+    ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], date]]:
         """
         Generates a complete profile.
         If "fields" is not empty, only the fields in the list will be returned

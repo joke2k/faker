@@ -38,11 +38,11 @@ class Provider(SsnProvider):
         digits.append(dv)
         digits.append(checksum(digits))
 
-        return ''.join(map(str, digits))
+        return "".join(map(str, digits))
 
     def cpf(self) -> str:
         c = self.ssn()
-        return c[:3] + '.' + c[3:6] + '.' + c[6:9] + '-' + c[9:]
+        return c[:3] + "." + c[3:6] + "." + c[6:9] + "-" + c[9:]
 
     def rg(self) -> str:
         """
@@ -55,10 +55,10 @@ class Provider(SsnProvider):
         last_digit = 11 - (checksum % 11)
 
         if last_digit == 10:
-            digits.append('X')
+            digits.append("X")
         elif last_digit == 11:
             digits.append(0)
         else:
             digits.append(last_digit)
 
-        return ''.join(map(str, digits))
+        return "".join(map(str, digits))

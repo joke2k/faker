@@ -7,10 +7,10 @@ class Provider(BaseProvider):
     """
 
     vat_id_formats = (
-        'FR?? #########',
-        'FR## #########',
-        'FR?# #########',
-        'FR#? #########',
+        "FR?? #########",
+        "FR## #########",
+        "FR?# #########",
+        "FR#? #########",
     )
 
     def vat_id(self) -> str:

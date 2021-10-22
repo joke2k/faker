@@ -19,26 +19,26 @@ _UNIQUE_ATTEMPTS = 1000
 class Faker:
     """Proxy class capable of supporting multiple locales"""
 
-    cache_pattern: Pattern = re.compile(r'^_cached_\w*_mapping$')
+    cache_pattern: Pattern = re.compile(r"^_cached_\w*_mapping$")
     generator_attrs = [
-        attr for attr in dir(Generator)
-        if not attr.startswith('__')
-        and attr not in ['seed', 'seed_instance', 'random']
+        attr for attr in dir(Generator) if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
     ]
 
-    def __init__(self,
-                 locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
-                 providers: Optional[List[str]] = None,
-                 generator: Optional[Generator] = None,
-                 includes: Optional[List[str]] = None,
-                 use_weighting: bool = True,
-                 **config: Any) -> None:
+    def __init__(
+        self,
+        locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
+        providers: Optional[List[str]] = None,
+        generator: Optional[Generator] = None,
+        includes: Optional[List[str]] = None,
+        use_weighting: bool = True,
+        **config: Any,
+    ) -> None:
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
 
         if isinstance(locale, str):
-            locales = [locale.replace('-', '_')]
+            locales = [locale.replace("-", "_")]
 
         # This guarantees a FIFO ordering of elements in `locales` based on the final
         # locale string while discarding duplicates after processing
@@ -47,7 +47,7 @@ class Faker:
             for code in locale:
                 if not isinstance(code, str):
                     raise TypeError('The locale "%s" must be a string.' % str(code))
-                final_locale = code.replace('-', '_')
+                final_locale = code.replace("-", "_")
                 if final_locale not in locales:
                     locales.append(final_locale)
 
@@ -55,7 +55,7 @@ class Faker:
             assert all(isinstance(v, (int, float)) for v in locale.values())
             odict = OrderedDict()
             for k, v in locale.items():
-                key = k.replace('-', '_')
+                key = k.replace("-", "_")
                 odict[key] = v
             locales = list(odict.keys())
             self._weights = list(odict.values())
@@ -64,9 +64,14 @@ class Faker:
             locales = [DEFAULT_LOCALE]
 
         for locale in locales:
-            self._factory_map[locale] = Factory.create(locale, providers, generator, includes,
-                                                       use_weighting=use_weighting,
-                                                       **config)
+            self._factory_map[locale] = Factory.create(
+                locale,
+                providers,
+                generator,
+                includes,
+                use_weighting=use_weighting,
+                **config,
+            )
 
         self._locales = locales
         self._factories = list(self._factory_map.values())
@@ -74,13 +79,11 @@ class Faker:
     def __dir__(self):
         attributes = set(super(Faker, self).__dir__())
         for factory in self.factories:
-            attributes |= {
-                attr for attr in dir(factory) if not attr.startswith('_')
-            }
+            attributes |= {attr for attr in dir(factory) if not attr.startswith("_")}
         return sorted(attributes)
 
     def __getitem__(self, locale: str) -> Generator:
-        return self._factory_map[locale.replace('-', '_')]
+        return self._factory_map[locale.replace("-", "_")]
 
     def __getattribute__(self, attr: str) -> Any:
         """
@@ -91,11 +94,8 @@ class Faker:
         :param attr: attribute name
         :return: the appropriate attribute
         """
-        if attr == 'seed':
-            msg = (
-                'Calling `.seed()` on instances is deprecated. '
-                'Use the class method `Faker.seed()` instead.'
-            )
+        if attr == "seed":
+            msg = "Calling `.seed()` on instances is deprecated. " "Use the class method `Faker.seed()` instead."
             raise TypeError(msg)
         else:
             return super().__getattribute__(attr)
@@ -110,16 +110,16 @@ class Faker:
         if len(self._factories) == 1:
             return getattr(self._factories[0], attr)
         elif attr in self.generator_attrs:
-            msg = 'Proxying calls to `%s` is not implemented in multiple locale mode.' % attr
+            msg = "Proxying calls to `%s` is not implemented in multiple locale mode." % attr
             raise NotImplementedError(msg)
         elif self.cache_pattern.match(attr):
-            msg = 'Cached attribute `%s` does not exist' % attr
+            msg = "Cached attribute `%s` does not exist" % attr
             raise AttributeError(msg)
         else:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
 
-    def __deepcopy__(self, memodict: Dict = {}) -> 'Faker':
+    def __deepcopy__(self, memodict: Dict = {}) -> "Faker":
         cls = self.__class__
         result = cls.__new__(cls)
         result._locales = copy.deepcopy(self._locales)
@@ -127,17 +127,14 @@ class Faker:
         result._factory_map = copy.deepcopy(self._factory_map)
         result._weights = copy.deepcopy(self._weights)
         result._unique_proxy = UniqueProxy(self)
-        result._unique_proxy._seen = {
-            k: {result._unique_proxy._sentinel}
-            for k in self._unique_proxy._seen.keys()
-        }
+        result._unique_proxy._seen = {k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()}
         return result
 
     def __setstate__(self, state: Any) -> None:
         self.__dict__.update(state)
 
     @property
-    def unique(self) -> 'UniqueProxy':
+    def unique(self) -> "UniqueProxy":
         return self._unique_proxy
 
     def _select_factory(self, method_name: str) -> Factory:
@@ -150,7 +147,7 @@ class Faker:
 
         factories, weights = self._map_provider_method(method_name)
         if len(factories) == 0:
-            msg = f'No generator object has attribute {method_name!r}'
+            msg = f"No generator object has attribute {method_name!r}"
             raise AttributeError(msg)
         elif len(factories) == 1:
             return factories[0]
@@ -173,7 +170,7 @@ class Faker:
         """
 
         # Return cached mapping if it exists for given method
-        attr = f'_cached_{method_name}_mapping'
+        attr = f"_cached_{method_name}_mapping"
         if hasattr(self, attr):
             return getattr(self, attr)
 
@@ -187,11 +184,7 @@ class Faker:
             factories, weights = zip(*value)
             mapping = list(factories), list(weights)
         else:
-            value = [
-                factory  # type: ignore
-                for factory in self.factories
-                if hasattr(factory, method_name)
-            ]
+            value = [factory for factory in self.factories if hasattr(factory, method_name)]  # type: ignore
             mapping = value, None  # type: ignore
 
         # Then cache and return results
@@ -223,7 +216,7 @@ class Faker:
         :param locale: locale string
         :param seed: seed value
         """
-        self._factory_map[locale.replace('-', '_')].seed_instance(seed)
+        self._factory_map[locale.replace("-", "_")].seed_instance(seed)
 
     @property
     def random(self) -> Random:
@@ -238,7 +231,7 @@ class Faker:
         if len(self._factories) == 1:
             return self._factories[0].random
         else:
-            msg = 'Proxying `random` getter calls is not implemented in multiple locale mode.'
+            msg = "Proxying `random` getter calls is not implemented in multiple locale mode."
             raise NotImplementedError(msg)
 
     @random.setter
@@ -254,7 +247,7 @@ class Faker:
         if len(self._factories) == 1:
             self._factories[0].random = value
         else:
-            msg = 'Proxying `random` setter calls is not implemented in multiple locale mode.'
+            msg = "Proxying `random` setter calls is not implemented in multiple locale mode."
             raise NotImplementedError(msg)
 
     @property
@@ -315,7 +308,7 @@ class UniqueProxy:
                     break
                 retval = function(*args, **kwargs)
             else:
-                raise UniquenessException(f'Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.')
+                raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
 
             generated.add(retval)
 

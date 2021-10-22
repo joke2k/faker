@@ -12,7 +12,7 @@ class Provider(AutomotiveProvider):
 
     license_formats = (
         # Classic format
-        '??? ###',
+        "??? ###",
         # New format
-        '??? ##?',
+        "??? ##?",
     )

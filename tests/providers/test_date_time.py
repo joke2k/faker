@@ -38,7 +38,7 @@ from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 
 
 def is64bit():
-    return sys.maxsize > 2**32
+    return sys.maxsize > 2 ** 32
 
 
 class UTC(tzinfo):
@@ -63,9 +63,8 @@ utc = UTC()
 
 
 class TestKoKR(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('ko_KR')
+        self.fake = Faker("ko_KR")
         Faker.seed(0)
 
     def test_day(self):
@@ -78,7 +77,6 @@ class TestKoKR(unittest.TestCase):
 
 
 class TestDateTime(unittest.TestCase):
-
     def setUp(self):
         self.fake = Faker()
         Faker.seed(0)
@@ -88,7 +86,7 @@ class TestDateTime(unittest.TestCase):
         assert date >= start_date
 
     def test_date(self):
-        date_format = '%Y-%m-%d'
+        date_format = "%Y-%m-%d"
         date_string = self.fake.date(pattern=date_format)
         assert isinstance(date_string, str)
         assert isinstance(datetime.strptime(date_string, date_format), datetime)
@@ -118,23 +116,21 @@ class TestDateTime(unittest.TestCase):
         assert future_date > date.today()
 
     def test_parse_date_time(self):
-        timestamp = DatetimeProvider._parse_date_time('+30d')
-        now = DatetimeProvider._parse_date_time('now')
+        timestamp = DatetimeProvider._parse_date_time("+30d")
+        now = DatetimeProvider._parse_date_time("now")
         assert timestamp > now
         delta = timedelta(days=30)
         from_delta = DatetimeProvider._parse_date_time(delta)
         from_int = DatetimeProvider._parse_date_time(30)
 
-        assert datetime.fromtimestamp(from_delta).date() == (
-                         datetime.fromtimestamp(timestamp).date())
+        assert datetime.fromtimestamp(from_delta).date() == (datetime.fromtimestamp(timestamp).date())
 
-        assert datetime.fromtimestamp(from_int).date() == (
-                         datetime.fromtimestamp(timestamp).date())
+        assert datetime.fromtimestamp(from_int).date() == (datetime.fromtimestamp(timestamp).date())
 
     def test_parse_date(self):
-        parsed = DatetimeProvider._parse_date('+30d')
-        now = DatetimeProvider._parse_date('now')
-        today = DatetimeProvider._parse_date('today')
+        parsed = DatetimeProvider._parse_date("+30d")
+        now = DatetimeProvider._parse_date("now")
+        today = DatetimeProvider._parse_date("today")
         assert isinstance(parsed, date)
         assert isinstance(now, date)
         assert isinstance(today, date)
@@ -161,6 +157,7 @@ class TestDateTime(unittest.TestCase):
 
     def test_pytimezone(self):
         import dateutil
+
         pytz = self.fake.pytimezone()
         assert isinstance(pytz, dateutil.tz.tz.tzfile)
 
@@ -176,8 +173,8 @@ class TestDateTime(unittest.TestCase):
         assert self.fake.date_time_ad().tzinfo is None
         assert self.fake.date_time_ad(utc).tzinfo == utc
 
-        assert not self.fake.iso8601().endswith('+00:00')
-        assert self.fake.iso8601(utc).endswith('+00:00')
+        assert not self.fake.iso8601().endswith("+00:00")
+        assert self.fake.iso8601(utc).endswith("+00:00")
 
     def test_date_object(self):
         assert isinstance(self.fake.date_object(), date)
@@ -192,13 +189,13 @@ class TestDateTime(unittest.TestCase):
         delta = self.fake.time_delta(end_datetime=timedelta(seconds=-60))
         assert delta.seconds >= -60
 
-        delta = self.fake.time_delta(end_datetime='+60s')
+        delta = self.fake.time_delta(end_datetime="+60s")
         assert delta.seconds <= 60
 
-        delta = self.fake.time_delta(end_datetime='-60s')
+        delta = self.fake.time_delta(end_datetime="-60s")
         assert delta.seconds >= 60
 
-        delta = self.fake.time_delta(end_datetime='now')
+        delta = self.fake.time_delta(end_datetime="now")
         assert delta.seconds <= 0
 
     def test_date_time_between_dates(self):
@@ -229,7 +226,7 @@ class TestDateTime(unittest.TestCase):
 
     def test_past_datetime_within_second(self):
         # Should not raise a ``ValueError``
-        self.fake.past_datetime(start_date='+1s')
+        self.fake.past_datetime(start_date="+1s")
 
     def test_date_between_dates(self):
         date_end = date.today()
@@ -253,17 +250,15 @@ class TestDateTime(unittest.TestCase):
             datetime(datetime.now().year - (datetime.now().year % 100), 1, 1),
         )
 
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_century(after_now=False)) <=
-            self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(self.fake.date_time_this_century(after_now=False)) <= self._datetime_to_time(
+            datetime.now()
         )
+        assert self._datetime_to_time(
+            self.fake.date_time_this_century(before_now=False, after_now=True)
+        ) >= self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.fake.date_time_this_century(before_now=False, after_now=True)) >=
-            self._datetime_to_time(datetime.now())
-        )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_century(before_now=True, after_now=True)) >=
-            this_century_start
+            self._datetime_to_time(self.fake.date_time_this_century(before_now=True, after_now=True))
+            >= this_century_start
         )
 
         # test decade
@@ -271,48 +266,39 @@ class TestDateTime(unittest.TestCase):
             datetime(datetime.now().year - (datetime.now().year % 10), 1, 1),
         )
 
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_decade(after_now=False)) <=
-            self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(self.fake.date_time_this_decade(after_now=False)) <= self._datetime_to_time(
+            datetime.now()
         )
+        assert self._datetime_to_time(
+            self.fake.date_time_this_decade(before_now=False, after_now=True)
+        ) >= self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(
+            self.fake.date_time_this_decade(before_now=False, after_now=False)
+        ) == self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.fake.date_time_this_decade(before_now=False, after_now=True)) >=
-            self._datetime_to_time(datetime.now())
-        )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_decade(before_now=False, after_now=False)) ==
-            self._datetime_to_time(datetime.now())
-        )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_decade(before_now=True, after_now=True)) >=
-            this_decade_start
+            self._datetime_to_time(self.fake.date_time_this_decade(before_now=True, after_now=True))
+            >= this_decade_start
         )
         # test year
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_year(after_now=False)) <=
-            self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(self.fake.date_time_this_year(after_now=False)) <= self._datetime_to_time(
+            datetime.now()
         )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_year(before_now=False, after_now=True)) >=
-            self._datetime_to_time(datetime.now())
-        )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_year(before_now=False, after_now=False)) ==
-            self._datetime_to_time(datetime.now())
-        )
+        assert self._datetime_to_time(
+            self.fake.date_time_this_year(before_now=False, after_now=True)
+        ) >= self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(
+            self.fake.date_time_this_year(before_now=False, after_now=False)
+        ) == self._datetime_to_time(datetime.now())
         # test month
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_month(after_now=False)) <=
-            self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(self.fake.date_time_this_month(after_now=False)) <= self._datetime_to_time(
+            datetime.now()
         )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_month(before_now=False, after_now=True)) >=
-            self._datetime_to_time(datetime.now())
-        )
-        assert (
-            self._datetime_to_time(self.fake.date_time_this_month(before_now=False, after_now=False)) ==
-            self._datetime_to_time(datetime.now())
-        )
+        assert self._datetime_to_time(
+            self.fake.date_time_this_month(before_now=False, after_now=True)
+        ) >= self._datetime_to_time(datetime.now())
+        assert self._datetime_to_time(
+            self.fake.date_time_this_month(before_now=False, after_now=False)
+        ) == self._datetime_to_time(datetime.now())
 
     @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_time_this_period_with_tzinfo(self):
@@ -329,94 +315,72 @@ class TestDateTime(unittest.TestCase):
         # test century
         assert self.fake.date_time_this_century(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_century(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
-        assert (
-            self.fake.date_time_this_century(before_now=False, after_now=False, tzinfo=utc).
-            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
-        )
+        assert self.fake.date_time_this_century(before_now=False, after_now=False, tzinfo=utc).replace(
+            second=0, microsecond=0
+        ) == datetime.now(utc).replace(second=0, microsecond=0)
         # test decade
         assert self.fake.date_time_this_decade(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_decade(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
 
-        assert (
-            self.fake.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).
-            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
-        )
+        assert self.fake.date_time_this_decade(before_now=False, after_now=False, tzinfo=utc).replace(
+            second=0, microsecond=0
+        ) == datetime.now(utc).replace(second=0, microsecond=0)
         # test year
         assert self.fake.date_time_this_year(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_year(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
-        assert (
-            self.fake.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).
-            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
-        )
-        assert (
-            self.fake.date_time_this_year(before_now=True, after_now=True, tzinfo=utc).
-            year == datetime.now(utc).year
-        )
+        assert self.fake.date_time_this_year(before_now=False, after_now=False, tzinfo=utc).replace(
+            second=0, microsecond=0
+        ) == datetime.now(utc).replace(second=0, microsecond=0)
+        assert self.fake.date_time_this_year(before_now=True, after_now=True, tzinfo=utc).year == datetime.now(utc).year
         # test month
         assert self.fake.date_time_this_month(after_now=False, tzinfo=utc) <= datetime.now(utc)
         assert self.fake.date_time_this_month(before_now=False, after_now=True, tzinfo=utc) >= datetime.now(utc)
+        assert self.fake.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).replace(
+            second=0, microsecond=0
+        ) == datetime.now(utc).replace(second=0, microsecond=0)
         assert (
-            self.fake.date_time_this_month(before_now=False, after_now=False, tzinfo=utc).
-            replace(second=0, microsecond=0) == datetime.now(utc).replace(second=0, microsecond=0)
-        )
-        assert (
-            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
-            month == datetime.now(utc).month
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).month == datetime.now(utc).month
         ) and (
-            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).
-            year == datetime.now(utc).year
+            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).year == datetime.now(utc).year
         )
 
     @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_this_period(self):
         # test century
         assert (
-            self.fake.date_this_century(before_today=True, after_today=True).
-            strftime("%G")[:2] == datetime.now().strftime("%G")[:2]
+            self.fake.date_this_century(before_today=True, after_today=True).strftime("%G")[:2]
+            == datetime.now().strftime("%G")[:2]
         )
         assert self.fake.date_this_century(after_today=False) <= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=True) >= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=False) == date.today()
         # test decade
         assert (
-            self.fake.date_this_decade(before_today=True, after_today=True).
-            strftime("%G")[:3] == datetime.now().strftime("%G")[:3]
+            self.fake.date_this_decade(before_today=True, after_today=True).strftime("%G")[:3]
+            == datetime.now().strftime("%G")[:3]
         )
         assert self.fake.date_this_decade(after_today=False) <= date.today()
         assert self.fake.date_this_decade(before_today=False, after_today=True) >= date.today()
-        assert (
-            self.fake.date_this_decade(before_today=False, after_today=False) == date.today()
-        )
+        assert self.fake.date_this_decade(before_today=False, after_today=False) == date.today()
         # test year
-        assert (
-            self.fake.date_this_year(before_today=True, after_today=True).
-            year == datetime.now().year
-        )
+        assert self.fake.date_this_year(before_today=True, after_today=True).year == datetime.now().year
         assert self.fake.date_this_year(after_today=False) <= date.today()
         assert self.fake.date_this_year(before_today=False, after_today=True) >= date.today()
-        assert (
-            self.fake.date_this_year(before_today=False, after_today=False) == date.today()
-        )
+        assert self.fake.date_this_year(before_today=False, after_today=False) == date.today()
         # test month
-        assert (
-            self.fake.date_this_month(before_today=True, after_today=True).
-            month == datetime.now().month
-        ) and (
-            self.fake.date_this_month(before_today=True, after_today=True).
-            year == datetime.now().year
+        assert (self.fake.date_this_month(before_today=True, after_today=True).month == datetime.now().month) and (
+            self.fake.date_this_month(before_today=True, after_today=True).year == datetime.now().year
         )
         assert self.fake.date_this_month(after_today=False) <= date.today()
         assert self.fake.date_this_month(before_today=False, after_today=True) >= date.today()
-        assert (
-            self.fake.date_this_month(before_today=False, after_today=False) == date.today()
-        )
+        assert self.fake.date_this_month(before_today=False, after_today=False) == date.today()
 
     def test_date_time_between(self):
         now = datetime.now()
         _30_years_ago = change_year(now, -30)
         _20_years_ago = change_year(now, -20)
 
-        random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y')
+        random_datetime = self.fake.date_time_between(start_date="-30y", end_date="-20y")
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
@@ -424,7 +388,7 @@ class TestDateTime(unittest.TestCase):
         _30_years_ago = change_year(now, -30)
         _20_years_ago = change_year(now, -20)
 
-        random_datetime = self.fake.date_time_between(start_date='-30y', end_date='-20y', tzinfo=utc)
+        random_datetime = self.fake.date_time_between(start_date="-30y", end_date="-20y", tzinfo=utc)
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
@@ -433,17 +397,17 @@ class TestDateTime(unittest.TestCase):
         _30_years_ago = change_year(today, -30)
         _20_years_ago = change_year(today, -20)
 
-        random_date = self.fake.date_between(start_date='-30y', end_date='-20y')
+        random_date = self.fake.date_between(start_date="-30y", end_date="-20y")
 
         assert isinstance(random_date, date)
         self.assertBetween(random_date, _30_years_ago, _20_years_ago)
 
     def test_date_between_months(self):
         today = date.today()
-        _2_months_ago = today - timedelta(days=2 * (365.24/12))
-        _9_months_ago = today - timedelta(days=9 * (365.24/12))
+        _2_months_ago = today - timedelta(days=2 * (365.24 / 12))
+        _9_months_ago = today - timedelta(days=9 * (365.24 / 12))
 
-        random_date = self.fake.date_between(start_date='-9M', end_date='-2M')
+        random_date = self.fake.date_between(start_date="-9M", end_date="-2M")
 
         assert isinstance(random_date, date)
         self.assertBetween(random_date, _9_months_ago, _2_months_ago)
@@ -455,14 +419,14 @@ class TestDateTime(unittest.TestCase):
         seconds = Provider._parse_timedelta(td)
         assert seconds == 604800
 
-        seconds = Provider._parse_timedelta('+1w')
+        seconds = Provider._parse_timedelta("+1w")
         assert seconds == 604800
 
-        seconds = Provider._parse_timedelta('+1y')
+        seconds = Provider._parse_timedelta("+1y")
         assert seconds == 31556736
 
         with pytest.raises(ValueError):
-            Provider._parse_timedelta('foobar')
+            Provider._parse_timedelta("foobar")
 
     def test_time_series(self):
         series = list(self.fake.time_series())
@@ -470,24 +434,24 @@ class TestDateTime(unittest.TestCase):
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         uniform = lambda dt: random.uniform(0, 5)  # noqa
-        series = list(self.fake.time_series('now', '+1w', '+1d', uniform))
+        series = list(self.fake.time_series("now", "+1w", "+1d", uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         end = datetime.now() + timedelta(days=7)
-        series = list(self.fake.time_series('now', end, '+1d', uniform))
+        series = list(self.fake.time_series("now", end, "+1d", uniform))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
         assert series[-1][0] <= end
 
         with pytest.raises(ValueError):
-            list(self.fake.time_series('+1w', 'now', '+1d', uniform))
+            list(self.fake.time_series("+1w", "now", "+1d", uniform))
 
         with pytest.raises(ValueError):
-            list(self.fake.time_series('now', '+1w', '+1d', 'uniform'))
+            list(self.fake.time_series("now", "+1w", "+1d", "uniform"))
 
-        series = list(self.fake.time_series('now', end, '+1d', uniform, tzinfo=utc))
+        series = list(self.fake.time_series("now", end, "+1d", uniform, tzinfo=utc))
         assert len(series), 7
         assert series[1][0] - series[0][0], timedelta(days=1)
 
@@ -519,12 +483,16 @@ class TestDateTime(unittest.TestCase):
             )
 
             # Ensure relative unix_times partially-constrained by a start time are generated correctly
-            one_day_ago = datetime.today()-timedelta(days=1)
+            one_day_ago = datetime.today() - timedelta(days=1)
 
             recent_unix_time = self.fake.unix_time(start_datetime=one_day_ago)
 
             self.assertIsInstance(recent_unix_time, int)
-            self.assertBetween(recent_unix_time, datetime_to_timestamp(one_day_ago), datetime_to_timestamp(now))
+            self.assertBetween(
+                recent_unix_time,
+                datetime_to_timestamp(one_day_ago),
+                datetime_to_timestamp(now),
+            )
 
             # Ensure relative unix_times partially-constrained by an end time are generated correctly
             one_day_after_epoch_start = datetime(1970, 1, 2, tzinfo=utc)
@@ -545,12 +513,12 @@ class TestDateTime(unittest.TestCase):
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
 
             # Ensure it does not throw error with startdate='now' for machines with negative offset
-            if platform.system() != 'Windows':
-                os.environ['TZ'] = 'Europe/Paris'
+            if platform.system() != "Windows":
+                os.environ["TZ"] = "Europe/Paris"
                 time.tzset()
-            self.fake.unix_time(start_datetime='now')
-            if platform.system() != 'Windows':
-                del os.environ['TZ']
+            self.fake.unix_time(start_datetime="now")
+            if platform.system() != "Windows":
+                del os.environ["TZ"]
 
     def test_change_year(self):
         _2020_06_01 = datetime.strptime("2020-06-01", "%Y-%m-%d")
@@ -568,9 +536,8 @@ class TestDateTime(unittest.TestCase):
 
 
 class TestDeDe(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('de_DE')
+        self.fake = Faker("de_DE")
         Faker.seed(0)
 
     def test_day(self):
@@ -583,9 +550,8 @@ class TestDeDe(unittest.TestCase):
 
 
 class TestPlPL(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('pl_PL')
+        self.fake = Faker("pl_PL")
         Faker.seed(0)
 
     def test_day(self):
@@ -598,10 +564,10 @@ class TestPlPL(unittest.TestCase):
 
 
 class TestHyAm(unittest.TestCase):
-    """ Tests date_time in the hy_AM locale """
+    """Tests date_time in the hy_AM locale"""
 
     def setUp(self):
-        self.fake = Faker('hy_AM')
+        self.fake = Faker("hy_AM")
         Faker.seed(0)
 
     def test_day(self):
@@ -617,7 +583,7 @@ class TestHyAm(unittest.TestCase):
 
 class TestAr(unittest.TestCase):
     def test_ar_aa(self):
-        fake = Faker('ar')
+        fake = Faker("ar")
         Faker.seed(0)
 
         # AM/PM
@@ -625,18 +591,12 @@ class TestAr(unittest.TestCase):
         # Day of week
         assert fake.century() in ArProvider.centuries
         # Month name
-        assert (
-            fake.month_name()) in (
-            ArProvider.MONTH_NAMES.values()
-        )
+        assert (fake.month_name()) in (ArProvider.MONTH_NAMES.values())
         # Day of week
-        assert (
-            fake.day_of_week()) in (
-            ArProvider.DAY_NAMES.values()
-        )
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
 
     def test_ar_eg(self):
-        fake = Faker('ar_EG')
+        fake = Faker("ar_EG")
         Faker.seed(0)
 
         # AM/PM
@@ -644,20 +604,11 @@ class TestAr(unittest.TestCase):
         # Day of week
         assert fake.century() in ArProvider.centuries
         # Day of week
-        assert (
-            fake.day_of_week()) in (
-            ArProvider.DAY_NAMES.values()
-        )
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
         # Month name
-        assert (
-            fake.month_name()) in (
-            EgProvider.MONTH_NAMES.values()
-        )
+        assert (fake.month_name()) in (EgProvider.MONTH_NAMES.values())
         # Month name
-        assert (
-            fake.month_name()) not in (
-            ArProvider.MONTH_NAMES.values()
-        )
+        assert (fake.month_name()) not in (ArProvider.MONTH_NAMES.values())
 
 
 class DatesOfBirth(unittest.TestCase):
@@ -673,7 +624,7 @@ class DatesOfBirth(unittest.TestCase):
         dob = self.fake.date_of_birth()
         assert isinstance(dob, date)
 
-    @freezegun.freeze_time('2020-02-29')
+    @freezegun.freeze_time("2020-02-29")
     def test_date_of_birth_on_leap_day(self):
         """
         Freeze the date to a leap day to verify that the date_of_birth method  does not
@@ -700,7 +651,7 @@ class DatesOfBirth(unittest.TestCase):
             self.fake.date_of_birth(minimum_age=0.5)
 
         with self.assertRaises(TypeError):
-            self.fake.date_of_birth(maximum_age='hello')
+            self.fake.date_of_birth(maximum_age="hello")
 
     def test_bad_age_range(self):
         with self.assertRaises(ValueError):
@@ -767,11 +718,12 @@ class TestFilPh(unittest.TestCase):
         self.setup_faker()
 
     def setup_faker(self):
-        self.fake = Faker('fil_PH')
+        self.fake = Faker("fil_PH")
         Faker.seed(0)
 
     def setup_constants(self):
         from faker.providers.date_time.fil_PH import Provider
+
         self.day_names = Provider.DAY_NAMES.values()
         self.month_names = Provider.MONTH_NAMES.values()
 
@@ -785,17 +737,16 @@ class TestFilPh(unittest.TestCase):
 
 
 class TestTlPh(TestFilPh):
-
     def setup_faker(self):
-        self.fake = Faker('tl_PH')
+        self.fake = Faker("tl_PH")
         Faker.seed(0)
 
 
 class TestTaIN(unittest.TestCase):
-    """ Tests date_time in the ta_IN locale """
+    """Tests date_time in the ta_IN locale"""
 
     def setUp(self):
-        self.fake = Faker('ta_IN')
+        self.fake = Faker("ta_IN")
         Faker.seed(0)
 
     def test_day(self):
@@ -810,10 +761,10 @@ class TestTaIN(unittest.TestCase):
 
 
 class TestRuRu(unittest.TestCase):
-    """ Tests date_time in the ru_RU locale """
+    """Tests date_time in the ru_RU locale"""
 
     def setUp(self):
-        self.fake = Faker('ru_RU')
+        self.fake = Faker("ru_RU")
         Faker.seed(0)
 
     def test_day(self):
@@ -832,13 +783,12 @@ class TestRuRu(unittest.TestCase):
         for _ in range(100):
             timezone = self.fake.timezone()
             assert isinstance(timezone, str)
-            assert re.match(r'[А-Яа-я]', timezone)
+            assert re.match(r"[А-Яа-я]", timezone)
 
 
 class TestCsCz(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('cs_CZ')
+        self.fake = Faker("cs_CZ")
         Faker.seed(0)
 
     def test_day(self):
@@ -851,9 +801,8 @@ class TestCsCz(unittest.TestCase):
 
 
 class TestDeAt(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('de_AT')
+        self.fake = Faker("de_AT")
         Faker.seed(0)
 
     def test_day(self):
@@ -866,9 +815,8 @@ class TestDeAt(unittest.TestCase):
 
 
 class TestEsEs(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('es_ES')
+        self.fake = Faker("es_ES")
         Faker.seed(0)
 
     def test_day(self):
@@ -881,9 +829,8 @@ class TestEsEs(unittest.TestCase):
 
 
 class TestItIt(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('it_IT')
+        self.fake = Faker("it_IT")
         Faker.seed(0)
 
     def test_day(self):
@@ -896,9 +843,8 @@ class TestItIt(unittest.TestCase):
 
 
 class TestSkSk(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('sk_SK')
+        self.fake = Faker("sk_SK")
         Faker.seed(0)
 
     def test_day(self):
@@ -914,7 +860,7 @@ class TestThTh(unittest.TestCase):
     num_sample_runs = 50
 
     def setUp(self):
-        self.fake = Faker('th_TH')
+        self.fake = Faker("th_TH")
         Faker.seed(0)
 
     def test_day(self):
@@ -932,16 +878,16 @@ class TestThTh(unittest.TestCase):
         date = self.fake.date(thai_digit=True)
         for _ in range(self.num_sample_runs):
             assert re.fullmatch(
-                    r'[๐-๙]{1,2} '
-                    r'(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.) '
-                    r'[๐-๙]{4}',
-                    date,
-                )
+                r"[๐-๙]{1,2} "
+                r"(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.) "
+                r"[๐-๙]{4}",
+                date,
+            )
 
     def test_time(self):
         time = self.fake.time(thai_digit=True)
         for _ in range(self.num_sample_runs):
-            assert re.fullmatch(r'[๐-๙]{2}:[๐-๙]{2}:[๐-๙]{2}', time)
+            assert re.fullmatch(r"[๐-๙]{2}:[๐-๙]{2}:[๐-๙]{2}", time)
 
     def test_century(self):
         century = self.fake.century()
@@ -949,7 +895,7 @@ class TestThTh(unittest.TestCase):
         assert len(century) <= 2
         century = self.fake.century(thai_digit=True)
         for _ in range(self.num_sample_runs):
-            assert re.fullmatch(r'[๑-๒]?[๐-๙]', century)
+            assert re.fullmatch(r"[๑-๒]?[๐-๙]", century)
 
     def test_date_pattern(self):
         # unsupported or incomplete directive
@@ -1093,9 +1039,8 @@ class TestThTh(unittest.TestCase):
 
 
 class TestTrTr(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('tr_TR')
+        self.fake = Faker("tr_TR")
         Faker.seed(0)
 
     def test_day(self):
@@ -1108,9 +1053,8 @@ class TestTrTr(unittest.TestCase):
 
 
 class TestPtBr(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('pt_BR')
+        self.fake = Faker("pt_BR")
         Faker.seed(0)
 
     def test_day(self):
@@ -1123,9 +1067,8 @@ class TestPtBr(unittest.TestCase):
 
 
 class TestPtPt(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('pt_PT')
+        self.fake = Faker("pt_PT")
         Faker.seed(0)
 
     def test_day(self):
@@ -1138,9 +1081,8 @@ class TestPtPt(unittest.TestCase):
 
 
 class TestRoRo(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('ro_RO')
+        self.fake = Faker("ro_RO")
         Faker.seed(0)
 
     def test_day(self):
@@ -1153,9 +1095,8 @@ class TestRoRo(unittest.TestCase):
 
 
 class TestBnBd(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('bn_BD')
+        self.fake = Faker("bn_BD")
         Faker.seed(0)
 
     def test_day(self):
@@ -1168,9 +1109,8 @@ class TestBnBd(unittest.TestCase):
 
 
 class TestNlNl(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker('nl_NL')
+        self.fake = Faker("nl_NL")
         Faker.seed(0)
 
     def test_day(self):
@@ -1184,7 +1124,7 @@ class TestNlNl(unittest.TestCase):
 
 class TestElGr(unittest.TestCase):
     def setUp(self):
-        self.fake = Faker('el-GR')
+        self.fake = Faker("el-GR")
         Faker.seed(0)
 
     def test_day(self):

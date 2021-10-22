@@ -9,15 +9,20 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
     @staticmethod
     def _org_to_vat(org_id: str) -> str:
-        org_id = org_id.replace('-', '')
+        org_id = org_id.replace("-", "")
         if len(org_id) == 10:
-            org_id = '16' + org_id
-        return f'SE{org_id}01'
+            org_id = "16" + org_id
+        return f"SE{org_id}01"
 
-    def ssn(self, min_age: int = 18, max_age: int = 90, long: bool = False, dash: bool = True) -> str:
+    def ssn(
+        self,
+        min_age: int = 18,
+        max_age: int = 90,
+        long: bool = False,
+        dash: bool = True,
+    ) -> str:
         """
         Returns a 10 or 12 (long=True) digit Swedish SSN, "Personnummer".
 
@@ -31,16 +36,15 @@ class Provider(SsnProvider):
         http://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
         """
 
-        age = datetime.timedelta(
-            days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.datetime.now() - age
-        yr_fmt = '%Y' if long else '%y'
-        pnr_date = f'{birthday:{yr_fmt}%m%d}'
+        yr_fmt = "%Y" if long else "%y"
+        pnr_date = f"{birthday:{yr_fmt}%m%d}"
         chk_date = pnr_date[2:] if long else pnr_date
-        suffix = f'{self.generator.random.randrange(0, 999):03}'
+        suffix = f"{self.generator.random.randrange(0, 999):03}"
         luhn_checksum = str(calculate_luhn(int(chk_date + suffix)))
-        hyphen = '-' if dash else ''
-        pnr = f'{pnr_date}{hyphen}{suffix}{luhn_checksum}'
+        hyphen = "-" if dash else ""
+        pnr = f"{pnr_date}{hyphen}{suffix}{luhn_checksum}"
 
         return pnr
 
@@ -60,10 +64,10 @@ class Provider(SsnProvider):
         onr_one += str(self.generator.random.randrange(0, 99)).zfill(2)
         onr_two = str(self.generator.random.randrange(0, 999)).zfill(3)
         luhn_checksum = str(calculate_luhn(int(onr_one + onr_two)))
-        prefix = '16' if long else ''
-        hyphen = '-' if dash else ''
+        prefix = "16" if long else ""
+        hyphen = "-" if dash else ""
 
-        org_id = f'{prefix}{onr_one}{hyphen}{onr_two}{luhn_checksum}'
+        org_id = f"{prefix}{onr_one}{hyphen}{onr_two}{luhn_checksum}"
         return org_id
 
     def vat_id(self) -> str:
