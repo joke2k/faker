@@ -291,3 +291,28 @@ class TestArAe:
         for _ in range(num_samples):
             phone = faker.phone_number()
             assert pattern.fullmatch(phone)
+
+
+class TestFrFr:
+    def test_phone_number(self, faker, num_samples):
+        pattern_no_whitespaces: Pattern = re.compile(
+            r"^0\d{9}$",
+        )
+        pattern_no_country_prefix: Pattern = re.compile(
+            r"^0\d \d{2} \d{2} \d{2} \d{2}$",
+        )
+        pattern_country_prefix_1: Pattern = re.compile(
+            r"^\+33 \(0\)\d \d{2} \d{2} \d{2} \d{2}$",
+        )
+        pattern_country_prefix_2: Pattern = re.compile(
+            r"^\+33 \d \d{2} \d{2} \d{2} \d{2}$",
+        )
+        patterns = [
+            pattern_no_whitespaces,
+            pattern_no_country_prefix,
+            pattern_country_prefix_1,
+            pattern_country_prefix_2,
+        ]
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert any([re.match(pattern, phone_number) for pattern in patterns])
