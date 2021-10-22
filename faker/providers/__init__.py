@@ -6,83 +6,276 @@ from typing import Any, Dict, KeysView, Optional, Sequence, TypeVar, Union
 
 from ..utils.distribution import choices_distribution, choices_distribution_unique
 
-_re_hash = re.compile(r'#')
-_re_perc = re.compile(r'%')
-_re_excl = re.compile(r'!')
-_re_at = re.compile(r'@')
-_re_qm = re.compile(r'\?')
-_re_cir = re.compile(r'\^')
+_re_hash = re.compile(r"#")
+_re_perc = re.compile(r"%")
+_re_excl = re.compile(r"!")
+_re_at = re.compile(r"@")
+_re_qm = re.compile(r"\?")
+_re_cir = re.compile(r"\^")
 
-T = TypeVar('T')
+T = TypeVar("T")
 ElementsType = Union[Sequence[T], Dict[T, float], KeysView[T]]
 
 
 class BaseProvider:
 
-    __provider__ = 'base'
+    __provider__ = "base"
     __lang__ = None
     __use_weighting__ = False
 
     # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`
     language_locale_codes = {
-        'aa': ('DJ', 'ER', 'ET'), 'af': ('ZA',), 'ak': ('GH',), 'am': ('ET',),
-        'an': ('ES',), 'apn': ('IN',),
-        'ar': ('AE', 'BH', 'DJ', 'DZ', 'EG', 'EH', 'ER', 'IL', 'IN',
-               'IQ', 'JO', 'KM', 'KW', 'LB', 'LY', 'MA', 'MR', 'OM',
-               'PS', 'QA', 'SA', 'SD', 'SO', 'SS', 'SY', 'TD', 'TN',
-               'YE'),
-        'as': ('IN',), 'ast': ('ES',), 'ayc': ('PE',), 'az': ('AZ', 'IN'),
-        'be': ('BY',), 'bem': ('ZM',), 'ber': ('DZ', 'MA'), 'bg': ('BG',),
-        'bhb': ('IN',), 'bho': ('IN',), 'bn': ('BD', 'IN'), 'bo': ('CN', 'IN'),
-        'br': ('FR',), 'brx': ('IN',), 'bs': ('BA',), 'byn': ('ER',),
-        'ca': ('AD', 'ES', 'FR', 'IT'), 'ce': ('RU',), 'ckb': ('IQ',),
-        'cmn': ('TW',), 'crh': ('UA',), 'cs': ('CZ',), 'csb': ('PL',),
-        'cv': ('RU',), 'cy': ('GB',), 'da': ('DK',),
-        'de': ('AT', 'BE', 'CH', 'DE', 'LI', 'LU'), 'doi': ('IN',),
-        'dv': ('MV',), 'dz': ('BT',), 'el': ('GR', 'CY'),
-        'en': ('AG', 'AU', 'BW', 'CA', 'DK', 'GB', 'HK', 'IE', 'IN', 'NG',
-               'NZ', 'PH', 'SG', 'US', 'ZA', 'ZM', 'ZW'),
-        'eo': ('US',),
-        'es': ('AR', 'BO', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'ES', 'GT',
-               'HN', 'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'US', 'UY', 'VE',
-               ), 'et': ('EE',), 'eu': ('ES', 'FR'), 'fa': ('IR',),
-        'ff': ('SN',), 'fi': ('FI',), 'fil': ('PH',), 'fo': ('FO',),
-        'fr': ('CA', 'CH', 'FR', 'LU'), 'fur': ('IT',), 'fy': ('NL', 'DE'),
-        'ga': ('IE',), 'gd': ('GB',), 'gez': ('ER', 'ET'), 'gl': ('ES',),
-        'gu': ('IN',), 'gv': ('GB',), 'ha': ('NG',), 'hak': ('TW',),
-        'he': ('IL',), 'hi': ('IN',), 'hne': ('IN',), 'hr': ('HR',),
-        'hsb': ('DE',), 'ht': ('HT',), 'hu': ('HU',), 'hy': ('AM',),
-        'ia': ('FR',), 'id': ('ID',), 'ig': ('NG',), 'ik': ('CA',),
-        'is': ('IS',), 'it': ('CH', 'IT'), 'iu': ('CA',), 'iw': ('IL',),
-        'ja': ('JP',), 'ka': ('GE',), 'kk': ('KZ',), 'kl': ('GL',),
-        'km': ('KH',), 'kn': ('IN',), 'ko': ('KR',), 'kok': ('IN',),
-        'ks': ('IN',), 'ku': ('TR',), 'kw': ('GB',), 'ky': ('KG',),
-        'lb': ('LU',), 'lg': ('UG',), 'li': ('BE', 'NL'), 'lij': ('IT',),
-        'ln': ('CD',), 'lo': ('LA',), 'lt': ('LT',), 'lv': ('LV',),
-        'lzh': ('TW',), 'mag': ('IN',), 'mai': ('IN',), 'mg': ('MG',),
-        'mhr': ('RU',), 'mi': ('NZ',), 'mk': ('MK',), 'ml': ('IN',),
-        'mn': ('MN',), 'mni': ('IN',), 'mr': ('IN',), 'ms': ('MY',),
-        'mt': ('MT',), 'my': ('MM',), 'nan': ('TW',), 'nb': ('NO',),
-        'nds': ('DE', 'NL'), 'ne': ('NP',), 'nhn': ('MX',),
-        'niu': ('NU', 'NZ'), 'nl': ('AW', 'BE', 'NL'), 'nn': ('NO',),
-        'nr': ('ZA',), 'nso': ('ZA',), 'oc': ('FR',), 'om': ('ET', 'KE'),
-        'or': ('IN',), 'os': ('RU',), 'pa': ('IN', 'PK'),
-        'pap': ('AN', 'AW', 'CW'), 'pl': ('PL',), 'ps': ('AF',),
-        'pt': ('BR', 'PT'), 'quz': ('PE',), 'raj': ('IN',), 'ro': ('RO',),
-        'ru': ('RU', 'UA'), 'rw': ('RW',), 'sa': ('IN',), 'sat': ('IN',),
-        'sc': ('IT',), 'sd': ('IN', 'PK'), 'se': ('NO',), 'shs': ('CA',),
-        'si': ('LK',), 'sid': ('ET',), 'sk': ('SK',), 'sl': ('SI',),
-        'so': ('DJ', 'ET', 'KE', 'SO'), 'sq': ('AL', 'ML'), 'sr': ('ME', 'RS'),
-        'ss': ('ZA',), 'st': ('ZA',), 'sv': ('FI', 'SE'), 'sw': ('KE', 'TZ'),
-        'szl': ('PL',), 'ta': ('IN', 'LK'), 'tcy': ('IN',), 'te': ('IN',),
-        'tg': ('TJ',), 'th': ('TH',), 'the': ('NP',), 'ti': ('ER', 'ET'),
-        'tig': ('ER',), 'tk': ('TM',), 'tl': ('PH',), 'tn': ('ZA',),
-        'tr': ('CY', 'TR'), 'ts': ('ZA',), 'tt': ('RU',), 'ug': ('CN',),
-        'uk': ('UA',), 'unm': ('US',), 'ur': ('IN', 'PK'), 'uz': ('UZ',),
-        've': ('ZA',), 'vi': ('VN',), 'wa': ('BE',), 'wae': ('CH',),
-        'wal': ('ET',), 'wo': ('SN',), 'xh': ('ZA',), 'yi': ('US',),
-        'yo': ('NG',), 'yue': ('HK',), 'zh': ('CN', 'HK', 'SG', 'TW'),
-        'zu': ('ZA',),
+        "aa": ("DJ", "ER", "ET"),
+        "af": ("ZA",),
+        "ak": ("GH",),
+        "am": ("ET",),
+        "an": ("ES",),
+        "apn": ("IN",),
+        "ar": (
+            "AE",
+            "BH",
+            "DJ",
+            "DZ",
+            "EG",
+            "EH",
+            "ER",
+            "IL",
+            "IN",
+            "IQ",
+            "JO",
+            "KM",
+            "KW",
+            "LB",
+            "LY",
+            "MA",
+            "MR",
+            "OM",
+            "PS",
+            "QA",
+            "SA",
+            "SD",
+            "SO",
+            "SS",
+            "SY",
+            "TD",
+            "TN",
+            "YE",
+        ),
+        "as": ("IN",),
+        "ast": ("ES",),
+        "ayc": ("PE",),
+        "az": ("AZ", "IN"),
+        "be": ("BY",),
+        "bem": ("ZM",),
+        "ber": ("DZ", "MA"),
+        "bg": ("BG",),
+        "bhb": ("IN",),
+        "bho": ("IN",),
+        "bn": ("BD", "IN"),
+        "bo": ("CN", "IN"),
+        "br": ("FR",),
+        "brx": ("IN",),
+        "bs": ("BA",),
+        "byn": ("ER",),
+        "ca": ("AD", "ES", "FR", "IT"),
+        "ce": ("RU",),
+        "ckb": ("IQ",),
+        "cmn": ("TW",),
+        "crh": ("UA",),
+        "cs": ("CZ",),
+        "csb": ("PL",),
+        "cv": ("RU",),
+        "cy": ("GB",),
+        "da": ("DK",),
+        "de": ("AT", "BE", "CH", "DE", "LI", "LU"),
+        "doi": ("IN",),
+        "dv": ("MV",),
+        "dz": ("BT",),
+        "el": ("GR", "CY"),
+        "en": (
+            "AG",
+            "AU",
+            "BW",
+            "CA",
+            "DK",
+            "GB",
+            "HK",
+            "IE",
+            "IN",
+            "NG",
+            "NZ",
+            "PH",
+            "SG",
+            "US",
+            "ZA",
+            "ZM",
+            "ZW",
+        ),
+        "eo": ("US",),
+        "es": (
+            "AR",
+            "BO",
+            "CL",
+            "CO",
+            "CR",
+            "CU",
+            "DO",
+            "EC",
+            "ES",
+            "GT",
+            "HN",
+            "MX",
+            "NI",
+            "PA",
+            "PE",
+            "PR",
+            "PY",
+            "SV",
+            "US",
+            "UY",
+            "VE",
+        ),
+        "et": ("EE",),
+        "eu": ("ES", "FR"),
+        "fa": ("IR",),
+        "ff": ("SN",),
+        "fi": ("FI",),
+        "fil": ("PH",),
+        "fo": ("FO",),
+        "fr": ("CA", "CH", "FR", "LU"),
+        "fur": ("IT",),
+        "fy": ("NL", "DE"),
+        "ga": ("IE",),
+        "gd": ("GB",),
+        "gez": ("ER", "ET"),
+        "gl": ("ES",),
+        "gu": ("IN",),
+        "gv": ("GB",),
+        "ha": ("NG",),
+        "hak": ("TW",),
+        "he": ("IL",),
+        "hi": ("IN",),
+        "hne": ("IN",),
+        "hr": ("HR",),
+        "hsb": ("DE",),
+        "ht": ("HT",),
+        "hu": ("HU",),
+        "hy": ("AM",),
+        "ia": ("FR",),
+        "id": ("ID",),
+        "ig": ("NG",),
+        "ik": ("CA",),
+        "is": ("IS",),
+        "it": ("CH", "IT"),
+        "iu": ("CA",),
+        "iw": ("IL",),
+        "ja": ("JP",),
+        "ka": ("GE",),
+        "kk": ("KZ",),
+        "kl": ("GL",),
+        "km": ("KH",),
+        "kn": ("IN",),
+        "ko": ("KR",),
+        "kok": ("IN",),
+        "ks": ("IN",),
+        "ku": ("TR",),
+        "kw": ("GB",),
+        "ky": ("KG",),
+        "lb": ("LU",),
+        "lg": ("UG",),
+        "li": ("BE", "NL"),
+        "lij": ("IT",),
+        "ln": ("CD",),
+        "lo": ("LA",),
+        "lt": ("LT",),
+        "lv": ("LV",),
+        "lzh": ("TW",),
+        "mag": ("IN",),
+        "mai": ("IN",),
+        "mg": ("MG",),
+        "mhr": ("RU",),
+        "mi": ("NZ",),
+        "mk": ("MK",),
+        "ml": ("IN",),
+        "mn": ("MN",),
+        "mni": ("IN",),
+        "mr": ("IN",),
+        "ms": ("MY",),
+        "mt": ("MT",),
+        "my": ("MM",),
+        "nan": ("TW",),
+        "nb": ("NO",),
+        "nds": ("DE", "NL"),
+        "ne": ("NP",),
+        "nhn": ("MX",),
+        "niu": ("NU", "NZ"),
+        "nl": ("AW", "BE", "NL"),
+        "nn": ("NO",),
+        "nr": ("ZA",),
+        "nso": ("ZA",),
+        "oc": ("FR",),
+        "om": ("ET", "KE"),
+        "or": ("IN",),
+        "os": ("RU",),
+        "pa": ("IN", "PK"),
+        "pap": ("AN", "AW", "CW"),
+        "pl": ("PL",),
+        "ps": ("AF",),
+        "pt": ("BR", "PT"),
+        "quz": ("PE",),
+        "raj": ("IN",),
+        "ro": ("RO",),
+        "ru": ("RU", "UA"),
+        "rw": ("RW",),
+        "sa": ("IN",),
+        "sat": ("IN",),
+        "sc": ("IT",),
+        "sd": ("IN", "PK"),
+        "se": ("NO",),
+        "shs": ("CA",),
+        "si": ("LK",),
+        "sid": ("ET",),
+        "sk": ("SK",),
+        "sl": ("SI",),
+        "so": ("DJ", "ET", "KE", "SO"),
+        "sq": ("AL", "ML"),
+        "sr": ("ME", "RS"),
+        "ss": ("ZA",),
+        "st": ("ZA",),
+        "sv": ("FI", "SE"),
+        "sw": ("KE", "TZ"),
+        "szl": ("PL",),
+        "ta": ("IN", "LK"),
+        "tcy": ("IN",),
+        "te": ("IN",),
+        "tg": ("TJ",),
+        "th": ("TH",),
+        "the": ("NP",),
+        "ti": ("ER", "ET"),
+        "tig": ("ER",),
+        "tk": ("TM",),
+        "tl": ("PH",),
+        "tn": ("ZA",),
+        "tr": ("CY", "TR"),
+        "ts": ("ZA",),
+        "tt": ("RU",),
+        "ug": ("CN",),
+        "uk": ("UA",),
+        "unm": ("US",),
+        "ur": ("IN", "PK"),
+        "uz": ("UZ",),
+        "ve": ("ZA",),
+        "vi": ("VN",),
+        "wa": ("BE",),
+        "wae": ("CH",),
+        "wal": ("ET",),
+        "wo": ("SN",),
+        "xh": ("ZA",),
+        "yi": ("US",),
+        "yo": ("NG",),
+        "yue": ("HK",),
+        "zh": ("CN", "HK", "SG", "TW"),
+        "zu": ("ZA",),
     }
 
     def __init__(self, generator: Any) -> None:
@@ -94,8 +287,12 @@ class BaseProvider:
         :sample:
         """
         language_code = self.language_code()
-        return language_code + '_' + self.random_element(
-            BaseProvider.language_locale_codes[language_code],
+        return (
+            language_code
+            + "_"
+            + self.random_element(
+                BaseProvider.language_locale_codes[language_code],
+            )
         )
 
     def language_code(self) -> str:
@@ -143,7 +340,7 @@ class BaseProvider:
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(0, 9)
         else:
-            return ''
+            return ""
 
     def random_digit_not_null_or_empty(self) -> Union[int, str]:
         """Generate a random non-zero digit (1 to 9) or an empty string.
@@ -156,7 +353,7 @@ class BaseProvider:
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(1, 9)
         else:
-            return ''
+            return ""
 
     def random_number(self, digits: Optional[int] = None, fix_len: bool = False) -> int:
         """Generate a random integer according to the following rules:
@@ -180,8 +377,7 @@ class BaseProvider:
             raise ValueError("The digit parameter must be greater than or equal to 0.")
         if fix_len:
             if digits > 0:
-                return self.generator.random.randint(
-                    pow(10, digits - 1), pow(10, digits) - 1)
+                return self.generator.random.randint(pow(10, digits - 1), pow(10, digits) - 1)
             else:
                 raise ValueError("A number of fixed length cannot have less than 1 digit in it.")
         else:
@@ -192,8 +388,7 @@ class BaseProvider:
 
         :sample:
         """
-        return self.generator.random.choice(
-            getattr(string, 'letters', string.ascii_letters))
+        return self.generator.random.choice(getattr(string, "letters", string.ascii_letters))
 
     def random_letters(self, length: int = 16) -> Sequence[str]:
         """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
@@ -202,7 +397,7 @@ class BaseProvider:
         :sample: length=10
         """
         return self.random_choices(
-            getattr(string, 'letters', string.ascii_letters),
+            getattr(string, "letters", string.ascii_letters),
             length=length,
         )
 
@@ -220,11 +415,13 @@ class BaseProvider:
         """
         return self.generator.random.choice(string.ascii_uppercase)
 
-    def random_elements(self,
-                        elements: ElementsType = ('a', 'b', 'c'),
-                        length: Optional[int] = None,
-                        unique: bool = False,
-                        use_weighting: Optional[bool] = None) -> Sequence[T]:
+    def random_elements(
+        self,
+        elements: ElementsType = ("a", "b", "c"),
+        length: Optional[int] = None,
+        unique: bool = False,
+        use_weighting: Optional[bool] = None,
+    ) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
@@ -280,9 +477,7 @@ class BaseProvider:
                        ("d", 0.05),
                    ]), unique=True
         """
-        use_weighting = (use_weighting
-                         if use_weighting is not None
-                         else self.__use_weighting__)
+        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
 
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
             raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
@@ -293,8 +488,7 @@ class BaseProvider:
             length = self.generator.random.randint(1, len(elements))
 
         if unique and length > len(elements):
-            raise ValueError(
-                "Sample length cannot be longer than the number of unique elements to pick from.")
+            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
@@ -316,9 +510,7 @@ class BaseProvider:
             length=length,
         )
 
-    def random_choices(self,
-                       elements: ElementsType = ('a', 'b', 'c'),
-                       length: Optional[int] = None) -> Sequence[T]:
+    def random_choices(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -342,8 +534,7 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self,
-                       elements: ElementsType = ('a', 'b', 'c')) -> T:
+    def random_element(self, elements: ElementsType = ("a", "b", "c")) -> T:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -362,9 +553,7 @@ class BaseProvider:
 
         return self.random_elements(elements, length=1)[0]
 
-    def random_sample(self,
-                      elements: ElementsType = ('a', 'b', 'c'),
-                      length: Optional[int] = None) -> Sequence[T]:
+    def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -376,12 +565,14 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=True)
 
-    def randomize_nb_elements(self,
-                              number: int = 10,
-                              le: bool = False,
-                              ge: bool = False,
-                              min: Optional[int] = None,
-                              max: Optional[int] = None) -> int:
+    def randomize_nb_elements(
+        self,
+        number: int = 10,
+        le: bool = False,
+        ge: bool = False,
+        min: Optional[int] = None,
+        max: Optional[int] = None,
+    ) -> int:
         """Generate a random integer near ``number`` according to the following rules:
 
         - If ``le`` is ``False`` (default), allow generation up to 140% of ``number``.
@@ -413,7 +604,7 @@ class BaseProvider:
             nb = max
         return nb
 
-    def numerify(self, text: str = '###') -> str:
+    def numerify(self, text: str = "###") -> str:
         """Generate a string with each placeholder in ``text`` replaced according
         to the following rules:
 
@@ -431,21 +622,13 @@ class BaseProvider:
         :sample: text='Intel Core i%-%%##K vs AMD Ryzen % %%##X'
         :sample: text='!!! !!@ !@! !@@ @!! @!@ @@! @@@'
         """
-        text = _re_hash.sub(
-            lambda x: str(self.random_digit()),
-            text)
-        text = _re_perc.sub(
-            lambda x: str(self.random_digit_not_null()),
-            text)
-        text = _re_excl.sub(
-            lambda x: str(self.random_digit_or_empty()),
-            text)
-        text = _re_at.sub(
-            lambda x: str(self.random_digit_not_null_or_empty()),
-            text)
+        text = _re_hash.sub(lambda x: str(self.random_digit()), text)
+        text = _re_perc.sub(lambda x: str(self.random_digit_not_null()), text)
+        text = _re_excl.sub(lambda x: str(self.random_digit_or_empty()), text)
+        text = _re_at.sub(lambda x: str(self.random_digit_not_null_or_empty()), text)
         return text
 
-    def lexify(self, text: str = '????', letters: str = string.ascii_letters) -> str:
+    def lexify(self, text: str = "????", letters: str = string.ascii_letters) -> str:
         """Generate a string with each question mark ('?') in ``text``
         replaced with a random character from ``letters``.
 
@@ -456,7 +639,7 @@ class BaseProvider:
         """
         return _re_qm.sub(lambda x: self.random_element(letters), text)
 
-    def bothify(self, text: str = '## ??', letters: str = string.ascii_letters) -> str:
+    def bothify(self, text: str = "## ??", letters: str = string.ascii_letters) -> str:
         """Generate a string with each placeholder in ``text`` replaced according to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
@@ -474,7 +657,7 @@ class BaseProvider:
         """
         return self.lexify(self.numerify(text), letters=letters)
 
-    def hexify(self, text: str = '^^^^', upper: bool = False) -> str:
+    def hexify(self, text: str = "^^^^", upper: bool = False) -> str:
         """Generate a string with each circumflex ('^') in ``text``
         replaced with a random hexadecimal character.
 

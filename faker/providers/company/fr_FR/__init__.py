@@ -5,55 +5,64 @@ from .. import Provider as CompanyProvider
 
 class Provider(CompanyProvider):
     formats = (
-        '{{last_name}} {{company_suffix}}',
-        '{{last_name}} {{last_name}} {{company_suffix}}',
-        '{{last_name}}',
-        '{{last_name}}',
+        "{{last_name}} {{company_suffix}}",
+        "{{last_name}} {{last_name}} {{company_suffix}}",
+        "{{last_name}}",
+        "{{last_name}}",
     )
 
-    catch_phrase_formats = (
-        '{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}', )
+    catch_phrase_formats = ("{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}",)
 
     nouns = (
-        'la sécurité',
-        'le plaisir',
-        'le confort',
-        'la simplicité',
+        "la sécurité",
+        "le plaisir",
+        "le confort",
+        "la simplicité",
         "l'assurance",
         "l'art",
-        'le pouvoir',
-        'le droit',
-        'la possibilité',
+        "le pouvoir",
+        "le droit",
+        "la possibilité",
         "l'avantage",
-        'la liberté')
+        "la liberté",
+    )
 
     verbs = (
-        'de rouler',
+        "de rouler",
         "d'avancer",
         "d'évoluer",
-        'de changer',
+        "de changer",
         "d'innover",
-        'de louer',
+        "de louer",
         "d'atteindre vos buts",
-        'de concrétiser vos projets')
+        "de concrétiser vos projets",
+    )
 
     attributes = (
-        'de manière efficace',
-        'plus rapidement',
-        'plus facilement',
-        'plus simplement',
-        'en toute tranquilité',
-        'avant-tout',
-        'autrement',
-        'naturellement',
-        'à la pointe',
-        'sans soucis',
+        "de manière efficace",
+        "plus rapidement",
+        "plus facilement",
+        "plus simplement",
+        "en toute tranquilité",
+        "avant-tout",
+        "autrement",
+        "naturellement",
+        "à la pointe",
+        "sans soucis",
         "à l'état pur",
-        'à sa source',
-        'de manière sûre',
-        'en toute sécurité')
+        "à sa source",
+        "de manière sûre",
+        "en toute sécurité",
+    )
 
-    company_suffixes: Tuple[str, ...] = ('SA', 'S.A.', 'SARL', 'S.A.R.L.', 'S.A.S.', 'et Fils')
+    company_suffixes: Tuple[str, ...] = (
+        "SA",
+        "S.A.",
+        "SARL",
+        "S.A.R.L.",
+        "S.A.S.",
+        "et Fils",
+    )
 
     siren_format = "### ### ###"
 
@@ -92,7 +101,7 @@ class Provider(CompanyProvider):
         return catch_phrase
 
     # An array containing string which should not appear twice in a catch phrase
-    words_which_should_not_appear_twice = ('sécurité', 'simpl')
+    words_which_should_not_appear_twice = ("sécurité", "simpl")
 
     def _is_catch_phrase_valid(self, catch_phrase: str) -> bool:
         """
@@ -127,6 +136,5 @@ class Provider(CompanyProvider):
         if max_sequential_digits > 4 or max_sequential_digits <= 0:
             max_sequential_digits = 2
 
-        sequential_number = str(self.random_number(
-            max_sequential_digits)).zfill(4)
-        return self.numerify(self.siren() + ' ' + sequential_number + '#')
+        sequential_number = str(self.random_number(max_sequential_digits)).zfill(4)
+        return self.numerify(self.siren() + " " + sequential_number + "#")

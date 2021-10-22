@@ -7,8 +7,8 @@ class Provider(BaseProvider):
     """
 
     vat_id_formats = (
-        'LT#########',
-        'LT############',
+        "LT#########",
+        "LT############",
     )
 
     def vat_id(self) -> str:

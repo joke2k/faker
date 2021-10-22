@@ -22,16 +22,12 @@ class Provider(AutomotiveProvider):
     license_formats = (
         # Format 6
         "##-%?-??",
-
         # Format 7
         "##-%??-#",
-
         # Format 8
         "#-@??-##",
-
         # Format 9
         "%?-###-?",
-
         # Format 10
         "%-###-??",
     )
@@ -52,20 +48,22 @@ class Provider(AutomotiveProvider):
 
     def license_plate_motorbike(self) -> str:
         """Generate a license plate for motorbikes."""
-        return self.bothify(self.random_element(self.license_formats_motorbike),
-                            letters=string.ascii_uppercase)
+        return self.bothify(
+            self.random_element(self.license_formats_motorbike),
+            letters=string.ascii_uppercase,
+        )
 
     def license_plate_car(self) -> str:
         """Generate a license plate for cars."""
         # Replace % with license_plate_prefix_letters
-        temp = re.sub(r"\%",
-                      self.random_element(self.license_plate_prefix_letters),
-                      self.random_element(self.license_formats))
+        temp = re.sub(
+            r"\%",
+            self.random_element(self.license_plate_prefix_letters),
+            self.random_element(self.license_formats),
+        )
 
         # Replace @ with license_plate_prefix_letters_format_8
-        temp = re.sub(r"\@",
-                      self.random_element(self.license_plate_prefix_letters_format_8),
-                      temp)
+        temp = re.sub(r"\@", self.random_element(self.license_plate_prefix_letters_format_8), temp)
 
         return self.bothify(temp, letters=string.ascii_uppercase)
 

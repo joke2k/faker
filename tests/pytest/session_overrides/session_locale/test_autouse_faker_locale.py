@@ -14,7 +14,7 @@ import pytest
 
 from faker.contrib.pytest.plugin import DEFAULT_SEED
 
-_CHANGED_LOCALE = ['it_IT']
+_CHANGED_LOCALE = ["it_IT"]
 
 
 @pytest.fixture(autouse=True)

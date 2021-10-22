@@ -22,7 +22,13 @@ class Provider(BaseProvider):
         ("40.49748", "44.7662", "Hrazdan", "AM", "Asia/Yerevan"),
         ("-11.78333", "19.91667", "Luena", "AO", "Africa/Luanda"),
         ("-37.32167", "-59.13316", "Tandil", "AR", "America/Argentina/Buenos_Aires"),
-        ("-34.74785", "-58.70072", "Pontevedra", "AR", "America/Argentina/Buenos_Aires"),
+        (
+            "-34.74785",
+            "-58.70072",
+            "Pontevedra",
+            "AR",
+            "America/Argentina/Buenos_Aires",
+        ),
         ("-34.64966", "-58.38341", "Barracas", "AR", "America/Argentina/Buenos_Aires"),
         ("-54.8", "-68.3", "Ushuaia", "AR", "America/Argentina/Ushuaia"),
         ("-31.25033", "-61.4867", "Rafaela", "AR", "America/Argentina/Cordoba"),
@@ -243,7 +249,13 @@ class Provider(BaseProvider):
         ("53.6052", "10.03988", "Barmbek-Nord", "DE", "Europe/Berlin"),
         ("11.15583", "42.7125", "'Ali Sabieh", "DJ", "Africa/Djibouti"),
         ("55.67938", "12.53463", "Frederiksberg", "DK", "Europe/Copenhagen"),
-        ("18.20854", "-71.10077", "Santa Cruz de Barahona", "DO", "America/Santo_Domingo"),
+        (
+            "18.20854",
+            "-71.10077",
+            "Santa Cruz de Barahona",
+            "DO",
+            "America/Santo_Domingo",
+        ),
         ("36.76639", "3.47717", "Boumerdas", "DZ", "Africa/Algiers"),
         ("36.72544", "3.55665", "Thenia", "DZ", "Africa/Algiers"),
         ("34.15429", "3.50309", "Messaad", "DZ", "Africa/Algiers"),
@@ -1001,10 +1013,11 @@ class Provider(BaseProvider):
     def latlng(self) -> Tuple[Decimal, Decimal]:
         return (self.latitude(), self.longitude())
 
-    def local_latlng(self,
-                     country_code: str = 'US',
-                     coords_only: bool = False,
-                     ) -> Optional[Tuple[str, ...]]:
+    def local_latlng(
+        self,
+        country_code: str = "US",
+        coords_only: bool = False,
+    ) -> Optional[Tuple[str, ...]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """

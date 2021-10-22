@@ -20,11 +20,14 @@ def cumsum(it: Iterable[float]) -> Generator[float, None, None]:
         yield total
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def choices_distribution_unique(
-        a: Sequence[T], p: Optional[Sequence[float]], random: Optional[Random] = None, length: int = 1,
+    a: Sequence[T],
+    p: Optional[Sequence[float]],
+    random: Optional[Random] = None,
+    length: int = 1,
 ) -> Sequence[T]:
     # As of Python 3.7, there isn't a way to sample unique elements that takes
     # weight into account.
@@ -52,7 +55,10 @@ def choices_distribution_unique(
 
 
 def choices_distribution(
-    a: Sequence[T], p: Optional[Sequence[float]], random: Optional[Random] = None, length: int = 1,
+    a: Sequence[T],
+    p: Optional[Sequence[float]],
+    random: Optional[Random] = None,
+    length: int = 1,
 ) -> Sequence[T]:
     if random is None:
         random = mod_random
@@ -60,7 +66,7 @@ def choices_distribution(
     if p is not None:
         assert len(a) == len(p)
 
-    if hasattr(random, 'choices'):
+    if hasattr(random, "choices"):
         if length == 1 and p is None:
             return [random.choice(a)]
         else:

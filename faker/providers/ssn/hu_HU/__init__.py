@@ -7,7 +7,7 @@ from .. import Provider as SsnProvider
 
 
 def zfix(d: int) -> str:
-    return '0' + str(d) if d < 10 else str(d)
+    return "0" + str(d) if d < 10 else str(d)
 
 
 class Provider(SsnProvider):
@@ -112,9 +112,9 @@ class Provider(SsnProvider):
             N = self.generator.random_int(1, 30)
 
         H_, N_ = zfix(H), zfix(N)
-        S = f'{self.generator.random_digit()}{self.generator.random_digit()}{self.generator.random_digit()}'
+        S = f"{self.generator.random_digit()}{self.generator.random_digit()}{self.generator.random_digit()}"
 
-        vdig = f'{M}{E}{H_}{N_}{S}'
+        vdig = f"{M}{E}{H_}{N_}{S}"
 
         if 17 < E < 97:
             cum = [(k + 1) * int(v) for k, v in enumerate(vdig)]
@@ -125,9 +125,7 @@ class Provider(SsnProvider):
 
         return vdig + str(int(K))
 
-    vat_id_formats = (
-        'HU########',
-    )
+    vat_id_formats = ("HU########",)
 
     def vat_id(self) -> str:
         """

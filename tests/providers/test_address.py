@@ -47,7 +47,7 @@ class TestBaseProvider:
 
     def test_alpha_2_country_codes(self, faker, num_samples):
         for _ in range(num_samples):
-            country_code = faker.country_code(representation='alpha-2')
+            country_code = faker.country_code(representation="alpha-2")
             assert len(country_code) == 2
             assert country_code.isalpha()
 
@@ -59,14 +59,14 @@ class TestBaseProvider:
 
     def test_alpha_3_country_codes(self, faker, num_samples):
         for _ in range(num_samples):
-            country_code = faker.country_code(representation='alpha-3')
+            country_code = faker.country_code(representation="alpha-3")
             assert len(country_code) == 3
             assert country_code.isalpha()
 
     def test_bad_country_code_representation(self, faker, num_samples):
         for _ in range(num_samples):
             with pytest.raises(ValueError):
-                faker.country_code(representation='hello')
+                faker.country_code(representation="hello")
 
     def _collect_fakers_for_locales(self):
         cached_locales = []
@@ -147,14 +147,14 @@ class TestCsCz:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{3} \d{2}', postcode)
+            assert re.fullmatch(r"\d{3} \d{2}", postcode)
 
     def test_city_with_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             city_with_postcode = faker.city_with_postcode()
             assert isinstance(city_with_postcode, str)
-            match = re.fullmatch(r'\d{3} \d{2} (?P<city>.*)', city_with_postcode)
-            assert match.group('city') in CsCzAddressProvider.cities
+            match = re.fullmatch(r"\d{3} \d{2} (?P<city>.*)", city_with_postcode)
+            assert match.group("city") in CsCzAddressProvider.cities
 
 
 class TestDaDk:
@@ -222,14 +222,14 @@ class TestDeAt:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{4}', postcode)
+            assert re.fullmatch(r"\d{4}", postcode)
 
     def test_city_with_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             city_with_postcode = faker.city_with_postcode()
             assert isinstance(city_with_postcode, str)
-            match = re.fullmatch(r'\d{4} (?P<city>.*)', city_with_postcode)
-            assert match.groupdict()['city'] in DeAtAddressProvider.cities
+            match = re.fullmatch(r"\d{4} (?P<city>.*)", city_with_postcode)
+            assert match.groupdict()["city"] in DeAtAddressProvider.cities
 
 
 class TestDeDe:
@@ -269,14 +269,14 @@ class TestDeDe:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{5}', postcode)
+            assert re.fullmatch(r"\d{5}", postcode)
 
     def test_city_with_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             city_with_postcode = faker.city_with_postcode()
             assert isinstance(city_with_postcode, str)
-            match = re.fullmatch(r'\d{5} (?P<city>.*)', city_with_postcode)
-            assert match.groupdict()['city'] in DeDeAddressProvider.cities
+            match = re.fullmatch(r"\d{5} (?P<city>.*)", city_with_postcode)
+            assert match.groupdict()["city"] in DeDeAddressProvider.cities
 
 
 class TestElGr:
@@ -325,7 +325,7 @@ class TestEnAu:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{4}', postcode)
+            assert re.fullmatch(r"\d{4}", postcode)
 
     def test_state(self, faker, num_samples):
         for _ in range(num_samples):
@@ -366,8 +366,7 @@ class TestEnNz:
 class TestEnCa:
     """Test en_CA address provider methods"""
 
-    valid_postcode_letter_re = r'[{}]'.format(
-        ''.join(EnCaAddressProvider.postal_code_letters))
+    valid_postcode_letter_re = r"[{}]".format("".join(EnCaAddressProvider.postal_code_letters))
     valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(valid_postcode_letter_re)
 
     def test_postcode(self, faker, num_samples):
@@ -382,7 +381,7 @@ class TestEnCa:
                 code = faker.postcode_in_province(province_abbr)
                 assert code[0] in EnCaAddressProvider.provinces_postcode_prefixes[province_abbr]
                 with pytest.raises(Exception):
-                    faker.postcode_in_province('XX')
+                    faker.postcode_in_province("XX")
 
     def test_postalcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -418,14 +417,14 @@ class TestEnCa:
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
-            assert re.fullmatch(r'(?:Apt\.|Suite) \d{3}', secondary_address)
+            assert re.fullmatch(r"(?:Apt\.|Suite) \d{3}", secondary_address)
 
 
 class TestEnGb:
     """Test en_GB address provider methods"""
 
     def test_postcode(self, faker, num_samples):
-        ukpcp = pytest.importorskip('ukpostcodeparser.parser')
+        ukpcp = pytest.importorskip("ukpostcodeparser.parser")
         for _ in range(num_samples):
             assert isinstance(ukpcp.parse_uk_postcode(faker.postcode()), tuple)
 
@@ -444,7 +443,7 @@ class TestEnIe:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$', postcode)
+            assert re.fullmatch(r"(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$", postcode)
 
     def test_county(self, faker, num_samples):
         for _ in range(num_samples):
@@ -491,12 +490,12 @@ class TestEnUS:
         for _ in range(num_samples):
             for state_abbr in EnUsAddressProvider.states_abbr:
                 code = faker.postcode_in_state(state_abbr)
-                assert re.fullmatch(r'\d{5}', code)
+                assert re.fullmatch(r"\d{5}", code)
                 assert int(code) >= EnUsAddressProvider.states_postcode[state_abbr][0]
                 assert int(code) <= EnUsAddressProvider.states_postcode[state_abbr][1]
 
         with pytest.raises(Exception):
-            faker.postcode_in_state('XX')
+            faker.postcode_in_state("XX")
 
     def test_zipcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -513,13 +512,13 @@ class TestEnUS:
                 assert int(code) <= EnUsAddressProvider.states_postcode[state_abbr][1]
 
         with pytest.raises(Exception):
-            faker.zipcode_in_state('XX')
+            faker.zipcode_in_state("XX")
 
     def test_zipcode_plus4(self, faker, num_samples):
         for _ in range(num_samples):
             zipcode_plus4 = faker.zipcode_plus4()
             assert isinstance(zipcode_plus4, str)
-            zipcode, plus4 = zipcode_plus4.split('-')
+            zipcode, plus4 = zipcode_plus4.split("-")
             assert 501 <= int(zipcode) <= 99950
             assert 1 <= int(plus4) <= 9999
 
@@ -539,13 +538,13 @@ class TestEnUS:
         for _ in range(num_samples):
             military_apo = faker.military_apo()
             assert isinstance(military_apo, str)
-            assert re.fullmatch(r'PSC \d{4}, Box \d{4}', military_apo)
+            assert re.fullmatch(r"PSC \d{4}, Box \d{4}", military_apo)
 
     def test_military_dpo(self, faker, num_samples):
         for _ in range(num_samples):
             military_dpo = faker.military_dpo()
             assert isinstance(military_dpo, str)
-            assert re.fullmatch(r'Unit \d{4} Box \d{4}', military_dpo)
+            assert re.fullmatch(r"Unit \d{4} Box \d{4}", military_dpo)
 
     def test_postalcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -562,7 +561,7 @@ class TestEnUS:
                 assert int(code) <= EnUsAddressProvider.states_postcode[state_abbr][1]
 
         with pytest.raises(Exception):
-            faker.postalcode_in_state('XX')
+            faker.postalcode_in_state("XX")
 
 
 class TestEsEs:
@@ -584,7 +583,7 @@ class TestEsEs:
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
-            assert re.fullmatch(r'Apt\. \d{2}|Piso \d|Puerta \d', secondary_address)
+            assert re.fullmatch(r"Apt\. \d{2}|Piso \d|Puerta \d", secondary_address)
 
     def test_regions(self, faker, num_samples):
         for _ in range(num_samples):
@@ -632,7 +631,7 @@ class TestEsMx:
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
             assert re.fullmatch(
-                r'\d{3} \d{3}|\d{3} Interior \d{3}|\d{3} Edif\. \d{3} , Depto\. \d{3}',
+                r"\d{3} \d{3}|\d{3} Interior \d{3}|\d{3} Edif\. \d{3} , Depto\. \d{3}",
                 secondary_address,
             )
 
@@ -664,7 +663,7 @@ class TestFaIr:
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
-            assert re.fullmatch(r'(?:سوئیت|واحد) \d{3}', secondary_address)
+            assert re.fullmatch(r"(?:سوئیت|واحد) \d{3}", secondary_address)
 
     def test_state(self, faker, num_samples):
         for _ in range(num_samples):
@@ -815,7 +814,7 @@ class TestHuHu:
         # The first digit may not begin with a zero.
         for _ in range(num_samples):
             pcd = faker.postcode()
-            assert re.fullmatch(r'H-[1-9]\d{3}', pcd)
+            assert re.fullmatch(r"H-[1-9]\d{3}", pcd)
 
     def test_street_address(self, faker, num_samples):
         """
@@ -825,7 +824,7 @@ class TestHuHu:
         """
         for _ in range(num_samples):
             address = faker.street_address()
-            assert address[-1] == '.'
+            assert address[-1] == "."
             # Check for correct capitalisation of place type
             assert address.split(" ")[-2][0].islower()
             # Check for street number format
@@ -914,13 +913,13 @@ class TestHyAm:
                 assert int(code) <= HyAmAddressProvider.states_postcode[state_abbr][1]
 
         with pytest.raises(Exception):
-            faker.postcode_in_state('XX')
+            faker.postcode_in_state("XX")
 
     def test_secondary_address(self, faker, num_samples):
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
-            assert re.fullmatch(r'բն\. \d{1,2}', secondary_address)
+            assert re.fullmatch(r"բն\. \d{1,2}", secondary_address)
 
     def test_state(self, faker, num_samples):
         for _ in range(num_samples):
@@ -985,7 +984,7 @@ class TestJaJp:
             assert isinstance(chome, str)
             match = re.fullmatch(r"(?P<chome_number>\d{1,2})丁目", chome)
             assert match
-            assert 1 <= int(match.group('chome_number')) <= 42
+            assert 1 <= int(match.group("chome_number")) <= 42
 
     def test_ban(self, faker, num_samples):
         for _ in range(num_samples):
@@ -993,7 +992,7 @@ class TestJaJp:
             assert isinstance(ban, str)
             match = re.fullmatch(r"(?P<ban_number>\d{1,2})番", ban)
             assert match
-            assert 1 <= int(match.group('ban_number')) <= 27
+            assert 1 <= int(match.group("ban_number")) <= 27
 
     def test_gou(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1001,7 +1000,7 @@ class TestJaJp:
             assert isinstance(gou, str)
             match = re.fullmatch(r"(?P<gou_number>\d{1,2})号", gou)
             assert match
-            assert 1 <= int(match.group('gou_number')) <= 20
+            assert 1 <= int(match.group("gou_number")) <= 20
 
     def test_town(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1042,13 +1041,13 @@ class TestJaJp:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{3}-\d{4}', postcode)
+            assert re.fullmatch(r"\d{3}-\d{4}", postcode)
 
     def test_zipcode(self, faker, num_samples):
         for _ in range(num_samples):
             zipcode = faker.zipcode()
             assert isinstance(zipcode, str)
-            assert re.fullmatch(r'\d{3}-\d{4}', zipcode)
+            assert re.fullmatch(r"\d{3}-\d{4}", zipcode)
 
 
 class TestKoKr:
@@ -1058,19 +1057,19 @@ class TestKoKr:
         for _ in range(num_samples):
             old_postal_code = faker.old_postal_code()
             assert isinstance(old_postal_code, str)
-            assert re.fullmatch(r'\d{3}-\d{3}', old_postal_code)
+            assert re.fullmatch(r"\d{3}-\d{3}", old_postal_code)
 
     def test_postal_code(self, faker, num_samples):
         for _ in range(num_samples):
             postal_code = faker.postal_code()
             assert isinstance(postal_code, str)
-            assert re.fullmatch(r'\d{5}', postal_code)
+            assert re.fullmatch(r"\d{5}", postal_code)
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{5}', postcode)
+            assert re.fullmatch(r"\d{5}", postcode)
 
 
 class TestNeNp:
@@ -1106,7 +1105,7 @@ class TestNoNo:
 
     def test_postcode(self, faker):
         for _ in range(100):
-            assert re.fullmatch(r'^[0-9]{4}$', faker.postcode())
+            assert re.fullmatch(r"^[0-9]{4}$", faker.postcode())
 
     def test_city_suffix(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1133,7 +1132,7 @@ class TestZhTw:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'[1-9]\d{2}(?:\d{2})?', postcode)
+            assert re.fullmatch(r"[1-9]\d{2}(?:\d{2})?", postcode)
 
     def test_city_name(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1148,13 +1147,13 @@ class TestZhTw:
             assert city_suffix in ZhTwAddressProvider.city_suffixes
 
     def test_city(self, faker, num_samples):
-        city_pattern: Pattern = re.compile(r'(?P<city_name>.*?)[市縣]?')
+        city_pattern: Pattern = re.compile(r"(?P<city_name>.*?)[市縣]?")
         for _ in range(num_samples):
             city = faker.city()
             assert isinstance(city, str)
             match = city_pattern.fullmatch(city)
             assert match
-            assert match.group('city_name') in ZhTwAddressProvider.cities
+            assert match.group("city_name") in ZhTwAddressProvider.cities
 
     def test_country(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1181,7 +1180,7 @@ class TestZhCn:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'[1-9]\d{5}', postcode)
+            assert re.fullmatch(r"[1-9]\d{5}", postcode)
 
     def test_city_name(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1196,7 +1195,7 @@ class TestZhCn:
             assert city_suffix in ZhCnAddressProvider.city_suffixes
 
     def test_city(self, faker, num_samples):
-        city_pattern: Pattern = re.compile(r'.*?[市县]')
+        city_pattern: Pattern = re.compile(r".*?[市县]")
         for _ in range(num_samples):
             city = faker.city()
             assert isinstance(city, str)
@@ -1285,13 +1284,13 @@ class TestPtBr:
         for _ in range(num_samples):
             postcode = faker.postcode(formatted=False)
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{8}', postcode)
+            assert re.fullmatch(r"\d{8}", postcode)
 
     def test_formatted_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{5}-?\d{3}', postcode)
+            assert re.fullmatch(r"\d{5}-?\d{3}", postcode)
 
 
 class TestPtPt:
@@ -1328,10 +1327,10 @@ class TestEnPh:
     @classmethod
     def setup_class(cls):
         cls.building_number_pattern: Pattern = re.compile(
-            r'(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?',
+            r"(?:[1-9]|[1-9]\d{1,3})(?:[A-J]|\s[A-J]|-[A-J]|\sUnit\s[A-J])?",
         )
         cls.address_pattern: Pattern = re.compile(
-            r'(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)',
+            r"(?P<street_address>.*), (?P<lgu>.*?), (?P<postcode>\d{4}) (?P<province>.*?)",
         )
         cls.metro_manila_postcodes = EnPhAddressProvider.metro_manila_postcodes
         cls.luzon_province_postcodes = EnPhAddressProvider.luzon_province_postcodes
@@ -1375,30 +1374,32 @@ class TestEnPh:
     def test_ordinal_floor_number(self, faker, num_samples):
         for _ in range(num_samples):
             floor_number = faker.ordinal_floor_number()
-            assert floor_number[-2:] in ['th', 'st', 'nd', 'rd']
+            assert floor_number[-2:] in ["th", "st", "nd", "rd"]
 
     def test_address(self, faker, num_samples):
         for _ in range(num_samples):
             address = faker.address()
             match = self.address_pattern.fullmatch(address)
-            street_address = match.group('street_address')
-            lgu = match.group('lgu')
-            postcode = match.group('postcode')
-            province = match.group('province')
+            street_address = match.group("street_address")
+            lgu = match.group("lgu")
+            postcode = match.group("postcode")
+            province = match.group("province")
             assert match
             assert street_address
             assert lgu in self.province_lgus or lgu in self.metro_manila_lgus
             assert int(postcode) in self.postcodes
-            assert province in self.provinces or province == 'Metro Manila'
+            assert province in self.provinces or province == "Metro Manila"
 
 
 class TestFilPh(TestEnPh):
     """Test fil_PH address provider methods"""
+
     pass
 
 
 class TestTlPh(TestEnPh):
     """Test tl_PH address provider methods"""
+
     pass
 
 
@@ -1419,10 +1420,10 @@ class TestRuRu:
 
     def test_region(self, faker, num_samples):
         region_pattern: Pattern = re.compile(
-            r'(?:респ\. (?P<region_republic>.*))|'
-            r'(?:(?P<region_krai>.*?) край)|'
-            r'(?:(?P<region_oblast>.*?) обл.)|'
-            r'(?:(?P<region_ao>.*?) АО)',
+            r"(?:респ\. (?P<region_republic>.*))|"
+            r"(?:(?P<region_krai>.*?) край)|"
+            r"(?:(?P<region_oblast>.*?) обл.)|"
+            r"(?:(?P<region_ao>.*?) АО)",
         )
         for _ in range(num_samples):
             region = faker.region()
@@ -1430,18 +1431,20 @@ class TestRuRu:
             match = region_pattern.fullmatch(region)
             assert match
             groupdict = match.groupdict()
-            assert any([
-                groupdict.get('region_republic') in RuRuAddressProvider.region_republics,
-                groupdict.get('region_krai') in RuRuAddressProvider.region_krai,
-                groupdict.get('region_oblast') in RuRuAddressProvider.region_oblast,
-                groupdict.get('region_ao') in RuRuAddressProvider.region_ao,
-            ])
+            assert any(
+                [
+                    groupdict.get("region_republic") in RuRuAddressProvider.region_republics,
+                    groupdict.get("region_krai") in RuRuAddressProvider.region_krai,
+                    groupdict.get("region_oblast") in RuRuAddressProvider.region_oblast,
+                    groupdict.get("region_ao") in RuRuAddressProvider.region_ao,
+                ]
+            )
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{6}', postcode)
+            assert re.fullmatch(r"\d{6}", postcode)
 
     def test_city_prefix(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1465,27 +1468,31 @@ class TestRuRu:
             street_name = faker.street_name()
             assert isinstance(street_name, str)
 
-    @pytest.mark.parametrize("street_title,street_suffix,expected", [
-        ("Фрунзе", "ул.", "ул. Фрунзе"),
-        ("Ставропольская", "ул.", "ул. Ставропольская"),
-        ("Фрунзе", "пр.", "пр. Фрунзе"),
-        ("Осенняя", "пр.", "пр. Осенний"),
-        ("Гвардейская", "пр.", "пр. Гвардейский"),
-        ("Рыбацкая", "пр.", "пр. Рыбацкий"),
-        ("Безымянная", "пр.", "пр. Безымянный"),
-        ("Проезжая", "ш.", "ш. Проезжее"),
-        ("Магистральная", "ш.", "ш. Магистральное"),
-    ], ids=[
-        "feminine_suffix_and_noflex_title",
-        "feminine_suffix_and_flex_title",
-        "non_feminine_suffix_and_noflex_title",
-        "masc_suffix_and_irregular_masc_title",
-        "masc_suffix_and_ck_street_stem",
-        "masc_suffix_and_uk_street_stem",
-        "masc_suffix_and_other_stem",
-        "neu_suffx_and_iregular_neu_street_title",
-        "neu_suffix_and_regular_street_title",
-    ])
+    @pytest.mark.parametrize(
+        "street_title,street_suffix,expected",
+        [
+            ("Фрунзе", "ул.", "ул. Фрунзе"),
+            ("Ставропольская", "ул.", "ул. Ставропольская"),
+            ("Фрунзе", "пр.", "пр. Фрунзе"),
+            ("Осенняя", "пр.", "пр. Осенний"),
+            ("Гвардейская", "пр.", "пр. Гвардейский"),
+            ("Рыбацкая", "пр.", "пр. Рыбацкий"),
+            ("Безымянная", "пр.", "пр. Безымянный"),
+            ("Проезжая", "ш.", "ш. Проезжее"),
+            ("Магистральная", "ш.", "ш. Магистральное"),
+        ],
+        ids=[
+            "feminine_suffix_and_noflex_title",
+            "feminine_suffix_and_flex_title",
+            "non_feminine_suffix_and_noflex_title",
+            "masc_suffix_and_irregular_masc_title",
+            "masc_suffix_and_ck_street_stem",
+            "masc_suffix_and_uk_street_stem",
+            "masc_suffix_and_other_stem",
+            "neu_suffx_and_iregular_neu_street_title",
+            "neu_suffix_and_regular_street_title",
+        ],
+    )
     def test_street_name_lexical(self, faker, street_title, street_suffix, expected):
         """Test that random street names are formed correctly, given
         the case of suffixes and streets that have been randomly selected.
@@ -1542,7 +1549,7 @@ class TestThTh:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'[1-9]\d{4}', postcode)
+            assert re.fullmatch(r"[1-9]\d{4}", postcode)
 
 
 class TestEnIn:
@@ -1598,15 +1605,14 @@ class TestSkSk:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{3} \d{2}', postcode)
+            assert re.fullmatch(r"\d{3} \d{2}", postcode)
 
     def test_city_with_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             city_with_postcode = faker.city_with_postcode()
             assert isinstance(city_with_postcode, str)
-            match = re.fullmatch(r'\d{3} \d{2} (?P<city>.*)',
-                                 city_with_postcode)
-            assert match.group('city') in SkSkAddressProvider.cities
+            match = re.fullmatch(r"\d{3} \d{2} (?P<city>.*)", city_with_postcode)
+            assert match.group("city") in SkSkAddressProvider.cities
 
 
 class TestDeCh:
@@ -1659,14 +1665,14 @@ class TestRoRo:
         for _ in range(num_samples):
             building_number = faker.building_number()
             assert isinstance(building_number, str)
-            assert building_number[:3] == 'Nr.'
+            assert building_number[:3] == "Nr."
 
     def test_secondary_address(self, faker, num_samples):
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
             assert re.fullmatch(
-                r'Bl. \d{2}  Sc. \d{2} Ap. \d{3}',
+                r"Bl. \d{2}  Sc. \d{2} Ap. \d{3}",
                 secondary_address,
             )
 
@@ -1701,12 +1707,11 @@ class TestRoRo:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r'\d{6}', postcode)
+            assert re.fullmatch(r"\d{6}", postcode)
 
     def test_city_with_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             city_with_postcode = faker.city_with_postcode()
             assert isinstance(city_with_postcode, str)
-            match = re.fullmatch(r'\d{6} (?P<city>.*)',
-                                 city_with_postcode)
-            assert match.group('city') in RoRoAddressProvider.cities
+            match = re.fullmatch(r"\d{6} (?P<city>.*)", city_with_postcode)
+            assert match.group("city") in RoRoAddressProvider.cities

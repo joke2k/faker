@@ -11,24 +11,24 @@ from faker import Faker
 
 
 @pytest.mark.parametrize(
-    'mock_random_number_source, right_digits, expected_decimal_part',
+    "mock_random_number_source, right_digits, expected_decimal_part",
     (
-        ('1234567', 5, '12345'),
-        ('1234567', 0, '1'),  # This is kinda interesting - same as 1 digit
-        ('1234567', 1, '1'),
-        ('1234567', 2, '12'),
-        ('0123', 1, '1'),
+        ("1234567", 5, "12345"),
+        ("1234567", 0, "1"),  # This is kinda interesting - same as 1 digit
+        ("1234567", 1, "1"),
+        ("1234567", 2, "12"),
+        ("0123", 1, "1"),
     ),
 )
 def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
 
     # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
     def mock_random_number(self, digits=None, fix_len=False):
-        return int(mock_random_number_source[:digits or 1])
+        return int(mock_random_number_source[: digits or 1])
 
-    with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+    with patch("faker.providers.BaseProvider.random_number", mock_random_number):
         result = Faker().pyfloat(left_digits=1, right_digits=right_digits, positive=True)
-        decimal_part = str(result).split('.')[1]
+        decimal_part = str(result).split(".")[1]
         assert decimal_part == expected_decimal_part
 
 
@@ -43,27 +43,30 @@ def test_pyfloat_right_or_left_digit_overflow():
 
     # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
     def mock_random_number(self, digits=None, fix_len=False):
-        return int('12345678901234567890'[:digits or 1])
+        return int("12345678901234567890"[: digits or 1])
 
-    with patch('faker.providers.BaseProvider.random_int', mock_random_int):
-        with patch('faker.providers.BaseProvider.random_number', mock_random_number):
+    with patch("faker.providers.BaseProvider.random_int", mock_random_int):
+        with patch("faker.providers.BaseProvider.random_number", mock_random_number):
 
             # A bit too much, but ~half on either side
-            with pytest.raises(ValueError, match='Asking for too many digits'):
-                faker.pyfloat(left_digits=max_float_digits // 2 + 1, right_digits=max_float_digits // 2 + 1)
+            with pytest.raises(ValueError, match="Asking for too many digits"):
+                faker.pyfloat(
+                    left_digits=max_float_digits // 2 + 1,
+                    right_digits=max_float_digits // 2 + 1,
+                )
 
             # Asking for max digits on either side also fails, because we need one digit on the other side, i.e.
             # 0.123123123, or 123123123.0 (at least needs to lead with `0.` or trail with `.0`).
-            with pytest.raises(ValueError, match='Asking for too many digits'):
+            with pytest.raises(ValueError, match="Asking for too many digits"):
                 faker.pyfloat(left_digits=max_float_digits)
-            with pytest.raises(ValueError, match='Asking for too many digits'):
+            with pytest.raises(ValueError, match="Asking for too many digits"):
                 faker.pyfloat(right_digits=max_float_digits)
 
             # Just the right amount of max digits on either side
             result = faker.pyfloat(left_digits=max_float_digits - 1)
-            assert str(abs(result)) == '12345678901234.1'
+            assert str(abs(result)) == "12345678901234.1"
             result = faker.pyfloat(right_digits=max_float_digits - 1)
-            assert str(abs(result)) == '1.12345678901234'
+            assert str(abs(result)) == "1.12345678901234"
 
 
 class TestPyint(unittest.TestCase):
@@ -117,7 +120,7 @@ class TestPyfloat(unittest.TestCase):
 
         result = self.fake.pyfloat(right_digits=expected_right_digits)
 
-        right_digits = len(('%r' % result).split('.')[1])
+        right_digits = len(("%r" % result).split(".")[1])
         self.assertGreaterEqual(expected_right_digits, right_digits)
 
     def test_positive(self):
@@ -164,7 +167,7 @@ class TestPyfloat(unittest.TestCase):
         """
         An exception should be raised if min_value is greater than max_value
         """
-        expected_message = 'Min value cannot be greater than max value'
+        expected_message = "Min value cannot be greater than max value"
         with self.assertRaises(ValueError) as raises:
             self.fake.pyfloat(min_value=100, max_value=0)
 
@@ -198,9 +201,7 @@ class TestPyfloat(unittest.TestCase):
         a negative min_value is provided.
         """
 
-        expected_message = (
-            "Cannot combine positive=True with negative or zero min_value"
-        )
+        expected_message = "Cannot combine positive=True with negative or zero min_value"
         with self.assertRaises(ValueError) as raises:
             self.fake.pyfloat(min_value=-100, positive=True)
 
@@ -239,7 +240,7 @@ class TestPydecimal(unittest.TestCase):
 
         result = self.fake.pydecimal(right_digits=expected_right_digits)
 
-        right_digits = len(str(result).split('.')[1])
+        right_digits = len(str(result).split(".")[1])
         self.assertGreaterEqual(expected_right_digits, right_digits)
 
     def test_positive(self):
@@ -301,7 +302,7 @@ class TestPydecimal(unittest.TestCase):
         """
         An exception should be raised if min_value is greater than max_value
         """
-        expected_message = 'Min value cannot be greater than max value'
+        expected_message = "Min value cannot be greater than max value"
         with self.assertRaises(ValueError) as raises:
             self.fake.pydecimal(min_value=100, max_value=0)
 
@@ -335,9 +336,7 @@ class TestPydecimal(unittest.TestCase):
         a negative min_value is provided.
         """
 
-        expected_message = (
-            "Cannot combine positive=True with negative or zero min_value"
-        )
+        expected_message = "Cannot combine positive=True with negative or zero min_value"
         with self.assertRaises(ValueError) as raises:
             self.fake.pydecimal(min_value=-100, positive=True)
 
@@ -353,50 +352,49 @@ class TestPydecimal(unittest.TestCase):
         self.assertGreater(result, 0)
 
     def test_min_value_zero_doesnt_return_negative(self):
-        Faker.seed('1')
+        Faker.seed("1")
         result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=0, max_value=999)
         self.assertGreater(result, 0)
 
     def test_min_value_one_hundred_doesnt_return_negative(self):
-        Faker.seed('1')
+        Faker.seed("1")
         result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=100, max_value=999)
         self.assertGreater(result, 100)
 
     def test_min_value_minus_one_doesnt_return_positive(self):
-        Faker.seed('5')
+        Faker.seed("5")
         result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=0)
         self.assertLess(result, 0)
 
     def test_min_value_minus_one_hundred_doesnt_return_positive(self):
-        Faker.seed('5')
+        Faker.seed("5")
         result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=-100)
         self.assertLess(result, -100)
 
     def test_min_value_10_pow_1000_return_greater_number(self):
-        Faker.seed('2')
-        result = self.fake.pydecimal(min_value=10**1000)
-        self.assertGreater(result, 10**1000)
+        Faker.seed("2")
+        result = self.fake.pydecimal(min_value=10 ** 1000)
+        self.assertGreater(result, 10 ** 1000)
 
 
 class TestPystrFormat(unittest.TestCase):
-
     def setUp(self):
-        self.fake = Faker(includes=['tests.mymodule.en_US'])
+        self.fake = Faker(includes=["tests.mymodule.en_US"])
         Faker.seed(0)
 
     def test_formatter_invocation(self):
-        with patch.object(self.fake['en_US'], 'foo') as mock_foo:
-            with patch('faker.providers.BaseProvider.bothify',
-                       wraps=self.fake.bothify) as mock_bothify:
-                mock_foo.return_value = 'barbar'
-                value = self.fake.pystr_format('{{foo}}?#?{{foo}}?#?{{foo}}', letters='abcde')
-                assert value.count('barbar') == 3
+        with patch.object(self.fake["en_US"], "foo") as mock_foo:
+            with patch("faker.providers.BaseProvider.bothify", wraps=self.fake.bothify) as mock_bothify:
+                mock_foo.return_value = "barbar"
+                value = self.fake.pystr_format("{{foo}}?#?{{foo}}?#?{{foo}}", letters="abcde")
+                assert value.count("barbar") == 3
                 assert mock_foo.call_count == 3
-                mock_bothify.assert_called_once_with('barbar?#?barbar?#?barbar', letters='abcde')
+                mock_bothify.assert_called_once_with("barbar?#?barbar?#?barbar", letters="abcde")
 
 
 class TestPython(unittest.TestCase):
     """Tests python generators"""
+
     def setUp(self):
         self.factory = Faker()
 
@@ -435,7 +433,7 @@ class TestPython(unittest.TestCase):
         def mock_pyint(self, *args, **kwargs):
             return 1
 
-        with patch('faker.providers.python.Provider.pyint', mock_pyint):
+        with patch("faker.providers.python.Provider.pyint", mock_pyint):
             some_tuple = Faker().pytuple(nb_elements=3, variable_nb_elements=False, value_types=[int])
             assert some_tuple == (1, 1, 1)
 

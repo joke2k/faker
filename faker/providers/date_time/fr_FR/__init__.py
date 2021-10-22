@@ -2,9 +2,8 @@ from .. import Provider as DateTimeProvider
 
 
 class Provider(DateTimeProvider):
-
     def day_of_week(self) -> str:
-        day = self.date('%w')
+        day = self.date("%w")
         DAY_NAMES = {
             "0": "Dimanche",
             "1": "Lundi",

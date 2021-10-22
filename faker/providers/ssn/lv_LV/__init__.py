@@ -6,9 +6,7 @@ class Provider(BaseProvider):
     A Faker provider for the Latvian VAT IDs
     """
 
-    vat_id_formats = (
-        'LV###########',
-    )
+    vat_id_formats = ("LV###########",)
 
     def vat_id(self) -> str:
         """

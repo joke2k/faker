@@ -27,11 +27,11 @@ class Provider(BaseProvider):
     - https://en.wikipedia.org/wiki/Unified_Multi-Purpose_ID
     """
 
-    sss_formats = ('##-#######-#',)
-    gsis_formats = ('###########',)
-    philhealth_formats = ('##-#########-#',)
-    pagibig_formats = ('####-####-####',)
-    umid_formats = ('####-#######-#',)
+    sss_formats = ("##-#######-#",)
+    gsis_formats = ("###########",)
+    philhealth_formats = ("##-#########-#",)
+    pagibig_formats = ("####-####-####",)
+    umid_formats = ("####-#######-#",)
 
     def sss(self) -> str:
         return self.numerify(self.random_element(self.sss_formats))

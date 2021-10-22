@@ -7,7 +7,6 @@ Dutch/French only for now ...
 
 
 class Provider(SsnProvider):
-
     def ssn(self) -> str:
         """
         Returns a 11 digits Belgian SSN called "rijksregisternummer" as a string
@@ -32,7 +31,7 @@ class Provider(SsnProvider):
         # Convert it to an int
         elms = mydate.split("-")
         # Adjust for year 2000 if necessary
-        if elms[0][0] == '2':
+        if elms[0][0] == "2":
             above = True
         else:
             above = False
@@ -41,7 +40,7 @@ class Provider(SsnProvider):
         # Simulate the gender/sequence - should be 3 digits
         seq = self.generator.random_int(1, 998)
         # Right justify sequence and append to list
-        seq_str = f'{seq:0>3}'
+        seq_str = f"{seq:0>3}"
         elms.append(seq_str)
         # Now convert list to an integer so the checksum can be calculated
         date_as_int = int("".join(elms))
@@ -49,14 +48,12 @@ class Provider(SsnProvider):
             date_as_int += 2000000000
         # Generate checksum
         s = _checksum(date_as_int)
-        s_rjust = f'{s:0>2}'
+        s_rjust = f"{s:0>2}"
         # return result as a string
         elms.append(s_rjust)
         return "".join(elms)
 
-    vat_id_formats = (
-        'BE##########',
-    )
+    vat_id_formats = ("BE##########",)
 
     def vat_id(self) -> str:
         """

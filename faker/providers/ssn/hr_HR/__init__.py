@@ -37,11 +37,9 @@ class Provider(SsnProvider):
 
         digits.append(checksum(digits))
 
-        return ''.join(map(str, digits))
+        return "".join(map(str, digits))
 
-    vat_id_formats = (
-        'HR###########',
-    )
+    vat_id_formats = ("HR###########",)
 
     def vat_id(self) -> str:
         """

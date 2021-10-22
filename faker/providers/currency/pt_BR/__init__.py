@@ -6,4 +6,4 @@ class Provider(CurrencyProvider):
     price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
 
     def pricetag(self) -> str:
-        return ("R$" + self.numerify(self.random_element(self.price_formats)))
+        return "R$" + self.numerify(self.random_element(self.price_formats))

@@ -20,29 +20,29 @@ class Provider(BarcodeProvider):
         *product((1,), range(4)),
     )
 
-    upc_e_base_pattern: Pattern = re.compile(r'^\d{6}$')
+    upc_e_base_pattern: Pattern = re.compile(r"^\d{6}$")
     upc_ae_pattern1: Pattern = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{2})'              # the first 2 digits make up the manufacturer code,
-        r'(?:(?P<extra>[012])0{4})'         # if immediately followed by 00000, 10000, or 20000,
-        r'(?P<product_code>\d{3})'          # a 3-digit product code,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
+        r"^(?P<number_system_digit>[01])"  # The first digit must be 0 or 1
+        r"(?=\d{11}$)"  # followed by 11 digits of which
+        r"(?P<mfr_code>\d{2})"  # the first 2 digits make up the manufacturer code,
+        r"(?:(?P<extra>[012])0{4})"  # if immediately followed by 00000, 10000, or 20000,
+        r"(?P<product_code>\d{3})"  # a 3-digit product code,
+        r"(?P<check_digit>\d)$",  # and finally a check digit.
     )
     upc_ae_pattern2: Pattern = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{3,4}?)'           # the first 3 or 4 digits make up the manufacturer code,
-        r'(?:0{5})'                         # if immediately followed by 00000,
-        r'(?P<product_code>\d{1,2})'        # a 2-digit or single digit product code,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
+        r"^(?P<number_system_digit>[01])"  # The first digit must be 0 or 1
+        r"(?=\d{11}$)"  # followed by 11 digits of which
+        r"(?P<mfr_code>\d{3,4}?)"  # the first 3 or 4 digits make up the manufacturer code,
+        r"(?:0{5})"  # if immediately followed by 00000,
+        r"(?P<product_code>\d{1,2})"  # a 2-digit or single digit product code,
+        r"(?P<check_digit>\d)$",  # and finally a check digit.
     )
     upc_ae_pattern3: Pattern = re.compile(
-        r'^(?P<number_system_digit>[01])'   # The first digit must be 0 or 1
-        r'(?=\d{11}$)'                      # followed by 11 digits of which
-        r'(?P<mfr_code>\d{5})'              # the first 5 digits make up the manufacturer code,
-        r'(?:0{4}(?P<extra>[5-9]))'         # if immediately followed by 0000 and a 5, 6, 7, 8, or 9,
-        r'(?P<check_digit>\d)$',            # and finally a check digit.
+        r"^(?P<number_system_digit>[01])"  # The first digit must be 0 or 1
+        r"(?=\d{11}$)"  # followed by 11 digits of which
+        r"(?P<mfr_code>\d{5})"  # the first 5 digits make up the manufacturer code,
+        r"(?:0{4}(?P<extra>[5-9]))"  # if immediately followed by 0000 and a 5, 6, 7, 8, or 9,
+        r"(?P<check_digit>\d)$",  # and finally a check digit.
     )
 
     def ean13(self, prefixes: PrefixType = (), leading_zero: Optional[bool] = None) -> str:
@@ -91,23 +91,23 @@ class Provider(BarcodeProvider):
            Not all UPC-A barcodes can be converted.
         """
         if not isinstance(upc_a, str):
-            raise TypeError('`upc_a` is not a string')
+            raise TypeError("`upc_a` is not a string")
         m1 = self.upc_ae_pattern1.match(upc_a)
         m2 = self.upc_ae_pattern2.match(upc_a)
         m3 = self.upc_ae_pattern3.match(upc_a)
         if not any([m1, m2, m3]):
-            raise ValueError('`upc_a` has an invalid value')
-        upc_e_template = '{number_system_digit}{mfr_code}{product_code}{extra}{check_digit}'
+            raise ValueError("`upc_a` has an invalid value")
+        upc_e_template = "{number_system_digit}{mfr_code}{product_code}{extra}{check_digit}"
         if m1:
             upc_e = upc_e_template.format(**m1.groupdict())
         elif m2:
             groupdict: Dict[str, str] = m2.groupdict()
-            mfr_code = groupdict.get('mfr_code') or ""
-            groupdict['extra'] = str(len(mfr_code))
+            mfr_code = groupdict.get("mfr_code") or ""
+            groupdict["extra"] = str(len(mfr_code))
             upc_e = upc_e_template.format(**groupdict)
         elif m3:
             groupdict = m3.groupdict()
-            groupdict['product_code'] = ''
+            groupdict["product_code"] = ""
             upc_e = upc_e_template.format(**groupdict)
         return upc_e
 
@@ -124,15 +124,18 @@ class Provider(BarcodeProvider):
         Please also view notes on |EnUsBarcodeProvider.upc_a| and
         |EnUsBarcodeProvider.upc_e| for more details.
         """
-        base_ = [int(x) for x in base] if isinstance(base, str) and self.upc_e_base_pattern.match(base) \
+        base_ = (
+            [int(x) for x in base]
+            if isinstance(base, str) and self.upc_e_base_pattern.match(base)
             else [self.random_int(0, 9) for _ in range(6)]
+        )
         if number_system_digit not in [0, 1]:
             number_system_digit = self.random_int(0, 1)
 
         if base_[-1] <= 2:
             code = base_[:2] + base_[-1:] + [0] * 4 + base_[2:-1]
         elif base_[-1] <= 4:
-            code = base_[:base_[-1]] + [0] * 5 + base_[base_[-1]:-1]
+            code = base_[: base_[-1]] + [0] * 5 + base_[base_[-1] : -1]
         else:
             code = base_[:5] + [0] * 4 + base_[-1:]
 
@@ -141,12 +144,14 @@ class Provider(BarcodeProvider):
         weighted_sum = sum(x * y for x, y in zip(code, weights))
         check_digit = (10 - weighted_sum % 10) % 10
         code.append(check_digit)
-        return ''.join(str(x) for x in code)
+        return "".join(str(x) for x in code)
 
-    def upc_a(self,
-              upc_ae_mode: bool = False,
-              base: Optional[str] = None,
-              number_system_digit: Optional[int] = None) -> str:
+    def upc_a(
+        self,
+        upc_ae_mode: bool = False,
+        base: Optional[str] = None,
+        number_system_digit: Optional[int] = None,
+    ) -> str:
         """Generate a 12-digit UPC-A barcode.
 
         The value of ``upc_ae_mode`` controls how barcodes will be generated. If
@@ -186,10 +191,12 @@ class Provider(BarcodeProvider):
             ean13 = self.ean13(leading_zero=True)
             return ean13[1:]
 
-    def upc_e(self,
-              base: Optional[str] = None,
-              number_system_digit: Optional[int] = None,
-              safe_mode: bool = True) -> str:
+    def upc_e(
+        self,
+        base: Optional[str] = None,
+        number_system_digit: Optional[int] = None,
+        safe_mode: bool = True,
+    ) -> str:
         """Generate an 8-digit UPC-E barcode.
 
         UPC-E barcodes can be expressed in 6, 7, or 8-digit formats, but this
@@ -239,4 +246,4 @@ class Provider(BarcodeProvider):
             return self._convert_upc_a2e(upc_ae)
         else:
             upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
-            return upc_ae[0] + ''.join(str(x) for x in base or "") + upc_ae[-1]
+            return upc_ae[0] + "".join(str(x) for x in base or "") + upc_ae[-1]

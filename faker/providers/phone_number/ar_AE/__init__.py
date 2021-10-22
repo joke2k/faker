@@ -5,70 +5,73 @@ class Provider(PhoneNumberProvider):
     # Source: https://en.wikipedia.org/wiki/Telephone_numbers_in_the_United_Arab_Emirates
 
     cellphone_formats = (
-        '{{area_code}} {{cellphone_provider_code}} ### ####',
-        '{{area_code}}{{cellphone_provider_code}}#######',
-        '0{{cellphone_provider_code}} ### ####',
-        '0{{cellphone_provider_code}}#######',
+        "{{area_code}} {{cellphone_provider_code}} ### ####",
+        "{{area_code}}{{cellphone_provider_code}}#######",
+        "0{{cellphone_provider_code}} ### ####",
+        "0{{cellphone_provider_code}}#######",
     )
 
     telephone_formats = (
-        '{{area_code}} {{telephone_provider_code}} ### ####',
-        '{{area_code}}{{telephone_provider_code}}#######',
-        '0{{telephone_provider_code}} ### ####',
-        '0{{telephone_provider_code}}#######',
+        "{{area_code}} {{telephone_provider_code}} ### ####",
+        "{{area_code}}{{telephone_provider_code}}#######",
+        "0{{telephone_provider_code}} ### ####",
+        "0{{telephone_provider_code}}#######",
     )
 
     toll_formats = (
-        '200####',
-        '600######',
-        '800###',
-        '800####',
-        '800#####',
-        '800######',
-        '800#######',
+        "200####",
+        "600######",
+        "800###",
+        "800####",
+        "800#####",
+        "800######",
+        "800#######",
     )
 
     services_phones_formats = (
-        '999',
-        '901',
-        '998',
-        '997',
-        '996',
-        '991',
-        '922',
+        "999",
+        "901",
+        "998",
+        "997",
+        "996",
+        "991",
+        "922",
     )
 
-    formats = cellphone_formats + \
-        telephone_formats + \
-        services_phones_formats + \
-        toll_formats
+    formats = cellphone_formats + telephone_formats + services_phones_formats + toll_formats
 
     def cellphone_provider_code(self) -> str:
-        return self.random_element([
-            '50',
-            '52',
-            '54',
-            '55',
-            '56',
-            '58',
-        ])
+        return self.random_element(
+            [
+                "50",
+                "52",
+                "54",
+                "55",
+                "56",
+                "58",
+            ]
+        )
 
     def telephone_provider_code(self) -> str:
-        return self.random_element([
-            '1',
-            '2',
-            '3',
-            '4',
-            '6',
-            '7',
-            '9',
-        ])
+        return self.random_element(
+            [
+                "1",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "9",
+            ]
+        )
 
     def area_code(self) -> str:
-        return self.random_element([
-            '00971',
-            '+971',
-        ])
+        return self.random_element(
+            [
+                "00971",
+                "+971",
+            ]
+        )
 
     def cellphone_number(self) -> str:
         pattern: str = self.random_element(self.cellphone_formats)

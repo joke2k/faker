@@ -13,11 +13,7 @@ from .. import Provider as BaseProvider
 ALPHABET = string.ascii_uppercase
 ALPHANUMERIC = string.digits + ALPHABET
 VOWELS = "AEIOU"
-CONSONANTS = [
-    letter
-    for letter in ALPHABET
-    if letter not in VOWELS
-]
+CONSONANTS = [letter for letter in ALPHABET if letter not in VOWELS]
 
 # https://es.wikipedia.org/wiki/Plantilla:Abreviaciones_de_los_estados_de_M%C3%A9xico
 STATES_RENAPO = [
@@ -122,10 +118,7 @@ def ssn_checksum(digits: map) -> int:
     """
     Calculate the checksum for the mexican SSN (IMSS).
     """
-    return -sum(
-        _reduce_digits(n * (i % 2 + 1))
-        for i, n in enumerate(digits)
-    ) % 10
+    return -sum(_reduce_digits(n * (i % 2 + 1)) for i, n in enumerate(digits)) % 10
 
 
 def curp_checksum(characters: str) -> int:
@@ -133,16 +126,14 @@ def curp_checksum(characters: str) -> int:
     Calculate the checksum for the mexican CURP.
     """
     start = 18
-    return -sum(
-        (start - i) * CURP_CHARACTERS.index(n)
-        for i, n in enumerate(characters)
-    ) % 10
+    return -sum((start - i) * CURP_CHARACTERS.index(n) for i, n in enumerate(characters)) % 10
 
 
 class Provider(BaseProvider):
     """
     A Faker provider for the Mexican SSN, RFC and CURP
     """
+
     ssn_formats = ("###########",)
 
     def ssn(self) -> str:
@@ -156,7 +147,7 @@ class Provider(BaseProvider):
         start_year = self.random_int(min=0, max=99)
         serial = self.random_int(min=1, max=9999)
 
-        num = f'{office:02d}{start_year:02d}{birth_year:02d}{serial:04d}'
+        num = f"{office:02d}{start_year:02d}{birth_year:02d}{serial:04d}"
 
         check = ssn_checksum(map(int, num))
         num += str(check)
@@ -191,14 +182,14 @@ class Provider(BaseProvider):
         name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
 
         random_curp = (
-            name_initials +
-            birth_date +
-            gender +
-            state +
-            first_surname_inside +
-            second_surname_inside +
-            given_name_inside +
-            assigned_character
+            name_initials
+            + birth_date
+            + gender
+            + state
+            + first_surname_inside
+            + second_surname_inside
+            + given_name_inside
+            + assigned_character
         )
 
         random_curp += str(curp_checksum(random_curp))
@@ -224,22 +215,12 @@ class Provider(BaseProvider):
             name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
         else:
             name_initials = (
-                self.random_uppercase_letter() +
-                self.random_uppercase_letter() +
-                self.random_uppercase_letter()
+                self.random_uppercase_letter() + self.random_uppercase_letter() + self.random_uppercase_letter()
             )
 
         birth_date = birthday.strftime("%y%m%d")
-        disambiguation_code = (
-            random.choice(ALPHANUMERIC) +
-            random.choice(ALPHANUMERIC) +
-            random.choice(ALPHANUMERIC)
-        )
+        disambiguation_code = random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC)
 
-        random_rfc = (
-            name_initials +
-            birth_date +
-            disambiguation_code
-        )
+        random_rfc = name_initials + birth_date + disambiguation_code
 
         return random_rfc

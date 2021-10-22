@@ -16,7 +16,7 @@ from faker.contrib.pytest.plugin import DEFAULT_LOCALE, DEFAULT_SEED
 
 @pytest.fixture()
 def faker_locale():
-    return ['it_IT']
+    return ["it_IT"]
 
 
 @pytest.fixture()

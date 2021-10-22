@@ -33,6 +33,10 @@ jobs:
       run: tox
       env:
         TOXENV: isort
+    - name: Formatting with black
+      run: tox
+      env:
+        TOXENV: black
 
   typing:
     runs-on: ubuntu-latest

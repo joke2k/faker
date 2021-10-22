@@ -21,12 +21,12 @@ class Provider(BaseProvider):
 
     protocol_licenses = [str(x) for x in range(1, 18) if x != 15]
     motorcycle_license_formats = [
-        '??####',     # 1981 series
-        '??#####',    # 2014 series
+        "??####",  # 1981 series
+        "??#####",  # 2014 series
     ]
     automobile_license_formats = [
-        '???###',    # 1981 series
-        '???####',   # 2014 series
+        "???###",  # 1981 series
+        "???####",  # 2014 series
     ]
     license_formats = motorcycle_license_formats + automobile_license_formats
 

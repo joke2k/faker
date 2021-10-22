@@ -13,16 +13,25 @@ ValueTypes = Optional[Union[List[str], Tuple[str, ...]]]
 
 class Provider(BaseProvider):
     default_value_types: ElementsType = (
-        'str', 'str', 'str', 'str', 'float', 'int', 'int', 'decimal',
-        'date_time', 'uri', 'email',
+        "str",
+        "str",
+        "str",
+        "str",
+        "float",
+        "int",
+        "int",
+        "decimal",
+        "date_time",
+        "uri",
+        "email",
     )
 
     def _check_signature(self, value_types: ValueTypes, allowed_types: Tuple[str]) -> Tuple[str, ...]:
         if value_types is not None and not isinstance(value_types, (list, tuple)):
             value_types = [value_types]
             warnings.warn(
-                'Passing value types as positional arguments is going to be '
-                'deprecated.  Pass them as a list or tuple instead.',
+                "Passing value types as positional arguments is going to be "
+                "deprecated.  Pass them as a list or tuple instead.",
                 PendingDeprecationWarning,
             )
         if value_types is None:
@@ -42,41 +51,33 @@ class Provider(BaseProvider):
         if min_chars is None:
             return "".join(self.random_letters(length=max_chars))
         else:
-            assert (
-                max_chars >= min_chars), "Maximum length must be greater than or equal to minimum length"
+            assert max_chars >= min_chars, "Maximum length must be greater than or equal to minimum length"
             return "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
                 ),
             )
 
-    def pystr_format(self, string_format='?#-###{{random_int}}{{random_letter}}', letters=string.ascii_letters):
+    def pystr_format(self, string_format="?#-###{{random_int}}{{random_letter}}", letters=string.ascii_letters):
         return self.bothify(self.generator.parse(string_format), letters=letters)
 
-    def pyfloat(self, left_digits=None, right_digits=None, positive=False,
-                min_value=None, max_value=None):
+    def pyfloat(self, left_digits=None, right_digits=None, positive=False, min_value=None, max_value=None):
         if left_digits is not None and left_digits < 0:
-            raise ValueError(
-                'A float number cannot have less than 0 digits in its '
-                'integer part')
+            raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError(
-                'A float number cannot have less than 0 digits in its '
-                'fractional part')
+            raise ValueError("A float number cannot have less than 0 digits in its " "fractional part")
         if left_digits == 0 and right_digits == 0:
-            raise ValueError(
-                'A float number cannot have less than 0 digits in total')
+            raise ValueError("A float number cannot have less than 0 digits in total")
         if None not in (min_value, max_value) and min_value > max_value:
-            raise ValueError('Min value cannot be greater than max value')
+            raise ValueError("Min value cannot be greater than max value")
         if None not in (min_value, max_value) and min_value == max_value:
-            raise ValueError('Min and max value cannot be the same')
+            raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
-            raise ValueError(
-                'Cannot combine positive=True with negative or zero min_value')
+            raise ValueError("Cannot combine positive=True with negative or zero min_value")
         if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
-            raise ValueError('Max value must fit within left digits')
+            raise ValueError("Max value must fit within left digits")
         if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
-            raise ValueError('Min value must fit within left digits')
+            raise ValueError("Min value must fit within left digits")
 
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
@@ -93,11 +94,11 @@ class Provider(BaseProvider):
         # Make sure we don't ask for too many digits!
         if left_digits + right_digits > sys.float_info.dig:
             raise ValueError(
-                f'Asking for too many digits ({left_digits} + {right_digits} == {left_digits + right_digits} > '
-                f'{sys.float_info.dig})',
+                f"Asking for too many digits ({left_digits} + {right_digits} == {left_digits + right_digits} > "
+                f"{sys.float_info.dig})",
             )
 
-        sign = ''
+        sign = ""
         if (min_value is not None) or (max_value is not None):
             # Make sure left_digits still respected
             if left_digits is not None:
@@ -111,16 +112,18 @@ class Provider(BaseProvider):
             if min_value is not None and min_value < 0:
                 min_value += 1  # as we then append digits after the left_number
             left_number = self._safe_random_int(
-                min_value, max_value, positive,
+                min_value,
+                max_value,
+                positive,
             )
         else:
-            sign = '+' if positive else self.random_element(('+', '-'))
+            sign = "+" if positive else self.random_element(("+", "-"))
             left_number = self.random_number(left_digits)
 
-        result = float(f'{sign}{left_number}.{self.random_number(right_digits)}')
+        result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
         if positive and result == 0:
             if right_digits:
-                result = float('0.' + '0' * (right_digits - 1) + '1')
+                result = float("0." + "0" * (right_digits - 1) + "1")
             else:
                 result += sys.float_info.epsilon
 
@@ -152,66 +155,60 @@ class Provider(BaseProvider):
     def pyint(self, min_value=0, max_value=9999, step=1):
         return self.generator.random_int(min_value, max_value, step=step)
 
-    def pydecimal(self, left_digits=None, right_digits=None, positive=False,
-                  min_value=None, max_value=None):
+    def pydecimal(self, left_digits=None, right_digits=None, positive=False, min_value=None, max_value=None):
         if left_digits is not None and left_digits < 0:
-            raise ValueError(
-                'A decimal number cannot have less than 0 digits in its '
-                'integer part')
+            raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError(
-                'A decimal number cannot have less than 0 digits in its '
-                'fractional part')
+            raise ValueError("A decimal number cannot have less than 0 digits in its " "fractional part")
         if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
-            raise ValueError(
-                'A decimal number cannot have 0 digits in total')
+            raise ValueError("A decimal number cannot have 0 digits in total")
         if None not in (min_value, max_value) and min_value > max_value:
-            raise ValueError('Min value cannot be greater than max value')
+            raise ValueError("Min value cannot be greater than max value")
         if None not in (min_value, max_value) and min_value == max_value:
-            raise ValueError('Min and max value cannot be the same')
+            raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
-            raise ValueError(
-                'Cannot combine positive=True with negative or zero min_value')
+            raise ValueError("Cannot combine positive=True with negative or zero min_value")
         if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
-            raise ValueError('Max value must fit within left digits')
+            raise ValueError("Max value must fit within left digits")
         if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
-            raise ValueError('Min value must fit within left digits')
+            raise ValueError("Min value must fit within left digits")
 
         # if either left or right digits are not specified we randomly choose a length
         max_random_digits = 100
         # Because if min_value is bigger than 10**100
-        max_digits_from_value = max(math.ceil(math.log10(abs(min_value or 1))),
-                                    math.ceil(math.log10(abs(max_value or 1))))
+        max_digits_from_value = max(
+            math.ceil(math.log10(abs(min_value or 1))), math.ceil(math.log10(abs(max_value or 1)))
+        )
         max_left_random_digits = max(max_random_digits, max_digits_from_value + 10)
 
         if min_value is not None and min_value >= 0:
-            sign = '+'
+            sign = "+"
         elif max_value is not None and max_value <= 0:
-            sign = '-'
+            sign = "-"
         else:
-            sign = '+' if positive else self.random_element(('+', '-'))
+            sign = "+" if positive else self.random_element(("+", "-"))
 
-        if sign == '+':
+        if sign == "+":
             if max_value is not None:
                 left_number = str(self.random_int(max(min_value or 0, 0), max_value))
             else:
                 min_left_digits = math.ceil(math.log10(max(min_value or 1, 1)))
                 left_digits = left_digits or self.random_int(min_left_digits, max_left_random_digits)
-                left_number = ''.join([str(self.random_digit()) for i in range(0, left_digits)]) or '0'
+                left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
         else:
             if min_value is not None:
                 left_number = str(self.random_int(max(max_value or 0, 0), abs(min_value)))
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
                 left_digits = left_digits or self.random_int(min_left_digits, max_left_random_digits)
-                left_number = ''.join([str(self.random_digit()) for i in range(0, left_digits)]) or '0'
+                left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
 
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = ''.join([str(self.random_digit()) for i in range(0, right_digits)])
+        right_number = "".join([str(self.random_digit()) for i in range(0, right_digits)])
 
-        result = Decimal(f'{sign}{left_number}.{right_number}')
+        result = Decimal(f"{sign}{left_number}.{right_number}")
 
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
@@ -223,62 +220,52 @@ class Provider(BaseProvider):
         return result
 
     def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return tuple(
-            self._pyiterable(
-                nb_elements,
-                variable_nb_elements,
-                value_types,
-                *allowed_types))
+        return tuple(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
 
     def pyset(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return set(
-            self._pyiterable(
-                nb_elements,
-                variable_nb_elements,
-                value_types,
-                *allowed_types))
+        return set(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
 
     def pylist(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return list(
-            self._pyiterable(
-                nb_elements,
-                variable_nb_elements,
-                value_types,
-                *allowed_types))
+        return list(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
 
     @no_type_check
     def pyiterable(
-            self,
-            nb_elements: int = 10,
-            variable_nb_elements: bool = True,
-            value_types: ValueTypes = None,
-            *allowed_types: str) -> Iterable[Any]:
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> Iterable[Any]:
         value_types = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
-            nb_elements, variable_nb_elements, value_types, *allowed_types)
+            nb_elements, variable_nb_elements, value_types, *allowed_types
+        )
 
     def _random_type(self, type_list: List[str]) -> str:
         value_type: str = self.random_element(type_list)
 
-        method_name = f'py{value_type}'
+        method_name = f"py{value_type}"
         if hasattr(self, method_name):
             value_type = method_name
 
         return self.generator.format(value_type)
 
     def _pyiterable(
-            self,
-            nb_elements: int = 10,
-            variable_nb_elements: bool = True,
-            value_types: ValueTypes = None,
-            *allowed_types: str) -> Iterator:
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> Iterator:
 
         value_types = self._check_signature(value_types, allowed_types)  # type: ignore
 
-        value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
-                       for t in value_types
-                       # avoid recursion
-                       if t not in ['iterable', 'list', 'tuple', 'dict', 'set']]
+        value_types = [
+            t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
+            for t in value_types
+            # avoid recursion
+            if t not in ["iterable", "list", "tuple", "dict", "set"]
+        ]
         if not value_types:
             value_types = self.default_value_types  # type: ignore
 
@@ -299,18 +286,22 @@ class Provider(BaseProvider):
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
-        return dict(zip(
-            self.generator.words(nb_elements, unique=True),
-            self._pyiterable(nb_elements, False, value_types, *allowed_types),
-        ))
+        return dict(
+            zip(
+                self.generator.words(nb_elements, unique=True),
+                self._pyiterable(nb_elements, False, value_types, *allowed_types),
+            )
+        )
 
     def pystruct(self, count: int = 10, value_types: ValueTypes = None, *allowed_types: str) -> Tuple[List, Dict, Dict]:
         value_types = self._check_signature(value_types, allowed_types)  # type: ignore
 
-        value_types = [t if isinstance(t, str) else getattr(t, '__name__', type(t).__name__).lower()
-                       for t in value_types
-                       # avoid recursion
-                       if t != 'struct']
+        value_types = [
+            t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
+            for t in value_types
+            # avoid recursion
+            if t != "struct"
+        ]
         if not value_types:
             value_types = self.default_value_types  # type: ignore
 
@@ -320,12 +311,14 @@ class Provider(BaseProvider):
         for i in range(count):
             d[self.generator.word()] = self._random_type(value_types)
             types.append(self._random_type(value_types))
-            nd[self.generator.word()] = {i: self._random_type(value_types),
-                                         i + 1: [self._random_type(value_types),
-                                                 self._random_type(value_types),
-                                                 self._random_type(value_types)],
-                                         i + 2: {i: self._random_type(value_types),
-                                                 i + 1: self._random_type(value_types),
-                                                 i + 2: [self._random_type(value_types),
-                                                         self._random_type(value_types)]}}
+            nd[self.generator.word()] = {
+                i: self._random_type(value_types),
+                i + 1: [self._random_type(value_types), self._random_type(value_types), self._random_type(value_types)],
+                i
+                + 2: {
+                    i: self._random_type(value_types),
+                    i + 1: self._random_type(value_types),
+                    i + 2: [self._random_type(value_types), self._random_type(value_types)],
+                },
+            }
         return types, d, nd
