@@ -134,7 +134,7 @@ class Provider(BaseProvider):
         """
         gender_id = self.random_int(min=1, max=2)
         year_of_birth = self.random_int(min=0, max=99)
-        month_of_birth = self.random_int(min=0, max=12)
+        month_of_birth = self.random_int(min=1, max=12)
         department_and_municipality: Tuple[str, str, str, str] = self.random_element(
             self.departments_and_municipalities,
         )
