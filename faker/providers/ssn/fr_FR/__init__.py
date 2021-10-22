@@ -122,7 +122,7 @@ class Provider(BaseProvider):
         ("972", "09", "Martinique", "Fort-de-France"),
         ("973", "02", "Guyane", "Cayenne"),
         ("974", "11", "Réunion", "Saint-Denis"),
-        ("976", "11", "Mayotte", "Mamoudzou")
+        ("976", "11", "Mayotte", "Mamoudzou"),
     )
 
     def ssn(self) -> str:
@@ -136,7 +136,7 @@ class Provider(BaseProvider):
         year_of_birth = self.random_int(min=0, max=99)
         month_of_birth = self.random_int(min=0, max=12)
         department_and_municipality: Tuple[str, str, str, str] = self.random_element(
-            self.departments_and_municipalities
+            self.departments_and_municipalities,
         )
         code_department = department_and_municipality[0]
         code_municipality = department_and_municipality[1]
@@ -144,7 +144,7 @@ class Provider(BaseProvider):
         order_number = self.random_int(min=1, max=999)
 
         ssn_without_checksum = int(
-            f"{gender_id:01}{year_of_birth:02}{month_of_birth:02}{code_department}{code_municipality}{order_number:03}"
+            f"{gender_id:01}{year_of_birth:02}{month_of_birth:02}{code_department}{code_municipality}{order_number:03}",
         )
         checksum = calculate_checksum(ssn_without_checksum)
 
