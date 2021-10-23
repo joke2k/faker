@@ -693,7 +693,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_ssn(self) -> None:
         for _ in range(100):
-            assert re.search(r'^\d{15}$', self.fake.ssn())
+            assert re.search(r"^\d{15}$", self.fake.ssn())
 
     def test_checksum(self) -> None:
         assert fr_calculate_checksum(2570533063999) == 3
