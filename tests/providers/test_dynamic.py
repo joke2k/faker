@@ -44,9 +44,9 @@ class TestDynamicProvider:
         elements = []
         provider_name = "my_provider"
         provider = DynamicProvider(
-                provider_name=provider_name,
-                elements=elements,
-            )
+            provider_name=provider_name,
+            elements=elements,
+        )
         faker = Faker()
         faker.add_provider(provider)
 
@@ -60,9 +60,9 @@ class TestDynamicProvider:
         elements = []
         provider_name = "my_provider"
         provider = DynamicProvider(
-                provider_name=provider_name,
-                elements=elements,
-            )
+            provider_name=provider_name,
+            elements=elements,
+        )
         faker = Faker()
         faker.add_provider(provider)
 
