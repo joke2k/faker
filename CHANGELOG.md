@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.5.3 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.2...v9.5.3)
+
+*  Improve randomness of ``pydecimal`` for different scenarios. Thanks @antonioIrizar.
+
 ### [v9.5.2 - 2021-10-21](https://github.com/joke2k/faker/compare/v9.5.1...v9.5.2)
 
 *  Limit ``typing_extensions`` dependency to Python < 3.8. Thanks @mgorny.
