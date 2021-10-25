@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.6.0 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.3...v9.6.0)
+
+* Add dynamic provider. Thanks @omri374.
+
 ### [v9.5.3 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.2...v9.5.3)
 
 *  Improve randomness of ``pydecimal`` for different scenarios. Thanks @antonioIrizar.
