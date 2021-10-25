@@ -279,7 +279,7 @@ class BaseProvider:
         "zu": ("ZA",),
     }
 
-    def __init__(self, generator: Generator) -> None:
+    def __init__(self, generator: Any) -> None:
         """
         Base class for fake data providers
         :param generator: `Generator` instance
@@ -683,7 +683,7 @@ class DynamicProvider(BaseProvider):
         self,
         provider_name: str,
         elements: Optional[List] = None,
-        generator: Optional[Generator] = None,
+        generator: Optional[Any] = None,
     ):
         """
         A faker Provider capable of getting a list of elements to randomly select from,
