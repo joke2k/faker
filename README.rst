@@ -262,7 +262,7 @@ How to create a Provider
 
 
 How to create a Dynamic Provider
-------------------------
+--------------------------------
 
 Dynamic providers can read elements from an external source.
 
@@ -275,9 +275,9 @@ Dynamic providers can read elements from an external source.
          provider_name="medical_profession",
          elements=["dr.", "doctor", "nurse", "surgeon", "clerk"],
     )
-    
+
     fake = Faker()
-    
+
     # then add new provider to faker instance
     fake.add_provider(medical_professions_provider)
 

@@ -37,6 +37,10 @@ jobs:
       run: tox
       env:
         TOXENV: black
+    - name: Doc formatting
+      run: tox
+      env:
+        TOXENV: doc8
 
   typing:
     runs-on: ubuntu-latest
