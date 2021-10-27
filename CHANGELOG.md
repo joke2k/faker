@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.7.1 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.7.0...v9.7.1)
+
+* Take into account area codes for French phone numbers. Thanks @nicarl.
+
 ### [v9.7.0 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.6.0...v9.7.0)
 
 * Add provider for French SSN. Thanks @nicarl.
