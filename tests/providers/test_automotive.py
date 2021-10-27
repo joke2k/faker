@@ -144,6 +144,11 @@ class TestNoNo(_SimpleAutomotiveTestMixin):
     license_plate_pattern = re.compile(r'[A-Z]{2} \d{5}')
 
 
+class TestEsCo(_SimpleAutomotiveTestMixin):
+    """Test es_CO automotive provider methods"""
+    license_plate_pattern = re.compile(r'[A-Z]{3}\d{3}|[A-Z]{3}\d{2}[A-Z]|T\d{4}|[A-Z]{2}\d{4}|R\d{5}|S\d{5}')
+
+
 class TestEsEs:
     """Test es_ES automotive provider methods"""
     new_format_pattern = re.compile(r'\d{4}\s[A-Z]{3}')
@@ -184,7 +189,7 @@ class TestThTh(_SimpleAutomotiveTestMixin):
         r'([ก-ฮ]{2} \d{1,4})|'  # car
         r'([ก-ฮ]{3} \d{1,3})|'  # motorcycle
         r'(\d{2}-\d{4})',  # truck
-        )
+    )
 
 
 class TestTrTr(_SimpleAutomotiveTestMixin):
