@@ -20,6 +20,7 @@ from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
+from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
@@ -689,6 +690,13 @@ class TestFrFR(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^FR[\w\d]{2} \d{9}$", self.fake.vat_id())
+
+    def test_ssn(self) -> None:
+        for _ in range(100):
+            assert re.search(r"^\d{15}$", self.fake.ssn())
+
+    def test_checksum(self) -> None:
+        assert fr_calculate_checksum(2570533063999) == 3
 
 
 class TestFrCH:
