@@ -15,6 +15,7 @@ from validators.i18n.es import es_nif as is_nif
 
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
@@ -519,6 +520,58 @@ class TestEnUS(unittest.TestCase):
     def test_wrong_tin_type_case(self):
         with self.assertRaises(ValueError):
             self.fake.ssn(taxpayer_identification_number_type='ssn')
+
+
+class TestEsCO(unittest.TestCase):
+    _NUIP_REGEX = re.compile(r'1[012]\d{8}|[1-9]\d{6,7}')
+    _NATURAL_PERSON_NIT_REGEX = _NUIP_REGEX
+    _CHECK_DIGIT_REGEX = re.compile(r'\d')
+    _LEGAL_PERSON_NIT_REGEX = re.compile(r'[89]\d{8}')
+
+    def setUp(self):
+        self.fake = Faker('es_CO')
+        Faker.seed(0)
+
+    def test_nuip(self):
+        for _ in range(100):
+            assert self._NUIP_REGEX.fullmatch(self.fake.nuip())
+            assert self._NUIP_REGEX.fullmatch(self.fake.natural_person_nit())
+
+    def test_natural_person_nit_with_check_digit(self):
+        for _ in range(100):
+            natural_person_nit, check_digit = self.fake.natural_person_nit_with_check_digit().split("-")
+            assert self._NATURAL_PERSON_NIT_REGEX.fullmatch(natural_person_nit)
+            assert self._CHECK_DIGIT_REGEX.fullmatch(check_digit)
+            assert nit_check_digit(natural_person_nit) == check_digit
+
+    def test_legal_person_nit(self):
+        for _ in range(100):
+            assert self._LEGAL_PERSON_NIT_REGEX.fullmatch(self.fake.legal_person_nit())
+
+    def test_legal_person_nit_with_check_digit(self):
+        for _ in range(100):
+            legal_person_nit, check_digit = self.fake.legal_person_nit_with_check_digit().split("-")
+            assert self._LEGAL_PERSON_NIT_REGEX.fullmatch(legal_person_nit)
+            assert self._CHECK_DIGIT_REGEX.fullmatch(check_digit)
+            assert nit_check_digit(legal_person_nit) == check_digit
+
+    def test_nit_check_digit(self):
+        # NITs and check digits of some Colombian state entities.
+        # Source: https://www.funcionpublica.gov.co/web/sigep/entidades
+        for nit, check_digit in (
+            ('830040256', '0'),
+            ('899999003', '1'),
+            ('892301483', '2'),
+            ('800194600', '3'),
+            ('899999403', '4'),
+            ('860042945', '5'),
+            ('830114475', '6'),
+            ('811000231', '7'),
+            ('899999027', '8'),
+            ('900639630', '9'),
+        ):
+            with self.subTest(nit=nit, check_digit=check_digit):
+                assert nit_check_digit(nit) == check_digit
 
 
 class TestEsES(unittest.TestCase):
