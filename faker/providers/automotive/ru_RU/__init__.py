@@ -10,250 +10,312 @@ class Provider(AutomotiveProvider):
     - https://ru.wikipedia.org/wiki/Категории_транспортных_средств
     """
 
-    license_plate_letters = ('A', 'B', 'E', 'K', 'M', 'Н', 'О', 'Р', 'С', 'Т', 'У', 'Х')
+    license_plate_letters = ("A", "B", "E", "K", "M", "Н", "О", "Р", "С", "Т", "У", "Х")
 
-    vehicle_categories = ('M', 'A', 'A1', 'B', 'B1', 'BE', 'C', 'C1', 'C1E', 'CE', 'D', 'D1', 'DE', 'Tm', 'Tb')
+    vehicle_categories = (
+        "M",
+        "A",
+        "A1",
+        "B",
+        "B1",
+        "BE",
+        "C",
+        "C1",
+        "C1E",
+        "CE",
+        "D",
+        "D1",
+        "DE",
+        "Tm",
+        "Tb",
+    )
 
     license_plate_suffix = (
         # Republic of Adygea
-        '01',
+        "01",
         # Republic of Bashkortostan
-        '02', '102',
+        "02",
+        "102",
         # Republic of Buryatia
-        '03',
+        "03",
         # Altai Republic
-        '04',
+        "04",
         # Republic of Dagestan
-        '05',
+        "05",
         # Republic of Ingushetia
-        '06',
+        "06",
         # Kabardino-Balkar Republic
-        '07',
+        "07",
         # Republic of Kalmykia
-        '08',
+        "08",
         # Karachay-Cherkess Republic
-        '09',
+        "09",
         # Republic of Karelia
-        '10',
+        "10",
         # Komi Republic
-        '11',
+        "11",
         # Mari El Republic
-        '12',
+        "12",
         # Republic of Mordovia
-        '13', '113',
+        "13",
+        "113",
         # Sakha Republic
-        '14',
+        "14",
         # Republic of North Ossetia–Alania
-        '15',
+        "15",
         # Republic of Tatarstan
-        '16', '116', '716',
+        "16",
+        "116",
+        "716",
         # Tuva Republic
-        '17',
+        "17",
         # Udmurt Republic
-        '18',
+        "18",
         # Republic of Khakassia
-        '19',
+        "19",
         # Chechen Republic
-        '20', '95',
+        "20",
+        "95",
         # Chuvash Republic
-        '21', '121',
+        "21",
+        "121",
         # Altai Krai
-        '22',
+        "22",
         # Krasnodar Krai
-        '23', '93', '123',
+        "23",
+        "93",
+        "123",
         # Krasnoyarsk Krai
-        '24', '84', '88', '124',
+        "24",
+        "84",
+        "88",
+        "124",
         # Primorsky Krai
-        '25', '125',
+        "25",
+        "125",
         # Stavropol Krai
-        '26', '126',
+        "26",
+        "126",
         # Khabarovsk Krai
-        '27',
+        "27",
         # Amur Oblast
-        '28',
+        "28",
         # Arkhangelsk Oblast
-        '29',
+        "29",
         # Astrakhan Oblast
-        '30',
+        "30",
         # Belgorod Oblast
-        '31',
+        "31",
         # Bryansk Oblast
-        '32',
+        "32",
         # Vladimir Oblast
-        '33',
+        "33",
         # Volgograd Oblast
-        '34', '134',
+        "34",
+        "134",
         # Vologda Oblast
-        '35',
+        "35",
         # Voronezh Oblast
-        '36', '136',
+        "36",
+        "136",
         # Ivanovo Oblast
-        '37',
+        "37",
         # Irkutsk Oblast
-        '38', '85', '38',
+        "38",
+        "85",
+        "38",
         # Kaliningrad Oblast
-        '39', '91',
+        "39",
+        "91",
         # Kaluga Oblast
-        '40',
+        "40",
         # Kamchatka Krai
-        '41', '82',
+        "41",
+        "82",
         # Kemerovo Oblast
-        '42', '142',
+        "42",
+        "142",
         # Kirov Oblast
-        '43',
+        "43",
         # Kostroma Oblast
-        '44',
+        "44",
         # Kurgan Oblast
-        '45',
+        "45",
         # Kursk Oblast
-        '46',
+        "46",
         # Leningrad Oblast
-        '47',
+        "47",
         # Lipetsk Oblast
-        '48',
+        "48",
         # Magadan Oblast
-        '49',
+        "49",
         # Moscow Oblast
-        '50', '90', '150', '190', '750',
+        "50",
+        "90",
+        "150",
+        "190",
+        "750",
         # Murmansk Oblast
-        '51',
+        "51",
         # Nizhny Novgorod Oblast
-        '52', '152',
+        "52",
+        "152",
         # Novgorod Oblast
-        '53',
+        "53",
         # Novosibirsk Oblast
-        '54', '154',
+        "54",
+        "154",
         # Omsk Oblast
-        '55',
+        "55",
         # Orenburg Oblast
-        '56',
+        "56",
         # Oryol Oblast
-        '57',
+        "57",
         # Penza Oblast
-        '58',
+        "58",
         # Perm Krai
-        '59', '81', '159',
+        "59",
+        "81",
+        "159",
         # Pskov Oblast
-        '60',
+        "60",
         # Rostov Oblast
-        '61', '161',
+        "61",
+        "161",
         # Ryazan Oblast
-        '62',
+        "62",
         # Samara Oblast
-        '63', '163', '763',
+        "63",
+        "163",
+        "763",
         # Saratov Oblast
-        '64', '164',
+        "64",
+        "164",
         # Sakhalin Oblast
-        '65',
+        "65",
         # Sverdlovsk Oblast
-        '66', '96', '196',
+        "66",
+        "96",
+        "196",
         # Smolensk Oblast
-        '67',
+        "67",
         # Tambov Oblast
-        '68',
+        "68",
         # Tver Oblast
-        '69',
+        "69",
         # Tomsk Oblast
-        '70',
+        "70",
         # Tula Oblast
-        '71',
+        "71",
         # Tyumen Oblast
-        '72',
+        "72",
         # Ulyanovsk Oblast
-        '73', '173',
+        "73",
+        "173",
         # Chelyabinsk Oblast
-        '74', '174',
+        "74",
+        "174",
         # Zabaykalsky Krai
-        '75', '80',
+        "75",
+        "80",
         # Yaroslavl Oblast
-        '76',
+        "76",
         # Moscow
-        '77', '97', '99', '177', '197', '199', '777', '799',
+        "77",
+        "97",
+        "99",
+        "177",
+        "197",
+        "199",
+        "777",
+        "799",
         # St. Petersburg
-        '78', '98', '178', '198',
+        "78",
+        "98",
+        "178",
+        "198",
         # Jewish Autonomous Oblast
-        '79',
+        "79",
         # Agin-Buryat Okrug / "Former Buryat Autonomous District of Aginskoye"
-        '80',
+        "80",
         # Komi-Permyak Okrug / "Former Komi-Permyak Autonomous District"
-        '81',
+        "81",
         # Republic of Crimea / De jure part of Ukraine as Autonomous Republic. Annexed by Russia in 2014.
-        '82',
+        "82",
         # Koryak Okrug / "Former Koryak Autonomous District"
-        '82',
+        "82",
         # Nenets Autonomous Okrug (Nenetsia)
-        '83',
+        "83",
         # Taymyr Autonomous Okrug / "Former Taymyr (Dolgan-Nenets) Autonomous District"
-        '84',
+        "84",
         # Ust-Orda Buryat Okrug / "Former Buryat Autonomous District of Ust-Ordynskoy"
-        '85',
+        "85",
         # Khanty-Mansi Autonomous Okrug
-        '86', '186',
+        "86",
+        "186",
         # Chukotka Autonomous Okrug
-        '87',
+        "87",
         # Evenk Autonomous Okrug / "Former Evenk Autonomous District"
-        '88',
+        "88",
         # Yamalo-Nenets Autonomous Okrug
-        '89',
+        "89",
         # Sevastopol / De jure part of Ukraine as City with special status. Annexed by Russia in 2014.
-        '92',
+        "92",
         # Territories outside of the Russian Federation,
         # served by the bodies of internal affairs of the Russian Federation, such as Baikonur
-        '94',
+        "94",
     )
 
     license_plate_formats = (
         # Private vehicle plate
-        '{{plate_letter}}{{plate_number}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        "{{plate_letter}}{{plate_number}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}",
         # Public transport plate
-        '{{plate_letter}}{{plate_letter}}{{plate_number}} {{plate_suffix}}',
+        "{{plate_letter}}{{plate_letter}}{{plate_number}} {{plate_suffix}}",
         # Trailer plate
-        '{{plate_letter}}{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        "{{plate_letter}}{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}",
         # Police forces vehicle plate
-        '{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}',
+        "{{plate_letter}}{{plate_number_extra}} {{plate_suffix}}",
         # Military vehicle plate
-        '{{plate_number_extra}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}',
+        "{{plate_number_extra}}{{plate_letter}}{{plate_letter}} {{plate_suffix}}",
         # Diplomatic vehicles
-        '{{plate_number_special}} {{plate_suffix}}',
+        "{{plate_number_special}} {{plate_suffix}}",
     )
 
-    plate_number_formats = (
-        '###',
-    )
+    plate_number_formats = ("###",)
 
-    plate_extra_formats = (
-        '####',
-    )
+    plate_extra_formats = ("####",)
 
     plate_special_formats = (
-        '00#CD#', '00#D###', '00#T###',
+        "00#CD#",
+        "00#D###",
+        "00#T###",
     )
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate."""
-        pattern = self.random_element(self.license_plate_formats)
+        pattern: str = self.random_element(self.license_plate_formats)
         return self.generator.parse(pattern)
 
-    def plate_letter(self):
+    def plate_letter(self) -> str:
         """Generate a letter for license plates."""
         return self.random_element(self.license_plate_letters)
 
-    def plate_number(self):
+    def plate_number(self) -> str:
         """Generate a number for license plates."""
         return self.numerify(self.random_element(self.plate_number_formats))
 
-    def plate_number_extra(self):
+    def plate_number_extra(self) -> str:
         """Generate extra numerical code for license plates."""
         return self.numerify(self.random_element(self.plate_extra_formats))
 
-    def plate_number_special(self):
+    def plate_number_special(self) -> str:
         """Generate a special code for license plates."""
         return self.numerify(self.random_element(self.plate_special_formats))
 
-    def plate_suffix(self):
+    def plate_suffix(self) -> str:
         """Generate a suffix code for license plates."""
         return self.random_element(self.license_plate_suffix)
 
-    def vehicle_category(self):
+    def vehicle_category(self) -> str:
         """Generate a vehicle category code for license plates."""
         return self.random_element(self.vehicle_categories)

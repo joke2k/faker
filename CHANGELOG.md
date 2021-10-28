@@ -1,5 +1,45 @@
 ## Changelog
 
+### [v9.7.1 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.7.0...v9.7.1)
+
+* Take into account area codes for French phone numbers. Thanks @nicarl.
+
+### [v9.7.0 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.6.0...v9.7.0)
+
+* Add provider for French SSN. Thanks @nicarl.
+
+### [v9.6.0 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.3...v9.6.0)
+
+* Add dynamic provider. Thanks @omri374.
+
+### [v9.5.3 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.2...v9.5.3)
+
+*  Improve randomness of ``pydecimal`` for different scenarios. Thanks @antonioIrizar.
+
+### [v9.5.2 - 2021-10-21](https://github.com/joke2k/faker/compare/v9.5.1...v9.5.2)
+
+*  Limit ``typing_extensions`` dependency to Python < 3.8. Thanks @mgorny.
+
+### [v9.5.1 - 2021-10-20](https://github.com/joke2k/faker/compare/v9.5.0...v9.5.1)
+
+*  Add ``typing-extensions`` as dependency and pin ``mypy`` version. Thanks @nicarl.
+
+### [v9.5.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.4.0...v9.5.0)
+
+* Add automotive provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v9.4.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.3.1...v9.4.0)
+
+* Add Typing. Thanks @MarcelRobeer, @nicarl.
+
+### [v9.3.1 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.3.0...v9.3.1)
+
+*  Change to secondary address format in ``en_AU`` locale to reflect the common usage. Thanks @deboraelkin2.
+
+### [v9.3.0 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.2.0...v9.3.0)
+
+* Add ``currency``, ``automotive``, ``company`` and ``bank`` providers for ``el_GR``. Thanks @nikosmichas.
+
 ### [v9.2.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.2.0)
 
 * Add ``color`` and ``date_time`` provider for ``el_GR``. Thanks @nikosmichas.

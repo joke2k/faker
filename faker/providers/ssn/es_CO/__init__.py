@@ -4,7 +4,7 @@ from typing import OrderedDict
 from .. import Provider as BaseProvider
 
 
-def nit_check_digit(nit):
+def nit_check_digit(nit: str) -> str:
     """
     Calculate the check digit of a NIT.
 
@@ -26,41 +26,41 @@ def nit_check_digit(nit):
 class Provider(BaseProvider):
 
     nuip_formats = OrderedDict((
-        ('10########', 0.25),
-        ('11########', 0.25),
-        ('12########', 0.1),
-        ('%!######', 0.4)
+        ("10########", 0.25),
+        ("11########", 0.25),
+        ("12########", 0.1),
+        ("%!######", 0.4)
     ))
 
-    legal_person_nit_formats = ('8########', '9########',)
+    legal_person_nit_formats = ("8########", "9########",)
 
-    def nuip(self):
+    def nuip(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%A9dula_de_Ciudadan%C3%ADa_(Colombia)
-        :example u'1095312769'
+        :example u"1095312769"
         """
         return self.numerify(self.random_element(self.nuip_formats))
 
     natural_person_nit = nuip
 
-    def natural_person_nit_with_check_digit(self):
+    def natural_person_nit_with_check_digit(self) -> str:
         """
-        :example u'1095312769-0'
+        :example u"1095312769-0"
         """
         nit = self.natural_person_nit()
         check_digit = nit_check_digit(nit)
         return f"{nit}-{check_digit}"
 
-    def legal_person_nit(self):
+    def legal_person_nit(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_Identificaci%C3%B3n_Tributaria
-        :example u'967807269'
+        :example u"967807269"
         """
         return self.numerify(self.random_element(self.legal_person_nit_formats))
 
-    def legal_person_nit_with_check_digit(self):
+    def legal_person_nit_with_check_digit(self) -> str:
         """
-        :example u'967807269-7'
+        :example u"967807269-7"
         """
         nit = self.legal_person_nit()
         check_digit = nit_check_digit(nit)

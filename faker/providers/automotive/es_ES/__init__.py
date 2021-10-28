@@ -2,6 +2,8 @@
 
 import re
 
+from typing import Optional
+
 from .. import Provider as AutomotiveProvider
 
 
@@ -21,7 +23,7 @@ class Provider(AutomotiveProvider):
 
     license_formats = (
         # New format
-        '#### ???',
+        "#### ???",
     )
 
     # New format suffix letters (excluding vocals and Q from ascii uppercase)
@@ -32,15 +34,15 @@ class Provider(AutomotiveProvider):
 
     # Province prefixes (for old format)
     province_prefix = (
-        "A",   # Alicante
+        "A",  # Alicante
         "AB",  # Albacete
         "AL",  # Almería
         "AV",  # Ávila
-        "B",   # Barcelona
+        "B",  # Barcelona
         "BA",  # Badajoz
         "BI",  # Bilbao
         "BU",  # Burgos
-        "C",   # La Coruña
+        "C",  # La Coruña
         "CA",  # Cádiz
         "CC",  # Cáceres
         "CS",  # Castellón de la Plana
@@ -53,66 +55,67 @@ class Provider(AutomotiveProvider):
         "GI",  # Girona (since 1992)
         "GR",  # Granada
         "GU",  # Guadalajara
-        "H",   # Huelva
+        "H",  # Huelva
         "HU",  # Huesca
         "PM",  # Palma de Mallorca (until 1997)
         "IB",  # Islas Baleares (since 1997)
-        "J",   # Jaén
-        "L",   # Lleida
+        "J",  # Jaén
+        "L",  # Lleida
         "LE",  # León
         "LO",  # Logroño
         "LU",  # Lugo
-        "M",   # Madrid
+        "M",  # Madrid
         "MA",  # Málaga
         "ML",  # Melilla
         "MU",  # Murcia
-        "O",   # Oviedo
+        "O",  # Oviedo
         "OR",  # Ourense (until 1998)
         "OU",  # Ourense (since 1998)
-        "P",   # Palencia
+        "P",  # Palencia
         "NA",  # Navarra
         "PO",  # Pontevedra
-        "S",   # Santander
+        "S",  # Santander
         "SA",  # Salamanca
         "SE",  # Sevilla
         "SG",  # Segovia
         "SO",  # Soria
         "SS",  # Donostia/San Sebastián
-        "T",   # Tarragona
+        "T",  # Tarragona
         "TE",  # Teruel
         "TF",  # Santa Cruz de Tenerife
         "TO",  # Toledo
-        "V",   # Valencia
+        "V",  # Valencia
         "VA",  # Valladolid
         "VI",  # Vitoria
-        "Z",   # Zaragoza
+        "Z",  # Zaragoza
         "ZA",  # Zamora
     )
 
-    def license_plate_unified(self):
+    def license_plate_unified(self) -> str:
         """Generate a unified license plate."""
-        temp = re.sub(r'\?',
-                      lambda x: self.random_element(
-                          self.license_plate_new_format_suffix_letters),
-                      self.license_formats[0])
+        temp = re.sub(
+            r"\?",
+            lambda x: self.random_element(self.license_plate_new_format_suffix_letters),
+            self.license_formats[0],
+        )
         return self.numerify(temp)
 
-    def license_plate_by_province(self, province_prefix=None):
+    def license_plate_by_province(self, province_prefix: Optional[str] = None) -> str:
         """Generate a provincial license plate.
 
         If a value for ``province_prefix`` is provided, the value will be used
         as the prefix regardless of validity. If ``None``, then a valid prefix
         will be selected at random.
         """
-        province_prefix = province_prefix if province_prefix is not None else \
-            self.random_element(self.province_prefix)
-        temp = re.sub(r'\?',
-                      lambda x: self.random_element(
-                          self.license_plate_old_format_suffix_letters),
-                      "#### ??")
+        province_prefix = province_prefix if province_prefix is not None else self.random_element(self.province_prefix)
+        temp = re.sub(
+            r"\?",
+            lambda x: self.random_element(self.license_plate_old_format_suffix_letters),
+            "#### ??",
+        )
         return province_prefix + " " + self.numerify(temp)
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate.
 
         This method randomly chooses (50/50) between |license_plate_unified|

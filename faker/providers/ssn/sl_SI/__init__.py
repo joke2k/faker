@@ -6,11 +6,9 @@ class Provider(BaseProvider):
     A Faker provider for the Slovenian VAT IDs
     """
 
-    vat_id_formats = (
-        'SI########',
-    )
+    vat_id_formats = ("SI########",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: a random Slovenian VAT ID

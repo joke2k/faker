@@ -1,10 +1,13 @@
 import datetime
 import operator
 
+from typing import List, Optional, Sequence
+
+from ....typing import GenderType
 from .. import Provider as SsnProvider
 
 
-def checksum(digits, scale):
+def checksum(digits: Sequence[int], scale: List[int]) -> int:
     """
     Calculate checksum of Norwegian personal identity code.
 
@@ -27,7 +30,7 @@ class Provider(SsnProvider):
     scale1 = (3, 7, 6, 1, 8, 9, 4, 5, 2)
     scale2 = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-    def ssn(self, dob=None, gender=None):
+    def ssn(self, dob: Optional[str] = None, gender: Optional[GenderType] = None) -> str:
         """
         Returns 11 character Norwegian personal identity code (Fødselsnummer).
 
@@ -46,15 +49,14 @@ class Provider(SsnProvider):
         """
 
         if dob:
-            birthday = datetime.datetime.strptime(dob, '%Y%m%d')
+            birthday = datetime.datetime.strptime(dob, "%Y%m%d")
         else:
-            age = datetime.timedelta(
-                days=self.generator.random.randrange(18 * 365, 90 * 365))
+            age = datetime.timedelta(days=self.generator.random.randrange(18 * 365, 90 * 365))
             birthday = datetime.datetime.now() - age
         if not gender:
-            gender = self.generator.random.choice(('F', 'M'))
-        elif gender not in ('F', 'M'):
-            raise ValueError('Gender must be one of F or M.')
+            gender = self.generator.random.choice(("F", "M"))
+        elif gender not in ("F", "M"):
+            raise ValueError("Gender must be one of F or M.")
 
         while True:
             if 1900 <= birthday.year <= 1999:
@@ -65,11 +67,11 @@ class Provider(SsnProvider):
                 suffix = str(self.generator.random.randrange(50, 99))
             elif 1940 <= birthday.year <= 1999:
                 suffix = str(self.generator.random.randrange(90, 99))
-            if gender == 'F':
+            if gender == "F":
                 gender_num = self.generator.random.choice((0, 2, 4, 6, 8))
-            elif gender == 'M':
+            elif gender == "M":
                 gender_num = self.generator.random.choice((1, 3, 5, 7, 9))
-            pnr = birthday.strftime('%d%m%y') + suffix.zfill(2) + str(gender_num)
+            pnr = birthday.strftime("%d%m%y") + suffix.zfill(2) + str(gender_num)
             pnr_nums = [int(ch) for ch in pnr]
             k1 = checksum(Provider.scale1, pnr_nums)
             k2 = checksum(Provider.scale2, pnr_nums + [k1])
@@ -77,5 +79,5 @@ class Provider(SsnProvider):
             # https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
             if k1 == 10 or k2 == 10:
                 continue
-            pnr += f'{k1}{k2}'
+            pnr += f"{k1}{k2}"
             return pnr

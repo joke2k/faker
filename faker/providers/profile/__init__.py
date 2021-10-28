@@ -1,5 +1,10 @@
 import itertools
 
+from datetime import date
+from decimal import Decimal
+from typing import Dict, List, Optional, Tuple, Union
+
+from ...typing import GenderType
 from .. import BaseProvider
 
 
@@ -9,27 +14,27 @@ class Provider(BaseProvider):
 
     """
 
-    def simple_profile(self, sex=None):
+    def simple_profile(self, sex: Optional[GenderType] = None) -> Dict[str, Union[str, date, GenderType]]:
         """
         Generates a basic profile with personal informations
         """
-        SEX = ["F", "M"]
-        if sex not in SEX:
-            sex = self.random_element(SEX)
-        if sex == 'F':
+        sex_ = self.random_element(["F", "M"]) if sex is None else sex
+        if sex_ == "F":
             name = self.generator.name_female()
-        elif sex == 'M':
+        elif sex_ == "M":
             name = self.generator.name_male()
         return {
             "username": self.generator.user_name(),
             "name": name,
-            "sex": sex,
+            "sex": sex_,
             "address": self.generator.address(),
             "mail": self.generator.free_email(),
             "birthdate": self.generator.date_of_birth(),
         }
 
-    def profile(self, fields=None, sex=None):
+    def profile(
+        self, fields: Optional[List[str]] = None, sex: Optional[GenderType] = None
+    ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], date]]:
         """
         Generates a complete profile.
         If "fields" is not empty, only the fields in the list will be returned

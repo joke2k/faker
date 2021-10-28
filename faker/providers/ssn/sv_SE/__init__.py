@@ -1,21 +1,28 @@
 import datetime
 import random
 
+from typing import Tuple
+
 from faker.utils.checksums import calculate_luhn
 
 from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
     @staticmethod
-    def _org_to_vat(org_id):
-        org_id = org_id.replace('-', '')
+    def _org_to_vat(org_id: str) -> str:
+        org_id = org_id.replace("-", "")
         if len(org_id) == 10:
-            org_id = '16' + org_id
-        return f'SE{org_id}01'
+            org_id = "16" + org_id
+        return f"SE{org_id}01"
 
-    def ssn(self, min_age=18, max_age=90, long=False, dash=True):
+    def ssn(
+        self,
+        min_age: int = 18,
+        max_age: int = 90,
+        long: bool = False,
+        dash: bool = True,
+    ) -> str:
         """
         Returns a 10 or 12 (long=True) digit Swedish SSN, "Personnummer".
 
@@ -29,22 +36,21 @@ class Provider(SsnProvider):
         http://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
         """
 
-        age = datetime.timedelta(
-            days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.datetime.now() - age
-        yr_fmt = '%Y' if long else '%y'
-        pnr_date = f'{birthday:{yr_fmt}%m%d}'
+        yr_fmt = "%Y" if long else "%y"
+        pnr_date = f"{birthday:{yr_fmt}%m%d}"
         chk_date = pnr_date[2:] if long else pnr_date
-        suffix = f'{self.generator.random.randrange(0, 999):03}'
-        luhn_checksum = str(calculate_luhn(chk_date + suffix))
-        hyphen = '-' if dash else ''
-        pnr = f'{pnr_date}{hyphen}{suffix}{luhn_checksum}'
+        suffix = f"{self.generator.random.randrange(0, 999):03}"
+        luhn_checksum = str(calculate_luhn(int(chk_date + suffix)))
+        hyphen = "-" if dash else ""
+        pnr = f"{pnr_date}{hyphen}{suffix}{luhn_checksum}"
 
         return pnr
 
     ORG_ID_DIGIT_1 = (1, 2, 3, 5, 6, 7, 8, 9)
 
-    def org_id(self, long=False, dash=True):
+    def org_id(self, long: bool = False, dash: bool = True) -> str:
         """
         Returns a 10 or 12 digit Organisation ID for a Swedish
         company.
@@ -57,14 +63,14 @@ class Provider(SsnProvider):
         onr_one += str(self.generator.random.randrange(20, 99))
         onr_one += str(self.generator.random.randrange(0, 99)).zfill(2)
         onr_two = str(self.generator.random.randrange(0, 999)).zfill(3)
-        luhn_checksum = str(calculate_luhn(onr_one + onr_two))
-        prefix = '16' if long else ''
-        hyphen = '-' if dash else ''
+        luhn_checksum = str(calculate_luhn(int(onr_one + onr_two)))
+        prefix = "16" if long else ""
+        hyphen = "-" if dash else ""
 
-        org_id = f'{prefix}{onr_one}{hyphen}{onr_two}{luhn_checksum}'
+        org_id = f"{prefix}{onr_one}{hyphen}{onr_two}{luhn_checksum}"
         return org_id
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Swedish VAT ID, based on a valid Org ID
@@ -73,7 +79,7 @@ class Provider(SsnProvider):
         vid = Provider._org_to_vat(oid)
         return vid
 
-    def org_and_vat_id(self, long=False, dash=True):
+    def org_and_vat_id(self, long: bool = False, dash: bool = True) -> Tuple[str, str]:
         """Returns matching Org ID and VAT number"""
         oid = self.org_id(long=long, dash=dash)
         vid = Provider._org_to_vat(oid)

@@ -6,11 +6,9 @@ class Provider(BaseProvider):
     A Faker provider for the Portuguese VAT IDs
     """
 
-    vat_id_formats = (
-        'PT#########',
-    )
+    vat_id_formats = ("PT#########",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Portuguese VAT ID

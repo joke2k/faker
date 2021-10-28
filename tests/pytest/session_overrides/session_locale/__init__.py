@@ -1,1 +1,1 @@
-_MODULE_LOCALES = ['en_GB']
+_MODULE_LOCALES = ["en_GB"]

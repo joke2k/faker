@@ -29,10 +29,10 @@ class Provider(DateTimeProvider):
         "12": "டிசம்பர்",
     }
 
-    def day_of_week(self):
-        day = self.date('%w')
+    def day_of_week(self) -> str:
+        day = self.date("%w")
         return self.DAY_NAMES[day]
 
-    def month_name(self):
+    def month_name(self) -> str:
         month = self.month()
         return self.MONTH_NAMES[month]

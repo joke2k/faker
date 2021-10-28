@@ -2,11 +2,11 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    city_formats = ('{{city_name}}', )
-    street_name_formats = ('{{street_title}}', )
-    street_address_formats = ('{{street_name}} {{building_number}}', )
-    address_formats = ('{{street_address}}, {{city}}, {{postcode}}', )
-    postcode_formats = ('#######', )
+    city_formats = ("{{city_name}}",)
+    street_name_formats = ("{{street_title}}",)
+    street_address_formats = ("{{street_name}} {{building_number}}",)
+    address_formats = ("{{street_address}}, {{city}}, {{postcode}}",)
+    postcode_formats = ("#######",)
 
     # Data sourced from data.gov.il
     # https://data.gov.il/dataset/321
@@ -28,7 +28,7 @@ class Provider(AddressProvider):
         "אזור תעשיה הר יונה",
         "אזור תעשייה",
         "אזור תעשייה מזרח",
-        "אח\"י אילת",
+        'אח"י אילת',
         "אייזיק ניוטון",
         "איילת השחר )מ ק(",
         "אייר",
@@ -79,7 +79,7 @@ class Provider(AddressProvider):
         "בועז",
         "בורסת היהלומים",
         "ביכורים",
-        "ביל\"ו",
+        'ביל"ו',
         "בילינסון",
         "בית אבות",
         "בית היוצר",
@@ -137,7 +137,7 @@ class Provider(AddressProvider):
         "האלונים",
         "האמוראים",
         "האצטדיון",
-        "האצ\"ל",
+        'האצ"ל',
         "הברדלס",
         "הברוש",
         "הבריגדה",
@@ -171,7 +171,7 @@ class Provider(AddressProvider):
         "היוזם",
         "הינשוף",
         "היקינטון",
-        "הל\"ה",
+        'הל"ה',
         "המאה ואחד",
         "המבריא",
         "המברק",
@@ -265,7 +265,7 @@ class Provider(AddressProvider):
         "טאחונת אלראהיב",
         "טביב",
         "טופז",
-        "י\"א באדר",
+        'י"א באדר',
         "יאפא",
         "יד העפלה ממרוקו",
         "ידידה",
@@ -300,7 +300,7 @@ class Provider(AddressProvider):
         "לוין מיכאל וחנה",
         "לוין שמריהו",
         "לוריא",
-        "לח\"י",
+        'לח"י',
         "לילינבלום",
         "לכיש",
         "לסקוב חיים",
@@ -356,11 +356,11 @@ class Provider(AddressProvider):
         "נורית",
         "נחל נחשון",
         "נחל סרפד",
-        "נחל ערוגות מ\"ר",
+        'נחל ערוגות מ"ר',
         "נחל פארן",
         "נחלת צדוק",
         "ניר עם",
-        "נעמ\"ת",
+        'נעמ"ת',
         "נצרת עילית",
         "נשר",
         "נתיב הפורצים",
@@ -452,13 +452,13 @@ class Provider(AddressProvider):
         "רח מו כ שלם",
         "רח רז",
         "ריחאניה",
-        "רלב\"ג",
-        "רמב\"ם",
-        "רמב\"ן",
+        'רלב"ג',
+        'רמב"ם',
+        'רמב"ן',
         "רמת האירוסים",
         "רמת כרמים",
         "רקפת",
-        "רש\"י",
+        'רש"י',
         "ש אסבסטונים",
         "ש אסבסט צפון",
         "שאר ישוב",
@@ -472,14 +472,14 @@ class Provider(AddressProvider):
         "שד גאולים",
         "שד גת",
         "שד העצמאות",
-        "שד ח\"ן",
+        'שד ח"ן',
         "שד יוספטל גיורא",
         "ש הפועלים",
         "שוהם",
         "שומרון",
         "שושנה דמארי",
         "שושנת הכרמל",
-        "שז\"ר זלמן",
+        'שז"ר זלמן',
         "שיזף",
         "שכ 14",
         "שכ החלוצים",
@@ -500,7 +500,7 @@ class Provider(AddressProvider):
         "שני",
         "ש סלע חדש",
         "ש פועלים",
-        "ש\"ץ גרשון",
+        'ש"ץ גרשון',
         "ש ציונים כלליים",
         "שקד",
         "ש קואפרטיבים",
@@ -509,8 +509,9 @@ class Provider(AddressProvider):
         "תאנה",
         "תל חי",
         "תפארת ישראל",
-        "תרס\"ח",
-        "תרצ\"ו")
+        'תרס"ח',
+        'תרצ"ו',
+    )
 
     city_names = (
         "אבו רובייעה )שבט(",
@@ -532,8 +533,8 @@ class Provider(AddressProvider):
         "ברקאי",
         "ברקת",
         "גבעת השלושה",
-        "גבעת ח\"ן",
-        "גבעת כ\"ח",
+        'גבעת ח"ן',
+        'גבעת כ"ח',
         "גדות",
         "גונן",
         "גינתון",
@@ -542,7 +543,7 @@ class Provider(AddressProvider):
         "גנות הדר",
         "גני מודיעין",
         "גרופית",
-        "דוב\"ב",
+        'דוב"ב',
         "דולב",
         "האון",
         "הסוללים",
@@ -555,7 +556,7 @@ class Provider(AddressProvider):
         "חצור הגלילית",
         "חשמונאים",
         "טל-אל",
-        "יד רמב\"ם",
+        'יד רמב"ם',
         "כסלון",
         "כפר אחים",
         "כפר הנוער הדתי",
@@ -612,10 +613,11 @@ class Provider(AddressProvider):
         "שעב",
         "שפר",
         "שתולים",
-        "תלמי אליהו")
+        "תלמי אליהו",
+    )
 
-    def city_name(self):
+    def city_name(self) -> str:
         return self.random_element(self.city_names)
 
-    def street_title(self):
+    def street_title(self) -> str:
         return self.random_element(self.street_titles)
