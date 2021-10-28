@@ -560,7 +560,7 @@ class TestEsCO(unittest.TestCase):
 
     def test_nit_check_digit(self):
         # NITs and check digits of some Colombian state entities.
-        # Source: https://www.funcionpublica.gov.co/web/sigep/entidades
+        # Source: <https://www.funcionpublica.gov.co/web/sigep/entidades>
         for nit, check_digit in (
             ("830040256", "0"),
             ("899999003", "1"),

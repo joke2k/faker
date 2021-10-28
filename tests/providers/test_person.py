@@ -749,7 +749,7 @@ class TestEsCO(unittest.TestCase):
         self.assertIsInstance(prefix, str)
         assert prefix in EsCOProvider.prefixes_female
 
-        # Female prefix
+        # Male prefix
         prefix = self.fake.prefix_male()
         self.assertIsInstance(prefix, str)
         assert prefix in EsCOProvider.prefixes_male

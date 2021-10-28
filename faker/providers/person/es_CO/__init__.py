@@ -1,6 +1,6 @@
-from ..es import Provider as PersonProvider
-
 from collections import OrderedDict
+
+from ..es import Provider as PersonProvider
 
 
 class Provider(PersonProvider):

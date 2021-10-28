@@ -1,5 +1,6 @@
 import operator
-from typing import OrderedDict
+
+from collections import OrderedDict
 
 from .. import Provider as BaseProvider
 
