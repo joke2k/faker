@@ -242,6 +242,23 @@ class TestTaIn:
             assert pattern.fullmatch(phone_number)
 
 
+class TestEsCo:
+    """Test es_CO phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern = re.compile(
+            r'((\+?57|\(\+57\))?60\d)?\d{7}|'
+            r'((\+?57 |\(\+57\) )?60\d )?\d{3} \d{2} \d{2}|'
+            r'(\+?57|\(\+57\))?3[012]\d{8}|'
+            r'(\+?57 |\(\+57\) )?3[012]\d \d{3} \d{2} \d{2}|'
+            r'01800\d{7}|'
+            r'01 800\d \d{3} \d{3}'
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
 class TestEsEs:
     """Test es_ES phone number provider methods"""
 
