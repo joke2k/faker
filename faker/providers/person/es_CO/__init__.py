@@ -295,7 +295,7 @@ class Provider(PersonProvider):
         ("Janneth", 0.000669007),
         ("Emilse", 0.000662208),
         ("Jackeline", 0.000649970),
-        ("Concepcion", 0.000645891),
+        ("Concepción", 0.000645891),
         ("Dina", 0.000644531),
         ("Lisbeth", 0.000640452),
         ("Nathalia", 0.000640452),
