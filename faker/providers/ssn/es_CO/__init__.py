@@ -38,7 +38,7 @@ class Provider(BaseProvider):
     def nuip(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%A9dula_de_Ciudadan%C3%ADa_(Colombia)
-        :example u"1095312769"
+        :example "1095312769"
         """
         return self.numerify(self.random_element(self.nuip_formats))
 
@@ -46,7 +46,7 @@ class Provider(BaseProvider):
 
     def natural_person_nit_with_check_digit(self) -> str:
         """
-        :example u"1095312769-0"
+        :example "1095312769-0"
         """
         nit = self.natural_person_nit()
         check_digit = nit_check_digit(nit)
@@ -55,13 +55,13 @@ class Provider(BaseProvider):
     def legal_person_nit(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_Identificaci%C3%B3n_Tributaria
-        :example u"967807269"
+        :example "967807269"
         """
         return self.numerify(self.random_element(self.legal_person_nit_formats))
 
     def legal_person_nit_with_check_digit(self) -> str:
         """
-        :example u"967807269-7"
+        :example "967807269-7"
         """
         nit = self.legal_person_nit()
         check_digit = nit_check_digit(nit)
