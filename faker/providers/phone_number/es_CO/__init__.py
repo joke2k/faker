@@ -2,7 +2,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
-    formats = (
+    formats = [
         "%######",
         "60%%######",
         "5760%%######",
@@ -39,4 +39,4 @@ class Provider(PhoneNumberProvider):
         "(+57) 32# ### ## ##",
         "01800#######",
         "01 800# ### ###",
-    )
+    ]

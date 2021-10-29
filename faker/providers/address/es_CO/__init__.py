@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import List, Tuple
 
 from ..es import Provider as AddressProvider
 
@@ -41,7 +42,7 @@ class Provider(AddressProvider):
         "99": "Vichada",
     }
 
-    municipalities = (
+    municipalities: List[Tuple[str, str]] = [
         ("05001", "Medellín"),
         ("05002", "Abejorral"),
         ("05004", "Abriaquí"),
@@ -1163,7 +1164,7 @@ class Provider(AddressProvider):
         ("99524", "La Primavera"),
         ("99624", "Santa Rosalía"),
         ("99773", "Cumaribo"),
-    )
+    ]
 
     street_prefixes = OrderedDict(
         [
@@ -1177,7 +1178,7 @@ class Provider(AddressProvider):
             ("Tr.", 0.05),
         ]
     )
-    street_suffixes = ("Sur", "Este", "Bis", "Bis {{random_uppercase_letter}}")
+    street_suffixes = ["Sur", "Este", "Bis", "Bis {{random_uppercase_letter}}"]
     street_name_formats = OrderedDict(
         [
             ("{{street_prefix}} %ª", 0.1),
@@ -1229,7 +1230,7 @@ class Provider(AddressProvider):
             ("%#{{random_uppercase_letter}}-%#", 0.05),
         ]
     )
-    secondary_address_formats = (
+    secondary_address_formats = [
         "Apartamento %!!",
         "Apto. %!!",
         "Casa %!",
@@ -1238,8 +1239,8 @@ class Provider(AddressProvider):
         "Local %!!",
         "Oficina %!!",
         "Bodega %!!",
-    )
-    postcode_formats = (("{{department_code}}####"),)
+    ]
+    postcode_formats = ["{{department_code}}####"]
 
     def department_code(self) -> str:
         """
@@ -1251,7 +1252,7 @@ class Provider(AddressProvider):
         """
         :example "Bogotá, D.C."
         """
-        return self.random_element(self.departments.values())
+        return self.random_element(list(self.departments.values()))
 
     administrative_unit = department
 
@@ -1259,13 +1260,13 @@ class Provider(AddressProvider):
         """
         :example "11001"
         """
-        return self.random_element(self.municipalities)[0]
+        return self.random_element(self.municipalities)[0]  # type: ignore
 
     def municipality(self) -> str:
         """
         :example "Bogotá, D.C."
         """
-        return self.random_element(self.municipalities)[1]
+        return self.random_element(self.municipalities)[1]  # type: ignore
 
     city = municipality
 
@@ -1285,7 +1286,7 @@ class Provider(AddressProvider):
         """
         :example "Calle 1"
         """
-        pattern = self.random_element(self.street_name_formats)
+        pattern: str = self.random_element(self.street_name_formats)
         return self.numerify(self.generator.parse(pattern))
 
     def building_number(self) -> str:
@@ -1316,16 +1317,16 @@ class Provider(AddressProvider):
         """
         :example "Calle 1 # 2-3\n11001\nBogotá D.C."
         """
-        municipality = self.random_element(self.municipalities)
+        municipality: Tuple[str, str] = self.random_element(self.municipalities)
         municipality_code = municipality[0]
         department_code = municipality_code[0:2]
         is_department_capital = municipality_code[-3:] == "001"
 
-        secondary_address = self.random_element(
-            (
+        secondary_address: str = self.random_element(
+            [
                 "\n" + self.secondary_address(),
                 "",
-            )
+            ]
         )
         postcode = "\n" + department_code + self.numerify("####")
         municipality_name = "\n" + municipality[1]

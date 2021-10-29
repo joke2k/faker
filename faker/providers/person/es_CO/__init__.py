@@ -26,7 +26,7 @@ class Provider(PersonProvider):
     # <https://www.datos.gov.co/Ciencia-Tecnolog-a-e-Innovaci-n/Ciudadan-a-Digital/g4cd-bvpd>
     # Weightings derived from total number on each name
     first_names_female = OrderedDict(
-        (
+        [
             ("María", 0.091410602),
             ("Luz", 0.034645603),
             ("Patricia", 0.023351346),
@@ -327,7 +327,7 @@ class Provider(PersonProvider):
             ("Melba", 0.000573823),
             ("Adiela", 0.000567024),
             ("Catherine", 0.000557506),
-        )
+        ]
     )
 
     # 300 male first names
@@ -335,7 +335,7 @@ class Provider(PersonProvider):
     # <https://www.datos.gov.co/Ciencia-Tecnolog-a-e-Innovaci-n/Ciudadan-a-Digital/g4cd-bvpd>
     # Weightings derived from total number on each name
     first_names_male = OrderedDict(
-        (
+        [
             ("José", 0.048691700),
             ("Andrés", 0.039716926),
             ("Luis", 0.038832502),
@@ -636,7 +636,7 @@ class Provider(PersonProvider):
             ("Jhan", 0.000312408),
             ("Isaías", 0.000310942),
             ("Isidro", 0.000310942),
-        )
+        ]
     )
 
     first_names = first_names_female.copy()
@@ -647,7 +647,7 @@ class Provider(PersonProvider):
     # <https://www.datos.gov.co/Ciencia-Tecnolog-a-e-Innovaci-n/Ciudadan-a-Digital/g4cd-bvpd>
     # Weightings derived from total number on each name
     last_names = OrderedDict(
-        (
+        [
             ("Rodríguez", 0.027384697),
             ("Gómez", 0.020422368),
             ("Martínez", 0.020115369),
@@ -948,24 +948,24 @@ class Provider(PersonProvider):
             ("Bolívar", 0.001024253),
             ("Molano", 0.001021487),
             ("Anaya", 0.001016878),
-        )
+        ]
     )
 
     prefixes_female = OrderedDict(
-        (
+        [
             ("Sra.", 0.5),
             ("Srta.", 0.2),
             ("Dra.", 0.2),
             ("Doña", 0.05),
             ("Dña.", 0.05),
-        )
+        ]
     )
 
     prefixes_male = OrderedDict(
-        (
+        [
             ("Sr.", 0.7),
             ("Dr.", 0.2),
             ("Don", 0.05),
             ("D.", 0.05),
-        )
+        ]
     )
