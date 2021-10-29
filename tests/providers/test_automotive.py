@@ -156,6 +156,7 @@ class TestNoNo(_SimpleAutomotiveTestMixin):
 
 class TestEsCo(_SimpleAutomotiveTestMixin):
     """Test es_CO automotive provider methods"""
+
     license_plate_pattern = re.compile(r"[A-Z]{3}\d{3}|[A-Z]{3}\d{2}[A-Z]|T\d{4}|[A-Z]{2}\d{4}|R\d{5}|S\d{5}")
 
 

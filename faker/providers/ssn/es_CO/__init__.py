@@ -26,14 +26,19 @@ def nit_check_digit(nit: str) -> str:
 
 class Provider(BaseProvider):
 
-    nuip_formats = OrderedDict((
-        ("10########", 0.25),
-        ("11########", 0.25),
-        ("12########", 0.1),
-        ("%!######", 0.4)
-    ))
+    nuip_formats = OrderedDict(
+        (
+            ("10########", 0.25),
+            ("11########", 0.25),
+            ("12########", 0.1),
+            ("%!######", 0.4),
+        )
+    )
 
-    legal_person_nit_formats = ("8########", "9########",)
+    legal_person_nit_formats = (
+        "8########",
+        "9########",
+    )
 
     def nuip(self) -> str:
         """

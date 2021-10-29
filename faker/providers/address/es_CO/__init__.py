@@ -1165,61 +1165,70 @@ class Provider(AddressProvider):
         ("99773", "Cumaribo"),
     )
 
-    street_prefixes = OrderedDict([
-        ("Calle", 0.2),
-        ("Cl.", 0.2),
-        ("Carrera", 0.2),
-        ("Cr.", 0.2),
-        ("Diagonal", 0.05),
-        ("Dg.", 0.05),
-        ("Transversal", 0.05),
-        ("Tr.", 0.05)
-    ])
+    street_prefixes = OrderedDict(
+        [
+            ("Calle", 0.2),
+            ("Cl.", 0.2),
+            ("Carrera", 0.2),
+            ("Cr.", 0.2),
+            ("Diagonal", 0.05),
+            ("Dg.", 0.05),
+            ("Transversal", 0.05),
+            ("Tr.", 0.05),
+        ]
+    )
     street_suffixes = ("Sur", "Este", "Bis", "Bis {{random_uppercase_letter}}")
-    street_name_formats = OrderedDict([
-        ("{{street_prefix}} %ª", 0.1),
-        ("{{street_prefix}} %#", 0.3),
-        ("{{street_prefix}} 1##", 0.1),
-        ("{{street_prefix}} % {{street_suffix}}", 0.02),
-        ("{{street_prefix}} %# {{street_suffix}}", 0.02),
-        ("{{street_prefix}} 1## {{street_suffix}}", 0.02),
-        ("{{street_prefix}} %{{random_uppercase_letter}}", 0.06),
-        ("{{street_prefix}} %#{{random_uppercase_letter}}", 0.06),
-        ("{{street_prefix}} 1##{{random_uppercase_letter}}", 0.06),
-        ("{{street_prefix}} %{{random_uppercase_letter}} {{street_suffix}}", 0.02),
-        ("{{street_prefix}} %#{{random_uppercase_letter}} {{street_suffix}}", 0.02),
-        ("{{street_prefix}} 1##{{random_uppercase_letter}} {{street_suffix}}", 0.02),
-        ("Avenida {{last_name}}", 0.01),
-        ("Avenida calle %ª", 0.01),
-        ("Avenida calle %#", 0.01),
-        ("Avenida calle 1##", 0.01),
-        ("Avenida carrera %ª", 0.01),
-        ("Avenida carrera %#", 0.01),
-        ("Avenida carrera 1##", 0.01),
-        ("Avenida {{name}}", 0.01),
-        ("Avenida {{city}}", 0.01),
-        ("Avenida {{department}}", 0.01),
-        ("Av. {{last_name}}", 0.01),
-        ("Av. calle %ª", 0.01),
-        ("Av. calle %#", 0.01),
-        ("Av. calle 1##", 0.01),
-        ("Av. carrera %ª", 0.01),
-        ("Av. carrera %#", 0.01),
-        ("Av. carrera 1##", 0.01),
-        ("Av. {{name}}", 0.01),
-        ("Av. {{city}}", 0.01),
-        ("Av. {{department}}", 0.01),
-    ])
-    building_number_formats = OrderedDict([
-        ("%-%", 0.2),
-        ("%-%#", 0.2),
-        ("%#-%", 0.2),
-        ("%#-%#", 0.2),
-        ("%{{random_uppercase_letter}}-%", 0.05),
-        ("%{{random_uppercase_letter}}-%#", 0.05),
-        ("%#{{random_uppercase_letter}}-%", 0.05),
-        ("%#{{random_uppercase_letter}}-%#", 0.05),
-    ])
+    street_name_formats = OrderedDict(
+        [
+            ("{{street_prefix}} %ª", 0.1),
+            ("{{street_prefix}} %#", 0.3),
+            ("{{street_prefix}} 1##", 0.1),
+            ("{{street_prefix}} % {{street_suffix}}", 0.02),
+            ("{{street_prefix}} %# {{street_suffix}}", 0.02),
+            ("{{street_prefix}} 1## {{street_suffix}}", 0.02),
+            ("{{street_prefix}} %{{random_uppercase_letter}}", 0.06),
+            ("{{street_prefix}} %#{{random_uppercase_letter}}", 0.06),
+            ("{{street_prefix}} 1##{{random_uppercase_letter}}", 0.06),
+            ("{{street_prefix}} %{{random_uppercase_letter}} {{street_suffix}}", 0.02),
+            ("{{street_prefix}} %#{{random_uppercase_letter}} {{street_suffix}}", 0.02),
+            (
+                "{{street_prefix}} 1##{{random_uppercase_letter}} {{street_suffix}}",
+                0.02,
+            ),
+            ("Avenida {{last_name}}", 0.01),
+            ("Avenida calle %ª", 0.01),
+            ("Avenida calle %#", 0.01),
+            ("Avenida calle 1##", 0.01),
+            ("Avenida carrera %ª", 0.01),
+            ("Avenida carrera %#", 0.01),
+            ("Avenida carrera 1##", 0.01),
+            ("Avenida {{name}}", 0.01),
+            ("Avenida {{city}}", 0.01),
+            ("Avenida {{department}}", 0.01),
+            ("Av. {{last_name}}", 0.01),
+            ("Av. calle %ª", 0.01),
+            ("Av. calle %#", 0.01),
+            ("Av. calle 1##", 0.01),
+            ("Av. carrera %ª", 0.01),
+            ("Av. carrera %#", 0.01),
+            ("Av. carrera 1##", 0.01),
+            ("Av. {{name}}", 0.01),
+            ("Av. {{city}}", 0.01),
+            ("Av. {{department}}", 0.01),
+        ]
+    )
+    building_number_formats = OrderedDict(
+        [
+            ("%-%", 0.2),
+            ("%-%#", 0.2),
+            ("%#-%", 0.2),
+            ("%#-%#", 0.2),
+            ("%{{random_uppercase_letter}}-%", 0.05),
+            ("%{{random_uppercase_letter}}-%#", 0.05),
+            ("%#{{random_uppercase_letter}}-%", 0.05),
+            ("%#{{random_uppercase_letter}}-%#", 0.05),
+        ]
+    )
     secondary_address_formats = (
         "Apartamento %!!",
         "Apto. %!!",
@@ -1228,7 +1237,7 @@ class Provider(AddressProvider):
         "Etapa % apartamento %!!",
         "Local %!!",
         "Oficina %!!",
-        "Bodega %!!"
+        "Bodega %!!",
     )
     postcode_formats = (("{{department_code}}####"),)
 
@@ -1312,7 +1321,12 @@ class Provider(AddressProvider):
         department_code = municipality_code[0:2]
         is_department_capital = municipality_code[-3:] == "001"
 
-        secondary_address = self.random_element(("\n" + self.secondary_address(), "",))
+        secondary_address = self.random_element(
+            (
+                "\n" + self.secondary_address(),
+                "",
+            )
+        )
         postcode = "\n" + department_code + self.numerify("####")
         municipality_name = "\n" + municipality[1]
         department_name = ", " + self.departments[department_code] if not is_department_capital else ""
