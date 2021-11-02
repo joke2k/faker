@@ -19,6 +19,7 @@ from faker.providers.address.en_IE import Provider as EnIeAddressProvider
 from faker.providers.address.en_IN import Provider as EnInAddressProvider
 from faker.providers.address.en_PH import Provider as EnPhAddressProvider
 from faker.providers.address.en_US import Provider as EnUsAddressProvider
+from faker.providers.address.es_CO import Provider as EsCoAddressProvider
 from faker.providers.address.es_ES import Provider as EsEsAddressProvider
 from faker.providers.address.es_MX import Provider as EsMxAddressProvider
 from faker.providers.address.fa_IR import Provider as FaIrAddressProvider
@@ -562,6 +563,82 @@ class TestEnUS:
 
         with pytest.raises(Exception):
             faker.postalcode_in_state("XX")
+
+
+class TestEsCo:
+    """Test es_CO address provider methods"""
+
+    def test_department_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            department_code = faker.department_code()
+            assert isinstance(department_code, str)
+            assert department_code in EsCoAddressProvider.departments
+
+    def test_department(self, faker, num_samples):
+        for _ in range(num_samples):
+            department = faker.department()
+            assert isinstance(department, str)
+            assert department in EsCoAddressProvider.departments.values()
+
+    def test_municipality_code(self, faker, num_samples):
+        municipality_codes = {municipality_code for municipality_code, _ in EsCoAddressProvider.municipalities}
+        for _ in range(num_samples):
+            municipality_code = faker.municipality_code()
+            assert isinstance(municipality_code, str)
+            assert municipality_code in municipality_codes
+
+    def test_municipality(self, faker, num_samples):
+        municipalities = {municipality for _, municipality in EsCoAddressProvider.municipalities}
+        for _ in range(num_samples):
+            municipality = faker.municipality()
+            city = faker.city()
+            assert isinstance(municipality, str)
+            assert isinstance(city, str)
+            assert municipality in municipalities
+            assert city in municipalities
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_prefix = faker.street_prefix()
+            assert isinstance(street_prefix, str)
+            assert street_prefix in EsCoAddressProvider.street_prefixes
+
+    def test_street_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix = faker.street_suffix()
+            assert isinstance(street_suffix, str)
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+
+    def test_building_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number()
+            assert isinstance(building_number, str)
+            assert re.fullmatch(r"\d{1,2}[A-Z]?-\d{1,2}", building_number)
+
+    def test_secondary_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            secondary_address = faker.secondary_address()
+            assert isinstance(secondary_address, str)
+
+    def test_street_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_address = faker.street_address()
+            assert isinstance(street_address, str)
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{6}", postcode)
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
 
 
 class TestEsEs:

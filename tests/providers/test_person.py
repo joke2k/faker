@@ -11,7 +11,8 @@ from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
 from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
-from faker.providers.person.es_ES import Provider as EsESProvider
+from faker.providers.person.es import Provider as EsProvider
+from faker.providers.person.es_CO import Provider as EsCOProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
@@ -689,16 +690,69 @@ class TestRuRU(unittest.TestCase):
         assert language_name in RuProvider.language_names
 
 
-class TestEsES(unittest.TestCase):
-    """Tests person in the es_ES locale."""
+class TestEs(unittest.TestCase):
+    """Tests person in the es locale."""
 
     def setUp(self):
-        self.fake = Faker("es_ES")
+        self.fake = Faker("es")
         Faker.seed(0)
 
     def test_language_name(self):
         language_name = self.fake.language_name()
-        assert language_name in EsESProvider.language_names
+        assert language_name in EsProvider.language_names
+
+
+class TestEsCO(unittest.TestCase):
+    """Tests person in the es_CO locale"""
+
+    def setUp(self):
+        self.fake = Faker("es_CO")
+        Faker.seed(0)
+
+    def test_first_names(self):
+        # General first name
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.first_names
+
+        # Female first name
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.first_names
+        assert name in EsCOProvider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.first_names
+        assert name in EsCOProvider.first_names_male
+
+    def test_last_names(self):
+        # General last name
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.last_names
+
+        # Female last name
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.last_names
+
+        # Male last name
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsCOProvider.last_names
+
+    def test_prefix(self):
+        # Female prefix
+        prefix = self.fake.prefix_female()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsCOProvider.prefixes_female
+
+        # Male prefix
+        prefix = self.fake.prefix_male()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsCOProvider.prefixes_male
 
 
 class TestHeIL(unittest.TestCase):
