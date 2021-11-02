@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.8.0 - 2021-11-02](https://github.com/joke2k/faker/compare/v9.7.1...v9.8.0)
+
+*  Add ``es_CO`` localized providers. Thank you @healarconr.
+
 ### [v9.7.1 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.7.0...v9.7.1)
 
 * Take into account area codes for French phone numbers. Thanks @nicarl.
