@@ -193,14 +193,16 @@ class Provider(BaseProvider):
                 left_number = str(self.random_int(max(min_value or 0, 0), max_value))
             else:
                 min_left_digits = math.ceil(math.log10(max(min_value or 1, 1)))
-                left_digits = left_digits or self.random_int(min_left_digits, max_left_random_digits)
+                if left_digits is None:
+                    left_digits = self.random_int(min_left_digits, max_left_random_digits)
                 left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
         else:
             if min_value is not None:
                 left_number = str(self.random_int(max(max_value or 0, 0), abs(min_value)))
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
-                left_digits = left_digits or self.random_int(min_left_digits, max_left_random_digits)
+                if left_digits is None:
+                    left_digits = self.random_int(min_left_digits, max_left_random_digits)
                 left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
 
         if right_digits is None:
