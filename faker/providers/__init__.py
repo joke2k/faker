@@ -2,7 +2,7 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import Any, Dict, KeysView, List, Optional, Sequence, TypeVar, Union
+from typing import Any, Collection, List, Optional, Sequence, TypeVar, Union
 
 from ..generator import Generator
 from ..utils.distribution import choices_distribution, choices_distribution_unique
@@ -15,7 +15,7 @@ _re_qm = re.compile(r"\?")
 _re_cir = re.compile(r"\^")
 
 T = TypeVar("T")
-ElementsType = Union[Sequence[T], Dict[T, float], KeysView[T]]
+ElementsType = Collection[T]
 
 
 class BaseProvider:
