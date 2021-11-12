@@ -235,6 +235,14 @@ class TestPydecimal(unittest.TestCase):
         left_digits = len(str(abs(int(result))))
         self.assertGreaterEqual(expected_left_digits, left_digits)
 
+    def test_left_digits_can_be_zero(self):
+        expected_left_digits = 0
+
+        result = self.fake.pydecimal(left_digits=expected_left_digits)
+
+        left_digits = int(result)
+        self.assertEqual(expected_left_digits, left_digits)
+
     def test_right_digits(self):
         expected_right_digits = 10
 
