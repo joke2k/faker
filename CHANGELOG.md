@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.8.2 - 2021-11-15](https://github.com/joke2k/faker/compare/v9.8.1...v9.8.2)
+
+* Relax ElementsType to admit e.g. Sets. Thanks @OJFord.
+
 ### [v9.8.1 - 2021-11-12](https://github.com/joke2k/faker/compare/v9.8.0...v9.8.1)
 
 * Fix ``pydecimal`` with ``left_digits=0`` not setting the left digit to 0. Thanks @ndrwkim.
