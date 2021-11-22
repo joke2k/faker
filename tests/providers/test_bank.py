@@ -80,7 +80,7 @@ class TestPlPl:
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == PlPlBankProvider.country_code
-            assert re.fullmatch(r"\d{2}\d{26}", iban[2:])
+            assert re.fullmatch(r"\d{2}\d{24}", iban[2:])
 
 
 class TestEnGb:
