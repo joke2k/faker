@@ -73,7 +73,7 @@ class TestPlPl:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"\d{26}", faker.bban())
+            assert re.fullmatch(r"\d{24}", faker.bban())
 
     def test_iban(self, faker, num_samples):
         for _ in range(num_samples):
