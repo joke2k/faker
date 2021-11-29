@@ -4,7 +4,7 @@ import sys
 import warnings
 
 from decimal import Decimal
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple, Union, no_type_check
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Union, no_type_check
 
 from .. import BaseProvider, ElementsType
 
@@ -30,7 +30,7 @@ class Provider(BaseProvider):
         if value_types is not None and not isinstance(value_types, (list, tuple)):
             value_types = [value_types]
             warnings.warn(
-                "Passing value types as positional arguments is going to be "
+                "Passing `value_types` as positional arguments is going to be "
                 "deprecated.  Pass them as a list or tuple instead.",
                 PendingDeprecationWarning,
             )
@@ -38,10 +38,10 @@ class Provider(BaseProvider):
             value_types = ()
         return tuple(value_types) + allowed_types
 
-    def pybool(self):
+    def pybool(self) -> bool:
         return self.random_int(0, 1) == 1
 
-    def pystr(self, min_chars=None, max_chars=20):
+    def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20) -> str:
         """
         Generates a random string of upper and lowercase letters.
         :type min_chars: int
@@ -58,10 +58,21 @@ class Provider(BaseProvider):
                 ),
             )
 
-    def pystr_format(self, string_format="?#-###{{random_int}}{{random_letter}}", letters=string.ascii_letters):
+    def pystr_format(
+        self,
+        string_format: str = "?#-###{{random_int}}{{random_letter}}",
+        letters: str = string.ascii_letters,
+    ) -> str:
         return self.bothify(self.generator.parse(string_format), letters=letters)
 
-    def pyfloat(self, left_digits=None, right_digits=None, positive=False, min_value=None, max_value=None):
+    def pyfloat(
+        self,
+        left_digits=None,
+        right_digits=None,
+        positive=False,
+        min_value=None,
+        max_value=None,
+    ):
         if left_digits is not None and left_digits < 0:
             raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
@@ -152,10 +163,17 @@ class Provider(BaseProvider):
         else:
             return self.random_int(min_value, max_value - 1)
 
-    def pyint(self, min_value=0, max_value=9999, step=1):
+    def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
 
-    def pydecimal(self, left_digits=None, right_digits=None, positive=False, min_value=None, max_value=None):
+    def pydecimal(
+        self,
+        left_digits=None,
+        right_digits=None,
+        positive=False,
+        min_value=None,
+        max_value=None,
+    ):
         if left_digits is not None and left_digits < 0:
             raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
@@ -177,7 +195,8 @@ class Provider(BaseProvider):
         max_random_digits = 100
         # Because if min_value is bigger than 10**100
         max_digits_from_value = max(
-            math.ceil(math.log10(abs(min_value or 1))), math.ceil(math.log10(abs(max_value or 1)))
+            math.ceil(math.log10(abs(min_value or 1))),
+            math.ceil(math.log10(abs(max_value or 1))),
         )
         max_left_random_digits = max(max_random_digits, max_digits_from_value + 10)
 
@@ -221,14 +240,53 @@ class Provider(BaseProvider):
 
         return result
 
-    def pytuple(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return tuple(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
+    def pytuple(
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> Tuple[Any, ...]:
+        return tuple(
+            self._pyiterable(
+                nb_elements=nb_elements,
+                variable_nb_elements=variable_nb_elements,
+                value_types=value_types,
+                allowed_types=allowed_types,
+            )
+        )
 
-    def pyset(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return set(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
+    def pyset(
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> Set[Any]:
+        return set(
+            self._pyiterable(
+                nb_elements=nb_elements,
+                variable_nb_elements=variable_nb_elements,
+                value_types=value_types,
+                allowed_types=allowed_types,
+            )
+        )
 
-    def pylist(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
-        return list(self._pyiterable(nb_elements, variable_nb_elements, value_types, *allowed_types))
+    def pylist(
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> List[Any]:
+        return list(
+            self._pyiterable(
+                nb_elements=nb_elements,
+                variable_nb_elements=variable_nb_elements,
+                value_types=value_types,
+                allowed_types=allowed_types,
+            )
+        )
 
     @no_type_check
     def pyiterable(
@@ -240,7 +298,10 @@ class Provider(BaseProvider):
     ) -> Iterable[Any]:
         value_types = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
-            nb_elements, variable_nb_elements, value_types, *allowed_types
+            nb_elements=nb_elements,
+            variable_nb_elements=variable_nb_elements,
+            value_types=value_types,
+            *allowed_types,
         )
 
     def _random_type(self, type_list: List[str]) -> str:
@@ -257,8 +318,10 @@ class Provider(BaseProvider):
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
         value_types: ValueTypes = None,
-        *allowed_types: str,
+        allowed_types: ValueTypes = None,
     ) -> Iterator:
+        if allowed_types is None:
+            allowed_types = ()
 
         value_types = self._check_signature(value_types, allowed_types)  # type: ignore
 
@@ -277,7 +340,13 @@ class Provider(BaseProvider):
         for _ in range(nb_elements):
             yield self._random_type(value_types)
 
-    def pydict(self, nb_elements=10, variable_nb_elements=True, value_types=None, *allowed_types):
+    def pydict(
+        self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: ValueTypes = None,
+        *allowed_types: str,
+    ) -> Dict[Any, Any]:
         """
         Returns a dictionary.
 
@@ -291,7 +360,12 @@ class Provider(BaseProvider):
         return dict(
             zip(
                 self.generator.words(nb_elements, unique=True),
-                self._pyiterable(nb_elements, False, value_types, *allowed_types),
+                self._pyiterable(
+                    nb_elements=nb_elements,
+                    variable_nb_elements=False,
+                    value_types=value_types,
+                    allowed_types=allowed_types,
+                ),
             )
         )
 
@@ -315,12 +389,21 @@ class Provider(BaseProvider):
             types.append(self._random_type(value_types))
             nd[self.generator.word()] = {
                 i: self._random_type(value_types),
-                i + 1: [self._random_type(value_types), self._random_type(value_types), self._random_type(value_types)],
+                i
+                + 1: [
+                    self._random_type(value_types),
+                    self._random_type(value_types),
+                    self._random_type(value_types),
+                ],
                 i
                 + 2: {
                     i: self._random_type(value_types),
                     i + 1: self._random_type(value_types),
-                    i + 2: [self._random_type(value_types), self._random_type(value_types)],
+                    i
+                    + 2: [
+                        self._random_type(value_types),
+                        self._random_type(value_types),
+                    ],
                 },
             }
         return types, d, nd
