@@ -4,11 +4,12 @@ import sys
 import warnings
 
 from decimal import Decimal
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Union, no_type_check
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, Union, no_type_check
 
 from .. import BaseProvider, ElementsType
 
-ValueTypes = Optional[Union[List[str], Tuple[str, ...]]]
+TypesNames = List[str]
+TypesSpec = Union[List[Type], Tuple[Type, ...]]
 
 
 class Provider(BaseProvider):
@@ -26,17 +27,26 @@ class Provider(BaseProvider):
         "email",
     )
 
-    def _check_signature(self, value_types: ValueTypes, allowed_types: Tuple[str]) -> Tuple[str, ...]:
+    def _check_signature(self, value_types: Optional[TypesSpec], allowed_types: Optional[TypesSpec]) -> TypesSpec:
         if value_types is not None and not isinstance(value_types, (list, tuple)):
-            value_types = [value_types]
+            value_types = (value_types,)
             warnings.warn(
                 "Passing `value_types` as positional arguments is going to be "
                 "deprecated.  Pass them as a list or tuple instead.",
                 PendingDeprecationWarning,
             )
+        if allowed_types is not None and not isinstance(allowed_types, (list, tuple)):
+            allowed_types = (allowed_types,)
+            warnings.warn(
+                "Passing `allowed_types` as positional arguments is going to be "
+                "deprecated.  Pass them as a list or tuple instead.",
+                PendingDeprecationWarning,
+            )
         if value_types is None:
             value_types = ()
-        return tuple(value_types) + allowed_types
+        if allowed_types is None:
+            allowed_types = ()
+        return tuple(value_types) + tuple(allowed_types)
 
     def pybool(self) -> bool:
         return self.random_int(0, 1) == 1
@@ -244,8 +254,8 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        *allowed_types: str,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Tuple[Any, ...]:
         return tuple(
             self._pyiterable(
@@ -260,8 +270,8 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        *allowed_types: str,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Set[Any]:
         return set(
             self._pyiterable(
@@ -276,8 +286,8 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        *allowed_types: str,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> List[Any]:
         return list(
             self._pyiterable(
@@ -293,15 +303,15 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        *allowed_types: str,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Iterable[Any]:
-        value_types = self._check_signature(value_types, allowed_types)
+        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
             nb_elements=nb_elements,
             variable_nb_elements=variable_nb_elements,
             value_types=value_types,
-            *allowed_types,
+            allowed_types=allowed_types,
         )
 
     def _random_type(self, type_list: List[str]) -> str:
@@ -317,15 +327,13 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        allowed_types: ValueTypes = None,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Iterator:
-        if allowed_types is None:
-            allowed_types = ()
 
-        value_types = self._check_signature(value_types, allowed_types)  # type: ignore
+        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types = [
+        value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
             for t in value_types
             # avoid recursion
@@ -344,8 +352,8 @@ class Provider(BaseProvider):
         self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
-        value_types: ValueTypes = None,
-        *allowed_types: str,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Dict[Any, Any]:
         """
         Returns a dictionary.
@@ -369,10 +377,12 @@ class Provider(BaseProvider):
             )
         )
 
-    def pystruct(self, count: int = 10, value_types: ValueTypes = None, *allowed_types: str) -> Tuple[List, Dict, Dict]:
-        value_types = self._check_signature(value_types, allowed_types)  # type: ignore
+    def pystruct(
+        self, count: int = 10, value_types: Optional[TypesSpec] = None, allowed_types: Optional[TypesSpec] = None
+    ) -> Tuple[List, Dict, Dict]:
+        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types = [
+        value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
             for t in value_types
             # avoid recursion
