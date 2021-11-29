@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.8.4 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.3...v9.8.4)
+
+* Fix positional ``value_types``.
+
 ### [v9.8.3 - 2021-11-22](https://github.com/joke2k/faker/compare/v9.8.2...v9.8.3)
 
 * Shorten IBANs for `pl_PL` to 28 chars. Fix #1568 (#1569). Thanks @fcurella.
