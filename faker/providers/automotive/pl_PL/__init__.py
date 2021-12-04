@@ -1,3 +1,5 @@
+from typing import List
+
 from .. import Provider as AutomotiveProvider
 
 
@@ -10,23 +12,23 @@ class Provider(AutomotiveProvider):
     """
 
     license_formats = (
-        '?? #####',
-        '?? ####?',
-        '?? ###??',
-        '?? #?###',
-        '?? #??##',
-        '??? ?###',
-        '??? ##??',
-        '??? #?##',
-        '??? ##?#',
-        '??? #??#',
-        '??? ??##',
-        '??? #####',
-        '??? ####?',
-        '??? ###??',
+        "?? #####",
+        "?? ####?",
+        "?? ###??",
+        "?? #?###",
+        "?? #??##",
+        "??? ?###",
+        "??? ##??",
+        "??? #?##",
+        "??? ##?#",
+        "??? #??#",
+        "??? ??##",
+        "??? #####",
+        "??? ####?",
+        "??? ###??",
     )
 
-    def license_plate_regex_formats(self):
+    def license_plate_regex_formats(self) -> List[str]:
         """Return a regex for matching license plates.
 
         .. warning::
@@ -34,4 +36,4 @@ class Provider(AutomotiveProvider):
            should not be part of the public API. User should refrain from using
            this method.
         """
-        return [plate.replace('?', '[A-Z]').replace('#', '[0-9]') for plate in self.license_formats]
+        return [plate.replace("?", "[A-Z]").replace("#", "[0-9]") for plate in self.license_formats]

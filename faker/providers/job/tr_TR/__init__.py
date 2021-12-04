@@ -5,6 +5,7 @@ class Provider(BaseProvider):
     """
     Source: https://www.turkcebilgi.com/meslekler_listesi
     """
+
     jobs = [
         "Acentacı",
         "Acil durum yönetmeni",

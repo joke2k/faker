@@ -1,13 +1,11 @@
-from ipaddress import IPV4LENGTH, IPV6LENGTH, ip_address, ip_network
+from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
+from typing import Dict, List, Optional, Tuple
 
 from text_unidecode import unidecode
 
-# from faker.generator import random
-# from faker.providers.lorem.la import Provider as Lorem
-from faker.utils.decorators import lowercase, slugify, slugify_unicode
-from faker.utils.distribution import choices_distribution
-
-from .. import BaseProvider
+from ...utils.decorators import lowercase, slugify, slugify_unicode
+from ...utils.distribution import choices_distribution
+from .. import BaseProvider, ElementsType
 
 localized = True
 
@@ -20,98 +18,152 @@ class _IPv4Constants:
     Excluded network list is updated to comply with current IANA list of
     private and reserved networks.
     """
-    _network_classes = {
-        'a': ip_network('0.0.0.0/1'),
-        'b': ip_network('128.0.0.0/2'),
-        'c': ip_network('192.0.0.0/3'),
+
+    _network_classes: Dict[str, IPv4Network] = {
+        "a": ip_network("0.0.0.0/1"),
+        "b": ip_network("128.0.0.0/2"),
+        "c": ip_network("192.0.0.0/3"),
     }
 
     # Three common private networks from class A, B and CIDR
     # to generate private addresses from.
-    _private_networks = [
-        ip_network('10.0.0.0/8'),
-        ip_network('172.16.0.0/12'),
-        ip_network('192.168.0.0/16'),
+    _private_networks: List[IPv4Network] = [
+        ip_network("10.0.0.0/8"),
+        ip_network("172.16.0.0/12"),
+        ip_network("192.168.0.0/16"),
     ]
 
     # List of networks from which IP addresses will never be generated,
     # includes other private IANA and reserved networks from
     # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
-    _excluded_networks = [
-        ip_network('0.0.0.0/8'),
-        ip_network('100.64.0.0/10'),
-        ip_network('127.0.0.0/8'),  # loopback network
-        ip_network('169.254.0.0/16'),  # linklocal network
-        ip_network('192.0.0.0/24'),
-        ip_network('192.0.2.0/24'),
-        ip_network('192.31.196.0/24'),
-        ip_network('192.52.193.0/24'),
-        ip_network('192.88.99.0/24'),
-        ip_network('192.175.48.0/24'),
-        ip_network('198.18.0.0/15'),
-        ip_network('198.51.100.0/24'),
-        ip_network('203.0.113.0/24'),
-        ip_network('224.0.0.0/4'),  # multicast network
-        ip_network('240.0.0.0/4'),
-        ip_network('255.255.255.255/32'),
+    _excluded_networks: List[IPv4Network] = [
+        ip_network("0.0.0.0/8"),
+        ip_network("100.64.0.0/10"),
+        ip_network("127.0.0.0/8"),  # loopback network
+        ip_network("169.254.0.0/16"),  # linklocal network
+        ip_network("192.0.0.0/24"),
+        ip_network("192.0.2.0/24"),
+        ip_network("192.31.196.0/24"),
+        ip_network("192.52.193.0/24"),
+        ip_network("192.88.99.0/24"),
+        ip_network("192.175.48.0/24"),
+        ip_network("198.18.0.0/15"),
+        ip_network("198.51.100.0/24"),
+        ip_network("203.0.113.0/24"),
+        ip_network("224.0.0.0/4"),  # multicast network
+        ip_network("240.0.0.0/4"),
+        ip_network("255.255.255.255/32"),
     ]
 
 
 class Provider(BaseProvider):
-    safe_domain_names = ('example.org', 'example.com', 'example.net')
-    free_email_domains = ('gmail.com', 'yahoo.com', 'hotmail.com')
-    tlds = (
-        'com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org',
+    safe_domain_names: ElementsType = ("example.org", "example.com", "example.net")
+    free_email_domains: ElementsType = ("gmail.com", "yahoo.com", "hotmail.com")
+    tlds: ElementsType = (
+        "com",
+        "com",
+        "com",
+        "com",
+        "com",
+        "com",
+        "biz",
+        "info",
+        "net",
+        "org",
     )
-    hostname_prefixes = ('db', 'srv', 'desktop', 'laptop', 'lt', 'email', 'web')
-    uri_pages = (
-        'index', 'home', 'search', 'main', 'post', 'homepage', 'category',
-        'register', 'login', 'faq', 'about', 'terms', 'privacy', 'author',
+    hostname_prefixes: ElementsType = (
+        "db",
+        "srv",
+        "desktop",
+        "laptop",
+        "lt",
+        "email",
+        "web",
     )
-    uri_paths = (
-        'app', 'main', 'wp-content', 'search', 'category', 'tag', 'categories',
-        'tags', 'blog', 'posts', 'list', 'explore',
+    uri_pages: ElementsType = (
+        "index",
+        "home",
+        "search",
+        "main",
+        "post",
+        "homepage",
+        "category",
+        "register",
+        "login",
+        "faq",
+        "about",
+        "terms",
+        "privacy",
+        "author",
     )
-    uri_extensions = (
-        '.html', '.html', '.html', '.htm', '.htm', '.php', '.php', '.jsp',
-        '.asp',
+    uri_paths: ElementsType = (
+        "app",
+        "main",
+        "wp-content",
+        "search",
+        "category",
+        "tag",
+        "categories",
+        "tags",
+        "blog",
+        "posts",
+        "list",
+        "explore",
     )
-    http_methods = (
-        'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
-        'PATCH',
+    uri_extensions: ElementsType = (
+        ".html",
+        ".html",
+        ".html",
+        ".htm",
+        ".htm",
+        ".php",
+        ".php",
+        ".jsp",
+        ".asp",
+    )
+    http_methods: ElementsType = (
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "OPTIONS",
+        "TRACE",
+        "PATCH",
     )
 
-    user_name_formats = (
-        '{{last_name}}.{{first_name}}',
-        '{{first_name}}.{{last_name}}',
-        '{{first_name}}##',
-        '?{{last_name}}',
+    user_name_formats: ElementsType = (
+        "{{last_name}}.{{first_name}}",
+        "{{first_name}}.{{last_name}}",
+        "{{first_name}}##",
+        "?{{last_name}}",
     )
-    email_formats = (
-        '{{user_name}}@{{domain_name}}',
-        '{{user_name}}@{{free_email_domain}}',
+    email_formats: ElementsType = (
+        "{{user_name}}@{{domain_name}}",
+        "{{user_name}}@{{free_email_domain}}",
     )
-    url_formats = (
-        'www.{{domain_name}}/',
-        '{{domain_name}}/',
+    url_formats: ElementsType = (
+        "www.{{domain_name}}/",
+        "{{domain_name}}/",
     )
-    uri_formats = (
-        '{{url}}',
-        '{{url}}{{uri_page}}/',
-        '{{url}}{{uri_page}}{{uri_extension}}',
-        '{{url}}{{uri_path}}/{{uri_page}}/',
-        '{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}',
+    uri_formats: ElementsType = (
+        "{{url}}",
+        "{{url}}{{uri_page}}/",
+        "{{url}}{{uri_page}}{{uri_extension}}",
+        "{{url}}{{uri_path}}/{{uri_page}}/",
+        "{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}",
     )
-    image_placeholder_services = (
-        'https://www.lorempixel.com/{width}/{height}',
-        'https://dummyimage.com/{width}x{height}',
-        'https://placekitten.com/{width}/{height}',
-        'https://placeimg.com/{width}/{height}/any',
+    image_placeholder_services: ElementsType = (
+        "https://www.lorempixel.com/{width}/{height}",
+        "https://dummyimage.com/{width}x{height}",
+        "https://placekitten.com/{width}/{height}",
+        "https://placeimg.com/{width}/{height}/any",
     )
 
-    replacements = ()
+    replacements: Tuple[Tuple[str, str], ...] = ()
 
-    def _to_ascii(self, string):
+    def _to_ascii(self, string: str) -> str:
         for search, replace in self.replacements:
             string = string.replace(search, replace)
 
@@ -119,67 +171,66 @@ class Provider(BaseProvider):
         return string
 
     @lowercase
-    def email(self, domain=None):
+    def email(self, safe: bool = True, domain: Optional[str] = None) -> str:
         if domain:
-            email = f'{self.user_name()}@{domain}'
+            email = f"{self.user_name()}@{domain}"
+        elif safe:
+            email = f"{self.user_name()}@{self.safe_domain_name()}"
         else:
-            pattern = self.random_element(self.email_formats)
+            pattern: str = self.random_element(self.email_formats)
             email = "".join(self.generator.parse(pattern).split(" "))
         return email
 
     @lowercase
-    def safe_domain_name(self):
+    def safe_domain_name(self) -> str:
         return self.random_element(self.safe_domain_names)
 
     @lowercase
-    def safe_email(self):
-        return self.user_name() + '@' + self.safe_domain_name()
+    def safe_email(self) -> str:
+        return self.user_name() + "@" + self.safe_domain_name()
 
     @lowercase
-    def free_email(self):
-        return self.user_name() + '@' + self.free_email_domain()
+    def free_email(self) -> str:
+        return self.user_name() + "@" + self.free_email_domain()
 
     @lowercase
-    def company_email(self):
-        return self.user_name() + '@' + self.domain_name()
+    def company_email(self) -> str:
+        return self.user_name() + "@" + self.domain_name()
 
     @lowercase
-    def free_email_domain(self):
+    def free_email_domain(self) -> str:
         return self.random_element(self.free_email_domains)
 
     @lowercase
-    def ascii_email(self):
-        pattern = self.random_element(self.email_formats)
+    def ascii_email(self) -> str:
+        pattern: str = self.random_element(self.email_formats)
         return self._to_ascii(
             "".join(self.generator.parse(pattern).split(" ")),
         )
 
     @lowercase
-    def ascii_safe_email(self):
-        return self._to_ascii(self.user_name() + '@' + self.safe_domain_name())
+    def ascii_safe_email(self) -> str:
+        return self._to_ascii(self.user_name() + "@" + self.safe_domain_name())
 
     @lowercase
-    def ascii_free_email(self):
+    def ascii_free_email(self) -> str:
         return self._to_ascii(
-            self.user_name() + '@' + self.free_email_domain(),
+            self.user_name() + "@" + self.free_email_domain(),
         )
 
     @lowercase
-    def ascii_company_email(self):
+    def ascii_company_email(self) -> str:
         return self._to_ascii(
-            self.user_name() + '@' + self.domain_name(),
+            self.user_name() + "@" + self.domain_name(),
         )
 
     @slugify_unicode
-    def user_name(self):
-        pattern = self.random_element(self.user_name_formats)
-        username = self._to_ascii(
-            self.bothify(self.generator.parse(pattern)).lower(),
-        )
-        return username
+    def user_name(self) -> str:
+        pattern: str = self.random_element(self.user_name_formats)
+        return self._to_ascii(self.bothify(self.generator.parse(pattern)).lower())
 
     @lowercase
-    def hostname(self, levels=1):
+    def hostname(self, levels: int = 1) -> str:
         """
         Produce a hostname with specified number of subdomain levels.
 
@@ -190,12 +241,14 @@ class Provider(BaseProvider):
         >>> hostname(2)
         web-12.williamson-hopkins.jackson.com
         """
-        if levels < 1:
-            return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##')
-        return self.random_element(self.hostname_prefixes) + '-' + self.numerify('##') + '.' + self.domain_name(levels)
+        hostname_prefix: str = self.random_element(self.hostname_prefixes)
+        hostname_prefix_first_level: str = hostname_prefix + "-" + self.numerify("##")
+        return (
+            hostname_prefix_first_level if levels < 1 else hostname_prefix_first_level + "." + self.domain_name(levels)
+        )
 
     @lowercase
-    def domain_name(self, levels=1):
+    def domain_name(self, levels: int = 1) -> str:
         """
         Produce an Internet domain name with the specified number of
         subdomain levels.
@@ -208,19 +261,24 @@ class Provider(BaseProvider):
         if levels < 1:
             raise ValueError("levels must be greater than or equal to 1")
         if levels == 1:
-            return self.domain_word() + '.' + self.tld()
-        else:
-            return self.domain_word() + '.' + self.domain_name(levels - 1)
+            return self.domain_word() + "." + self.tld()
+        return self.domain_word() + "." + self.domain_name(levels - 1)
 
     @lowercase
     @slugify_unicode
-    def domain_word(self):
-        company = self.generator.format('company')
-        company_elements = company.split(' ')
-        company = self._to_ascii(company_elements.pop(0))
-        return company
+    def domain_word(self) -> str:
+        company: str = self.generator.format("company")
+        company_elements: List[str] = company.split(" ")
+        return self._to_ascii(company_elements.pop(0))
 
-    def dga(self, year=None, month=None, day=None, tld=None, length=None):
+    def dga(
+        self,
+        year: Optional[int] = None,
+        month: Optional[int] = None,
+        day: Optional[int] = None,
+        tld: Optional[str] = None,
+        length: Optional[int] = None,
+    ) -> str:
         """Generates a domain name by given date
         https://en.wikipedia.org/wiki/Domain_generation_algorithm
 
@@ -232,7 +290,7 @@ class Provider(BaseProvider):
         :rtype: str
         """
 
-        domain = ''
+        domain = ""
         year = year or self.random_int(min=1, max=9999)
         month = month or self.random_int(min=1, max=12)
         day = day or self.random_int(min=1, max=30)
@@ -245,12 +303,12 @@ class Provider(BaseProvider):
             day = ((day ^ (day << 13)) >> 19) ^ ((day & 0xFFFFFFFE) << 12)
             domain += chr(((year ^ month ^ day) % 25) + 97)
 
-        return domain + '.' + tld
+        return domain + "." + tld
 
-    def tld(self):
+    def tld(self) -> str:
         return self.random_element(self.tlds)
 
-    def http_method(self):
+    def http_method(self) -> str:
         """Returns random HTTP method
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
@@ -259,7 +317,7 @@ class Provider(BaseProvider):
 
         return self.random_element(self.http_methods)
 
-    def url(self, schemes=None):
+    def url(self, schemes: Optional[List[str]] = None) -> str:
         """
         :param schemes: a list of strings to use as schemes, one will chosen randomly.
         If None, it will generate http and https urls.
@@ -268,13 +326,13 @@ class Provider(BaseProvider):
         :returns: a random url string.
         """
         if schemes is None:
-            schemes = ['http', 'https']
+            schemes = ["http", "https"]
 
-        pattern = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        pattern: str = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
 
         return self.generator.parse(pattern)
 
-    def _get_all_networks_and_weights(self, address_class=None):
+    def _get_all_networks_and_weights(self, address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces a 2-tuple of valid IPv4 networks and corresponding relative weights
 
@@ -282,14 +340,14 @@ class Provider(BaseProvider):
         """
         # If `address_class` has an unexpected value, use the whole IPv4 pool
         if address_class in _IPv4Constants._network_classes.keys():
-            networks_attr = f'_cached_all_class_{address_class}_networks'
-            all_networks = [_IPv4Constants._network_classes[address_class]]
+            networks_attr = f"_cached_all_class_{address_class}_networks"
+            all_networks = [_IPv4Constants._network_classes[address_class]]  # type: ignore
         else:
-            networks_attr = '_cached_all_networks'
-            all_networks = [ip_network('0.0.0.0/0')]
+            networks_attr = "_cached_all_networks"
+            all_networks = [ip_network("0.0.0.0/0")]
 
         # Return cached network and weight data if available
-        weights_attr = f'{networks_attr}_weights'
+        weights_attr = f"{networks_attr}_weights"
         if hasattr(self, networks_attr) and hasattr(self, weights_attr):
             return getattr(self, networks_attr), getattr(self, weights_attr)
 
@@ -307,28 +365,28 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return all_networks, weights
 
-    def _get_private_networks_and_weights(self, address_class=None):
+    def _get_private_networks_and_weights(
+        self,
+        address_class: Optional[str] = None,
+    ) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces an OrderedDict of valid private IPv4 networks and corresponding relative weights
 
         :param address_class: IPv4 address class (a, b, or c)
         """
         # If `address_class` has an unexpected value, choose a valid value at random
-        if address_class not in _IPv4Constants._network_classes.keys():
+        if not address_class or address_class not in _IPv4Constants._network_classes.keys():
             address_class = self.ipv4_network_class()
 
         # Return cached network and weight data if available for a specific address class
-        networks_attr = f'_cached_private_class_{address_class}_networks'
-        weights_attr = f'{networks_attr}_weights'
+        networks_attr = f"_cached_private_class_{address_class}_networks"
+        weights_attr = f"{networks_attr}_weights"
         if hasattr(self, networks_attr) and hasattr(self, weights_attr):
             return getattr(self, networks_attr), getattr(self, weights_attr)
 
         # Otherwise, compute for list of private networks (excluding special networks)
         supernet = _IPv4Constants._network_classes[address_class]
-        private_networks = [
-            subnet for subnet in _IPv4Constants._private_networks
-            if subnet.overlaps(supernet)
-        ]
+        private_networks = [subnet for subnet in _IPv4Constants._private_networks if subnet.overlaps(supernet)]
         private_networks = self._exclude_ipv4_networks(
             private_networks,
             _IPv4Constants._excluded_networks,
@@ -342,7 +400,10 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return private_networks, weights
 
-    def _get_public_networks_and_weights(self, address_class=None):
+    def _get_public_networks_and_weights(
+        self,
+        address_class: Optional[str] = None,
+    ) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces a 2-tuple of valid public IPv4 networks and corresponding relative weights
 
@@ -353,17 +414,16 @@ class Provider(BaseProvider):
             address_class = self.ipv4_network_class()
 
         # Return cached network and weight data if available for a specific address class
-        networks_attr = f'_cached_public_class_{address_class}_networks'
-        weights_attr = f'{networks_attr}_weights'
+        networks_attr = f"_cached_public_class_{address_class}_networks"
+        weights_attr = f"{networks_attr}_weights"
         if hasattr(self, networks_attr) and hasattr(self, weights_attr):
             return getattr(self, networks_attr), getattr(self, weights_attr)
 
         # Otherwise, compute for list of public networks (excluding private and special networks)
-        public_networks = [_IPv4Constants._network_classes[address_class]]
+        public_networks = [_IPv4Constants._network_classes[address_class]]  # type: ignore
         public_networks = self._exclude_ipv4_networks(
             public_networks,
-            _IPv4Constants._private_networks +
-            _IPv4Constants._excluded_networks,
+            _IPv4Constants._private_networks + _IPv4Constants._excluded_networks,
         )
 
         # Then compute for list of corresponding relative weights
@@ -374,7 +434,12 @@ class Provider(BaseProvider):
         setattr(self, weights_attr, weights)
         return public_networks, weights
 
-    def _random_ipv4_address_from_subnets(self, subnets, weights=None, network=False):
+    def _random_ipv4_address_from_subnets(
+        self,
+        subnets: List[IPv4Network],
+        weights: Optional[List[int]] = None,
+        network: bool = False,
+    ) -> str:
         """
         Produces a random IPv4 address or network with a valid CIDR
         from within the given subnets using a distribution described
@@ -385,28 +450,47 @@ class Provider(BaseProvider):
         :param network: Return a network address, and not an IP address
         :return:
         """
+        if not subnets:
+            raise ValueError("No subnets to choose from")
+
         # If the weights argument has an invalid value, default to equal distribution
-        try:
-            subnet = choices_distribution(subnets, weights, random=self.generator.random, length=1)[0]
-        except (AssertionError, TypeError):
+        if (
+            isinstance(weights, list)
+            and len(subnets) == len(weights)
+            and all(isinstance(w, (float, int)) for w in weights)
+        ):
+            subnet = choices_distribution(
+                subnets,
+                [float(w) for w in weights],
+                random=self.generator.random,
+                length=1,
+            )[0]
+        else:
             subnet = self.generator.random.choice(subnets)
 
         address = str(
-            subnet[self.generator.random.randint(
-                0, subnet.num_addresses - 1,
-            )],
+            subnet[
+                self.generator.random.randint(
+                    0,
+                    subnet.num_addresses - 1,
+                )
+            ],
         )
 
         if network:
-            address += '/' + str(self.generator.random.randint(
-                subnet.prefixlen,
-                subnet.max_prefixlen,
-            ))
+            address += "/" + str(
+                self.generator.random.randint(
+                    subnet.prefixlen,
+                    subnet.max_prefixlen,
+                )
+            )
             address = str(ip_network(address, strict=False))
 
         return address
 
-    def _exclude_ipv4_networks(self, networks, networks_to_exclude):
+    def _exclude_ipv4_networks(
+        self, networks: List[IPv4Network], networks_to_exclude: List[IPv4Network]
+    ) -> List[IPv4Network]:
         """
         Exclude the list of networks from another list of networks
         and return a flat list of new networks.
@@ -417,6 +501,7 @@ class Provider(BaseProvider):
         """
         networks_to_exclude.sort(key=lambda x: x.prefixlen)
         for network_to_exclude in networks_to_exclude:
+
             def _exclude_ipv4_network(network):
                 """
                 Exclude a single network from another single network
@@ -441,24 +526,25 @@ class Provider(BaseProvider):
                     else:
                         return [network]
 
-            networks = list(map(_exclude_ipv4_network, networks))
-
-            # flatten list of lists
-            networks = [
-                item for nested in networks for item in nested
-            ]
+            nested_networks = list(map(_exclude_ipv4_network, networks))
+            networks = [item for nested in nested_networks for item in nested]
 
         return networks
 
-    def ipv4_network_class(self):
+    def ipv4_network_class(self) -> str:
         """
         Returns a IPv4 network class 'a', 'b' or 'c'.
 
         :returns: IPv4 network class
         """
-        return self.random_element('abc')
+        return self.random_element("abc")
 
-    def ipv4(self, network=False, address_class=None, private=None):
+    def ipv4(
+        self,
+        network: bool = False,
+        address_class: Optional[str] = None,
+        private: Optional[str] = None,
+    ) -> str:
         """
         Returns a random IPv4 address or network with a valid CIDR.
 
@@ -468,16 +554,14 @@ class Provider(BaseProvider):
         :returns: IPv4
         """
         if private is True:
-            return self.ipv4_private(address_class=address_class,
-                                     network=network)
+            return self.ipv4_private(address_class=address_class, network=network)
         elif private is False:
-            return self.ipv4_public(address_class=address_class,
-                                    network=network)
+            return self.ipv4_public(address_class=address_class, network=network)
         else:
             all_networks, weights = self._get_all_networks_and_weights(address_class=address_class)
             return self._random_ipv4_address_from_subnets(all_networks, weights=weights, network=network)
 
-    def ipv4_private(self, network=False, address_class=None):
+    def ipv4_private(self, network: bool = False, address_class: Optional[str] = None) -> str:
         """
         Returns a private IPv4.
 
@@ -488,7 +572,7 @@ class Provider(BaseProvider):
         private_networks, weights = self._get_private_networks_and_weights(address_class=address_class)
         return self._random_ipv4_address_from_subnets(private_networks, weights=weights, network=network)
 
-    def ipv4_public(self, network=False, address_class=None):
+    def ipv4_public(self, network: bool = False, address_class: Optional[str] = None) -> str:
         """
         Returns a public IPv4 excluding private blocks.
 
@@ -499,20 +583,19 @@ class Provider(BaseProvider):
         public_networks, weights = self._get_public_networks_and_weights(address_class=address_class)
         return self._random_ipv4_address_from_subnets(public_networks, weights=weights, network=network)
 
-    def ipv6(self, network=False):
+    def ipv6(self, network: bool = False) -> str:
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(
-            2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        address = str(ip_address(self.generator.random.randint(2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
         if network:
-            address += '/' + str(self.generator.random.randint(0, IPV6LENGTH))
+            address += "/" + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(ip_network(address, strict=False))
         return address
 
-    def mac_address(self):
-        mac = [self.generator.random.randint(0x00, 0xff) for _ in range(0, 6)]
+    def mac_address(self) -> str:
+        mac = [self.generator.random.randint(0x00, 0xFF) for _ in range(0, 6)]
         return ":".join(map(lambda x: "%02x" % x, mac))
 
-    def port_number(self, is_system=False, is_user=False, is_dynamic=False):
+    def port_number(self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False) -> int:
         """Returns a network port number
         https://tools.ietf.org/html/rfc6335
 
@@ -531,40 +614,40 @@ class Provider(BaseProvider):
 
         return self.random_int(min=0, max=65535)
 
-    def uri_page(self):
+    def uri_page(self) -> str:
         return self.random_element(self.uri_pages)
 
-    def uri_path(self, deep=None):
+    def uri_path(self, deep: Optional[int] = None) -> str:
         deep = deep if deep else self.generator.random.randint(1, 3)
         return "/".join(
             self.random_elements(self.uri_paths, length=deep),
         )
 
-    def uri_extension(self):
+    def uri_extension(self) -> str:
         return self.random_element(self.uri_extensions)
 
-    def uri(self):
-        pattern = self.random_element(self.uri_formats)
+    def uri(self) -> str:
+        pattern: str = self.random_element(self.uri_formats)
         return self.generator.parse(pattern)
 
     @slugify
-    def slug(self, value=None):
+    def slug(self, value: Optional[str] = None) -> str:
         """Django algorithm"""
         if value is None:
             value = self.generator.text(20)
         return value
 
-    def image_url(self, width=None, height=None):
+    def image_url(self, width: Optional[int] = None, height: Optional[int] = None) -> str:
         """
         Returns URL to placeholder image
         Example: http://placehold.it/640x480
         """
         width_ = width or self.random_int(max=1024)
         height_ = height or self.random_int(max=1024)
-        placeholder_url = self.random_element(self.image_placeholder_services)
+        placeholder_url: str = self.random_element(self.image_placeholder_services)
         return placeholder_url.format(width=width_, height=height_)
 
-    def iana_id(self):
+    def iana_id(self) -> str:
         """Returns IANA Registrar ID
         https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml
 
@@ -573,18 +656,18 @@ class Provider(BaseProvider):
 
         return str(self.random_int(min=1, max=8888888))
 
-    def ripe_id(self):
+    def ripe_id(self) -> str:
         """Returns RIPE Organization ID
         https://www.ripe.net/manage-ips-and-asns/db/support/organisation-object-in-the-ripe-database
 
         :rtype: str
         """
 
-        lex = '?' * self.random_int(min=2, max=4)
-        num = '%' * self.random_int(min=1, max=5)
-        return self.bothify(f'ORG-{lex}{num}-RIPE').upper()
+        lex = "?" * self.random_int(min=2, max=4)
+        num = "%" * self.random_int(min=1, max=5)
+        return self.bothify(f"ORG-{lex}{num}-RIPE").upper()
 
-    def nic_handle(self, suffix='FAKE'):
+    def nic_handle(self, suffix: str = "FAKE") -> str:
         """Returns NIC Handle ID
         https://www.apnic.net/manage-ip/using-whois/guide/person/
 
@@ -592,13 +675,13 @@ class Provider(BaseProvider):
         """
 
         if len(suffix) < 2:
-            raise ValueError('suffix length must be greater than or equal to 2')
+            raise ValueError("suffix length must be greater than or equal to 2")
 
-        lex = '?' * self.random_int(min=2, max=4)
-        num = '%' * self.random_int(min=1, max=5)
-        return self.bothify(f'{lex}{num}-{suffix}').upper()
+        lex = "?" * self.random_int(min=2, max=4)
+        num = "%" * self.random_int(min=1, max=5)
+        return self.bothify(f"{lex}{num}-{suffix}").upper()
 
-    def nic_handles(self, count=1, suffix='????'):
+    def nic_handles(self, count: int = 1, suffix: str = "????") -> List[str]:
         """Returns NIC Handle ID list
 
         :rtype: list[str]

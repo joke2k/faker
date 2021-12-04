@@ -1,8 +1,11 @@
 from decimal import Decimal
+from typing import Optional, Tuple, Union
 
 from .. import BaseProvider
 
 localized = True
+
+PlaceType = Tuple[str, str, str, str, str]
 
 
 class Provider(BaseProvider):
@@ -13,13 +16,19 @@ class Provider(BaseProvider):
     Timezones are canonical (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
     """
 
-    land_coords = (
+    land_coords: Tuple[PlaceType, ...] = (
         ("42.50729", "1.53414", "les Escaldes", "AD", "Europe/Andorra"),
         ("36.21544", "65.93249", "Sar-e Pul", "AF", "Asia/Kabul"),
         ("40.49748", "44.7662", "Hrazdan", "AM", "Asia/Yerevan"),
         ("-11.78333", "19.91667", "Luena", "AO", "Africa/Luanda"),
         ("-37.32167", "-59.13316", "Tandil", "AR", "America/Argentina/Buenos_Aires"),
-        ("-34.74785", "-58.70072", "Pontevedra", "AR", "America/Argentina/Buenos_Aires"),
+        (
+            "-34.74785",
+            "-58.70072",
+            "Pontevedra",
+            "AR",
+            "America/Argentina/Buenos_Aires",
+        ),
         ("-34.64966", "-58.38341", "Barracas", "AR", "America/Argentina/Buenos_Aires"),
         ("-54.8", "-68.3", "Ushuaia", "AR", "America/Argentina/Ushuaia"),
         ("-31.25033", "-61.4867", "Rafaela", "AR", "America/Argentina/Cordoba"),
@@ -240,7 +249,13 @@ class Provider(BaseProvider):
         ("53.6052", "10.03988", "Barmbek-Nord", "DE", "Europe/Berlin"),
         ("11.15583", "42.7125", "'Ali Sabieh", "DJ", "Africa/Djibouti"),
         ("55.67938", "12.53463", "Frederiksberg", "DK", "Europe/Copenhagen"),
-        ("18.20854", "-71.10077", "Santa Cruz de Barahona", "DO", "America/Santo_Domingo"),
+        (
+            "18.20854",
+            "-71.10077",
+            "Santa Cruz de Barahona",
+            "DO",
+            "America/Santo_Domingo",
+        ),
         ("36.76639", "3.47717", "Boumerdas", "DZ", "Africa/Algiers"),
         ("36.72544", "3.55665", "Thenia", "DZ", "Africa/Algiers"),
         ("34.15429", "3.50309", "Messaad", "DZ", "Africa/Algiers"),
@@ -974,7 +989,7 @@ class Provider(BaseProvider):
         ("-24.19436", "29.00974", "Mokopane", "ZA", "Africa/Johannesburg"),
     )
 
-    def coordinate(self, center=None, radius=0.001):
+    def coordinate(self, center: Optional[float] = None, radius: Union[float, int] = 0.001) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
         """
@@ -988,29 +1003,34 @@ class Provider(BaseProvider):
             geo = self.generator.random.uniform(center - radius, center + radius)
             return Decimal(str(geo)).quantize(Decimal(".000001"))
 
-    def latitude(self):
+    def latitude(self) -> Decimal:
         # Latitude has a range of -90 to 90, so divide by two.
         return self.coordinate() / 2
 
-    def longitude(self):
+    def longitude(self) -> Decimal:
         return self.coordinate()
 
-    def latlng(self):
+    def latlng(self) -> Tuple[Decimal, Decimal]:
         return (self.latitude(), self.longitude())
 
-    def local_latlng(self, country_code='US', coords_only=False):
+    def local_latlng(
+        self,
+        country_code: str = "US",
+        coords_only: bool = False,
+    ) -> Optional[Tuple[str, ...]]:
         """Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """
         results = [loc for loc in self.land_coords if loc[3] == country_code]
         if results:
-            place = self.random_element(results)
+            place: PlaceType = self.random_element(results)
             return (place[0], place[1]) if coords_only else place
+        return None
 
-    def location_on_land(self, coords_only=False):
+    def location_on_land(self, coords_only: bool = False) -> Tuple[str, ...]:
         """Returns a random tuple specifying a coordinate set guaranteed to exist on land.
         Format is `(latitude, longitude, place name, two-letter country code, timezone)`
         Pass `coords_only` to return coordinates without metadata.
         """
-        place = self.random_element(self.land_coords)
+        place: PlaceType = self.random_element(self.land_coords)
         return (place[0], place[1]) if coords_only else place

@@ -46,10 +46,21 @@ class SampleCodeValidator(ast.NodeVisitor):
 
     _whitelisted_nodes = (
         # Code elements related to function calls and variable and attribute access
-        ast.Expression, ast.Call, ast.Attribute, ast.Name, ast.Load, ast.keyword,
-
+        ast.Expression,
+        ast.Call,
+        ast.Attribute,
+        ast.Name,
+        ast.Load,
+        ast.keyword,
         # Code elements representing whitelisted literals
-        ast.Num, ast.Str, ast.Bytes, ast.List, ast.Tuple, ast.Set, ast.Dict, ast.NameConstant,
+        ast.Num,
+        ast.Str,
+        ast.Bytes,
+        ast.List,
+        ast.Tuple,
+        ast.Set,
+        ast.Dict,
+        ast.NameConstant,
     )
 
     _max_function_call_count = 1
@@ -64,7 +75,7 @@ class SampleCodeValidator(ast.NodeVisitor):
         self._command = command
 
         try:
-            self._tree = ast.parse(command, mode='eval')
+            self._tree = ast.parse(command, mode="eval")
         except (SyntaxError, ValueError):
             self._log_error(traceback.format_exc())
         else:
@@ -99,7 +110,7 @@ class SampleCodeValidator(ast.NodeVisitor):
     def visit(self, node):
         # Check if code element type is allowed
         if not self._is_whitelisted(node):
-            msg = 'Code element `%s` is not allowed.' % node.__class__.__name__
+            msg = "Code element `%s` is not allowed." % node.__class__.__name__
             self._log_error(msg)
 
         return super().visit(node)
@@ -110,7 +121,7 @@ class SampleCodeValidator(ast.NodeVisitor):
             if self._function_call_count < self._max_function_call_count:
                 self._function_call_count += 1
             else:
-                msg = 'There can only be one instance of a function/method call.'
+                msg = "There can only be one instance of a function/method call."
                 self._log_error(msg)
 
         # Proceed to child nodes
@@ -121,7 +132,7 @@ class SampleCodeValidator(ast.NodeVisitor):
         if self._attribute_access_count < self._max_attribute_access_count:
             self._attribute_access_count += 1
         else:
-            msg = 'There can only be one instance of attribute access.'
+            msg = "There can only be one instance of attribute access."
             self._log_error(msg)
 
         # Proceed to child nodes
@@ -133,7 +144,7 @@ class SampleCodeValidator(ast.NodeVisitor):
             if self._variable_access_count < self._max_variable_access_count:
                 self._variable_access_count += 1
             else:
-                msg = 'There can only be one instance of variable access.'
+                msg = "There can only be one instance of variable access."
                 self._log_error(msg)
 
         # Proceed to child nodes

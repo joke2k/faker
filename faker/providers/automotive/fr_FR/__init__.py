@@ -11,7 +11,7 @@ class Provider(AutomotiveProvider):
 
     license_formats = (
         # New format
-        '??-###-??',
+        "??-###-??",
         # Old format for plates < 2009
-        '###-???-##',
+        "###-???-##",
     )

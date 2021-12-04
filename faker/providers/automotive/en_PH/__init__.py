@@ -1,4 +1,5 @@
 from string import ascii_uppercase
+from typing import List
 
 from ... import BaseProvider
 
@@ -18,21 +19,21 @@ class Provider(BaseProvider):
     - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Philippines
     """
 
-    protocol_licenses = tuple(str(x) for x in range(1, 18) if x != 15)
-    motorcycle_license_formats = (
-        '??####',     # 1981 series
-        '??#####',    # 2014 series
-    )
-    automobile_license_formats = (
-        '???###',    # 1981 series
-        '???####',   # 2014 series
-    )
+    protocol_licenses = [str(x) for x in range(1, 18) if x != 15]
+    motorcycle_license_formats = [
+        "??####",  # 1981 series
+        "??#####",  # 2014 series
+    ]
+    automobile_license_formats = [
+        "???###",  # 1981 series
+        "???####",  # 2014 series
+    ]
     license_formats = motorcycle_license_formats + automobile_license_formats
 
-    def _license_plate(self, license_format):
+    def _license_plate(self, license_format: List[str]) -> str:
         return self.bothify(self.random_element(license_format), ascii_uppercase)
 
-    def protocol_license_plate(self):
+    def protocol_license_plate(self) -> str:
         """Generate a protocol license plate.
 
         .. note::
@@ -41,7 +42,7 @@ class Provider(BaseProvider):
         """
         return self.random_element(self.protocol_licenses)
 
-    def motorcycle_license_plate(self):
+    def motorcycle_license_plate(self) -> str:
         """Generate a motorcycle license plate.
 
         .. note::
@@ -50,7 +51,7 @@ class Provider(BaseProvider):
         """
         return self._license_plate(self.motorcycle_license_formats)
 
-    def automobile_license_plate(self):
+    def automobile_license_plate(self) -> str:
         """Generate an automobile license plate.
 
         .. note::
@@ -59,7 +60,7 @@ class Provider(BaseProvider):
         """
         return self._license_plate(self.automobile_license_formats)
 
-    def license_plate(self):
+    def license_plate(self) -> str:
         """Generate a license plate.
 
         .. note::

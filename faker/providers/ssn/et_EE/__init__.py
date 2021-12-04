@@ -1,10 +1,12 @@
 import datetime
 import operator
 
+from typing import List
+
 from .. import Provider as SsnProvider
 
 
-def checksum(digits):
+def checksum(digits: List[int]) -> int:
     """Calculate checksum of Estonian personal identity code.
 
     Checksum is calculated with "Modulo 11" method using level I or II scale:
@@ -30,7 +32,7 @@ class Provider(SsnProvider):
     scale1 = (1, 2, 3, 4, 5, 6, 7, 8, 9, 1)
     scale2 = (3, 4, 5, 6, 7, 8, 9, 1, 2, 3)
 
-    def ssn(self, min_age=16, max_age=90):
+    def ssn(self, min_age: int = 16, max_age: int = 90) -> str:
         """
         Returns 11 character Estonian personal identity code (isikukood, IK).
 
@@ -45,27 +47,22 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Estonia
         """
-        age = datetime.timedelta(
-            days=self.generator.random.randrange(
-                min_age * 365, max_age * 365))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         if birthday.year < 2000:
-            ik = self.generator.random.choice(('3', '4'))
+            ik = self.generator.random.choice(("3", "4"))
         elif birthday.year < 2100:
-            ik = self.generator.random.choice(('5', '6'))
+            ik = self.generator.random.choice(("5", "6"))
         else:
-            ik = self.generator.random.choice(('7', '8'))
+            ik = self.generator.random.choice(("7", "8"))
 
-        ik += "%02d%02d%02d" % ((birthday.year % 100), birthday.month,
-                                birthday.day)
+        ik += "%02d%02d%02d" % ((birthday.year % 100), birthday.month, birthday.day)
         ik += str(self.generator.random.randrange(0, 999)).zfill(3)
         return ik + str(checksum([int(ch) for ch in ik]))
 
-    vat_id_formats = (
-        'EE#########',
-    )
+    vat_id_formats = ("EE#########",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Estonian VAT ID

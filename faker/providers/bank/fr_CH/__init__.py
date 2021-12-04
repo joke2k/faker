@@ -6,4 +6,5 @@ class Provider(DeChBankProvider):
 
     There is no difference from the ``de_CH`` implementation.
     """
+
     pass

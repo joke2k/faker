@@ -1,9 +1,11 @@
 import re
 import unicodedata
 
-_re_pattern = re.compile(r'[^\w\s-]', flags=re.U)
-_re_pattern_allow_dots = re.compile(r'[^\.\w\s-]', flags=re.U)
-_re_spaces = re.compile(r'[-\s]+', flags=re.U)
+from typing import Pattern
+
+_re_pattern: Pattern = re.compile(r"[^\w\s-]", flags=re.U)
+_re_pattern_allow_dots: Pattern = re.compile(r"[^\.\w\s-]", flags=re.U)
+_re_spaces: Pattern = re.compile(r"[-\s]+", flags=re.U)
 
 
 def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -> str:
@@ -14,17 +16,13 @@ def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -
 
     Adapted from Django 1.9
     """
-    if allow_dots:
-        pattern = _re_pattern_allow_dots
-    else:
-        pattern = _re_pattern
+    pattern: Pattern = _re_pattern_allow_dots if allow_dots else _re_pattern
 
     value = str(value)
     if allow_unicode:
-        value = unicodedata.normalize('NFKC', value)
-        value = pattern.sub('', value).strip().lower()
-        return _re_spaces.sub('-', value)
-    value = unicodedata.normalize('NFKD', value).encode(
-        'ascii', 'ignore').decode('ascii')
-    value = pattern.sub('', value).strip().lower()
-    return _re_spaces.sub('-', value)
+        value = unicodedata.normalize("NFKC", value)
+        value = pattern.sub("", value).strip().lower()
+        return _re_spaces.sub("-", value)
+    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    value = pattern.sub("", value).strip().lower()
+    return _re_spaces.sub("-", value)

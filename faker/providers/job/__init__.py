@@ -1,10 +1,10 @@
-from .. import BaseProvider
+from .. import BaseProvider, ElementsType
 
 localized = True
 
 
 class Provider(BaseProvider):
-    jobs = (
+    jobs: ElementsType = (
         "Academic librarian",
         "Accommodation manager",
         "Accountant, chartered",
@@ -646,5 +646,5 @@ class Provider(BaseProvider):
         "Youth worker",
     )
 
-    def job(self):
+    def job(self) -> str:
         return self.random_element(self.jobs)

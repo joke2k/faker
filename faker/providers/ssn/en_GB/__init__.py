@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as BaseProvider
 
 
@@ -12,24 +14,24 @@ class Provider(BaseProvider):
     # only and is generally included as per the above examples, but a
     # few 'styles' have been included below for the sake of realism.
 
-    nino_formats = (
-        'ZZ ## ## ## T',
-        'ZZ######T',
-        'ZZ ###### T',
+    nino_formats: Tuple[str, ...] = (
+        "ZZ ## ## ## T",
+        "ZZ######T",
+        "ZZ ###### T",
     )
 
-    def ssn(self):
-        pattern = self.random_element(self.nino_formats)
+    def ssn(self) -> str:
+        pattern: str = self.random_element(self.nino_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    vat_id_formats = (
-        'GB### #### ##',
-        'GB### #### ## ###',
-        'GBGD###',
-        'GBHA###',
+    vat_id_formats: Tuple[str, ...] = (
+        "GB### #### ##",
+        "GB### #### ## ###",
+        "GBGD###",
+        "GBHA###",
     )
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random British VAT ID

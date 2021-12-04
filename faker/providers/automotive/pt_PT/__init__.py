@@ -10,9 +10,9 @@ class Provider(AutomotiveProvider):
     """
 
     license_formats = (
-        '##-##-??',
-        '##-??-##',
-        '??-##-##',
+        "##-##-??",
+        "##-??-##",
+        "??-##-##",
         # New format since March 2020
-        '??-##-??',
+        "??-##-??",
     )
