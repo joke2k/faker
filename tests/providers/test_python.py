@@ -476,7 +476,7 @@ class TestPython(unittest.TestCase):
 
         with warnings.catch_warnings(record=True) as w:
             some_list = self.factory.pylist(10, True, int, float)
-            assert len(w) == 2
+            assert len(w) == 1
         assert some_list
         for item in some_list:
             assert isinstance(item, (int, float))
