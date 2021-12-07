@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v9.9.1 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.4...v9.9.0)
+
+* Revert "deprecate positional `allowed_types`".
+
 ### [v9.9.0 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.4...v9.9.0)
 
 * deprecate positional `allowed_types` (#1573). Thanks @fcurella.
