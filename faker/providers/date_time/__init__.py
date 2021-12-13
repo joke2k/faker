@@ -2024,20 +2024,23 @@ class Provider(BaseProvider):
         else:
             return (datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)).astimezone(tzinfo)
 
-    def date_between(self, start_date: DateParseType = "-30y", end_date: DateParseType = "today") -> dtdate:
+    def date_between(
+        self, start_date: DateParseType = "-30y", end_date: DateParseType = "today", tzinfo: Optional[TzInfo] = None
+    ) -> dtdate:
         """
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date Defaults to 30 years ago
         :param end_date Defaults to "today"
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example Date('1999-02-02')
         :return Date
         """
 
         start_date = self._parse_date(start_date)
         end_date = self._parse_date(end_date)
-        return self.date_between_dates(date_start=start_date, date_end=end_date)
+        return self.date_between_dates(date_start=start_date, date_end=end_date, tzinfo=tzinfo)
 
     def future_datetime(self, end_date: DateParseType = "+30d", tzinfo: Optional[TzInfo] = None) -> datetime:
         """
@@ -2063,7 +2066,7 @@ class Provider(BaseProvider):
         :example dtdate('2030-01-01')
         :return dtdate
         """
-        return self.date_between(start_date="+1d", end_date=end_date)
+        return self.date_between(start_date="+1d", end_date=end_date, tzinfo=tzinfo)
 
     def past_datetime(self, start_date: DateParseType = "-30d", tzinfo: Optional[TzInfo] = None) -> datetime:
         """
@@ -2089,7 +2092,7 @@ class Provider(BaseProvider):
         :example dtdate('1999-02-02')
         :return dtdate
         """
-        return self.date_between(start_date=start_date, end_date="-1d")
+        return self.date_between(start_date=start_date, end_date="-1d", tzinfo=tzinfo)
 
     def date_time_between_dates(
         self,
@@ -2138,6 +2141,7 @@ class Provider(BaseProvider):
         self,
         date_start: Optional[DateParseType] = None,
         date_end: Optional[DateParseType] = None,
+        tzinfo: Optional[TzInfo] = None,
     ) -> dtdate:
         """
         Takes two Date objects and returns a random date between the two given dates.
@@ -2145,9 +2149,10 @@ class Provider(BaseProvider):
 
         :param date_start: Date
         :param date_end: Date
+        :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :return Date
         """
-        return self.date_time_between_dates(date_start, date_end).date()
+        return self.date_time_between_dates(date_start, date_end, tzinfo=tzinfo).date()
 
     def date_time_this_century(
         self,
