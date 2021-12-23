@@ -1134,3 +1134,16 @@ class TestRoRO(unittest.TestCase):
             vat = self.fake.vat_id().replace("RO", "")
             assert vat.isdigit()
             assert len(vat) >= 2 and len(vat) <= 10
+
+
+class TestAzAz(unittest.TestCase):
+    num_sample_runs = 10
+
+    def setUp(self):
+        self.fake = Faker("az_AZ")
+        self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
+        Faker.seed(0)
+
+    def check_length(self):
+        for sample in self.samples:
+            assert len(sample) == 7
