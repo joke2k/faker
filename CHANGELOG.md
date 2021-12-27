@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v11.0.0 - 2021-12-27](https://github.com/joke2k/faker/compare/v10.0.0...v11.0.0)
+
+* Replace `lorempixel.com` service with `picsum.photos` in `image_url` provider.
+* Add `placeholder_url` argument to `image_url`.
+
 ### [v10.0.0 - 2021-12-07](https://github.com/joke2k/faker/compare/v9.9.1...v10.0.0)
 
 * deprecate positional `allowed_types`.
@@ -14,7 +19,7 @@
 
 ### [v9.8.4 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.3...v9.8.4)
 
-* Fix positional ``value_types``.
+* Fix positional `value_types`.
 
 ### [v9.8.3 - 2021-11-22](https://github.com/joke2k/faker/compare/v9.8.2...v9.8.3)
 
