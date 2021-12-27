@@ -81,6 +81,8 @@ class TestInternetProvider:
         assert f"https://dummyimage.com/{my_width}x{my_height}" == url
         url = faker.image_url()
         assert "https://dummyimage.com/" in url
+        url = faker.image_url(placeholder_url="https://example.com/{width}/height")
+        assert url.startswith("https://example.com/")
 
     def test_hostname(self, faker):
         hostname_1_level = faker.hostname(levels=1)

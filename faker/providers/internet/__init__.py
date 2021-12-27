@@ -155,7 +155,7 @@ class Provider(BaseProvider):
         "{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}",
     )
     image_placeholder_services: ElementsType = (
-        "https://www.lorempixel.com/{width}/{height}",
+        "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
         "https://placekitten.com/{width}/{height}",
         "https://placeimg.com/{width}/{height}/any",
@@ -637,14 +637,27 @@ class Provider(BaseProvider):
             value = self.generator.text(20)
         return value
 
-    def image_url(self, width: Optional[int] = None, height: Optional[int] = None) -> str:
+    def image_url(
+        self,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        placeholder_url: Optional[str] = None,
+    ) -> str:
         """
         Returns URL to placeholder image
         Example: http://placehold.it/640x480
+
+        :param width: Optional image width
+        :param height: Optional image height
+        :param placeholder_url: Optional template string of image URLs from custom
+            placeholder service. String must contain ``{width}`` and ``{height}``
+            placeholders, eg: ``https:/example.com/{width}/{height}``.
+        :rtype: str
         """
         width_ = width or self.random_int(max=1024)
         height_ = height or self.random_int(max=1024)
-        placeholder_url: str = self.random_element(self.image_placeholder_services)
+        if placeholder_url is None:
+            placeholder_url = self.random_element(self.image_placeholder_services)
         return placeholder_url.format(width=width_, height=height_)
 
     def iana_id(self) -> str:
