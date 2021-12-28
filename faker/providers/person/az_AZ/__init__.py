@@ -3,30 +3,6 @@ from .. import Provider as PersonProvider
 
 # source: https://www.azerbaijans.com/content_597_az.html
 # https://www.azerbaijans.com/content_598_az.html
-def translit(text):
-
-    translit_dict = {
-        "Ə": "E",
-        "I": "I",
-        "Ü": "U",
-        "Ş": "SH",
-        "Ç": "CH",
-        "Ğ": "G",
-        "Ö": "O",
-        "ə": "e",
-        "ı": "i",
-        "ü": "u",
-        "ş": "s",
-        "ç": "c",
-        "ğ": "g",
-        "ö": "o",
-    }
-    for letter in text:
-        if letter.isalpha():
-            text = text.replace(letter, translit_dict[letter])
-    return text
-
-
 class Provider(PersonProvider):
     formats_female = (
         "{{first_name_female}} {{last_name_female}}",
