@@ -363,7 +363,6 @@ class TestItIt:
             (102, "121"),
             (103, "888"),
             (104, "999"),
-
         ),
     )
     def test_company_vat_special_cases(self, faker, value, expected):

@@ -28,10 +28,10 @@ class TestAzAz:
     @classmethod
     def setup_class(cls):
         cls.cellphone_patterns = re.compile(
-            r'\+994\d{9}|0\d{2}-\d{3}-\d{2}-\d{2}|0\d{2} \d{3} \d{2} \d{2}',
+            r"\+994\d{9}|0\d{2}-\d{3}-\d{2}-\d{2}|0\d{2} \d{3} \d{2} \d{2}",
         )
         cls.landline_patterns = re.compile(
-            r'0\d{2} \d{3} \d{2} \d{2}',
+            r"0\d{2} \d{3} \d{2} \d{2}",
         )
 
     def test_phone_number(self, faker, num_samples):
@@ -152,7 +152,7 @@ class TestEnPh:
         cls.smart_mobile_number_prefixes = EnPhPhoneNumberProvider.smart_mobile_number_prefixes
         cls.sun_mobile_number_prefixes = EnPhPhoneNumberProvider.sun_mobile_number_prefixes
         cls.mobile_number_prefixes = (
-                cls.globe_mobile_number_prefixes + cls.smart_mobile_number_prefixes + cls.sun_mobile_number_prefixes
+            cls.globe_mobile_number_prefixes + cls.smart_mobile_number_prefixes + cls.sun_mobile_number_prefixes
         )
         cls.bayantel_landline_identifiers = EnPhPhoneNumberProvider.bayantel_landline_identifiers
         cls.misc_landline_identifiers = EnPhPhoneNumberProvider.misc_landline_identifiers

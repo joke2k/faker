@@ -791,7 +791,7 @@ class TestAzAz(unittest.TestCase):
     """Test az_AZ date_time provider methods"""
 
     def setUp(self):
-        self.fake = Faker('az_AZ')
+        self.fake = Faker("az_AZ")
         Faker.seed(0)
 
     def test_day(self):

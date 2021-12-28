@@ -2,8 +2,8 @@ import re
 
 import pytest
 
-from faker.providers.lorem.cs_CZ import Provider as CsCzLoremProvider
 from faker.providers.lorem.az_AZ import Provider as AzAzLoremProvider
+from faker.providers.lorem.cs_CZ import Provider as CsCzLoremProvider
 
 
 class TestLoremProvider:

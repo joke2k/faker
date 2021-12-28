@@ -89,10 +89,10 @@ class TestAr(unittest.TestCase):
 
 
 class TestAzAz(unittest.TestCase):
-    """ Tests for az_AZ locale person provider """
+    """Tests for az_AZ locale person provider"""
 
     def setUp(self):
-        self.fake = Faker('az')
+        self.fake = Faker("az")
         Faker.seed(0)
 
     def test_first_name(self):

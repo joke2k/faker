@@ -77,11 +77,13 @@ class TestCurrencyProvider:
 
 class TestAzAz:
     """Test az_AZ currency provider"""
+
     num_samples = 100
 
     @classmethod
     def setup_class(cls):
         from faker.providers.currency.az_AZ import Provider as AzAzCurrencyProvider
+
         cls.provider = AzAzCurrencyProvider
         cls.currencies = cls.provider.currencies
 

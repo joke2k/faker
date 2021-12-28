@@ -683,13 +683,13 @@ class TestAzAz:
     """Test az_AZ internet provider methods"""
 
     @patch(
-        'faker.providers.internet.Provider.user_name',
-        lambda x: 'AğamüşviqƏlövsətov',
+        "faker.providers.internet.Provider.user_name",
+        lambda x: "AğamüşviqƏlövsətov",
     )
     def test_ascii_free_email(self, faker):
         email = faker.ascii_free_email()
         validate_email(email)
-        assert email.split('@')[0] == 'agamushviqelovsetov'
+        assert email.split("@")[0] == "agamushviqelovsetov"
 
     def test_free_email_domain(self, faker):
         domain = faker.free_email_domain()
