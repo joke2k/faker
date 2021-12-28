@@ -38,6 +38,6 @@ class Provider(PhoneNumberProvider):
         pattern = self.random_element(self.telephone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def phone_number(self):
+    def phone_number(self) -> str:
         pattern = self.random_element(self.formats)
         return self.numerify(self.generator.parse(pattern))
