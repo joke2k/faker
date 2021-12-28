@@ -24,7 +24,7 @@ class Provider(PhoneNumberProvider):
     def start_digit(self) -> str:
         return self.random_element(self.start_digits)
 
-    def provider_code(self):
+    def provider_code(self) -> str:
         return self.random_element(self.provider_codes)
 
     def area_code(self):
