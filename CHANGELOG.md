@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v11.1.0 - 2021-12-28](https://github.com/joke2k/faker/compare/v11.0.0...v11.1.0)
+
+* Add providers for `az_AZ` locale. Thanks @sevdimali.
+
 ### [v11.0.0 - 2021-12-27](https://github.com/joke2k/faker/compare/v10.0.0...v11.0.0)
 
 * Replace `lorempixel.com` service with `picsum.photos` in `image_url` provider.
