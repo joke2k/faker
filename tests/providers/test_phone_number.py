@@ -22,6 +22,37 @@ class TestPhoneNumber:
             assert msisdn.isdigit()
 
 
+class TestAzAz:
+    """Test az_AZ phone number provider methods"""
+
+    @classmethod
+    def setup_class(cls):
+        cls.cellphone_patterns = re.compile(
+            r"\+994\d{9}|0\d{2}-\d{3}-\d{2}-\d{2}|0\d{2} \d{3} \d{2} \d{2}",
+        )
+        cls.landline_patterns = re.compile(
+            r"0\d{2} \d{3} \d{2} \d{2}",
+        )
+
+    def test_phone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert self.cellphone_patterns.fullmatch(phone_number) or self.landline_patterns.fullmatch(phone_number)
+
+    def test_cellphone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            cellphone_number = faker.cellphone_number()
+            assert isinstance(cellphone_number, str)
+            assert self.cellphone_patterns.fullmatch(cellphone_number)
+
+    def test_landline_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            landline_number = faker.landline_number()
+            assert isinstance(landline_number, str)
+            assert self.landline_patterns.fullmatch(landline_number)
+
+
 class TestJaJp:
     """Test ja_JP phone number provider methods"""
 

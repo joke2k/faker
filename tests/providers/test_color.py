@@ -7,6 +7,7 @@ from typing import Pattern
 import pytest
 
 from faker.providers.color import RandomColor
+from faker.providers.color.az_AZ import Provider as AzAzColorProvider
 from faker.providers.color.bg_BG import Provider as BgBgColorProvider
 from faker.providers.color.el_GR import Provider as ElGrColorProvider
 from faker.providers.color.es_ES import Provider as EsEsColorProvider
@@ -235,6 +236,16 @@ class TestRandomColor:
         self.random_color.colormap = colormap
         with pytest.raises(ValueError):
             self.random_color.generate(hue=62)
+
+
+class TestAzAz:
+    """Test az_AZ color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in AzAzColorProvider.all_colors.keys()
 
 
 class TestHyAm:

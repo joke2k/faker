@@ -6,6 +6,7 @@ from unittest import mock
 
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
+from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
@@ -85,6 +86,66 @@ class TestAr(unittest.TestCase):
         self.assertIsInstance(name, str)
         assert name in ArProvider.last_names
         assert name in ArProvider.last_names
+
+
+class TestAzAz(unittest.TestCase):
+    """Tests for az_AZ locale person provider"""
+
+    def setUp(self):
+        self.fake = Faker("az")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.first_names
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.first_names
+        assert name in AzAzProvider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.first_names
+        assert name in AzAzProvider.first_names_male
+
+    def test_last_name(self):
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.last_names
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.last_names_female + AzAzProvider.last_names_unisex
+
+        # Females only last name.
+        name = self.fake.last_name_unique_to_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.last_names_female
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.last_names_male + AzAzProvider.last_names_unisex
+
+        # Male only last name.
+        name = self.fake.last_name_unique_to_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in AzAzProvider.last_names_male
 
 
 class TestJaJP(unittest.TestCase):

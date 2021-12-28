@@ -3,6 +3,7 @@ import re
 import pytest
 
 from faker.providers.bank import Provider as BankProvider
+from faker.providers.bank.az_AZ import Provider as AzAzBankProvider
 from faker.providers.bank.de_CH import Provider as DeChBankProvider
 from faker.providers.bank.el_GR import Provider as ElGrBankProvider
 from faker.providers.bank.en_GB import Provider as EnGbBankProvider
@@ -30,6 +31,21 @@ def is_valid_aba(aba):
     if chkdgt % 10 == 0:
         return True
     return False
+
+
+class TestAzAz:
+    """Test az_AZ bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"[A-Z]{4}\d{20}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == AzAzBankProvider.country_code
+            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{20}", iban[2:])
 
 
 class TestNoNo:

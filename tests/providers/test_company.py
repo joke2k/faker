@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
+from faker.providers.company.az_AZ import Provider as AzAzCompanyProvider
 from faker.providers.company.el_GR import Provider as ElGrCompanyProvider
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
@@ -22,6 +23,22 @@ from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
+
+
+class TestAzAz:
+    """Test az_AZ company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in AzAzCompanyProvider.company_suffixes
+
+    def test_large_companies(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.large_company()
+            assert isinstance(company, str)
+            assert company in AzAzCompanyProvider.large_companies
 
 
 class TestFiFi:

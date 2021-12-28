@@ -18,6 +18,7 @@ from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
+from faker.providers.date_time.az_AZ import Provider as AzAzProvider
 from faker.providers.date_time.bn_BD import Provider as BnBdProvider
 from faker.providers.date_time.cs_CZ import Provider as CsCzProvider
 from faker.providers.date_time.de_AT import Provider as DeAtProvider
@@ -784,6 +785,22 @@ class TestRuRu(unittest.TestCase):
             timezone = self.fake.timezone()
             assert isinstance(timezone, str)
             assert re.match(r"[А-Яа-я]", timezone)
+
+
+class TestAzAz(unittest.TestCase):
+    """Test az_AZ date_time provider methods"""
+
+    def setUp(self):
+        self.fake = Faker("az_AZ")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in AzAzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in AzAzProvider.MONTH_NAMES.values()
 
 
 class TestCsCz(unittest.TestCase):
