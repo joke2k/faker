@@ -27,7 +27,7 @@ class Provider(PhoneNumberProvider):
     def provider_code(self) -> str:
         return self.random_element(self.provider_codes)
 
-    def area_code(self):
+    def area_code(self) -> str:
         return self.random_element(self.area_codes)
 
     def cellphone_number(self):
