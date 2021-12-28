@@ -355,7 +355,6 @@ class TestItIt:
             company_vat = faker.company_vat()
             assert self.vat_regex.match(company_vat)
 
-
     @pytest.mark.parametrize(
         "value, expected",
         (
