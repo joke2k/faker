@@ -30,7 +30,7 @@ class Provider(PhoneNumberProvider):
     def area_code(self) -> str:
         return self.random_element(self.area_codes)
 
-    def cellphone_number(self):
+    def cellphone_number(self) -> str:
         pattern = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
