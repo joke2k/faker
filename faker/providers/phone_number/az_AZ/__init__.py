@@ -34,7 +34,7 @@ class Provider(PhoneNumberProvider):
         pattern = self.random_element(self.cellphone_formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def landline_number(self):
+    def landline_number(self) -> str:
         pattern = self.random_element(self.telephone_formats)
         return self.numerify(self.generator.parse(pattern))
 
