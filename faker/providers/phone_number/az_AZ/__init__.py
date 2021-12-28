@@ -21,7 +21,7 @@ class Provider(PhoneNumberProvider):
 
     formats = cellphone_formats + telephone_formats
 
-    def start_digit(self):
+    def start_digit(self) -> str:
         return self.random_element(self.start_digits)
 
     def provider_code(self):
