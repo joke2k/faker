@@ -802,7 +802,6 @@ class Provider(PersonProvider):
         "Kərimli",
         "Abbaszadə",
         "Məhərrəmzadə",
-        "Tapdıqoğlu",
         "Məmmədquluzadə",
         "Nəbibəyli",
         "Məmmədxanlı",

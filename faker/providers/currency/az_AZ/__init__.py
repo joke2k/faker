@@ -48,7 +48,6 @@ class Provider(CurrencyProvider):
         ("FJD", "Fici dolları"),
         ("PHP", "Filippin pesosu"),
         ("FKP", "Folklend adaları funtu"),
-        ("(yoxdur)", "Gernsi funtu"),
         ("GGP", "Gernsi funtu"),
         ("GEL", "Gürcüstan larisi"),
         ("HTG", "Haiti qurdu"),
