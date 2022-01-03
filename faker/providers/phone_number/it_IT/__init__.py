@@ -3,9 +3,8 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     formats = (
-        "+39 {{area_code}}#####",
-        "+39 {{area_code}}######",
-        "+39 {{area_code}}#######",
+        "+39 {{area_code}}#####!!",
+        "{{area_code}}#####!!",
     )
 
     area_codes = (
