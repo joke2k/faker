@@ -1244,13 +1244,13 @@ class Provider(AddressProvider):
 
     def department_code(self) -> str:
         """
-        :example "11"
+        :example: "11"
         """
         return self.random_element(self.departments.keys())
 
     def department(self) -> str:
         """
-        :example "Bogotá, D.C."
+        :example: "Bogotá, D.C."
         """
         return self.random_element(list(self.departments.values()))
 
@@ -1258,13 +1258,13 @@ class Provider(AddressProvider):
 
     def municipality_code(self) -> str:
         """
-        :example "11001"
+        :example: "11001"
         """
         return self.random_element(self.municipalities)[0]  # type: ignore
 
     def municipality(self) -> str:
         """
-        :example "Bogotá, D.C."
+        :example: "Bogotá, D.C."
         """
         return self.random_element(self.municipalities)[1]  # type: ignore
 
@@ -1272,50 +1272,50 @@ class Provider(AddressProvider):
 
     def street_prefix(self) -> str:
         """
-        :example "Calle"
+        :example: "Calle"
         """
         return self.random_element(self.street_prefixes)
 
     def street_suffix(self) -> str:
         """
-        :example "Sur"
+        :example: "Sur"
         """
         return self.generator.parse(self.random_element(self.street_suffixes))
 
     def street_name(self) -> str:
         """
-        :example "Calle 1"
+        :example: "Calle 1"
         """
         pattern: str = self.random_element(self.street_name_formats)
         return self.numerify(self.generator.parse(pattern))
 
     def building_number(self) -> str:
         """
-        :example "2-3"
+        :example: "2-3"
         """
         return self.numerify(self.generator.parse(self.random_element(self.building_number_formats)))
 
     def secondary_address(self) -> str:
         """
-        :example "Apartamento 123"
+        :example: "Apartamento 123"
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
     def street_address(self) -> str:
         """
-        :example "Calle 1 # 2-3"
+        :example: "Calle 1 # 2-3"
         """
         return self.street_name() + " # " + self.building_number() + self.random_element(("", " Sur", " Este"))
 
     def postcode(self) -> str:
         """
-        :example "11001"
+        :example: "11001"
         """
         return self.numerify(self.generator.parse(self.random_element(self.postcode_formats)))
 
     def address(self) -> str:
         """
-        :example "Calle 1 # 2-3\n11001\nBogotá D.C."
+        :example: "Calle 1 # 2-3\n11001\nBogotá D.C."
         """
         municipality: Tuple[str, str] = self.random_element(self.municipalities)
         municipality_code = municipality[0]

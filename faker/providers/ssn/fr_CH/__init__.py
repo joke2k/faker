@@ -9,8 +9,8 @@ class Provider(SsnProvider):
     def ssn(self) -> str:
         """
         Returns a 13 digits Swiss SSN named AHV (German) or
-                                            AVS (French and Italian)
-        See: http://www.bsv.admin.ch/themen/ahv/00011/02185/
+            AVS (French and Italian)
+            See: http://www.bsv.admin.ch/themen/ahv/00011/02185/
         """
 
         def _checksum(digits):

@@ -25,11 +25,11 @@ Here's a list of Providers written by the community:
 | Vehicle       | Fake vehicle information | `faker_vehicle`_                 |
 |               | includes Year Make Model |                                  |
 +---------------+--------------------------+----------------------------------+
-| WebProvider   | Web-related data such as | `faker_web`_                     +
-|               | mime-type and web server |                                  +
-|               | versions.                |                                  +
+| WebProvider   | Web-related data such as | `faker_web`_                     |
+|               | mime-type and web server |                                  |
+|               | versions.                |                                  |
 +---------------+--------------------------+----------------------------------+
-| Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.       | `faker_wifi_essid`_              +
+| Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.       | `faker_wifi_essid`_              |
 +---------------+--------------------------+----------------------------------+
 | Optional      | Wrap over other          | `faker_optional`_                |
 |               | providers to return      |                                  |
@@ -38,7 +38,7 @@ Here's a list of Providers written by the community:
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
-In order to be inlcuded, your provider must satisfy these requirement:
+In order to be included, your provider must satisfy these requirement:
 
 * it must have tests.
 * it must be published on PyPI.
