@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import os
-
 from pathlib import Path
 
 from setuptools import find_packages, setup
@@ -11,8 +9,6 @@ README = (here / "README.rst").read_text(encoding="utf-8")
 VERSION = (here / "VERSION").read_text(encoding="utf-8").strip()
 
 excluded_packages = ["docs", "tests", "tests.*"]
-if not os.environ.get("READTHEDOCS", False):
-    excluded_packages += ["faker.sphinx", "faker.sphinx.*"]
 
 
 # this module can be zip-safe if the zipimporter implements iter_modules or if
