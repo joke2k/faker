@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v11.3.0 - 2022-01-05](https://github.com/joke2k/faker/compare/v11.2.0...v11.3.0)
+
+* Add banks for `fa-ir`. Thanks @arminshoughi.
+
 ### [v11.2.0 - 2022-01-05](https://github.com/joke2k/faker/compare/v11.1.0...v11.2.0)
 
 * Improve phone numbers for `it_IT`. Thanks @FrancYescO.
