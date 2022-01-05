@@ -18,20 +18,8 @@ class Provider(BankProvider):
         "KIBO",
         "KHMI",
     )
-    swift_location_codes = (
-        "TH",
-    )
-    swift_branch_codes = (
-        'BSH',
-        'BCQ',
-        'tIR',
-        'tTH',
-        'ATM',
-        'BIC',
-        'TIR',
-        'ASR',
-        'FOR'
-    )
+    swift_location_codes = ("TH",)
+    swift_branch_codes = ("BSH", "BCQ", "tIR", "tTH", "ATM", "BIC", "TIR", "ASR", "FOR")
 
     banks = (
         "بانکهای قرض الحسنه",
