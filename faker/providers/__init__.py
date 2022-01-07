@@ -287,10 +287,8 @@ class BaseProvider:
         self.generator = generator
 
     def locale(self) -> str:
-        """Generate a random underscored i18n locale code (e.g. en_US).
+        """Generate a random underscored i18n locale code (e.g. en_US)."""
 
-        :sample:
-        """
         language_code = self.language_code()
         return (
             language_code
@@ -301,10 +299,8 @@ class BaseProvider:
         )
 
     def language_code(self) -> str:
-        """Generate a random i18n language code (e.g. en).
+        """Generate a random i18n language code (e.g. en)."""
 
-        :sample:
-        """
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
     def random_int(self, min: int = 0, max: int = 9999, step: int = 1) -> int:
@@ -314,24 +310,19 @@ class BaseProvider:
         This method is functionally equivalent to randomly sampling an integer
         from the sequence ``range(min, max + 1, step)``.
 
-        :sample:
-        :sample size=10: min=0, max=15
-        :sample size=10: min=0, max=15, step=3
+        :sample: min=0, max=15
+        :sample: min=0, max=15, step=3
         """
         return self.generator.random.randrange(min, max + 1, step)
 
     def random_digit(self) -> int:
-        """Generate a random digit (0 to 9).
+        """Generate a random digit (0 to 9)."""
 
-        :sample:
-        """
         return self.generator.random.randint(0, 9)
 
     def random_digit_not_null(self) -> int:
-        """Generate a random non-zero digit (1 to 9).
+        """Generate a random non-zero digit (1 to 9)."""
 
-        :sample:
-        """
         return self.generator.random.randint(1, 9)
 
     def random_digit_or_empty(self) -> Union[int, str]:
@@ -339,9 +330,8 @@ class BaseProvider:
 
         This method will return an empty string 50% of the time,
         and each digit has a 1/20 chance of being generated.
-
-        :sample size=10:
         """
+
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(0, 9)
         else:
@@ -352,9 +342,8 @@ class BaseProvider:
 
         This method will return an empty string 50% of the time,
         and each digit has a 1/18 chance of being generated.
-
-        :sample size=10:
         """
+
         if self.generator.random.randint(0, 1):
             return self.generator.random.randint(1, 9)
         else:
@@ -389,16 +378,13 @@ class BaseProvider:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
     def random_letter(self) -> str:
-        """Generate a random ASCII letter (a-z and A-Z).
+        """Generate a random ASCII letter (a-z and A-Z)."""
 
-        :sample:
-        """
         return self.generator.random.choice(getattr(string, "letters", string.ascii_letters))
 
     def random_letters(self, length: int = 16) -> Sequence[str]:
         """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
 
-        :sample:
         :sample: length=10
         """
         return self.random_choices(
@@ -407,17 +393,13 @@ class BaseProvider:
         )
 
     def random_lowercase_letter(self) -> str:
-        """Generate a random lowercase ASCII letter (a-z).
+        """Generate a random lowercase ASCII letter (a-z)."""
 
-        :sample:
-        """
         return self.generator.random.choice(string.ascii_lowercase)
 
     def random_uppercase_letter(self) -> str:
-        """Generate a random uppercase ASCII letter (A-Z).
-
-        :sample:
-        """
+        """Generate a random uppercase ASCII letter (A-Z)."""
+        
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(
