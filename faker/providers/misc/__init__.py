@@ -23,17 +23,15 @@ class Provider(BaseProvider):
     def boolean(self, chance_of_getting_true: int = 50) -> bool:
         """Generate a random boolean value based on ``chance_of_getting_true``.
 
-        :sample size=10: chance_of_getting_true=25
-        :sample size=10: chance_of_getting_true=50
-        :sample size=10: chance_of_getting_true=75
+        :sample: chance_of_getting_true=25
+        :sample: chance_of_getting_true=50
+        :sample: chance_of_getting_true=75
         """
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
     def null_boolean(self) -> Optional[bool]:
-        """Generate ``None``, ``True``, or ``False``, each with equal probability.
+        """Generate ``None``, ``True``, or ``False``, each with equal probability."""
 
-        :sample size=15:
-        """
         return {
             0: None,
             1: True,
@@ -319,8 +317,8 @@ class Provider(BaseProvider):
         The arguments ``hue`` and ``luminosity`` are the same as in the color provider and are simply forwarded to
         it to generate both the background and the shape colors. Therefore, you can ask for a "dark blue" image, etc.
 
-        :sample size=2: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
-        :sample size=2: size=(16, 16), hue=[90,270], image_format='ico'
+        :sample: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
+        :sample: size=(16, 16), hue=[90,270], image_format='ico'
         """
         try:
             import PIL.Image
