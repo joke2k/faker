@@ -103,24 +103,24 @@ class Provider(CompanyProvider):
 
     def company_prefix(self) -> str:
         """
-        :example 'ห้างหุ้นส่วนจำกัด'
+        :example: 'ห้างหุ้นส่วนจำกัด'
         """
         return self.random_element(self.company_prefixes)
 
     def company_limited_prefix(self) -> str:
         """
-        :example 'บริษัท'
+        :example: 'บริษัท'
         """
         return self.random_element(self.company_limited_prefixes)
 
     def company_limited_suffix(self) -> str:
         """
-        :example 'จำกัด'
+        :example: 'จำกัด'
         """
         return self.random_element(self.company_limited_suffixes)
 
     def nonprofit_prefix(self) -> str:
         """
-        :example 'มูลนิธิ'
+        :example: 'มูลนิธิ'
         """
         return self.random_element(self.nonprofit_prefixes)

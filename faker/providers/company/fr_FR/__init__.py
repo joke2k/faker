@@ -86,7 +86,7 @@ class Provider(CompanyProvider):
 
     def catch_phrase(self) -> str:
         """
-        :example 'integrate extensible convergence'
+        :example: 'integrate extensible convergence'
         """
         catch_phrase = ""
         while True:
@@ -131,7 +131,7 @@ class Provider(CompanyProvider):
         It is in fact the result of the concatenation of a siren number (9 digits),
         a sequential number (4 digits) and a control number (1 digit) concatenation.
         If $max_sequential_digits is invalid, it is set to 2.
-        :param max_sequential_digits The maximum number of digits for the sequential number (> 0 && <= 4).
+        :param max_sequential_digits: The maximum number of digits for the sequential number (> 0 && <= 4).
         """
         if max_sequential_digits > 4 or max_sequential_digits <= 0:
             max_sequential_digits = 2
