@@ -634,19 +634,19 @@ class Provider(PersonProvider):
 
     def romanized_name(self) -> str:
         """
-        @example 'Chao Bai'
+        :example: 'Chao Bai'
         """
         pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
     def first_romanized_name(self) -> str:
         """
-        @example 'Chao'
+        :example: 'Chao'
         """
         return self.random_element(self.first_romanized_names)
 
     def last_romanized_name(self) -> str:
         """
-        @example 'Chao'
+        :example: 'Chao'
         """
         return self.random_element(self.last_romanized_names)
