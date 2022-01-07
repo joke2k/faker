@@ -229,7 +229,7 @@ class Provider(BaseProvider):
         and ``category`` will be ignored. The actual name part itself is
         generated using |word|.
 
-        :sample size=10:
+        :sample: size=10
         :sample: category='audio'
         :sample: extension='abcdef'
         :sample: category='audio', extension='abcdef'
@@ -265,7 +265,7 @@ class Provider(BaseProvider):
         itself, and ``depth`` controls the depth of the directory path, and
         |word| is used under the hood to generate the different directory names.
 
-        :sample size=10:
+        :sample: size=10
         :sample: depth=3
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
