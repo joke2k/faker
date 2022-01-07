@@ -407,13 +407,13 @@ class Provider(AddressProvider):
 
     def street_prefix(self) -> str:
         """
-        :example 'Strada'
+        :example: 'Strada'
         """
         return self.random_element(self.street_prefixes)
 
     def secondary_address(self) -> str:
         """
-        :example 'Bl. 123 Sc. 2 Ap. 15'
+        :example: 'Bl. 123 Sc. 2 Ap. 15'
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
@@ -425,7 +425,7 @@ class Provider(AddressProvider):
 
     def administrative_unit(self) -> str:
         """
-        example: u'Timiș'
+        :example: u'Timiș'
         """
         return self.random_element(self.states)[1]  # type: ignore
 
@@ -433,6 +433,6 @@ class Provider(AddressProvider):
 
     def state_abbr(self) -> str:
         """
-        example: u'TM'
+        :example: u'TM'
         """
         return self.random_element(self.states)[0]  # type: ignore

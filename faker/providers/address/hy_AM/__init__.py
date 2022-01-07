@@ -603,25 +603,25 @@ class Provider(AddressProvider):
 
     def city(self) -> str:
         """
-        :example 'Բյուրեղավան'
+        :example: 'Բյուրեղավան'
         """
         return self.random_element(self.cities)
 
     def city_prefix(self) -> str:
         """
-        :example 'ք.'
+        :example: 'ք.'
         """
         return self.random_element(self.city_prefixes)
 
     def postcode(self) -> str:
         """
-        :example '3159'
+        :example: '3159'
         """
         return "%04d" % self.generator.random.randint(200, 4299)
 
     def postcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         """
-        :example '4703'
+        :example: '4703'
         """
         if state_abbr is None:
             state_abbr = self.random_element(self.states_abbr)
@@ -644,13 +644,13 @@ class Provider(AddressProvider):
 
     def secondary_address(self) -> str:
         """
-        :example 'բն. 49'
+        :example: 'բն. 49'
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
     def administrative_unit(self) -> str:
         """
-        :example 'Կոտայք'
+        :example: 'Կոտայք'
         """
         return self.random_element(self.states)
 
@@ -658,30 +658,30 @@ class Provider(AddressProvider):
 
     def state_abbr(self) -> str:
         """
-        :example 'ՎՁ'
+        :example: 'ՎՁ'
         """
         return self.random_element(self.states_abbr)
 
     def street(self) -> str:
         """
-        :example 'Ոսկերիչների'
+        :example: 'Ոսկերիչների'
         """
         return self.random_element(self.streets)
 
     def street_prefix(self) -> str:
         """
-        :example 'փողոց'
+        :example: 'փողոց'
         """
         return self.random_element(self.street_prefixes)
 
     def village(self) -> str:
         """
-        :example 'Ոսկեվազ'
+        :example: 'Ոսկեվազ'
         """
         return self.random_element(self.villages)
 
     def village_prefix(self) -> str:
         """
-        :example 'գ.'
+        :example: 'գ.'
         """
         return self.random_element(self.village_prefixes)
