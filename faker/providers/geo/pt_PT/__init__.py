@@ -123,6 +123,6 @@ class Provider(GeoProvider):
 
     def nationality(self) -> str:
         """
-        :example 'Portuguesa'
+        :example: 'Portuguesa'
         """
         return self.random_element(self.nationalities)
