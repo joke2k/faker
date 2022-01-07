@@ -54,9 +54,7 @@ class Provider(BaseProvider):
     def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20) -> str:
         """
         Generates a random string of upper and lowercase letters.
-        :type min_chars: int
-        :type max_chars: int
-        :return: String. Random of random length between min and max characters.
+        :return: Random of random length between min and max characters.
         """
         if min_chars is None:
             return "".join(self.random_letters(length=max_chars))
