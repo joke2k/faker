@@ -69,6 +69,18 @@ class TestNoNo:
             assert re.fullmatch(r"\d{2}\d{11}", iban[2:])
 
 
+class TestFaIr:
+    """Test fa_IR bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"IR\d{24}", faker.bban())
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.match(r"\D{7,25}", faker.bank())
+
+
 class TestFiFi:
     """Test fi_FI bank provider"""
 

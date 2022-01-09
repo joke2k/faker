@@ -27,9 +27,9 @@ class Provider(BaseProvider):
       every 8 digit landline number.
 
     Sources:
-    - https://en.wikipedia.org/wiki/Telephone_numbers_in_the_Philippines
-    - https://www.prefix.ph/prefixes/2019-updated-complete-list-of-philippine-mobile-network-prefixes/
-    - https://powerpinoys.com/network-prefixes-philippines/
+        - https://en.wikipedia.org/wiki/Telephone_numbers_in_the_Philippines
+        - https://www.prefix.ph/prefixes/2019-updated-complete-list-of-philippine-mobile-network-prefixes/
+        - https://powerpinoys.com/network-prefixes-philippines/
     """
 
     globe_mobile_number_prefixes: Tuple[str, ...] = (

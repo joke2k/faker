@@ -1808,7 +1808,7 @@ class Provider(BaseProvider):
         """
         Get a timestamp between January 1, 1970 and now, unless passed
         explicit start_datetime or end_datetime values.
-        :example 1061306726
+        :example: 1061306726
         """
         start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
@@ -1833,8 +1833,8 @@ class Provider(BaseProvider):
         """
         Get a datetime object for a date between January 1, 1970 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2005-08-16 20:39:21')
-        :return datetime
+        :example: datetime('2005-08-16 20:39:21')
+        :return: datetime
         """
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue:
@@ -1850,8 +1850,8 @@ class Provider(BaseProvider):
         """
         Get a datetime object for a date between January 1, 001 and now
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1265-03-22 21:15:52')
-        :return datetime
+        :example: datetime('1265-03-22 21:15:52')
+        :return: datetime
         """
 
         # 1970-01-01 00:00:00 UTC minus 62135596800 seconds is
@@ -1880,37 +1880,37 @@ class Provider(BaseProvider):
     ) -> str:
         """
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example '2003-10-21T16:05:52+0000'
+        :example: '2003-10-21T16:05:52+0000'
         """
         return self.date_time(tzinfo, end_datetime=end_datetime).isoformat()
 
     def date(self, pattern: str = "%Y-%m-%d", end_datetime: Optional[DateParseType] = None) -> str:
         """
         Get a date string between January 1, 1970 and now
-        :param pattern format
-        :example '2008-11-27'
+        :param pattern: format
+        :example: '2008-11-27'
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
     def date_object(self, end_datetime: datetime = None) -> dtdate:
         """
         Get a date object between January 1, 1970 and now
-        :example datetime.date(2016, 9, 20)
+        :example: datetime.date(2016, 9, 20)
         """
         return self.date_time(end_datetime=end_datetime).date()
 
     def time(self, pattern: str = "%H:%M:%S", end_datetime: Optional[DateParseType] = None) -> str:
         """
         Get a time string (24h format by default)
-        :param pattern format
-        :example '15:02:34'
+        :param pattern: format
+        :example: '15:02:34'
         """
         return self.date_time(end_datetime=end_datetime).time().strftime(pattern)
 
     def time_object(self, end_datetime: Optional[DateParseType] = None) -> dttime:
         """
         Get a time object
-        :example datetime.time(15, 56, 56, 772876)
+        :example: datetime.time(15, 56, 56, 772876)
         """
         return self.date_time(end_datetime=end_datetime).time()
 
@@ -2007,11 +2007,11 @@ class Provider(BaseProvider):
         Get a datetime object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
-        :param start_date Defaults to 30 years ago
-        :param end_date Defaults to "now"
+        :param start_date: Defaults to 30 years ago
+        :param end_date: Defaults to "now"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example: datetime('1999-02-02 11:42:52')
+        :return: datetime
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
@@ -2029,10 +2029,10 @@ class Provider(BaseProvider):
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
-        :param start_date Defaults to 30 years ago
-        :param end_date Defaults to "today"
-        :example Date('1999-02-02')
-        :return Date
+        :param start_date: Defaults to 30 years ago
+        :param end_date: Defaults to "today"
+        :example: Date('1999-02-02')
+        :return: Date
         """
 
         start_date = self._parse_date(start_date)
@@ -2045,10 +2045,10 @@ class Provider(BaseProvider):
         and a given date.
         Accepts date strings that can be recognized by strtotime().
 
-        :param end_date Defaults to "+30d"
+        :param end_date: Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example: datetime('1999-02-02 11:42:52')
+        :return: datetime
         """
         return self.date_time_between(start_date="+1s", end_date=end_date, tzinfo=tzinfo)
 
@@ -2058,10 +2058,10 @@ class Provider(BaseProvider):
         given date.
         Accepts date strings that can be recognized by strtotime().
 
-        :param end_date Defaults to "+30d"
+        :param end_date: Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example dtdate('2030-01-01')
-        :return dtdate
+        :example: dtdate('2030-01-01')
+        :return: dtdate
         """
         return self.date_between(start_date="+1d", end_date=end_date)
 
@@ -2071,10 +2071,10 @@ class Provider(BaseProvider):
         second ago.
         Accepts date strings that can be recognized by strtotime().
 
-        :param start_date Defaults to "-30d"
+        :param start_date: Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example: datetime('1999-02-02 11:42:52')
+        :return: datetime
         """
         return self.date_time_between(start_date=start_date, end_date="-1s", tzinfo=tzinfo)
 
@@ -2084,10 +2084,10 @@ class Provider(BaseProvider):
         ago.
         Accepts date strings that can be recognized by strtotime().
 
-        :param start_date Defaults to "-30d"
+        :param start_date: Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example dtdate('1999-02-02')
-        :return dtdate
+        :example: dtdate('1999-02-02')
+        :return: dtdate
         """
         return self.date_between(start_date=start_date, end_date="-1d")
 
@@ -2105,8 +2105,8 @@ class Provider(BaseProvider):
         :param datetime_start: datetime
         :param datetime_end: datetime
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('1999-02-02 11:42:52')
-        :return datetime
+        :example: datetime('1999-02-02 11:42:52')
+        :return: datetime
         """
         datetime_start_ = (
             datetime_to_timestamp(datetime.now(tzinfo))
@@ -2145,7 +2145,7 @@ class Provider(BaseProvider):
 
         :param date_start: Date
         :param date_end: Date
-        :return Date
+        :return: Date
         """
         return self.date_time_between_dates(date_start, date_end).date()
 
@@ -2161,8 +2161,8 @@ class Provider(BaseProvider):
         :param before_now: include days in current century before today
         :param after_now: include days in current century after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2012-04-04 11:02:02')
-        :return datetime
+        :example: datetime('2012-04-04 11:02:02')
+        :return: datetime
         """
         now = datetime.now(tzinfo)
         this_century_start = datetime(now.year - (now.year % 100), 1, 1, tzinfo=tzinfo)
@@ -2189,8 +2189,8 @@ class Provider(BaseProvider):
         :param before_now: include days in current decade before today
         :param after_now: include days in current decade after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2012-04-04 11:02:02')
-        :return datetime
+        :example: datetime('2012-04-04 11:02:02')
+        :return: datetime
         """
         now = datetime.now(tzinfo)
         this_decade_start = datetime(now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
@@ -2217,8 +2217,8 @@ class Provider(BaseProvider):
         :param before_now: include days in current year before today
         :param after_now: include days in current year after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2012-04-04 11:02:02')
-        :return datetime
+        :example: datetime('2012-04-04 11:02:02')
+        :return: datetime
         """
         now = datetime.now(tzinfo)
         this_year_start = now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -2245,8 +2245,8 @@ class Provider(BaseProvider):
         :param before_now: include days in current month before today
         :param after_now: include days in current month after today
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :example datetime('2012-04-04 11:02:02')
-        :return datetime
+        :example: datetime('2012-04-04 11:02:02')
+        :return: datetime
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -2267,8 +2267,8 @@ class Provider(BaseProvider):
 
         :param before_today: include days in current century before today
         :param after_today: include days in current century after today
-        :example Date('2012-04-04')
-        :return Date
+        :example: Date('2012-04-04')
+        :return: Date
         """
         today = dtdate.today()
         this_century_start = dtdate(today.year - (today.year % 100), 1, 1)
@@ -2289,8 +2289,8 @@ class Provider(BaseProvider):
 
         :param before_today: include days in current decade before today
         :param after_today: include days in current decade after today
-        :example Date('2012-04-04')
-        :return Date
+        :example: Date('2012-04-04')
+        :return: Date
         """
         today = dtdate.today()
         this_decade_start = dtdate(today.year - (today.year % 10), 1, 1)
@@ -2311,8 +2311,8 @@ class Provider(BaseProvider):
 
         :param before_today: include days in current year before today
         :param after_today: include days in current year after today
-        :example Date('2012-04-04')
-        :return Date
+        :example: Date('2012-04-04')
+        :return: Date
         """
         today = dtdate.today()
         this_year_start = today.replace(month=1, day=1)
@@ -2333,8 +2333,8 @@ class Provider(BaseProvider):
 
         :param before_today: include days in current month before today
         :param after_today: include days in current month after today
-        :example dtdate('2012-04-04')
-        :return dtdate
+        :example: dtdate('2012-04-04')
+        :return: dtdate
         """
         today = dtdate.today()
         this_month_start = today.replace(day=1)
@@ -2406,7 +2406,7 @@ class Provider(BaseProvider):
 
     def century(self) -> str:
         """
-        :example 'XVII'
+        :example: 'XVII'
         """
         return self.random_element(self.centuries)
 
@@ -2419,8 +2419,8 @@ class Provider(BaseProvider):
         and return as a python object usable as a `tzinfo` to `datetime`
         or other fakers.
 
-        :example faker.pytimezone()
-        :return dateutil.tz.tz.tzfile
+        :example: faker.pytimezone()
+        :return: dateutil.tz.tz.tzfile
         """
         return gettz(self.timezone(*args, **kwargs))  # type: ignore
 
@@ -2435,12 +2435,12 @@ class Provider(BaseProvider):
         constrained by optional miminimum_age and maximum_age
         parameters.
 
-        :param tzinfo Defaults to None.
-        :param minimum_age Defaults to 0.
-        :param maximum_age Defaults to 115.
+        :param tzinfo: Defaults to None.
+        :param minimum_age: Defaults to 0.
+        :param maximum_age: Defaults to 115.
 
-        :example Date('1979-02-02')
-        :return Date
+        :example: Date('1979-02-02')
+        :return: Date
         """
 
         if not isinstance(minimum_age, int):

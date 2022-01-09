@@ -320,10 +320,10 @@ class Provider(BaseProvider):
     def url(self, schemes: Optional[List[str]] = None) -> str:
         """
         :param schemes: a list of strings to use as schemes, one will chosen randomly.
-        If None, it will generate http and https urls.
-        Passing an empty list will result in schemeless url generation like "://domain.com".
+            If None, it will generate http and https urls.
+            Passing an empty list will result in schemeless url generation like "://domain.com".
+        :return: a random url string.
 
-        :returns: a random url string.
         """
         if schemes is None:
             schemes = ["http", "https"]
