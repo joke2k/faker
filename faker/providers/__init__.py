@@ -399,7 +399,7 @@ class BaseProvider:
 
     def random_uppercase_letter(self) -> str:
         """Generate a random uppercase ASCII letter (A-Z)."""
-        
+
         return self.generator.random.choice(string.ascii_uppercase)
 
     def random_elements(
