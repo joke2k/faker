@@ -517,6 +517,6 @@ class Provider(CompanyProvider):
 
     def company_prefix(self) -> str:
         """
-        :example 'Stichting'
+        :example: 'Stichting'
         """
         return self.random_element(self.company_prefixes)

@@ -162,138 +162,138 @@ class Provider(PersonProvider):
 
     def first_name_pair(self) -> Tuple[str, str, str]:
         """
-        @example ('明美', 'アケミ', 'Akemi')
+        :example: ('明美', 'アケミ', 'Akemi')
         """
         return self.random_element(self.first_name_pairs)
 
     def first_name_male_pair(self) -> Tuple[str, str, str]:
         """
-        @example ('晃', 'アキラ', 'Akira')
+        :example: ('晃', 'アキラ', 'Akira')
         """
         return self.random_element(self.first_name_male_pairs)
 
     def first_name_female_pair(self) -> Tuple[str, str, str]:
         """
-        @example ('明美', 'アケミ', 'Akemi')
+        :example: ('明美', 'アケミ', 'Akemi')
         """
         return self.random_element(self.first_name_female_pairs)
 
     def last_name_pair(self) -> Tuple[str, str, str]:
         """
-        @example ('佐藤', 'サトウ', 'Sato')
+        :example: ('佐藤', 'サトウ', 'Sato')
         """
         return self.random_element(self.last_name_pairs)
 
     def first_name(self) -> str:
         """
-        @example '明美'
+        :example: '明美'
         """
         return self.first_name_pair()[0]
 
     def first_name_male(self) -> str:
         """
-        @example '晃'
+        :example: '晃'
         """
         return self.first_name_male_pair()[0]
 
     def first_name_female(self) -> str:
         """
-        @example '明美'
+        :example: '明美'
         """
         return self.first_name_female_pair()[0]
 
     def last_name(self) -> str:
         """
-        @example '佐藤'
+        :example: '佐藤'
         """
         return self.last_name_pair()[0]
 
     def first_kana_name(self) -> str:
         """
-        @example 'アケミ'
+        :example: 'アケミ'
         """
         return self.first_name_pair()[1]
 
     def first_kana_name_male(self) -> str:
         """
-        @example 'アキラ'
+        :example: 'アキラ'
         """
         return self.first_name_male_pair()[1]
 
     def first_kana_name_female(self) -> str:
         """
-        @example 'アケミ'
+        :example: 'アケミ'
         """
         return self.first_name_female_pair()[1]
 
     def last_kana_name(self) -> str:
         """
-        @example 'サトウ'
+        :example: 'サトウ'
         """
         return self.last_name_pair()[1]
 
     def first_romanized_name(self) -> str:
         """
-        @example 'Akemi'
+        :example: 'Akemi'
         """
         return self.first_name_pair()[2]
 
     def first_romanized_name_male(self) -> str:
         """
-        @example 'Akira'
+        :example: 'Akira'
         """
         return self.first_name_male_pair()[2]
 
     def first_romanized_name_female(self) -> str:
         """
-        @example 'Akemi'
+        :example: 'Akemi'
         """
         return self.first_name_female_pair()[2]
 
     def last_romanized_name(self) -> str:
         """
-        @example 'Sato'
+        :example: 'Sato'
         """
         return self.last_name_pair()[2]
 
     def kana_name(self) -> str:
         """
-        @example 'サトウ アケミ'
+        :example: 'サトウ アケミ'
         """
         pattern: str = self.random_element(self.kana_formats)
         return self.generator.parse(pattern)
 
     def kana_name_male(self) -> str:
         """
-        @example 'サトウ アキラ'
+        :example: 'サトウ アキラ'
         """
         pattern: str = self.random_element(self.kana_formats_male)
         return self.generator.parse(pattern)
 
     def kana_name_female(self) -> str:
         """
-        @example 'サトウ アケミ'
+        :example: 'サトウ アケミ'
         """
         pattern: str = self.random_element(self.kana_formats_female)
         return self.generator.parse(pattern)
 
     def romanized_name(self) -> str:
         """
-        @example 'Akemi Sato'
+        :example: 'Akemi Sato'
         """
         pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
     def romanized_name_male(self) -> str:
         """
-        @example 'Akira Sato'
+        :example: 'Akira Sato'
         """
         pattern: str = self.random_element(self.romanized_formats_male)
         return self.generator.parse(pattern)
 
     def romanized_name_female(self) -> str:
         """
-        @example 'Akemi Sato'
+        :example: 'Akemi Sato'
         """
         pattern: str = self.random_element(self.romanized_formats_female)
         return self.generator.parse(pattern)
