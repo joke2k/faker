@@ -503,7 +503,7 @@ class Provider(AddressProvider):
 
     def address_detail(self) -> str:
         """
-        :exampl: 가나아파트 가동 102호
+        :example: 가나아파트 가동 102호
         """
         pattern: str = self.bothify(self.random_element(self.address_detail_formats))
         return self.generator.parse(pattern)
