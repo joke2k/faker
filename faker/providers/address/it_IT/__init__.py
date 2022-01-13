@@ -17624,10 +17624,10 @@ class Provider(AddressProvider):
 
     def postcode_city_province(self) -> str:
         cap = self.postcode()
-        rand_city_prov = self.random_element(self.cap_city_province[cap])  # type: List[str]
+        rand_city_prov: List[str] = self.random_element(self.cap_city_province[cap])
         return cap + ", " + rand_city_prov[0] + " (" + rand_city_prov[1] + ")"
 
-    def city(self):
+    def city(self) -> str:
         return self.random_element(self.cities)
 
     def city_prefix(self) -> str:
