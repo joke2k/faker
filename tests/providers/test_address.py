@@ -1109,7 +1109,7 @@ class TestItIt:
             postcode_city_province = faker.postcode_city_province()
             assert isinstance(postcode_city_province, str)
             match = re.fullmatch(
-                r"(?P<cap>\d{5}), (?P<city>[a-zA-Z]+) \((?P<province>[A-Z]{2})\)", postcode_city_province
+                r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)", postcode_city_province
             )
             assert match
             assert match.group("cap") in ItItAddressProvider.postcode_formats
