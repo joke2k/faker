@@ -1094,6 +1094,7 @@ class TestHyAm:
             assert isinstance(village_prefix, str)
             assert village_prefix in HyAmAddressProvider.village_prefixes
 
+
 class TestItIt:
     """Test it_IT address provider methods"""
 
@@ -1112,6 +1113,7 @@ class TestItIt:
             assert match.group("cap") in ItItAddressProvider.postcode_formats
             assert match.group("city") in ItItAddressProvider.cities
             assert match.group("province") in ItItAddressProvider.states_abbr
+
 
 class TestJaJp:
     """Test ja_JP address provider methods"""
