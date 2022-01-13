@@ -30,6 +30,7 @@ from faker.providers.address.he_IL import Provider as HeIlAddressProvider
 from faker.providers.address.hi_IN import Provider as HiInAddressProvider
 from faker.providers.address.hr_HR import Provider as HrHrAddressProvider
 from faker.providers.address.hy_AM import Provider as HyAmAddressProvider
+from faker.providers.address.it_IT import Provider as ItItAddressProvider
 from faker.providers.address.ja_JP import Provider as JaJpAddressProvider
 from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
@@ -1092,6 +1093,26 @@ class TestHyAm:
             village_prefix = faker.village_prefix()
             assert isinstance(village_prefix, str)
             assert village_prefix in HyAmAddressProvider.village_prefixes
+
+
+class TestItIt:
+    """Test it_IT address provider methods"""
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in ItItAddressProvider.cities
+
+    def test_postcode_city_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode_city_province = faker.postcode_city_province()
+            assert isinstance(postcode_city_province, str)
+            match = re.fullmatch(r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)", postcode_city_province)
+            assert match
+            assert match.group("cap") in ItItAddressProvider.postcode_formats
+            assert match.group("city") in ItItAddressProvider.cities
+            assert match.group("province") in ItItAddressProvider.states_abbr
 
 
 class TestJaJp:
