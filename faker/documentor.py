@@ -30,7 +30,7 @@ class Documentor:
         formatters = []
         providers: List[BaseProvider] = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
-            if locale and provider.__lang__ != locale:
+            if locale and provider.__lang__ and provider.__lang__ != locale:
                 continue
             formatters.append(
                 (provider, self.get_provider_formatters(provider, **kwargs)),
