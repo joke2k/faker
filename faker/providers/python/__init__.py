@@ -122,9 +122,9 @@ class Provider(BaseProvider):
             # Make sure left_digits still respected
             if left_digits is not None:
                 if max_value is None:
-                    max_value = 10 ** left_digits  # minus smallest representable, adjusted later
+                    max_value = 10**left_digits  # minus smallest representable, adjusted later
                 if min_value is None:
-                    min_value = -(10 ** left_digits)  # plus smallest representable, adjusted later
+                    min_value = -(10**left_digits)  # plus smallest representable, adjusted later
 
             if max_value is not None and max_value < 0:
                 max_value += 1  # as the random_int will be generated up to max_value - 1
@@ -147,11 +147,11 @@ class Provider(BaseProvider):
                 result += sys.float_info.epsilon
 
         if right_digits:
-            result = min(result, 10 ** left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
-            result = max(result, -(10 ** left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
+            result = min(result, 10**left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
+            result = max(result, -(10**left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
         else:
-            result = min(result, 10 ** left_digits - 1)
-            result = max(result, -(10 ** left_digits + 1))
+            result = min(result, 10**left_digits - 1)
+            result = max(result, -(10**left_digits + 1))
 
         return result
 

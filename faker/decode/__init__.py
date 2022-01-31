@@ -6,12 +6,8 @@ def unidecode(txt: str) -> str:
     for ch in txt:
         codepoint = ord(ch)
 
-        if not codepoint:
-            chars += "\x00"
-            continue
-
         try:
-            chars += codes[codepoint - 1]
+            chars += codes[codepoint]
         except IndexError:
             pass
     return chars

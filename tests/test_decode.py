@@ -29,3 +29,7 @@ def test_7bit_purity(code):
 def test_7bit_text_purity():
     txt = "".join([chr(x) for x in range(128)])
     assert unidecode(txt) == txt
+
+
+def test_out_of_bounds():
+    assert unidecode("𐀀") == ""
