@@ -154,7 +154,7 @@ class FactoryTestCase(unittest.TestCase):
         provider = Provider(self.generator)
 
         for _ in range(999):
-            length = random.randint(0, 2 ** 10)
+            length = random.randint(0, 2**10)
             binary = provider.binary(length)
 
             assert isinstance(binary, (bytes, bytearray))

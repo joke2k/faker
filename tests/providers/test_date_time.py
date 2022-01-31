@@ -39,7 +39,7 @@ from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 
 
 def is64bit():
-    return sys.maxsize > 2 ** 32
+    return sys.maxsize > 2**32
 
 
 class UTC(tzinfo):

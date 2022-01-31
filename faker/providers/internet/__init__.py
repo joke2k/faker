@@ -1,8 +1,7 @@
 from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
 from typing import Dict, List, Optional, Tuple
 
-from text_unidecode import unidecode
-
+from ...decode import unidecode
 from ...utils.decorators import lowercase, slugify, slugify_unicode
 from ...utils.distribution import choices_distribution
 from .. import BaseProvider, ElementsType
@@ -585,7 +584,7 @@ class Provider(BaseProvider):
 
     def ipv6(self, network: bool = False) -> str:
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        address = str(ip_address(self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)))
         if network:
             address += "/" + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(ip_network(address, strict=False))

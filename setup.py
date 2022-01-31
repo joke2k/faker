@@ -66,7 +66,6 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         "python-dateutil>=2.4",
-        "text-unidecode==1.3",
         "typing-extensions>=3.10.0.2;python_version<'3.8'",
     ],
 )
