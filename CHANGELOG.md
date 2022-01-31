@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v11.4.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.3.0...v11.4.0)
+
+* Add geonames db of Italian cap-city-province and full match when generating 
+  full addresses. Thanks @FrancYescO.
+
 ### [v11.3.0 - 2022-01-05](https://github.com/joke2k/faker/compare/v11.2.0...v11.3.0)
 
 * Add banks for `fa-ir`. Thanks @arminshoughi.
