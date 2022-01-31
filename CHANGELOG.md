@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.0.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.4.0...v12.0.0)
+
+* Remove dependency from [`text-unidecode`](https://github.com/kmike/text-unidecode/).
+
 ### [v11.4.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.3.0...v11.4.0)
 
 * Add geonames db of Italian cap-city-province and full match when generating 
