@@ -1,8 +1,7 @@
 from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
 from typing import Dict, List, Optional, Tuple
 
-from text_unidecode import unidecode
-
+from ...decode import unidecode
 from ...utils.decorators import lowercase, slugify, slugify_unicode
 from ...utils.distribution import choices_distribution
 from .. import BaseProvider, ElementsType
