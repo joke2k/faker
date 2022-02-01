@@ -25,6 +25,7 @@ from faker.providers.address.es_ES import Provider as EsEsAddressProvider
 from faker.providers.address.es_MX import Provider as EsMxAddressProvider
 from faker.providers.address.fa_IR import Provider as FaIrAddressProvider
 from faker.providers.address.fi_FI import Provider as FiFiAddressProvider
+from faker.providers.address.fr_CA import Provider as FrCaAddressProvider
 from faker.providers.address.fr_FR import Provider as FrFrAddressProvider
 from faker.providers.address.he_IL import Provider as HeIlAddressProvider
 from faker.providers.address.hi_IN import Provider as HiInAddressProvider
@@ -791,6 +792,62 @@ class TestFaIr:
             assert isinstance(state, str)
             assert state in FaIrAddressProvider.states
 
+
+class TestFrCa:
+    """Test en_CA address provider methods"""
+
+    valid_postcode_letter_re = r"[{}]".format("".join(FrCaAddressProvider.postal_code_letters))
+    valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(valid_postcode_letter_re)
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(self.valid_postcode_re, postcode)
+
+    def test_postcode_in_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            for province_abbr in FrCaAddressProvider.provinces_abbr:
+                code = faker.postcode_in_province(province_abbr)
+                assert code[0] in FrCaAddressProvider.provinces_postcode_prefixes[province_abbr]
+                with pytest.raises(Exception):
+                    faker.postcode_in_province("XX")
+
+    def test_postalcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postalcode = faker.postalcode()
+            assert isinstance(postalcode, str)
+            assert re.fullmatch(self.valid_postcode_re, postalcode)
+
+    def test_postal_code_letter(self, faker, num_samples):
+        for _ in range(num_samples):
+            postal_code_letter = faker.postal_code_letter()
+            assert isinstance(postal_code_letter, str)
+            assert re.fullmatch(self.valid_postcode_letter_re, postal_code_letter)
+
+    def test_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in FrCaAddressProvider.provinces
+
+    def test_province_abbr(self, faker, num_samples):
+        for _ in range(num_samples):
+            province_abbr = faker.province_abbr()
+            assert isinstance(province_abbr, str)
+            assert province_abbr in FrCaAddressProvider.provinces_abbr
+
+    def test_city_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_prefix = faker.city_prefix()
+            assert isinstance(city_prefix, str)
+            assert city_prefix in FrCaAddressProvider.city_prefixes
+
+    def test_secondary_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            secondary_address = faker.secondary_address()
+            assert isinstance(secondary_address, str)
+            assert secondary_address.isdigit()
 
 class TestFrFr:
     """Test fr_FR address provider methods"""

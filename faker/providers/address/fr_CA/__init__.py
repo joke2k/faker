@@ -1,25 +1,26 @@
 from typing import Tuple
 
-from .. en_CA import Provider as CanadianAddressProvider
-from .. fr_FR import Provider as FrenchAddressProvider
+from ..en_CA import Provider as CanadianAddressProvider
+from ..fr_FR import Provider as FrenchAddressProvider
+
 
 class Provider(CanadianAddressProvider):
 
-#TODO update suffixes to French Canadian
+
     city_suffixes = (
-        "Ville",
-        "Bourg",
         "-les-Bains",
         "-sur-Mer",
-        "-la-Forêt",
-        "boeuf",
-        "nec",
-        "dan",
+        "-sur-Richelieu"
+        "-joli",
+        "-du-lac",
+        "-des-lac",
+        "-des-lacs",
+        "-des-plaines",
+        "-des-monts",
+        "-du-mont",
     )
-#TODO update prefixes to French Canadian
     city_prefixes = ("Saint", "Sainte")
-#TODO check if these have to be capitalized
-    street_prefixes = ("rue", "rue", "chemin", "avenue", "boulevard")
+    street_prefixes = ("rue", "rue", "chemin", "avenue", "boulevard", "allee")
     city_formats = (
         "{{city_prefix}} {{first_name}}",
         "{{city_prefix}} {{first_name}}{{city_suffix}}",
@@ -37,7 +38,6 @@ class Provider(CanadianAddressProvider):
         "{{street_prefix}} {{first_name}} {{last_name}}",
         "{{street_prefix}} de {{last_name}}",
     )
-
 
     building_number_formats = ("%", "%#", "%#", "%#", "%##")
     postcode_formats = ("#####",)
@@ -281,13 +281,12 @@ class Provider(CanadianAddressProvider):
         "Zimbabwe",
     )
 
-#TODO Change the names to french version for Provinces
     provinces = (
         "Alberta",
         "British Columbia",
         "Manitoba",
         "New Brunswick",
-        "Terre-Neuve-et-Labrador", #Newfoundland and Labrador
+        "Newfoundland and Labrador",
         "Northwest Territories",
         "Nova Scotia",
         "Nunavut",
@@ -312,6 +311,12 @@ class Provider(CanadianAddressProvider):
         "SK",
         "YT",
     )
+    
+    street_address_formats = (
+    "{{building_number}} {{street_name}}",
+    "{{secondary_address}}-{{building_number}} {{street_name}}",
+    )
+    secondary_address_formats = ("###","##","#")
 
     provinces_postcode_prefixes = {
         "NL": ["A"],
