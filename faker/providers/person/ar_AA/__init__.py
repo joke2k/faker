@@ -169,7 +169,7 @@ class Provider(PersonProvider):
         "وفاء",
         "يارا",
         "ياسمين",
-        "يسرى"
+        "يسرى",
     )
 
     first_names_male: Tuple[str, ...] = (
@@ -775,7 +775,7 @@ class Provider(PersonProvider):
         "يقين",
         "يمام",
         "يوسف",
-        "يونس"
+        "يونس",
     )
 
     first_names = first_names_male + first_names_female
@@ -1075,7 +1075,7 @@ class Provider(PersonProvider):
         "هوازن",
         "وهبة",
         "يافع",
-        "يشكر"
+        "يشكر",
     )
 
     prefixes_female: Tuple[str, ...] = (

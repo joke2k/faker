@@ -697,5 +697,5 @@ class Provider(LoremProvider):
         "يونيو",
         "٠٨٠٤",
         "٢٠٠٤",
-        "٣٠"
+        "٣٠",
     )

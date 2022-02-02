@@ -44,5 +44,5 @@ class Provider(ArabicPersonProvider):
         "مرمش",
         "مهيار",
         "نسيبة",
-        "هاشم"
+        "هاشم",
     )

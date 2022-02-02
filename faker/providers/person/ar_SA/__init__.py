@@ -46,5 +46,5 @@ class Provider(ArabicPersonProvider):
         "شربتلي",
         "فصيل",
         "كانو",
-        "مهنا"
+        "مهنا",
     )
