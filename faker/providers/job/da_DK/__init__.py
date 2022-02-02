@@ -3,7 +3,7 @@ from .. import Provider as BaseProvider
 
 class Provider(BaseProvider):
     """
-    Source: https://star.dk/it/saadan-arbejder-vi-med-it-i-styrelsen/oversigt-over-stillingsbetegnelser-og-kvalifikationer/
+    Source: https://star.dk/it/saadan-arbejder-vi-med-it-i-styrelsen/oversigt-over-stillingsbetegnelser-og-kvalifikationer/.  # NOQA
     """
 
     jobs = [
