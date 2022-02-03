@@ -2,6 +2,7 @@ import csv
 import hashlib
 import io
 import json
+import os
 import re
 import string
 import tarfile
@@ -38,13 +39,23 @@ class Provider(BaseProvider):
             -1: False,
         }[self.generator.random.randint(-1, 1)]
 
-    def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
+    def binary_seeded(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
+
+        This method is substantially slower than
+        :meth:`binary() <faker.providers.misc.Provider.binary>`, but allows for seeding.
 
         :sample: length=64
         """
         blob = [self.generator.random.randrange(256) for _ in range(length)]
         return bytes(blob)
+
+    def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
+        """Generate a random binary blob of ``length`` bytes.
+
+        :sample: length=64
+        """
+        return os.urandom(length)
 
     def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
