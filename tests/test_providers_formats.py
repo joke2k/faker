@@ -3,7 +3,7 @@ import re
 import pytest
 
 from faker import Factory
-from faker.config import AVAILABLE_LOCALES, PROVIDERS
+from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE, PROVIDERS
 
 locales = AVAILABLE_LOCALES
 
@@ -26,8 +26,16 @@ def test_no_invalid_formats(locale):
     for provider in PROVIDERS:
         if provider == "faker.providers":
             continue
-        prov_cls, lang = Factory._get_provider_class(provider, locale)
-        assert lang == locale
+        prov_cls, lang, default_lang = Factory._find_provider_class(provider, locale)
+        if default_lang is None:
+            # for non-localized providers, the discovered language will be None
+            assert lang is None
+        else:
+            # for localized providers, the discovered language will either be
+            # the requested one
+            # or the default language of the provider
+            # or the fallback locale
+            assert lang in (locale, default_lang or DEFAULT_LOCALE)
 
         attributes = set(dir(prov_cls))
 
