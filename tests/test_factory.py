@@ -3,6 +3,8 @@ import string
 import sys
 import unittest
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 
 from faker import Faker, Generator
@@ -107,6 +109,74 @@ class FactoryTestCase(unittest.TestCase):
             assert simple_output != verbose_output
         finally:
             sys.stdout = orig_stdout
+
+    def test_unknown_provider(self):
+        with pytest.raises(ModuleNotFoundError) as excinfo:
+            Factory.create(providers=["dummy_provider"])
+        assert str(excinfo.value) == "No module named 'dummy_provider'"
+
+        with pytest.raises(ModuleNotFoundError) as excinfo:
+            Factory.create(providers=["dummy_provider"], locale="it_IT")
+        assert str(excinfo.value) == "No module named 'dummy_provider'"
+
+    def test_unknown_locale(self):
+        with pytest.raises(AttributeError) as excinfo:
+            Factory.create(locale="77")
+        assert str(excinfo.value) == "Invalid configuration for faker locale `77`"
+
+        with pytest.raises(AttributeError) as excinfo:
+            Factory.create(locale="77_US")
+        assert str(excinfo.value) == "Invalid configuration for faker locale `77_US`"
+
+    def test_lang_unlocalized_provider(self):
+        for locale in (None, "", "en_GB", "it_IT"):
+            factory = Factory.create(providers=["faker.providers.file"], locale=locale)
+            assert len(factory.providers) == 1
+            assert factory.providers[0].__provider__ == "faker.providers.file"
+            assert factory.providers[0].__lang__ is None
+
+    def test_lang_localized_provider(self, with_default=True):
+        class DummyProviderModule:
+            localized = True
+
+            def __init__(self):
+                if with_default:
+                    self.default_locale = "ar_EG"
+
+            @property
+            def __name__(self):
+                return self.__class__.__name__
+
+            class Provider:
+                def __init__(self, *args, **kwargs):
+                    pass
+
+        with patch.multiple(
+            "faker.factory",
+            import_module=MagicMock(return_value=DummyProviderModule()),
+            list_module=MagicMock(return_value=("en_GB", "it_IT")),
+            DEFAULT_LOCALE="ko_KR",
+        ):
+            test_cases = [
+                (None, False),
+                ("", False),
+                ("ar", False),
+                ("es_CO", False),
+                ("en", False),
+                ("en_GB", True),
+                ("ar_EG", with_default),  # True if module defines a default locale
+            ]
+            for locale, expected_used in test_cases:
+                factory = Factory.create(providers=["dummy"], locale=locale)
+                assert factory.providers[0].__provider__ == "dummy"
+                from faker.config import DEFAULT_LOCALE
+
+                print(f"requested locale = {locale} , DEFAULT LOCALE {DEFAULT_LOCALE}")
+                expected_locale = locale if expected_used else ("ar_EG" if with_default else "ko_KR")
+                assert factory.providers[0].__lang__ == expected_locale
+
+    def test_lang_localized_provider_without_default(self):
+        self.test_lang_localized_provider(with_default=False)
 
     def test_slugify(self):
         slug = text.slugify("a'b/c")
