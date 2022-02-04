@@ -128,9 +128,16 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
         run: python -m pip install tox coveralls
-      - name: Run Tox
-        # Run tox using the version of Python in `PATH`
-        run: tox -e py
+      - name: pytest
+        uses: liskin/gh-problem-matcher-wrap@v1
+        with:
+          linters: pytest
+          run: tox -e py
+        env:
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_SERVICE_NAME: github
       - name: Publish coverage
         run: coveralls --service=github
         env:
