@@ -270,42 +270,6 @@ class FactoryTestCase(unittest.TestCase):
         with pytest.raises(ValueError):
             assert fake.pyfloat(min_value=9999, max_value=9999)
 
-    def test_us_ssn_valid(self):
-        from faker.providers.ssn.en_US import Provider
-
-        provider = Provider(self.generator)
-        for i in range(1000):
-            ssn = provider.ssn()
-            assert len(ssn) == 11
-            assert ssn[0] != "9"
-            assert ssn[0:3] != "666"
-            assert ssn[0:3] != "000"
-            assert ssn[4:6] != "00"
-            assert ssn[7:11] != "0000"
-
-    def test_nl_BE_ssn_valid(self):
-        fake = Faker("nl_BE")
-
-        for i in range(1000):
-            ssn = fake.ssn()
-            assert len(ssn) == 11
-            gen_seq = ssn[6:9]
-            gen_chksum = ssn[9:11]
-            gen_seq_as_int = int(gen_seq)
-            gen_chksum_as_int = int(gen_chksum)
-            # Check that the sequence nr is between 1 inclusive and 998 inclusive
-            assert gen_seq_as_int > 0
-            assert gen_seq_as_int <= 998
-
-            # validate checksum calculation
-            # Since the century is not part of ssn, try both below and above year 2000
-            ssn_below = int(ssn[0:9])
-            chksum_below = 97 - (ssn_below % 97)
-            ssn_above = ssn_below + 2000000000
-            chksum_above = 97 - (ssn_above % 97)
-            results = [chksum_above, chksum_below]
-            assert gen_chksum_as_int in results
-
     def test_instance_seed_chain(self):
         factory = Factory.create()
 

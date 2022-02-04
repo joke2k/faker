@@ -876,6 +876,33 @@ class TestPtBR(unittest.TestCase):
                 assert re.search(r"^\d{9}$", to_test)
 
 
+class TestNlBE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("nl_BE")
+        Faker.seed(0)
+
+    def test_ssn(self):
+        for _ in range(1000):
+            ssn = self.fake.ssn()
+            assert len(ssn) == 11
+            gen_seq = ssn[6:9]
+            gen_chksum = ssn[9:11]
+            gen_seq_as_int = int(gen_seq)
+            gen_chksum_as_int = int(gen_chksum)
+            # Check that the sequence nr is between 1 inclusive and 998 inclusive
+            assert gen_seq_as_int > 0
+            assert gen_seq_as_int <= 998
+
+            # validate checksum calculation
+            # Since the century is not part of ssn, try both below and above year 2000
+            ssn_below = int(ssn[0:9])
+            chksum_below = 97 - (ssn_below % 97)
+            ssn_above = ssn_below + 2000000000
+            chksum_above = 97 - (ssn_above % 97)
+            results = [chksum_above, chksum_below]
+            assert gen_chksum_as_int in results
+
+
 class TestNlNL(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("nl_NL")
