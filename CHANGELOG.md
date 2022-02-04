@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v12.1.0 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.1...v12.1.0)
+
+* Set correct language on provider when specific locale is requested.
+  Thanks @interDist.
+
 ### [v12.0.1 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.0...v12.0.1)
 
 *  Remove empty string in Korean job list. Thanks @georgidimitrov-hs.
