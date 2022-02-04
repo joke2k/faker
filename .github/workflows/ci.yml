@@ -18,6 +18,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install flake8
     - name: Lint with flake8
       uses: liskin/gh-problem-matcher-wrap@v1
       with:
@@ -48,6 +51,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install isort
     - name: Import order checking with isort
       uses: liskin/gh-problem-matcher-wrap@v1
       with:
