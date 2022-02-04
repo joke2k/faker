@@ -21,6 +21,7 @@ class Generator:
         self.providers: List["BaseProvider"] = []
         self.__config = dict(list(self.__config.items()) + list(config.items()))
         self.__random = random
+        self._is_seeded = False
 
     def add_provider(self, provider: "BaseProvider") -> None:
 
@@ -66,11 +67,13 @@ class Generator:
             # called
             self.__random = random_module.Random()
         self.__random.seed(seed)
+        self._is_seeded = True
         return self
 
     @classmethod
     def seed(cls, seed: Optional[Hashable] = None) -> None:
         random.seed(seed)
+        cls._is_seeded = True
 
     def format(self, formatter: str, *args: Any, **kwargs: Any) -> str:
         """
