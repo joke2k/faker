@@ -47,7 +47,6 @@ class Provider(BaseProvider):
 
         :sample: length=64
         """
-
         # If the generator has already been seeded, urandom can't be used
         if self.generator._is_seeded:
             blob = [self.generator.random.randrange(256) for _ in range(length)]
