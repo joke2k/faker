@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.0.1 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.0...v12.0.1)
+
+*  Remove empty string in Korean job list. Thanks @georgidimitrov-hs.
+
 ### [v12.0.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.4.0...v12.0.0)
 
 * Remove dependency from [`text-unidecode`](https://github.com/kmike/text-unidecode/).
