@@ -1,81 +1,81 @@
-from .. import BaseProvider, date_time
+from .. import BaseProvider, ElementsType, date_time
 
 localized = True
 
 
 class Provider(BaseProvider):
-    city_suffixes = ['Ville']
-    street_suffixes = ['Street']
-    city_formats = ('{{first_name}} {{city_suffix}}', )
-    street_name_formats = ('{{last_name}} {{street_suffix}}', )
-    street_address_formats = ('{{building_number}} {{street_name}}', )
-    address_formats = ('{{street_address}} {{postcode}} {{city}}', )
-    building_number_formats = ('##', )
-    postcode_formats = ('#####', )
-    countries = [tz['name'] for tz in date_time.Provider.countries]
+    city_suffixes: ElementsType = ["Ville"]
+    street_suffixes: ElementsType = ["Street"]
+    city_formats: ElementsType = ("{{first_name}} {{city_suffix}}",)
+    street_name_formats: ElementsType = ("{{last_name}} {{street_suffix}}",)
+    street_address_formats: ElementsType = ("{{building_number}} {{street_name}}",)
+    address_formats: ElementsType = ("{{street_address}} {{postcode}} {{city}}",)
+    building_number_formats: ElementsType = ("##",)
+    postcode_formats: ElementsType = ("#####",)
+    countries: ElementsType = [tz["name"] for tz in date_time.Provider.countries]
 
-    ALPHA_2 = 'alpha-2'
-    ALPHA_3 = 'alpha-3'
+    ALPHA_2 = "alpha-2"
+    ALPHA_3 = "alpha-3"
 
-    alpha_2_country_codes = [tz['alpha-2-code'] for tz in date_time.Provider.countries]
-    alpha_3_country_codes = [tz['alpha-3-code'] for tz in date_time.Provider.countries]
+    alpha_2_country_codes: ElementsType = [tz["alpha-2-code"] for tz in date_time.Provider.countries]
+    alpha_3_country_codes: ElementsType = [tz["alpha-3-code"] for tz in date_time.Provider.countries]
 
-    def city_suffix(self):
+    def city_suffix(self) -> str:
         """
-        :example 'town'
+        :example: 'town'
         """
         return self.random_element(self.city_suffixes)
 
-    def street_suffix(self):
+    def street_suffix(self) -> str:
         """
-        :example 'Avenue'
+        :example: 'Avenue'
         """
         return self.random_element(self.street_suffixes)
 
-    def building_number(self):
+    def building_number(self) -> str:
         """
-        :example '791'
+        :example: '791'
         """
         return self.numerify(self.random_element(self.building_number_formats))
 
-    def city(self):
+    def city(self) -> str:
         """
-        :example 'Sashabury'
+        :example: 'Sashabury'
         """
-        pattern = self.random_element(self.city_formats)
+        pattern: str = self.random_element(self.city_formats)
         return self.generator.parse(pattern)
 
-    def street_name(self):
+    def street_name(self) -> str:
         """
-        :example 'Crist Parks'
+        :example: 'Crist Parks'
         """
-        pattern = self.random_element(self.street_name_formats)
+        pattern: str = self.random_element(self.street_name_formats)
         return self.generator.parse(pattern)
 
-    def street_address(self):
+    def street_address(self) -> str:
         """
-        :example '791 Crist Parks'
+        :example: '791 Crist Parks'
         """
-        pattern = self.random_element(self.street_address_formats)
+        pattern: str = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
-        :example 86039-9874
+        :example: 86039-9874
         """
         return self.bothify(self.random_element(self.postcode_formats)).upper()
 
-    def address(self):
+    def address(self) -> str:
         """
-        :example '791 Crist Parks, Sashabury, IL 86039-9874'
+        :example: '791 Crist Parks, Sashabury, IL 86039-9874'
         """
-        pattern = self.random_element(self.address_formats)
+        pattern: str = self.random_element(self.address_formats)
         return self.generator.parse(pattern)
 
-    def country(self):
+    def country(self) -> str:
         return self.random_element(self.countries)
 
-    def country_code(self, representation=ALPHA_2):
+    def country_code(self, representation: str = ALPHA_2) -> str:
         if representation == self.ALPHA_2:
             return self.random_element(self.alpha_2_country_codes)
         elif representation == self.ALPHA_3:
@@ -83,19 +83,19 @@ class Provider(BaseProvider):
         else:
             raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
 
-    def current_country_code(self):
+    def current_country_code(self) -> str:
         try:
-            return self.__lang__.split("_")[1]
+            return self.__lang__.split("_")[1]  # type: ignore
         except IndexError:
             raise AttributeError("Country code cannot be determined from locale")
 
-    def current_country(self):
+    def current_country(self) -> str:
         current_country_code = self.current_country_code()
-        current_country = [tz['name']
-                           for tz in date_time.Provider.countries
-                           if tz['alpha-2-code'] == current_country_code]
+        current_country = [
+            tz["name"] for tz in date_time.Provider.countries if tz["alpha-2-code"] == current_country_code
+        ]
         if len(current_country) == 1:
-            return current_country[0]
+            return current_country[0]  # type: ignore
         elif len(current_country) > 1:
             raise ValueError(f"Ambiguous country for country code {current_country_code}: {current_country}")
         else:

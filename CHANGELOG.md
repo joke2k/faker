@@ -1,5 +1,144 @@
 ## Changelog
 
+### [v12.1.0 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.1...v12.1.0)
+
+* Set correct language on provider when specific locale is requested.
+  Thanks @interDist.
+
+### [v12.0.1 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.0...v12.0.1)
+
+*  Remove empty string in Korean job list. Thanks @georgidimitrov-hs.
+
+### [v12.0.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.4.0...v12.0.0)
+
+* Remove dependency from [`text-unidecode`](https://github.com/kmike/text-unidecode/).
+
+### [v11.4.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.3.0...v11.4.0)
+
+* Add geonames db of Italian cap-city-province and full match when generating 
+  full addresses. Thanks @FrancYescO.
+
+### [v11.3.0 - 2022-01-05](https://github.com/joke2k/faker/compare/v11.2.0...v11.3.0)
+
+* Add banks for `fa-ir`. Thanks @arminshoughi.
+
+### [v11.2.0 - 2022-01-05](https://github.com/joke2k/faker/compare/v11.1.0...v11.2.0)
+
+* Improve phone numbers for `it_IT`. Thanks @FrancYescO.
+
+### [v11.1.0 - 2021-12-28](https://github.com/joke2k/faker/compare/v11.0.0...v11.1.0)
+
+* Add providers for `az_AZ` locale. Thanks @sevdimali.
+
+### [v11.0.0 - 2021-12-27](https://github.com/joke2k/faker/compare/v10.0.0...v11.0.0)
+
+* Replace `lorempixel.com` service with `picsum.photos` in `image_url` provider.
+* Add `placeholder_url` argument to `image_url`.
+
+### [v10.0.0 - 2021-12-07](https://github.com/joke2k/faker/compare/v9.9.1...v10.0.0)
+
+* deprecate positional `allowed_types`.
+
+### [v9.9.1 - 2021-12-07](https://github.com/joke2k/faker/compare/v9.9.0...v9.9.1)
+
+* Revert "deprecate positional `allowed_types`".
+
+### [v9.9.0 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.4...v9.9.0)
+
+* deprecate positional `allowed_types` (#1573). Thanks @fcurella.
+
+### [v9.8.4 - 2021-11-29](https://github.com/joke2k/faker/compare/v9.8.3...v9.8.4)
+
+* Fix positional `value_types`.
+
+### [v9.8.3 - 2021-11-22](https://github.com/joke2k/faker/compare/v9.8.2...v9.8.3)
+
+* Shorten IBANs for `pl_PL` to 28 chars. Fix #1568 (#1569). Thanks @fcurella.
+
+### [v9.8.2 - 2021-11-15](https://github.com/joke2k/faker/compare/v9.8.1...v9.8.2)
+
+* Relax ElementsType to admit e.g. Sets. Thanks @OJFord.
+
+### [v9.8.1 - 2021-11-12](https://github.com/joke2k/faker/compare/v9.8.0...v9.8.1)
+
+* Fix ``pydecimal`` with ``left_digits=0`` not setting the left digit to 0. Thanks @ndrwkim.
+
+### [v9.8.0 - 2021-11-02](https://github.com/joke2k/faker/compare/v9.7.1...v9.8.0)
+
+*  Add ``es_CO`` localized providers. Thank you @healarconr.
+
+### [v9.7.1 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.7.0...v9.7.1)
+
+* Take into account area codes for French phone numbers. Thanks @nicarl.
+
+### [v9.7.0 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.6.0...v9.7.0)
+
+* Add provider for French SSN. Thanks @nicarl.
+
+### [v9.6.0 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.3...v9.6.0)
+
+* Add dynamic provider. Thanks @omri374.
+
+### [v9.5.3 - 2021-10-25](https://github.com/joke2k/faker/compare/v9.5.2...v9.5.3)
+
+*  Improve randomness of ``pydecimal`` for different scenarios. Thanks @antonioIrizar.
+
+### [v9.5.2 - 2021-10-21](https://github.com/joke2k/faker/compare/v9.5.1...v9.5.2)
+
+*  Limit ``typing_extensions`` dependency to Python < 3.8. Thanks @mgorny.
+
+### [v9.5.1 - 2021-10-20](https://github.com/joke2k/faker/compare/v9.5.0...v9.5.1)
+
+*  Add ``typing-extensions`` as dependency and pin ``mypy`` version. Thanks @nicarl.
+
+### [v9.5.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.4.0...v9.5.0)
+
+* Add automotive provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v9.4.0 - 2021-10-19](https://github.com/joke2k/faker/compare/v9.3.1...v9.4.0)
+
+* Add Typing. Thanks @MarcelRobeer, @nicarl.
+
+### [v9.3.1 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.3.0...v9.3.1)
+
+*  Change to secondary address format in ``en_AU`` locale to reflect the common usage. Thanks @deboraelkin2.
+
+### [v9.3.0 - 2021-10-11](https://github.com/joke2k/faker/compare/v9.2.0...v9.3.0)
+
+* Add ``currency``, ``automotive``, ``company`` and ``bank`` providers for ``el_GR``. Thanks @nikosmichas.
+
+### [v9.2.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.1.0...v9.2.0)
+
+* Add ``color`` and ``date_time`` provider for ``el_GR``. Thanks @nikosmichas.
+
+### [v9.1.0 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.1...v9.1.0)
+
+* Add currency provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v9.0.1 - 2021-10-07](https://github.com/joke2k/faker/compare/v9.0.0...v9.0.1)
+
+* Fix ``pydecimal`` returning ``min_value`` or ``max_value`` too frequently. Thanks @zivkovic.
+
+### [v9.0.0 - 2021-10-06](https://github.com/joke2k/faker/compare/v8.16.0...v9.0.0)
+
+* Change default email generator to use safe domain names. Thanks @errbufferoverfl.
+
+### [v8.16.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.15.0...v8.16.0)
+
+* Add ``date_time`` provider for ``nl_NL``. Thanks @MarcelRobeer.
+
+### [v8.15.0 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.2...v8.15.0)
+
+* Add ``bg_BG`` color provider. Thanks @iradonov.
+
+### [v8.14.2 - 2021-10-04](https://github.com/joke2k/faker/compare/v8.14.1...v8.14.2)
+
+* Fix bug in ``pydecimal`` when returning max/min. Thanks @wilbertom.
+
+### [v8.14.1 - 2021-10-01](https://github.com/joke2k/faker/compare/v8.14.0...v8.14.1)
+
+* Fix `pydecimal` precision. Thanks @joidegn.
+
 ### [v8.14.0 - 2021-09-24](https://github.com/joke2k/faker/compare/v8.13.1...v8.14.0)
 
 * Add datetime provider for ``bn_BD``. Thanks @jabertuhin.

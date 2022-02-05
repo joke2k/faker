@@ -13,7 +13,7 @@ class Provider(BaseProvider):
     # Digits 6-12: Birth certificate number
     # Digit 13: Checksum
 
-    def ssn(self):
+    def ssn(self) -> str:
         """
         Thai national ID
         """
@@ -27,7 +27,7 @@ class Provider(BaseProvider):
         birth_book = randint(1, 99999)
         birth_sheet = randint(1, 99)
 
-        digits = f'{category:01d}{province:02d}{amphoe:02d}{birth_book:05d}{birth_sheet:02d}'
+        digits = f"{category:01d}{province:02d}{amphoe:02d}{birth_book:05d}{birth_sheet:02d}"
         checksum = (
             (int(digits[0]) * 13)
             + (int(digits[1]) * 12)
@@ -47,11 +47,11 @@ class Provider(BaseProvider):
         if checksum > 9:
             checksum = checksum - 10
 
-        nat_id = f'{category:01d}-{province:02d}{amphoe:02d}-{birth_book:05d}-{birth_sheet:02d}-{checksum:01d}'
+        nat_id = f"{category:01d}-{province:02d}{amphoe:02d}-{birth_book:05d}-{birth_sheet:02d}-{checksum:01d}"
 
         return nat_id
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         Personal VAT ID is the same as national ID
         (Corporate VAT ID is different)

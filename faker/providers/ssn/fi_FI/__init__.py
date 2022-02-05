@@ -4,8 +4,7 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-
-    def ssn(self, min_age=0, max_age=105, artificial=False):
+    def ssn(self, min_age: int = 0, max_age: int = 105, artificial: bool = False) -> str:
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). This function assigns random
@@ -22,15 +21,18 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Finland
         """
+
         def _checksum(hetu):
             checksum_characters = "0123456789ABCDEFHJKLMNPRSTUVWXY"
             return checksum_characters[int(hetu) % 31]
 
-        age = datetime.timedelta(
-            days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (
-            birthday.day, birthday.month, str(birthday.year)[-2:])
+            birthday.day,
+            birthday.month,
+            str(birthday.year)[-2:],
+        )
         range = (900, 999) if artificial is True else (2, 899)
         suffix = str(self.generator.random.randrange(*range)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
@@ -39,23 +41,21 @@ class Provider(SsnProvider):
         return hetu
 
     @staticmethod
-    def _get_century_code(year):
+    def _get_century_code(year: int) -> str:
         """Returns the century code for a given year"""
         if 2000 <= year < 3000:
-            separator = 'A'
+            separator = "A"
         elif 1900 <= year < 2000:
-            separator = '-'
+            separator = "-"
         elif 1800 <= year < 1900:
-            separator = '+'
+            separator = "+"
         else:
-            raise ValueError('Finnish SSN do not support people born before the year 1800 or after the year 2999')
+            raise ValueError("Finnish SSN do not support people born before the year 1800 or after the year 2999")
         return separator
 
-    vat_id_formats = (
-        'FI########',
-    )
+    vat_id_formats = ("FI########",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Finnish VAT ID

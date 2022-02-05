@@ -2,9 +2,8 @@ from .. import Provider as DateTimeProvider
 
 
 class Provider(DateTimeProvider):
-
-    def day_of_week(self):
-        day = self.date('%w')
+    def day_of_week(self) -> str:
+        day = self.date("%w")
         DAY_NAMES = {
             "0": "Nedjelja",
             "1": "Ponedjeljak",
@@ -16,7 +15,7 @@ class Provider(DateTimeProvider):
         }
         return DAY_NAMES[day]
 
-    def month_name(self):
+    def month_name(self) -> str:
         month = self.month()
         MONTH_NAMES = {
             "01": "Siječanj",

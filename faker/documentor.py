@@ -1,59 +1,75 @@
 import inspect
 import warnings
 
+from typing import Any, Dict, List, Optional, Tuple, Union
+
+from .generator import Generator
+from .providers import BaseProvider
+from .proxy import Faker
+
 
 class Documentor:
-
-    def __init__(self, generator):
+    def __init__(self, generator: Union[Generator, Faker]) -> None:
         """
         :param generator: a localized Generator with providers filled,
                           for which to write the documentation
         :type generator: faker.Generator()
         """
         self.generator = generator
-        self.max_name_len = 0
-        self.already_generated = []
+        self.max_name_len: int = 0
+        self.already_generated: List[str] = []
 
-    def get_formatters(self, locale=None, excludes=None, **kwargs):
+    def get_formatters(
+        self,
+        locale: Optional[str] = None,
+        excludes: Optional[List[str]] = None,
+        **kwargs: Any,
+    ) -> List[Tuple[BaseProvider, Dict[str, str]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
         formatters = []
-        providers = self.generator.get_providers()
+        providers: List[BaseProvider] = self.generator.get_providers()
         for provider in providers[::-1]:  # reverse
-            if locale and provider.__lang__ != locale:
+            if locale and provider.__lang__ and provider.__lang__ != locale:
                 continue
             formatters.append(
                 (provider, self.get_provider_formatters(provider, **kwargs)),
             )
         return formatters
 
-    def get_provider_formatters(self, provider, prefix='fake.',
-                                with_args=True, with_defaults=True):
-
+    def get_provider_formatters(
+        self,
+        provider: BaseProvider,
+        prefix: str = "fake.",
+        with_args: bool = True,
+        with_defaults: bool = True,
+    ) -> Dict[str, str]:
         formatters = {}
 
         for name, method in inspect.getmembers(provider, inspect.ismethod):
             # skip 'private' method and inherited methods
-            if name.startswith('_') or name in self.already_generated:
+            if name.startswith("_") or name in self.already_generated:
                 continue
 
             arguments = []
-            faker_args = []
+            faker_args: List[str] = []
             faker_kwargs = {}
 
-            if name == 'binary':
-                faker_kwargs['length'] = 1024
-            elif name in ['zip', 'tar']:
-                faker_kwargs.update({
-                    'uncompressed_size': 1024,
-                    'min_file_size': 512,
-                })
+            if name == "binary":
+                faker_kwargs["length"] = 1024
+            elif name in ["zip", "tar"]:
+                faker_kwargs.update(
+                    {
+                        "uncompressed_size": 1024,
+                        "min_file_size": 512,
+                    }
+                )
 
             if with_args:
                 # retrieve all parameter
                 argspec = inspect.getfullargspec(method)
 
-                lst = [x for x in argspec.args if x not in ['self', 'cls']]
+                lst = [x for x in argspec.args if x not in ["self", "cls"]]
                 for i, arg in enumerate(lst):
 
                     if argspec.defaults and with_defaults:
@@ -66,20 +82,20 @@ class Documentor:
                                 # TODO check default type
                                 default = f"{default}"
 
-                            arg = f'{arg}={default}'
+                            arg = f"{arg}={default}"
 
                         except IndexError:
                             pass
 
                     arguments.append(arg)
-                    if with_args == 'first':
+                    if with_args == "first":
                         break
 
-                if with_args != 'first':
+                if with_args != "first":
                     if argspec.varargs:
-                        arguments.append('*' + argspec.varargs)
+                        arguments.append("*" + argspec.varargs)
                     if argspec.varkw:
-                        arguments.append('**' + argspec.varkw)
+                        arguments.append("**" + argspec.varkw)
 
             # build fake method signature
             signature = f"{prefix}{name}({', '.join(arguments)})"
@@ -98,5 +114,5 @@ class Documentor:
         return formatters
 
     @staticmethod
-    def get_provider_name(provider_class):
+    def get_provider_name(provider_class: BaseProvider) -> str:
         return provider_class.__provider__

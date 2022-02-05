@@ -16,7 +16,7 @@ from tests.pytest.session_overrides.session_locale import _MODULE_LOCALES
 
 @pytest.fixture()
 def faker_locale():
-    return ['it_IT']
+    return ["it_IT"]
 
 
 @pytest.fixture()

@@ -6,11 +6,9 @@ class Provider(BaseProvider):
     A Faker provider for the Cypriot VAT IDs
     """
 
-    vat_id_formats = (
-        'CY#########?',
-    )
+    vat_id_formats = ("CY#########?",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         Returns a random generated Cypriot Tax ID
         """

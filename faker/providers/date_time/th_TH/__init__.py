@@ -1,8 +1,10 @@
 import warnings
 
 from datetime import datetime
+from typing import Optional
 
-from .. import Provider as DateTimeProvider
+from ....typing import DateParseType
+from .. import Provider as DateParseTypeProvider
 
 # thai_strftime() code adapted from
 # https://gist.github.com/bact/b8afe49cb1ae62913e6c1e899dcddbdb
@@ -63,8 +65,8 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
     """
     str_ = ""
     try:
-        str_ = dt_obj.strftime(f'%{fmt_char}')
-        if not str_ or str_ == f'%{fmt_char}':
+        str_ = dt_obj.strftime(f"%{fmt_char}")
+        if not str_ or str_ == f"%{fmt_char}":
             # normalize outputs for unsupported directives
             # in different platforms
             # "%Q" may result "%Q", "Q", or "", make it "Q"
@@ -73,10 +75,7 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
         # Unsupported directives may raise ValueError on Windows,
         # in that case just use the fmt_char
         warnings.warn(
-            (
-                f"String format directive unknown/not support: %{fmt_char}"
-                f"The system raises this ValueError: {err}"
-            ),
+            (f"String format directive unknown/not support: %{fmt_char}" f"The system raises this ValueError: {err}"),
             UserWarning,
         )
         str_ = fmt_char
@@ -85,7 +84,9 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
 
 # Thai conversion support for thai_strftime()
 def _thai_strftime(
-    dt_obj: datetime, fmt_char: str, buddhist_era: bool = True,
+    dt_obj: datetime,
+    fmt_char: str,
+    buddhist_era: bool = True,
 ) -> str:
     """
     Conversion support for thai_strftime().
@@ -116,14 +117,16 @@ def _thai_strftime(
         # Locale’s appropriate date and time representation
         # Wed  6 Oct 01:40:00 1976
         # พ   6 ต.ค. 01:40:00 2519  <-- left-aligned weekday, right-aligned day
-        str_ = (f'{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} '
-                f'{_TH_ABBR_MONTHS[dt_obj.month - 1]} {dt_obj:%H:%M:%S} {year:04}')
+        str_ = (
+            f"{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} "
+            f"{_TH_ABBR_MONTHS[dt_obj.month - 1]} {dt_obj:%H:%M:%S} {year:04}"
+        )
     elif fmt_char == "D":
         # Equivalent to ``%m/%d/%y''
-        str_ = f'{dt_obj:%m/%d}/{year % 100:02}'
+        str_ = f"{dt_obj:%m/%d}/{year % 100:02}"
     elif fmt_char == "F":
         # Equivalent to ``%Y-%m-%d''
-        str_ = f'{year:04}-{dt_obj:%m-%d}'
+        str_ = f"{year:04}-{dt_obj:%m-%d}"
     elif fmt_char == "G":
         # ISO 8601 year with century representing the year that contains
         # the greater part of the ISO week (%V). Monday as the first day
@@ -131,35 +134,37 @@ def _thai_strftime(
         year_G = int(dt_obj.strftime("%G"))
         if buddhist_era:
             year_G = year_G + _BE_AD_DIFFERENCE
-        str_ = f'{year_G:04}'
+        str_ = f"{year_G:04}"
     elif fmt_char == "g":
         # Same year as in ``%G'',
         # but as a decimal number without century (00-99).
         year_G = int(dt_obj.strftime("%G"))
         if buddhist_era:
             year_G = year_G + _BE_AD_DIFFERENCE
-        str_ = f'{year_G % 100:02}'
+        str_ = f"{year_G % 100:02}"
     elif fmt_char == "v":
         # BSD extension, ' 6-Oct-1976'
-        str_ = f'{dt_obj.day:>2}-{_TH_ABBR_MONTHS[dt_obj.month - 1]}-{year:04}'
+        str_ = f"{dt_obj.day:>2}-{_TH_ABBR_MONTHS[dt_obj.month - 1]}-{year:04}"
     elif fmt_char == "X":
         # Locale’s appropriate time representation.
-        str_ = f'{dt_obj:%H:%M:%S}'
+        str_ = f"{dt_obj:%H:%M:%S}"
     elif fmt_char == "x":
         # Locale’s appropriate date representation.
-        str_ = f'{dt_obj:%d/%m}/{year:04}'
+        str_ = f"{dt_obj:%d/%m}/{year:04}"
     elif fmt_char == "Y":
         # Year with century
-        str_ = f'{year:04}'
+        str_ = f"{year:04}"
     elif fmt_char == "y":
         # Year without century
-        str_ = f'{year % 100:02}'
+        str_ = f"{year % 100:02}"
     elif fmt_char == "+":
         # National representation of the date and time
         # (the format is similar to that produced by date(1))
         # Wed  6 Oct 1976 01:40:00
-        str_ = (f'{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} '
-                f'{_TH_ABBR_MONTHS[dt_obj.month - 1]} {year} {dt_obj:%H:%M:%S}')
+        str_ = (
+            f"{_TH_ABBR_WEEKDAYS[dt_obj.weekday()]:<2} {dt_obj.day:>2} "
+            f"{_TH_ABBR_MONTHS[dt_obj.month - 1]} {year} {dt_obj:%H:%M:%S}"
+        )
 
     return str_
 
@@ -210,7 +215,9 @@ def thai_strftime(
                         fmt_char = fmt[k]
                         if fmt_char in _NEED_L10N:
                             str_ = _thai_strftime(
-                                dt_obj, fmt_char, buddhist_era,
+                                dt_obj,
+                                fmt_char,
+                                buddhist_era,
                             )
                         else:
                             str_ = _std_strftime(dt_obj, fmt_char)
@@ -273,23 +280,23 @@ def thai_strftime(
     return thaidate_text
 
 
-class Provider(DateTimeProvider):
+class Provider(DateParseTypeProvider):
     def date(
         self,
         pattern: str = "%-d %b %Y",
-        end_datetime=None,
+        end_datetime: Optional[DateParseType] = None,
         thai_digit: bool = False,
         buddhist_era: bool = True,
-    ):
+    ) -> str:
         """
         Get a date string between January 1, 1970 and now
-        :param pattern format
-        :param end_datetime datetime
-        :param thai_digit use Thai digit or not (default: False)
-        :param buddhist_era use Buddist era or not (default: True)
-        :example '08 พ.ย. 2563'
-        :example '๐๘ พ.ย. 2563' (thai_digit = True)
-        :example '8 พฤศิจกายน 2020' (pattern = "%-d %B %Y", buddhist_era = False)
+        :param pattern: format
+        :param end_datetime: datetime
+        :param thai_digit: use Thai digit or not (default: False)
+        :param buddhist_era: use Buddist era or not (default: True)
+        :example: '08 พ.ย. 2563'
+        :example: '๐๘ พ.ย. 2563' (thai_digit = True)
+        :example: '8 พฤศิจกายน 2020' (pattern: str = "%-d %B %Y", buddhist_era = False)
         """
         return thai_strftime(
             self.date_time(end_datetime=end_datetime),
@@ -299,27 +306,30 @@ class Provider(DateTimeProvider):
         )
 
     def time(
-        self, pattern="%H:%M:%S", end_datetime=None, thai_digit: bool = False,
-    ):
+        self,
+        pattern: str = "%H:%M:%S",
+        end_datetime: Optional[DateParseType] = None,
+        thai_digit: bool = False,
+    ) -> str:
         """
         Get a time string (24h format by default)
-        :param pattern format
-        :param end_datetime datetime
-        :param thai_digit use Thai digit or not (default: False)
-        :example '15:02:34'
-        :example '๑๕:๐๒:๓๔' (thai_digit = True)
+        :param pattern: format
+        :param end_datetime: datetime
+        :param thai_digit: use Thai digit or not (default: False)
+        :example: '15:02:34'
+        :example: '๑๕:๐๒:๓๔' (thai_digit = True)
         """
         return thai_strftime(
-            self.date_time(end_datetime=end_datetime).time(),
+            self.date_time(end_datetime=end_datetime),
             pattern,
             thai_digit,
         )
 
-    def century(self, thai_digit: bool = False, buddhist_era: bool = True):
+    def century(self, thai_digit: bool = False, buddhist_era: bool = True) -> str:
         """
-        :param thai_digit use Thai digit or not (default: False)
-        :param buddhist_era use Buddist era or not (default: True)
-        :example '20'
+        :param thai_digi:t use Thai digit or not (default: False)
+        :param buddhist:_era use Buddist era or not (default: True)
+        :example: '20'
         """
         end_century = 22
         if buddhist_era:

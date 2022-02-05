@@ -8,38 +8,37 @@ import tarfile
 import uuid
 import zipfile
 
+from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Union
+
 from faker.exceptions import UnsupportedFeature
 
 from .. import BaseProvider
 
 localized = True
 
-csv.register_dialect('faker-csv', csv.excel, quoting=csv.QUOTE_ALL)
+csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)
 
 
 class Provider(BaseProvider):
-
-    def boolean(self, chance_of_getting_true=50):
+    def boolean(self, chance_of_getting_true: int = 50) -> bool:
         """Generate a random boolean value based on ``chance_of_getting_true``.
 
-        :sample size=10: chance_of_getting_true=25
-        :sample size=10: chance_of_getting_true=50
-        :sample size=10: chance_of_getting_true=75
+        :sample: chance_of_getting_true=25
+        :sample: chance_of_getting_true=50
+        :sample: chance_of_getting_true=75
         """
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
-    def null_boolean(self):
-        """Generate ``None``, ``True``, or ``False``, each with equal probability.
+    def null_boolean(self) -> Optional[bool]:
+        """Generate ``None``, ``True``, or ``False``, each with equal probability."""
 
-        :sample size=15:
-        """
         return {
             0: None,
             1: True,
             -1: False,
         }[self.generator.random.randint(-1, 1)]
 
-    def binary(self, length=(1 * 1024 * 1024)):
+    def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
 
         :sample: length=64
@@ -47,7 +46,7 @@ class Provider(BaseProvider):
         blob = [self.generator.random.randrange(256) for _ in range(length)]
         return bytes(blob)
 
-    def md5(self, raw_output=False):
+    def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
@@ -56,12 +55,12 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.md5(str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.md5(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def sha1(self, raw_output=False):
+    def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA1 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
@@ -70,12 +69,12 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.sha1(str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.sha1(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def sha256(self, raw_output=False):
+    def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA256 hash.
 
         If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
@@ -84,13 +83,15 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res = hashlib.sha256(
-            str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.sha256(str(self.generator.random.random()).encode())
         if raw_output:
             return res.digest()
         return res.hexdigest()
 
-    def uuid4(self, cast_to=str):
+    def uuid4(
+        self,
+        cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
+    ) -> Union[bytes, str, uuid.UUID]:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
@@ -101,18 +102,19 @@ class Provider(BaseProvider):
         :sample: cast_to=None
         """
         # Based on http://stackoverflow.com/q/41186818
-        generated_uuid = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
+        generated_uuid: uuid.UUID = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
         if cast_to is not None:
-            generated_uuid = cast_to(generated_uuid)
+            return cast_to(generated_uuid)
         return generated_uuid
 
     def password(
-            self,
-            length=10,
-            special_chars=True,
-            digits=True,
-            upper_case=True,
-            lower_case=True):
+        self,
+        length: int = 10,
+        special_chars: bool = True,
+        digits: bool = True,
+        upper_case: bool = True,
+        lower_case: bool = True,
+    ) -> str:
         """Generate a random password of the specified ``length``.
 
         The arguments ``special_chars``, ``digits``, ``upper_case``, and ``lower_case`` control
@@ -128,40 +130,41 @@ class Provider(BaseProvider):
         choices = ""
         required_tokens = []
         if special_chars:
-            required_tokens.append(
-                self.generator.random.choice("!@#$%^&*()_+"))
+            required_tokens.append(self.generator.random.choice("!@#$%^&*()_+"))
             choices += "!@#$%^&*()_+"
         if digits:
             required_tokens.append(self.generator.random.choice(string.digits))
             choices += string.digits
         if upper_case:
-            required_tokens.append(
-                self.generator.random.choice(string.ascii_uppercase))
+            required_tokens.append(self.generator.random.choice(string.ascii_uppercase))
             choices += string.ascii_uppercase
         if lower_case:
-            required_tokens.append(
-                self.generator.random.choice(string.ascii_lowercase))
+            required_tokens.append(self.generator.random.choice(string.ascii_lowercase))
             choices += string.ascii_lowercase
 
-        assert len(
-            required_tokens) <= length, "Required length is shorter than required characters"
+        assert len(required_tokens) <= length, "Required length is shorter than required characters"
 
         # Generate a first version of the password
-        chars = self.random_choices(choices, length=length)
+        chars: str = self.random_choices(choices, length=length)  # type: ignore
 
         # Pick some unique locations
-        random_indexes = set()
+        random_indexes: Set[int] = set()
         while len(random_indexes) < len(required_tokens):
-            random_indexes.add(
-                self.generator.random.randint(0, len(chars) - 1))
+            random_indexes.add(self.generator.random.randint(0, len(chars) - 1))
 
         # Replace them with the required characters
         for i, index in enumerate(random_indexes):
-            chars[index] = required_tokens[i]
+            chars[index] = required_tokens[i]  # type: ignore
 
-        return ''.join(chars)
+        return "".join(chars)
 
-    def zip(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
+    def zip(
+        self,
+        uncompressed_size: int = 65536,
+        num_files: int = 1,
+        min_file_size: int = 4096,
+        compression: Optional[str] = None,
+    ) -> bytes:
         """Generate a bytes object containing a random valid zip archive file.
 
         The number and sizes of files contained inside the resulting archive can be controlled
@@ -181,30 +184,32 @@ class Provider(BaseProvider):
         :sample: uncompressed_size=256, num_files=4, min_file_size=32
         :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
-        if any([
-            not isinstance(num_files, int) or num_files <= 0,
-            not isinstance(min_file_size, int) or min_file_size <= 0,
-            not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
-        ]):
+        if any(
+            [
+                not isinstance(num_files, int) or num_files <= 0,
+                not isinstance(min_file_size, int) or min_file_size <= 0,
+                not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
+            ]
+        ):
             raise ValueError(
-                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers',
+                "`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers",
             )
         if min_file_size * num_files > uncompressed_size:
             raise AssertionError(
-                '`uncompressed_size` is smaller than the calculated minimum required size',
+                "`uncompressed_size` is smaller than the calculated minimum required size",
             )
-        if compression in ['bzip2', 'bz2']:
-            compression = zipfile.ZIP_BZIP2
-        elif compression in ['lzma', 'xz']:
-            compression = zipfile.ZIP_LZMA
-        elif compression in ['deflate', 'gzip', 'gz']:
-            compression = zipfile.ZIP_DEFLATED
+        if compression in ["bzip2", "bz2"]:
+            compression_ = zipfile.ZIP_BZIP2
+        elif compression in ["lzma", "xz"]:
+            compression_ = zipfile.ZIP_LZMA
+        elif compression in ["deflate", "gzip", "gz"]:
+            compression_ = zipfile.ZIP_DEFLATED
         else:
-            compression = zipfile.ZIP_STORED
+            compression_ = zipfile.ZIP_STORED
 
         zip_buffer = io.BytesIO()
         remaining_size = uncompressed_size
-        with zipfile.ZipFile(zip_buffer, mode='w', compression=compression) as zip_handle:
+        with zipfile.ZipFile(zip_buffer, mode="w", compression=compression_) as zip_handle:
             for file_number in range(1, num_files + 1):
                 filename = self.generator.pystr() + str(file_number)
 
@@ -219,7 +224,13 @@ class Provider(BaseProvider):
                 zip_handle.writestr(filename, data)
         return zip_buffer.getvalue()
 
-    def tar(self, uncompressed_size=65536, num_files=1, min_file_size=4096, compression=None):
+    def tar(
+        self,
+        uncompressed_size: int = 65536,
+        num_files: int = 1,
+        min_file_size: int = 4096,
+        compression: Optional[str] = None,
+    ) -> bytes:
         """Generate a bytes object containing a random valid tar file.
 
         The number and sizes of files contained inside the resulting archive can be controlled
@@ -239,26 +250,28 @@ class Provider(BaseProvider):
         :sample: uncompressed_size=256, num_files=4, min_file_size=32
         :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
-        if any([
-            not isinstance(num_files, int) or num_files <= 0,
-            not isinstance(min_file_size, int) or min_file_size <= 0,
-            not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
-        ]):
+        if any(
+            [
+                not isinstance(num_files, int) or num_files <= 0,
+                not isinstance(min_file_size, int) or min_file_size <= 0,
+                not isinstance(uncompressed_size, int) or uncompressed_size <= 0,
+            ]
+        ):
             raise ValueError(
-                '`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers',
+                "`num_files`, `min_file_size`, and `uncompressed_size` must be positive integers",
             )
         if min_file_size * num_files > uncompressed_size:
             raise AssertionError(
-                '`uncompressed_size` is smaller than the calculated minimum required size',
+                "`uncompressed_size` is smaller than the calculated minimum required size",
             )
-        if compression in ['gzip', 'gz']:
-            mode = 'w:gz'
-        elif compression in ['bzip2', 'bz2']:
-            mode = 'w:bz2'
-        elif compression in ['lzma', 'xz']:
-            mode = 'w:xz'
+        if compression in ["gzip", "gz"]:
+            mode = "w:gz"
+        elif compression in ["bzip2", "bz2"]:
+            mode = "w:bz2"
+        elif compression in ["lzma", "xz"]:
+            mode = "w:xz"
         else:
-            mode = 'w'
+            mode = "w"
 
         tar_buffer = io.BytesIO()
         remaining_size = uncompressed_size
@@ -283,7 +296,13 @@ class Provider(BaseProvider):
                 file_buffer.close()
         return tar_buffer.getvalue()
 
-    def image(self, size=(256, 256), image_format='png', hue=None, luminosity=None):
+    def image(
+        self,
+        size: Tuple[int, int] = (256, 256),
+        image_format: str = "png",
+        hue: Optional[Union[int, Sequence[int], str]] = None,
+        luminosity: Optional[str] = None,
+    ) -> bytes:
         """Generate an image and draw a random polygon on it using the Python Image Library.
         Without it installed, this provider won't be functional. Returns the bytes representing
         the image in a given format.
@@ -298,8 +317,8 @@ class Provider(BaseProvider):
         The arguments ``hue`` and ``luminosity`` are the same as in the color provider and are simply forwarded to
         it to generate both the background and the shape colors. Therefore, you can ask for a "dark blue" image, etc.
 
-        :sample size=2: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
-        :sample size=2: size=(16, 16), hue=[90,270], image_format='ico'
+        :sample: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
+        :sample: size=(16, 16), hue=[90,270], image_format='ico'
         """
         try:
             import PIL.Image
@@ -308,13 +327,10 @@ class Provider(BaseProvider):
             raise UnsupportedFeature("`image` requires the `Pillow` python library.", "image")
 
         (width, height) = size
-        image = PIL.Image.new('RGB', size, self.generator.color(hue=hue, luminosity=luminosity))
+        image = PIL.Image.new("RGB", size, self.generator.color(hue=hue, luminosity=luminosity))
         draw = PIL.ImageDraw.Draw(image)
         draw.polygon(
-            [
-                (self.random_int(0, width), self.random_int(0, height))
-                for _ in range(self.random_int(3, 12))
-            ],
+            [(self.random_int(0, width), self.random_int(0, height)) for _ in range(self.random_int(3, 12))],
             fill=self.generator.color(hue=hue, luminosity=luminosity),
             outline=self.generator.color(hue=hue, luminosity=luminosity),
         )
@@ -323,9 +339,15 @@ class Provider(BaseProvider):
             fobj.seek(0)
             return fobj.read()
 
-    def dsv(self, dialect='faker-csv', header=None,
-            data_columns=('{{name}}', '{{address}}'),
-            num_rows=10, include_row_ids=False, **fmtparams):
+    def dsv(
+        self,
+        dialect: str = "faker-csv",
+        header: Optional[Sequence[str]] = None,
+        data_columns: Tuple[str, str] = ("{{name}}", "{{address}}"),
+        num_rows: int = 10,
+        include_row_ids: bool = False,
+        **fmtparams: Any,
+    ) -> str:
         """Generate random delimiter-separated values.
 
         This method's behavior share some similarities with ``csv.writer``. The ``dialect`` and
@@ -355,14 +377,14 @@ class Provider(BaseProvider):
         """
 
         if not isinstance(num_rows, int) or num_rows <= 0:
-            raise ValueError('`num_rows` must be a positive integer')
+            raise ValueError("`num_rows` must be a positive integer")
         if not isinstance(data_columns, (list, tuple)):
-            raise TypeError('`data_columns` must be a tuple or a list')
+            raise TypeError("`data_columns` must be a tuple or a list")
         if header is not None:
             if not isinstance(header, (list, tuple)):
-                raise TypeError('`header` must be a tuple or a list')
+                raise TypeError("`header` must be a tuple or a list")
             if len(header) != len(data_columns):
-                raise ValueError('`header` and `data_columns` must have matching lengths')
+                raise ValueError("`header` and `data_columns` must have matching lengths")
 
         dsv_buffer = io.StringIO()
         writer = csv.writer(dsv_buffer, dialect=dialect, **fmtparams)
@@ -370,7 +392,7 @@ class Provider(BaseProvider):
         if header:
             if include_row_ids:
                 header = list(header)
-                header.insert(0, 'ID')
+                header.insert(0, "ID")
             writer.writerow(header)
 
         for row_num in range(1, num_rows + 1):
@@ -382,7 +404,13 @@ class Provider(BaseProvider):
 
         return dsv_buffer.getvalue()
 
-    def csv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def csv(
+        self,
+        header: Optional[Sequence[str]] = None,
+        data_columns: Tuple[str, str] = ("{{name}}", "{{address}}"),
+        num_rows: int = 10,
+        include_row_ids: bool = False,
+    ) -> str:
         """Generate random comma-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -394,11 +422,20 @@ class Provider(BaseProvider):
                 num_rows=10, include_row_ids=True
         """
         return self.dsv(
-            header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter=',',
+            header=header,
+            data_columns=data_columns,
+            num_rows=num_rows,
+            include_row_ids=include_row_ids,
+            delimiter=",",
         )
 
-    def tsv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def tsv(
+        self,
+        header: Optional[Sequence[str]] = None,
+        data_columns: Tuple[str, str] = ("{{name}}", "{{address}}"),
+        num_rows: int = 10,
+        include_row_ids: bool = False,
+    ) -> str:
         """Generate random tab-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -410,11 +447,20 @@ class Provider(BaseProvider):
                 num_rows=10, include_row_ids=True
         """
         return self.dsv(
-            header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter='\t',
+            header=header,
+            data_columns=data_columns,
+            num_rows=num_rows,
+            include_row_ids=include_row_ids,
+            delimiter="\t",
         )
 
-    def psv(self, header=None, data_columns=('{{name}}', '{{address}}'), num_rows=10, include_row_ids=False):
+    def psv(
+        self,
+        header: Optional[Sequence[str]] = None,
+        data_columns: Tuple[str, str] = ("{{name}}", "{{address}}"),
+        num_rows: int = 10,
+        include_row_ids: bool = False,
+    ) -> str:
         """Generate random pipe-separated values.
 
         For more information on the different arguments of this method, please refer to
@@ -426,14 +472,14 @@ class Provider(BaseProvider):
                 num_rows=10, include_row_ids=True
         """
         return self.dsv(
-            header=header, data_columns=data_columns, num_rows=num_rows,
-            include_row_ids=include_row_ids, delimiter='|',
+            header=header,
+            data_columns=data_columns,
+            num_rows=num_rows,
+            include_row_ids=include_row_ids,
+            delimiter="|",
         )
 
-    def json(self,
-             data_columns: list = None,
-             num_rows: int = 10,
-             indent: int = None) -> str:
+    def json(self, data_columns: List = None, num_rows: int = 10, indent: int = None) -> str:
         """
         Generate random JSON structure values.
 
@@ -477,19 +523,19 @@ class Provider(BaseProvider):
                 {'min_value': 50, 'max_value': 100})], num_rows=1
         """
         default_data_columns = {
-            'name': '{{name}}',
-            'residency': '{{address}}',
+            "name": "{{name}}",
+            "residency": "{{address}}",
         }
-        data_columns = data_columns if data_columns else default_data_columns
+        data_columns: Union[List, Dict] = data_columns if data_columns else default_data_columns
 
-        def process_list_structure(data: list) -> dict:
-            entry = {}
+        def process_list_structure(data: Sequence[Any]) -> Any:
+            entry: Dict[str, Any] = {}
 
             for name, definition, *arguments in data:
                 kwargs = arguments[0] if arguments else {}
 
                 if not isinstance(kwargs, dict):
-                    raise TypeError('Invalid arguments type. Must be a dictionary')
+                    raise TypeError("Invalid arguments type. Must be a dictionary")
 
                 if name is None:
                     return self._value_format_selection(definition, **kwargs)
@@ -497,14 +543,13 @@ class Provider(BaseProvider):
                 if isinstance(definition, tuple):
                     entry[name] = process_list_structure(definition)
                 elif isinstance(definition, (list, set)):
-                    entry[name] = [process_list_structure([item])
-                                   for item in definition]
+                    entry[name] = [process_list_structure([item]) for item in definition]
                 else:
                     entry[name] = self._value_format_selection(definition, **kwargs)
             return entry
 
-        def process_dict_structure(data: dict) -> dict:
-            entry = {}
+        def process_dict_structure(data: Union[int, float, bool, Dict[str, Any]]) -> Any:
+            entry: Dict[str, Any] = {}
 
             if isinstance(data, str):
                 return self._value_format_selection(data)
@@ -512,8 +557,7 @@ class Provider(BaseProvider):
             if isinstance(data, dict):
                 for name, definition in data.items():
                     if isinstance(definition, (tuple, list, set)):
-                        entry[name] = [process_dict_structure(item)
-                                       for item in definition]
+                        entry[name] = [process_dict_structure(item) for item in definition]
                     elif isinstance(definition, (dict, int, float, bool)):
                         entry[name] = process_dict_structure(definition)
                     else:
@@ -522,14 +566,14 @@ class Provider(BaseProvider):
 
             return data
 
-        def create_json_structure(data_columns) -> dict:
+        def create_json_structure(data_columns: Union[Dict, List]) -> dict:
             if isinstance(data_columns, dict):
                 return process_dict_structure(data_columns)
 
             if isinstance(data_columns, list):
                 return process_list_structure(data_columns)
 
-            raise TypeError('Invalid data_columns type. Must be a dictionary or list')
+            raise TypeError("Invalid data_columns type. Must be a dictionary or list")
 
         if num_rows == 1:
             return json.dumps(create_json_structure(data_columns), indent=indent)
@@ -537,10 +581,7 @@ class Provider(BaseProvider):
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
         return json.dumps(data, indent=indent)
 
-    def fixed_width(self,
-                    data_columns: list = None,
-                    num_rows: int = 10,
-                    align: str = 'left') -> str:
+    def fixed_width(self, data_columns: list = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
 
@@ -577,14 +618,14 @@ class Provider(BaseProvider):
                 'max_value': 100})], align='right', num_rows=2
         """
         default_data_columns = [
-            (20, 'name'),
-            (3, 'pyint', {'max_value': 20}),
+            (20, "name"),
+            (3, "pyint", {"max_value": 20}),
         ]
         data_columns = data_columns if data_columns else default_data_columns
         align_map = {
-            'left': '<',
-            'middle': '^',
-            'right': '>',
+            "left": "<",
+            "middle": "^",
+            "right": ">",
         }
         data = []
 
@@ -595,15 +636,15 @@ class Provider(BaseProvider):
                 kwargs = arguments[0] if arguments else {}
 
                 if not isinstance(kwargs, dict):
-                    raise TypeError('Invalid arguments type. Must be a dictionary')
+                    raise TypeError("Invalid arguments type. Must be a dictionary")
 
                 result = self._value_format_selection(definition, **kwargs)
                 row.append(f'{result:{align_map.get(align, "<")}{width}}'[:width])
 
-            data.append(''.join(row))
-        return '\n'.join(data)
+            data.append("".join(row))
+        return "\n".join(data)
 
-    def _value_format_selection(self, definition, **kwargs):
+    def _value_format_selection(self, definition: str, **kwargs: Any) -> Union[int, str]:
         """
         Formats the string in different ways depending on it's contents.
 
@@ -616,16 +657,16 @@ class Provider(BaseProvider):
         """
 
         # Check for PyStr first as complex strings may start with @
-        if re.match(r'.*\{\{.*\}\}.*', definition):
+        if re.match(r".*\{\{.*\}\}.*", definition):
             return self.generator.pystr_format(definition)
 
         # Check for fixed @words that won't be generated
-        if re.match(r'^@.*', definition):
-            return definition.lstrip('@')
+        if re.match(r"^@.*", definition):
+            return definition.lstrip("@")
 
         # Check if a argument group has been supplied
-        if re.match(r'^[a-zA-Z0-9_-]*:\w', definition):
-            definition, argument_group = definition.split(':')
+        if re.match(r"^[a-zA-Z0-9_-]*:\w", definition):
+            definition, argument_group = definition.split(":")
             arguments = self.generator.get_arguments(argument_group.strip())
 
             return self.generator.format(definition.strip(), **arguments)

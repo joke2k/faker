@@ -13,7 +13,7 @@ def checksum(sin):
     """
 
     # Remove spaces and create a list of digits.
-    checksumCollection = list(sin.replace(' ', ''))
+    checksumCollection = list(sin.replace(" ", ""))
     checksumCollection = [int(i) for i in checksumCollection]
 
     # Discard the last digit, we will be calculating it later.
@@ -34,7 +34,7 @@ def checksum(sin):
     # with the first eight values, results in a value divisible by 10
 
     check_digit = 10 - (sum(checksumCollection) % 10)
-    check_digit = (0 if check_digit == 10 else check_digit)
+    check_digit = 0 if check_digit == 10 else check_digit
 
     return check_digit
 
@@ -47,7 +47,7 @@ class Provider(SsnProvider):
     # This function reverses the checksum steps to create a random
     # valid nine-digit Canadian SIN (Social Insurance Number) in the
     # format '### ### ###'.
-    def ssn(self):
+    def ssn(self) -> str:
 
         # Create an array of 8 elements initialized randomly.
         digits = self.generator.random.sample(range(9), 8)
@@ -56,7 +56,7 @@ class Provider(SsnProvider):
         # digits sum to a multiple of 10. First, sum the first 8 and
         # set the 9th to the value that results in a multiple of 10.
         check_digit = 10 - (sum(digits) % 10)
-        check_digit = (0 if check_digit == 10 else check_digit)
+        check_digit = 0 if check_digit == 10 else check_digit
 
         digits.append(check_digit)
 
@@ -66,7 +66,7 @@ class Provider(SsnProvider):
         # element.
         for i in range(1, len(digits), 2):
             if digits[i] % 2 == 0:
-                digits[i] = (digits[i] // 2)
+                digits[i] = digits[i] // 2
             else:
                 digits[i] = (digits[i] + 9) // 2
 

@@ -292,7 +292,7 @@ a cheatsheet for new ``Faker`` in multiple locale mode.
 Unique Values
 -------------
 
-New in version ``v4.2.0` is the ``.unique`` attribute on the
+New in version ``v4.2.0`` is the ``.unique`` attribute on the
 ``Faker`` proxy.
 
 Accessing provider methods through this attribute guarantees that
@@ -302,7 +302,7 @@ the returned values are unique for the lifetime of the ``Faker`` instance.
 .. code:: python
 
    import faker
-   
+
    fake = faker.Faker()
 
    numbers = set(fake.unique.random_int() for i in range(1000))
@@ -318,7 +318,7 @@ a uniqueness pool.
 .. code:: python
 
    import faker
-   
+
    fake = faker.Faker()
 
    numbers = set(fake.unique.random_int(min=1, max=10) for i in range(10))
@@ -337,7 +337,7 @@ be raised.
 .. code:: python
 
    import faker
-   
+
    fake = faker.Faker()
 
    for i in range(3):
@@ -352,7 +352,7 @@ fast membership testing.
 .. code:: python
 
    import faker
-   
+
    fake = faker.Faker()
 
    fake.unique.profile()  # TypeError: unhashable type: 'dict'

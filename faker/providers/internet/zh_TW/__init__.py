@@ -5,13 +5,13 @@ from .. import Provider as InternetProvider
 
 class Provider(InternetProvider):
     user_name_formats = (
-        '{{last_romanized_name}}.{{first_romanized_name}}',
-        '{{first_romanized_name}}.{{last_romanized_name}}',
-        '{{first_romanized_name}}##',
-        '?{{last_romanized_name}}',
+        "{{last_romanized_name}}.{{first_romanized_name}}",
+        "{{first_romanized_name}}.{{last_romanized_name}}",
+        "{{first_romanized_name}}##",
+        "?{{last_romanized_name}}",
     )
-    tlds = ('com', 'com', 'com', 'net', 'org', 'tw', 'tw', 'tw')
+    tlds = ("com", "com", "com", "net", "org", "tw", "tw", "tw")
 
     @slugify
     def domain_word(self):
-        return self.generator.format('last_romanized_name')
+        return self.generator.format("last_romanized_name")

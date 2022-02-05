@@ -20,17 +20,21 @@ def cumsum(it: Iterable[float]) -> Generator[float, None, None]:
         yield total
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def choices_distribution_unique(
-        a: Sequence[T], p: Sequence[float], random: Optional[Random] = None, length: int = 1,
+    a: Sequence[T],
+    p: Optional[Sequence[float]],
+    random: Optional[Random] = None,
+    length: int = 1,
 ) -> Sequence[T]:
     # As of Python 3.7, there isn't a way to sample unique elements that takes
     # weight into account.
     if random is None:
         random = mod_random
 
+    assert p is not None
     assert len(a) == len(p)
     assert len(a) >= length, "You can't request more unique samples than elements in the dataset."
 
@@ -51,7 +55,10 @@ def choices_distribution_unique(
 
 
 def choices_distribution(
-    a: Sequence[T], p: Sequence[float], random: Optional[Random] = None, length: int = 1,
+    a: Sequence[T],
+    p: Optional[Sequence[float]],
+    random: Optional[Random] = None,
+    length: int = 1,
 ) -> Sequence[T]:
     if random is None:
         random = mod_random
@@ -59,7 +66,7 @@ def choices_distribution(
     if p is not None:
         assert len(a) == len(p)
 
-    if hasattr(random, 'choices'):
+    if hasattr(random, "choices"):
         if length == 1 and p is None:
             return [random.choice(a)]
         else:
@@ -68,9 +75,9 @@ def choices_distribution(
         choices = []
 
         if p is None:
-            p = itertools.repeat(1, len(a))
+            p = itertools.repeat(1, len(a))  # type: ignore
 
-        cdf = list(cumsum(p))
+        cdf = list(cumsum(p))  # type: ignore
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
         for i in range(length):

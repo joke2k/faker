@@ -1,18 +1,17 @@
 from functools import reduce
 from math import fmod
+from typing import Optional
 
+from ....typing import GenderType
 from .. import Provider as SsnProvider
 
 
-def zfix(d):
-    if d < 10:
-        return "0" + str(d)
-    else:
-        return d
+def zfix(d: int) -> str:
+    return "0" + str(d) if d < 10 else str(d)
 
 
 class Provider(SsnProvider):
-    def ssn(self, dob=None, gender=None):
+    def ssn(self, dob: Optional[str] = None, gender: Optional[GenderType] = None) -> str:
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 
@@ -112,11 +111,10 @@ class Provider(SsnProvider):
             H = self.generator.random_int(1, 12)
             N = self.generator.random_int(1, 30)
 
-        H = zfix(H)
-        N = zfix(N)
-        S = f'{self.generator.random_digit()}{self.generator.random_digit()}{self.generator.random_digit()}'
+        H_, N_ = zfix(H), zfix(N)
+        S = f"{self.generator.random_digit()}{self.generator.random_digit()}{self.generator.random_digit()}"
 
-        vdig = f'{M}{E}{H}{N}{S}'
+        vdig = f"{M}{E}{H_}{N_}{S}"
 
         if 17 < E < 97:
             cum = [(k + 1) * int(v) for k, v in enumerate(vdig)]
@@ -127,11 +125,9 @@ class Provider(SsnProvider):
 
         return vdig + str(int(K))
 
-    vat_id_formats = (
-        'HU########',
-    )
+    vat_id_formats = ("HU########",)
 
-    def vat_id(self):
+    def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Hungarian VAT ID

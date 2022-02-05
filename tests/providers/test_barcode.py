@@ -1,13 +1,16 @@
 import re
 
+from typing import Pattern
+
 import pytest
 
 
 class TestBarcodeProvider:
     """Test barcode provider methods"""
+
     num_samples = 1000
-    ean8_pattern = re.compile(r'\d{8}')
-    ean13_pattern = re.compile(r'\d{13}')
+    ean8_pattern: Pattern = re.compile(r"\d{8}")
+    ean13_pattern: Pattern = re.compile(r"\d{13}")
 
     def test_ean(self, faker, num_samples):
         for _ in range(num_samples):
@@ -49,7 +52,7 @@ class TestBarcodeProvider:
         for _ in range(num_samples):
             ean13 = faker.ean13(leading_zero=False)
             assert self.ean13_pattern.fullmatch(ean13)
-            assert ean13[0] != '0'
+            assert ean13[0] != "0"
 
             # Included check digit must be correct
             ean13_digits = [int(digit) for digit in ean13]
@@ -59,21 +62,23 @@ class TestBarcodeProvider:
         for _ in range(num_samples):
             ean13 = faker.ean13(leading_zero=True)
             assert self.ean13_pattern.fullmatch(ean13)
-            assert ean13[0] == '0'
+            assert ean13[0] == "0"
 
             # Included check digit must be correct
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope="class")
 def provider_class(request):
-    if hasattr(request.cls, 'get_provider_class') and callable(request.cls.get_provider_class):
+    if hasattr(request.cls, "get_provider_class") and callable(request.cls.get_provider_class):
         _provider_class = request.cls.get_provider_class()
         if isinstance(_provider_class, type):
             return _provider_class
-    raise NotImplementedError(f'Using the provider_class requires {request.cls.__name__}.get_provider_class() '
-                              'to be present, which has to return the Provider class it uses.')
+    raise NotImplementedError(
+        f"Using the provider_class requires {request.cls.__name__}.get_provider_class() "
+        "to be present, which has to return the Provider class it uses."
+    )
 
 
 @pytest.fixture()
@@ -82,16 +87,16 @@ def provider(faker, provider_class):
 
 
 class _LocaleCommonMixin:
-    ean8_pattern = re.compile(r'\d{8}')
-    ean13_pattern = re.compile(r'\d{13}')
+    ean8_pattern: Pattern = re.compile(r"\d{8}")
+    ean13_pattern: Pattern = re.compile(r"\d{13}")
 
     @staticmethod
     def assert_prefix(barcode_digits, prefixes):
         for prefix in prefixes:
             if all(a == b for a, b in zip(barcode_digits, map(int, prefix))):
                 return
-        str_barc = ''.join(str(x) for x in barcode_digits)
-        str_pref = ', '.join(map(lambda _prefix: ''.join(str(x) for x in _prefix)), prefixes)
+        str_barc = "".join(str(x) for x in barcode_digits)
+        str_pref = ", ".join(map(lambda _prefix: "".join(str(x) for x in _prefix)), prefixes)
         raise AssertionError(f"{str_barc} doesn't match any of the prefixes: {str_pref}")
 
     def test_localized_ean(self, faker, num_samples, provider):
@@ -131,8 +136,8 @@ class _LocaleCommonMixin:
 
 
 class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
-    upc_a_pattern = re.compile(r'\d{12}')
-    upc_e_pattern = re.compile(r'[01]\d{7}')
+    upc_a_pattern: Pattern = re.compile(r"\d{12}")
+    upc_e_pattern: Pattern = re.compile(r"[01]\d{7}")
 
     def test_upc_a(self, faker, num_samples):
         for _ in range(num_samples):
@@ -158,30 +163,34 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             upc_e_1 = faker.upc_e(number_system_digit=1)
             assert self.upc_e_pattern.fullmatch(upc_e_0)
             assert self.upc_e_pattern.fullmatch(upc_e_1)
-            assert upc_e_0[0] == '0'
-            assert upc_e_1[0] == '1'
+            assert upc_e_0[0] == "0"
+            assert upc_e_1[0] == "1"
 
     def test_upc_e_safe_mode(self, faker):
         # For this test, we explicitly specify a base and a number system digit
         # so we do not have to wait for RNG to produce the right combinations.
         for _ in range(100):
             # Be aware that there are other unsafe combinations
-            unsafe_base = f'{faker.random_int(0, 99):02}000{faker.random_int(3, 4)}'
-            safe_base = unsafe_base[:2] + '0000'
+            unsafe_base = f"{faker.random_int(0, 99):02}000{faker.random_int(3, 4)}"
+            safe_base = unsafe_base[:2] + "0000"
             number_system_digit = faker.random_int(0, 1)
 
             # Safe mode will create a UPC-E barcode with the safe base
             # even if an unsafe base was supplied
-            upc_e_safe = faker.upc_e(base=unsafe_base,
-                                     number_system_digit=number_system_digit,
-                                     safe_mode=True)
+            upc_e_safe = faker.upc_e(
+                base=unsafe_base,
+                number_system_digit=number_system_digit,
+                safe_mode=True,
+            )
             assert upc_e_safe[1:-1] == safe_base
             assert upc_e_safe[1:-1] != unsafe_base
 
             # Unsafe mode will force create a UPC-E barcode with unsafe base
-            upc_e_unsafe = faker.upc_e(base=unsafe_base,
-                                       number_system_digit=number_system_digit,
-                                       safe_mode=False)
+            upc_e_unsafe = faker.upc_e(
+                base=unsafe_base,
+                number_system_digit=number_system_digit,
+                safe_mode=False,
+            )
             assert upc_e_unsafe[1:-1] != safe_base
             assert upc_e_unsafe[1:-1] == unsafe_base
 
@@ -196,7 +205,7 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
 
         # Invalid string
         with pytest.raises(ValueError):
-            provider._convert_upc_a2e('abcdef')
+            provider._convert_upc_a2e("abcdef")
 
     def test_upc_a2e2a(self, faker, num_samples, provider):
         for _ in range(num_samples):
@@ -211,9 +220,7 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             assert int(upc_a[-1]) == int(upc_e[-1])
 
             # Create a new UPC-A barcode based on the UPC-E barcode
-            new_upc_a = faker.upc_a(upc_ae_mode=True,
-                                    base=upc_e[1:-1],
-                                    number_system_digit=int(upc_e[0]))
+            new_upc_a = faker.upc_a(upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0]))
 
             # New UPC-A barcode must be the same as the original
             assert upc_a == new_upc_a
@@ -224,9 +231,7 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             assert self.upc_e_pattern.fullmatch(upc_e)
 
             # Create a new UPC-A barcode based on the UPC-E barcode
-            upc_a = faker.upc_a(upc_ae_mode=True,
-                                base=upc_e[1:-1],
-                                number_system_digit=int(upc_e[0]))
+            upc_a = faker.upc_a(upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0]))
 
             # Number system and check digits must be the same
             assert int(upc_a[0]) == int(upc_e[0])
@@ -240,42 +245,50 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
 
 
 class TestEnUs(_LocaleNorthAmericaMixin):
-    """ Tests en_US barcode provider """
+    """Tests en_US barcode provider"""
+
     num_samples = 1000
 
     @staticmethod
     def get_provider_class():
         from faker.providers.barcode.en_US import Provider
+
         return Provider
 
 
 class TestEnCa(_LocaleNorthAmericaMixin):
-    """ Tests en_CA barcode provider """
+    """Tests en_CA barcode provider"""
+
     num_samples = 1000
 
     @staticmethod
     def get_provider_class():
         from faker.providers.barcode.en_CA import Provider
+
         return Provider
 
 
 class TestFrCa(_LocaleNorthAmericaMixin):
-    """ Tests fr_CA barcode provider """
+    """Tests fr_CA barcode provider"""
+
     num_samples = 1000
 
     @staticmethod
     def get_provider_class():
         from faker.providers.barcode.fr_CA import Provider
+
         return Provider
 
 
 class TestJaJp(_LocaleCommonMixin):
-    """ Tests ja_JP barcode provider """
+    """Tests ja_JP barcode provider"""
+
     num_samples = 1000
 
     @staticmethod
     def get_provider_class():
         from faker.providers.barcode.ja_JP import Provider
+
         return Provider
 
     def test_jan(self, faker, num_samples, provider):
@@ -315,12 +328,14 @@ class TestJaJp(_LocaleCommonMixin):
 
 
 class TestEsEs(_LocaleCommonMixin):
-    """ Tests es_ES barcode provider """
+    """Tests es_ES barcode provider"""
+
     num_samples = 1000
 
     @staticmethod
     def get_provider_class():
         from faker.providers.barcode.es_ES import Provider
+
         return Provider
 
     def test_localized_ean(self, faker, num_samples, provider):

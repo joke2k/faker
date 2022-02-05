@@ -8,11 +8,9 @@ class Provider(BaseProvider):
     Faker provider for Indian Identifiers
     """
 
-    aadhaar_id_formats = (
-        '%##########',
-    )
+    aadhaar_id_formats = ("%##########",)
 
-    def aadhaar_id(self):
+    def aadhaar_id(self) -> str:
         """
         Aadhaar is a 12 digit person identifier generated for residents of
         India.
@@ -21,8 +19,8 @@ class Provider(BaseProvider):
         """
 
         aadhaar_digits = self.numerify(self.random_element(self.aadhaar_id_formats))
-        checksum = checksums.calculate_luhn(aadhaar_digits)
+        checksum = checksums.calculate_luhn(int(aadhaar_digits))
 
-        aadhaar_number = f'{aadhaar_digits}{checksum}'
+        aadhaar_number = f"{aadhaar_digits}{checksum}"
 
         return aadhaar_number

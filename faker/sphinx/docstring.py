@@ -4,6 +4,7 @@ import logging
 import re
 
 from collections import namedtuple
+from typing import Pattern
 
 from faker import Faker
 from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
@@ -11,33 +12,26 @@ from faker.sphinx.validator import SampleCodeValidator
 
 logger = logging.getLogger(__name__)
 _fake = Faker(AVAILABLE_LOCALES)
-_base_provider_method_pattern = re.compile(r'^faker\.providers\.BaseProvider\.(?P<method>\w+)$')
-_standard_provider_method_pattern = re.compile(r'^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$')
-_locale_provider_method_pattern = re.compile(
-    r'^faker\.providers\.\w+'
-    r'\.(?P<locale>[a-z]{2,3}_[A-Z]{2})'
-    r'\.Provider'
-    r'\.(?P<method>\w+)$',
+_base_provider_method_pattern: Pattern = re.compile(r"^faker\.providers\.BaseProvider\.(?P<method>\w+)$")
+_standard_provider_method_pattern: Pattern = re.compile(r"^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$")
+_locale_provider_method_pattern: Pattern = re.compile(
+    r"^faker\.providers\.\w+" r"\.(?P<locale>[a-z]{2,3}_[A-Z]{2})" r"\.Provider" r"\.(?P<method>\w+)$",
 )
-_sample_line_pattern = re.compile(
-    r'^:sample'
-    r'(?: size=(?P<size>[1-9][0-9]*))?'
-    r'(?: seed=(?P<seed>[0-9]+))?'
-    r':'
-    r'(?: ?(?P<kwargs>.*))?$',
+_sample_line_pattern: Pattern = re.compile(
+    r"^:sample" r"(?: size=(?P<size>[1-9][0-9]*))?" r"(?: seed=(?P<seed>[0-9]+))?" r":" r"(?: ?(?P<kwargs>.*))?$",
 )
-_command_template = 'generator.{method}({kwargs})'
+_command_template = "generator.{method}({kwargs})"
 _sample_output_template = (
-    '>>> Faker.seed({seed})\n'
-    '>>> for _ in range({size}):\n'
-    '...     fake.{method}({kwargs})\n'
-    '...\n'
-    '{results}\n\n'
+    ">>> Faker.seed({seed})\n"
+    ">>> for _ in range({size}):\n"
+    "...     fake.{method}({kwargs})\n"
+    "...\n"
+    "{results}\n\n"
 )
 
 DEFAULT_SAMPLE_SIZE = 5
 DEFAULT_SEED = 0
-Sample = namedtuple('Sample', ['size', 'seed', 'kwargs'])
+Sample = namedtuple("Sample", ["size", "seed", "kwargs"])
 
 
 class ProviderMethodDocstring:
@@ -60,9 +54,9 @@ class ProviderMethodDocstring:
         self._parsed_lines = []
         self._samples = []
         self._skipped = True
-        self._log_prefix = f'{inspect.getfile(obj)}:docstring of {name}: WARNING:'
+        self._log_prefix = f"{inspect.getfile(obj)}:docstring of {name}: WARNING:"
 
-        if what != 'method':
+        if what != "method":
             return
 
         base_provider_method_match = _base_provider_method_pattern.match(name)
@@ -70,16 +64,16 @@ class ProviderMethodDocstring:
         standard_provider_method_match = _standard_provider_method_pattern.match(name)
         if base_provider_method_match:
             groupdict = base_provider_method_match.groupdict()
-            self._method = groupdict['method']
+            self._method = groupdict["method"]
             self._locale = DEFAULT_LOCALE
         elif standard_provider_method_match:
             groupdict = standard_provider_method_match.groupdict()
-            self._method = groupdict['method']
+            self._method = groupdict["method"]
             self._locale = DEFAULT_LOCALE
         elif locale_provider_method_match:
             groupdict = locale_provider_method_match.groupdict()
-            self._method = groupdict['method']
-            self._locale = groupdict['locale']
+            self._method = groupdict["method"]
+            self._locale = groupdict["locale"]
         else:
             return
 
@@ -88,7 +82,7 @@ class ProviderMethodDocstring:
         self._generate_samples()
 
     def _log_warning(self, warning):
-        logger.warning(f'{self._log_prefix} {warning}')
+        logger.warning(f"{self._log_prefix} {warning}")
 
     def _parse(self):
         while True:
@@ -101,7 +95,7 @@ class ProviderMethodDocstring:
 
     def _parse_section(self, section):
         # No-op if section does not look like the start of a sample section
-        if not section.startswith(':sample'):
+        if not section.startswith(":sample"):
             self._parsed_lines.append(section)
             return
 
@@ -114,13 +108,13 @@ class ProviderMethodDocstring:
 
         # Next line is the start of a new sample section, so process
         # current sample section, and start parsing the new section
-        if next_line.startswith(':sample'):
+        if next_line.startswith(":sample"):
             self._process_sample_section(section)
             self._parse_section(next_line)
 
         # Next line is an empty line indicating the end of
         # current sample section, so process current section
-        elif next_line == '':
+        elif next_line == "":
             self._process_sample_section(section)
 
         # Section is assumed to be multiline, so continue
@@ -134,18 +128,18 @@ class ProviderMethodDocstring:
 
         # Discard sample section if malformed
         if not match:
-            msg = f'The section `{section}` is malformed and will be discarded.'
+            msg = f"The section `{section}` is malformed and will be discarded."
             self._log_warning(msg)
             return
 
         # Set sample generation defaults and do some beautification if necessary
         groupdict = match.groupdict()
-        size = groupdict.get('size')
-        seed = groupdict.get('seed')
-        kwargs = groupdict.get('kwargs')
+        size = groupdict.get("size")
+        seed = groupdict.get("seed")
+        kwargs = groupdict.get("kwargs")
         size = max(int(size), DEFAULT_SAMPLE_SIZE) if size else DEFAULT_SAMPLE_SIZE
         seed = int(seed) if seed else DEFAULT_SEED
-        kwargs = self._beautify_kwargs(kwargs) if kwargs else ''
+        kwargs = self._beautify_kwargs(kwargs) if kwargs else ""
 
         # Store sample generation details
         sample = Sample(size, seed, kwargs)
@@ -154,11 +148,11 @@ class ProviderMethodDocstring:
     def _beautify_kwargs(self, kwargs):
         def _repl_whitespace(match):
             quoted = match.group(1) or match.group(2)
-            return quoted if quoted else ''
+            return quoted if quoted else ""
 
         def _repl_comma(match):
             quoted = match.group(1) or match.group(2)
-            return quoted if quoted else ', '
+            return quoted if quoted else ", "
 
         # First, remove all whitespaces and tabs not within quotes
         result = re.sub(r'("[^"]*")|(\'[^\']*\')|[ \t]+', _repl_whitespace, kwargs)
@@ -174,51 +168,52 @@ class ProviderMethodDocstring:
 
     def _generate_eval_scope(self):
         from collections import OrderedDict  # noqa: F401 Do not remove! The eval command needs this reference.
+
         return {
-            'generator': _fake[self._locale],
-            'OrderedDict': OrderedDict,
+            "generator": _fake[self._locale],
+            "OrderedDict": OrderedDict,
         }
 
     def _inject_default_sample_section(self):
-        default_sample = Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, '')
+        default_sample = Sample(DEFAULT_SAMPLE_SIZE, DEFAULT_SEED, "")
         self._samples.append(default_sample)
 
     def _generate_samples(self):
         if not self._samples:
             self._inject_default_sample_section()
 
-        output = ''
+        output = ""
         eval_scope = self._generate_eval_scope()
         for sample in self._samples:
             command = _command_template.format(method=self._method, kwargs=sample.kwargs)
             validator = SampleCodeValidator(command)
             if validator.errors:
                 msg = (
-                    f'Invalid code elements detected. Sample generation will be '
-                    f'skipped for method `{self._method}` with arguments `{sample.kwargs}`.'
+                    f"Invalid code elements detected. Sample generation will be "
+                    f"skipped for method `{self._method}` with arguments `{sample.kwargs}`."
                 )
                 self._log_warning(msg)
                 continue
 
             try:
                 Faker.seed(sample.seed)
-                results = '\n'.join([
-                    self._stringify_result(eval(command, eval_scope))
-                    for _ in range(sample.size)
-                ])
+                results = "\n".join([self._stringify_result(eval(command, eval_scope)) for _ in range(sample.size)])
             except Exception:
-                msg = f'Sample generation failed for method `{self._method}` with arguments `{sample.kwargs}`.'
+                msg = f"Sample generation failed for method `{self._method}` with arguments `{sample.kwargs}`."
                 self._log_warning(msg)
                 continue
             else:
                 output += _sample_output_template.format(
-                    seed=sample.seed, method=self._method, kwargs=sample.kwargs,
-                    size=sample.size, results=results,
+                    seed=sample.seed,
+                    method=self._method,
+                    kwargs=sample.kwargs,
+                    size=sample.size,
+                    results=results,
                 )
 
         if output:
-            output = ':examples:\n\n' + output
-            self._parsed_lines.extend(output.split('\n'))
+            output = ":examples:\n\n" + output
+            self._parsed_lines.extend(output.split("\n"))
 
     @property
     def skipped(self):
