@@ -725,6 +725,7 @@ class TestEsEs:
             assert len(postcode) == 5
             assert 3000 <= int(postcode) <= 52100
 
+
 class TestEsMx:
     """Test es_MX address provider methods"""
 
