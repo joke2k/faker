@@ -718,6 +718,12 @@ class TestEsEs:
             assert isinstance(autonomous_community, str)
             assert autonomous_community in EsEsAddressProvider.regions
 
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert len(postcode) == 5
+            assert 3000 <= int(postcode) <= 52100
 
 class TestEsMx:
     """Test es_MX address provider methods"""
