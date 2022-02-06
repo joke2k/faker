@@ -6,11 +6,11 @@ class Provider(AddressProvider):
     # Building numbers dont go higher than a 1000
     building_number_formats = ("%##", "%#", "%")
 
-    street_name_formats = ("{{street_prefix}}{{street_suffix}}",)
+    street_name_formats = ("{{dk_street_name}}{{street_suffix}}",)
 
     street_address_formats = ("{{street_name}} {{building_number}}",)
 
-    street_prefixes = (
+    street_names = (
         "Aberdeen",
         "Dompap",
         "Abildgaards",
@@ -2508,8 +2508,8 @@ class Provider(AddressProvider):
         "Syddanmark",
     )
 
-    def street_prefix(self) -> str:
-        return self.random_element(self.street_prefixes)
+    def dk_street_name(self) -> str:
+        return self.random_element(self.street_names)
 
     def city_name(self) -> str:
         return self.random_element(self.cities)
