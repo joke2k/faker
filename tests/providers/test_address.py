@@ -1776,6 +1776,12 @@ class TestDeCh:
             assert isinstance(canton, tuple)
             assert canton in DeChAddressProvider.cantons
 
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in DeChAddressProvider.cities
+
 
 class TestRoRo:
     """Test ro_RO address provider methods"""
