@@ -17,11 +17,12 @@ class Generator:
         "arguments": {},
     }
 
+    _is_seeded = False
+
     def __init__(self, **config: Dict) -> None:
         self.providers: List["BaseProvider"] = []
         self.__config = dict(list(self.__config.items()) + list(config.items()))
         self.__random = random
-        self._is_seeded = False
 
     def add_provider(self, provider: "BaseProvider") -> None:
 
