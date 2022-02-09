@@ -23,6 +23,7 @@ from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
+from faker.providers.ssn.it_IT import checksum as it_checksum
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
@@ -848,6 +849,23 @@ class TestHuHU(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^HU\d{8}$", self.fake.vat_id())
+
+
+class TestItIT(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("it_IT")
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^IT\d{11}$", self.fake.vat_id())
+
+    def test_ssn(self):
+        for _ in range(100):
+            assert re.search(r"^[A-Z]{6}\d{2}[ABCDEHLMPRST][0-7]\d[A-Z]\d{3}[A-Z]$", self.fake.ssn())
+
+    def test_checksum(self) -> None:
+        assert it_checksum("MDDMRA80L41H501") == 'R'
 
 
 class TestPtBR(unittest.TestCase):
