@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.2.0 - 2022-02-09](https://github.com/joke2k/faker/compare/v12.1.0...v12.2.0)
+
+* Add cities to `de_CH`. Thanks @Kalbra.
+
 ### [v12.1.0 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.1...v12.1.0)
 
 * Set correct language on provider when specific locale is requested.
