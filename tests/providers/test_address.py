@@ -723,7 +723,7 @@ class TestEsEs:
             postcode = faker.postcode()
             assert isinstance(postcode, str)
             assert len(postcode) == 5
-            assert 3000 <= int(postcode) <= 52100
+            assert 1000 <= int(postcode) <= 52100
 
 
 class TestEsMx:

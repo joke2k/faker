@@ -135,6 +135,6 @@ class Provider(AddressProvider):
         return self.random_element(self.regions)
 
     def postcode(self) -> str:
-        return str(self.generator.random.randint(3000, 52100)).zfill(5)
+        return str(self.generator.random.randint(1000, 52100)).zfill(5)
 
     autonomous_community = region
