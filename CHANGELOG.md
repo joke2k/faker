@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.3.0 - 2022-02-10](https://github.com/joke2k/faker/compare/v12.2.0...v12.3.0)
+
+* Fix `it_IT` `ssn()` validity. Thanks @MarcoMatarazzo.
+
 ### [v12.2.0 - 2022-02-09](https://github.com/joke2k/faker/compare/v12.1.0...v12.2.0)
 
 * Add cities to `de_CH`. Thanks @Kalbra.
