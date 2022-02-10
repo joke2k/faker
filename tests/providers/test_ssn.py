@@ -865,7 +865,7 @@ class TestItIT(unittest.TestCase):
             assert re.search(r"^[A-Z]{6}\d{2}[ABCDEHLMPRST][0-7]\d[A-Z]\d{3}[A-Z]$", self.fake.ssn())
 
     def test_checksum(self) -> None:
-        assert it_checksum("MDDMRA80L41H501") == 'R'
+        assert it_checksum("MDDMRA80L41H501") == "R"
 
 
 class TestPtBR(unittest.TestCase):
