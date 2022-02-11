@@ -469,19 +469,6 @@ class BaseProvider:
                        ("d", 0.05),
                    ]), unique=True
         """
-        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
-
-        if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
-            raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
-
-        fn = choices_distribution_unique if unique else choices_distribution
-
-        if length is None:
-            length = self.generator.random.randint(1, len(elements))
-
-        if unique and length > len(elements):
-            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
-
         # Check for max and min
         if max_element_length or min_element_length:
             appropriate_elements = []
@@ -500,6 +487,20 @@ class BaseProvider:
 
             elements = appropriate_elements
 
+        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
+
+        if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
+            raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
+
+        fn = choices_distribution_unique if unique else choices_distribution
+
+        if length is None:
+            length = self.generator.random.randint(1, len(elements))
+
+        if unique and length > len(elements):
+            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from. "
+                             "Check if 'max_length' or 'min_length' are in possible ranges.")
+
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
                 elements._key_cache = tuple(elements.keys())  # type: ignore
@@ -512,6 +513,8 @@ class BaseProvider:
                 return self.generator.random.sample(elements, length)
             choices = elements
             probabilities = None
+
+        print(probabilities)
 
         return fn(
             tuple(choices),
