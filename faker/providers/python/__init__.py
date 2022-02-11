@@ -155,7 +155,7 @@ class Provider(BaseProvider):
 
         return result
 
-    def _safe_random_int(self, min_value, max_value, positive):
+    def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
         orig_min_value = min_value
         orig_max_value = max_value
 
@@ -169,7 +169,7 @@ class Provider(BaseProvider):
         if min_value == max_value:
             return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
-            return self.random_int(min_value, max_value - 1)
+            return self.random_int(int(min_value), int(max_value - 1))
 
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
