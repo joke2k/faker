@@ -547,7 +547,11 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self, elements: ElementsType = ("a", "b", "c")) -> T:
+    def random_element(
+        self, elements: ElementsType = ("a", "b", "c"),
+        max_element_length: Optional[int] = None,
+        min_element_length: Optional[int] = None,
+    ) -> T:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -563,8 +567,12 @@ class BaseProvider:
                      ("d", 0.05),
                  ])
         """
-
-        return self.random_elements(elements, length=1)[0]
+        return self.random_elements(
+            elements,
+            length=1,
+            max_element_length=max_element_length,
+            min_element_length=min_element_length
+        )[0]
 
     def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
