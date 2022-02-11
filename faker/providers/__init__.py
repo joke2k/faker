@@ -408,8 +408,13 @@ class BaseProvider:
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
+        max_element_length: Optional[int] = None,
+        min_element_length: Optional[int] = None,
     ) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
+        ``max_element_lenght`` sets the maximal lenght of an individual element in ``elements``.
+        ``min_element_lenght`` sets the minimal lenght of an individual element in ``elements``.
+        All elements which do not meet these criteria will be ignored at the random selection.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
         ``True`` for random sampling without replacement.
@@ -476,6 +481,24 @@ class BaseProvider:
 
         if unique and length > len(elements):
             raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
+
+        # Check for max and min
+        if max_element_length or min_element_length:
+            appropriate_elements = []
+            if not max_element_length:
+                for element in elements:
+                    if len(element) >= min_element_length:
+                        appropriate_elements.append(element)
+            elif not min_element_length:
+                for element in elements:
+                    if len(element) <= max_element_length:
+                        appropriate_elements.append(element)
+            else:
+                for element in elements:
+                    if min_element_length <= len(element) <= max_element_length:
+                        appropriate_elements.append(element)
+
+            elements = appropriate_elements
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
