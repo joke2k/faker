@@ -216,6 +216,7 @@ class TestPyfloat(unittest.TestCase):
         result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
+    @pytest.mark.skipif(sys.version_info < (3, 10), reason="Only relevant for Python 3.10 and later.")
     @pytest.mark.filterwarnings(
         # Convert the warning to an error for this test
         r"error:non-integer arguments to randrange\(\):DeprecationWarning"
