@@ -2078,7 +2078,7 @@ class TestHuHu:
         for _ in range(num_samples):
             administrative_unit = faker.administrative_unit()
             assert isinstance(administrative_unit, str)
-            assert administrative_unit in FrAddressProvider.counties
+            assert administrative_unit in HuHuAddressProvider.counties
 
     def test_street_address_with_county(self, faker, num_samples):
         for _ in range(num_samples):
@@ -2232,7 +2232,7 @@ class TestSvSe:
 
     def test_administrative_unit(self, faker, num_samples):
         for _ in range(num_samples):
-            street = faker.administrative_unit()
+            administrative_unit = faker.administrative_unit()
             assert isinstance(administrative_unit, str)
             assert administrative_unit in SvSeAddressProvider.states
 
