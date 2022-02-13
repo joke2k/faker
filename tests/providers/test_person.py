@@ -32,6 +32,128 @@ from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 
 
+class TestMinMax(unittest.TestCase):
+    """Tests the min_length and min_length functionality"""
+
+    def setUp(self):
+        self.fake = Faker("en_US")
+        Faker.seed(0)
+
+    @staticmethod
+    def get_min_and_max(max_length, min_range):
+        """Generating test values to test min_length and max_length
+        ``max_length`` the upper limit of the test data
+        ``min_size`` the minimal range of an example data(e.b. at min_range=3: 3;6)
+        """
+        for offset in range(max_length):
+            for block_size in range(max_length - offset - min_range + 1):
+                block_size += min_range + offset
+
+                yield offset, block_size
+
+    def test_first_name(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            first_name = self.fake.first_name(min_, max_)
+            assert isinstance(first_name, str)
+            assert min_ <= len(first_name) <= max_
+
+    def test_last_name(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            last_name = self.fake.last_name(min_, max_)
+            assert isinstance(last_name, str)
+            assert min_ <= len(last_name) <= max_
+
+    def test_first_name_male(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            first_name_male = self.fake.first_name_male(min_, max_)
+            assert isinstance(first_name_male, str)
+            assert min_ <= len(first_name_male) <= max_
+
+    def test_first_name_nonbinary(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            first_name_nonbinary = self.fake.first_name_nonbinary(min_, max_)
+            assert isinstance(first_name_nonbinary, str)
+            assert min_ <= len(first_name_nonbinary) <= max_
+
+    def test_first_name_female(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            first_name_female = self.fake.first_name_female(min_, max_)
+            assert isinstance(first_name_female, str)
+            assert min_ <= len(first_name_female) <= max_
+
+    def test_last_name_male(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            last_name_male = self.fake.last_name_male(min_, max_)
+            assert isinstance(last_name_male, str)
+            assert min_ <= len(last_name_male) <= max_
+
+    def test_last_name_nonbinary(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            last_name_nonbinary = self.fake.last_name_nonbinary(min_, max_)
+            assert isinstance(last_name_nonbinary, str)
+            assert min_ <= len(last_name_nonbinary) <= max_
+
+    def test_last_name_female(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            last_name_female = self.fake.last_name_female(min_, max_)
+            assert isinstance(last_name_female, str)
+            assert min_ <= len(last_name_female) <= max_
+
+    def test_prefix(self):
+        for min_, max_ in self.get_min_and_max(4, 3):
+            prefix = self.fake.prefix(min_, max_)
+            assert isinstance(prefix, str)
+            assert min_ <= len(prefix) <= max_
+
+    def test_prefix_male(self):
+        for min_, max_ in self.get_min_and_max(3, 3):
+            prefix_male = self.fake.prefix_male(min_, max_)
+            assert isinstance(prefix_male, str)
+            assert min_ <= len(prefix_male) <= max_
+
+    def test_prefix_nonbinary(self):
+        for min_, max_ in self.get_min_and_max(4, 3):
+            prefix_nonbinary = self.fake.prefix_nonbinary(min_, max_)
+            assert isinstance(prefix_nonbinary, str)
+            assert min_ <= len(prefix_nonbinary) <= max_
+
+    def test_prefix_female(self):
+        for min_, max_ in self.get_min_and_max(4, 3):
+            prefix_female = self.fake.prefix_female(min_, max_)
+            assert isinstance(prefix_female, str)
+            assert min_ <= len(prefix_female) <= max_
+
+    def test_suffix(self):
+        for min_, max_ in self.get_min_and_max(4, 1):
+            suffix = self.fake.suffix(min_, max_)
+            assert isinstance(suffix, str)
+            assert min_ <= len(suffix) <= max_
+
+    def test_suffix_male(self):
+        for min_, max_ in self.get_min_and_max(10, 3):
+            suffix_male = self.fake.suffix_male(min_, max_)
+            assert isinstance(suffix_male, str)
+            assert min_ <= len(suffix_male) <= max_
+
+    def test_suffix_nonbinary(self):
+        for min_, max_ in self.get_min_and_max(4, 2):
+            suffix_nonbinary = self.fake.suffix_nonbinary(min_, max_)
+            assert isinstance(suffix_nonbinary, str)
+            assert min_ <= len(suffix_nonbinary) <= max_
+
+    def test_suffix_female(self):
+        for min_, max_ in self.get_min_and_max(3, 2):
+            suffix_female = self.fake.suffix_female(min_, max_)
+            assert isinstance(suffix_female, str)
+            assert min_ <= len(suffix_female) <= max_
+
+    def test_language_name(self):
+        for min_, max_ in self.get_min_and_max(15, 3):
+            language_name = self.fake.language_name(min_, max_)
+            assert isinstance(language_name, str)
+            assert min_ <= len(language_name) <= max_
+
+
 class TestAr(unittest.TestCase):
     """Tests person in the ar locale"""
 

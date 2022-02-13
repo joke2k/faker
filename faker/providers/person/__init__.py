@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Optional
 
 from .. import BaseProvider, ElementsType
 
@@ -205,11 +205,11 @@ class Provider(BaseProvider):
         pattern: str = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    def first_name(self) -> str:
-        return self.random_element(self.first_names)
+    def first_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names, min_length, max_length)
 
-    def last_name(self) -> str:
-        return self.random_element(self.last_names)
+    def last_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.last_names, min_length, max_length)
 
     def name_male(self) -> str:
         if hasattr(self, "formats_male"):
@@ -235,92 +235,94 @@ class Provider(BaseProvider):
         pattern: str = self.random_element(formats)
         return self.generator.parse(pattern)
 
-    def first_name_male(self) -> str:
+    def first_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "first_names_male"):
-            return self.random_element(self.first_names_male)  # type: ignore[attr-defined]
-        return self.first_name()
+            return self.random_element(self.first_names_male, min_length, max_length)  # type: ignore[attr-defined]
+        return self.first_name(min_length, max_length)
 
-    def first_name_nonbinary(self) -> str:
+    def first_name_nonbinary(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "first_names_nonbinary"):
-            return self.random_element(self.first_names_nonbinary)  # type: ignore[attr-defined]
-        return self.first_name()
+            return self.random_element(self.first_names_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
+        return self.first_name(min_length, max_length)
 
-    def first_name_female(self) -> str:
+    def first_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "first_names_female"):
-            return self.random_element(self.first_names_female)  # type: ignore[attr-defined]
-        return self.first_name()
+            return self.random_element(self.first_names_female, min_length, max_length)  # type: ignore[attr-defined]
+        return self.first_name(min_length, max_length)
 
-    def last_name_male(self) -> str:
+    def last_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "last_names_male"):
-            return self.random_element(self.last_names_male)  # type: ignore[attr-defined]
-        return self.last_name()
+            return self.random_element(self.last_names_male, min_length, max_length)  # type: ignore[attr-defined]
+        return self.last_name(min_length, max_length)
 
-    def last_name_nonbinary(self) -> str:
+    def last_name_nonbinary(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "last_names_nonbinary"):
-            return self.random_element(self.last_names_nonbinary)  # type: ignore[attr-defined]
-        return self.last_name()
+            return self.random_element(self.last_names_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
+        return self.last_name(min_length, max_length)
 
-    def last_name_female(self) -> str:
+    def last_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "last_names_female"):
-            return self.random_element(self.last_names_female)  # type: ignore[attr-defined]
-        return self.last_name()
+            return self.random_element(self.last_names_female, min_length, max_length)  # type: ignore[attr-defined]
+        return self.last_name(min_length, max_length)
 
-    def prefix(self) -> str:
+    def prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "prefixes"):
-            return self.random_element(self.prefixes)  # type: ignore[attr-defined]
+            return self.random_element(self.prefixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
-            prefixes: Sequence[ElementsType] = self.random_element(
-                (self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary)  # type: ignore[attr-defined]
-            )
-            return self.random_element(prefixes)
+            prefixes: Sequence[ElementsType] = self.prefixes_male
+            prefixes.update(self.prefixes_female)
+            prefixes.update(self.prefixes_nonbinary)
+            return self.random_element(prefixes, min_length, max_length)
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female"):
-            prefixes = self.random_element((self.prefixes_male, self.prefixes_female))  # type: ignore[attr-defined]
-            return self.random_element(prefixes)
+            prefixes = self.prefixes_male
+            prefixes.update(self.prefixes_female)
+            return self.random_element(prefixes, min_length, max_length)
         return ""
 
-    def prefix_male(self) -> str:
+    def prefix_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "prefixes_male"):
-            return self.random_element(self.prefixes_male)  # type: ignore[attr-defined]
-        return self.prefix()
+            return self.random_element(self.prefixes_male, min_length, max_length)  # type: ignore[attr-defined]
+        return self.prefix(min_length, max_length)
 
-    def prefix_nonbinary(self) -> str:
+    def prefix_nonbinary(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "prefixes_nonbinary"):
-            return self.random_element(self.prefixes_nonbinary)  # type: ignore[attr-defined]
-        return self.prefix()
+            return self.random_element(self.prefixes_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
+        return self.prefix(min_length, max_length)
 
-    def prefix_female(self) -> str:
+    def prefix_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "prefixes_female"):
-            return self.random_element(self.prefixes_female)  # type: ignore[attr-defined]
-        return self.prefix()
+            return self.random_element(self.prefixes_female, min_length, max_length)  # type: ignore[attr-defined]
+        return self.prefix(min_length, max_length)
 
-    def suffix(self) -> str:
+    def suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "suffixes"):
-            return self.random_element(self.suffixes)  # type: ignore[attr-defined]
+            return self.random_element(self.suffixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
-            suffixes: Sequence[ElementsType] = self.random_element(
-                (self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary)  # type: ignore[attr-defined]
-            )
-            return self.random_element(suffixes)
+            suffixes: Sequence[ElementsType] = self.suffixes_male
+            suffixes.update(self.suffixes_female)
+            suffixes.update(self.suffixes_nonbinary)
+            return self.random_element(suffixes, min_length, max_length)
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female"):
-            suffixes = self.random_element((self.suffixes_male, self.suffixes_female))  # type: ignore[attr-defined]
-            return self.random_element(suffixes)
+            suffixes = self.suffixes_male
+            suffixes.update(self.suffixes_female)
+            return self.random_element(suffixes, min_length, max_length)
         return ""
 
-    def suffix_male(self) -> str:
+    def suffix_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "suffixes_male"):
-            return self.random_element(self.suffixes_male)  # type: ignore[attr-defined]
-        return self.suffix()
+            return self.random_element(self.suffixes_male, min_length, max_length)  # type: ignore[attr-defined]
+        return self.suffix(min_length, max_length)
 
-    def suffix_nonbinary(self) -> str:
+    def suffix_nonbinary(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "suffixes_nonbinary"):
-            return self.random_element(self.suffixes_nonbinary)  # type: ignore[attr-defined]
-        return self.suffix()
+            return self.random_element(self.suffixes_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
+        return self.suffix(min_length, max_length)
 
-    def suffix_female(self) -> str:
+    def suffix_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         if hasattr(self, "suffixes_female"):
-            return self.random_element(self.suffixes_female)  # type: ignore[attr-defined]
-        return self.suffix()
+            return self.random_element(self.suffixes_female, min_length, max_length)  # type: ignore[attr-defined]
+        return self.suffix(min_length, max_length)
 
-    def language_name(self) -> str:
+    def language_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a random i18n language name (e.g. English)."""
-        return self.random_element(self.language_names)
+        return self.random_element(self.language_names, min_length, max_length)
