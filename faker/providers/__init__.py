@@ -408,8 +408,8 @@ class BaseProvider:
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
-        max_element_length: Optional[int] = None,
         min_element_length: Optional[int] = None,
+        max_element_length: Optional[int] = None,
     ) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
         ``max_element_lenght`` sets the maximal lenght of an individual element in ``elements``.
@@ -497,6 +497,9 @@ class BaseProvider:
         if length is None:
             length = self.generator.random.randint(1, len(elements))
 
+        if not elements:
+            raise ValueError("List 'elements' is empty. Check if 'max_length' or 'min_length' are in possible ranges.")
+
         if unique and length > len(elements):
             raise ValueError("Sample length cannot be longer than the number of unique elements to pick from. "
                              "Check if 'max_length' or 'min_length' are in possible ranges.")
@@ -513,8 +516,6 @@ class BaseProvider:
                 return self.generator.random.sample(elements, length)
             choices = elements
             probabilities = None
-
-        print(probabilities)
 
         return fn(
             tuple(choices),
@@ -549,8 +550,8 @@ class BaseProvider:
 
     def random_element(
         self, elements: ElementsType = ("a", "b", "c"),
-        max_element_length: Optional[int] = None,
         min_element_length: Optional[int] = None,
+        max_element_length: Optional[int] = None,
     ) -> T:
         """Generate a randomly sampled object from ``elements``.
 
@@ -570,8 +571,8 @@ class BaseProvider:
         return self.random_elements(
             elements,
             length=1,
+            min_element_length=min_element_length,
             max_element_length=max_element_length,
-            min_element_length=min_element_length
         )[0]
 
     def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
