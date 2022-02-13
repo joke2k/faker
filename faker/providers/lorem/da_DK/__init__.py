@@ -2,8 +2,7 @@ from .. import Provider as LoremProvider
 
 
 class Provider(LoremProvider):
-    """Implement lorem provider for ``da_DK`` locale.
-    """
+    """Implement lorem provider for ``da_DK`` locale.   # NOQA"""
 
     word_list = (
         "område",
