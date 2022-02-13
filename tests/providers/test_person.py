@@ -130,7 +130,7 @@ class TestMinMax(unittest.TestCase):
             assert min_ <= len(suffix) <= max_
 
     def test_suffix_male(self):
-        for min_, max_ in self.get_min_and_max(10, 3):
+        for min_, max_ in self.get_min_and_max(3, 2):
             suffix_male = self.fake.suffix_male(min_, max_)
             assert isinstance(suffix_male, str)
             assert min_ <= len(suffix_male) <= max_
