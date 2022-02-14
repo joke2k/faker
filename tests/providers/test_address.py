@@ -402,22 +402,6 @@ class TestEnAu:
             assert state_abbr.isupper()
 
 
-class TestEnNz:
-    """Test en_NZ address provider methods"""
-
-    def test_state(self, faker, num_samples):
-        for _ in range(num_samples):
-            # No states in New Zealand
-            with pytest.raises(AttributeError):
-                faker.state()
-
-    def test_postcode(self, faker, num_samples):
-        for _ in range(num_samples):
-            postcode = faker.postcode()
-            assert isinstance(postcode, str)
-            assert re.fullmatch(r"\d{4}", postcode)
-
-
 class TestEnCa:
     """Test en_CA address provider methods"""
 
@@ -935,66 +919,6 @@ class TestHrHr:
             state = faker.state()
             assert isinstance(state, str)
             assert state in HrHrAddressProvider.states
-
-
-class TestHuHu:
-    """Test hu_HU address provider methods"""
-
-    def test_postcode(self, faker, num_samples):
-        # Hungarian postcodes begin with 'H-' followed by 4 digits.
-        # The first digit may not begin with a zero.
-        for _ in range(num_samples):
-            pcd = faker.postcode()
-            assert re.fullmatch(r"H-[1-9]\d{3}", pcd)
-
-    def test_street_address(self, faker, num_samples):
-        """
-        Tests street address.
-
-        A street address must consist of a street name, a place type and a number, and end in a period point.
-        """
-        for _ in range(num_samples):
-            address = faker.street_address()
-            assert address[-1] == "."
-            # Check for correct capitalisation of place type
-            assert address.split(" ")[-2][0].islower()
-            # Check for street number format
-            assert re.fullmatch(r"\d{1,4}\.", address.split(" ")[-1])
-
-    def test_street_address_with_county(self, faker, num_samples):
-        """Tests street address with country. A street address must be:
-        - in three rows,
-        - starting with a valid street address,
-        - contain a valid post code,
-        - contain the place name validly capitalized.
-        """
-        for _ in range(num_samples):
-            address = faker.street_address_with_county()
-            # Number of rows
-            assert len(address.split("\n")) == 3
-            first, second, last = address.split("\n")
-
-            # Test street address
-            assert first[0].isupper()
-            assert first.split(" ")[-2][0].islower()
-            assert re.fullmatch(r"\d{1,4}\.", first.split(" ")[-1])
-
-            # Test county line
-            assert second.split(" ")[-1][0].islower()
-            assert second.split(" ")[0][0].isupper()
-
-            # Test postcode
-            assert re.fullmatch(r"H-[1-9]\d{3}", last.split(" ")[0])
-
-            # Test place name capitalization
-            assert last.split(" ")[-1][0].isupper()
-
-    def test_address(self, faker, num_samples):
-        for _ in range(num_samples):
-            address = faker.address()
-            assert isinstance(address, str)
-            address_with_county = faker.street_address_with_county()
-            assert isinstance(address_with_county, str)
 
 
 class TestHyAm:
@@ -1675,7 +1599,6 @@ class TestFilPh(TestEnPh):
             assert province in self.provinces or province == "Metro Manila"
 
 
-
 class TestTlPh(TestEnPh):
     """Test tl_PH address provider methods"""
 
@@ -2045,8 +1968,9 @@ class TestEnNz:
         for _ in range(num_samples):
             secondary_address = faker.secondary_address()
             assert isinstance(secondary_address, str)
-            assert secondary_address.split(" ")[0] in \
-                   [i.split(" ")[0] for i in EnNzAddressProvider.secondary_address_formats]
+            assert secondary_address.split(" ")[0] in [
+                i.split(" ")[0] for i in EnNzAddressProvider.secondary_address_formats
+            ]
 
 
 class TestFrCh:
