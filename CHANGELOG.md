@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.3.2 - 2022-02-14](https://github.com/joke2k/faker/compare/v12.3.1...v12.3.2)
+
+* Fix postcode format for `es_ES` locale. Thanks @mondeja.
+
 ### [v12.3.1 - 2022-02-14](https://github.com/joke2k/faker/compare/v12.3.0...v12.3.1)
 
 * Prevent "non-integer arguments to randrange()" warnings on Python 3.10.
