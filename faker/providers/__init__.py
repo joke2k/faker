@@ -472,17 +472,18 @@ class BaseProvider:
         # Check for max and min
         if max_element_length or min_element_length:
             appropriate_elements = []
-            if not max_element_length:
+
+            if min_element_length and max_element_length:
+                for element in elements:
+                    if min_element_length <= len(element) <= max_element_length:
+                        appropriate_elements.append(element)
+            elif min_element_length:
                 for element in elements:
                     if len(element) >= min_element_length:
                         appropriate_elements.append(element)
-            elif not min_element_length:
+            elif max_element_length:
                 for element in elements:
                     if len(element) <= max_element_length:
-                        appropriate_elements.append(element)
-            else:
-                for element in elements:
-                    if min_element_length <= len(element) <= max_element_length:
                         appropriate_elements.append(element)
 
             elements = appropriate_elements
@@ -501,8 +502,10 @@ class BaseProvider:
             raise ValueError("List 'elements' is empty. Check if 'max_length' or 'min_length' are in possible ranges.")
 
         if unique and length > len(elements):
-            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from. "
-                             "Check if 'max_length' or 'min_length' are in possible ranges.")
+            raise ValueError(
+                "Sample length cannot be longer than the number of unique elements to pick from. "
+                "Check if 'max_length' or 'min_length' are in possible ranges."
+            )
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
@@ -549,7 +552,8 @@ class BaseProvider:
         return self.random_elements(elements, length, unique=False)
 
     def random_element(
-        self, elements: ElementsType = ("a", "b", "c"),
+        self,
+        elements: ElementsType = ("a", "b", "c"),
         min_element_length: Optional[int] = None,
         max_element_length: Optional[int] = None,
     ) -> T:
