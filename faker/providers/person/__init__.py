@@ -269,7 +269,7 @@ class Provider(BaseProvider):
         if hasattr(self, "prefixes"):
             return self.random_element(self.prefixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
-            prefixes: Sequence[ElementsType] = self.prefixes_male
+            prefixes: Sequence[ElementsType] = self.prefixes_male  # type: ignore[attr-defined]
             prefixes.update(self.prefixes_female)
             prefixes.update(self.prefixes_nonbinary)
             return self.random_element(prefixes, min_length, max_length)
@@ -298,7 +298,7 @@ class Provider(BaseProvider):
         if hasattr(self, "suffixes"):
             return self.random_element(self.suffixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
-            suffixes: Sequence[ElementsType] = self.suffixes_male
+            suffixes: Sequence[ElementsType] = self.suffixes_male  # type: ignore[attr-defined]
             suffixes.update(self.suffixes_female)
             suffixes.update(self.suffixes_nonbinary)
             return self.random_element(suffixes, min_length, max_length)
