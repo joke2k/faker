@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v12.3.3 - 2022-02-14](https://github.com/joke2k/faker/compare/v12.3.2...v12.3.3)
+
+*  Arabic improvements for names. Thanks @alfawal.
+
 ### [v12.3.2 - 2022-02-14](https://github.com/joke2k/faker/compare/v12.3.1...v12.3.2)
 
 * Fix postcode format for `es_ES` locale. Thanks @mondeja.
@@ -24,7 +28,7 @@
 
 ### [v12.0.1 - 2022-02-04](https://github.com/joke2k/faker/compare/v12.0.0...v12.0.1)
 
-*  Remove empty string in Korean job list. Thanks @georgidimitrov-hs.
+* Remove empty string in Korean job list. Thanks @georgidimitrov-hs.
 
 ### [v12.0.0 - 2022-01-31](https://github.com/joke2k/faker/compare/v11.4.0...v12.0.0)
 
@@ -54,7 +58,7 @@
 
 ### [v10.0.0 - 2021-12-07](https://github.com/joke2k/faker/compare/v9.9.1...v10.0.0)
 
-* deprecate positional `allowed_types`.
+* Deprecate positional `allowed_types`.
 
 ### [v9.9.1 - 2021-12-07](https://github.com/joke2k/faker/compare/v9.9.0...v9.9.1)
 
@@ -82,7 +86,7 @@
 
 ### [v9.8.0 - 2021-11-02](https://github.com/joke2k/faker/compare/v9.7.1...v9.8.0)
 
-*  Add ``es_CO`` localized providers. Thank you @healarconr.
+* Add ``es_CO`` localized providers. Thank you @healarconr.
 
 ### [v9.7.1 - 2021-10-27](https://github.com/joke2k/faker/compare/v9.7.0...v9.7.1)
 
