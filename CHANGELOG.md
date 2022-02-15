@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.0.0 - 2022-02-15](https://github.com/joke2k/faker/compare/v12.3.3...v13.0.0)
+
+* Use `os.urandom` in `binary()` if unseeded. Thanks @AlmightyYakob.
+
 ### [v12.3.3 - 2022-02-14](https://github.com/joke2k/faker/compare/v12.3.2...v12.3.3)
 
 *  Arabic improvements for names. Thanks @alfawal.
