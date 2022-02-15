@@ -7,8 +7,8 @@ class Provider(LoremProvider):
     # source 1: https://en.wikipedia.org/wiki/Bengali_vocabulary
     # source 2: https://en.wikipedia.org/wiki/Bengali_grammar
 
-    word_connector = ""
-    sentence_punctuation = "। "
+    word_connector = " "
+    sentence_punctuation = "।"
     word_list = (
         "পানি",
         "লবণ",
