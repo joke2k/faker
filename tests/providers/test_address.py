@@ -26,7 +26,6 @@ from faker.providers.address.es_ES import Provider as EsEsAddressProvider
 from faker.providers.address.es_MX import Provider as EsMxAddressProvider
 from faker.providers.address.fa_IR import Provider as FaIrAddressProvider
 from faker.providers.address.fi_FI import Provider as FiFiAddressProvider
-from faker.providers.address.fil_PH import Provider as FilPhAddressProvider
 from faker.providers.address.fr_CH import Provider as FrChAddressProvider
 from faker.providers.address.fr_FR import Provider as FrFrAddressProvider
 from faker.providers.address.he_IL import Provider as HeIlAddressProvider
@@ -50,7 +49,6 @@ from faker.providers.address.sl_SI import Provider as SlSiAddressProvider
 from faker.providers.address.sv_SE import Provider as SvSeAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
 from faker.providers.address.th_TH import Provider as ThThAddressProvider
-from faker.providers.address.tl_PH import Provider as TlPhAddressProvider
 from faker.providers.address.uk_UA import Provider as UkUaAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
 from faker.providers.address.zh_TW import Provider as ZhTwAddressProvider
