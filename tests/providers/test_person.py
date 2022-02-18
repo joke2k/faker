@@ -57,11 +57,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(first_name, str)
             assert min_ <= len(first_name) <= max_
 
+    def test_first_name_as_list(self):
+        first_name_as_list = self.fake.first_name_as_list()
+        assert first_name_as_list is EnUSProvider.first_names
+
     def test_last_name(self):
         for min_, max_ in self.get_min_and_max(10, 3):
             last_name = self.fake.last_name(min_, max_)
             assert isinstance(last_name, str)
             assert min_ <= len(last_name) <= max_
+
+    def test_last_name_as_list(self):
+        last_name_as_list = self.fake.last_name_as_list()
+        assert last_name_as_list is EnUSProvider.last_names
 
     def test_first_name_male(self):
         for min_, max_ in self.get_min_and_max(10, 3):
@@ -69,11 +77,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(first_name_male, str)
             assert min_ <= len(first_name_male) <= max_
 
+    def test_first_name_male_as_list(self):
+        first_name_male_as_list = self.fake.first_name_male_as_list()
+        assert first_name_male_as_list is EnUSProvider.first_names_male
+
     def test_first_name_nonbinary(self):
         for min_, max_ in self.get_min_and_max(10, 3):
             first_name_nonbinary = self.fake.first_name_nonbinary(min_, max_)
             assert isinstance(first_name_nonbinary, str)
             assert min_ <= len(first_name_nonbinary) <= max_
+
+    def test_first_name_nonbinary_as_list(self):
+        first_name_nonbinary_as_list = self.fake.first_name_nonbinary_as_list()
+        assert first_name_nonbinary_as_list is EnUSProvider.first_names_nonbinary
 
     def test_first_name_female(self):
         for min_, max_ in self.get_min_and_max(10, 3):
@@ -81,11 +97,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(first_name_female, str)
             assert min_ <= len(first_name_female) <= max_
 
+    def test_first_name_female_as_list(self):
+        first_name_female_as_list = self.fake.first_name_female_as_list()
+        assert first_name_female_as_list is EnUSProvider.first_names_female
+
     def test_last_name_male(self):
         for min_, max_ in self.get_min_and_max(10, 3):
             last_name_male = self.fake.last_name_male(min_, max_)
             assert isinstance(last_name_male, str)
             assert min_ <= len(last_name_male) <= max_
+
+    def test_last_name_male_as_list(self):
+        last_name_male_as_list = self.fake.last_name_male_as_list()
+        assert set(tuple(last_name_male_as_list)).intersection(EnUSProvider.last_names) != set()
 
     def test_last_name_nonbinary(self):
         for min_, max_ in self.get_min_and_max(10, 3):
@@ -93,11 +117,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(last_name_nonbinary, str)
             assert min_ <= len(last_name_nonbinary) <= max_
 
+    def test_last_name_nonbinary_as_list(self):
+        last_name_nonbinary_as_list = self.fake.last_name_nonbinary_as_list()
+        assert set(tuple(last_name_nonbinary_as_list)).intersection(EnUSProvider.last_names) != set()
+
     def test_last_name_female(self):
         for min_, max_ in self.get_min_and_max(10, 3):
             last_name_female = self.fake.last_name_female(min_, max_)
             assert isinstance(last_name_female, str)
             assert min_ <= len(last_name_female) <= max_
+
+    def test_last_name_female_as_list(self):
+        last_name_female_as_list = self.fake.last_name_female_as_list()
+        assert set(tuple(last_name_female_as_list)).intersection(EnUSProvider.last_names) != set()
 
     def test_prefix(self):
         for min_, max_ in self.get_min_and_max(4, 3):
@@ -105,11 +137,21 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(prefix, str)
             assert min_ <= len(prefix) <= max_
 
+    def test_prefix_as_list(self):
+        prefix_as_list = self.fake.prefix_as_list()
+        assert set(tuple(EnUSProvider.prefixes_male)).intersection(prefix_as_list) != set()
+        assert set(tuple(EnUSProvider.prefixes_nonbinary)).intersection(prefix_as_list) != set()
+        assert set(tuple(EnUSProvider.prefixes_female)).intersection(prefix_as_list) != set()
+
     def test_prefix_male(self):
         for min_, max_ in self.get_min_and_max(3, 3):
             prefix_male = self.fake.prefix_male(min_, max_)
             assert isinstance(prefix_male, str)
             assert min_ <= len(prefix_male) <= max_
+
+    def test_prefix_male_as_list(self):
+        prefix_male_as_list = self.fake.prefix_male_as_list()
+        assert prefix_male_as_list is EnUSProvider.prefixes_male
 
     def test_prefix_nonbinary(self):
         for min_, max_ in self.get_min_and_max(4, 3):
@@ -117,11 +159,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(prefix_nonbinary, str)
             assert min_ <= len(prefix_nonbinary) <= max_
 
+    def test_prefix_nonbinary_as_list(self):
+        prefix_nonbinary_as_list = self.fake.prefix_nonbinary_as_list()
+        assert prefix_nonbinary_as_list is EnUSProvider.prefixes_nonbinary
+
     def test_prefix_female(self):
         for min_, max_ in self.get_min_and_max(4, 3):
             prefix_female = self.fake.prefix_female(min_, max_)
             assert isinstance(prefix_female, str)
             assert min_ <= len(prefix_female) <= max_
+
+    def test_prefix_female_as_list(self):
+        prefix_female_as_list = self.fake.prefix_female_as_list()
+        assert prefix_female_as_list is EnUSProvider.prefixes_female
 
     def test_suffix(self):
         for min_, max_ in self.get_min_and_max(4, 1):
@@ -129,11 +179,21 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(suffix, str)
             assert min_ <= len(suffix) <= max_
 
+    def test_suffix_as_list(self):
+        suffix_as_list = self.fake.suffix_as_list()
+        assert set(tuple(EnUSProvider.suffixes_male)).intersection(suffix_as_list) != set()
+        assert set(tuple(EnUSProvider.suffixes_nonbinary)).intersection(suffix_as_list) != set()
+        assert set(tuple(EnUSProvider.suffixes_female)).intersection(suffix_as_list) != set()
+
     def test_suffix_male(self):
         for min_, max_ in self.get_min_and_max(3, 2):
             suffix_male = self.fake.suffix_male(min_, max_)
             assert isinstance(suffix_male, str)
             assert min_ <= len(suffix_male) <= max_
+
+    def test_suffix_male_as_list(self):
+        suffix_male_as_list = self.fake.suffix_male_as_list()
+        assert suffix_male_as_list is EnUSProvider.suffixes_male
 
     def test_suffix_nonbinary(self):
         for min_, max_ in self.get_min_and_max(4, 2):
@@ -141,11 +201,19 @@ class TestMinMax(unittest.TestCase):
             assert isinstance(suffix_nonbinary, str)
             assert min_ <= len(suffix_nonbinary) <= max_
 
+    def test_suffix_nonbinary_as_list(self):
+        suffix_nonbinary_as_list = self.fake.suffix_nonbinary_as_list()
+        assert suffix_nonbinary_as_list is EnUSProvider.suffixes_nonbinary
+
     def test_suffix_female(self):
         for min_, max_ in self.get_min_and_max(3, 2):
             suffix_female = self.fake.suffix_female(min_, max_)
             assert isinstance(suffix_female, str)
             assert min_ <= len(suffix_female) <= max_
+
+    def test_suffix_female_as_list(self):
+        suffix_female_as_list = self.fake.suffix_female_as_list()
+        assert suffix_female_as_list is EnUSProvider.suffixes_female
 
     def test_language_name(self):
         for min_, max_ in self.get_min_and_max(15, 3):
