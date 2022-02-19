@@ -54,7 +54,7 @@ In order to be included, your provider must satisfy these requirement:
 .. _repo: https://github.com/joke2k/faker/
 .. _OSI-Approved: https://opensource.org/licenses/alphabetical
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
-.. _faker_airtravel: https://pypi.org/project/faker_biology/
+.. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
