@@ -11,8 +11,8 @@ Here's a list of Providers written by the community:
 | Airtravel     | Airport names, airport   | `faker_airtravel`_               |
 |               | codes, and flights.      |                                  |
 +---------------+--------------------------+----------------------------------+
-| Biology       | Fake data from biology   | `faker_biology`_
-                | and life-science domains |
+| Biology       | Fake data from biology   | `faker_biology`_                 |
+|               | and life-science domains |                                  |
 |               | for testing purposes     |                                  |
 +---------------+--------------------------+----------------------------------+
 | Credit Score  | Fake credit score data   | `faker_credit_score`_            |
