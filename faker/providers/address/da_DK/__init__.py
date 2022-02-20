@@ -10,6 +10,8 @@ class Provider(AddressProvider):
 
     street_address_formats = ("{{street_name}} {{building_number}}",)
 
+    street_prefix = ()
+
     street_names = (
         "Aberdeen",
         "Dompap",
