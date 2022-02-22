@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v13.1.0 - 2022-02-22](https://github.com/joke2k/faker/compare/v13.0.0...v13.0.1)
+### [v13.2.0 - 2022-02-22](https://github.com/joke2k/faker/compare/v13.1.0...v13.2.0)
+
+*  Add `bn_BD` Lorem Provider. Thanks @jabertuhin.
+
+### [v13.1.0 - 2022-02-22](https://github.com/joke2k/faker/compare/v13.0.0...v13.1.0)
 
 * Add  lorem support for `de_DE` and `de_AT`. Thanks @@Kalbra.
 
