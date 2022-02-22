@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.1.0 - 2022-02-22](https://github.com/joke2k/faker/compare/v13.0.0...v13.0.1)
+
+* Add  lorem support for `de_DE` and `de_AT`. Thanks @@Kalbra.
+
 ### [v13.0.0 - 2022-02-15](https://github.com/joke2k/faker/compare/v12.3.3...v13.0.0)
 
 * Use `os.urandom` in `binary()` if unseeded. Thanks @AlmightyYakob.
