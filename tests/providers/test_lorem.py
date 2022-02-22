@@ -331,7 +331,6 @@ class TestBnBd:
             words = paragraph.replace("।", "").split()
             assert all(word in self.word_list for word in words)
 
-
     def test_paragraphs(self, faker, num_samples):
         num_paragraphs = 5
         for _ in range(num_samples):
@@ -341,7 +340,6 @@ class TestBnBd:
                 words = paragraph.replace("।", "").split()
                 assert all(word in self.word_list for word in words)
 
-
     def test_sentence(self, faker, num_samples):
         num_words = 10
         for _ in range(num_samples):
@@ -349,7 +347,6 @@ class TestBnBd:
             assert isinstance(sentence, str)
             words = sentence.replace("।", "").split()
             assert all(word in self.word_list for word in words)
-
 
     def test_sentences(self, faker, num_samples):
         num_sentences = 5
