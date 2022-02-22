@@ -3,6 +3,7 @@ import re
 import pytest
 
 from faker.providers.lorem.az_AZ import Provider as AzAzLoremProvider
+from faker.providers.lorem.bn_BD import Provider as BnBdLoremProvider
 from faker.providers.lorem.cs_CZ import Provider as CsCzLoremProvider
 from faker.providers.lorem.de_AT import Provider as DeAtLoremProvider
 from faker.providers.lorem.de_DE import Provider as DeDeLoremProvider
@@ -315,6 +316,46 @@ class TestAzAz:
         for _ in range(num_samples):
             words = faker.words(num_words)
             assert all(isinstance(word, str) and word in AzAzLoremProvider.word_list for word in words)
+
+
+class TestBnBd:
+    """Test bn_BD lorem provider"""
+
+    word_list = BnBdLoremProvider.word_list
+
+    def test_paragraph(self, faker, num_samples):
+        num_sentences = 10
+        for _ in range(num_samples):
+            paragraph = faker.paragraph(nb_sentences=num_sentences)
+            assert isinstance(paragraph, str)
+            words = paragraph.replace("।", "").split()
+            assert all(word in self.word_list for word in words)
+
+    def test_paragraphs(self, faker, num_samples):
+        num_paragraphs = 5
+        for _ in range(num_samples):
+            paragraphs = faker.paragraphs(nb=num_paragraphs)
+            for paragraph in paragraphs:
+                assert isinstance(paragraph, str)
+                words = paragraph.replace("।", "").split()
+                assert all(word in self.word_list for word in words)
+
+    def test_sentence(self, faker, num_samples):
+        num_words = 10
+        for _ in range(num_samples):
+            sentence = faker.sentence(nb_words=num_words)
+            assert isinstance(sentence, str)
+            words = sentence.replace("।", "").split()
+            assert all(word in self.word_list for word in words)
+
+    def test_sentences(self, faker, num_samples):
+        num_sentences = 5
+        for _ in range(num_samples):
+            sentences = faker.sentences(nb=num_sentences)
+            for sentence in sentences:
+                assert isinstance(sentence, str)
+                words = sentence.replace("।", "").split()
+                assert all(word in self.word_list for word in words)
 
 
 class TestDeDe:
