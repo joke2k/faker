@@ -11,6 +11,10 @@ Here's a list of Providers written by the community:
 | Airtravel     | Airport names, airport   | `faker_airtravel`_               |
 |               | codes, and flights.      |                                  |
 +---------------+--------------------------+----------------------------------+
+| Biology       | Fake data from biology   | `faker_biology`_                 |
+|               | and life-science domains |                                  |
+|               | for testing purposes     |                                  |
++---------------+--------------------------+----------------------------------+
 | Credit Score  | Fake credit score data   | `faker_credit_score`_            |
 |               | for testing purposes     |                                  |
 +---------------+--------------------------+----------------------------------+
@@ -50,6 +54,7 @@ In order to be included, your provider must satisfy these requirement:
 .. _repo: https://github.com/joke2k/faker/
 .. _OSI-Approved: https://opensource.org/licenses/alphabetical
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
+.. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
