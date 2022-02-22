@@ -34,7 +34,7 @@ class _IPv4Constants:
 
     # List of networks from which IP addresses will never be generated,
     # includes other private IANA and reserved networks from
-    # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
+    # https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
     _excluded_networks: List[IPv4Network] = [
         ip_network("0.0.0.0/8"),
         ip_network("100.64.0.0/10"),
