@@ -355,13 +355,13 @@ class Provider(AddressProvider):
 
     def street_prefix(self) -> str:
         """
-        :example 'ถนน'
+        :example: 'ถนน'
         """
         return self.random_element(self.street_prefixes)
 
     def administrative_unit(self) -> str:
         """
-        :example 'อุบลราชธานี'
+        :example: 'อุบลราชธานี'
         """
         return self.random_element(self.provinces)
 
@@ -371,7 +371,7 @@ class Provider(AddressProvider):
         """
         Get a random Amphoe (district) name.
         Currently it's total random and not necessarily matched with a province.
-        :example 'บางสะพานน้อย'
+        :example: 'บางสะพานน้อย'
         """
         return self.random_element(self.amphoes)
 
@@ -379,7 +379,7 @@ class Provider(AddressProvider):
         """
         Get a random Tambon (subdistrict) name.
         Currently it's total random and not necessarily matched with an amphoe or province.
-        :example 'ห้วยนาง'
+        :example: 'ห้วยนาง'
         """
         return (
             f"{self.random_element(self.tambon_prefixes)}{self.random_element(self.tambons)}"

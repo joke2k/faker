@@ -21,7 +21,10 @@ def get_path(module: ModuleType) -> str:
         path = lib_dir.joinpath(*module.__package__.split("."))  # type: ignore
     else:
         # unfrozen
-        path = Path(module.__file__).parent
+        if module.__file__ is not None:
+            path = Path(module.__file__).parent
+        else:
+            raise RuntimeError(f"Can't find path from module `{module}.")
     return str(path)
 
 

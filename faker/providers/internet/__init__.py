@@ -1,8 +1,7 @@
 from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
 from typing import Dict, List, Optional, Tuple
 
-from text_unidecode import unidecode
-
+from ...decode import unidecode
 from ...utils.decorators import lowercase, slugify, slugify_unicode
 from ...utils.distribution import choices_distribution
 from .. import BaseProvider, ElementsType
@@ -35,7 +34,7 @@ class _IPv4Constants:
 
     # List of networks from which IP addresses will never be generated,
     # includes other private IANA and reserved networks from
-    # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
+    # https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
     _excluded_networks: List[IPv4Network] = [
         ip_network("0.0.0.0/8"),
         ip_network("100.64.0.0/10"),
@@ -320,10 +319,10 @@ class Provider(BaseProvider):
     def url(self, schemes: Optional[List[str]] = None) -> str:
         """
         :param schemes: a list of strings to use as schemes, one will chosen randomly.
-        If None, it will generate http and https urls.
-        Passing an empty list will result in schemeless url generation like "://domain.com".
+            If None, it will generate http and https urls.
+            Passing an empty list will result in schemeless url generation like "://domain.com".
+        :return: a random url string.
 
-        :returns: a random url string.
         """
         if schemes is None:
             schemes = ["http", "https"]
@@ -585,7 +584,7 @@ class Provider(BaseProvider):
 
     def ipv6(self, network: bool = False) -> str:
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(2 ** IPV4LENGTH, (2 ** IPV6LENGTH) - 1)))
+        address = str(ip_address(self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)))
         if network:
             address += "/" + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(ip_network(address, strict=False))

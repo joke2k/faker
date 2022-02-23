@@ -879,29 +879,28 @@ class Provider(AddressProvider):
 
     def street_prefix(self) -> str:
         """
-        :example 'rua'
+        :example: 'rua'
         """
         return self.random_element(self.street_prefixes)
 
     def estado(self) -> Tuple[str, str]:
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
-        :example ('MG' . 'Minas Gerais')
+        :example: ('MG' . 'Minas Gerais')
         """
         return self.random_element(self.estados)
 
     def estado_nome(self) -> str:
         """
         Randomly returns a Brazilian State Name
-        :example 'Minas Gerais'
+        :example: 'Minas Gerais'
         """
         return self.estado()[1]
 
     def estado_sigla(self) -> str:
         """
         Randomly returns the abbreviation of a Brazilian State
-
-        :example 'MG'
+        :example: 'MG'
         """
         return self.estado()[0]
 
@@ -909,8 +908,7 @@ class Provider(AddressProvider):
         """
         Randomly returns a bairro (neighborhood) name.
         The names were taken from the city of Belo Horizonte - Minas Gerais
-
-        :example 'Serra'
+        :example: 'Serra'
         """
         return self.random_element(self.bairros)
 

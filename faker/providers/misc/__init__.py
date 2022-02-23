@@ -2,6 +2,7 @@ import csv
 import hashlib
 import io
 import json
+import os
 import re
 import string
 import tarfile
@@ -23,17 +24,15 @@ class Provider(BaseProvider):
     def boolean(self, chance_of_getting_true: int = 50) -> bool:
         """Generate a random boolean value based on ``chance_of_getting_true``.
 
-        :sample size=10: chance_of_getting_true=25
-        :sample size=10: chance_of_getting_true=50
-        :sample size=10: chance_of_getting_true=75
+        :sample: chance_of_getting_true=25
+        :sample: chance_of_getting_true=50
+        :sample: chance_of_getting_true=75
         """
         return self.generator.random.randint(1, 100) <= chance_of_getting_true
 
     def null_boolean(self) -> Optional[bool]:
-        """Generate ``None``, ``True``, or ``False``, each with equal probability.
+        """Generate ``None``, ``True``, or ``False``, each with equal probability."""
 
-        :sample size=15:
-        """
         return {
             0: None,
             1: True,
@@ -43,10 +42,18 @@ class Provider(BaseProvider):
     def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
 
+        If this faker instance has been seeded, performance will be signficiantly reduced, to conform
+        to the seeding.
+
         :sample: length=64
         """
-        blob = [self.generator.random.randrange(256) for _ in range(length)]
-        return bytes(blob)
+        # If the generator has already been seeded, urandom can't be used
+        if self.generator._is_seeded:
+            blob = [self.generator.random.randrange(256) for _ in range(length)]
+            return bytes(blob)
+
+        # Generator is unseeded anyway, just use urandom
+        return os.urandom(length)
 
     def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
@@ -319,8 +326,8 @@ class Provider(BaseProvider):
         The arguments ``hue`` and ``luminosity`` are the same as in the color provider and are simply forwarded to
         it to generate both the background and the shape colors. Therefore, you can ask for a "dark blue" image, etc.
 
-        :sample size=2: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
-        :sample size=2: size=(16, 16), hue=[90,270], image_format='ico'
+        :sample: size=(2, 2), hue='purple', luminosity='bright', image_format='pdf'
+        :sample: size=(16, 16), hue=[90,270], image_format='ico'
         """
         try:
             import PIL.Image

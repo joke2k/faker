@@ -22,52 +22,52 @@ class Provider(BaseProvider):
 
     def city_suffix(self) -> str:
         """
-        :example 'town'
+        :example: 'town'
         """
         return self.random_element(self.city_suffixes)
 
     def street_suffix(self) -> str:
         """
-        :example 'Avenue'
+        :example: 'Avenue'
         """
         return self.random_element(self.street_suffixes)
 
     def building_number(self) -> str:
         """
-        :example '791'
+        :example: '791'
         """
         return self.numerify(self.random_element(self.building_number_formats))
 
     def city(self) -> str:
         """
-        :example 'Sashabury'
+        :example: 'Sashabury'
         """
         pattern: str = self.random_element(self.city_formats)
         return self.generator.parse(pattern)
 
     def street_name(self) -> str:
         """
-        :example 'Crist Parks'
+        :example: 'Crist Parks'
         """
         pattern: str = self.random_element(self.street_name_formats)
         return self.generator.parse(pattern)
 
     def street_address(self) -> str:
         """
-        :example '791 Crist Parks'
+        :example: '791 Crist Parks'
         """
         pattern: str = self.random_element(self.street_address_formats)
         return self.generator.parse(pattern)
 
     def postcode(self) -> str:
         """
-        :example 86039-9874
+        :example: 86039-9874
         """
         return self.bothify(self.random_element(self.postcode_formats)).upper()
 
     def address(self) -> str:
         """
-        :example '791 Crist Parks, Sashabury, IL 86039-9874'
+        :example: '791 Crist Parks, Sashabury, IL 86039-9874'
         """
         pattern: str = self.random_element(self.address_formats)
         return self.generator.parse(pattern)

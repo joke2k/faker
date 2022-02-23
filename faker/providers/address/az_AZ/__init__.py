@@ -610,79 +610,79 @@ class Provider(AddressProvider):
 
     def house_number(self):
         """
-        :example 'm. 49'
+        :example: 'm. 49'
         """
         return self.numerify(self.random_element(self.house_number_formats))
 
     def city(self):
         """
-        :example 'Xankəndi'
+        :example: 'Xankəndi'
         """
         return self.random_element(self.cities)
 
     def city_suffix(self):
         """
-        :example 'ş.'
+        :example: 'ş.'
         """
         return self.random_element(self.city_suffixes)
 
     def street(self):
         """
-        :example 'A.AĞAYEV'
+        :example: 'A.AĞAYEV'
         """
         return self.random_element(self.streets)
 
     def street_suffix(self):
         """
-        :example 'küç.'
+        :example: 'küç.'
         """
         return self.random_element(self.street_suffixes)
 
     def village(self):
         """
-        :example 'Didivar'
+        :example: 'Didivar'
         """
         return self.random_element(self.villages)
 
     def village_suffix(self):
         """
-        :example 'k.'
+        :example: 'k.'
         """
         return self.random_element(self.village_suffixes)
 
     def district(self):
         """
-        :example 'Babək'
+        :example: 'Babək'
         """
         return self.random_element(self.districts)
 
     def district_suffix(self):
         """
-        :example 'r.'
+        :example: 'r.'
         """
         return self.random_element(self.district_suffixes)
 
     def settlement(self):
         """
-        :example 'Horadiz'
+        :example: 'Horadiz'
         """
         return self.random_element(self.settlements)
 
     def settlement_suffix(self):
         """
-        :example 'qəs.'
+        :example: 'qəs.'
         """
         return self.random_element(self.settlement_suffixes)
 
     def administrative_unit(self):
         """
-        :example 'Xankəndi'
+        :example: 'Xankəndi'
         """
         return self.random_element(self.districts + self.cities)
 
     def postcode(self):
         """
-        :example 'AZ1027'
+        :example: 'AZ1027'
         """
         index = self.generator.random.randint(900, 6600)
         return "AZ%04d" % index if index > 999 else "AZ0%03d" % index

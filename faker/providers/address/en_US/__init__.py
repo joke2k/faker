@@ -529,25 +529,25 @@ class Provider(AddressProvider):
 
     def military_ship(self) -> str:
         """
-        :example 'USS'
+        :example: 'USS'
         """
         return self.random_element(self.military_ship_prefix)
 
     def military_state(self) -> str:
         """
-        :example 'APO'
+        :example: 'APO'
         """
         return self.random_element(self.military_state_abbr)
 
     def military_apo(self) -> str:
         """
-        :example 'PSC 5394 Box 3492
+        :example: 'PSC 5394 Box 3492
         """
         return self.numerify(self.military_apo_format)
 
     def military_dpo(self) -> str:
         """
-        :example 'Unit 3333 Box 9342'
+        :example: 'Unit 3333 Box 9342'
         """
         return self.numerify(self.military_dpo_format)
 

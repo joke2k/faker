@@ -54,9 +54,7 @@ class Provider(BaseProvider):
     def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20) -> str:
         """
         Generates a random string of upper and lowercase letters.
-        :type min_chars: int
-        :type max_chars: int
-        :return: String. Random of random length between min and max characters.
+        :return: Random of random length between min and max characters.
         """
         if min_chars is None:
             return "".join(self.random_letters(length=max_chars))
@@ -124,9 +122,9 @@ class Provider(BaseProvider):
             # Make sure left_digits still respected
             if left_digits is not None:
                 if max_value is None:
-                    max_value = 10 ** left_digits  # minus smallest representable, adjusted later
+                    max_value = 10**left_digits  # minus smallest representable, adjusted later
                 if min_value is None:
-                    min_value = -(10 ** left_digits)  # plus smallest representable, adjusted later
+                    min_value = -(10**left_digits)  # plus smallest representable, adjusted later
 
             if max_value is not None and max_value < 0:
                 max_value += 1  # as the random_int will be generated up to max_value - 1
@@ -149,15 +147,15 @@ class Provider(BaseProvider):
                 result += sys.float_info.epsilon
 
         if right_digits:
-            result = min(result, 10 ** left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
-            result = max(result, -(10 ** left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
+            result = min(result, 10**left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
+            result = max(result, -(10**left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
         else:
-            result = min(result, 10 ** left_digits - 1)
-            result = max(result, -(10 ** left_digits + 1))
+            result = min(result, 10**left_digits - 1)
+            result = max(result, -(10**left_digits + 1))
 
         return result
 
-    def _safe_random_int(self, min_value, max_value, positive):
+    def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
         orig_min_value = min_value
         orig_max_value = max_value
 
@@ -171,7 +169,7 @@ class Provider(BaseProvider):
         if min_value == max_value:
             return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
-            return self.random_int(min_value, max_value - 1)
+            return self.random_int(int(min_value), int(max_value - 1))
 
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
