@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.0 - 2022-02-28](https://github.com/joke2k/faker/compare/v13.2.0...v13.3.0)
+
+* Add lorem provider for `fa-ir` language code. Thanks @arminshoughi. 
+
 ### [v13.2.0 - 2022-02-22](https://github.com/joke2k/faker/compare/v13.1.0...v13.2.0)
 
 *  Add `bn_BD` Lorem Provider. Thanks @jabertuhin.
