@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.1 - 2022-03-07](https://github.com/joke2k/faker/compare/v13.3.0...v13.3.1)
+
+* Bump actions/setup-python from 2 to 3 (#1626). Thanks @dependabot[bot].
+
 ### [v13.3.0 - 2022-02-28](https://github.com/joke2k/faker/compare/v13.2.0...v13.3.0)
 
 * Add lorem provider for `fa-ir` language code. Thanks @arminshoughi. 
