@@ -27,7 +27,7 @@ jobs:
           minor: "bump-version:minor"
           defaultPart: "patch"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Get Next Version
