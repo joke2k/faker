@@ -3,14 +3,12 @@ from .. import Provider as AddressProvider
 
 class Provider(AddressProvider):
 
-    # Building numbers dont go higher than a 1000
+    # Building numbers don't go higher than a 1000
     building_number_formats = ("%##", "%#", "%")
 
     street_name_formats = ("{{dk_street_name}}{{street_suffix}}",)
 
     street_address_formats = ("{{street_name}} {{building_number}}",)
-
-    street_prefix = ("",)
 
     street_names = (
         "Aberdeen",
@@ -2511,6 +2509,9 @@ class Provider(AddressProvider):
     )
 
     def dk_street_name(self) -> str:
+        """
+        This returns the name of a street, without any suffix.
+        """
         return self.random_element(self.street_names)
 
     def city_name(self) -> str:

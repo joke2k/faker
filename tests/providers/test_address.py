@@ -213,11 +213,21 @@ class TestCsCz:
 class TestDaDk:
     """Test dk_DK address provider methods"""
 
-    def test_street_prefix(self, faker, num_samples):
+    def test_street_suffix(self, faker, num_samples):
         for _ in range(num_samples):
-            street_prefix = faker.street_prefix()
-            assert isinstance(street_prefix, str)
-            assert street_prefix in DaDkAddressProvider.street_prefixes
+            street_suffix = faker.street_suffix()
+            assert isinstance(street_suffix, str)
+            assert street_suffix in DaDkAddressProvider.street_suffixes
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+
+    def test_dk_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            dk_street_name = faker.dk_street_name()
+            assert isinstance(dk_street_name, str)
 
     def test_city_name(self, faker, num_samples):
         for _ in range(num_samples):
