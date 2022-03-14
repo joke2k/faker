@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.2 - 2022-03-14](https://github.com/joke2k/faker/compare/v13.3.1...v13.3.2)
+
+* Bump actions/stale from 3 to 5 (#1629). Thanks @dependabot[bot].
+
 ### [v13.3.1 - 2022-03-07](https://github.com/joke2k/faker/compare/v13.3.0...v13.3.1)
 
 * Bump actions/setup-python from 2 to 3 (#1626). Thanks @dependabot[bot].
