@@ -11,6 +11,9 @@ random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 
+Sentinel = object()
+
+
 class Generator:
 
     __config: Dict[str, Dict[Hashable, Any]] = {
@@ -18,6 +21,7 @@ class Generator:
     }
 
     _is_seeded = False
+    _global_seed = Sentinel
 
     def __init__(self, **config: Dict) -> None:
         self.providers: List["BaseProvider"] = []
@@ -74,6 +78,7 @@ class Generator:
     @classmethod
     def seed(cls, seed: Optional[Hashable] = None) -> None:
         random.seed(seed)
+        cls._global_seed = seed
         cls._is_seeded = True
 
     def format(self, formatter: str, *args: Any, **kwargs: Any) -> str:
