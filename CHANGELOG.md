@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.3 - 2022-03-23](https://github.com/joke2k/faker/compare/v13.3.2...v13.3.3)
+
+* Fix factory selection when Faker has been seeded.
+
 ### [v13.3.2 - 2022-03-14](https://github.com/joke2k/faker/compare/v13.3.1...v13.3.2)
 
 * Bump actions/stale from 3 to 5 (#1629). Thanks @dependabot[bot].
