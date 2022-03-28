@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.4 - 2022-03-28](https://github.com/joke2k/faker/compare/v13.3.3...v13.3.4)
+
+* Bump actions/cache from 2 to 3 (#1631). Thanks @dependabot[bot].
+
 ### [v13.3.3 - 2022-03-23](https://github.com/joke2k/faker/compare/v13.3.2...v13.3.3)
 
 * Fix factory selection when Faker has been seeded.
