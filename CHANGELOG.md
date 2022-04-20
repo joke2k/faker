@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.3.5 - 2022-04-20](https://github.com/joke2k/faker/compare/v13.3.4...v13.3.5)
+
+* Fix error in currency provider data. Thanks @zerogonal.
+
 ### [v13.3.4 - 2022-03-28](https://github.com/joke2k/faker/compare/v13.3.3...v13.3.4)
 
 * Bump actions/cache from 2 to 3 (#1631). Thanks @dependabot[bot].
