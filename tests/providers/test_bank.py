@@ -10,6 +10,7 @@ from faker.providers.bank.en_GB import Provider as EnGbBankProvider
 from faker.providers.bank.en_IE import Provider as EnIeBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
+from faker.providers.bank.es_MX import Provider as EsMxBankProvider, is_valid_clabe
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
 from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
 from faker.providers.bank.no_NO import Provider as NoNoBankProvider
@@ -189,6 +190,27 @@ class TestEsEs:
             assert is_valid_iban(iban)
             assert iban[:2] == EsEsBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{20}", iban[2:])
+
+
+class TestEsMx:
+    """Test es_MX bank provider"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.bank() in EsMxBankProvider.banks
+
+    def test_clabe(self, faker, num_samples):
+        for _ in range(num_samples):
+            clabe = faker.clabe()
+            assert is_valid_clabe(clabe)
+            assert int(clabe[:3].lstrip("0")) in EsMxBankProvider.bank_codes
+
+    def test_clabe_bank_code(self, faker, num_samples):
+        bank_code = 133
+        for _ in range(num_samples):
+            clabe = faker.clabe(bank_code=bank_code)
+            assert is_valid_clabe(clabe)
+            assert int(clabe[:3].lstrip("0")) == bank_code
 
 
 class TestFrFr:
