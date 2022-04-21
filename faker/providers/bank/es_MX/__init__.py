@@ -33,7 +33,7 @@ def is_valid_clabe(clabe: str) -> bool:
 class Provider(BankProvider):
     """Bank provider for ``es_MX`` locale."""
 
-    banks: Tuple[str] = (
+    banks: Tuple[str, ...] = (
         "ABC Capital, S.A. I.B.M.",
         "Acciones y Valores Banamex, S.A. de C.V., Casa de Bolsa",
         "Actinver Casa de Bolsa, S.A. de C.V.",
@@ -142,7 +142,7 @@ class Provider(BankProvider):
         "Zúrich Vida, Compañía de Seguros, S.A.",
     )
 
-    bank_codes: Tuple[int] = (
+    bank_codes: Tuple[int, ...] = (
         2,
         6,
         9,
