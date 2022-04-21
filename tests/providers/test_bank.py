@@ -199,6 +199,26 @@ class TestEsMx:
         for _ in range(num_samples):
             assert faker.bank() in EsMxBankProvider.banks
 
+    @pytest.mark.parametrize(
+        "clabe,validity",
+        [
+            ("002864631170560203", True),
+            ("002864631170560202", False),
+            ("00286463117056020", False),
+            ("0028646311705602030", False),
+            ("00286463117056020A", False),
+        ],
+        ids=[
+            "valid",
+            "bad_control_digit",
+            "too_short",
+            "too_long",
+            "non_numeric_characters",
+        ],
+    )
+    def test_clabe_validation(self, clabe, validity):
+        assert is_valid_clabe(clabe) is validity
+
     def test_clabe(self, faker, num_samples):
         for _ in range(num_samples):
             clabe = faker.clabe()

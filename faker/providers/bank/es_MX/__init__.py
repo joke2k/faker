@@ -24,8 +24,8 @@ def is_valid_clabe(clabe: str) -> bool:
     :param clabe: CLABE.
     :return: True if the CLABE is valid, False otherwise.
     """
-    if len(clabe) != 18:
-        raise ValueError("CLABE must be 18 characters long")
+    if len(clabe) != 18 or not clabe.isdigit():
+        return False
 
     return get_clabe_control_digit(clabe) == int(clabe[-1])
 
