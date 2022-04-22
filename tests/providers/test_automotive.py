@@ -154,6 +154,12 @@ class TestFrFr(_SimpleAutomotiveTestMixin):
     license_plate_pattern: Pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}")
 
 
+class TestItIt(_SimpleAutomotiveTestMixin):
+    """Test it_IT automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2}\d{3}[A-Z]{2}")
+
+
 class TestNoNo(_SimpleAutomotiveTestMixin):
     """Test no_NO automotive provider methods"""
 
