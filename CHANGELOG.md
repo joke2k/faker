@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.4.0 - 2022-04-22](https://github.com/joke2k/faker/compare/v13.3.5...v13.4.0)
+
+* Add `it_IT` automotive provider. Thanks @Giorgionocera.
+
 ### [v13.3.5 - 2022-04-20](https://github.com/joke2k/faker/compare/v13.3.4...v13.3.5)
 
 * Fix error in currency provider data. Thanks @zerogonal.
