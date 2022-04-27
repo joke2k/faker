@@ -280,3 +280,9 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
             plate = faker.license_plate_motorbike()
             assert isinstance(plate, str)
             assert self.license_plate_motorbike_pattern.match(plate)
+
+
+class TestViVn(_SimpleAutomotiveTestMixin):
+    """Test vi_VN automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d\d[ABCDĐEFGHKLMNPSTUVXYZ]-\d\d\d\d\d\d")
