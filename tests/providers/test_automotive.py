@@ -280,3 +280,9 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
             plate = faker.license_plate_motorbike()
             assert isinstance(plate, str)
             assert self.license_plate_motorbike_pattern.match(plate)
+
+
+class TestArBh(_SimpleAutomotiveTestMixin):
+    """Test ar_BH automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{6}")
