@@ -281,6 +281,7 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
             assert isinstance(plate, str)
             assert self.license_plate_motorbike_pattern.match(plate)
 
+
 class TestArBh(_SimpleAutomotiveTestMixin):
     """Test ar_BH automotive provider methods"""
 
