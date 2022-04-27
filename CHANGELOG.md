@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.5.0 - 2022-04-27](https://github.com/joke2k/faker/compare/v13.4.0...v13.5.0)
+
+* Add mexican CLABE bank code for `es_MX` locale. Thanks @edgarrmondragon.
+
 ### [v13.4.0 - 2022-04-22](https://github.com/joke2k/faker/compare/v13.3.5...v13.4.0)
 
 * Add `it_IT` automotive provider. Thanks @Giorgionocera.

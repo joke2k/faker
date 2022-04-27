@@ -24,6 +24,12 @@ class _SimpleAutomotiveTestMixin:
             self.perform_extra_checks(license_plate, match)
 
 
+class TestArBh(_SimpleAutomotiveTestMixin):
+    """Test ar_BH automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{6}")
+
+
 class TestAzAz(_SimpleAutomotiveTestMixin):
     """Test az_AZ automotive provider methods"""
 
