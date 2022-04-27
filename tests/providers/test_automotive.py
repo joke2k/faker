@@ -285,4 +285,4 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
 class TestViVn(_SimpleAutomotiveTestMixin):
     """Test vi_VN automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"\d{2}[ABCDĐEFGHKLMNPSTUVXYZ]-\d{6}")
+    license_plate_pattern: Pattern = re.compile(r"\d{2}[ABCDĐEFGHKLMNPSTUVXYZ]-\d{5}")
