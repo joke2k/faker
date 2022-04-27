@@ -20,7 +20,7 @@ class _SimpleAutomotiveTestMixin:
         for _ in range(num_samples):
             license_plate = faker.license_plate()
             match = self.license_plate_pattern.fullmatch(license_plate)
-            assert match
+            assert match is not None
             self.perform_extra_checks(license_plate, match)
 
 
@@ -285,4 +285,4 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
 class TestViVn(_SimpleAutomotiveTestMixin):
     """Test vi_VN automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"\d\d[ABCDĐEFGHKLMNPSTUVXYZ]-\d\d\d\d\d\d")
+    license_plate_pattern: Pattern = re.compile(r"\d{2}[ABCDĐEFGHKLMNPSTUVXYZ]-\d{6}")
