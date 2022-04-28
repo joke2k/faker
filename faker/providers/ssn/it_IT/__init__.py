@@ -4,9 +4,14 @@ from string import ascii_uppercase, digits
 
 from .. import Provider as SsnProvider
 
+ALPHABET = ascii_uppercase
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
 ALPHANUMERICS_DICT = {char: index for index, char in enumerate(ALPHANUMERICS)}
 MONTHS_LIST = ("A", "B", "C", "D", "E", "H", "L", "M", "P", "R", "S", "T")
+VOWELS = "AEIOU"
+CONSONANTS = [letter for letter in ALPHABET if letter not in VOWELS]
+
+
 MUNICIPALITIES_LIST = (
     "A001",
     "A004",
@@ -8007,13 +8012,14 @@ class Provider(SsnProvider):
     """
 
     def ssn(self) -> str:
-        name_and_surname = self.bothify("??????").upper()
-        sex = self.random_int(min=0, max=1)
+        sex: int = self.random_int(min=0, max=1)
+        surname: str = self._get_surname_letters()
+        name: str = self._get_name_letters(sex)
         year: str = "%02d" % self.random_int(min=0, max=99)
         month: str = self.random_element(MONTHS_LIST)
         day: str = "%02d" % (self.random_int(min=1, max=28) + (40 if sex == 1 else 0))
         municipality: str = self.random_element(MUNICIPALITIES_LIST)
-        code: str = name_and_surname + year + month + day + municipality
+        code: str = f"{surname}{name}{year}{month}{day}{municipality}"
         return code + checksum(code)
 
     vat_id_formats = ("IT###########",)
@@ -8024,3 +8030,86 @@ class Provider(SsnProvider):
         :return: A random Italian VAT ID
         """
         return self.bothify(self.random_element(self.vat_id_formats))
+
+    def _get_name_letters(self, sex: int) -> str:
+        """
+        Rules:
+            * take all consonants in their order
+              * if >= 4, take the 1st, 3rd and 4th
+              * if < 3 take the vowels also; vowels must go _after_ the consonants and must be taken in the order they appear (LUCA -> LCU)
+              * if == 3 return all 3 consonants
+            * if name is < 3 chars, pad it on the right with "X" (LI -> LIX)
+        Args:
+            sex: int
+        Returns:
+            str
+        """
+
+        if sex == 1:
+            name = self.generator.first_name_male().upper()
+        else:
+            name = self.generator.first_name_female().upper()
+
+        if len(name) < 3:
+            return self._pad_shorter(name)
+
+        name_consonants = self._get_consonants(name)
+        cons_len = len(name_consonants)
+        if cons_len >= 4:
+            name_part = "".join([name_consonants[0], name_consonants[1], name_consonants[3]])
+        elif cons_len < 3:
+            name_part = "".join(name_consonants + self._get_vowels(name))[:3]
+        else:
+            name_part = "".join(name_consonants)
+        return name_part
+
+    def _get_surname_letters(self) -> str:
+        """
+            Rules:
+            * if consonants >=3 : take the first 3
+            * if less, pad them with vowels; vowels come after the consonants and in the order they appear (ROSA -> RSO)
+            * if surname is less than 3 chars, pad it on the right with 'X'  (FO -> FOX)
+        Returns:
+            str
+        """
+        surname = self.generator.last_name().upper()
+        if len(surname) < 3:
+            return self._pad_shorter(surname)
+
+        surname_consonants = self._get_consonants(surname)
+        cons_len = len(surname_consonants)
+
+        if cons_len < 3:
+            surname_part = "".join(surname_consonants + self._get_vowels(surname))[:3]
+        else:
+            surname_part = "".join(surname_consonants)[:3]
+        return surname_part
+
+    @staticmethod
+    def _get_vowels(sequence: str) -> list:
+        """
+            Returns list of vowels in provided string
+        """
+        vowels = []
+        for char in sequence:
+            if char in VOWELS:
+                vowels.append(char)
+        return vowels
+
+    @staticmethod
+    def _get_consonants(sequence: str) -> list:
+        """
+            Returns list of consonants in provided string
+        """
+        consonants = []
+        for char in sequence:
+            if char in CONSONANTS:
+                consonants.append(char)
+        return consonants
+
+    @staticmethod
+    def _pad_shorter(sequence: str) -> str:
+        """
+        Pads shorter string with the allowed char
+        """
+        return sequence.ljust(3, "X")
