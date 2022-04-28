@@ -295,6 +295,6 @@ class TestViVn(_SimpleAutomotiveTestMixin):
 
 
  class TestLtLT(_SimpleAutomotiveTestMixin):
-    """Test lt_LT automotive provider methods"""
+     """Test lt_LT automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3} \d{3}")
+     license_plate_pattern: Pattern = re.compile(r"[A-Z]{3} \d{3}")
