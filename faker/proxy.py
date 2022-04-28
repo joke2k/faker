@@ -4,7 +4,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
