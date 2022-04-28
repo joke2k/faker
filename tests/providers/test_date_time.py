@@ -36,6 +36,7 @@ from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 
 
 def is64bit():
@@ -1151,3 +1152,17 @@ class TestElGr(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in ElGrProvider.MONTH_NAMES.values()
+
+
+class TestZhCn(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("zh-CN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in ZhCnProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in ZhCnProvider.MONTH_NAMES.values()
