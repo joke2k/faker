@@ -286,3 +286,9 @@ class TestArBh(_SimpleAutomotiveTestMixin):
     """Test ar_BH automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"\d{6}")
+
+
+class TestEtEe(_SimpleAutomotiveTestMixin):
+    """Test et_EE automotive provider methods"""
+
+    license_plate_patten: Pattern = re.compile(r"\d{3} [A-Z]{3}")
