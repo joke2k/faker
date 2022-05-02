@@ -292,3 +292,9 @@ class TestViVn(_SimpleAutomotiveTestMixin):
     """Test vi_VN automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"\d{2}[ABCDĐEFGHKLMNPSTUVXYZ]-\d{5}")
+
+
+class TestLtLt(_SimpleAutomotiveTestMixin):
+    """Test lt_LT automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3} \d{3}")
