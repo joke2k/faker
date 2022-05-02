@@ -303,4 +303,4 @@ class TestLtLt(_SimpleAutomotiveTestMixin):
 class TestEtEe(_SimpleAutomotiveTestMixin):
     """Test et_EE automotive provider methods"""
 
-    license_plate_patten: Pattern = re.compile(r"\d{3} [A-Z]{3}")
+    license_plate_pattern: Pattern = re.compile(r"\d{3} [A-Z]{3}")
