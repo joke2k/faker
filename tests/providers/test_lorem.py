@@ -7,6 +7,7 @@ from faker.providers.lorem.bn_BD import Provider as BnBdLoremProvider
 from faker.providers.lorem.cs_CZ import Provider as CsCzLoremProvider
 from faker.providers.lorem.de_AT import Provider as DeAtLoremProvider
 from faker.providers.lorem.de_DE import Provider as DeDeLoremProvider
+from faker.providers.lorem.en_US import Provider as EnUsLoremProvider
 from faker.providers.lorem.fa_IR import Provider as FaIrLoremProvider
 
 
@@ -179,6 +180,47 @@ class TestLoremProvider:
                 assert len(text) <= num_chars
                 words = re.sub(r"[.\n]+", " ", text.lower()).split()
                 assert all(word in self.custom_word_list for word in words)
+
+    @pytest.mark.parametrize(
+        "nb,part_of_speech",
+        [(10, "verb"), (18, "adverb"), (11, "noun")],
+        ids=[
+            "verb",
+            "adverb",
+            "noun"
+        ]
+    )
+    def test_words_part_of_speech(self, faker, nb, part_of_speech):
+        words = faker.words(nb=nb, part_of_speech=part_of_speech)
+        assert(word in EnUsLoremProvider.parts_of_speech[part_of_speech] for word in words)
+
+    @pytest.mark.parametrize(
+        "nb,part_of_speech",
+        [(5, "abcdefg")],
+        ids=[
+            "invalid part of speech",
+        ]
+    )
+    def test_words_invalid_part_of_speech(self, faker, nb, part_of_speech):
+        with pytest.raises(ValueError) as exc_info:
+            faker.words(nb=nb, part_of_speech=part_of_speech)
+
+        assert(exc_info.type is ValueError)
+        assert(exc_info.value.args[0] == f"{part_of_speech} is not recognized as a part of speech.")
+
+    @pytest.mark.parametrize(
+        "nb,part_of_speech",
+        [(3, "adverb"), (5, "verb"), (4, "abcdefgh")],
+        ids=[
+            "ignore adverb",
+            "ignore verb",
+            "ignore invalid part of speech"
+        ],
+    )
+    def test_words_part_of_speech_ignored(self, faker, nb, part_of_speech):
+        words = faker.words(nb=nb, part_of_speech=part_of_speech, ext_word_list=self.custom_word_list)
+        assert len(words) == nb
+        assert all(word in self.custom_word_list for word in words)
 
 
 class TestCsCz:
