@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.7.0 - 2022-05-02](https://github.com/joke2k/faker/compare/v13.6.0...v13.7.0)
+
+* Add automotive provider for `fi_FI`,  `et_EE`, `lt_LT` and `vi_VN`. Thanks @zerogonal.
+
 ### [v13.6.0 - 2022-04-27](https://github.com/joke2k/faker/compare/v13.5.0...v13.6.0)
 
 * Add `ar_BH` automotive provider. Thanks @zerogonal.
