@@ -3,6 +3,8 @@ import re
 
 from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional
 
+from .typing import SeedType
+
 if TYPE_CHECKING:
     from .providers import BaseProvider
 
@@ -65,7 +67,7 @@ class Generator:
     def random(self, value: random_module.Random) -> None:
         self.__random = value
 
-    def seed_instance(self, seed: Optional[Hashable] = None) -> "Generator":
+    def seed_instance(self, seed: Optional[SeedType] = None) -> "Generator":
         """Calls random.seed"""
         if self.__random == random:
             # create per-instance random obj when first time seed_instance() is
@@ -76,7 +78,7 @@ class Generator:
         return self
 
     @classmethod
-    def seed(cls, seed: Optional[Hashable] = None) -> None:
+    def seed(cls, seed: Optional[SeedType] = None) -> None:
         random.seed(seed)
         cls._global_seed = seed
         cls._is_seeded = True
