@@ -11,5 +11,5 @@ class Provider(BaseProvider):
 
     def git_commit_sha(self) -> str:
         return '%040x' % random.randrange(16**40)
-	
-	# TODO: Random git commit message (name + date + commit sha)
+
+    # TODO: Random git commit message (name + date + commit sha)
