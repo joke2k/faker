@@ -3176,5 +3176,5 @@ class Provider(LoremProvider):
             "stupid",
             "temporary",
             "weekly",
-        )
+        ),
     }
