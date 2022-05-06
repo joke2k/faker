@@ -1886,9 +1886,11 @@ class Provider(BaseProvider):
 
     def date(self, pattern: str = "%Y-%m-%d", end_datetime: Optional[DateParseType] = None) -> str:
         """
-        Get a date string between January 1, 1970 and now
-        :param pattern: format
+        Get a date string between January 1, 1970 and now.
+        
+        :param pattern: Format of the date (year-month-day by default)
         :example: '2008-11-27'
+        :return: Date
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
