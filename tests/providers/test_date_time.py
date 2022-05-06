@@ -28,6 +28,7 @@ from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
+from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.pt_BR import Provider as PtBrProvider
 from faker.providers.date_time.pt_PT import Provider as PtPtProvider
@@ -1166,3 +1167,17 @@ class TestZhCn(unittest.TestCase):
     def test_month(self):
         day = self.fake.month_name()
         assert day in ZhCnProvider.MONTH_NAMES.values()
+
+
+class TestNoNo(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("no-NO")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in NoNoProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in NoNoProvider.MONTH_NAMES.values()
