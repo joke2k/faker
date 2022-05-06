@@ -8036,7 +8036,8 @@ class Provider(SsnProvider):
         Rules:
             * take all consonants in their order
               * if >= 4, take the 1st, 3rd and 4th
-              * if < 3 take the vowels also; vowels must go _after_ the consonants and must be taken in the order they appear (LUCA -> LCU)
+              * if < 3 take the vowels also; vowels must go _after_ the consonants
+                and must be taken in the order they appear (LUCA -> LCU)
               * if == 3 return all 3 consonants
             * if name is < 3 chars, pad it on the right with "X" (LI -> LIX)
         Args:
