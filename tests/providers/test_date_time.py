@@ -25,6 +25,7 @@ from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
+from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
@@ -1181,3 +1182,17 @@ class TestNoNo(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in NoNoProvider.MONTH_NAMES.values()
+
+
+class TestFrFr(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("fr-FR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()
