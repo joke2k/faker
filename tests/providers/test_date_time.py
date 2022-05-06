@@ -25,6 +25,7 @@ from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
+from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
@@ -38,7 +39,6 @@ from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
-from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 
 
 def is64bit():
