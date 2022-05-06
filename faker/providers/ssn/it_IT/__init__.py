@@ -8089,7 +8089,7 @@ class Provider(SsnProvider):
     @staticmethod
     def _get_vowels(sequence: str) -> list:
         """
-            Returns list of vowels in provided string
+        Returns list of vowels in provided string
         """
         vowels = []
         for char in sequence:
@@ -8100,7 +8100,7 @@ class Provider(SsnProvider):
     @staticmethod
     def _get_consonants(sequence: str) -> list:
         """
-            Returns list of consonants in provided string
+        Returns list of consonants in provided string
         """
         consonants = []
         for char in sequence:
