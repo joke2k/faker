@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.11.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.10.0...v13.11.0)
+
+* Add `sq-AL` automotive provider. Thanks @zerogonal.
+
 ### [v13.10.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.9.0...v13.10.0)
 
 * Improve `it_IT` ssn provider to match real building rules. Thanks @DamienPirsy.
