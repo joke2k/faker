@@ -2,7 +2,7 @@ from .. import Provider as AutomotiveProvider
 
 
 class Provider(AutomotiveProvider):
-    """Implement automotive provider for ``sql_AL`` locale.
+    """Implement automotive provider for ``sq_AL`` locale.
 
     Source:
 
