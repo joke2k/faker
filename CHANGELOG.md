@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v13.8.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.7.0...v13.8.0)
+
+* Add `fr-FR` datetime provider. Thanks @zerogonal.
+* Add `no-NO` datetime provider. Thanks @zerogonal.
+* Add `zh-CN` datetime provider. Thanks @zerogonal.
+
 ### [v13.7.0 - 2022-05-02](https://github.com/joke2k/faker/compare/v13.6.0...v13.7.0)
 
 * Add automotive provider for `fi_FI`,  `et_EE`, `lt_LT` and `vi_VN`. Thanks @zerogonal.
