@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.9.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.8.0...v13.9.0)
+
+* Added part-of-speech functionality for `en_US`. Thanks @e-panourgia.
+
 ### [v13.8.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.7.0...v13.8.0)
 
 * Add `fr-FR` datetime provider. Thanks @zerogonal.
