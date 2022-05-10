@@ -7,26 +7,26 @@ class Provider(PersonProvider):
 
     formats_male = OrderedDict(
         [
-            ("{{first_name_male}} {{middle_name_male}} {{last_name}} {{last_name}}", 0.55),
+            ("{{given_name_male}} {{last_name}} {{last_name}}", 0.55),
             ("{{first_name_male}} {{last_name}} {{last_name}}", 0.25),
             ("{{first_name_male}} {{last_name}}", 0.15),
             ("{{first_name_male}} {{first_name_male}} {{middle_name_male}} {{last_name}} {{last_name}}", 0.03),
             ("{{first_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{first_name_male}} {{middle_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{first_name_male}} {{middle_name_male}} {{last_name}}-{{last_name}}", 0.005),
+            ("{{given_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
+            ("{{given_name_male}} {{last_name}}-{{last_name}}", 0.005),
             ("{{first_name_male}} {{last_name}}-{{last_name}}", 0.005),
         ]
     )
 
     formats_female = OrderedDict(
         [
-            ("{{first_name_female}} {{middle_name_female}} {{last_name}} {{last_name}}", 0.55),
+            ("{{given_name_female}} {{last_name}} {{last_name}}", 0.55),
             ("{{first_name_female}} {{last_name}} {{last_name}}", 0.25),
             ("{{first_name_female}} {{last_name}}", 0.15),
             ("{{first_name_female}} {{first_name_female}} {{middle_name_female}} {{last_name}} {{last_name}}", 0.03),
             ("{{first_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{first_name_female}} {{middle_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{first_name_female}} {{middle_name_female}} {{last_name}}-{{last_name}}", 0.005),
+            ("{{given_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
+            ("{{given_name_female}} {{last_name}}-{{last_name}}", 0.005),
             ("{{first_name_female}} {{last_name}}-{{last_name}}", 0.005),
         ]
     )
@@ -1582,3 +1582,22 @@ class Provider(PersonProvider):
         format: str = self.random_element(self.formats)
         pattern: str = self.random_element(getattr(self, format))
         return self.generator.parse(pattern)
+
+    def given_name(self) -> str:
+        """Generates a composite given name with two unique names"""
+        if self.random_int(0, 1) == 1:
+            source = self.first_names_female
+        else:
+            source = self.first_names_male
+        names = self.random_elements(source, length=2, unique=True)
+        return " ".join(names)
+
+    def given_name_male(self) -> str:
+        """Generates a composite male given name with two unique names"""
+        names = self.random_elements(self.first_names_male, length=2, unique=True)
+        return " ".join(names)
+
+    def given_name_female(self) -> str:
+        """Generates a composite female given name with two unique names"""
+        names = self.random_elements(self.first_names_female, length=2, unique=True)
+        return " ".join(names)
