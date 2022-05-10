@@ -1568,8 +1568,8 @@ class Provider(PersonProvider):
         ]
     )
 
-    prefixes_male = ("Sr.", "Dr.")
-    prefixes_female = ("Srta.", "Sra.", "Dra.")
+    prefixes_male = ("Sr.", "Dr.", "Don")
+    prefixes_female = ("Srta.", "Sra.", "Dra.", "Doña")
 
     def middle_name_male(self) -> str:
         return self.random_element(self.middle_names_male)
