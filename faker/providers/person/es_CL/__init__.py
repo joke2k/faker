@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Dict
 
 from ..es import Provider as PersonProvider
 
@@ -9,12 +10,10 @@ class Provider(PersonProvider):
         [
             ("{{given_name_male}} {{last_name}} {{last_name}}", 0.55),
             ("{{first_name_male}} {{last_name}} {{last_name}}", 0.25),
-            ("{{first_name_male}} {{last_name}}", 0.15),
-            ("{{first_name_male}} {{first_name_male}} {{middle_name_male}} {{last_name}} {{last_name}}", 0.03),
-            ("{{first_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{given_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{given_name_male}} {{last_name}}-{{last_name}}", 0.005),
-            ("{{first_name_male}} {{last_name}}-{{last_name}}", 0.005),
+            ("{{first_name_male}} {{last_name}}", 0.17),
+            ("{{given_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.01),
+            ("{{first_name_male}} {{last_name}}-{{last_name}} {{last_name}}", 0.01),
+            ("{{first_name_male}} {{last_name}}-{{last_name}}", 0.01),
         ]
     )
 
@@ -22,12 +21,10 @@ class Provider(PersonProvider):
         [
             ("{{given_name_female}} {{last_name}} {{last_name}}", 0.55),
             ("{{first_name_female}} {{last_name}} {{last_name}}", 0.25),
-            ("{{first_name_female}} {{last_name}}", 0.15),
-            ("{{first_name_female}} {{first_name_female}} {{middle_name_female}} {{last_name}} {{last_name}}", 0.03),
-            ("{{first_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{given_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.005),
-            ("{{given_name_female}} {{last_name}}-{{last_name}}", 0.005),
-            ("{{first_name_female}} {{last_name}}-{{last_name}}", 0.005),
+            ("{{first_name_female}} {{last_name}}", 0.17),
+            ("{{given_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.01),
+            ("{{first_name_female}} {{last_name}}-{{last_name}} {{last_name}}", 0.01),
+            ("{{first_name_female}} {{last_name}}-{{last_name}}", 0.01),
         ]
     )
 
@@ -45,7 +42,7 @@ class Provider(PersonProvider):
     # Data was truncated to 500 items for each category
 
     # 500 male first names, weighted
-    first_names_male = OrderedDict(
+    first_names_male: Dict[str, float] = OrderedDict(
         [
             ("Juan", 0.05121161),
             ("José", 0.04889522),
@@ -551,7 +548,7 @@ class Provider(PersonProvider):
     )
 
     # 500 female first names, weighted
-    first_names_female = OrderedDict(
+    first_names_female: Dict[str, float] = OrderedDict(
         [
             ("María", 0.08964170),
             ("Ana", 0.02076897),
@@ -1055,9 +1052,6 @@ class Provider(PersonProvider):
             ("Muriel", 0.00026180),
         ]
     )
-
-    middle_names_male = first_names_male
-    middle_names_female = first_names_female
 
     first_names = first_names_male.copy()
     first_names.update(first_names_female)
@@ -1571,12 +1565,6 @@ class Provider(PersonProvider):
     prefixes_male = ("Sr.", "Dr.", "Don")
     prefixes_female = ("Srta.", "Sra.", "Dra.", "Doña")
 
-    def middle_name_male(self) -> str:
-        return self.random_element(self.middle_names_male)
-
-    def middle_name_female(self) -> str:
-        return self.random_element(self.middle_names_female)
-
     def name(self) -> str:
         # Select format, then generate name
         format: str = self.random_element(self.formats)
@@ -1589,15 +1577,15 @@ class Provider(PersonProvider):
             source = self.first_names_female
         else:
             source = self.first_names_male
-        names = self.random_elements(source, length=2, unique=True)
+        names = self.random_elements(source, length=2, unique=True)  # type: ignore[var-annotated]
         return " ".join(names)
 
     def given_name_male(self) -> str:
         """Generates a composite male given name with two unique names"""
-        names = self.random_elements(self.first_names_male, length=2, unique=True)
+        names = self.random_elements(self.first_names_male, length=2, unique=True)  # type: ignore[var-annotated]
         return " ".join(names)
 
     def given_name_female(self) -> str:
         """Generates a composite female given name with two unique names"""
-        names = self.random_elements(self.first_names_female, length=2, unique=True)
+        names = self.random_elements(self.first_names_female, length=2, unique=True)  # type: ignore[var-annotated]
         return " ".join(names)
