@@ -38,7 +38,6 @@ class TestUserAgentProvider:
             match = self.mac_token_pattern.fullmatch(faker.mac_platform_token())
             assert match.group("mac_processor") in UaProvider.mac_processors
 
-    @pytest.mark.xfail(reason="https://github.com/joke2k/faker/issues/1618", strict=True)
     def test_firefox_deterministic_output(self, faker: Faker, num_samples: int) -> None:
         """Check whether ``faker.firefox()`` is deterministic, given the same seed."""
 
