@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from itertools import zip_longest
 from typing import Dict
 
 from ..es import Provider as PersonProvider
@@ -1053,8 +1054,20 @@ class Provider(PersonProvider):
         ]
     )
 
-    first_names = first_names_male.copy()
-    first_names.update(first_names_female)
+    @property
+    def first_names(self):
+        """Returns a list of weighted first names, male and female."""
+        if not hasattr(self, "_first_names"):
+            self._first_names = OrderedDict()
+            for a, b in zip_longest(self.first_names_male.items(), self.first_names_female.items()):
+                if a is not None:
+                    name, weight = a
+                    self._first_names[name] = weight / 2
+                if b is not None:
+                    name, weight = b
+                    self._first_names[name] = weight / 2
+        return self._first_names
+
 
     # 500 last names, weighted
     last_names = OrderedDict(
