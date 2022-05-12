@@ -3,8 +3,6 @@ import re
 
 from typing import Pattern
 
-import pytest
-
 from freezegun import freeze_time
 
 from faker import Faker
