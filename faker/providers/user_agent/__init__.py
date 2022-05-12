@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 
 from .. import BaseProvider, ElementsType
 
-
 _DT_ALMOST_MAX = datetime.max - timedelta(1.0)
 
 
