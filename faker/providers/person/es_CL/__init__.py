@@ -1068,7 +1068,6 @@ class Provider(PersonProvider):
                     self._first_names[name] = weight / 2
         return self._first_names
 
-
     # 500 last names, weighted
     last_names = OrderedDict(
         [
