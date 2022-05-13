@@ -3,7 +3,7 @@ import unittest
 
 from datetime import datetime
 from itertools import cycle
-from typing import Pattern
+from typing import Pattern, Tuple
 from unittest import mock
 
 import freezegun
@@ -16,6 +16,7 @@ from validators.i18n.es import es_nif as is_nif
 
 from faker import Faker
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
@@ -643,6 +644,29 @@ class TestEsMX(unittest.TestCase):
 
             assert len(rfc) == 12
             assert re.search(r"^[A-Z]{3}\d{6}[0-9A-Z]{3}$", rfc)
+
+
+class TestEsCL(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_CL")
+        Faker.seed(0)
+
+    def test_rut(self):
+        for _ in range(100):
+            rut = self.fake.rut(min=10000000)
+            digits, check_digit = self._extract_digits(rut)
+
+            assert len(rut) == 12
+            assert check_digit == cl_rut_checksum(digits)
+
+    @staticmethod
+    def _extract_digits(rut) -> Tuple[int, str]:
+        """Extracts the digits and check digit from a formatted RUT."""
+        char_filter = re.compile(r"[^0-9]")
+        check_digit = rut[-1]
+        digits = char_filter.sub("", rut[:-1])
+
+        return int(digits), check_digit
 
 
 class TestEtEE(unittest.TestCase):
