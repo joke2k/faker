@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.11.1 - 2022-05-13](https://github.com/joke2k/faker/compare/v13.11.0...v13.11.1)
+
+*  Fix firefox `ua` being nondeterministic with fixed seed. Thanks @jhbuhrman.
+
 ### [v13.11.0 - 2022-05-09](https://github.com/joke2k/faker/compare/v13.10.0...v13.11.0)
 
 * Add `sq-AL` automotive provider. Thanks @zerogonal.
