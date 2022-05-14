@@ -182,85 +182,73 @@ class Provider(PersonProvider):
         """
         :example: '明美'
         """
-        first_names = [name[0] for name in self.first_names]
-        return self.random_element(first_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_names, min_element_length=min_length, max_element_length=max_length)
 
     def first_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '晃'
         """
-        first_names_male = [name[0] for name in self.first_names_male]
-        return self.random_element(first_names_male, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_names_male, min_element_length=min_length, max_element_length=max_length)
 
     def first_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '明美'
         """
-        first_names_female = [name[0] for name in self.first_names_female]
-        return self.random_element(first_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_names_female, min_element_length=min_length, max_element_length=max_length)
 
     def last_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '佐藤'
         """
-        last_names = [name[0] for name in self.last_names]
-        return self.random_element(last_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.last_names, min_element_length=min_length, max_element_length=max_length)
 
     def first_kana_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'アケミ'
         """
-        first_kana_names = [name[1] for name in self.first_kana_names]
-        return self.random_element(first_kana_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_kana_names, min_element_length=min_length, max_element_length=max_length)
 
     def first_kana_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'アキラ'
         """
-        first_kana_names_male = [name[1] for name in self.first_kana_names_male]
-        return self.random_element(first_kana_names_male, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_kana_names_male, min_element_length=min_length, max_element_length=max_length)
 
     def first_kana_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'アケミ'
         """
-        first_kana_names_female = [name[1] for name in self.first_kana_names_female]
-        return self.random_element(first_kana_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_kana_names_female, min_element_length=min_length, max_element_length=max_length)
 
     def last_kana_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'サトウ'
         """
-        last_kana_names = [name[1] for name in self.last_kana_names]
-        return self.random_element(last_kana_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.last_kana_names, min_element_length=min_length, max_element_length=max_length)
 
     def first_romanized_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Akemi'
         """
-        first_romanized_names = [name[2] for name in self.first_names]
-        return self.random_element(first_romanized_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_romanized_names, min_element_length=min_length, max_element_length=max_length)
 
     def first_romanized_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Akira'
         """
-        first_romanized_names_male = [name[2] for name in self.first_names_male]
-        return self.random_element(first_romanized_names_male, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_romanized_names_male, min_element_length=min_length, max_element_length=max_length)
 
     def first_romanized_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Akemi'
         """
-        first_romanized_names_female = [name[2] for name in self.first_names_female]
-        return self.random_element(first_romanized_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.first_romanized_names_female, min_element_length=min_length, max_element_length=max_length)
 
     def last_romanized_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Sato'
         """
-        last_romanized_names = [name[2] for name in self.last_names]
-        return self.random_element(last_romanized_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(self.last_romanized_names, min_element_length=min_length, max_element_length=max_length)
 
     def kana_name(self) -> str:
         """
