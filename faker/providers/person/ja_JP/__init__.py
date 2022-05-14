@@ -164,6 +164,12 @@ class Provider(PersonProvider):
         """
         :example: ('晃', 'アキラ', 'Akira')
         """
+        return self.random_element(self.first_name_pairs)
+
+    def first_name_male_pair(self) -> Tuple[str, str, str]:
+        """
+        :example: ('晃', 'アキラ', 'Akira')
+        """
         return self.random_element(self.first_name_male_pairs)
 
     def first_name_female_pair(self) -> Tuple[str, str, str]:
