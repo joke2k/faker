@@ -412,8 +412,8 @@ class BaseProvider:
         max_element_length: Optional[int] = None,
     ) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
-        ``max_element_lenght`` sets the maximal lenght of an individual element in ``elements``.
-        ``min_element_lenght`` sets the minimal lenght of an individual element in ``elements``.
+        ``max_element_length`` sets the maximal length of an individual element in ``elements``.
+        ``min_element_length`` sets the minimal length of an individual element in ``elements``.
         All elements which do not meet these criteria will be ignored at the random selection.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
