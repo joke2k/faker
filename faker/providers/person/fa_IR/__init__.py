@@ -1,5 +1,5 @@
 from .. import Provider as PersonProvider
-
+from typing import Optional
 
 class Provider(PersonProvider):
     formats_female = (
@@ -342,5 +342,5 @@ class Provider(PersonProvider):
     prefixes_male = ("جناب آقای", "جناب آقای دکتر")
     prefixes_female = ("سرکار خانم", "سرکار خانم دکتر")
 
-    def suffix(self) -> str:
+    def suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return ""
