@@ -1,5 +1,7 @@
-from .. import Provider as PersonProvider
 from typing import Optional
+
+from .. import Provider as PersonProvider
+
 
 class Provider(PersonProvider):
     formats_female = (

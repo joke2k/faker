@@ -510,9 +510,11 @@ class BaseProvider:
         )
 
     @staticmethod
-    def filter_by_length(elements: ElementsType = ("a", "b", "c"),
-                         max_element_length: Optional[int] = None,
-                         min_element_length: Optional[int] = None) -> ElementsType:
+    def filter_by_length(
+        elements: ElementsType = ("a", "b", "c"),
+        max_element_length: Optional[int] = None,
+        min_element_length: Optional[int] = None,
+    ) -> ElementsType:
         """Filters for elements in ``elements`` that satisfy the given length constraints.
         ``max_element_length`` sets the maximal length of an individual element in ``elements``.
         ``min_element_length`` sets the minimal length of an individual element in ``elements``."""
@@ -534,7 +536,9 @@ class BaseProvider:
                     appropriate_elements.append(element)
 
         if not appropriate_elements:
-            error_message = f"No elements found that satisfy the given length constraints of {min_element_length} <= length"
+            error_message = (
+                f"No elements found that satisfy the given length constraints of {min_element_length} <= length"
+            )
             if max_element_length:
                 error_message += f" <= {max_element_length}"
             raise ValueError(error_message)

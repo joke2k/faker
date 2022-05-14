@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from operator import itemgetter
-from typing import Tuple, Optional
+from typing import Optional, Tuple
 
 from .. import Provider as PersonProvider
 
@@ -200,7 +200,9 @@ class Provider(PersonProvider):
         """
         :example: '明美'
         """
-        return self.random_element(self.first_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_names_female, min_element_length=min_length, max_element_length=max_length
+        )
 
     def last_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
@@ -218,13 +220,17 @@ class Provider(PersonProvider):
         """
         :example: 'アキラ'
         """
-        return self.random_element(self.first_kana_names_male, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_kana_names_male, min_element_length=min_length, max_element_length=max_length
+        )
 
     def first_kana_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'アケミ'
         """
-        return self.random_element(self.first_kana_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_kana_names_female, min_element_length=min_length, max_element_length=max_length
+        )
 
     def last_kana_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
@@ -236,25 +242,33 @@ class Provider(PersonProvider):
         """
         :example: 'Akemi'
         """
-        return self.random_element(self.first_romanized_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_romanized_names, min_element_length=min_length, max_element_length=max_length
+        )
 
     def first_romanized_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Akira'
         """
-        return self.random_element(self.first_romanized_names_male, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_romanized_names_male, min_element_length=min_length, max_element_length=max_length
+        )
 
     def first_romanized_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Akemi'
         """
-        return self.random_element(self.first_romanized_names_female, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.first_romanized_names_female, min_element_length=min_length, max_element_length=max_length
+        )
 
     def last_romanized_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Sato'
         """
-        return self.random_element(self.last_romanized_names, min_element_length=min_length, max_element_length=max_length)
+        return self.random_element(
+            self.last_romanized_names, min_element_length=min_length, max_element_length=max_length
+        )
 
     def kana_name(self) -> str:
         """
