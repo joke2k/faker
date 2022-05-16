@@ -162,7 +162,7 @@ class Provider(PersonProvider):
 
     def first_name_pair(self) -> Tuple[str, str, str]:
         """
-        :example: ('晃', 'アキラ', 'Akira')
+        :example: ('明美', 'アケミ', 'Akemi')
         """
         return self.random_element(self.first_name_pairs)
 
