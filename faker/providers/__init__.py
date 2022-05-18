@@ -485,8 +485,7 @@ class BaseProvider:
 
         if unique and length > len(elements):
             raise ValueError(
-                "Sample length cannot be longer than the number of unique elements to pick from. "
-                "Check if 'max_length' or 'min_length' are in possible ranges."
+                "Sample length cannot be longer than the number of unique elements to pick from."
             )
 
         if isinstance(elements, dict):
