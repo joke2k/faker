@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Optional, Tuple, Union, Dict
+from typing import Dict, Optional, Tuple, Union
 
 from .. import BaseProvider, ElementsType
 

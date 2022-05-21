@@ -484,9 +484,7 @@ class BaseProvider:
             length = self.generator.random.randint(1, len(elements))
 
         if unique and length > len(elements):
-            raise ValueError(
-                "Sample length cannot be longer than the number of unique elements to pick from."
-            )
+            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
