@@ -1,0 +1,48 @@
+[project]
+name = "Faker"
+dynamic = ["version", "readme"]
+description = "Faker is a Python package that generates fake data for you."
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Utilities",
+  "License :: OSI Approved :: MIT License",
+]
+keywords = ["faker", "fixtures", "data", "test", "mock", "generator"]
+authors = [{name = "joke2k", email = "joke2k@gmail.com"}]
+urls = {homepage = "https://github.com/joke2k/faker"}
+license = {text = "MIT License"}
+requires-python = ">=3.6"
+dependencies = [
+  "python-dateutil>=2.4",
+  "typing-extensions>=3.10.0.2;python_version<'3.8'"
+]
+
+[project.scripts]
+faker = "faker.cli:execute_from_command_line"
+
+[project.entry-points]
+pytest11 = {faker = "faker.contrib.pytest.plugin"}
+
+[tool.setuptools.dynamic]
+version = {file = ["VERSION"]}
+readme = {file = ["README.rst"]}
+
+[tool.setuptools.packages.find]
+exclude = ["docs", "tests", "tests.*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
