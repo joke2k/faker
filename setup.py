@@ -14,5 +14,5 @@ try:
     )
 except AttributeError:
     zip_safe = False
-    
+
 setup(zip_safe=zip_safe)
