@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.12.1 - 2022-05-25](https://github.com/joke2k/faker/compare/v13.11.1...v13.12.1)
+
+*  Add support for generating relative file paths. Thanks @Lukas0907.
+
 ### [v13.11.1 - 2022-05-13](https://github.com/joke2k/faker/compare/v13.11.0...v13.11.1)
 
 *  Fix firefox `ua` being nondeterministic with fixed seed. Thanks @jhbuhrman.
