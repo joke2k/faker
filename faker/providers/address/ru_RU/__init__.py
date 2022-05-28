@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -1545,14 +1547,14 @@ class Provider(AddressProvider):
         "Япония",
     )
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
-    def city_name(self) -> str:
-        return self.random_element(self.city_names)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_names, min_length, max_length)
 
-    def country(self) -> str:
-        return self.random_element(self.countries)
+    def country(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.countries, min_length, max_length)
 
     def administrative_unit(self) -> str:
         regions_suffix: str = self.random_element(self.region_suffixes)
@@ -1569,11 +1571,11 @@ class Provider(AddressProvider):
 
     region = administrative_unit
 
-    def street_suffix(self) -> str:
-        return self.random_element(self.street_suffixes)
+    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_suffixes, min_length, max_length)
 
-    def street_title(self) -> str:
-        return self.random_element(self.street_titles + self.street_titles_noflex)
+    def street_title(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_titles + self.street_titles_noflex, min_length, max_length)
 
     def street_name(self) -> str:
         suffix = self.street_suffix()

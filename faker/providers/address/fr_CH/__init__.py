@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 from .. import Provider as AddressProvider
 
@@ -331,24 +331,24 @@ class Provider(AddressProvider):
         "Zimbabwe",
     )
 
-    def street_prefix(self) -> str:
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'rue'
         """
-        return self.random_element(self.street_prefixes)
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
-    def city_prefix(self) -> str:
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'rue'
         """
-        return self.random_element(self.city_prefixes)
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
-    def canton(self) -> Tuple[str, str]:
+    def canton(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Tuple[str, str]:
         """
         Randomly returns a swiss canton ('Abbreviated' , 'Name').
         :example: ('VD' . 'Vaud')
         """
-        return self.random_element(self.cantons)
+        return self.random_element(self.cantons, min_length, max_length)
 
     def administrative_unit(self) -> str:
         """

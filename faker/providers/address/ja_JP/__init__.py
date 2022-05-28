@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -589,25 +591,25 @@ class Provider(AddressProvider):
         "コート",
     )
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '東京都'
         """
-        return self.random_element(self.prefectures)
+        return self.random_element(self.prefectures, min_length, max_length)
 
     prefecture = administrative_unit
 
-    def city(self) -> str:
+    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '台東区'
         """
-        return self.random_element(self.cities)
+        return self.random_element(self.cities, min_length, max_length)
 
-    def town(self) -> str:
+    def town(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: '浅草'
         """
-        return self.random_element(self.towns)
+        return self.random_element(self.towns, min_length, max_length)
 
     def chome(self) -> str:
         """
@@ -627,11 +629,11 @@ class Provider(AddressProvider):
         """
         return "%d号" % self.generator.random.randint(1, 20)
 
-    def building_name(self) -> str:
+    def building_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'コーポ芝浦'
         """
-        return self.random_element(self.building_names)
+        return self.random_element(self.building_names, min_length, max_length)
 
     def postcode(self) -> str:
         """

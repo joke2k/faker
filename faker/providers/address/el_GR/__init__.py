@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -52,23 +54,23 @@ class Provider(AddressProvider):
         pattern: str = self.random_element(self.line_address_formats)
         return self.generator.parse(pattern)
 
-    def street_prefix(self) -> str:
-        return self.random_element(self.street_prefixes_short + self.street_prefixes_long)
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes_short + self.street_prefixes_long, min_length, max_length)
 
-    def street_prefix_short(self) -> str:
-        return self.random_element(self.street_prefixes_short)
+    def street_prefix_short(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes_short, min_length, max_length)
 
-    def street_prefix_long(self) -> str:
-        return self.random_element(self.street_prefixes_long)
+    def street_prefix_long(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes_long, min_length, max_length)
 
-    def street(self) -> str:
-        return self.random_element(self.localities)
+    def street(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.localities, min_length, max_length)
 
-    def city(self) -> str:
-        return self.random_element(self.cities)
+    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.regions)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.regions, min_length, max_length)
 
     region = administrative_unit
 

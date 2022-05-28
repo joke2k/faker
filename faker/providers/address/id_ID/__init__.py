@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -503,25 +505,25 @@ class Provider(AddressProvider):
         "Zimbabwe",
     )
 
-    def street(self) -> str:
-        return self.random_element(self.streets)
+    def street(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.streets, min_length, max_length)
 
-    def street_prefix_short(self) -> str:
-        return self.random_element(self.street_prefixes_short)
+    def street_prefix_short(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes_short, min_length, max_length)
 
-    def street_prefix_long(self) -> str:
-        return self.random_element(self.street_prefixes_long)
+    def street_prefix_long(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes_long, min_length, max_length)
 
-    def city_name(self) -> str:
-        return self.random_element(self.cities)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.states)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
     state = administrative_unit
 
-    def state_abbr(self) -> str:
-        return self.random_element(self.states_abbr)
+    def state_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states_abbr, min_length, max_length)
 
-    def country(self) -> str:
-        return self.random_element(self.countries)
+    def country(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.countries, min_length, max_length)

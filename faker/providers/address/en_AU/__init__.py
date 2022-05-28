@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ..en import Provider as AddressProvider
 
 
@@ -328,16 +330,16 @@ class Provider(AddressProvider):
         "#/",
     )
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.states)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
     state = administrative_unit
 
-    def state_abbr(self) -> str:
-        return self.random_element(self.states_abbr)
+    def state_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states_abbr, min_length, max_length)
