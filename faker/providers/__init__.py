@@ -298,10 +298,10 @@ class BaseProvider:
             )
         )
 
-    def language_code(self) -> str:
+    def language_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a random i18n language code (e.g. en)."""
 
-        return self.random_element(BaseProvider.language_locale_codes.keys())
+        return self.random_element(BaseProvider.language_locale_codes.keys(), min_length, max_length)
 
     def random_int(self, min: int = 0, max: int = 9999, step: int = 1) -> int:
         """Generate a random integer between two integers ``min`` and ``max`` inclusive
@@ -763,9 +763,9 @@ class DynamicProvider(BaseProvider):
         """Add new element."""
         self.elements.append(element)
 
-    def get_random_value(self) -> Any:
+    def get_random_value(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Any:
 
         if not self.elements or len(self.elements) == 0:
             raise ValueError("Elements should be a list of values the provider samples from")
 
-        return self.random_element(self.elements)
+        return self.random_element(self.elements, min_length, max_length)
