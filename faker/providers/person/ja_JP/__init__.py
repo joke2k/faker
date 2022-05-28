@@ -160,29 +160,37 @@ class Provider(PersonProvider):
 
     romanized_formats = romanized_formats_male + romanized_formats_female
 
-    def first_name_pair(self) -> Tuple[str, str, str]:
+    def first_name_pair(
+        self, min_length: Optional[int] = None, max_length: Optional[int] = None
+    ) -> Tuple[str, str, str]:
         """
         :example: ('明美', 'アケミ', 'Akemi')
         """
-        return self.random_element(self.first_name_pairs)
+        return self.random_element(self.first_name_pairs, min_length, max_length)
 
-    def first_name_male_pair(self) -> Tuple[str, str, str]:
+    def first_name_male_pair(
+        self, min_length: Optional[int] = None, max_length: Optional[int] = None
+    ) -> Tuple[str, str, str]:
         """
         :example: ('晃', 'アキラ', 'Akira')
         """
-        return self.random_element(self.first_name_male_pairs)
+        return self.random_element(self.first_name_male_pairs, min_length, max_length)
 
-    def first_name_female_pair(self) -> Tuple[str, str, str]:
+    def first_name_female_pair(
+        self, min_length: Optional[int] = None, max_length: Optional[int] = None
+    ) -> Tuple[str, str, str]:
         """
         :example: ('明美', 'アケミ', 'Akemi')
         """
-        return self.random_element(self.first_name_female_pairs)
+        return self.random_element(self.first_name_female_pairs, min_length, max_length)
 
-    def last_name_pair(self) -> Tuple[str, str, str]:
+    def last_name_pair(
+        self, min_length: Optional[int] = None, max_length: Optional[int] = None
+    ) -> Tuple[str, str, str]:
         """
         :example: ('佐藤', 'サトウ', 'Sato')
         """
-        return self.random_element(self.last_name_pairs)
+        return self.random_element(self.last_name_pairs, min_length, max_length)
 
     def first_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """

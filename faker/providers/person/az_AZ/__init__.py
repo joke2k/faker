@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as PersonProvider
 
 
@@ -898,16 +900,16 @@ class Provider(PersonProvider):
     prefixes = prefixes_female + prefixes_male
 
     def last_name_male(self):
-        return self.random_element(self.last_names_male + self.last_names_unisex)
+        return self.random_element(self.last_names_male + self.last_names_unisex, min_length, max_length)
 
     def last_name_unique_to_male(self):
-        return self.random_element(self.last_names_male)
+        return self.random_element(self.last_names_male, min_length, max_length)
 
     def last_name_female(self):
-        return self.random_element(self.last_names_female + self.last_names_unisex)
+        return self.random_element(self.last_names_female + self.last_names_unisex, min_length, max_length)
 
     def last_name_unique_to_female(self):
-        return self.random_element(self.last_names_female)
+        return self.random_element(self.last_names_female, min_length, max_length)
 
     def last_name_unisex(self):
-        return self.random_element(self.last_names_unisex)
+        return self.random_element(self.last_names_unisex, min_length, max_length)
