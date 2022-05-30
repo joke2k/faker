@@ -653,7 +653,7 @@ class TestEsCL(unittest.TestCase):
 
     def test_rut(self):
         for _ in range(100):
-            rut = self.fake.rut(min=10000000)
+            rut = self.fake.rut(min_value=10000000)
             digits, check_digit = self._extract_digits(rut)
 
             assert len(rut) == 12
