@@ -53,15 +53,15 @@ class Provider(BaseProvider):
         """
         return self.rut(self.minimum_rut_company, self.maximum_rut_company)
 
-    def rut(self, min_value: int = minimum_rut_person, max_value: int = maximum_rut_company) -> str:
+    def rut(self, min: int = minimum_rut_person, max: int = maximum_rut_company) -> str:
         """
         Generates a RUT within the specified ranges, inclusive.
 
-        :param min_value: Minimum RUT to generate.
-        :param max_value: Maximum RUT to generate.
+        :param min: Minimum RUT to generate.
+        :param max: Maximum RUT to generate.
         :return: a random Chilean RUT between 35.000.000 and 99.999.999
         """
 
-        digits = self.random_int(min_value, max_value)
+        digits = self.random_int(min, max)
         check = rut_check_digit(digits)
         return self.rut_format.format(digits, check).replace(",", ".")
