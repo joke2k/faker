@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.12.1 - 2022-06-06](https://github.com/joke2k/faker/compare/v13.12.0...v13.12.1)
+
+*  Correct RUT range in `es_CL`. Thanks @nstuardod.
+
 ### [v13.12.0 - 2022-05-25](https://github.com/joke2k/faker/compare/v13.11.1...v13.12.0)
 
 *  Add support for generating relative file paths. Thanks @Lukas0907.
