@@ -190,7 +190,6 @@ class TestDateTime(unittest.TestCase):
         assert self.fake.iso8601(tzinfo=utc, sep="t")[10] == "t"
         assert self.fake.iso8601(tzinfo=utc, sep=" ")[10] == " "
         assert self.fake.iso8601(tzinfo=utc, sep="_")[10] == "_"
-        
 
     def test_date_object(self):
         assert isinstance(self.fake.date_object(), date)
