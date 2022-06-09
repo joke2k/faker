@@ -179,6 +179,17 @@ class TestDateTime(unittest.TestCase):
 
         assert not self.fake.iso8601().endswith("+00:00")
         assert self.fake.iso8601(utc).endswith("+00:00")
+        assert self.fake.iso8601()[10] == "T"
+        assert len(self.fake.iso8601()) == 19
+        assert len(self.fake.iso8601(timespec="hours")) == 13
+        assert len(self.fake.iso8601(timespec="minutes")) == 16
+        assert len(self.fake.iso8601(timespec="seconds")) == 19
+        assert len(self.fake.iso8601(timespec="milliseconds")) == 23
+        assert len(self.fake.iso8601(timespec="microseconds")) == 26
+        # frequently used RFC 3339 separators
+        assert self.fake.iso8601(tzinfo=utc, sep="t")[10] == "t"
+        assert self.fake.iso8601(tzinfo=utc, sep=" ")[10] == " "
+        assert self.fake.iso8601(tzinfo=utc, sep="_")[10] == "_"
 
     def test_date_object(self):
         assert isinstance(self.fake.date_object(), date)

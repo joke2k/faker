@@ -1877,12 +1877,17 @@ class Provider(BaseProvider):
         self,
         tzinfo: Optional[TzInfo] = None,
         end_datetime: Optional[DateParseType] = None,
+        sep: str = "T",
+        timespec: str = "auto",
     ) -> str:
         """
+        Get a timestamp in ISO 8601 format (or one of its profiles).
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :param sep: separator between date and time, defaults to 'T'
+        :param timespec: format specifier for the time part, defaults to 'auto' - see datetime.isoformat() documentation
         :example: '2003-10-21T16:05:52+0000'
         """
-        return self.date_time(tzinfo, end_datetime=end_datetime).isoformat()
+        return self.date_time(tzinfo, end_datetime=end_datetime).isoformat(sep, timespec)
 
     def date(self, pattern: str = "%Y-%m-%d", end_datetime: Optional[DateParseType] = None) -> str:
         """
