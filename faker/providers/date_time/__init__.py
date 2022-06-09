@@ -1877,8 +1877,8 @@ class Provider(BaseProvider):
         self,
         tzinfo: Optional[TzInfo] = None,
         end_datetime: Optional[DateParseType] = None,
-        sep: Optional[str] = 'T',
-        timespec: Optional[str] = 'auto'
+        sep: Optional[str] = "T",
+        timespec: Optional[str] = "auto",
     ) -> str:
         """
         Get a timestamp in ISO 8601 format (or one of its profiles).
