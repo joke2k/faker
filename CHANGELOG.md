@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.13.0 - 2022-06-10](https://github.com/joke2k/faker/compare/v13.12.1...v13.13.0)
+
+* Add support for ISO 8601 timestamp profiles. Thanks @tplessas.
+
 ### [v13.12.1 - 2022-06-06](https://github.com/joke2k/faker/compare/v13.12.0...v13.12.1)
 
 *  Correct RUT range in `es_CL`. Thanks @nstuardod.
