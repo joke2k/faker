@@ -1,6 +1,8 @@
-from .. import Provider as BaseProvider
-from faker.utils.checksums import calculate_luhn
 import random
+
+from faker.utils.checksums import calculate_luhn
+
+from .. import Provider as BaseProvider
 
 
 def tin_checksum(tin: str) -> int:

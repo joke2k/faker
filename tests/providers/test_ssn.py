@@ -1,3 +1,4 @@
+import random
 import re
 import unittest
 
@@ -9,7 +10,6 @@ from unittest import mock
 import freezegun
 import pytest
 import random2
-import random
 
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
