@@ -9,12 +9,14 @@ from unittest import mock
 import freezegun
 import pytest
 import random2
+import random
 
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
 
 from faker import Faker
+from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
@@ -214,11 +216,29 @@ class TestElGr(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^EL\d{9}$", self.fake.vat_id())
+            prefix = random.choice([True, False])
+            vat_id = self.fake.vat_id(prefix=prefix)
+            assert re.search(r"^(EL)?\d{9}$", vat_id)
+            assert vat_id[2 if prefix else 0] in ("7", "8", "9", "0")
+            assert str(gr_tin_checksum(vat_id[2:-1] if prefix else vat_id[:-1])) == vat_id[-1]
+
+    def test_tin(self):
+        for _ in range(100):
+            tin = self.fake.tin()
+            assert re.search(r"^\d{9}$", tin)
+            assert tin[0] in ("1", "2", "3", "4")
+            assert str(gr_tin_checksum(tin[:-1])) == tin[-1]
+
+    def test_ssn(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert re.search(r"^\d{11}$", ssn)
+            assert datetime.strptime(ssn[:6], "%d%m%y")
+            assert luhn_checksum(ssn) == 0
 
     def test_police_id(self):
         for _ in range(100):
-            assert re.search(r"^[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]{1,2} ?\d{6}$", self.fake.police_id())
+            assert re.search(r"^[ΑΒΕΖΗΙΚΜΝΟΡΤΥΧ]{1,2}\d{6}$", self.fake.police_id())
 
 
 class TestEnCA(unittest.TestCase):
