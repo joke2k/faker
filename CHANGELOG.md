@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v13.13.1 - 2022-06-22](https://github.com/joke2k/faker/compare/v13.13.0...v13.13.1)
+
+* Fix area codes for `fr_FR` phone numbers. Thanks @zerbusdetroy.
+
+
 ### [v13.13.0 - 2022-06-10](https://github.com/joke2k/faker/compare/v13.12.1...v13.13.0)
 
 * Add support for ISO 8601 timestamp profiles. Thanks @tplessas.
