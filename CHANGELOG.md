@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v13.14.0 - 2022-06-22](https://github.com/joke2k/faker/compare/v13.13.1...v13.14.0)
+
+* Fix `vat` and police id for `el_GR`. Thanks @tplessas.
+* Add `tin` and `ssn` for `el_GR`. Thanks @tplessas.
+
 ### [v13.13.1 - 2022-06-22](https://github.com/joke2k/faker/compare/v13.13.0...v13.13.1)
 
 * Fix area codes for `fr_FR` phone numbers. Thanks @zerbusdetroy.
