@@ -1236,7 +1236,7 @@
 * Add Ukrainian ``address`` provider. Thanks @illia-v.
 * Add Ukrainian ``internet`` provider. Thanks @illia-v.
 * Middle name support for ``person.ru_RU`` provider. Thanks @zeal18.
-* Add ``address``, ``company``, ``internet`` ans ``SSN`` provider for
+* Add ``address``, ``company``, ``internet`` and ``SSN`` provider for
   ``ru_RU``. Thanks @zeal18.
 * Improved ``address.pl_PL`` provider. Thanks @pkisztelinski.
 * Add date and time object providers. Thanks @jtojnar.
@@ -1400,7 +1400,7 @@
 * ``pt_BR`` Provider: Added ``catch_phrase`` to Company provider and fixed
   names in Person Provider. Thanks Marcelo Fonseca Tambalo.
 * Added ``sk_SK`` localized providers. Thanks @viktormaruna.
-* Removed ``miscelleneous`` provider. It is superceded by the
+* Removed ``miscelleneous`` provider. It is superseded by the
   ``misc`` provider.
 
 ### [0.5.0 - 2015-02-16](https://github.com/joke2k/faker/compare/v0.4.2...v0.5)
@@ -1437,7 +1437,7 @@
 
 ### [0.4 - 2014-03-30](https://github.com/joke2k/faker/compare/v0.3.2...v0.4)
 
-* Modified en_US ``person.py`` to ouput female and male names.
+* Modified en_US ``person.py`` to output female and male names.
   Thanks Adrian Klaver.
 * Added SSN provider for ``en_US`` and ``en_CA``. Thanks Scott (@milliquet).
 * Added ``hi_IN`` localized provider. Thanks Pratik Kabra.

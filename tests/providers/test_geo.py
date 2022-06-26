@@ -67,7 +67,7 @@ class TestEnUS(unittest.TestCase):
         assert len(loc) == 5
         assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
-        assert isinstance(loc[2], str)  # Place is a sting
+        assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
         assert len(loc[3]) == 2  # Country code is two letters
         assert isinstance(loc[4], str)  # Timezone is a string
