@@ -9,7 +9,7 @@ class Provider(InternetProvider):
         "yahoo.com",
         "yandex.com",
         "yaani.com",
-        "outlook.com"
+        "outlook.com",
     )
     tlds = ("com", "net", "org", "tr")
 
