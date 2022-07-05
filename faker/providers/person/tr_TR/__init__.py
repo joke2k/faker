@@ -1607,7 +1607,37 @@ class Provider(PersonProvider):
         "Akça",
     )
 
-    prefixes_female = ("Bayan", "Dr.")
-    prefixes_male = ("Bay", "Dr.")
+    prefixes_female = (
+        "Bayan",
+        "Dr.",
+        "Uz.",
+        "Öğr.",
+        "Çev.",
+        "Okt.",
+        "Öğr.",
+        "Öğr.",
+        "Arş. Gör.",
+        "Yrd. Doç.",
+        "Dr.",
+        "Doç.",
+        "Prof.",
+        "Av.",
+    )
+    prefixes_male = (
+        "Bay",
+        "Dr.",
+        "Uz.",
+        "Öğr.",
+        "Çev.",
+        "Okt.",
+        "Öğr.",
+        "Öğr.",
+        "Arş. Gör.",
+        "Yrd. Doç.",
+        "Dr.",
+        "Doç.",
+        "Prof.",
+        "Av.",
+    )
 
     prefixes = prefixes_female + prefixes_male
