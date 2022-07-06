@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.15.0 - 2022-07-06](https://github.com/joke2k/faker/compare/v13.14.0...v13.15.0)
+
+*  Upgrade person, company, internet, currency providers for `tr_TR`. Thanks @keyiflerolsun.
+
 ### [v13.14.0 - 2022-06-22](https://github.com/joke2k/faker/compare/v13.13.1...v13.14.0)
 
 * Fix `vat` and police id for `el_GR`. Thanks @tplessas.
