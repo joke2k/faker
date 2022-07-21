@@ -123,16 +123,12 @@ class Provider(AddressProvider):
     secondary_address_formats = (
         "ফ্ল্যাট #",
         "ফ্ল্যাট ##",
-        "ফ্ল্যাট ##?",
         "ষ্টুডিও #",
         "ষ্টুডিও ##",
-        "ষ্টুডিও ##?",
         "অ্যাপার্টমেন্ট #",
         "অ্যাপার্টমেন্ট ##",
-        "অ্যাপার্টমেন্ট ##?",
         "বাড়ী #",
         "বাড়ী ##",
-        "বাড়ী ##?",
     )
 
     def postcode(self) -> str:
@@ -140,7 +136,7 @@ class Provider(AddressProvider):
         See
         http://web.archive.org/web/20090930140939/http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
         """
-        return str(self.numerify(self.random_element(self.postcode_formats)))
+        return self.numerify(self.random_element(self.postcode_formats))
 
     def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
