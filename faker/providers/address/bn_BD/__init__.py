@@ -72,7 +72,7 @@ class Provider(AddressProvider):
         "স্ট্যান্ড",
     )
 
-    area_name = (
+    area_names = (
         "ভোলা",
         "পিরোজ",
         "ব্রাহ্মণ",
@@ -109,14 +109,11 @@ class Provider(AddressProvider):
     postcode_formats: ElementsType = ("####",)
 
     city_formats = (
-        "{{city_prefix}} {{first_name}}{{city_suffix}}",
-        "{{city_prefix}} {{first_name}}",
-        "{{first_name}}{{city_suffix}}",
-        "{{first_name}}{{city_suffix}}",
+        "{{city_prefix}} {{area_name}}{{city_suffix}}",
+        "{{area_name}}{{city_suffix}}",
     )
     street_name_formats = (
-        "{{first_name}} {{street_suffix}}",
-        "{{first_name}} {{street_suffix}}",
+        "{{area_name}} {{street_suffix}}",
     )
     street_address_formats = (
         "{{building_number}} {{street_name}}",
@@ -153,5 +150,11 @@ class Provider(AddressProvider):
 
     def administrative_unit(self) -> str:
         return self.random_element(self.counties)
+
+    def area_name(self) -> str:
+        """
+        :example: 'নবাব'
+        """
+        return self.random_element(self.area_names)
 
     county = administrative_unit
