@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.15.1 - 2022-07-07](https://github.com/joke2k/faker/compare/v13.15.0...v13.15.1)
+
+* change license_formats `pt_BR` to match Mercosul. Thanks @augutoraminelli.
+
 ### [v13.15.0 - 2022-07-06](https://github.com/joke2k/faker/compare/v13.14.0...v13.15.0)
 
 *  Upgrade person, company, internet, currency providers for `tr_TR`. Thanks @keyiflerolsun.
