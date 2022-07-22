@@ -48,7 +48,7 @@ class TestSkSk(_SimpleAutomotiveTestMixin):
 class TestPtBr(_SimpleAutomotiveTestMixin):
     """Test pt_BR automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{4}")
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{1}[A-Z]{1}\d{2}")
 
 
 class TestPtPt(_SimpleAutomotiveTestMixin):
