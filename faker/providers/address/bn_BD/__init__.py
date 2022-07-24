@@ -1,4 +1,4 @@
-from ..en import Provider as AddressProvider
+from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
