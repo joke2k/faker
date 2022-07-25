@@ -1,9 +1,11 @@
 import string
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 from .. import BaseProvider, ElementsType
+
+_DT_ALMOST_MAX = datetime.max - timedelta(1.0)
 
 
 class Provider(BaseProvider):
@@ -188,14 +190,14 @@ class Provider(BaseProvider):
         """Generate a Mozilla Firefox web browser user agent string."""
         ver: ElementsType = (
             (
-                f"Gecko/{self.generator.date_time_between(datetime(2011, 1, 1))} "
+                f"Gecko/{self.generator.date_time_between(datetime(2011, 1, 1), _DT_ALMOST_MAX)} "
                 f"Firefox/{self.generator.random.randint(4, 15)}.0"
             ),
             (
-                f"Gecko/{self.generator.date_time_between(datetime(2010, 1, 1))} "
+                f"Gecko/{self.generator.date_time_between(datetime(2010, 1, 1), _DT_ALMOST_MAX)} "
                 f"Firefox/3.6.{self.generator.random.randint(1, 20)}"
             ),
-            f"Gecko/{self.generator.date_time_between(datetime(2010, 1, 1))} Firefox/3.8",
+            f"Gecko/{self.generator.date_time_between(datetime(2010, 1, 1), _DT_ALMOST_MAX)} Firefox/3.8",
         )
         tmplt_win: str = "({0}; {1}; rv:1.9.{2}.20) {3}"
         tmplt_lin: str = "({0}; rv:1.9.{1}.20) {2}"

@@ -9,3 +9,4 @@ except ImportError:
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = TypeVar("HueType", str, float, Sequence[int])
 GenderType = TypeVar("GenderType", bound=Literal["M", "F"])
+SeedType = Union[int, float, str, bytes, bytearray, None]

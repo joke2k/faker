@@ -216,6 +216,18 @@ class TestPyfloat(unittest.TestCase):
         result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
+    @pytest.mark.skipif(sys.version_info < (3, 10), reason="Only relevant for Python 3.10 and later.")
+    @pytest.mark.filterwarnings(
+        # Convert the warning to an error for this test
+        r"error:non-integer arguments to randrange\(\):DeprecationWarning"
+    )
+    def test_float_min_and_max_value_does_not_warn(self):
+        """
+        Float arguments to randrange are deprecated from Python 3.10. This is a regression
+        test to check that `pyfloat` does not cause a deprecation warning.
+        """
+        self.fake.pyfloat(min_value=-1.0, max_value=1.0)
+
 
 class TestPydecimal(unittest.TestCase):
     def setUp(self):

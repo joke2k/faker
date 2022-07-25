@@ -3,6 +3,8 @@ import re
 
 from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional
 
+from .typing import SeedType
+
 if TYPE_CHECKING:
     from .providers import BaseProvider
 
@@ -11,11 +13,17 @@ random = random_module.Random()
 mod_random = random  # compat with name released in 0.8
 
 
+Sentinel = object()
+
+
 class Generator:
 
     __config: Dict[str, Dict[Hashable, Any]] = {
         "arguments": {},
     }
+
+    _is_seeded = False
+    _global_seed = Sentinel
 
     def __init__(self, **config: Dict) -> None:
         self.providers: List["BaseProvider"] = []
@@ -59,18 +67,21 @@ class Generator:
     def random(self, value: random_module.Random) -> None:
         self.__random = value
 
-    def seed_instance(self, seed: Optional[Hashable] = None) -> "Generator":
+    def seed_instance(self, seed: Optional[SeedType] = None) -> "Generator":
         """Calls random.seed"""
         if self.__random == random:
             # create per-instance random obj when first time seed_instance() is
             # called
             self.__random = random_module.Random()
         self.__random.seed(seed)
+        self._is_seeded = True
         return self
 
     @classmethod
-    def seed(cls, seed: Optional[Hashable] = None) -> None:
+    def seed(cls, seed: Optional[SeedType] = None) -> None:
         random.seed(seed)
+        cls._global_seed = seed
+        cls._is_seeded = True
 
     def format(self, formatter: str, *args: Any, **kwargs: Any) -> str:
         """
