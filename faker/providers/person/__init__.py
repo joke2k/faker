@@ -305,7 +305,7 @@ class Provider(BaseProvider):
         if hasattr(self, "prefixes"):
             return self.random_element(self.prefixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
-            prefixes: Tuple[ElementsType, ...] = (
+            prefixes = (
                 tuple(self.prefixes_male)  # type: ignore[attr-defined]
                 + tuple(self.prefixes_female)  # type: ignore[attr-defined]
                 + tuple(self.prefixes_nonbinary)  # type: ignore[attr-defined]
@@ -320,7 +320,7 @@ class Provider(BaseProvider):
         if hasattr(self, "prefixes"):
             return self.prefixes  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
-            prefixes: Tuple[ElementsType, ...] = (
+            prefixes = (
                 tuple(self.prefixes_male)  # type: ignore[attr-defined]
                 + tuple(self.prefixes_female)  # type: ignore[attr-defined]
                 + tuple(self.prefixes_nonbinary)  # type: ignore[attr-defined]
@@ -365,7 +365,7 @@ class Provider(BaseProvider):
         if hasattr(self, "suffixes"):
             return self.random_element(self.suffixes, min_length, max_length)  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
-            suffixes: Tuple[ElementsType, ...] = (
+            suffixes = (
                 tuple(self.suffixes_male)  # type: ignore[attr-defined]
                 + tuple(self.suffixes_female)  # type: ignore[attr-defined]
                 + tuple(self.suffixes_nonbinary)  # type: ignore[attr-defined]
@@ -380,7 +380,7 @@ class Provider(BaseProvider):
         if hasattr(self, "suffixes"):
             return self.suffixes  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
-            suffixes: Tuple[ElementsType, ...] = (
+            suffixes = (
                 tuple(self.suffixes_male)  # type: ignore[attr-defined]
                 + tuple(self.suffixes_female)  # type: ignore[attr-defined]
                 + tuple(self.suffixes_nonbinary)  # type: ignore[attr-defined]
