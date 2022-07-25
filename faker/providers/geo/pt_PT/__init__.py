@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as GeoProvider
 
 
@@ -121,8 +123,8 @@ class Provider(GeoProvider):
         "Togolesa",
     )
 
-    def nationality(self) -> str:
+    def nationality(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Portuguesa'
         """
-        return self.random_element(self.nationalities)
+        return self.random_element(self.nationalities, min_length, max_length)
