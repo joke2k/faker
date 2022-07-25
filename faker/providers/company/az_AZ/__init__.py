@@ -47,7 +47,7 @@ class Provider(CompanyProvider):
         "MMC",
     )
 
-    def large_company(self):
+    def large_company(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'SOCAR'
         """
