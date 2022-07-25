@@ -24,7 +24,7 @@ class Provider(LoremProvider):
 
     def english_word(self) -> str:
         """Generate an English word."""
-        return self.word(self.english_word_list)
+        return self.word(ext_word_list=self.english_word_list)
 
     def english_words(self, nb: int = 3, unique: bool = False) -> List[str]:
         """Generate a list of English words.
@@ -32,7 +32,7 @@ class Provider(LoremProvider):
         :sample: nb=5
         :sample: nb=5, unique=True
         """
-        return self.words(nb, self.english_word_list, unique)
+        return self.words(nb=nb, ext_word_list=self.english_word_list, unique=unique)
 
     def english_sentence(self, nb_words: int = 6, variable_nb_words: bool = True) -> str:
         """Generate a sentence in English.

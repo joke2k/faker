@@ -25,9 +25,11 @@ from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
+from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
+from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
 from faker.providers.date_time.pt_BR import Provider as PtBrProvider
 from faker.providers.date_time.pt_PT import Provider as PtPtProvider
@@ -36,6 +38,7 @@ from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 
 
 def is64bit():
@@ -176,6 +179,17 @@ class TestDateTime(unittest.TestCase):
 
         assert not self.fake.iso8601().endswith("+00:00")
         assert self.fake.iso8601(utc).endswith("+00:00")
+        assert self.fake.iso8601()[10] == "T"
+        assert len(self.fake.iso8601()) == 19
+        assert len(self.fake.iso8601(timespec="hours")) == 13
+        assert len(self.fake.iso8601(timespec="minutes")) == 16
+        assert len(self.fake.iso8601(timespec="seconds")) == 19
+        assert len(self.fake.iso8601(timespec="milliseconds")) == 23
+        assert len(self.fake.iso8601(timespec="microseconds")) == 26
+        # frequently used RFC 3339 separators
+        assert self.fake.iso8601(tzinfo=utc, sep="t")[10] == "t"
+        assert self.fake.iso8601(tzinfo=utc, sep=" ")[10] == " "
+        assert self.fake.iso8601(tzinfo=utc, sep="_")[10] == "_"
 
     def test_date_object(self):
         assert isinstance(self.fake.date_object(), date)
@@ -1151,3 +1165,45 @@ class TestElGr(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in ElGrProvider.MONTH_NAMES.values()
+
+
+class TestZhCn(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("zh-CN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in ZhCnProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in ZhCnProvider.MONTH_NAMES.values()
+
+
+class TestNoNo(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("no-NO")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in NoNoProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in NoNoProvider.MONTH_NAMES.values()
+
+
+class TestFrFr(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("fr-FR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()

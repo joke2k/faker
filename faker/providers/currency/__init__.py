@@ -85,7 +85,7 @@ class Provider(BaseProvider):
         ("KHR", "Cambodian riel"),
         ("KMF", "Comorian franc"),
         ("KPW", "North Korean won"),
-        ("KRW", "Western Krahn language"),
+        ("KRW", "South Korean won"),
         ("KWD", "Kuwaiti dinar"),
         ("KYD", "Cayman Islands dollar"),
         ("KZT", "Kazakhstani tenge"),

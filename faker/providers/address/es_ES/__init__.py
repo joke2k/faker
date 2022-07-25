@@ -26,7 +26,6 @@ class Provider(AddressProvider):
         "Paseo",
         "Camino",
     )
-    postcode_formats = ("#####",)
     states = (
         "Álava",
         "Albacete",
@@ -136,5 +135,8 @@ class Provider(AddressProvider):
 
     def region(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.regions, min_length, max_length)
+
+    def postcode(self) -> str:
+        return str(self.generator.random.randint(1000, 52100)).zfill(5)
 
     autonomous_community = region
