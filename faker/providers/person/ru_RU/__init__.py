@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Dict, Sequence
+from typing import Dict, Optional, Sequence
 
 from .. import Provider as PersonProvider
 
@@ -1381,11 +1381,11 @@ class Provider(PersonProvider):
 
     prefixes_female: Sequence[str] = ("г-жа", "тов.")
 
-    def middle_name(self) -> str:
-        return self.random_element(self.middle_names)
+    def middle_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.middle_names, min_length, max_length)
 
-    def middle_name_male(self) -> str:
-        return self.random_element(self.middle_names_male)
+    def middle_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.middle_names_male, min_length, max_length)
 
-    def middle_name_female(self) -> str:
-        return self.random_element(self.middle_names_female)
+    def middle_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.middle_names_female, min_length, max_length)

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as PersonProvider
 
 
@@ -1165,8 +1167,8 @@ class Provider(PersonProvider):
         "ଶ୍ରୀଯୁକ୍ତ",
     )
 
-    def first_name_unisex(self) -> str:
-        return self.random_element(self.first_names_unisex)
+    def first_name_unisex(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_unisex, min_length, max_length)
 
-    def middle_name(self) -> str:
-        return self.random_element(self.middle_names)
+    def middle_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.middle_names, min_length, max_length)

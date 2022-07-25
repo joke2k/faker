@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from .. import Provider as PersonProvider
 
@@ -683,26 +684,26 @@ class Provider(PersonProvider):
     )
     last_names = list(set(last_names_est + last_names_rus))
 
-    def first_name_male_est(self) -> str:
-        return self.random_element(self.first_names_male_est)
+    def first_name_male_est(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_male_est, min_length, max_length)
 
-    def first_name_female_est(self) -> str:
-        return self.random_element(self.first_names_female_est)
+    def first_name_female_est(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_female_est, min_length, max_length)
 
-    def first_name_male_rus(self) -> str:
-        return self.random_element(self.first_names_male_rus)
+    def first_name_male_rus(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_male_rus, min_length, max_length)
 
-    def first_name_female_rus(self) -> str:
-        return self.random_element(self.first_names_female_rus)
+    def first_name_female_rus(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_female_rus, min_length, max_length)
 
-    def first_name_est(self) -> str:
-        return self.random_element(self.first_names_est)
+    def first_name_est(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_est, min_length, max_length)
 
-    def first_name_rus(self) -> str:
-        return self.random_element(self.first_names_rus)
+    def first_name_rus(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_rus, min_length, max_length)
 
-    def last_name_est(self) -> str:
-        return self.random_element(self.last_names_est)
+    def last_name_est(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.last_names_est, min_length, max_length)
 
-    def last_name_rus(self) -> str:
-        return self.random_element(self.last_names_rus)
+    def last_name_rus(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.last_names_rus, min_length, max_length)
