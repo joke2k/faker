@@ -512,11 +512,11 @@ class Provider(BaseProvider):
         pattern: str = self.random_element(self.formats)
         return self.generator.parse(pattern)
 
-    def company_suffix(self) -> str:
+    def company_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Ltd'
         """
-        return self.random_element(self.company_suffixes)
+        return self.random_element(self.company_suffixes, min_length, max_length)
 
     def catch_phrase(self) -> str:
         """

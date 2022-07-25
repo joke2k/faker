@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as CompanyProvider
 
 
@@ -49,4 +51,4 @@ class Provider(CompanyProvider):
         """
         :example: 'SOCAR'
         """
-        return self.random_element(self.large_companies)
+        return self.random_element(self.large_companies, min_length, max_length)

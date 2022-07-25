@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as CompanyProvider
 
 
@@ -432,8 +434,8 @@ class Provider(CompanyProvider):
         "y Asociados",
     )
 
-    def company_prefix(self) -> str:
+    def company_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Grupo'
         """
-        return self.random_element(self.company_preffixes)
+        return self.random_element(self.company_preffixes, min_length, max_length)

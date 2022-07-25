@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Sequence
+from typing import Optional, Sequence
 
 from ..en_PH import Provider as EnPhProvider
 
@@ -74,21 +74,21 @@ class Provider(EnPhProvider):
         "tahanan",
     ]
 
-    def random_noun_ish_good_trait(self) -> str:
-        return self.random_element(self.noun_ish_good_traits)
+    def random_noun_ish_good_trait(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.noun_ish_good_traits, min_length, max_length)
 
-    def random_good_service_adjective(self) -> str:
-        return self.random_element(self.good_service_adjectives)
+    def random_good_service_adjective(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.good_service_adjectives, min_length, max_length)
 
     def random_good_service_adjective_chain(self) -> str:
         adjectives: Sequence[str] = self.random_elements(self.good_service_adjectives, length=2, unique=True)
         return " at ".join(adjectives)
 
-    def random_object_of_concern(self) -> str:
-        return self.random_element(self.objects_of_concern)
+    def random_object_of_concern(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.objects_of_concern, min_length, max_length)
 
     def english_catch_phrase(self) -> str:
         return super().catch_phrase()
 
-    def catch_phrase(self) -> str:
-        return self.random_element(self.catch_phrase_formats)
+    def catch_phrase(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.catch_phrase_formats, min_length, max_length)
