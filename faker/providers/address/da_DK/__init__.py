@@ -2514,7 +2514,7 @@ class Provider(AddressProvider):
         """
         This returns the name of a street, without any suffix.
         """
-        return self.random_element(self.street_prefixes, min_length, max_length)
+        return self.random_element(self.street_names, min_length, max_length)
 
     def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.cities, min_length, max_length)

@@ -1276,11 +1276,11 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.street_prefixes, min_length, max_length)
 
-    def street_suffix(self) -> str:
+    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: "Sur"
         """
-        return self.generator.parse(self.random_element(self.street_suffixes))
+        return self.generator.parse(self.random_element(self.street_prefixes, min_length, max_length))
 
     def street_name(self) -> str:
         """
