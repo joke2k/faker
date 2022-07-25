@@ -899,31 +899,17 @@ class Provider(PersonProvider):
 
     prefixes = prefixes_female + prefixes_male
 
-    def last_name_male(
-        self, min_length: Optional[int] = None, max_length: Optional[int] = None
-    ):
-        return self.random_element(
-            self.last_names_male + self.last_names_unisex, min_length, max_length
-        )
+    def last_name_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.last_names_male + self.last_names_unisex, min_length, max_length)
 
-    def last_name_unique_to_male(
-        self, min_length: Optional[int] = None, max_length: Optional[int] = None
-    ):
+    def last_name_unique_to_male(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.last_names_male, min_length, max_length)
 
-    def last_name_female(
-        self, min_length: Optional[int] = None, max_length: Optional[int] = None
-    ):
-        return self.random_element(
-            self.last_names_female + self.last_names_unisex, min_length, max_length
-        )
+    def last_name_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.last_names_female + self.last_names_unisex, min_length, max_length)
 
-    def last_name_unique_to_female(
-        self, min_length: Optional[int] = None, max_length: Optional[int] = None
-    ):
+    def last_name_unique_to_female(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.last_names_female, min_length, max_length)
 
-    def last_name_unisex(
-        self, min_length: Optional[int] = None, max_length: Optional[int] = None
-    ):
+    def last_name_unisex(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.last_names_unisex, min_length, max_length)
