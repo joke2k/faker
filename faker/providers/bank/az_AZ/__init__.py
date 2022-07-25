@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as BankProvider
 
 
@@ -37,4 +39,4 @@ class Provider(BankProvider):
 
     def bank(self):
         """Generate a bank name."""
-        return self.random_element(self.banks)
+        return self.random_element(self.banks, min_length, max_length)
