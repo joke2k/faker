@@ -1,4 +1,4 @@
-from typing import Dict, Optional, OrderedDict, Tuple, Union
+from typing import Dict, Optional, Tuple, Union
 
 from .. import BaseProvider, ElementsType
 
@@ -208,13 +208,13 @@ class Provider(BaseProvider):
     def first_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.first_names, min_length, max_length)
 
-    def first_name_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def first_name_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         return self.first_names  # type: ignore[return-value]
 
     def last_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         return self.random_element(self.last_names, min_length, max_length)
 
-    def last_name_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def last_name_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         return self.last_names  # type: ignore[return-value]
 
     def name_male(self) -> str:
@@ -246,7 +246,7 @@ class Provider(BaseProvider):
             return self.random_element(self.first_names_male, min_length, max_length)  # type: ignore[attr-defined]
         return self.first_name(min_length, max_length)
 
-    def first_name_male_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def first_name_male_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "first_names_male"):
             return self.first_names_male  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -256,7 +256,7 @@ class Provider(BaseProvider):
             return self.random_element(self.first_names_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
         return self.first_name(min_length, max_length)
 
-    def first_name_nonbinary_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def first_name_nonbinary_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "first_names_nonbinary"):
             return self.first_names_nonbinary  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -266,7 +266,7 @@ class Provider(BaseProvider):
             return self.random_element(self.first_names_female, min_length, max_length)  # type: ignore[attr-defined]
         return self.first_name(min_length, max_length)
 
-    def first_name_female_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def first_name_female_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "first_names_female"):
             return self.first_names_female  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -276,7 +276,7 @@ class Provider(BaseProvider):
             return self.random_element(self.last_names_male, min_length, max_length)  # type: ignore[attr-defined]
         return self.last_name(min_length, max_length)
 
-    def last_name_male_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def last_name_male_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "last_names_male"):
             return self.last_names_male  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -286,7 +286,7 @@ class Provider(BaseProvider):
             return self.random_element(self.last_names_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
         return self.last_name(min_length, max_length)
 
-    def last_name_nonbinary_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def last_name_nonbinary_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "last_names_nonbinary"):
             return self.last_names_nonbinary  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -296,7 +296,7 @@ class Provider(BaseProvider):
             return self.random_element(self.last_names_female, min_length, max_length)  # type: ignore[attr-defined]
         return self.last_name(min_length, max_length)
 
-    def last_name_female_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def last_name_female_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "last_names_female"):
             return self.last_names_female  # type: ignore[attr-defined]
         return self.first_name_as_list()
@@ -316,7 +316,7 @@ class Provider(BaseProvider):
             return self.random_element(prefixes, min_length, max_length)
         return ""
 
-    def prefix_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def prefix_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "prefixes"):
             return self.prefixes  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
@@ -336,7 +336,7 @@ class Provider(BaseProvider):
             return self.random_element(self.prefixes_male, min_length, max_length)  # type: ignore[attr-defined]
         return self.prefix(min_length, max_length)
 
-    def prefix_male_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def prefix_male_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "prefixes_male"):
             return self.prefixes_male  # type: ignore[attr-defined]
         return self.prefix_as_list()
@@ -346,7 +346,7 @@ class Provider(BaseProvider):
             return self.random_element(self.prefixes_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
         return self.prefix(min_length, max_length)
 
-    def prefix_nonbinary_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def prefix_nonbinary_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "prefixes_nonbinary"):
             return self.prefixes_nonbinary  # type: ignore[attr-defined]
         return self.prefix_as_list()
@@ -356,7 +356,7 @@ class Provider(BaseProvider):
             return self.random_element(self.prefixes_female, min_length, max_length)  # type: ignore[attr-defined]
         return self.prefix(min_length, max_length)
 
-    def prefix_female_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def prefix_female_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "prefixes_female"):
             return self.prefixes_female  # type: ignore[attr-defined]
         return self.prefix_as_list()
@@ -376,7 +376,7 @@ class Provider(BaseProvider):
             return self.random_element(suffixes, min_length, max_length)
         return ""
 
-    def suffix_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def suffix_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "suffixes"):
             return self.suffixes  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
@@ -396,7 +396,7 @@ class Provider(BaseProvider):
             return self.random_element(self.suffixes_male, min_length, max_length)  # type: ignore[attr-defined]
         return self.suffix(min_length, max_length)
 
-    def suffix_male_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def suffix_male_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "suffixes_male"):
             return self.suffixes_male  # type: ignore[attr-defined]
         return self.suffix_as_list()
@@ -406,7 +406,7 @@ class Provider(BaseProvider):
             return self.random_element(self.suffixes_nonbinary, min_length, max_length)  # type: ignore[attr-defined]
         return self.suffix(min_length, max_length)
 
-    def suffix_nonbinary_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def suffix_nonbinary_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "suffixes_nonbinary"):
             return self.suffixes_nonbinary  # type: ignore[attr-defined]
         return self.suffix_as_list()
@@ -416,7 +416,7 @@ class Provider(BaseProvider):
             return self.random_element(self.suffixes_female, min_length, max_length)  # type: ignore[attr-defined]
         return self.suffix(min_length, max_length)
 
-    def suffix_female_as_list(self) -> Union[Tuple[str, ...], OrderedDict[str, float], Dict[str, float]]:
+    def suffix_female_as_list(self) -> Union[Tuple[str, ...], Dict[str, float], Dict[str, float]]:
         if hasattr(self, "suffixes_female"):
             return self.suffixes_female  # type: ignore[attr-defined]
         return self.suffix_as_list()
