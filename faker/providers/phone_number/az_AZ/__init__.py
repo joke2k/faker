@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as PhoneNumberProvider
 
 
@@ -35,14 +37,14 @@ class Provider(PhoneNumberProvider):
 
     formats = cellphone_formats + telephone_formats
 
-    def start_digit(self) -> str:
-        return self.random_element(self.start_digits)
+    def start_digit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.start_digits, min_length, max_length)
 
-    def provider_code(self) -> str:
-        return self.random_element(self.provider_codes)
+    def provider_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.provider_codes, min_length, max_length)
 
-    def area_code(self) -> str:
-        return self.random_element(self.area_codes)
+    def area_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.area_codes, min_length, max_length)
 
     def cellphone_number(self) -> str:
         pattern: str = self.random_element(self.cellphone_formats)
