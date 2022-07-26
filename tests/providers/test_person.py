@@ -232,7 +232,7 @@ class TestMinMax(unittest.TestCase):
     def test_no_appropriate_elements(self):
         max_language_name_length = max(map(len, EnUSProvider.language_names))
         with pytest.raises(ValueError):
-            language_name = self.fake.language_name(max_language_name_length + 1, max_language_name_length + 2)
+            self.fake.language_name(max_language_name_length + 1, max_language_name_length + 2)
 
 
 class TestAr(unittest.TestCase):
