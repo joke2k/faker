@@ -1,16 +1,16 @@
 import copy
 import functools
-import random
 import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
-from .generator import Generator
+from .generator import Generator, Sentinel, random
+from .typing import SeedType
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
@@ -146,17 +146,26 @@ class Faker:
         """
 
         factories, weights = self._map_provider_method(method_name)
+
         if len(factories) == 0:
             msg = f"No generator object has attribute {method_name!r}"
             raise AttributeError(msg)
         elif len(factories) == 1:
             return factories[0]
 
+        if Generator._global_seed is not Sentinel:
+            random.seed(Generator._global_seed)  # type: ignore
         if weights:
-            factory = choices_distribution(factories, weights, length=1)[0]
+            factory = self._select_factory_distribution(factories, weights)
         else:
-            factory = random.choice(factories)
+            factory = self._select_factory_choice(factories)
         return factory
+
+    def _select_factory_distribution(self, factories, weights):
+        return choices_distribution(factories, weights, random, length=1)[0]
+
+    def _select_factory_choice(self, factories):
+        return random.choice(factories)
 
     def _map_provider_method(self, method_name: str) -> Tuple[List[Factory], Optional[List[float]]]:
         """
@@ -192,7 +201,7 @@ class Faker:
         return mapping
 
     @classmethod
-    def seed(cls, seed: Optional[Hashable] = None) -> None:
+    def seed(cls, seed: Optional[SeedType] = None) -> None:
         """
         Hashables the shared `random.Random` object across all factories
 
@@ -200,7 +209,7 @@ class Faker:
         """
         Generator.seed(seed)
 
-    def seed_instance(self, seed: Optional[Hashable] = None) -> None:
+    def seed_instance(self, seed: Optional[SeedType] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for each factory
 
@@ -209,7 +218,7 @@ class Faker:
         for factory in self._factories:
             factory.seed_instance(seed)
 
-    def seed_locale(self, locale: str, seed: Optional[Hashable] = None) -> None:
+    def seed_locale(self, locale: str, seed: Optional[SeedType] = None) -> None:
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 

@@ -20,8 +20,14 @@ class _SimpleAutomotiveTestMixin:
         for _ in range(num_samples):
             license_plate = faker.license_plate()
             match = self.license_plate_pattern.fullmatch(license_plate)
-            assert match
+            assert match is not None
             self.perform_extra_checks(license_plate, match)
+
+
+class TestArBh(_SimpleAutomotiveTestMixin):
+    """Test ar_BH automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{6}")
 
 
 class TestAzAz(_SimpleAutomotiveTestMixin):
@@ -42,7 +48,7 @@ class TestSkSk(_SimpleAutomotiveTestMixin):
 class TestPtBr(_SimpleAutomotiveTestMixin):
     """Test pt_BR automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{4}")
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{1}[A-Z]{1}\d{2}")
 
 
 class TestPtPt(_SimpleAutomotiveTestMixin):
@@ -152,6 +158,12 @@ class TestFrFr(_SimpleAutomotiveTestMixin):
     """Test fr_FR automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}")
+
+
+class TestItIt(_SimpleAutomotiveTestMixin):
+    """Test it_IT automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2}\d{3}[A-Z]{2}")
 
 
 class TestNoNo(_SimpleAutomotiveTestMixin):
@@ -274,3 +286,21 @@ class TestNlNl(_SimpleAutomotiveTestMixin):
             plate = faker.license_plate_motorbike()
             assert isinstance(plate, str)
             assert self.license_plate_motorbike_pattern.match(plate)
+
+
+class TestViVn(_SimpleAutomotiveTestMixin):
+    """Test vi_VN automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{2}[ABCDĐEFGHKLMNPSTUVXYZ]-\d{5}")
+
+
+class TestFiFi(_SimpleAutomotiveTestMixin):
+    """Test fi_FI automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{3}")
+
+
+class TestSqAl(_SimpleAutomotiveTestMixin):
+    """Test sq_AL automotive providers methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2} \d{3}[A-Z]{2}")
