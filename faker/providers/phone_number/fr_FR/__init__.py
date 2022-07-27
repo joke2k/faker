@@ -202,7 +202,7 @@ class Provider(PhoneNumberProvider):
         "497",
         "498",
         "499",
-        "58 ",
+        "508",
         "516",
         "517",
         "518",

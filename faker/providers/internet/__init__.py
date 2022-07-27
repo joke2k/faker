@@ -1,4 +1,4 @@
-from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, ip_address, ip_network
+from ipaddress import IPV4LENGTH, IPV6LENGTH, IPv4Network, IPv6Address, IPv6Network
 from typing import Dict, List, Optional, Tuple
 
 from ...decode import unidecode
@@ -19,39 +19,39 @@ class _IPv4Constants:
     """
 
     _network_classes: Dict[str, IPv4Network] = {
-        "a": ip_network("0.0.0.0/1"),
-        "b": ip_network("128.0.0.0/2"),
-        "c": ip_network("192.0.0.0/3"),
+        "a": IPv4Network("0.0.0.0/1"),
+        "b": IPv4Network("128.0.0.0/2"),
+        "c": IPv4Network("192.0.0.0/3"),
     }
 
     # Three common private networks from class A, B and CIDR
     # to generate private addresses from.
     _private_networks: List[IPv4Network] = [
-        ip_network("10.0.0.0/8"),
-        ip_network("172.16.0.0/12"),
-        ip_network("192.168.0.0/16"),
+        IPv4Network("10.0.0.0/8"),
+        IPv4Network("172.16.0.0/12"),
+        IPv4Network("192.168.0.0/16"),
     ]
 
     # List of networks from which IP addresses will never be generated,
     # includes other private IANA and reserved networks from
-    # ttps://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
+    # https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml
     _excluded_networks: List[IPv4Network] = [
-        ip_network("0.0.0.0/8"),
-        ip_network("100.64.0.0/10"),
-        ip_network("127.0.0.0/8"),  # loopback network
-        ip_network("169.254.0.0/16"),  # linklocal network
-        ip_network("192.0.0.0/24"),
-        ip_network("192.0.2.0/24"),
-        ip_network("192.31.196.0/24"),
-        ip_network("192.52.193.0/24"),
-        ip_network("192.88.99.0/24"),
-        ip_network("192.175.48.0/24"),
-        ip_network("198.18.0.0/15"),
-        ip_network("198.51.100.0/24"),
-        ip_network("203.0.113.0/24"),
-        ip_network("224.0.0.0/4"),  # multicast network
-        ip_network("240.0.0.0/4"),
-        ip_network("255.255.255.255/32"),
+        IPv4Network("0.0.0.0/8"),
+        IPv4Network("100.64.0.0/10"),
+        IPv4Network("127.0.0.0/8"),  # loopback network
+        IPv4Network("169.254.0.0/16"),  # linklocal network
+        IPv4Network("192.0.0.0/24"),
+        IPv4Network("192.0.2.0/24"),
+        IPv4Network("192.31.196.0/24"),
+        IPv4Network("192.52.193.0/24"),
+        IPv4Network("192.88.99.0/24"),
+        IPv4Network("192.175.48.0/24"),
+        IPv4Network("198.18.0.0/15"),
+        IPv4Network("198.51.100.0/24"),
+        IPv4Network("203.0.113.0/24"),
+        IPv4Network("224.0.0.0/4"),  # multicast network
+        IPv4Network("240.0.0.0/4"),
+        IPv4Network("255.255.255.255/32"),
     ]
 
 
@@ -343,7 +343,7 @@ class Provider(BaseProvider):
             all_networks = [_IPv4Constants._network_classes[address_class]]  # type: ignore
         else:
             networks_attr = "_cached_all_networks"
-            all_networks = [ip_network("0.0.0.0/0")]
+            all_networks = [IPv4Network("0.0.0.0/0")]
 
         # Return cached network and weight data if available
         weights_attr = f"{networks_attr}_weights"
@@ -483,7 +483,7 @@ class Provider(BaseProvider):
                     subnet.max_prefixlen,
                 )
             )
-            address = str(ip_network(address, strict=False))
+            address = str(IPv4Network(address, strict=False))
 
         return address
 
@@ -584,10 +584,10 @@ class Provider(BaseProvider):
 
     def ipv6(self, network: bool = False) -> str:
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(ip_address(self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)))
+        address = str(IPv6Address(self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)))
         if network:
             address += "/" + str(self.generator.random.randint(0, IPV6LENGTH))
-            address = str(ip_network(address, strict=False))
+            address = str(IPv6Network(address, strict=False))
         return address
 
     def mac_address(self) -> str:
