@@ -15,6 +15,8 @@ class TestFile(unittest.TestCase):
         for _ in range(100):
             file_path = self.fake.file_path()
             assert re.search(r"\/\w+\/\w+\.\w+", file_path)
+            file_path = self.fake.file_path(absolute=False)
+            assert re.search(r"\w+\/\w+\.\w+", file_path)
             file_path = self.fake.file_path(depth=3)
             assert re.search(r"\/\w+\/\w+\/\w+\.\w+", file_path)
             file_path = self.fake.file_path(extension="pdf")
