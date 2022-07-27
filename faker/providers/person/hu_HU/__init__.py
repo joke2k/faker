@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Dict
+from typing import Dict, Optional
 
 from .. import Provider as PersonProvider
 
@@ -433,8 +433,8 @@ class Provider(PersonProvider):
 
     prefixes: Dict[str, float] = OrderedDict((("Dr.", 0.95), ("Prof. Dr.", 0.05)))
 
-    def first_name_male_abbreviated(self) -> str:
-        return self.random_element(self.first_names_male)[0] + "."  # type: ignore
+    def first_name_male_abbreviated(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_male, min_length, max_length)[0] + "."  # type: ignore
 
-    def first_name_female_abbreviated(self) -> str:
-        return self.random_element(self.first_names_female)[0] + "."  # type: ignore
+    def first_name_female_abbreviated(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.first_names_female, min_length, max_length)[0] + "."  # type: ignore

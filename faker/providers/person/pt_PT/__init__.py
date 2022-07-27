@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as PersonProvider
 
 
@@ -339,5 +341,5 @@ class Provider(PersonProvider):
 
     prefixes = ("de", "da", "do")
 
-    def prefix(self) -> str:
-        return self.random_element(self.prefixes)
+    def prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.prefixes, min_element_length=min_length, max_element_length=max_length)
