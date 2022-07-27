@@ -56,6 +56,12 @@ setup(
     author="joke2k",
     author_email="joke2k@gmail.com",
     url="https://github.com/joke2k/faker",
+    project_urls={
+        "Bug Tracker": "https://github.com/joke2k/faker/issues",
+        "Changes": "https://github.com/joke2k/faker/blob/master/CHANGELOG.md",
+        "Documentation": "http://faker.rtfd.org/",
+        "Source Code": "https://github.com/joke2k/faker",
+    },
     license="MIT License",
     packages=find_packages(exclude=excluded_packages),
     package_data={

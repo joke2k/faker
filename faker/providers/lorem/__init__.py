@@ -26,6 +26,7 @@ class Provider(BaseProvider):
     def words(
         self,
         nb: int = 3,
+        part_of_speech: str = None,
         ext_word_list: Optional[Sequence[str]] = None,
         unique: bool = False,
     ) -> List[str]:
@@ -40,6 +41,12 @@ class Provider(BaseProvider):
         without replacement. If ``unique`` is ``False``, |random_choices| is
         used instead, and the list returned may contain duplicates.
 
+        ``part_of_speech`` is a parameter that defines to what part of speech
+        the returned word belongs. If ``ext_word_list`` is not ``None``, then
+        ``part_of_speech`` is ignored. If the value of ``part_of_speech`` does
+        not correspond to an existent part of speech according to the set locale,
+        then an exception is raised.
+
         .. warning::
            Depending on the length of a locale provider's built-in word list or
            on the length of ``ext_word_list`` if provided, a large ``nb`` can
@@ -50,14 +57,23 @@ class Provider(BaseProvider):
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
-        word_list = ext_word_list if ext_word_list else self.word_list  # type: ignore[attr-defined]
+        if ext_word_list is not None:
+            word_list = ext_word_list
+        elif part_of_speech:
+            if part_of_speech not in self.parts_of_speech:  # type: ignore[attr-defined]
+                raise ValueError(f"{part_of_speech} is not recognized as a part of speech.")
+            else:
+                word_list = self.parts_of_speech[part_of_speech]  # type: ignore[attr-defined]
+        else:
+            word_list = self.word_list  # type: ignore[attr-defined]
+
         if unique:
             unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
             return unique_samples
         samples = cast(List[str], self.random_choices(word_list, length=nb))
         return samples
 
-    def word(self, ext_word_list: Optional[Sequence[str]] = None) -> str:
+    def word(self, part_of_speech: str = None, ext_word_list: Optional[Sequence[str]] = None) -> str:
         """Generate a word.
 
         This method uses |words| under the hood with the ``nb`` argument set to
@@ -66,13 +82,10 @@ class Provider(BaseProvider):
         :sample:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        return self.words(1, ext_word_list)[0]
+        return self.words(1, part_of_speech, ext_word_list)[0]
 
     def sentence(
-        self,
-        nb_words: int = 6,
-        variable_nb_words: bool = True,
-        ext_word_list: Optional[Sequence[str]] = None,
+        self, nb_words: int = 6, variable_nb_words: bool = True, ext_word_list: Optional[Sequence[str]] = None
     ) -> str:
         """Generate a sentence.
 
@@ -116,10 +129,7 @@ class Provider(BaseProvider):
         return [self.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     def paragraph(
-        self,
-        nb_sentences: int = 3,
-        variable_nb_sentences: bool = True,
-        ext_word_list: Optional[Sequence[str]] = None,
+        self, nb_sentences: int = 3, variable_nb_sentences: bool = True, ext_word_list: Optional[Sequence[str]] = None
     ) -> str:
         """Generate a paragraph.
 
@@ -145,12 +155,7 @@ class Provider(BaseProvider):
         if variable_nb_sentences:
             nb_sentences = self.randomize_nb_elements(nb_sentences, min=1)
 
-        para = self.word_connector.join(
-            self.sentences(
-                nb_sentences,
-                ext_word_list=ext_word_list,
-            )
-        )
+        para = self.word_connector.join(self.sentences(nb_sentences, ext_word_list=ext_word_list))
 
         return para
 
@@ -225,10 +230,7 @@ class Provider(BaseProvider):
         return "".join(text)
 
     def texts(
-        self,
-        nb_texts: int = 3,
-        max_nb_chars: int = 200,
-        ext_word_list: Optional[Sequence[str]] = None,
+        self, nb_texts: int = 3, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None
     ) -> List[str]:
         """Generate a list of text strings.
 

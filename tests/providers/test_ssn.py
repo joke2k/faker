@@ -1,9 +1,10 @@
+import random
 import re
 import unittest
 
 from datetime import datetime
 from itertools import cycle
-from typing import Pattern
+from typing import Pattern, Tuple
 from unittest import mock
 
 import freezegun
@@ -15,7 +16,9 @@ from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
 
 from faker import Faker
+from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
@@ -214,11 +217,29 @@ class TestElGr(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^EL\d{9}$", self.fake.vat_id())
+            prefix = random.choice([True, False])
+            vat_id = self.fake.vat_id(prefix=prefix)
+            assert re.search(r"^(EL)?\d{9}$", vat_id)
+            assert vat_id[2 if prefix else 0] in ("7", "8", "9", "0")
+            assert str(gr_tin_checksum(vat_id[2:-1] if prefix else vat_id[:-1])) == vat_id[-1]
+
+    def test_tin(self):
+        for _ in range(100):
+            tin = self.fake.tin()
+            assert re.search(r"^\d{9}$", tin)
+            assert tin[0] in ("1", "2", "3", "4")
+            assert str(gr_tin_checksum(tin[:-1])) == tin[-1]
+
+    def test_ssn(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert re.search(r"^\d{11}$", ssn)
+            assert datetime.strptime(ssn[:6], "%d%m%y")
+            assert luhn_checksum(ssn) == 0
 
     def test_police_id(self):
         for _ in range(100):
-            assert re.search(r"^[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]{1,2} ?\d{6}$", self.fake.police_id())
+            assert re.search(r"^[ΑΒΕΖΗΙΚΜΝΟΡΤΥΧ]{1,2}\d{6}$", self.fake.police_id())
 
 
 class TestEnCA(unittest.TestCase):
@@ -643,6 +664,29 @@ class TestEsMX(unittest.TestCase):
 
             assert len(rfc) == 12
             assert re.search(r"^[A-Z]{3}\d{6}[0-9A-Z]{3}$", rfc)
+
+
+class TestEsCL(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_CL")
+        Faker.seed(0)
+
+    def test_rut(self):
+        for _ in range(100):
+            rut = self.fake.rut(min=10000000)
+            digits, check_digit = self._extract_digits(rut)
+
+            assert len(rut) == 12
+            assert check_digit == cl_rut_checksum(digits)
+
+    @staticmethod
+    def _extract_digits(rut) -> Tuple[int, str]:
+        """Extracts the digits and check digit from a formatted RUT."""
+        char_filter = re.compile(r"[^0-9]")
+        check_digit = rut[-1]
+        digits = char_filter.sub("", rut[:-1])
+
+        return int(digits), check_digit
 
 
 class TestEtEE(unittest.TestCase):
