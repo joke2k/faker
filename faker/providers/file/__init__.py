@@ -258,12 +258,16 @@ class Provider(BaseProvider):
         depth: int = 1,
         category: Optional[str] = None,
         extension: Optional[str] = None,
+        absolute: Optional[bool] = True,
     ) -> str:
-        """Generate an absolute pathname to a file.
+        """Generate an pathname to a file.
 
         This method uses |file_name| under the hood to generate the file name
         itself, and ``depth`` controls the depth of the directory path, and
         |word| is used under the hood to generate the different directory names.
+
+        If ``absolute`` is ``True`` (default), the generated path starts with
+        ``/`` and is absolute. Otherwise, the generated path is relative.
 
         :sample: size=10
         :sample: depth=3
@@ -274,7 +278,7 @@ class Provider(BaseProvider):
         path: str = f"/{file}"
         for _ in range(0, depth):
             path = f"/{self.generator.word()}{path}"
-        return path
+        return path if absolute else path[1:]
 
     def unix_device(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix device file name.
