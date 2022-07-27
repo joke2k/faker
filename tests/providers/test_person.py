@@ -4,6 +4,8 @@ import unittest
 
 from unittest import mock
 
+import pytest
+
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
@@ -56,6 +58,12 @@ class TestMinMax(unittest.TestCase):
             first_name = self.fake.first_name(min_, max_)
             assert isinstance(first_name, str)
             assert min_ <= len(first_name) <= max_
+
+    def test_first_name_min_length(self):
+        for min_ in range(0, 5):
+            first_name = self.fake.first_name(min_)
+            assert isinstance(first_name, str)
+            assert min_ <= len(first_name)
 
     def test_first_name_as_list(self):
         first_name_as_list = self.fake.first_name_as_list()
@@ -220,6 +228,11 @@ class TestMinMax(unittest.TestCase):
             language_name = self.fake.language_name(min_, max_)
             assert isinstance(language_name, str)
             assert min_ <= len(language_name) <= max_
+
+    def test_no_appropriate_elements(self):
+        max_language_name_length = max(map(len, EnUSProvider.language_names))
+        with pytest.raises(ValueError):
+            self.fake.language_name(max_language_name_length + 1, max_language_name_length + 2)
 
 
 class TestAr(unittest.TestCase):
