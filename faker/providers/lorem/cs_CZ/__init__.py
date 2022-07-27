@@ -1,3 +1,5 @@
+from typing import Dict
+
 from .. import Provider as LoremProvider
 
 
@@ -1965,3 +1967,5 @@ class Provider(LoremProvider):
         "žák",
         "žít",
     )
+
+    parts_of_speech: Dict[str, tuple] = {}
