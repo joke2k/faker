@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as PhoneNumberProvider
 
 
@@ -36,5 +38,5 @@ class Provider(PhoneNumberProvider):
     ]
     formats = [str(i) + "########" for i in phonenumber_prefixes]
 
-    def phonenumber_prefix(self) -> int:
-        return self.random_element(self.phonenumber_prefixes)
+    def phonenumber_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> int:
+        return self.random_element(self.phonenumber_prefixes, min_length, max_length)
