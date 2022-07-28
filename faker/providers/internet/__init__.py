@@ -181,8 +181,8 @@ class Provider(BaseProvider):
         return email
 
     @lowercase
-    def safe_domain_name(self) -> str:
-        return self.random_element(self.safe_domain_names)
+    def safe_domain_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.safe_domain_names, min_length, max_length)
 
     @lowercase
     def safe_email(self) -> str:
@@ -197,8 +197,8 @@ class Provider(BaseProvider):
         return self.user_name() + "@" + self.domain_name()
 
     @lowercase
-    def free_email_domain(self) -> str:
-        return self.random_element(self.free_email_domains)
+    def free_email_domain(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.free_email_domains, min_length, max_length)
 
     @lowercase
     def ascii_email(self) -> str:
@@ -304,17 +304,17 @@ class Provider(BaseProvider):
 
         return domain + "." + tld
 
-    def tld(self) -> str:
-        return self.random_element(self.tlds)
+    def tld(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.tlds, min_length, max_length)
 
-    def http_method(self) -> str:
+    def http_method(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Returns random HTTP method
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
         :rtype: str
         """
 
-        return self.random_element(self.http_methods)
+        return self.random_element(self.http_methods, min_length, max_length)
 
     def url(self, schemes: Optional[List[str]] = None) -> str:
         """
@@ -530,13 +530,13 @@ class Provider(BaseProvider):
 
         return networks
 
-    def ipv4_network_class(self) -> str:
+    def ipv4_network_class(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Returns a IPv4 network class 'a', 'b' or 'c'.
 
         :returns: IPv4 network class
         """
-        return self.random_element("abc")
+        return self.random_element("abc", min_length, max_length)
 
     def ipv4(
         self,
@@ -613,8 +613,8 @@ class Provider(BaseProvider):
 
         return self.random_int(min=0, max=65535)
 
-    def uri_page(self) -> str:
-        return self.random_element(self.uri_pages)
+    def uri_page(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.uri_pages, min_length, max_length)
 
     def uri_path(self, deep: Optional[int] = None) -> str:
         deep = deep if deep else self.generator.random.randint(1, 3)
@@ -622,8 +622,8 @@ class Provider(BaseProvider):
             self.random_elements(self.uri_paths, length=deep),
         )
 
-    def uri_extension(self) -> str:
-        return self.random_element(self.uri_extensions)
+    def uri_extension(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.uri_extensions, min_length, max_length)
 
     def uri(self) -> str:
         pattern: str = self.random_element(self.uri_formats)

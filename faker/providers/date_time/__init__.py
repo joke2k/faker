@@ -2411,11 +2411,11 @@ class Provider(BaseProvider):
     def year(self) -> str:
         return self.date("%Y")
 
-    def century(self) -> str:
+    def century(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'XVII'
         """
-        return self.random_element(self.centuries)
+        return self.random_element(self.centuries, min_length, max_length)
 
     def timezone(self) -> str:
         return self.generator.random.choice(self.random_element(self.countries)["timezones"])  # type: ignore
