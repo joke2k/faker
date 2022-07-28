@@ -308,8 +308,8 @@ class Provider(BaseProvider):
 
     price_formats: ElementsType = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
 
-    def currency(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Tuple[str, str]:
-        return self.random_element(self.currencies, min_length, max_length)
+    def currency(self) -> Tuple[str, str]:
+        return self.random_element(self.currencies)
 
     def currency_code(self) -> str:
         return self.currency()[0]
@@ -325,8 +325,8 @@ class Provider(BaseProvider):
             code = self.random_element(self.currency_symbols.keys())
         return self.currency_symbols[code]
 
-    def cryptocurrency(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Tuple[str, str]:
-        return self.random_element(self.cryptocurrencies, min_length, max_length)
+    def cryptocurrency(self) -> Tuple[str, str]:
+        return self.random_element(self.cryptocurrencies)
 
     def cryptocurrency_code(self) -> str:
         return self.cryptocurrency()[0]
