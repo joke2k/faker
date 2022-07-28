@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from .. import Provider as CompanyProvider
 
@@ -130,17 +131,17 @@ class Provider(CompanyProvider):
         "Prime",
     )
 
-    def company_type(self) -> str:
-        return self.random_element(self.company_types)
+    def company_type(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.company_types, min_length, max_length)
 
-    def random_company_adjective(self) -> str:
-        return self.random_element(self.company_adjectives)
+    def random_company_adjective(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.company_adjectives, min_length, max_length)
 
     def random_company_noun_chain(self) -> str:
         return " ".join(self.random_elements(self.company_nouns, length=self.random_int(1, 2), unique=True))
 
-    def random_company_product(self) -> str:
-        return self.random_element(self.company_products)
+    def random_company_product(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.company_products, min_length, max_length)
 
     def random_company_acronym(self) -> str:
         letters = self.random_letters(self.random_int(2, 4))
