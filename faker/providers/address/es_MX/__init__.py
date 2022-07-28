@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from ..es import Provider as AddressProvider
 
@@ -127,20 +128,20 @@ class Provider(AddressProvider):
         "### Edif. ### , Depto. ###",
     )
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
-    def city_suffix(self) -> str:
-        return self.random_element(self.city_suffixes)
+    def city_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_suffixes, min_length, max_length)
 
-    def city_adjective(self) -> str:
-        return self.random_element(self.city_adjectives)
+    def city_adjective(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_adjectives, min_length, max_length)
 
-    def street_prefix(self) -> str:
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example 'Avenida'
         """
-        return self.random_element(self.street_prefixes)
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         """
@@ -148,16 +149,16 @@ class Provider(AddressProvider):
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         example: u'Guerrero'
         """
-        return self.random_element(self.states)[1]  # type: ignore
+        return self.random_element(self.states, min_length, max_length)[1]  # type: ignore
 
     state = administrative_unit
 
-    def state_abbr(self) -> str:
+    def state_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         example: u'GRO'
         """
-        return self.random_element(self.states)[0]  # type: ignore
+        return self.random_element(self.states, min_length, max_length)[0]  # type: ignore

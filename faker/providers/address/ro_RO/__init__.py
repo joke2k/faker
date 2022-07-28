@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 from .. import Provider as AddressProvider
 
@@ -405,11 +405,11 @@ class Provider(AddressProvider):
         ("VS", "Vaslui"),
     )
 
-    def street_prefix(self) -> str:
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Strada'
         """
-        return self.random_element(self.street_prefixes)
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         """
@@ -417,22 +417,22 @@ class Provider(AddressProvider):
         """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def city_name(self) -> str:
-        return self.random_element(self.cities)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
     def city_with_postcode(self) -> str:
         return self.postcode() + " " + self.random_element(self.cities)
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: u'Timiș'
         """
-        return self.random_element(self.states)[1]  # type: ignore
+        return self.random_element(self.states, min_length, max_length)[1]  # type: ignore
 
     state = administrative_unit
 
-    def state_abbr(self) -> str:
+    def state_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: u'TM'
         """
-        return self.random_element(self.states)[0]  # type: ignore
+        return self.random_element(self.states, min_length, max_length)[0]  # type: ignore

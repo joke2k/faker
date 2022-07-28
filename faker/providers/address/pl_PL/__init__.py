@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -641,38 +643,38 @@ class Provider(AddressProvider):
     )
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
-    def street_prefix(self) -> str:
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Randomly returns a street prefix
         :example: 'aleja'
         """
-        return self.random_element(self.street_prefixes)
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
-    def street_prefix_short(self) -> str:
+    def street_prefix_short(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Randomly returns an abbreviation of the street prefix.
         :example: 'al.'
         """
-        return self.random_element(self.street_prefixes)[:2] + "."  # type: ignore
+        return self.random_element(self.street_prefixes, min_length, max_length)[:2] + "."  # type: ignore
 
-    def street_name(self) -> str:
+    def street_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Randomly returns a street name
         :example: 'Wróblewskiego'
         """
-        return self.random_element(self.streets)
+        return self.random_element(self.streets, min_length, max_length)
 
-    def city(self) -> str:
+    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Randomly returns a street name
         :example: 'Konin'
         """
-        return self.random_element(self.cities)
+        return self.random_element(self.cities, min_length, max_length)
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Wielkopolskie'
         """
-        return self.random_element(self.regions)
+        return self.random_element(self.regions, min_length, max_length)
 
     region = administrative_unit

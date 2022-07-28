@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import BaseProvider, ElementsType, date_time
 
 localized = True
@@ -20,17 +22,17 @@ class Provider(BaseProvider):
     alpha_2_country_codes: ElementsType = [tz["alpha-2-code"] for tz in date_time.Provider.countries]
     alpha_3_country_codes: ElementsType = [tz["alpha-3-code"] for tz in date_time.Provider.countries]
 
-    def city_suffix(self) -> str:
+    def city_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'town'
         """
-        return self.random_element(self.city_suffixes)
+        return self.random_element(self.city_suffixes, min_length, max_length)
 
-    def street_suffix(self) -> str:
+    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 'Avenue'
         """
-        return self.random_element(self.street_suffixes)
+        return self.random_element(self.street_suffixes, min_length, max_length)
 
     def building_number(self) -> str:
         """
@@ -72,8 +74,8 @@ class Provider(BaseProvider):
         pattern: str = self.random_element(self.address_formats)
         return self.generator.parse(pattern)
 
-    def country(self) -> str:
-        return self.random_element(self.countries)
+    def country(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.countries, min_length, max_length)
 
     def country_code(self, representation: str = ALPHA_2) -> str:
         if representation == self.ALPHA_2:

@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from ..en import Provider as AddressProvider
 
@@ -55,7 +56,7 @@ class Provider(AddressProvider):
             postcode += self.random_element(self._postcode_sets[placeholder])
         return postcode
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.counties)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.counties, min_length, max_length)
 
     county = administrative_unit

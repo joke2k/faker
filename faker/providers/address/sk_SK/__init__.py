@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -5245,20 +5247,20 @@ class Provider(AddressProvider):
         "Zairská republika",
     )
 
-    def street_suffix_short(self) -> str:
-        return self.random_element(self.street_suffixes_short)
+    def street_suffix_short(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_suffixes_short, min_length, max_length)
 
-    def street_suffix_long(self) -> str:
-        return self.random_element(self.street_suffixes_long)
+    def street_suffix_long(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_suffixes_long, min_length, max_length)
 
-    def city_name(self) -> str:
-        return self.random_element(self.cities)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
-    def street_name(self) -> str:
-        return self.random_element(self.streets)
+    def street_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.streets, min_length, max_length)
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.states)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
     state = administrative_unit
 

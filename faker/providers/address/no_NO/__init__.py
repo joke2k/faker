@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from .. import Provider as AddressProvider
 
@@ -107,8 +108,8 @@ class Provider(AddressProvider):
         suffix: str = self.random_element(self.building_number_suffixes)
         return self.numerify(self.random_element(self.building_number_formats)).replace("?", suffix)
 
-    def city_suffix(self) -> str:
-        return self.random_element(self.city_suffixes)
+    def city_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_suffixes, min_length, max_length)
 
-    def street_suffix(self) -> str:
-        return self.random_element(self.street_suffixes)
+    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_suffixes, min_length, max_length)
