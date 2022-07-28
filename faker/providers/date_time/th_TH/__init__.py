@@ -327,7 +327,7 @@ class Provider(DateParseTypeProvider):
 
     def century(self, thai_digit: bool = False, buddhist_era: bool = True) -> str:
         """
-        :param thai_digi:t use Thai digit or not (default: False)
+        :param thai_digit: use Thai digit or not (default: False)
         :param buddhist:_era use Buddist era or not (default: True)
         :example: '20'
         """
