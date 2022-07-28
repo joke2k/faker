@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AutomotiveProvider
 
 
@@ -39,7 +41,7 @@ class Provider(AutomotiveProvider):
         "3-####-5#",
     )
 
-    def district(self) -> str:
+    def district(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a district code for license plates."""
         return self.random_element(
             [
@@ -55,7 +57,9 @@ class Provider(AutomotiveProvider):
                 # Southern West Bank (Bethlehem, Hebron)
                 "8",
                 "9",
-            ]
+            ],
+            min_length,
+            max_length,
         )
 
     def license_plate(self) -> str:
