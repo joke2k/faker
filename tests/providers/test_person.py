@@ -234,6 +234,7 @@ class TestMinMax(unittest.TestCase):
         with pytest.raises(ValueError):
             self.fake.language_name(max_language_name_length + 1, max_language_name_length + 2)
 
+
 class TestAr(unittest.TestCase):
     """Tests person in the ar locale"""
 
