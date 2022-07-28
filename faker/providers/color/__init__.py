@@ -174,13 +174,13 @@ class Provider(BaseProvider):
         "white",
     )
 
-    def color_name(self) -> str:
+    def color_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a color name."""
-        return self.random_element(self.all_colors.keys())
+        return self.random_element(self.all_colors.keys(), min_length, max_length)
 
-    def safe_color_name(self) -> str:
+    def safe_color_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a web-safe color name."""
-        return self.random_element(self.safe_colors)
+        return self.random_element(self.safe_colors, min_length, max_length)
 
     def hex_color(self) -> str:
         """Generate a color formatted as a hex triplet."""
