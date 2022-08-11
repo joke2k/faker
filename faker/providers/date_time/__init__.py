@@ -1,4 +1,5 @@
 import re
+import warnings
 
 from calendar import timegm
 from datetime import MAXYEAR
@@ -2238,6 +2239,11 @@ class Provider(BaseProvider):
         elif not after_now and before_now:
             return self.date_time_between_dates(this_year_start, now, tzinfo)
         else:
+            warnings.warn(
+                "'before_now' and 'after_now' parameters of "
+                "'date_time_this_year' both set to False. Returning the "
+                "present time.",
+            )
             return now
 
     def date_time_this_month(

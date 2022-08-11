@@ -1,5 +1,9 @@
 ## Changelog
 
+### Upcoming...
+
+* Add warning for `date_time_this_year`, if `before_now` and `after_now` are both `False`.
+
 ### [v14.0.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.16.0...v14.0.0)
 
 * Fix `Provider._parse_date_time` to support timestamps. Thanks @mochi-moshi. 
