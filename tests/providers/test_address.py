@@ -7,6 +7,7 @@ import pytest
 
 from faker import Faker, providers
 from faker.providers.address.az_AZ import Provider as AzAzAddressProvider
+from faker.providers.address.bn_BD import Provider as BnBdAddressProvider
 from faker.providers.address.cs_CZ import Provider as CsCzAddressProvider
 from faker.providers.address.da_DK import Provider as DaDkAddressProvider
 from faker.providers.address.de_AT import Provider as DeAtAddressProvider
@@ -161,6 +162,27 @@ class TestAzAz:
             assert isinstance(postcode, str)
             assert re.fullmatch(r"AZ\d{4}", postcode)
             assert int(postcode[2:]) in range(900, 6600)
+
+
+class TestBnBd:
+    """Test bn_BD address provider methods"""
+
+    def test_area_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            area = faker.area_name()
+            assert isinstance(area, str)
+            assert area in BnBdAddressProvider.area_names
+
+    def test_building_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_name = faker.building_name()
+            assert isinstance(building_name, str)
+            assert building_name in BnBdAddressProvider.building_names
+
+    def test_convert_to_bengali_digits(self, faker, num_samples):
+        assert faker.convert_to_bengali_digits() == '০'
+        assert faker.convert_to_bengali_digits('G') == ''
+        assert faker.convert_to_bengali_digits('791') == '৭৯১'
 
 
 class TestCsCz:
