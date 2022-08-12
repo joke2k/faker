@@ -1983,7 +1983,7 @@ class Provider(BaseProvider):
             time_params = cls._parse_date_string(value)
             return datetime_to_timestamp(now + timedelta(**time_params))  # type: ignore
         if isinstance(value, int):
-            return datetime_to_timestamp(now + timedelta(value))
+            return value
         raise ParseError(f"Invalid format for date {value!r}")
 
     @classmethod
