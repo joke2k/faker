@@ -99,7 +99,7 @@ class Provider(AddressProvider):
         "হোল্ডিং নং",
     )
 
-    building_number_formats = ("#", "##", "###")
+    building_number_formats = ("%", "%#", "%##")
 
     city_prefixes = ("উত্তর", "পূর্ব", "পশ্চিম", "দক্ষিণ", "মধ্য", "নতুন", "পুরাতন")
 
@@ -438,12 +438,12 @@ class Provider(AddressProvider):
     )
 
     secondary_address_formats = (
-        "ফ্ল্যাট #",
-        "ফ্ল্যাট ##",
-        "ষ্টুডিও #",
-        "ষ্টুডিও ##",
-        "অ্যাপার্টমেন্ট #",
-        "অ্যাপার্টমেন্ট ##",
+        "ফ্ল্যাট %",
+        "ফ্ল্যাট %#",
+        "ষ্টুডিও %",
+        "ষ্টুডিও %#",
+        "অ্যাপার্টমেন্ট %",
+        "অ্যাপার্টমেন্ট %#",
     )
 
     street_suffixes = (
@@ -467,7 +467,7 @@ class Provider(AddressProvider):
         "স্ট্যান্ড",
     )
 
-    postcode_formats = ("####",)
+    postcode_formats = ("%###",)
     street_name_formats = (
         "{{area_name}}{{street_suffix}}",
         "{{city_prefix}} {{area_name}}{{street_suffix}}",
