@@ -304,3 +304,9 @@ class TestSqAl(_SimpleAutomotiveTestMixin):
     """Test sq_AL automotive providers methods"""
 
     license_plate_pattern: Pattern = re.compile(r"[A-Z]{2} \d{3}[A-Z]{2}")
+
+
+class TestDeCh(_SimpleAutomotiveTestMixin):
+    """Test de_CH automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2}-\d{1,3}\s?\d{0,3}")
