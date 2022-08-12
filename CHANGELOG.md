@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.0.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.16.0...v14.0.0)
+
+* Fix `Provider._parse_date_time` to support timestamps. Thanks @mochi-moshi. 
+
 ### [v13.16.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.15.1...v13.16.0)
 
 *  automotive: add `de_CH` license plates. Thanks @gsilvan.
