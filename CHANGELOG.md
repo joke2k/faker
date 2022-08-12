@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v13.16.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.15.1...v13.16.0)
+
+*  automotive: add `de_CH` license plates. Thanks @gsilvan.
+
 ### [v13.15.1 - 2022-07-07](https://github.com/joke2k/faker/compare/v13.15.0...v13.15.1)
 
 * change license_formats `pt_BR` to match Mercosul. Thanks @augutoraminelli.
