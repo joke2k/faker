@@ -28,6 +28,8 @@ class Provider(DateTimeProvider):
         "12": "ডিসেম্বর",
     }
 
+    # TODO: Provide countries list, timezones,  in Bengali.
+
     def day_of_week(self) -> str:
         day = self.date("%w")
         return self.DAY_NAMES[day]

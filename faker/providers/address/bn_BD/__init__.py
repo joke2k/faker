@@ -537,6 +537,7 @@ class Provider(AddressProvider):
 
     def convert_to_bengali_digits(self, en_digit: str = '0') -> str:
         """
+        TODO: Make this method as a function
         :example: '9786' to '৯৭৮৬'
         """
         bn_digit = ''
