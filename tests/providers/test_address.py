@@ -179,11 +179,6 @@ class TestBnBd:
             assert isinstance(building_name, str)
             assert building_name in BnBdAddressProvider.building_names
 
-    def test_convert_to_bengali_digits(self, faker, num_samples):
-        assert faker.convert_to_bengali_digits() == '০'
-        assert faker.convert_to_bengali_digits('G') == ''
-        assert faker.convert_to_bengali_digits('791') == '৭৯১'
-
 
 class TestCsCz:
     """Test cs_CZ address provider methods"""

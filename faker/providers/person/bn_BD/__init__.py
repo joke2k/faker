@@ -1,6 +1,29 @@
 from .. import Provider as PersonProvider
 
 
+def translate_to_bengali_digits(en_digit: str = '0') -> str:
+    """
+    Translate any English string containing digits to corresponding Bengali digits.
+    :example: '9786' to '৯৭৮৬'
+    """
+    english_to_bengali_digits_map = {
+        '0': '০',
+        '1': '১',
+        '2': '২',
+        '3': '৩',
+        '4': '৪',
+        '5': '৫',
+        '6': '৬',
+        '7': '৭',
+        '8': '৮',
+        '9': '৯'
+    }
+    bn_digit = ''
+    for char in en_digit:
+        bn_digit = bn_digit + english_to_bengali_digits_map.get(char, '')
+    return bn_digit
+
+
 class Provider(PersonProvider):
     """Implement person provider for ``bn_BD`` locale."""
 

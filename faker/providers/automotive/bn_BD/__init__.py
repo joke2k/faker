@@ -1,3 +1,5 @@
+from faker.providers.person.bn_BD import translate_to_bengali_digits
+
 from .. import Provider as AutomotiveProvider
 
 
@@ -104,34 +106,11 @@ class Provider(AutomotiveProvider):
         "{{city_name}}-{{vehicle_category_letter}} {{vehicle_category_number}}-{{vehicle_serial_number}}",
     )
 
-    english_to_bengali_digits_map = {
-        '0': '০',
-        '1': '১',
-        '2': '২',
-        '3': '৩',
-        '4': '৪',
-        '5': '৫',
-        '6': '৬',
-        '7': '৭',
-        '8': '৮',
-        '9': '৯'
-    }
-
     def city_name(self) -> str:
         """
         :example: 'ঢাকা মেট্রো'
         """
         return self.random_element(self.cities)
-
-    def convert_to_bengali_digits(self, en_digit: str = '0') -> str:
-        """
-        TODO: Import from address provider
-        :example: '9786' to '৯৭৮৬'
-        """
-        bn_digit = ''
-        for char in en_digit:
-            bn_digit = bn_digit + self.english_to_bengali_digits_map.get(char, '')
-        return bn_digit
 
     def vehicle_category_letter(self) -> str:
         """
@@ -150,7 +129,7 @@ class Provider(AutomotiveProvider):
         Generate a 4 digits vehicle serial number.
         :example: '৫৪৩২'
         """
-        return self.convert_to_bengali_digits(self.numerify(self.random_element(self.vehicle_serial_number_formats)))
+        return translate_to_bengali_digits(self.numerify(self.random_element(self.vehicle_serial_number_formats)))
 
     def license_plate(self) -> str:
         """

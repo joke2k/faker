@@ -1,3 +1,5 @@
+from faker.providers.person.bn_BD import translate_to_bengali_digits
+
 from .. import Provider as AddressProvider
 
 
@@ -486,18 +488,6 @@ class Provider(AddressProvider):
     address_formats = (
         "{{street_address}}, {{town}}, {{city}}, {{postcode}}",
     )
-    english_to_bengali_digits_map = {
-        '0': '০',
-        '1': '১',
-        '2': '২',
-        '3': '৩',
-        '4': '৪',
-        '5': '৫',
-        '6': '৬',
-        '7': '৭',
-        '8': '৮',
-        '9': '৯'
-    }
 
     def administrative_unit(self) -> str:
         """
@@ -521,7 +511,7 @@ class Provider(AddressProvider):
         """
         :example: '791' to '৭৯১'
         """
-        return self.convert_to_bengali_digits(self.numerify(self.random_element(self.building_number_formats)))
+        return translate_to_bengali_digits(self.numerify(self.random_element(self.building_number_formats)))
 
     def city_prefix(self) -> str:
         """
@@ -535,22 +525,12 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.cities)
 
-    def convert_to_bengali_digits(self, en_digit: str = '0') -> str:
-        """
-        TODO: Make this method as a function
-        :example: '9786' to '৯৭৮৬'
-        """
-        bn_digit = ''
-        for char in en_digit:
-            bn_digit = bn_digit + self.english_to_bengali_digits_map.get(char, '')
-        return bn_digit
-
     def postcode(self) -> str:
         """
         See
         https://bdpost.portal.gov.bd/site/page/6aaeabe4-479b-4e5a-a671-e9e5b994bf9a
         """
-        return self.convert_to_bengali_digits(self.numerify(self.random_element(self.postcode_formats)))
+        return translate_to_bengali_digits(self.numerify(self.random_element(self.postcode_formats)))
 
     def secondary_address(self) -> str:
         """
@@ -561,7 +541,7 @@ class Provider(AddressProvider):
         """
         value = self.bothify(self.random_element(self.secondary_address_formats))
         word_list = value.split(' ')
-        return word_list[0] + ' ' + self.convert_to_bengali_digits(word_list[1])
+        return word_list[0] + ' ' + translate_to_bengali_digits(word_list[1])
 
     def town(self) -> str:
         """
