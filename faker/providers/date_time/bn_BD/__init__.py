@@ -1728,7 +1728,7 @@ class Provider(DateTimeProvider):
             "name": "ফিলিস্তিন",
             "capital": "রামাল্লা",
         },
-]
+    ]
 
     def day_of_week(self) -> str:
         day = self.date("%w")
