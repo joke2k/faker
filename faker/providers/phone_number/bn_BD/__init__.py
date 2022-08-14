@@ -3,20 +3,6 @@ from faker.providers.person.bn_BD import translate_to_bengali_digits
 from .. import Provider as PhoneNumberProvider
 
 
-def translate_phone_number_to_bengali(phone_number: str) -> str:
-    """
-    Skip special characters Bengali language translation.
-    :example: '+88-01732-844253' to '+৮৮০-১৭৩২-৮৪৪২৫৩'
-    """
-    bengali_number = ''
-    for char in phone_number:
-        if char == '+' or char == ' ' or char == '-':
-            bengali_number = bengali_number + char
-        else:
-            bengali_number = bengali_number + translate_to_bengali_digits(char)
-    return bengali_number
-
-
 class Provider(PhoneNumberProvider):
     """
     Implement phone number provider for ``bn_BD`` locale.
@@ -341,7 +327,7 @@ class Provider(PhoneNumberProvider):
 
     def phone_number(self) -> str:
         res = super(self.__class__, self).phone_number()
-        return translate_phone_number_to_bengali(res)
+        return translate_to_bengali_digits(res)
 
     def msisdn(self) -> str:
         res = super(self.__class__, self).msisdn()

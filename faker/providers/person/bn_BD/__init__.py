@@ -20,7 +20,7 @@ def translate_to_bengali_digits(en_digit: str = '0') -> str:
     }
     bn_digit = ''
     for char in en_digit:
-        bn_digit = bn_digit + english_to_bengali_digits_map.get(char, '')
+        bn_digit = bn_digit + english_to_bengali_digits_map.get(char, char)
     return bn_digit
 
 
