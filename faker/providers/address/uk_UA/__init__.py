@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -2225,26 +2227,26 @@ class Provider(AddressProvider):
         "Яші Гордієнка",
     ]
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
-    def city_name(self) -> str:
-        return self.random_element(self.city_names)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_names, min_length, max_length)
 
     def postcode(self) -> str:
         """The code consists of five digits (01000-99999)"""
         return f"{self.generator.random.randint(0, 10)}{self.generator.random.randint(1000, 10000)}"
 
-    def street_prefix(self) -> str:
-        return self.random_element(self.street_prefixes)
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
-    def street_name(self) -> str:
-        return self.random_element(self.street_titles)
+    def street_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_titles, min_length, max_length)
 
     def street_title(self) -> str:
         prefix = self.street_prefix()
         street = self.street_name()
         return prefix + " " + street
 
-    def region(self) -> str:
-        return self.random_element(self.region_names)
+    def region(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.region_names, min_length, max_length)

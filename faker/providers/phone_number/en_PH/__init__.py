@@ -1,4 +1,4 @@
-from typing import Sequence, Tuple
+from typing import Optional, Sequence, Tuple
 
 from ... import BaseProvider
 
@@ -200,23 +200,23 @@ class Provider(BaseProvider):
         pattern: str = self.random_element(formats)
         return self.numerify(self.generator.parse(pattern))
 
-    def globe_mobile_number_prefix(self) -> str:
-        return self.random_element(self.globe_mobile_number_prefixes)
+    def globe_mobile_number_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.globe_mobile_number_prefixes, min_length, max_length)
 
-    def smart_mobile_number_prefix(self) -> str:
-        return self.random_element(self.smart_mobile_number_prefixes)
+    def smart_mobile_number_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.smart_mobile_number_prefixes, min_length, max_length)
 
-    def sun_mobile_number_prefix(self) -> str:
-        return self.random_element(self.sun_mobile_number_prefixes)
+    def sun_mobile_number_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.sun_mobile_number_prefixes, min_length, max_length)
 
-    def bayantel_landline_identifier(self) -> str:
-        return self.random_element(self.bayantel_landline_identifiers)
+    def bayantel_landline_identifier(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.bayantel_landline_identifiers, min_length, max_length)
 
-    def misc_landline_identifier(self) -> str:
-        return self.random_element(self.misc_landline_identifiers)
+    def misc_landline_identifier(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.misc_landline_identifiers, min_length, max_length)
 
-    def non_area2_landline_area_code(self) -> str:
-        return self.random_element(self.non_area2_landline_area_codes)
+    def non_area2_landline_area_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.non_area2_landline_area_codes, min_length, max_length)
 
     def globe_mobile_number(self) -> str:
         return self._create_phone_number(self.globe_mobile_number_formats)

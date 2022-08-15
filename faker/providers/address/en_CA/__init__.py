@@ -354,27 +354,27 @@ class Provider(AddressProvider):
     address_formats = ("{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",)
     secondary_address_formats = ("Apt. ###", "Suite ###")
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """ """
-        return self.random_element(self.provinces)
+        return self.random_element(self.provinces, min_length, max_length)
 
     province = administrative_unit
 
-    def province_abbr(self) -> str:
-        return self.random_element(self.provinces_abbr)
+    def province_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.provinces_abbr, min_length, max_length)
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def postal_code_letter(self) -> str:
+    def postal_code_letter(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Returns a random letter from the list of allowable
         letters in a canadian postal code
         """
-        return self.random_element(self.postal_code_letters)
+        return self.random_element(self.postal_code_letters, min_length, max_length)
 
     def _postcode_replace(self, postal_code_format: str) -> str:
         """

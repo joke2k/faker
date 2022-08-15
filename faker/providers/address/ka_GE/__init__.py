@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -1290,8 +1292,8 @@ class Provider(AddressProvider):
         "ჯვარი",
     )
 
-    def street_title(self) -> str:
-        return self.random_element(self.street_titles)
+    def street_title(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_titles, min_length, max_length)
 
-    def city_name(self) -> str:
-        return self.random_element(self.city_names)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_names, min_length, max_length)

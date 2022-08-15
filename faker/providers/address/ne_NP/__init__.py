@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -594,28 +596,28 @@ class Provider(AddressProvider):
         "सुदूरपश्चिम प्रदेश",
     )
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: सुदूरपश्चिम प्रदेश
         """
-        return self.random_element(self.provinces)
+        return self.random_element(self.provinces, min_length, max_length)
 
     province = administrative_unit
 
-    def district(self) -> str:
+    def district(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: अछाम
         """
-        return self.random_element(self.districts)
+        return self.random_element(self.districts, min_length, max_length)
 
-    def city(self) -> str:
+    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: कावासोती
         """
-        return self.random_element(self.cities)
+        return self.random_element(self.cities, min_length, max_length)
 
-    def building_prefix(self) -> str:
+    def building_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: वडा
         """
-        return self.random_element(self.building_prefixes)
+        return self.random_element(self.building_prefixes, min_length, max_length)

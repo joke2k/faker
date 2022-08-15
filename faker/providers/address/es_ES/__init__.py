@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ..es import Provider as AddressProvider
 
 
@@ -117,22 +119,22 @@ class Provider(AddressProvider):
     address_formats = ("{{street_address}}\n{{city}}, {{postcode}}",)
     secondary_address_formats = ("Apt. ##", "Piso #", "Puerta #")
 
-    def state_name(self) -> str:
-        return self.random_element(self.states)
+    def state_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
-    def street_prefix(self) -> str:
-        return self.random_element(self.street_prefixes)
+    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.street_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.states)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
     state = administrative_unit
 
-    def region(self) -> str:
-        return self.random_element(self.regions)
+    def region(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.regions, min_length, max_length)
 
     def postcode(self) -> str:
         return str(self.generator.random.randint(1000, 52100)).zfill(5)

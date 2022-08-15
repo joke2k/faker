@@ -1,5 +1,17 @@
 ## Changelog
 
+### [v14.0.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.16.0...v14.0.0)
+
+* Fix `Provider._parse_date_time` to support timestamps. Thanks @mochi-moshi. 
+
+### [v13.16.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.15.1...v13.16.0)
+
+*  automotive: add `de_CH` license plates. Thanks @gsilvan.
+
+### [v13.15.1 - 2022-07-07](https://github.com/joke2k/faker/compare/v13.15.0...v13.15.1)
+
+* change license_formats `pt_BR` to match Mercosul. Thanks @augutoraminelli.
+
 ### [v13.15.0 - 2022-07-06](https://github.com/joke2k/faker/compare/v13.14.0...v13.15.0)
 
 *  Upgrade person, company, internet, currency providers for `tr_TR`. Thanks @keyiflerolsun.

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as MiscProvider
 
 
@@ -202,17 +204,17 @@ class Provider(MiscProvider):
     )
     random_object_names = gemstone_names + mountain_names + plant_names + space_object_names
 
-    def gemstone_name(self) -> str:
-        return self.random_element(self.gemstone_names)
+    def gemstone_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.gemstone_names, min_length, max_length)
 
-    def mountain_name(self) -> str:
-        return self.random_element(self.mountain_names)
+    def mountain_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.mountain_names, min_length, max_length)
 
-    def plant_name(self) -> str:
-        return self.random_element(self.plant_names)
+    def plant_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.plant_names, min_length, max_length)
 
-    def space_object_name(self) -> str:
-        return self.random_element(self.space_object_names)
+    def space_object_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.space_object_names, min_length, max_length)
 
-    def random_object_name(self) -> str:
-        return self.random_element(self.random_object_names)
+    def random_object_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.random_object_names, min_length, max_length)

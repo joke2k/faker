@@ -125,7 +125,7 @@ class TestDateTime(unittest.TestCase):
         assert timestamp > now
         delta = timedelta(days=30)
         from_delta = DatetimeProvider._parse_date_time(delta)
-        from_int = DatetimeProvider._parse_date_time(30)
+        from_int = DatetimeProvider._parse_date_time(timestamp)
 
         assert datetime.fromtimestamp(from_delta).date() == (datetime.fromtimestamp(timestamp).date())
 

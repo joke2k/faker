@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 
@@ -437,13 +439,13 @@ class Provider(AddressProvider):
     def building_number(self) -> str:
         return self.lexify(self.random_element(self.building_number_formats))
 
-    def city_name(self) -> str:
-        return self.random_element(self.cities)
+    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.provinces)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.provinces, min_length, max_length)
 
     province = administrative_unit
 
-    def district(self) -> str:
-        return self.random_element(self.districts)
+    def district(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.districts, min_length, max_length)

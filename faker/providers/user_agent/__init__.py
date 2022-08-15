@@ -1,6 +1,7 @@
 import string
 
 from datetime import datetime, timedelta
+from typing import Optional
 
 from .. import BaseProvider, ElementsType
 
@@ -120,13 +121,13 @@ class Provider(BaseProvider):
         "14.2.1",
     )
 
-    def mac_processor(self) -> str:
+    def mac_processor(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a MacOS processor token used in user agent strings."""
-        return self.random_element(self.mac_processors)
+        return self.random_element(self.mac_processors, min_length, max_length)
 
-    def linux_processor(self) -> str:
+    def linux_processor(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a Linux processor token used in user agent strings."""
-        return self.random_element(self.linux_processors)
+        return self.random_element(self.linux_processors, min_length, max_length)
 
     def user_agent(self) -> str:
         """Generate a random web browser user agent string."""
@@ -300,9 +301,9 @@ class Provider(BaseProvider):
             f"Trident/{self.generator.random.randint(3, 5)}.{self.generator.random.randint(0, 1)})"
         )
 
-    def windows_platform_token(self) -> str:
+    def windows_platform_token(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """Generate a Windows platform token used in user agent strings."""
-        return self.random_element(self.windows_platform_tokens)
+        return self.random_element(self.windows_platform_tokens, min_length, max_length)
 
     def linux_platform_token(self) -> str:
         """Generate a Linux platform token used in user agent strings."""

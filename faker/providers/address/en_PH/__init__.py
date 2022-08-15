@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from string import ascii_uppercase
-from typing import Sequence, Tuple, Union
+from typing import Optional, Sequence, Tuple, Union
 
 from .. import Provider as AddressProvider
 
@@ -1710,17 +1710,17 @@ class Provider(AddressProvider):
     def postcode(self) -> str:
         return self._create_postcode(self.postcodes)
 
-    def luzon_province(self) -> str:
-        return self.random_element(self.luzon_provinces)
+    def luzon_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.luzon_provinces, min_length, max_length)
 
-    def visayas_province(self) -> str:
-        return self.random_element(self.visayas_provinces)
+    def visayas_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.visayas_provinces, min_length, max_length)
 
-    def mindanao_province(self) -> str:
-        return self.random_element(self.mindanao_provinces)
+    def mindanao_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.mindanao_provinces, min_length, max_length)
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.provinces)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.provinces, min_length, max_length)
 
     province = administrative_unit
 
@@ -1743,8 +1743,8 @@ class Provider(AddressProvider):
     def ordinal_street_number(self) -> str:
         return self._ordinal_string(self.random_int(1, 99))
 
-    def floor_number(self) -> str:
-        return self.random_element(self.floor_numbers)
+    def floor_number(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.floor_numbers, min_length, max_length)
 
     def ordinal_floor_number(self) -> str:
         return self._ordinal_string(self.floor_number())
@@ -1776,11 +1776,11 @@ class Provider(AddressProvider):
     def subdivision_name_suffix(self) -> str:
         return self.numerify(self.random_element(self.subdivision_name_suffixes))
 
-    def metro_manila_lgu(self) -> str:
-        return self.random_element(self.metro_manila_lgus)
+    def metro_manila_lgu(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.metro_manila_lgus, min_length, max_length)
 
-    def province_lgu(self) -> str:
-        return self.random_element(self.province_lgus)
+    def province_lgu(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.province_lgus, min_length, max_length)
 
     def metro_manila_address(self) -> str:
         return self._create_address(self.metro_manila_address_formats)

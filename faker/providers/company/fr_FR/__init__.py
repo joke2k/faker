@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 from .. import Provider as CompanyProvider
 
@@ -66,23 +66,23 @@ class Provider(CompanyProvider):
 
     siren_format = "### ### ###"
 
-    def catch_phrase_noun(self) -> str:
+    def catch_phrase_noun(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Returns a random catch phrase noun.
         """
-        return self.random_element(self.nouns)
+        return self.random_element(self.nouns, min_length, max_length)
 
-    def catch_phrase_attribute(self) -> str:
+    def catch_phrase_attribute(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Returns a random catch phrase attribute.
         """
-        return self.random_element(self.attributes)
+        return self.random_element(self.attributes, min_length, max_length)
 
-    def catch_phrase_verb(self) -> str:
+    def catch_phrase_verb(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         Returns a random catch phrase verb.
         """
-        return self.random_element(self.verbs)
+        return self.random_element(self.verbs, min_length, max_length)
 
     def catch_phrase(self) -> str:
         """

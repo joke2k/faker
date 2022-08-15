@@ -1,5 +1,7 @@
 import string
 
+from typing import Optional
+
 from .. import Provider as AddressProvider
 
 ALPHABET = string.ascii_uppercase
@@ -515,29 +517,29 @@ class Provider(AddressProvider):
         pattern: str = self.random_element(self.road_formats)
         return self.generator.parse(pattern)
 
-    def road_name(self) -> str:
+    def road_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 압구정
         """
-        return self.random_element(self.road_names)
+        return self.random_element(self.road_names, min_length, max_length)
 
-    def road_suffix(self) -> str:
+    def road_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 길
         """
-        return self.random_element(self.road_suffixes)
+        return self.random_element(self.road_suffixes, min_length, max_length)
 
-    def metropolitan_city(self) -> str:
+    def metropolitan_city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 서울특별시
         """
-        return self.random_element(self.metropolitan_cities)
+        return self.random_element(self.metropolitan_cities, min_length, max_length)
 
-    def administrative_unit(self) -> str:
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 경기도
         """
-        return self.random_element(self.provinces)
+        return self.random_element(self.provinces, min_length, max_length)
 
     province = administrative_unit
 
@@ -548,11 +550,11 @@ class Provider(AddressProvider):
         pattern: str = self.random_element(self.cities)
         return self.generator.parse(pattern)
 
-    def borough(self) -> str:
+    def borough(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 중구
         """
-        return self.random_element(self.boroughs)
+        return self.random_element(self.boroughs, min_length, max_length)
 
     def town(self) -> str:
         """
@@ -561,11 +563,11 @@ class Provider(AddressProvider):
         pattern: str = self.random_element(self.town_formats)
         return self.generator.parse(pattern)
 
-    def town_suffix(self) -> str:
+    def town_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 동
         """
-        return self.random_element(self.town_suffixes)
+        return self.random_element(self.town_suffixes, min_length, max_length)
 
     def building_name(self) -> str:
         """
@@ -574,11 +576,11 @@ class Provider(AddressProvider):
         pattern: str = self.random_element(self.building_name_formats)
         return self.generator.parse(pattern)
 
-    def building_suffix(self) -> str:
+    def building_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
         """
         :example: 아파트
         """
-        return self.random_element(self.building_suffixes)
+        return self.random_element(self.building_suffixes, min_length, max_length)
 
     def building_dong(self) -> str:
         """

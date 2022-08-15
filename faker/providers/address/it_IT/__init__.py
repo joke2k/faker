@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from .. import Provider as AddressProvider
 
@@ -17627,19 +17627,19 @@ class Provider(AddressProvider):
         rand_city_prov: List[str] = self.random_element(self.cap_city_province[cap])
         return cap + ", " + rand_city_prov[0] + " (" + rand_city_prov[1] + ")"
 
-    def city(self) -> str:
-        return self.random_element(self.cities)
+    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.cities, min_length, max_length)
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefixes)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefixes, min_length, max_length)
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.states)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states, min_length, max_length)
 
     state = administrative_unit
 
-    def state_abbr(self) -> str:
-        return self.random_element(self.states_abbr)
+    def state_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.states_abbr, min_length, max_length)

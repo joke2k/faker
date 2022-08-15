@@ -4087,8 +4087,8 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    def last_name(self) -> str:
-        return self.random_element(self.unisex_last_names)
+    def last_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.unisex_last_names, min_element_length=min_length, max_element_length=max_length)
 
     def identity_card_number(self) -> str:
         """

@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Optional
 
 from .. import Provider as AddressProvider
 
@@ -435,25 +436,25 @@ class Provider(AddressProvider):
         "Zöld-foki szigetek",
     )
 
-    def administrative_unit(self) -> str:
-        return self.random_element(self.counties)
+    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.counties, min_length, max_length)
 
     county = administrative_unit
 
     def street_address_with_county(self) -> str:
         return f"{self.street_address()}\n{self.county()} megye\n{self.postcode()} {self.city().capitalize()}"
 
-    def city_prefix(self) -> str:
-        return self.random_element(self.city_prefs)
+    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_prefs, min_length, max_length)
 
-    def city_part(self) -> str:
-        return self.random_element(self.city_parts)
+    def city_part(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.city_parts, min_length, max_length)
 
-    def real_city_name(self) -> str:
-        return self.random_element(self.real_city_names)
+    def real_city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.real_city_names, min_length, max_length)
 
-    def frequent_street_name(self) -> str:
-        return self.random_element(self.frequent_street_names)
+    def frequent_street_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+        return self.random_element(self.frequent_street_names, min_length, max_length)
 
     def postcode(self) -> str:
         return (
