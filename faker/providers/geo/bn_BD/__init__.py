@@ -7,6 +7,7 @@ class Provider(GeoProvider):
     """
     Implement GEO provider for ``bn_BD`` locale.
     """
+
     land_coords = (
         ("42.50729", "1.53414", "লেস এসকালডেস", "AD", "ইউরোপ/অ্যান্ডোরা"),
         ("36.21544", "65.93249", "সার-ই পুল", "AF", "এশিয়া/কাবুল"),

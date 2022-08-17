@@ -482,12 +482,8 @@ class Provider(AddressProvider):
         "{{building_name}} {{building_number}}, {{street_name}}",
         "{{secondary_address}}, {{building_name}} {{building_number}}, {{street_name}}",
     )
-    town_formats = (
-        "{{area_name}}{{city_suffix}}",
-    )
-    address_formats = (
-        "{{street_address}}, {{town}}, {{city}}, {{postcode}}",
-    )
+    town_formats = ("{{area_name}}{{city_suffix}}",)
+    address_formats = ("{{street_address}}, {{town}}, {{city}}, {{postcode}}",)
 
     def administrative_unit(self) -> str:
         """
@@ -540,8 +536,8 @@ class Provider(AddressProvider):
         : example : 'অ্যাপার্টমেন্ট 14' to 'অ্যাপার্টমেন্ট ১৪'
         """
         value = self.bothify(self.random_element(self.secondary_address_formats))
-        word_list = value.split(' ')
-        return word_list[0] + ' ' + translate_to_bengali_digits(word_list[1])
+        word_list = value.split(" ")
+        return word_list[0] + " " + translate_to_bengali_digits(word_list[1])
 
     def town(self) -> str:
         """

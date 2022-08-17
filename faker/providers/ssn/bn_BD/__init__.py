@@ -8,4 +8,8 @@ class Provider(SsnProvider):
     Bangladeshi people.
     :example: '1882824588423'
     """
-    ssn_formats = ("%############", "%## ### ####",)
+
+    ssn_formats = (
+        "%############",
+        "%## ### ####",
+    )

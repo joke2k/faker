@@ -226,6 +226,6 @@ class Provider(CurrencyProvider):
         Return price in Bengali digit with Bangladeshi Currency symbol.
         :example: '৳ ৫৫,৫৫০'
         """
-        currency_symbol = self.currency_symbol('BDT')
+        currency_symbol = self.currency_symbol("BDT")
         price = self.numerify(self.random_element(self.price_formats))
-        return currency_symbol + ' ' + translate_to_bengali_digits(price)
+        return currency_symbol + " " + translate_to_bengali_digits(price)
