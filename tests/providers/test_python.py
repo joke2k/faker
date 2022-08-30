@@ -396,6 +396,117 @@ class TestPydecimal(unittest.TestCase):
         result = self.fake.pydecimal(min_value=10**1000)
         self.assertGreater(result, 10**1000)
 
+    def test_with_min_and_max_values_between_zero_and_one(self):
+        Faker.seed("4")
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("0.02"), max_value=decimal.Decimal("0.6"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("0.02"))
+        self.assertLessEqual(result, decimal.Decimal("0.6"))
+
+    def test_with_min_and_max_values_between_zero_and_minus_one(self):
+        Faker.seed("4")
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-0.6"), max_value=decimal.Decimal("-0.02"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-0.6"))
+        self.assertLessEqual(result, decimal.Decimal("-0.02"))
+
+    def test_with_min_and_max_values_within_a_positive_tiny_interval(self):
+        Faker.seed("2")  # Left is 0, right ∈ [150 ; 970]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("0.15"), max_value=decimal.Decimal("0.97"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("0.15"))
+        self.assertLessEqual(result, decimal.Decimal("0.97"))
+
+        Faker.seed("2")  # Left is 1, right ∈ [380 ; 610]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("1.38"), max_value=decimal.Decimal("1.61"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("1.38"))
+        self.assertLessEqual(result, decimal.Decimal("1.61"))
+
+        Faker.seed("2")  # Left is 3, right ∈ [0 ; 600]
+        result = self.fake.pydecimal(min_value=decimal.Decimal("1.7"), max_value=decimal.Decimal("3.6"), right_digits=3)
+        self.assertGreaterEqual(result, decimal.Decimal("1.7"))
+        self.assertLessEqual(result, decimal.Decimal("3.6"))
+
+        Faker.seed("1")  # Left is 2, right ∈ [0 ; 999]
+        result = self.fake.pydecimal(min_value=decimal.Decimal("1.7"), max_value=decimal.Decimal("3.6"), right_digits=3)
+        self.assertGreaterEqual(result, decimal.Decimal("1.7"))
+        self.assertLessEqual(result, decimal.Decimal("3.6"))
+
+        Faker.seed("4")  # Left is 1, right ∈ [700 ; 999]
+        result = self.fake.pydecimal(min_value=decimal.Decimal("1.7"), max_value=decimal.Decimal("3.6"), right_digits=3)
+        self.assertGreaterEqual(result, decimal.Decimal("1.7"))
+        self.assertLessEqual(result, decimal.Decimal("3.6"))
+
+    def test_with_min_and_max_values_within_a_negative_tiny_interval(self):
+        Faker.seed("2")  # Left is 0, right ∈ [150 ; 970]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-0.97"), max_value=decimal.Decimal("-0.15"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-0.97"))
+        self.assertLessEqual(result, decimal.Decimal("-0.15"))
+
+        Faker.seed("2")  # Left is (-)1, right ∈ [380 ; 610]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-1.61"), max_value=decimal.Decimal("-1.38"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-1.61"))
+        self.assertLessEqual(result, decimal.Decimal("-1.38"))
+
+        Faker.seed("2")  # Left is (-)3, right ∈ [600 ; 999]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-3.6"), max_value=decimal.Decimal("-1.7"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-3.6"))
+        self.assertLessEqual(result, decimal.Decimal("-1.7"))
+
+        Faker.seed("1")  # Left is (-)2, right ∈ [0 ; 999]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-3.6"), max_value=decimal.Decimal("-1.7"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-3.6"))
+        self.assertLessEqual(result, decimal.Decimal("-1.7"))
+
+        Faker.seed("4")  # Left is (-)1, right ∈ [0 ; 700]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-3.6"), max_value=decimal.Decimal("-1.7"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-3.6"))
+        self.assertLessEqual(result, decimal.Decimal("-1.7"))
+
+    def test_with_min_and_max_values_within_a_sign_overlapping_tiny_interval(self):
+        Faker.seed("1")  # Sign is -, left is 1, right ∈ [450 ; 999]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-1.45"), max_value=decimal.Decimal("1.52"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-1.45"))
+        self.assertLessEqual(result, decimal.Decimal("1.52"))
+
+        Faker.seed("0")  # Sign is -, left is 0, right ∈ [0 ; 999]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-1.45"), max_value=decimal.Decimal("1.52"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-1.45"))
+        self.assertLessEqual(result, decimal.Decimal("1.52"))
+
+        Faker.seed("9")  # Sign is +, left is 0, right ∈ [0 ; 999]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-1.45"), max_value=decimal.Decimal("1.52"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-1.45"))
+        self.assertLessEqual(result, decimal.Decimal("1.52"))
+
+        Faker.seed("4")  # Sign is +, left is 1, right ∈ [0 ; 520]
+        result = self.fake.pydecimal(
+            min_value=decimal.Decimal("-1.45"), max_value=decimal.Decimal("1.52"), right_digits=3
+        )
+        self.assertGreaterEqual(result, decimal.Decimal("-1.45"))
+        self.assertLessEqual(result, decimal.Decimal("1.52"))
+
 
 class TestPystrFormat(unittest.TestCase):
     def setUp(self):

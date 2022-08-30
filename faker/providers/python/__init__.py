@@ -217,7 +217,7 @@ class Provider(BaseProvider):
 
         if sign == "+":
             if max_value is not None:
-                left_number = str(self.random_int(max(min_value or 0, 0), max_value))
+                left_number = str(self.random_int(max(math.floor(min_value or 0), 0), math.floor(max_value)))
             else:
                 min_left_digits = math.ceil(math.log10(max(min_value or 1, 1)))
                 if left_digits is None:
@@ -225,7 +225,9 @@ class Provider(BaseProvider):
                 left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
         else:
             if min_value is not None:
-                left_number = str(self.random_int(max(max_value or 0, 0), abs(min_value)))
+                left_number = str(
+                    self.random_int(max(abs(math.ceil(min([max_value or 0, 0]))), 0), abs(math.ceil(min_value)))
+                )
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
                 if left_digits is None:
@@ -235,9 +237,21 @@ class Provider(BaseProvider):
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = "".join([str(self.random_digit()) for i in range(0, right_digits)])
+        if right_digits == 0:
+            result = Decimal(f"{sign}{left_number}")
+        else:
+            right_min_value = 0
+            right_max_value = int("9" * right_digits)
+            comp_func = math.floor if sign == "+" else math.ceil
+            if min_value is not None and min_value % 1 and int(left_number) == abs(comp_func(min_value)):
+                right_min_value = int(abs(min_value) % 1 * 10**right_digits)
+            if max_value is not None and max_value % 1 and int(left_number) == abs(comp_func(max_value)):
+                right_max_value = int(abs(max_value) % 1 * 10**right_digits)
+            if right_min_value > right_max_value:
+                right_min_value, right_max_value = right_max_value, right_min_value
 
-        result = Decimal(f"{sign}{left_number}.{right_number}")
+            right_number = self.pyint(right_min_value, right_max_value)
+            result = Decimal(f"{sign}{left_number}.{right_number:0>{right_digits}}")
 
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
