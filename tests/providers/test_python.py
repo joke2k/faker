@@ -397,6 +397,56 @@ class TestPydecimal(unittest.TestCase):
         self.assertGreater(result, 10**1000)
 
 
+class TestPystr(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker(includes=["tests.mymodule.en_US"])
+        Faker.seed(0)
+
+    def test_no_parameters(self):
+        some_string = self.fake.pystr()
+        assert isinstance(some_string, str)
+        assert len(some_string) <= 20
+
+    def test_lower_length_limit(self):
+        some_string = self.fake.pystr(min_chars=3)
+        assert isinstance(some_string, str)
+        assert len(some_string) >= 3
+        assert len(some_string) <= 20
+
+    def test_upper_length_limit(self):
+        some_string = self.fake.pystr(max_chars=5)
+        assert isinstance(some_string, str)
+        assert len(some_string) <= 5
+
+    def test_invalid_length_limits(self):
+        with self.assertRaises(AssertionError):
+            self.fake.pystr(min_chars=6, max_chars=5)
+
+    def test_exact_length(self):
+        some_string = self.fake.pystr(min_chars=5, max_chars=5)
+        assert isinstance(some_string, str)
+        assert len(some_string) == 5
+
+    def test_prefix(self):
+        some_string = self.fake.pystr(prefix="START_")
+        assert isinstance(some_string, str)
+        assert some_string.startswith("START_")
+        assert len(some_string) == 26
+
+    def test_suffix(self):
+        some_string = self.fake.pystr(suffix="_END")
+        assert isinstance(some_string, str)
+        assert some_string.endswith("_END")
+        assert len(some_string) == 24
+
+    def test_prefix_and_suffix(self):
+        some_string = self.fake.pystr(min_chars=9, max_chars=20, prefix="START_", suffix="_END")
+        assert isinstance(some_string, str)
+        assert some_string.startswith("START_")
+        assert some_string.endswith("_END")
+        assert len(some_string) >= 19
+
+
 class TestPystrFormat(unittest.TestCase):
     def setUp(self):
         self.fake = Faker(includes=["tests.mymodule.en_US"])
@@ -421,26 +471,6 @@ class TestPython(unittest.TestCase):
     def test_pybool(self):
         some_bool = self.factory.pybool()
         assert isinstance(some_bool, bool)
-
-    def py_str(self):
-        some_string = self.factory.pystr()
-        assert isinstance(some_string, str)
-        assert len(some_string) <= 20
-
-        some_string = self.factory.pystr(min_chars=3)
-        assert isinstance(some_string, str)
-        assert len(some_string) >= 3
-        assert len(some_string) <= 20
-
-        some_string = self.factory.pystr(max_chars=5)
-        assert isinstance(some_string, str)
-        assert len(some_string) <= 5
-
-        with self.assertRaises(AssertionError):
-            self.factory.pystr(min_chars=6, max_chars=5)
-
-        with self.assertRaises(AssertionError):
-            self.factory.pystr(min_chars=5, max_chars=5)
 
     def test_pytuple(self):
         with warnings.catch_warnings(record=True) as w:
