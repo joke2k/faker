@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.1.1 - 2022-08-30](https://github.com/joke2k/faker/compare/v14.1.0...v14.1.1)
+
+* relax minimum version of `typing-extensions`. Thanks @stefan6419846.
+
 ### [v14.1.0 - 2022-08-17](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
 
 * Add providers for `bn_BD`: `address`, `automotive`, `bank`, `color`, `company`, 
