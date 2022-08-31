@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.2.0 - 2022-08-31](https://github.com/joke2k/faker/compare/v14.1.2...v14.2.0)
+
+* Add support for prefix and suffix to `pystr` provider.Thanks @stefan6419846.
+
 ### [v14.1.2 - 2022-08-31](https://github.com/joke2k/faker/compare/v14.1.1...v14.1.2)
 
 *  Fix `uk_UA` `postcode` generation. Thanks @ajinkyac03.
