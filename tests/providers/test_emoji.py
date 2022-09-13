@@ -1,5 +1,6 @@
-from faker import Faker
 import unittest
+
+from faker import Faker
 
 
 class TestGlobal(unittest.TestCase):
