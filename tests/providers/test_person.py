@@ -117,7 +117,7 @@ class TestMinMax(unittest.TestCase):
 
     def test_last_name_male_as_list(self):
         last_name_male_as_list = self.fake.last_name_male_as_list()
-        assert set(tuple(last_name_male_as_list)).intersection(EnUSProvider.last_names) != set()
+        assert set(last_name_male_as_list).intersection(EnUSProvider.last_names) != set()
 
     def test_last_name_nonbinary(self):
         for min_, max_ in self.get_min_and_max(10, 3):
@@ -127,7 +127,7 @@ class TestMinMax(unittest.TestCase):
 
     def test_last_name_nonbinary_as_list(self):
         last_name_nonbinary_as_list = self.fake.last_name_nonbinary_as_list()
-        assert set(tuple(last_name_nonbinary_as_list)).intersection(EnUSProvider.last_names) != set()
+        assert set(last_name_nonbinary_as_list).intersection(EnUSProvider.last_names) != set()
 
     def test_last_name_female(self):
         for min_, max_ in self.get_min_and_max(10, 3):
@@ -137,7 +137,7 @@ class TestMinMax(unittest.TestCase):
 
     def test_last_name_female_as_list(self):
         last_name_female_as_list = self.fake.last_name_female_as_list()
-        assert set(tuple(last_name_female_as_list)).intersection(EnUSProvider.last_names) != set()
+        assert set(last_name_female_as_list).intersection(EnUSProvider.last_names) != set()
 
     def test_prefix(self):
         for min_, max_ in self.get_min_and_max(4, 3):
@@ -147,9 +147,9 @@ class TestMinMax(unittest.TestCase):
 
     def test_prefix_as_list(self):
         prefix_as_list = self.fake.prefix_as_list()
-        assert set(tuple(EnUSProvider.prefixes_male)).intersection(prefix_as_list) != set()
-        assert set(tuple(EnUSProvider.prefixes_nonbinary)).intersection(prefix_as_list) != set()
-        assert set(tuple(EnUSProvider.prefixes_female)).intersection(prefix_as_list) != set()
+        assert set(EnUSProvider.prefixes_male).intersection(prefix_as_list) != set()
+        assert set(EnUSProvider.prefixes_nonbinary).intersection(prefix_as_list) != set()
+        assert set(EnUSProvider.prefixes_female).intersection(prefix_as_list) != set()
 
     def test_prefix_male(self):
         for min_, max_ in self.get_min_and_max(3, 3):
@@ -189,9 +189,9 @@ class TestMinMax(unittest.TestCase):
 
     def test_suffix_as_list(self):
         suffix_as_list = self.fake.suffix_as_list()
-        assert set(tuple(EnUSProvider.suffixes_male)).intersection(suffix_as_list) != set()
-        assert set(tuple(EnUSProvider.suffixes_nonbinary)).intersection(suffix_as_list) != set()
-        assert set(tuple(EnUSProvider.suffixes_female)).intersection(suffix_as_list) != set()
+        assert set(EnUSProvider.suffixes_male).intersection(suffix_as_list) != set()
+        assert set(EnUSProvider.suffixes_nonbinary).intersection(suffix_as_list) != set()
+        assert set(EnUSProvider.suffixes_female).intersection(suffix_as_list) != set()
 
     def test_suffix_male(self):
         for min_, max_ in self.get_min_and_max(3, 2):
@@ -414,22 +414,22 @@ class TestJaJP(unittest.TestCase):
         first_name_pair = self.fake.first_name_pair()
         assert first_name_pair
         assert len(first_name_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_pair))
+        assert all(s for s in first_name_pair if isinstance(s, str))
 
         first_name_male_pair = self.fake.first_name_male_pair()
         assert first_name_male_pair
         assert len(first_name_male_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_male_pair))
+        assert all(s for s in first_name_male_pair if isinstance(s, str))
 
         first_name_female_pair = self.fake.first_name_female_pair()
         assert first_name_female_pair
         assert len(first_name_female_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_female_pair))
+        assert all(s for s in first_name_female_pair if isinstance(s, str))
 
         last_name_pair = self.fake.last_name_pair()
         assert last_name_pair
         assert len(last_name_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), last_name_pair))
+        assert all(s for s in last_name_pair if isinstance(s, str))
 
 
 class TestNeNP(unittest.TestCase):
