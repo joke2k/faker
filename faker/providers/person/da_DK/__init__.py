@@ -34,7 +34,7 @@ class Provider(PersonProvider):
         "Anton",
         "Arne",
         "Asger",
-        "ugust",
+        "August",
         "Benjamin",
         "Benny",
         "Bent",
