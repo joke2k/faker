@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.2.1 - 2022-09-22](https://github.com/joke2k/faker/compare/v14.2.0...v14.2.1)
+
+* Fix misspelled first name in `da_DK` locale. Thanks @filson1.
+
 ### [v14.2.0 - 2022-08-31](https://github.com/joke2k/faker/compare/v14.1.2...v14.2.0)
 
 * Add support for prefix and suffix to `pystr` provider.Thanks @stefan6419846.
