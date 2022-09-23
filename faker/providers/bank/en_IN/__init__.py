@@ -5,7 +5,7 @@ from .. import Provider as BankProvider
 
 class Provider(BankProvider):
     """Implement bank provider for ``en_IN`` locale.
-        Source: https://en.wikipedia.org/wiki/List_of_banks_in_India
+    Source: https://en.wikipedia.org/wiki/List_of_banks_in_India
     """
 
     banks = (
@@ -44,6 +44,8 @@ class Provider(BankProvider):
         "Yes Bank",
     )
 
-    def bank(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def bank(
+        self, min_length: Optional[int] = None, max_length: Optional[int] = None
+    ) -> str:
         """Generate a bank name."""
         return self.random_element(self.banks, min_length, max_length)
