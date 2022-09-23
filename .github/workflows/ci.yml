@@ -139,7 +139,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
     - uses: actions/checkout@v3
@@ -169,7 +169,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
     strategy:
       matrix:
-        python: ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy-3.9"]
+        python: ["3.7", "3.8", "3.9", "3.10", "pypy-3.9"]
 
     steps:
       - uses: actions/checkout@v3
@@ -210,7 +210,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
     strategy:
       matrix:
-        python: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python: ["3.7", "3.8", "3.9", "3.10"]
         arch: ["x86", "x64"]
 
     steps:
