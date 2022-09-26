@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v15.0.0 - 2022-09-26](https://github.com/joke2k/faker/compare/v14.2.1...v15.0.0)
+
+* Add support for Python 3.10. Thanks @uri-rodberg.
+* Drop support for Python 3.6. Thanks @uri-rodberg.
+
 ### [v14.2.1 - 2022-09-22](https://github.com/joke2k/faker/compare/v14.2.0...v14.2.1)
 
 * Fix misspelled first name in `da_DK` locale. Thanks @filson1.
