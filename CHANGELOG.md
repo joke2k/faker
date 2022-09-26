@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.2.2 - 2022-09-26](https://github.com/joke2k/faker/compare/v14.2.1...v14.2.2)
+
+* Bump actions/stale from 5 to 6 (#1727). Thanks @dependabot[bot].
+
 ### [v14.2.1 - 2022-09-22](https://github.com/joke2k/faker/compare/v14.2.0...v14.2.1)
 
 * Fix misspelled first name in `da_DK` locale. Thanks @filson1.
