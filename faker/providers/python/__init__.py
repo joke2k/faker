@@ -51,20 +51,22 @@ class Provider(BaseProvider):
     def pybool(self) -> bool:
         return self.random_int(0, 1) == 1
 
-    def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20) -> str:
+    def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20, prefix: str = "", suffix: str = "") -> str:
         """
         Generates a random string of upper and lowercase letters.
         :return: Random of random length between min and max characters.
         """
         if min_chars is None:
-            return "".join(self.random_letters(length=max_chars))
+            chars = "".join(self.random_letters(length=max_chars))
         else:
             assert max_chars >= min_chars, "Maximum length must be greater than or equal to minimum length"
-            return "".join(
+            chars = "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
                 ),
             )
+
+        return prefix + chars + suffix
 
     def pystr_format(
         self,
