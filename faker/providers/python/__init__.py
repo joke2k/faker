@@ -4,12 +4,19 @@ import sys
 import warnings
 
 from decimal import Decimal
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, Union, no_type_check
+from enum import Enum
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
+from ...exceptions import BaseFakerException
 from .. import BaseProvider, ElementsType
 
 TypesNames = List[str]
 TypesSpec = Union[List[Type], Tuple[Type, ...]]
+TEnum = TypeVar("TEnum", bound=Enum)
+
+
+class EmptyEnumException(BaseFakerException):
+    pass
 
 
 class Provider(BaseProvider):
@@ -417,3 +424,24 @@ class Provider(BaseProvider):
                 },
             }
         return types, d, nd
+
+    def enum(self, enum_cls: Type[TEnum]) -> TEnum:
+        """
+        Returns a random enum of the provided input `Enum` type.
+
+        :param enum_cls: The `Enum` type to produce the value for.
+        :returns: A randomly selected enum value.
+        """
+
+        if enum_cls is None:
+            raise ValueError("'enum_cls' cannot be None")
+
+        if not issubclass(enum_cls, Enum):
+            raise TypeError("'enum_cls' must be an Enum type")
+
+        members: List[TEnum] = list(cast(Iterable[TEnum], enum_cls))
+
+        if len(members) < 1:
+            raise EmptyEnumException(f"The provided Enum: '{enum_cls.__name__}' has no members.")
+
+        return self.random_element(members)
