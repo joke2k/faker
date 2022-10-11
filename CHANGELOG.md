@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.0 - 2022-10-11](https://github.com/joke2k/faker/compare/v15.0.0...v15.1.0)
+
+* Add enum provider. Thanks @NazarioJL.
+
 ### [v15.0.0 - 2022-09-26](https://github.com/joke2k/faker/compare/v14.2.1...v15.0.0)
 
 * Add support for Python 3.10. Thanks @uri-rodberg.
