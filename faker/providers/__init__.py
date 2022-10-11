@@ -14,8 +14,9 @@ _re_at = re.compile(r"@")
 _re_qm = re.compile(r"\?")
 _re_cir = re.compile(r"\^")
 
+S = TypeVar("S")
 T = TypeVar("T")
-ElementsType = Collection[T]
+ElementsType = Union[Collection[T], OrderedDict[T, float]]
 
 
 class BaseProvider:
@@ -490,7 +491,7 @@ class BaseProvider:
             if not hasattr(elements, "_key_cache"):
                 elements._key_cache = tuple(elements.keys())  # type: ignore
 
-            choices = elements._key_cache  # type: ignore[attr-defined]
+            choices = elements._key_cache  # type: ignore[attr-defined, union-attr]
             probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:
@@ -568,10 +569,10 @@ class BaseProvider:
 
     def random_element(
         self,
-        elements: ElementsType = ("a", "b", "c"),
+        elements: ElementsType[S],
         min_element_length: Optional[int] = None,
         max_element_length: Optional[int] = None,
-    ) -> T:
+    ) -> S:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
