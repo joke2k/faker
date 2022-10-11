@@ -568,7 +568,7 @@ class BaseProvider:
 
     def random_element(
         self,
-        elements: ElementsType[S],
+        elements: ElementsType[S] = ("a", "b", "c"),  # type: ignore[assignment]
         min_element_length: Optional[int] = None,
         max_element_length: Optional[int] = None,
     ) -> S:
