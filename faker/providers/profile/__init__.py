@@ -4,7 +4,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Dict, List, Optional, Tuple, Union
 
-from ...typing import GenderType
+from ...typing import SexLiteral
 from .. import BaseProvider
 
 
@@ -14,7 +14,7 @@ class Provider(BaseProvider):
 
     """
 
-    def simple_profile(self, sex: Optional[GenderType] = None) -> Dict[str, Union[str, date, GenderType]]:
+    def simple_profile(self, sex: Optional[SexLiteral] = None) -> Dict[str, Union[str, date, SexLiteral]]:
         """
         Generates a basic profile with personal informations
         """
@@ -33,7 +33,7 @@ class Provider(BaseProvider):
         }
 
     def profile(
-        self, fields: Optional[List[str]] = None, sex: Optional[GenderType] = None
+        self, fields: Optional[List[str]] = None, sex: Optional[SexLiteral] = None
     ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], date]]:
         """
         Generates a complete profile.

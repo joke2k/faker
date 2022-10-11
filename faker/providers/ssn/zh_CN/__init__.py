@@ -2,7 +2,7 @@ import datetime
 
 from typing import List, Optional
 
-from ....typing import GenderType
+from ....typing import SexLiteral
 from .. import Provider as SsnProvider
 
 
@@ -3524,7 +3524,7 @@ class Provider(SsnProvider):
         "820000",
     ]
 
-    def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[GenderType] = None) -> str:
+    def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[SexLiteral] = None) -> str:
         """
         Return 18 character chinese personal identity code
 
