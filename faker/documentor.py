@@ -1,7 +1,7 @@
 import inspect
 import warnings
-from enum import Enum, auto
 
+from enum import Enum, auto
 from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 from .generator import Generator

@@ -1,6 +1,6 @@
-import pytest
-
 from enum import Enum, auto
+
+import pytest
 
 from faker.providers.python import EmptyEnumException
 
@@ -49,4 +49,3 @@ class TestEnumProvider:
         not_an_enum_type = type("NotAnEnumType")
         with pytest.raises(TypeError):
             faker.enum(not_an_enum_type)
-

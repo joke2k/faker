@@ -3,12 +3,12 @@ import string
 import sys
 import warnings
 
-from enum import Enum
 from decimal import Decimal
+from enum import Enum
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
-from .. import BaseProvider, ElementsType
 from ...exceptions import BaseFakerException
+from .. import BaseProvider, ElementsType
 
 TypesNames = List[str]
 TypesSpec = Union[List[Type], Tuple[Type, ...]]
@@ -437,13 +437,11 @@ class Provider(BaseProvider):
             raise ValueError("'enum_cls' cannot be None")
 
         if not issubclass(enum_cls, Enum):
-            raise TypeError(f"'enum_cls' must be an Enum type")
+            raise TypeError("'enum_cls' must be an Enum type")
 
         members: List[TEnum] = list(cast(Iterable[TEnum], enum_cls))
 
         if len(members) < 1:
-            raise EmptyEnumException(
-                f"The provided Enum: '{enum_cls.__name__}' has no members."
-            )
+            raise EmptyEnumException(f"The provided Enum: '{enum_cls.__name__}' has no members.")
 
         return self.random_element(members)
