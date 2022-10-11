@@ -2,7 +2,7 @@ import pytest
 
 from enum import Enum, auto
 
-from faker.providers.enum import EmptyEnumException
+from faker.providers.python import EmptyEnumException
 
 
 class _TestEnumWithNoElements(Enum):
