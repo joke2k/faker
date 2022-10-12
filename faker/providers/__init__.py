@@ -1,7 +1,12 @@
 import re
 import string
 
-from typing import Any, Collection, List, Optional, OrderedDict, Sequence, TypeVar, Union
+from typing import Any, Collection, List, Optional, Sequence, TypeVar, Union
+
+try:
+    from typing import OrderedDict
+except ImportError:
+    from typing_extensions import OrderedDict
 
 from ..generator import Generator
 from ..utils.distribution import choices_distribution, choices_distribution_unique
