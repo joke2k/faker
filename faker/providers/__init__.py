@@ -314,6 +314,12 @@ class BaseProvider:
         :sample: min=0, max=15, step=3
         """
         return self.generator.random.randrange(min, max + 1, step)
+    
+    # Added for fix to review
+    def random_float(self, min: float = 0.0, max: float = 9999.0) -> float:
+        """ Generates a random float between two floats min and max 
+        """
+        return self.generator.random.uniform(min, max)
 
     def random_digit(self) -> int:
         """Generate a random digit (0 to 9)."""

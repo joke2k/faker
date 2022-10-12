@@ -148,7 +148,8 @@ class Provider(BaseProvider):
             sign = "+" if positive else self.random_element(("+", "-"))
             left_number = self.random_number(left_digits)
 
-        result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
+        result = float(f"{sign}{left_number}{self.random_number(right_digits)}")
+
         if positive and result == 0:
             if right_digits:
                 result = float("0." + "0" * (right_digits - 1) + "1")
@@ -178,7 +179,7 @@ class Provider(BaseProvider):
         if min_value == max_value:
             return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
-            return self.random_int(int(min_value), int(max_value - 1))
+            return self.random_float(min_value, max_value)
 
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
