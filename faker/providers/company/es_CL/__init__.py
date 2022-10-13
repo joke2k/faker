@@ -413,7 +413,7 @@ class Provider(CompanyProvider):
         ),
     )
 
-    company_prefixes: ElementsType = (
+    company_prefixes: ElementsType[str] = (
         "Corporación",
         "Compañía",
         "Comercial",
@@ -426,7 +426,7 @@ class Provider(CompanyProvider):
         "Proyectos",
     )
 
-    company_suffixes: ElementsType = (
+    company_suffixes: ElementsType[str] = (
         "Sociedad Anónima",
         "Limitada",
         "S.A.",

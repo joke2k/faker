@@ -6,14 +6,14 @@ localized = True
 
 
 class Provider(BaseProvider):
-    formats: ElementsType = ["{{first_name}} {{last_name}}"]
+    formats: ElementsType[str] = ["{{first_name}} {{last_name}}"]
 
-    first_names: ElementsType = ["John", "Jane"]
+    first_names: ElementsType[str] = ["John", "Jane"]
 
-    last_names: ElementsType = ["Doe"]
+    last_names: ElementsType[str] = ["Doe"]
 
     # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-    language_names: ElementsType = [
+    language_names: ElementsType[str] = [
         "Afar",
         "Abkhazian",
         "Avestan",

@@ -6,15 +6,15 @@ localized = True
 
 
 class Provider(BaseProvider):
-    formats: ElementsType = (
+    formats: ElementsType[str] = (
         "{{last_name}} {{company_suffix}}",
         "{{last_name}}-{{last_name}}",
         "{{last_name}}, {{last_name}} and {{last_name}}",
     )
 
-    company_suffixes: ElementsType = ("Inc", "and Sons", "LLC", "Group", "PLC", "Ltd")
+    company_suffixes: ElementsType[str] = ("Inc", "and Sons", "LLC", "Group", "PLC", "Ltd")
 
-    catch_phrase_words: Tuple[ElementsType, ...] = (
+    catch_phrase_words: Tuple[ElementsType[str], ...] = (
         (
             "Adaptive",
             "Advanced",
@@ -328,7 +328,7 @@ class Provider(BaseProvider):
         ),
     )
 
-    bsWords: Tuple[ElementsType, ...] = (
+    bsWords: Tuple[ElementsType[str], ...] = (
         (
             "implement",
             "utilize",

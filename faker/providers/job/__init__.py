@@ -6,7 +6,7 @@ localized = True
 
 
 class Provider(BaseProvider):
-    jobs: ElementsType = (
+    jobs: ElementsType[str] = (
         "Academic librarian",
         "Accommodation manager",
         "Accountant, chartered",

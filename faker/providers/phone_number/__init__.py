@@ -15,7 +15,7 @@ localized = True
 
 class Provider(BaseProvider):
 
-    country_calling_codes: ElementsType = (
+    country_calling_codes: ElementsType[str] = (
         "+93",
         "+358 18",
         "+355",
@@ -319,9 +319,9 @@ class Provider(BaseProvider):
         "+263",
     )
 
-    formats: ElementsType = ("###-###-###",)
+    formats: ElementsType[str] = ("###-###-###",)
 
-    msisdn_formats: ElementsType = ("#############",)
+    msisdn_formats: ElementsType[str] = ("#############",)
 
     def phone_number(self) -> str:
         return self.numerify(self.random_element(self.formats))

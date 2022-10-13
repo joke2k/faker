@@ -156,7 +156,7 @@ class Provider(BaseProvider):
         )
     )
 
-    safe_colors: ElementsType = (
+    safe_colors: ElementsType[str] = (
         "black",
         "maroon",
         "green",

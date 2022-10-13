@@ -56,9 +56,9 @@ class _IPv4Constants:
 
 
 class Provider(BaseProvider):
-    safe_domain_names: ElementsType = ("example.org", "example.com", "example.net")
-    free_email_domains: ElementsType = ("gmail.com", "yahoo.com", "hotmail.com")
-    tlds: ElementsType = (
+    safe_domain_names: ElementsType[str] = ("example.org", "example.com", "example.net")
+    free_email_domains: ElementsType[str] = ("gmail.com", "yahoo.com", "hotmail.com")
+    tlds: ElementsType[str] = (
         "com",
         "com",
         "com",
@@ -70,7 +70,7 @@ class Provider(BaseProvider):
         "net",
         "org",
     )
-    hostname_prefixes: ElementsType = (
+    hostname_prefixes: ElementsType[str] = (
         "db",
         "srv",
         "desktop",
@@ -79,7 +79,7 @@ class Provider(BaseProvider):
         "email",
         "web",
     )
-    uri_pages: ElementsType = (
+    uri_pages: ElementsType[str] = (
         "index",
         "home",
         "search",
@@ -95,7 +95,7 @@ class Provider(BaseProvider):
         "privacy",
         "author",
     )
-    uri_paths: ElementsType = (
+    uri_paths: ElementsType[str] = (
         "app",
         "main",
         "wp-content",
@@ -109,7 +109,7 @@ class Provider(BaseProvider):
         "list",
         "explore",
     )
-    uri_extensions: ElementsType = (
+    uri_extensions: ElementsType[str] = (
         ".html",
         ".html",
         ".html",
@@ -120,7 +120,7 @@ class Provider(BaseProvider):
         ".jsp",
         ".asp",
     )
-    http_methods: ElementsType = (
+    http_methods: ElementsType[str] = (
         "GET",
         "HEAD",
         "POST",
@@ -132,28 +132,28 @@ class Provider(BaseProvider):
         "PATCH",
     )
 
-    user_name_formats: ElementsType = (
+    user_name_formats: ElementsType[str] = (
         "{{last_name}}.{{first_name}}",
         "{{first_name}}.{{last_name}}",
         "{{first_name}}##",
         "?{{last_name}}",
     )
-    email_formats: ElementsType = (
+    email_formats: ElementsType[str] = (
         "{{user_name}}@{{domain_name}}",
         "{{user_name}}@{{free_email_domain}}",
     )
-    url_formats: ElementsType = (
+    url_formats: ElementsType[str] = (
         "www.{{domain_name}}/",
         "{{domain_name}}/",
     )
-    uri_formats: ElementsType = (
+    uri_formats: ElementsType[str] = (
         "{{url}}",
         "{{url}}{{uri_page}}/",
         "{{url}}{{uri_page}}{{uri_extension}}",
         "{{url}}{{uri_path}}/{{uri_page}}/",
         "{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}",
     )
-    image_placeholder_services: ElementsType = (
+    image_placeholder_services: ElementsType[str] = (
         "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
         "https://placekitten.com/{width}/{height}",
