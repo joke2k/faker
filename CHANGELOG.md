@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.1 - 2022-10-13](https://github.com/joke2k/faker/compare/v15.1.0...v15.1.1)
+
+* Fix ImportError on python <3.7.2. Thanks @matthewhughes934.
+
 ### [v15.1.0 - 2022-10-11](https://github.com/joke2k/faker/compare/v15.0.0...v15.1.0)
 
 * Add enum provider. Thanks @NazarioJL.
