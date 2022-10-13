@@ -404,7 +404,7 @@ class BaseProvider:
 
     def random_elements(
         self,
-        elements: ElementsType = ("a", "b", "c"),
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
@@ -508,10 +508,10 @@ class BaseProvider:
 
     @staticmethod
     def filter_by_length(
-        elements: ElementsType = ("a", "b", "c"),
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
         max_element_length: Optional[int] = None,
         min_element_length: Optional[int] = None,
-    ) -> ElementsType:
+    ) -> ElementsType[T]:
         """Filters for elements in ``elements`` that satisfy the given length constraints.
         ``max_element_length`` sets the maximal length of an individual element in ``elements``.
         ``min_element_length`` sets the minimal length of an individual element in ``elements``."""
@@ -542,7 +542,11 @@ class BaseProvider:
 
         return appropriate_elements
 
-    def random_choices(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_choices(
+        self,
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
+        length: Optional[int] = None,
+    ) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -594,7 +598,11 @@ class BaseProvider:
             max_element_length=max_element_length,
         )[0]
 
-    def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_sample(
+        self,
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
+        length: Optional[int] = None
+    ) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
