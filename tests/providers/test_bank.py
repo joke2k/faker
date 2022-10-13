@@ -372,7 +372,7 @@ class TestElGr:
             assert re.fullmatch(r"\d{2}\d{23}", iban[2:])
 
 
-class TestenIn:
+class TestEnIn:
     """Test en_IN bank provider"""
 
     def test_bank(self, faker, num_samples):
