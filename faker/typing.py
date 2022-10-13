@@ -13,7 +13,7 @@ if sys.version_info >= (3, 9):
 elif sys.version_info >= (3, 7, 2):
     from typing import OrderedDict as OrderedDictType
 else:
-    from typing_extensions import OrderedDict as OrderedDictType
+    from typing_extensions import OrderedDict as OrderedDictType  # NOQA
 
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = TypeVar("HueType", str, float, Sequence[int])
