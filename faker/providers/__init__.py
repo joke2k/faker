@@ -519,17 +519,23 @@ class BaseProvider:
         appropriate_elements = []
         min_element_length = min_element_length or 0
 
+        def length(element):
+            if hasattr(element, "__len__"):
+                return len(element)
+            else:
+                return len(str(element))
+
         if min_element_length and max_element_length:
             for element in elements:
-                if min_element_length <= len(element) <= max_element_length:
+                if min_element_length <= length(length) <= max_element_length:
                     appropriate_elements.append(element)
         elif min_element_length:
             for element in elements:
-                if len(element) >= min_element_length:
+                if length(element) >= min_element_length:
                     appropriate_elements.append(element)
         elif max_element_length:
             for element in elements:
-                if len(element) <= max_element_length:
+                if length(element) <= max_element_length:
                     appropriate_elements.append(element)
 
         if not appropriate_elements:
