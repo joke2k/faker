@@ -1,9 +1,11 @@
 import re
 import string
 
-from typing import Any, Collection, List, Optional, OrderedDict, Sequence, TypeVar, Union
+from collections import OrderedDict
+from typing import Any, Collection, List, Optional, Sequence, TypeVar, Union
 
 from ..generator import Generator
+from ..typing import OrderedDictType
 from ..utils.distribution import choices_distribution, choices_distribution_unique
 
 _re_hash = re.compile(r"#")
@@ -15,7 +17,7 @@ _re_cir = re.compile(r"\^")
 
 S = TypeVar("S")
 T = TypeVar("T")
-ElementsType = Union[Collection[T], OrderedDict[T, float]]
+ElementsType = Union[Collection[T], OrderedDictType[T, float]]
 
 
 class BaseProvider:
