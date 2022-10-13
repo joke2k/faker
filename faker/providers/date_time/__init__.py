@@ -72,7 +72,7 @@ for name, sym in [
 
 
 class Provider(BaseProvider):
-    centuries: ElementsType = [
+    centuries: ElementsType[str] = [
         "I",
         "II",
         "III",
