@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Optional
 
 from ..th import Provider as AddressProvider
 
@@ -354,27 +353,27 @@ class Provider(AddressProvider):
 
     city_suffixes = ("นคร",)
 
-    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_prefix(self) -> str:
         """
         :example: 'ถนน'
         """
-        return self.random_element(self.street_prefixes, min_length, max_length)
+        return self.random_element(self.street_prefixes)
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def administrative_unit(self) -> str:
         """
         :example: 'อุบลราชธานี'
         """
-        return self.random_element(self.provinces, min_length, max_length)
+        return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def amphoe(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def amphoe(self) -> str:
         """
         Get a random Amphoe (district) name.
         Currently it's total random and not necessarily matched with a province.
         :example: 'บางสะพานน้อย'
         """
-        return self.random_element(self.amphoes, min_length, max_length)
+        return self.random_element(self.amphoes)
 
     def tambon(self) -> str:
         """
@@ -387,5 +386,5 @@ class Provider(AddressProvider):
             + f"{self.random_element(self.tambon_suffixes)}"
         )
 
-    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.cities, min_length, max_length)
+    def city_name(self) -> str:
+        return self.random_element(self.cities)

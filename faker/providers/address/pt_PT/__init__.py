@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as AddressProvider
 
 
@@ -1556,40 +1554,40 @@ class Provider(AddressProvider):
         "do Sobreirinho",
     )
 
-    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_prefix(self) -> str:
         """
         :example: 'Rua'
         """
-        return self.random_element(self.street_prefixes, min_length, max_length)
+        return self.random_element(self.street_prefixes)
 
-    def city_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def city_name(self) -> str:
         """
         :example: 'Amora'
         """
-        return self.random_element(self.cities, min_length, max_length)
+        return self.random_element(self.cities)
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def administrative_unit(self) -> str:
         """
         :example: 'Bragança'
         """
-        return self.random_element(self.distritos, min_length, max_length)
+        return self.random_element(self.distritos)
 
     distrito = administrative_unit
 
-    def concelho(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def concelho(self) -> str:
         """
         :example: 'Tondela'
         """
-        return self.random_element(self.concelhos, min_length, max_length)
+        return self.random_element(self.concelhos)
 
-    def freguesia(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def freguesia(self) -> str:
         """
         :example: 'Miranda do Douro'
         """
-        return self.random_element(self.freguesias, min_length, max_length)
+        return self.random_element(self.freguesias)
 
-    def place_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def place_name(self) -> str:
         """
         :example: "do Pombal"
         """
-        return self.random_element(self.places, min_length, max_length)
+        return self.random_element(self.places)

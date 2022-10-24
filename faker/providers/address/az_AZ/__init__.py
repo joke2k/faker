@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as AddressProvider
 
 
@@ -616,71 +614,71 @@ class Provider(AddressProvider):
         """
         return self.numerify(self.random_element(self.house_number_formats))
 
-    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def city(self):
         """
         :example: 'Xankəndi'
         """
-        return self.random_element(self.cities, min_length, max_length)
+        return self.random_element(self.cities)
 
-    def city_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def city_suffix(self):
         """
         :example: 'ş.'
         """
-        return self.random_element(self.city_suffixes, min_length, max_length)
+        return self.random_element(self.city_suffixes)
 
-    def street(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street(self):
         """
         :example: 'A.AĞAYEV'
         """
-        return self.random_element(self.streets, min_length, max_length)
+        return self.random_element(self.streets)
 
-    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_suffix(self):
         """
         :example: 'küç.'
         """
-        return self.random_element(self.street_suffixes, min_length, max_length)
+        return self.random_element(self.street_suffixes)
 
-    def village(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def village(self):
         """
         :example: 'Didivar'
         """
-        return self.random_element(self.villages, min_length, max_length)
+        return self.random_element(self.villages)
 
-    def village_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def village_suffix(self):
         """
         :example: 'k.'
         """
-        return self.random_element(self.village_suffixes, min_length, max_length)
+        return self.random_element(self.village_suffixes)
 
-    def district(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def district(self):
         """
         :example: 'Babək'
         """
-        return self.random_element(self.districts, min_length, max_length)
+        return self.random_element(self.districts)
 
-    def district_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def district_suffix(self):
         """
         :example: 'r.'
         """
-        return self.random_element(self.district_suffixes, min_length, max_length)
+        return self.random_element(self.district_suffixes)
 
-    def settlement(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def settlement(self):
         """
         :example: 'Horadiz'
         """
-        return self.random_element(self.settlements, min_length, max_length)
+        return self.random_element(self.settlements)
 
-    def settlement_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def settlement_suffix(self):
         """
         :example: 'qəs.'
         """
-        return self.random_element(self.settlement_suffixes, min_length, max_length)
+        return self.random_element(self.settlement_suffixes)
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def administrative_unit(self):
         """
         :example: 'Xankəndi'
         """
-        return self.random_element(self.districts + self.cities, min_length, max_length)
+        return self.random_element(self.districts + self.cities)
 
     def postcode(self):
         """

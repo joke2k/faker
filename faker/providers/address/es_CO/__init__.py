@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 from ..es import Provider as AddressProvider
 
@@ -1242,45 +1242,45 @@ class Provider(AddressProvider):
     ]
     postcode_formats = ["{{department_code}}####"]
 
-    def department_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def department_code(self) -> str:
         """
         :example: "11"
         """
-        return self.random_element(self.departments.keys(), min_length, max_length)
+        return self.random_element(self.departments.keys())
 
-    def department(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def department(self) -> str:
         """
         :example: "Bogotá, D.C."
         """
-        return self.random_element(list(self.departments.values()), min_length, max_length)
+        return self.random_element(list(self.departments.values()))
 
     administrative_unit = department
 
-    def municipality_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def municipality_code(self) -> str:
         """
         :example: "11001"
         """
-        return self.random_element(self.municipalities, min_length, max_length)[0]  # type: ignore
+        return self.random_element(self.municipalities)[0]  # type: ignore
 
-    def municipality(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def municipality(self) -> str:
         """
         :example: "Bogotá, D.C."
         """
-        return self.random_element(self.municipalities, min_length, max_length)[1]  # type: ignore
+        return self.random_element(self.municipalities)[1]  # type: ignore
 
     city = municipality
 
-    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_prefix(self) -> str:
         """
         :example: "Calle"
         """
-        return self.random_element(self.street_prefixes, min_length, max_length)
+        return self.random_element(self.street_prefixes)
 
-    def street_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_suffix(self) -> str:
         """
         :example: "Sur"
         """
-        return self.generator.parse(self.random_element(self.street_prefixes, min_length, max_length))
+        return self.generator.parse(self.random_element(self.street_suffixes))
 
     def street_name(self) -> str:
         """
