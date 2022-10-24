@@ -2,7 +2,7 @@ import re
 import string
 
 from collections import OrderedDict
-from typing import Any, Collection, List, Optional, Sequence, TypeVar, Union
+from typing import Any, Collection, List, Optional, Sequence, Tuple, TypeVar, Union
 
 from ..generator import Generator
 from ..typing import OrderedDictType
@@ -15,9 +15,8 @@ _re_at = re.compile(r"@")
 _re_qm = re.compile(r"\?")
 _re_cir = re.compile(r"\^")
 
-S = TypeVar("S")
 T = TypeVar("T")
-ElementsType = Union[Collection[T], OrderedDictType[T, float]]
+ElementsType = Union[Collection[str], Collection[T], OrderedDictType[T, float]]
 
 
 class BaseProvider:
@@ -406,7 +405,7 @@ class BaseProvider:
 
     def random_elements(
         self,
-        elements: ElementsType = ("a", "b", "c"),
+        elements: ElementsType[T] = ("a", "b", "c"),
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
@@ -499,7 +498,7 @@ class BaseProvider:
             length=length,
         )
 
-    def random_choices(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_choices(self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -523,7 +522,7 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self, elements: ElementsType[S] = ("a", "b", "c")) -> S:
+    def random_element(self, elements: ElementsType[T] = ("a", "b", "c")) -> T:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -542,7 +541,7 @@ class BaseProvider:
 
         return self.random_elements(elements, length=1)[0]
 
-    def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_sample(self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
