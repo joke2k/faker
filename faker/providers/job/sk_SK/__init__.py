@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as JobProvider
 
 
@@ -512,5 +510,5 @@ class Provider(JobProvider):
         "Šľachtiteľ rastlín / genetik",
     )
 
-    def job(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.jobs, min_length, max_length)
+    def job(self) -> str:
+        return self.random_element(self.jobs)
