@@ -300,10 +300,10 @@ class BaseProvider:
             )
         )
 
-    def language_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def language_code(self) -> str:
         """Generate a random i18n language code (e.g. en)."""
 
-        return self.random_element(BaseProvider.language_locale_codes.keys(), min_length, max_length)
+        return self.random_element(BaseProvider.language_locale_codes.keys())
 
     def random_int(self, min: int = 0, max: int = 9999, step: int = 1) -> int:
         """Generate a random integer between two integers ``min`` and ``max`` inclusive
@@ -410,13 +410,8 @@ class BaseProvider:
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
-        min_element_length: Optional[int] = None,
-        max_element_length: Optional[int] = None,
     ) -> Sequence[T]:
         """Generate a list of randomly sampled objects from ``elements``.
-        ``max_element_length`` sets the maximal length of an individual element in ``elements``.
-        ``min_element_length`` sets the minimal length of an individual element in ``elements``.
-        All elements which do not meet these criteria will be ignored at the random selection.
 
         Set ``unique`` to ``False`` for random sampling with replacement, and set ``unique`` to
         ``True`` for random sampling without replacement.
@@ -471,14 +466,10 @@ class BaseProvider:
                        ("d", 0.05),
                    ]), unique=True
         """
+        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
+
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
             raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
-
-        # Check for max and min
-        if max_element_length or min_element_length:
-            elements = self.filter_by_length(elements, max_element_length, min_element_length)
-
-        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
 
         fn = choices_distribution_unique if unique else choices_distribution
 
@@ -508,42 +499,6 @@ class BaseProvider:
             length=length,
         )
 
-    @staticmethod
-    def filter_by_length(
-        elements: ElementsType = ("a", "b", "c"),
-        max_element_length: Optional[int] = None,
-        min_element_length: Optional[int] = None,
-    ) -> ElementsType:
-        """Filters for elements in ``elements`` that satisfy the given length constraints.
-        ``max_element_length`` sets the maximal length of an individual element in ``elements``.
-        ``min_element_length`` sets the minimal length of an individual element in ``elements``."""
-
-        appropriate_elements = []
-        min_element_length = min_element_length or 0
-
-        if min_element_length and max_element_length:
-            for element in elements:
-                if min_element_length <= len(element) <= max_element_length:
-                    appropriate_elements.append(element)
-        elif min_element_length:
-            for element in elements:
-                if len(element) >= min_element_length:
-                    appropriate_elements.append(element)
-        elif max_element_length:
-            for element in elements:
-                if len(element) <= max_element_length:
-                    appropriate_elements.append(element)
-
-        if not appropriate_elements:
-            error_message = (
-                f"No elements found that satisfy the given length constraints of {min_element_length} <= length"
-            )
-            if max_element_length:
-                error_message += f" <= {max_element_length}"
-            raise ValueError(error_message)
-
-        return appropriate_elements
-
     def random_choices(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
@@ -568,12 +523,7 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(
-        self,
-        elements: ElementsType[S] = ("a", "b", "c"),  # type: ignore[assignment]
-        min_element_length: Optional[int] = None,
-        max_element_length: Optional[int] = None,
-    ) -> S:
+    def random_element(self, elements: ElementsType[S] = ("a", "b", "c")) -> S:
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
@@ -589,12 +539,8 @@ class BaseProvider:
                      ("d", 0.05),
                  ])
         """
-        return self.random_elements(
-            elements,
-            length=1,
-            min_element_length=min_element_length,
-            max_element_length=max_element_length,
-        )[0]
+
+        return self.random_elements(elements, length=1)[0]
 
     def random_sample(self, elements: ElementsType = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
@@ -765,9 +711,9 @@ class DynamicProvider(BaseProvider):
         """Add new element."""
         self.elements.append(element)
 
-    def get_random_value(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Any:
+    def get_random_value(self) -> Any:
 
         if not self.elements or len(self.elements) == 0:
             raise ValueError("Elements should be a list of values the provider samples from")
 
-        return self.random_element(self.elements, min_length, max_length)
+        return self.random_element(self.elements)
