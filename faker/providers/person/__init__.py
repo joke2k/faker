@@ -1,5 +1,3 @@
-from typing import Sequence
-
 from .. import BaseProvider, ElementsType
 
 localized = True
