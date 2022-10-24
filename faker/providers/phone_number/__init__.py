@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import BaseProvider, ElementsType
 
 # Data source
@@ -326,8 +324,8 @@ class Provider(BaseProvider):
     def phone_number(self) -> str:
         return self.numerify(self.random_element(self.formats))
 
-    def country_calling_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.country_calling_codes, min_length, max_length)
+    def country_calling_code(self) -> str:
+        return self.random_element(self.country_calling_codes)
 
     def msisdn(self) -> str:
         """https://en.wikipedia.org/wiki/MSISDN"""
