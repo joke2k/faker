@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from .. import Provider as CompanyProvider
 
@@ -1097,17 +1096,17 @@ class Provider(CompanyProvider):
             adj_second = adj_second[:-2] + "ое"
         return adj_first + " и " + adj_second + " " + noun
 
-    def large_company(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def large_company(self) -> str:
         """
         :example: 'АвтоВАЗ'
         """
-        return self.random_element(self.large_companies, min_length, max_length)
+        return self.random_element(self.large_companies)
 
-    def company_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def company_prefix(self) -> str:
         """
         :example: 'ООО'
         """
-        return self.random_element(self.company_prefixes, min_length, max_length)
+        return self.random_element(self.company_prefixes)
 
     def businesses_inn(self) -> str:
         """

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as CompanyProvider
 
 
@@ -511,14 +509,14 @@ class Provider(CompanyProvider):
         "Hermes Partners",
     )
 
-    def large_company(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def large_company(self) -> str:
         """
         :example: 'Bol.com'
         """
-        return self.random_element(self.large_companies, min_length, max_length)
+        return self.random_element(self.large_companies)
 
-    def company_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def company_prefix(self) -> str:
         """
         :example: 'Stichting'
         """
-        return self.random_element(self.company_prefixes, min_length, max_length)
+        return self.random_element(self.company_prefixes)
