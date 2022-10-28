@@ -269,7 +269,11 @@ class Provider(BaseProvider):
         if hasattr(self, "prefixes"):
             return self.random_element(self.prefixes)  # type: ignore[attr-defined]
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
-            prefixes = add_ordereddicts(self.prefixes_male, self.prefixes_female, self.prefixes_nonbinary)  # type: ignore[attr-defined]
+            prefixes = add_ordereddicts(
+                self.prefixes_male,
+                self.prefixes_female,
+                self.prefixes_nonbinary,
+            )  # type: ignore[attr-defined]
             return self.random_element(prefixes)
         if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female"):
             prefixes = self.random_element((self.prefixes_male, self.prefixes_female))  # type: ignore[attr-defined]
@@ -295,7 +299,11 @@ class Provider(BaseProvider):
         if hasattr(self, "suffixes"):
             return self.random_element(self.suffixes)  # type: ignore[attr-defined]
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
-            suffixes = add_ordereddicts(self.suffixes_male, self.suffixes_female, self.suffixes_nonbinary)  # type: ignore[attr-defined]
+            suffixes = add_ordereddicts(
+                self.suffixes_male,
+                self.suffixes_female,
+                self.suffixes_nonbinary,
+            )  # type: ignore[attr-defined]
             return self.random_element(suffixes)
         if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female"):
             suffixes = self.random_element((self.suffixes_male, self.suffixes_female))  # type: ignore[attr-defined]
