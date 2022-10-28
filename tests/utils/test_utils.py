@@ -9,7 +9,6 @@ import faker
 from faker.config import META_PROVIDERS_MODULES, PROVIDERS
 from faker.generator import random
 from faker.utils.checksums import calculate_luhn, luhn_checksum
-from faker.utils.datasets import add_dicts
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
 from faker.utils.loading import find_available_locales, find_available_providers, get_path
 
@@ -52,14 +51,6 @@ class UtilsTestCase(unittest.TestCase):
 
         samples = choices_distribution_unique(a, p, length=4)
         assert len(set(samples)) == len(samples)
-
-    def test_add_dicts(self):
-        t1 = {"a": 1, "b": 2}
-        t2 = {"b": 1, "c": 3}
-        t3 = {"d": 4}
-
-        result = add_dicts(t1, t2, t3)
-        assert result == {"a": 1, "c": 3, "b": 3, "d": 4}
 
     def test_get_path(self):
         result = get_path(faker)
