@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.3 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.2...v15.1.3)
+
+*  Fix pyfloat causing ValueError. Thanks @confuzeus.
+
 ### [v15.1.2 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.1...v15.1.2)
 
 * Fix missing return in `en_US` `state_abbr`. Thanks @AssenD.
