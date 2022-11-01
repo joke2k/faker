@@ -493,7 +493,7 @@ class Provider(AddressProvider):
             If False, only states will be returned.
         """
         if include_territories:
-            self.random_element(self.states_and_territories_abbr)
+            return self.random_element(self.states_and_territories_abbr)
         return self.random_element(self.states_abbr)
 
     def postcode(self) -> str:
