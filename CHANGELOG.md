@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.2 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.1...v15.1.2)
+
+* Fix missing return in `en_US` `state_abbr`. Thanks @AssenD.
+
 ### [v15.1.1 - 2022-10-13](https://github.com/joke2k/faker/compare/v15.1.0...v15.1.1)
 
 * Fix ImportError on python <3.7.2. Thanks @matthewhughes934.
