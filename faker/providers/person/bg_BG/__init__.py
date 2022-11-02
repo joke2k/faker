@@ -1781,7 +1781,7 @@ class Provider(PersonProvider):
         )
     )
 
-    formats = deepcopy(formats_male)
+    formats = deepcopy(formats_male)  # Use the deepcopy(), Luke! copy() leads to the dark side!!
     formats.update(formats_female)
 
     first_names = first_names_male + first_names_female
