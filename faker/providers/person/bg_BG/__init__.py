@@ -1,3 +1,6 @@
+from collections import OrderedDict
+from copy import deepcopy
+
 from .. import Provider as PersonProvider
 
 
@@ -1748,20 +1751,38 @@ class Provider(PersonProvider):
         "Плюцова",
         "Балканска",
     )
+    # the prefixes are from here:
+    # https://publications.europa.eu/code/bg/bg-5000300.htm
+    # and https://publications.europa.eu/code/bg/bg-4100400.htm
 
-    prefixes_female = ("Г-жа", "Г-ца", "Др.")
-    prefixes_male = ("Г-н", "Др.")
+    prefixes_female = ("г-жа", "г-ца")
+    prefixes_male = ("г-н",)
+    titles = ("д-р", "проф.", "арх.", "инж.")
 
-    formats_female = (
-        "{{first_name_female}} {{last_name_female}}",
-        "{{prefix_female}} {{first_name_female}} {{last_name_female}}",
+    formats_female = OrderedDict(
+        (
+            ("{{first_name_female}} {{last_name_female}}", 0.50),
+            ("{{first_name_female}} {{last_name_female}} {{last_name_female}}", 0.20),
+            ("{{prefix_female}} {{first_name_female}} {{last_name_female}}", 0.10),
+            ("{{title}} {{first_name_female}} {{last_name_female}}", 0.10),
+            ("{{prefix_female}} {{last_name_female}}", 0.05),
+            ("{{title}} {{last_name_female}}", 0.05),
+        )
     )
 
-    formats_male = (
-        "{{first_name_male}} {{last_name_male}}",
-        "{{prefix_female}} {{first_name_male}} {{last_name_male}}",
+    formats_male = OrderedDict(
+        (
+            ("{{first_name_male}} {{last_name_male}}", 0.50),
+            ("{{first_name_male}} {{last_name_male}} {{last_name_male}}", 0.20),
+            ("{{prefix_male}} {{first_name_male}} {{last_name_male}}", 0.10),
+            ("{{title}} {{first_name_male}} {{last_name_male}}", 0.10),
+            ("{{prefix_male}} {{last_name_male}}", 0.05),
+            ("{{title}} {{last_name_male}}", 0.05),
+        )
     )
 
-    formats = formats_male + formats_female
+    formats = deepcopy(formats_male)
+    formats.update(formats_female)
+
     first_names = first_names_male + first_names_female
     last_names = last_names_male + last_names_female
