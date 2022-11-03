@@ -14,8 +14,8 @@ from faker.providers.color.es_ES import Provider as EsEsColorProvider
 from faker.providers.color.fa_IR import Provider as FaIrColorProvider
 from faker.providers.color.he_IL import Provider as HeILColorProvider
 from faker.providers.color.hy_AM import Provider as HyAmColorProvider
-from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 from faker.providers.color.id_ID import Provider as IdIdColorProvider
+from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 
 
 class TestColorProvider:
@@ -353,6 +353,7 @@ class TestHeIl:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in HeILColorProvider.safe_colors
+
 
 class TestIdId:
     """Test id_ID color provider methods"""
