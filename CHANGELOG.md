@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.5 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.4...v15.1.5)
+
+* Fix type variable inside the `ElementsType`. Thanks @nils-van-zuijlen.
+
 ### [v15.1.4 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.3...v15.1.4)
 
 * Remove test dependency on `random2`.
