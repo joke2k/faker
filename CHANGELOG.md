@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.1.4 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.3...v15.1.4)
+
+* Remove test dependency on `random2`.
+
 ### [v15.1.3 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.2...v15.1.3)
 
 *  Fix pyfloat causing ValueError. Thanks @confuzeus.
