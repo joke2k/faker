@@ -405,7 +405,7 @@ class BaseProvider:
 
     def random_elements(
         self,
-        elements: ElementsType[T] = ("a", "b", "c"),
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
         length: Optional[int] = None,
         unique: bool = False,
         use_weighting: Optional[bool] = None,
@@ -498,7 +498,11 @@ class BaseProvider:
             length=length,
         )
 
-    def random_choices(self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_choices(
+        self,
+        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
+        length: Optional[int] = None,
+    ) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` with replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to
@@ -541,7 +545,9 @@ class BaseProvider:
 
         return self.random_elements(elements, length=1)[0]
 
-    def random_sample(self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None) -> Sequence[T]:
+    def random_sample(
+        self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None  # type: ignore[assignment]
+    ) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 
         For information on the ``elements`` and ``length`` arguments, please refer to

@@ -557,7 +557,7 @@ class Provider(AddressProvider):
     )
 
     # Some streets are named by plants
-    plant_street_names: ElementsType = (
+    plant_street_names: ElementsType[str] = (
         "Los Cactus",
         "Los Laureles",
         "Los Piñones",

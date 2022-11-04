@@ -20,7 +20,7 @@ class EmptyEnumException(BaseFakerException):
 
 
 class Provider(BaseProvider):
-    default_value_types: ElementsType = (
+    default_value_types: ElementsType[str] = (
         "str",
         "str",
         "str",

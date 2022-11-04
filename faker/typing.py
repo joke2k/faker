@@ -1,3 +1,4 @@
+import dataclasses
 import sys
 
 from datetime import date, datetime, timedelta
@@ -19,3 +20,13 @@ DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = TypeVar("HueType", str, float, Sequence[int])
 SexLiteral = Literal["M", "F"]
 SeedType = Union[int, float, str, bytes, bytearray, None]
+
+
+@dataclasses.dataclass
+class Country:
+    name: str
+    timezones: Sequence[str]
+    alpha_2_code: str
+    alpha_3_code: str
+    continent: str
+    capital: str

@@ -5,7 +5,7 @@ from .. import Provider as BaseProvider
 class Provider(BaseProvider):
     # Source:
     # https://www.ilo.org/public/spanish/bureau/stat/isco/docs/struct08.xls
-    jobs: ElementsType = (
+    jobs: ElementsType[str] = (
         "Abogado",
         "Acarreador de agua",
         "Recolector de leña",
