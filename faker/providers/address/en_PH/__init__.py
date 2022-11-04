@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from string import ascii_uppercase
-from typing import Sequence, Tuple, Union
+from typing import Sequence, Union
 
 from ... import ElementsType
 from .. import Provider as AddressProvider
