@@ -546,9 +546,7 @@ class BaseProvider:
         return self.random_elements(elements, length=1)[0]
 
     def random_sample(
-        self,
-        elements: ElementsType[T] = ("a", "b", "c"),  # type: ignore[assignment]
-        length: Optional[int] = None
+        self, elements: ElementsType[T] = ("a", "b", "c"), length: Optional[int] = None  # type: ignore[assignment]
     ) -> Sequence[T]:
         """Generate a list of objects randomly sampled from ``elements`` without replacement.
 

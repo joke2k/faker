@@ -12,13 +12,13 @@ class Provider(BaseProvider):
     address_formats: ElementsType[str] = ("{{street_address}} {{postcode}} {{city}}",)
     building_number_formats: ElementsType[str] = ("##",)
     postcode_formats: ElementsType[str] = ("#####",)
-    countries: ElementsType[str] = [tz["name"] for tz in date_time.Provider.countries]
+    countries: ElementsType[str] = [country.name for country in date_time.Provider.countries]
 
     ALPHA_2 = "alpha-2"
     ALPHA_3 = "alpha-3"
 
-    alpha_2_country_codes: ElementsType[str] = [tz["alpha-2-code"] for tz in date_time.Provider.countries]
-    alpha_3_country_codes: ElementsType[str] = [tz["alpha-3-code"] for tz in date_time.Provider.countries]
+    alpha_2_country_codes: ElementsType[str] = [country.alpha_2_code for country in date_time.Provider.countries]
+    alpha_3_country_codes: ElementsType[str] = [country.alpha_3_code for country in date_time.Provider.countries]
 
     def city_suffix(self) -> str:
         """
@@ -92,7 +92,7 @@ class Provider(BaseProvider):
     def current_country(self) -> str:
         current_country_code = self.current_country_code()
         current_country = [
-            tz["name"] for tz in date_time.Provider.countries if tz["alpha-2-code"] == current_country_code
+            country.name for country in date_time.Provider.countries if country.alpha_2_code == current_country_code
         ]
         if len(current_country) == 1:
             return current_country[0]  # type: ignore
