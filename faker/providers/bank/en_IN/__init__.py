@@ -44,6 +44,6 @@ class Provider(BankProvider):
         "Yes Bank",
     )
 
-    def bank(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def bank(self) -> str:
         """Generate a bank name."""
-        return self.random_element(self.banks, min_length, max_length)
+        return self.random_element(self.banks)
