@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.3.0 - 2022-11-07](https://github.com/joke2k/faker/compare/v15.2.0...v15.3.0)
+
+* Add color provider for `id_ID`. Thanks @rosdyana.
+
 ### [v15.2.0 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.5...v15.2.0)
 
 * Add banks for `en_IN` locale. Thanks @ChiragMangukia.
