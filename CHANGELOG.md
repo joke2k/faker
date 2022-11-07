@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.3.1 - 2022-11-07](https://github.com/joke2k/faker/compare/v15.3.0...v15.3.1)
+
+* Update the `word_list` for `pl_PL`. Thanks @BeRT2me.
+
 ### [v15.3.0 - 2022-11-07](https://github.com/joke2k/faker/compare/v15.2.0...v15.3.0)
 
 * Add color provider for `id_ID`. Thanks @rosdyana.
