@@ -25,7 +25,7 @@ class Factory:
         cls,
         locale: Optional[str] = None,
         providers: Optional[List[str]] = None,
-        generator: Generator = None,
+        generator: Optional[Generator] = None,
         includes: Optional[List[str]] = None,
         # Should we use weightings (more realistic) or weight every element equally (faster)?
         # By default, use weightings for backwards compatibility & realism

@@ -1900,7 +1900,7 @@ class Provider(BaseProvider):
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
-    def date_object(self, end_datetime: datetime = None) -> dtdate:
+    def date_object(self, end_datetime: Optional[datetime] = None) -> dtdate:
         """
         Get a date object between January 1, 1970 and now
         :example: datetime.date(2016, 9, 20)

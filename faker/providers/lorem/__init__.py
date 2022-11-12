@@ -26,7 +26,7 @@ class Provider(BaseProvider):
     def words(
         self,
         nb: int = 3,
-        part_of_speech: str = None,
+        part_of_speech: Optional[str] = None,
         ext_word_list: Optional[Sequence[str]] = None,
         unique: bool = False,
     ) -> List[str]:
@@ -73,7 +73,7 @@ class Provider(BaseProvider):
         samples = cast(List[str], self.random_choices(word_list, length=nb))
         return samples
 
-    def word(self, part_of_speech: str = None, ext_word_list: Optional[Sequence[str]] = None) -> str:
+    def word(self, part_of_speech: Optional[str] = None, ext_word_list: Optional[Sequence[str]] = None) -> str:
         """Generate a word.
 
         This method uses |words| under the hood with the ``nb`` argument set to

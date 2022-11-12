@@ -488,7 +488,7 @@ class Provider(BaseProvider):
             delimiter="|",
         )
 
-    def json(self, data_columns: List = None, num_rows: int = 10, indent: int = None) -> str:
+    def json(self, data_columns: Optional[List] = None, num_rows: int = 10, indent: Optional[int] = None) -> str:
         """
         Generate random JSON structure values.
 
@@ -590,7 +590,7 @@ class Provider(BaseProvider):
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
         return json.dumps(data, indent=indent)
 
-    def fixed_width(self, data_columns: list = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
 
