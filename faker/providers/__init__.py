@@ -22,7 +22,7 @@ ElementsType = Union[Collection[str], Collection[T], OrderedDictType[T, float]]
 class BaseProvider:
 
     __provider__ = "base"
-    __lang__ = None
+    __lang__: Optional[str] = None
     __use_weighting__ = False
 
     # Locales supported by Linux Mint from `/usr/share/i18n/SUPPORTED`

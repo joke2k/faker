@@ -162,7 +162,7 @@ jobs:
       uses: liskin/gh-problem-matcher-wrap@v1
       with:
         linters: mypy
-        run: mypy --show-column-numbers --install-types --non-interactive --config mypy.ini faker
+        run: mypy --install-types --non-interactive --config mypy.ini faker
 
   test_ubuntu:
     runs-on: ubuntu-latest
