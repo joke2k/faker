@@ -42,9 +42,9 @@ Here's a list of Providers written by the community:
 +---------------+---------------------------+----------------------------------+
 | Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.        | `faker_wifi_essid`_              |
 +---------------+---------------------------+----------------------------------+
-| Optional      | Wrap over other           | `faker_optional`_                |
-|               | providers to return       |                                  |
-|               | their value or `None`.    |                                  |
+| Optional      | Small wrapper around      | `optional_faker`_                |
+|               | faker, to make values     |                                  |
+|               | optional!                 |                                  |
 +---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
@@ -71,4 +71,4 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_vehicle: https://pypi.org/project/faker-vehicle/
 .. _faker_web: https://pypi.org/project/faker_web/
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
-.. _faker_optional: https://pypi.org/project/faker-optional
+.. _optional_faker: https://pypi.org/project/optional_faker
