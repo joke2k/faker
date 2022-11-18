@@ -70,9 +70,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
-        """Generate a random SHA1 hash.
+        """Generate a random SHA-1 hash.
 
-        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-1 hash
         will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
 
         :sample: raw_output=False
@@ -84,9 +84,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
-        """Generate a random SHA256 hash.
+        """Generate a random SHA-256 hash.
 
-        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-256 hash
         will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
 
         :sample: raw_output=False
