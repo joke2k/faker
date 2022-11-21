@@ -153,8 +153,6 @@ class Faker:
         elif len(factories) == 1:
             return factories[0]
 
-        if Generator._global_seed is not Sentinel:
-            random.seed(Generator._global_seed)  # type: ignore
         if weights:
             factory = self._select_factory_distribution(factories, weights)
         else:

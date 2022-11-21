@@ -131,10 +131,14 @@ class TestFakerProxyClass:
     def test_seed_class_locales(self):
         Faker.seed(2043)
         fake = Faker(["en_GB", "fr_FR", "en_IN"])
-        name = fake.name()
+        first_list = [fake.name() for _ in range(5)]
 
-        for _ in range(5):
-            assert fake.name() == name
+        Faker.seed(2043)
+        fake = Faker(["en_GB", "fr_FR", "en_IN"])
+        second_list = [fake.name() for _ in range(5)]
+
+        assert first_list == second_list
+
 
     def test_seed_instance(self):
         locale = ["de_DE", "en-US", "en-PH", "ja_JP"]
