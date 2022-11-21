@@ -130,12 +130,14 @@ class TestFakerProxyClass:
 
     def test_seed_class_locales(self):
         Faker.seed(2043)
+        count = 5
         fake = Faker(["en_GB", "fr_FR", "en_IN"])
-        first_list = [fake.name() for _ in range(5)]
+        first_list = [fake.name() for _ in range(count)]
+        assert len(set(first_list)) == count
 
         Faker.seed(2043)
         fake = Faker(["en_GB", "fr_FR", "en_IN"])
-        second_list = [fake.name() for _ in range(5)]
+        second_list = [fake.name() for _ in range(count)]
 
         assert first_list == second_list
 
