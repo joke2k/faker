@@ -141,7 +141,6 @@ class TestFakerProxyClass:
 
         assert first_list == second_list
 
-
     def test_seed_instance(self):
         locale = ["de_DE", "en-US", "en-PH", "ja_JP"]
         fake = Faker(locale)
