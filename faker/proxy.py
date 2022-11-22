@@ -21,16 +21,12 @@ class Faker:
 
     cache_pattern: Pattern = re.compile(r"^_cached_\w*_mapping$")
     generator_attrs = [
-        attr
-        for attr in dir(Generator)
-        if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
+        attr for attr in dir(Generator) if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
     ]
 
     def __init__(
         self,
-        locale: Optional[
-            Union[str, Sequence[str], Dict[str, Union[int, float]]]
-        ] = None,
+        locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
         providers: Optional[List[str]] = None,
         generator: Optional[Generator] = None,
         includes: Optional[List[str]] = None,
@@ -99,10 +95,7 @@ class Faker:
         :return: the appropriate attribute
         """
         if attr == "seed":
-            msg = (
-                "Calling `.seed()` on instances is deprecated. "
-                "Use the class method `Faker.seed()` instead."
-            )
+            msg = "Calling `.seed()` on instances is deprecated. " "Use the class method `Faker.seed()` instead."
             raise TypeError(msg)
         else:
             return super().__getattribute__(attr)
@@ -117,10 +110,7 @@ class Faker:
         if len(self._factories) == 1:
             return getattr(self._factories[0], attr)
         elif attr in self.generator_attrs:
-            msg = (
-                "Proxying calls to `%s` is not implemented in multiple locale mode."
-                % attr
-            )
+            msg = "Proxying calls to `%s` is not implemented in multiple locale mode." % attr
             raise NotImplementedError(msg)
         elif self.cache_pattern.match(attr):
             msg = "Cached attribute `%s` does not exist" % attr
@@ -137,9 +127,7 @@ class Faker:
         result._factory_map = copy.deepcopy(self._factory_map)
         result._weights = copy.deepcopy(self._weights)
         result._unique_proxy = UniqueProxy(self)
-        result._unique_proxy._seen = {
-            k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()
-        }
+        result._unique_proxy._seen = {k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()}
         return result
 
     def __setstate__(self, state: Any) -> None:
@@ -177,9 +165,7 @@ class Faker:
     def _select_factory_choice(self, factories):
         return random.choice(factories)
 
-    def _map_provider_method(
-        self, method_name: str
-    ) -> Tuple[List[Factory], Optional[List[float]]]:
+    def _map_provider_method(self, method_name: str) -> Tuple[List[Factory], Optional[List[float]]]:
         """
         Creates a 2-tuple of factories and weights for the given provider method name
 
@@ -329,9 +315,7 @@ class UniqueProxy:
                     break
                 retval = function(*args, **kwargs)
             else:
-                raise UniquenessException(
-                    f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations."
-                )
+                raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
 
             generated.add(retval)
 

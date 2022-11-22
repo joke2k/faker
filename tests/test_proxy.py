@@ -133,6 +133,8 @@ class TestFakerProxyClass:
         count = 5
         fake = Faker(["en_GB", "fr_FR", "en_IN"])
         first_list = [fake.name() for _ in range(count)]
+        # We convert the list to a set to remove duplicates and ensure
+        # that we have exactly `count` unique fake values
         assert len(set(first_list)) == count
 
         Faker.seed(2043)
