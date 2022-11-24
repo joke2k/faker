@@ -592,7 +592,7 @@ class Provider(BaseProvider):
 
     def mac_address(self) -> str:
         mac = [self.generator.random.randint(0x00, 0xFF) for _ in range(0, 6)]
-        return ":".join(map(lambda x: "%02x" % x, mac))
+        return ":".join("%02x" % x for x in mac)
 
     def port_number(self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False) -> int:
         """Returns a network port number
