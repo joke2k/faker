@@ -211,22 +211,22 @@ class TestJaJP(unittest.TestCase):
         first_name_pair = self.fake.first_name_pair()
         assert first_name_pair
         assert len(first_name_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_pair))
+        assert all(isinstance(s, str) for s in first_name_pair)
 
         first_name_male_pair = self.fake.first_name_male_pair()
         assert first_name_male_pair
         assert len(first_name_male_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_male_pair))
+        assert all(isinstance(s, str) for s in first_name_male_pair)
 
         first_name_female_pair = self.fake.first_name_female_pair()
         assert first_name_female_pair
         assert len(first_name_female_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), first_name_female_pair))
+        assert all(isinstance(s, str) for s in first_name_female_pair)
 
         last_name_pair = self.fake.last_name_pair()
         assert last_name_pair
         assert len(last_name_pair) == 3
-        assert all(map(lambda s: isinstance(s, str), last_name_pair))
+        assert all(isinstance(s, str) for s in last_name_pair)
 
 
 class TestNeNP(unittest.TestCase):
