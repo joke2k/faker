@@ -1,7 +1,8 @@
 """it_IT ssn provider (yields italian fiscal codes)"""
 
-from string import ascii_uppercase, digits
 import unicodedata
+
+from string import ascii_uppercase, digits
 
 from .. import Provider as SsnProvider
 

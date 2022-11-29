@@ -15,7 +15,6 @@ from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
 
 from faker import Factory, Faker
-from faker.providers.person.it_IT import Provider as ItPersonProvider
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
