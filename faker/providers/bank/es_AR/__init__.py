@@ -2,7 +2,8 @@ from .. import Provider as BankProvider
 
 
 class Provider(BankProvider):
-    """Implement bank provider for ``es_AR`` locale."""
+    """Implement bank provider for ``es_AR`` locale.
+    source: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Activos.asp"""
 
     bban_format = "????####################"
     country_code = "AR"
