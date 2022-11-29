@@ -68,7 +68,7 @@ def latinize(value: str) -> str:
 
     def replace_greek_character(match):
         matched = list(match.group(0))
-        value = map(lambda letter: replace[search.find(letter)], matched)
+        value = (replace[search.find(char)] for char in matched)
         return "".join(value)
 
     return re.sub(
