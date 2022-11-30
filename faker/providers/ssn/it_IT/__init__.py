@@ -1,5 +1,7 @@
 """it_IT ssn provider (yields italian fiscal codes)"""
 
+import unicodedata
+
 from string import ascii_uppercase, digits
 
 from .. import Provider as SsnProvider
@@ -8051,6 +8053,8 @@ class Provider(SsnProvider):
         else:
             name = self.generator.first_name_female().upper()
 
+        name = self._transliterate_name(name)
+
         if len(name) < 3:
             return self._pad_shorter(name)
 
@@ -8074,6 +8078,8 @@ class Provider(SsnProvider):
             str
         """
         surname = self.generator.last_name().upper()
+        surname = self._transliterate_name(surname)
+
         if len(surname) < 3:
             return self._pad_shorter(surname)
 
@@ -8085,6 +8091,11 @@ class Provider(SsnProvider):
         else:
             surname_part = "".join(surname_consonants)[:3]
         return surname_part
+
+    @staticmethod
+    def _transliterate_name(name: str) -> str:
+        nfkd_form: str = unicodedata.normalize("NFKD", name)
+        return "".join([c for c in nfkd_form if unicodedata.combining(c) == 0])
 
     @staticmethod
     def _get_vowels(sequence: str) -> list:
