@@ -110,6 +110,19 @@ class FactoryTestCase(unittest.TestCase):
         finally:
             sys.stdout = orig_stdout
 
+    def test_cli_no_args(self):
+        from faker.cli import Command
+
+        orig_stderr = sys.stderr
+        try:
+            sys.stderr = io.StringIO()
+            command = Command(["faker"])
+            with pytest.raises(SystemExit):
+                command.execute()
+            assert "Try 'faker --help'" in sys.stderr.getvalue()
+        finally:
+            sys.stderr = orig_stderr
+
     def test_unknown_provider(self):
         with pytest.raises(ModuleNotFoundError) as excinfo:
             Factory.create(providers=["dummy_provider"])

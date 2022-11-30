@@ -267,6 +267,10 @@ examples:
             "first argument)",
         )
 
+        if not self.argv[1:]:
+            parser.print_usage(sys.stderr)
+            parser.exit(2, f"Try '{self.prog_name} --help' for more information.\n")
+
         arguments = parser.parse_args(self.argv[1:])
 
         if arguments.verbose:
