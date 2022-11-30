@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v15.3.4 - 2022-11-30](https://github.com/joke2k/faker/compare/v15.3.3...v15.3.4)
+
+* Fix `it_IT` `SSN` generation with latin chars in name or surname. Thanks @panicofr. 
+
 ### [v15.3.3 - 2022-11-22](https://github.com/joke2k/faker/compare/v15.3.2...v15.3.3)
 
 * Fix seeding with multiple locales. Thanks @johntmyers.
