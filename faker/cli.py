@@ -112,23 +112,6 @@ def print_doc(
         for provider, fakers in formatters:
             print_provider(doc, provider, fakers, output=output)
 
-        for language in AVAILABLE_LOCALES:
-            if language == lang:
-                continue
-            print(file=output)
-            print(f"## LANGUAGE {language}", file=output)
-            fake = Faker(locale=language)
-            fake.seed_instance(seed)
-            d = documentor.Documentor(fake)
-
-            for p, fs in d.get_formatters(
-                with_args=True,
-                with_defaults=True,
-                locale=language,
-                excludes=base_provider_formatters + unsupported,
-            ):
-                print_provider(d, p, fs, output=output)
-
 
 class Command:
     def __init__(self, argv: Optional[str] = None) -> None:
