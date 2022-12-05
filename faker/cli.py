@@ -1,8 +1,10 @@
 import argparse
+import itertools
 import logging
 import os
 import random
 import sys
+import textwrap
 
 from io import TextIOWrapper
 from pathlib import Path
@@ -34,11 +36,18 @@ def print_provider(
     print(f"### {doc.get_provider_name(provider)}", file=output)
     print(file=output)
 
+    margin = max(30, doc.max_name_len + 2)
     for signature, example in formatters.items():
         if signature in excludes:
             continue
+        signature_lines = textwrap.wrap(signature, width=margin, subsequent_indent="  ")
         try:
-            lines = str(example).expandtabs().splitlines()
+            lines = textwrap.wrap(
+                str(example).expandtabs(),
+                width=150 - margin,
+                initial_indent="# ",
+                subsequent_indent="  ",
+            )
         except UnicodeDecodeError:
             # The example is actually made of bytes.
             # We could coerce to bytes, but that would fail anyway when we wiil
@@ -46,16 +55,8 @@ def print_provider(
             lines = ["<bytes>"]
         except UnicodeEncodeError:
             raise Exception(f"error on {signature!r} with value {example!r}")
-        margin = max(30, doc.max_name_len + 1)
-        remains = 150 - margin
-        separator = "#"
-        for line in lines:
-            for i in range(0, (len(line) // remains) + 1):
-                print(
-                    f"\t{signature:<{margin}}{separator} {line[i * remains:(i + 1) * remains]}",
-                    file=output,
-                )
-                signature = separator = " "
+        for left, right in itertools.zip_longest(signature_lines, lines, fillvalue=""):
+            print(f"\t{left:<{margin}}  {right}", file=output)
 
 
 def print_doc(
