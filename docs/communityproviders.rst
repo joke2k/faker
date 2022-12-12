@@ -21,7 +21,7 @@ Here's a list of Providers written by the community:
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
-| Faker File    | Generate files with fake  | `faker-file`_                    |                          
+| Faker File    | Generate files with fake  | `faker-file`_                    |
 |               | content                   |                                  |
 +---------------+---------------------------+----------------------------------+
 | Geoscience    | Earth sciences-related    | `faker_geoscience`_              |
