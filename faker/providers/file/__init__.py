@@ -9,7 +9,7 @@ from .. import BaseProvider, ElementsType
 class Provider(BaseProvider):
     """Implement default file provider for Faker."""
 
-    application_mime_types: ElementsType = (
+    application_mime_types: ElementsType[str] = (
         "application/atom+xml",  # Atom feeds
         "application/ecmascript",
         # ECMAScript/JavaScript; Defined in RFC 4329 (equivalent to
@@ -49,7 +49,7 @@ class Provider(BaseProvider):
         "application/gzip",  # Gzip, Defined in RFC 6713
     )
 
-    audio_mime_types: ElementsType = (
+    audio_mime_types: ElementsType[str] = (
         "audio/basic",  # mulaw audio at 8 kHz, 1 channel; Defined in RFC 2046
         "audio/L24",  # 24bit Linear PCM audio at 8-48 kHz, 1-N channels; Defined in RFC 3190
         "audio/mp4",  # MP4 audio
@@ -62,7 +62,7 @@ class Provider(BaseProvider):
         "audio/webm",  # WebM open media format
     )
 
-    image_mime_types: ElementsType = (
+    image_mime_types: ElementsType[str] = (
         "image/gif",  # GIF image; Defined in RFC 2045 and RFC 2046
         "image/jpeg",  # JPEG JFIF image; Defined in RFC 2045 and RFC 2046
         "image/pjpeg",
@@ -76,7 +76,7 @@ class Provider(BaseProvider):
         "image/vnd.microsoft.icon",  # ICO image; Registered[11]
     )
 
-    message_mime_types: ElementsType = (
+    message_mime_types: ElementsType[str] = (
         "message/http",  # Defined in RFC 2616
         "message/imdn+xml",  # IMDN Instant Message Disposition Notification; Defined in RFC 5438
         "message/partial",  # Email; Defined in RFC 2045 and RFC 2046
@@ -85,7 +85,7 @@ class Provider(BaseProvider):
         "message/rfc822",
     )
 
-    model_mime_types: ElementsType = (
+    model_mime_types: ElementsType[str] = (
         "model/example",  # Defined in RFC 4735
         "model/iges",  # IGS files, IGES files; Defined in RFC 2077
         "model/mesh",  # MSH files, MESH files; Defined in RFC 2077, SILO files
@@ -97,7 +97,7 @@ class Provider(BaseProvider):
         "model/x3d+xml",  # X3D ISO standard for representing 3D computer graphics, X3D XML files
     )
 
-    multipart_mime_types: ElementsType = (
+    multipart_mime_types: ElementsType[str] = (
         "multipart/mixed",  # MIME Email; Defined in RFC 2045 and RFC 2046
         "multipart/alternative",  # MIME Email; Defined in RFC 2045 and RFC 2046
         # MIME Email; Defined in RFC 2387 and used by MHTML (HTML mail)
@@ -107,7 +107,7 @@ class Provider(BaseProvider):
         "multipart/encrypted",  # Defined in RFC 1847
     )
 
-    text_mime_types: ElementsType = (
+    text_mime_types: ElementsType[str] = (
         "text/cmd",  # commands; subtype resident in Gecko browsers like Firefox 3.5
         "text/css",  # Cascading Style Sheets; Defined in RFC 2318
         "text/csv",  # Comma-separated values; Defined in RFC 4180
@@ -123,7 +123,7 @@ class Provider(BaseProvider):
         "text/xml",  # Extensible Markup Language; Defined in RFC 3023
     )
 
-    video_mime_types: ElementsType = (
+    video_mime_types: ElementsType[str] = (
         "video/mpeg",  # MPEG-1 video with multiplexed audio; Defined in RFC 2045 and RFC 2046
         "video/mp4",  # MP4 video; Defined in RFC 4337
         # Ogg Theora or other video (with audio); Defined in RFC 5334
@@ -135,7 +135,7 @@ class Provider(BaseProvider):
         "video/x-flv",  # Flash video (FLV files)
     )
 
-    mime_types: Dict[str, ElementsType] = OrderedDict(
+    mime_types: Dict[str, ElementsType[str]] = OrderedDict(
         (
             ("application", application_mime_types),
             ("audio", audio_mime_types),
@@ -148,13 +148,13 @@ class Provider(BaseProvider):
         )
     )
 
-    audio_file_extensions: ElementsType = (
+    audio_file_extensions: ElementsType[str] = (
         "flac",
         "mp3",
         "wav",
     )
 
-    image_file_extensions: ElementsType = (
+    image_file_extensions: ElementsType[str] = (
         "bmp",
         "gif",
         "jpeg",
@@ -163,7 +163,7 @@ class Provider(BaseProvider):
         "tiff",
     )
 
-    text_file_extensions: ElementsType = (
+    text_file_extensions: ElementsType[str] = (
         "css",
         "csv",
         "html",
@@ -172,14 +172,14 @@ class Provider(BaseProvider):
         "txt",
     )
 
-    video_file_extensions: ElementsType = (
+    video_file_extensions: ElementsType[str] = (
         "mp4",
         "avi",
         "mov",
         "webm",
     )
 
-    office_file_extensions: ElementsType = (
+    office_file_extensions: ElementsType[str] = (
         "doc",  # legacy MS Word
         "docx",  # MS Word
         "xls",  # legacy MS Excel
@@ -195,7 +195,7 @@ class Provider(BaseProvider):
         "pdf",  # Portable Document Format
     )
 
-    file_extensions: Dict[str, ElementsType] = OrderedDict(
+    file_extensions: Dict[str, ElementsType[str]] = OrderedDict(
         (
             ("audio", audio_file_extensions),
             ("image", image_file_extensions),
@@ -204,7 +204,7 @@ class Provider(BaseProvider):
             ("video", video_file_extensions),
         )
     )
-    unix_device_prefixes: ElementsType = ("sd", "vd", "xvd")
+    unix_device_prefixes: ElementsType[str] = ("sd", "vd", "xvd")
 
     def mime_type(self, category: Optional[str] = None) -> str:
         """Generate a mime type under the specified ``category``.

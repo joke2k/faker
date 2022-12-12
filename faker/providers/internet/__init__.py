@@ -56,9 +56,9 @@ class _IPv4Constants:
 
 
 class Provider(BaseProvider):
-    safe_domain_names: ElementsType = ("example.org", "example.com", "example.net")
-    free_email_domains: ElementsType = ("gmail.com", "yahoo.com", "hotmail.com")
-    tlds: ElementsType = (
+    safe_domain_names: ElementsType[str] = ("example.org", "example.com", "example.net")
+    free_email_domains: ElementsType[str] = ("gmail.com", "yahoo.com", "hotmail.com")
+    tlds: ElementsType[str] = (
         "com",
         "com",
         "com",
@@ -70,7 +70,7 @@ class Provider(BaseProvider):
         "net",
         "org",
     )
-    hostname_prefixes: ElementsType = (
+    hostname_prefixes: ElementsType[str] = (
         "db",
         "srv",
         "desktop",
@@ -79,7 +79,7 @@ class Provider(BaseProvider):
         "email",
         "web",
     )
-    uri_pages: ElementsType = (
+    uri_pages: ElementsType[str] = (
         "index",
         "home",
         "search",
@@ -95,7 +95,7 @@ class Provider(BaseProvider):
         "privacy",
         "author",
     )
-    uri_paths: ElementsType = (
+    uri_paths: ElementsType[str] = (
         "app",
         "main",
         "wp-content",
@@ -109,7 +109,7 @@ class Provider(BaseProvider):
         "list",
         "explore",
     )
-    uri_extensions: ElementsType = (
+    uri_extensions: ElementsType[str] = (
         ".html",
         ".html",
         ".html",
@@ -120,7 +120,7 @@ class Provider(BaseProvider):
         ".jsp",
         ".asp",
     )
-    http_methods: ElementsType = (
+    http_methods: ElementsType[str] = (
         "GET",
         "HEAD",
         "POST",
@@ -132,28 +132,28 @@ class Provider(BaseProvider):
         "PATCH",
     )
 
-    user_name_formats: ElementsType = (
+    user_name_formats: ElementsType[str] = (
         "{{last_name}}.{{first_name}}",
         "{{first_name}}.{{last_name}}",
         "{{first_name}}##",
         "?{{last_name}}",
     )
-    email_formats: ElementsType = (
+    email_formats: ElementsType[str] = (
         "{{user_name}}@{{domain_name}}",
         "{{user_name}}@{{free_email_domain}}",
     )
-    url_formats: ElementsType = (
+    url_formats: ElementsType[str] = (
         "www.{{domain_name}}/",
         "{{domain_name}}/",
     )
-    uri_formats: ElementsType = (
+    uri_formats: ElementsType[str] = (
         "{{url}}",
         "{{url}}{{uri_page}}/",
         "{{url}}{{uri_page}}{{uri_extension}}",
         "{{url}}{{uri_path}}/{{uri_page}}/",
         "{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}",
     )
-    image_placeholder_services: ElementsType = (
+    image_placeholder_services: ElementsType[str] = (
         "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
         "https://placekitten.com/{width}/{height}",
@@ -181,8 +181,8 @@ class Provider(BaseProvider):
         return email
 
     @lowercase
-    def safe_domain_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.safe_domain_names, min_length, max_length)
+    def safe_domain_name(self) -> str:
+        return self.random_element(self.safe_domain_names)
 
     @lowercase
     def safe_email(self) -> str:
@@ -197,8 +197,8 @@ class Provider(BaseProvider):
         return self.user_name() + "@" + self.domain_name()
 
     @lowercase
-    def free_email_domain(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.free_email_domains, min_length, max_length)
+    def free_email_domain(self) -> str:
+        return self.random_element(self.free_email_domains)
 
     @lowercase
     def ascii_email(self) -> str:
@@ -304,17 +304,17 @@ class Provider(BaseProvider):
 
         return domain + "." + tld
 
-    def tld(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.tlds, min_length, max_length)
+    def tld(self) -> str:
+        return self.random_element(self.tlds)
 
-    def http_method(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def http_method(self) -> str:
         """Returns random HTTP method
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
         :rtype: str
         """
 
-        return self.random_element(self.http_methods, min_length, max_length)
+        return self.random_element(self.http_methods)
 
     def url(self, schemes: Optional[List[str]] = None) -> str:
         """
@@ -530,13 +530,13 @@ class Provider(BaseProvider):
 
         return networks
 
-    def ipv4_network_class(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def ipv4_network_class(self) -> str:
         """
         Returns a IPv4 network class 'a', 'b' or 'c'.
 
         :returns: IPv4 network class
         """
-        return self.random_element("abc", min_length, max_length)
+        return self.random_element("abc")
 
     def ipv4(
         self,
@@ -592,7 +592,7 @@ class Provider(BaseProvider):
 
     def mac_address(self) -> str:
         mac = [self.generator.random.randint(0x00, 0xFF) for _ in range(0, 6)]
-        return ":".join(["%02x" % x for x in mac])
+        return ":".join("%02x" % x for x in mac)
 
     def port_number(self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False) -> int:
         """Returns a network port number
@@ -613,8 +613,8 @@ class Provider(BaseProvider):
 
         return self.random_int(min=0, max=65535)
 
-    def uri_page(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.uri_pages, min_length, max_length)
+    def uri_page(self) -> str:
+        return self.random_element(self.uri_pages)
 
     def uri_path(self, deep: Optional[int] = None) -> str:
         deep = deep if deep else self.generator.random.randint(1, 3)
@@ -622,8 +622,8 @@ class Provider(BaseProvider):
             self.random_elements(self.uri_paths, length=deep),
         )
 
-    def uri_extension(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.uri_extensions, min_length, max_length)
+    def uri_extension(self) -> str:
+        return self.random_element(self.uri_extensions)
 
     def uri(self) -> str:
         pattern: str = self.random_element(self.uri_formats)

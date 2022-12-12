@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as AutomotiveProvider
 
 
@@ -298,9 +296,9 @@ class Provider(AutomotiveProvider):
         pattern: str = self.random_element(self.license_plate_formats)
         return self.generator.parse(pattern)
 
-    def plate_letter(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def plate_letter(self) -> str:
         """Generate a letter for license plates."""
-        return self.random_element(self.license_plate_letters, min_length, max_length)
+        return self.random_element(self.license_plate_letters)
 
     def plate_number(self) -> str:
         """Generate a number for license plates."""
@@ -314,10 +312,10 @@ class Provider(AutomotiveProvider):
         """Generate a special code for license plates."""
         return self.numerify(self.random_element(self.plate_special_formats))
 
-    def plate_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def plate_suffix(self) -> str:
         """Generate a suffix code for license plates."""
-        return self.random_element(self.license_plate_suffix, min_length, max_length)
+        return self.random_element(self.license_plate_suffix)
 
-    def vehicle_category(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def vehicle_category(self) -> str:
         """Generate a vehicle category code for license plates."""
-        return self.random_element(self.vehicle_categories, min_length, max_length)
+        return self.random_element(self.vehicle_categories)

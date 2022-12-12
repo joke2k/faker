@@ -3,7 +3,7 @@ import operator
 
 from typing import List, Optional, Sequence
 
-from ....typing import GenderType
+from ....typing import SexLiteral
 from .. import Provider as SsnProvider
 
 
@@ -30,7 +30,7 @@ class Provider(SsnProvider):
     scale1 = (3, 7, 6, 1, 8, 9, 4, 5, 2)
     scale2 = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-    def ssn(self, dob: Optional[str] = None, gender: Optional[GenderType] = None) -> str:
+    def ssn(self, dob: Optional[str] = None, gender: Optional[SexLiteral] = None) -> str:
         """
         Returns 11 character Norwegian personal identity code (Fødselsnummer).
 

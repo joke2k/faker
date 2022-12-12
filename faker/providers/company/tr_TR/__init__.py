@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as CompanyProvider
 
 
@@ -118,8 +116,8 @@ class Provider(CompanyProvider):
         "Şti.",
     )
 
-    def large_company(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def large_company(self) -> str:
         """
         :example: 'Peak Games'
         """
-        return self.random_element(self.large_companies, min_length, max_length)
+        return self.random_element(self.large_companies)

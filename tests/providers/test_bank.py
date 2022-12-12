@@ -370,3 +370,11 @@ class TestElGr:
             assert is_valid_iban(iban)
             assert iban[:2] == ElGrBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{23}", iban[2:])
+
+
+class TestEnIn:
+    """Test en_IN bank provider"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.match(r"\D{7,25}", faker.bank())

@@ -9,13 +9,12 @@ from unittest import mock
 
 import freezegun
 import pytest
-import random2
 
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
 
-from faker import Faker
+from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
@@ -300,7 +299,6 @@ class TestEnUS(unittest.TestCase):
             assert area != "666"
 
     def test_invalid_ssn(self):
-        self.fake.random = random2.Random()
         # Magic Numbers below generate '666-92-7944', '000-54-2963', '956-GG-9478', '436-00-1386',
         # and 134-76-0000 respectively. The "group" (GG) returned for '956-GG-9478 will be a random
         # number, and that random number is not in the "itin_group_numbers" List. The random GG occurs
@@ -362,7 +360,7 @@ class TestEnUS(unittest.TestCase):
             99,
         ]
 
-        self.fake.seed_instance(1143)
+        self.fake.seed_instance(2432)
         ssn = self.fake.ssn(taxpayer_identification_number_type="INVALID_SSN")
 
         assert len(ssn) == 11
@@ -380,7 +378,7 @@ class TestEnUS(unittest.TestCase):
 
         assert 900 <= int(area) <= 999 and int(group) not in itin_group_numbers
 
-        self.fake.seed_instance(9)
+        self.fake.seed_instance(0)
         ssn = self.fake.ssn(taxpayer_identification_number_type="INVALID_SSN")
         [area, group, serial] = ssn.split("-")
 
@@ -694,6 +692,7 @@ class TestEtEE(unittest.TestCase):
 
     def setUp(self):
         self.fake = Faker("et_EE")
+
         Faker.seed(0)
 
     def test_ssn_checksum(self):
@@ -704,14 +703,12 @@ class TestEtEE(unittest.TestCase):
 
     @freezegun.freeze_time("2019-03-11")
     def test_ssn(self):
-        self.fake.random = random2.Random()
-
-        self.fake.seed_instance(0)
+        self.fake.seed_instance(1)
         value = self.fake.ssn()
         assert re.search(r"^\d{11}$", value)
         assert not value.endswith("0")
 
-        self.fake.seed_instance(5)
+        self.fake.seed_instance(0)
         value = self.fake.ssn()
 
         assert re.search(r"^\d{11}$", value)
@@ -719,8 +716,6 @@ class TestEtEE(unittest.TestCase):
 
     @freezegun.freeze_time("2002-01-01")
     def test_ssn_2000(self):
-        self.fake.random = random2.Random()
-
         self.fake.seed_instance(0)
         value = self.fake.ssn(min_age=0, max_age=1)
         assert re.search(r"^\d{11}$", value)
@@ -728,8 +723,6 @@ class TestEtEE(unittest.TestCase):
 
     @freezegun.freeze_time("2101-01-01")
     def test_ssn_2100(self):
-        self.fake.random = random2.Random()
-
         self.fake.seed_instance(0)
         value = self.fake.ssn(min_age=0, max_age=1)
         assert re.search(r"^\d{11}$", value)
@@ -910,6 +903,13 @@ class TestItIT(unittest.TestCase):
 
     def test_checksum(self) -> None:
         assert it_checksum("MDDMRA80L41H501") == "R"
+
+    def test_ssn_with_latin_chars(self):
+        generator = Factory.create("it_IT")
+        generator.last_name = mock.MagicMock(return_value="Foà")
+        ssn = generator.ssn()
+        self.assertEqual(len(ssn), 16)
+        self.assertEqual(ssn[:3], "FOA")
 
 
 class TestPtBR(unittest.TestCase):

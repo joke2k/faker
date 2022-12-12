@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Tuple
 
 from .. import Provider as AddressProvider
 
@@ -877,18 +877,18 @@ class Provider(AddressProvider):
         ("TO", "Tocantins"),
     )
 
-    def street_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def street_prefix(self) -> str:
         """
         :example: 'rua'
         """
-        return self.random_element(self.street_prefixes, min_length, max_length)
+        return self.random_element(self.street_prefixes)
 
-    def estado(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> Tuple[str, str]:
+    def estado(self) -> Tuple[str, str]:
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example: ('MG' . 'Minas Gerais')
         """
-        return self.random_element(self.estados, min_length, max_length)
+        return self.random_element(self.estados)
 
     def estado_nome(self) -> str:
         """
@@ -904,13 +904,13 @@ class Provider(AddressProvider):
         """
         return self.estado()[0]
 
-    def bairro(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def bairro(self) -> str:
         """
         Randomly returns a bairro (neighborhood) name.
         The names were taken from the city of Belo Horizonte - Minas Gerais
         :example: 'Serra'
         """
-        return self.random_element(self.bairros, min_length, max_length)
+        return self.random_element(self.bairros)
 
     def postcode(self, formatted: bool = True) -> str:
         """

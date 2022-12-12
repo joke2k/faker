@@ -1,7 +1,6 @@
 import string
 
 from datetime import datetime, timedelta
-from typing import Optional
 
 from .. import BaseProvider, ElementsType
 
@@ -11,7 +10,7 @@ _DT_ALMOST_MAX = datetime.max - timedelta(1.0)
 class Provider(BaseProvider):
     """Implement default user agent provider for Faker."""
 
-    user_agents: ElementsType = (
+    user_agents: ElementsType[str] = (
         "chrome",
         "firefox",
         "internet_explorer",
@@ -19,7 +18,7 @@ class Provider(BaseProvider):
         "safari",
     )
 
-    windows_platform_tokens: ElementsType = (
+    windows_platform_tokens: ElementsType[str] = (
         "Windows 95",
         "Windows 98",
         "Windows 98; Win 9x 4.90",
@@ -35,11 +34,11 @@ class Provider(BaseProvider):
         "Windows NT 10.0",
     )
 
-    linux_processors: ElementsType = ("i686", "x86_64")
+    linux_processors: ElementsType[str] = ("i686", "x86_64")
 
-    mac_processors: ElementsType = ("Intel", "PPC", "U; Intel", "U; PPC")
+    mac_processors: ElementsType[str] = ("Intel", "PPC", "U; Intel", "U; PPC")
 
-    android_versions: ElementsType = (
+    android_versions: ElementsType[str] = (
         "1.0",
         "1.1",
         "1.5",
@@ -104,9 +103,9 @@ class Provider(BaseProvider):
         "11",
     )
 
-    apple_devices: ElementsType = ("iPhone", "iPad")
+    apple_devices: ElementsType[str] = ("iPhone", "iPad")
 
-    ios_versions: ElementsType = (
+    ios_versions: ElementsType[str] = (
         "3.1.3",
         "4.2.1",
         "5.1.1",
@@ -121,13 +120,13 @@ class Provider(BaseProvider):
         "14.2.1",
     )
 
-    def mac_processor(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def mac_processor(self) -> str:
         """Generate a MacOS processor token used in user agent strings."""
-        return self.random_element(self.mac_processors, min_length, max_length)
+        return self.random_element(self.mac_processors)
 
-    def linux_processor(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def linux_processor(self) -> str:
         """Generate a Linux processor token used in user agent strings."""
-        return self.random_element(self.linux_processors, min_length, max_length)
+        return self.random_element(self.linux_processors)
 
     def user_agent(self) -> str:
         """Generate a random web browser user agent string."""
@@ -146,7 +145,7 @@ class Provider(BaseProvider):
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
         tmplt: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko)" " Chrome/{2}.0.{3}.0 Safari/{4}"
         tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko)" " CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}"
-        platforms: ElementsType = (
+        platforms: ElementsType[str] = (
             tmplt.format(
                 self.linux_platform_token(),
                 saf,
@@ -188,7 +187,7 @@ class Provider(BaseProvider):
 
     def firefox(self) -> str:
         """Generate a Mozilla Firefox web browser user agent string."""
-        ver: ElementsType = (
+        ver: ElementsType[str] = (
             (
                 f"Gecko/{self.generator.date_time_between(datetime(2011, 1, 1), _DT_ALMOST_MAX)} "
                 f"Firefox/{self.generator.random.randint(4, 15)}.0"
@@ -207,7 +206,7 @@ class Provider(BaseProvider):
         saf: str = "{}.{}".format(self.generator.random.randint(531, 536), self.generator.random.randint(0, 2))
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
         bld2: str = self.lexify(self.numerify("#?####"), string.ascii_lowercase)
-        platforms: ElementsType = (
+        platforms: ElementsType[str] = (
             tmplt_win.format(
                 self.windows_platform_token(),
                 self.generator.locale().replace("_", "-"),
@@ -258,7 +257,7 @@ class Provider(BaseProvider):
             " Mobile/8B{5} Safari/6{6}"
         )
         locale: str = self.generator.locale().replace("_", "-")
-        platforms: ElementsType = (
+        platforms: ElementsType[str] = (
             tmplt_win.format(self.windows_platform_token(), saf, ver, saf),
             tmplt_mac.format(
                 self.mac_platform_token(),
@@ -301,9 +300,9 @@ class Provider(BaseProvider):
             f"Trident/{self.generator.random.randint(3, 5)}.{self.generator.random.randint(0, 1)})"
         )
 
-    def windows_platform_token(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def windows_platform_token(self) -> str:
         """Generate a Windows platform token used in user agent strings."""
-        return self.random_element(self.windows_platform_tokens, min_length, max_length)
+        return self.random_element(self.windows_platform_tokens)
 
     def linux_platform_token(self) -> str:
         """Generate a Linux platform token used in user agent strings."""

@@ -4,16 +4,23 @@ import sys
 import warnings
 
 from decimal import Decimal
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, Union, no_type_check
+from enum import Enum
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
+from ...exceptions import BaseFakerException
 from .. import BaseProvider, ElementsType
 
 TypesNames = List[str]
 TypesSpec = Union[List[Type], Tuple[Type, ...]]
+TEnum = TypeVar("TEnum", bound=Enum)
+
+
+class EmptyEnumException(BaseFakerException):
+    pass
 
 
 class Provider(BaseProvider):
-    default_value_types: ElementsType = (
+    default_value_types: ElementsType[str] = (
         "str",
         "str",
         "str",
@@ -51,20 +58,28 @@ class Provider(BaseProvider):
     def pybool(self) -> bool:
         return self.random_int(0, 1) == 1
 
-    def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20) -> str:
+    def pystr(
+        self,
+        min_chars: Optional[int] = None,
+        max_chars: int = 20,
+        prefix: str = "",
+        suffix: str = "",
+    ) -> str:
         """
         Generates a random string of upper and lowercase letters.
         :return: Random of random length between min and max characters.
         """
         if min_chars is None:
-            return "".join(self.random_letters(length=max_chars))
+            chars = "".join(self.random_letters(length=max_chars))
         else:
             assert max_chars >= min_chars, "Maximum length must be greater than or equal to minimum length"
-            return "".join(
+            chars = "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
                 ),
             )
+
+        return prefix + chars + suffix
 
     def pystr_format(
         self,
@@ -153,6 +168,11 @@ class Provider(BaseProvider):
             result = min(result, 10**left_digits - 1)
             result = max(result, -(10**left_digits + 1))
 
+        # It's possible for the result to end up > than max_value
+        # This is a quick hack to ensure result is always smaller.
+        if max_value is not None:
+            if result > max_value:
+                result = result - (result - max_value)
         return result
 
     def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
@@ -169,7 +189,11 @@ class Provider(BaseProvider):
         if min_value == max_value:
             return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
-            return self.random_int(int(min_value), int(max_value - 1))
+            min_value = int(min_value)
+            max_value = int(max_value - 1)
+            if max_value < min_value:
+                max_value += 1
+            return self.random_int(min_value, max_value)
 
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
@@ -376,7 +400,10 @@ class Provider(BaseProvider):
         )
 
     def pystruct(
-        self, count: int = 10, value_types: Optional[TypesSpec] = None, allowed_types: Optional[TypesSpec] = None
+        self,
+        count: int = 10,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Tuple[List, Dict, Dict]:
         value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
@@ -415,3 +442,24 @@ class Provider(BaseProvider):
                 },
             }
         return types, d, nd
+
+    def enum(self, enum_cls: Type[TEnum]) -> TEnum:
+        """
+        Returns a random enum of the provided input `Enum` type.
+
+        :param enum_cls: The `Enum` type to produce the value for.
+        :returns: A randomly selected enum value.
+        """
+
+        if enum_cls is None:
+            raise ValueError("'enum_cls' cannot be None")
+
+        if not issubclass(enum_cls, Enum):
+            raise TypeError("'enum_cls' must be an Enum type")
+
+        members: List[TEnum] = list(cast(Iterable[TEnum], enum_cls))
+
+        if len(members) < 1:
+            raise EmptyEnumException(f"The provided Enum: '{enum_cls.__name__}' has no members.")
+
+        return self.random_element(members)

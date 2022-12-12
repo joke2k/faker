@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Optional
 
 from .. import Provider as PersonProvider
 
@@ -685,14 +684,14 @@ class Provider(PersonProvider):
         pattern: str = self.random_element(self.romanized_formats)
         return self.generator.parse(pattern)
 
-    def first_romanized_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def first_romanized_name(self) -> str:
         """
         :example: 'Chao'
         """
-        return self.random_element(self.first_romanized_names, min_length, max_length)
+        return self.random_element(self.first_romanized_names)
 
-    def last_romanized_name(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def last_romanized_name(self) -> str:
         """
         :example: 'Chao'
         """
-        return self.random_element(self.last_romanized_names, min_length, max_length)
+        return self.random_element(self.last_romanized_names)

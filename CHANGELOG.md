@@ -1,5 +1,74 @@
 ## Changelog
 
+### [v15.3.4 - 2022-11-30](https://github.com/joke2k/faker/compare/v15.3.3...v15.3.4)
+
+* Fix `it_IT` `SSN` generation with latin chars in name or surname. Thanks @panicofr. 
+
+### [v15.3.3 - 2022-11-22](https://github.com/joke2k/faker/compare/v15.3.2...v15.3.3)
+
+* Fix seeding with multiple locales. Thanks @johntmyers.
+
+### [v15.3.2 - 2022-11-14](https://github.com/joke2k/faker/compare/v15.3.1...v15.3.2)
+
+* Fix implicit Optional issues. Thanks @palfrey.
+
+### [v15.3.1 - 2022-11-07](https://github.com/joke2k/faker/compare/v15.3.0...v15.3.1)
+
+* Update the `word_list` for `pl_PL`. Thanks @BeRT2me.
+
+### [v15.3.0 - 2022-11-07](https://github.com/joke2k/faker/compare/v15.2.0...v15.3.0)
+
+* Add color provider for `id_ID`. Thanks @rosdyana.
+
+### [v15.2.0 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.5...v15.2.0)
+
+* Add banks for `en_IN` locale. Thanks @ChiragMangukia.
+
+### [v15.1.5 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.4...v15.1.5)
+
+* Fix type variable inside the `ElementsType`. Thanks @nils-van-zuijlen.
+
+### [v15.1.4 - 2022-11-04](https://github.com/joke2k/faker/compare/v15.1.3...v15.1.4)
+
+* Remove test dependency on `random2`.
+
+### [v15.1.3 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.2...v15.1.3)
+
+*  Fix pyfloat causing ValueError. Thanks @confuzeus.
+
+### [v15.1.2 - 2022-11-01](https://github.com/joke2k/faker/compare/v15.1.1...v15.1.2)
+
+* Fix missing return in `en_US` `state_abbr`. Thanks @AssenD.
+
+### [v15.1.1 - 2022-10-13](https://github.com/joke2k/faker/compare/v15.1.0...v15.1.1)
+
+* Fix ImportError on python <3.7.2. Thanks @matthewhughes934.
+
+### [v15.1.0 - 2022-10-11](https://github.com/joke2k/faker/compare/v15.0.0...v15.1.0)
+
+* Add enum provider. Thanks @NazarioJL.
+
+### [v15.0.0 - 2022-09-26](https://github.com/joke2k/faker/compare/v14.2.1...v15.0.0)
+
+* Add support for Python 3.10. Thanks @uri-rodberg.
+* Drop support for Python 3.6. Thanks @uri-rodberg.
+
+### [v14.2.1 - 2022-09-22](https://github.com/joke2k/faker/compare/v14.2.0...v14.2.1)
+
+* Fix misspelled first name in `da_DK` locale. Thanks @filson1.
+
+### [v14.2.0 - 2022-08-31](https://github.com/joke2k/faker/compare/v14.1.2...v14.2.0)
+
+* Add support for prefix and suffix to `pystr` provider.Thanks @stefan6419846.
+
+### [v14.1.2 - 2022-08-31](https://github.com/joke2k/faker/compare/v14.1.1...v14.1.2)
+
+*  Fix `uk_UA` `postcode` generation. Thanks @ajinkyac03.
+
+### [v14.1.1 - 2022-08-30](https://github.com/joke2k/faker/compare/v14.1.0...v14.1.1)
+
+* Relax minimum version of `typing-extensions`. Thanks @stefan6419846.
+
 ### [v14.1.0 - 2022-08-17](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
 
 * Add providers for `bn_BD`: `address`, `automotive`, `bank`, `color`, `company`, 

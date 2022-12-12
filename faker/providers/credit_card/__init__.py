@@ -130,7 +130,7 @@ class Provider(BaseProvider):
     def credit_card_provider(self, card_type: Optional[CardType] = None) -> str:
         """Generate a credit card provider name."""
         if card_type is None:
-            card_type = self.random_element(self.credit_card_types.keys())
+            card_type = self.random_element(self.credit_card_types.keys())  # type: ignore[assignment]
         return self._credit_card_type(card_type).name
 
     def credit_card_number(self, card_type: Optional[CardType] = None) -> str:
@@ -182,10 +182,10 @@ class Provider(BaseProvider):
     def _credit_card_type(self, card_type: Optional[CardType] = None) -> CreditCard:
         """Generate a random CreditCard instance of the specified card type."""
         if card_type is None:
-            card_type = self.random_element(self.credit_card_types.keys())
+            card_type = self.random_element(self.credit_card_types.keys())  # type: ignore[assignment]
         elif isinstance(card_type, CreditCard):
             return card_type
-        return self.credit_card_types[card_type]
+        return self.credit_card_types[card_type]  # type: ignore[index]
 
     def _generate_number(self, prefix: str, length: int) -> str:
         """Generate a credit card number.

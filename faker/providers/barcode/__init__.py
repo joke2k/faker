@@ -24,7 +24,7 @@ class Provider(BaseProvider):
         code = [self.random_digit() for _ in range(length - 1)]
 
         if prefixes:
-            prefix: str = self.random_element(prefixes)
+            prefix: str = self.random_element(prefixes)  # type: ignore[assignment]
             code[: len(prefix)] = map(int, prefix)
 
         if length == 8:

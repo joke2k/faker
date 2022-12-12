@@ -325,27 +325,16 @@ class Provider(DateParseTypeProvider):
             thai_digit,
         )
 
-    def century(
-        self,
-        min_length: Optional[int] = None,
-        max_length: Optional[int] = None,
-        thai_digit: bool = False,
-        buddhist_era: bool = True,
-    ) -> str:
+    def century(self, thai_digit: bool = False, buddhist_era: bool = True) -> str:
         """
-        :param min_length: minimum length of the century string (default: None)
-        :param max_length: maximum length of the century string (default: None)
-        :param thai_digit: use Thai digit or not (default: False)
-        :param buddhist_era: use Buddist era or not (default: True)
+        :param thai_digi:t use Thai digit or not (default: False)
+        :param buddhist:_era use Buddist era or not (default: True)
         :example: '20'
         """
         end_century = 22
         if buddhist_era:
             end_century = 26
-
-        elements = [str(i) for i in range(1, end_century)]
-        text: str = self.random_element(elements, min_length, max_length)
-
+        text = str(self.random_element(range(1, end_century)))
         if thai_digit:
             text = text.translate(_HA_TH_DIGITS)
         return text

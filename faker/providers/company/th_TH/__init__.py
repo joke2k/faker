@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Optional
 
 from .. import Provider as CompanyProvider
 
@@ -102,26 +101,26 @@ class Provider(CompanyProvider):
         )
     )
 
-    def company_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def company_prefix(self) -> str:
         """
         :example: 'ห้างหุ้นส่วนจำกัด'
         """
-        return self.random_element(self.company_prefixes, min_length, max_length)
+        return self.random_element(self.company_prefixes)
 
-    def company_limited_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def company_limited_prefix(self) -> str:
         """
         :example: 'บริษัท'
         """
-        return self.random_element(self.company_limited_prefixes, min_length, max_length)
+        return self.random_element(self.company_limited_prefixes)
 
-    def company_limited_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def company_limited_suffix(self) -> str:
         """
         :example: 'จำกัด'
         """
-        return self.random_element(self.company_limited_suffixes, min_length, max_length)
+        return self.random_element(self.company_limited_suffixes)
 
-    def nonprofit_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def nonprofit_prefix(self) -> str:
         """
         :example: 'มูลนิธิ'
         """
-        return self.random_element(self.nonprofit_prefixes, min_length, max_length)
+        return self.random_element(self.nonprofit_prefixes)

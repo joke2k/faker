@@ -1,11 +1,19 @@
 import inspect
 import warnings
 
-from typing import Any, Dict, List, Optional, Tuple, Union
+from enum import Enum, auto
+from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 from .generator import Generator
 from .providers import BaseProvider
 from .proxy import Faker
+
+
+class FakerEnum(Enum):
+    """Required for faker.providers.enum"""
+
+    A = auto
+    B = auto
 
 
 class Documentor:
@@ -52,7 +60,7 @@ class Documentor:
                 continue
 
             arguments = []
-            faker_args: List[str] = []
+            faker_args: List[Union[str, Type[Enum]]] = []
             faker_kwargs = {}
 
             if name == "binary":
@@ -64,6 +72,9 @@ class Documentor:
                         "min_file_size": 512,
                     }
                 )
+
+            if name == "enum":
+                faker_args = [FakerEnum]
 
             if with_args:
                 # retrieve all parameter
