@@ -42,7 +42,7 @@ from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 
 
 def is64bit():
-    return sys.maxsize > 2**32
+    return sys.maxsize > 2 ** 32
 
 
 class UTC(tzinfo):
@@ -272,8 +272,8 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_century(before_now=False, after_now=True)
         ) >= self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.fake.date_time_this_century(before_now=True, after_now=True))
-            >= this_century_start
+                self._datetime_to_time(self.fake.date_time_this_century(before_now=True, after_now=True))
+                >= this_century_start
         )
 
         # test decade
@@ -291,8 +291,8 @@ class TestDateTime(unittest.TestCase):
             self.fake.date_time_this_decade(before_now=False, after_now=False)
         ) == self._datetime_to_time(datetime.now())
         assert (
-            self._datetime_to_time(self.fake.date_time_this_decade(before_now=True, after_now=True))
-            >= this_decade_start
+                self._datetime_to_time(self.fake.date_time_this_decade(before_now=True, after_now=True))
+                >= this_decade_start
         )
         # test year
         assert self._datetime_to_time(self.fake.date_time_this_year(after_now=False)) <= self._datetime_to_time(
@@ -354,25 +354,27 @@ class TestDateTime(unittest.TestCase):
             second=0, microsecond=0
         ) == datetime.now(utc).replace(second=0, microsecond=0)
         assert (
-            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).month == datetime.now(utc).month
-        ) and (
-            self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).year == datetime.now(utc).year
-        )
+                       self.fake.date_time_this_month(before_now=True, after_now=True,
+                                                      tzinfo=utc).month == datetime.now(utc).month
+               ) and (
+                       self.fake.date_time_this_month(before_now=True, after_now=True, tzinfo=utc).year == datetime.now(
+                   utc).year
+               )
 
     @unittest.skipUnless(is64bit(), "requires 64bit")
     def test_date_this_period(self):
         # test century
         assert (
-            self.fake.date_this_century(before_today=True, after_today=True).strftime("%G")[:2]
-            == datetime.now().strftime("%G")[:2]
+                self.fake.date_this_century(before_today=True, after_today=True).strftime("%G")[:2]
+                == datetime.now().strftime("%G")[:2]
         )
         assert self.fake.date_this_century(after_today=False) <= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=True) >= date.today()
         assert self.fake.date_this_century(before_today=False, after_today=False) == date.today()
         # test decade
         assert (
-            self.fake.date_this_decade(before_today=True, after_today=True).strftime("%G")[:3]
-            == datetime.now().strftime("%G")[:3]
+                self.fake.date_this_decade(before_today=True, after_today=True).strftime("%G")[:3]
+                == datetime.now().strftime("%G")[:3]
         )
         assert self.fake.date_this_decade(after_today=False) <= date.today()
         assert self.fake.date_this_decade(before_today=False, after_today=True) >= date.today()
@@ -384,7 +386,7 @@ class TestDateTime(unittest.TestCase):
         assert self.fake.date_this_year(before_today=False, after_today=False) == date.today()
         # test month
         assert (self.fake.date_this_month(before_today=True, after_today=True).month == datetime.now().month) and (
-            self.fake.date_this_month(before_today=True, after_today=True).year == datetime.now().year
+                self.fake.date_this_month(before_today=True, after_today=True).year == datetime.now().year
         )
         assert self.fake.date_this_month(after_today=False) <= date.today()
         assert self.fake.date_this_month(before_today=False, after_today=True) >= date.today()
@@ -1195,7 +1197,8 @@ class TestNoNo(unittest.TestCase):
         assert month in NoNoProvider.MONTH_NAMES.values()
 
 
-class TestFrFr(unittest.TestCase):
+class TestFrFrAndFrCa(unittest.TestCase):
+    # Both fr_FR and fr_CA share the same date format
     def setUp(self):
         self.fake = Faker("fr-FR")
         Faker.seed(0)
