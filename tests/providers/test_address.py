@@ -2225,6 +2225,7 @@ class TestUkUa:
 
 class TestFrCa:
     """Test fr_CA address provider methods"""
+
     def test_province(self, faker, num_samples):
         for _ in range(num_samples):
             province = faker.province()
