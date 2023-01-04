@@ -2228,17 +2228,17 @@ class TestPlPl:
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
-            match = re.findall(r"\d{2}-\d{3}", postcode)
+            match = re.findall(r"^\d{2}-\d{3}$", postcode)
             assert match
 
     def test_zipcode(self, faker, num_samples):
         for _ in range(num_samples):
             zipcode = faker.zipcode()
-            match = re.findall(r"\d{2}-\d{3}", zipcode)
+            match = re.findall(r"^\d{2}-\d{3}$", zipcode)
             assert match
 
     def test_postalcode(self, faker, num_samples):
         for _ in range(num_samples):
             postalcode = faker.postalcode()
-            match = re.findall(r"\d{2}-\d{3}", postalcode)
+            match = re.findall(r"^^\d{2}-\d{3}$$", postalcode)
             assert match
