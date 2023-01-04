@@ -693,5 +693,4 @@ class Provider(AddressProvider):
         """
         return self.postcode()
 
-
     region = administrative_unit
