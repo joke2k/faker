@@ -4,22 +4,28 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        "{{first_name_male}} {{last_name}}",
-        "{{first_name_male}} {{last_name}}",
-        "{{first_name_male}} {{last_name}}",
-        "{{first_name_male}} {{last_name}}",
-        "{{first_name_male}} {{last_name}}-{{last_name}}",
+
+    formats_female = (
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}-{{last_name}}",
-        "{{prefix_male}} {{first_name_male}} {{last_name}}",
         "{{prefix_female}} {{first_name_female}} {{last_name}}",
-        "{{prefix_male}} {{first_name_male}} {{last_name}}",
         "{{prefix_female}} {{first_name_female}} {{last_name}}",
     )
+
+    formats_male = (
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}-{{last_name}}",
+        "{{prefix_male}} {{first_name_male}} {{last_name}}",
+        "{{prefix_male}} {{first_name_male}} {{last_name}}",
+    )
+
+    formats = formats_female + formats_male
 
     # Names from
     # http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-243767

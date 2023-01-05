@@ -9,6 +9,7 @@ from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.en import Provider as EnProvider
+from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
 from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
@@ -858,6 +859,36 @@ class TestPtPt(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         assert last_name in PtPtProvider.last_names
+
+
+class TestEnGB(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("en_GB")
+        Faker.seed(0)
+
+    def test_first_name_female(self):
+        name = self.fake.first_name_female()
+        assert name in EnGBProvider.first_names_female
+
+    def test_first_name_male(self):
+        name = self.fake.first_name_male()
+        assert name in EnGBProvider.first_names_male
+
+    def test_name_female(self):
+        full_name = self.fake.name_female()
+        first_name = self.get_first_name_from_full_name(full_name)
+        assert first_name in EnGBProvider.first_names_female
+
+    def test_name_male(self):
+        full_name = self.fake.name_male()
+        first_name = self.get_first_name_from_full_name(full_name)
+        assert first_name in EnGBProvider.first_names_male
+
+    def get_first_name_from_full_name(self, full_name):
+        names = full_name.split(" ")
+        if len(names) == 2:
+            return names[0]
+        return names[1]
 
 
 class TestUs(unittest.TestCase):
