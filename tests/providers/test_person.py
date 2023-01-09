@@ -15,10 +15,12 @@ from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
+from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
+from faker.providers.person.nl_BE import Provider as NlBEProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
 from faker.providers.person.pl_PL import Provider as PlPLProvider
 from faker.providers.person.pl_PL import checksum_identity_card_number as pl_checksum_identity_card_number
@@ -148,6 +150,61 @@ class TestAzAz(unittest.TestCase):
         assert name in AzAzProvider.last_names_male
 
 
+class TestNlBE(unittest.TestCase):
+    """Tests person in the nl-BE locale"""
+
+    def setUp(self):
+        self.fake = Faker("nl-BE")
+        self.provider = NlBEProvider
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+    def test_last_name(self):
+        assert not hasattr(self.provider, "last_names_male")
+        assert not hasattr(self.provider, "last_names_female")
+        # All last names apply for all genders.
+        assert hasattr(self.provider, "last_names")
+
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+        assert name in self.provider.last_names
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+
 class TestJaJP(unittest.TestCase):
     """Tests person in the ja_JP locale"""
 
@@ -244,6 +301,61 @@ class TestNeNP(unittest.TestCase):
         prefixes = NeProvider.prefixes_male + NeProvider.prefixes_female
         if len(name) == 3:
             assert name[0] in prefixes
+
+
+class TestFrBE(unittest.TestCase):
+    """Tests person in the fr-BE locale"""
+
+    def setUp(self):
+        self.fake = Faker("fr-BE")
+        self.provider = FrBEProvider
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+    def test_last_name(self):
+        assert not hasattr(self.provider, "last_names_male")
+        assert not hasattr(self.provider, "last_names_female")
+        # All last names apply for all genders.
+        assert hasattr(self.provider, "last_names")
+
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+        assert name in self.provider.last_names
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
 
 
 class TestFiFI(unittest.TestCase):
