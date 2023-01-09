@@ -1,4 +1,8 @@
-"""faker.providers.person.fr_BE - 8-9 Jan 2023."""
+"""faker.providers.person.fr_BE - 8-9 Jan 2023.
+
+Last names and male and female first names for locale 'fr_BE' (French-speaking Belgium).
+Source: Statbel (Directorate-general Statistics - Statistics Belgium), https://statbel.fgov.be/en/about-statbel, 2022.
+"""
 from collections import Counter, OrderedDict
 
 from .. import Provider as PersonProvider
