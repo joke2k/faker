@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v16.0.1 - 2023-01-09](https://github.com/joke2k/faker/compare/v15.3.4...v16.0.1)
+### [v16.1.0 - 2023-01-09](https://github.com/joke2k/faker/compare/v16.0.1...v16.1.0)
+
+* Allow passing optional json encoder in `json` provider. Thanks @NI1993.
+
+### [v16.0.1 - 2023-01-09](https://github.com/joke2k/faker/compare/v16.0.0...v16.0.1)
 
 * Fix missing comma in `en_NZ` address provider. Thanks @davebulaval.
 
