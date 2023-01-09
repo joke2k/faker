@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.0.0 - 2023-01-09](https://github.com/joke2k/faker/compare/v15.3.4...v16.0.0)
+
+* Fix amount and layout of sample data. Thanks @mportesdev.
+
 ### [v15.3.4 - 2022-11-30](https://github.com/joke2k/faker/compare/v15.3.3...v15.3.4)
 
 * Fix `it_IT` `SSN` generation with latin chars in name or surname. Thanks @panicofr. 
