@@ -1195,10 +1195,24 @@ class TestNoNo(unittest.TestCase):
         assert month in NoNoProvider.MONTH_NAMES.values()
 
 
-class TestFrFrAndFrCa(unittest.TestCase):
-    # Both fr_FR and fr_CA share the same date format.
+class TestFrFr(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("fr-FR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()
+
+
+class TestFrCa(unittest.TestCase):
+    # Both fr_FR and fr_CA share the same date format so we use the same test suite
+    def setUp(self):
+        self.fake = Faker("fr-CA")
         Faker.seed(0)
 
     def test_day(self):
