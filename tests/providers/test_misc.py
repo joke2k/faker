@@ -1,4 +1,5 @@
 import csv
+import datetime
 import io
 import itertools
 import json
@@ -50,6 +51,9 @@ class _FooBarProvider:
 
     def test_float(self, multi=1) -> float:
         return 1.1 * multi
+
+    def test_date_time(self) -> datetime.datetime:
+        return datetime.datetime(2022, 12, 22, 13, 42, 33, 123)
 
 
 class TestMiscProvider:
@@ -669,6 +673,29 @@ class TestMiscProvider:
 
         assert json_data["dict"]["item1"] == "FooBars"
         assert json_data["dict"]["item2"] == "FooBar"
+
+    def test_json_type_integrity_datetime_using_encoder(self, faker_with_foobar):
+        class DateTimeEncoder(json.JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, datetime.datetime):
+                    return str(obj)
+
+                # Let the base class default method raise the TypeError
+                return json.JSONEncoder.default(self, obj)
+
+        kwargs = {
+            "data_columns": {"item1": "test_date_time"},
+            "num_rows": 1,
+            "cls": DateTimeEncoder,
+        }
+        json_data = json.loads(faker_with_foobar.json(**kwargs))
+        assert isinstance(json_data["item1"], str)
+        assert json_data["item1"] == "2022-12-22 13:42:33.000123"
+
+    def test_json_type_integrity_datetime_no_encoder(self, faker_with_foobar):
+        kwargs = {"data_columns": {"item1": "test_date_time"}, "num_rows": 1}
+        with pytest.raises(TypeError):
+            faker_with_foobar.json(**kwargs)
 
     def test_fixed_width_with_arguments(self, faker_with_foobar):
         kwargs = {
