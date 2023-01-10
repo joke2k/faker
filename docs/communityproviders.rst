@@ -28,6 +28,11 @@ Here's a list of Providers written by the community:
 |               | fake-random data          |                                  |
 |               | generators.               |                                  |
 +---------------+---------------------------+----------------------------------+
+| Market Data   | Fake market data          |                                  |
+|               | identifiers (SEDOL, CUSIP,| `faker_marketdata`_              |
+|               | ISIN, etc.)               |                                  |
+|               |                           |                                  |
++---------------+---------------------------+----------------------------------+
 | Microservice  | Fake microservice names   | `faker_microservice`_            |
 +---------------+---------------------------+----------------------------------+
 | Music         | Music genres, subgenres,  | `faker_music`_                   |
@@ -69,6 +74,7 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_education: https://pypi.org/project/faker_education/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
+.. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
 .. _mdgen: https://pypi.org/project/mdgen/
