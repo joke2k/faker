@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.2.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.1.0...v16.2.0)
+
+* Add `fr_CA` date time provider. Thanks @davebulaval/
+
 ### [v16.1.0 - 2023-01-09](https://github.com/joke2k/faker/compare/v16.0.1...v16.1.0)
 
 * Allow passing optional json encoder in `json` provider. Thanks @NI1993.
