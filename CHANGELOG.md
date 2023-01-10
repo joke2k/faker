@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.3.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.2.0...v16.3.0)
+
+* Add new `fr_BE` and `nl_BE` `Person` providers. Thanks @Dutcho.
+
 ### [v16.2.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.1.0...v16.2.0)
 
 * Add `fr_CA` date time provider. Thanks @davebulaval/
