@@ -1,10 +1,5 @@
 ## Changelog
 
-### next
-
-* Add `nl_BE` `Person` names provider
-* Add `fr_BE` `Person` names provider
-
 ### [v15.3.4 - 2022-11-30](https://github.com/joke2k/faker/compare/v15.3.3...v15.3.4)
 
 * Fix `it_IT` `SSN` generation with latin chars in name or surname. Thanks @panicofr. 
