@@ -124,6 +124,6 @@ class Provider(PhoneNumberProvider):
         "+34xxx ## ## ##",
     )
     formats = tuple(
-        f'{phone_format.replace("xxx", prefix)}'
+        phone_format.replace("xxx", prefix)
         for (prefix, phone_format) in itertools.product(PREFIXES, PHONE_FORMATS)
     )
