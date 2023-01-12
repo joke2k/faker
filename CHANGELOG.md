@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.4.0 - 2023-01-12](https://github.com/joke2k/faker/compare/v16.3.0...v16.4.0)
+
+* Update phone number formats for `es_ES` locale. Thanks @GuillemCalidae.
+
 ### [v16.3.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.2.0...v16.3.0)
 
 * Add new `fr_BE` and `nl_BE` `Person` providers. Thanks @Dutcho.
