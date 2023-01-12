@@ -697,6 +697,13 @@ class TestMiscProvider:
         with pytest.raises(TypeError):
             faker_with_foobar.json(**kwargs)
 
+    def test_json_bytes(self, faker_with_foobar):
+        kwargs = {"data_columns": {"item1": "foo_bar"}, "num_rows": 1}
+        json_data_bytes = faker_with_foobar.json_bytes(**kwargs)
+        assert isinstance(json_data_bytes, bytes)
+        json_data = json.loads(json_data_bytes.decode())
+        assert json_data["item1"] == "FooBar"
+
     def test_fixed_width_with_arguments(self, faker_with_foobar):
         kwargs = {
             "data_columns": [
