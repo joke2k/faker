@@ -1,5 +1,37 @@
 ## Changelog
 
+### [v16.4.0 - 2023-01-12](https://github.com/joke2k/faker/compare/v16.3.0...v16.4.0)
+
+* Update phone number formats for `es_ES` locale. Thanks @GuillemCalidae.
+
+### [v16.3.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.2.0...v16.3.0)
+
+* Add new `fr_BE` and `nl_BE` `Person` providers. Thanks @Dutcho.
+
+### [v16.2.0 - 2023-01-10](https://github.com/joke2k/faker/compare/v16.1.0...v16.2.0)
+
+* Add `fr_CA` date time provider. Thanks @davebulaval/
+
+### [v16.1.0 - 2023-01-09](https://github.com/joke2k/faker/compare/v16.0.1...v16.1.0)
+
+* Allow passing optional json encoder in `json` provider. Thanks @NI1993.
+
+### [v16.0.1 - 2023-01-09](https://github.com/joke2k/faker/compare/v16.0.0...v16.0.1)
+
+* Fix missing comma in `en_NZ` address provider. Thanks @davebulaval.
+
+### [v16.0.0 - 2023-01-09](https://github.com/joke2k/faker/compare/v15.3.4...v16.0.0)
+
+* Fix amount and layout of sample data. Thanks @mportesdev.
+
+### [v15.3.4 - 2022-11-30](https://github.com/joke2k/faker/compare/v15.3.3...v15.3.4)
+
+* Fix `it_IT` `SSN` generation with latin chars in name or surname. Thanks @panicofr. 
+
+### [v15.3.3 - 2022-11-22](https://github.com/joke2k/faker/compare/v15.3.2...v15.3.3)
+
+* Fix seeding with multiple locales. Thanks @johntmyers.
+
 ### [v15.3.2 - 2022-11-14](https://github.com/joke2k/faker/compare/v15.3.1...v15.3.2)
 
 * Fix implicit Optional issues. Thanks @palfrey.

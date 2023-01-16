@@ -14,7 +14,7 @@ from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
 
-from faker import Faker
+from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
@@ -903,6 +903,13 @@ class TestItIT(unittest.TestCase):
 
     def test_checksum(self) -> None:
         assert it_checksum("MDDMRA80L41H501") == "R"
+
+    def test_ssn_with_latin_chars(self):
+        generator = Factory.create("it_IT")
+        generator.last_name = mock.MagicMock(return_value="Foà")
+        ssn = generator.ssn()
+        self.assertEqual(len(ssn), 16)
+        self.assertEqual(ssn[:3], "FOA")
 
 
 class TestPtBR(unittest.TestCase):
