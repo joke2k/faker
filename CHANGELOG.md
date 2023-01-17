@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.6.0 - 2023-01-17](https://github.com/joke2k/faker/compare/v16.5.0...v16.6.0)
+
+* Add `fr_CA` address provider. Thanks @davebulaval.
+
 ### [v16.5.0 - 2023-01-17](https://github.com/joke2k/faker/compare/v16.4.0...v16.5.0)
 
 * Add `zipcode`, `postcode` and `postalcode` to `pl_PL`. Thanks @bukowa.
