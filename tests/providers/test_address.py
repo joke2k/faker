@@ -2220,3 +2220,25 @@ class TestUkUa:
             region = faker.region()
             assert isinstance(region, str)
             assert region in UkUaAddressProvider.region_names
+
+
+class TestPlPl:
+    """Test pl_PL address provider methods"""
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            match = re.findall(r"^\d{2}-\d{3}$", postcode)
+            assert match
+
+    def test_zipcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            zipcode = faker.zipcode()
+            match = re.findall(r"^\d{2}-\d{3}$", zipcode)
+            assert match
+
+    def test_postalcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postalcode = faker.postalcode()
+            match = re.findall(r"^^\d{2}-\d{3}$$", postalcode)
+            assert match
