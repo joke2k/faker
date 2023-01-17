@@ -675,4 +675,22 @@ class Provider(AddressProvider):
         """
         return self.random_element(self.regions)
 
+    def postcode(self) -> str:
+        """
+        :example: '62-200'
+        """
+        return "%02d-%03d" % (self.generator.random.randint(1, 99), self.generator.random.randint(1, 999))
+
+    def zipcode(self) -> str:
+        """
+        :example: '62-200'
+        """
+        return self.postcode()
+
+    def postalcode(self) -> str:
+        """
+        :example: '62-200'
+        """
+        return self.postcode()
+
     region = administrative_unit
