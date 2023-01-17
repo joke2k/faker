@@ -1,17 +1,5 @@
 ## Changelog
 
-### [v16.7.0 - 2023-02-07](https://github.com/joke2k/faker/compare/v16.6.1...v16.7.0)
-
-*  Add method to generate JSON as bytes. Thanks @browniebroke.
-
-### [v16.6.1 - 2023-01-24](https://github.com/joke2k/faker/compare/v16.6.0...v16.6.1)
-
-* Fix `siret` and `siren` generation for `fr_FR` locale company information. Thanks @daamien.
-
-### [v16.6.0 - 2023-01-17](https://github.com/joke2k/faker/compare/v16.5.0...v16.6.0)
-
-* Add `fr_CA` address provider. Thanks @davebulaval.
-
 ### [v16.5.0 - 2023-01-17](https://github.com/joke2k/faker/compare/v16.4.0...v16.5.0)
 
 * Add `zipcode`, `postcode` and `postalcode` to `pl_PL`. Thanks @bukowa.
