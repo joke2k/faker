@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.5.0 - 2023-01-17](https://github.com/joke2k/faker/compare/v16.4.0...v16.5.0)
+
+* Add `zipcode`, `postcode` and `postalcode` to `pl_PL`. Thanks @bukowa.
+
 ### [v16.4.0 - 2023-01-12](https://github.com/joke2k/faker/compare/v16.3.0...v16.4.0)
 
 * Update phone number formats for `es_ES` locale. Thanks @GuillemCalidae.
