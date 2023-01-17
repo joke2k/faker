@@ -2283,4 +2283,3 @@ class TestPlPl:
             postalcode = faker.postalcode()
             match = re.findall(r"^^\d{2}-\d{3}$$", postalcode)
             assert match
-
