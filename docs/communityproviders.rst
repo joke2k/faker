@@ -21,9 +21,17 @@ Here's a list of Providers written by the community:
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
+| Faker File    | Generate files with fake  | `faker-file`_                    |
+|               | content                   |                                  |
++---------------+---------------------------+----------------------------------+
 | Geoscience    | Earth sciences-related    | `faker_geoscience`_              |
 |               | fake-random data          |                                  |
 |               | generators.               |                                  |
++---------------+---------------------------+----------------------------------+
+| Market Data   | Fake market data          |                                  |
+|               | identifiers (SEDOL, CUSIP,| `faker_marketdata`_              |
+|               | ISIN, etc.)               |                                  |
+|               |                           |                                  |
 +---------------+---------------------------+----------------------------------+
 | Microservice  | Fake microservice names   | `faker_microservice`_            |
 +---------------+---------------------------+----------------------------------+
@@ -64,7 +72,9 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker_education: https://pypi.org/project/faker_education/
+.. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
+.. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
 .. _mdgen: https://pypi.org/project/mdgen/
