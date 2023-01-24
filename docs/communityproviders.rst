@@ -18,12 +18,23 @@ Here's a list of Providers written by the community:
 | Credit Score  | Fake credit score data    | `faker_credit_score`_            |
 |               | for testing purposes      |                                  |
 +---------------+---------------------------+----------------------------------+
+| Datasets      | Build providers based     | `faker-datasets`_                |
+|               | on datasets               |                                  |
++---------------+---------------------------+----------------------------------+
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
++---------------+---------------------------+----------------------------------+
+| Faker File    | Generate files with fake  | `faker-file`_                    |
+|               | content                   |                                  |
 +---------------+---------------------------+----------------------------------+
 | Geoscience    | Earth sciences-related    | `faker_geoscience`_              |
 |               | fake-random data          |                                  |
 |               | generators.               |                                  |
++---------------+---------------------------+----------------------------------+
+| Market Data   | Fake market data          |                                  |
+|               | identifiers (SEDOL, CUSIP,| `faker_marketdata`_              |
+|               | ISIN, etc.)               |                                  |
+|               |                           |                                  |
 +---------------+---------------------------+----------------------------------+
 | Microservice  | Fake microservice names   | `faker_microservice`_            |
 +---------------+---------------------------+----------------------------------+
@@ -42,9 +53,9 @@ Here's a list of Providers written by the community:
 +---------------+---------------------------+----------------------------------+
 | Wi-Fi ESSID   | Fake Wi-Fi ESSIDs.        | `faker_wifi_essid`_              |
 +---------------+---------------------------+----------------------------------+
-| Optional      | Wrap over other           | `faker_optional`_                |
-|               | providers to return       |                                  |
-|               | their value or `None`.    |                                  |
+| Optional      | Small wrapper around      | `optional_faker`_                |
+|               | faker, to make values     |                                  |
+|               | optional!                 |                                  |
 +---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
@@ -63,12 +74,15 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
+.. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
+.. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
+.. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
 .. _mdgen: https://pypi.org/project/mdgen/
 .. _faker_vehicle: https://pypi.org/project/faker-vehicle/
 .. _faker_web: https://pypi.org/project/faker_web/
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
-.. _faker_optional: https://pypi.org/project/faker-optional
+.. _optional_faker: https://pypi.org/project/optional_faker

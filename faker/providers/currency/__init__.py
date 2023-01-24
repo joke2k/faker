@@ -306,7 +306,7 @@ class Provider(BaseProvider):
         "ZWD": "\u0024",
     }
 
-    price_formats: ElementsType = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
+    price_formats: ElementsType[str] = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
 
     def currency(self) -> Tuple[str, str]:
         return self.random_element(self.currencies)

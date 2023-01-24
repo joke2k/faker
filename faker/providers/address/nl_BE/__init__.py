@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as AddressProvider
 
 
@@ -3040,10 +3038,10 @@ class Provider(AddressProvider):
         "{{street_address}}\n{{postcode}} {{city}}",
     )
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.provinces, min_length, max_length)
+    def administrative_unit(self) -> str:
+        return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def city(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.cities, min_length, max_length)
+    def city(self) -> str:
+        return self.random_element(self.cities)

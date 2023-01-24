@@ -36,6 +36,7 @@ from faker.providers.date_time.pt_PT import Provider as PtPtProvider
 from faker.providers.date_time.ro_RO import Provider as RoRoProvider
 from faker.providers.date_time.ru_RU import Provider as RuProvider
 from faker.providers.date_time.sk_SK import Provider as SkSkProvider
+from faker.providers.date_time.sl_SI import Provider as SlSiProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
@@ -887,6 +888,20 @@ class TestSkSk(unittest.TestCase):
         assert month in SkSkProvider.MONTH_NAMES.values()
 
 
+class TestSlSi(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("sl_SI")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in SlSiProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in SlSiProvider.MONTH_NAMES.values()
+
+
 class TestThTh(unittest.TestCase):
     num_sample_runs = 50
 
@@ -1198,6 +1213,21 @@ class TestNoNo(unittest.TestCase):
 class TestFrFr(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("fr-FR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()
+
+
+class TestFrCa(unittest.TestCase):
+    # Both fr_FR and fr_CA share the same date format so we use the same test suite
+    def setUp(self):
+        self.fake = Faker("fr-CA")
         Faker.seed(0)
 
     def test_day(self):

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as AutomotiveProvider
 
 
@@ -16,7 +14,7 @@ class Provider(AutomotiveProvider):
         "{{initials}}-#####",
     )
 
-    def initials(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def initials(self) -> str:
         """Generate an initial number for license plates."""
         return self.random_element(
             [
@@ -46,9 +44,7 @@ class Provider(AutomotiveProvider):
                 "95",  # Ambulance
                 "96",  # Gendarmerie
                 "99",  # Police
-            ],
-            min_length,
-            max_length,
+            ]
         )
 
     def license_plate(self) -> str:

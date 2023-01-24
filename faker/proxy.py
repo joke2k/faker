@@ -9,7 +9,7 @@ from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
-from .generator import Generator, Sentinel, random
+from .generator import Generator, random
 from .typing import SeedType
 from .utils.distribution import choices_distribution
 
@@ -153,8 +153,6 @@ class Faker:
         elif len(factories) == 1:
             return factories[0]
 
-        if Generator._global_seed is not Sentinel:
-            random.seed(Generator._global_seed)  # type: ignore
         if weights:
             factory = self._select_factory_distribution(factories, weights)
         else:

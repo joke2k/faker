@@ -2,6 +2,8 @@ import re
 
 from typing import Optional
 
+from faker.providers import ElementsType
+
 from ..en import Provider as AddressProvider
 
 
@@ -33,9 +35,9 @@ class Provider(AddressProvider):
         "Y",
     )
 
-    city_prefixes = ("North", "East", "West", "South", "New", "Lake", "Port")
+    city_prefixes: ElementsType[str] = ("North", "East", "West", "South", "New", "Lake", "Port")
 
-    city_suffixes = (
+    city_suffixes: ElementsType[str] = (
         "town",
         "ton",
         "land",
@@ -337,7 +339,7 @@ class Provider(AddressProvider):
         "YT": ["Y"],
     }
 
-    city_formats = (
+    city_formats: ElementsType[str] = (
         "{{city_prefix}} {{first_name}}{{city_suffix}}",
         "{{city_prefix}} {{first_name}}",
         "{{first_name}}{{city_suffix}}",
@@ -354,27 +356,27 @@ class Provider(AddressProvider):
     address_formats = ("{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",)
     secondary_address_formats = ("Apt. ###", "Suite ###")
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def administrative_unit(self) -> str:
         """ """
-        return self.random_element(self.provinces, min_length, max_length)
+        return self.random_element(self.provinces)
 
     province = administrative_unit
 
-    def province_abbr(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.provinces_abbr, min_length, max_length)
+    def province_abbr(self) -> str:
+        return self.random_element(self.provinces_abbr)
 
-    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.city_prefixes, min_length, max_length)
+    def city_prefix(self) -> str:
+        return self.random_element(self.city_prefixes)
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
-    def postal_code_letter(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def postal_code_letter(self) -> str:
         """
         Returns a random letter from the list of allowable
         letters in a canadian postal code
         """
-        return self.random_element(self.postal_code_letters, min_length, max_length)
+        return self.random_element(self.postal_code_letters)
 
     def _postcode_replace(self, postal_code_format: str) -> str:
         """

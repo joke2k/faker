@@ -72,6 +72,6 @@ setup(
     python_requires=">=3.7",
     install_requires=[
         "python-dateutil>=2.4",
-        "typing-extensions>=3.7.4.3;python_version<'3.8'",
+        "typing-extensions>=3.10.0.1;python_version<'3.8'",
     ],
 )

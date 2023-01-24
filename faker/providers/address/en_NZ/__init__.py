@@ -1,5 +1,3 @@
-from typing import Optional
-
 from ..en import Provider as AddressProvider
 
 
@@ -33,7 +31,8 @@ class Provider(AddressProvider):
         "port",
         "mouth",
         "stone",
-        "ings" "mouth",
+        "ings",
+        "mouth",
         "fort",
         "haven",
         "leigh",
@@ -320,23 +319,23 @@ class Provider(AddressProvider):
         "Level %",
     )
 
-    def te_reo_part(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.te_reo_parts, min_length, max_length)
+    def te_reo_part(self) -> str:
+        return self.random_element(self.te_reo_parts)
 
     def te_reo_first(self) -> str:
         return str(self.random_element(self.te_reo_parts)).capitalize()
 
-    def te_reo_ending(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.te_reo_parts + self.te_reo_endings, min_length, max_length)
+    def te_reo_ending(self) -> str:
+        return self.random_element(self.te_reo_parts + self.te_reo_endings)
 
-    def city_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.city_prefixes, min_length, max_length)
+    def city_prefix(self) -> str:
+        return self.random_element(self.city_prefixes)
 
-    def city_suffix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.city_suffixes, min_length, max_length)
+    def city_suffix(self) -> str:
+        return self.random_element(self.city_suffixes)
 
-    def rd_number(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element([str(i) for i in range(1, 11)], min_length, max_length)
+    def rd_number(self) -> str:
+        return self.random_element([str(i) for i in range(1, 11)])
 
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))

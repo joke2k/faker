@@ -119,7 +119,7 @@ class Documentor:
                 continue
             formatters[signature] = example
 
-            self.max_name_len = max(self.max_name_len, len(signature))
+            self.max_name_len = max(self.max_name_len, *(len(part) for part in signature.split()))
             self.already_generated.append(name)
 
         return formatters

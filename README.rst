@@ -422,11 +422,17 @@ Run tests:
 
     $ tox
 
-Write documentation for providers:
+Write documentation for the providers of the default locale:
 
 .. code:: bash
 
     $ python -m faker > docs.txt
+
+Write documentation for the providers of a specific locale:
+
+.. code:: bash
+
+    $ python -m faker --lang=de_DE > docs_de.txt
 
 
 Contribute

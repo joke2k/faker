@@ -130,11 +130,18 @@ class TestFakerProxyClass:
 
     def test_seed_class_locales(self):
         Faker.seed(2043)
+        count = 5
         fake = Faker(["en_GB", "fr_FR", "en_IN"])
-        name = fake.name()
+        first_list = [fake.name() for _ in range(count)]
+        # We convert the list to a set to remove duplicates and ensure
+        # that we have exactly `count` unique fake values
+        assert len(set(first_list)) == count
 
-        for _ in range(5):
-            assert fake.name() == name
+        Faker.seed(2043)
+        fake = Faker(["en_GB", "fr_FR", "en_IN"])
+        second_list = [fake.name() for _ in range(count)]
+
+        assert first_list == second_list
 
     def test_seed_instance(self):
         locale = ["de_DE", "en-US", "en-PH", "ja_JP"]

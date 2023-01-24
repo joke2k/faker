@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as CompanyProvider
 
 
@@ -30,5 +28,5 @@ class Provider(CompanyProvider):
         "Tbk",
     )
 
-    def company_prefix(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.company_prefixes, min_length, max_length)
+    def company_prefix(self) -> str:
+        return self.random_element(self.company_prefixes)

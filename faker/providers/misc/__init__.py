@@ -9,7 +9,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, Union
 
 from faker.exceptions import UnsupportedFeature
 
@@ -70,9 +70,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
-        """Generate a random SHA1 hash.
+        """Generate a random SHA-1 hash.
 
-        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA1 hash
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-1 hash
         will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
 
         :sample: raw_output=False
@@ -84,9 +84,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
-        """Generate a random SHA256 hash.
+        """Generate a random SHA-256 hash.
 
-        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA56 hash
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-256 hash
         will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
 
         :sample: raw_output=False
@@ -488,7 +488,13 @@ class Provider(BaseProvider):
             delimiter="|",
         )
 
-    def json(self, data_columns: List = None, num_rows: int = 10, indent: int = None) -> str:
+    def json(
+        self,
+        data_columns: Optional[List] = None,
+        num_rows: int = 10,
+        indent: Optional[int] = None,
+        cls: Optional[Type[json.JSONEncoder]] = None,
+    ) -> str:
         """
         Generate random JSON structure values.
 
@@ -521,6 +527,8 @@ class Provider(BaseProvider):
         :type num_rows: int
         :param indent: number of spaces to indent the fields
         :type indent: int
+        :param cls: optional json encoder to use for non-standard objects such as datetimes
+        :type cls: json.JSONEncoder
         :return: Serialized JSON data
         :rtype: str
 
@@ -585,12 +593,12 @@ class Provider(BaseProvider):
             raise TypeError("Invalid data_columns type. Must be a dictionary or list")
 
         if num_rows == 1:
-            return json.dumps(create_json_structure(data_columns), indent=indent)
+            return json.dumps(create_json_structure(data_columns), indent=indent, cls=cls)
 
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
-        return json.dumps(data, indent=indent)
+        return json.dumps(data, indent=indent, cls=cls)
 
-    def fixed_width(self, data_columns: list = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
 

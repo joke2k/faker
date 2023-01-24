@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .. import Provider as PhoneNumberProvider
 
 
@@ -92,26 +90,22 @@ class Provider(PhoneNumberProvider):
 
     formats = cellphone_formats + telephone_formats + services_phones_formats + toll_formats
 
-    def provider_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def provider_code(self) -> str:
         return self.random_element(
             [
                 "59",
                 "56",
-            ],
-            min_length,
-            max_length,
+            ]
         )
 
-    def area_code(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def area_code(self) -> str:
         return self.random_element(
             [
                 "00972",
                 "+972",
                 "00970",
                 "+970",
-            ],
-            min_length,
-            max_length,
+            ]
         )
 
     def cellphone_number(self) -> str:

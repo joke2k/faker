@@ -20,7 +20,7 @@ class EmptyEnumException(BaseFakerException):
 
 
 class Provider(BaseProvider):
-    default_value_types: ElementsType = (
+    default_value_types: ElementsType[str] = (
         "str",
         "str",
         "str",
@@ -58,7 +58,13 @@ class Provider(BaseProvider):
     def pybool(self) -> bool:
         return self.random_int(0, 1) == 1
 
-    def pystr(self, min_chars: Optional[int] = None, max_chars: int = 20, prefix: str = "", suffix: str = "") -> str:
+    def pystr(
+        self,
+        min_chars: Optional[int] = None,
+        max_chars: int = 20,
+        prefix: str = "",
+        suffix: str = "",
+    ) -> str:
         """
         Generates a random string of upper and lowercase letters.
         :return: Random of random length between min and max characters.
@@ -163,6 +169,11 @@ class Provider(BaseProvider):
             result = min(result, 10**left_digits - 1)
             result = max(result, -(10**left_digits + 1))
 
+        # It's possible for the result to end up > than max_value
+        # This is a quick hack to ensure result is always smaller.
+        if max_value is not None:
+            if result > max_value:
+                result = result - (result - max_value)
         return result
 
     def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
@@ -179,6 +190,10 @@ class Provider(BaseProvider):
         if min_value == max_value:
             return self._safe_random_int(orig_min_value, orig_max_value, positive)
         else:
+            min_value = int(min_value)
+            max_value = int(max_value - 1)
+            if max_value < min_value:
+                max_value += 1
             return self.random_float(min_value, max_value)
 
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
@@ -386,7 +401,10 @@ class Provider(BaseProvider):
         )
 
     def pystruct(
-        self, count: int = 10, value_types: Optional[TypesSpec] = None, allowed_types: Optional[TypesSpec] = None
+        self,
+        count: int = 10,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
     ) -> Tuple[List, Dict, Dict]:
         value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 

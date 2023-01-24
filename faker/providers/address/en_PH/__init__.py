@@ -1,7 +1,8 @@
 from collections import OrderedDict
 from string import ascii_uppercase
-from typing import Optional, Sequence, Tuple, Union
+from typing import Sequence, Union
 
+from ... import ElementsType
 from .. import Provider as AddressProvider
 
 
@@ -1674,10 +1675,10 @@ class Provider(AddressProvider):
     )
     address_formats = OrderedDict(
         [
-            (metro_manila_address_formats, 0.127524),
-            (luzon_province_address_formats, 0.485317),
-            (visayas_province_address_formats, 0.148142),
-            (mindanao_province_address_formats, 0.239017),
+            *[(fmt, 0.127524) for fmt in metro_manila_address_formats],
+            *[(fmt, 0.485317) for fmt in luzon_province_address_formats],
+            *[(fmt, 0.148142) for fmt in visayas_province_address_formats],
+            *[(fmt, 0.239017) for fmt in mindanao_province_address_formats],
         ]
     )
 
@@ -1692,7 +1693,7 @@ class Provider(AddressProvider):
     def _create_postcode(self, postcodes: Sequence[int]) -> str:
         return f"{self.random_element(postcodes):04d}"
 
-    def _create_address(self, address_formats: Tuple[str]) -> str:
+    def _create_address(self, address_formats: ElementsType[str]) -> str:
         return self.generator.parse(self.random_element(address_formats))
 
     def metro_manila_postcode(self) -> str:
@@ -1710,17 +1711,17 @@ class Provider(AddressProvider):
     def postcode(self) -> str:
         return self._create_postcode(self.postcodes)
 
-    def luzon_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.luzon_provinces, min_length, max_length)
+    def luzon_province(self) -> str:
+        return self.random_element(self.luzon_provinces)
 
-    def visayas_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.visayas_provinces, min_length, max_length)
+    def visayas_province(self) -> str:
+        return self.random_element(self.visayas_provinces)
 
-    def mindanao_province(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.mindanao_provinces, min_length, max_length)
+    def mindanao_province(self) -> str:
+        return self.random_element(self.mindanao_provinces)
 
-    def administrative_unit(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.provinces, min_length, max_length)
+    def administrative_unit(self) -> str:
+        return self.random_element(self.provinces)
 
     province = administrative_unit
 
@@ -1743,8 +1744,8 @@ class Provider(AddressProvider):
     def ordinal_street_number(self) -> str:
         return self._ordinal_string(self.random_int(1, 99))
 
-    def floor_number(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.floor_numbers, min_length, max_length)
+    def floor_number(self) -> str:
+        return self.random_element(self.floor_numbers)
 
     def ordinal_floor_number(self) -> str:
         return self._ordinal_string(self.floor_number())
@@ -1776,11 +1777,11 @@ class Provider(AddressProvider):
     def subdivision_name_suffix(self) -> str:
         return self.numerify(self.random_element(self.subdivision_name_suffixes))
 
-    def metro_manila_lgu(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.metro_manila_lgus, min_length, max_length)
+    def metro_manila_lgu(self) -> str:
+        return self.random_element(self.metro_manila_lgus)
 
-    def province_lgu(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
-        return self.random_element(self.province_lgus, min_length, max_length)
+    def province_lgu(self) -> str:
+        return self.random_element(self.province_lgus)
 
     def metro_manila_address(self) -> str:
         return self._create_address(self.metro_manila_address_formats)
@@ -1795,4 +1796,4 @@ class Provider(AddressProvider):
         return self._create_address(self.mindanao_province_address_formats)
 
     def address(self) -> str:
-        return self._create_address(self.random_element(self.address_formats))
+        return self._create_address(self.address_formats)

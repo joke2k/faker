@@ -228,6 +228,9 @@ class TestPyfloat(unittest.TestCase):
         """
         self.fake.pyfloat(min_value=-1.0, max_value=1.0)
 
+    def test_float_min_and_max_value_with_same_whole(self):
+        self.fake.pyfloat(min_value=2.3, max_value=2.5)
+
 
 class TestPydecimal(unittest.TestCase):
     def setUp(self):
