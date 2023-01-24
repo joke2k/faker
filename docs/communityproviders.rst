@@ -18,6 +18,9 @@ Here's a list of Providers written by the community:
 | Credit Score  | Fake credit score data    | `faker_credit_score`_            |
 |               | for testing purposes      |                                  |
 +---------------+---------------------------+----------------------------------+
+| Datasets      | Build providers based     | `faker-datasets`_                |
+|               | on datasets               |                                  |
++---------------+---------------------------+----------------------------------+
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -71,6 +74,7 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
+.. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
