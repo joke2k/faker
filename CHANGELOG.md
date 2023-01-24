@@ -1276,17 +1276,17 @@
 
 ### [0.7.16 - 2017-06-09](https://github.com/joke2k/faker/compare/v0.7.15...v0.7.16)
 
-* fix timezone issues with ``date_time_between`` provider.
+* Fix timezone issues with ``date_time_between`` provider.
 * Add ``ext_word_list`` parameter to methods in the ``Lorem`` generator.
   Thanks @guinslym.
 
 ### [0.7.15 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.14...v0.7.15)
 
-* fix start and end date for datetime provider methods.
+* Fix start and end date for datetime provider methods.
 
 ### [0.7.14 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.13...v0.7.14)
 
-* fix ``future_date``, `and ``past_date`` bounds.
+* Fix ``future_date``, `and ``past_date`` bounds.
 
 ### [0.7.13 - 2017-06-02](https://github.com/joke2k/faker/compare/v0.7.12...v0.7.13)
 
@@ -1298,7 +1298,6 @@
 * Fix diacritics in ``pl_PL`` street names. Thanks @zgoda.
 * Add ``future_date``, ``future_datetime``, ``past_date`` and ``past_datetime``
   to DateTime Provider
-
 
 ### [0.7.12 - 2017-05-10](https://github.com/joke2k/faker/compare/v0.7.11...v0.7.12)
 
@@ -1317,14 +1316,14 @@
 
 
 ### [0.7.11 - 2017-04-09](https://github.com/joke2k/faker/compare/v0.7.10...v0.7.11)
--
+
 * Added french words for days and months. Thanks @sblondon.
 * Reorganized tests. Thanks @grantbachman.
 * Added file path provider. Thanks @diegommarino.
 * Fixed packaging issue with tests module. Thanks @eukreign for the report.
 
 ### [0.7.10 - 2017-03-13](https://github.com/joke2k/faker/compare/v0.7.9...v0.7.10)
---
+
 * Add ISBN-10 and ISBN-13. Thanks @grantbachman.
 * Add colors for ``fr_FR``. Thanks @sblondon.
 
@@ -1351,7 +1350,7 @@
 * Fix ``fa_IR`` city generator. Thanks @kdeldycke.
 
 ### [0.7.6 - 2016-12-19](https://github.com/joke2k/faker/compare/v0.7.5...v0.7.6)
--
+
 * Fix packaging issue with ``docs`` directory. Thanks @wyattanderson.
 
 ### [0.7.5 - 2016-12-16](https://github.com/joke2k/faker/compare/v0.7.4...v0.7.5)
@@ -1390,9 +1389,8 @@
 * Rename PyPI package to ``Faker``.
 
 ### [0.6.0 - 2016-08-09](https://github.com/joke2k/faker/compare/v0.5.11...v0.6.0)
--
-* Dropped Python 2.6 support
 
+* Dropped Python 2.6 support
 
 ### [0.5.11 - 2016-08-09](https://github.com/joke2k/faker/compare/v0.5.10...v0.5.11)
 
@@ -1490,7 +1488,7 @@
 * Added en_AU provider. Thanks @xfxf.
 
 ### [0.5.2 - 2015-06-11](https://github.com/joke2k/faker/compare/v0.5.1...v0.5.2)
--
+
 * Added ``uuid4`` to ``misc`` provider. Thanks Jared Culp.
 * Fixed ``jcb15`` and ``jcb16`` in ``credit_card`` provider.
   Thanks Rodrigo Braz.
@@ -1499,9 +1497,7 @@
 * Added ``--include`` flag to command line tool. Thanks Flavio Curella.
 * Added ``country_code`` to `address`` provider. Thanks @elad101 and Tobin Brown.
 
-
 ### [0.5.1 - 2015-05-21](https://github.com/joke2k/faker/compare/v0.5...v0.5.1)
------------------------------------------------------------------------------
 
 * Fixed egg installation. Thanks David R. MacIver, @kecaps
 * Updated person names for ``ru_RU``. Thanks @mousebaiker.
@@ -1531,7 +1527,6 @@
   ``misc`` provider.
 
 ### [0.5.0 - 2015-02-16](https://github.com/joke2k/faker/compare/v0.4.2...v0.5)
-------------------------------------------------------------------------------
 
 * Localized providers
 * Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
@@ -1570,12 +1565,12 @@
 * Added ``hi_IN`` localized provider. Thanks Pratik Kabra.
 * Refactoring of command line
 
-### 0.3.2 - 2013-11-11
+### [0.3.2 - 2013-11-11](https://github.com/joke2k/faker/compare/v0.3.1...v0.3.2)
 
 * New provider: Credit card generator
 * Improved Documentor
 
-### 0.3.1 - 2013-10-18
+### [0.3.1 - 2013-10-18](https://github.com/joke2k/faker/compare/v0.3...v0.3.1)
 
 * FIX setup.py
 
@@ -1586,7 +1581,6 @@
 * all localized provider now uses ``from __future__ import unicode_literals``
 * documentor prints localized provider after all defaults
 * FIX tests for python 2.6
-
 
 ### 0.2 - 2010-12-01
 
