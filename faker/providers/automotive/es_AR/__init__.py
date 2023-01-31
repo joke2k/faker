@@ -1,8 +1,8 @@
 from collections import OrderedDict
-
 from string import ascii_uppercase
 
 from .. import Provider as AutomotiveProvider
+
 
 class Provider(AutomotiveProvider):
     """Implement automotive provider for ``es_AR`` locale.
