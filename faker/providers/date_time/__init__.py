@@ -1943,7 +1943,7 @@ class Provider(BaseProvider):
             raise ParseError(f"Can't parse date string `{value}`")
         parts = parts.groupdict()
         time_params: Dict[str, float] = {}
-        for (name_, param_) in parts.items():
+        for name_, param_ in parts.items():
             if param_:
                 time_params[name_] = int(param_)
 

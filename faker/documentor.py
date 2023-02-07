@@ -82,9 +82,7 @@ class Documentor:
 
                 lst = [x for x in argspec.args if x not in ["self", "cls"]]
                 for i, arg in enumerate(lst):
-
                     if argspec.defaults and with_defaults:
-
                         try:
                             default = argspec.defaults[i]
                             if isinstance(default, str):

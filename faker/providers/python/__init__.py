@@ -352,7 +352,6 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Iterator:
-
         value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
         value_types: TypesNames = [

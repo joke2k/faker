@@ -2,7 +2,6 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-
     tlds = ("com", "com", "com", "net", "org", "no", "no", "no", "no", "no")
 
     replacements = (

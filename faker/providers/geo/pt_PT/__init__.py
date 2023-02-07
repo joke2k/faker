@@ -2,7 +2,6 @@ from .. import Provider as GeoProvider
 
 
 class Provider(GeoProvider):
-
     nationalities = (
         "Afegã",
         "Albanesa",

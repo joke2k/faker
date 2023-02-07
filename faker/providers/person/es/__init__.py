@@ -2,7 +2,6 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-
     # https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
     language_names = [
         "Afar",

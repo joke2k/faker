@@ -17,7 +17,6 @@ Sentinel = object()
 
 
 class Generator:
-
     __config: Dict[str, Dict[Hashable, Any]] = {
         "arguments": {},
     }
@@ -31,7 +30,6 @@ class Generator:
         self.__random = random
 
     def add_provider(self, provider: "BaseProvider") -> None:
-
         if isinstance(provider, type):
             provider = provider(self)
 

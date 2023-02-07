@@ -42,7 +42,6 @@ def find_available_locales(providers: List[str]) -> List[str]:
     available_locales = set()
 
     for provider_path in providers:
-
         provider_module = import_module(provider_path)
         if getattr(provider_module, "localized", False):
             langs = list_module(provider_module)

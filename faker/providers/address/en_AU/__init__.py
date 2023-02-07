@@ -2,7 +2,6 @@ from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     city_prefixes = ("North", "East", "West", "South", "New", "Lake", "Port", "St.")
 
     city_suffixes = (

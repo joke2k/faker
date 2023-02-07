@@ -21,7 +21,6 @@ from faker import Faker
     ),
 )
 def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
-
     # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
     def mock_random_number(self, digits=None, fix_len=False):
         return int(mock_random_number_source[: digits or 1])
@@ -33,7 +32,6 @@ def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right
 
 
 def test_pyfloat_right_or_left_digit_overflow():
-
     max_float_digits = sys.float_info.dig
     faker = Faker()
 
@@ -47,7 +45,6 @@ def test_pyfloat_right_or_left_digit_overflow():
 
     with patch("faker.providers.BaseProvider.random_int", mock_random_int):
         with patch("faker.providers.BaseProvider.random_number", mock_random_number):
-
             # A bit too much, but ~half on either side
             with pytest.raises(ValueError, match="Asking for too many digits"):
                 faker.pyfloat(

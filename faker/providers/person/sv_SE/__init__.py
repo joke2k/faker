@@ -14,7 +14,6 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-
     formats_female = ("{{first_name_female}} {{last_name}}",)
 
     formats_male = ("{{first_name_male}} {{last_name}}",)
