@@ -488,6 +488,21 @@ class Provider(BaseProvider):
             delimiter="|",
         )
 
+    def json_bytes(
+        self,
+        data_columns: Optional[List] = None,
+        num_rows: int = 10,
+        indent: Optional[int] = None,
+        cls: Optional[Type[json.JSONEncoder]] = None,
+    ) -> bytes:
+        """
+        Generate random JSON structure and return as bytes.
+
+        For more information on the different arguments of this method, refer to
+        :meth:`json() <faker.providers.misc.Provider.json>` which is used under the hood.
+        """
+        return self.json(data_columns=data_columns, num_rows=num_rows, indent=indent, cls=cls).encode()
+
     def json(
         self,
         data_columns: Optional[List] = None,
