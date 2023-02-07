@@ -2,7 +2,6 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     building_number_formats = ("###", "##", "#")
 
     street_name_formats = ("{{street_prefix}}{{street_suffix}}",)

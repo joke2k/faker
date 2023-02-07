@@ -10,6 +10,7 @@ class Provider(SsnProvider):
         which is a check digit approach; this function essentially reverses
         the checksum steps to create a random valid BSN (which is 9 digits).
         """
+
         # see http://nl.wikipedia.org/wiki/Burgerservicenummer (in Dutch)
         def _checksum(digits):
             factors = (9, 8, 7, 6, 5, 4, 3, 2, -1)

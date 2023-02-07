@@ -92,7 +92,6 @@ class Provider(CompanyProvider):
         """
         catch_phrase = ""
         while True:
-
             pattern: str = self.random_element(self.catch_phrase_formats)
             catch_phrase = self.generator.parse(pattern)
             catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]

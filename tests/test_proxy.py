@@ -304,7 +304,6 @@ class TestFakerProxyClass:
         # Distribution weights have been specified, so factory selection logic will use
         # `choices_distribution` if multiple factories have the specified provider method
         with patch("faker.proxy.Faker._select_factory", wraps=fake._select_factory) as mock_select_factory:
-
             # All factories for the listed locales have the `name` provider method
             fake.name()
             mock_select_factory.assert_called_once_with("name")
@@ -327,7 +326,6 @@ class TestFakerProxyClass:
         # Distribution weights have been specified, so factory selection logic will use
         # `choices_distribution` if multiple factories have the specified provider method
         with patch("faker.proxy.Faker._select_factory", wraps=fake._select_factory) as mock_select_factory:
-
             # Only `en_PH` factory has provider method `luzon_province`, so there is no
             # need for `choices_distribution` factory selection logic to run
             fake.luzon_province()

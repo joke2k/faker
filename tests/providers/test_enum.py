@@ -20,7 +20,6 @@ class _TestEnum(Enum):
 
 
 class TestEnumProvider:
-
     num_samples = 100
 
     def test_enum(self, faker, num_samples):

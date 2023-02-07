@@ -262,7 +262,6 @@ examples:
         seeds = [random.random() for _ in range(arguments.repeat)]
 
         for i in range(arguments.repeat):
-
             print_doc(
                 arguments.fake,
                 arguments.fake_args,

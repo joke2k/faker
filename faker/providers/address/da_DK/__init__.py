@@ -2,7 +2,6 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     # Building numbers don't go higher than a 1000
     building_number_formats = ("%##", "%#", "%")
 

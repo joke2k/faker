@@ -2,7 +2,6 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
-
     company_names = [
         "گروه سیمان",
         "گروه فلزات اساسي",

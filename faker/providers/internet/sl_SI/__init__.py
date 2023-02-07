@@ -2,7 +2,6 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-
     user_name_formats = (
         "{{last_name}}.{{first_name_female}}",
         "{{last_name}}.{{first_name_male}}",

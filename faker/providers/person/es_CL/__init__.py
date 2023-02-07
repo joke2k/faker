@@ -6,7 +6,6 @@ from ..es import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-
     formats_male = OrderedDict(
         [
             ("{{given_name_male}} {{last_name}} {{last_name}}", 0.55),

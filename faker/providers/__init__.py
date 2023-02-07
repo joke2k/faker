@@ -20,7 +20,6 @@ ElementsType = Union[Collection[str], Collection[T], OrderedDictType[T, float]]
 
 
 class BaseProvider:
-
     __provider__ = "base"
     __lang__: Optional[str] = None
     __use_weighting__ = False
@@ -717,7 +716,6 @@ class DynamicProvider(BaseProvider):
         self.elements.append(element)
 
     def get_random_value(self) -> Any:
-
         if not self.elements or len(self.elements) == 0:
             raise ValueError("Elements should be a list of values the provider samples from")
 

@@ -6,7 +6,6 @@ from typing import Any, Optional
 
 
 class ISBN:
-
     MAX_LENGTH = 13
 
     def __init__(

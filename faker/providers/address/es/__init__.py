@@ -2,7 +2,6 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     # List of Countries https://www.un.org/es/members/
     countries = (
         "Afganistán",

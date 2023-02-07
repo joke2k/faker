@@ -2,7 +2,6 @@ from ..de import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     city_formats = ("{{city_name}}",)
 
     city_with_postcode_formats = ("{{postcode}} {{city}}",)

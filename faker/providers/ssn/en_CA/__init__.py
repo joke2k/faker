@@ -40,7 +40,6 @@ def checksum(sin):
 
 
 class Provider(SsnProvider):
-
     # In order to create a valid SIN we need to provide a number that
     # passes a simple modified Luhn Algorithm checksum.
     #
@@ -48,7 +47,6 @@ class Provider(SsnProvider):
     # valid nine-digit Canadian SIN (Social Insurance Number) in the
     # format '### ### ###'.
     def ssn(self) -> str:
-
         # Create an array of 8 elements initialized randomly.
         digits = self.generator.random.sample(range(9), 8)
 

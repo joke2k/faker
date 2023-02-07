@@ -55,7 +55,6 @@ def company_vat_checksum(digits: List[int]) -> int:
 
 
 class Provider(CompanyProvider):
-
     formats = (
         "{{last_name}} {{company_suffix}}",
         "{{last_name}}-{{last_name}} {{company_suffix}}",

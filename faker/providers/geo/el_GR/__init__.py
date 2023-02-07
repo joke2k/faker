@@ -5,7 +5,6 @@ from .. import Provider as GeoProvider
 
 
 class Provider(GeoProvider):
-
     poly = (
         ("40.34026", "19.15120"),
         ("42.21670", "26.13934"),

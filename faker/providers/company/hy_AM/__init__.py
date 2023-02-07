@@ -2,7 +2,6 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
-
     formats = (
         "{{first_name}} և {{first_name}} {{company_suffix}}",
         "{{last_name}} {{company_suffix}}",

@@ -5,7 +5,6 @@ from ..es import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     departments = {
         "05": "Antioquia",
         "08": "Atlántico",

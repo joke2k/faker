@@ -21,6 +21,7 @@ class Provider(SsnProvider):
         (add 2000000000) before the division by 97.
 
         """
+
         # see http://nl.wikipedia.org/wiki/Burgerservicenummer (in Dutch)
         def _checksum(digits):
             res = 97 - (digits % 97)

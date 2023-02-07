@@ -2,7 +2,6 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     city_formats = ("{{city_name}}",)
 
     street_name_formats = (

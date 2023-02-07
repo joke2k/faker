@@ -6,7 +6,6 @@ from .. import Provider as InternetProvider
 
 
 class Provider(InternetProvider):
-
     free_email_domains = (
         "hol.gr",
         "gmail.com",
