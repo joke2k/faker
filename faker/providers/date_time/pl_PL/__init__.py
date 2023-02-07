@@ -2,7 +2,6 @@ from .. import Provider as DateTimeProvider
 
 
 class Provider(DateTimeProvider):
-
     DAY_NAMES = {
         "0": "poniedziałek",
         "1": "wtorek",

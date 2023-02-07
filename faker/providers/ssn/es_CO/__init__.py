@@ -25,7 +25,6 @@ def nit_check_digit(nit: str) -> str:
 
 
 class Provider(BaseProvider):
-
     nuip_formats = OrderedDict(
         [
             ("10########", 0.25),

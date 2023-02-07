@@ -12,7 +12,6 @@ localized = True
 
 
 class Provider(BaseProvider):
-
     country_calling_codes: ElementsType[str] = (
         "+93",
         "+358 18",

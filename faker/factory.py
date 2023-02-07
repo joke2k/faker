@@ -69,12 +69,10 @@ class Factory:
         provider_path: str,
         locale: Optional[str] = None,
     ) -> Tuple[Any, Optional[str], Optional[str]]:
-
         provider_module = import_module(provider_path)
         default_locale = getattr(provider_module, "default_locale", "")
 
         if getattr(provider_module, "localized", False):
-
             logger.debug(
                 "Looking for locale `%s` in provider `%s`.",
                 locale,
@@ -104,7 +102,6 @@ class Factory:
             provider_module = import_module(path)
 
         else:
-
             if locale:
                 logger.debug(
                     "Provider `%s` does not feature localization. "

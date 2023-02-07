@@ -2,7 +2,6 @@ from .. import Provider as CurrencyProvider
 
 
 class Provider(CurrencyProvider):
-
     price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
 
     def pricetag(self):

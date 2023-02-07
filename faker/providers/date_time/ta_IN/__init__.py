@@ -2,7 +2,6 @@ from .. import Provider as DateTimeProvider
 
 
 class Provider(DateTimeProvider):
-
     # Source: http://www.localeplanet.com/icu/ta-IN/index.html
     DAY_NAMES = {
         "0": "திங்கள்",

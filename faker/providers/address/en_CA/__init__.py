@@ -8,7 +8,6 @@ from ..en import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     #  Source: https://www.canadapost.ca/tools/pg/manual/PGaddress-e.asp#1449294
     #
     #  'W' and 'Z' are valid in non-initial position (easily verified in the

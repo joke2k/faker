@@ -34,7 +34,6 @@ class TestISBN13:
 
 
 class TestProvider:
-
     prov = ISBNProvider(None)
 
     def test_reg_pub_separation(self):

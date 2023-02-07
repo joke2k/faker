@@ -40,7 +40,6 @@ class TestUserAgentProvider:
         """Check whether ``faker.firefox()`` is deterministic, given the same seed."""
 
         for _ in range(num_samples):
-
             # GIVEN a (new) random seed
             seed = faker.random.random()
 
@@ -52,7 +51,6 @@ class TestUserAgentProvider:
 
             # AND the DevOpsTester using the fake library tomorrow
             with freeze_time(dt.datetime.now() + self.one_day):
-
                 # AND the DevOpsTester requests a faked Mozilla Firefox web browser user agent (str)
                 fake_firefox_ua_output_tomorrow = faker.firefox()
 
@@ -61,7 +59,6 @@ class TestUserAgentProvider:
 
             # AND the DevOpsTester would use the fake library some time later
             with freeze_time(dt.datetime.max - self.one_day):
-
                 # AND the DevOpsTester requests again faked Mozilla Firefox web browser user agent
                 fake_firefox_ua_output_much_later = faker.firefox()
 
