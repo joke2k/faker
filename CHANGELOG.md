@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.7.0 - 2023-02-07](https://github.com/joke2k/faker/compare/v16.6.1...v16.7.0)
+
+*  Add method to generate JSON as bytes. Thanks @browniebroke.
+
 ### [v16.6.1 - 2023-01-24](https://github.com/joke2k/faker/compare/v16.6.0...v16.6.1)
 
 * Fix `siret` and `siren` generation for `fr_FR` locale company information. Thanks @daamien.
