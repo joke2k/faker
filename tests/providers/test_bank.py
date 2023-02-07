@@ -239,6 +239,7 @@ class TestEsMx:
             assert is_valid_clabe(clabe)
             assert int(clabe[:3].lstrip("0")) == bank_code
 
+
 class TestEsAr:
     """Test es_AR bank provider"""
 
@@ -252,6 +253,7 @@ class TestEsAr:
             assert is_valid_iban(iban)
             assert iban[:2] == EsArBankProvider.country_code
             assert re.fullmatch(r"\d{2}[A-Z]{4}\d{20}", iban[2:])
+
 
 class TestFrFr:
     """Test fr_FR bank provider"""

@@ -5,7 +5,6 @@ from ..es import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-
     provinces = {
         "CABA": "Ciudad Autónoma de Buenos Aires",
         "BA": "Buenos Aires",
@@ -64,7 +63,6 @@ class Provider(AddressProvider):
         ("4200", "Santiago del Estero", "SE"),
         ("9410", "Ushuaia", "TF"),
         ("4000", "San Miguel de Tucumán", "TU"),
-        
     ]
 
     street_prefixes = OrderedDict(
@@ -81,21 +79,22 @@ class Provider(AddressProvider):
     )
     street_suffixes = ["A", "B", "Bis"]
 
-    street_proceres = ("San Martin",
-            "Belgrano",
-            "Saavedra",
-            "Rivadavia",
-            "Güemes",
-            "G. Brown",
-            "J.B. Alberdi",
-            "J.M. de Rosas",
-            "J.J. Castelli",
-            "Mitre",
-            "Alem",
-            "Alvear",
-            "Malvinas Argentinas",
-            "Pte. Perón",
-            "Omar Nuñez",
+    street_proceres = (
+        "San Martin",
+        "Belgrano",
+        "Saavedra",
+        "Rivadavia",
+        "Güemes",
+        "G. Brown",
+        "J.B. Alberdi",
+        "J.M. de Rosas",
+        "J.J. Castelli",
+        "Mitre",
+        "Alem",
+        "Alvear",
+        "Malvinas Argentinas",
+        "Pte. Perón",
+        "Omar Nuñez",
     )
     street_name_formats = OrderedDict(
         [
@@ -194,7 +193,6 @@ class Provider(AddressProvider):
         """
         return self.numerify(self.generator.parse(self.random_element(self.building_number_formats)))
 
-
     def secondary_address(self) -> str:
         """
         :example: "Departamento 123"
@@ -217,10 +215,9 @@ class Provider(AddressProvider):
         """
         :example: "Calle 1 N° 23, La Plata 1900, Buenos Aires"
         """
-        municipality: Tuple[str, str] = self.random_element(self.municipalities)
+        municipality: Tuple[str, str, str] = self.random_element(self.municipalities)
         municipality_code = municipality[0]
         municipality_prov = municipality[2]
-
 
         secondary_address: str = self.random_element(
             [
@@ -228,7 +225,7 @@ class Provider(AddressProvider):
                 "",
             ]
         )
-        postcode = "\n"+ municipality[1] +" "+ municipality_code
-        province_name = ", "+self.provinces[municipality_prov]
+        postcode = "\n" + municipality[1] + " " + municipality_code
+        province_name = ", " + self.provinces[municipality_prov]
 
         return self.street_address() + secondary_address + postcode + province_name
