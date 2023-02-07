@@ -10,7 +10,7 @@ class Provider(PhoneNumberProvider):
 
     formats = (
         "+54 15 2%## ####",  # National telephone to mobile phone
-        "+54 9 3%## ####", # International phone}
+        "+54 9 3%## ####",  # International phone}
     )
 
     landline_codes = (

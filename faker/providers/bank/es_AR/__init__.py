@@ -28,9 +28,9 @@ class Provider(BankProvider):
         "Banco Itaú Argentina",
         "Banco de Inversión y Comercio Exterior (BICE)",
         "Banco Comafi",
-        "BSE - Banco Santiago del Estero"
-        )
+        "BSE - Banco Santiago del Estero",
+    )
 
-    def bank(self):
+    def bank(self) -> str:
         """Generate a bank name."""
         return self.random_element(self.banks)
