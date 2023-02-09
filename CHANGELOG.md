@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v16.8.1 - 2023-02-09](https://github.com/joke2k/faker/compare/v16.8.0...v16.8.1)
+
+* Sort and add new Arabic words in `ar_AA` and `ar_PS`. Thanks @alfawal.  
+
 ### [v16.8.0 - 2023-02-09](https://github.com/joke2k/faker/compare/v16.7.1...v16.8.0)
 
-* Ad `emoji` provider. Thanks @Artmorse.
+* Add `emoji` provider. Thanks @Artmorse.
 
 ### [v16.7.1 - 2023-02-09](https://github.com/joke2k/faker/compare/v16.7.0...v16.7.1)
 
