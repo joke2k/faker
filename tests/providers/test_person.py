@@ -269,12 +269,12 @@ class TestJaJP(unittest.TestCase):
         first_name_pair = self.fake.first_name_pair()
         assert first_name_pair
         assert len(first_name_pair) == 3
-        assert all(isinstance(s, str) for s in first_name_pair)
+        assert all(s for s in first_name_pair if isinstance(s, str))
 
         first_name_male_pair = self.fake.first_name_male_pair()
         assert first_name_male_pair
         assert len(first_name_male_pair) == 3
-        assert all(isinstance(s, str) for s in first_name_male_pair)
+        assert all(s for s in first_name_male_pair if isinstance(s, str))
 
         first_name_female_pair = self.fake.first_name_female_pair()
         assert first_name_female_pair

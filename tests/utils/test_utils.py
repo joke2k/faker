@@ -79,6 +79,7 @@ class UtilsTestCase(unittest.TestCase):
                     "faker.providers.credit_card",
                     "faker.providers.currency",
                     "faker.providers.date_time",
+                    "faker.providers.emoji",
                     "faker.providers.file",
                     "faker.providers.geo",
                     "faker.providers.internet",
