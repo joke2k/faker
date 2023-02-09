@@ -4,7 +4,6 @@ from .. import BaseProvider
 
 
 class Provider(BaseProvider):
-
     emojis = [
         "😀",
         "😃",
@@ -3519,8 +3518,8 @@ class Provider(BaseProvider):
 
     emoji_formats = "{{emoji}}"
 
-    def emoji(self, min_length: Optional[int] = None, max_length: Optional[int] = None) -> str:
+    def emoji(self) -> str:
         """
         :example: '😉'
         """
-        return self.random_element(self.emojis, min_length, max_length)
+        return self.random_element(self.emojis)
