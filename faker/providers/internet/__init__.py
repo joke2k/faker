@@ -157,7 +157,6 @@ class Provider(BaseProvider):
         "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
         "https://placekitten.com/{width}/{height}",
-        "https://placeimg.com/{width}/{height}/any",
     )
 
     replacements: Tuple[Tuple[str, str], ...] = ()
