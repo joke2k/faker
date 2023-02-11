@@ -55,8 +55,14 @@ class Provider(BaseProvider):
             allowed_types = ()
         return tuple(value_types) + tuple(allowed_types)
 
-    def pybool(self) -> bool:
-        return self.random_int(0, 1) == 1
+    def pybool(self, truth_probability: int = 50) -> bool:
+        """
+        Generates a random boolean, optionally biased towards `True` or `False`.
+
+        :truth_probability: Probability of generating a `True` value.
+        :return: Random boolean.
+        """
+        return self.random_int(1, 100) <= truth_probability
 
     def pystr(
         self,

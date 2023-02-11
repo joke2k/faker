@@ -468,9 +468,45 @@ class TestPython(unittest.TestCase):
     def setUp(self):
         self.factory = Faker()
 
-    def test_pybool(self):
+    def test_pybool_return_type(self):
         some_bool = self.factory.pybool()
         assert isinstance(some_bool, bool)
+
+    def __test_pybool_truth_probability(
+        self,
+        truth_probability: int,
+        deviation_threshold: int = 5,
+        iterations: int = 999,
+    ):
+        truth_count_expected = iterations * truth_probability / 100
+        truth_count_actual = 0
+
+        for iteration in range(iterations):
+            boolean = self.factory.pybool(truth_probability=truth_probability)
+            assert isinstance(boolean, bool)
+            if boolean is True:
+                truth_count_actual += 1
+
+        deviation_absolute = abs(truth_count_expected - truth_count_actual)
+        deviation_percentage = deviation_absolute / iterations * 100
+
+        # Increase `deviation_threshold` value in case this assertion becomes flaky.
+        assert deviation_percentage <= deviation_threshold
+
+    def test_pybool_truth_probability_zero(self):
+        self.__test_pybool_truth_probability(0, deviation_threshold=0)
+
+    def test_pybool_truth_probability_twenty_five(self):
+        self.__test_pybool_truth_probability(25)
+
+    def test_pybool_truth_probability_fifty(self):
+        self.__test_pybool_truth_probability(50)
+
+    def test_pybool_truth_probability_seventy_five(self):
+        self.__test_pybool_truth_probability(75)
+
+    def test_pybool_truth_probability_hundred(self):
+        self.__test_pybool_truth_probability(100, deviation_threshold=0)
 
     def test_pytuple(self):
         with warnings.catch_warnings(record=True) as w:
