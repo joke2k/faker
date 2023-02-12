@@ -57,7 +57,7 @@ Here's a list of Providers written by the community:
 |               | faker, to make values     |                                  |
 |               | optional!                 |                                  |
 +---------------+---------------------------+----------------------------------+
-| Presidio      | Create synthetic datasets | `presidio-sentence-faker`        |
+| Presidio      | Create synthetic datasets | `presidio-sentence-faker`_       |
 |               | for training Named Entity |                                  |
 |               | Recognition models        |                                  |
 |               | using Faker.              |                                  |
