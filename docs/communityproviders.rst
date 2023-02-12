@@ -57,9 +57,9 @@ Here's a list of Providers written by the community:
 |               | faker, to make values     |                                  |
 |               | optional!                 |                                  |
 +---------------+---------------------------+----------------------------------+
-| Presidio      | Create synthetic datasets | `presidio-sentence-faker`_       |
-|               | for training Named Entity |                                  |
-|               | Recognition models        |                                  |
+| Presidio      | Create synthetic datasets | `presidio-evaluator`_            |
+| Sentence      | for training Named Entity |                                  |
+| Faker         | Recognition models        |                                  |
 |               | using Faker.              |                                  |
 +---------------+---------------------------+----------------------------------+
 
@@ -91,4 +91,4 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_web: https://pypi.org/project/faker_web/
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
 .. _optional_faker: https://pypi.org/project/optional_faker
-.. _presidio-sentence-faker: https://pypi.org/project/presidio-evaluator
+.. _presidio-evaluator: https://pypi.org/project/presidio-evaluator
