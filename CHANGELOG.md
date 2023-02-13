@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v16.9.0 - 2023-02-13](https://github.com/joke2k/faker/compare/v16.8.1...v16.9.0)
+
+* Add `truth_probability` argument to `pybool` generator. Thanks @Kolyunya.
+
 ### [v16.8.1 - 2023-02-09](https://github.com/joke2k/faker/compare/v16.8.0...v16.8.1)
 
 * Sort and add new Arabic words in `ar_AA` and `ar_PS`. Thanks @alfawal.  
