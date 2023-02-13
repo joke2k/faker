@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v17.0.0 - 2023-02-13](https://github.com/joke2k/faker/compare/v16.9.0...v17.0.0)
+
+* Remove deprecated placeimg image provider. Thanks @Wonskcalb.
+
+
 ### [v16.9.0 - 2023-02-13](https://github.com/joke2k/faker/compare/v16.8.1...v16.9.0)
 
 * Add `truth_probability` argument to `pybool` generator. Thanks @Kolyunya.
