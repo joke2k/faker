@@ -508,6 +508,20 @@ class TestPython(unittest.TestCase):
     def test_pybool_truth_probability_hundred(self):
         self.__test_pybool_truth_probability(100, deviation_threshold=0)
 
+    def __test_pybool_invalid_truth_probability(self, truth_probability: int):
+        with pytest.raises(ValueError) as exception:
+            self.factory.pybool(truth_probability=truth_probability)
+
+        message_expected = "Invalid `truth_probability` value: must be between `0` and `100` inclusive"
+        message_actual = str(exception.value)
+        assert message_expected == message_actual
+
+    def test_pybool_truth_probability_less_than_zero(self):
+        self.__test_pybool_invalid_truth_probability(-1)
+
+    def test_pybool_truth_probability_more_than_hundred(self):
+        self.__test_pybool_invalid_truth_probability(101)
+
     def test_pytuple(self):
         with warnings.catch_warnings(record=True) as w:
             some_tuple = Faker().pytuple()
