@@ -678,7 +678,7 @@ class Provider(BaseProvider):
 
     def _value_format_selection(self, definition: str, **kwargs: Any) -> Union[int, str]:
         """
-        Formats the string in different ways depending on it's contents.
+        Formats the string in different ways depending on its contents.
 
         The return can be the '@word' itself, a '{{ token }}' passed to PyStr,
         or a 'provider:argument_group' format field that returns potentially
@@ -696,12 +696,12 @@ class Provider(BaseProvider):
         if re.match(r"^@.*", definition):
             return definition.lstrip("@")
 
-        # Check if a argument group has been supplied
+        # Check if an argument group has been supplied
         if re.match(r"^[a-zA-Z0-9_-]*:\w", definition):
             definition, argument_group = definition.split(":")
             arguments = self.generator.get_arguments(argument_group.strip())
 
             return self.generator.format(definition.strip(), **arguments)
 
-        # Assume the string is refering to a provider
+        # Assume the string is referring to a provider
         return self.generator.format(definition, **kwargs)
