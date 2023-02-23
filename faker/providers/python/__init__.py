@@ -59,9 +59,13 @@ class Provider(BaseProvider):
         """
         Generates a random boolean, optionally biased towards `True` or `False`.
 
-        :truth_probability: Probability of generating a `True` value.
+        :truth_probability: Probability of generating a `True` value. Must be between `0` and `100` inclusive'.
         :return: Random boolean.
+        :raises ValueError: If invalid `truth_probability` is provided.
         """
+        if truth_probability < 0 or truth_probability > 100:
+            raise ValueError("Invalid `truth_probability` value: must be between `0` and `100` inclusive")
+
         return self.random_int(1, 100) <= truth_probability
 
     def pystr(
