@@ -23,10 +23,10 @@ from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
-from faker.providers.ssn.lv_LV import Provider as lv_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
+from faker.providers.ssn.lv_LV import Provider as lv_Provider
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
