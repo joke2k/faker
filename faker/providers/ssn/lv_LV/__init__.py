@@ -39,7 +39,7 @@ class Provider(SsnProvider):
         return ssn
 
     @staticmethod
-    def _get_century_code(year: int) -> str:
+    def _get_century_code(year: int) -> int:
         """Returns the century code for a given year"""
         if 2000 <= year < 3000:
             code = 2
