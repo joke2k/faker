@@ -40,6 +40,7 @@ from faker.providers.date_time.sl_SI import Provider as SlSiProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
+from faker.providers.date_time.zh_TW import Provider as ZhTwProvider
 
 
 def is64bit():
@@ -1192,8 +1193,34 @@ class TestZhCn(unittest.TestCase):
         assert day in ZhCnProvider.DAY_NAMES.values()
 
     def test_month(self):
-        day = self.fake.month_name()
-        assert day in ZhCnProvider.MONTH_NAMES.values()
+        month = self.fake.month_name()
+        assert month in ZhCnProvider.MONTH_NAMES.values()
+
+
+class TestZhTw(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("zh-TW")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in ZhTwProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in ZhTwProvider.MONTH_NAMES.values()
+
+    def test_year(self):
+        year = self.fake.year()
+        assert isinstance(year, str)
+        assert year.isdigit()
+        assert len(year) >= 4
+
+    def test_minguo_year(self):
+        year = self.fake.minguo_year()
+        assert isinstance(year, str)
+        assert year.isdigit()
+        assert 1 <= len(year) <= 3
 
 
 class TestNoNo(unittest.TestCase):
