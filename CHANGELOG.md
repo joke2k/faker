@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v17.2.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.1.0...v17.2.0)
+
+* Add support for latvian `ssn` generation. Thanks @OskarsPakers.
+
 ### [v17.1.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.0.0...v17.1.0)
 
 * Add argument validation to `pybool()`. Thanks @Kolyunya.
