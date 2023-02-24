@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v17.1.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.0.0...v17.1.0)
+
+* Add argument validation to `pybool()`. Thanks @Kolyunya.
+
 ### [v17.0.0 - 2023-02-13](https://github.com/joke2k/faker/compare/v16.9.0...v17.0.0)
 
 * Remove deprecated placeimg image provider. Thanks @Wonskcalb.
