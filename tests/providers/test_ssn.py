@@ -26,6 +26,7 @@ from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
+from faker.providers.ssn.lv_LV import Provider as lv_Provider
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
@@ -1236,3 +1237,37 @@ class TestAzAz(unittest.TestCase):
     def check_length(self):
         for sample in self.samples:
             assert len(sample) == 7
+
+
+class TestLvLV(unittest.TestCase):
+    num_sample_runs = 10
+
+    def setUp(self):
+        self.fake = Faker("lv_LV")
+        Faker.seed(0)
+        self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
+        self.provider = lv_Provider
+
+    def test_century_code(self):
+        assert self.provider._get_century_code(1900) == 1
+        assert self.provider._get_century_code(1999) == 1
+        assert self.provider._get_century_code(2000) == 2
+        assert self.provider._get_century_code(2999) == 2
+        assert self.provider._get_century_code(1800) == 0
+        assert self.provider._get_century_code(1899) == 0
+        with pytest.raises(ValueError):
+            self.provider._get_century_code(1799)
+        with pytest.raises(ValueError):
+            self.provider._get_century_code(3000)
+
+    def test_ssn_sanity(self):
+        for age in range(100):
+            self.fake.ssn(min_age=age, max_age=age + 1)
+
+    def check_length(self):
+        for sample in self.samples:
+            assert len(sample) == 12
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^LV\d{11}$", self.fake.vat_id())
