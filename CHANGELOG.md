@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v17.3.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.2.0...v17.3.0)
+
+* Add `zh_TW` `date_time` provider. Thanks @ew2664.
+
 ### [v17.2.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.1.0...v17.2.0)
 
 * Add support for latvian `ssn` generation. Thanks @OskarsPakers.
