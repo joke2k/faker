@@ -16,6 +16,7 @@ class SBN:
         self.registrant = registrant
         self.publication = publication
 
+
 class SBN9(SBN):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -25,8 +26,8 @@ class SBN9(SBN):
         """Calculate the check digit for SBN-9.
         SBNs use the same check digit calculation as ISBN. See
         https://en.wikipedia.org/wiki/International_Standard_Book_Number
-		for calculation. Only modification is weights range from 1 to 9
-		instead of 1 to 10.
+                for calculation. Only modification is weights range from 1 to 9
+                instead of 1 to 10.
         """
         weights = range(1, 9)
         body = "".join([part for part in [self.registrant, self.publication] if part is not None])

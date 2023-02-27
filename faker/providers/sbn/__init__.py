@@ -3,8 +3,8 @@ from typing import List, Tuple
 from faker.providers.sbn.rules import RegistrantRule
 
 from .. import BaseProvider
-from .sbn import SBN, SBN9
 from .rules import RULES
+from .sbn import SBN, SBN9
 
 
 class Provider(BaseProvider):
@@ -16,8 +16,7 @@ class Provider(BaseProvider):
     """
 
     def _body(self) -> List[str]:
-        """Generate the information required to create an SBN
-        """
+        """Generate the information required to create an SBN"""
 
         reg_pub_len: int = SBN.MAX_LENGTH - 1
 

@@ -20,6 +20,7 @@ class TestISBN9:
         sbn = SBN9(registrant="451", publication="10036")
         assert len(sbn.format()) == 9
 
+
 class TestProvider:
     prov = SBNProvider(None)
 
