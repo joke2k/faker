@@ -5,7 +5,7 @@ for ean 978, reg_group 0.
 """
 
 from collections import namedtuple
-from typing import Dict, List
+from typing import List
 
 RegistrantRule = namedtuple("RegistrantRule", ["min", "max", "registrant_length"])
 
