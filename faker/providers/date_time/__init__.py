@@ -908,7 +908,7 @@ class Provider(BaseProvider):
             alpha_2_code="MK",
             alpha_3_code="MKD",
             continent="Europe",
-            name="Macedonia",
+            name="North Macedonia",
             capital="Skopje",
         ),
         Country(
