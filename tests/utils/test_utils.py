@@ -91,6 +91,7 @@ class UtilsTestCase(unittest.TestCase):
                     "faker.providers.phone_number",
                     "faker.providers.profile",
                     "faker.providers.python",
+                    "faker.providers.sbn",
                     "faker.providers.ssn",
                     "faker.providers.user_agent",
                 ],
