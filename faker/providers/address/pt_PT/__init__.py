@@ -325,7 +325,7 @@ class Provider(AddressProvider):
         "Lituânia",
         "Luxemburgo",
         "Macau",
-        "Macedónia",
+        "Macedónia do Norte",
         "Madagáscar",
         "Malásia",
         "Malávi",

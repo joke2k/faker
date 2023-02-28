@@ -170,7 +170,7 @@ class Provider(AddressProvider):
         "Lithuanie",
         "Luxembourg",
         "Macau",
-        "Macédoine",
+        "Macédoine du Nord",
         "Madagascar",
         "Malaisie",
         "Malawi",

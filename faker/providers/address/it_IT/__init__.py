@@ -17489,7 +17489,7 @@ class Provider(AddressProvider):
         "Lituania",
         "Lussemburgo",
         "Macao",
-        "Macedonia",
+        "Macedonia del Nord",
         "Madagascar",
         "Malawi",
         "Malesia",

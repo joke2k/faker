@@ -736,7 +736,7 @@ class Provider(AddressProvider):
         "Lituânia",
         "Luxemburgo",
         "Macau",
-        "Macedônia",
+        "Macedónia do Norte",
         "Madagáscar",
         "Malásia",
         "Malávi",
