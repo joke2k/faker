@@ -15,6 +15,7 @@ from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
 from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
+from faker.providers.bank.nl_BE import Provider as NlBeBankProvider
 from faker.providers.bank.no_NO import Provider as NoNoBankProvider
 from faker.providers.bank.pl_PL import Provider as PlPlBankProvider
 from faker.providers.bank.pt_PT import Provider as PtPtBankProvider
@@ -399,3 +400,35 @@ class TestEnIn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
+
+
+class TestNlBe:
+    """Test nl_BE bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"\d{12}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == NlBeBankProvider.country_code
+            assert re.fullmatch(r"\d{2}\d{12}", iban[2:])
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in NlBeBankProvider.swift_bank_codes
+            assert code[4:6] == NlBeBankProvider.country_code
+            assert code[6:8] in NlBeBankProvider.swift_location_codes
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in NlBeBankProvider.swift_bank_codes
+            assert code[4:6] == NlBeBankProvider.country_code
+            assert code[6:8] in NlBeBankProvider.swift_location_codes
+            assert code[8:11] in NlBeBankProvider.swift_branch_codes
