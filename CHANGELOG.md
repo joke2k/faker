@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v17.4.0 - 2023-02-28](https://github.com/joke2k/faker/compare/v17.3.0...v17.4.0)
+
+* Use the official name for North Macedonia due to the name change in 2019. Thanks @takis.
+
 ### [v17.3.0 - 2023-02-24](https://github.com/joke2k/faker/compare/v17.2.0...v17.3.0)
 
 * Add `zh_TW` `date_time` provider. Thanks @ew2664.
