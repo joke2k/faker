@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v17.5.0 - 2023-03-01](https://github.com/joke2k/faker/compare/v17.4.0...v17.4.0)
+
+* Add SBN provider. Thanks @dag2226.
+
 ### [v17.4.0 - 2023-02-28](https://github.com/joke2k/faker/compare/v17.3.0...v17.4.0)
 
 * Use the official name for North Macedonia due to the name change in 2019. Thanks @takis.
