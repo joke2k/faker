@@ -40,6 +40,7 @@
 ### [v16.7.1 - 2023-02-09](https://github.com/joke2k/faker/compare/v16.7.0...v16.7.1)
 
 * Fix `name_female` and `name_male` mixed names for `en_GB`. @thanks @nathanael-e.
+* Add `es_AR` providers. Thanks @kity-linuxero.
 
 ### [v16.7.0 - 2023-02-07](https://github.com/joke2k/faker/compare/v16.6.1...v16.7.0)
 
