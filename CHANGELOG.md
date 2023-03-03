@@ -1,6 +1,11 @@
 ## Changelog
 
-### [v17.5.0 - 2023-03-01](https://github.com/joke2k/faker/compare/v17.4.0...v17.4.0)
+### [v17.6.0 - 2023-03-03](https://github.com/joke2k/faker/compare/v17.5.0...v17.6.0)
+
+* Add `nl_BE` bank provider. Thanks @takis.
+* Fix North Macedonia entry in `uk_UA` provider. Thanks @PerchunPak.
+
+### [v17.5.0 - 2023-03-01](https://github.com/joke2k/faker/compare/v17.4.0...v17.5.0)
 
 * Add SBN provider. Thanks @dag2226.
 
