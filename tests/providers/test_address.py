@@ -536,7 +536,7 @@ class TestEnUS:
 
     def test_postcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
-            for state_abbr in EnUsAddressProvider.states_abbr:
+            for state_abbr in EnUsAddressProvider.states_and_territories_abbr:
                 code = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
                 assert int(code) >= EnUsAddressProvider.states_postcode[state_abbr][0]
@@ -553,7 +553,7 @@ class TestEnUS:
 
     def test_zipcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
-            for state_abbr in EnUsAddressProvider.states_abbr:
+            for state_abbr in EnUsAddressProvider.states_and_territories_abbr:
                 code = faker.zipcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
                 assert int(code) >= EnUsAddressProvider.states_postcode[state_abbr][0]

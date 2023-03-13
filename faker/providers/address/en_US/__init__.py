@@ -419,6 +419,15 @@ class Provider(AddressProvider):
         "WV": (24701, 26886),
         "WI": (53001, 54990),
         "WY": (82001, 83128),
+        # Territories - incomplete ranges with accurate subsets - https://www.geonames.org/postalcode-search.html
+        "AS": (96799, 96799),
+        "FM": (96941, 96944),
+        "GU": (96910, 96932),
+        "MH": (96960, 96970),
+        "MP": (96950, 96952),
+        "PW": (96940, 96940),
+        "PR": (600, 799),
+        "VI": (801, 805),
     }
 
     territories_abbr = (
@@ -511,7 +520,7 @@ class Provider(AddressProvider):
         if state_abbr is None:
             state_abbr = self.random_element(self.states_abbr)
 
-        if state_abbr in self.states_abbr:
+        if state_abbr in self.states_and_territories_abbr:
             postcode = "%d" % (
                 self.generator.random.randint(
                     self.states_postcode[state_abbr][0],
@@ -519,8 +528,12 @@ class Provider(AddressProvider):
                 )
             )
 
-            if len(postcode) == 4:
-                postcode = "0%s" % postcode
+            # zero left pad up until desired length (some have length 3 or 4)
+            target_postcode_len = 5
+            current_postcode_len = len(postcode)
+            if current_postcode_len < target_postcode_len:
+                pad = target_postcode_len - current_postcode_len
+                postcode = f"{'0'*pad}{postcode}"
 
             return postcode
 
