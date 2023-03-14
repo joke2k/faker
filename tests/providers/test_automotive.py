@@ -315,8 +315,4 @@ class TestDeCh(_SimpleAutomotiveTestMixin):
 class TestNlBe(_SimpleAutomotiveTestMixin):
     """Test nl_BE automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(
-        r"(\d{3}-[A-Z]{3})|"
-        r"([A-Z]{3}-\d{3})|"
-        r"([1-2]-[A-Z]{3}-\d{3})"
-    )
+    license_plate_pattern: Pattern = re.compile(r"(\d{3}-[A-Z]{3})|" r"([A-Z]{3}-\d{3})|" r"([1-2]-[A-Z]{3}-\d{3})")
