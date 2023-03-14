@@ -12,18 +12,18 @@ from faker import Faker
 
 
 @pytest.mark.parametrize(
-    "object_type, kwargs",
+    "object_type",
     (
-        (None, {}),
-        (bool, {}),
-        (str, {}),
-        (float, {}),
-        (int, {}),
-        (tuple, {}),
-        (set, {}),
-        (list, {}),
-        (Iterable, {}),
-        (dict, {}),
+        (None,),
+        (bool,),
+        (str,),
+        (float,),
+        (int,),
+        (tuple,),
+        (set,),
+        (list,),
+        (Iterable,),
+        (dict,),
     ),
 )
 def test_pyobject(
