@@ -3,7 +3,7 @@ import sys
 import unittest
 import warnings
 
-from typing import Any, Dict, Iterable, Optional, Union
+from typing import Iterable, Optional, Union
 from unittest.mock import patch
 
 import pytest
@@ -11,26 +11,11 @@ import pytest
 from faker import Faker
 
 
-@pytest.mark.parametrize(
-    "object_type",
-    (
-        (None,),
-        (bool,),
-        (str,),
-        (float,),
-        (int,),
-        (tuple,),
-        (set,),
-        (list,),
-        (Iterable,),
-        (dict,),
-    ),
-)
+@pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
 def test_pyobject(
     object_type: Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]],
-    kwargs: Dict[str, Any],
 ):
-    random_object = Faker().pyobject(object_type=object_type, **kwargs)
+    random_object = Faker().pyobject(object_type=object_type)
     if object_type is None:
         assert random_object is None
     else:
