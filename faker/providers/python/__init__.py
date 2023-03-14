@@ -55,6 +55,40 @@ class Provider(BaseProvider):
             allowed_types = ()
         return tuple(value_types) + tuple(allowed_types)
 
+    def pyobject(
+        self,
+        object_type: Optional[Type[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]] = None,
+    ) -> Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]:
+        """
+        Generates a random object passing the type desired.
+
+        :object_type: the type of the object to generate.
+        :return: the random object generated.
+        :raises ValueError: if the object type passed is not supported
+        """
+        if object_type is None:
+            return None
+        elif object_type == bool:
+            return self.pybool()
+        elif object_type == str:
+            return self.pystr()
+        elif object_type == float:
+            return self.pyfloat()
+        elif object_type == int:
+            return self.pyint()
+        elif object_type == tuple:
+            return self.pytuple()
+        elif object_type == set:
+            return self.pyset()
+        elif object_type == list:
+            return self.pylist()
+        elif object_type == Iterable:
+            return self.pyiterable()
+        elif object_type == dict:
+            return self.pydict()
+        else:
+            raise ValueError("Object type `{object_type}` is not supported by `pyobject` function")
+
     def pybool(self, truth_probability: int = 50) -> bool:
         """
         Generates a random boolean, optionally biased towards `True` or `False`.
