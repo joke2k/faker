@@ -3,11 +3,29 @@ import sys
 import unittest
 import warnings
 
+from typing import Iterable, Optional, Union
 from unittest.mock import patch
 
 import pytest
 
 from faker import Faker
+
+
+@pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
+def test_pyobject(
+    object_type: Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]],
+):
+    random_object = Faker().pyobject(object_type=object_type)
+    if object_type is None:
+        assert random_object is None
+    else:
+        assert isinstance(random_object, object_type)
+
+
+@pytest.mark.parametrize("object_type", (object, type, callable))
+def test_pyobject_with_unknown_object_type(object_type):
+    with pytest.raises(ValueError):
+        assert Faker().pyobject(object_type=object_type)
 
 
 @pytest.mark.parametrize(
