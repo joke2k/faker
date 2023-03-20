@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.2.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v18.1.0...v18.2.0)
+
+* Add `pyobject` generator. Thanks @dariocurr.
+
 ### [v18.1.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v18.0.0...v18.1.0)
 
 * Add lorem provider for `nl_BE`. Thanks @takis.
