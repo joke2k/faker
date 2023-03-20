@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.0.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v17.6.0...v18.0.0)
+
+* Add territory zip codes for `en_US`. Thanks @johnekent.
+
 ### [v17.6.0 - 2023-03-03](https://github.com/joke2k/faker/compare/v17.5.0...v17.6.0)
 
 * Add `nl_BE` bank provider. Thanks @takis.
