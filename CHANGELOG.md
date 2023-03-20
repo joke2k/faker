@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v18.1.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v18.0.0...v18.1.0)
+
+* Add lorem provider for `nl_BE`. Thanks @takis.
+* Add `nl_BE` automotive provider. Thanks @takis.
+* Add `nl_BE` company provider. Thanks @takis.
+
 ### [v18.0.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v17.6.0...v18.0.0)
 
 * Add territory zip codes for `en_US`. Thanks @johnekent.
