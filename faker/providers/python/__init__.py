@@ -182,7 +182,7 @@ class Provider(BaseProvider):
             result = max(result, -(10**left_digits + 1))
 
         # It's possible for the result to end up > than max_value or < than min_value
-        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value. 
+        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value.
         # Which can happen a lot depending on the difference of the values.
         # Ensure the variance is bound by the difference between the max and min
         if max_value is not None:
