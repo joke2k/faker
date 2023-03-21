@@ -519,14 +519,32 @@ class TestEnUS:
         for _ in range(num_samples):
             state_abbr = faker.state_abbr()
             assert isinstance(state_abbr, str)
-            states_and_territories = EnUsAddressProvider.states_and_territories_abbr
+            states_and_territories = EnUsAddressProvider.known_usps_abbr
             assert state_abbr in states_and_territories
+
+    def test_state_abbr_states_only(self, faker, num_samples):
+        for _ in range(num_samples):
+            state_abbr = faker.state_abbr(include_territories=False, include_freely_associated_states=False)
+            assert isinstance(state_abbr, str)
+            assert state_abbr in EnUsAddressProvider.states_abbr
 
     def test_state_abbr_no_territories(self, faker, num_samples):
         for _ in range(num_samples):
             state_abbr = faker.state_abbr(include_territories=False)
             assert isinstance(state_abbr, str)
-            assert state_abbr in EnUsAddressProvider.states_abbr
+            assert (
+                state_abbr in EnUsAddressProvider.states_abbr
+                or state_abbr in EnUsAddressProvider.freely_associated_states_abbr
+            )
+
+    def test_state_abbr_no_freely_associated_states(self, faker, num_samples):
+        for _ in range(num_samples):
+            state_abbr = faker.state_abbr(include_freely_associated_states=False)
+            assert isinstance(state_abbr, str)
+            assert (
+                state_abbr in EnUsAddressProvider.states_abbr
+                or state_abbr in EnUsAddressProvider.territories_abbr
+            )
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -536,7 +554,7 @@ class TestEnUS:
 
     def test_postcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
-            for state_abbr in EnUsAddressProvider.states_and_territories_abbr:
+            for state_abbr in EnUsAddressProvider.known_usps_abbr:
                 code = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
                 assert int(code) >= EnUsAddressProvider.states_postcode[state_abbr][0]
@@ -553,7 +571,7 @@ class TestEnUS:
 
     def test_zipcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
-            for state_abbr in EnUsAddressProvider.states_and_territories_abbr:
+            for state_abbr in EnUsAddressProvider.known_usps_abbr:
                 code = faker.zipcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
                 assert int(code) >= EnUsAddressProvider.states_postcode[state_abbr][0]

@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Optional
+from typing import Optional, Set
 
 from ..en import Provider as AddressProvider
 
@@ -419,7 +419,8 @@ class Provider(AddressProvider):
         "WV": (24701, 26886),
         "WI": (53001, 54990),
         "WY": (82001, 83128),
-        # Territories - incomplete ranges with accurate subsets - https://www.geonames.org/postalcode-search.html
+        # Territories & freely-associated states
+        # incomplete ranges with accurate subsets - https://www.geonames.org/postalcode-search.html
         "AS": (96799, 96799),
         "FM": (96941, 96944),
         "GU": (96910, 96932),
@@ -432,16 +433,21 @@ class Provider(AddressProvider):
 
     territories_abbr = (
         "AS",
-        "FM",
         "GU",
-        "MH",
         "MP",
-        "PW",
         "PR",
         "VI",
     )
 
-    states_and_territories_abbr = states_abbr + territories_abbr
+    # Freely-associated states (sovereign states; members of COFA)
+    # https://en.wikipedia.org/wiki/Compact_of_Free_Association
+    freely_associated_states_abbr = (
+        "FM",
+        "MH",
+        "PW",
+    )
+
+    known_usps_abbr = states_abbr + territories_abbr + freely_associated_states_abbr
 
     military_state_abbr = ("AE", "AA", "AP")
 
@@ -494,16 +500,28 @@ class Provider(AddressProvider):
 
     state = administrative_unit
 
-    def state_abbr(self, include_territories: bool = True) -> str:
+    def state_abbr(
+        self,
+        include_territories: bool = True,
+        include_freely_associated_states: bool = True,
+    ) -> str:
         """
-        :returns: A random state or territory abbreviation.
+        :returns: A random two-letter USPS postal code
+
+        By default, the resulting code may abbreviate any of the fity states,
+        five US territories, or three freely-associating sovereign states.
 
         :param include_territories: If True, territories will be included.
-            If False, only states will be returned.
+            If False, US territories will be excluded.
+        :param include_freely_associated_states: If True, freely-associated states will be included.
+            If False, sovereign states in free association with the US will be excluded.
         """
+        abbreviations: Set[str] = set(self.states_abbr)
         if include_territories:
-            return self.random_element(self.states_and_territories_abbr)
-        return self.random_element(self.states_abbr)
+            abbreviations.update(self.territories_abbr)
+        if include_freely_associated_states:
+            abbreviations.update(self.freely_associated_states_abbr)
+        return self.random_element(abbreviations)
 
     def postcode(self) -> str:
         return "%05d" % self.generator.random.randint(501, 99950)
@@ -520,7 +538,7 @@ class Provider(AddressProvider):
         if state_abbr is None:
             state_abbr = self.random_element(self.states_abbr)
 
-        if state_abbr in self.states_and_territories_abbr:
+        if state_abbr in self.known_usps_abbr:
             postcode = "%d" % (
                 self.generator.random.randint(
                     self.states_postcode[state_abbr][0],
