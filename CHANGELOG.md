@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.2.1 - 2023-03-21](https://github.com/joke2k/faker/compare/v18.2.0...v18.2.1)
+
+* Fix value error formatting. Thanks @dariocurr.
+
 ### [v18.2.0 - 2023-03-20](https://github.com/joke2k/faker/compare/v18.1.0...v18.2.0)
 
 * Add `pyobject` generator. Thanks @dariocurr.
