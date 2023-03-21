@@ -87,7 +87,7 @@ class Provider(BaseProvider):
         elif object_type == dict:
             return self.pydict()
         else:
-            raise ValueError("Object type `{object_type}` is not supported by `pyobject` function")
+            raise ValueError(f"Object type `{object_type}` is not supported by `pyobject` function")
 
     def pybool(self, truth_probability: int = 50) -> bool:
         """
