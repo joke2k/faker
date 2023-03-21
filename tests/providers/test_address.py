@@ -541,10 +541,7 @@ class TestEnUS:
         for _ in range(num_samples):
             state_abbr = faker.state_abbr(include_freely_associated_states=False)
             assert isinstance(state_abbr, str)
-            assert (
-                state_abbr in EnUsAddressProvider.states_abbr
-                or state_abbr in EnUsAddressProvider.territories_abbr
-            )
+            assert state_abbr in EnUsAddressProvider.states_abbr or state_abbr in EnUsAddressProvider.territories_abbr
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
