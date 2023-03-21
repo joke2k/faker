@@ -24,7 +24,7 @@ def test_pyobject(
 
 @pytest.mark.parametrize("object_type", (object, type, callable))
 def test_pyobject_with_unknown_object_type(object_type):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match=f"Object type `{object_type}` is not supported by `pyobject` function"):
         assert Faker().pyobject(object_type=object_type)
 
 
