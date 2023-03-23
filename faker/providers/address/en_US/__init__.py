@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Optional, Set
+from typing import Optional, Tuple
 
 from ..en import Provider as AddressProvider
 
@@ -516,11 +516,11 @@ class Provider(AddressProvider):
         :param include_freely_associated_states: If True, freely-associated states will be included.
             If False, sovereign states in free association with the US will be excluded.
         """
-        abbreviations: Set[str] = set(self.states_abbr)
+        abbreviations: Tuple[str, ...] = self.states_abbr
         if include_territories:
-            abbreviations.update(self.territories_abbr)
+            abbreviations += self.territories_abbr
         if include_freely_associated_states:
-            abbreviations.update(self.freely_associated_states_abbr)
+            abbreviations += self.freely_associated_states_abbr
         return self.random_element(abbreviations)
 
     def postcode(self) -> str:
