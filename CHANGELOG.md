@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.3.1 - 2023-03-23](https://github.com/joke2k/faker/compare/v18.3.0...v18.3.1)
+
+* Fix determinism in `state_abbr()` for `en_US`. Thanks @DavidCain.
+
 ### [v18.3.0 - 2023-03-21](https://github.com/joke2k/faker/compare/v18.2.1...v18.3.0)
 
 * Separate freely-associated states & US territories. Thanks @DavidCain.
