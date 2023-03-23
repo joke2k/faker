@@ -626,6 +626,12 @@ class TestEnUS:
         with pytest.raises(Exception):
             faker.postalcode_in_state("XX")
 
+    def test_state_abbr_determinism(self, faker):
+        faker.seed_instance(0)
+        first = faker.state_abbr()
+        faker.seed_instance(0)
+        assert faker.state_abbr() == first
+
 
 class TestEsCo:
     """Test es_CO address provider methods"""
