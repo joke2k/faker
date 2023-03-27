@@ -381,8 +381,8 @@ Seeding the Generator
 
 When using Faker for unit testing, you will often want to generate the same
 data set. For convenience, the generator also provide a ``seed()`` method,
-which seeds the shared random number generator. Calling the same methods with
-the same version of faker and seed produces the same results.
+which seeds the shared random number generator. Seed produces the same result 
+when the same methods with the same version of faker are called.
 
 .. code:: python
 
