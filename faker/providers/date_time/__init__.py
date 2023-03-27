@@ -7,6 +7,7 @@ from datetime import datetime
 from datetime import time as dttime
 from datetime import timedelta
 from datetime import tzinfo as TzInfo
+from datetime import timezone
 from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
 
 from dateutil import relativedelta
@@ -1826,10 +1827,25 @@ class Provider(BaseProvider):
         ts = self.generator.random.randint(*sorted([0, seconds]))
         return timedelta(seconds=ts)
 
+    def adjust_random_date_to_working(self, date_time):
+        """
+        Adjusts a random date and time to the next working day and within working hours.
+        :param date_time (datetime.datetime): The date and time to adjust.:
+        :return: datetime.datetime: The adjusted date and time.
+        """
+        if date_time.weekday() in (5, 6):
+            date_time -= timedelta(days=date_time.weekday() - 4)
+        if date_time.time() < time(8, 0, 0):
+            date_time = date_time.replace(hour=8, minute=0, second=0, microsecond=0)
+        elif date_time.time() > time(17, 0, 0):
+            date_time = date_time.replace(hour=17, minute=0, second=0, microsecond=0) + timedelta(days=1)
+        return date_time
+
     def date_time(
         self,
         tzinfo: Optional[TzInfo] = None,
         end_datetime: Optional[DateParseType] = None,
+        is_working_hours: bool = False,
     ) -> datetime:
         """
         Get a datetime object for a date between January 1, 1970 and now
@@ -1840,13 +1856,15 @@ class Provider(BaseProvider):
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue:
         #       https://bugs.python.org/issue30684
-        return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=self.unix_time(end_datetime=end_datetime))
+        result = datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=self.unix_time(end_datetime=end_datetime))
+        return adjust_random_date_to_working(self, result) if is_working_hours else result
 
     def date_time_ad(
         self,
         tzinfo: Optional[TzInfo] = None,
         end_datetime: Optional[DateParseType] = None,
         start_datetime: Optional[DateParseType] = None,
+        is_working_hours: bool = False,
     ) -> datetime:
         """
         Get a datetime object for a date between January 1, 001 and now
@@ -1872,7 +1890,8 @@ class Provider(BaseProvider):
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue:
         #       https://bugs.python.org/issue30684
-        return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
+        result = datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
+        return adjust_random_date_to_working(self, result) if is_working_hours else result
 
     def iso8601(
         self,
@@ -2010,6 +2029,7 @@ class Provider(BaseProvider):
         start_date: DateParseType = "-30y",
         end_date: DateParseType = "now",
         tzinfo: Optional[TzInfo] = None,
+        is_working_hours: bool = False,
     ) -> datetime:
         """
         Get a datetime object based on a random date between two given dates.
@@ -2027,10 +2047,8 @@ class Provider(BaseProvider):
             ts = start_date + self.generator.random.random()
         else:
             ts = self.generator.random.randint(start_date, end_date)
-        if tzinfo is None:
-            return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
-        else:
-            return (datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)).astimezone(tzinfo)
+        result = datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
+        return adjust_random_date_to_working(self, result) if is_working_hours else result
 
     def date_between(self, start_date: DateParseType = "-30y", end_date: DateParseType = "today") -> dtdate:
         """
@@ -2104,6 +2122,7 @@ class Provider(BaseProvider):
         datetime_start: Optional[DateParseType] = None,
         datetime_end: Optional[DateParseType] = None,
         tzinfo: Optional[TzInfo] = None,
+        is_working_hours: bool = False,
     ) -> datetime:
         """
         Takes two datetime objects and returns a random datetime between the two
@@ -2140,7 +2159,7 @@ class Provider(BaseProvider):
                 "You specified an end date with a timestamp bigger than the maximum allowed on this"
                 " system. Please specify an earlier date.",
             )
-        return pick
+        return adjust_random_date_to_working(self, pick) if is_working_hours else pick
 
     def date_between_dates(
         self,
