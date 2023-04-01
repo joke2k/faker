@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.3.2 - 2023-04-01](https://github.com/joke2k/faker/compare/v18.3.1...v18.3.2)
+
+* Bump actions/stale from 7 to 8 (#1833). Thanks @dependabot[bot].
+
 ### [v18.3.1 - 2023-03-23](https://github.com/joke2k/faker/compare/v18.3.0...v18.3.1)
 
 * Fix determinism in `state_abbr()` for `en_US`. Thanks @DavidCain.
