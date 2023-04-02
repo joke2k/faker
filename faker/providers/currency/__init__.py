@@ -263,7 +263,7 @@ class Provider(BaseProvider):
         "DJF": "Fr",
         "DKK": "kr",
         "DOP": "\u0024",
-        "DZD": "\u062f\u062c\u200e\u0020\u0028",
+        "DZD": "\u062f\u062c\u200e",
         "EGP": "\u00A3",
         "ERN": "Nfk",
         "ETB": "Br",
@@ -320,7 +320,7 @@ class Provider(BaseProvider):
         "MOP": "\u0024",
         "MRO": "UM",
         "MUR": "\u20A8",
-        "MVR": "\u00783",
+        "MVR": "\u0078",
         "MWK": "K",
         "MXN": "\u0024",
         "MYR": "RM",
@@ -409,6 +409,8 @@ class Provider(BaseProvider):
         """
         if code is None:
             code = self.random_element(self.currency_symbols.keys())
+        elif code not in [currency[0] for currency in self.currencies]:
+            raise KeyError("The supplied code is not valid")
         return self.currency_symbols.get(code, "\u00A4")
 
     def cryptocurrency(self) -> Tuple[str, str]:
