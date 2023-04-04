@@ -365,7 +365,6 @@ class Provider(BaseProvider):
         "TMT": "m",
         "TND": "DT",
         "TOP": "\u00a2",
-        "TOP": "\u0024",
         "TRY": "\u20BA",
         "TTD": "\u0024",
         "TVD": "\u0024",
