@@ -46,7 +46,7 @@ class Faker:
             locales = []
             for code in locale:
                 if not isinstance(code, str):
-                    raise TypeError('The locale "%s" must be a string.' % str(code))
+                    raise TypeError(f'The locale "{str(code)}" must be a string.')
                 final_locale = code.replace("-", "_")
                 if final_locale not in locales:
                     locales.append(final_locale)
