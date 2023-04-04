@@ -1,7 +1,7 @@
 import random as random_module
 import re
 
-from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, Hashable, List, Optional, Type, Union
 
 from .typing import SeedType
 
@@ -29,7 +29,7 @@ class Generator:
         self.__config = dict(list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider: "BaseProvider") -> None:
+    def add_provider(self, provider: Union["BaseProvider", Type["BaseProvider"]]) -> None:
         if isinstance(provider, type):
             provider = provider(self)
 
