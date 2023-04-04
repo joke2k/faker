@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.3.4 - 2023-04-04](https://github.com/joke2k/faker/compare/v18.3.3...v18.3.4)
+
+* Ensure `pyfloat` honors min and max values. Thanks @mvanderlee.
+
 ### [v18.3.3 - 2023-04-04](https://github.com/joke2k/faker/compare/v18.3.2...v18.3.3)
 
 * Use correct union type for provider argument (#1840). Thanks @DanielSchaffer.
