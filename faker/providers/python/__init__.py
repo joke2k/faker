@@ -178,20 +178,23 @@ class Provider(BaseProvider):
 
         sign = ""
         if (min_value is not None) or (max_value is not None):
+            # Copy values to ensure we're not modifying the original values and thus going out of bounds
+            left_min_value = min_value
+            left_max_value = max_value
             # Make sure left_digits still respected
             if left_digits is not None:
                 if max_value is None:
-                    max_value = 10**left_digits  # minus smallest representable, adjusted later
+                    left_max_value = 10**left_digits  # minus smallest representable, adjusted later
                 if min_value is None:
-                    min_value = -(10**left_digits)  # plus smallest representable, adjusted later
+                    left_min_value = -(10**left_digits)  # plus smallest representable, adjusted later
 
             if max_value is not None and max_value < 0:
-                max_value += 1  # as the random_int will be generated up to max_value - 1
+                left_max_value += 1  # as the random_int will be generated up to max_value - 1
             if min_value is not None and min_value < 0:
-                min_value += 1  # as we then append digits after the left_number
+                left_min_value += 1  # as we then append digits after the left_number
             left_number = self._safe_random_int(
-                min_value,
-                max_value,
+                left_min_value,
+                left_max_value,
                 positive,
             )
         else:
@@ -212,11 +215,17 @@ class Provider(BaseProvider):
             result = min(result, 10**left_digits - 1)
             result = max(result, -(10**left_digits + 1))
 
-        # It's possible for the result to end up > than max_value
-        # This is a quick hack to ensure result is always smaller.
+        # It's possible for the result to end up > than max_value or < than min_value
+        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value.
+        # Which can happen a lot depending on the difference of the values.
+        # Ensure the variance is bound by the difference between the max and min
         if max_value is not None:
             if result > max_value:
-                result = result - (result - max_value)
+                result = result - (result - max_value + self.generator.random.uniform(0, max_value - min_value))
+        if min_value is not None:
+            if result < min_value:
+                result = result + (min_value - result + self.generator.random.uniform(0, max_value - min_value))
+
         return result
 
     def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
