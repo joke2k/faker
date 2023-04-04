@@ -199,6 +199,17 @@ class TestPyfloat(unittest.TestCase):
         self.assertLessEqual(result, 100)
         self.assertGreater(result, 0)
 
+    def test_max_and_min_value_positive_with_decimals(self):
+        """
+        Combining the max_value and min_value keyword arguments with
+        positive values for each produces numbers that obey both of
+        those constraints.
+        """
+        for _ in range(1000):
+            result = self.fake.pyfloat(min_value=100.123, max_value=200.321)
+            self.assertLessEqual(result, 200.321)
+            self.assertGreaterEqual(result, 100.123)
+
     def test_max_and_min_value_negative(self):
         """
         Combining the max_value and min_value keyword arguments with
@@ -209,6 +220,17 @@ class TestPyfloat(unittest.TestCase):
         result = self.fake.pyfloat(max_value=-100, min_value=-200)
         self.assertLessEqual(result, -100)
         self.assertGreaterEqual(result, -200)
+
+    def test_max_and_min_value_negative_with_decimals(self):
+        """
+        Combining the max_value and min_value keyword arguments with
+        negative values for each produces numbers that obey both of
+        those constraints.
+        """
+        for _ in range(1000):
+            result = self.fake.pyfloat(max_value=-100.123, min_value=-200.321)
+            self.assertLessEqual(result, -100.123)
+            self.assertGreaterEqual(result, -200.321)
 
     def test_positive_and_min_value_incompatible(self):
         """
