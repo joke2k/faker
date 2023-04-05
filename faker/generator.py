@@ -97,12 +97,12 @@ class Generator:
                 raise AttributeError(f"Unknown formatter {formatter!r}")
             raise AttributeError(msg)
 
-    def set_formatter(self, name: str, method: Callable) -> None:
+    def set_formatter(self, name: str, formatter: Callable) -> None:
         """
         This method adds a provider method to generator.
         Override this method to add some decoration or logging stuff.
         """
-        setattr(self, name, method)
+        setattr(self, name, formatter)
 
     def set_arguments(self, group: str, argument: str, value: Optional[Any] = None) -> None:
         """
