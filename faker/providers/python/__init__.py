@@ -259,6 +259,10 @@ class Provider(BaseProvider):
         min_value=None,
         max_value=None,
     ):
+        """ returns valid decimal when given floating point numbers without changing too much code"""
+        min_value = round(min_value)
+        max_value = round(max_value)
+
         if left_digits is not None and left_digits < 0:
             raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
