@@ -34,6 +34,12 @@ class TestCurrencyProvider:
             name = faker.currency_name()
             assert isinstance(name, str) and name in self.currency_names
 
+    def test_currency_code_has_symbol(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.currency_code()
+            symbol = faker.currency_symbol(code=code)
+            assert isinstance(symbol, str)
+
     def test_currency_symbol_no_code_supplied(self, faker, num_samples):
         for _ in range(num_samples):
             symbol = faker.currency_symbol()
