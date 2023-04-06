@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.4.0- 2023-04-06](https://github.com/joke2k/faker/compare/v18.3.4...v18.4.0)
+
+* Add currency symbols for all listed currencies. Thanks @evoludigit.
+
 ### [v18.3.4 - 2023-04-04](https://github.com/joke2k/faker/compare/v18.3.3...v18.3.4)
 
 * Ensure `pyfloat` honors min and max values. Thanks @mvanderlee.
