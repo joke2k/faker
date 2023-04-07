@@ -271,6 +271,16 @@ class TestFrFr:
             assert re.fullmatch(r"\d{2}\d{23}", iban[2:])
 
 
+class TestDeDe:
+    """Test de_DE bank provider"""
+
+    def test_swift_use_dataset(self, faker, num_samples):
+        regex = re.compile("[A-Z]{6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3})?")
+        for _ in range(num_samples):
+            code = faker.swift(use_dataset=True)
+            assert regex.fullmatch(code) is not None
+
+
 class TestEnPh:
     """Test en_PH bank provider"""
 
