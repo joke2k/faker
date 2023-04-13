@@ -284,6 +284,19 @@ class TestEsCo:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+class TestEsPE:
+    """Test es_PE phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"((\+?51 |\(\+51 \))9\d{8}|"
+            r"((\+?51 |\(\+51 \))9\d{2} \d{3} \d{3}|"
+            r"9\d{8}|"
+            r"9\d{2} \d{3} \d{3}))"
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
 
 class TestEsEs:
     """Test es_ES phone number provider methods"""

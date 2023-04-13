@@ -15,6 +15,7 @@ from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
+from faker.providers.person.es_PE import Provider as EsPEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
@@ -928,6 +929,58 @@ class TestEsCO(unittest.TestCase):
         self.assertIsInstance(prefix, str)
         assert prefix in EsCOProvider.prefixes_male
 
+class TestEsPE(unittest.TestCase):
+    """Tests person in the es_PE locale"""
+
+    def setUp(self):
+        self.fake = Faker("es_PE")
+        Faker.seed(0)
+
+    def test_first_names(self):
+        # First name in general
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.first_names
+
+        # Female first name
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.first_names
+        assert name in EsPEProvider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.first_names
+        assert name in EsPEProvider.first_names_male
+
+    def test_last_names(self):
+        # First last name in general
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.last_names
+
+        # Female last name
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.last_names
+
+        # Male last name
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsPEProvider.last_names
+
+    def test_prefix(self):
+        # Female prefix
+        prefix = self.fake.prefix_female()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsPEProvider.prefixes_female
+
+        # Male prefix
+        prefix = self.fake.prefix_male()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsPEProvider.prefixes_male
+    
 
 class TestHeIL(unittest.TestCase):
     """Tests person in the he_IL locale."""

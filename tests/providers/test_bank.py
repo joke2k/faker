@@ -13,6 +13,7 @@ from faker.providers.bank.es_AR import Provider as EsArBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
 from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
+from faker.providers.bank.es_PE import Provider as EsPeBankProvider
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
 from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
 from faker.providers.bank.nl_BE import Provider as NlBeBankProvider
@@ -240,7 +241,55 @@ class TestEsMx:
             assert is_valid_clabe(clabe)
             assert int(clabe[:3].lstrip("0")) == bank_code
 
+class TestEsPe:
+    """Test es_PE bank provider"""
 
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"[A-Z]{4}\d{18}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == EsPeBankProvider.country_code
+            assert re.fullmatch(r"\d{2}[A-Z]{4}}\d{18}", iban[2:])
+
+    def test_swift(self, faker, num_samples):
+        regex = re.compile("[A-Z]{4}PE[A-Z0-9]{2}(?:[A-Z0-9]{3})?")
+        for _ in range(num_samples):
+            code = faker.swift()
+            assert regex.fullmatch(code) is not None
+
+    def test_swift_invalid_length(self, faker):
+        faker.swift(length=8)
+        faker.swift(length=11)
+        with pytest.raises(AssertionError):
+            faker.swift(length=5)
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in EsPeBankProvider.swift_bank_codes
+            assert code[4:6] == EsPeBankProvider.country_code
+            assert code[6:8] in EsPeBankProvider.swift_location_codes
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in EsPeBankProvider.swift_bank_codes
+            assert code[4:6] == EsPeBankProvider.country_code
+            assert code[6:8] in EsPeBankProvider.swift_location_codes
+            assert code[8:11] in EsPeBankProvider.swift_branch_codes
+
+    def test_swift11_is_primary(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(primary=True)
+            assert len(code) == 11
+            assert code[8:11] == "XXX"       
+     
 class TestEsAr:
     """Test es_AR bank provider"""
 
