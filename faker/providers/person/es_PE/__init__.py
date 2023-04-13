@@ -1002,7 +1002,7 @@ class Provider(PersonProvider):
         "Srta.",
         "Dra.",
         "Doña",
-        "Dña."s
+        "Dña."
         )
 
     prefixes_male = (
