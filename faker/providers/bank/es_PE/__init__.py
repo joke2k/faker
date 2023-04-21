@@ -53,6 +53,7 @@ class Provider(BankProvider):
         "XXX",
         "000",
     )
+    
     def bank(self) -> str:
         # Generate a bank name
         return self.random_element(self.banks)

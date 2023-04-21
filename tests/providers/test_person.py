@@ -929,6 +929,7 @@ class TestEsCO(unittest.TestCase):
         self.assertIsInstance(prefix, str)
         assert prefix in EsCOProvider.prefixes_male
 
+
 class TestEsPE(unittest.TestCase):
     """Tests person in the es_PE locale"""
 
@@ -980,7 +981,7 @@ class TestEsPE(unittest.TestCase):
         prefix = self.fake.prefix_male()
         self.assertIsInstance(prefix, str)
         assert prefix in EsPEProvider.prefixes_male
-    
+
 
 class TestHeIL(unittest.TestCase):
     """Tests person in the he_IL locale."""

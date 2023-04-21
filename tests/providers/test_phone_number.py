@@ -284,6 +284,7 @@ class TestEsCo:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+
 class TestEsPE:
     """Test es_PE phone number provider methods"""
 
@@ -297,6 +298,7 @@ class TestEsPE:
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
+
 
 class TestEsEs:
     """Test es_ES phone number provider methods"""

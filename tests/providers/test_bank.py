@@ -288,8 +288,9 @@ class TestEsPe:
         for _ in range(num_samples):
             code = faker.swift11(primary=True)
             assert len(code) == 11
-            assert code[8:11] == "XXX"       
-     
+            assert code[8:11] == "XXX"
+
+
 class TestEsAr:
     """Test es_AR bank provider"""
 

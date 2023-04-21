@@ -6,4 +6,3 @@ class Provider(CurrencyProvider):
 
     def pricetag(self) -> str:
         return "S/"+self.numerify(self.random_element(self.price_formats))
-     
