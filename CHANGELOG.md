@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v18.4.0- 2023-04-06](https://github.com/joke2k/faker/compare/v18.3.4...v18.4.0)
+### [v18.5.0 - 2023-04-24](https://github.com/joke2k/faker/compare/v18.4.0...v18.5.0)
+
+* Add `de_DE` `swift_location_codes`. Thanks @MiloniAtal.
+
+### [v18.4.0 - 2023-04-06](https://github.com/joke2k/faker/compare/v18.3.4...v18.4.0)
 
 * Add currency symbols for all listed currencies. Thanks @evoludigit.
 
