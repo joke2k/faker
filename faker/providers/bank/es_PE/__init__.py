@@ -16,8 +16,7 @@ class Provider(BankProvider):
         "BBVA",
         "Citibank Perú",
         "Interbank",
-        "Alfin Banco"
-        "Banco central de Reserva del Perú",
+        "Alfin Banco" "Banco central de Reserva del Perú",
         "Scotiabank Perú",
         "Banco GNB Perú",
         "Banco Falabella",
@@ -46,14 +45,12 @@ class Provider(BankProvider):
         "CRED",
         "ICBK",
     )
-    swift_location_codes = (
-        "PL",
-    )
+    swift_location_codes = ("PL",)
     swift_branch_codes = (
         "XXX",
         "000",
     )
-    
+
     def bank(self) -> str:
         # Generate a bank name
         return self.random_element(self.banks)

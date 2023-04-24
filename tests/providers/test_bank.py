@@ -241,6 +241,7 @@ class TestEsMx:
             assert is_valid_clabe(clabe)
             assert int(clabe[:3].lstrip("0")) == bank_code
 
+
 class TestEsPe:
     """Test es_PE bank provider"""
 

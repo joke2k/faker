@@ -997,17 +997,6 @@ class Provider(PersonProvider):
         "Zevallos",
         "Zuñiga",
     )
-    prefixes_female = (
-        "Sra.",
-        "Srta.",
-        "Dra.",
-        "Doña",
-        "Dña."
-        )
+    prefixes_female = ("Sra.", "Srta.", "Dra.", "Doña", "Dña.")
 
-    prefixes_male = (
-        "Sr.",
-        "Dr.",
-        "Don",
-        "D."
-        )
+    prefixes_male = ("Sr.", "Dr.", "Don", "D.")
