@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.5.1 - 2023-04-24](https://github.com/joke2k/faker/compare/v18.5.1...v18.5.1)
+
+* Fix release.
+
 ### [v18.5.0 - 2023-04-24](https://github.com/joke2k/faker/compare/v18.4.0...v18.5.0)
 
 * Add `de_DE` `swift_location_codes`. Thanks @MiloniAtal.
