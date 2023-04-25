@@ -34,6 +34,7 @@ from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.ro_RO import ssn_checksum as ro_ssn_checksum
 from faker.providers.ssn.ro_RO import vat_checksum as ro_vat_checksum
+from faker.providers.ssn.zh_TW import checksum as tw_checksum
 from faker.utils.checksums import luhn_checksum
 
 
@@ -1271,3 +1272,26 @@ class TestLvLV(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^LV\d{11}$", self.fake.vat_id())
+
+
+class TestZhTW(unittest.TestCase):
+    num_sample_runs = 10
+
+    def setUp(self):
+        self.fake = Faker("zh_TW")
+        Faker.seed(0)
+        self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
+
+    def test_length(self):
+        for sample in self.samples:
+            assert len(sample) == 10
+
+    def test_gender(self):
+        """ only '1' and '2' are allowed in the second char """
+        for sample in self.samples:
+            assert sample[1] == "1" or sample[1] == "2"
+
+    def test_checksum(self):
+        for sample in self.samples:
+            assert tw_checksum(sample) % 10 == 0
+
