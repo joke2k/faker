@@ -373,17 +373,9 @@ class TestEnUs:
         pattern_no_whitespaces: Pattern = re.compile(
             r"\d{9}",
         )
-        pattern_dashes: Pattern = re.compile(
-            r"\d{3}-\d{3}-\d{4}"
-        )
-        pattern_parens: Pattern = re.compile(
-            r"\(\d{3}\)\d{3}-\d{4}"
-        )
-        patterns = [
-            pattern_no_whitespaces,
-            pattern_dashes,
-            pattern_parens
-        ]
+        pattern_dashes: Pattern = re.compile(r"\d{3}-\d{3}-\d{4}")
+        pattern_parens: Pattern = re.compile(r"\(\d{3}\)\d{3}-\d{4}")
+        patterns = [pattern_no_whitespaces, pattern_dashes, pattern_parens]
         for _ in range(num_samples):
             phone_number = faker.basic_phone_number()
             assert any([re.match(pattern, phone_number) for pattern in patterns])
