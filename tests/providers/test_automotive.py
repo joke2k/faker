@@ -316,3 +316,14 @@ class TestNlBe(_SimpleAutomotiveTestMixin):
     """Test nl_BE automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"(\d{3}-[A-Z]{3})|" r"([A-Z]{3}-\d{3})|" r"([1-2]-[A-Z]{3}-\d{3})")
+
+
+class TestZhTw(_SimpleAutomotiveTestMixin):
+    """Test zh_TW automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(
+        r"([A-Z]{2}-\d{4})|"  # prior 2012 v1
+        r"(\d{4}-[A-Z]{2})|"  # prior 2012 v2
+        r"([A-Z]{3}-\d{4})|"  # new format since 2014
+        r"([A-Z]{3}-\d{3})",  # commercial cars since 2012
+    )
