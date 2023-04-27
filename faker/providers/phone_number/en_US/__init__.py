@@ -37,3 +37,14 @@ class Provider(PhoneNumberProvider):
         "001-###-###-####x####",
         "001-###-###-####x#####",
     )
+
+    basic_formats = (
+        # basic 10-digit phone number format with no extensions
+        "##########",
+        "###-###-####",
+        "(###)###-####",
+    )
+
+    def basic_phone_number(self) -> str:
+        pattern: str = self.random_element(self.basic_formats)
+        return self.numerify(self.generator.parse(pattern))
