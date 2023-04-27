@@ -1287,11 +1287,10 @@ class TestZhTW(unittest.TestCase):
             assert len(sample) == 10
 
     def test_gender(self):
-        """ only '1' and '2' are allowed in the second char """
+        """only '1' and '2' are allowed in the second char"""
         for sample in self.samples:
             assert sample[1] == "1" or sample[1] == "2"
 
     def test_checksum(self):
         for sample in self.samples:
             assert tw_checksum(sample) % 10 == 0
-
