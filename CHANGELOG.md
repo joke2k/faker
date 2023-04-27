@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v18.5.1 - 2023-04-24](https://github.com/joke2k/faker/compare/v18.5.1...v18.5.1)
+### [v18.6.0 - 2023-04-27](https://github.com/joke2k/faker/compare/v18.5.1...v18.6.0)
+
+* Add a separate `basic_phone_number` for `en_US`. Thanks @dlwrnc.
+
+### [v18.5.1 - 2023-04-24](https://github.com/joke2k/faker/compare/v18.5.0...v18.5.1)
 
 * Fix release.
 
