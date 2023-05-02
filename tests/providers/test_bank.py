@@ -254,7 +254,7 @@ class TestEsPe:
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == EsPeBankProvider.country_code
-            assert re.fullmatch(r"\d{2}[A-Z]{4}}\d{18}", iban[2:])
+            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{18}", iban[2:])
 
     def test_swift(self, faker, num_samples):
         regex = re.compile("[A-Z]{4}PE[A-Z0-9]{2}(?:[A-Z0-9]{3})?")
