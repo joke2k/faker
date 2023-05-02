@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.6.1 - 2023-05-02](https://github.com/joke2k/faker/compare/v18.6.0...v18.6.1)
+
+*  Fix `ssn` provider for `zh_TW`. Thanks @cyanghsieh.
+
 ### [v18.6.0 - 2023-04-27](https://github.com/joke2k/faker/compare/v18.5.1...v18.6.0)
 
 * Add a separate `basic_phone_number` for `en_US`. Thanks @dlwrnc.
