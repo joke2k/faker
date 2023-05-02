@@ -296,7 +296,7 @@ class TestEsPE:
             r"((9\d{2}) \d{3} \d{3})"
         )
         for _ in range(num_samples):
-            phone_number = faker.phone_number()
+            phone_number = faker.phone_number_pe()
             assert pattern.fullmatch(phone_number)
 
 
