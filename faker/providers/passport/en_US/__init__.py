@@ -1,5 +1,5 @@
-from .. import Provider as PassportProvider
 from .. import ElementsType
+from .. import Provider as PassportProvider
 
 
 class Provider(PassportProvider):
@@ -14,7 +14,11 @@ class Provider(PassportProvider):
     #surname:  ElementsType[str] = ("{{last_name}} ")
 
     
-    nationality = ("USA")
+    def nationality(self)-> str:
+        return "USA"
+    
+    
+
 
     passport_number_formats = (
         # NGP
