@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v18.6.2 - 2023-05-03](https://github.com/joke2k/faker/compare/v18.6.1...v18.6.2)
+
+*  Improve accuracy of departments in `fr_FR` provider `postcode`. Thanks @tonial.
+
 ### [v18.6.1 - 2023-05-02](https://github.com/joke2k/faker/compare/v18.6.0...v18.6.1)
 
-*  Fix `ssn` provider for `zh_TW`. Thanks @cyanghsieh.
+* Fix `ssn` provider for `zh_TW`. Thanks @cyanghsieh.
 
 ### [v18.6.0 - 2023-04-27](https://github.com/joke2k/faker/compare/v18.5.1...v18.6.0)
 
