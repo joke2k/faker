@@ -87,6 +87,7 @@ class UtilsTestCase(unittest.TestCase):
                     "faker.providers.job",
                     "faker.providers.lorem",
                     "faker.providers.misc",
+                    "faker.providers.passport",
                     "faker.providers.person",
                     "faker.providers.phone_number",
                     "faker.providers.profile",
