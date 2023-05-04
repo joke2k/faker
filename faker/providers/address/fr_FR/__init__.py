@@ -46,7 +46,6 @@ class Provider(AddressProvider):
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
     building_number_formats = ("%", "%#", "%#", "%#", "%##")
-    postcode_formats = ("#####",)
     countries = (
         "Afghanistan",
         "Afrique du sud",
@@ -467,3 +466,13 @@ class Provider(AddressProvider):
         :example: '59'
         """
         return self.department()[0]
+
+    def postcode(self) -> str:
+        """
+        Randomly returns a postcode generated from existing french depertment number.
+        exemple: '33260'
+        """
+        department = self.department_number()
+        if department in ["2A", "2B"]:
+            department = "20"
+        return f"{department}{self.random_number(digits=5 - len(department))}"

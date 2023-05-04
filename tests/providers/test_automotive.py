@@ -322,3 +322,14 @@ class TestZhCn(_SimpleAutomotiveTestMixin):
     """Test zh_CN automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新]{1}[A-Z]{1}-[A-Z0-9]{5}")
+
+
+class TestZhTw(_SimpleAutomotiveTestMixin):
+    """Test zh_TW automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(
+        r"([A-Z]{2}-\d{4})|"  # prior 2012 v1
+        r"(\d{4}-[A-Z]{2})|"  # prior 2012 v2
+        r"([A-Z]{3}-\d{4})|"  # new format since 2014
+        r"([A-Z]{3}-\d{3})",  # commercial cars since 2012
+    )
