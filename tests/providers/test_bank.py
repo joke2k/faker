@@ -442,3 +442,11 @@ class TestNlBe:
             assert code[4:6] == NlBeBankProvider.country_code
             assert code[6:8] in NlBeBankProvider.swift_location_codes
             assert code[8:11] in NlBeBankProvider.swift_branch_codes
+
+
+class TestZhCn:
+    """Test zh_CN bank provider"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.match(r"[\u4e00-\u9fa5]{2,20}", faker.bank())
