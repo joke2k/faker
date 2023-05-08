@@ -13,6 +13,7 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Ty
 
 from faker.exceptions import UnsupportedFeature
 
+from ..python import TypesSpec
 from .. import BaseProvider
 
 localized = True
