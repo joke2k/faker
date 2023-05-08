@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.7.0 - 2023-05-08](https://github.com/joke2k/faker/compare/v18.6.2...v18.7.0)
+
+* Add `license_plate` for `zh_CN` and `zh_TW`. Thanks @cyanghsieh.
+
 ### [v18.6.2 - 2023-05-03](https://github.com/joke2k/faker/compare/v18.6.1...v18.6.2)
 
 *  Improve accuracy of departments in `fr_FR` provider `postcode`. Thanks @tonial.
