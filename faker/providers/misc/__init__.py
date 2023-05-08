@@ -613,6 +613,28 @@ class Provider(BaseProvider):
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
         return json.dumps(data, indent=indent, cls=cls)
 
+    def xml(self,
+        nb_elements: int = 10,
+        variable_nb_elements: bool = True,
+        value_types: Optional[TypesSpec] = None,
+        allowed_types: Optional[TypesSpec] = None,
+        ) -> str:
+        """
+        Returns a xml.
+
+        :nb_elements: number of elements for dictionary
+        :variable_nb_elements: is use variable number of elements for dictionary
+        :value_types: type of dictionary values
+        """
+        try:
+            import xmltodict
+        except ImportError:
+            raise UnsupportedFeature("`xml` requires the `xmltodict` python library.", "xml")
+        _dict = self.generator.pydict(nb_elements=nb_elements, variable_nb_elements=variable_nb_elements,
+                                    value_types=value_types, allowed_types=allowed_types)
+        _dict = {self.generator.word(): _dict}
+        return xmltodict.unparse(_dict)
+    
     def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
