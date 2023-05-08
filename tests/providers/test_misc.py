@@ -8,6 +8,7 @@ import tarfile
 import unittest
 import uuid
 import zipfile
+import xml
 
 try:
     import PIL.Image
@@ -455,6 +456,12 @@ class TestMiscProvider:
             for args, kwargs in mock_writer.call_args_list:
                 assert kwargs == test_kwargs
 
+    def test_xml(self, faker):
+        try:
+            xml.etree.ElementTree.fromstring(faker.xml())
+        except xml.etree.ElementTree.ParseError:
+            raise AssertionError("The xml format is invalid")
+        
     def test_csv_helper_method(self, faker):
         kwargs = {
             "header": ["Column 1", "Column 2"],
