@@ -626,6 +626,8 @@ class Provider(BaseProvider):
         :nb_elements: number of elements for dictionary
         :variable_nb_elements: is use variable number of elements for dictionary
         :value_types: type of dictionary values
+
+        Note: this provider required xmltodict library installed
         """
         try:
             import xmltodict
