@@ -7,8 +7,8 @@ import re
 import tarfile
 import unittest
 import uuid
-import zipfile
 import xml
+import zipfile
 
 try:
     import PIL.Image
