@@ -632,7 +632,7 @@ class Provider(BaseProvider):
         try:
             import xmltodict
         except ImportError:
-            raise UnsupportedFeature("`xml` requires the `xmltodict` python library.", "xml")
+            raise UnsupportedFeature("`xml` requires the `xmltodict` Python library.", "xml")
         _dict = self.generator.pydict(nb_elements=nb_elements, variable_nb_elements=variable_nb_elements,
                                     value_types=value_types, allowed_types=allowed_types)
         _dict = {self.generator.word(): _dict}
