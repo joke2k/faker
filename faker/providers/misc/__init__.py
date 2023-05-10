@@ -13,8 +13,8 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Ty
 
 from faker.exceptions import UnsupportedFeature
 
-from ..python import TypesSpec
 from .. import BaseProvider
+from ..python import TypesSpec
 
 localized = True
 
@@ -614,12 +614,13 @@ class Provider(BaseProvider):
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
         return json.dumps(data, indent=indent, cls=cls)
 
-    def xml(self,
+    def xml(
+        self,
         nb_elements: int = 10,
         variable_nb_elements: bool = True,
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
-        ) -> str:
+    ) -> str:
         """
         Returns some XML.
 
@@ -633,11 +634,15 @@ class Provider(BaseProvider):
             import xmltodict
         except ImportError:
             raise UnsupportedFeature("`xml` requires the `xmltodict` Python library.", "xml")
-        _dict = self.generator.pydict(nb_elements=nb_elements, variable_nb_elements=variable_nb_elements,
-                                    value_types=value_types, allowed_types=allowed_types)
+        _dict = self.generator.pydict(
+            nb_elements=nb_elements,
+            variable_nb_elements=variable_nb_elements,
+            value_types=value_types,
+            allowed_types=allowed_types,
+        )
         _dict = {self.generator.word(): _dict}
         return xmltodict.unparse(_dict)
-    
+
     def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.

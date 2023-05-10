@@ -461,7 +461,7 @@ class TestMiscProvider:
             xml.etree.ElementTree.fromstring(faker.xml())
         except xml.etree.ElementTree.ParseError:
             raise AssertionError("The XML format is invalid.")
-        
+
     def test_csv_helper_method(self, faker):
         kwargs = {
             "header": ["Column 1", "Column 2"],
