@@ -621,7 +621,7 @@ class Provider(BaseProvider):
         allowed_types: Optional[TypesSpec] = None,
         ) -> str:
         """
-        Returns a xml.
+        Returns some XML.
 
         :nb_elements: number of elements for dictionary
         :variable_nb_elements: is use variable number of elements for dictionary
