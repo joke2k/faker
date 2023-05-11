@@ -631,6 +631,12 @@ class TestEnUS:
         first = faker.state_abbr()
         faker.seed_instance(0)
         assert faker.state_abbr() == first
+    
+    def test_state_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            state_code = faker.state_code()
+            assert not isinstance(state_code, str)
+            assert state_code in EnUsAddressProvider.states_abbr
 
 
 class TestEsCo:
@@ -1812,6 +1818,12 @@ class TestEnIn:
             assert city_name in EnInAddressProvider.cities
 
     def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in EnInAddressProvider.states
+
+    def test_state_name(self, faker, num_samples):
         for _ in range(num_samples):
             state = faker.state()
             assert isinstance(state, str)
