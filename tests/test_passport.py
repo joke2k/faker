@@ -11,9 +11,9 @@ last_name = list(EnUSPersonProvider.last_names.keys())
 class TestPassportProvider:
     def testDOB(self, faker, num_samples=100):
         for _ in range(num_samples):
-            DOB = faker.passport_DOB()
-            age = (date.today() - DOB).days // 365
-            assert isinstance(DOB, date)
+            dob = faker.passport_dob()
+            age = (date.today() - dob).days // 365
+            assert isinstance(dob, date)
             assert age <= 115
             assert age >= 0
 
@@ -42,7 +42,7 @@ class TestPassportProvider:
 
 
 class TestEnUS:
-    def testDates(self, faker):
+    def testDates(self, faker, num_samples=20):
         age4 = date.today() - timedelta(days=4 * 365)
         age12 = date.today() - timedelta(days=12 * 365)
         age17 = date.today() - timedelta(days=17 * 365)
@@ -50,22 +50,20 @@ class TestEnUS:
         age30 = date.today() - timedelta(days=30 * 365)
 
         birthdays = [(age4, 4), (age12, 12), (age17, 17), (age23, 23), (age30, 30)]
+        for _ in range(num_samples):
+            for birthday in birthdays:
+                birth_date_f, issue_date_f, expiry_date_f = faker.passport_dates(birthday[0])
+                birth_date = datetime.strptime(birth_date_f, "%d %b %Y").date()
+                issue_date = datetime.strptime(issue_date_f, "%d %b %Y").date()
+                expiry_date = datetime.strptime(expiry_date_f, "%d %b %Y").date()
 
-        for birthday in birthdays:
-            birth_date_f, issue_date_f, expiry_date_f = faker.passport_Dates(birthday[0])
-            birth_date = datetime.strptime(birth_date_f, "%d %b %Y").date()
-            issue_date = datetime.strptime(issue_date_f, "%d %b %Y").date()
-            expiry_date = datetime.strptime(expiry_date_f, "%d %b %Y").date()
+                if birthday[1] < 21:
+                    assert (expiry_date - issue_date).days // 365 == 5
+                else:
+                    assert (expiry_date - issue_date).days // 365 == 10
 
-            if birthday[1] < 16:
-                assert (expiry_date - issue_date).days // 365 == 5
-            elif birthday[1] >= 26:
-                assert (expiry_date - issue_date).days // 365 == 10
-            else:
-                assert (expiry_date - issue_date).days // 365 in (5, 10)
-
-            assert expiry_date > issue_date
-            assert birth_date < issue_date
+                assert expiry_date > issue_date
+                assert birth_date < issue_date
 
     def testGender(self, faker, num_samples=100):
         for _ in range(num_samples):

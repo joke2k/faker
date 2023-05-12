@@ -1,3 +1,4 @@
+import datetime
 import re
 
 from string import ascii_uppercase
@@ -12,12 +13,12 @@ class Provider(BaseProvider):
 
     passport_number_formats: ElementsType = ()
 
-    def passport_DOB(self):
-        """Generate a datetime date of birth."""
+    def passport_dob(self) -> datetime.date:
+        """Generate a datetime date of bisrth."""
         birthday = self.generator.date_of_birth()
         return birthday
 
-    def passport_owner(self, gender="X"):
+    def passport_owner(self, gender: str = "X") -> tuple[str, str]:
         """Generate a given_name and surname for a passport owner
         The ``gender`` argument is sex of a passport owner which is a one character string
         that is either male, female, or non-binary.
