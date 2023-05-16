@@ -7,12 +7,18 @@ import re
 import tarfile
 import unittest
 import uuid
+import xml
 import zipfile
 
 try:
     import PIL.Image
 except ImportError:
     PIL = None
+
+try:
+    import xmltodict
+except ImportError:
+    xmltodict = None
 
 from typing import Pattern
 from unittest.mock import patch
@@ -454,6 +460,20 @@ class TestMiscProvider:
             # Verify csv.writer was called with the remaining kwargs
             for args, kwargs in mock_writer.call_args_list:
                 assert kwargs == test_kwargs
+
+    @unittest.skipUnless(xmltodict, "requires the Python xmltodict Library")
+    def test_xml(self, faker):
+        try:
+            xml.etree.ElementTree.fromstring(faker.xml())
+        except xml.etree.ElementTree.ParseError:
+            raise AssertionError("The XML format is invalid.")
+
+    def test_xml_no_xmltodict(self, faker):
+        with patch.dict("sys.modules", {"xmltodict": None}):
+            with pytest.raises(exceptions.UnsupportedFeature) as excinfo:
+                faker.xml()
+
+            assert excinfo.value.name == "xml"
 
     def test_csv_helper_method(self, faker):
         kwargs = {
