@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.8.0 - 2023-05-16](https://github.com/joke2k/faker/compare/v18.7.0...v18.8.0)
+
+* Add `zh_CN` bank locale. Thanks @nehCG.
+
 ### [v18.7.0 - 2023-05-08](https://github.com/joke2k/faker/compare/v18.6.2...v18.7.0)
 
 * Add `license_plate` for `zh_CN` and `zh_TW`. Thanks @cyanghsieh.
