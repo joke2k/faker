@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.9.0 - 2023-05-16](https://github.com/joke2k/faker/compare/v18.8.0...v18.9.0)
+
+* Add `xml` provider. Thanks @Elihaybe.
+
 ### [v18.8.0 - 2023-05-16](https://github.com/joke2k/faker/compare/v18.7.0...v18.8.0)
 
 * Add `zh_CN` bank locale. Thanks @nehCG.
