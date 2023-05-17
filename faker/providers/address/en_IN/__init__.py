@@ -393,7 +393,7 @@ class Provider(AddressProvider):
 
     def city_name(self) -> str:
         return self.random_element(self.cities)
-    
+
     def state_name(self) -> str:
         return self.random_element(self.states)
 

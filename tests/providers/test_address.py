@@ -631,7 +631,7 @@ class TestEnUS:
         first = faker.state_abbr()
         faker.seed_instance(0)
         assert faker.state_abbr() == first
-    
+
     def test_state_code(self, faker, num_samples):
         for _ in range(num_samples):
             state_code = faker.state_code()

@@ -497,7 +497,7 @@ class Provider(AddressProvider):
 
     def administrative_unit(self) -> str:
         return self.random_element(self.states)
-    
+
     def state_code(self) -> str:
         """
         :example: 'IA'
