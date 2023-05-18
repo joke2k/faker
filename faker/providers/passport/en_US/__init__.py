@@ -1,6 +1,7 @@
 import random
 
 from datetime import date, timedelta
+from typing import Tuple
 
 from .. import Provider as PassportProvider
 
@@ -21,7 +22,7 @@ class Provider(PassportProvider):
         "#########",
     )
 
-    def passport_dates(self, birthday: date = date.today()) -> tuple[str, str, str]:
+    def passport_dates(self, birthday: date = date.today()) -> Tuple[str, str, str]:
         """Generates a formatted date of birth, issue, and expiration dates.
         issue and expiration dates are conditioned to fall within U.S. standards of 5 and 10 year expirations
 
@@ -72,7 +73,7 @@ class Provider(PassportProvider):
             return birth_date, issue_date_fromat, expiry_date_format
 
     def passport_gender(self, seed: int = 0) -> str:
-        """Generates a string representing the sex displayed on a passport
+        """Generates a string representing the gender displayed on a passport
 
         Sources:
 
@@ -89,15 +90,15 @@ class Provider(PassportProvider):
         """Generates a formatted sting with US Passport information"""
         dob = self.passport_dob()
         birth_date, issue_date, expiry_date = self.passport_dates(dob)
-        sex = self.passport_gender()
-        given_name, surname = self.passport_owner(gender=sex)
+        gender_g = self.passport_gender()
+        given_name, surname = self.passport_owner(gender=gender_g)
         number = self.passport_number()
 
         full_rep = """{first_name}\n{second_name}\n{gender}\n{dob}\n{issue}\n{expire}\n{num}\n"""
         full_rep = full_rep.format(
             first_name=given_name,
             second_name=surname,
-            gender=sex,
+            gender=gender_g,
             dob=birth_date,
             issue=issue_date,
             expire=expiry_date,
