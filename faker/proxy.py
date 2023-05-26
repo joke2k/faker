@@ -36,6 +36,7 @@ class Faker:
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
+        self._optional_proxy = OptionalProxy(self)
 
         if isinstance(locale, str):
             locales = [locale.replace("-", "_")]
@@ -136,6 +137,10 @@ class Faker:
     @property
     def unique(self) -> "UniqueProxy":
         return self._unique_proxy
+
+    @property
+    def optional(self) -> "OptionalProxy":
+        return self._optional_proxy
 
     def _select_factory(self, method_name: str) -> Factory:
         """
@@ -320,5 +325,36 @@ class UniqueProxy:
             generated.add(retval)
 
             return retval
+
+        return wrapper
+
+
+class OptionalProxy:
+    def __init__(self, proxy: Faker):
+        self._proxy = proxy
+
+    def __getattr__(self, name: str) -> Any:
+        obj = getattr(self._proxy, name)
+        if callable(obj):
+            return self._wrap(name, obj)
+        else:
+            raise TypeError("Accessing non-functions through .optional is not supported.")
+
+    def __getstate__(self):
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
+    def _wrap(self, name: str, function: Callable) -> Callable:
+        @functools.wraps(function)
+        def wrapper(*args, prob: float = 0.5, **kwargs):
+            if not 0 < prob <= 1.0:
+                raise ValueError()
+            return function(*args, **kwargs) if self._proxy.pybool() else None
 
         return wrapper
