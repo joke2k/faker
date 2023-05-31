@@ -469,7 +469,7 @@ class Provider(AddressProvider):
 
     def postcode(self) -> str:
         """
-        Randomly returns a postcode generated from existing french depertment number.
+        Randomly returns a postcode generated from existing french department number.
         exemple: '33260'
         """
         department = self.department_number()
