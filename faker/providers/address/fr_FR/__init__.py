@@ -475,4 +475,4 @@ class Provider(AddressProvider):
         department = self.department_number()
         if department in ["2A", "2B"]:
             department = "20"
-        return f"{department}{self.random_number(digits=5 - len(department))}"
+        return f"{department}{self.random_number(digits=5 - len(department), fix_len=True)}"
