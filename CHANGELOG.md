@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.9.1 - 2023-06-01](https://github.com/joke2k/faker/compare/v18.9.0...v18.9.1)
+
+* Fix `fr_FR` `postcode` length. Thanks @vmttn.
+
 ### [v18.9.0 - 2023-05-16](https://github.com/joke2k/faker/compare/v18.8.0...v18.9.0)
 
 * Add `xml` provider. Thanks @Elihaybe.
