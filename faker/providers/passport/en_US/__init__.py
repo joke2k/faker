@@ -56,6 +56,8 @@ class Provider(PassportProvider):
                 issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
                 expiry_years = 10
 
+        if issue_date.day == 29 and issue_date.month == 2:
+            issue_date -= timedelta(days=1)
         expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
 
         issue_date_format = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
