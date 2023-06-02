@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.10.1 - 2023-06-02](https://github.com/joke2k/faker/compare/v18.10.0...v18.10.1)
+
+* Fix handling leap year in `en_US` Passport provider. Thanks @mgorny.
+
 ### [v18.10.0 - 2023-06-01](https://github.com/joke2k/faker/compare/v18.9.1...v18.10.0)
 
 * Add `passport` Provider and `en_US` Implementation. Thanks @llw2128.
