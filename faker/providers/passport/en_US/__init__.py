@@ -42,19 +42,9 @@ class Provider(PassportProvider):
             # Checks if age is less than 5 so issue date is not before birthdate
             if age < 5:
                 issue_date = self.generator.date_time_between(birthday, today)
-            expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
-
-            issue_date_fromat = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
-            expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
-            return birth_date, issue_date_fromat, expiry_date_format
         elif age >= 26:
             expiry_years = 10
             issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
-            expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
-            issue_date_fromat = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
-            expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
-            return birth_date, issue_date_fromat, expiry_date_format
-
         else:
             # In cases between age 16 and 26, the issue date is 5 years ago, but expiry may be in 10 or 5 years
             expiry_years = 5
@@ -66,11 +56,13 @@ class Provider(PassportProvider):
                 issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
                 expiry_years = 10
 
-            expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
+        if issue_date.day == 29 and issue_date.month == 2:
+            issue_date -= timedelta(days=1)
+        expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
 
-            issue_date_fromat = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
-            expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
-            return birth_date, issue_date_fromat, expiry_date_format
+        issue_date_format = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
+        expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
+        return birth_date, issue_date_format, expiry_date_format
 
     def passport_gender(self, seed: int = 0) -> str:
         """Generates a string representing the gender displayed on a passport
