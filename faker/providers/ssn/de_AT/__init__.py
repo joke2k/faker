@@ -1,5 +1,5 @@
 from .. import Provider as BaseProvider
-from ... import date_time
+from faker import Faker
 from faker.utils.checksums import calculate_luhn
 
 class Provider(BaseProvider):
@@ -16,7 +16,8 @@ class Provider(BaseProvider):
             - six digits that correspond to the birth month (DDMMYY)
         :return: a random Austrian SSN
         """
-        date = date_time.Provider.date_time_between(start_date='-100y', end_date='now')
+        faker = Faker()
+        date = faker.date_time_between(start_date='-100y', end_date='now')
 
         day = str(date.day) if date.day > 10 else '0' + str(date.day)
         month = str(date.month) if date.month > 10 else '0' + str(date.month)
@@ -28,7 +29,7 @@ class Provider(BaseProvider):
 
         return serial + check + birth
 
-    tin_formats = ("##-###/####")
+    tin_formats = ("##-###/####",)
 
     def tin(self) -> str:
         """
