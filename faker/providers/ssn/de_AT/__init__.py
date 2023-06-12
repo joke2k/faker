@@ -1,5 +1,4 @@
 from .. import Provider as BaseProvider
-# from faker import Faker
 import datetime
 from faker.utils.checksums import calculate_luhn
 
@@ -17,8 +16,6 @@ class Provider(BaseProvider):
             - six digits that correspond to the birth month (DDMMYY)
         :return: a random Austrian SSN
         """
-        # faker = Faker()
-        # date = faker.date_time_between(start_date='-100y', end_date='now')
 
 
         age = datetime.timedelta(days=self.generator.random.randrange(0, 100))
