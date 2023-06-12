@@ -196,6 +196,14 @@ class TestDeAT(unittest.TestCase):
         self.fake = Faker("de_AT")
         Faker.seed(0)
 
+    def test_ssn(self):
+        for _ in range(100):
+            assert re.search(r"^\d{4}(0[1-9]|[1-2][0-9]|3[0-1])(0[1-9]|1[0-2])\d{2}$", self.fake.ssn())
+
+    def test_tin(self):
+        for _ in range(100):
+            assert re.search(r'^\d{2}-\d{3}/\d{4}$', self.fake.tin())
+
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^ATU\d{8}$", self.fake.vat_id())

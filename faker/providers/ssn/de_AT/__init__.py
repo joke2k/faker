@@ -19,15 +19,20 @@ class Provider(BaseProvider):
         faker = Faker()
         date = faker.date_time_between(start_date='-100y', end_date='now')
 
-        day = str(date.day) if date.day > 10 else '0' + str(date.day)
-        month = str(date.month) if date.month > 10 else '0' + str(date.month)
+        day = str(date.day) if date.day >= 10 else '0' + str(date.day)
+        month = str(date.month) if date.month >= 10 else '0' + str(date.month)
         year = str(date.year)[-2:]
 
         serial = self.bothify("###")
         birth = day + month + year
         check = str(calculate_luhn(int(serial + birth)))
 
-        return serial + check + birth
+        ssn = serial + check + birth
+
+        if len(ssn) > 10:
+            return "s:" + serial + "c:" + check + " b:d:" + day + "m:" + month + "y:" + year 
+        else:
+            return ssn
 
     tin_formats = ("##-###/####",)
 
