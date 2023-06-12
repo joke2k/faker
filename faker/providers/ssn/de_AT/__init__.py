@@ -4,7 +4,7 @@ from faker.utils.checksums import calculate_luhn
 
 class Provider(BaseProvider):
     """
-    A Faker provider for the Austrian Identification Numbers
+    A Faker provider for Austrian Identification Numbers
     """
 
     def ssn(self) -> str:
