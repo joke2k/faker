@@ -28,6 +28,16 @@ class Provider(BaseProvider):
 
         return serial + check + birth
 
+    tin_formats = ("##-###/####")
+
+    def tin(self) -> str:
+        """
+        https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-austria-tax-identification-number?view=o365-worldwide
+        :return: a random Austrian TIN
+        """
+
+        return self.bothify(self.random_element(self.tin_formats))
+
     vat_id_formats = ("ATU########",)
 
     def vat_id(self) -> str:
