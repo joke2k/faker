@@ -1,5 +1,6 @@
 from .. import Provider as BaseProvider
-from faker import Faker
+# from faker import Faker
+import datetime
 from faker.utils.checksums import calculate_luhn
 
 class Provider(BaseProvider):
@@ -16,23 +17,24 @@ class Provider(BaseProvider):
             - six digits that correspond to the birth month (DDMMYY)
         :return: a random Austrian SSN
         """
-        faker = Faker()
-        date = faker.date_time_between(start_date='-100y', end_date='now')
+        # faker = Faker()
+        # date = faker.date_time_between(start_date='-100y', end_date='now')
 
-        day = str(date.day) if date.day >= 10 else '0' + str(date.day)
-        month = str(date.month) if date.month >= 10 else '0' + str(date.month)
-        year = str(date.year)[-2:]
+
+        age = datetime.timedelta(days=self.generator.random.randrange(0, 100))
+        birthday = datetime.date.today() - age
+        birthdate = "%02d%02d%s" % (
+            birthday.day,
+            birthday.month,
+            str(birthday.year)[-2:],
+        )
 
         serial = self.bothify("###")
-        birth = day + month + year
-        check = str(calculate_luhn(int(serial + birth)))
+        check = str(calculate_luhn(float(serial + birthdate)))
 
-        ssn = serial + check + birth
+        ssn = serial + check + birthdate
 
-        if len(ssn) > 10:
-            return "s:" + serial + "c:" + check + " b:d:" + day + "m:" + month + "y:" + year 
-        else:
-            return ssn
+        return ssn
 
     tin_formats = ("##-###/####",)
 
