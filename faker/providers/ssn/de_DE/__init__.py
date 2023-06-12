@@ -1,10 +1,23 @@
 from .. import Provider as BaseProvider
-
+from faker.utils.checksums import calculate_luhn
 
 class Provider(BaseProvider):
     """
-    A Faker provider for the German VAT IDs
+    A Faker provider for German Identification Numbers
     """
+
+    tin_formats = ("##########",)
+
+    def tin(self) -> str:
+        """
+        https://learn.microsoft.com/en-us/microsoft-365/compliance/sit-defn-germany-tax-identification-number?view=o365-worldwide
+        :return: A random German TIN
+        """
+        id = self.bothify(self.random_element(self.tin_formats))
+        check = str(calculate_luhn(int(id)))
+
+        return id + check
+
 
     vat_id_formats = ("DE#########",)
 

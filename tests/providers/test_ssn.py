@@ -190,6 +190,18 @@ class TestSkSK(unittest.TestCase):
             assert birth_number[6] == "/"
             assert int(birth_number.replace("/", "")) % 11 == 0
 
+class TestDeDE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("de_DE")
+        Faker.seed(0)
+
+    def test_tin(self):
+        for _ in range(100):
+            assert re.search(r'^\d{11}$', self.fake.tin())
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^DE\d{9}$", self.fake.vat_id())
 
 class TestDeAT(unittest.TestCase):
     def setUp(self):
