@@ -872,7 +872,7 @@ class TestFrFr:
             assert isinstance(postcode, str)
             assert len(postcode) == 5
             assert (
-                postcode[:3] in department_numbers  # for 3 digits deparments number
+                postcode[:3] in department_numbers  # for 3 digits departments number
                 or postcode[:2] == "20"  # for Corsica : "2A" or "2B"
                 or postcode[:2] in department_numbers  # any other
             )
