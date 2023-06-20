@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.11.1 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.11.0...v18.11.1)
+
+*  Update Ukraine Country Code in `phone_number`. Thanks @lexxai.
+
 ### [v18.11.0 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.10.1...v18.11.0)
 
 * Add digit-above-two type to numerify function. Thanks @dlwrnc.
