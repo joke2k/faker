@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.11.0 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.10.1...v18.11.0)
+
+* Add digit-above-two type to numerify function. Thanks @dlwrnc.
+
 ### [v18.10.1 - 2023-06-02](https://github.com/joke2k/faker/compare/v18.10.0...v18.10.1)
 
 * Fix handling leap year in `en_US` Passport provider. Thanks @mgorny.
