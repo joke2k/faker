@@ -44,6 +44,9 @@ Here's a list of Providers written by the community:
 | Posts         | Fake posts in markdown    | `mdgen`_                         |
 |               | format                    |                                  |
 +---------------+---------------------------+----------------------------------+
+| PySpark       | Fake PySpark DataFrane    | `faker_pyspark`_                 |
+|               | and Schema generator      |
++---------------+---------------------------+----------------------------------+
 | Vehicle       | Fake vehicle information  | `faker_vehicle`_                 |
 |               | includes Year Make Model  |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -87,6 +90,7 @@ In order to be included, your provider must satisfy these requirement:
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
 .. _mdgen: https://pypi.org/project/mdgen/
+.. _faker_pyspark: https://pypi.org/project/faker_pyspark/
 .. _faker_vehicle: https://pypi.org/project/faker-vehicle/
 .. _faker_web: https://pypi.org/project/faker_web/
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
