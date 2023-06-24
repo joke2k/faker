@@ -1809,6 +1809,7 @@ class Provider(BaseProvider):
         """
         Get a timestamp between January 1, 1970 and now, unless passed
         explicit start_datetime or end_datetime values.
+
         :example: 1061306726
         """
         start_datetime = self._parse_start_datetime(start_datetime)
@@ -1833,6 +1834,7 @@ class Provider(BaseProvider):
     ) -> datetime:
         """
         Get a datetime object for a date between January 1, 1970 and now
+
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example: datetime('2005-08-16 20:39:21')
         :return: datetime
@@ -1850,6 +1852,7 @@ class Provider(BaseProvider):
     ) -> datetime:
         """
         Get a datetime object for a date between January 1, 001 and now
+
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :example: datetime('1265-03-22 21:15:52')
         :return: datetime
@@ -1883,6 +1886,7 @@ class Provider(BaseProvider):
     ) -> str:
         """
         Get a timestamp in ISO 8601 format (or one of its profiles).
+
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
         :param sep: separator between date and time, defaults to 'T'
         :param timespec: format specifier for the time part, defaults to 'auto' - see datetime.isoformat() documentation
@@ -1903,6 +1907,7 @@ class Provider(BaseProvider):
     def date_object(self, end_datetime: Optional[datetime] = None) -> dtdate:
         """
         Get a date object between January 1, 1970 and now
+
         :example: datetime.date(2016, 9, 20)
         """
         return self.date_time(end_datetime=end_datetime).date()
@@ -1910,6 +1915,7 @@ class Provider(BaseProvider):
     def time(self, pattern: str = "%H:%M:%S", end_datetime: Optional[DateParseType] = None) -> str:
         """
         Get a time string (24h format by default)
+
         :param pattern: format
         :example: '15:02:34'
         """
@@ -1918,6 +1924,7 @@ class Provider(BaseProvider):
     def time_object(self, end_datetime: Optional[DateParseType] = None) -> dttime:
         """
         Get a time object
+
         :example: datetime.time(15, 56, 56, 772876)
         """
         return self.date_time(end_datetime=end_datetime).time()
