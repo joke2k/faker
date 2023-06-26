@@ -4,7 +4,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
@@ -14,6 +14,8 @@ from .typing import SeedType
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
+
+RetType = TypeVar("RetType")
 
 
 class Faker:
@@ -350,9 +352,9 @@ class OptionalProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
-    def _wrap(self, name: str, function: Callable) -> Callable:
+    def _wrap(self, name: str, function: Callable[..., RetType]) -> Callable[..., Optional[RetType]]:
         @functools.wraps(function)
-        def wrapper(*args, prob: float = 0.5, **kwargs):
+        def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> Optional[RetType]:
             if not 0 < prob <= 1.0:
                 raise ValueError()
             return function(*args, **kwargs) if self._proxy.pybool() else None
