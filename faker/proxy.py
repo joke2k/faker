@@ -357,10 +357,6 @@ class OptionalProxy:
         def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> Optional[RetType]:
             if not 0 < prob <= 1.0:
                 raise ValueError("prob must be between 0 and 1")
-            return (
-                function(*args, **kwargs)
-                if self._proxy.boolean(chance_of_getting_true=int(prob * 100))
-                else None
-            )
+            return function(*args, **kwargs) if self._proxy.boolean(chance_of_getting_true=int(prob * 100)) else None
 
         return wrapper
