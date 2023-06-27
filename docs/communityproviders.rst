@@ -45,7 +45,7 @@ Here's a list of Providers written by the community:
 |               | format                    |                                  |
 +---------------+---------------------------+----------------------------------+
 | PySpark       | Fake PySpark DataFrane    | `faker_pyspark`_                 |
-|               | and Schema generator      |
+|               | and Schema generator      |                                  |
 +---------------+---------------------------+----------------------------------+
 | Vehicle       | Fake vehicle information  | `faker_vehicle`_                 |
 |               | includes Year Make Model  |                                  |
