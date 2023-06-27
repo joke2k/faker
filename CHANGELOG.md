@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.11.2 - 2023-06-27](https://github.com/joke2k/faker/compare/v18.11.1...v18.11.2)
+
+* Fix area codes for `fr_FR` mobile phone numbers. Thanks @QuentinFchx.
+
 ### [v18.11.1 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.11.0...v18.11.1)
 
 *  Update Ukraine Country Code in `phone_number`. Thanks @lexxai.
