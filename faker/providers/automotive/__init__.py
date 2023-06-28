@@ -7,7 +7,7 @@ from .. import BaseProvider, ElementsType
 localized = True
 
 
-def calculate_str_weight(s: str, weight_factor: list) -> int:
+def calculate_vin_str_weight(s: str, weight_factor: list) -> int:
     """
     multiply s(str) by weight_factor char by char
     e.g.
@@ -56,8 +56,8 @@ class Provider(BaseProvider):
         vin_chars = "1234567890ABCDEFGHJKLMNPRSTUVWXYZ"  # I, O, Q are restricted
         front_part = self.bothify("????????", letters=vin_chars)
         rear_part = self.bothify("????????", letters=vin_chars)
-        front_part_weight = calculate_str_weight(front_part, [8, 7, 6, 5, 4, 3, 2, 10])
-        rear_part_weight = calculate_str_weight(rear_part, [9, 8, 7, 6, 5, 4, 3, 2])
+        front_part_weight = calculate_vin_str_weight(front_part, [8, 7, 6, 5, 4, 3, 2, 10])
+        rear_part_weight = calculate_vin_str_weight(rear_part, [9, 8, 7, 6, 5, 4, 3, 2])
         checksum = (front_part_weight + rear_part_weight) % 11
         checksum_char = "X" if checksum == 10 else str(checksum)
         return front_part + checksum_char + rear_part
