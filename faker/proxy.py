@@ -335,6 +335,7 @@ class OptionalProxy:
     """
     Return either a fake value or None, with a customizable probability.
     """
+
     def __init__(self, proxy: Faker):
         self._proxy = proxy
 
