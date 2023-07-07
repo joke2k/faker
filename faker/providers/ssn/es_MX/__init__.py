@@ -240,6 +240,9 @@ class Provider(BaseProvider):
             selected if not provided.
         :type gender: str
         :return: a random INE elector code
+
+        :sample:
+        :sample: gender='M'
         """
         if gender and gender not in ("H", "M"):
             raise ValueError("Gender must be 'H' or 'M'")
