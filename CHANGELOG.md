@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.13.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.12.0...v18.13.0)
+
+* Add `.optional` proxy that may or may not return a fake value. Thanks @ligne.
+
 ### [v18.12.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.11.2...v18.12.0)
 
 *  Add fake automotive `vin` number function. Thanks @cyanghsieh.
