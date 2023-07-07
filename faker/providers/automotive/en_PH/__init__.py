@@ -1,10 +1,10 @@
 from string import ascii_uppercase
 from typing import List
 
-from ... import BaseProvider
+from .. import Provider as AutomotiveProvider
 
 
-class Provider(BaseProvider):
+class Provider(AutomotiveProvider):
     """Implement automotive provider for ``en_PH`` locale.
 
     Vehicle registration in the Philippines has many controversies and is full
