@@ -4,7 +4,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
@@ -14,6 +14,8 @@ from .typing import SeedType
 from .utils.distribution import choices_distribution
 
 _UNIQUE_ATTEMPTS = 1000
+
+RetType = TypeVar("RetType")
 
 
 class Faker:
@@ -36,6 +38,7 @@ class Faker:
         self._factory_map = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
+        self._optional_proxy = OptionalProxy(self)
 
         if isinstance(locale, str):
             locales = [locale.replace("-", "_")]
@@ -136,6 +139,10 @@ class Faker:
     @property
     def unique(self) -> "UniqueProxy":
         return self._unique_proxy
+
+    @property
+    def optional(self) -> "OptionalProxy":
+        return self._optional_proxy
 
     def _select_factory(self, method_name: str) -> Factory:
         """
@@ -320,5 +327,39 @@ class UniqueProxy:
             generated.add(retval)
 
             return retval
+
+        return wrapper
+
+
+class OptionalProxy:
+    """
+    Return either a fake value or None, with a customizable probability.
+    """
+    def __init__(self, proxy: Faker):
+        self._proxy = proxy
+
+    def __getattr__(self, name: str) -> Any:
+        obj = getattr(self._proxy, name)
+        if callable(obj):
+            return self._wrap(name, obj)
+        else:
+            raise TypeError("Accessing non-functions through .optional is not supported.")
+
+    def __getstate__(self):
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
+    def _wrap(self, name: str, function: Callable[..., RetType]) -> Callable[..., Optional[RetType]]:
+        @functools.wraps(function)
+        def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> Optional[RetType]:
+            if not 0 < prob <= 1.0:
+                raise ValueError("prob must be between 0 and 1")
+            return function(*args, **kwargs) if self._proxy.boolean(chance_of_getting_true=int(prob * 100)) else None
 
         return wrapper
