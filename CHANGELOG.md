@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v18.12.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.11.2...v18.12.0)
+
+*  Add fake automotive `vin` number function. Thanks @cyanghsieh.
+
 ### [v18.11.2 - 2023-06-27](https://github.com/joke2k/faker/compare/v18.11.1...v18.11.2)
 
 * Fix area codes for `fr_FR` mobile phone numbers. Thanks @QuentinFchx.
