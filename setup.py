@@ -70,7 +70,7 @@ setup(
     },
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=[
         "python-dateutil>=2.4",
         "typing-extensions>=3.10.0.1;python_version<='3.8'",
