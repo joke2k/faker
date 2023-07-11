@@ -7,6 +7,7 @@ Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
 
 import random
 import string
+
 from typing import Optional
 
 from .. import Provider as BaseProvider
@@ -232,7 +233,7 @@ class Provider(BaseProvider):
 
         return random_rfc
 
-    def elector_code(self, gender: Literal["H", "M"] = None) -> str:
+    def elector_code(self, gender: Optional[Literal["H", "M"]] = None) -> str:
         """
         Unique elector code issued by INE (Instituto Nacional Electoral) in Mexico.
 
@@ -247,7 +248,7 @@ class Provider(BaseProvider):
         if gender and gender not in ("H", "M"):
             raise ValueError("Gender must be 'H' or 'M'")
 
-        gender = gender or random.choice("HM")
+        gender = gender or random.choice(["H", "M"])
 
         consonants = "".join(random.choices(CONSONANTS, k=6))
 
