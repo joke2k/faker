@@ -8,7 +8,7 @@ fi
 docker run -v ${PWD}:/code -e INSTALL_REQUIREMENTS=${INSTALL_REQUIREMENTS} i386/ubuntu bash -c "
     apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq python3.8 locales python3-pip debianutils \
-    && python3.7 -m pip install tox coveralls \
+    && python3.8 -m pip install tox coveralls \
     && locale-gen en_US.UTF-8 \
     && export LANG='en_US.UTF-8' \
     && cd /code \
