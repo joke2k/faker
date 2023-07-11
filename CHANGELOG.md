@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v19.0.0 - 2023-07-11](https://github.com/joke2k/faker/compare/v18.13.0...v19.0.0)
+
+* Drop support for Python 3.7
+* Drop support for 32 bit systems.
+* Add `elector_code` for `es_MX` SSN provider. Thanks @edgarrmondragon.
+
 ### [v18.13.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.12.0...v18.13.0)
 
 * Add `.optional` proxy that may or may not return a fake value. Thanks @ligne.
