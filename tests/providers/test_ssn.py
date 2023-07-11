@@ -631,7 +631,7 @@ class TestEsCA(TestEsES):
 
 
 class TestEsMX:
-    def setup_class(self):
+    def setup_method(self):
         self.fake = Faker("es_MX")
         Faker.seed(0)
 
