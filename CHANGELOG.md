@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.1.0 - 2023-07-12](https://github.com/joke2k/faker/compare/v19.0.0...v19.1.0)
+
+* Add `ja_JP` locale for `datetime`. Thanks @cyanghsieh.
+
 ### [v19.0.0 - 2023-07-11](https://github.com/joke2k/faker/compare/v18.13.0...v19.0.0)
 
 * Drop support for Python 3.7
