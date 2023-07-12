@@ -28,6 +28,7 @@ from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
+from faker.providers.date_time.ja_JP import Provider as JaJpProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
@@ -1264,3 +1265,21 @@ class TestFrCa(unittest.TestCase):
     def test_month(self):
         day = self.fake.month_name()
         assert day in FrFrProvider.MONTH_NAMES.values()
+
+
+class TestJaJp(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ja_JP")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in JaJpProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in JaJpProvider.MONTH_NAMES.values()
+
+    def test_traditional_month(self):
+        month = self.fake.traditional_month_name()
+        assert month in JaJpProvider.TRADITIONAL_MONTH_NAMES.values()
