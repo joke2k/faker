@@ -13,7 +13,7 @@ from .generator import Generator, random
 from .typing import SeedType
 from .utils.distribution import choices_distribution
 
-_UNIQUE_ATTEMPTS = 1000
+_UNIQUE_ATTEMPTS = 100000
 
 RetType = TypeVar("RetType")
 
