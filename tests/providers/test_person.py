@@ -1254,13 +1254,22 @@ class TestZuZa(unittest.TestCase):
         self.assertIsInstance(name, str)
 
         full_name_parts = name.split()
-        prefix = full_name_parts[0]
-        first_name = full_name_parts[1]
-        last_name = full_name_parts[2]
 
-        self.assertIn(prefix, ZuZAProvider.prefixes_female + ZuZAProvider.prefixes_male)
-        self.assertIn(first_name, ZuZAProvider.first_names)
-        self.assertIn(last_name, ZuZAProvider.last_names)
+        if len(full_name_parts) == 2:
+            first_name = full_name_parts[0]
+            last_name = full_name_parts[1]
+            self.assertIn(first_name, ZuZAProvider.first_names)
+            self.assertIn(last_name, ZuZAProvider.last_names)
+        elif len(full_name_parts) == 3:
+            prefix = full_name_parts[0]
+            first_name = full_name_parts[1]
+            last_name = full_name_parts[2]
+
+            self.assertIn(prefix, ZuZAProvider.prefixes_female + ZuZAProvider.prefixes_male)
+            self.assertIn(first_name, ZuZAProvider.first_names)
+            self.assertIn(last_name, ZuZAProvider.last_names)
+        else:
+            raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
 
 
 if __name__ == "__main__":
