@@ -723,8 +723,12 @@ class DynamicProvider(BaseProvider):
         """Add new element."""
         self.elements.append(element)
 
-    def get_random_value(self) -> Any:
+    def get_random_value(self, use_weighting: bool = True) -> Any:
+        """Returns a random value for this provider.
+
+        :param use_weighting: boolean option to use weighting. Defaults to True
+        """
         if not self.elements or len(self.elements) == 0:
             raise ValueError("Elements should be a list of values the provider samples from")
 
-        return self.random_element(self.elements)
+        return self.random_elements(self.elements, length=1, use_weighting=use_weighting)[0]
