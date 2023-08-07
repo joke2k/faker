@@ -74,13 +74,7 @@ class TestDynamicProvider:
         assert faker.my_provider() in ("one", "two")
 
     def test_weighted_dynamic_with_use_weighting(self):
-        elements = OrderedDict(
-            [
-                ("A", 0.75),
-                ("B", 0.25),
-                ("C", 0.)
-            ]
-        )
+        elements = OrderedDict([("A", 0.75), ("B", 0.25), ("C", 0.0)])
         provider_name = "my_provider"
         provider = DynamicProvider(
             provider_name=provider_name,
@@ -89,22 +83,13 @@ class TestDynamicProvider:
         faker = Faker()
         faker.add_provider(provider)
 
-        fake_data = [
-            faker.my_provider(use_weighting=True)
-            for _ in range(10_000)
-        ]
+        fake_data = [faker.my_provider(use_weighting=True) for _ in range(10_000)]
 
         for i in fake_data:
             assert i in {"A", "B"}
 
     def test_weighted_dynamic_without_use_weighting(self):
-        elements = OrderedDict(
-            [
-                ("A", 0.75),
-                ("B", 0.25),
-                ("C", 0.)
-            ]
-        )
+        elements = OrderedDict([("A", 0.75), ("B", 0.25), ("C", 0.0)])
         provider_name = "my_provider"
         provider = DynamicProvider(
             provider_name=provider_name,
@@ -113,10 +98,7 @@ class TestDynamicProvider:
         faker = Faker()
         faker.add_provider(provider)
 
-        fake_data = [
-            faker.my_provider(use_weighting=False)
-            for _ in range(10_000)
-        ]
+        fake_data = [faker.my_provider(use_weighting=False) for _ in range(10_000)]
 
         for i in fake_data:
             assert i in {"A", "B", "C"}
