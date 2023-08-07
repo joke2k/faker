@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.3.0 - 2023-08-07](https://github.com/joke2k/faker/compare/v19.2.0...v19.3.0)
+
+* Add weigthing to dynamic providers. Thanks @pauldechorgnat.
+
 ### [v19.2.0 - 2023-07-20](https://github.com/joke2k/faker/compare/v19.1.0...v19.2.0)
 
 * Add support for South African Zulu (`zu_ZA`) names and last names. Thanks @iamkhaya.
