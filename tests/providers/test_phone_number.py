@@ -363,7 +363,14 @@ class TestFrFr:
         ]
         for _ in range(num_samples):
             phone_number = faker.phone_number()
-            assert any([re.match(pattern, phone_number) for pattern in patterns])
+
+            pattern_is_found = False
+
+            for pattern in patterns:
+                if re.match(pattern, phone_number):
+                    pattern_is_found = True
+                    break
+            assert pattern_is_found
 
 
 class TestEnUs:
@@ -378,4 +385,10 @@ class TestEnUs:
         patterns = [pattern_no_whitespaces, pattern_dashes, pattern_parens]
         for _ in range(num_samples):
             phone_number = faker.basic_phone_number()
-            assert any([re.match(pattern, phone_number) for pattern in patterns])
+
+            pattern_is_found = False
+            for pattern in patterns:
+                if re.match(pattern, phone_number):
+                    pattern_is_found = True
+                    break
+            assert pattern_is_found
