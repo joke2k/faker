@@ -6,6 +6,7 @@ include RELEASE_PROCESS.rst
 include VERSION
 include CITATION.cff
 include mypy.ini
+include tox.ini
 recursive-include tests *.json
 recursive-include tests *.py
 recursive-exclude faker/sphinx *.py
