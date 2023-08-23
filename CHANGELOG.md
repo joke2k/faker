@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v19.3.1 - 2023-08-23](https://github.com/joke2k/faker/compare/v19.3.0...v19.3.1)
+
+* Remove spurious space in `uk_UA` `first_name`. Thanks @Romissevd.
+
 ### [v19.3.0 - 2023-08-07](https://github.com/joke2k/faker/compare/v19.2.0...v19.3.0)
 
-* Add weigthing to dynamic providers. Thanks @pauldechorgnat.
+* Add weighting to dynamic providers. Thanks @pauldechorgnat.
 
 ### [v19.2.0 - 2023-07-20](https://github.com/joke2k/faker/compare/v19.1.0...v19.2.0)
 
