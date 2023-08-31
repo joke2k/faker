@@ -390,6 +390,50 @@ class TestInternetProviderUrl:
             assert url.startswith("://")
 
 
+class TestInternetProviderUri:
+    """Test internet uri generation"""
+
+    @staticmethod
+    def is_correct_scheme(uri, schemes):
+        return any(uri.startswith(f"{scheme}://") for scheme in schemes)
+
+    def test_uri_default_schemes(self, faker):
+        for _ in range(100):
+            uri = faker.uri()
+            assert self.is_correct_scheme(uri, ["http", "https"])
+
+    def test_uri_custom_schemes(self, faker):
+        schemes_sets = [
+            ["usb"],
+            ["ftp", "file"],
+            ["usb", "telnet", "http"],
+        ]
+        for _, schemes in zip(range(100), cycle(schemes_sets)):
+            uri = faker.uri(schemes=schemes)
+            assert self.is_correct_scheme(uri, schemes)
+
+    def test_uri_empty_schemes_list_generate_schemeless_urls(self, faker):
+        for _ in range(100):
+            uri = faker.uri(schemes=[])
+            assert not uri.startswith("http")
+            assert uri.startswith("://")
+
+    def test_uri_extension(self, faker):
+        uri = faker.uri()
+        assert "." in uri
+
+    def test_uri_component(self, faker):
+        uri = faker.uri()
+        assert "/" in uri
+
+    def test_uri_deep(self, faker):
+        uri = faker.uri(deep=1).replace("://", "")
+        assert uri.count("/") == 1
+
+        uri = faker.uri(deep=3).replace("://", "")
+        assert uri.count("/") == 3
+
+
 class TestJaJp:
     """Test ja_JP internet provider methods"""
 
