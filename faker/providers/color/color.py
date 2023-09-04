@@ -144,14 +144,6 @@ class RandomColor:
             self.seed = seed if seed else random.randint(0, sys.maxsize)
             self.random = random.Random(self.seed)
 
-        for color_name, color_attrs in self.colormap.items():
-            lower_bounds: Sequence[Tuple[int, int]] = color_attrs["lower_bounds"]
-            s_min, b_max = lower_bounds[0]
-            s_max, b_min = lower_bounds[-1]
-
-            self.colormap[color_name]["saturation_range"] = [(s_min, s_max)]
-            self.colormap[color_name]["brightness_range"] = [(b_min, b_max)]
-
     def generate(
         self,
         hue: Optional[HueType] = None,
@@ -290,7 +282,8 @@ class RandomColor:
 
     def get_saturation_range(self, hue: int) -> Tuple[int, int]:
         """Return the saturation range for a given numerical ``hue`` value."""
-        return self.get_color_info(hue)["saturation_range"][0]
+        saturation_bounds = [s for s, v in self.get_color_info(hue)["lower_bounds"]]
+        return min(saturation_bounds), max(saturation_bounds)
 
     def get_color_info(self, hue: int) -> Dict[str, Sequence[Tuple[int, int]]]:
         """Return the color info for a given numerical ``hue`` value."""
