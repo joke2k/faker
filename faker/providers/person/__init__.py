@@ -195,6 +195,7 @@ class Provider(BaseProvider):
         "Yoruba",
         "Zhuang",
         "Chinese",
+        "yoruba"
         "Zulu",
     ]
 

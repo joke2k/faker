@@ -33,6 +33,39 @@ from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
+from faker.providers.person.yo_NG import Provider as YoNGrovider
+
+
+
+
+class TestYoNG(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("yo_NG")
+        Faker.seed(0)
+
+    def test_first_name_female(self):
+        name = self.fake.first_name_female()
+        assert name in YoNGrovider.first_names_female
+
+    def test_first_name_male(self):
+        name = self.fake.first_name_male()
+        assert name in YoNGrovider.first_names_male
+
+    def test_name_female(self):
+        full_name = self.fake.name_female()
+        first_name = self.get_first_name_from_full_name(full_name)
+        assert first_name in YoNGrovider.first_names_female
+
+    def test_name_male(self):
+        full_name = self.fake.name_male()
+        first_name = self.get_first_name_from_full_name(full_name)
+        assert first_name in YoNGrovider.first_names_male
+
+    def get_first_name_from_full_name(self, full_name):
+        names = full_name.split(" ")
+        if len(names) == 2:
+            return names[0]
+        return names[1]
 
 
 class TestAr(unittest.TestCase):
