@@ -47,13 +47,40 @@ class TestColorProvider:
             assert 0 <= b <= 255
 
     def test_color(self, faker, num_samples):
-        baseline_random_color = RandomColor(seed=4761)
-        expected = [baseline_random_color.generate() for _ in range(num_samples)]
+        random_color = self._seed_instances(faker, 4761)
+        expected = [random_color.generate() for _ in range(num_samples)]
 
         # The `color` provider method should behave like the `generate`
         # method of a standalone RandomColor instance for a given seed
-        faker.seed_instance(4761)
         colors = [faker.color() for _ in range(num_samples)]
+        assert colors == expected
+
+    def _seed_instances(self, faker, seed):
+        faker.seed_instance(seed)
+        return RandomColor(seed=seed)
+
+    def test_color_rgb(self, faker, num_samples):
+        random_color = self._seed_instances(faker, 4761)
+        expected = [random_color.generate_rgb() for _ in range(num_samples)]
+        colors = [faker.color_rgb() for _ in range(num_samples)]
+        assert colors == expected
+
+    def test_color_rgb_float(self, faker, num_samples):
+        random_color = self._seed_instances(faker, 4761)
+        expected = [random_color.generate_rgb_float() for _ in range(num_samples)]
+        colors = [faker.color_rgb_float() for _ in range(num_samples)]
+        assert colors == expected
+
+    def test_color_hsl(self, faker, num_samples):
+        random_color = self._seed_instances(faker, 4761)
+        expected = [random_color.generate_hsl() for _ in range(num_samples)]
+        colors = [faker.color_hsl() for _ in range(num_samples)]
+        assert colors == expected
+
+    def test_color_hsv(self, faker, num_samples):
+        random_color = self._seed_instances(faker, 4761)
+        expected = [random_color.generate_hsv() for _ in range(num_samples)]
+        colors = [faker.color_hsv() for _ in range(num_samples)]
         assert colors == expected
 
 
@@ -115,6 +142,42 @@ class TestRandomColor:
         for _ in range(num_samples):
             color = self.random_color.generate()
             assert self.hex_color_pattern.fullmatch(color)
+
+    def test_rgb(self, num_samples):
+        for _ in range(num_samples):
+            value = self.random_color.generate_rgb()
+            assert len(value) == 3
+            for i in range(3):
+                assert isinstance(value[i], int)
+                assert 0 <= value[i] <= 255
+
+    def test_rgb_float(self, num_samples):
+        for _ in range(num_samples):
+            value = self.random_color.generate_rgb_float()
+            assert len(value) == 3
+            for i in range(3):
+                assert isinstance(value[i], float)
+                assert 0 <= value[i] <= 1
+
+    def test_hsl(self, num_samples):
+        for _ in range(num_samples):
+            value = self.random_color.generate_hsl()
+            assert len(value) == 3
+            for i in range(3):
+                assert isinstance(value[i], int)
+            assert 0 <= value[0] <= 360
+            assert 0 <= value[1] <= 100
+            assert 0 <= value[2] <= 100
+
+    def test_hsv(self, num_samples):
+        for _ in range(num_samples):
+            value = self.random_color.generate_hsl()
+            assert len(value) == 3
+            for i in range(3):
+                assert isinstance(value[i], int)
+            assert 0 <= value[0] <= 360
+            assert 0 <= value[1] <= 100
+            assert 0 <= value[2] <= 100
 
     def test_hue_integer(self):
         # HSV format is used, because whatever hue value supplied must be present in the output

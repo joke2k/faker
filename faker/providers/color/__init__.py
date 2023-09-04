@@ -1,5 +1,6 @@
 from collections import OrderedDict
-from typing import Dict, Optional
+from functools import cached_property
+from typing import Dict, Optional, Tuple
 
 from ...typing import HueType
 from .. import BaseProvider, ElementsType
@@ -198,6 +199,10 @@ class Provider(BaseProvider):
         """Generate a color formatted as a CSS rgb() function."""
         return f"rgb({self.random_int(0, 255)},{self.random_int(0, 255)},{self.random_int(0, 255)})"
 
+    @cached_property
+    def _random_color(self):
+        return RandomColor(self.generator)
+
     def color(
         self,
         hue: Optional[HueType] = None,
@@ -238,8 +243,40 @@ class Provider(BaseProvider):
         :sample: hue=135, luminosity='dark', color_format='hsv'
         :sample: hue=(300, 20), luminosity='random', color_format='hsl'
         """
-        return RandomColor(self.generator).generate(
+        return self._random_color.generate(
             hue=hue,
             luminosity=luminosity,
             color_format=color_format,
         )
+
+    def color_rgb(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a RGB color tuple of integers in a human-friendly way."""
+        return self._random_color.generate_rgb(hue=hue, luminosity=luminosity)
+
+    def color_rgb_float(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[float, float, float]:
+        """Generate a RGB color tuple of floats in a human-friendly way."""
+        return self._random_color.generate_rgb_float(hue=hue, luminosity=luminosity)
+
+    def color_hsl(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a HSL color tuple in a human-friendly way."""
+        return self._random_color.generate_hsl(hue=hue, luminosity=luminosity)
+
+    def color_hsv(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a HSV color tuple in a human-friendly way."""
+        return self._random_color.generate_hsv(hue=hue, luminosity=luminosity)

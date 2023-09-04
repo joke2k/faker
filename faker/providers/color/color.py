@@ -150,23 +150,58 @@ class RandomColor:
         luminosity: Optional[str] = None,
         color_format: str = "hex",
     ) -> str:
-        """Generate a color.
+        """Generate and format a color.
 
         Whenever :meth:`color() <faker.providers.color.Provider.color>` is
         called, the arguments used are simply passed into this method, and this
         method handles the rest.
         """
+        # Generate HSV color tuple from picked hue and luminosity
+        hsv = self.generate_hsv(hue=hue, luminosity=luminosity)
+
+        # Return the HSB/V color in the desired string format
+        return self.set_format(hsv, color_format)
+
+    def generate_hsv(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a HSV color tuple."""
         # First we pick a hue (H)
         h = self.pick_hue(hue)
 
         # Then use H to determine saturation (S)
         s = self.pick_saturation(h, hue, luminosity)
 
-        # Then use S and H to determine brightness (B).
-        b = self.pick_brightness(h, s, luminosity)
+        # Then use S and H to determine brightness/value (B/V).
+        v = self.pick_brightness(h, s, luminosity)
 
-        # Then we return the HSB color in the desired format
-        return self.set_format((h, s, b), color_format)
+        return h, s, v
+
+    def generate_rgb(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a RGB color tuple of integers."""
+        return self.hsv_to_rgb(self.generate_hsv(hue=hue, luminosity=luminosity))
+
+    def generate_rgb_float(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[float, float, float]:
+        """Generate a RGB color tuple of floats."""
+        return self.hsv_to_rgb_float(self.generate_hsv(hue=hue, luminosity=luminosity))
+
+    def generate_hsl(
+        self,
+        hue: Optional[HueType] = None,
+        luminosity: Optional[str] = None,
+    ) -> Tuple[int, int, int]:
+        """Generate a HSL color tuple."""
+        return self.hsv_to_hsl(self.generate_hsv(hue=hue, luminosity=luminosity))
 
     def pick_hue(self, hue: Optional[HueType]) -> int:
         """Return a numerical hue value."""
