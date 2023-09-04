@@ -310,17 +310,26 @@ class RandomColor:
         return self.random.randint(int(r[0]), int(r[1]))
 
     @classmethod
-    def hsv_to_rgb(cls, hsv: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    def hsv_to_rgb_float(cls, hsv: Tuple[int, int, int]) -> Tuple[float, float, float]:
         """Convert HSV to RGB.
 
         This method expects ``hsv`` to be a 3-tuple of H, S, and V values, and
-        it will return a 3-tuple of the equivalent R, G, and B values.
+        it will return a 3-tuple of the equivalent R, G, and B float values.
         """
         h, s, v = hsv
         h = max(h, 1)
         h = min(h, 359)
 
-        r, g, b = colorsys.hsv_to_rgb(h / 360, s / 100, v / 100)
+        return colorsys.hsv_to_rgb(h / 360, s / 100, v / 100)
+
+    @classmethod
+    def hsv_to_rgb(cls, hsv: Tuple[int, int, int]) -> Tuple[int, int, int]:
+        """Convert HSV to RGB.
+
+        This method expects ``hsv`` to be a 3-tuple of H, S, and V values, and
+        it will return a 3-tuple of the equivalent R, G, and B integer values.
+        """
+        r, g, b = cls.hsv_to_rgb_float(hsv)
         return (int(r * 255), int(g * 255), int(b * 255))
 
     @classmethod
