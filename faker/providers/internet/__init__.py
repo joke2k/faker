@@ -146,13 +146,6 @@ class Provider(BaseProvider):
         "www.{{domain_name}}/",
         "{{domain_name}}/",
     )
-    uri_formats: ElementsType[str] = (
-        "{{url}}",
-        "{{url}}{{uri_page}}/",
-        "{{url}}{{uri_page}}{{uri_extension}}",
-        "{{url}}{{uri_path}}/{{uri_page}}/",
-        "{{url}}{{uri_path}}/{{uri_page}}{{uri_extension}}",
-    )
     image_placeholder_services: ElementsType[str] = (
         "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
@@ -624,9 +617,22 @@ class Provider(BaseProvider):
     def uri_extension(self) -> str:
         return self.random_element(self.uri_extensions)
 
-    def uri(self) -> str:
-        pattern: str = self.random_element(self.uri_formats)
-        return self.generator.parse(pattern)
+    def uri(self, schemes: Optional[List[str]] = None, deep: Optional[int] = None) -> str:
+        """
+        :param schemes: a list of strings to use as schemes, one will chosen randomly.
+            If None, it will generate http and https uris.
+            Passing an empty list will result in schemeless uri generation like "://domain.com/index.html".
+        :param deep: an integer specifying how many path components the URI should have..
+        :return: a random url string.
+        """
+        if schemes is None:
+            schemes = ["http", "https"]
+
+        pattern: str = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        path = self.uri_path(deep=deep)
+        page = self.uri_page()
+        extension = self.uri_extension()
+        return f"{self.generator.parse(pattern)}{path}{page}{extension}"
 
     @slugify
     def slug(self, value: Optional[str] = None) -> str:

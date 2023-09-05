@@ -201,7 +201,7 @@ class Provider(BaseProvider):
 
     def name(self) -> str:
         """
-        :example 'John Doe'
+        :example: 'John Doe'
         """
         pattern: str = self.random_element(self.formats)
         return self.generator.parse(pattern)

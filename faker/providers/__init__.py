@@ -10,6 +10,7 @@ from ..utils.distribution import choices_distribution, choices_distribution_uniq
 
 _re_hash = re.compile(r"#")
 _re_perc = re.compile(r"%")
+_re_dol = re.compile(r"\$")
 _re_excl = re.compile(r"!")
 _re_at = re.compile(r"@")
 _re_qm = re.compile(r"\?")
@@ -325,6 +326,11 @@ class BaseProvider:
 
         return self.generator.random.randint(1, 9)
 
+    def random_digit_above_two(self) -> int:
+        """Generate a random digit above value two (2 to 9)."""
+
+        return self.generator.random.randint(2, 9)
+
     def random_digit_or_empty(self) -> Union[int, str]:
         """Generate a random digit (0 to 9) or an empty string.
 
@@ -603,6 +609,7 @@ class BaseProvider:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
         - Percent signs ('%') are replaced with a random non-zero digit (1 to 9).
+        - Dollar signs ('$') are replaced with a random digit above two (2 to 9).
         - Exclamation marks ('!') are replaced with a random digit or an empty string.
         - At symbols ('@') are replaced with a random non-zero digit or an empty string.
 
@@ -617,6 +624,7 @@ class BaseProvider:
         """
         text = _re_hash.sub(lambda x: str(self.random_digit()), text)
         text = _re_perc.sub(lambda x: str(self.random_digit_not_null()), text)
+        text = _re_dol.sub(lambda x: str(self.random_digit_above_two()), text)
         text = _re_excl.sub(lambda x: str(self.random_digit_or_empty()), text)
         text = _re_at.sub(lambda x: str(self.random_digit_not_null_or_empty()), text)
         return text
@@ -715,8 +723,12 @@ class DynamicProvider(BaseProvider):
         """Add new element."""
         self.elements.append(element)
 
-    def get_random_value(self) -> Any:
+    def get_random_value(self, use_weighting: bool = True) -> Any:
+        """Returns a random value for this provider.
+
+        :param use_weighting: boolean option to use weighting. Defaults to True
+        """
         if not self.elements or len(self.elements) == 0:
             raise ValueError("Elements should be a list of values the provider samples from")
 
-        return self.random_element(self.elements)
+        return self.random_elements(self.elements, length=1, use_weighting=use_weighting)[0]

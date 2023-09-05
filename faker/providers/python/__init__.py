@@ -111,6 +111,11 @@ class Provider(BaseProvider):
     ) -> str:
         """
         Generates a random string of upper and lowercase letters.
+
+        :param min_chars: minimum length of the random part.
+        :param max_chars: maximum length of the random part.
+        :param prefix: an optional prefix to prepend to the random string.
+        :param suffix: an optional suffix to append to the random string.
         :return: Random of random length between min and max characters.
         """
         if min_chars is None:

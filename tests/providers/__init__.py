@@ -35,6 +35,10 @@ class TestBaseProvider:
         samples = [faker.random_digit_not_null() for _ in range(num_samples * 10)]
         assert set(samples) == set(range(1, 10))
 
+    def test_random_digit_above_two(self, faker, num_samples):
+        samples = [faker.random_digit_above_two() for _ in range(num_samples * 10)]
+        assert set(samples) == set(range(2, 10))
+
     def test_random_digit_or_empty(self, faker, num_samples):
         expected = set(range(10))
         expected.add("")

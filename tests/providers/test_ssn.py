@@ -630,8 +630,8 @@ class TestEsCA(TestEsES):
         Faker.seed(0)
 
 
-class TestEsMX(unittest.TestCase):
-    def setUp(self):
+class TestEsMX:
+    def setup_method(self):
         self.fake = Faker("es_MX")
         Faker.seed(0)
 
@@ -664,6 +664,26 @@ class TestEsMX(unittest.TestCase):
 
             assert len(rfc) == 12
             assert re.search(r"^[A-Z]{3}\d{6}[0-9A-Z]{3}$", rfc)
+
+    @pytest.mark.parametrize(
+        "gender,pattern",
+        [
+            ("M", r"^[A-Z]{6}\d{8}M\d{3}$"),
+            ("H", r"^[A-Z]{6}\d{8}H\d{3}$"),
+            (None, r"^[A-Z]{6}\d{8}[HM]\d{3}$"),
+        ],
+        ids=["woman", "man", "any"],
+    )
+    def test_elector_code(self, gender, pattern):
+        for _ in range(100):
+            elector_code = self.fake.elector_code(gender=gender)
+
+            assert len(elector_code) == 18
+            assert re.search(pattern, elector_code)
+
+    def test_elector_code_unsupported_gender(self):
+        with pytest.raises(ValueError, match="Gender must be"):
+            self.fake.elector_code("Z")
 
 
 class TestEsCL(unittest.TestCase):

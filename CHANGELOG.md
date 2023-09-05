@@ -1,5 +1,59 @@
 ## Changelog
 
+### [v19.3.1 - 2023-08-23](https://github.com/joke2k/faker/compare/v19.3.0...v19.3.1)
+
+* Remove spurious space in `uk_UA` `first_name`. Thanks @Romissevd.
+
+### [v19.3.0 - 2023-08-07](https://github.com/joke2k/faker/compare/v19.2.0...v19.3.0)
+
+* Add weighting to dynamic providers. Thanks @pauldechorgnat.
+
+### [v19.2.0 - 2023-07-20](https://github.com/joke2k/faker/compare/v19.1.0...v19.2.0)
+
+* Add support for South African Zulu (`zu_ZA`) names and last names. Thanks @iamkhaya.
+
+### [v19.1.0 - 2023-07-12](https://github.com/joke2k/faker/compare/v19.0.0...v19.1.0)
+
+* Add `ja_JP` locale for `datetime`. Thanks @cyanghsieh.
+
+### [v19.0.0 - 2023-07-11](https://github.com/joke2k/faker/compare/v18.13.0...v19.0.0)
+
+* Drop support for Python 3.7
+* Drop support for 32 bit systems.
+* Add `elector_code` for `es_MX` SSN provider. Thanks @edgarrmondragon.
+
+### [v18.13.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.12.0...v18.13.0)
+
+* Add `.optional` proxy that may or may not return a fake value. Thanks @ligne.
+
+### [v18.12.0 - 2023-07-07](https://github.com/joke2k/faker/compare/v18.11.2...v18.12.0)
+
+*  Add fake automotive `vin` number function. Thanks @cyanghsieh.
+
+### [v18.11.2 - 2023-06-27](https://github.com/joke2k/faker/compare/v18.11.1...v18.11.2)
+
+* Fix area codes for `fr_FR` mobile phone numbers. Thanks @QuentinFchx.
+
+### [v18.11.1 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.11.0...v18.11.1)
+
+*  Update Ukraine Country Code in `phone_number`. Thanks @lexxai.
+
+### [v18.11.0 - 2023-06-20](https://github.com/joke2k/faker/compare/v18.10.1...v18.11.0)
+
+* Add digit-above-two type to numerify function. Thanks @dlwrnc.
+
+### [v18.10.1 - 2023-06-02](https://github.com/joke2k/faker/compare/v18.10.0...v18.10.1)
+
+* Fix handling leap year in `en_US` Passport provider. Thanks @mgorny.
+
+### [v18.10.0 - 2023-06-01](https://github.com/joke2k/faker/compare/v18.9.1...v18.10.0)
+
+* Add `passport` Provider and `en_US` Implementation. Thanks @llw2128.
+
+### [v18.9.1 - 2023-06-01](https://github.com/joke2k/faker/compare/v18.9.0...v18.9.1)
+
+* Fix `fr_FR` `postcode` length. Thanks @vmttn.
+
 ### [v18.9.0 - 2023-05-16](https://github.com/joke2k/faker/compare/v18.8.0...v18.9.0)
 
 * Add `xml` provider. Thanks @Elihaybe.
