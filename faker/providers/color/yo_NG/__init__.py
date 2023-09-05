@@ -26,6 +26,5 @@ class Provider(ColorProvider):
         "Áláwò ēwē",
         "Ārò",
         "Púpà",
-        "Óràn",
         "Fùnfùn"
     )
