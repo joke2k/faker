@@ -295,11 +295,11 @@ class RandomColor:
         """Return the hue range for a given ``color_input``."""
         if isinstance(color_input, (int, float)) and 0 <= color_input <= 360:
             color_input = int(color_input)
-            return (color_input, color_input)
+            return color_input, color_input
         elif isinstance(color_input, str) and color_input in self.colormap:
             return self.colormap[color_input]["hue_range"][0]
         elif color_input is None:
-            return (0, 360)
+            return 0, 360
 
         if isinstance(color_input, list):
             color_input = tuple(color_input)
@@ -315,7 +315,7 @@ class RandomColor:
                 v1, v2 = v2, v1
             v1 = max(v1, 0)
             v2 = min(v2, 360)
-            return (v1, v2)
+            return v1, v2
         raise TypeError("Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.")
 
     def get_saturation_range(self, hue: int) -> Tuple[int, int]:
@@ -361,7 +361,7 @@ class RandomColor:
         it will return a 3-tuple of the equivalent R, G, and B integer values.
         """
         r, g, b = cls.hsv_to_rgb_float(hsv)
-        return (int(r * 255), int(g * 255), int(b * 255))
+        return int(r * 255), int(g * 255), int(b * 255)
 
     @classmethod
     def hsv_to_hsl(cls, hsv: Tuple[int, int, int]) -> Tuple[int, int, int]:
@@ -374,7 +374,7 @@ class RandomColor:
 
         s_: float = s / 100.0
         v_: float = v / 100.0
-        l = 0.5 * (v_) * (2 - s_)  # noqa: E741
+        l = 0.5 * v_ * (2 - s_)  # noqa: E741
 
         s_ = 0.0 if l in [0, 1] else v_ * s_ / (1 - math.fabs(2 * l - 1))
-        return (int(h), int(s_ * 100), int(l * 100))
+        return int(h), int(s_ * 100), int(l * 100)
