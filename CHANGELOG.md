@@ -290,6 +290,10 @@
   `currency`, `date_time`, `geo`, `internet`, `job`, `person`, `phone_number` and `ssn`.
   Thanks @saanpritom.
 
+### [v14.1.0 - 2022-09-07](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
+
+* Add `schemes` and `deep` argument to `uri` method.
+
 ### [v14.0.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.16.0...v14.0.0)
 
 * Fix `Provider._parse_date_time` to support timestamps. Thanks @mochi-moshi. 
