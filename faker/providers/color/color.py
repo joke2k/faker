@@ -16,12 +16,15 @@ import math
 import random
 import sys
 
-from typing import TYPE_CHECKING, Dict, Hashable, Optional, Sequence, Tuple
+from typing import TYPE_CHECKING, Dict, Hashable, Literal, Optional, Sequence, Tuple
 
 if TYPE_CHECKING:
     from ...factory import Generator
 
 from ...typing import HueType
+
+ColorFormat = Literal["hex", "hsl", "hsv", "rgb"]
+
 
 COLOR_MAP: Dict[str, Dict[str, Sequence[Tuple[int, int]]]] = {
     "monochrome": {
@@ -148,7 +151,7 @@ class RandomColor:
         self,
         hue: Optional[HueType] = None,
         luminosity: Optional[str] = None,
-        color_format: str = "hex",
+        color_format: ColorFormat = "hex",
     ) -> str:
         """Generate and format a color.
 
@@ -253,7 +256,7 @@ class RandomColor:
 
         return self.random_within((b_min, b_max))
 
-    def set_format(self, hsv: Tuple[int, int, int], color_format: str) -> str:
+    def set_format(self, hsv: Tuple[int, int, int], color_format: ColorFormat) -> str:
         """Handle conversion of HSV values into desired format."""
         if color_format == "hsv":
             color = f"hsv({hsv[0]}, {hsv[1]}, {hsv[2]})"
