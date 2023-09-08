@@ -19,7 +19,7 @@ def _class_locale_faker(request):
     match = LOCALE_TEST_CLASS_NAME_REGEX.fullmatch(class_name)
     if not match:
         return None
-    locale = f'{match.group("language")}_{match.group("region")}'
+    locale = f'{match.group("language").lower()}_{match.group("region").upper()}'
     locale = pylocale.normalize(locale).split(".")[0]
     return Faker(locale=locale)
 
