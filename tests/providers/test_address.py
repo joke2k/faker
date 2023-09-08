@@ -14,6 +14,7 @@ from faker.providers.address.de_CH import Provider as DeChAddressProvider
 from faker.providers.address.de_DE import Provider as DeDeAddressProvider
 from faker.providers.address.el_GR import Provider as ElGrAddressProvider
 from faker.providers.address.en_AU import Provider as EnAuAddressProvider
+from faker.providers.address.en_BD import Provider as EnBdAddressProvider
 from faker.providers.address.en_CA import Provider as EnCaAddressProvider
 from faker.providers.address.en_GB import Provider as EnGbAddressProvider
 from faker.providers.address.en_IE import Provider as EnIeAddressProvider
@@ -410,6 +411,78 @@ class TestEnAu:
             assert state_abbr in EnAuAddressProvider.states_abbr
             assert state_abbr.isupper()
 
+class TestEnBd:
+    """ Test en_BD address provider methods """
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in EnBdAddressProvider.cities
+
+    def test_city_or_district_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_or_district = faker.city_or_district_name()
+            assert isinstance(city_or_district, str)
+            assert city_or_district in EnBdAddressProvider.cities_or_districts
+
+    def test_district_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            district = faker.district_name()
+            assert isinstance(district, str)
+            assert district in EnBdAddressProvider.districts
+
+    def test_division_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            division = faker.division_name()
+            assert isinstance(division, str)
+            assert division in EnBdAddressProvider.divisions
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{4}", postcode)
+
+    def test_postcode_in_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            for city in EnBdAddressProvider.cities:
+                postcode = faker.postcode_in_city(city)
+                assert isinstance(postcode, str)
+                assert re.fullmatch(r"\d{4}", postcode)
+
+        with pytest.raises(Exception):
+            faker.postcode_in_city("XX")
+
+    def test_postcode_in_district(self, faker, num_samples):
+        for _ in range(num_samples):
+            for district in EnBdAddressProvider.districts:
+                postcode = faker.postcode_in_district(district)
+                assert isinstance(postcode, str)
+                assert re.fullmatch(r"\d{4}", postcode)
+
+        with pytest.raises(Exception):
+            faker.postcode_in_district("XX")
+
+    def test_postcode_in_division(self, faker, num_samples):
+        for _ in range(num_samples):
+            for division in EnBdAddressProvider.divisions:
+                postcode = faker.postcode_in_division(division)
+                assert isinstance(postcode, str)
+                assert re.fullmatch(r"\d{4}", postcode)
+
+        with pytest.raises(Exception):
+            faker.postcode_in_division("XX")
+
+    def test_postcode_in_region(self, faker, num_samples):
+        for _ in range(num_samples):
+            for region in EnBdAddressProvider.regions:
+                postcode = faker.postcode_in_region(region)
+                assert isinstance(postcode, str)
+                assert re.fullmatch(r"\d{4}", postcode)
+
+        with pytest.raises(Exception):
+            faker.postcode_in_region("XX")
 
 class TestEnCa:
     """Test en_CA address provider methods"""
