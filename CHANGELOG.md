@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v14.1.0 - 2023-09-07](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
+
+* Add `schemes` and `deep` argument to `uri` method.
+
 ### [v19.3.1 - 2023-08-23](https://github.com/joke2k/faker/compare/v19.3.0...v19.3.1)
 
 * Remove spurious space in `uk_UA` `first_name`. Thanks @Romissevd.
@@ -289,10 +293,6 @@
 * Add providers for `bn_BD`: `address`, `automotive`, `bank`, `color`, `company`, 
   `currency`, `date_time`, `geo`, `internet`, `job`, `person`, `phone_number` and `ssn`.
   Thanks @saanpritom.
-
-### [v14.1.0 - 2022-09-07](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
-
-* Add `schemes` and `deep` argument to `uri` method.
 
 ### [v14.0.0 - 2022-08-12](https://github.com/joke2k/faker/compare/v13.16.0...v14.0.0)
 
