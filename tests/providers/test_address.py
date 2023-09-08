@@ -466,6 +466,7 @@ class TestEnBd:
             town = faker.town()
             assert isinstance(town, str)
 
+
 class TestEnCa:
     """Test en_CA address provider methods"""
 
