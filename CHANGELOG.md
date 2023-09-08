@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v14.1.0 - 2023-09-07](https://github.com/joke2k/faker/compare/v14.0.0...v14.1.0)
+### [v19.5.0 - 2023-09-08](https://github.com/joke2k/faker/compare/v19.4.0...v19.5.0)
+
+* Add `color_rgb`, `color_rgb_float`, `color_hsv` and `color_hsl`. Thanks @fdemmer.
+
+### [v19.4.0 - 2023-09-07](https://github.com/joke2k/faker/compare/v19.3.1...v19.4.0)
 
 * Add `schemes` and `deep` argument to `uri` method.
 
