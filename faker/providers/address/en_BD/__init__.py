@@ -1,6 +1,6 @@
-'''
+"""
     Contributed by: @aamibhoot 🇧🇩
-'''
+"""
 
 from .. import Provider as AddressProvider
 
@@ -126,7 +126,7 @@ class Provider(AddressProvider):
         "Pur",
         "Tala",
     )
-    
+
     cities = (
         "Barguna",
         "Barisal",
@@ -440,12 +440,12 @@ class Provider(AddressProvider):
     )
 
     secondary_address_formats = (
-    "Flat %",
-    "Flat %#",
-    "Studio %",
-    "Studio %#",
-    "Apartment %",
-    "Apartment %#",
+        "Flat %",
+        "Flat %#",
+        "Studio %",
+        "Studio %#",
+        "Apartment %",
+        "Apartment %#",
     )
 
     street_suffixes = (

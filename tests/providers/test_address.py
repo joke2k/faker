@@ -411,8 +411,9 @@ class TestEnAu:
             assert state_abbr in EnAuAddressProvider.states_abbr
             assert state_abbr.isupper()
 
+
 class TestEnBd:
-    """ Test en_BD address provider methods """
+    """Test en_BD address provider methods"""
 
     def test_city_name(self, faker, num_samples):
         for _ in range(num_samples):
@@ -483,6 +484,7 @@ class TestEnBd:
 
         with pytest.raises(Exception):
             faker.postcode_in_region("XX")
+
 
 class TestEnCa:
     """Test en_CA address provider methods"""
