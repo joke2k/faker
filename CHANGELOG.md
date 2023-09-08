@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.6.0 - 2023-09-08](https://github.com/joke2k/faker/compare/v19.5.0...v19.6.0)
+
+* Add addresses for `en_BD`. Thanks @aamibhoot.
+
 ### [v19.5.0 - 2023-09-08](https://github.com/joke2k/faker/compare/v19.4.0...v19.5.0)
 
 * Add `color_rgb`, `color_rgb_float`, `color_hsv` and `color_hsl`. Thanks @fdemmer.
