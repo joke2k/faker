@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.6.1 - 2023-09-11](https://github.com/joke2k/faker/compare/v19.6.0...v19.6.1)
+
+* Bump actions/checkout from 3 to 4 (#1909). Thanks @dependabot[bot].
+
 ### [v19.6.0 - 2023-09-08](https://github.com/joke2k/faker/compare/v19.5.0...v19.6.0)
 
 * Add addresses for `en_BD`. Thanks @aamibhoot.
