@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.6.2 - 2023-09-20](https://github.com/joke2k/faker/compare/v19.6.1...v19.6.2)
+
+* fix type error in `pyfloat`  when `max_value` is `None`. Thanks @HugoJP1.
+
 ### [v19.6.1 - 2023-09-11](https://github.com/joke2k/faker/compare/v19.6.0...v19.6.1)
 
 * Bump actions/checkout from 3 to 4 (#1909). Thanks @dependabot[bot].
