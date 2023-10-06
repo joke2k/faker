@@ -236,7 +236,6 @@ class TestPyfloat(unittest.TestCase):
             assert len(str(result).strip("-").split(".")[0]) == 5
             assert len(str(result).strip("-").split(".")[1]) <= 2
 
-
     def test_max_and_min_value_negative(self):
         """
         Combining the max_value and min_value keyword arguments with

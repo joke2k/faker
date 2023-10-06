@@ -176,7 +176,6 @@ class Provider(BaseProvider):
             else:
                 right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
 
-
         # If only one side is set, choose #digits for other side
         if (left_digits is None) ^ (right_digits is None):
             if left_digits is None:
@@ -199,13 +198,13 @@ class Provider(BaseProvider):
             if max_value is None:
                 temp_max_value = 10 ** (left_digits + right_digits)
                 if min_value is not None:
-                    temp_min_value = min_value * 10 ** right_digits
+                    temp_min_value = min_value * 10**right_digits
             if min_value is None:
                 temp_min_value = -(10 ** (left_digits + right_digits))
                 if max_value is not None:
                     if max_value < temp_min_value:
                         temp_min_value = max_value - 1
-                    temp_max_value = max_value * 10 ** right_digits
+                    temp_max_value = max_value * 10**right_digits
 
             if max_value is not None and max_value < 0:
                 temp_max_value += 1  # as the random_int will be generated up to max_value - 1
@@ -233,7 +232,7 @@ class Provider(BaseProvider):
                 )
 
             params_requested = (
-                    right_digits_requested or left_digits_requested or ((min_value is None) ^ (max_value is None))
+                right_digits_requested or left_digits_requested or ((min_value is None) ^ (max_value is None))
             )
             if params_requested:
                 result = (
