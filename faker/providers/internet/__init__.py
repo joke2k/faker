@@ -582,8 +582,18 @@ class Provider(BaseProvider):
             address = str(IPv6Network(address, strict=False))
         return address
 
-    def mac_address(self) -> str:
-        mac = [self.generator.random.randint(0x00, 0xFF) for _ in range(0, 6)]
+    def mac_address(self, multicast: bool = False) -> str:
+        """
+        Returns a random MAC address.
+
+        :param multicast: Multicast address
+        :returns: MAC Address
+        """
+        mac = [self.generator.random.randint(0x00, 0xFF) for _ in range(0, 5)]
+        if multicast is True:
+            mac.insert(0, self.generator.random.randrange(0x01, 0xFF, 2))
+        else:
+            mac.insert(0, self.generator.random.randrange(0x00, 0xFE, 2))
         return ":".join("%02x" % x for x in mac)
 
     def port_number(self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False) -> int:
