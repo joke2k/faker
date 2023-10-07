@@ -307,7 +307,7 @@ class TestInternetProvider:
     def test_mac_address(self, faker):
         provider = InternetProvider(faker)
 
-        unicast_address = provider.mac_address(multicast=False)
+        unicast_address = provider.mac_address()
         assert int(unicast_address[0:2], base=16) % 2 == 0
 
         multicast_address = provider.mac_address(multicast=True)
