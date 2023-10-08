@@ -44,7 +44,7 @@ Here's a list of Providers written by the community:
 | Posts         | Fake posts in markdown    | `mdgen`_                         |
 |               | format                    |                                  |
 +---------------+---------------------------+----------------------------------+
-| PySpark       | Fake PySpark DataFrane    | `faker_pyspark`_                 |
+| PySpark       | Fake PySpark DataFrame    | `faker_pyspark`_                 |
 |               | and Schema generator      |                                  |
 +---------------+---------------------------+----------------------------------+
 | Vehicle       | Fake vehicle information  | `faker_vehicle`_                 |
