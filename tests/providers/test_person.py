@@ -20,6 +20,7 @@ from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
+from faker.providers.person.lv_LV import Provider as LvProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -286,6 +287,64 @@ class TestJaJP(unittest.TestCase):
         assert last_name_pair
         assert len(last_name_pair) == 3
         assert all(isinstance(s, str) for s in last_name_pair)
+
+
+class TestLvLV(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("lv_LV")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.provider.first_names
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.provider.first_names
+        assert name in LvProvider.provider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.provider.first_names
+        assert name in LvProvider.provider.first_names_male
+
+    def test_last_name(self):
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.last_names
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.last_names_female + LvProvider.last_names_unisex
+
+        # Females only last name.
+        name = self.fake.last_name_unique_to_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.last_names_female
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.last_names_male + LvProvider.last_names_unisex
+
+        # Male only last name.
+        name = self.fake.last_name_unique_to_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in LvProvider.last_names_male
 
 
 class TestNeNP(unittest.TestCase):
