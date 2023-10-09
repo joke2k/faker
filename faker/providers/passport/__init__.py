@@ -15,7 +15,7 @@ class Provider(BaseProvider):
     passport_number_formats: ElementsType = ()
 
     def passport_dob(self) -> datetime.date:
-        """Generate a datetime date of bisrth."""
+        """Generate a datetime date of birth."""
         birthday = self.generator.date_of_birth()
         return birthday
 
