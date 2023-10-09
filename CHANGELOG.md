@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.8.0 - 2023-10-09](https://github.com/joke2k/faker/compare/v19.7.0...v19.8.0)
+
+*  Add Gender support for Latvian (`lv_LV`) names. Thanks @OskarsPakers.
+
 ### [v19.7.0 - 2023-10-09](https://github.com/joke2k/faker/compare/v19.6.2...v19.7.0)
 
 * Add MAC Address Multicast. Thanks @d3vyce.
