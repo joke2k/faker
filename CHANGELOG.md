@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.7.0 - 2023-10-09](https://github.com/joke2k/faker/compare/v19.6.2...v19.7.0)
+
+* Add MAC Address Multicast. Thanks @d3vyce.
+
 ### [v19.6.2 - 2023-09-20](https://github.com/joke2k/faker/compare/v19.6.1...v19.6.2)
 
 * fix type error in `pyfloat`  when `max_value` is `None`. Thanks @HugoJP1.
