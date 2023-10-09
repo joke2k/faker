@@ -304,6 +304,15 @@ class TestInternetProvider:
             assert len(address) <= 39 + 4
             assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(address)
 
+    def test_mac_address(self, faker):
+        provider = InternetProvider(faker)
+
+        unicast_address = provider.mac_address()
+        assert int(unicast_address[0:2], base=16) % 2 == 0
+
+        multicast_address = provider.mac_address(multicast=True)
+        assert int(multicast_address[0:2], base=16) % 2 == 1
+
     def test_port_number(self, faker, num_samples):
         for _ in range(num_samples):
             assert 0 <= faker.port_number() <= 65535
