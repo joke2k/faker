@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.8.1 - 2023-10-10](https://github.com/joke2k/faker/compare/v19.8.0...v19.8.1)
+
+* Fix `person` Latvian provider.
+
 ### [v19.8.0 - 2023-10-09](https://github.com/joke2k/faker/compare/v19.7.0...v19.8.0)
 
 *  Add Gender support for Latvian (`lv_LV`) names. Thanks @OskarsPakers.
