@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.9.0 - 2023-10-10](https://github.com/joke2k/faker/compare/v19.8.1...v19.9.0)
+
+* Use DE base for `de_CH` AddressProvider. Thanks @nchiapol.
+
 ### [v19.8.1 - 2023-10-10](https://github.com/joke2k/faker/compare/v19.8.0...v19.8.1)
 
 * Fix `person` Latvian provider.
