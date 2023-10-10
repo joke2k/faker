@@ -299,21 +299,21 @@ class TestLvLV(unittest.TestCase):
         name = self.fake.first_name()
         assert name
         self.assertIsInstance(name, str)
-        assert name in LvProvider.provider.first_names
+        assert name in LvProvider.first_names
 
         # Females first name
         name = self.fake.first_name_female()
         assert name
         self.assertIsInstance(name, str)
-        assert name in LvProvider.provider.first_names
-        assert name in LvProvider.provider.first_names_female
+        assert name in LvProvider.first_names
+        assert name in LvProvider.first_names_female
 
         # Male first name
         name = self.fake.first_name_male()
         assert name
         self.assertIsInstance(name, str)
-        assert name in LvProvider.provider.first_names
-        assert name in LvProvider.provider.first_names_male
+        assert name in LvProvider.first_names
+        assert name in LvProvider.first_names_male
 
     def test_last_name(self):
         # General last name.
@@ -326,10 +326,10 @@ class TestLvLV(unittest.TestCase):
         name = self.fake.last_name_female()
         assert name
         self.assertIsInstance(name, str)
-        assert name in LvProvider.last_names_female + LvProvider.last_names_unisex
+        assert name in LvProvider.last_names_female + LvProvider.last_names_nonbinary
 
         # Females only last name.
-        name = self.fake.last_name_unique_to_female()
+        name = self.fake.last_name_female()
         assert name
         self.assertIsInstance(name, str)
         assert name in LvProvider.last_names_female
@@ -338,10 +338,10 @@ class TestLvLV(unittest.TestCase):
         name = self.fake.last_name_male()
         assert name
         self.assertIsInstance(name, str)
-        assert name in LvProvider.last_names_male + LvProvider.last_names_unisex
+        assert name in LvProvider.last_names_male + LvProvider.last_names_nonbinary
 
         # Male only last name.
-        name = self.fake.last_name_unique_to_male()
+        name = self.fake.last_name_male()
         assert name
         self.assertIsInstance(name, str)
         assert name in LvProvider.last_names_male

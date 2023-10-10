@@ -287,7 +287,7 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
-    last_names_unisex = (
+    last_names_nonbinary = (
         "Ābele",
         "Bite",
         "Caune",
@@ -438,4 +438,4 @@ class Provider(PersonProvider):
         "Zvirbule",
     )
 
-    last_names = last_names_male + last_names_female + last_names_unisex
+    last_names = last_names_male + last_names_female + last_names_nonbinary
