@@ -2,7 +2,6 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
-
     # Phone numbers
     # https://cs.wikipedia.org/wiki/Telefonn%C3%AD_%C4%8D%C3%ADslo
 
