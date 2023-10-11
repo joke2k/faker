@@ -161,20 +161,11 @@ class Provider(BaseProvider):
             raise ValueError("Max value must fit within left digits")
         if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
             raise ValueError("Min value must fit within left digits")
-        if max_value is not None and max_value < -(10**sys.float_info.dig + 1):
-            raise ValueError(f"Max value must be greater than {-10**sys.float_info.dig - 1}")
-        if min_value is not None and min_value > 10**sys.float_info.dig - 1:
-            raise ValueError(f"Min value must be less than {10**sys.float_info.dig - 1}")
 
-        left_digits_requested = left_digits is not None
-        right_digits_requested = right_digits is not None
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
             needed_left_digits = max(1, math.ceil(math.log10(max(abs(max_value or 1), abs(min_value or 1)))))
-            if (sys.float_info.dig - needed_left_digits) < 1:
-                right_digits = 0
-            else:
-                right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
+            right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
 
         # If only one side is set, choose #digits for other side
         if (left_digits is None) ^ (right_digits is None):
@@ -190,67 +181,32 @@ class Provider(BaseProvider):
                 f"{sys.float_info.dig})",
             )
 
+        sign = ""
         if (min_value is not None) or (max_value is not None):
             # Copy values to ensure we're not modifying the original values and thus going out of bounds
-            temp_min_value = min_value
-            temp_max_value = max_value
+            left_min_value = min_value
+            left_max_value = max_value
             # Make sure left_digits still respected
-            if max_value is None:
-                temp_max_value = 10 ** (left_digits + right_digits)
-                if min_value is not None:
-                    temp_min_value = min_value * 10**right_digits
-            if min_value is None:
-                temp_min_value = -(10 ** (left_digits + right_digits))
-                if max_value is not None:
-                    if max_value < temp_min_value:
-                        temp_min_value = max_value - 1
-                    temp_max_value = max_value * 10**right_digits
+            if left_digits is not None:
+                if max_value is None:
+                    left_max_value = 10**left_digits  # minus smallest representable, adjusted later
+                if min_value is None:
+                    left_min_value = -(10**left_digits)  # plus smallest representable, adjusted later
 
             if max_value is not None and max_value < 0:
-                temp_max_value += 1  # as the random_int will be generated up to max_value - 1
+                left_max_value += 1  # as the random_int will be generated up to max_value - 1
             if min_value is not None and min_value < 0:
-                temp_min_value += 1  # as we then append digits after the left_number
-
-            opposite_signs = (temp_min_value * temp_max_value) < 0
-            if opposite_signs and left_digits_requested:
-                positive_number = self._safe_random_int(
-                    10 ** (left_digits + right_digits - 1),
-                    temp_max_value,
-                    positive=True,
-                )
-                negative_number = self._safe_random_int(
-                    temp_min_value,
-                    -(10 ** (left_digits + right_digits - 1)),
-                    positive=False,
-                )
-                number = self.random_element((positive_number, negative_number))
-            else:
-                number = self._safe_random_int(
-                    temp_min_value,
-                    temp_max_value,
-                    positive,
-                )
-
-            params_requested = (
-                right_digits_requested or left_digits_requested or ((min_value is None) ^ (max_value is None))
+                left_min_value += 1  # as we then append digits after the left_number
+            left_number = self._safe_random_int(
+                left_min_value,
+                left_max_value,
+                positive,
             )
-            if params_requested:
-                result = (
-                    float(f"{str(number)[:-right_digits]}.{str(number)[-right_digits:]}")
-                    if right_digits
-                    else float(number)
-                )
-            else:
-                fix_right_digits_len = right_digits > 0
-                result = float(f"{number}.{self.random_number(right_digits, fix_len=fix_right_digits_len)}")
-
         else:
             sign = "+" if positive else self.random_element(("+", "-"))
-            fix_left_digits_len = left_digits > 0
-            left_number = self.random_number(left_digits, fix_len=fix_left_digits_len)
-            fix_right_digits_len = right_digits > 0
-            result = float(f"{sign}{left_number}.{self.random_number(right_digits, fix_len=fix_right_digits_len)}")
+            left_number = self.random_number(left_digits)
 
+        result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
         if positive and result == 0:
             if right_digits:
                 result = float("0." + "0" * (right_digits - 1) + "1")
@@ -263,6 +219,17 @@ class Provider(BaseProvider):
         else:
             result = min(result, 10**left_digits - 1)
             result = max(result, -(10**left_digits + 1))
+
+        # It's possible for the result to end up > than max_value or < than min_value
+        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value.
+        # Which can happen a lot depending on the difference of the values.
+        # Ensure the variance is bound by the difference between the max and min
+        if max_value is not None:
+            if result > max_value:
+                result = result - (result - max_value + self.generator.random.uniform(0, max_value - min_value))
+        if min_value is not None:
+            if result < min_value:
+                result = result + (min_value - result + self.generator.random.uniform(0, max_value - min_value))
 
         return result
 

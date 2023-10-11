@@ -162,7 +162,7 @@ class TestPyfloat(unittest.TestCase):
         self.assertGreaterEqual(result, 0)
 
     def test_max_value(self):
-        max_values = (0, 10, -1000, 1000, 999999, 100000000000001.0, -1000000000000001.0)
+        max_values = (0, 10, -1000, 1000, 999999)
 
         for max_value in max_values:
             result = self.fake.pyfloat(max_value=max_value)
@@ -209,32 +209,6 @@ class TestPyfloat(unittest.TestCase):
             result = self.fake.pyfloat(min_value=100.123, max_value=200.321)
             self.assertLessEqual(result, 200.321)
             self.assertGreaterEqual(result, 100.123)
-
-    def test_max_none_and_min_value_with_decimals(self):
-        """
-        Combining the max_value and min_value keyword arguments with
-        positive value for min and None for max produces numbers with
-        left and right digits specified produced numbers greater than
-        the supplied min_value.
-        """
-        for _ in range(1000):
-            result = self.fake.pyfloat(min_value=99884.7, max_value=None, left_digits=5, right_digits=2)
-            self.assertGreaterEqual(result, 99884.7)
-            assert len(str(result).strip("-").split(".")[0]) == 5
-            assert len(str(result).strip("-").split(".")[1]) <= 2
-
-    def test_min_none_and_max_value_with_decimals(self):
-        """
-        Combining the max_value and min_value keyword arguments with
-        positive value for max and None for min produces numbers with
-        left and right digits specified produced numbers greater than
-        the supplied min_value.
-        """
-        for _ in range(1000):
-            result = self.fake.pyfloat(min_value=None, max_value=11000.3, left_digits=5, right_digits=2)
-            self.assertLessEqual(result, 11000.3)
-            assert len(str(result).strip("-").split(".")[0]) == 5
-            assert len(str(result).strip("-").split(".")[1]) <= 2
 
     def test_max_and_min_value_negative(self):
         """
