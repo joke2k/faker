@@ -31,6 +31,9 @@ class Provider(PersonProvider):
     formats = formats_male.copy()
     formats.update(formats_female)
 
+    # Names from
+    # https://cs.wikipedia.org/wiki/Jmeniny_v_%C4%8Cesku
+
     first_names_male = (
         "Adam",
         "Albert",
@@ -161,6 +164,9 @@ class Provider(PersonProvider):
         "Štefan",
         "Štěpán",
     )
+
+    # Names from
+    # https://cs.wikipedia.org/wiki/Jmeniny_v_%C4%8Cesku
 
     first_names_female = (
         "Adéla",
@@ -414,6 +420,10 @@ class Provider(PersonProvider):
     )
 
     last_names = last_names_male + last_names_female
+
+    # Degrees from
+    # https://cs.wikipedia.org/wiki/Akademick%C3%BD_titul
+    # https://eprehledy.cz/ceske_tituly.php
 
     degrees = ("JUDr.", "Ing.", "Bc.", "Mgr.", "MUDr.", "RNDr.",
                "Ing. arch.", "MVDr.","PhDr.")
