@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.10.0 - 2023-10-11](https://github.com/joke2k/faker/compare/v19.9.1...v19.10.0)
+
+* Update names and phone numbers for `cs_CZ`. Thanks @george0st.
+
 ### [v19.9.1 - 2023-10-11](https://github.com/joke2k/faker/compare/v19.9.0...v19.9.1)
 
 * Revert "fix type error in `pyfloat`  when `max_value` is `None`" from v19.6.2.
