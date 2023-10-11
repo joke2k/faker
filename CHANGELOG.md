@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.9.1 - 2023-10-11](https://github.com/joke2k/faker/compare/v19.9.0...v19.9.1)
+
+* Revert "fix type error in `pyfloat`  when `max_value` is `None`" from v19.6.2.
+
 ### [v19.9.0 - 2023-10-10](https://github.com/joke2k/faker/compare/v19.8.1...v19.9.0)
 
 * Use DE base for `de_CH` AddressProvider. Thanks @nchiapol.
