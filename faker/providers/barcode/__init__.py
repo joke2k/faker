@@ -54,7 +54,7 @@ class Provider(BaseProvider):
         """
         return self._ean(length, prefixes=prefixes)
 
-    def ean8(self, prefixes: Tuple[()] = ()) -> str:
+    def ean8(self, prefixes: PrefixType = ()) -> str:
         """Generate an EAN-8 barcode.
 
         This method uses |ean| under the hood with the ``length`` argument
