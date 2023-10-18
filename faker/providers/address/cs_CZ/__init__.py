@@ -927,7 +927,7 @@ class Provider(AddressProvider):
         "Hostýnská",
         "Otradovická",
         "Opavská",
-        "Hradecká   ",
+        "Hradecká",
         "Vinohradská",
         "Pařížská",
         "Evropská",
