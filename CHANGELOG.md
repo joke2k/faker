@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v19.11.0 - 2023-10-18](https://github.com/joke2k/faker/compare/v19.10.0...v19.11.0)
+
+* Add a few street names to `cs_CZ`. Thanks @george0st.
+* Add words to lorem for `cs_CZ`. Thanks @george0st.
+* Add color for `cs_CZ`. Thanks @george0st.
+
 ### [v19.10.0 - 2023-10-11](https://github.com/joke2k/faker/compare/v19.9.1...v19.10.0)
 
 * Update names and phone numbers for `cs_CZ`. Thanks @george0st.
