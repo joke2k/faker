@@ -947,6 +947,15 @@ class Provider(AddressProvider):
         "Komenského",
         "Havlíčkova",
         "Husova",
+        "Na Nivách",
+        "Jandova",
+        "Jugoslávská",
+        "Pavlova",
+        "Kosmonautů",
+        "Svornosti",
+        "Moravská",
+        "Souběžná",
+        "Hasičská",
     )
 
     states = (
