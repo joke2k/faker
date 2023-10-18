@@ -208,7 +208,6 @@ class Provider(BaseProvider):
         ("49.593777", "17.250879", "Olomouc", "CZ", "Europe/Prague"),
         ("49.738430", "13.373637", "Plzeň", "CZ", "Europe/Prague"),
         ("48.812737", "14.317466", "Český Krumlov", "CZ", "Europe/Prague"),
-        ("50.231853", "12.871962", "Karlovy Vary", "CZ", "Europe/Prague"),
         ("49.195061", "16.606836", "Brno", "CZ", "Europe/Prague"),
         ("50.598427", "13.610242", "Litvínov", "CZ", "Europe/Prague"),
         ("49.820923", "18.262524", "Ostrava", "CZ", "Europe/Prague"),
