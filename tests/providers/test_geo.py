@@ -79,6 +79,11 @@ class TestEnUS(unittest.TestCase):
         assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
 
+class TestCsCz(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("cs_CZ")
+        Faker.seed(0)
+
 
 class TestDeAT(unittest.TestCase):
     """Tests in addresses in the de_AT locale"""
