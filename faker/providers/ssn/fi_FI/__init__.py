@@ -26,7 +26,10 @@ class Provider(SsnProvider):
             checksum_characters = "0123456789ABCDEFHJKLMNPRSTUVWXY"
             return checksum_characters[int(hetu) % 31]
 
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        if min_age == max_age:
+            age = datetime.timedelta(days=min_age * 365)
+        else:
+            age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
         hetu_date = "%02d%02d%s" % (
             birthday.day,
