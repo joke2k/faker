@@ -8125,3 +8125,12 @@ class Provider(SsnProvider):
         Pads shorter string with the allowed char
         """
         return sequence.ljust(3, "X")
+
+    @staticmethod
+    def is_leap_year(year: int) -> bool:
+        """
+        Checks if the one given is a leap year
+        """
+        if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+            return True
+        return False
