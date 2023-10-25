@@ -1,5 +1,13 @@
 ## Changelog
 
+### [v19.12.0 - 2023-10-24](https://github.com/joke2k/faker/compare/v19.11.1...v19.12.0)
+
+* Add `geo` provider for `cs_CZ`. Thanks @george0st.
+
+### [v19.11.1 - 2023-10-24](https://github.com/joke2k/faker/compare/v19.11.0...v19.11.1)
+
+* Fix handling for finnish ssn where `min_age` and `max_age` are the same. Thanks @Pakkanen1.
+
 ### [v19.11.0 - 2023-10-18](https://github.com/joke2k/faker/compare/v19.10.0...v19.11.0)
 
 * Add a few street names to `cs_CZ`. Thanks @george0st.

@@ -793,6 +793,18 @@ class TestFiFI(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^FI\d{8}$", self.fake.vat_id())
 
+    def test_ssn_without_age_range(self):
+        current_year = datetime.now().year
+        age = current_year - 1995
+        ssn = self.fake.ssn(min_age=age, max_age=age, artificial=True)
+        assert "95-" in ssn
+        age = current_year - 2013
+        ssn = self.fake.ssn(min_age=age, max_age=age, artificial=True)
+        assert "13A" in ssn
+        age = current_year - 1898
+        ssn = self.fake.ssn(min_age=age, max_age=age, artificial=True)
+        assert "98+" in ssn
+
 
 class TestFrFR(unittest.TestCase):
     def setUp(self):
