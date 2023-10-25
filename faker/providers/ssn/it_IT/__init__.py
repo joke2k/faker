@@ -8134,3 +8134,16 @@ class Provider(SsnProvider):
         if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
             return True
         return False
+
+    @staticmethod
+    def _get_max_day(is_leap_year: bool, month: str) -> int:
+        """
+        Returns the maximum day for the current month
+        """
+        if month in ["D", "H", "P", "S"]:
+            max_day = 30
+        elif month == "B":
+            max_day = 29 if is_leap_year else 28
+        else:
+            max_day = 31
+        return max_day
