@@ -8,7 +8,7 @@ from .. import Provider as SsnProvider
 
 class Provider(SsnProvider):
     # Extracted from
-    # http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201504/t20150415_712722.html
+    # http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html
     area_codes: List[str] = [
         "110000",
         "110100",
@@ -3519,9 +3519,10 @@ class Provider(SsnProvider):
         "659002",
         "659003",
         "659004",
-        "710000",
+        # "710000",
         "810000",
         "820000",
+        "830000",
     ]
 
     def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[SexLiteral] = None) -> str:
