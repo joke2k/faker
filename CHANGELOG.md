@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.12.1 - 2023-10-31](https://github.com/joke2k/faker/compare/v19.12.0...v19.12.1)
+
+* Fix latest days of the month as birth day in italian SSN. Thanks @@TommasoLencioni
+
 ### [v19.12.0 - 2023-10-24](https://github.com/joke2k/faker/compare/v19.11.1...v19.12.0)
 
 * Add `geo` provider for `cs_CZ`. Thanks @george0st.
