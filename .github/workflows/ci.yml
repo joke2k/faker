@@ -259,7 +259,7 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
-        python -m pip install tox==3.27.1
+        python -m pip install tox==3.27.1 setuptools
     - name: Run tests
       run: tox
       env:
