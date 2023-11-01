@@ -79,22 +79,6 @@ class TestEnUS(unittest.TestCase):
         assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
 
-class TestCsCz(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("cs_CZ")
-        Faker.seed(0)
-
-    def test_location_on_land(self):
-        loc = self.fake.location_on_land()
-        assert isinstance(loc, tuple)
-        assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
-        assert Decimal(loc[1])
-        assert isinstance(loc[2], str)  # Place is a string
-        assert isinstance(loc[3], str)  # Country code is a string
-        assert len(loc[3]) == 2  # Country code is two letters
-        assert isinstance(loc[4], str)  # Timezone is a string
-
 
 class TestCsCz(unittest.TestCase):
     def setUp(self):
