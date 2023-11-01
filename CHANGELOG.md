@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v19.13.0 - 2023-11-01](https://github.com/joke2k/faker/compare/v19.12.1...v19.13.0)
+
+* Add more entries in `cs_CZ`'s geo. Thanks @george0st.
+
 ### [v19.12.1 - 2023-10-31](https://github.com/joke2k/faker/compare/v19.12.0...v19.12.1)
 
 * Fix latest days of the month as birth day in italian SSN. Thanks @@TommasoLencioni
