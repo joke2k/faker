@@ -1,3 +1,4 @@
+import platform
 import re
 
 from calendar import timegm
@@ -73,6 +74,21 @@ for name, sym in [
 
 
 class Provider(BaseProvider):
+    # NOTE: Windows only guarantee second precision, in order to emulate that
+    #       we need to inspect the platform to determine which function is most
+    #       appropriate to generate random seconds with.
+    if platform.system() == "Windows":
+
+        @property
+        def _rand_seconds(self):
+            return self.generator.random.randint
+
+    else:
+
+        @property
+        def _rand_seconds(self):
+            return self.generator.random.uniform
+
     centuries: ElementsType[str] = [
         "I",
         "II",
@@ -1814,7 +1830,7 @@ class Provider(BaseProvider):
         """
         start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        return self.generator.random.randint(start_datetime, end_datetime)
+        return self._rand_seconds(start_datetime, end_datetime)
 
     def time_delta(self, end_datetime: Optional[DateParseType] = None) -> timedelta:
         """
@@ -1824,7 +1840,7 @@ class Provider(BaseProvider):
         end_datetime = self._parse_end_datetime(end_datetime)
         seconds = end_datetime - start_datetime
 
-        ts = self.generator.random.randint(*sorted([0, seconds]))
+        ts = self._rand_seconds(*sorted([0, seconds]))
         return timedelta(seconds=ts)
 
     def date_time(
@@ -1867,7 +1883,7 @@ class Provider(BaseProvider):
         start_time = -62135596800 if start_datetime is None else self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
 
-        ts = self.generator.random.randint(start_time, end_datetime)
+        ts = self._rand_seconds(start_time, end_datetime)
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
         #       a "ValueError: timestamp out of range for platform time_t"
         #       on some platforms due to system C functions;
@@ -2033,7 +2049,7 @@ class Provider(BaseProvider):
         if end_date - start_date <= 1:
             ts = start_date + self.generator.random.random()
         else:
-            ts = self.generator.random.randint(start_date, end_date)
+            ts = self._rand_seconds(start_date, end_date)
         if tzinfo is None:
             return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
         else:
@@ -2132,7 +2148,7 @@ class Provider(BaseProvider):
             datetime_to_timestamp(datetime.now(tzinfo)) if datetime_end is None else self._parse_date_time(datetime_end)
         )
 
-        timestamp = self.generator.random.randint(datetime_start_, datetime_end_)
+        timestamp = self._rand_seconds(datetime_start_, datetime_end_)
         try:
             if tzinfo is None:
                 pick = convert_timestamp_to_datetime(timestamp, tzlocal())
