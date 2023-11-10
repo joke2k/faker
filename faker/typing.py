@@ -17,7 +17,7 @@ else:
     from typing_extensions import OrderedDict as OrderedDictType  # NOQA
 
 DateParseType = Union[date, datetime, timedelta, str, int]
-HueType = TypeVar("HueType", str, float, Sequence[int])
+HueType = Union[str, float, int, Sequence[int]]
 SexLiteral = Literal["M", "F"]
 SeedType = Union[int, float, str, bytes, bytearray, None]
 
