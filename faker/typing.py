@@ -2,7 +2,7 @@ import dataclasses
 import sys
 
 from datetime import date, datetime, timedelta
-from typing import Sequence, TypeVar, Union
+from typing import Sequence, Union
 
 try:
     from typing import Literal  # type: ignore
