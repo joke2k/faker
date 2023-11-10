@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v20.0.0 - 2023-11-10](https://github.com/joke2k/faker/compare/v19.13.0...v20.0.0)
+
+* Support platform-specific second precision. Thanks @@cknv.
+
 ### [v19.13.0 - 2023-11-01](https://github.com/joke2k/faker/compare/v19.12.1...v19.13.0)
 
 * Add more entries in `cs_CZ`'s geo. Thanks @george0st.
