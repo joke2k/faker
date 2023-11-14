@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v20.0.2 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.1...v20.0.2)
+
+* Fix `pydecimal` crash on float `min_value` or `max_value`. Thanks @s-weigand.
+
 ### [v20.0.1 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.0...v20.0.1)
 
 * Fix type hint for `unix_time`.
