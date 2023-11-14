@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v20.0.1 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.0...v20.0.1)
+
+* Fix type hint for `unix_time`.
+
 ### [v20.0.0 - 2023-11-10](https://github.com/joke2k/faker/compare/v19.13.0...v20.0.0)
 
-* Support platform-specific second precision. Thanks @@cknv.
+* Support platform-specific second precision. Thanks @cknv.
 
 ### [v19.13.0 - 2023-11-01](https://github.com/joke2k/faker/compare/v19.12.1...v19.13.0)
 
