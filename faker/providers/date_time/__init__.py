@@ -80,13 +80,13 @@ class Provider(BaseProvider):
     if platform.system() == "Windows":
 
         @property
-        def _rand_seconds(self):
+        def _rand_seconds(self) -> Callable[[int, int], int]:
             return self.generator.random.randint
 
     else:
 
         @property
-        def _rand_seconds(self):
+        def _rand_seconds(self) -> Callable[[float, float], float]:
             return self.generator.random.uniform
 
     centuries: ElementsType[str] = [
@@ -1826,11 +1826,13 @@ class Provider(BaseProvider):
         Get a timestamp between January 1, 1970 and now, unless passed
         explicit start_datetime or end_datetime values.
 
-        :example: 1061306726
+        On Windows, the decimal part is always 0.
+
+        :example: 1061306726.6
         """
         start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        return self._rand_seconds(start_datetime, end_datetime)
+        return float(self._rand_seconds(start_datetime, end_datetime))
 
     def time_delta(self, end_datetime: Optional[DateParseType] = None) -> timedelta:
         """
