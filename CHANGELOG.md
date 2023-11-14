@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v20.0.3 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.2...v20.0.3)
+
+* Make `unix_time` always return floats.
+
 ### [v20.0.2 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.1...v20.0.2)
 
 * Fix `pydecimal` crash on float `min_value` or `max_value`. Thanks @s-weigand.
