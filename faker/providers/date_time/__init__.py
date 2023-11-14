@@ -1821,7 +1821,7 @@ class Provider(BaseProvider):
         self,
         end_datetime: Optional[DateParseType] = None,
         start_datetime: Optional[DateParseType] = None,
-    ) -> int:
+    ) -> float:
         """
         Get a timestamp between January 1, 1970 and now, unless passed
         explicit start_datetime or end_datetime values.
