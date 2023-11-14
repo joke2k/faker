@@ -1830,7 +1830,7 @@ class Provider(BaseProvider):
         """
         start_datetime = self._parse_start_datetime(start_datetime)
         end_datetime = self._parse_end_datetime(end_datetime)
-        return self._rand_seconds(start_datetime, end_datetime)
+        return int(self._rand_seconds(start_datetime, end_datetime))
 
     def time_delta(self, end_datetime: Optional[DateParseType] = None) -> timedelta:
         """
