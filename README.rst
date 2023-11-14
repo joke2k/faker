@@ -478,9 +478,9 @@ Credits
     :target: https://coveralls.io/r/joke2k/faker?branch=master
     :alt: Test coverage
 
-.. |build| image:: https://github.com/joke2k/faker/workflows/Python%20Tests/badge.svg?branch=master&event=push
-    :target: https://github.com/joke2k/faker/actions?query=workflow%3A%22Python+Tests%22+branch%3Amaster+event%3Apush
-    :alt: Build status of the master branch on Mac/Linux
+.. |build| image:: https://github.com/joke2k/faker/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/joke2k/faker/actions/workflows/ci.yml
+    :alt: Build status of the master branch
 
 .. |license| image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://raw.githubusercontent.com/joke2k/faker/master/LICENSE.txt
