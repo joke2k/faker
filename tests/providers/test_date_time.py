@@ -548,7 +548,8 @@ class TestDateTime(unittest.TestCase):
     @pytest.mark.skipif(not sys.platform.startswith("win"), reason="windows does not support sub second precision")
     def test_unix_time_win(self):
         unix_time = self.fake.unix_time()
-        assert isinstance(unix_time, int)
+        assert isinstance(unix_time, float)
+        assert unix_time % 1 == 0.0
 
     @pytest.mark.skipif(sys.platform.startswith("win"), reason="non windows does support sub second precision")
     def test_unix_time_non_win(self):
