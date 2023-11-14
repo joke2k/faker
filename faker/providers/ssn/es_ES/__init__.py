@@ -61,6 +61,20 @@ class Provider(BaseProvider):
 
         return random.choice([self.cif, self.nie, self.nif])()
 
+    def nuss(self, company: bool = False) -> str:
+        """
+        :param company: flag to indicate if we should generate a company NUSS
+        :return: a random Spanish Social Security Number (Número de la Seguridad Social)
+        """
+        nuss_body_length = 8
+        if company:
+            nuss_body_length = 7
+        province_digits = f"{random.choice(list(range(1, 54)) + [66]):02d}"
+        nuss_body = "".join(str(random.randint(0, 9)) for _ in range(nuss_body_length))
+        control_digits = f"{int(province_digits+nuss_body) % 97:02d}"
+        nuss = f"{province_digits}{nuss_body}{control_digits}"
+        return nuss
+
     @staticmethod
     def _calculate_control_doi(doi: str) -> str:
         """

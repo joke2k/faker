@@ -623,6 +623,16 @@ class TestEsES(unittest.TestCase):
     def test_doi(self):
         assert len(self.fake.doi()) == 9
 
+    def test_nuss(self):
+        for _ in range(50):
+            nuss = self.fake.nuss()
+            assert isinstance(nuss, str)
+            assert 12 == len(nuss)
+        for _ in range(50):
+            nuss = self.fake.nuss(company=True)
+            assert isinstance(nuss, str)
+            assert 11 == len(nuss)
+
 
 class TestEsCA(TestEsES):
     def setUp(self):
