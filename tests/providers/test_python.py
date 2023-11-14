@@ -84,6 +84,36 @@ def test_pyfloat_right_or_left_digit_overflow():
             assert str(abs(result)) == "1.12345678901234"
 
 
+@pytest.mark.skipif(sys.version_info < (3, 10), reason="Only relevant for Python 3.10 and later.")
+@pytest.mark.parametrize(
+    ("min_value", "max_value"),
+    [
+        (1.5, None),
+        (-1.5, None),
+        (None, -1.5),
+        (None, 1.5),
+        (-1.5, 1.5),
+    ],
+)
+@pytest.mark.parametrize(("left_digits"), [None, 5])
+@pytest.mark.parametrize(("right_digits"), [None, 5])
+@pytest.mark.filterwarnings(
+    # Convert the warning to an error for this test
+    r"error:non-integer arguments to randrange\(\):DeprecationWarning"
+)
+def test_float_min_and_max_value_does_not_crash(
+    left_digits: Optional[int],
+    right_digits: Optional[int],
+    min_value: Optional[float],
+    max_value: Optional[float],
+):
+    """
+    Float arguments to randrange are deprecated from Python 3.10. This is a regression
+    test to check that `pydecimal` does not cause a crash on any code path.
+    """
+    Faker().pydecimal(left_digits, right_digits, min_value=min_value, max_value=max_value)
+
+
 class TestPyint(unittest.TestCase):
     def setUp(self):
         self.fake = Faker()
