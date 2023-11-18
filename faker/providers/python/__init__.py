@@ -141,7 +141,7 @@ class Provider(BaseProvider):
         self,
         left_digits=None,
         right_digits=None,
-        positive=False,
+        positive=None,
         min_value=None,
         max_value=None,
     ):
@@ -203,7 +203,14 @@ class Provider(BaseProvider):
                 positive,
             )
         else:
-            sign = "+" if positive else "-"
+            if positive is None:
+                sign = self.random_element(("+", "-"))
+            elif positive is True:
+                sign = "+"
+            else:
+                sign = "-"
+            
+            
             left_number = self.random_number(left_digits)
 
         result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
