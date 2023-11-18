@@ -203,7 +203,7 @@ class Provider(BaseProvider):
                 positive,
             )
         else:
-            sign = "+" if positive else self.random_element(("+", "-"))
+            sign = "+" if positive else "-"
             left_number = self.random_number(left_digits)
 
         result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
