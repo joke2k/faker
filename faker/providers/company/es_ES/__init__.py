@@ -1,4 +1,3 @@
-import random
 from collections import OrderedDict
 
 from .. import Provider as CompanyProvider
