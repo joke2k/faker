@@ -1,5 +1,9 @@
 ## Changelog
 
+### Unreleased
+
+* Add official support for Python 3.12
+
 ### [v20.0.3 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.2...v20.0.3)
 
 * Make `unix_time` always return floats.
