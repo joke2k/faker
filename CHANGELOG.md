@@ -1,8 +1,9 @@
 ## Changelog
 
-### Unreleased
+### [v20.1.0 - 2023-11-20](https://github.com/joke2k/faker/compare/v20.0.3...v20.1.0)
 
-* Add official support for Python 3.12
+* Add company provider and NUSS for `es_ES` locale. Thanks @fgsalomon.
+* Add official support for Python 3.12. Thanks @pfouque.
 
 ### [v20.0.3 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.2...v20.0.3)
 
