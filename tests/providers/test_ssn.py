@@ -803,8 +803,9 @@ class TestFiFI(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^FI\d{8}$", self.fake.vat_id())
 
+    @freezegun.freeze_time("2023-10-23")
     def test_ssn_without_age_range(self):
-        current_year = datetime.now().year
+        current_year = 2023
         age = current_year - 1995
         ssn = self.fake.ssn(min_age=age, max_age=age, artificial=True)
         assert "95-" in ssn
