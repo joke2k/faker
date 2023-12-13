@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v21.0.0 - 2023-12-13](https://github.com/joke2k/faker/compare/v20.1.0...v21.0.0)
+
+* Fix: random sign in `pyfloat` when `positive=False`. Thanks @viraj-s15.
+
 ### [v20.1.0 - 2023-11-20](https://github.com/joke2k/faker/compare/v20.0.3...v20.1.0)
 
 * Add company provider and NUSS for `es_ES` locale. Thanks @fgsalomon.
