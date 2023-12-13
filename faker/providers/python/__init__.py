@@ -209,8 +209,7 @@ class Provider(BaseProvider):
                 sign = "+"
             else:
                 sign = "-"
-            
-            
+
             left_number = self.random_number(left_digits)
 
         result = float(f"{sign}{left_number}.{self.random_number(right_digits)}")
