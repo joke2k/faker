@@ -259,26 +259,35 @@ class Provider(BaseProvider):
         category: Optional[str] = None,
         extension: Optional[str] = None,
         absolute: Optional[bool] = True,
+        windows: Optional[bool] = False,
     ) -> str:
         """Generate an pathname to a file.
 
         This method uses |file_name| under the hood to generate the file name
         itself, and ``depth`` controls the depth of the directory path, and
         |word| is used under the hood to generate the different directory names.
+        When |windows| is set, the generate path will be a windows one.
 
         If ``absolute`` is ``True`` (default), the generated path starts with
-        ``/`` and is absolute. Otherwise, the generated path is relative.
+        ``/`` by default and ``C:\\`` for windows.
+        Otherwise, the generated path is relative.
 
         :sample: size=10
         :sample: depth=3
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
         """
-        file: str = self.file_name(category, extension)
-        path: str = f"/{file}"
+        path: str = self.file_name(category, extension)
+        separator: str = "/"
+        absolute_prefix: str = separator
+        if windows:
+            separator = "\\"
+            absolute_prefix = "C:\\"
+
         for _ in range(0, depth):
-            path = f"/{self.generator.word()}{path}"
-        return path if absolute else path[1:]
+            path = f"{self.generator.word()}{separator}{path}"
+
+        return f"{absolute_prefix}{path}" if absolute else path
 
     def unix_device(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix device file name.
