@@ -15,7 +15,9 @@ isort:
 
 lint: isort black mypy flake8
 
-release:
+generate-stubs: python generate-stubs.py
+
+release: generate-stubs
 	check-manifest
 	rm -rf build dist
 	python setup.py sdist bdist_wheel

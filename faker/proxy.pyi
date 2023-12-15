@@ -1,9 +1,7 @@
 
-from typing import Optional, Type, Sequence, TypeVar, Union, Set, Dict, Iterator, Any, Iterable, Tuple, List
+from typing import Any, Iterable, Sequence, Union, Type, Dict, List, Iterator, Tuple, Optional, TypeVar, Set
 from enum import Enum
 from faker.providers import T
-from collections import OrderedDict
-from re import Pattern
 import datetime
 from decimal import Decimal
 from faker.providers.python import TEnum
@@ -397,32 +395,6 @@ class Faker:
     def zipcode(self) -> str: ...
     def zipcode_in_state(self, state_abbr: Optional[str] = ...) -> str: ...
     def zipcode_plus4(self) -> str: ...
-    ALPHA_2: str
-    ALPHA_3: str
-    address_formats: OrderedDict
-    alpha_2_country_codes: list
-    alpha_3_country_codes: list
-    building_number_formats: tuple
-    city_formats: tuple
-    city_prefixes: tuple
-    city_suffixes: tuple
-    countries: tuple
-    freely_associated_states_abbr: tuple
-    known_usps_abbr: tuple
-    language_locale_codes: dict
-    military_apo_format: str
-    military_dpo_format: str
-    military_ship_prefix: tuple
-    military_state_abbr: tuple
-    postcode_formats: tuple
-    secondary_address_formats: tuple
-    states: tuple
-    states_abbr: tuple
-    states_postcode: dict
-    street_address_formats: tuple
-    street_name_formats: tuple
-    street_suffixes: tuple
-    territories_abbr: tuple
     def license_plate(self) -> str:
         """
         Generate a license plate.
@@ -433,7 +405,6 @@ class Faker:
         Generate vin number.
         """
         ...
-    license_formats: tuple
     def aba(self) -> str:
         """
         Generate an ABA routing transit number.
@@ -514,8 +485,6 @@ class Faker:
         :sample: use_dataset=True
         """
         ...
-    ALPHA: dict
-    bban_format: str
     def ean(self, length: int = ..., prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...) -> str:
         """
         Generate an EAN barcode of the specified ``length``.
@@ -695,11 +664,6 @@ class Faker:
         :sample: base='120004', number_system_digit=0, safe_mode=False
         """
         ...
-    local_prefixes: tuple
-    upc_ae_pattern1: Pattern
-    upc_ae_pattern2: Pattern
-    upc_ae_pattern3: Pattern
-    upc_e_base_pattern: Pattern
     def color(self, hue: Optional[HueType] = ..., luminosity: Optional[str] = ..., color_format: str = ...) -> str:
         """
         Generate a color in a human-friendly way.
@@ -787,8 +751,6 @@ class Faker:
         Generate a web-safe color formatted as a hex triplet.
         """
         ...
-    all_colors: OrderedDict
-    safe_colors: tuple
     def bs(self) -> str:
         """
         :example: 'integrate extensible convergence'
@@ -809,10 +771,6 @@ class Faker:
         :example: 'Ltd'
         """
         ...
-    bsWords: tuple
-    catch_phrase_words: tuple
-    company_suffixes: tuple
-    formats: tuple
     def credit_card_expire(self, start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ..., end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ..., date_format: str = ...) -> str:
         """
         Generate a credit card expiry date.
@@ -844,16 +802,6 @@ class Faker:
         Generate a credit card security code.
         """
         ...
-    credit_card_types: OrderedDict
-    luhn_lookup: dict
-    prefix_amex: list
-    prefix_diners: list
-    prefix_discover: list
-    prefix_jcb15: list
-    prefix_jcb16: list
-    prefix_maestro: list
-    prefix_mastercard: list
-    prefix_visa: list
     def cryptocurrency(self) -> Tuple[str, str]: ...
     def cryptocurrency_code(self) -> str: ...
     def cryptocurrency_name(self) -> str: ...
@@ -866,10 +814,6 @@ class Faker:
         """
         ...
     def pricetag(self) -> str: ...
-    cryptocurrencies: tuple
-    currencies: tuple
-    currency_symbols: dict
-    price_formats: list
     def am_pm(self) -> str: ...
     def century(self) -> str:
         """
@@ -1165,18 +1109,11 @@ class Faker:
         """
         ...
     def year(self) -> str: ...
-    AM_PM: dict
-    DAY_NAMES: dict
-    MONTH_NAMES: dict
-    centuries: list
-    regex: Pattern
     def emoji(self) -> str:
         """
         :example: '😉'
         """
         ...
-    emoji_formats: str
-    emojis: list
     def file_extension(self, category: Optional[str] = ...) -> str:
         """
         Generate a file extension under the specified ``category``.
@@ -1257,22 +1194,6 @@ class Faker:
         :sample: prefix='mmcblk'
         """
         ...
-    application_mime_types: tuple
-    audio_file_extensions: tuple
-    audio_mime_types: tuple
-    file_extensions: OrderedDict
-    image_file_extensions: tuple
-    image_mime_types: tuple
-    message_mime_types: tuple
-    mime_types: OrderedDict
-    model_mime_types: tuple
-    multipart_mime_types: tuple
-    office_file_extensions: tuple
-    text_file_extensions: tuple
-    text_mime_types: tuple
-    unix_device_prefixes: tuple
-    video_file_extensions: tuple
-    video_mime_types: tuple
     def coordinate(self, center: Optional[float] = ..., radius: Union[float, int] = ...) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
@@ -1294,7 +1215,6 @@ class Faker:
         """
         ...
     def longitude(self) -> Decimal: ...
-    land_coords: tuple
     def ascii_company_email(self) -> str: ...
     def ascii_email(self) -> str: ...
     def ascii_free_email(self) -> str: ...
@@ -1480,23 +1400,9 @@ class Faker:
         """
         ...
     def user_name(self) -> str: ...
-    email_formats: tuple
-    free_email_domains: tuple
-    hostname_prefixes: tuple
-    http_methods: tuple
-    image_placeholder_services: tuple
-    replacements: tuple
-    safe_domain_names: tuple
-    tlds: tuple
-    uri_extensions: tuple
-    uri_pages: tuple
-    uri_paths: tuple
-    url_formats: tuple
-    user_name_formats: tuple
     def isbn10(self, separator: str = ...) -> str: ...
     def isbn13(self, separator: str = ...) -> str: ...
     def job(self) -> str: ...
-    jobs: tuple
     def paragraph(self, nb_sentences: int = ..., variable_nb_sentences: bool = ..., ext_word_list: Optional[Sequence[str]] = ...) -> str:
         """
         Generate a paragraph.
@@ -1636,10 +1542,6 @@ class Faker:
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
         ...
-    parts_of_speech: dict
-    sentence_punctuation: str
-    word_connector: str
-    word_list: tuple
     def binary(self, length: int = ...) -> bytes:
         """
         Generate a random binary blob of ``length`` bytes.
@@ -2003,7 +1905,6 @@ class Faker:
         that is either male, female, or non-binary.
         """
         ...
-    passport_number_formats: tuple
     def first_name(self) -> str: ...
     def first_name_female(self) -> str: ...
     def first_name_male(self) -> str: ...
@@ -2033,15 +1934,6 @@ class Faker:
     def suffix_female(self) -> str: ...
     def suffix_male(self) -> str: ...
     def suffix_nonbinary(self) -> str: ...
-    first_names: tuple
-    first_names_female: tuple
-    first_names_male: tuple
-    formats_female: tuple
-    formats_male: tuple
-    language_names: list
-    last_names: tuple
-    prefixes_female: tuple
-    prefixes_male: tuple
     def basic_phone_number(self) -> str: ...
     def country_calling_code(self) -> str: ...
     def msisdn(self) -> str:
@@ -2050,9 +1942,6 @@ class Faker:
         """
         ...
     def phone_number(self) -> str: ...
-    basic_formats: tuple
-    country_calling_codes: tuple
-    msisdn_formats: tuple
     def profile(self, fields: Optional[List[str]] = ..., sex: Optional[Literal['M', 'F']] = ...) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], datetime.date]]:
         """
         Generates a complete profile.
@@ -2119,7 +2008,6 @@ class Faker:
     def pystr_format(self, string_format: str = ..., letters: str = ...) -> str: ...
     def pystruct(self, count: int = ..., value_types: Union[List[Type], Tuple[Type, ...], None] = ..., allowed_types: Union[List[Type], Tuple[Type, ...], None] = ...) -> Tuple[List, Dict, Dict]: ...
     def pytuple(self, nb_elements: int = ..., variable_nb_elements: bool = ..., value_types: Union[List[Type], Tuple[Type, ...], None] = ..., allowed_types: Union[List[Type], Tuple[Type, ...], None] = ...) -> Tuple[Any, ...]: ...
-    default_value_types: tuple
     def sbn9(self, separator: str = ...) -> str: ...
     def ein(self) -> str:
         """
@@ -2171,11 +2059,6 @@ class Faker:
         If no type is specified, a US SSN is returned.
         """
         ...
-    EIN_TYPE: str
-    INVALID_SSN_TYPE: str
-    ITIN_TYPE: str
-    SSN_TYPE: str
-    ssn_formats: tuple
     def android_platform_token(self) -> str:
         """
         Generate an Android platform token used in user agent strings.
@@ -2241,19 +2124,6 @@ class Faker:
         Generate a Windows platform token used in user agent strings.
         """
         ...
-    android_versions: tuple
-    apple_devices: tuple
-    ios_versions: tuple
-    linux_processors: tuple
-    mac_processors: tuple
-    user_agents: tuple
-    windows_platform_tokens: tuple
-    first_names_nonbinary: OrderedDict
-    formats_nonbinary: OrderedDict
-    prefixes_nonbinary: OrderedDict
-    suffixes_female: OrderedDict
-    suffixes_male: OrderedDict
-    suffixes_nonbinary: OrderedDict
     def area_code(self) -> str: ...
     def cellphone_number(self) -> str: ...
     def cellphone_provider_code(self) -> str: ...
@@ -2261,10 +2131,6 @@ class Faker:
     def telephone_number(self) -> str: ...
     def telephone_provider_code(self) -> str: ...
     def toll_number(self) -> str: ...
-    cellphone_formats: tuple
-    services_phones_formats: tuple
-    telephone_formats: tuple
-    toll_formats: tuple
     def initials(self) -> str:
         """
         Generate an initial number for license plates.
@@ -2292,11 +2158,6 @@ class Faker:
         Generate a license plate in Latin/Western characters.
         """
         ...
-    LICENSE_FORMAT_AR: str
-    LICENSE_FORMAT_EN: str
-    PLATE_CHARS_AR: str
-    PLATE_CHARS_EN: str
-    PLATE_MAP: dict
     def district_suffix(self):
         """
         :example: 'r.'
@@ -2332,51 +2193,27 @@ class Faker:
         :example: 'k.'
         """
         ...
-    cities: list
-    district_suffixes: tuple
-    districts: list
-    house_number_formats: tuple
-    settlement_suffixes: tuple
-    settlements: list
-    streets: list
-    village_suffixes: tuple
-    villages: list
-    ascii_uppercase_azerbaijan: str
-    license_plate_initial_numbers: tuple
     def bank(self):
         """
         Generate a bank name.
         """
         ...
-    banks: tuple
     def large_company(self):
         """
         :example: 'SOCAR'
         """
         ...
-    large_companies: tuple
     def last_name_unique_to_female(self): ...
     def last_name_unique_to_male(self): ...
     def last_name_unisex(self): ...
-    last_names_female: list
-    last_names_male: list
-    last_names_unisex: list
-    prefixes: tuple
     def landline_number(self) -> str: ...
     def start_digit(self) -> str: ...
-    area_codes: list
-    provider_codes: list
-    start_digits: list
-    all_characters: list
-    characters: list
-    numbers: list
     def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Bulgarian VAT ID
         """
         ...
-    vat_id_formats: tuple
     def area_name(self) -> str:
         """
         :example: 'উজির'
@@ -2392,9 +2229,6 @@ class Faker:
         :example: 'নবাব'
         """
         ...
-    area_names: tuple
-    building_names: tuple
-    town_formats: tuple
     def city_name(self) -> str:
         """
         :example: 'ঢাকা মেট্রো'
@@ -2416,13 +2250,6 @@ class Faker:
         :example: '৫৪৩২'
         """
         ...
-    license_plate_formats: tuple
-    vehicle_category_letters: tuple
-    vehicle_category_numbers: tuple
-    vehicle_serial_number_formats: tuple
-    swift_branch_codes: tuple
-    swift_location_codes: tuple
-    companies: tuple
     def first_name_female_common(self) -> str:
         """
         Return religiously unbiased female first name.
@@ -2483,37 +2310,20 @@ class Faker:
         :example: 'আলি'
         """
         ...
-    first_names_female_common: tuple
-    first_names_female_hinduism: tuple
-    first_names_female_islamic: tuple
-    first_names_male_common: tuple
-    first_names_male_hinduism: tuple
-    first_names_male_islamic: tuple
-    last_names_common: tuple
-    last_names_female_islamic: tuple
-    last_names_hinduism: tuple
-    last_names_islamic: tuple
-    suffixes: tuple
     def city_with_postcode(self) -> str: ...
     def street_suffix_long(self) -> str: ...
     def street_suffix_short(self) -> str: ...
-    street_suffixes_long: tuple
-    street_suffixes_short: tuple
-    degrees: tuple
     def birth_number(self) -> str:
         """
         Birth Number (Czech/Slovak: rodné číslo (RČ))
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia
         """
         ...
-    national_id_months: list
     def dk_street_name(self) -> str:
         """
         This returns the name of a street, without any suffix.
         """
         ...
-    street_names: tuple
-    city_with_postcode_formats: tuple
     def local_latitude(self) -> Decimal: ...
     def local_longitude(self) -> Decimal: ...
     def canton(self) -> Tuple[str, str]:
@@ -2534,26 +2344,11 @@ class Faker:
         :example 'Zürich'
         """
         ...
-    cantons: tuple
-    license_plate_prefix: tuple
-    license_plate_suffix: tuple
-    first_place: str
-    i: str
-    j: str
-    second_place: str
     def line_address(self) -> str: ...
     def region(self) -> str: ...
     def street_prefix(self) -> str: ...
     def street_prefix_long(self) -> str: ...
     def street_prefix_short(self) -> str: ...
-    line_address_formats: tuple
-    localities: tuple
-    regions: tuple
-    street_prefixes_long: tuple
-    street_prefixes_short: tuple
-    uppercase_letters: str
-    poly: tuple
-    common_words: tuple
     def police_id(self) -> str:
         """
         Generates random Greek identity card (aka police-issued identification card) numbers
@@ -2566,7 +2361,6 @@ class Faker:
         :return: a random Greek personal TIN
         """
         ...
-    police_id_format: str
     def postal_code_letter(self) -> str:
         """
         Returns a random letter from the list of allowable
@@ -2581,18 +2375,7 @@ class Faker:
         ...
     def province(self) -> str: ...
     def province_abbr(self) -> str: ...
-    postal_code_formats: tuple
-    postal_code_letters: tuple
-    provinces: tuple
-    provinces_abbr: tuple
-    provinces_postcode_prefixes: dict
     def county(self) -> str: ...
-    POSTAL_ZONES: tuple
-    POSTAL_ZONES_ONE_CHAR: list
-    POSTAL_ZONES_TWO_CHARS: list
-    counties: tuple
-    nino_formats: tuple
-    postcode_pattern: str
     def aadhaar_id(self) -> str:
         """
         Aadhaar is a 12 digit person identifier generated for residents of
@@ -2601,13 +2384,10 @@ class Faker:
         Official Website: https://uidai.gov.in/my-aadhaar/about-your-aadhaar.html
         """
         ...
-    aadhaar_id_formats: tuple
     def rd_number(self) -> str: ...
     def te_reo_ending(self) -> str: ...
     def te_reo_first(self) -> str: ...
     def te_reo_part(self) -> str: ...
-    te_reo_endings: tuple
-    te_reo_parts: tuple
     def building_name_suffix(self) -> str: ...
     def building_unit_number(self) -> str: ...
     def floor_number(self) -> str: ...
@@ -2634,28 +2414,6 @@ class Faker:
     def visayas_province(self) -> str: ...
     def visayas_province_address(self) -> str: ...
     def visayas_province_postcode(self) -> str: ...
-    building_name_formats: tuple
-    building_name_suffixes: tuple
-    building_unit_number_formats: tuple
-    floor_numbers: OrderedDict
-    luzon_province_address_formats: tuple
-    luzon_province_postcodes: tuple
-    luzon_provinces: tuple
-    metro_manila_address_formats: tuple
-    metro_manila_lgus: tuple
-    metro_manila_postcodes: tuple
-    mindanao_province_address_formats: tuple
-    mindanao_province_postcodes: tuple
-    mindanao_provinces: tuple
-    partitioned_building_number_formats: tuple
-    postcodes: tuple
-    province_lgus: tuple
-    subdivision_name_formats: tuple
-    subdivision_name_suffixes: tuple
-    subdivision_unit_number_formats: tuple
-    visayas_province_address_formats: tuple
-    visayas_province_postcodes: tuple
-    visayas_provinces: tuple
     def automobile_license_plate(self) -> str:
         """
         Generate an automobile license plate.
@@ -2683,20 +2441,11 @@ class Faker:
            protocol license plates.
         """
         ...
-    automobile_license_formats: list
-    motorcycle_license_formats: list
-    protocol_licenses: list
-    swift_bank_codes: tuple
     def company_type(self) -> str: ...
     def random_company_acronym(self) -> str: ...
     def random_company_adjective(self) -> str: ...
     def random_company_noun_chain(self) -> str: ...
     def random_company_product(self) -> str: ...
-    company_adjectives: tuple
-    company_nouns: tuple
-    company_products: tuple
-    company_types: tuple
-    safe_email_tlds: tuple
     def english_paragraph(self, nb_sentences: int = ..., variable_nb_sentences: bool = ...) -> str:
         """
         Generate a paragraph in English.
@@ -2757,17 +2506,11 @@ class Faker:
         :sample: nb=5, unique=True
         """
         ...
-    english_word_list: tuple
     def gemstone_name(self) -> str: ...
     def mountain_name(self) -> str: ...
     def plant_name(self) -> str: ...
     def random_object_name(self) -> str: ...
     def space_object_name(self) -> str: ...
-    gemstone_names: tuple
-    mountain_names: tuple
-    plant_names: tuple
-    random_object_names: tuple
-    space_object_names: tuple
     def area2_landline_number(self) -> str: ...
     def bayantel_area2_landline_number(self) -> str: ...
     def bayantel_landline_identifier(self) -> str: ...
@@ -2784,33 +2527,11 @@ class Faker:
     def smart_mobile_number_prefix(self) -> str: ...
     def sun_mobile_number(self) -> str: ...
     def sun_mobile_number_prefix(self) -> str: ...
-    area2_landline_number_formats: tuple
-    bayantel_area2_landline_number_formats: tuple
-    bayantel_landline_identifiers: tuple
-    globe_area2_landline_number_formats: tuple
-    globe_mobile_number_formats: tuple
-    globe_mobile_number_prefixes: tuple
-    landline_number_formats: tuple
-    misc_area2_landline_number_formats: tuple
-    misc_landline_identifiers: tuple
-    mobile_number_formats: tuple
-    non_area2_landline_area_codes: tuple
-    non_area2_landline_number_formats: tuple
-    pldt_area2_landline_number_formats: tuple
-    smart_mobile_number_formats: tuple
-    smart_mobile_number_prefixes: tuple
-    sun_mobile_number_formats: tuple
-    sun_mobile_number_prefixes: tuple
     def gsis(self) -> str: ...
     def pagibig(self) -> str: ...
     def philhealth(self) -> str: ...
     def sss(self) -> str: ...
     def umid(self) -> str: ...
-    gsis_formats: tuple
-    pagibig_formats: tuple
-    philhealth_formats: tuple
-    sss_formats: tuple
-    umid_formats: tuple
     def municipality(self) -> str:
         """
         :example: "La Plata"
@@ -2841,9 +2562,6 @@ class Faker:
         :example: "San Juan"
         """
         ...
-    municipalities: list
-    street_prefixes: OrderedDict
-    street_proceres: tuple
     def license_plate_mercosur(self) -> str:
         """
         Generate an new plate with Mercosur format. Since 2016
@@ -2854,12 +2572,6 @@ class Faker:
         Generate an old format license plate. Since 1995 to 2016
         """
         ...
-    license_plate_new_first_letter: OrderedDict
-    license_plate_new_second_letter: OrderedDict
-    license_plate_old_format_first_letter: str
-    cellphone_blocks: tuple
-    landline_codes: tuple
-    special_codes: tuple
     def cif(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
@@ -2894,25 +2606,15 @@ class Faker:
     def province_code(self) -> str: ...
     def region_code(self) -> str: ...
     def road_name(self) -> str: ...
-    common_street_names: OrderedDict
-    communes: dict
-    highway_names: tuple
-    historic_people_street_names: tuple
-    plant_street_names: tuple
-    road_names: tuple
     def license_plate_diplomatic(self) -> str: ...
     def license_plate_new(self) -> str: ...
     def license_plate_police(self) -> str: ...
     def license_plate_temporary(self) -> str: ...
-    license_plate_new_format_letters: str
-    license_plate_old_format_first_letters: str
-    license_plate_old_format_second_letters: str
     def company_prefix(self) -> str:
         """
         :example: 'Grupo'
         """
         ...
-    company_prefixes: tuple
     def given_name(self) -> str:
         """
         Generates a composite given name with two unique names
@@ -2950,11 +2652,6 @@ class Faker:
         :return: a random Chilean RUT between 35.000.000 and 99.999.999
         """
         ...
-    maximum_rut_company: int
-    maximum_rut_person: int
-    minimum_rut_company: int
-    minimum_rut_person: int
-    rut_format: str
     def department(self) -> str:
         """
         :example: "Bogotá, D.C."
@@ -2965,7 +2662,6 @@ class Faker:
         :example: "11"
         """
         ...
-    departments: dict
     def legal_person_nit(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_Identificaci%C3%B3n_Tributaria
@@ -2994,8 +2690,6 @@ class Faker:
         :example: '1095312769'
         """
         ...
-    legal_person_nit_formats: list
-    nuip_formats: OrderedDict
     def autonomous_community(self) -> str: ...
     def state_name(self) -> str: ...
     def license_plate_by_province(self, province_prefix: Optional[str] = ...) -> str:
@@ -3012,14 +2706,7 @@ class Faker:
         Generate a unified license plate.
         """
         ...
-    license_plate_new_format_suffix_letters: str
-    license_plate_old_format_suffix_letters: str
-    province_prefix: tuple
-    PHONE_FORMATS: tuple
-    PREFIXES: tuple
     def city_adjective(self) -> str: ...
-    city_adjectives: tuple
-    zip_codes: OrderedDict
     def clabe(self, bank_code: Optional[int] = ...) -> str:
         """
         Generate a mexican bank account CLABE.
@@ -3034,8 +2721,6 @@ class Faker:
         :sample: bank_code=2
         """
         ...
-    bank_codes: tuple
-    company_preffixes: tuple
     def curp(self) -> str:
         """
         See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n.
@@ -3074,49 +2759,6 @@ class Faker:
     def first_name_rus(self) -> str: ...
     def last_name_est(self) -> str: ...
     def last_name_rus(self) -> str: ...
-    est_rat: float
-    first_names_est: tuple
-    first_names_female_est: tuple
-    first_names_female_rus: tuple
-    first_names_male_est: tuple
-    first_names_male_rus: tuple
-    first_names_rus: tuple
-    last_names_est: tuple
-    last_names_rus: tuple
-    prefixes_neutral: tuple
-    rus_rat: float
-    scale1: tuple
-    scale2: tuple
-    company_names: list
-    prefix_ansar: list
-    prefix_bim: list
-    prefix_day: list
-    prefix_eghtesad_novin: list
-    prefix_ghavamin: list
-    prefix_hekmat: list
-    prefix_iran_zamin: list
-    prefix_kar_afarin: list
-    prefix_keshavarzi: list
-    prefix_kosar: list
-    prefix_maskan: list
-    prefix_mehr_eghtesad: list
-    prefix_meli: list
-    prefix_mellat: list
-    prefix_moasse_mellal: list
-    prefix_parsian: list
-    prefix_pasargad: list
-    prefix_post_bank: list
-    prefix_refah: list
-    prefix_saderat: list
-    prefix_saman_bank: list
-    prefix_sarmayeh: list
-    prefix_sepah: list
-    prefix_shahr: list
-    prefix_sina: list
-    prefix_tat: list
-    prefix_tejarat: list
-    prefix_tose: list
-    prefix_tourism_bank: list
     def company_business_id(self) -> str:
         """
         Returns Finnish company Business Identity Code (y-tunnus).
@@ -3138,10 +2780,6 @@ class Faker:
     def random_good_service_adjective_chain(self) -> str: ...
     def random_noun_ish_good_trait(self) -> str: ...
     def random_object_of_concern(self) -> str: ...
-    catch_phrase_formats: OrderedDict
-    good_service_adjectives: tuple
-    noun_ish_good_traits: tuple
-    objects_of_concern: list
     def catch_phrase_attribute(self) -> str:
         """
         Returns a random catch phrase attribute.
@@ -3191,11 +2829,6 @@ class Faker:
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
         """
         ...
-    attributes: tuple
-    nouns: tuple
-    siren_format: str
-    verbs: tuple
-    words_which_should_not_appear_twice: tuple
     def department_name(self) -> str:
         """
         Randomly returns a french department name.
@@ -3211,18 +2844,11 @@ class Faker:
         ...
     def area_code_with_separator(self) -> str: ...
     def area_code_without_separator(self) -> str: ...
-    departments_and_municipalities: tuple
     def street_title(self) -> str: ...
-    city_names: tuple
-    street_titles: tuple
     def city_part(self) -> str: ...
     def frequent_street_name(self) -> str: ...
     def real_city_name(self) -> str: ...
     def street_address_with_county(self) -> str: ...
-    city_parts: tuple
-    city_prefs: tuple
-    frequent_street_names: tuple
-    real_city_names: tuple
     def first_name_female_abbreviated(self) -> str: ...
     def first_name_male_abbreviated(self) -> str: ...
     def village_prefix(self) -> str:
@@ -3230,9 +2856,7 @@ class Faker:
         :example: 'գ.'
         """
         ...
-    village_prefixes: tuple
     def postcode_city_province(self) -> str: ...
-    cap_city_province: dict
     def ban(self) -> str:
         """
         :example: '3番'
@@ -3253,8 +2877,6 @@ class Faker:
         :example: '東京都'
         """
         ...
-    prefectures: tuple
-    towns: tuple
     def jan(self, length: int = ...) -> str:
         """
         Generate a JAN barcode of the specified ``length``.
@@ -3281,9 +2903,7 @@ class Faker:
         """
         ...
     def company_category(self) -> str: ...
-    company_categories: tuple
     def traditional_month_name(self) -> str: ...
-    TRADITIONAL_MONTH_NAMES: dict
     def first_kana_name(self) -> str:
         """
         :example: 'アケミ'
@@ -3374,24 +2994,6 @@ class Faker:
         :example: 'Akira Sato'
         """
         ...
-    first_kana_names: tuple
-    first_kana_names_female: tuple
-    first_kana_names_male: tuple
-    first_name_female_pairs: tuple
-    first_name_male_pairs: tuple
-    first_name_pairs: tuple
-    first_romanized_names: tuple
-    first_romanized_names_female: tuple
-    first_romanized_names_male: tuple
-    kana_formats: tuple
-    kana_formats_female: tuple
-    kana_formats_male: tuple
-    last_kana_names: tuple
-    last_name_pairs: OrderedDict
-    last_romanized_names: tuple
-    romanized_formats: tuple
-    romanized_formats_female: tuple
-    romanized_formats_male: tuple
     def address_detail(self) -> str:
         """
         :example: 가나아파트 가동 102호
@@ -3462,26 +3064,11 @@ class Faker:
         :example: 동
         """
         ...
-    address_detail_formats: tuple
-    boroughs: tuple
-    building_dongs: tuple
-    building_suffixes: tuple
-    land_address_formats: tuple
-    land_numbers: tuple
-    metropolitan_cities: tuple
-    new_postal_code_formats: tuple
-    road_address_formats: tuple
-    road_formats: tuple
-    road_numbers: tuple
-    road_suffixes: tuple
-    town_suffixes: tuple
-    last_names_nonbinary: tuple
     def building_prefix(self) -> str:
         """
         :example: वडा
         """
         ...
-    building_prefixes: tuple
     def license_plate_car(self) -> str:
         """
         Generate a license plate for cars.
@@ -3492,14 +3079,8 @@ class Faker:
         Generate a license plate for motorbikes.
         """
         ...
-    license_formats_motorbike: tuple
-    license_plate_prefix_letters: str
-    license_plate_prefix_letters_format_8: str
-    building_number_suffixes: OrderedDict
     def first_name_unisex(self) -> str: ...
     def middle_name(self) -> str: ...
-    first_names_unisex: tuple
-    middle_names: tuple
     def license_plate_regex_formats(self) -> List[str]:
         """
         Return a regex for matching license plates.
@@ -3587,9 +3168,6 @@ class Faker:
         -rady-pielegniarek-i-polo
         """
         ...
-    male_last_names: tuple
-    tax_office_codes: tuple
-    unisex_last_names: tuple
     def bairro(self) -> str:
         """
         Randomly returns a bairro (neighborhood) name.
@@ -3616,10 +3194,6 @@ class Faker:
         """
         ...
     def neighborhood(self) -> str: ...
-    bairros: tuple
-    estados: tuple
-    postcode_all_formats: tuple
-    postcode_raw_formats: tuple
     def cnpj(self) -> str: ...
     def company_id(self) -> str: ...
     def cpf(self) -> str: ...
@@ -3649,27 +3223,11 @@ class Faker:
         :example: "do Pombal"
         """
         ...
-    concelhos: tuple
-    distritos: tuple
-    freguesias: list
-    places: tuple
     def nationality(self) -> str:
         """
         :example: 'Portuguesa'
         """
         ...
-    nationalities: tuple
-    region_ao: tuple
-    region_krai: tuple
-    region_oblast: tuple
-    region_republics: tuple
-    region_suffixes: tuple
-    street_suffixes_fem: tuple
-    street_suffixes_masc: tuple
-    street_suffixes_neu: tuple
-    street_titles_irregular_masc: dict
-    street_titles_irregular_neu: dict
-    street_titles_noflex: tuple
     def plate_letter(self) -> str:
         """
         Generate a letter for license plates.
@@ -3700,11 +3258,6 @@ class Faker:
         Generate a vehicle category code for license plates.
         """
         ...
-    license_plate_letters: tuple
-    plate_extra_formats: tuple
-    plate_number_formats: tuple
-    plate_special_formats: tuple
-    vehicle_categories: tuple
     def bic(self) -> str:
         """
         Generate a bank identification code (BIC).
@@ -3731,12 +3284,6 @@ class Faker:
         See https://ru.wikipedia.org/wiki/Корреспондентский_счёт.
         """
         ...
-    checking_account_codes: list
-    credit_organization_code_formats: tuple
-    currency_codes: tuple
-    department_code_formats: tuple
-    organization_codes: tuple
-    region_codes: tuple
     def businesses_inn(self) -> str:
         """
         Returns tax identification number for businesses (ru. идентификационный номер налогоплательщика, ИНН).
@@ -3764,16 +3311,8 @@ class Faker:
         Returns tax registration reason code (ru. код причины постановки на учет, КПП).
         """
         ...
-    catch_phrase_adj: tuple
-    catch_phrase_nouns_fem: tuple
-    catch_phrase_nouns_masc: tuple
-    catch_phrase_nouns_neu: tuple
-    prefix_mir: list
-    prefix_unionpay: list
     def middle_name_female(self) -> str: ...
     def middle_name_male(self) -> str: ...
-    middle_names_female: tuple
-    middle_names_male: tuple
     def org_and_vat_id(self, long: bool = ..., dash: bool = ...) -> Tuple[str, str]:
         """
         Returns matching Org ID and VAT number
@@ -3786,7 +3325,6 @@ class Faker:
         (In Swedish) https://sv.wikipedia.org/wiki/Organisationsnummer
         """
         ...
-    ORG_ID_DIGIT_1: tuple
     def amphoe(self) -> str:
         """
         Get a random Amphoe (district) name.
@@ -3801,11 +3339,6 @@ class Faker:
         :example: 'ห้วยนาง'
         """
         ...
-    amphoes: tuple
-    tambon_prefixes: OrderedDict
-    tambon_suffixes: OrderedDict
-    tambons: tuple
-    thai_consonants: str
     def company_limited_prefix(self) -> str:
         """
         :example: 'บริษัท'
@@ -3821,21 +3354,10 @@ class Faker:
         :example: 'มูลนิธิ'
         """
         ...
-    company_limited_prefixes: OrderedDict
-    company_limited_suffixes: OrderedDict
-    nonprofit_prefixes: OrderedDict
-    ascii_uppercase_turkish: str
-    region_names: tuple
-    ascii_uppercase_vietnamese: str
-    district_formats: tuple
-    domain_formats: tuple
-    second_level_domains: tuple
     def phonenumber_prefix(self) -> int: ...
-    phonenumber_prefixes: list
     def city_name_suffix(self) -> str: ...
     def section_number(self) -> str: ...
     def street_name_suffix(self) -> str: ...
-    section_formats: tuple
     def minguo_year(self) -> str: ...
     def __deepcopy__(self, memodict: Dict = ...) -> 'Faker': ...
     def __dir__(self):
@@ -3891,15 +3413,3 @@ class Faker:
         :param seed: seed value
         """
         ...
-    __annotations__: dict
-    __class__: type
-    __doc__: str
-    __module__: str
-    cache_pattern: Pattern
-    factories: property
-    generator_attrs: list
-    locales: property
-    optional: property
-    random: property
-    unique: property
-    weights: property

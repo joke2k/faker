@@ -142,26 +142,6 @@ for mbr_funcs_and_vars, locale in all_members:
 
         comment = inspect.getdoc(func_value)
         signatures_with_comments.append((f"def {func_name}{sig_str}: ...", None if comment == "" else comment, False))
-    for var_name, var_value in mbr_funcs_and_vars.vars.items():
-        new_modules = []
-        type_module = getattr(type(var_value), "__module__", None)
-        if type_module is not None and type_module not in BUILTIN_MODULES_TO_IGNORE:
-            module, member = get_module_and_member_to_import(type(var_value), locale)
-            if module is not None:
-                if imports[module] is None:
-                    imports[module] = set() if member is None else {member}
-                elif member is not None:
-                    imports[module].add(member)
-                new_modules.append(module)
-        
-        type_str = type(var_value).__name__.replace("Ellipsis", "...").replace("NoneType", "None").replace("~", "")
-        for module in new_modules:
-            if module in MODULES_TO_FULLY_QUALIFY:
-                continue
-            type_str = type_str.replace(f"{module}.", "")
-        
-        comment = inspect.getcomments(var_value)
-        signatures_with_comments.append((f"{var_name}: {type_str}", comment, True))
 
 signatures_with_comments_as_str = []
 for sig, comment, is_preceding_comment in signatures_with_comments:
