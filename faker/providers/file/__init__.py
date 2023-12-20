@@ -1,7 +1,8 @@
+import re
 import string
 
 from collections import OrderedDict
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Union
 
 from .. import BaseProvider, ElementsType
 
@@ -257,7 +258,7 @@ class Provider(BaseProvider):
         self,
         depth: int = 1,
         category: Optional[str] = None,
-        extension: Optional[str] = None,
+        extension: Optional[Union[str, List[str]]] = None,
         absolute: Optional[bool] = True,
     ) -> str:
         """Generate an pathname to a file.
@@ -269,12 +270,28 @@ class Provider(BaseProvider):
         If ``absolute`` is ``True`` (default), the generated path starts with
         ``/`` and is absolute. Otherwise, the generated path is relative.
 
+        If used, ``extension`` can be either a string, forcing that extension, a
+        list of strings (one will be picked at random), or an empty list (the
+        path will have no extension). Default behaviour is the same as |file_name|
+
         :sample: size=10
         :sample: depth=3
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
+        :sample: extension=[]
+        :sample: extension=["a", "bc", "def"]
         """
+        no_extension = False
+        if isinstance(extension, list):
+            if extension:
+                extension = self.random_element(extension)
+            else:
+                extension = None
+                no_extension = True
+
         file: str = self.file_name(category, extension)
+        if no_extension:
+            file = re.sub(r"\.[^/]+$", "", file)
         path: str = f"/{file}"
         for _ in range(0, depth):
             path = f"/{self.generator.word()}{path}"

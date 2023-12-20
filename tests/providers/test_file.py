@@ -20,9 +20,13 @@ class TestFile(unittest.TestCase):
             file_path = self.fake.file_path(depth=3)
             assert re.search(r"\/\w+\/\w+\/\w+\.\w+", file_path)
             file_path = self.fake.file_path(extension="pdf")
-            assert re.search(r"\/\w+\/\w+\.pdf", file_path)
+            assert re.search(r"\/\w+\/\w+\.pdf$", file_path)
+            file_path = self.fake.file_path(extension=["a", "bc", "def", "ghij", "klmno"])
+            assert re.search(r"\/\w+\/\w+\.(a|bc|def|ghij|klmno)$", file_path)
+            file_path = self.fake.file_path(extension=[])
+            assert re.search(r"\/\w+\/\w+$", file_path)
             file_path = self.fake.file_path(category="image")
-            assert re.search(r"\/\w+\/\w+\.(bmp|gif|jpeg|jpg|png|tiff)", file_path)
+            assert re.search(r"\/\w+\/\w+\.(bmp|gif|jpeg|jpg|png|tiff)$", file_path)
 
     def test_unix_device(self):
         reg_device = re.compile(r"^/dev/(vd|sd|xvd)[a-z]$")
