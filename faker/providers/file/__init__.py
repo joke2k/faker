@@ -291,7 +291,7 @@ class Provider(BaseProvider):
 
         file: str = self.file_name(category, extension)
         if no_extension:
-            file = re.sub(r"\.[^/]+$", "", file)
+            file = file.rsplit(".", 1)[0]
         path: str = f"/{file}"
         for _ in range(0, depth):
             path = f"/{self.generator.word()}{path}"
