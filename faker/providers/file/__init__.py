@@ -225,11 +225,11 @@ class Provider(BaseProvider):
 
         If ``extension`` is ``None``, a random extension will be created
         under the hood using |file_extension| with the specified
-        ``category``. value for ``extension`` is
-        provided, the value will be used instead, and ``category`` will
-        be ignored. The actual name part itself is generated using
-        |word|. If extension is an empty string then no extension
-        will be added, and file_name will be the same as |word|.
+        ``category``. If a value for ``extension`` is provided, the
+        value will be used instead, and ``category`` will be ignored.
+        The actual name part itself is generated using |word|. If
+        extension is an empty string then no extension will be added,
+        and file_name will be the same as |word|.
 
         :sample: size=10
         :sample: category='audio'
