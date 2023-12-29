@@ -11,6 +11,21 @@ class TestFile(unittest.TestCase):
         self.fake = Faker()
         Faker.seed(0)
 
+    def test_file_name(self):
+        for _ in range(100):
+            file_name = self.fake.file_name()
+            assert re.search(r"\w+\.\w+", file_name)
+            file_name = self.fake.file_name(extension=None)
+            assert re.search(r"\w+\.\w+", file_name)
+            file_name = self.fake.file_name(extension="pdf")
+            assert re.search(r"\w+\.pdf$", file_name)
+            file_name = self.fake.file_name(category="image")
+            assert re.search(r"\w+\.(bmp|gif|jpeg|jpg|png|tiff)$", file_name)
+            file_name = self.fake.file_name(category="image", extension="abcdef")
+            assert re.search(r"\w+\.abcdef$", file_name)
+            file_name = self.fake.file_name(extension="")
+            assert re.search(r"\w+$", file_name)
+
     def test_file_path(self):
         for _ in range(100):
             file_path = self.fake.file_path()
@@ -23,6 +38,10 @@ class TestFile(unittest.TestCase):
             assert re.search(r"\/\w+\/\w+\.pdf$", file_path)
             file_path = self.fake.file_path(extension=["a", "bc", "def", "ghij", "klmno"])
             assert re.search(r"\/\w+\/\w+\.(a|bc|def|ghij|klmno)$", file_path)
+            file_path = self.fake.file_path(extension=None)
+            assert re.search(r"\/\w+\/\w+\.\w+", file_path)
+            file_path = self.fake.file_path(extension="")
+            assert re.search(r"\/\w+\/\w+$", file_path)
             file_path = self.fake.file_path(extension=[])
             assert re.search(r"\/\w+\/\w+$", file_path)
             file_path = self.fake.file_path(category="image")
