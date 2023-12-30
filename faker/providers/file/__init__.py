@@ -290,7 +290,7 @@ class Provider(BaseProvider):
         :sample: depth=3
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
-        :sample: depth=5, category='video', extension='abcdef', file_system='windows
+        :sample: depth=5, category='video', extension='abcdef', file_system='windows'
         """
         fs_rule = self.file_systems_path_rules.get(file_system_rule, None)
         if not fs_rule:
