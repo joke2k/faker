@@ -1,5 +1,14 @@
 ## Changelog
 
+### [v22.0.0 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.1...v22.0.0)
+
+* Remove dot from `file_name` when `extention` is the empty string. Thanks @gotofritz
+* Allow extension in `file_path` to take a list of allowed extensions, or empty for "no extension". Thanks @gotofritz
+
+### [v21.0.1 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.0...v21.0.1)
+
+* Fix typo in `ru_RU` company names. Thanks @scalar438.
+
 ### [v21.0.0 - 2023-12-13](https://github.com/joke2k/faker/compare/v20.1.0...v21.0.0)
 
 * Fix: random sign in `pyfloat` when `positive=False`. Thanks @viraj-s15.
