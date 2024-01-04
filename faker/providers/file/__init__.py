@@ -274,7 +274,7 @@ class Provider(BaseProvider):
         category: Optional[str] = None,
         extension: Optional[Union[str, Sequence[str]]] = None,
         absolute: Optional[bool] = True,
-        file_system_rule: Optional[str] = "linux",
+        file_system_rule: Literal["linux", "windows"] = "linux",
     ) -> str:
         """Generate an pathname to a file.
 
