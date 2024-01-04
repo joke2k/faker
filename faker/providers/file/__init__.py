@@ -316,8 +316,8 @@ class Provider(BaseProvider):
         if not fs_rule:
             raise TypeError("Specified file system is invalid.")
 
-        root: str = fs_rule.get("root")
-        seperator: str = fs_rule.get("seperator")
+        root = fs_rule["root"]
+        seperator = fs_rule["separator"]
 
         path: str = self.file_name(category, extension)
         for _ in range(0, depth):
