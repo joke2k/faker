@@ -208,11 +208,11 @@ class Provider(BaseProvider):
     file_systems_path_rules: Dict[str, Dict] = {
         "windows": {
             "root": "C:\\",
-            "seperator": "\\",
+            "separator": "\\",
         },
         "linux": {
             "root": "/",
-            "seperator": "/",
+            "separator": "/",
         },
     }
 
