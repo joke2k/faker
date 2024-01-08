@@ -1,7 +1,7 @@
 import string
 
 from collections import OrderedDict
-from typing import Dict, Optional, Sequence, Union
+from typing import Dict, Optional, Sequence, Union, Literal
 
 from .. import BaseProvider, ElementsType
 
@@ -204,6 +204,18 @@ class Provider(BaseProvider):
             ("video", video_file_extensions),
         )
     )
+
+    file_systems_path_rules: Dict[str, Dict] = {
+        "windows": {
+            "root": "C:\\",
+            "separator": "\\",
+        },
+        "linux": {
+            "root": "/",
+            "separator": "/",
+        },
+    }
+
     unix_device_prefixes: ElementsType[str] = ("sd", "vd", "xvd")
 
     def mime_type(self, category: Optional[str] = None) -> str:
@@ -262,6 +274,7 @@ class Provider(BaseProvider):
         category: Optional[str] = None,
         extension: Optional[Union[str, Sequence[str]]] = None,
         absolute: Optional[bool] = True,
+        file_system_rule: Literal["linux", "windows"] = "linux",
     ) -> str:
         """Generate an pathname to a file.
 
@@ -279,6 +292,10 @@ class Provider(BaseProvider):
         or an empty sequence (the path will have no extension). Default
         behaviour is the same as |file_name|
 
+        if ``file_system`` is set (default="linux"), the generated path uses
+        specified file system path standard, the list of valid file systems include:
+        ``'windows'``, ``'linux'``.
+
         :sample: size=10
         :sample: depth=3
         :sample: depth=5, category='video'
@@ -286,18 +303,27 @@ class Provider(BaseProvider):
         :sample: extension=[]
         :sample: extension=''
         :sample: extension=["a", "bc", "def"]
+        :sample: depth=5, category='video', extension='abcdef', file_system='windows'
         """
+
         if extension is not None and not isinstance(extension, str):
             if len(extension):
                 extension = self.random_element(extension)
             else:
                 extension = ""
 
-        file: str = self.file_name(category, extension)
-        path: str = f"/{file}"
+        fs_rule = self.file_systems_path_rules.get(file_system_rule, None)
+        if not fs_rule:
+            raise TypeError("Specified file system is invalid.")
+
+        root = fs_rule["root"]
+        seperator = fs_rule["separator"]
+
+        path: str = self.file_name(category, extension)
         for _ in range(0, depth):
-            path = f"/{self.generator.word()}{path}"
-        return path if absolute else path[1:]
+            path = f"{self.generator.word()}{seperator}{path}"
+
+        return root + path if absolute else path
 
     def unix_device(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix device file name.
