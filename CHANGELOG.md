@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v22.1.0 - 2024-01-08](https://github.com/joke2k/faker/compare/v22.0.0...v22.1.0)
+
+* Add support for multiple file systems path rules. Thanks @parsariyahi.
+
 ### [v22.0.0 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.1...v22.0.0)
 
 * Remove dot from `file_name` when `extention` is the empty string. Thanks @gotofritz
