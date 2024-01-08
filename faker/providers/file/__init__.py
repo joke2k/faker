@@ -1,7 +1,7 @@
 import string
 
 from collections import OrderedDict
-from typing import Dict, Optional, Sequence, Union, Literal
+from typing import Dict, Literal, Optional, Sequence, Union
 
 from .. import BaseProvider, ElementsType
 
