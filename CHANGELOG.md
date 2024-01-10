@@ -1,5 +1,10 @@
 ## Changelog
 
+
+### [v22.2.0 - 2024-01-10](https://github.com/joke2k/faker/compare/v22.1.0...v22.2.0)
+
+* Add bank provider for `cs_CZ`. Thanks @george0st.
+
 ### [v22.1.0 - 2024-01-08](https://github.com/joke2k/faker/compare/v22.0.0...v22.1.0)
 
 * Add support for multiple file systems path rules. Thanks @parsariyahi.
