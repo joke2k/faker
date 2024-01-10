@@ -57,6 +57,7 @@ class TestAzAz:
             bank = faker.bank()
             assert bank in AzAzBankProvider.banks
 
+
 class TestCsCz:
     """Test cs_CZ bank provider"""
 
@@ -70,7 +71,6 @@ class TestCsCz:
             assert is_valid_iban(iban)
             assert iban[:2] == CsCZBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{20}", iban[2:])
-
 
 
 class TestNoNo:
