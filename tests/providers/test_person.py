@@ -32,6 +32,7 @@ from faker.providers.person.ru_RU import translit
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
+from faker.providers.person.vn_VN import Provider as VnProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
@@ -1329,6 +1330,43 @@ class TestZuZa(unittest.TestCase):
             self.assertIn(last_name, ZuZAProvider.last_names)
         else:
             raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
+class TestVnPersonProvider(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        self.fake.add_provider(VnProvider)
+
+    def test_generate_male_name(self):
+        name = self.fake.format("{{first_name_male}} {{last_name}}")
+        first_name = name.split()[0]
+        last_name = name.split()[1]
+
+        self.assertIn(first_name, VnProvider.first_names_male)
+        self.assertIn(last_name, VnProvider.last_names)
+
+    def test_generate_female_name(self):
+        name = self.fake.format("{{first_name_female}} {{last_name}}")
+        first_name = name.split()[0]
+        last_name = name.split()[1]
+
+        self.assertIn(first_name, VnProvider.first_names_female)
+        self.assertIn(last_name, VnProvider.last_names)
+
+    def test_generate_any_name(self):
+        name = self.fake.format("{{first_name}} {{last_name}}")
+        first_name = name.split()[0]
+        last_name = name.split()[1]
+
+        self.assertTrue(
+            (first_name in VnProvider.first_names_male) or
+            (first_name in VnProvider.first_names_female)
+        )
+        self.assertIn(last_name, VnProvider.last_names)
+
+    def test_generate_invalid_format(self):
+        with self.assertRaises(ValueError):
+            self.fake.format("Invalid {{format}}")
 
 
 if __name__ == "__main__":
