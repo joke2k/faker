@@ -508,7 +508,7 @@ class Provider(AddressProvider):
         """
         :returns: A random two-letter USPS postal code
 
-        By default, the resulting code may abbreviate any of the fity states,
+        By default, the resulting code may abbreviate any of the fifty states,
         five US territories, or three freely-associating sovereign states.
 
         :param include_territories: If True, territories will be included.
