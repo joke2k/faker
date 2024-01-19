@@ -31,7 +31,7 @@ Making Changes
 -  Run *all* the tests to assure nothing else was accidentally broken:
 
    .. code:: bash
-   
+
        $ tox
 
 
