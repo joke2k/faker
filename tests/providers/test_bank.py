@@ -137,7 +137,7 @@ class TestPlPl:
             assert re.fullmatch(r"\d{2}\d{24}", iban[2:])
 
 
-class TestUkUA:
+class TestUkUa:
     """Test uk_UA bank provider"""
 
     def test_bban(self, faker, num_samples):
