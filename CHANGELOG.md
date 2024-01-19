@@ -1,6 +1,10 @@
 ## Changelog
 
 
+### [v22.3.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.2.0...v22.3.0)
+
+* add bank provider for `uk_UA`. Thanks @SanderFtn.
+
 ### [v22.2.0 - 2024-01-10](https://github.com/joke2k/faker/compare/v22.1.0...v22.2.0)
 
 * Add bank provider for `cs_CZ`. Thanks @george0st.
