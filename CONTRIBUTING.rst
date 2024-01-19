@@ -24,11 +24,16 @@ Making Changes
    the new branch with ``git checkout fix/master/my_contribution``.
    Please avoid working directly on the ``master`` branch.
 -  Make commits of logical units.
--  Follow our `coding style`_.
+-  Follow our `coding style`_. Your can run ``make lint`` to format your code.
 -  Check for unnecessary whitespace with ``git diff --check`` before
    committing.
 -  Make sure you have added the necessary tests for your changes.
--  Run *all* the tests to assure nothing else was accidentally broken.
+-  Run *all* the tests to assure nothing else was accidentally broken:
+
+   .. code:: bash
+   
+       $ tox
+
 
 Submitting Changes
 ------------------
