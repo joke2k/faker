@@ -345,6 +345,9 @@ class TestInternetProvider:
         status_code = provider.http_status_code()
         assert isinstance(status_code, int)
         assert 100 <= status_code <= 599
+        status_code = provider.http_status_code(include_unassigned=False)
+        assert isinstance(status_code, int)
+        assert 100 <= status_code <= 599
 
     def test_dga(self, faker):
         assert faker.dga() != faker.dga()
