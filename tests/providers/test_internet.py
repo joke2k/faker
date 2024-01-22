@@ -10,6 +10,7 @@ import pytest
 from validators import domain as validate_domain
 from validators import email as validate_email
 
+from faker import Generator
 from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
@@ -338,6 +339,15 @@ class TestInternetProvider:
             got_methods.add(faker.http_method())
 
         assert expected_methods == sorted(got_methods)
+
+    def test_http_status_code(self, faker, num_samples):
+        provider = InternetProvider(faker)
+        status_code = provider.http_status_code()
+        assert isinstance(status_code, int)
+        assert 100 <= status_code <= 599
+        status_code = provider.http_status_code(include_unassigned=False)
+        assert isinstance(status_code, int)
+        assert 100 <= status_code <= 599
 
     def test_dga(self, faker):
         assert faker.dga() != faker.dga()
