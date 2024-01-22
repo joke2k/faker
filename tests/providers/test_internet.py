@@ -10,7 +10,6 @@ import pytest
 from validators import domain as validate_domain
 from validators import email as validate_email
 
-from faker import Generator
 from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
