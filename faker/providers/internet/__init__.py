@@ -373,7 +373,7 @@ class Provider(BaseProvider):
 
         return self.random_element(self.http_methods)
 
-    def http_status_code(self, include_unassigned=True) -> int:
+    def http_status_code(self, include_unassigned: bool = True) -> int:
         """Returns random HTTP status code
         https://www.rfc-editor.org/rfc/rfc9110#name-status-codes
         :param include_unassigned: Whether to include status codes which have
