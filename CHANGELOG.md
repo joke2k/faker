@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v22.5.0 - 2024-01-22](https://github.com/joke2k/faker/compare/v22.
+4.0...v22.5.0)
+
+* Add `http_status_code` to internet provider. Thanks @dancergraham.
+
 ### [v22.4.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.
 3.0...v22.4.0)
 
