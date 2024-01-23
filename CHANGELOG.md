@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v22.5.1 - 2024-01-23](https://github.com/joke2k/faker/compare/v22.
+5.0...v22.5.1)
+
+* Add area code `830000` to `zh_CN`. Thanks @antik.
+* Add `area_code` parameter to `ssn` provider for `zh_CN`. Thanks @antik.
+
 ### [v22.5.0 - 2024-01-22](https://github.com/joke2k/faker/compare/v22.
 4.0...v22.5.0)
 
