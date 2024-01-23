@@ -1229,6 +1229,33 @@ class TestZhCN(unittest.TestCase):
         ssn = self.fake.ssn(gender="M")
         assert int(ssn[16]) % 2 == 1
 
+    def test_zh_CN_ssn_invalid_area_code_passed(self):
+        ssn = self.fake.ssn(area_code=12)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code={})
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=[])
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=None)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn()
+        assert int(ssn[0:6]) > 0
+
+    def test_zh_CN_ssn_area_code_passed(self):
+        #
+        ssn = self.fake.ssn(area_code="654225")
+        assert int(ssn[0:6]) == 654225
+
+        ssn = self.fake.ssn(area_code="820000")
+        assert int(ssn[0:6]) == 820000
+
+        ssn = self.fake.ssn(area_code="830000")
+        assert int(ssn[0:6]) == 830000
+
 
 class TestRoRO(unittest.TestCase):
     """Tests SSN in the ro_RO locale"""
