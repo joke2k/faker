@@ -3526,12 +3526,14 @@ class Provider(SsnProvider):
         "830000",
     ]
 
-    def ssn(self, min_age: int = 18, max_age: int = 90, gender: Optional[SexLiteral] = None,
-            area_code: str = None) -> str:
+    def ssn(
+        self, min_age: int = 18, max_age: int = 90, gender: Optional[SexLiteral] = None, area_code: str = ""
+    ) -> str:
         """
         Return 18 character chinese personal identity code
 
         :param gender: F for female  M for male  None for default
+        :param area_code: None for default
         """
 
         def checksum(s):
@@ -3541,8 +3543,8 @@ class Provider(SsnProvider):
         birthday = datetime.date.today() - age
         birthday_str = birthday.strftime("%Y%m%d")
 
-        if (area_code is None) or (area_code not in self.area_codes):
-            area_code: str = self.random_element(self.area_codes)
+        if area_code not in self.area_codes:
+            area_code = self.random_element(self.area_codes)
 
         ssn_without_checksum = self.numerify(area_code + birthday_str + "##")
 

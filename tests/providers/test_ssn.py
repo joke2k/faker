@@ -584,16 +584,16 @@ class TestEsCO(unittest.TestCase):
         # NITs and check digits of some Colombian state entities.
         # Source: <https://www.funcionpublica.gov.co/web/sigep/entidades>
         for nit, check_digit in (
-                ("830040256", "0"),
-                ("899999003", "1"),
-                ("892301483", "2"),
-                ("800194600", "3"),
-                ("899999403", "4"),
-                ("860042945", "5"),
-                ("830114475", "6"),
-                ("811000231", "7"),
-                ("899999027", "8"),
-                ("900639630", "9"),
+            ("830040256", "0"),
+            ("899999003", "1"),
+            ("892301483", "2"),
+            ("800194600", "3"),
+            ("899999403", "4"),
+            ("860042945", "5"),
+            ("830114475", "6"),
+            ("811000231", "7"),
+            ("899999027", "8"),
+            ("900639630", "9"),
         ):
             with self.subTest(nit=nit, check_digit=check_digit):
                 assert nit_check_digit(nit) == check_digit
@@ -855,9 +855,9 @@ class TestFrCH:
         Faker.seed(0)
 
         with mock.patch(
-                "faker.providers.ssn.fr_CH.Provider.numerify",
-                return_value=digits,
-                autospec=True,
+            "faker.providers.ssn.fr_CH.Provider.numerify",
+            return_value=digits,
+            autospec=True,
         ):
             result = fake.vat_id()
             assert result == expected
@@ -1230,23 +1230,31 @@ class TestZhCN(unittest.TestCase):
         assert int(ssn[16]) % 2 == 1
 
     def test_zh_CN_ssn_invalid_area_code_passed(self):
-        with pytest.raises(ValueError):
-            self.fake.ssn(area_code=1)
-        with pytest.raises(ValueError):
-            self.fake.ssn(area_code={})
-        with pytest.raises(ValueError):
-            self.fake.ssn(area_code=[])
+        ssn = self.fake.ssn(area_code=12)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code={})
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=[])
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=None)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn()
+        assert int(ssn[0:6]) > 0
 
     def test_zh_CN_ssn_area_code_passed(self):
         #
         ssn = self.fake.ssn(area_code="654225")
-        assert int(ssn[0:6]) == "654225"
+        assert int(ssn[0:6]) == 654225
 
         ssn = self.fake.ssn(area_code="820000")
-        assert int(ssn[0:6]) == "820000"
+        assert int(ssn[0:6]) == 820000
 
         ssn = self.fake.ssn(area_code="830000")
-        assert int(ssn[0:6]) == "830000"
+        assert int(ssn[0:6]) == 830000
 
 
 class TestRoRO(unittest.TestCase):
