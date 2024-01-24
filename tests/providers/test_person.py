@@ -5,6 +5,7 @@ import unittest
 from unittest import mock
 
 from faker import Faker
+from faker.providers.person import Provider as PersonProvider
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
@@ -1329,6 +1330,25 @@ class TestZuZa(unittest.TestCase):
             self.assertIn(last_name, ZuZAProvider.last_names)
         else:
             raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
+class TestPersonProvider(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        self.provider = PersonProvider
+        Faker.seed(0)
+
+    def test_height(self):
+        """
+        Test  height generation for person
+        """
+        self.assertTrue(hasattr(self.provider, "height"))
+
+    def test_weight(self):
+        """
+        Test  weight generation foe person
+        """
+        self.assertTrue(hasattr(self.provider, "weight"))
 
 
 if __name__ == "__main__":

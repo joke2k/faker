@@ -328,3 +328,20 @@ class Provider(BaseProvider):
     def language_name(self) -> str:
         """Generate a random i18n language name (e.g. English)."""
         return self.random_element(self.language_names)
+
+    def height(self) -> str:
+        """
+        Generate random height for person in feet and inches
+
+        Example :
+            4'5"
+        """
+        return f"{self.random_number(digits=1)}'{self.random_number(digits=2)}\""
+
+    def weight(self) -> str:
+        """
+        Generate random weight for the person
+        Example :
+        140 lbs
+        """
+        return f"{self.random_number(digits=3)} lbs"
