@@ -32,7 +32,7 @@ Making Changes
 
    .. code:: bash
 
-       $ pip install tox
+       $ python -m pip install tox
        $ tox
 
 
