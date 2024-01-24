@@ -1343,12 +1343,16 @@ class TestPersonProvider(unittest.TestCase):
         Test  height generation for person
         """
         self.assertTrue(hasattr(self.provider, "height"))
+        self.assertRegex(self.fake.height(), r"\d'\d+\"")
+        self.assertRegex(self.fake.height("cm"), r"\d{1,3}\scms")
 
     def test_weight(self):
         """
-        Test  weight generation foe person
+        Test  weight generation for person
         """
         self.assertTrue(hasattr(self.provider, "weight"))
+        self.assertRegex(self.fake.weight(), r"\d{1,3}\slbs")
+        self.assertRegex(self.fake.weight("kg"), r"\d{1,3}\skg")
 
 
 if __name__ == "__main__":
