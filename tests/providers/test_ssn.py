@@ -34,6 +34,7 @@ from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.ro_RO import ssn_checksum as ro_ssn_checksum
 from faker.providers.ssn.ro_RO import vat_checksum as ro_vat_checksum
+from faker.providers.ssn.uk_UA import Provider as uk_Provider
 from faker.providers.ssn.zh_TW import checksum as tw_checksum
 from faker.utils.checksums import luhn_checksum
 
@@ -1364,3 +1365,30 @@ class TestZhTW(unittest.TestCase):
     def test_checksum(self):
         for sample in self.samples:
             assert tw_checksum(sample) % 10 == 0
+
+
+class TestUkUA(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("uk_Ua")
+        Faker.seed(0)
+        self.provider = uk_Provider
+
+    def test_ssn_len(self):
+        assert len(self.fake.ssn()) == 10
+
+    def test_start_ssn(self):
+        assert self.fake.ssn("21-06-1994")[:5] == "34505"
+
+    def test_ssn_gender(self):
+        m = self.fake.ssn(gender="M")
+        w = self.fake.ssn(gender="F")
+        assert int(m[8]) % 2 != 0, "Must be odd for men"
+        assert int(w[8]) % 2 == 0, "Must be even for women"
+
+    def test_incorrect_birthday(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(birthday="1994-06-01")
+
+    def test_incorrect_gender(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender="f")
