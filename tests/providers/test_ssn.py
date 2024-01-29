@@ -1367,7 +1367,7 @@ class TestZhTW(unittest.TestCase):
             assert tw_checksum(sample) % 10 == 0
 
 
-class TestUkUa(unittest.TestCase):
+class TestUkUA(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("uk_Ua")
         Faker.seed(0)
