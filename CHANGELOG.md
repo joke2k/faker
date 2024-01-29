@@ -1,6 +1,6 @@
 ## Changelog
 
-### [v22.5.1 - 2024-01-29](https://github.com/joke2k/faker/compare/v22.5.1...v22.6.0)
+### [v22.6.0 - 2024-01-29](https://github.com/joke2k/faker/compare/v22.5.1...v22.6.0)
 
 * Add support for birthday and gender to  `uk_UA` `ssn` method. Thanks @lozik.
 
