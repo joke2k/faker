@@ -1,6 +1,4 @@
-#
-# Faker documentation build configuration file, created by
-# sphinx-quickstart on Tue Mar 11 11:25:48 2014.
+# Faker documentation build configuration file.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -15,6 +13,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use Path.resolve to make it absolute, like shown here.
 # sys.path.insert(0, str(Path().resolve()))
+
+from datetime import datetime
 
 # -- General configuration ------------------------------------------------
 
@@ -44,7 +44,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Faker"
-copyright = "2014, Daniele Faraglia"
+copyright = "2014-{0}, Daniele Faraglia".format(datetime.now().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
