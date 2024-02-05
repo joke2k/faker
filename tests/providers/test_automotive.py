@@ -374,9 +374,9 @@ class TestUkUa(_SimpleAutomotiveTestMixin):
 
     def test_prefix(self, faker):
         for _ in range(10):
-            temporary = faker.plate_letter_prefix(region_name='Lviv')
+            temporary = faker.plate_letter_prefix(region_name="Lviv")
             assert len(temporary) == 2
-            assert temporary in UkUaAutomotiveProvider.license_region_data.get('Lviv')[0]
+            assert temporary in UkUaAutomotiveProvider.license_region_data.get("Lviv")[0]
 
     def test_region_code(self, faker):
-        assert "14" == faker.plate_region_code(region_name='Lviv')
+        assert "14" == faker.plate_region_code(region_name="Lviv")
