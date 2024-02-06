@@ -86,9 +86,7 @@ class Provider(BaseProvider):
 
         def _rand_seconds(self, start_datetime: int, end_datetime: int) -> float:
             if start_datetime > end_datetime:
-                raise ValueError(
-                    "empty range for _rand_seconds: start datetime must be before than end datetime"
-                )
+                raise ValueError("empty range for _rand_seconds: start datetime must be before than end datetime")
             return self.generator.random.uniform(start_datetime, end_datetime)
 
     centuries: ElementsType[str] = [
