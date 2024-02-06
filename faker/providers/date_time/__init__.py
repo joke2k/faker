@@ -79,15 +79,17 @@ class Provider(BaseProvider):
     #       appropriate to generate random seconds with.
     if platform.system() == "Windows":
 
-        @property
-        def _rand_seconds(self) -> Callable[[int, int], int]:
-            return self.generator.random.randint
+        def _rand_seconds(self, start_datetime: int, end_datetime: int) -> float:
+            return self.generator.random.randint(start_datetime, end_datetime)
 
     else:
 
-        @property
-        def _rand_seconds(self) -> Callable[[float, float], float]:
-            return self.generator.random.uniform
+        def _rand_seconds(self, start_datetime: int, end_datetime: int) -> float:
+            if start_datetime > end_datetime:
+                raise ValueError(
+                    "empty range for _rand_seconds: start datetime must be before than end datetime"
+                )
+            return self.generator.random.uniform(start_datetime, end_datetime)
 
     centuries: ElementsType[str] = [
         "I",
