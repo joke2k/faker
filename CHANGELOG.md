@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v23.0.0 - 2024-02-06](https://github.com/joke2k/faker/compare/v22.7.0...v23.0.0)
+
+* Consistently throw an error if the start of a daterange is after the end. Thanks @prescod.
+
 ### [v22.7.0 - 2024-02-05](https://github.com/joke2k/faker/compare/v22.6.0...v22.7.0)
 
 * Add `uk_UA` automotive provider. Thanks @lozik.
