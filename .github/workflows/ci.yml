@@ -168,7 +168,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
     strategy:
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy-3.9"]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy-3.10"]
 
     steps:
       - uses: actions/checkout@v4
