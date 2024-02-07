@@ -5,6 +5,7 @@ from .. import Provider as LoremProvider
 
 class Provider(LoremProvider):
     """Implement lorem provider for ``uk_UA`` locale."""
+
     word_list = (
         "увійти",
         "монета",
@@ -273,7 +274,7 @@ class Provider(LoremProvider):
         "інвалід",
         "інтелектуальний",
         "досліджено",
-        "мати"
+        "мати",
         "ліворуч",
         "хлопець",
         "мільярд",
@@ -417,7 +418,7 @@ class Provider(LoremProvider):
         "лівий",
         "хліб",
         "коричневий",
-        "подвірʼя"
+        "подвірʼя",
         "потім",
         "червонй",
         "пристрасть",
@@ -486,7 +487,7 @@ class Provider(LoremProvider):
         "присвятити",
         "один",
         "а",
-        "їсти"
+        "їсти",
         "діставати",
         "господиня",
         "шкарпетка",

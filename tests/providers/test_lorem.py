@@ -650,6 +650,7 @@ class TestNlBe:
 
 class TestUkUa:
     """Test uk_UA lorem provider"""
+
     word_list = [word.lower() for word in UkUaLoremProvider.word_list]
 
     def test_paragraph(self, faker, num_samples):
