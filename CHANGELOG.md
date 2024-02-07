@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v23.1.0 - 2024-02-07](https://github.com/joke2k/faker/compare/v23.0.0...v23.1.0)
+
+* Add `uk_UA` lorem provider. Thanks @lozik.
+
 ### [v23.0.0 - 2024-02-06](https://github.com/joke2k/faker/compare/v22.7.0...v23.0.0)
 
 * Consistently throw an error if the start of a daterange is after the end. Thanks @prescod.
