@@ -54,7 +54,7 @@ class Faker:
                 if final_locale not in locales:
                     locales.append(final_locale)
 
-        elif isinstance(locale, OrderedDict):
+        elif isinstance(locale, (OrderedDict, dict)):
             assert all(isinstance(v, (int, float)) for v in locale.values())
             odict = OrderedDict()
             for k, v in locale.items():
