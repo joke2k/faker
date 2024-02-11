@@ -1,7 +1,6 @@
 import datetime
 import re
 import unittest
-
 from unittest import mock
 
 from faker import Faker
@@ -32,6 +31,8 @@ from faker.providers.person.ru_RU import translit
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
+from faker.providers.person.uk_UA import Provider as UkUAProvider
+from faker.providers.person.uk_UA import translit as UkUATranslit
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
@@ -1329,6 +1330,68 @@ class TestZuZa(unittest.TestCase):
             self.assertIn(last_name, ZuZAProvider.last_names)
         else:
             raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
+class TestUkUa(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("uk_UA")
+        Faker.seed(0)
+        self.provider = UkUAProvider
+        self.translit = UkUATranslit
+
+    def test_middle_names(self):
+        for _ in range(100):
+            res = self.fake.middle_name()
+            assert res in self.provider.middle_names
+
+    def test_male_middle_names(self):
+        for _ in range(100):
+            res = self.fake.middle_name_male()
+            assert res in self.provider.middle_names_male
+
+    def test_female_middle_names(self):
+        for _ in range(100):
+            res = self.fake.middle_name_female()
+            assert res in self.provider.middle_names_female
+
+    def test_language_name(self):
+        for _ in range(100):
+            language_name = self.fake.language_name()
+            assert language_name in self.provider.language_names
+
+    def test_transliteration(self):
+        assert self.translit("Сергій") == 'Serhii'
+        assert self.translit("Лілія") == 'Liliia'
+        assert self.translit("Яся") == 'Yasia'
+        assert self.translit("Демʼян") == 'Demian'
+        assert self.translit("Марʼяна") == 'Mariana'
+        assert self.translit(
+            "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяєʼ'-") == "abvhgdeiezhzyiiiklmnoprstufkhtschshshchiuiaie'-"
+        assert self.translit("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ") == 'ABVHGDEYeZhZYIYiYKLMNOPRSTUFKhTsChShShchYuYa'
+
+    def test_full_name_male(self):
+        for _ in range(10):
+            res = self.fake.full_name(gender="M")
+            last_name, first_name, middle_name = res.split(" ")
+            assert last_name in self.provider.last_names
+            assert first_name in self.provider.first_names_male
+            assert middle_name in self.provider.middle_names_male
+
+    def test_full_name_female(self):
+        for _ in range(10):
+            res = self.fake.full_name(gender="F")
+            last_name, first_name, middle_name = res.split(" ")
+            assert last_name in self.provider.last_names
+            assert first_name in self.provider.first_names_female
+            assert middle_name in self.provider.middle_names_female
+
+    def test_full_name(self):
+        for _ in range(10):
+            res = self.fake.full_name()
+            last_name, first_name, middle_name = res.split(" ")
+            assert last_name in self.provider.last_names
+            assert first_name in self.provider.first_names
+            assert middle_name in self.provider.middle_names
 
 
 if __name__ == "__main__":
