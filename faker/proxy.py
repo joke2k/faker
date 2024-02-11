@@ -66,15 +66,25 @@ class Faker:
         else:
             locales = [DEFAULT_LOCALE]
 
-        for locale in locales:
-            self._factory_map[locale] = Factory.create(
-                locale,
+        if len(locales) == 1:
+            self._factory_map[locales[0]] = Factory.create(
+                locales[0],
                 providers,
                 generator,
                 includes,
                 use_weighting=use_weighting,
                 **config,
             )
+        else:
+            for locale in locales:
+                self._factory_map[locale] = Faker(
+                    locale,
+                    providers,
+                    generator,
+                    includes,
+                    use_weighting=use_weighting,
+                    **config,
+                )
 
         self._locales = locales
         self._factories = list(self._factory_map.values())
