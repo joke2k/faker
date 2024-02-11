@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import functools
 import re
@@ -35,7 +37,7 @@ class Faker:
         use_weighting: bool = True,
         **config: Any,
     ) -> None:
-        self._factory_map = OrderedDict()
+        self._factory_map: OrderedDict[str, Generator | Faker] = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
         self._optional_proxy = OptionalProxy(self)
@@ -95,7 +97,7 @@ class Faker:
             attributes |= {attr for attr in dir(factory) if not attr.startswith("_")}
         return sorted(attributes)
 
-    def __getitem__(self, locale: str) -> Generator:
+    def __getitem__(self, locale: str) -> Generator | Faker:
         return self._factory_map[locale.replace("-", "_")]
 
     def __getattribute__(self, attr: str) -> Any:
@@ -283,10 +285,10 @@ class Faker:
         return self._weights
 
     @property
-    def factories(self) -> List[Generator]:
+    def factories(self) -> List[Generator | Faker]:
         return self._factories
 
-    def items(self) -> List[Tuple[str, Generator]]:
+    def items(self) -> List[Tuple[str, Generator | Faker]]:
         return list(self._factory_map.items())
 
 
