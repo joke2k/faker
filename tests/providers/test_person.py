@@ -1393,6 +1393,11 @@ class TestUkUa(unittest.TestCase):
             assert first_name in self.provider.first_names
             assert middle_name in self.provider.middle_names
 
+    def test_short_full_name(self):
+        res = self.fake.full_name(short=True)
+        assert res.count('.') == 2
+        assert res.count(' ') == 1
+
 
 if __name__ == "__main__":
     unittest.main()

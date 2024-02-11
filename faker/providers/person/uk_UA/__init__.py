@@ -1282,16 +1282,19 @@ class Provider(PersonProvider):
         """
         return self.random_element(self.middle_names_female)
 
-    def full_name(self, gender: Optional[SexLiteral] = None) -> str:
+    def full_name(self, gender: Optional[SexLiteral] = None, short: Optional[bool] = False) -> str:
         """
         Generate Full Name
             - gender = 'M' or 'F' optional params
+            - short: bool optional params. default is False
 
         :example: 'Петриченко Петро Сергійович'
+        :example: 'Петриченко П.С.'
 
         :sample:
         :sample: gender='F'
         :sample: gender='M'
+        :sample: short=True
         """
         if gender and gender not in ("M", "F"):
             raise ValueError('Gender must be "m" or "f" or None')
@@ -1302,10 +1305,12 @@ class Provider(PersonProvider):
             first_name = self.first_name_male()
             last_name = self.last_name_male()
             middle_name = self.middle_name_male()
-
         else:
             first_name = self.first_name_female()
             last_name = self.last_name_female()
             middle_name = self.middle_name_female()
+
+        if short:
+            return f"{last_name} {first_name[0]}.{middle_name[0]}."
 
         return f"{last_name} {first_name} {middle_name}"
