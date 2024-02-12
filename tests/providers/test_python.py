@@ -523,7 +523,7 @@ class TestPystrFormat(unittest.TestCase):
         Faker.seed(0)
 
     def test_formatter_invocation(self):
-        with patch.object(self.fake["en_US"], "foo") as mock_foo:
+        with patch.object(self.fake["en_US"].factories[0], "foo") as mock_foo:
             with patch("faker.providers.BaseProvider.bothify", wraps=self.fake.bothify) as mock_bothify:
                 mock_foo.return_value = "barbar"
                 value = self.fake.pystr_format("{{foo}}?#?{{foo}}?#?{{foo}}", letters="abcde")

@@ -97,8 +97,12 @@ class Faker:
             attributes |= {attr for attr in dir(factory) if not attr.startswith("_")}
         return sorted(attributes)
 
-    def __getitem__(self, locale: str) -> Generator | Faker:
-        return self._factory_map[locale.replace("-", "_")]
+    def __getitem__(self, locale: str) -> Faker:
+        if locale.replace("-", "_") in self.locales and len(self.locales) == 1:
+            return self
+        instance = self._factory_map[locale.replace("-", "_")]
+        assert isinstance(instance, Faker)  # for mypy
+        return instance
 
     def __getattribute__(self, attr: str) -> Any:
         """
