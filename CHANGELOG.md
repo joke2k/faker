@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v23.2.0 - 2024-02-14](https://github.com/joke2k/faker/compare/v23.1.0...v23.2.0)
+
+* Allow Uniqueness and Localization. Thanks @moshemoshe137.
+
 ### [v23.1.0 - 2024-02-07](https://github.com/joke2k/faker/compare/v23.0.0...v23.1.0)
 
 * Add `uk_UA` lorem provider. Thanks @lozik.
