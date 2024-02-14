@@ -423,7 +423,7 @@ class TestMiscProvider:
     def test_dsv_data_columns(self, faker):
         num_rows = 10
         data_columns = ["{{name}}", "#??-####", "{{address}}", "{{phone_number}}"]
-        with patch.object(faker["en_US"], "pystr_format") as mock_pystr_format:
+        with patch.object(faker["en_US"].factories[0], "pystr_format") as mock_pystr_format:
             mock_pystr_format.assert_not_called()
             faker.dsv(data_columns=data_columns, num_rows=num_rows)
 
