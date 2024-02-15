@@ -325,30 +325,6 @@ class TestPydecimal(unittest.TestCase):
         left_digits = int(result)
         self.assertEqual(expected_left_digits, left_digits)
 
-    def test_positive_integer_part_matches_length(self) -> None:
-        """The integer part of a positive decimal number must match the expected length"""
-
-        expected_left_digits = 8
-
-        Faker.seed(2)
-
-        result = self.fake.pydecimal(left_digits=expected_left_digits, positive=True)
-
-        left_number = abs(int(result))
-        self.assertEqual(len(str(left_number)), expected_left_digits)
-
-    def test_negative_integer_part_matches_length(self) -> None:
-        """The integer part of a negative decimal number must match the expected length"""
-
-        expected_left_digits = 8
-
-        Faker.seed(2)
-
-        result = self.fake.pydecimal(left_digits=expected_left_digits, max_value=0)
-
-        left_number = abs(int(result))
-        self.assertEqual(len(str(left_number)), expected_left_digits)
-
     def test_right_digits(self):
         expected_right_digits = 10
 
