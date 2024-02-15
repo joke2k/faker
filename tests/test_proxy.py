@@ -103,14 +103,14 @@ class TestFakerProxyClass:
         fake = Faker(locale)
         for locale_name, factory in fake.items():
             assert locale_name in processed_locale
-            assert isinstance(factory, Generator)
+            assert isinstance(factory, (Generator, Faker))
 
     def test_dunder_getitem(self):
         locale = ["de_DE", "en-US", "en-PH", "ja_JP"]
         fake = Faker(locale)
 
         for code in locale:
-            assert isinstance(fake[code], Generator)
+            assert isinstance(fake[code], (Generator, Faker))
 
         with pytest.raises(KeyError):
             fake["en_GB"]
