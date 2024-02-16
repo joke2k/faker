@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v23.2.1 - 2024-02-19](https://github.com/joke2k/faker/compare/v23.2.0...v23.2.1)
+
+* fix: update `pydecimal` algorithm to ensure left part is not generated with a leading 0. Thanks @alexei.
+ 
 ### [v23.2.0 - 2024-02-14](https://github.com/joke2k/faker/compare/v23.1.0...v23.2.0)
 
 * Allow Uniqueness and Localization. Thanks @moshemoshe137.

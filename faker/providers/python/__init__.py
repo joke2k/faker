@@ -262,6 +262,21 @@ class Provider(BaseProvider):
     def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
         return self.generator.random_int(min_value, max_value, step=step)
 
+    def _random_int_of_length(self, length: int) -> int:
+        """Generate a random integer of a given length
+
+        If length is 0, so is the number. Otherwise the first digit must not be 0.
+        """
+
+        if length < 0:
+            raise ValueError("Length must be a non-negative integer.")
+        elif length == 0:
+            return 0
+        else:
+            min_value = 10 ** (length - 1)
+            max_value = (10**length) - 1
+            return self.pyint(min_value=min_value, max_value=max_value)
+
     def pydecimal(
         self,
         left_digits: Optional[int] = None,
@@ -310,7 +325,7 @@ class Provider(BaseProvider):
                 min_left_digits = math.ceil(math.log10(max(min_value or 1, 1)))
                 if left_digits is None:
                     left_digits = self.random_int(min_left_digits, max_left_random_digits)
-                left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
+                left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
                 left_number = str(self.random_int(int(max(max_value or 0, 0)), int(abs(min_value))))
@@ -318,7 +333,7 @@ class Provider(BaseProvider):
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
                 if left_digits is None:
                     left_digits = self.random_int(min_left_digits, max_left_random_digits)
-                left_number = "".join([str(self.random_digit()) for i in range(0, left_digits)]) or "0"
+                left_number = str(self._random_int_of_length(left_digits))
 
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)

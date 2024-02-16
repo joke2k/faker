@@ -85,7 +85,7 @@ specify ``:sample seed=12345: a=2``, the sample usage section generated will loo
 
 You can mix and match ``SIZE``, ``SEED``, and ``KWARGS``, and if ``KWARGS`` is becoming too long to
 fit a single line, you can break ``KWARGS`` into multiple lines in the same way you can break keyword
-arguments across multiples lines in actual Python code. For example, let us say the docstring contains
+arguments across multiple lines in actual Python code. For example, let us say the docstring contains
 this:
 
 .. code-block:: text
