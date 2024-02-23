@@ -33,7 +33,7 @@ class Provider(PersonProvider):
     prefixes_neutral = ("doktor", "dr", "prof")
     prefixes_male = ("härra", "hr") + prefixes_neutral
     prefixes_female = ("proua", "pr") + prefixes_neutral
-    prefixes = list(set(prefixes_male + prefixes_female))
+    prefixes = sorted(set(prefixes_male + prefixes_female))
 
     suffixes = ("PhD", "MSc", "BSc")
 
@@ -162,9 +162,9 @@ class Provider(PersonProvider):
 
     first_names_rus = first_names_male_rus + first_names_female_rus
 
-    first_names_male = list(set(first_names_male_est + first_names_male_rus))
-    first_names_female = list(set(first_names_female_est + first_names_female_rus))
-    first_names = list(set(first_names_male) | set(first_names_female))
+    first_names_male = sorted(set(first_names_male_est + first_names_male_rus))
+    first_names_female = sorted(set(first_names_female_est + first_names_female_rus))
+    first_names = sorted(set(first_names_male + first_names_female))
 
     # http://ekspress.delfi.ee/kuum/\
     # top-500-eesti-koige-levinumad-perekonnanimed?id=27677149
@@ -681,7 +681,7 @@ class Provider(PersonProvider):
         "Žukov",
         "Žuravljov",
     )
-    last_names = list(set(last_names_est + last_names_rus))
+    last_names = sorted(set(last_names_est + last_names_rus))
 
     def first_name_male_est(self) -> str:
         return self.random_element(self.first_names_male_est)
