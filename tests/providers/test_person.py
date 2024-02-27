@@ -28,6 +28,7 @@ from faker.providers.person.pl_PL import checksum_identity_card_number as pl_che
 from faker.providers.person.pt_PT import Provider as PtPtProvider
 from faker.providers.person.ru_RU import Provider as RuProvider
 from faker.providers.person.ru_RU import translit
+from faker.providers.person.sk_SK import Provider as SkSKProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
@@ -602,6 +603,52 @@ class TestCsCZ(unittest.TestCase):
                 last_name = name_parts[2]
         assert first_name in CsCZProvider.first_names_female
         assert last_name in CsCZProvider.last_names_female
+
+
+class TestSkSK(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("sk_SK")
+        Faker.seed(0)
+
+    def test_name_male(self):
+        male_name = self.fake.name_male()
+        name_parts = male_name.split(" ")
+        first_name, last_name = "", ""
+        if len(name_parts) == 2:
+            first_name = name_parts[0]
+            last_name = name_parts[1]
+        elif len(name_parts) == 4:
+            first_name = name_parts[1]
+            last_name = name_parts[2]
+        elif len(name_parts) == 3:
+            if name_parts[-1] in SkSKProvider.suffixes:
+                first_name = name_parts[0]
+                last_name = name_parts[1]
+            else:
+                first_name = name_parts[1]
+                last_name = name_parts[2]
+        assert first_name in SkSKProvider.first_names_male
+        assert last_name in SkSKProvider.last_names_male
+
+    def test_name_female(self):
+        female_name = self.fake.name_female()
+        name_parts = female_name.split(" ")
+        first_name, last_name = "", ""
+        if len(name_parts) == 2:
+            first_name = name_parts[0]
+            last_name = name_parts[1]
+        elif len(name_parts) == 4:
+            first_name = name_parts[1]
+            last_name = name_parts[2]
+        elif len(name_parts) == 3:
+            if name_parts[-1] in SkSKProvider.suffixes:
+                first_name = name_parts[0]
+                last_name = name_parts[1]
+            else:
+                first_name = name_parts[1]
+                last_name = name_parts[2]
+        assert first_name in SkSKProvider.first_names_female
+        assert last_name in SkSKProvider.last_names_female
 
 
 class TestThTh(unittest.TestCase):
