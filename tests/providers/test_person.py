@@ -15,6 +15,7 @@ from faker.providers.person.en_IN import Provider as EnINProvider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
+from faker.providers.person.et_EE import Provider as EtEEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
@@ -417,6 +418,101 @@ class TestFrBE(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name in self.provider.last_names
+
+
+class TestEtEE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("et_EE")
+        self.provider = EtEEProvider
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+        # Est first name
+        name = self.fake.first_name_est()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_est
+
+        # Rus first name
+        name = self.fake.first_name_rus()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_rus
+
+        # Females first name
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+        # Est females first name
+        name = self.fake.first_name_female_est()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+        assert name in self.provider.first_names_female_est
+
+        # Rus females first name
+        name = self.fake.first_name_female_rus()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+        assert name in self.provider.first_names_female_rus
+
+        # Male first name
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+        # Est male first name
+        name = self.fake.first_name_male_est()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+        assert name in self.provider.first_names_male_est
+
+        # Rus male first name
+        name = self.fake.first_name_male_rus()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+        assert name in self.provider.first_names_male_rus
+
+    def test_last_name(self):
+        # General last name.
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+        # Est last name.
+        name = self.fake.last_name_est()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+        assert name in self.provider.last_names_est
+
+        # Rus last name.
+        name = self.fake.last_name_rus()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+        assert name in self.provider.last_names_rus
 
 
 class TestFiFI(unittest.TestCase):
