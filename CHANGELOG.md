@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.0.0 - 2024-03-04](https://github.com/joke2k/faker/compare/v23.3.0...v24.0.0)
+
+* Fix returning random data for person provider in `et_EE` locale when the same seed value is set. Thanks @AlexLitvino.
+
 ### [v23.3.0 - 2024-02-27](https://github.com/joke2k/faker/compare/v23.2.1...v23.3.0)
 
 * Add person, bank provider for `sk_SK` locale. Thanks @mhandl.
