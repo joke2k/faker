@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.0.1)
+
+* Add Grenville to `land_coords` in geo provider. Thanks @lozik4.
+* Fix Kyiv name. Thanks @lozik4.
+
 ### [v24.0.0 - 2024-03-04](https://github.com/joke2k/faker/compare/v23.3.0...v24.0.0)
 
 * Fix returning random data for person provider in `et_EE` locale when the same seed value is set. Thanks @AlexLitvino.
