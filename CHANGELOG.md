@@ -1,6 +1,6 @@
 ## Changelog
 
-### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.0.1)
+### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.1.0)
 
 * Add Grenville to `land_coords` in geo provider. Thanks @lozik4.
 * Fix Kyiv name. Thanks @lozik4.
