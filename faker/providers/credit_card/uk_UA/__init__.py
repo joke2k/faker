@@ -2,6 +2,7 @@ from collections import OrderedDict
 from typing import Optional
 
 from faker.providers.person.uk_UA import translit
+
 from .. import CardType, CreditCard
 from .. import Provider as CreditCardProvider
 
@@ -10,6 +11,7 @@ class Provider(CreditCardProvider):
     """Implement credit card provider for ``uk_UA`` locale.
     https://blog.ipay.ua/uk/sekrety-bankovskix-kart-kak-identificirovat-bank-po-nomeru-karty/
     """
+
     prefix_visa = ["4"]
     prefix_mastercard = ["51", "52", "53", "54"]
     prefix_prostir = ["9"]
@@ -25,7 +27,7 @@ class Provider(CreditCardProvider):
     )
 
     def credit_card_full(self, card_type: Optional[CardType] = None) -> str:
-        """ Generate UA Credit Card:
+        """Generate UA Credit Card:
         Supported card types 'visa', 'mastercard', 'prostir', 'maestro'
 
         :sample:

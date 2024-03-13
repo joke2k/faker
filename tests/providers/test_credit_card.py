@@ -3,8 +3,8 @@ import re
 from typing import Pattern
 
 from faker.providers.bank.ru_RU import Provider as RuRuBankProvider
-from faker.providers.credit_card import Provider as CreditCardProvider
 from faker.providers.bank.uk_UA import Provider as UkUaBankProvider
+from faker.providers.credit_card import Provider as CreditCardProvider
 
 
 class TestCreditCardProvider:
@@ -185,7 +185,7 @@ class TestUkUa:
 
     def test_credit_card_full(self, faker, num_samples):
         for _ in range(num_samples):
-            card_data = faker.credit_card_full('prostir').split("\n")
+            card_data = faker.credit_card_full("prostir").split("\n")
             assert re.match("[A-Za-z]+", card_data[1])
             assert card_data[4] in UkUaBankProvider.banks
-            assert card_data[0] == 'ПРОСТІР'
+            assert card_data[0] == "ПРОСТІР"
