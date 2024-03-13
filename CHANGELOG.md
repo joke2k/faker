@@ -1,6 +1,11 @@
 ## Changelog
 
-### [v24.1.1 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.0...v24.11)
+### [v24.2.0 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.1...v24.2.0)
+
+* Add `uk-UA` credit card provider. Thanks @lozik4.
+* Upgrade `uk_UA` person provider. Thanks @lozik4.
+
+### [v24.1.1 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.0...v24.1.1)
 
 * Fix prefix for male `bg_BG` names  Thanks @DimitarVanguelov.
 
