@@ -1,6 +1,7 @@
 import datetime
 import re
 import unittest
+
 from unittest import mock
 
 from faker import Faker
@@ -1503,14 +1504,15 @@ class TestUkUa(unittest.TestCase):
             assert language_name in self.provider.language_names
 
     def test_transliteration(self):
-        assert self.translit("Сергій") == 'Serhii'
-        assert self.translit("Лілія") == 'Liliia'
-        assert self.translit("Яся") == 'Yasia'
-        assert self.translit("Демʼян") == 'Demian'
-        assert self.translit("Марʼяна") == 'Mariana'
-        assert self.translit(
-            "абвгґдеєжзиіїйклмнопрстуфхцчшщьюяєʼ'-") == "abvhgdeiezhzyiiiklmnoprstufkhtschshshchiuiaie'-"
-        assert self.translit("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ") == 'ABVHGDEYeZhZYIYiYKLMNOPRSTUFKhTsChShShchYuYa'
+        assert self.translit("Сергій") == "Serhii"
+        assert self.translit("Лілія") == "Liliia"
+        assert self.translit("Яся") == "Yasia"
+        assert self.translit("Демʼян") == "Demian"
+        assert self.translit("Марʼяна") == "Mariana"
+        assert (
+            self.translit("абвгґдеєжзиіїйклмнопрстуфхцчшщьюяєʼ'-") == "abvhgdeiezhzyiiiklmnoprstufkhtschshshchiuiaie'-"
+        )
+        assert self.translit("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ") == "ABVHGDEYeZhZYIYiYKLMNOPRSTUFKhTsChShShchYuYa"
 
     def test_full_name_male(self):
         for _ in range(10):
@@ -1538,8 +1540,8 @@ class TestUkUa(unittest.TestCase):
 
     def test_short_full_name(self):
         res = self.fake.full_name(short=True)
-        assert res.count('.') == 2
-        assert res.count(' ') == 1
+        assert res.count(".") == 2
+        assert res.count(" ") == 1
 
 
 if __name__ == "__main__":
