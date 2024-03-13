@@ -1,8 +1,10 @@
 from collections import OrderedDict
 from typing import Dict, Optional
+
 from faker.typing import SexLiteral
 
-from .. import Provider as PersonProvider, ElementsType
+from .. import ElementsType
+from .. import Provider as PersonProvider
 
 
 def translit(text: str) -> str:
@@ -75,7 +77,7 @@ def translit(text: str) -> str:
         "Щ": "Shch",
         "Ь": "",
         "Ю": "Yu",
-        "Я": "Ya"
+        "Я": "Ya",
     }
     for letter in text:
         if letter.isalpha():
@@ -291,7 +293,7 @@ class Provider(PersonProvider):
         "Йоруба",
         "Чжуан",
         "Китайська",
-        "Зулу"
+        "Зулу",
     ]
 
     # Source: uk.wikipedia.org/wiki/Українські_імена
@@ -1299,9 +1301,9 @@ class Provider(PersonProvider):
         if gender and gender not in ("M", "F"):
             raise ValueError('Gender must be "m" or "f" or None')
 
-        gender_ = gender if gender else self.random_element(elements=['M', 'F'])
+        gender_ = gender if gender else self.random_element(elements=["M", "F"])
 
-        if gender_ == 'M':
+        if gender_ == "M":
             first_name = self.first_name_male()
             last_name = self.last_name_male()
             middle_name = self.middle_name_male()
