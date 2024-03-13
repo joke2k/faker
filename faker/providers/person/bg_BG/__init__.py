@@ -1759,7 +1759,7 @@ class Provider(PersonProvider):
 
     formats_male = (
         "{{first_name_male}} {{last_name_male}}",
-        "{{prefix_female}} {{first_name_male}} {{last_name_male}}",
+        "{{prefix_male}} {{first_name_male}} {{last_name_male}}",
     )
 
     formats = formats_male + formats_female

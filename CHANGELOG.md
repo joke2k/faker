@@ -1,5 +1,22 @@
 ## Changelog
 
+### [v24.1.1 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.0...v24.11)
+
+* Fix prefix for male `bg_BG` names  Thanks @DimitarVanguelov.
+
+### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.1.0)
+
+* Add Grenville to `land_coords` in geo provider. Thanks @lozik4.
+* Fix Kyiv name. Thanks @lozik4.
+
+### [v24.0.0 - 2024-03-04](https://github.com/joke2k/faker/compare/v23.3.0...v24.0.0)
+
+* Fix returning random data for person provider in `et_EE` locale when the same seed value is set. Thanks @AlexLitvino.
+
+### [v23.3.0 - 2024-02-27](https://github.com/joke2k/faker/compare/v23.2.1...v23.3.0)
+
+* Add person, bank provider for `sk_SK` locale. Thanks @mhandl.
+
 ### [v23.2.1 - 2024-02-19](https://github.com/joke2k/faker/compare/v23.2.0...v23.2.1)
 
 * fix: update `pydecimal` algorithm to ensure left part is not generated with a leading 0. Thanks @alexei.
