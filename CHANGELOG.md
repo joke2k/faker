@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.1.1 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.0...v24.11)
+
+* Fix prefix for male `bg_BG` names  Thanks @DimitarVanguelov.
+
 ### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.1.0)
 
 * Add Grenville to `land_coords` in geo provider. Thanks @lozik4.
