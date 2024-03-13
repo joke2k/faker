@@ -1,7 +1,8 @@
 from collections import OrderedDict
 from typing import Dict, Optional
 
-from ....typing import SexLiteral
+from faker.typing import SexLiteral
+
 from .. import ElementsType
 from .. import Provider as PersonProvider
 
