@@ -291,32 +291,38 @@ class RandomColor:
 
         return 0
 
+    def _validate_color_input(self, color_input: HueType) -> Tuple[int, int]:
+        if (
+            not isinstance(color_input, (list, tuple))
+            or len(color_input) != 2
+            or any(not isinstance(c, (float, int)) for c in color_input)
+        ):
+            raise TypeError("Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.")
+
+        return color_input[0], color_input[1]
+
     def get_hue_range(self, color_input: Optional[HueType]) -> Tuple[int, int]:
         """Return the hue range for a given ``color_input``."""
+        if color_input is None:
+            return 0, 360
+
         if isinstance(color_input, (int, float)) and 0 <= color_input <= 360:
             color_input = int(color_input)
             return color_input, color_input
-        elif isinstance(color_input, str) and color_input in self.colormap:
+
+        if isinstance(color_input, str) and color_input in self.colormap:
             return self.colormap[color_input]["hue_range"][0]
-        elif color_input is None:
-            return 0, 360
 
-        if isinstance(color_input, list):
-            color_input = tuple(color_input)
-        if (
-            isinstance(color_input, tuple)
-            and len(color_input) == 2
-            and all(isinstance(c, (float, int)) for c in color_input)
-        ):
-            v1 = int(color_input[0])
-            v2 = int(color_input[1])
+        color_input = self._validate_color_input(color_input)
 
-            if v2 < v1:
-                v1, v2 = v2, v1
-            v1 = max(v1, 0)
-            v2 = min(v2, 360)
-            return v1, v2
-        raise TypeError("Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.")
+        v1 = int(color_input[0])
+        v2 = int(color_input[1])
+
+        if v2 < v1:
+            v1, v2 = v2, v1
+        v1 = max(v1, 0)
+        v2 = min(v2, 360)
+        return v1, v2
 
     def get_saturation_range(self, hue: int) -> Tuple[int, int]:
         """Return the saturation range for a given numerical ``hue`` value."""

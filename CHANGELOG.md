@@ -1,5 +1,115 @@
 ## Changelog
 
+### [v24.1.1 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.0...v24.11)
+
+* Fix prefix for male `bg_BG` names  Thanks @DimitarVanguelov.
+
+### [v24.1.0 - 2024-03-08](https://github.com/joke2k/faker/compare/v24.0.0...v24.1.0)
+
+* Add Grenville to `land_coords` in geo provider. Thanks @lozik4.
+* Fix Kyiv name. Thanks @lozik4.
+
+### [v24.0.0 - 2024-03-04](https://github.com/joke2k/faker/compare/v23.3.0...v24.0.0)
+
+* Fix returning random data for person provider in `et_EE` locale when the same seed value is set. Thanks @AlexLitvino.
+
+### [v23.3.0 - 2024-02-27](https://github.com/joke2k/faker/compare/v23.2.1...v23.3.0)
+
+* Add person, bank provider for `sk_SK` locale. Thanks @mhandl.
+
+### [v23.2.1 - 2024-02-19](https://github.com/joke2k/faker/compare/v23.2.0...v23.2.1)
+
+* fix: update `pydecimal` algorithm to ensure left part is not generated with a leading 0. Thanks @alexei.
+ 
+### [v23.2.0 - 2024-02-14](https://github.com/joke2k/faker/compare/v23.1.0...v23.2.0)
+
+* Allow Uniqueness and Localization. Thanks @moshemoshe137.
+
+### [v23.1.0 - 2024-02-07](https://github.com/joke2k/faker/compare/v23.0.0...v23.1.0)
+
+* Add `uk_UA` lorem provider. Thanks @lozik.
+
+### [v23.0.0 - 2024-02-06](https://github.com/joke2k/faker/compare/v22.7.0...v23.0.0)
+
+* Consistently throw an error if the start of a daterange is after the end. Thanks @prescod.
+
+### [v22.7.0 - 2024-02-05](https://github.com/joke2k/faker/compare/v22.6.0...v22.7.0)
+
+* Add `uk_UA` automotive provider. Thanks @lozik.
+
+### [v22.6.0 - 2024-01-29](https://github.com/joke2k/faker/compare/v22.5.1...v22.6.0)
+
+* Add support for birthday and gender to  `uk_UA` `ssn` method. Thanks @lozik.
+
+### [v22.5.1 - 2024-01-23](https://github.com/joke2k/faker/compare/v22.5.0...v22.5.1)
+
+* Add area code `830000` to `zh_CN`. Thanks @antik.
+* Add `area_code` parameter to `ssn` provider for `zh_CN`. Thanks @antik.
+
+### [v22.5.0 - 2024-01-22](https://github.com/joke2k/faker/compare/v22.
+4.0...v22.5.0)
+
+* Add `http_status_code` to internet provider. Thanks @dancergraham.
+
+### [v22.4.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.
+3.0...v22.4.0)
+
+* Add `fa_IR` localization for currency provider. Thanks @parsariyahi.
+
+### [v22.3.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.2.0...v22.3.0)
+
+* Add bank provider for `uk_UA`. Thanks @SanderFtn.
+
+### [v22.2.0 - 2024-01-10](https://github.com/joke2k/faker/compare/v22.1.0...v22.2.0)
+
+* Add bank provider for `cs_CZ`. Thanks @george0st.
+
+### [v22.1.0 - 2024-01-08](https://github.com/joke2k/faker/compare/v22.0.0...v22.1.0)
+
+* Add support for multiple file systems path rules. Thanks @parsariyahi.
+
+### [v22.0.0 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.1...v22.0.0)
+
+* Remove dot from `file_name` when `extention` is the empty string. Thanks @gotofritz
+* Allow extension in `file_path` to take a list of allowed extensions, or empty for "no extension". Thanks @gotofritz
+
+### [v21.0.1 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.0...v21.0.1)
+
+* Fix typo in `ru_RU` company names. Thanks @scalar438.
+
+### [v21.0.0 - 2023-12-13](https://github.com/joke2k/faker/compare/v20.1.0...v21.0.0)
+
+* Fix: random sign in `pyfloat` when `positive=False`. Thanks @viraj-s15.
+
+### [v20.1.0 - 2023-11-20](https://github.com/joke2k/faker/compare/v20.0.3...v20.1.0)
+
+* Add company provider and NUSS for `es_ES` locale. Thanks @fgsalomon.
+* Add official support for Python 3.12. Thanks @pfouque.
+
+### [v20.0.3 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.2...v20.0.3)
+
+* Make `unix_time` always return floats.
+
+### [v20.0.2 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.1...v20.0.2)
+
+* Fix `pydecimal` crash on float `min_value` or `max_value`. Thanks @s-weigand.
+
+### [v20.0.1 - 2023-11-14](https://github.com/joke2k/faker/compare/v20.0.0...v20.0.1)
+
+* Fix type hint for `unix_time`.
+
+### [v20.0.0 - 2023-11-10](https://github.com/joke2k/faker/compare/v19.13.0...v20.0.0)
+
+* Support platform-specific second precision. Thanks @cknv.
+
+### [v19.13.0 - 2023-11-01](https://github.com/joke2k/faker/compare/v19.12.1...v19.13.0)
+
+* Add more entries in `cs_CZ`'s geo. Thanks @george0st.
+
+### [v19.12.1 - 2023-10-31](https://github.com/joke2k/faker/compare/v19.12.0...v19.12.1)
+
+* Fix latest days of the month as birth day in italian SSN. Thanks @@TommasoLencioni
+
 ### [v19.12.0 - 2023-10-24](https://github.com/joke2k/faker/compare/v19.11.1...v19.12.0)
 
 * Add `geo` provider for `cs_CZ`. Thanks @george0st.

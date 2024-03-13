@@ -131,6 +131,71 @@ class Provider(BaseProvider):
         "TRACE",
         "PATCH",
     )
+    http_assigned_codes: ElementsType[int] = (
+        100,
+        101,
+        100,
+        101,
+        102,
+        103,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        226,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        307,
+        308,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        421,
+        422,
+        423,
+        424,
+        425,
+        426,
+        428,
+        429,
+        431,
+        451,
+        500,
+        501,
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508,
+        510,
+        511,
+    )
 
     user_name_formats: ElementsType[str] = (
         "{{last_name}}.{{first_name}}",
@@ -307,6 +372,23 @@ class Provider(BaseProvider):
         """
 
         return self.random_element(self.http_methods)
+
+    def http_status_code(self, include_unassigned: bool = True) -> int:
+        """Returns random HTTP status code
+        https://www.rfc-editor.org/rfc/rfc9110#name-status-codes
+        :param include_unassigned: Whether to include status codes which have
+            not yet been assigned or are unused
+
+        :return: a random three digit status code
+        :rtype: int
+
+        :example: 404
+
+        """
+        if include_unassigned:
+            return self.random_int(min=100, max=599)
+        else:
+            return self.random_element(self.http_assigned_codes)
 
     def url(self, schemes: Optional[List[str]] = None) -> str:
         """

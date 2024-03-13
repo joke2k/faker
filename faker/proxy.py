@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 import functools
 import re
@@ -35,7 +37,7 @@ class Faker:
         use_weighting: bool = True,
         **config: Any,
     ) -> None:
-        self._factory_map = OrderedDict()
+        self._factory_map: OrderedDict[str, Generator | Faker] = OrderedDict()
         self._weights = None
         self._unique_proxy = UniqueProxy(self)
         self._optional_proxy = OptionalProxy(self)
@@ -54,7 +56,7 @@ class Faker:
                 if final_locale not in locales:
                     locales.append(final_locale)
 
-        elif isinstance(locale, OrderedDict):
+        elif isinstance(locale, (OrderedDict, dict)):
             assert all(isinstance(v, (int, float)) for v in locale.values())
             odict = OrderedDict()
             for k, v in locale.items():
@@ -66,15 +68,25 @@ class Faker:
         else:
             locales = [DEFAULT_LOCALE]
 
-        for locale in locales:
-            self._factory_map[locale] = Factory.create(
-                locale,
+        if len(locales) == 1:
+            self._factory_map[locales[0]] = Factory.create(
+                locales[0],
                 providers,
                 generator,
                 includes,
                 use_weighting=use_weighting,
                 **config,
             )
+        else:
+            for locale in locales:
+                self._factory_map[locale] = Faker(
+                    locale,
+                    providers,
+                    generator,
+                    includes,
+                    use_weighting=use_weighting,
+                    **config,
+                )
 
         self._locales = locales
         self._factories = list(self._factory_map.values())
@@ -85,8 +97,12 @@ class Faker:
             attributes |= {attr for attr in dir(factory) if not attr.startswith("_")}
         return sorted(attributes)
 
-    def __getitem__(self, locale: str) -> Generator:
-        return self._factory_map[locale.replace("-", "_")]
+    def __getitem__(self, locale: str) -> Faker:
+        if locale.replace("-", "_") in self.locales and len(self.locales) == 1:
+            return self
+        instance = self._factory_map[locale.replace("-", "_")]
+        assert isinstance(instance, Faker)  # for mypy
+        return instance
 
     def __getattribute__(self, attr: str) -> Any:
         """
@@ -273,10 +289,10 @@ class Faker:
         return self._weights
 
     @property
-    def factories(self) -> List[Generator]:
+    def factories(self) -> List[Generator | Faker]:
         return self._factories
 
-    def items(self) -> List[Tuple[str, Generator]]:
+    def items(self) -> List[Tuple[str, Generator | Faker]]:
         return list(self._factory_map.items())
 
 

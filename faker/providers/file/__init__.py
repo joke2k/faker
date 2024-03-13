@@ -1,7 +1,7 @@
 import string
 
 from collections import OrderedDict
-from typing import Dict, Optional
+from typing import Dict, Literal, Optional, Sequence, Union
 
 from .. import BaseProvider, ElementsType
 
@@ -204,6 +204,18 @@ class Provider(BaseProvider):
             ("video", video_file_extensions),
         )
     )
+
+    file_systems_path_rules: Dict[str, Dict] = {
+        "windows": {
+            "root": "C:\\",
+            "separator": "\\",
+        },
+        "linux": {
+            "root": "/",
+            "separator": "/",
+        },
+    }
+
     unix_device_prefixes: ElementsType[str] = ("sd", "vd", "xvd")
 
     def mime_type(self, category: Optional[str] = None) -> str:
@@ -223,21 +235,24 @@ class Provider(BaseProvider):
     def file_name(self, category: Optional[str] = None, extension: Optional[str] = None) -> str:
         """Generate a random file name with extension.
 
-        If ``extension`` is ``None``, a random extension will be created under
-        the hood using |file_extension| with the specified ``category``. If a
-        value for ``extension`` is provided, the value will be used instead,
-        and ``category`` will be ignored. The actual name part itself is
-        generated using |word|.
+        If ``extension`` is ``None``, a random extension will be created
+        under the hood using |file_extension| with the specified
+        ``category``. If a value for ``extension`` is provided, the
+        value will be used instead, and ``category`` will be ignored.
+        The actual name part itself is generated using |word|. If
+        extension is an empty string then no extension will be added,
+        and file_name will be the same as |word|.
 
         :sample: size=10
         :sample: category='audio'
         :sample: extension='abcdef'
         :sample: category='audio', extension='abcdef'
+        :sample: extension=''
         """
         if extension is None:
             extension = self.file_extension(category)
         filename: str = self.generator.word()
-        return f"{filename}.{extension}"
+        return f"{filename}.{extension}" if extension else filename
 
     def file_extension(self, category: Optional[str] = None) -> str:
         """Generate a file extension under the specified ``category``.
@@ -257,28 +272,58 @@ class Provider(BaseProvider):
         self,
         depth: int = 1,
         category: Optional[str] = None,
-        extension: Optional[str] = None,
+        extension: Optional[Union[str, Sequence[str]]] = None,
         absolute: Optional[bool] = True,
+        file_system_rule: Literal["linux", "windows"] = "linux",
     ) -> str:
         """Generate an pathname to a file.
 
-        This method uses |file_name| under the hood to generate the file name
-        itself, and ``depth`` controls the depth of the directory path, and
-        |word| is used under the hood to generate the different directory names.
+        This method uses |file_name| under the hood to generate the file
+        name itself, and ``depth`` controls the depth of the directory
+        path, and |word| is used under the hood to generate the
+        different directory names.
 
-        If ``absolute`` is ``True`` (default), the generated path starts with
-        ``/`` and is absolute. Otherwise, the generated path is relative.
+        If ``absolute`` is ``True`` (default), the generated path starts
+        with ``/`` and is absolute. Otherwise, the generated path is
+        relative.
+
+        If used, ``extension`` can be either a string, forcing that
+        extension, a sequence of strings (one will be picked at random),
+        or an empty sequence (the path will have no extension). Default
+        behaviour is the same as |file_name|
+
+        if ``file_system`` is set (default="linux"), the generated path uses
+        specified file system path standard, the list of valid file systems include:
+        ``'windows'``, ``'linux'``.
 
         :sample: size=10
         :sample: depth=3
         :sample: depth=5, category='video'
         :sample: depth=5, category='video', extension='abcdef'
+        :sample: extension=[]
+        :sample: extension=''
+        :sample: extension=["a", "bc", "def"]
+        :sample: depth=5, category='video', extension='abcdef', file_system='windows'
         """
-        file: str = self.file_name(category, extension)
-        path: str = f"/{file}"
+
+        if extension is not None and not isinstance(extension, str):
+            if len(extension):
+                extension = self.random_element(extension)
+            else:
+                extension = ""
+
+        fs_rule = self.file_systems_path_rules.get(file_system_rule, None)
+        if not fs_rule:
+            raise TypeError("Specified file system is invalid.")
+
+        root = fs_rule["root"]
+        seperator = fs_rule["separator"]
+
+        path: str = self.file_name(category, extension)
         for _ in range(0, depth):
-            path = f"/{self.generator.word()}{path}"
-        return path if absolute else path[1:]
+            path = f"{self.generator.word()}{seperator}{path}"
+
+        return root + path if absolute else path
 
     def unix_device(self, prefix: Optional[str] = None) -> str:
         """Generate a Unix device file name.

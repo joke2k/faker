@@ -183,7 +183,6 @@ class TestDateTime(unittest.TestCase):
         assert not self.fake.iso8601().endswith("+00:00")
         assert self.fake.iso8601(utc).endswith("+00:00")
         assert self.fake.iso8601()[10] == "T"
-        assert len(self.fake.iso8601()) == 19
         assert len(self.fake.iso8601(timespec="hours")) == 13
         assert len(self.fake.iso8601(timespec="minutes")) == 16
         assert len(self.fake.iso8601(timespec="seconds")) == 19
@@ -193,6 +192,20 @@ class TestDateTime(unittest.TestCase):
         assert self.fake.iso8601(tzinfo=utc, sep="t")[10] == "t"
         assert self.fake.iso8601(tzinfo=utc, sep=" ")[10] == " "
         assert self.fake.iso8601(tzinfo=utc, sep="_")[10] == "_"
+
+    @pytest.mark.skipif(
+        not sys.platform.startswith("win"),
+        reason="windows does not support sub second precision",
+    )
+    def test_iso8601_fractional_seconds_win(self):
+        assert len(self.fake.iso8601()) == 19
+
+    @pytest.mark.skipif(
+        sys.platform.startswith("win"),
+        reason="non windows does support sub second precision",
+    )
+    def test_iso8601_fractional_seconds_non_win(self):
+        assert len(self.fake.iso8601()) == 26
 
     def test_date_object(self):
         assert isinstance(self.fake.date_object(), date)
@@ -226,6 +239,10 @@ class TestDateTime(unittest.TestCase):
         random_date = self.fake.date_time_between_dates(datetime_start, datetime_end)
         assert datetime_start <= random_date
         assert datetime_end >= random_date
+
+    def test_date_time_between_dates_with_no_date_overlap(self):
+        with pytest.raises(ValueError):
+            self.fake.date_time_between_dates("-1y", "-2y")
 
     def test_date_time_between_dates_with_tzinfo(self):
         timestamp_start = random.randint(0, 2000000000)
@@ -493,7 +510,7 @@ class TestDateTime(unittest.TestCase):
 
             constrained_unix_time = self.fake.unix_time(end_datetime=end_datetime, start_datetime=start_datetime)
 
-            self.assertIsInstance(constrained_unix_time, int)
+            self.assertIsInstance(constrained_unix_time, (int, float))
             self.assertBetween(
                 constrained_unix_time,
                 datetime_to_timestamp(start_datetime),
@@ -505,7 +522,7 @@ class TestDateTime(unittest.TestCase):
 
             recent_unix_time = self.fake.unix_time(start_datetime=one_day_ago)
 
-            self.assertIsInstance(recent_unix_time, int)
+            self.assertIsInstance(recent_unix_time, (int, float))
             self.assertBetween(
                 recent_unix_time,
                 datetime_to_timestamp(one_day_ago),
@@ -517,7 +534,7 @@ class TestDateTime(unittest.TestCase):
 
             distant_unix_time = self.fake.unix_time(end_datetime=one_day_after_epoch_start)
 
-            self.assertIsInstance(distant_unix_time, int)
+            self.assertIsInstance(distant_unix_time, (int, float))
             self.assertBetween(
                 distant_unix_time,
                 datetime_to_timestamp(epoch_start),
@@ -527,7 +544,7 @@ class TestDateTime(unittest.TestCase):
             # Ensure wide-open unix_times are generated correctly
             self.fake.unix_time()
 
-            self.assertIsInstance(constrained_unix_time, int)
+            self.assertIsInstance(constrained_unix_time, (int, float))
             self.assertBetween(constrained_unix_time, 0, datetime_to_timestamp(now))
 
             # Ensure it does not throw error with startdate='now' for machines with negative offset
@@ -537,6 +554,23 @@ class TestDateTime(unittest.TestCase):
             self.fake.unix_time(start_datetime="now")
             if platform.system() != "Windows":
                 del os.environ["TZ"]
+
+    @pytest.mark.skipif(
+        not sys.platform.startswith("win"),
+        reason="windows does not support sub second precision",
+    )
+    def test_unix_time_win(self):
+        unix_time = self.fake.unix_time()
+        assert isinstance(unix_time, float)
+        assert unix_time % 1 == 0.0
+
+    @pytest.mark.skipif(
+        sys.platform.startswith("win"),
+        reason="non windows does support sub second precision",
+    )
+    def test_unix_time_non_win(self):
+        unix_time = self.fake.unix_time()
+        assert isinstance(unix_time, float)
 
     def test_change_year(self):
         _2020_06_01 = datetime.strptime("2020-06-01", "%Y-%m-%d")

@@ -34,6 +34,7 @@ from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.ro_RO import ssn_checksum as ro_ssn_checksum
 from faker.providers.ssn.ro_RO import vat_checksum as ro_vat_checksum
+from faker.providers.ssn.uk_UA import Provider as uk_Provider
 from faker.providers.ssn.zh_TW import checksum as tw_checksum
 from faker.utils.checksums import luhn_checksum
 
@@ -623,6 +624,16 @@ class TestEsES(unittest.TestCase):
     def test_doi(self):
         assert len(self.fake.doi()) == 9
 
+    def test_nuss(self):
+        for _ in range(50):
+            nuss = self.fake.nuss()
+            assert isinstance(nuss, str)
+            assert 12 == len(nuss)
+        for _ in range(50):
+            nuss = self.fake.nuss(company=True)
+            assert isinstance(nuss, str)
+            assert 11 == len(nuss)
+
 
 class TestEsCA(TestEsES):
     def setUp(self):
@@ -793,8 +804,9 @@ class TestFiFI(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^FI\d{8}$", self.fake.vat_id())
 
+    @freezegun.freeze_time("2023-10-23")
     def test_ssn_without_age_range(self):
-        current_year = datetime.now().year
+        current_year = 2023
         age = current_year - 1995
         ssn = self.fake.ssn(min_age=age, max_age=age, artificial=True)
         assert "95-" in ssn
@@ -1218,6 +1230,33 @@ class TestZhCN(unittest.TestCase):
         ssn = self.fake.ssn(gender="M")
         assert int(ssn[16]) % 2 == 1
 
+    def test_zh_CN_ssn_invalid_area_code_passed(self):
+        ssn = self.fake.ssn(area_code=12)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code={})
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=[])
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn(area_code=None)
+        assert int(ssn[0:6]) > 0
+
+        ssn = self.fake.ssn()
+        assert int(ssn[0:6]) > 0
+
+    def test_zh_CN_ssn_area_code_passed(self):
+        #
+        ssn = self.fake.ssn(area_code="654225")
+        assert int(ssn[0:6]) == 654225
+
+        ssn = self.fake.ssn(area_code="820000")
+        assert int(ssn[0:6]) == 820000
+
+        ssn = self.fake.ssn(area_code="830000")
+        assert int(ssn[0:6]) == 830000
+
 
 class TestRoRO(unittest.TestCase):
     """Tests SSN in the ro_RO locale"""
@@ -1326,3 +1365,30 @@ class TestZhTW(unittest.TestCase):
     def test_checksum(self):
         for sample in self.samples:
             assert tw_checksum(sample) % 10 == 0
+
+
+class TestUkUA(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("uk_Ua")
+        Faker.seed(0)
+        self.provider = uk_Provider
+
+    def test_ssn_len(self):
+        assert len(self.fake.ssn()) == 10
+
+    def test_start_ssn(self):
+        assert self.fake.ssn("21-06-1994")[:5] == "34505"
+
+    def test_ssn_gender(self):
+        m = self.fake.ssn(gender="M")
+        w = self.fake.ssn(gender="F")
+        assert int(m[8]) % 2 != 0, "Must be odd for men"
+        assert int(w[8]) % 2 == 0, "Must be even for women"
+
+    def test_incorrect_birthday(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(birthday="1994-06-01")
+
+    def test_incorrect_gender(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender="f")

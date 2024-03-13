@@ -339,6 +339,16 @@ class TestInternetProvider:
 
         assert expected_methods == sorted(got_methods)
 
+    def test_http_status_code(self, faker, num_samples):
+        provider = InternetProvider(faker)
+        status_code = provider.http_status_code()
+        assert isinstance(status_code, int)
+        assert 100 <= status_code <= 599
+        status_code = provider.http_status_code(include_unassigned=False)
+        assert isinstance(status_code, int)
+        assert 100 <= status_code <= 599
+        assert status_code in InternetProvider.http_assigned_codes
+
     def test_dga(self, faker):
         assert faker.dga() != faker.dga()
 

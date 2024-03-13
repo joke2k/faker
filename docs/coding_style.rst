@@ -19,7 +19,7 @@ For each data set, please provide a comment with reference to the source
 and/or origin of the data.
 
 We only accept new data if it's coming from statistical sources, such as census or government institutions.
-This include names and their distribution.
+This includes names and their distribution.
 
 
 Name Lists

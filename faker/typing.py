@@ -2,7 +2,7 @@ import dataclasses
 import sys
 
 from datetime import date, datetime, timedelta
-from typing import Sequence, TypeVar, Union
+from typing import Sequence, Union
 
 try:
     from typing import Literal  # type: ignore
@@ -17,7 +17,7 @@ else:
     from typing_extensions import OrderedDict as OrderedDictType  # NOQA
 
 DateParseType = Union[date, datetime, timedelta, str, int]
-HueType = TypeVar("HueType", str, float, Sequence[int])
+HueType = Union[str, float, int, Sequence[int]]
 SexLiteral = Literal["M", "F"]
 SeedType = Union[int, float, str, bytes, bytearray, None]
 

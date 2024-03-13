@@ -10,6 +10,7 @@ from faker.providers.lorem.de_DE import Provider as DeDeLoremProvider
 from faker.providers.lorem.en_US import Provider as EnUsLoremProvider
 from faker.providers.lorem.fa_IR import Provider as FaIrLoremProvider
 from faker.providers.lorem.nl_BE import Provider as NlBeLoremProvider
+from faker.providers.lorem.uk_UA import Provider as UkUaLoremProvider
 
 
 class TestLoremProvider:
@@ -645,3 +646,72 @@ class TestNlBe:
         for _ in range(num_samples):
             words = faker.words(num_words)
             assert all(isinstance(word, str) and word in NlBeLoremProvider.word_list for word in words)
+
+
+class TestUkUa:
+    """Test uk_UA lorem provider"""
+
+    word_list = [word.lower() for word in UkUaLoremProvider.word_list]
+
+    def test_paragraph(self, faker, num_samples):
+        num_sentences = 10
+        for _ in range(num_samples):
+            paragraph = faker.paragraph(nb_sentences=num_sentences)
+            assert isinstance(paragraph, str)
+            words = paragraph.replace(".", "").split()
+            assert all(word.lower() in self.word_list for word in words)
+
+    def test_paragraphs(self, faker, num_samples):
+        num_paragraphs = 5
+        for _ in range(num_samples):
+            paragraphs = faker.paragraphs(nb=num_paragraphs)
+            for paragraph in paragraphs:
+                assert isinstance(paragraph, str)
+                words = paragraph.replace(".", "").split()
+                assert all(word.lower() in self.word_list for word in words)
+
+    def test_sentence(self, faker, num_samples):
+        num_words = 10
+        for _ in range(num_samples):
+            sentence = faker.sentence(nb_words=num_words)
+            assert isinstance(sentence, str)
+            words = sentence.replace(".", "").split()
+            assert all(word.lower() in self.word_list for word in words)
+
+    def test_sentences(self, faker, num_samples):
+        num_sentences = 5
+        for _ in range(num_samples):
+            sentences = faker.sentences(nb=num_sentences)
+            for sentence in sentences:
+                assert isinstance(sentence, str)
+                words = sentence.replace(".", "").split()
+                assert all(word.lower() in self.word_list for word in words)
+
+    def test_text(self, faker, num_samples):
+        num_chars = 25
+        for _ in range(num_samples):
+            text = faker.text(max_nb_chars=num_chars)
+            assert isinstance(text, str)
+            words = re.sub(r"[.\n]+", " ", text).split()
+            assert all(word.lower() in self.word_list for word in words)
+
+    def test_texts(self, faker, num_samples):
+        num_texts = 5
+        num_chars = 25
+        for _ in range(num_samples):
+            texts = faker.texts(max_nb_chars=num_chars, nb_texts=num_texts)
+            for text in texts:
+                assert isinstance(text, str)
+                words = re.sub(r"[.\n]+", " ", text).split()
+                assert all(word.lower() in self.word_list for word in words)
+
+    def test_word(self, faker, num_samples):
+        for _ in range(num_samples):
+            word = faker.word()
+            assert isinstance(word, str) and word in UkUaLoremProvider.word_list
+
+    def test_words(self, faker, num_samples):
+        num_words = 5
+        for _ in range(num_samples):
+            words = faker.words(num_words)
+            assert all(isinstance(word, str) and word in UkUaLoremProvider.word_list for word in words)
