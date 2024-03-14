@@ -467,3 +467,13 @@ class Provider(AddressProvider):
     def building_number(self) -> str:
         numeric_part = super().random_int(1, 250)
         return str(numeric_part) + "."
+
+    # method added to fix #1996:
+    # for hu_Hu locale city_part could be first or second component of city,
+    # so city_parts tuple should contain lower-cased strings. Thus city might be lower-cased and should be capitalized
+    def city(self) -> str:
+        """
+        :example: 'Györgyháza'
+        """
+        pattern: str = self.random_element(self.city_formats)
+        return self.generator.parse(pattern).capitalize()
