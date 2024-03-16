@@ -32,6 +32,7 @@ class Provider(BaseProvider):
         "Windows NT 6.1",
         "Windows NT 6.2",
         "Windows NT 10.0",
+        "Windows NT 11.0",
     )
 
     linux_processors: ElementsType[str] = ("i686", "x86_64")
