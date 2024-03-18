@@ -2162,10 +2162,16 @@ class TestHuHu:
     def test_city(self, faker, num_samples):
         # generating possible variations for cities for hu_Hu locale
         real_cities = [city.lower() for city in HuHuAddressProvider.real_city_names]
-        cities_part_suffix = [''.join([part, suffix]) for part in HuHuAddressProvider.city_parts
-                              for suffix in HuHuAddressProvider.city_suffixes]
-        cities_prefix_part_suffix = [''.join([pref, part_suffix]) for pref in HuHuAddressProvider.city_prefs
-                                     for part_suffix in cities_part_suffix]
+        cities_part_suffix = [
+            "".join([part, suffix])
+            for part in HuHuAddressProvider.city_parts
+            for suffix in HuHuAddressProvider.city_suffixes
+        ]
+        cities_prefix_part_suffix = [
+            "".join([pref, part_suffix])
+            for pref in HuHuAddressProvider.city_prefs
+            for part_suffix in cities_part_suffix
+        ]
         cities = real_cities + cities_part_suffix + cities_prefix_part_suffix
         for _ in range(num_samples):
             city = faker.city()
