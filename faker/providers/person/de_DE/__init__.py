@@ -2041,6 +2041,8 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
+    # source
+    # https://www.namenforschung.net/en/dfd/dictionary/list-of-all-published-entries/
     last_names = (
         "Ackermann",
         "Adler",
@@ -2238,7 +2240,7 @@ class Provider(PersonProvider):
         "Kostolzin",
         "Kramer",
         "Kranz",
-        "Kraus",        #   https://en.wikipedia.org/wiki/Kraus
+        "Kraus",
         "Krause",
         "Kraushaar",
         "Krebs",
@@ -2387,7 +2389,7 @@ class Provider(PersonProvider):
         "Staude",
         "Steckel",
         "Steinberg",
-        "Steuer",       #   https://en.wikipedia.org/wiki/Steuer
+        "Steuer",
         "Stey",
         "Stiebitz",
         "Stiffel",
