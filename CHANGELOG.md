@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.2.1 - 2024-03-18](https://github.com/joke2k/faker/compare/v24.2.0...v24.2.1)
+
+* return capitalized city names in `hu_HU`. Thanks @AlexLitvino.
+
 ### [v24.2.0 - 2024-03-13](https://github.com/joke2k/faker/compare/v24.1.1...v24.2.0)
 
 * Add `uk-UA` credit card provider. Thanks @lozik4.
