@@ -2238,7 +2238,7 @@ class Provider(PersonProvider):
         "Kostolzin",
         "Kramer",
         "Kranz",
-        "Kraus",
+        "Kraus",        #   https://en.wikipedia.org/wiki/Kraus
         "Krause",
         "Kraushaar",
         "Krebs",
@@ -2387,7 +2387,7 @@ class Provider(PersonProvider):
         "Staude",
         "Steckel",
         "Steinberg",
-        "Steuer",
+        "Steuer",       #   https://en.wikipedia.org/wiki/Steuer
         "Stey",
         "Stiebitz",
         "Stiffel",
