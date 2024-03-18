@@ -18,6 +18,8 @@ class Provider(BaseProvider):
         "safari",
     )
 
+    # source
+    # https://en.wikipedia.org/wiki/Microsoft_Windows
     windows_platform_tokens: ElementsType[str] = (
         "Windows 95",
         "Windows 98",
@@ -39,6 +41,8 @@ class Provider(BaseProvider):
 
     mac_processors: ElementsType[str] = ("Intel", "PPC", "U; Intel", "U; PPC")
 
+    # source
+    # https://en.wikipedia.org/wiki/Android_version_history
     android_versions: ElementsType[str] = (
         "1.0",
         "1.1",
@@ -110,6 +114,8 @@ class Provider(BaseProvider):
 
     apple_devices: ElementsType[str] = ("iPhone", "iPad")
 
+    # sources
+    # https://en.wikipedia.org/wiki/IOS_version_history
     ios_versions: ElementsType[str] = (
         "3.1.3",
         "4.2.1",
@@ -126,7 +132,17 @@ class Provider(BaseProvider):
         "13.5.1",
         "14.2",
         "14.2.1",
-        "17.3.1"
+        "14.8.1",
+        "15.8.2",
+        "16.7.6",
+        "17.1",
+        "17.1.1",
+        "17.1.2",
+        "17.2",
+        "17.2.1",
+        "17.3",
+        "17.3.1",
+        "17.4"
     )
 
     def mac_processor(self) -> str:
