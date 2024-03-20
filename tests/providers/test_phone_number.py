@@ -62,6 +62,15 @@ class TestJaJp:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+class TestCsCz:
+    """Test cs_CZ phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"^(00420|\+420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$")
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
 
 class TestPtBr:
     """Test pt_BR phone number provider methods"""
