@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.4.0 - 2024-03-25](https://github.com/joke2k/faker/compare/v24.3.0...v24.4.0)
+
+* Add address words for `cs_CZ`. Thanks @george0st 
+
 ### [v24.3.0 - 2024-03-18](https://github.com/joke2k/faker/compare/v24.2.1...v24.3.0)
 
 * Add phone number formats to nl_BE. Thanks @maximegmd.
