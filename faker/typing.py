@@ -1,6 +1,7 @@
 import dataclasses
 import sys
 
+from collections import namedtuple
 from datetime import date, datetime, timedelta
 from typing import Sequence, Union
 
@@ -30,3 +31,6 @@ class Country:
     alpha_3_code: str
     continent: str
     capital: str
+
+
+RegistrantRule = namedtuple("RegistrantRule", ["min", "max", "registrant_length"])

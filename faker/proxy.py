@@ -6,7 +6,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
@@ -15,12 +15,77 @@ from .generator import Generator, random
 from .typing import SeedType
 from .utils.distribution import choices_distribution
 
+if TYPE_CHECKING:
+    from .providers import (
+        address,
+        automotive,
+        bank,
+        barcode,
+        color,
+        company,
+        credit_card,
+        currency,
+        date_time,
+        emoji,
+        file,
+        geo,
+        internet,
+        isbn,
+        job,
+        lorem,
+        misc,
+        passport,
+        person,
+        phone_number,
+        profile,
+        python,
+        sbn,
+        ssn,
+        user_agent,
+    )
+
+    class ProviderMixin(
+        address.Provider,
+        automotive.Provider,
+        bank.Provider,
+        barcode.Provider,
+        color.Provider,
+        company.Provider,
+        credit_card.Provider,
+        currency.Provider,
+        date_time.Provider,
+        emoji.Provider,
+        file.Provider,
+        geo.Provider,
+        internet.Provider,
+        isbn.Provider,
+        job.Provider,
+        lorem.Provider,
+        misc.Provider,
+        passport.Provider,
+        person.Provider,
+        phone_number.Provider,
+        profile.Provider,
+        python.Provider,
+        sbn.Provider,
+        ssn.Provider,
+        user_agent.Provider,
+        Generator,
+    ):
+        pass
+
+else:
+
+    class ProviderMixin:
+        pass
+
+
 _UNIQUE_ATTEMPTS = 1000
 
 RetType = TypeVar("RetType")
 
 
-class Faker:
+class Faker(ProviderMixin):
     """Proxy class capable of supporting multiple locales"""
 
     cache_pattern: Pattern = re.compile(r"^_cached_\w*_mapping$")
@@ -230,7 +295,7 @@ class Faker:
         """
         Generator.seed(seed)
 
-    def seed_instance(self, seed: Optional[SeedType] = None) -> None:
+    def seed_instance(self, seed: Optional[SeedType] = None) -> "Faker":
         """
         Creates and seeds a new `random.Random` object for each factory
 
@@ -238,6 +303,8 @@ class Faker:
         """
         for factory in self._factories:
             factory.seed_instance(seed)
+
+        return self
 
     def seed_locale(self, locale: str, seed: Optional[SeedType] = None) -> None:
         """

@@ -9,7 +9,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, TypeVar, Union, overload
 
 from faker.exceptions import UnsupportedFeature
 
@@ -19,6 +19,8 @@ from ..python import TypesSpec
 localized = True
 
 csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)
+
+_T = TypeVar("_T")
 
 
 class Provider(BaseProvider):
@@ -98,10 +100,31 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
+    @overload
     def uuid4(
         self,
-        cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
-    ) -> Union[bytes, str, uuid.UUID]:
+        cast_to: None,
+    ) -> uuid.UUID:
+        ...
+
+    @overload
+    def uuid4(
+        self,
+        cast_to: Callable[[uuid.UUID], _T],
+    ) -> _T:
+        ...
+
+    @overload
+    def uuid4(
+        self,
+        cast_to: Callable[[uuid.UUID], str] = str,
+    ) -> str:
+        ...
+
+    def uuid4(
+        self,
+        cast_to: Optional[Union[Callable[[uuid.UUID], _T], Callable[[uuid.UUID], str]]] = str,
+    ) -> Union[_T, str, uuid.UUID]:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
         By default, ``cast_to`` is set to ``str``.
@@ -643,7 +666,12 @@ class Provider(BaseProvider):
         _dict = {self.generator.word(): _dict}
         return xmltodict.unparse(_dict)
 
-    def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(
+        self,
+        data_columns: Optional[list] = None,
+        num_rows: int = 10,
+        align: str = "left",
+    ) -> str:
         """
         Generate random fixed width values.
 

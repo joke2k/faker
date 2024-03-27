@@ -4,10 +4,9 @@ number may be within an SBN. It's the same as the ISBN implementation
 for ean 978, reg_group 0.
 """
 
-from collections import namedtuple
 from typing import List
 
-RegistrantRule = namedtuple("RegistrantRule", ["min", "max", "registrant_length"])
+from ...typing import RegistrantRule
 
 # Structure: RULES = [Rule1, Rule2, ...]
 RULES: List[RegistrantRule] = [
