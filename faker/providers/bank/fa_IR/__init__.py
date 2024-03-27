@@ -5,7 +5,7 @@ class Provider(BankProvider):
     """Implement bank provider for ``fa_IR`` locale."""
 
     bban_format = "IR########################"
-    country_code = "IR"
+    bank_country_code = "IR"
     swift_bank_codes = (
         "BEGN",
         "KESH",

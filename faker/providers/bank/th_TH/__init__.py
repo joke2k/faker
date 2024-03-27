@@ -5,7 +5,7 @@ class Provider(BankProvider):
     """Implement bank provider for ``th_TH`` locale."""
 
     bban_format = "#" * 10
-    country_code = "TH"
+    bank_country_code = "TH"
     swift_bank_codes = (
         "AIAC",
         "ANZB",

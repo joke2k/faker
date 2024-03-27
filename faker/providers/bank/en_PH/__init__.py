@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class Provider(BankProvider):
     """Implement bank provider for ``en_PH`` locale."""
 
-    country_code = "PH"
+    bank_country_code = "PH"
     bban_format = "################"
     swift_bank_codes = (
         "ANZB",

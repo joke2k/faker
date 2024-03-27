@@ -4,7 +4,7 @@ from faker.providers.bank import Provider as BankProvider
 class Provider(BankProvider):
     """Implement bank provider for ``ro_RO`` locale."""
 
-    country_code = "RO"
+    bank_country_code = "RO"
     bban_format = "????################"
     swift_bank_codes = (
         "NBOR",

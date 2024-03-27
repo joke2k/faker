@@ -29,7 +29,7 @@ class Provider(BaseProvider):
 
     ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
     bban_format: str = "????#############"
-    country_code: str = "GB"
+    bank_country_code: str = "GB"
 
     def aba(self) -> str:
         """Generate an ABA routing transit number."""
@@ -46,7 +46,7 @@ class Provider(BaseProvider):
 
     def bank_country(self) -> str:
         """Generate the bank provider's ISO 3166-1 alpha-2 country code."""
-        return self.country_code
+        return self.bank_country_code
 
     def bban(self) -> str:
         """Generate a Basic Bank Account Number (BBAN)."""
@@ -57,12 +57,12 @@ class Provider(BaseProvider):
         """Generate an International Bank Account Number (IBAN)."""
         bban = self.bban()
 
-        check = bban + self.country_code + "00"
+        check = bban + self.bank_country_code + "00"
         check_ = int("".join(self.ALPHA.get(c, c) for c in check))
         check_ = 98 - (check_ % 97)
         check = str(check_).zfill(2)
 
-        return self.country_code + check + bban
+        return self.bank_country_code + check + bban
 
     def swift8(self, use_dataset: bool = False) -> str:
         """Generate an 8-digit SWIFT code.
@@ -143,7 +143,7 @@ class Provider(BaseProvider):
             location_code = self.lexify("??", letters=string.ascii_uppercase + string.digits)
 
         if length == 8:
-            return bank_code + self.country_code + location_code
+            return bank_code + self.bank_country_code + location_code
 
         if primary:
             branch_code = "XXX"
@@ -152,4 +152,4 @@ class Provider(BaseProvider):
         else:
             branch_code = self.lexify("???", letters=string.ascii_uppercase + string.digits)
 
-        return bank_code + self.country_code + location_code + branch_code
+        return bank_code + self.bank_country_code + location_code + branch_code

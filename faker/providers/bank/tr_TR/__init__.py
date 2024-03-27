@@ -5,4 +5,4 @@ class Provider(BankProvider):
     """Implement bank provider for ``tr_TR`` locale."""
 
     bban_format = "######################"
-    country_code = "TR"
+    bank_country_code = "TR"

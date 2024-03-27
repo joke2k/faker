@@ -10,7 +10,7 @@ class Provider(BankProvider):
     """
 
     bban_format = "#" * 27
-    country_code = "UA"
+    bank_country_code = "UA"
     banks = (
         "izibank",
         "monobank",
