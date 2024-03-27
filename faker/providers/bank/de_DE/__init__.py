@@ -10,7 +10,7 @@ class Provider(BankProvider):
     """
 
     bban_format = "##################"
-    country_code = "DE"
+    bank_country_code = "DE"
 
     first_place = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "23456789"
     second_place = "ABCDEFGHIJKLMNPQRSTUVWXYZ" + "0123456789"

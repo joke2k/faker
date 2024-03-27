@@ -6,7 +6,7 @@ class Provider(BankProvider):
     source: https://www.bcra.gob.ar/SistemasFinancierosYdePagos/Activos.asp"""
 
     bban_format = "????####################"
-    country_code = "AR"
+    bank_country_code = "AR"
 
     banks = (
         "Banco de la Nación Argentina",

@@ -29,7 +29,7 @@ class Provider(DateTimeProvider):
         "12": "ডিসেম্বর",
     }
 
-    countries = [
+    country_timezones = [
         Country(
             timezones=["ইউরোপ/অ্যান্ডোরা"],
             alpha_2_code="AD",

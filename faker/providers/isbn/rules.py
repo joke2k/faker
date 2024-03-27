@@ -9,10 +9,9 @@ The complete list of prefixes and rules can be found at
 https://www.isbn-international.org/range_file_generation
 """
 
-from collections import namedtuple
 from typing import Dict, List
 
-RegistrantRule = namedtuple("RegistrantRule", ["min", "max", "registrant_length"])
+from ...typing import RegistrantRule
 
 # Structure: RULES[`EAN Prefix`][`Registration Group`] = [Rule1, Rule2, ...]
 RULES: Dict[str, Dict[str, List[RegistrantRule]]] = {

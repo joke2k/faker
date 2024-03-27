@@ -8,4 +8,4 @@ class Provider(BankProvider):
     """
 
     bban_format = "####################"
-    country_code = "CZ"
+    bank_country_code = "CZ"

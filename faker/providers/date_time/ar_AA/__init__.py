@@ -53,7 +53,7 @@ class Provider(DateTimeProvider):
         "الثاني والعشرين",
     ]
 
-    countries = [
+    country_timezones = [
         Country(
             timezones=["أوروب/أندورا"],
             alpha_2_code="AD",

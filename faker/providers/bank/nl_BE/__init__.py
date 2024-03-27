@@ -10,7 +10,7 @@ class Provider(BankProvider):
     """
 
     bban_format = "############"
-    country_code = "BE"
+    bank_country_code = "BE"
 
     banks = (
         "Argenta Spaarbank",

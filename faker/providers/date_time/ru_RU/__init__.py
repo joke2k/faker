@@ -30,7 +30,7 @@ class Provider(DateTimeProvider):
     }
 
     # Timezone names are based on Wiki list, source: https://ru.wikipedia.org/wiki/Список_часовых_поясов_по_странам
-    countries = [
+    country_timezones = [
         Country(
             timezones=["Андорра (UTC+01)"],
             alpha_2_code="AD",
