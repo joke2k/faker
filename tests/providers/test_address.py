@@ -115,8 +115,13 @@ class TestBaseProvider:
 
     def test_current_country_errors(self):
         dt = providers.date_time
-        countries_duplicated = [*dt.Provider.countries, *dt.Provider.countries]
-        with mock.patch.object(dt.Provider, "countries", countries_duplicated), pytest.raises(ValueError) as e:
+        country_timezones_duplicated = [
+            *dt.Provider.country_timezones,
+            *dt.Provider.country_timezones,
+        ]
+        with mock.patch.object(dt.Provider, "country_timezones", country_timezones_duplicated), pytest.raises(
+            ValueError
+        ) as e:
             Faker("en_US").current_country()
         assert "Ambiguous" in str(e)
         country_code = "faker.providers.address.Provider.current_country_code"
@@ -1148,7 +1153,10 @@ class TestItIt:
         for _ in range(num_samples):
             postcode_city_province = faker.postcode_city_province()
             assert isinstance(postcode_city_province, str)
-            match = re.fullmatch(r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)", postcode_city_province)
+            match = re.fullmatch(
+                r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)",
+                postcode_city_province,
+            )
             assert match
             assert match.group("cap") in ItItAddressProvider.postcode_formats
             assert match.group("city") in ItItAddressProvider.cities
@@ -2113,7 +2121,10 @@ class TestHuHu:
         for _ in range(num_samples):
             street_address_with_county = faker.street_address_with_county()
             assert isinstance(street_address_with_county, str)
-            match = re.fullmatch(r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*", street_address_with_county)
+            match = re.fullmatch(
+                r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*",
+                street_address_with_county,
+            )
             assert match
 
     def test_city_prefix(self, faker, num_samples):

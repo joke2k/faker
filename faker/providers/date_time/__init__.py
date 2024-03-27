@@ -113,7 +113,7 @@ class Provider(BaseProvider):
         "XXI",
     ]
 
-    countries = [
+    country_timezones: list[Country] = [
         Country(
             timezones=["Europe/Andorra"],
             alpha_2_code="AD",
@@ -2444,7 +2444,7 @@ class Provider(BaseProvider):
         return self.random_element(self.centuries)
 
     def timezone(self) -> str:
-        return self.generator.random.choice(self.random_element(self.countries).timezones)  # type: ignore
+        return self.generator.random.choice(self.random_element(self.country_timezones).timezones)  # type: ignore
 
     def pytimezone(self, *args: Any, **kwargs: Any) -> Optional[TzInfo]:
         """
