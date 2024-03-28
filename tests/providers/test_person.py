@@ -21,6 +21,7 @@ from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
+from faker.providers.person.lo_LA import Provider as LoLaProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
@@ -30,9 +31,11 @@ from faker.providers.person.pl_PL import checksum_identity_card_number as pl_che
 from faker.providers.person.pt_PT import Provider as PtPtProvider
 from faker.providers.person.ru_RU import Provider as RuProvider
 from faker.providers.person.ru_RU import translit
+from faker.providers.person.si_LK import Provider as SiLkProvider
 from faker.providers.person.sk_SK import Provider as SkSKProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
+from faker.providers.person.ta_LK import Provider as TaLkProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.uk_UA import Provider as UkUAProvider
 from faker.providers.person.uk_UA import translit as UkUATranslit
@@ -1542,6 +1545,60 @@ class TestUkUa(unittest.TestCase):
         res = self.fake.full_name(short=True)
         assert res.count(".") == 2
         assert res.count(" ") == 1
+
+
+class TestLoLa(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("lo_LA")
+        Faker.seed(0)
+
+    def test_gender_first_names(self):
+        name = self.fake.first_name_female()
+        assert name in LoLaProvider.first_names_female
+        name = self.fake.first_name_male()
+        assert name in LoLaProvider.first_names_male
+        name = self.fake.first_name()
+        assert name in LoLaProvider.first_names
+
+    def test_last_names(self):
+        last_name = self.fake.last_name()
+        assert last_name in LoLaProvider.last_names
+
+
+class TestSiLk(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("si_LK")
+        Faker.seed(0)
+
+    def test_gender_first_names(self):
+        name = self.fake.first_name_female()
+        assert name in SiLkProvider.first_names_female
+        name = self.fake.first_name_male()
+        assert name in SiLkProvider.first_names_male
+        name = self.fake.first_name()
+        assert name in SiLkProvider.first_names
+
+    def test_last_names(self):
+        last_name = self.fake.last_name()
+        assert last_name in SiLkProvider.last_names
+
+
+class TestTaLk(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ta_LK")
+        Faker.seed(0)
+
+    def test_gender_first_names(self):
+        name = self.fake.first_name_female()
+        assert name in TaLkProvider.first_names_female
+        name = self.fake.first_name_male()
+        assert name in TaLkProvider.first_names_male
+        name = self.fake.first_name()
+        assert name in TaLkProvider.first_names
+
+    def test_last_names(self):
+        last_name = self.fake.last_name()
+        assert last_name in TaLkProvider.last_names
 
 
 if __name__ == "__main__":
