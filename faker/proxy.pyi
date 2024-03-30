@@ -1,11 +1,13 @@
 
-from typing import Any, Iterable, Sequence, Union, Type, Dict, List, Iterator, Tuple, Optional, TypeVar, Set
-from enum import Enum
-from faker.providers import T
 import datetime
+
 from decimal import Decimal
-from faker.providers.python import TEnum
+from enum import Enum
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Set, Tuple, Type, TypeVar, Union
+
 from faker.generator import Generator
+from faker.providers import T
+from faker.providers.python import TEnum
 
 T = TypeVar("T")
 TEnum = TypeVar("TEnum", bound=Enum)

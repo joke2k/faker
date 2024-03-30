@@ -1,12 +1,14 @@
-from collections import defaultdict
 import inspect
 import pathlib
 import re
+
+from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set, Tuple
-from faker.config import AVAILABLE_LOCALES, PROVIDERS
-from faker import Factory, Faker
 
 import faker.proxy
+
+from faker import Factory, Faker
+from faker.config import AVAILABLE_LOCALES, PROVIDERS
 
 BUILTIN_MODULES_TO_IGNORE = ["builtins"]
 GENERIC_MANGLE_TYPES_TO_IGNORE = ["builtin_function_or_method", "mappingproxy"]
