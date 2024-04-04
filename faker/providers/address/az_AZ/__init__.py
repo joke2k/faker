@@ -608,84 +608,84 @@ class Provider(AddressProvider):
         "Məlikçobanli",
     ]
 
-    def house_number(self):
+    def house_number(self) -> str:
         """
         :example: 'm. 49'
         """
         return self.numerify(self.random_element(self.house_number_formats))
 
-    def city(self):
+    def city(self) -> str:
         """
         :example: 'Xankəndi'
         """
         return self.random_element(self.cities)
 
-    def city_suffix(self):
+    def city_suffix(self) -> str:
         """
         :example: 'ş.'
         """
         return self.random_element(self.city_suffixes)
 
-    def street(self):
+    def street(self) -> str:
         """
         :example: 'A.AĞAYEV'
         """
         return self.random_element(self.streets)
 
-    def street_suffix(self):
+    def street_suffix(self) -> str:
         """
         :example: 'küç.'
         """
         return self.random_element(self.street_suffixes)
 
-    def village(self):
+    def village(self) -> str:
         """
         :example: 'Didivar'
         """
         return self.random_element(self.villages)
 
-    def village_suffix(self):
+    def village_suffix(self) -> str:
         """
         :example: 'k.'
         """
         return self.random_element(self.village_suffixes)
 
-    def district(self):
+    def district(self) -> str:
         """
         :example: 'Babək'
         """
         return self.random_element(self.districts)
 
-    def district_suffix(self):
+    def district_suffix(self) -> str:
         """
         :example: 'r.'
         """
         return self.random_element(self.district_suffixes)
 
-    def settlement(self):
+    def settlement(self) -> str:
         """
         :example: 'Horadiz'
         """
         return self.random_element(self.settlements)
 
-    def settlement_suffix(self):
+    def settlement_suffix(self) -> str:
         """
         :example: 'qəs.'
         """
         return self.random_element(self.settlement_suffixes)
 
-    def administrative_unit(self):
+    def administrative_unit(self) -> str:
         """
         :example: 'Xankəndi'
         """
         return self.random_element(self.districts + self.cities)
 
-    def postcode(self):
+    def postcode(self) -> str:
         """
         :example: 'AZ1027'
         """
         index = self.generator.random.randint(900, 6600)
         return "AZ%04d" % index if index > 999 else "AZ0%03d" % index
 
-    def postalcode(self):
+    def postalcode(self) -> str:
         return self.postcode()

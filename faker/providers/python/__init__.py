@@ -139,12 +139,12 @@ class Provider(BaseProvider):
 
     def pyfloat(
         self,
-        left_digits=None,
-        right_digits=None,
-        positive=None,
-        min_value=None,
-        max_value=None,
-    ):
+        left_digits: Optional[int] = None,
+        right_digits: Optional[int] = None,
+        positive: Optional[bool] = None,
+        min_value: Optional[Union[float, int]] = None,
+        max_value: Optional[Union[float, int]] = None,
+    ) -> float:
         if left_digits is not None and left_digits < 0:
             raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
