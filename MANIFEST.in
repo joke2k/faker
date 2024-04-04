@@ -7,13 +7,14 @@ include VERSION
 include CITATION.cff
 include mypy.ini
 include tox.ini
+recursive-exclude faker *.pyi
 recursive-include tests *.json
 recursive-include tests *.py
 recursive-exclude faker/sphinx *.py
 recursive-exclude tests/sphinx *.py
 
 global-exclude *.py[cod] __pycache__ *.so
-exclude Makefile .coveragerc .bumpversion.cfg .dockerignore .isort.cfg
+exclude Makefile .coveragerc .bumpversion.cfg .dockerignore .isort.cfg generate_stubs.py
 exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
 exclude appveyor.yml readthedocs.yml
 exclude build-alpine.sh
