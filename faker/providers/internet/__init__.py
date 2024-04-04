@@ -134,8 +134,6 @@ class Provider(BaseProvider):
     http_assigned_codes: ElementsType[int] = (
         100,
         101,
-        100,
-        101,
         102,
         103,
         200,
