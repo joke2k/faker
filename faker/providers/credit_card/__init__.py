@@ -1,28 +1,10 @@
 from collections import OrderedDict
-from typing import Dict, List, Optional, TypeVar
+from typing import Dict, List, Optional
 
-from ...typing import DateParseType
+from ...typing import CardType, CreditCard, DateParseType
 from .. import BaseProvider
 
 localized = True
-
-CardType = TypeVar("CardType", "CreditCard", str)
-
-
-class CreditCard:
-    def __init__(
-        self,
-        name: str,
-        prefixes: List[str],
-        length: int = 16,
-        security_code: str = "CVC",
-        security_code_length: int = 3,
-    ) -> None:
-        self.name = name
-        self.prefixes = prefixes
-        self.length = length
-        self.security_code = security_code
-        self.security_code_length = security_code_length
 
 
 class Provider(BaseProvider):

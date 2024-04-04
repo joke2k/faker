@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
-from .. import CreditCard
+from faker.typing import CreditCard
+
 from .. import Provider as CreditCardProvider
 
 
