@@ -1,3 +1,5 @@
+import re
+
 from unittest.mock import patch
 
 import pytest
@@ -131,6 +133,7 @@ class TestRuRu:
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+            assert re.match(r"\d{1,3}(?:\s\d{3})*,\d{2}\sр\.", pricetag)
 
 
 class TestCsCz:
