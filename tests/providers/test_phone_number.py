@@ -78,10 +78,10 @@ class TestSkSk:
 
     def test_phone_number(self, faker, num_samples):
         pattern: Pattern = re.compile(
-            r"(^(00421|\+421)? ?[2-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$)|"
             r"(^(00421|\+421)? ?[2] ?[0-9]{8}$)|"
-            r"(^(00421|\+421)? ?[3-5][0-9] ?[0-9]{3} ?[0-9]{4}$)"
-        )
+            r"(^(00421|\+421)? ?[3-5][0-9] ?[0-9]{3} ?[0-9]{4}$)|"
+            r"(^(00421|\+421)? ?[9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$)")
+
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
