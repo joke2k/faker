@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.5.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.4.0...v24.5.0)
+
+* Add type hints stubs. Thanks @KaylaHood.
+
 ### [v24.4.0 - 2024-03-25](https://github.com/joke2k/faker/compare/v24.3.0...v24.4.0)
 
 * Add address words for `cs_CZ`. Thanks @george0st 
