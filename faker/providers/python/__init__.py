@@ -137,22 +137,24 @@ class Provider(BaseProvider):
     ) -> str:
         return self.bothify(self.generator.parse(string_format), letters=letters)
 
+    @no_type_check
     def pyfloat(
         self,
-        left_digits=None,
-        right_digits=None,
-        positive=None,
-        min_value=None,
-        max_value=None,
-    ):
+        left_digits: Optional[int] = None,
+        right_digits: Optional[int] = None,
+        positive: Optional[bool] = None,
+        min_value: Optional[Union[float, int]] = None,
+        max_value: Optional[Union[float, int]] = None,
+    ) -> float:
         if left_digits is not None and left_digits < 0:
             raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
         if right_digits is not None and right_digits < 0:
             raise ValueError("A float number cannot have less than 0 digits in its " "fractional part")
         if left_digits == 0 and right_digits == 0:
             raise ValueError("A float number cannot have less than 0 digits in total")
-        if None not in (min_value, max_value) and min_value > max_value:
-            raise ValueError("Min value cannot be greater than max value")
+        if min_value is not None and max_value is not None:
+            if min_value > max_value:
+                raise ValueError("Min value cannot be greater than max value")
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:

@@ -138,7 +138,7 @@ class Faker:
             factory = self._select_factory(attr)
             return getattr(factory, attr)
 
-    def __deepcopy__(self, memodict: Dict = {}) -> "Faker":
+    def __deepcopy__(self, memodict):
         cls = self.__class__
         result = cls.__new__(cls)
         result._locales = copy.deepcopy(self._locales)

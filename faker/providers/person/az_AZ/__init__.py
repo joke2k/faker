@@ -897,17 +897,17 @@ class Provider(PersonProvider):
 
     prefixes = prefixes_female + prefixes_male
 
-    def last_name_male(self):
+    def last_name_male(self) -> str:
         return self.random_element(self.last_names_male + self.last_names_unisex)
 
-    def last_name_unique_to_male(self):
+    def last_name_unique_to_male(self) -> str:
         return self.random_element(self.last_names_male)
 
-    def last_name_female(self):
+    def last_name_female(self) -> str:
         return self.random_element(self.last_names_female + self.last_names_unisex)
 
-    def last_name_unique_to_female(self):
+    def last_name_unique_to_female(self) -> str:
         return self.random_element(self.last_names_female)
 
-    def last_name_unisex(self):
+    def last_name_unisex(self) -> str:
         return self.random_element(self.last_names_unisex)

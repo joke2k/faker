@@ -1,5 +1,22 @@
 ## Changelog
 
+### [v24.7.1 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.7.0...v24.7.1)
+
+* Fix previous release issue.
+
+### [v24.7.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.6.0...v24.7.0)
+
+*  Update last names for `de_DE` locale. Thanks @george0st.
+*  Update phone number formats for `cs_CZ`, `sk_SK`. Thanks @george0st.
+
+### [v24.6.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.5.0...v24.6.0)
+
+*  Update versions in `user_agent` provider. Thanks @george0st.
+
+### [v24.5.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.4.0...v24.5.0)
+
+* Add type hints stubs. Thanks @KaylaHood.
+
 ### [v24.4.0 - 2024-03-25](https://github.com/joke2k/faker/compare/v24.3.0...v24.4.0)
 
 * Add address words for `cs_CZ`. Thanks @george0st 

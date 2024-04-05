@@ -8094,13 +8094,11 @@ class Provider(SsnProvider):
             surname_part = "".join(surname_consonants)[:3]
         return surname_part
 
-    @staticmethod
-    def _transliterate_name(name: str) -> str:
+    def _transliterate_name(self, name: str) -> str:
         nfkd_form: str = unicodedata.normalize("NFKD", name)
         return "".join([c for c in nfkd_form if unicodedata.combining(c) == 0])
 
-    @staticmethod
-    def _get_vowels(sequence: str) -> list:
+    def _get_vowels(self, sequence: str) -> list:
         """
         Returns list of vowels in provided string
         """
@@ -8110,8 +8108,7 @@ class Provider(SsnProvider):
                 vowels.append(char)
         return vowels
 
-    @staticmethod
-    def _get_consonants(sequence: str) -> list:
+    def _get_consonants(self, sequence: str) -> list:
         """
         Returns list of consonants in provided string
         """
@@ -8121,8 +8118,7 @@ class Provider(SsnProvider):
                 consonants.append(char)
         return consonants
 
-    @staticmethod
-    def _pad_shorter(sequence: str) -> str:
+    def _pad_shorter(self, sequence: str) -> str:
         """
         Pads shorter string with the allowed char
         """
@@ -8137,8 +8133,7 @@ class Provider(SsnProvider):
             return True
         return False
 
-    @staticmethod
-    def _get_max_day(is_leap_year: bool, month: str) -> int:
+    def _get_max_day(self, is_leap_year: bool, month: str) -> int:
         """
         Returns the maximum day for the current month
         """

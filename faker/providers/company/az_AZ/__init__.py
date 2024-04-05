@@ -45,7 +45,7 @@ class Provider(CompanyProvider):
         "MMC",
     )
 
-    def large_company(self):
+    def large_company(self) -> str:
         """
         :example: 'SOCAR'
         """

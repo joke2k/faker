@@ -3,9 +3,33 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     # Phone numbers
-    # https://cs.wikipedia.org/wiki/Telefonn%C3%AD_%C4%8D%C3%ADslo
+    #   https://cs.wikipedia.org/wiki/Telefonn%C3%AD_%C4%8D%C3%ADslo
+    #   https://www.srovnejto.cz/blog/jake-jsou-telefonni-predvolby-do-zahranici/
 
     formats = (
+        # prefix 00420
+        # 601-608
+        "00420 601 ### ###",
+        "00420 602 ### ###",
+        "00420 603 ### ###",
+        "00420 604 ### ###",
+        "00420 605 ### ###",
+        "00420 606 ### ###",
+        "00420 607 ### ###",
+        "00420 608 ### ###",
+        # 702-705
+        "00420 702 ### ###",
+        "00420 703 ### ###",
+        "00420 704 ### ###",
+        "00420 705 ### ###",
+        # 720-739
+        "00420 72# ### ###",
+        "00420 73# ### ###",
+        # 770-779
+        "00420 77# ### ###",
+        # 790-799
+        "00420 79# ### ###",
+        # prefix +420
         # 601-608
         "+420 601 ### ###",
         "+420 602 ### ###",

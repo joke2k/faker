@@ -4115,8 +4115,7 @@ class Provider(PersonProvider):
 
         return "".join(str(character) for character in identity)
 
-    @staticmethod
-    def pesel_compute_check_digit(pesel: str) -> int:
+    def pesel_compute_check_digit(self, pesel: str) -> int:
         checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
         return sum(int(a) * b for a, b in zip(pesel, checksum_values)) % 10
 
@@ -4168,8 +4167,7 @@ class Provider(PersonProvider):
 
         return pesel
 
-    @staticmethod
-    def pwz_doctor_compute_check_digit(x: Sequence[int]) -> int:
+    def pwz_doctor_compute_check_digit(self, x: Sequence[int]) -> int:
         return sum((i + 1) * d for i, d in enumerate(x)) % 11
 
     def pwz_doctor(self) -> str:

@@ -35,6 +35,6 @@ class Provider(BankProvider):
         "Ziraat Bank Azərbaycan",
     )
 
-    def bank(self):
+    def bank(self) -> str:
         """Generate a bank name."""
         return self.random_element(self.banks)

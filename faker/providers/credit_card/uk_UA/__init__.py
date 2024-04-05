@@ -2,8 +2,8 @@ from collections import OrderedDict
 from typing import Optional
 
 from faker.providers.person.uk_UA import translit
+from faker.typing import CardType, CreditCard
 
-from .. import CardType, CreditCard
 from .. import Provider as CreditCardProvider
 
 
