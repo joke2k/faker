@@ -62,6 +62,7 @@ class TestJaJp:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+
 class TestCsCz:
     """Test cs_CZ phone number provider methods"""
 
@@ -71,7 +72,7 @@ class TestCsCz:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
-            
+
 class TestSkSk:
     """Test sk_SK phone number provider methods"""
 
