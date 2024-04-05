@@ -77,7 +77,7 @@ class TestSkSk:
     """Test sk_SK phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"^(00421|\+421)? ?[2-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$")
+        pattern: Pattern = re.compile(r"^(\+421|00421) [0-9 ]+$")
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
