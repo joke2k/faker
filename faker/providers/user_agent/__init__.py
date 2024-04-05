@@ -109,7 +109,7 @@ class Provider(BaseProvider):
         "12",
         "12.1",
         "13",
-        "14"
+        "14",
     )
 
     apple_devices: ElementsType[str] = ("iPhone", "iPad")
@@ -142,7 +142,7 @@ class Provider(BaseProvider):
         "17.2.1",
         "17.3",
         "17.3.1",
-        "17.4"
+        "17.4",
     )
 
     def mac_processor(self) -> str:
