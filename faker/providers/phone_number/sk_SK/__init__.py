@@ -6,7 +6,6 @@ class Provider(PhoneNumberProvider):
         # pattern I.
         "00421 2 ########",
         "+421 2 ########",
-
         # patter II.
         "00421 3# ### ####",
         "00421 4# ### ####",
@@ -14,7 +13,6 @@ class Provider(PhoneNumberProvider):
         "+421 3# ### ####",
         "+421 4# ### ####",
         "+421 5# ### ####",
-
         # pattern III.
         "00421 90# ### ###",
         "00421 91# ### ###",
