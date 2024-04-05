@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.6.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.5.0...v24.6.0)*
+
+*  Update versions in `user_agent` provider. Thanks @george0st.
+
 ### [v24.5.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.4.0...v24.5.0)
 
 * Add type hints stubs. Thanks @KaylaHood.
