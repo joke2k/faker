@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.7.1 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.7.0...v24.7.1)
+
+* Fix previous release issue.
+
 ### [v24.7.0 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.6.0...v24.7.0)
 
 *  Update last names for `de_DE` locale. Thanks @george0st.
