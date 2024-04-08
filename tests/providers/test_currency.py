@@ -119,6 +119,8 @@ class TestRuRu:
         cls.currencies = cls.provider.currencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
 
+        cls.pricetag_pattern = re.compile(r"\d{1,3}(?:\s\d{3})*,\d{2}\sр\.")
+
     def test_currency(self, faker, num_samples):
         for _ in range(num_samples):
             cur = faker.currency()
@@ -133,7 +135,7 @@ class TestRuRu:
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
-            assert re.match(r"\d{1,3}(?:\s\d{3})*,\d{2}\sр\.", pricetag)
+            assert self.pricetag_pattern.fullmatch(pricetag)
 
 
 class TestCsCz:
