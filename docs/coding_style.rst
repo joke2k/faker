@@ -16,7 +16,7 @@ Data Sets
 ---------
 
 For each data set, please provide a comment with reference to the source
-and/or origin of the data.
+and/or origin of the data. If the source is a wiki, please also include the date and time it was last checked.
 
 We only accept new data if it's coming from statistical sources, such as census or government institutions.
 This includes names and their distribution.
