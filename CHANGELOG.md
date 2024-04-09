@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.8.0 - 2024-04-09](https://github.com/joke2k/faker/compare/v24.7.1...v24.8.0)
+
+* Fix wrong pricetag format in `ru_RU` locale. Thanks @Pandede.
+
 ### [v24.7.1 - 2024-04-05](https://github.com/joke2k/faker/compare/v24.7.0...v24.7.1)
 
 * Fix previous release issue.
