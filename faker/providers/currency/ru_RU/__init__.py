@@ -171,7 +171,7 @@ class Provider(CurrencyProvider):
         ("ZWD", "Доллар Зимбабве"),
     )
 
-    price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
+    price_formats = ["#,##", "%#,##", "%##,##", "% ###,##", "%# ###,##"]
 
     def pricetag(self) -> str:
         return (
