@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.9.0 - 2024-04-12](https://github.com/joke2k/faker/compare/v24.8.0...v24.9.0)
+
+* Update `uk_UA` phone provider. Thanks @lozik4.
+
 ### [v24.8.0 - 2024-04-09](https://github.com/joke2k/faker/compare/v24.7.1...v24.8.0)
 
 * Fix wrong pricetag format in `ru_RU` locale. Thanks @Pandede.
