@@ -141,19 +141,19 @@ class TestPyint(unittest.TestCase):
     def test_pyint_range(self):
         self.assertTrue(0 <= self.fake.pyint(min_value=0, max_value=2) <= 2)
 
-    def test_pyint_avoid_int(self):
-        random_int = self.fake.pyint(min_value=0, max_value=3, avoid_int=2)
+    def test_pyint_avoid_value(self):
+        random_int = self.fake.pyint(min_value=0, max_value=3, avoid_value=2)
         self.assertNotEqual(random_int, 2)
         self.assertTrue(0 <= random_int <= 3)
 
-    def test_pyint_avoid_int_on_upper_bound(self):
-        self.assertTrue(0 <= self.fake.pyint(min_value=0, max_value=3, avoid_int=3) <= 3)
+    def test_pyint_avoid_value_on_upper_bound(self):
+        self.assertTrue(0 <= self.fake.pyint(min_value=0, max_value=3, avoid_value=3) <= 3)
 
-    def test_pyint_avoid_int_on_lower_bound(self):
-        self.assertTrue(1 <= self.fake.pyint(min_value=0, max_value=3, avoid_int=0) <= 3)
+    def test_pyint_avoid_value_on_lower_bound(self):
+        self.assertTrue(1 <= self.fake.pyint(min_value=0, max_value=3, avoid_value=0) <= 3)
 
-    def test_pyint_step_avoid_int(self):
-        random_int = self.fake.pyint(min_value=0, max_value=6, avoid_int=4, step=2)
+    def test_pyint_step_avoid_value(self):
+        random_int = self.fake.pyint(min_value=0, max_value=6, avoid_value=4, step=2)
         self.assertNotEqual(random_int, 4)
         self.assertTrue(0 <= random_int <= 6)
         self.assertEqual(0, random_int % 2)
