@@ -305,7 +305,7 @@ class BaseProvider:
 
         return self.random_element(BaseProvider.language_locale_codes.keys())
 
-    def random_int(self, min: int = 0, max: int = 9999, step: int = 1) -> int:
+    def random_int(self, min: int = 0, max: int = 9999, step: int = 1, avoid_int: int = None) -> int:
         """Generate a random integer between two integers ``min`` and ``max`` inclusive
         while observing the provided ``step`` value.
 
@@ -315,6 +315,14 @@ class BaseProvider:
         :sample: min=0, max=15
         :sample: min=0, max=15, step=3
         """
+        if avoid_int is not None and avoid_int % step == 0 and avoid_int >= min and avoid_int <= max:
+            initial_int = self.generator.random.randrange(min, max + 1 - step, step)
+
+            if initial_int >= avoid_int:
+                return initial_int + step
+
+            return initial_int
+
         return self.generator.random.randrange(min, max + 1, step)
 
     def random_digit(self) -> int:

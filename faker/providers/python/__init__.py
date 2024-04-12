@@ -261,8 +261,8 @@ class Provider(BaseProvider):
                 max_value += 1
             return self.random_int(min_value, max_value)
 
-    def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1) -> int:
-        return self.generator.random_int(min_value, max_value, step=step)
+    def pyint(self, min_value: int = 0, max_value: int = 9999, step: int = 1, avoid_int: int = None) -> int:
+        return self.generator.random_int(min_value, max_value, step=step, avoid_int=avoid_int)
 
     def _random_int_of_length(self, length: int) -> int:
         """Generate a random integer of a given length
