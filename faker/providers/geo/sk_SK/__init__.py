@@ -41,5 +41,10 @@ class Provider(GeoProvider):
         ("48.98857", "22.15099", "Snina", "SK", "Europe/Snina"),
         ("48.67922", "17.36697", "Senica", "SK", "Europe/Senica"),
         ("48.75763", "17.8309", "Nové Mesto nad Váhom", "SK", "Europe/Nové Mesto nad Váhom"),
-
+        ("49.13571", "20.43352", "Kežmarok", "SK", "Europe/Kežmarok"),
+        ("48.28986", "17.26664", "Pezinok", "SK", "Europe/Pezinok"),
+        ("48.80431", "19.63631", "Brezno", "SK", "Europe/Brezno"),
+        ("49.20983", "19.30341", "Dolný Kubín", "SK", "Europe/Dolný Kubín"),
+        ("48.59184", "18.84958", "Žiar nad Hronom", "SK", "Europe/Žiar nad Hronom"),
+        ("48.66009", "20.53758", "Rožňava", "SK", "Europe/Rožňava"),
     )
