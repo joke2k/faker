@@ -35,4 +35,11 @@ class Provider(GeoProvider):
         ("48.15127", "17.88062", "Šaľa", "SK", "Europe/Šaľa"),
         ("48.62861", "18.38455", "Partizánske", "SK", "Europe/Partizánske"),
         ("48.43174", "17.8031", "Hlohovec", "SK", "Europe/Hlohovec"),
+        ("47.99268", "17.61211", "Dunajská Streda", "SK", "Europe/Dunajská Streda"),
+        ("48.88836", "21.68479", "Vranov nad Topľou", "SK", "Europe/Vranov nad Topľou"),
+        ("48.62858", "21.71954", "Trebišov", "SK", "Europe/Trebišov"),
+        ("48.98857", "22.15099", "Snina", "SK", "Europe/Snina"),
+        ("48.67922", "17.36697", "Senica", "SK", "Europe/Senica"),
+        ("48.75763", "17.8309", "Nové Mesto nad Váhom", "SK", "Europe/Nové Mesto nad Váhom"),
+
     )
