@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.11.0 - 2024-04-17](https://github.com/joke2k/faker/compare/v24.10.0...v24.11.0)
+
+* Tune `cs_CZ` phone number validation. Thanks @george0st.
+
 ### [v24.10.0 - 2024-04-17](https://github.com/joke2k/faker/compare/v24.9.0...v24.10.0)
 
 * Update list of `first_name_*` and `last_name` in `pt_BR` `PersonProvider`. Thanks @dclobato.
