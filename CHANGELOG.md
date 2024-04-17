@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.10.0 - 2024-04-17](https://github.com/joke2k/faker/compare/v24.9.0...v24.10.0)
+
+* Update list of `first_name_*` and `last_name` in `pt_BR` `PersonProvider`. Thanks @dclobato.
+
 ### [v24.9.0 - 2024-04-12](https://github.com/joke2k/faker/compare/v24.8.0...v24.9.0)
 
 * Update `uk_UA` phone provider. Thanks @lozik4.
