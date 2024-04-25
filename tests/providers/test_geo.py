@@ -96,6 +96,7 @@ class TestSkSk(unittest.TestCase):
         assert len(loc[3]) == 2  # Country code is two letters
         assert isinstance(loc[4], str)  # Timezone is a string
 
+
 class TestCsCz(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("cs_CZ")
