@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v24.13.0 - 2024-04-25](https://github.com/joke2k/faker/compare/v24.12.0...v24.13.0)
+
+*  Add geo provider for `sk_SK`. Thanks @george0st.
+* Clean up data in `sk_SK` job provider. Thanks @george0st.
+
 ### [v24.12.0 - 2024-04-25](https://github.com/joke2k/faker/compare/v24.11.0...v24.12.0)
 
 * Remove offensive word from `pl_PL` lorem provider. Thanks @Rey092.
