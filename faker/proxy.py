@@ -6,7 +6,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
+from typing import Any, Callable, Pattern, Sequence, TypeVar
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
