@@ -1,5 +1,6 @@
 from faker.providers.job import Provider as JobProvider
 from faker.providers.job.az_AZ import Provider as AzAzJobProvider
+from faker.providers.job.cs_CZ import Provider as CsCzJobProvider
 from faker.providers.job.de_DE import Provider as DeDeJobProvider
 from faker.providers.job.el_GR import Provider as ElGrJobProvider
 from faker.providers.job.es_ES import Provider as EsEsJobProvider
@@ -23,6 +24,14 @@ class TestJobProvider:
         for _ in range(num_samples):
             assert faker.job() in JobProvider.jobs
 
+class TestCsCZ:
+    """Test cs_CZ job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            job = faker.job()
+            assert isinstance(job, str)
+            assert job in CsCzJobProvider.jobs
 
 class TestAzAz:
     """Test az_AZ job provider"""
