@@ -193,7 +193,7 @@ class Provider(BaseProvider):
                 saf,
             ),
             tmplt.format(
-                "Linux; {}".format(self.android_platform_token()),
+                f"Linux; {self.android_platform_token()}",
                 saf,
                 self.generator.random.randint(version_from, version_to),
                 self.generator.random.randint(build_from, build_to),
@@ -228,7 +228,7 @@ class Provider(BaseProvider):
         tmplt_mac: str = "({0}; rv:1.9.{1}.20) {2}"
         tmplt_and: str = "({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0"
         tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}"
-        saf: str = "{}.{}".format(self.generator.random.randint(531, 536), self.generator.random.randint(0, 2))
+        saf: str = f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
         bld2: str = self.lexify(self.numerify("#?####"), string.ascii_lowercase)
         platforms: ElementsType[str] = (

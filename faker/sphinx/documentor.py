@@ -1,4 +1,3 @@
-# coding=utf-8
 import importlib
 import inspect
 import os
@@ -145,7 +144,7 @@ def _write_localized_provider_docs():
     (DOCS_ROOT / "locales").mkdir(parents=True, exist_ok=True)
     for locale in AVAILABLE_LOCALES:
         info = _get_localized_provider_info(locale)
-        with (DOCS_ROOT / "locales" / "{}.rst".format(locale)).open("wb") as fh:
+        with (DOCS_ROOT / "locales" / f"{locale}.rst").open("wb") as fh:
             _hide_edit_on_github(fh)
             _write_title(fh, f"Locale {locale}")
             _write_includes(fh)

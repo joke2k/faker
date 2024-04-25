@@ -7,14 +7,15 @@ from typing import Sequence, Union
 try:
     from typing import List, Literal, TypeVar  # type: ignore
 except ImportError:
-    from typing_extensions import List, Literal, TypeVar  # type: ignore
+    from typing_extensions import Literal, TypeVar  # type: ignore
+    from typing import List
 
 if sys.version_info >= (3, 9):
     from collections import OrderedDict as OrderedDictType
 elif sys.version_info >= (3, 7, 2):
     from typing import OrderedDict as OrderedDictType
 else:
-    from typing_extensions import OrderedDict as OrderedDictType  # NOQA
+    from typing import OrderedDict as OrderedDictType  # NOQA
 
 
 class CreditCard:
