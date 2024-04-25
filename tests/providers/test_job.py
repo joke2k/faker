@@ -25,7 +25,7 @@ class TestJobProvider:
             assert faker.job() in JobProvider.jobs
 
 
-class TestCsCZ:
+class TestCsCz:
     """Test cs_CZ job provider"""
 
     def test_job(self, faker, num_samples):
