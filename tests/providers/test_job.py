@@ -24,6 +24,7 @@ class TestJobProvider:
         for _ in range(num_samples):
             assert faker.job() in JobProvider.jobs
 
+
 class TestCsCZ:
     """Test cs_CZ job provider"""
 
@@ -32,6 +33,7 @@ class TestCsCZ:
             job = faker.job()
             assert isinstance(job, str)
             assert job in CsCzJobProvider.jobs
+
 
 class TestAzAz:
     """Test az_AZ job provider"""
