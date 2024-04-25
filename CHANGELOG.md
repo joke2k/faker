@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.12.0 - 2024-04-25](https://github.com/joke2k/faker/compare/v24.11.0...v24.12.0)
+
+* Remove offensive word from `pl_PL` lorem provider. Thanks @Rey092.
+
 ### [v24.11.0 - 2024-04-17](https://github.com/joke2k/faker/compare/v24.10.0...v24.11.0)
 
 * Tune `cs_CZ` phone number validation. Thanks @george0st.
