@@ -12,10 +12,8 @@ except ImportError:
 
 if sys.version_info >= (3, 9):
     from collections import OrderedDict as OrderedDictType
-elif sys.version_info >= (3, 7, 2):
-    from typing import OrderedDict as OrderedDictType
 else:
-    from typing import OrderedDict as OrderedDictType  # NOQA
+    from typing import OrderedDict as OrderedDictType
 
 
 class CreditCard:
