@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v24.14.1 - 2024-04-28](https://github.com/joke2k/faker/compare/v24.14.0...v24.14.1)
+
+* Include type stubs in release.
+
 ### [v24.14.0 - 2024-04-25](https://github.com/joke2k/faker/compare/v24.13.0...v24.14.0)
 
 * Add job provider for `cs_CZ`. Thanks @george0st.
