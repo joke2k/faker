@@ -2,6 +2,7 @@ import datetime
 
 from collections import OrderedDict
 from decimal import Decimal
+from enum import Enum
 from json import encoder
 from typing import (
     Any,
@@ -17,6 +18,7 @@ from typing import (
     Set,
     Tuple,
     Type,
+    TypeVar,
     Union,
 )
 from uuid import UUID
@@ -3765,10 +3767,10 @@ class Faker:
     def __getitem__(self, locale: "str") -> "Faker": ...
     def __init__(
         self,
-        locale: "Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]]" = ...,
-        providers: "Optional[List[str]]" = ...,
-        generator: "Optional[Generator]" = ...,
-        includes: "Optional[List[str]]" = ...,
+        locale: "str | Sequence[str] | dict[str, int | float] | None" = ...,
+        providers: "list[str] | None" = ...,
+        generator: "Generator | None" = ...,
+        includes: "list[str] | None" = ...,
         use_weighting: "bool" = ...,
         **config: "Any"
     ) -> "None":
@@ -3777,23 +3779,23 @@ class Faker:
         """
         ...
     def __setstate__(self, state: "Any") -> "None": ...
-    def items(self) -> "List[Tuple[str, Generator | Faker]]": ...
+    def items(self) -> "list[tuple[str, Generator | Faker]]": ...
     @staticmethod
-    def seed(seed: "Optional[SeedType]" = ...) -> "None":
+    def seed(seed: "SeedType | None" = ...) -> "None":
         """
         Hashables the shared `random.Random` object across all factories
 
         :param seed: seed value
         """
         ...
-    def seed_instance(self, seed: "Optional[SeedType]" = ...) -> "None":
+    def seed_instance(self, seed: "SeedType | None" = ...) -> "None":
         """
         Creates and seeds a new `random.Random` object for each factory
 
         :param seed: seed value
         """
         ...
-    def seed_locale(self, locale: "str", seed: "Optional[SeedType]" = ...) -> "None":
+    def seed_locale(self, locale: "str", seed: "SeedType | None" = ...) -> "None":
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 

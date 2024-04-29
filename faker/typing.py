@@ -7,8 +7,9 @@ from typing import Sequence, Union
 try:
     from typing import List, Literal, TypeVar  # type: ignore
 except ImportError:
-    from typing_extensions import Literal, TypeVar  # type: ignore
     from typing import List
+
+    from typing_extensions import Literal, TypeVar  # type: ignore
 
 if sys.version_info >= (3, 9):
     from collections import OrderedDict as OrderedDictType

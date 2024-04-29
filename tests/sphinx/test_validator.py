@@ -1,5 +1,3 @@
-import sys
-
 from unittest import mock
 
 from faker.sphinx.validator import SampleCodeValidator
