@@ -70,7 +70,7 @@ for name, sym in [
     ("minutes", "m"),
     ("seconds", "s"),
 ]:
-    timedelta_pattern += r"((?P<{}>(?:\+|-)\d+?){})?".format(name, sym)
+    timedelta_pattern += fr"((?P<{name}>(?:\+|-)\d+?){sym})?"
 
 
 class Provider(BaseProvider):

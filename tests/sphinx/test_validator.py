@@ -1,4 +1,3 @@
-# coding=utf-8
 import sys
 
 from unittest import mock
@@ -100,8 +99,7 @@ class TestSampleCodeValidator:
 
     def test_prohibited_literal_types(self):
         commands = ["variable.method(...)"]
-        if sys.version_info[0] == 3 and sys.version_info[1] >= 6:
-            commands.append('f"{variable}"')
+        commands.append('f"{variable}"')
 
         for command in commands:
             validator = SampleCodeValidator(command)

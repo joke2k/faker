@@ -38,9 +38,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
@@ -73,6 +70,5 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "python-dateutil>=2.4",
-        "typing-extensions>=3.10.0.1;python_version<='3.8'",
     ],
 )

@@ -45,6 +45,6 @@ class TestEnumProvider:
             faker.enum(None)
 
     def test_incorrect_type_raises(self, faker):
-        not_an_enum_type = type("NotAnEnumType")
+        not_an_enum_type = str
         with pytest.raises(TypeError):
             faker.enum(not_an_enum_type)

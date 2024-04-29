@@ -44,7 +44,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Faker"
-copyright = "2014-{0}, Daniele Faraglia".format(datetime.now().year)
+copyright = f"2014-{datetime.now().year}, Daniele Faraglia"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

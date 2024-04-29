@@ -6,7 +6,7 @@ import re
 
 from collections import OrderedDict
 from random import Random
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, TypeVar, Union
+from typing import Any, Callable, Pattern, Sequence, TypeVar
 
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
@@ -30,10 +30,10 @@ class Faker:
 
     def __init__(
         self,
-        locale: Optional[Union[str, Sequence[str], Dict[str, Union[int, float]]]] = None,
-        providers: Optional[List[str]] = None,
-        generator: Optional[Generator] = None,
-        includes: Optional[List[str]] = None,
+        locale: str | Sequence[str] | dict[str, int | float] | None = None,
+        providers: list[str] | None = None,
+        generator: Generator | None = None,
+        includes: list[str] | None = None,
         use_weighting: bool = True,
         **config: Any,
     ) -> None:
@@ -92,7 +92,7 @@ class Faker:
         self._factories = list(self._factory_map.values())
 
     def __dir__(self):
-        attributes = set(super(Faker, self).__dir__())
+        attributes = set(super().__dir__())
         for factory in self.factories:
             attributes |= {attr for attr in dir(factory) if not attr.startswith("_")}
         return sorted(attributes)
@@ -153,11 +153,11 @@ class Faker:
         self.__dict__.update(state)
 
     @property
-    def unique(self) -> "UniqueProxy":
+    def unique(self) -> UniqueProxy:
         return self._unique_proxy
 
     @property
-    def optional(self) -> "OptionalProxy":
+    def optional(self) -> OptionalProxy:
         return self._optional_proxy
 
     def _select_factory(self, method_name: str) -> Factory:
@@ -188,7 +188,7 @@ class Faker:
     def _select_factory_choice(self, factories):
         return random.choice(factories)
 
-    def _map_provider_method(self, method_name: str) -> Tuple[List[Factory], Optional[List[float]]]:
+    def _map_provider_method(self, method_name: str) -> tuple[list[Factory], list[float] | None]:
         """
         Creates a 2-tuple of factories and weights for the given provider method name
 
@@ -222,7 +222,7 @@ class Faker:
         return mapping
 
     @classmethod
-    def seed(cls, seed: Optional[SeedType] = None) -> None:
+    def seed(cls, seed: SeedType | None = None) -> None:
         """
         Hashables the shared `random.Random` object across all factories
 
@@ -230,7 +230,7 @@ class Faker:
         """
         Generator.seed(seed)
 
-    def seed_instance(self, seed: Optional[SeedType] = None) -> None:
+    def seed_instance(self, seed: SeedType | None = None) -> None:
         """
         Creates and seeds a new `random.Random` object for each factory
 
@@ -239,7 +239,7 @@ class Faker:
         for factory in self._factories:
             factory.seed_instance(seed)
 
-    def seed_locale(self, locale: str, seed: Optional[SeedType] = None) -> None:
+    def seed_locale(self, locale: str, seed: SeedType | None = None) -> None:
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
 
@@ -281,25 +281,25 @@ class Faker:
             raise NotImplementedError(msg)
 
     @property
-    def locales(self) -> List[str]:
+    def locales(self) -> list[str]:
         return list(self._locales)
 
     @property
-    def weights(self) -> Optional[List[Union[int, float]]]:
+    def weights(self) -> list[int | float] | None:
         return self._weights
 
     @property
-    def factories(self) -> List[Generator | Faker]:
+    def factories(self) -> list[Generator | Faker]:
         return self._factories
 
-    def items(self) -> List[Tuple[str, Generator | Faker]]:
+    def items(self) -> list[tuple[str, Generator | Faker]]:
         return list(self._factory_map.items())
 
 
 class UniqueProxy:
     def __init__(self, proxy: Faker):
         self._proxy = proxy
-        self._seen: Dict = {}
+        self._seen: dict = {}
         self._sentinel = object()
 
     def clear(self) -> None:
@@ -372,9 +372,9 @@ class OptionalProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
-    def _wrap(self, name: str, function: Callable[..., RetType]) -> Callable[..., Optional[RetType]]:
+    def _wrap(self, name: str, function: Callable[..., RetType]) -> Callable[..., RetType | None]:
         @functools.wraps(function)
-        def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> Optional[RetType]:
+        def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> RetType | None:
             if not 0 < prob <= 1.0:
                 raise ValueError("prob must be between 0 and 1")
             return function(*args, **kwargs) if self._proxy.boolean(chance_of_getting_true=int(prob * 100)) else None
