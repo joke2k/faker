@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.0.0 - 2024-04-28](https://github.com/joke2k/faker/compare/v24.14.1...v25.0.0)
+
+* Drop support for Python 3.7. Thanks @kloczek.
+
 ### [v24.14.1 - 2024-04-28](https://github.com/joke2k/faker/compare/v24.14.0...v24.14.1)
 
 * Include type stubs in release.
