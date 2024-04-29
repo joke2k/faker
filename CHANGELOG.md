@@ -113,13 +113,11 @@
 * Add area code `830000` to `zh_CN`. Thanks @antik.
 * Add `area_code` parameter to `ssn` provider for `zh_CN`. Thanks @antik.
 
-### [v22.5.0 - 2024-01-22](https://github.com/joke2k/faker/compare/v22.
-4.0...v22.5.0)
+### [v22.5.0 - 2024-01-22](https://github.com/joke2k/faker/compare/v22.4.0...v22.5.0)
 
 * Add `http_status_code` to internet provider. Thanks @dancergraham.
 
-### [v22.4.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.
-3.0...v22.4.0)
+### [v22.4.0 - 2024-01-19](https://github.com/joke2k/faker/compare/v22.3.0...v22.4.0)
 
 * Add `fa_IR` localization for currency provider. Thanks @parsariyahi.
 
