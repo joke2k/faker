@@ -21,7 +21,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-flake8
     - name: Set up Python
@@ -46,7 +46,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-checkmanifest
     - name: Set up Python
@@ -70,7 +70,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-isort
     - name: Set up Python
@@ -95,7 +95,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-black
     - name: Set up Python
@@ -119,7 +119,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-pep8
     - name: Set up Python
@@ -147,7 +147,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-typing
     - name: Set up Python
@@ -177,7 +177,7 @@ jobs:
         id: pipcache
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
           restore-keys: |
             ${{ runner.os }}-pip-test_ubuntu
       - name: Setup Python
@@ -219,7 +219,7 @@ jobs:
         id: pipcache
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
           restore-keys: |
             ${{ runner.os }}-pip-test_windows
       - name: Setup Python
@@ -250,7 +250,7 @@ jobs:
       id: pipcache
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('*/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-test_alpine
     - name: Set up Python
