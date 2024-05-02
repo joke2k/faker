@@ -63,7 +63,7 @@ setup(
     license="MIT License",
     packages=find_packages(exclude=excluded_packages),
     package_data={
-        "faker": ["py.typed"],
+        "faker": ["py.typed", "proxy.pyi"],
     },
     platforms=["any"],
     zip_safe=zip_safe,
