@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.0.1 - 2024-05-02](https://github.com/joke2k/faker/compare/v25.0.0...v25.0.1)
+
+* Add type stub file to `setup.py`.
+
 ### [v25.0.0 - 2024-04-28](https://github.com/joke2k/faker/compare/v24.14.1...v25.0.0)
 
 * Drop support for Python 3.7. Thanks @kloczek.
