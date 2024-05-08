@@ -129,6 +129,7 @@ class TestDeAT(unittest.TestCase):
         local_longitude = self.fake.local_longitude()
         assert re.match(r"1[1-5]\.\d+", str(local_longitude))
 
+
 class TestPlPl(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("pl_PL")
