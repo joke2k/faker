@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v25.1.0 - 2024-05-08](https://github.com/joke2k/faker/compare/v25.0.1...v25.1.0)
+
+* Add geo for `pl_PL`. Thanks @george0st.
+* Add geo for `sk_SK`. Thanks @george0st.
+
 ### [v25.0.1 - 2024-05-02](https://github.com/joke2k/faker/compare/v25.0.0...v25.0.1)
 
 * Add type stub file to `setup.py`.
