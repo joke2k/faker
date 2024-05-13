@@ -57,24 +57,18 @@ class Provider(SsnProvider):
     vat_id_formats = ("BE##########",)
 
     def vat_id(self) -> str:
+        vat_id_random_section = "#######"
 
-        vat_id_random_section = (
-            '#######'
-        )
-
-        vat_id_possible_initial_numbers = (
-            '0',
-            '1'
-        )
+        vat_id_possible_initial_numbers = ("0", "1")
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         https://en.wikipedia.org/wiki/VAT_identification_number
         :return: A random Belgian VAT ID starting with 0 or 1 and has a correct checksum with a modulo 97 check
         """
-        generated_initial_number = self.random_element(vat_id_possible_initial_numbers)
-        vat_without_check = self.bothify(generated_initial_number + vat_id_random_section)
+        generated_initial_number: str = self.random_element(vat_id_possible_initial_numbers)
+        vat_without_check = self.bothify(f"{generated_initial_number}{vat_id_random_section}")
         vat_as_int = int(vat_without_check)
         vat_check = 97 - (vat_as_int % 97)
         vat_check_str = f"{vat_check:0>2}"
 
-        return "BE" + vat_without_check + vat_check_str
+        return f"BE{vat_without_check}{vat_check_str}"
