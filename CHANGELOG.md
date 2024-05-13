@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.2.0 - 2024-05-13](https://github.com/joke2k/faker/compare/v25.1.0...v25.2.0)
+
+* Update VAT generation in `nl_BE` to align with correct Belgian format. Thanks @JorisSpruyt.
+
 ### [v25.1.0 - 2024-05-08](https://github.com/joke2k/faker/compare/v25.0.1...v25.1.0)
 
 * Add geo for `pl_PL`. Thanks @george0st.
