@@ -41,4 +41,10 @@ class Provider(GeoProvider):
         ("50.67211", "17.92533", "Opole", "PL", "Europe/Warsaw"),
         ("54.1522", "19.40884", "Elblag", "PL", "Europe/Warsaw"),
         ("52.54682", "19.70638", "Płock", "PL", "Europe/Warsaw"),
+        ("50.77141", "16.28432", "Wałbrzych", "PL", "Europe/Warsaw"),
+        ("52.73679", "15.22878", "Gorzów Wielkopolski", "PL", "Europe/Warsaw"),
+        ("52.29185", "21.04845", "Targówek", "PL", "Europe/Warsaw"),
+        ("52.64817", "19.0678", "Włocławek", "PL", "Europe/Warsaw"),
+        ("51.93548", "15.50643", "Zielona Góra", "PL", "Europe/Warsaw"),
+        ("50.01381", "20.98698", "Tarnów", "PL", "Europe/Warsaw"),
     )
