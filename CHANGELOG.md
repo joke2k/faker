@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.3.0 - 2024-05-28](https://github.com/joke2k/faker/compare/v25.2.0...v25.3.0)
+
+* Add more iOS versions to `user_agent`. Thanks @george0st.
+
 ### [v25.2.0 - 2024-05-13](https://github.com/joke2k/faker/compare/v25.1.0...v25.2.0)
 
 * Update VAT generation in `nl_BE` to align with correct Belgian format. Thanks @JorisSpruyt.
