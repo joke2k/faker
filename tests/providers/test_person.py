@@ -36,6 +36,7 @@ from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.uk_UA import Provider as UkUAProvider
 from faker.providers.person.uk_UA import translit as UkUATranslit
+from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
@@ -1395,6 +1396,85 @@ class TestGaIE(TestEnIE):
         self.fake = Faker("ga-ie")
         self.provider = GaIEProvider
         Faker.seed(0)
+
+
+class TestYoNG(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("yo_NG")
+        Faker.seed(0)
+
+    def test_last_name(self):
+        """
+        Test the generation of Zulu last names.
+        """
+        # There's no gender-specific last name in Zulu.
+        self.assertTrue(hasattr(YoNGProvider, "last_names_male"))
+        self.assertTrue(hasattr(YoNGProvider, "last_names_female"))
+
+        # All last names apply to all genders.
+        self.assertTrue(hasattr(YoNGProvider, "last_names"))
+
+        # General last name.
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.last_names)
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.last_names)
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.last_names)
+
+    def test_first_name(self):
+        """
+        Test the generation of Zulu first names.
+        """
+        # General first name.
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.first_names)
+
+        # Female first name.
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.first_names)
+        self.assertIn(name, YoNGProvider.first_names_female)
+
+        # Male first name.
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, YoNGProvider.first_names)
+        self.assertIn(name, YoNGProvider.first_names_male)
+
+    def test_full_name(self):
+        """
+        Test the generation of full Zulu names.
+        """
+        # Full name.
+        name = self.fake.name()
+        self.assertIsInstance(name, str)
+
+        full_name_parts = name.split()
+
+        if len(full_name_parts) == 2:
+            first_name = full_name_parts[0]
+            last_name = full_name_parts[1]
+            self.assertIn(first_name, YoNGProvider.first_names)
+            self.assertIn(last_name, YoNGProvider.last_names)
+        elif len(full_name_parts) == 3:
+            prefix = full_name_parts[0]
+            first_name = full_name_parts[1]
+            last_name = full_name_parts[2]
+
+            self.assertIn(prefix, YoNGProvider.prefixes_female + YoNGProvider.prefixes_male)
+            self.assertIn(first_name, YoNGProvider.first_names)
+            self.assertIn(last_name, YoNGProvider.last_names)
+        else:
+            raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
 
 
 class TestZuZa(unittest.TestCase):
