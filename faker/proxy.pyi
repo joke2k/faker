@@ -2,6 +2,7 @@ import datetime
 
 from collections import OrderedDict
 from decimal import Decimal
+from enum import Enum
 from json import encoder
 from typing import (
     Any,
@@ -17,6 +18,7 @@ from typing import (
     Set,
     Tuple,
     Type,
+    TypeVar,
     Union,
 )
 from uuid import UUID
