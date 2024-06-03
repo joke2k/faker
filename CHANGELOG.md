@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.4.0 - 2024-05-03](https://github.com/joke2k/faker/compare/v25.3.0...v25.4.0)
+
+* Add landmarks in `geo` for `pl_PL`. Thanks @george0st.
+
 ### [v25.3.0 - 2024-05-28](https://github.com/joke2k/faker/compare/v25.2.0...v25.3.0)
 
 * Add more iOS versions to `user_agent`. Thanks @george0st.
