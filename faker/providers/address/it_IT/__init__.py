@@ -4,11 +4,7 @@ from .. import Provider as AddressProvider
 
 
 def getcities(fulldict):
-    cities = []
-    for cap in fulldict:
-        for c in fulldict[cap]:
-            cities.append(c[0]) if c[0] not in cities else cities
-    return cities
+    return list({c[0] for _cap, cities in fulldict.items() for c in cities})
 
 
 class Provider(AddressProvider):
