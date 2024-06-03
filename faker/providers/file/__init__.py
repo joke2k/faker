@@ -337,7 +337,7 @@ class Provider(BaseProvider):
         if prefix is None:
             prefix = self.random_element(self.unix_device_prefixes)
         suffix: str = self.random_element(string.ascii_lowercase)
-        path = "/dev/{}{}".format(prefix, suffix)
+        path = f"/dev/{prefix}{suffix}"
         return path
 
     def unix_partition(self, prefix: Optional[str] = None) -> str:
