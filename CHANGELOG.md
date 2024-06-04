@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.5.0 - 2024-05-04](https://github.com/joke2k/faker/compare/v25.4.0...v25.5.0)
+
+* Fix data in geo for `pl_PL`. Thanks @george0st.
+
 ### [v25.4.0 - 2024-05-03](https://github.com/joke2k/faker/compare/v25.3.0...v25.4.0)
 
 * Add landmarks in `geo` for `pl_PL`. Thanks @george0st.
