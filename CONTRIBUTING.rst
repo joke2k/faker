@@ -11,6 +11,7 @@ Getting Started
 -  Clearly describe the issue including steps to reproduce when it is a bug.
 -  Make sure you fill in the earliest version that you know has the issue.
 -  Fork the repository on GitHub
+-  Please only making changes or add data to locales you're familiar with.
 
 Making Changes
 --------------
