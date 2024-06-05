@@ -45,4 +45,9 @@ class Provider(GeoProvider):
         ("52.64817", "19.0678", "Włocławek", "PL", "Europe/Warszawa"),
         ("51.93548", "15.50643", "Zielona Góra", "PL", "Europe/Warszawa"),
         ("50.01381", "20.98698", "Tarnów", "PL", "Europe/Warszawa"),
+        ("51.76109", "18.09102", "Kalisz", "PL", "Europe/Warszawa"),
+        ("54.19438", "16.17222", "Koszalin", "PL", "Europe/Warszawa"),
+        ("51.21006", "16.1619", "Legnica", "PL", "Europe/Warszawa"),
+        ("53.48411", "18.75366", "Grudziądz", "PL", "Europe/Warszawa"),
+        ("54.46405", "17.02872", "Słupsk", "PL", "Europe/Warszawa"),
     )
