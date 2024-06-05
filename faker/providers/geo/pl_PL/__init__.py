@@ -5,7 +5,7 @@ class Provider(GeoProvider):
     # Source:
     #   https://latitude.to/map/pl/poland/cities/
     land_coords = (
-        ("52.22977", "21.01178", "Warsaw", "PL", "Europe/Warsaw"),
+        ("52.22977", "21.01178", "Warszawa", "PL", "Europe/Warsaw"),
         ("51.75", "19.46667", "Łódź", "PL", "Europe/Warsaw"),
         ("50.06143", "19.93658", "Krakow", "PL", "Europe/Warsaw"),
         ("51.1", "17.03333", "Wrocław", "PL", "Europe/Warsaw"),
