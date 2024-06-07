@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.7.0 - 2024-05-07](https://github.com/joke2k/faker/compare/v25.6.0..v25.7.0)
+
+* Add missing translation for countries in `pt-BR`. Thanks @LeonardoFurtado.
+
 ### [v25.6.0 - 2024-05-06](https://github.com/joke2k/faker/compare/v25.5.0...v25.6.0)
 
 * Fix data in geo for `pl_PL`. Thanks @george0st, @mgorny.
