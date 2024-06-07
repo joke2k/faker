@@ -1,5 +1,10 @@
 ## Changelog
 
+
+### [v25.8.0 - 2024-05-07](https://github.com/joke2k/faker/compare/v25.7.0..v25.8.0)
+
+* Add handshake emoji with different color variations to emoji provider list. Thanks @tamkc.
+
 ### [v25.7.0 - 2024-05-07](https://github.com/joke2k/faker/compare/v25.6.0..v25.7.0)
 
 * Add missing translation for countries in `pt-BR`. Thanks @LeonardoFurtado.
