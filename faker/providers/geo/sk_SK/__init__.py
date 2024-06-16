@@ -95,4 +95,10 @@ class Provider(GeoProvider):
         ("48.42305", "18.64037", "Nová Baňa", "SK", "Europe/Nová Baňa"),
         ("49.36101", "19.61249", "Trstená", "SK", "Europe/Trstená"),
         ("49.06014", "20.20695", "Svit", "SK", "Europe/Svit"),
+        ("49.11328", "18.91714", "Vrútky", "SK", "Europe/Vrútky"),
+        ("49.27195", "21.90073", "Medzilaborce", "SK", "Europe/Medzilaborce"),
+        ("48.48123", "18.71565", "Žarnovica", "SK", "Europe/Žarnovica"),
+        ("48.85584", "20.93713", "Gelnica", "SK", "Europe/Gelnica"),
+        ("49.08899", "18.64007", "Rajec", "SK", "Europe/Rajec"),
+        ("48.74455", "22.18136", "Sobrance", "SK", "Europe/Sobrance"),
     )
