@@ -29,13 +29,6 @@ class FooProvider:
         return "baz" + str(param) + str(append)
 
 
-class FakeProvider:
-    provider = None
-
-    def __init__(self, provider):
-        self.provider = provider.lower()
-
-
 @pytest.fixture(autouse=True)
 def generator():
     generator = Generator()
