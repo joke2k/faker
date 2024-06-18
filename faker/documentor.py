@@ -17,6 +17,7 @@ class FakerEnum(Enum):
 
 
 class Documentor:
+
     def __init__(self, generator: Union[Generator, Faker]) -> None:
         """
         :param generator: a localized Generator with providers filled,
@@ -28,10 +29,10 @@ class Documentor:
         self.already_generated: List[str] = []
 
     def get_formatters(
-        self,
-        locale: Optional[str] = None,
-        excludes: Optional[List[str]] = None,
-        **kwargs: Any,
+            self,
+            locale: Optional[str] = None,
+            excludes: Optional[List[str]] = None,
+            **kwargs: Any,
     ) -> List[Tuple[BaseProvider, Dict[str, str]]]:
         self.max_name_len = 0
         self.already_generated = [] if excludes is None else excludes[:]
@@ -46,11 +47,11 @@ class Documentor:
         return formatters
 
     def get_provider_formatters(
-        self,
-        provider: BaseProvider,
-        prefix: str = "fake.",
-        with_args: bool = True,
-        with_defaults: bool = True,
+            self,
+            provider: BaseProvider,
+            prefix: str = "fake.",
+            with_args: bool = True,
+            with_defaults: bool = True,
     ) -> Dict[str, str]:
         formatters = {}
 

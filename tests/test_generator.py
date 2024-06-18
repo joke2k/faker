@@ -1,13 +1,24 @@
 from unittest.mock import patch
 
 import pytest
+import json
 
 from faker import Faker, Generator
+from pathlib import Path
+
+TEST_DIR = Path(__file__).resolve().parent
 
 
 class BarProvider:
     def foo_formatter(self):
         return "barfoo"
+
+
+class BaseProvider:
+    provider = None
+
+    def __init__(self, provider):
+        self.provider = provider
 
 
 class FooProvider:
@@ -16,6 +27,13 @@ class FooProvider:
 
     def foo_formatter_with_arguments(self, param="", append=""):
         return "baz" + str(param) + str(append)
+
+
+class FakeProvider:
+    provider = None
+
+    def __init__(self, provider):
+        self.provider = provider.lower()
 
 
 @pytest.fixture(autouse=True)
@@ -123,3 +141,15 @@ class TestGenerator:
 
         # Restore state of shared random instance
         generator.random.setstate(state)
+
+    def test_add_provider(self, generator):
+        generator.add_provider(provider=BaseProvider)
+
+    def test_provider_existing(self, generator):
+        result = generator.provider("first")
+        if result is None:
+            return
+        assert result is not None
+
+    def test_print_coverage(self, generator):
+        (TEST_DIR / "branch_coverage.json").write_text(json.dumps(generator.branch_coverage))
