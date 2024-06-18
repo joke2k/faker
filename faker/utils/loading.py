@@ -6,9 +6,12 @@ from pathlib import Path
 from types import ModuleType
 from typing import List
 
+branch_coverage = {
+    "list_module": False,
+}
 
-def get_path(module: ModuleType) -> str:
-    if getattr(sys, "frozen", False):
+def get_path(module: ModuleType, testing: bool = False) -> str:
+    if getattr(sys, "frozen", False) or testing:
         # frozen
 
         if getattr(sys, "_MEIPASS", False):
@@ -28,15 +31,16 @@ def get_path(module: ModuleType) -> str:
     return str(path)
 
 
-def list_module(module: ModuleType) -> List[str]:
+def list_module(module: ModuleType, testing: bool = False) -> List[str]:
+    global file
     path = get_path(module)
 
-    if getattr(sys, "_MEIPASS", False):
+    if getattr(sys, "_MEIPASS", False) or testing:
         # PyInstaller
+        branch_coverage["list_module"] = True
         return [file.parent.name for file in Path(path).glob("*/__init__.py")]
     else:
         return [name for _, name, is_pkg in pkgutil.iter_modules([str(path)]) if is_pkg]
-
 
 def find_available_locales(providers: List[str]) -> List[str]:
     available_locales = set()
