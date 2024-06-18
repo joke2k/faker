@@ -15,7 +15,6 @@ mod_random = random  # compat with name released in 0.8
 
 Sentinel = object()
 
-
 class Generator:
     __config: Dict[str, Dict[Hashable, Any]] = {
         "arguments": {},

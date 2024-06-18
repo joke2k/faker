@@ -53,7 +53,6 @@ def choices_distribution_unique(
         items.pop(idx)
     return choices
 
-
 def choices_distribution(
     a: Sequence[T],
     p: Optional[Sequence[float]],
