@@ -12,8 +12,7 @@ from faker.typing import OrderedDictType
 from faker.utils.checksums import calculate_luhn, luhn_checksum
 from faker.utils.datasets import add_ordereddicts
 from faker.utils.distribution import choices_distribution, choices_distribution_unique
-from faker.utils.loading import find_available_locales, find_available_providers, get_path, branch_coverage, list_module
-from pathlib import Path
+from faker.utils.loading import find_available_locales, find_available_providers, get_path, list_module
 import json
 
 TEST_DIR = Path(__file__).resolve().parent
@@ -137,6 +136,3 @@ class UtilsTestCase(unittest.TestCase):
         d2 = OrderedDictType([("c", 3), ("d", 4)])
         result = add_ordereddicts(d1, d2)
         assert result == OrderedDictType([("a", 1), ("b", 2), ("c", 3), ("d", 4)])
-
-def test_branch_cov():
-    (TEST_DIR / "branch_coverage.json").write_text(json.dumps(branch_coverage))
