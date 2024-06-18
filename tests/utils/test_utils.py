@@ -11,13 +11,16 @@ from faker.generator import random
 from faker.typing import OrderedDictType
 from faker.utils.checksums import calculate_luhn, luhn_checksum
 from faker.utils.datasets import add_ordereddicts
-from faker.utils.distribution import choices_distribution, choices_distribution_unique
-from faker.utils.loading import find_available_locales, find_available_providers, get_path
+from faker.utils.distribution import choices_distribution, choices_distribution_unique, random_sample, branch_coverage
+from faker.utils.loading import find_available_locales, find_available_providers, get_path, list_module
 
 TEST_DIR = Path(__file__).resolve().parent
 
 
 class UtilsTestCase(unittest.TestCase):
+    def tearDown(self):
+        (TEST_DIR / "branch_coverage.json").write_text(json.dumps(branch_coverage))
+
     def test_choice_distribution(self):
         a = ("a", "b", "c", "d")
         p = (0.5, 0.2, 0.2, 0.1)
@@ -45,6 +48,10 @@ class UtilsTestCase(unittest.TestCase):
         assert boundaries[2][0] > c_pop > boundaries[2][1]
         assert boundaries[3][0] > d_pop > boundaries[3][1]
 
+        # Invoke with testMode=True to test the else branch
+        choices_distribution(a, p, testMode=True)
+
+
     def test_choices_distribution_unique(self):
         a = ("a", "b", "c", "d")
         p = (0.25, 0.25, 0.25, 0.25)
@@ -57,6 +64,14 @@ class UtilsTestCase(unittest.TestCase):
     def test_get_path(self):
         result = get_path(faker)
         assert isinstance(result, str)
+
+    def test_get_path_frozen(self):
+        result = get_path(faker, True)
+        assert isinstance(result, str)
+
+    def test_list_module(self):
+        result = list_module(faker, True)
+        assert isinstance(result, list)
 
     def test_find_available_locales(self):
         result = find_available_locales(PROVIDERS)
@@ -127,3 +142,8 @@ class UtilsTestCase(unittest.TestCase):
         d2 = OrderedDictType([("c", 3), ("d", 4)])
         result = add_ordereddicts(d1, d2)
         assert result == OrderedDictType([("a", 1), ("b", 2), ("c", 3), ("d", 4)])
+
+    def test_random_sample(self):
+        value = random_sample(random=None)
+        assert value is not None
+        assert 0 <= value <= 1

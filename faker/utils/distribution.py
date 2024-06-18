@@ -7,8 +7,22 @@ from typing import Generator, Iterable, Optional, Sequence, TypeVar
 from faker.generator import random as mod_random
 
 
+branch_coverage = {
+    "random_sample_1": False,
+    "choices_distribution_unique_1": False,
+    "choices_distribution_1": False,
+    "choices_distribution_2": False,
+    "choices_distribution_3": False,
+    "choices_distribution_4": False,
+    "choices_distribution_5": False,
+    "choices_distribution_6": False,
+    "choices_distribution_7": False,
+}
+
+
 def random_sample(random: Optional[Random] = None) -> float:
     if random is None:
+        branch_coverage["random_sample_1"] = True
         random = mod_random
     return random.uniform(0.0, 1.0)
 
@@ -32,6 +46,7 @@ def choices_distribution_unique(
     # As of Python 3.7, there isn't a way to sample unique elements that takes
     # weight into account.
     if random is None:
+        branch_coverage["choices_distribution_unique_1"] = True
         random = mod_random
 
     assert p is not None
@@ -53,28 +68,35 @@ def choices_distribution_unique(
         items.pop(idx)
     return choices
 
-
 def choices_distribution(
     a: Sequence[T],
     p: Optional[Sequence[float]],
     random: Optional[Random] = None,
     length: int = 1,
+    testMode: bool = False,
 ) -> Sequence[T]:
     if random is None:
+        branch_coverage["choices_distribution_1"] = True
         random = mod_random
 
     if p is not None:
+        branch_coverage["choices_distribution_2"] = True
         assert len(a) == len(p)
 
-    if hasattr(random, "choices"):
+    if hasattr(random, "choices") and not testMode:
+        branch_coverage["choices_distribution_3"] = True
         if length == 1 and p is None:
+            branch_coverage["choices_distribution_5"] = True
             return [random.choice(a)]
         else:
+            branch_coverage["choices_distribution_6"] = True
             return random.choices(a, weights=p, k=length)
     else:
+        branch_coverage["choices_distribution_4"] = True
         choices = []
 
         if p is None:
+            branch_coverage["choices_distribution_7"] = True
             p = itertools.repeat(1, len(a))  # type: ignore
 
         cdf = list(cumsum(p))  # type: ignore
