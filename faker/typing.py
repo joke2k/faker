@@ -33,6 +33,7 @@ class CreditCard:
         self.security_code_length = security_code_length
 
 
+BasicNumber = Union[float, int]
 CardType = TypeVar("CardType", "CreditCard", str)
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = Union[str, float, int, Sequence[int]]

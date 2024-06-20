@@ -2247,8 +2247,8 @@ class Faker:
         left_digits: Optional[int] = ...,
         right_digits: Optional[int] = ...,
         positive: bool = ...,
-        min_value: Optional[float] = ...,
-        max_value: Optional[float] = ...,
+        min_value: Union[float, int, None] = ...,
+        max_value: Union[float, int, None] = ...,
     ) -> Decimal: ...
     def pydict(
         self,
