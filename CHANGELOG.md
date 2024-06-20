@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v25.9.1 - 2024-06-20](https://github.com/joke2k/faker/compare/v25.9.0..v25.9.1)
+
+* Change `pydecimal` type hint for `min_value`, `max_value` to allow `int`s. Thanks @parsariyahi.
+
 ### [v25.9.0 - 2024-06-20](https://github.com/joke2k/faker/compare/v25.8.0..v25.9.0)
 
 * Add support for Nigerian Yoruba names and surnames (`yo_NG`). Thanks @5uru.
