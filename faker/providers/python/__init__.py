@@ -5,6 +5,7 @@ import warnings
 
 from decimal import Decimal
 from enum import Enum
+from numbers import Number
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
 from ...exceptions import BaseFakerException
@@ -284,8 +285,8 @@ class Provider(BaseProvider):
         left_digits: Optional[int] = None,
         right_digits: Optional[int] = None,
         positive: bool = False,
-        min_value: Optional[float] = None,
-        max_value: Optional[float] = None,
+        min_value: Optional[Number] = None,
+        max_value: Optional[Number] = None,
     ) -> Decimal:
         if left_digits is not None and left_digits < 0:
             raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
