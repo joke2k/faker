@@ -1,5 +1,8 @@
 ## Changelog
 
+### [v25.9.0 - 2024-06-20](https://github.com/joke2k/faker/compare/v25.8.0..v25.9.0)
+
+* Add support for Nigerian Yoruba names and surnames (`yo_NG`). Thanks @5uru.
 
 ### [v25.8.0 - 2024-05-07](https://github.com/joke2k/faker/compare/v25.7.0..v25.8.0)
 
