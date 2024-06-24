@@ -14,6 +14,7 @@ mod_random = random  # compat with name released in 0.8
 
 Sentinel = object()
 
+
 class Generator:
     __config: Dict[str, Dict[Hashable, Any]] = {
         "arguments": {},
@@ -23,8 +24,8 @@ class Generator:
     _global_seed = Sentinel
 
     branch_coverage = {
-        "get_args_1": False,  # if branch for x > 0
-        "get_args_2": False,  # else branch
+        "get_args_1": False,
+        "get_args_2": False,
         "set_args_1": False,
         "set_args_2": False,
         "set_args_3": False,
@@ -37,11 +38,13 @@ class Generator:
         "add_provider_2": False,
         "add_provider_3": False,
         "seed_instance_1": False,
+        "add_provider_4": False,
+        "add_provider_5": False,
+        "add_provider_6": False,
         "get_form_1": False,
         "get_form_2": False,
         "format_token_1": False,
         "format_token_2": False,
-        "add_provider_4": False,
         "provider_1": False,
         "provider_2": False
     }
@@ -56,22 +59,27 @@ class Generator:
         if isinstance(provider, type):
             self.branch_coverage["add_provider_1"] = True
             provider = provider(self)
+        else:
+            self.branch_coverage["add_provider_2"] = True
 
         self.providers.insert(0, provider)
 
         for method_name in dir(provider):
-            self.branch_coverage["add_provider_4"] = True
             # skip 'private' method
             if method_name.startswith("_"):
-                self.branch_coverage["add_provider_2"] = True
+                self.branch_coverage["add_provider_3"] = True
                 continue
+            else:
+                self.branch_coverage["add_provider_4"] = True
 
             faker_function = getattr(provider, method_name)
 
             if callable(faker_function):
-                self.branch_coverage["add_provider_3"] = True
+                self.branch_coverage["add_provider_5"] = True
                 # add all faker method to generator
                 self.set_formatter(method_name, faker_function)
+            else:
+                self.branch_coverage["add_provider_6"] = True
 
     def provider(self, name: str) -> Optional["BaseProvider"]:
         try:
