@@ -369,7 +369,6 @@ class Provider(BaseProvider):
         "TTD": "\u0024",
         "TVD": "\u0024",
         "TWD": "\u0024",
-        "TWD": "\u0024",
         "TZS": "Tsh",
         "UAH": "\u20B4",
         "UGX": "USh",
