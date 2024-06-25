@@ -332,7 +332,6 @@ class TestEnIN(unittest.TestCase):
 
 
 class TestEnPk(unittest.TestCase):
-
     def setUp(self):
         """Set up the Faker instance with the Pakistani locale."""
         self.fake = Faker("en_PK")
@@ -1214,6 +1213,11 @@ class TestRuRU(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in RuProvider.language_names
+
+    def test_passport_owner(self):
+        surname, given_name = self.fake.passport_owner()
+        assert surname in RuProvider.last_names
+        assert given_name in RuProvider.first_names
 
 
 class TestSvSE(unittest.TestCase):
