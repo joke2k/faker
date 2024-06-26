@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v26.0.0 - 2024-06-26](https://github.com/joke2k/faker/compare/v25.9.2...v26.0.0)
+
+* Fix upper limit of nb_elements. Thanks @mileswatsonbjss.
+
 ### [v25.9.2 - 2024-06-25](https://github.com/joke2k/faker/compare/v25.9.1...v25.9.2)
 
 * Remove duplicate entry in currency provider.
