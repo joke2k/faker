@@ -44,7 +44,7 @@ class TestLoremProvider:
     def test_words_with_custom_word_list(self, faker, num_samples):
         num_words = 5
         for _ in range(num_samples):
-            words = faker.words(num_words, word_list=self.custom_word_list)
+            words = faker.words(num_words, ext_word_list=self.custom_word_list)
             assert isinstance(words, list)
             assert len(words) == 5
             assert all(isinstance(word, str) and word in self.custom_word_list for word in words)
@@ -52,7 +52,7 @@ class TestLoremProvider:
     def test_words_with_unique_sampling(self, faker, num_samples):
         num_words = 5
         for _ in range(num_samples):
-            words = faker.words(num_words, word_list=self.custom_word_list, unique=True)
+            words = faker.words(num_words, ext_word_list=self.custom_word_list, unique=True)
             assert isinstance(words, list)
             assert len(words) == 5
 

@@ -35,7 +35,7 @@ class Provider(LoremProvider):
 
         word_list = self.generator.get_words_list(ext_word_list=self.english_word_list)
 
-        return self.words(nb=nb, word_list=word_list, unique=unique)
+        return self.words(nb=nb, ext_word_list=word_list, unique=unique)
 
     def english_sentence(self, nb_words: int = 6, variable_nb_words: bool = True) -> str:
         """Generate a sentence in English.

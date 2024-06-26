@@ -60,12 +60,12 @@ class Provider(BaseProvider):
         else:
             word_list = self.word_list  # type: ignore[attr-defined]
 
-        return word_list
+        return list(word_list)
 
     def words(
         self,
         nb: int = 3,
-        word_list: List[str] = None,
+        ext_word_list: Optional[List[str]] = None,
         unique: bool = False,
     ) -> List[str]:
         """Generate a tuple of words.
@@ -89,8 +89,10 @@ class Provider(BaseProvider):
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
 
-        if word_list is None:
+        if ext_word_list is None:
             word_list = self.get_words_list()
+        else:
+            word_list = ext_word_list
 
         if unique:
             unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
@@ -137,7 +139,7 @@ class Provider(BaseProvider):
             nb_words = self.randomize_nb_elements(nb_words, min=1)
 
         word_list = self.get_words_list(ext_word_list=ext_word_list)
-        words = list(self.words(nb=nb_words, word_list=word_list))
+        words = list(self.words(nb=nb_words, ext_word_list=word_list))
         words[0] = words[0].title()
 
         return self.word_connector.join(words) + self.sentence_punctuation
