@@ -1,4 +1,5 @@
 import decimal
+import logging
 import sys
 import unittest
 import warnings
@@ -297,6 +298,37 @@ class TestPyfloat(unittest.TestCase):
 
     def test_float_min_and_max_value_with_same_whole(self):
         self.fake.pyfloat(min_value=2.3, max_value=2.5)
+
+
+class TestPyDict(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        Faker.seed(0)
+
+    def test_pydict_with_default_nb_elements(self):
+        result = self.fake.pydict()
+
+        self.assertEqual(len(result), 10)
+
+    def test_pydict_with_valid_number_of_nb_elements(self):
+        result = self.fake.pydict(nb_elements=5)
+
+        self.assertEqual(len(result), 5)
+
+    def test_pydict_with_invalid_number_of_nb_elements(self):
+        nb_elements = 10000
+
+        words_list_count = len(self.fake.get_words_list())
+
+        logger = logging.getLogger("faker.providers.python")
+
+        with patch.object(logger, "warning") as mock_warn:
+            result = self.fake.pydict(nb_elements=nb_elements)
+
+            mock_warn.assert_called_once_with(
+                f"Number of nb_elements is greater than the number of words in the list. {words_list_count} words will be used."
+            )
+            self.assertEqual(len(result), words_list_count)
 
 
 class TestPydecimal(unittest.TestCase):

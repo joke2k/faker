@@ -476,8 +476,8 @@ class Provider(BaseProvider):
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         if nb_elements > words_list_count:
-            logger.warn(
-                f"Number of nb_elements ({nb_elements}) is greater than the number of words in the list. {words_list_count} words will be used."
+            logger.warning(
+                f"Number of nb_elements is greater than the number of words in the list. {words_list_count} words will be used."
             )
             nb_elements = words_list_count
 
