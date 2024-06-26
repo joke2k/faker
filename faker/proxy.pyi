@@ -1588,6 +1588,32 @@ class Faker:
     def isbn10(self, separator: str = ...) -> str: ...
     def isbn13(self, separator: str = ...) -> str: ...
     def job(self) -> str: ...
+    def get_words_list(
+        self, part_of_speech: Optional[str] = ..., ext_word_list: Optional[Sequence[str]] = ...
+    ) -> List[str]:
+        """
+        Get list of words.
+
+        ``ext_word_list`` is a parameter that allows the user to provide a list
+        of words to be used instead of the built-in word list. If ``ext_word_list``
+        is provided, then the value of ``part_of_speech`` is ignored.
+
+        ``part_of_speech`` is a parameter that defines to what part of speech
+        the returned word belongs. If ``ext_word_list`` is not ``None``, then
+        ``part_of_speech`` is ignored. If the value of ``part_of_speech`` does
+        not correspond to an existent part of speech according to the set locale,
+        then an exception is raised.
+
+        :sample: part_of_speech="abc", ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: part_of_speech="abc"
+        :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
+
+        .. warning::
+            Depending on the length of a locale provider's built-in word list or
+            on the length of ``ext_word_list`` if provided, a large ``nb`` can
+            exhaust said lists if ``unique`` is ``True``, raising an exception.
+        """
+        ...
     def paragraph(
         self, nb_sentences: int = ..., variable_nb_sentences: bool = ..., ext_word_list: Optional[Sequence[str]] = ...
     ) -> str:
@@ -1703,13 +1729,7 @@ class Faker:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
-    def words(
-        self,
-        nb: int = ...,
-        part_of_speech: Optional[str] = ...,
-        ext_word_list: Optional[Sequence[str]] = ...,
-        unique: bool = ...,
-    ) -> List[str]:
+    def words(self, nb: int = ..., word_list: List[str] = ..., unique: bool = ...) -> List[str]:
         """
         Generate a tuple of words.
 
@@ -1717,21 +1737,14 @@ class Faker:
         and if ``ext_word_list`` is provided, words from that list will be used
         instead of those from the locale provider's built-in word list.
 
+        if ``word_list`` is not provided, the method will use a default value of None,
+        which will result in the method calling the ``get_words_list`` method to get the
+        word list. If ``word_list`` is provided, the method will use the provided list.
+
         If ``unique`` is ``True``, this method will return a list containing
         unique words. Under the hood, |random_sample| will be used for sampling
         without replacement. If ``unique`` is ``False``, |random_choices| is
         used instead, and the list returned may contain duplicates.
-
-        ``part_of_speech`` is a parameter that defines to what part of speech
-        the returned word belongs. If ``ext_word_list`` is not ``None``, then
-        ``part_of_speech`` is ignored. If the value of ``part_of_speech`` does
-        not correspond to an existent part of speech according to the set locale,
-        then an exception is raised.
-
-        .. warning::
-           Depending on the length of a locale provider's built-in word list or
-           on the length of ``ext_word_list`` if provided, a large ``nb`` can
-           exhaust said lists if ``unique`` is ``True``, raising an exception.
 
         :sample:
         :sample: nb=5

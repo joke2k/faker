@@ -44,7 +44,7 @@ class TestLoremProvider:
     def test_words_with_custom_word_list(self, faker, num_samples):
         num_words = 5
         for _ in range(num_samples):
-            words = faker.words(num_words, ext_word_list=self.custom_word_list)
+            words = faker.words(num_words, word_list=self.custom_word_list)
             assert isinstance(words, list)
             assert len(words) == 5
             assert all(isinstance(word, str) and word in self.custom_word_list for word in words)
@@ -52,7 +52,7 @@ class TestLoremProvider:
     def test_words_with_unique_sampling(self, faker, num_samples):
         num_words = 5
         for _ in range(num_samples):
-            words = faker.words(num_words, ext_word_list=self.custom_word_list, unique=True)
+            words = faker.words(num_words, word_list=self.custom_word_list, unique=True)
             assert isinstance(words, list)
             assert len(words) == 5
 
@@ -165,29 +165,26 @@ class TestLoremProvider:
                 words = re.sub(r"[.\n]+", " ", text.lower()).split()
                 assert all(word in self.custom_word_list for word in words)
 
-    @pytest.mark.parametrize(
-        "nb,part_of_speech", [(10, "verb"), (18, "adverb"), (11, "noun")], ids=["verb", "adverb", "noun"]
-    )
-    def test_words_part_of_speech(self, faker, nb, part_of_speech):
-        words = faker.words(nb=nb, part_of_speech=part_of_speech)
-        assert (word in EnUsLoremProvider.parts_of_speech[part_of_speech] for word in words)
+    def test_get_default_words_list(self, faker):
+        words_list = faker.get_words_list()
+        assert all(word in EnUsLoremProvider.word_list for word in words_list)
 
-    @pytest.mark.parametrize("nb,part_of_speech", [(5, "abcdefg")], ids=["invalid part of speech"])
-    def test_words_invalid_part_of_speech(self, faker, nb, part_of_speech):
+    @pytest.mark.parametrize("part_of_speech", [("verb"), ("adverb"), ("noun")], ids=["verb", "adverb", "noun"])
+    def test_get_words_list_part_of_speech(self, faker, part_of_speech):
+        words_list = faker.get_words_list(part_of_speech=part_of_speech)
+        assert (word in EnUsLoremProvider.parts_of_speech[part_of_speech] for word in words_list)
+
+    def test_get_words_list_invalid_part_of_speech(self, faker):
+        part_of_speech = "invalid part of speech"
+
         with pytest.raises(ValueError) as exc_info:
-            faker.words(nb=nb, part_of_speech=part_of_speech)
+            faker.get_words_list(part_of_speech=part_of_speech)
 
         assert exc_info.type is ValueError
         assert exc_info.value.args[0] == f"{part_of_speech} is not recognized as a part of speech."
 
-    @pytest.mark.parametrize(
-        "nb,part_of_speech",
-        [(3, "adverb"), (5, "verb"), (4, "abcdefgh")],
-        ids=["ignore adverb", "ignore verb", "ignore invalid part of speech"],
-    )
-    def test_words_part_of_speech_ignored(self, faker, nb, part_of_speech):
-        words = faker.words(nb=nb, part_of_speech=part_of_speech, ext_word_list=self.custom_word_list)
-        assert len(words) == nb
+    def test_get_words_list_part_of_speech_ignored(self, faker):
+        words = faker.get_words_list(part_of_speech="ignored part of speech", ext_word_list=self.custom_word_list)
         assert all(word in self.custom_word_list for word in words)
 
 

@@ -1,3 +1,4 @@
+import logging
 import math
 import string
 import sys
@@ -15,6 +16,8 @@ from .. import BaseProvider, ElementsType
 TypesNames = List[str]
 TypesSpec = Union[List[Type], Tuple[Type, ...]]
 TEnum = TypeVar("TEnum", bound=Enum)
+
+logger = logging.getLogger(__name__)
 
 
 class EmptyEnumException(BaseFakerException):
@@ -466,8 +469,17 @@ class Provider(BaseProvider):
         :variable_nb_elements: is use variable number of elements for dictionary
         :value_types: type of dictionary values
         """
+
+        words_list_count = len(self.generator.get_words_list())
+
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
+
+        if nb_elements > words_list_count:
+            logger.warning(
+                f"Number of nb_elements is greater than the number of words in the list. {words_list_count} words will be used."
+            )
+            nb_elements = words_list_count
 
         return dict(
             zip(
