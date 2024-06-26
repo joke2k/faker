@@ -1,10 +1,9 @@
 import decimal
-import logging
 import sys
 import unittest
 import warnings
 
-from typing import Iterable, Optional, Union
+from typing import Iterable, Optional, Type, Union
 from unittest.mock import patch
 
 import pytest
@@ -14,8 +13,20 @@ from faker import Faker
 
 @pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
 def test_pyobject(
-    object_type: Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]],
-):
+    object_type: Optional[
+        Union[
+            Type[bool],
+            Type[str],
+            Type[float],
+            Type[int],
+            Type[tuple],
+            Type[set],
+            Type[list],
+            Type[Iterable],
+            Type[dict],
+        ]
+    ],
+) -> None:
     random_object = Faker().pyobject(object_type=object_type)
     if object_type is None:
         assert random_object is None
@@ -319,15 +330,12 @@ class TestPyDict(unittest.TestCase):
         nb_elements = 10000
 
         words_list_count = len(self.fake.get_words_list())
-
-        logger = logging.getLogger("faker.providers.python")
-
-        with patch.object(logger, "warning") as mock_warn:
+        warning_msg = (
+            f"Number of nb_elements is greater than the number of words in the list."
+            f" {words_list_count} words will be used."
+        )
+        with pytest.warns(RuntimeWarning, match=warning_msg):
             result = self.fake.pydict(nb_elements=nb_elements)
-
-            mock_warn.assert_called_once_with(
-                f"Number of nb_elements is greater than the number of words in the list. {words_list_count} words will be used."
-            )
             self.assertEqual(len(result), words_list_count)
 
 
