@@ -66,6 +66,7 @@ class Provider(BaseProvider):
         self,
         nb: int = 3,
         ext_word_list: Optional[List[str]] = None,
+        part_of_speech: Optional[str] = None,
         unique: bool = False,
     ) -> List[str]:
         """Generate a tuple of words.
@@ -89,10 +90,7 @@ class Provider(BaseProvider):
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
 
-        if ext_word_list is None:
-            word_list = self.get_words_list()
-        else:
-            word_list = ext_word_list
+        word_list = self.get_words_list(part_of_speech=part_of_speech, ext_word_list=ext_word_list)
 
         if unique:
             unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
