@@ -1326,6 +1326,14 @@ class TestEnIN(unittest.TestCase):
         Faker.seed(0)
 
     def test_first_name(self):
+        """Verify that gender specific names are set correctly"""
+
+        name = self.fake.first_name_female()
+        assert name in EnINProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name in EnINProvider.first_names_male
+
         first_name = self.fake.first_name()
         assert first_name in EnINProvider.first_names
 
