@@ -4,6 +4,7 @@ from typing import Pattern
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
+from faker.providers.phone_number.vi_VN import Provider as ViVnPhoneNumberProvider
 
 
 class TestPhoneNumber:
@@ -417,3 +418,24 @@ class TestEnUs:
                     pattern_is_found = True
                     break
             assert pattern_is_found
+
+
+class TestViVn:
+    """Test vi_VN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:"  # Non-capturing group
+            r"\+84 \d{2} \d{7}|"  # Example: +84 12 3456789
+            r"\(0\d\) \d{4} \d{4}|"  # Example: (012) 3456 7890
+            r"0\d \d{4} \d{4}|"  # Example: 012 3456 7890
+            r"0\d \d{7}|"  # Example: 012 3456789
+            r"\+84-\d{2}-\d{6}|"  # Example: +84-12-345678
+            r"\+84-\d{2}-\d{3} \d{4}|"  # Example: +84-12-345 6789
+            r"\(0\d\)\d{3}-\d{4}"  # Example: (012)345-6789
+            r")"  # Closing non-capturing group
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)

@@ -36,6 +36,7 @@ from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.uk_UA import Provider as UkUAProvider
 from faker.providers.person.uk_UA import translit as UkUATranslit
+from faker.providers.person.vi_VN import Provider as ViVNProvider
 from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
@@ -1622,6 +1623,38 @@ class TestUkUa(unittest.TestCase):
         res = self.fake.full_name(short=True)
         assert res.count(".") == 2
         assert res.count(" ") == 1
+
+
+class TestViVn(unittest.TestCase):
+
+    """Test vi_VN person provider methods"""
+    def setUp(self):
+        self.fake = Faker("vi_VN")
+        Faker.seed(0)
+
+    def test_first_names(self):
+        """simple test to verify that we are pulling gender specific names"""
+        name = self.fake.first_name_female()
+        assert name in ViVNProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name in ViVNProvider.first_names_male
+
+        name = self.fake.first_name_unisex()
+        assert name in ViVNProvider.first_names_unisex
+
+        name = self.fake.first_name()
+        assert name in ViVNProvider.first_names
+
+    def test_middle_names(self):
+        """test the middle name"""
+        name = self.fake.middle_name()
+        assert name in ViVNProvider.middle_names
+
+    def test_last_names(self):
+        """test the last name is generating from the provided tuple"""
+        last_name = self.fake.last_name()
+        assert last_name in ViVNProvider.last_names
 
 
 if __name__ == "__main__":
