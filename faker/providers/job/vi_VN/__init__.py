@@ -1,5 +1,6 @@
 from .. import Provider as JobProvider
 
+
 class Provider(JobProvider):
     """Translated from Super class"""
 
@@ -20,7 +21,7 @@ class Provider(JobProvider):
         "Giáo viên", "Giảng viên", "Chuyên viên tư vấn tuyển sinh", "Thực tập sinh giáo dục",
 
         # Medical
-        "Bác sĩ", "Y tá", "Dược sĩ", "Điều Dưỡng"
+        "Bác sĩ", "Y tá", "Dược sĩ", "Điều Dưỡng",
 
         # Building sector
         "Kỹ sư xây dựng", "Kiến trúc sư", "Thợ xây", "Kỹ sư giám sát",

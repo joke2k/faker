@@ -4,7 +4,6 @@ from typing import Pattern
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
-from faker.providers.phone_number.vi_VN import Provider as ViVnPhoneNumberProvider
 
 
 class TestPhoneNumber:

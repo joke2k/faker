@@ -252,7 +252,6 @@ class Provider(AddressProvider):
 
     street_address_formats = (
         "{{building_number}} {{street_name}}",
-        "{{building_number}} {{street_name}} {{secondary_address}}",
     )
 
     def city_prefix(self) -> str:
