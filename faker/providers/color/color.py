@@ -144,8 +144,8 @@ class RandomColor:
         if generator:
             self.random = generator.random
         else:
-            self.seed = int(seed) if seed else random.randint(0, sys.maxsize)
-            self.random = random.Random(self.seed)
+            self.seed = seed if seed else random.randint(0, sys.maxsize)
+            self.random = random.Random(int(self.seed))
 
     def generate(
         self,
