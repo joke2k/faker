@@ -2,6 +2,7 @@ from .. import Provider as DateTimeProvider
 
 
 class Provider(DateTimeProvider):
+    # Source: https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Bnh_d%E1%BA%A1ng_ng%C3%A0y_v%C3%A0_gi%E1%BB%9D_%E1%BB%9F_Vi%E1%BB%87t_Nam
     DAY_NAMES = {
         "0": "Chủ Nhật",
         "1": "Thứ Hai",

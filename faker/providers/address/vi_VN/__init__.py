@@ -7,7 +7,11 @@ from .. import Provider as AddressProvider
 
 
 class Provider(AddressProvider):
-    """Provider for generating Vietnamese addresses."""
+    """Provider for generating Vietnamese addresses.
+    Sources:
+
+    # https://vi.wikipedia.org/wiki/B%E1%BA%A3n_m%E1%BA%ABu:K%C3%BD_hi%E1%BB%87u_quy_%C6%B0%E1%BB%9Bc_c%C3%A1c_t%E1%BB%89nh_th%C3%A0nh_Vi%E1%BB%87t_Nam
+    """
 
     city_prefixes = ("Thành phố", "Quận", "Huyện", "Thị xã")
 

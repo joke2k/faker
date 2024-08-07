@@ -6,7 +6,11 @@ localized = True
 
 
 class Provider(ColorProvider):
-    """Implement color provider for ``vi_VN`` locale."""
+    """
+    Implement color provider for ``vi_VN`` locale.
+
+    #Sources: https://vi.wikipedia.org/wiki/Danh_s%C3%A1ch_m%C3%A0u
+    """
 
     all_colors = OrderedDict(
         (
@@ -50,7 +54,7 @@ class Provider(ColorProvider):
             ("Hồng sáng", "#FFB6C1"),
             ("Xanh biển sáng", "#87CEFA"),
             ("Vàng sáng", "#FFFFE0"),
-            ("Nâu chestnut", "#800000"),
+            ("Hạt Dẻ", "#800000"),
             ("Cam", "#FFA500"),
             ("Cam đỏ", "#FF4500"),
             ("Xanh lá cây nhạt", "#98FB98"),

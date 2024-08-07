@@ -7,6 +7,7 @@ class Provider(LoremProvider):
     """Implement lorem provider for ``vi_VN`` locale.
 
     Word list is based on common Vietnamese words and phrases.
+    # Source : https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t
     """
 
     word_list = (

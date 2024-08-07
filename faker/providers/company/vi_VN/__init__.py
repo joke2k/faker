@@ -2,6 +2,7 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
+    # Source: https://vi.wikipedia.org/wiki/Danh_s%C3%A1ch_c%C3%B4ng_ty_Vi%E1%BB%87t_Nam
     formats = (
         "{{last_name}} {{company_suffix}}",
         "{{last_name}} {{last_name}} {{company_suffix}}",
@@ -16,6 +17,7 @@ class Provider(CompanyProvider):
         "Công ty TNHH MTV",
         "Công ty Hợp danh",
         "Công ty Trách nhiệm hữu hạn",
+        "Tập Đoàn",
     )
 
     def company_suffix(self) -> str:
