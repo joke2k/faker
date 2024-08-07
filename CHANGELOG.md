@@ -1,5 +1,13 @@
 ## Changelog
 
+### [v26.2.0 - 2024-08-06](https://github.com/joke2k/faker/compare/v26.1.0...v26.2.0)
+
+* Add Swahili (`sw`) provider for generating Swahili names. Thanks @5uru.
+
+### [v26.1.0 - 2024-08-01](https://github.com/joke2k/faker/compare/v26.0.0...v26.1.0)
+
+* Add more entries to `sk_SK` Geo provider. Thanks @george0st.
+
 ### [v26.0.0 - 2024-06-26](https://github.com/joke2k/faker/compare/v25.9.2...v26.0.0)
 
 * Fix upper limit of nb_elements. Thanks @mileswatsonbjss.

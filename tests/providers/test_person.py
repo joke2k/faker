@@ -32,6 +32,7 @@ from faker.providers.person.ru_RU import Provider as RuProvider
 from faker.providers.person.ru_RU import translit
 from faker.providers.person.sk_SK import Provider as SkSKProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
+from faker.providers.person.sw import Provider as SwProvider
 from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.uk_UA import Provider as UkUAProvider
@@ -1474,6 +1475,85 @@ class TestYoNG(unittest.TestCase):
             self.assertIn(prefix, YoNGProvider.prefixes_female + YoNGProvider.prefixes_male)
             self.assertIn(first_name, YoNGProvider.first_names)
             self.assertIn(last_name, YoNGProvider.last_names)
+        else:
+            raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
+class TestSw(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("sw")
+        Faker.seed(0)
+
+    def test_last_name(self):
+        """
+        Test the generation of Swahili last names.
+        """
+        # There's no gender-specific last name in Swahili.
+        self.assertTrue(hasattr(SwProvider, "last_names_male"))
+        self.assertTrue(hasattr(SwProvider, "last_names_female"))
+
+        # All last names apply to all genders.
+        self.assertTrue(hasattr(SwProvider, "last_names"))
+
+        # General last name.
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.last_names)
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.last_names)
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.last_names)
+
+    def test_first_name(self):
+        """
+        Test the generation of Swahili first names.
+        """
+        # General first name.
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.first_names)
+
+        # Female first name.
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.first_names)
+        self.assertIn(name, SwProvider.first_names_female)
+
+        # Male first name.
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, SwProvider.first_names)
+        self.assertIn(name, SwProvider.first_names_male)
+
+    def test_full_name(self):
+        """
+        Test the generation of full Swahili names.
+        """
+        # Full name.
+        name = self.fake.name()
+        self.assertIsInstance(name, str)
+
+        full_name_parts = name.split()
+
+        if len(full_name_parts) == 2:
+            first_name = full_name_parts[0]
+            last_name = full_name_parts[1]
+            self.assertIn(first_name, SwProvider.first_names)
+            self.assertIn(last_name, SwProvider.last_names)
+        elif len(full_name_parts) == 3:
+            prefix = full_name_parts[0]
+            first_name = full_name_parts[1]
+            last_name = full_name_parts[2]
+
+            self.assertIn(prefix, SwProvider.prefixes_female + SwProvider.prefixes_male)
+            self.assertIn(first_name, SwProvider.first_names)
+            self.assertIn(last_name, SwProvider.last_names)
         else:
             raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
 

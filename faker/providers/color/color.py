@@ -16,12 +16,12 @@ import math
 import random
 import sys
 
-from typing import TYPE_CHECKING, Dict, Hashable, Literal, Optional, Sequence, Tuple
+from typing import TYPE_CHECKING, Dict, Literal, Optional, Sequence, Tuple
 
 if TYPE_CHECKING:
     from ...factory import Generator
 
-from ...typing import HueType
+from ...typing import HueType, SeedType
 
 ColorFormat = Literal["hex", "hsl", "hsv", "rgb"]
 
@@ -136,7 +136,7 @@ class RandomColor:
     :meth:`color() <faker.providers.color.Provider.color>` method.
     """
 
-    def __init__(self, generator: Optional["Generator"] = None, seed: Optional[Hashable] = None) -> None:
+    def __init__(self, generator: Optional["Generator"] = None, seed: Optional[SeedType] = None) -> None:
         self.colormap = COLOR_MAP
 
         # Option to specify a seed was not removed so this class
