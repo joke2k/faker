@@ -285,7 +285,7 @@ class Provider(BaseProvider):
         self,
         left_digits: Optional[int] = None,
         right_digits: Optional[int] = None,
-        positive: bool = False,
+        positive: Optional[bool] = None,
         min_value: Optional[BasicNumber] = None,
         max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
@@ -320,7 +320,10 @@ class Provider(BaseProvider):
         elif max_value is not None and max_value <= 0:
             sign = "-"
         else:
-            sign = "+" if positive else self.random_element(("+", "-"))
+            if positive == None:
+                sign = self.random_element(("+", "-"))
+            else:
+                sign = "+" if positive else "-"
 
         if sign == "+":
             if max_value is not None:
