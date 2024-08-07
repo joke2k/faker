@@ -52,6 +52,7 @@ from faker.providers.address.sv_SE import Provider as SvSeAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
 from faker.providers.address.th_TH import Provider as ThThAddressProvider
 from faker.providers.address.uk_UA import Provider as UkUaAddressProvider
+from faker.providers.address.vi_VN import Provider as ViVNAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
 from faker.providers.address.zh_TW import Provider as ZhTwAddressProvider
 
@@ -2330,6 +2331,51 @@ class TestUkUa:
             region = faker.region()
             assert isinstance(region, str)
             assert region in UkUaAddressProvider.region_names
+
+
+class TestViVn:
+    """Test vi_VN address provider methods"""
+
+    def test_city_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_prefix = faker.city_prefix()
+            assert isinstance(city_prefix, str)
+            assert city_prefix in ViVNAddressProvider.city_prefixes
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in ViVNAddressProvider.provinces
+
+    def test_state_abbr(self, faker, num_samples):
+        for _ in range(num_samples):
+            state_abbr = faker.state_abbr()
+            assert isinstance(state_abbr, str)
+            assert state_abbr in ViVNAddressProvider.provinces_abbr
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str) and len(postcode) == 6
+            assert 100000 <= int(postcode) <= 999999
+
+    def test_postcode_in_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            for state_abbr in ViVNAddressProvider.provinces_abbr:
+                postcode = faker.postcode_in_state(state_abbr)
+                assert re.fullmatch(r"\d{6}", postcode)
+                assert int(postcode) >= ViVNAddressProvider.provinces_postcode[state_abbr][0]
+                assert int(postcode) <= ViVNAddressProvider.provinces_postcode[state_abbr][1]
+
+        with pytest.raises(ValueError):
+            faker.postcode_in_state("XX")
+
+    def test_state_abbr_determinism(self, faker):
+        faker.seed_instance(0)
+        first = faker.state_abbr()
+        faker.seed_instance(0)
+        assert faker.state_abbr() == first
 
 
 class TestFrCa:
