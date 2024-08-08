@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v26.3.0 - 2024-08-08](https://github.com/joke2k/faker/compare/v26.2.0...v26.3.0)
+
+* Extend `ro_RO` company localization with prefixes. Thanks @DDSNA.
+
 ### [v26.2.0 - 2024-08-06](https://github.com/joke2k/faker/compare/v26.1.0...v26.2.0)
 
 * Add Swahili (`sw`) provider for generating Swahili names. Thanks @5uru.
