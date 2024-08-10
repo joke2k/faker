@@ -1426,16 +1426,16 @@ class Provider(BaseProvider):
         ),
         Country(
             timezones=[
-                "Europe/Kiev",
-                "Europe/Uzhgorod",
-                "Europe/Zaporozhye",
+                "Europe/Kyiv",
+                "Europe/Uzhhorod",
+                "Europe/Zaporizhzhia",
                 "Europe/Simferopol",
             ],
             alpha_2_code="UA",
             alpha_3_code="UKR",
             continent="Europe",
             name="Ukraine",
-            capital="Kiev",
+            capital="Kyiv",
         ),
         Country(
             timezones=["Africa/Kampala"],
