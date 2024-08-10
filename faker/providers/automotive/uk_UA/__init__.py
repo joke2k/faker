@@ -20,7 +20,7 @@ class Provider(AutomotiveProvider):
         "Zakarpattia": (("AO", "KO", "MT", "MO"), "07"),
         "Zaporizhzhia": (("AR", "KR", "TR", "MR"), "08"),
         "IvanoFrankivsk": (("AT", "KT", "TO", "XS"), "09"),
-        "Kropyvnytskyi": (("BA", "NA", "XA", "EA"), "12"),
+        "Kirovohrad": (("BA", "NA", "XA", "EA"), "12"),
         "Luhansk": (("BB", "NV", "EE", "EV"), "13"),
         "Lviv": (("BS", "NS", "SS", "ES"), "14"),
         "Mykolaiv": (("BE", "NE", "XE", "XN"), "15"),
