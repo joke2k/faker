@@ -336,7 +336,9 @@ class TestNlBe(_SimpleAutomotiveTestMixin):
 class TestZhCn(_SimpleAutomotiveTestMixin):
     """Test zh_CN automotive provider methods"""
 
-    license_plate_pattern: Pattern = re.compile(r"^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新]{1}[A-Z]{1}-[A-Z0-9]{5}")
+    license_plate_pattern: Pattern = re.compile(
+        r"^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新]{1}[A-Z]{1}-[A-Z0-9]{5}"
+    )
 
 
 class TestZhTw(_SimpleAutomotiveTestMixin):

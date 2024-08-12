@@ -34,6 +34,7 @@ class Faker:
         :example: '791 Crist Parks, Sashabury, IL 86039-9874'
         """
         ...
+
     def administrative_unit(self) -> str: ...
     def bothify(self, text: str = ..., letters: str = ...) -> str:
         """
@@ -53,22 +54,26 @@ class Faker:
         :sample: text='Product Number: ????-########', letters='ABCDE'
         """
         ...
+
     def building_number(self) -> str:
         """
         :example: '791'
         """
         ...
+
     def city(self) -> str:
         """
         :example: 'Sashabury'
         """
         ...
+
     def city_prefix(self) -> str: ...
     def city_suffix(self) -> str:
         """
         :example: 'town'
         """
         ...
+
     def country(self) -> str: ...
     def country_code(self, representation: str = ...) -> str: ...
     def current_country(self) -> str: ...
@@ -85,11 +90,13 @@ class Faker:
         :sample: text='MAC Address: ^^:^^:^^:^^:^^:^^', upper=True
         """
         ...
+
     def language_code(self) -> str:
         """
         Generate a random i18n language code (e.g. en).
         """
         ...
+
     def lexify(self, text: str = ..., letters: str = ...) -> str:
         """
         Generate a string with each question mark ('?') in ``text``
@@ -101,31 +108,37 @@ class Faker:
         :sample: text='Random Identifier: ??????????', letters='ABCDE'
         """
         ...
+
     def locale(self) -> str:
         """
         Generate a random underscored i18n locale code (e.g. en_US).
         """
         ...
+
     def military_apo(self) -> str:
         """
         :example: 'PSC 5394 Box 3492
         """
         ...
+
     def military_dpo(self) -> str:
         """
         :example: 'Unit 3333 Box 9342'
         """
         ...
+
     def military_ship(self) -> str:
         """
         :example: 'USS'
         """
         ...
+
     def military_state(self) -> str:
         """
         :example: 'APO'
         """
         ...
+
     def numerify(self, text: str = ...) -> str:
         """
         Generate a string with each placeholder in ``text`` replaced according
@@ -147,6 +160,7 @@ class Faker:
         :sample: text='!!! !!@ !@! !@@ @!! @!@ @@! @@@'
         """
         ...
+
     def postalcode(self) -> str: ...
     def postalcode_in_state(self, state_abbr: Optional[str] = ...) -> str: ...
     def postalcode_plus4(self) -> str: ...
@@ -155,6 +169,7 @@ class Faker:
         :example: 86039-9874
         """
         ...
+
     def postcode_in_state(self, state_abbr: Optional[str] = ...) -> str:
         """
         :returns: A random postcode within the provided state abbreviation
@@ -162,6 +177,7 @@ class Faker:
         :param state_abbr: A state abbreviation
         """
         ...
+
     def random_choices(
         self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
     ) -> Sequence[T]:
@@ -188,21 +204,25 @@ class Faker:
                  ]), length=20
         """
         ...
+
     def random_digit(self) -> int:
         """
         Generate a random digit (0 to 9).
         """
         ...
+
     def random_digit_above_two(self) -> int:
         """
         Generate a random digit above value two (2 to 9).
         """
         ...
+
     def random_digit_not_null(self) -> int:
         """
         Generate a random non-zero digit (1 to 9).
         """
         ...
+
     def random_digit_not_null_or_empty(self) -> Union[int, str]:
         """
         Generate a random non-zero digit (1 to 9) or an empty string.
@@ -211,6 +231,7 @@ class Faker:
         and each digit has a 1/18 chance of being generated.
         """
         ...
+
     def random_digit_or_empty(self) -> Union[int, str]:
         """
         Generate a random digit (0 to 9) or an empty string.
@@ -219,6 +240,7 @@ class Faker:
         and each digit has a 1/20 chance of being generated.
         """
         ...
+
     def random_element(self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ...) -> T:
         """
         Generate a randomly sampled object from ``elements``.
@@ -237,6 +259,7 @@ class Faker:
                  ])
         """
         ...
+
     def random_elements(
         self,
         elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ...,
@@ -301,6 +324,7 @@ class Faker:
                    ]), unique=True
         """
         ...
+
     def random_int(self, min: int = ..., max: int = ..., step: int = ...) -> int:
         """
         Generate a random integer between two integers ``min`` and ``max`` inclusive
@@ -313,11 +337,13 @@ class Faker:
         :sample: min=0, max=15, step=3
         """
         ...
+
     def random_letter(self) -> str:
         """
         Generate a random ASCII letter (a-z and A-Z).
         """
         ...
+
     def random_letters(self, length: int = ...) -> Sequence[str]:
         """
         Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
@@ -325,11 +351,13 @@ class Faker:
         :sample: length=10
         """
         ...
+
     def random_lowercase_letter(self) -> str:
         """
         Generate a random lowercase ASCII letter (a-z).
         """
         ...
+
     def random_number(self, digits: Optional[int] = ..., fix_len: bool = ...) -> int:
         """
         Generate a random integer according to the following rules:
@@ -348,6 +376,7 @@ class Faker:
         :sample: digits=3, fix_len=True
         """
         ...
+
     def random_sample(
         self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
     ) -> Sequence[T]:
@@ -362,11 +391,13 @@ class Faker:
         :sample: elements=('a', 'b', 'c', 'd', 'e', 'f'), length=3
         """
         ...
+
     def random_uppercase_letter(self) -> str:
         """
         Generate a random uppercase ASCII letter (A-Z).
         """
         ...
+
     def randomize_nb_elements(
         self, number: int = ..., le: bool = ..., ge: bool = ..., min: Optional[int] = ..., max: Optional[int] = ...
     ) -> int:
@@ -392,6 +423,7 @@ class Faker:
         :sample: number=79, le=True, ge=True, min=80
         """
         ...
+
     def secondary_address(self) -> str: ...
     def state(self) -> str: ...
     def state_abbr(self, include_territories: bool = ..., include_freely_associated_states: bool = ...) -> str:
@@ -407,21 +439,25 @@ class Faker:
             If False, sovereign states in free association with the US will be excluded.
         """
         ...
+
     def street_address(self) -> str:
         """
         :example: '791 Crist Parks'
         """
         ...
+
     def street_name(self) -> str:
         """
         :example: 'Crist Parks'
         """
         ...
+
     def street_suffix(self) -> str:
         """
         :example: 'Avenue'
         """
         ...
+
     def zipcode(self) -> str: ...
     def zipcode_in_state(self, state_abbr: Optional[str] = ...) -> str: ...
     def zipcode_plus4(self) -> str: ...
@@ -430,31 +466,37 @@ class Faker:
         Generate a license plate.
         """
         ...
+
     def vin(self) -> str:
         """
         Generate vin number.
         """
         ...
+
     def aba(self) -> str:
         """
         Generate an ABA routing transit number.
         """
         ...
+
     def bank_country(self) -> str:
         """
         Generate the bank provider's ISO 3166-1 alpha-2 country code.
         """
         ...
+
     def bban(self) -> str:
         """
         Generate a Basic Bank Account Number (BBAN).
         """
         ...
+
     def iban(self) -> str:
         """
         Generate an International Bank Account Number (IBAN).
         """
         ...
+
     def swift(self, length: Optional[int] = ..., primary: bool = ..., use_dataset: bool = ...) -> str:
         """
         Generate a SWIFT code.
@@ -490,6 +532,7 @@ class Faker:
         :sample: length=11, primary=True, use_dataset=True
         """
         ...
+
     def swift11(self, primary: bool = ..., use_dataset: bool = ...) -> str:
         """
         Generate an 11-digit SWIFT code.
@@ -503,6 +546,7 @@ class Faker:
         :sample: use_dataset=True
         """
         ...
+
     def swift8(self, use_dataset: bool = ...) -> str:
         """
         Generate an 8-digit SWIFT code.
@@ -515,6 +559,7 @@ class Faker:
         :sample: use_dataset=True
         """
         ...
+
     def ean(self, length: int = ..., prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...) -> str:
         """
         Generate an EAN barcode of the specified ``length``.
@@ -531,6 +576,7 @@ class Faker:
         :sample: prefixes=('45', '49')
         """
         ...
+
     def ean13(
         self,
         prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...,
@@ -568,6 +614,7 @@ class Faker:
         :sample: prefixes=('45', '49')
         """
         ...
+
     def ean8(self, prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...) -> str:
         """
         Generate an EAN-8 barcode.
@@ -583,6 +630,7 @@ class Faker:
         :sample: prefixes=('45', '49')
         """
         ...
+
     def localized_ean(self, length: int = ...) -> str:
         """
         Generate a localized EAN barcode of the specified ``length``.
@@ -599,6 +647,7 @@ class Faker:
         :sample: length=8
         """
         ...
+
     def localized_ean13(self) -> str:
         """
         Generate a localized EAN-13 barcode.
@@ -607,6 +656,7 @@ class Faker:
         argument explicitly set to ``13``.
         """
         ...
+
     def localized_ean8(self) -> str:
         """
         Generate a localized EAN-8 barcode.
@@ -615,6 +665,7 @@ class Faker:
         argument explicitly set to ``8``.
         """
         ...
+
     def upc_a(
         self, upc_ae_mode: bool = ..., base: Optional[str] = ..., number_system_digit: Optional[int] = ...
     ) -> str:
@@ -653,6 +704,7 @@ class Faker:
         :sample: upc_ae_mode=True, base='120004', number_system_digit=0
         """
         ...
+
     def upc_e(self, base: Optional[str] = ..., number_system_digit: Optional[int] = ..., safe_mode: bool = ...) -> str:
         """
         Generate an 8-digit UPC-E barcode.
@@ -700,6 +752,7 @@ class Faker:
         :sample: base='120004', number_system_digit=0, safe_mode=False
         """
         ...
+
     def color(
         self,
         hue: Union[str, float, int, Sequence[int], None] = ...,
@@ -742,6 +795,7 @@ class Faker:
         :sample: hue=(300, 20), luminosity='random', color_format='hsl'
         """
         ...
+
     def color_hsl(
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
@@ -749,6 +803,7 @@ class Faker:
         Generate a HSL color tuple in a human-friendly way.
         """
         ...
+
     def color_hsv(
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
@@ -756,11 +811,13 @@ class Faker:
         Generate a HSV color tuple in a human-friendly way.
         """
         ...
+
     def color_name(self) -> str:
         """
         Generate a color name.
         """
         ...
+
     def color_rgb(
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
@@ -768,6 +825,7 @@ class Faker:
         Generate a RGB color tuple of integers in a human-friendly way.
         """
         ...
+
     def color_rgb_float(
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[float, float, float]:
@@ -775,51 +833,61 @@ class Faker:
         Generate a RGB color tuple of floats in a human-friendly way.
         """
         ...
+
     def hex_color(self) -> str:
         """
         Generate a color formatted as a hex triplet.
         """
         ...
+
     def rgb_color(self) -> str:
         """
         Generate a color formatted as a comma-separated RGB value.
         """
         ...
+
     def rgb_css_color(self) -> str:
         """
         Generate a color formatted as a CSS rgb() function.
         """
         ...
+
     def safe_color_name(self) -> str:
         """
         Generate a web-safe color name.
         """
         ...
+
     def safe_hex_color(self) -> str:
         """
         Generate a web-safe color formatted as a hex triplet.
         """
         ...
+
     def bs(self) -> str:
         """
         :example: 'integrate extensible convergence'
         """
         ...
+
     def catch_phrase(self) -> str:
         """
         :example: 'Robust full-range hub'
         """
         ...
+
     def company(self) -> str:
         """
         :example: 'Acme Ltd'
         """
         ...
+
     def company_suffix(self) -> str:
         """
         :example: 'Ltd'
         """
         ...
+
     def credit_card_expire(
         self,
         start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -836,26 +904,31 @@ class Faker:
         to that method.
         """
         ...
+
     def credit_card_full(self, card_type: Optional[CardType] = ...) -> str:
         """
         Generate a set of credit card details.
         """
         ...
+
     def credit_card_number(self, card_type: Optional[CardType] = ...) -> str:
         """
         Generate a valid credit card number.
         """
         ...
+
     def credit_card_provider(self, card_type: Optional[CardType] = ...) -> str:
         """
         Generate a credit card provider name.
         """
         ...
+
     def credit_card_security_code(self, card_type: Optional[CardType] = ...) -> str:
         """
         Generate a credit card security code.
         """
         ...
+
     def cryptocurrency(self) -> Tuple[str, str]: ...
     def cryptocurrency_code(self) -> str: ...
     def cryptocurrency_name(self) -> str: ...
@@ -867,6 +940,7 @@ class Faker:
         :example: $
         """
         ...
+
     def pricetag(self) -> str: ...
     def am_pm(self) -> str: ...
     def century(self) -> str:
@@ -874,6 +948,7 @@ class Faker:
         :example: 'XVII'
         """
         ...
+
     def date(
         self,
         pattern: str = ...,
@@ -887,6 +962,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_between(
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -902,6 +978,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_between_dates(
         self,
         date_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
@@ -916,6 +993,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_object(self, end_datetime: Optional[datetime.datetime] = ...) -> datetime.date:
         """
         Get a date object between January 1, 1970 and now
@@ -923,6 +1001,7 @@ class Faker:
         :example: datetime.date(2016, 9, 20)
         """
         ...
+
     def date_of_birth(
         self, tzinfo: Optional[datetime.tzinfo] = ..., minimum_age: int = ..., maximum_age: int = ...
     ) -> datetime.date:
@@ -939,6 +1018,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_this_century(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current century.
@@ -949,6 +1029,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_this_decade(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the decade year.
@@ -959,6 +1040,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_this_month(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current month.
@@ -969,6 +1051,7 @@ class Faker:
         :return: dtdate
         """
         ...
+
     def date_this_year(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current year.
@@ -979,6 +1062,7 @@ class Faker:
         :return: Date
         """
         ...
+
     def date_time(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
@@ -992,6 +1076,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_ad(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
@@ -1006,6 +1091,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_between(
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -1023,6 +1109,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_between_dates(
         self,
         datetime_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
@@ -1041,6 +1128,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_this_century(
         self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
     ) -> datetime.datetime:
@@ -1054,6 +1142,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_this_decade(
         self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
     ) -> datetime.datetime:
@@ -1067,6 +1156,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_this_month(
         self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
     ) -> datetime.datetime:
@@ -1080,6 +1170,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def date_time_this_year(
         self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
     ) -> datetime.datetime:
@@ -1093,6 +1184,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def day_of_month(self) -> str: ...
     def day_of_week(self) -> str: ...
     def future_date(
@@ -1111,6 +1203,7 @@ class Faker:
         :return: dtdate
         """
         ...
+
     def future_datetime(
         self,
         end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -1127,6 +1220,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def iso8601(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
@@ -1143,6 +1237,7 @@ class Faker:
         :example: '2003-10-21T16:05:52+0000'
         """
         ...
+
     def month(self) -> str: ...
     def month_name(self) -> str: ...
     def past_date(
@@ -1161,6 +1256,7 @@ class Faker:
         :return: dtdate
         """
         ...
+
     def past_datetime(
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -1177,6 +1273,7 @@ class Faker:
         :return: datetime
         """
         ...
+
     def pytimezone(self, *args: Any, **kwargs: Any) -> Optional[datetime.tzinfo]:
         """
         Generate a random timezone (see `faker.timezone` for any args)
@@ -1187,6 +1284,7 @@ class Faker:
         :return: dateutil.tz.tz.tzfile
         """
         ...
+
     def time(
         self,
         pattern: str = ...,
@@ -1199,6 +1297,7 @@ class Faker:
         :example: '15:02:34'
         """
         ...
+
     def time_delta(
         self, end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...
     ) -> datetime.timedelta:
@@ -1206,6 +1305,7 @@ class Faker:
         Get a timedelta object
         """
         ...
+
     def time_object(
         self, end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...
     ) -> datetime.time:
@@ -1215,6 +1315,7 @@ class Faker:
         :example: datetime.time(15, 56, 56, 772876)
         """
         ...
+
     def time_series(
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
@@ -1231,6 +1332,7 @@ class Faker:
         ``distrib`` is a callable that accepts ``<datetime>`` and returns ``<value>``
         """
         ...
+
     def timezone(self) -> str: ...
     def unix_time(
         self,
@@ -1246,12 +1348,14 @@ class Faker:
         :example: 1061306726.6
         """
         ...
+
     def year(self) -> str: ...
     def emoji(self) -> str:
         """
         :example: '😉'
         """
         ...
+
     def file_extension(self, category: Optional[str] = ...) -> str:
         """
         Generate a file extension under the specified ``category``.
@@ -1264,6 +1368,7 @@ class Faker:
         :sample: category='image'
         """
         ...
+
     def file_name(self, category: Optional[str] = ..., extension: Optional[str] = ...) -> str:
         """
         Generate a random file name with extension.
@@ -1283,6 +1388,7 @@ class Faker:
         :sample: extension=''
         """
         ...
+
     def file_path(
         self,
         depth: int = ...,
@@ -1322,6 +1428,7 @@ class Faker:
         :sample: depth=5, category='video', extension='abcdef', file_system='windows'
         """
         ...
+
     def mime_type(self, category: Optional[str] = ...) -> str:
         """
         Generate a mime type under the specified ``category``.
@@ -1335,6 +1442,7 @@ class Faker:
         :sample: category='application'
         """
         ...
+
     def unix_device(self, prefix: Optional[str] = ...) -> str:
         """
         Generate a Unix device file name.
@@ -1346,6 +1454,7 @@ class Faker:
         :sample: prefix='mmcblk'
         """
         ...
+
     def unix_partition(self, prefix: Optional[str] = ...) -> str:
         """
         Generate a Unix partition name.
@@ -1357,11 +1466,13 @@ class Faker:
         :sample: prefix='mmcblk'
         """
         ...
+
     def coordinate(self, center: Optional[float] = ..., radius: Union[float, int] = ...) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
         """
         ...
+
     def latitude(self) -> Decimal: ...
     def latlng(self) -> Tuple[Decimal, Decimal]: ...
     def local_latlng(self, country_code: str = ..., coords_only: bool = ...) -> Optional[Tuple[str, ...]]:
@@ -1370,6 +1481,7 @@ class Faker:
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
         """
         ...
+
     def location_on_land(self, coords_only: bool = ...) -> Tuple[str, ...]:
         """
         Returns a random tuple specifying a coordinate set guaranteed to exist on land.
@@ -1377,6 +1489,7 @@ class Faker:
         Pass `coords_only` to return coordinates without metadata.
         """
         ...
+
     def longitude(self) -> Decimal: ...
     def ascii_company_email(self) -> str: ...
     def ascii_email(self) -> str: ...
@@ -1403,6 +1516,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def domain_name(self, levels: int = ...) -> str:
         """
         Produce an Internet domain name with the specified number of
@@ -1414,6 +1528,7 @@ class Faker:
         williamson-hopkins.jackson.com
         """
         ...
+
     def domain_word(self) -> str: ...
     def email(self, safe: bool = ..., domain: Optional[str] = ...) -> str: ...
     def free_email(self) -> str: ...
@@ -1430,6 +1545,7 @@ class Faker:
         web-12.williamson-hopkins.jackson.com
         """
         ...
+
     def http_method(self) -> str:
         """
         Returns random HTTP method
@@ -1438,6 +1554,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def http_status_code(self, include_unassigned: bool = ...) -> int:
         """
         Returns random HTTP status code
@@ -1451,6 +1568,7 @@ class Faker:
         :example: 404
         """
         ...
+
     def iana_id(self) -> str:
         """
         Returns IANA Registrar ID
@@ -1459,6 +1577,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def image_url(
         self, width: Optional[int] = ..., height: Optional[int] = ..., placeholder_url: Optional[str] = ...
     ) -> str:
@@ -1474,6 +1593,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def ipv4(self, network: bool = ..., address_class: Optional[str] = ..., private: Optional[str] = ...) -> str:
         """
         Returns a random IPv4 address or network with a valid CIDR.
@@ -1484,6 +1604,7 @@ class Faker:
         :returns: IPv4
         """
         ...
+
     def ipv4_network_class(self) -> str:
         """
         Returns a IPv4 network class 'a', 'b' or 'c'.
@@ -1491,6 +1612,7 @@ class Faker:
         :returns: IPv4 network class
         """
         ...
+
     def ipv4_private(self, network: bool = ..., address_class: Optional[str] = ...) -> str:
         """
         Returns a private IPv4.
@@ -1500,6 +1622,7 @@ class Faker:
         :returns: Private IPv4
         """
         ...
+
     def ipv4_public(self, network: bool = ..., address_class: Optional[str] = ...) -> str:
         """
         Returns a public IPv4 excluding private blocks.
@@ -1509,11 +1632,13 @@ class Faker:
         :returns: Public IPv4
         """
         ...
+
     def ipv6(self, network: bool = ...) -> str:
         """
         Produce a random IPv6 address or network with a valid CIDR
         """
         ...
+
     def mac_address(self, multicast: bool = ...) -> str:
         """
         Returns a random MAC address.
@@ -1522,6 +1647,7 @@ class Faker:
         :returns: MAC Address
         """
         ...
+
     def nic_handle(self, suffix: str = ...) -> str:
         """
         Returns NIC Handle ID
@@ -1530,6 +1656,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def nic_handles(self, count: int = ..., suffix: str = ...) -> List[str]:
         """
         Returns NIC Handle ID list
@@ -1537,6 +1664,7 @@ class Faker:
         :rtype: list[str]
         """
         ...
+
     def port_number(self, is_system: bool = ..., is_user: bool = ..., is_dynamic: bool = ...) -> int:
         """
         Returns a network port number
@@ -1548,6 +1676,7 @@ class Faker:
         :rtype: int
         """
         ...
+
     def ripe_id(self) -> str:
         """
         Returns RIPE Organization ID
@@ -1556,6 +1685,7 @@ class Faker:
         :rtype: str
         """
         ...
+
     def safe_domain_name(self) -> str: ...
     def safe_email(self) -> str: ...
     def slug(self, value: Optional[str] = ...) -> str:
@@ -1563,6 +1693,7 @@ class Faker:
         Django algorithm
         """
         ...
+
     def tld(self) -> str: ...
     def uri(self, schemes: Optional[List[str]] = ..., deep: Optional[int] = ...) -> str:
         """
@@ -1573,6 +1704,7 @@ class Faker:
         :return: a random url string.
         """
         ...
+
     def uri_extension(self) -> str: ...
     def uri_page(self) -> str: ...
     def uri_path(self, deep: Optional[int] = ...) -> str: ...
@@ -1584,6 +1716,7 @@ class Faker:
         :return: a random url string.
         """
         ...
+
     def user_name(self) -> str: ...
     def isbn10(self, separator: str = ...) -> str: ...
     def isbn13(self, separator: str = ...) -> str: ...
@@ -1614,6 +1747,7 @@ class Faker:
             exhaust said lists if ``unique`` is ``True``, raising an exception.
         """
         ...
+
     def paragraph(
         self, nb_sentences: int = ..., variable_nb_sentences: bool = ..., ext_word_list: Optional[Sequence[str]] = ...
     ) -> str:
@@ -1637,6 +1771,7 @@ class Faker:
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def paragraphs(self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> List[str]:
         """
         Generate a list of paragraphs.
@@ -1650,6 +1785,7 @@ class Faker:
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def sentence(
         self, nb_words: int = ..., variable_nb_words: bool = ..., ext_word_list: Optional[Sequence[str]] = ...
     ) -> str:
@@ -1671,6 +1807,7 @@ class Faker:
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def sentences(self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> List[str]:
         """
         Generate a list of sentences.
@@ -1685,6 +1822,7 @@ class Faker:
         :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def text(self, max_nb_chars: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> str:
         """
         Generate a text string.
@@ -1701,6 +1839,7 @@ class Faker:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def texts(
         self, nb_texts: int = ..., max_nb_chars: int = ..., ext_word_list: Optional[Sequence[str]] = ...
     ) -> List[str]:
@@ -1718,6 +1857,7 @@ class Faker:
                  ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def word(self, part_of_speech: Optional[str] = ..., ext_word_list: Optional[Sequence[str]] = ...) -> str:
         """
         Generate a word.
@@ -1729,6 +1869,7 @@ class Faker:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
+
     def words(
         self,
         nb: int = ...,
@@ -1758,6 +1899,7 @@ class Faker:
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
         ...
+
     def binary(self, length: int = ...) -> bytes:
         """
         Generate a random binary blob of ``length`` bytes.
@@ -1768,6 +1910,7 @@ class Faker:
         :sample: length=64
         """
         ...
+
     def boolean(self, chance_of_getting_true: int = ...) -> bool:
         """
         Generate a random boolean value based on ``chance_of_getting_true``.
@@ -1777,6 +1920,7 @@ class Faker:
         :sample: chance_of_getting_true=75
         """
         ...
+
     def csv(
         self,
         header: Optional[Sequence[str]] = ...,
@@ -1796,6 +1940,7 @@ class Faker:
                 num_rows=10, include_row_ids=True
         """
         ...
+
     def dsv(
         self,
         dialect: str = ...,
@@ -1834,6 +1979,7 @@ class Faker:
         :sample: data_columns=('{{name}}', '{{address}}'), num_rows=5, delimiter='$'
         """
         ...
+
     def fixed_width(self, data_columns: Optional[list] = ..., num_rows: int = ..., align: str = ...) -> str:
         """
         Generate random fixed width values.
@@ -1871,6 +2017,7 @@ class Faker:
                 'max_value': 100})], align='right', num_rows=2
         """
         ...
+
     def image(
         self,
         size: Tuple[int, int] = ...,
@@ -1897,6 +2044,7 @@ class Faker:
         :sample: size=(16, 16), hue=[90,270], image_format='ico'
         """
         ...
+
     def json(
         self,
         data_columns: Optional[List] = ...,
@@ -1949,6 +2097,7 @@ class Faker:
                 {'min_value': 50, 'max_value': 100})], num_rows=1
         """
         ...
+
     def json_bytes(
         self,
         data_columns: Optional[List] = ...,
@@ -1963,6 +2112,7 @@ class Faker:
         :meth:`json() <faker.providers.misc.Provider.json>` which is used under the hood.
         """
         ...
+
     def md5(self, raw_output: bool = ...) -> Union[bytes, str]:
         """
         Generate a random MD5 hash.
@@ -1974,11 +2124,13 @@ class Faker:
         :sample: raw_output=True
         """
         ...
+
     def null_boolean(self) -> Optional[bool]:
         """
         Generate ``None``, ``True``, or ``False``, each with equal probability.
         """
         ...
+
     def password(
         self,
         length: int = ...,
@@ -2001,6 +2153,7 @@ class Faker:
         :sample: length=40, special_chars=False, upper_case=False
         """
         ...
+
     def psv(
         self,
         header: Optional[Sequence[str]] = ...,
@@ -2020,6 +2173,7 @@ class Faker:
                 num_rows=10, include_row_ids=True
         """
         ...
+
     def sha1(self, raw_output: bool = ...) -> Union[bytes, str]:
         """
         Generate a random SHA-1 hash.
@@ -2031,6 +2185,7 @@ class Faker:
         :sample: raw_output=True
         """
         ...
+
     def sha256(self, raw_output: bool = ...) -> Union[bytes, str]:
         """
         Generate a random SHA-256 hash.
@@ -2042,6 +2197,7 @@ class Faker:
         :sample: raw_output=True
         """
         ...
+
     def tar(
         self,
         uncompressed_size: int = ...,
@@ -2070,6 +2226,7 @@ class Faker:
         :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
         ...
+
     def tsv(
         self,
         header: Optional[Sequence[str]] = ...,
@@ -2089,6 +2246,7 @@ class Faker:
                 num_rows=10, include_row_ids=True
         """
         ...
+
     def uuid4(
         self, cast_to: Union[Callable[[UUID], str], Callable[[UUID], bytes], None] = ...
     ) -> Union[bytes, str, UUID]:
@@ -2103,6 +2261,7 @@ class Faker:
         :sample: cast_to=None
         """
         ...
+
     def xml(
         self,
         nb_elements: int = ...,
@@ -2120,6 +2279,7 @@ class Faker:
         Note: this provider required xmltodict library installed
         """
         ...
+
     def zip(
         self,
         uncompressed_size: int = ...,
@@ -2148,6 +2308,7 @@ class Faker:
         :sample: uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2'
         """
         ...
+
     def passport_dates(self, birthday: datetime.date = ...) -> Tuple[str, str, str]:
         """
         Generates a formatted date of birth, issue, and expiration dates.
@@ -2161,16 +2322,19 @@ class Faker:
         -https://travel.state.gov/content/travel/en/passports/passport-help/faqs.html
         """
         ...
+
     def passport_dob(self) -> datetime.date:
         """
         Generate a datetime date of birth.
         """
         ...
+
     def passport_full(self) -> str:
         """
         Generates a formatted sting with US Passport information
         """
         ...
+
     def passport_gender(self, seed: int = ...) -> str:
         """
         Generates a string representing the gender displayed on a passport
@@ -2180,11 +2344,13 @@ class Faker:
         - https://williamsinstitute.law.ucla.edu/publications/x-gender-markers-passports/
         """
         ...
+
     def passport_number(self) -> str:
         """
         Generate a passport number by replacing tokens to be alphanumeric
         """
         ...
+
     def passport_owner(self, gender: str = ...) -> Tuple[str, str]:
         """
         Generate a given_name and surname for a passport owner
@@ -2192,6 +2358,7 @@ class Faker:
         that is either male, female, or non-binary.
         """
         ...
+
     def first_name(self) -> str: ...
     def first_name_female(self) -> str: ...
     def first_name_male(self) -> str: ...
@@ -2201,6 +2368,7 @@ class Faker:
         Generate a random i18n language name (e.g. English).
         """
         ...
+
     def last_name(self) -> str: ...
     def last_name_female(self) -> str: ...
     def last_name_male(self) -> str: ...
@@ -2210,6 +2378,7 @@ class Faker:
         :example: 'John Doe'
         """
         ...
+
     def name_female(self) -> str: ...
     def name_male(self) -> str: ...
     def name_nonbinary(self) -> str: ...
@@ -2228,6 +2397,7 @@ class Faker:
         https://en.wikipedia.org/wiki/MSISDN
         """
         ...
+
     def phone_number(self) -> str: ...
     def profile(
         self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F"]] = ...
@@ -2237,6 +2407,7 @@ class Faker:
         If "fields" is not empty, only the fields in the list will be returned
         """
         ...
+
     def simple_profile(
         self, sex: Optional[Literal["M", "F"]] = ...
     ) -> Dict[str, Union[str, datetime.date, Literal["M", "F"]]]:
@@ -2244,6 +2415,7 @@ class Faker:
         Generates a basic profile with personal informations
         """
         ...
+
     def enum(self, enum_cls: Type[TEnum]) -> TEnum:
         """
         Returns a random enum of the provided input `Enum` type.
@@ -2252,6 +2424,7 @@ class Faker:
         :returns: A randomly selected enum value.
         """
         ...
+
     def pybool(self, truth_probability: int = ...) -> bool:
         """
         Generates a random boolean, optionally biased towards `True` or `False`.
@@ -2261,6 +2434,7 @@ class Faker:
         :raises ValueError: If invalid `truth_probability` is provided.
         """
         ...
+
     def pydecimal(
         self,
         left_digits: Optional[int] = ...,
@@ -2284,6 +2458,7 @@ class Faker:
         :value_types: type of dictionary values
         """
         ...
+
     def pyfloat(
         self,
         left_digits: Optional[int] = ...,
@@ -2318,6 +2493,7 @@ class Faker:
         :raises ValueError: if the object type passed is not supported
         """
         ...
+
     def pyset(
         self,
         nb_elements: int = ...,
@@ -2336,6 +2512,7 @@ class Faker:
         :return: Random of random length between min and max characters.
         """
         ...
+
     def pystr_format(self, string_format: str = ..., letters: str = ...) -> str: ...
     def pystruct(
         self,
@@ -2364,6 +2541,7 @@ class Faker:
         https://www.irs.gov/businesses/small-businesses-self-employed/employer-id-numbers
         """
         ...
+
     def invalid_ssn(self) -> str:
         """
         Generate a random invalid United States Social Security Identification Number (SSN).
@@ -2380,6 +2558,7 @@ class Faker:
         Additionally, return an invalid SSN that is NOT a valid ITIN by excluding certain ITIN related "group" values
         """
         ...
+
     def itin(self) -> str:
         """
         Generate a random United States Individual Taxpayer Identification Number (ITIN).
@@ -2394,6 +2573,7 @@ class Faker:
         https://www.irs.gov/individuals/international-taxpayers/general-itin-information
         """
         ...
+
     def ssn(self, taxpayer_identification_number_type: str = ...) -> str:
         """
         Generate a random United States Taxpayer Identification Number of the specified type.
@@ -2401,71 +2581,85 @@ class Faker:
         If no type is specified, a US SSN is returned.
         """
         ...
+
     def android_platform_token(self) -> str:
         """
         Generate an Android platform token used in user agent strings.
         """
         ...
+
     def chrome(self, version_from: int = ..., version_to: int = ..., build_from: int = ..., build_to: int = ...) -> str:
         """
         Generate a Chrome web browser user agent string.
         """
         ...
+
     def firefox(self) -> str:
         """
         Generate a Mozilla Firefox web browser user agent string.
         """
         ...
+
     def internet_explorer(self) -> str:
         """
         Generate an IE web browser user agent string.
         """
         ...
+
     def ios_platform_token(self) -> str:
         """
         Generate an iOS platform token used in user agent strings.
         """
         ...
+
     def linux_platform_token(self) -> str:
         """
         Generate a Linux platform token used in user agent strings.
         """
         ...
+
     def linux_processor(self) -> str:
         """
         Generate a Linux processor token used in user agent strings.
         """
         ...
+
     def mac_platform_token(self) -> str:
         """
         Generate a MacOS platform token used in user agent strings.
         """
         ...
+
     def mac_processor(self) -> str:
         """
         Generate a MacOS processor token used in user agent strings.
         """
         ...
+
     def opera(self) -> str:
         """
         Generate an Opera web browser user agent string.
         """
         ...
+
     def safari(self) -> str:
         """
         Generate a Safari web browser user agent string.
         """
         ...
+
     def user_agent(self) -> str:
         """
         Generate a random web browser user agent string.
         """
         ...
+
     def windows_platform_token(self) -> str:
         """
         Generate a Windows platform token used in user agent strings.
         """
         ...
+
     def area_code(self) -> str: ...
     def cellphone_number(self) -> str: ...
     def cellphone_provider_code(self) -> str: ...
@@ -2478,12 +2672,14 @@ class Faker:
         Generate an initial number for license plates.
         """
         ...
+
     def operator_id(self) -> str: ...
     def district(self) -> str:
         """
         Generate a district code for license plates.
         """
         ...
+
     def provider_code(self) -> str: ...
     def license_plate_ar(self) -> str:
         """
@@ -2495,56 +2691,67 @@ class Faker:
         value.
         """
         ...
+
     def license_plate_en(self) -> str:
         """
         Generate a license plate in Latin/Western characters.
         """
         ...
+
     def district_suffix(self) -> str:
         """
         :example: 'r.'
         """
         ...
+
     def house_number(self) -> str:
         """
         :example: 'm. 49'
         """
         ...
+
     def settlement(self) -> str:
         """
         :example: 'Horadiz'
         """
         ...
+
     def settlement_suffix(self) -> str:
         """
         :example: 'qəs.'
         """
         ...
+
     def street(self) -> str:
         """
         :example: 'A.AĞAYEV'
         """
         ...
+
     def village(self) -> str:
         """
         :example: 'Didivar'
         """
         ...
+
     def village_suffix(self) -> str:
         """
         :example: 'k.'
         """
         ...
+
     def bank(self) -> str:
         """
         Generate a bank name.
         """
         ...
+
     def large_company(self) -> str:
         """
         :example: 'SOCAR'
         """
         ...
+
     def last_name_unique_to_female(self) -> str: ...
     def last_name_unique_to_male(self) -> str: ...
     def last_name_unisex(self) -> str: ...
@@ -2556,102 +2763,120 @@ class Faker:
         :return: A random Bulgarian VAT ID
         """
         ...
+
     def area_name(self) -> str:
         """
         :example: 'উজির'
         """
         ...
+
     def building_name(self) -> str:
         """
         :example: 'বাড়ী নং'
         """
         ...
+
     def town(self) -> str:
         """
         :example: 'নবাব'
         """
         ...
+
     def city_name(self) -> str:
         """
         :example: 'ঢাকা মেট্রো'
         """
         ...
+
     def vehicle_category_letter(self) -> str:
         """
         :example: 'ব'
         """
         ...
+
     def vehicle_category_number(self) -> str:
         """
         :example: '১১'
         """
         ...
+
     def vehicle_serial_number(self) -> str:
         """
         Generate a 4 digits vehicle serial number.
         :example: '৫৪৩২'
         """
         ...
+
     def first_name_female_common(self) -> str:
         """
         Return religiously unbiased female first name.
         :example: 'অর্পিতা'
         """
         ...
+
     def first_name_female_hinduism(self) -> str:
         """
         Return Hindu religion based female first name.
         :example: 'দূর্গা'
         """
         ...
+
     def first_name_female_islamic(self) -> str:
         """
         Return Islam religion based female first name.
         :example: 'মেহজাবিন'
         """
         ...
+
     def first_name_male_common(self) -> str:
         """
         Return religiously unbiased male first name.
         :example: 'প্রিতম'
         """
         ...
+
     def first_name_male_hinduism(self) -> str:
         """
         Return Hindu religion based male first name.
         :example: 'অশোক'
         """
         ...
+
     def first_name_male_islamic(self) -> str:
         """
         Return Islam religion based male first name.
         :example: 'ইকবাল'
         """
         ...
+
     def last_name_common(self) -> str:
         """
         Return religiously and gender unbiased last name.
         :example: 'চৌধুরী'
         """
         ...
+
     def last_name_female_islamic(self) -> str:
         """
         Return Islam religion based female last name.
         :example: 'খাতুন'
         """
         ...
+
     def last_name_hinduism(self) -> str:
         """
         Return gender unbiased Hindu religion based last name.
         :example: 'দত্ত'
         """
         ...
+
     def last_name_islamic(self) -> str:
         """
         Return gender unbiased Islam religion based last name.
         :example: 'আলি'
         """
         ...
+
     def city_with_postcode(self) -> str: ...
     def street_suffix_long(self) -> str: ...
     def street_suffix_short(self) -> str: ...
@@ -2661,11 +2886,13 @@ class Faker:
         https://en.wikipedia.org/wiki/National_identification_number#Czech_Republic_and_Slovakia
         """
         ...
+
     def dk_street_name(self) -> str:
         """
         This returns the name of a street, without any suffix.
         """
         ...
+
     def local_latitude(self) -> Decimal: ...
     def local_longitude(self) -> Decimal: ...
     def canton(self) -> Tuple[str, str]:
@@ -2674,18 +2901,21 @@ class Faker:
         :example ('ZH', 'Zürich')
         """
         ...
+
     def canton_code(self) -> str:
         """
         Randomly returns a Swiss canton code.
         :example 'ZH'
         """
         ...
+
     def canton_name(self) -> str:
         """
         Randomly returns a Swiss canton name.
         :example 'Zürich'
         """
         ...
+
     def line_address(self) -> str: ...
     def region(self) -> str: ...
     def street_prefix(self) -> str: ...
@@ -2697,24 +2927,28 @@ class Faker:
         :return: a random Greek identity card number
         """
         ...
+
     def tin(self) -> str:
         """
         Generates random Greek personal TINs
         :return: a random Greek personal TIN
         """
         ...
+
     def postal_code_letter(self) -> str:
         """
         Returns a random letter from the list of allowable
         letters in a canadian postal code
         """
         ...
+
     def postalcode_in_province(self, province_abbr: Optional[str] = ...) -> str: ...
     def postcode_in_province(self, province_abbr: Optional[str] = ...) -> str:
         """
         Returns a random postcode within the provided province abbreviation
         """
         ...
+
     def province(self) -> str: ...
     def province_abbr(self) -> str: ...
     def county(self) -> str: ...
@@ -2726,6 +2960,7 @@ class Faker:
         Official Website: https://uidai.gov.in/my-aadhaar/about-your-aadhaar.html
         """
         ...
+
     def rd_number(self) -> str: ...
     def te_reo_ending(self) -> str: ...
     def te_reo_first(self) -> str: ...
@@ -2765,6 +3000,7 @@ class Faker:
            considered automobiles for this purpose.
         """
         ...
+
     def motorcycle_license_plate(self) -> str:
         """
         Generate a motorcycle license plate.
@@ -2774,6 +3010,7 @@ class Faker:
            are issued motorcycle license plates.
         """
         ...
+
     def protocol_license_plate(self) -> str:
         """
         Generate a protocol license plate.
@@ -2783,6 +3020,7 @@ class Faker:
            protocol license plates.
         """
         ...
+
     def company_type(self) -> str: ...
     def random_company_acronym(self) -> str: ...
     def random_company_adjective(self) -> str: ...
@@ -2796,6 +3034,7 @@ class Faker:
         :sample: nb_sentences=5, variable_nb_sentences=False
         """
         ...
+
     def english_paragraphs(self, nb: int = ...) -> List[str]:
         """
         Generate a list of paragraphs in English.
@@ -2803,6 +3042,7 @@ class Faker:
         :sample: nb=5
         """
         ...
+
     def english_sentence(self, nb_words: int = ..., variable_nb_words: bool = ...) -> str:
         """
         Generate a sentence in English.
@@ -2811,6 +3051,7 @@ class Faker:
         :sample: nb_words=10, variable_nb_words=False
         """
         ...
+
     def english_sentences(self, nb: int = ...) -> List[str]:
         """
         Generate a list of sentences in English.
@@ -2818,6 +3059,7 @@ class Faker:
         :sample: nb=5
         """
         ...
+
     def english_text(self, max_nb_chars: int = ...) -> str:
         """
         Generate a text string in English.
@@ -2827,6 +3069,7 @@ class Faker:
         :sample: max_nb_chars=160
         """
         ...
+
     def english_texts(self, nb_texts: int = ..., max_nb_chars: int = ...) -> List[str]:
         """
         Generate a list of text strings in English.
@@ -2835,11 +3078,13 @@ class Faker:
         :sample: nb_texts=5, max_nb_chars=50
         """
         ...
+
     def english_word(self) -> str:
         """
         Generate an English word.
         """
         ...
+
     def english_words(self, nb: int = ..., unique: bool = ...) -> List[str]:
         """
         Generate a list of English words.
@@ -2848,6 +3093,7 @@ class Faker:
         :sample: nb=5, unique=True
         """
         ...
+
     def gemstone_name(self) -> str: ...
     def mountain_name(self) -> str: ...
     def plant_name(self) -> str: ...
@@ -2879,71 +3125,84 @@ class Faker:
         :example: "La Plata"
         """
         ...
+
     def municipality_code(self) -> str:
         """
         :example: "1900"
         """
         ...
+
     def provinces_code(self) -> str:
         """
         :example: "BA"
         """
         ...
+
     def street_municipality(self) -> str:
         """
         :example: "La Plata"
         """
         ...
+
     def street_procer(self) -> str:
         """
         :example: "Belgrano"
         """
         ...
+
     def street_province(self) -> str:
         """
         :example: "San Juan"
         """
         ...
+
     def license_plate_mercosur(self) -> str:
         """
         Generate an new plate with Mercosur format. Since 2016
         """
         ...
+
     def license_plate_old(self) -> str:
         """
         Generate an old format license plate. Since 1995 to 2016
         """
         ...
+
     def cif(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
         :return: a random Spanish CIF
         """
         ...
+
     def doi(self) -> str:
         """
         https://es.wikipedia.org/wiki/Identificador_de_objeto_digital
         :return: a random Spanish CIF or NIE or NIF
         """
         ...
+
     def nie(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identidad_de_extranjero
         :return: a random Spanish NIE
         """
         ...
+
     def nif(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_fiscal
         :return: NIF
         """
         ...
+
     def nuss(self, company: bool = ...) -> str:
         """
         :param company: flag to indicate if we should generate a company NUSS
         :return: a random Spanish Social Security Number (Número de la Seguridad Social)
         """
         ...
+
     def common_street_name(self) -> str: ...
     def commune(self) -> str: ...
     def commune_and_region(self) -> str: ...
@@ -2963,21 +3222,25 @@ class Faker:
         :example: 'Grupo'
         """
         ...
+
     def given_name(self) -> str:
         """
         Generates a composite given name with two unique names
         """
         ...
+
     def given_name_female(self) -> str:
         """
         Generates a composite female given name with two unique names
         """
         ...
+
     def given_name_male(self) -> str:
         """
         Generates a composite male given name with two unique names
         """
         ...
+
     def cellphone_block(self) -> str: ...
     def landline_code(self) -> str: ...
     def special_code(self) -> str: ...
@@ -2986,11 +3249,13 @@ class Faker:
         :return: a random Chilean RUT between 60.000.000 and 99.999.999
         """
         ...
+
     def person_rut(self) -> str:
         """
         :return: a random Chilean RUT between a 10 and 31.999.999 range
         """
         ...
+
     def rut(self, min: int = ..., max: int = ...) -> str:
         """
         Generates a RUT within the specified ranges, inclusive.
@@ -3000,44 +3265,52 @@ class Faker:
         :return: a random Chilean RUT between 35.000.000 and 99.999.999
         """
         ...
+
     def department(self) -> str:
         """
         :example: "Bogotá, D.C."
         """
         ...
+
     def department_code(self) -> str:
         """
         :example: "11"
         """
         ...
+
     def legal_person_nit(self) -> str:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_Identificaci%C3%B3n_Tributaria
         :example: '967807269'
         """
         ...
+
     def legal_person_nit_with_check_digit(self) -> str:
         """
         :example: '967807269-7'
         """
         ...
+
     def natural_person_nit(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%A9dula_de_Ciudadan%C3%ADa_(Colombia)
         :example: '1095312769'
         """
         ...
+
     def natural_person_nit_with_check_digit(self) -> str:
         """
         :example: '1095312769-0'
         """
         ...
+
     def nuip(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%A9dula_de_Ciudadan%C3%ADa_(Colombia)
         :example: '1095312769'
         """
         ...
+
     def autonomous_community(self) -> str: ...
     def state_name(self) -> str: ...
     def license_plate_by_province(self, province_prefix: Optional[str] = ...) -> str:
@@ -3049,11 +3322,13 @@ class Faker:
         will be selected at random.
         """
         ...
+
     def license_plate_unified(self) -> str:
         """
         Generate a unified license plate.
         """
         ...
+
     def random_name_complements(self) -> str: ...
     def city_adjective(self) -> str: ...
     def clabe(self, bank_code: Optional[int] = ...) -> str:
@@ -3070,6 +3345,7 @@ class Faker:
         :sample: bank_code=2
         """
         ...
+
     def curp(self) -> str:
         """
         See https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Registro_de_Poblaci%C3%B3n.
@@ -3077,6 +3353,7 @@ class Faker:
         :return: a random Mexican CURP (Unique Population Registry Code)
         """
         ...
+
     def elector_code(self, gender: Optional[Literal["H", "M"]] = ...) -> str:
         """
         Unique elector code issued by INE (Instituto Nacional Electoral) in Mexico.
@@ -3090,6 +3367,7 @@ class Faker:
         :sample: gender='M'
         """
         ...
+
     def rfc(self, natural: bool = ...) -> str:
         """
         See https://es.wikipedia.org/wiki/Registro_Federal_de_Contribuyentes
@@ -3100,6 +3378,7 @@ class Faker:
         :return: a random Mexican RFC
         """
         ...
+
     def first_name_est(self) -> str: ...
     def first_name_female_est(self) -> str: ...
     def first_name_female_rus(self) -> str: ...
@@ -3117,6 +3396,7 @@ class Faker:
         non-zero.
         """
         ...
+
     def company_vat(self) -> str:
         """
         Returns Finnish VAT identification number (Arvonlisaveronumero).
@@ -3124,6 +3404,7 @@ class Faker:
         adding prefix "FI" and removing dash before checksum.
         """
         ...
+
     def english_catch_phrase(self) -> str: ...
     def random_good_service_adjective(self) -> str: ...
     def random_good_service_adjective_chain(self) -> str: ...
@@ -3134,33 +3415,39 @@ class Faker:
         Returns a random catch phrase attribute.
         """
         ...
+
     def catch_phrase_noun(self) -> str:
         """
         Returns a random catch phrase noun.
         """
         ...
+
     def catch_phrase_verb(self) -> str:
         """
         Returns a random catch phrase verb.
         """
         ...
+
     def ide(self) -> str:
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
         """
         ...
+
     def idi(self) -> str:
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
         """
         ...
+
     def siren(self) -> str:
         """
         Generates a siren number (9 digits). Formatted as '### ### ###'.
         """
         ...
+
     def siret(self, max_sequential_digits: int = ...) -> str:
         """
         Generates a siret number (14 digits).
@@ -3172,18 +3459,21 @@ class Faker:
         :param max_sequential_digits The maximum number of digits for the sequential number (> 0 && <= 4).
         """
         ...
+
     def uid(self) -> str:
         """
         Generates a IDE number (9 digits).
         http://www.bfs.admin.ch/bfs/portal/fr/index/themen/00/05/blank/03/02.html
         """
         ...
+
     def department_name(self) -> str:
         """
         Randomly returns a french department name.
         :example: 'Ardèche'
         """
         ...
+
     def department_number(self) -> str:
         """
         Randomly returns a french department number.
@@ -3191,6 +3481,7 @@ class Faker:
         :example: '59'
         """
         ...
+
     def area_code_with_separator(self) -> str: ...
     def area_code_without_separator(self) -> str: ...
     def street_title(self) -> str: ...
@@ -3205,6 +3496,7 @@ class Faker:
         :example: 'գ.'
         """
         ...
+
     def postcode_city_province(self) -> str: ...
     @staticmethod
     def is_leap_year(year: int) -> bool:
@@ -3212,26 +3504,31 @@ class Faker:
         Checks if the one given is a leap year
         """
         ...
+
     def ban(self) -> str:
         """
         :example: '3番'
         """
         ...
+
     def chome(self) -> str:
         """
         :example: '1丁目'
         """
         ...
+
     def gou(self) -> str:
         """
         :example: '10号'
         """
         ...
+
     def prefecture(self) -> str:
         """
         :example: '東京都'
         """
         ...
+
     def jan(self, length: int = ...) -> str:
         """
         Generate a JAN barcode of the specified ``length``.
@@ -3243,6 +3540,7 @@ class Faker:
         :sample: length=13
         """
         ...
+
     def jan13(self) -> str:
         """
         Generate a 13 digit JAN barcode.
@@ -3250,6 +3548,7 @@ class Faker:
         This method is an alias for |JaJpProvider.localized_ean13|.
         """
         ...
+
     def jan8(self) -> str:
         """
         Generate a 8 digit JAN barcode.
@@ -3257,6 +3556,7 @@ class Faker:
         This method is an alias for |JaJpProvider.localized_ean8|.
         """
         ...
+
     def company_category(self) -> str: ...
     def traditional_month_name(self) -> str: ...
     def first_kana_name(self) -> str:
@@ -3264,176 +3564,211 @@ class Faker:
         :example: 'アケミ'
         """
         ...
+
     def first_kana_name_female(self) -> str:
         """
         :example: 'アケミ'
         """
         ...
+
     def first_kana_name_male(self) -> str:
         """
         :example: 'アキラ'
         """
         ...
+
     def first_name_female_pair(self) -> Tuple[str, str, str]:
         """
         :example: ('明美', 'アケミ', 'Akemi')
         """
         ...
+
     def first_name_male_pair(self) -> Tuple[str, str, str]:
         """
         :example: ('晃', 'アキラ', 'Akira')
         """
         ...
+
     def first_name_pair(self) -> Tuple[str, str, str]:
         """
         :example: ('明美', 'アケミ', 'Akemi')
         """
         ...
+
     def first_romanized_name(self) -> str:
         """
         :example: 'Akemi'
         """
         ...
+
     def first_romanized_name_female(self) -> str:
         """
         :example: 'Akemi'
         """
         ...
+
     def first_romanized_name_male(self) -> str:
         """
         :example: 'Akira'
         """
         ...
+
     def kana_name(self) -> str:
         """
         :example: 'サトウ アケミ'
         """
         ...
+
     def kana_name_female(self) -> str:
         """
         :example: 'サトウ アケミ'
         """
         ...
+
     def kana_name_male(self) -> str:
         """
         :example: 'サトウ アキラ'
         """
         ...
+
     def last_kana_name(self) -> str:
         """
         :example: 'サトウ'
         """
         ...
+
     def last_name_pair(self) -> Tuple[str, str, str]:
         """
         :example: ('佐藤', 'サトウ', 'Sato')
         """
         ...
+
     def last_romanized_name(self) -> str:
         """
         :example: 'Sato'
         """
         ...
+
     def romanized_name(self) -> str:
         """
         :example: 'Akemi Sato'
         """
         ...
+
     def romanized_name_female(self) -> str:
         """
         :example: 'Akemi Sato'
         """
         ...
+
     def romanized_name_male(self) -> str:
         """
         :example: 'Akira Sato'
         """
         ...
+
     def address_detail(self) -> str:
         """
         :example: 가나아파트 가동 102호
         """
         ...
+
     def borough(self) -> str:
         """
         :example: 중구
         """
         ...
+
     def building_dong(self) -> str:
         """
         :example: 가
         """
         ...
+
     def building_suffix(self) -> str:
         """
         :example: 아파트
         """
         ...
+
     def land_address(self) -> str:
         """
         :example: 세종특별자치시 어진동 507
         """
         ...
+
     def land_number(self) -> str:
         """
         :example: 507
         """
         ...
+
     def metropolitan_city(self) -> str:
         """
         :example: 서울특별시
         """
         ...
+
     def old_postal_code(self) -> str:
         """
         :example: 123-456
         """
         ...
+
     def postal_code(self) -> str:
         """
         :example: 12345
         """
         ...
+
     def road(self) -> str:
         """
         :example: 도움5로
         """
         ...
+
     def road_address(self) -> str:
         """
         :example: 세종특별자치시 도움5로 19 (어진동)
         """
         ...
+
     def road_number(self) -> str:
         """
         :example: 24
         """
         ...
+
     def road_suffix(self) -> str:
         """
         :example: 길
         """
         ...
+
     def town_suffix(self) -> str:
         """
         :example: 동
         """
         ...
+
     def building_prefix(self) -> str:
         """
         :example: वडा
         """
         ...
+
     def license_plate_car(self) -> str:
         """
         Generate a license plate for cars.
         """
         ...
+
     def license_plate_motorbike(self) -> str:
         """
         Generate a license plate for motorbikes.
         """
         ...
+
     def first_name_unisex(self) -> str: ...
     def middle_name(self) -> str: ...
     def license_plate_regex_formats(self) -> List[str]:
@@ -3446,6 +3781,7 @@ class Faker:
            this method.
         """
         ...
+
     def local_regon(self) -> str:
         """
         Returns 14 character Polish National Business Registry Number,
@@ -3454,6 +3790,7 @@ class Faker:
         https://pl.wikipedia.org/wiki/REGON
         """
         ...
+
     def regon(self) -> str:
         """
         Returns 9 character Polish National Business Registry Number,
@@ -3462,6 +3799,7 @@ class Faker:
         https://pl.wikipedia.org/wiki/REGON
         """
         ...
+
     def identity_card_number(self) -> str:
         """
         Returns 9 character Polish Identity Card Number,
@@ -3473,6 +3811,7 @@ class Faker:
         https://en.wikipedia.org/wiki/Polish_identity_card
         """
         ...
+
     def nip(self) -> str:
         """
         Returns 10 digit of Number of tax identification.
@@ -3483,6 +3822,7 @@ class Faker:
         http://www.algorytm.org/numery-identyfikacyjne/nip.html
         """
         ...
+
     def pesel(self, date_of_birth: Optional[datetime.datetime] = ..., sex: Optional[str] = ...) -> str:
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
@@ -3502,6 +3842,7 @@ class Faker:
         https://en.wikipedia.org/wiki/PESEL
         """
         ...
+
     def pesel_compute_check_digit(self, pesel: str) -> int: ...
     def pwz_doctor(self) -> str:
         """
@@ -3511,6 +3852,7 @@ class Faker:
         https://www.nil.org.pl/rejestry/centralny-rejestr-lekarzy/zasady-weryfikowania-nr-prawa-wykonywania-zawodu
         """
         ...
+
     def pwz_doctor_compute_check_digit(self, x: Sequence[int]) -> int: ...
     def pwz_nurse(self, kind: str = ...) -> str:
         """
@@ -3523,6 +3865,7 @@ class Faker:
         -rady-pielegniarek-i-polo
         """
         ...
+
     def bairro(self) -> str:
         """
         Randomly returns a bairro (neighborhood) name.
@@ -3530,24 +3873,28 @@ class Faker:
         :example: 'Serra'
         """
         ...
+
     def estado(self) -> Tuple[str, str]:
         """
         Randomly returns a Brazilian State  ('sigla' , 'nome').
         :example: ('MG' . 'Minas Gerais')
         """
         ...
+
     def estado_nome(self) -> str:
         """
         Randomly returns a Brazilian State Name
         :example: 'Minas Gerais'
         """
         ...
+
     def estado_sigla(self) -> str:
         """
         Randomly returns the abbreviation of a Brazilian State
         :example: 'MG'
         """
         ...
+
     def neighborhood(self) -> str: ...
     def cnpj(self) -> str: ...
     def company_id(self) -> str: ...
@@ -3558,61 +3905,73 @@ class Faker:
         Check:  https://www.ngmatematica.com/2014/02/como-determinar-o-digito-verificador-do.html
         """
         ...
+
     def concelho(self) -> str:
         """
         :example: 'Tondela'
         """
         ...
+
     def distrito(self) -> str:
         """
         :example: 'Bragança'
         """
         ...
+
     def freguesia(self) -> str:
         """
         :example: 'Miranda do Douro'
         """
         ...
+
     def place_name(self) -> str:
         """
         :example: "do Pombal"
         """
         ...
+
     def nationality(self) -> str:
         """
         :example: 'Portuguesa'
         """
         ...
+
     def plate_letter(self) -> str:
         """
         Generate a letter for license plates.
         """
         ...
+
     def plate_number(self) -> str:
         """
         Generate a number for license plates.
         """
         ...
+
     def plate_number_extra(self) -> str:
         """
         Generate extra numerical code for license plates.
         """
         ...
+
     def plate_number_special(self) -> str:
         """
         Generate a special code for license plates.
         """
         ...
+
     def plate_suffix(self) -> str:
         """
         Generate a suffix code for license plates.
         """
         ...
+
     def vehicle_category(self) -> str:
         """
         Generate a vehicle category code for license plates.
         """
         ...
+
     def bic(self) -> str:
         """
         Generate a bank identification code (BIC).
@@ -3621,6 +3980,7 @@ class Faker:
         See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код.
         """
         ...
+
     def checking_account(self) -> str:
         """
         Generate a checking account number.
@@ -3630,6 +3990,7 @@ class Faker:
         See https://ru.wikipedia.org/wiki/Расчётный_счёт.
         """
         ...
+
     def correspondent_account(self) -> str:
         """
         Generate a correspondent account number.
@@ -3639,33 +4000,39 @@ class Faker:
         See https://ru.wikipedia.org/wiki/Корреспондентский_счёт.
         """
         ...
+
     def businesses_inn(self) -> str:
         """
         Returns tax identification number for businesses (ru. идентификационный номер налогоплательщика, ИНН).
         """
         ...
+
     def businesses_ogrn(self) -> str:
         """
         Returns primary state registration number for businesses
         (ru. основной государственный регистрационный номер, ОГРН).
         """
         ...
+
     def individuals_inn(self) -> str:
         """
         Returns tax identification number for individuals (ru. идентификационный номер налогоплательщика, ИНН).
         """
         ...
+
     def individuals_ogrn(self) -> str:
         """
         Returns primary state registration number for individuals
         (ru. основной государственный регистрационный номер, ОГРН).
         """
         ...
+
     def kpp(self) -> str:
         """
         Returns tax registration reason code (ru. код причины постановки на учет, КПП).
         """
         ...
+
     def middle_name_female(self) -> str: ...
     def middle_name_male(self) -> str: ...
     def org_and_vat_id(self, long: bool = ..., dash: bool = ...) -> Tuple[str, str]:
@@ -3673,6 +4040,7 @@ class Faker:
         Returns matching Org ID and VAT number
         """
         ...
+
     def org_id(self, long: bool = ..., dash: bool = ...) -> str:
         """
         Returns a 10 or 12 digit Organisation ID for a Swedish
@@ -3680,6 +4048,7 @@ class Faker:
         (In Swedish) https://sv.wikipedia.org/wiki/Organisationsnummer
         """
         ...
+
     def amphoe(self) -> str:
         """
         Get a random Amphoe (district) name.
@@ -3687,6 +4056,7 @@ class Faker:
         :example: 'บางสะพานน้อย'
         """
         ...
+
     def tambon(self) -> str:
         """
         Get a random Tambon (subdistrict) name.
@@ -3694,21 +4064,25 @@ class Faker:
         :example: 'ห้วยนาง'
         """
         ...
+
     def company_limited_prefix(self) -> str:
         """
         :example: 'บริษัท'
         """
         ...
+
     def company_limited_suffix(self) -> str:
         """
         :example: 'จำกัด'
         """
         ...
+
     def nonprofit_prefix(self) -> str:
         """
         :example: 'มูลนิธิ'
         """
         ...
+
     def diplomatic_license_plate(self) -> str:
         """
         Example: 'CDP 000'  or 'DP 000 000' or 'S 000 000' format
@@ -3716,6 +4090,7 @@ class Faker:
         :sample:
         """
         ...
+
     def plate_letter_prefix(self, region_name: Optional[str] = ...) -> str:
         """
         Generate a letter for license plates.
@@ -3724,6 +4099,7 @@ class Faker:
         :sample: region_name="Kyiv"
         """
         ...
+
     def plate_letter_suffix(self) -> str:
         """
         Generate a end letter for license plates.
@@ -3731,6 +4107,7 @@ class Faker:
         :sample:
         """
         ...
+
     def plate_region_code(self, region_name: Optional[str] = ...) -> str:
         """
         Generate plate region number
@@ -3739,6 +4116,7 @@ class Faker:
         :sample: region_name="Kyiv"
         """
         ...
+
     def full_name(self, gender: Optional[Literal["M", "F"]] = ..., short: Optional[bool] = ...) -> str:
         """
         Generate Full Name
@@ -3754,6 +4132,7 @@ class Faker:
         :sample: short=True
         """
         ...
+
     def phonenumber_prefix(self) -> int: ...
     def city_name_suffix(self) -> str: ...
     def section_number(self) -> str: ...
@@ -3765,6 +4144,7 @@ class Faker:
         Default dir() implementation.
         """
         ...
+
     def __getattr__(self, attr: "str") -> "Any":
         """
         Handles cache access and proxying behavior
@@ -3773,6 +4153,7 @@ class Faker:
         :return: the appropriate attribute
         """
         ...
+
     def __getattribute__(self, attr: "str") -> "Any":
         """
         Handles the "attribute resolution" behavior for declared members of this proxy class
@@ -3783,6 +4164,7 @@ class Faker:
         :return: the appropriate attribute
         """
         ...
+
     def __getitem__(self, locale: "str") -> "Faker": ...
     def __init__(
         self,
@@ -3797,6 +4179,7 @@ class Faker:
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
+
     def __setstate__(self, state: "Any") -> "None": ...
     def items(self) -> "list[tuple[str, Generator | Faker]]": ...
     @staticmethod
@@ -3807,6 +4190,7 @@ class Faker:
         :param seed: seed value
         """
         ...
+
     def seed_instance(self, seed: "SeedType | None" = ...) -> "None":
         """
         Creates and seeds a new `random.Random` object for each factory
@@ -3814,6 +4198,7 @@ class Faker:
         :param seed: seed value
         """
         ...
+
     def seed_locale(self, locale: "str", seed: "SeedType | None" = ...) -> "None":
         """
         Creates and seeds a new `random.Random` object for the factory of the specified locale
