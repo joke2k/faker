@@ -1729,7 +1729,13 @@ class Faker:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
         ...
-    def words(self, nb: int = ..., ext_word_list: Optional[List[str]] = ..., unique: bool = ...) -> List[str]:
+    def words(
+        self,
+        nb: int = ...,
+        ext_word_list: Optional[List[str]] = ...,
+        part_of_speech: Optional[str] = ...,
+        unique: bool = ...,
+    ) -> List[str]:
         """
         Generate a tuple of words.
 
