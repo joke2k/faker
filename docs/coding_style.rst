@@ -11,6 +11,12 @@ Please include `type hints`_ for every provider method you write. An overview of
 
 You can find our complete flake8 configuration in the tox.ini_ file.
 
+Use `is` instead of `==` when comparing a variable to `None`, `False`, or `True` (see https://www.flake8rules.com/rules/E711.html):
+
+```python
+if my_var is None:
+    ...  # do something
+```
 
 Data Sets
 ---------
@@ -20,6 +26,9 @@ and/or origin of the data. If the source is a wiki, please also include the date
 
 We only accept new data if it's coming from statistical sources, such as census or government institutions.
 This includes names and their distribution.
+
+You may include multiple sources, but each name must come from a source. We will not accept list of names compiled
+exclusively by contributors.
 
 
 Name Lists
