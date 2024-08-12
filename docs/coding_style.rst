@@ -11,12 +11,12 @@ Please include `type hints`_ for every provider method you write. An overview of
 
 You can find our complete flake8 configuration in the tox.ini_ file.
 
-Use `is` instead of `==` when comparing a variable to `None`, `False`, or `True` (see https://www.flake8rules.com/rules/E711.html):
+Use `is` instead of `==` when comparing a variable to `None`, `False`, or `True` (see https://www.flake8rules.com/rules/E711.html)::
 
-```python
-if my_var is None:
-    ...  # do something
-```
+
+    if my_var is None:
+        ...  # do something
+
 
 Data Sets
 ---------
