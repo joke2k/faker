@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v27.0.0 - 2024-08-12](https://github.com/joke2k/faker/compare/v26.3.0...v27.3.0)
+
+* Re-introduce `part_of_speech` argument to `words()` method.
+
 ### [v26.3.0 - 2024-08-08](https://github.com/joke2k/faker/compare/v26.2.0...v26.3.0)
 
 * Extend `ro_RO` company localization with prefixes. Thanks @DDSNA.
