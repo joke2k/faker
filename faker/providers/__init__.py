@@ -133,6 +133,7 @@ class BaseProvider:
             "PE",
             "PR",
             "PY",
+            "PK",
             "SV",
             "US",
             "UY",
