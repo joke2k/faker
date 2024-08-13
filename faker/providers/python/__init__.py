@@ -320,7 +320,7 @@ class Provider(BaseProvider):
         elif max_value is not None and max_value <= 0:
             sign = "-"
         else:
-            if positive == None:
+            if positive is None:
                 sign = self.random_element(("+", "-"))
             else:
                 sign = "+" if positive else "-"
