@@ -16,6 +16,9 @@ class Provider(PersonProvider):
     )
     formats = formats_female + formats_male
 
+    # Name from : https://en.wikipedia.org/wiki/Vietnamese_name
+    # and https://vinpearl.com/en/vietnamese-names-top-200-popular-names-for-boys-and-girls
+
     first_names_female = (
         "Ngọc",
         "Hương",
@@ -103,6 +106,9 @@ class Provider(PersonProvider):
         "Mai",
         "Hoàng"
     )
+
+    # Typically, Vietnamese will be addressed with their given name and a prefix
+    # https://en.wikipedia.org/wiki/Vietnamese_name#Given_name
 
     prefixes_female = (
         "Cô",
