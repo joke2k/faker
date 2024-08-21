@@ -15,6 +15,7 @@ from faker.providers.job.ro_RO import Provider as RoRoJobProvider
 from faker.providers.job.sk_SK import Provider as SkSkJobProvider
 from faker.providers.job.th_TH import Provider as ThThJobProvider
 from faker.providers.job.tr_TR import Provider as TrTrJobProvider
+from faker.providers.job.vi_VN import Provider as ViVNJobProvider
 
 
 class TestJobProvider:
@@ -152,3 +153,13 @@ class TestRoRo:
 
     def test_job(self, faker, num_samples):
         assert faker.job() in RoRoJobProvider.jobs
+
+
+class TestViVn:
+    """Test vi_VN job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            job = faker.job()
+            assert isinstance(job, str)
+            assert job in ViVNJobProvider.jobs
