@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v27.2.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.1.0...v27.2.0)
+
+* Split names in `en_IN` person provider. Thanks @wh0th3h3llam1.
+
 ### [v27.1.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.0.0...v27.1.0)
 
 * Add address providoer for `en_MS` local. Thanks @carlosfunk.
