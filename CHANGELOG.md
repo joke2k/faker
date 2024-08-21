@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v27.0.0 - 2024-08-12](https://github.com/joke2k/faker/compare/v26.3.0...v27.3.0)
+### [v27.1.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.0.0...v27.1.0)
+
+* Add address providoer for `en_MS` local. Thanks @carlosfunk.
+
+### [v27.0.0 - 2024-08-12](https://github.com/joke2k/faker/compare/v26.3.0...v27.0.0)
 
 * Re-introduce `part_of_speech` argument to `words()` method.
 
