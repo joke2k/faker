@@ -1714,8 +1714,8 @@ class TestUkUa(unittest.TestCase):
 
 
 class TestViVn(unittest.TestCase):
-
     """Test vi_VN person provider methods"""
+
     def setUp(self):
         self.fake = Faker("vi_VN")
         Faker.seed(0)

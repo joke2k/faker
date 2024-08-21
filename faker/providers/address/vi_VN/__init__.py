@@ -254,9 +254,7 @@ class Provider(AddressProvider):
         "{{last_name}} {{street_suffix}}",
     )
 
-    street_address_formats = (
-        "{{building_number}} {{street_name}}",
-    )
+    street_address_formats = ("{{building_number}} {{street_name}}",)
 
     def city_prefix(self) -> str:
         """Returns a random city prefix."""
@@ -291,10 +289,11 @@ class Provider(AddressProvider):
             state_abbr = self.random_element(self.provinces_abbr)
 
         if state_abbr in self.provinces_abbr:
-            postcode = f"{self.generator.random.randint(
-                self.provinces_postcode[state_abbr][0],
-                self.provinces_postcode[state_abbr][1]
-            )}"
+            postcode = str(
+                self.generator.random.randint(
+                    self.provinces_postcode[state_abbr][0], self.provinces_postcode[state_abbr][1]
+                )
+            )
 
             # zero left pad up until desired length (length is 6)
             target_postcode_len = 6

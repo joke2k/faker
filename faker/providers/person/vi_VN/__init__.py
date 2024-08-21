@@ -29,12 +29,12 @@ class Provider(PersonProvider):
         "Hồng",
         "Chi",
         "Vân",
-        "Duyên"
+        "Duyên",
         "Dương",
         "Yến",
         "Vi",
         "Ánh",
-        "Xuân"
+        "Xuân",
     )
 
     first_names_unisex = (
@@ -47,7 +47,7 @@ class Provider(PersonProvider):
         "Kim",
         "Nhật",
         "Phương",
-        "Khoa"
+        "Khoa",
         "Hải",
         "Nhật",
     )
@@ -72,7 +72,7 @@ class Provider(PersonProvider):
         "Minh",
         "Tùng",
         "Nhiên",
-        "Trọng"
+        "Trọng",
     )
 
     middle_names = (
@@ -94,35 +94,14 @@ class Provider(PersonProvider):
         "Mai Bảo",
     )
 
-    last_names = (
-        "Nguyễn",
-        "Trần",
-        "Lê",
-        "Phạm",
-        "Vũ",
-        "Đặng",
-        "Bùi",
-        "Dương",
-        "Mai",
-        "Hoàng"
-    )
+    last_names = ("Nguyễn", "Trần", "Lê", "Phạm", "Vũ", "Đặng", "Bùi", "Dương", "Mai", "Hoàng")
 
     # Typically, Vietnamese will be addressed with their given name and a prefix
     # https://en.wikipedia.org/wiki/Vietnamese_name#Given_name
 
-    prefixes_female = (
-        "Cô",
-        "Chị",
-        "Bà",
-        "Quý cô"
-    )
+    prefixes_female = ("Cô", "Chị", "Bà", "Quý cô")
 
-    prefixes_male = (
-        "Ông",
-        "Anh",
-        "Bác",
-        "Quý ông"
-    )
+    prefixes_male = ("Ông", "Anh", "Bác", "Quý ông")
 
     def first_name_unisex(self) -> str:
         return self.random_element(self.first_names_unisex)
