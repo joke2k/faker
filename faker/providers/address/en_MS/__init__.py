@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Optional
+from typing import Dict, List, Optional
 
 from ... import ElementsType
 from ..en import Provider as AddressProvider
@@ -154,7 +154,7 @@ class Provider(AddressProvider):
     )
 
     # https://en.wikipedia.org/wiki/States_and_federal_territories_of_Malaysia
-    states: dict[str, list[str]] = {
+    states: Dict[str, List[str]] = {
         "JHR": ["Johor Darul Ta'zim", "Johor"],
         "KDH": ["Kedah Darul Aman", "Kedah"],
         "KTN": ["Kelantan Darul Naim", "Kelantan"],
