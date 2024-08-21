@@ -12,6 +12,7 @@ from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
 from faker.providers.person.en_IN import Provider as EnINProvider
+from faker.providers.person.en_PK import Provider as EnPKprovider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
@@ -42,40 +43,38 @@ from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
-from faker.providers.person.en_PK import Provider as EnPKprovider
 
 
-class TestEnPK(unittest.TestCase):
+class TestEnPk(unittest.TestCase):
 
     def setUp(self):
         """Set up the Faker instance with the Pakistani locale."""
-        self.fake = Faker('en_PK')
-        self.fake.add_provider(PK_person_provider)
+        self.fake = EnPKprovider()
 
     def test_first_name(self):
         """Test if the first name is from the predefined list."""
         first_name = self.fake.first_name()
-        self.assertIn(first_name, PK_person_provider.first_names)
+        self.assertIn(first_name, EnPKprovider.first_names)
 
     def test_last_name(self):
         """Test if the last name is from the predefined list."""
         last_name = self.fake.last_name()
-        self.assertIn(last_name, PK_person_provider.last_names)
+        self.assertIn(last_name, EnPKprovider.last_names)
 
     def test_full_name(self):
         """Test if the generated full name follows the correct format."""
         full_name = self.fake.name()
         name_parts = full_name.split()
-        self.assertIn(name_parts[0], PK_person_provider.first_names)
-        self.assertIn(name_parts[-1], PK_person_provider.last_names)
+        self.assertIn(name_parts[0], EnPKprovider.first_names)
+        self.assertIn(name_parts[-1], EnPKprovider.last_names)
 
     def test_name_format(self):
         """Test if the generated name format is as expected."""
         name = self.fake.name()
         name_parts = name.split()
         self.assertGreaterEqual(len(name_parts), 2, "Full name should have at least a first and last name.")
-        self.assertIn(name_parts[0], PK_person_provider.first_names)
-        self.assertIn(name_parts[-1], PK_person_provider.last_names)
+        self.assertIn(name_parts[0], EnPKprovider.first_names)
+        self.assertIn(name_parts[-1], EnPKprovider.last_names)
 
 
 class TestAr(unittest.TestCase):
