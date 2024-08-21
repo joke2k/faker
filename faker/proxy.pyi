@@ -2961,6 +2961,16 @@ class Faker:
         """
         ...
 
+    def building_prefix(self) -> str: ...
+    def city_prefix_abbr(self) -> str: ...
+    def city_state(self) -> str:
+        """
+        Return the complete city address with matching postcode and state
+
+        Example: 55100 Bukit Bintang, Kuala Lumpur
+        """
+        ...
+
     def rd_number(self) -> str: ...
     def te_reo_ending(self) -> str: ...
     def te_reo_first(self) -> str: ...
@@ -3748,12 +3758,6 @@ class Faker:
     def town_suffix(self) -> str:
         """
         :example: 동
-        """
-        ...
-
-    def building_prefix(self) -> str:
-        """
-        :example: वडा
         """
         ...
 

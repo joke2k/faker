@@ -2091,21 +2091,15 @@ class TestEnMs:
         for _ in range(num_samples):
             state = getattr(faker, fn_name)()
             assert isinstance(state, str)
-            assert state in [
-                x for v in EnMsAddressProvider.states.values() for x in v
-            ]
+            assert state in [x for v in EnMsAddressProvider.states.values() for x in v]
 
     def test_postcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
             for state_abbr in EnMsAddressProvider.states.keys():
                 code = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
-                assert (
-                    int(code) >= EnMsAddressProvider.states_postcode[state_abbr][0][0]
-                )
-                assert (
-                    int(code) <= EnMsAddressProvider.states_postcode[state_abbr][-1][1]
-                )
+                assert int(code) >= EnMsAddressProvider.states_postcode[state_abbr][0][0]
+                assert int(code) <= EnMsAddressProvider.states_postcode[state_abbr][-1][1]
 
         with pytest.raises(KeyError):
             faker.postcode_in_state("XX")

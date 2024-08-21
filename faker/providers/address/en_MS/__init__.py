@@ -154,7 +154,7 @@ class Provider(AddressProvider):
     )
 
     # https://en.wikipedia.org/wiki/States_and_federal_territories_of_Malaysia
-    states = {
+    states: dict[str, list[str]] = {
         "JHR": ["Johor Darul Ta'zim", "Johor"],
         "KDH": ["Kedah Darul Aman", "Kedah"],
         "KTN": ["Kelantan Darul Naim", "Kelantan"],
@@ -427,27 +427,23 @@ class Provider(AddressProvider):
     def building_number(self) -> str:
         return self.bothify(self.random_element(self.building_number_formats))
 
-    street_address_formats: ElementsType[str] = (
-        "{{building_prefix}}{{building_number}}, {{street_name}}",
-    )
+    street_address_formats: ElementsType[str] = ("{{building_prefix}}{{building_number}}, {{street_name}}",)
 
     def city_state(self) -> str:
         """Return the complete city address with matching postcode and state
 
         Example: 55100 Bukit Bintang, Kuala Lumpur
         """
-        state = self.random_element(self.states.keys())
+        state: str = self.random_element(self.states.keys())
         postcode = self.postcode_in_state(state)
         city = self.city()
-        state_name = self.random_element(self.states[state])
+        state_name: str = self.random_element(self.states[state])
 
         return f"{postcode} {city}, {state_name}"
 
     # https://en.wikipedia.org/wiki/Addresses_in_Malaysia
     # street number, street name, region, and town/city, state.
-    address_formats = OrderedDict(
-        (("{{street_address}}, {{city}}, {{city_state}}", 100.0),)
-    )
+    address_formats = OrderedDict((("{{street_address}}, {{city}}, {{city_state}}", 100.0),))
 
     def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)
