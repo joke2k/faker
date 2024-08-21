@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v27.3.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.2.0...v27.3.0)
+
+* Add providers for `vi_VN` locale. Thanks @ntd1683.
+
 ### [v27.2.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.1.0...v27.2.0)
 
 * Split names in `en_IN` person provider. Thanks @wh0th3h3llam1.
