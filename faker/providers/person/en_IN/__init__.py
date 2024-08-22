@@ -10,6 +10,7 @@ class Provider(PersonProvider):
     # https://www.in.pampers.com/pregnancy/baby-names/article/indian-baby-boys-names
     first_names_male = (
         "Aadi",
+        "Aakash",
         "Aarav",
         "Aarnav",
         "Aarush",
@@ -246,6 +247,8 @@ class Provider(PersonProvider):
         "Veer",
         "Victor",
         "Vihaan",
+        "Vikram",
+        "Vikash",
         "Vincent",
         "Viraj",
         "Vivaan",
