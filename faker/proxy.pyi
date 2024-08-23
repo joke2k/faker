@@ -2439,7 +2439,7 @@ class Faker:
         self,
         left_digits: Optional[int] = ...,
         right_digits: Optional[int] = ...,
-        positive: bool = ...,
+        positive: Optional[bool] = ...,
         min_value: Union[float, int, None] = ...,
         max_value: Union[float, int, None] = ...,
     ) -> Decimal: ...
