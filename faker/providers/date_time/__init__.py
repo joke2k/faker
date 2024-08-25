@@ -1427,8 +1427,8 @@ class Provider(BaseProvider):
         Country(
             timezones=[
                 "Europe/Kyiv",
-                "Europe/Uzhhorod",
-                "Europe/Zaporizhzhia",
+                "Europe/Uzhgorod",
+                "Europe/Zaporozhye",
                 "Europe/Simferopol",
             ],
             alpha_2_code="UA",
