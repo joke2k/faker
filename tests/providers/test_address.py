@@ -19,6 +19,7 @@ from faker.providers.address.en_CA import Provider as EnCaAddressProvider
 from faker.providers.address.en_GB import Provider as EnGbAddressProvider
 from faker.providers.address.en_IE import Provider as EnIeAddressProvider
 from faker.providers.address.en_IN import Provider as EnInAddressProvider
+from faker.providers.address.en_MS import Provider as EnMsAddressProvider
 from faker.providers.address.en_NZ import Provider as EnNzAddressProvider
 from faker.providers.address.en_PH import Provider as EnPhAddressProvider
 from faker.providers.address.en_US import Provider as EnUsAddressProvider
@@ -52,6 +53,7 @@ from faker.providers.address.sv_SE import Provider as SvSeAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
 from faker.providers.address.th_TH import Provider as ThThAddressProvider
 from faker.providers.address.uk_UA import Provider as UkUaAddressProvider
+from faker.providers.address.vi_VN import Provider as ViVNAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
 from faker.providers.address.zh_TW import Provider as ZhTwAddressProvider
 
@@ -2030,6 +2032,85 @@ class TestRoRo:
             assert match.group("city") in RoRoAddressProvider.cities
 
 
+class TestEnMs:
+    """Test en_MS address provider methods"""
+
+    def test_city_prefix_abbr(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_prefix_abbr = faker.city_prefix_abbr()
+            assert isinstance(city_prefix_abbr, str)
+            assert city_prefix_abbr in EnMsAddressProvider.city_prefix_abbrs
+
+    def test_city_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_prefix = faker.city_prefix()
+            assert isinstance(city_prefix, str)
+            assert city_prefix in EnMsAddressProvider.city_prefixes
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert "%" not in city
+            assert "#" not in city
+            assert "?" not in city
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_prefix = faker.street_prefix()
+            assert isinstance(street_prefix, str)
+            assert street_prefix in EnMsAddressProvider.street_prefixes
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+
+    def test_building_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_prefix = faker.building_prefix()
+            assert isinstance(building_prefix, str)
+
+    def test_building_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number()
+            assert isinstance(building_number, str)
+
+    def test_city_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_state = faker.city_state()
+            assert isinstance(city_state, str)
+
+    @pytest.mark.parametrize(
+        "fn_name",
+        [
+            ("administrative_unit"),
+            ("state"),
+        ],
+    )
+    def test_state_administrative_unit(self, faker, num_samples, fn_name):
+        for _ in range(num_samples):
+            state = getattr(faker, fn_name)()
+            assert isinstance(state, str)
+            assert state in [x for v in EnMsAddressProvider.states.values() for x in v]
+
+    def test_postcode_in_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            for state_abbr in EnMsAddressProvider.states.keys():
+                code = faker.postcode_in_state(state_abbr)
+                assert re.fullmatch(r"\d{5}", code)
+                assert int(code) >= EnMsAddressProvider.states_postcode[state_abbr][0][0]
+                assert int(code) <= EnMsAddressProvider.states_postcode[state_abbr][-1][1]
+
+        with pytest.raises(KeyError):
+            faker.postcode_in_state("XX")
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.postcode()
+            assert re.fullmatch(r"\d{5}", code)
+
+
 class TestEnNz:
     """Test en_NZ address provider methods"""
 
@@ -2330,6 +2411,51 @@ class TestUkUa:
             region = faker.region()
             assert isinstance(region, str)
             assert region in UkUaAddressProvider.region_names
+
+
+class TestViVn:
+    """Test vi_VN address provider methods"""
+
+    def test_city_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_prefix = faker.city_prefix()
+            assert isinstance(city_prefix, str)
+            assert city_prefix in ViVNAddressProvider.city_prefixes
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in ViVNAddressProvider.provinces
+
+    def test_state_abbr(self, faker, num_samples):
+        for _ in range(num_samples):
+            state_abbr = faker.state_abbr()
+            assert isinstance(state_abbr, str)
+            assert state_abbr in ViVNAddressProvider.provinces_abbr
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str) and len(postcode) == 6
+            assert 100000 <= int(postcode) <= 999999
+
+    def test_postcode_in_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            for state_abbr in ViVNAddressProvider.provinces_abbr:
+                postcode = faker.postcode_in_state(state_abbr)
+                assert re.fullmatch(r"\d{6}", postcode)
+                assert int(postcode) >= ViVNAddressProvider.provinces_postcode[state_abbr][0]
+                assert int(postcode) <= ViVNAddressProvider.provinces_postcode[state_abbr][1]
+
+        with pytest.raises(ValueError):
+            faker.postcode_in_state("XX")
+
+    def test_state_abbr_determinism(self, faker):
+        faker.seed_instance(0)
+        first = faker.state_abbr()
+        faker.seed_instance(0)
+        assert faker.state_abbr() == first
 
 
 class TestFrCa:

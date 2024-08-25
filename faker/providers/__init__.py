@@ -108,6 +108,7 @@ class BaseProvider:
             "NG",
             "NZ",
             "PH",
+            "PK",
             "SG",
             "US",
             "ZA",

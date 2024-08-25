@@ -2439,7 +2439,7 @@ class Faker:
         self,
         left_digits: Optional[int] = ...,
         right_digits: Optional[int] = ...,
-        positive: bool = ...,
+        positive: Optional[bool] = ...,
         min_value: Union[float, int, None] = ...,
         max_value: Union[float, int, None] = ...,
     ) -> Decimal: ...
@@ -2958,6 +2958,16 @@ class Faker:
         India.
         Details: https://en.wikipedia.org/wiki/Aadhaar
         Official Website: https://uidai.gov.in/my-aadhaar/about-your-aadhaar.html
+        """
+        ...
+
+    def building_prefix(self) -> str: ...
+    def city_prefix_abbr(self) -> str: ...
+    def city_state(self) -> str:
+        """
+        Return the complete city address with matching postcode and state
+
+        Example: 55100 Bukit Bintang, Kuala Lumpur
         """
         ...
 
@@ -3748,12 +3758,6 @@ class Faker:
     def town_suffix(self) -> str:
         """
         :example: 동
-        """
-        ...
-
-    def building_prefix(self) -> str:
-        """
-        :example: वडा
         """
         ...
 
