@@ -1,3 +1,4 @@
+from collections import Counter
 import decimal
 import sys
 import unittest
@@ -505,6 +506,29 @@ class TestPydecimal(unittest.TestCase):
         Faker.seed("2")
         result = self.fake.pydecimal(min_value=10**1000)
         self.assertGreater(result, 10**1000)
+
+    def test_min_value_and_max_value_have_different_signs_return_evenly_distributed_values(self):
+        result = []
+        boundary_value = 10
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=-boundary_value, max_value=boundary_value, right_digits=0))
+        self.assertEqual(len(Counter(result)), 2 * boundary_value + 1)
+
+    def test_min_value_and_max_value_negative_return_evenly_distributed_values(self):
+        result = []
+        min_value = -60
+        max_value = -50
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+        self.assertGreater(len(Counter(result)), max_value-min_value)
+
+    def test_min_value_and_max_value_positive_return_evenly_distributed_values(self):
+        result = []
+        min_value = 50
+        max_value = 60
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+        self.assertGreater(len(Counter(result)), max_value-min_value)
 
 
 class TestPystr(unittest.TestCase):
