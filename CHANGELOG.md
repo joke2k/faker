@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v28.1.0 - 2024-08-30](https://github.com/joke2k/faker/compare/v28.0.0...v28.1.0)
+
+* Fix Incorrect City Spelling in `uk_UA` locale. Thanks @ch4zzy.
+
 ### [v28.0.0 - 2024-08-23](https://github.com/joke2k/faker/compare/v27.4.0...v28.0.0)
 
 * Fix `pydecimal` handling of `positive` keyword. Thanks @tahzeer.
