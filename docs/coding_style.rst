@@ -27,7 +27,7 @@ and/or origin of the data. If the source is a wiki, please also include the date
 We only accept new data if it's coming from statistical sources, such as census or government institutions.
 This includes names and their distribution.
 
-You may include multiple sources, but each name must come from a source. We will not accept list of names compiled
+You may include multiple sources, but each name must come from a source. We will not accept names authored
 exclusively by contributors.
 
 
