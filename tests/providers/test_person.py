@@ -1363,6 +1363,26 @@ class TestUkUa(unittest.TestCase):
         self.provider = UkUAProvider
         self.translit = UkUATranslit
 
+    def test_male_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_male()
+            assert res in self.provider.first_names_male
+
+    def test_female_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_female()
+            assert res in self.provider.first_names_female
+
+    def test_male_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_male()
+            assert res in self.provider.last_names_male
+
+    def test_female_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_female()
+            assert res in self.provider.last_names_female
+
     def test_middle_names(self):
         for _ in range(100):
             res = self.fake.middle_name()
@@ -1398,15 +1418,15 @@ class TestUkUa(unittest.TestCase):
         for _ in range(10):
             res = self.fake.full_name(gender="M")
             last_name, first_name, middle_name = res.split(" ")
-            assert last_name in self.provider.last_names
+            assert last_name in self.provider.last_names_male
             assert first_name in self.provider.first_names_male
             assert middle_name in self.provider.middle_names_male
 
     def test_full_name_female(self):
-        for _ in range(10):
+        for _ in range(1000):
             res = self.fake.full_name(gender="F")
             last_name, first_name, middle_name = res.split(" ")
-            assert last_name in self.provider.last_names
+            assert last_name in self.provider.last_names_female
             assert first_name in self.provider.first_names_female
             assert middle_name in self.provider.middle_names_female
 
