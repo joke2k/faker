@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v28.2.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.1.0...v28.2.0)
+
+* Add `es_ES` isbn provider. Thanks @mondeja.
+
 ### [v28.1.0 - 2024-08-30](https://github.com/joke2k/faker/compare/v28.0.0...v28.1.0)
 
 * Fix Incorrect City Spelling in `uk_UA` locale. Thanks @ch4zzy.
