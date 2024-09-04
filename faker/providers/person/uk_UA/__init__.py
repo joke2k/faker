@@ -1020,7 +1020,7 @@ class Provider(PersonProvider):
         "Зарудний",
         "Піддубний",
         "Тихий",
-        "Чалий"
+        "Чалий",
     )
 
     last_names_male = last_names_common + last_names_male_only
