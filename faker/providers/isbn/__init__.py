@@ -1,8 +1,7 @@
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 from .. import BaseProvider
-from .isbn import MAX_LENGTH, ISBN10, ISBN13
-from typing import Dict, List, Tuple
+from .isbn import ISBN10, ISBN13, MAX_LENGTH
 
 localized = True
 

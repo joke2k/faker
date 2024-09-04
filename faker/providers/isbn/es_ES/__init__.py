@@ -1,5 +1,6 @@
 from .. import Provider as ISBNProvider
 
+
 class Provider(ISBNProvider):
     rules = {
         "978": {
@@ -31,6 +32,6 @@ class Provider(ISBNProvider):
                 ("8750000", "8999999", 5),
                 ("9000000", "9899999", 0),
                 ("9900000", "9999999", 6),
-            ]
+            ],
         },
     }
