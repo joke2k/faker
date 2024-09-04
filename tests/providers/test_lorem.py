@@ -851,7 +851,4 @@ class TestItIt:
         num_words = 5
         for _ in range(num_samples):
             words = faker.words(num_words)
-            assert all(
-                isinstance(word, str) and word in ItItLoremProvider.word_list
-                for word in words
-            )
+            assert all(isinstance(word, str) and word in ItItLoremProvider.word_list for word in words)
