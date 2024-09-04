@@ -352,9 +352,9 @@ class Provider(BaseProvider):
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
         if max_value is not None and result > max_value:
-            result = Decimal(max_value)
+            result = Decimal(str(max_value))
         if min_value is not None and result < min_value:
-            result = Decimal(min_value)
+            result = Decimal(str(min_value))
 
         return result
 
