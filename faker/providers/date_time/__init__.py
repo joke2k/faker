@@ -1,3 +1,4 @@
+import functools
 import platform
 import re
 
@@ -31,6 +32,19 @@ def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]
         pick = convert_timestamp_to_datetime(timestamp, tzlocal())
         return pick.astimezone(tzutc()).replace(tzinfo=None)
     return convert_timestamp_to_datetime(timestamp, tzinfo)
+
+
+def maybe_format_as_string(func):
+    """Format date as string if a pattern is provided."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        result: dtdate = func(*args, **kwargs)
+        pattern = kwargs.get('pattern')
+        if pattern:
+            return result.strftime(pattern)
+        return result
+    return wrapper
+
 
 
 def change_year(current_date: dtdate, year_diff: int) -> dtdate:
@@ -2167,18 +2181,21 @@ class Provider(BaseProvider):
             )
         return pick
 
+    @maybe_format_as_string
     def date_between_dates(
         self,
         date_start: Optional[DateParseType] = None,
         date_end: Optional[DateParseType] = None,
-    ) -> dtdate:
+        pattern: Optional[str] = None,
+    ) -> Union[dtdate, str]:
         """
         Takes two Date objects and returns a random date between the two given dates.
         Accepts Date or datetime objects
 
         :param date_start: Date
         :param date_end: Date
-        :return: Date
+        :param pattern: optional pattern to format the date as string
+        :return: Date or string
         """
         return self.date_time_between_dates(date_start, date_end).date()
 

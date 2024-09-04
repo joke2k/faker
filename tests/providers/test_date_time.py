@@ -272,6 +272,15 @@ class TestDateTime(unittest.TestCase):
         assert date_start <= random_date
         assert date_end >= random_date
 
+    def test_date_string_between_dates(self):
+        date_end = date.today()
+        date_start = date_end - timedelta(days=10)
+        date_format = "%Y-%m-%d"
+
+        date_string = self.fake.date_between_dates(date_start, date_end, pattern=date_format)
+        assert isinstance(date_string, str)
+        assert isinstance(datetime.strptime(date_string, date_format), datetime)
+
     def test_date_time_between_long_past_dates(self):
         random_date = self.fake.date_between("-100y", "-50y")
         assert random_date
