@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v28.4.1 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.4.0...v28.4.1)
+
+* Fix issue where Faker does not properly convert min/max float values to `Decimal`. Thanks @bdjellabaldebaran.
+
 ### [v28.4.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.3.0...v28.4.0)
 
 * Add `it_IT` lorem provider. Thanks @gianni-di-noia.
