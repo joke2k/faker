@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v28.4.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.3.0...v28.4.0)
+
+* Add `it_IT` lorem provider. Thanks @gianni-di-noia.
+
 ### [v28.3.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.2.0...v28.3.0)
 
 * Fix male forms of female surnames in `uk_UA`.Thanks @AlexLitvino.
