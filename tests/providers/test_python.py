@@ -530,6 +530,16 @@ class TestPydecimal(unittest.TestCase):
             result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
         self.assertGreater(len(Counter(result)), max_value-min_value)
 
+    def test_min_value_float_returns_correct_digit_number(self):
+        Faker.seed("6")
+        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        self.assertEqual(decimal.Decimal("0.2"), result)
+
+    def test_max_value_float_returns_correct_digit_number(self):
+        Faker.seed("3")
+        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        self.assertEqual(decimal.Decimal("0.3"), result)
+
 
 class TestPystr(unittest.TestCase):
     def setUp(self):

@@ -5,10 +5,10 @@ ISBN numbers.
 
 from typing import Any, Optional
 
+MAX_LENGTH = 13
+
 
 class ISBN:
-    MAX_LENGTH = 13
-
     def __init__(
         self,
         ean: Optional[str] = None,
