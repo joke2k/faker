@@ -1918,7 +1918,6 @@ class Provider(BaseProvider):
 
         :param pattern: Format of the date (year-month-day by default)
         :example: '2008-11-27'
-        :return: Date
         """
         return self.date_time(end_datetime=end_datetime).strftime(pattern)
 
@@ -2072,6 +2071,25 @@ class Provider(BaseProvider):
         end_date = self._parse_date(end_date)
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
+    def date_string_between(
+        self,
+        start_date: DateParseType = "-30y",
+        end_date: DateParseType = "today",
+        pattern: str = "%Y-%m-%d",
+    ) -> str:
+        """
+        Get a date string based on a random date between two given dates,
+        formatted according to the given pattern.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param start_date: Defaults to 30 years ago
+        :param end_date: Defaults to "today"
+        :param pattern: Format of the date (year-month-day by default)
+        :example: '1999-02-02'
+        :return: date as string
+        """
+        return self.date_between(start_date=start_date, end_date=end_date).strftime(pattern)
+
     def future_datetime(self, end_date: DateParseType = "+30d", tzinfo: Optional[TzInfo] = None) -> datetime:
         """
         Get a datetime object based on a random date between 1 second form now
@@ -2098,6 +2116,19 @@ class Provider(BaseProvider):
         """
         return self.date_between(start_date="+1d", end_date=end_date)
 
+    def future_date_string(self, end_date: DateParseType = "+30d", pattern: str = "%Y-%m-%d") -> str:
+        """
+        Get a date based on a random date between 1 day from now and a
+        given date, formatted according to the given pattern.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param end_date: Defaults to "+30d"
+        :param pattern: Format of the date (year-month-day by default)
+        :example: '2030-01-01'
+        :return: date string formatted as per given pattern
+        """
+        return self.date_string_between(start_date="+1d", end_date=end_date, pattern=pattern)
+
     def past_datetime(self, start_date: DateParseType = "-30d", tzinfo: Optional[TzInfo] = None) -> datetime:
         """
         Get a datetime object based on a random date between a given date and 1
@@ -2123,6 +2154,19 @@ class Provider(BaseProvider):
         :return: dtdate
         """
         return self.date_between(start_date=start_date, end_date="-1d")
+
+    def past_date_string(self, start_date: DateParseType = "-30d", pattern: str = "%Y-%m-%d") -> str:
+        """
+        Get a date based on a random date between a given date and 1 day
+        ago, formatted according to the given pattern.
+        Accepts date strings that can be recognized by strtotime().
+
+        :param start_date: Defaults to "-30d"
+        :param pattern: Format of the date (year-month-day by default)
+        :example: '1999-02-02'
+        :return: date string formatted as per given pattern
+        """
+        return self.date_string_between(start_date=start_date, end_date="-1d", pattern=pattern)
 
     def date_time_between_dates(
         self,
@@ -2465,7 +2509,7 @@ class Provider(BaseProvider):
     ) -> dtdate:
         """
         Generate a random date of birth represented as a Date object,
-        constrained by optional miminimum_age and maximum_age
+        constrained by optional minimum_age and maximum_age
         parameters.
 
         :param tzinfo: Defaults to None.
