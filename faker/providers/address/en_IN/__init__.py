@@ -532,7 +532,7 @@ class Provider(AddressProvider):
         if state_abbr in known_abbrs:
             codes = self.state_pincode
             if include_union_territories:
-                codes = codes**self.union_territories_pincode
+                codes = codes | self.union_territories_pincode
 
             pincode_range = codes[state_abbr]
             if isinstance(pincode_range, list):
