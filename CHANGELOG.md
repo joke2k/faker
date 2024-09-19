@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v29.0.0 - 2024-09-19](https://github.com/joke2k/faker/compare/v28.4.1...v29.0.0)
+
+* Fix `pydecimal` distribution when called with a range across `0`. Thanks @AlexLitvino.
+
 ### [v28.4.1 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.4.0...v28.4.1)
 
 * Fix issue where Faker does not properly convert min/max float values to `Decimal`. Thanks @bdjellabaldebaran.
