@@ -1,9 +1,9 @@
-from collections import Counter
 import decimal
 import sys
 import unittest
 import warnings
 
+from collections import Counter
 from typing import Iterable, Optional, Type, Union
 from unittest.mock import patch
 
@@ -520,7 +520,7 @@ class TestPydecimal(unittest.TestCase):
         max_value = -50
         for _ in range(1000):
             result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
-        self.assertGreater(len(Counter(result)), max_value-min_value)
+        self.assertGreater(len(Counter(result)), max_value - min_value)
 
     def test_min_value_and_max_value_positive_return_evenly_distributed_values(self):
         result = []
@@ -528,7 +528,7 @@ class TestPydecimal(unittest.TestCase):
         max_value = 60
         for _ in range(1000):
             result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
-        self.assertGreater(len(Counter(result)), max_value-min_value)
+        self.assertGreater(len(Counter(result)), max_value - min_value)
 
     def test_min_value_float_returns_correct_digit_number(self):
         Faker.seed("6")
