@@ -425,15 +425,16 @@ class Provider(AddressProvider):
     )
 
     union_territories = (
-        "Andaman and Nicobar Islands",
-        "Chandigarh",
-        "Dadra and Nagar Haveli, Dadra & Nagar Haveli",
-        "Daman and Diu",
-        "Delhi, National Capital Territory of Delhi",
-        "Jammu and Kashmir",
-        "Ladakh",
-        "Lakshadweep",
-        ("Pondicherry, Puducherry"),
+        ("Andaman and Nicobar Islands",),
+        ("Chandigarh",),
+        ("Dadra and Nagar Haveli, Dadra & Nagar Haveli",),
+        ("Daman and Diu",),
+        ("Delhi, National Capital Territory of Delhi",),
+        ("Jammu and Kashmir",),
+        ("Ladakh",),
+        ("Lakshadweep",),
+        ("Pondicherry",),
+        ("Puducherry",),
     )
 
     union_territories_abbr = (
@@ -454,46 +455,46 @@ class Provider(AddressProvider):
     # FIXME: as mentioned in above link.
 
     state_pincode = {
-        "AP": (510_000, 539_999),
-        "AR": (790_000, 792_999),
-        "AS": (780_000, 789_999),
-        "BR": (800_000, 859_999),
-        "CG": (490_000, 499_999),
-        "GA": (403_000, 403_999),
-        "GJ": (360_000, 399_999),
-        "HR": (120_000, 139_999),
-        "HP": (170_000, 179_999),
-        "JH": (800_000, 859_999),
-        "KA": (560_000, 599_999),
+        "AP": [(510_000, 539_999)],
+        "AR": [(790_000, 792_999)],
+        "AS": [(780_000, 789_999)],
+        "BR": [(800_000, 859_999)],
+        "CG": [(490_000, 499_999)],
+        "GA": [(403_000, 403_999)],
+        "GJ": [(360_000, 399_999)],
+        "HR": [(120_000, 139_999)],
+        "HP": [(170_000, 179_999)],
+        "JH": [(800_000, 859_999)],
+        "KA": [(560_000, 599_999)],
         "KL": [(670_000, 681_999), (683_000, 699_999)],
-        "MP": (450_000, 489_999),
+        "MP": [(450_000, 489_999)],
         "MH": [(400_000, 402_999), (404_000, 449_999)],
-        "MN": (795_000, 795_999),
-        "ML": (793_000, 794_999),
-        "MZ": (796_000, 796_999),
-        "NL": (797_000, 798_999),
-        "OD": (750_000, 779_999),
-        "PB": (140_000, 159_999),
-        "RJ": (300_000, 349_999),
-        "SK": (737_000, 737_999),
-        "TN": (600_000, 669_999),
-        "TG": (500_000, 509_999),
-        "TR": (799_000, 799_999),
-        "UK": (200_000, 289_999),
-        "UP": (200_000, 289_999),
+        "MN": [(795_000, 795_999)],
+        "ML": [(793_000, 794_999)],
+        "MZ": [(796_000, 796_999)],
+        "NL": [(797_000, 798_999)],
+        "OD": [(750_000, 779_999)],
+        "PB": [(140_000, 159_999)],
+        "RJ": [(300_000, 349_999)],
+        "SK": [(737_000, 737_999)],
+        "TN": [(600_000, 669_999)],
+        "TG": [(500_000, 509_999)],
+        "TR": [(799_000, 799_999)],
+        "UK": [(200_000, 289_999)],
+        "UP": [(200_000, 289_999)],
         "WB": [(700_000, 736_999), (738_000, 743_999), (745_000, 749_999)],
     }
 
     union_territories_pincode = {
-        "AN": (744_000, 744_999),
-        "CH": (160_000, 169_999),
-        "DN": (396_000, 396_999),
-        "DD": (396_000, 396_999),
-        "DL": (110_000, 119_999),
-        "JK": (180_000, 199_999),
-        "LA": (180_000, 199_999),
-        "LD": (682_000, 682_999),
-        "PY": (605_000, 605_999),
+        "AN": [(744_000, 744_999)],
+        "CH": [(160_000, 169_999)],
+        "DN": [(396_000, 396_999)],
+        "DD": [(396_000, 396_999)],
+        "DL": [(110_000, 119_999)],
+        "JK": [(180_000, 199_999)],
+        "LA": [(180_000, 199_999)],
+        "LD": [(682_000, 682_999)],
+        "PY": [(605_000, 605_999)],
     }
 
     army_pincode = {"APS": (900_000, 999_999)}
@@ -509,7 +510,7 @@ class Provider(AddressProvider):
     def union_territory(self) -> str:
         """Returns random union territory name"""
 
-        return self.random_element(self.union_territories)
+        return self.random_element(self.union_territories)[0]
 
     def pincode_in_state(
         self, state_abbr: Optional[str] = None, include_union_territories=False
@@ -534,11 +535,7 @@ class Provider(AddressProvider):
             if include_union_territories:
                 codes = codes | self.union_territories_pincode
 
-            pincode_range = codes[state_abbr]
-            if isinstance(pincode_range, list):
-                # when some states have a break in range of pin codes
-                selected = self.generator.random.randrange(1, len(pincode_range))
-                pincode_range = pincode_range[selected]
+            pincode_range = self.random_element(codes[state_abbr])
 
             return self.generator.random.randint(*pincode_range)
 
