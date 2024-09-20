@@ -1,5 +1,29 @@
 ## Changelog
 
+### [v29.0.0 - 2024-09-19](https://github.com/joke2k/faker/compare/v28.4.1...v29.0.0)
+
+* Fix `pydecimal` distribution when called with a range across `0`. Thanks @AlexLitvino.
+
+### [v28.4.1 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.4.0...v28.4.1)
+
+* Fix issue where Faker does not properly convert min/max float values to `Decimal`. Thanks @bdjellabaldebaran.
+
+### [v28.4.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.3.0...v28.4.0)
+
+* Add `it_IT` lorem provider. Thanks @gianni-di-noia.
+
+### [v28.3.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.2.0...v28.3.0)
+
+* Fix male forms of female surnames in `uk_UA`.Thanks @AlexLitvino.
+
+### [v28.2.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.1.0...v28.2.0)
+
+* Add `es_ES` isbn provider. Thanks @mondeja.
+
+### [v28.1.0 - 2024-08-30](https://github.com/joke2k/faker/compare/v28.0.0...v28.1.0)
+
+* Fix Incorrect City Spelling in `uk_UA` locale. Thanks @ch4zzy.
+
 ### [v28.0.0 - 2024-08-23](https://github.com/joke2k/faker/compare/v27.4.0...v28.0.0)
 
 * Fix `pydecimal` handling of `positive` keyword. Thanks @tahzeer.
