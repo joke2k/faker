@@ -330,29 +330,6 @@ class TestEnIN(unittest.TestCase):
         last_name = self.fake.last_name()
         assert last_name in EnINProvider.last_names
 
-class TestHiIN(unittest.TestCase):
-    """Tests person in the Hi_IN locale"""
-
-    def setUp(self):
-        self.fake = Faker("Hi_IN")
-        Faker.seed(0)
-
-    def test_first_name(self):
-        """Verify that gender specific names are set correctly"""
-
-        name = self.fake.first_name_female()
-        assert name in HiINProvider.first_names_female
-
-        name = self.fake.first_name_male()
-        assert name in HiINProvider.first_names_male
-
-        first_name = self.fake.first_name()
-        assert first_name in HiINProvider.first_names
-
-    def test_last_name(self):
-        last_name = self.fake.last_name()
-        assert last_name in HiINProvider.last_names
-
 
 class TestEnPk(unittest.TestCase):
 
@@ -719,6 +696,29 @@ class TestHeIL(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         assert last_name in HeILProvider.last_names
+
+class TestHiIN(unittest.TestCase):
+    """Tests person in the Hi_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("Hi_IN")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        """Verify that gender specific names are set correctly"""
+
+        name = self.fake.first_name_female()
+        assert name in HiINProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name in HiINProvider.first_names_male
+
+        first_name = self.fake.first_name()
+        assert first_name in HiINProvider.first_names
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in HiINProvider.last_names
 
 
 class TestHyAM(unittest.TestCase):
