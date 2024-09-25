@@ -2,17 +2,25 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats = (
-        "{{first_name}} {{last_name}}",
-        "{{first_name}} {{last_name}}",
-        "{{last_name}}, {{first_name}}",
+
+    formats_female = (
+        "{{first_name_female}} {{last_name}}",
+        "{{last_name}}, {{first_name_female}}",
+        "{{prefix_female}} {{first_name_female}} {{last_name}}",
     )
+
+    formats_male = (
+        "{{first_name_male}} {{last_name}}",
+        "{{last_name}}, {{first_name_male}}",
+        "{{prefix_male}} {{first_name_male}} {{last_name}}",
+    )
+
+    formats = formats_female + formats_male
 
     # First 20 names from here
     # https://www.babycenter.in/l25020672/top-20-indian-boys-names-of-2016-photos
-    # Next 20 names from here
-    # https://www.babycenter.in/l25020674/top-20-indian-girls-names-of-2016-photos
-    first_names = (
+
+    first_names_male = (
         "मुहम्मद",
         "आरव",
         "अर्जुन",
@@ -98,6 +106,11 @@ class Provider(PersonProvider):
         "विजय",
         "विवेक",
         "यश",
+    )
+
+    # Next 20 names from here
+    # https://www.babycenter.in/l25020674/top-20-indian-girls-names-of-2016-photos
+    first_names_female = (
         "अभिलाषा",
         "अदिती",
         "ऐश्वर्या",
@@ -144,6 +157,8 @@ class Provider(PersonProvider):
         "फ़रहान",
         "ज़ोया",
     )
+
+    first_names = first_names_female + first_names_male
 
     last_names = (
         "पाटिल",
@@ -238,3 +253,9 @@ class Provider(PersonProvider):
         "अब्बासी",
         "नूरानी",
     )
+
+    prefixes_male = "श्री"
+
+    prefixes_female = "श्रीमती"
+
+    prefix = prefixes_female + prefixes_male
