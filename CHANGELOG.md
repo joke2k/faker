@@ -1,5 +1,65 @@
 ## Changelog
 
+### [v29.0.0 - 2024-09-19](https://github.com/joke2k/faker/compare/v28.4.1...v29.0.0)
+
+* Fix `pydecimal` distribution when called with a range across `0`. Thanks @AlexLitvino.
+
+### [v28.4.1 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.4.0...v28.4.1)
+
+* Fix issue where Faker does not properly convert min/max float values to `Decimal`. Thanks @bdjellabaldebaran.
+
+### [v28.4.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.3.0...v28.4.0)
+
+* Add `it_IT` lorem provider. Thanks @gianni-di-noia.
+
+### [v28.3.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.2.0...v28.3.0)
+
+* Fix male forms of female surnames in `uk_UA`.Thanks @AlexLitvino.
+
+### [v28.2.0 - 2024-09-04](https://github.com/joke2k/faker/compare/v28.1.0...v28.2.0)
+
+* Add `es_ES` isbn provider. Thanks @mondeja.
+
+### [v28.1.0 - 2024-08-30](https://github.com/joke2k/faker/compare/v28.0.0...v28.1.0)
+
+* Fix Incorrect City Spelling in `uk_UA` locale. Thanks @ch4zzy.
+
+### [v28.0.0 - 2024-08-23](https://github.com/joke2k/faker/compare/v27.4.0...v28.0.0)
+
+* Fix `pydecimal` handling of `positive` keyword. Thanks @tahzeer.
+
+### [v27.4.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.3.0...v27.4.0)
+
+* Add person provider for `pk_PK` locale. Thanks @c2-tlhah
+
+### [v27.3.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.2.0...v27.3.0)
+
+* Add providers for `vi_VN` locale. Thanks @ntd1683.
+
+### [v27.2.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.1.0...v27.2.0)
+
+* Split names in `en_IN` person provider. Thanks @wh0th3h3llam1.
+
+### [v27.1.0 - 2024-08-21](https://github.com/joke2k/faker/compare/v27.0.0...v27.1.0)
+
+* Add address providoer for `en_MS` local. Thanks @carlosfunk.
+
+### [v27.0.0 - 2024-08-12](https://github.com/joke2k/faker/compare/v26.3.0...v27.0.0)
+
+* Re-introduce `part_of_speech` argument to `words()` method.
+
+### [v26.3.0 - 2024-08-08](https://github.com/joke2k/faker/compare/v26.2.0...v26.3.0)
+
+* Extend `ro_RO` company localization with prefixes. Thanks @DDSNA.
+
+### [v26.2.0 - 2024-08-06](https://github.com/joke2k/faker/compare/v26.1.0...v26.2.0)
+
+* Add Swahili (`sw`) provider for generating Swahili names. Thanks @5uru.
+
+### [v26.1.0 - 2024-08-01](https://github.com/joke2k/faker/compare/v26.0.0...v26.1.0)
+
+* Add more entries to `sk_SK` Geo provider. Thanks @george0st.
+
 ### [v26.0.0 - 2024-06-26](https://github.com/joke2k/faker/compare/v25.9.2...v26.0.0)
 
 * Fix upper limit of nb_elements. Thanks @mileswatsonbjss.

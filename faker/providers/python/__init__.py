@@ -285,7 +285,7 @@ class Provider(BaseProvider):
         self,
         left_digits: Optional[int] = None,
         right_digits: Optional[int] = None,
-        positive: bool = False,
+        positive: Optional[bool] = None,
         min_value: Optional[BasicNumber] = None,
         max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
@@ -320,7 +320,10 @@ class Provider(BaseProvider):
         elif max_value is not None and max_value <= 0:
             sign = "-"
         else:
-            sign = "+" if positive else self.random_element(("+", "-"))
+            if positive is None:
+                sign = self.random_element(("+", "-"))
+            else:
+                sign = "+" if positive else "-"
 
         if sign == "+":
             if max_value is not None:
@@ -332,7 +335,7 @@ class Provider(BaseProvider):
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
-                left_number = str(self.random_int(int(max(max_value or 0, 0)), int(abs(min_value))))
+                left_number = str(self.random_int(int(abs(min(max_value or 0, 0))), int(abs(min_value))))
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
                 if left_digits is None:
@@ -342,16 +345,16 @@ class Provider(BaseProvider):
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = "".join([str(self.random_digit()) for i in range(0, right_digits)])
+        right_number = "".join([str(self.random_digit()) for _ in range(0, right_digits)])
 
         result = Decimal(f"{sign}{left_number}.{right_number}")
 
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
         if max_value is not None and result > max_value:
-            result = Decimal(max_value)
+            result = Decimal(str(max_value))
         if min_value is not None and result < min_value:
-            result = Decimal(min_value)
+            result = Decimal(str(min_value))
 
         return result
 

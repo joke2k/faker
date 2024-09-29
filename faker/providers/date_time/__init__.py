@@ -1426,7 +1426,7 @@ class Provider(BaseProvider):
         ),
         Country(
             timezones=[
-                "Europe/Kiev",
+                "Europe/Kyiv",
                 "Europe/Uzhgorod",
                 "Europe/Zaporozhye",
                 "Europe/Simferopol",
@@ -1435,7 +1435,7 @@ class Provider(BaseProvider):
             alpha_3_code="UKR",
             continent="Europe",
             name="Ukraine",
-            capital="Kiev",
+            capital="Kyiv",
         ),
         Country(
             timezones=["Africa/Kampala"],
