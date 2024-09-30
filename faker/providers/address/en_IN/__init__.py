@@ -1,6 +1,10 @@
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
+
+from typing_extensions import TypeAlias
 
 from faker.providers.address import Provider as AddressProvider
+
+Range: TypeAlias = Tuple[int, int]
 
 
 class Provider(AddressProvider):
@@ -454,7 +458,7 @@ class Provider(AddressProvider):
     # FIXME: Some states such as `BR/JH` / `UK/UP` have similar PIN code ranges
     # FIXME: as mentioned in above link.
 
-    state_pincode = {
+    state_pincode: Dict[str, List[Range]] = {
         "AP": [(510_000, 539_999)],
         "AR": [(790_000, 792_999)],
         "AS": [(780_000, 789_999)],
@@ -485,7 +489,7 @@ class Provider(AddressProvider):
         "WB": [(700_000, 736_999), (738_000, 743_999), (745_000, 749_999)],
     }
 
-    union_territories_pincode = {
+    union_territories_pincode: Dict[str, List[Range]] = {
         "AN": [(744_000, 744_999)],
         "CH": [(160_000, 169_999)],
         "DN": [(396_000, 396_999)],
@@ -497,7 +501,7 @@ class Provider(AddressProvider):
         "PY": [(605_000, 605_999)],
     }
 
-    army_pincode: Dict[str, Tuple[int, int]] = {"APS": (900_000, 999_999)}
+    army_pincode: Dict[str, Range] = {"APS": (900_000, 999_999)}
 
     def city_name(self) -> str:
         return self.random_element(self.cities)
