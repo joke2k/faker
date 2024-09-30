@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.1.0 - 2024-09-30](https://github.com/joke2k/faker/compare/v30.0.0...v30.1.0)
+
+* Add PIN Code range and union territories in `en_IN` address provider. Thanks @wh0th3h3llam1.
+
 ### [v30.0.0 - 2024-09-25](https://github.com/joke2k/faker/compare/v29.0.0...v30.0.0)
 
 * Force the slug always be generated with ASCII characters. Thanks @Pandede.
