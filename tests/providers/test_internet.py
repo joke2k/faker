@@ -477,6 +477,11 @@ class TestJaJp:
         tld = faker.tld()
         assert isinstance(tld, str)
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestZhCn:
     """Test zh_CN internet provider methods"""
@@ -647,6 +652,11 @@ class TestZhCn:
         with pytest.raises(ValueError):
             faker.domain_name(levels=0)
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestZhTw:
     """Test zh_TW internet provider methods"""
@@ -654,6 +664,11 @@ class TestZhTw:
     def test_email(self, faker):
         email = faker.email()
         validate_email(email)
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestHuHu:
@@ -667,6 +682,11 @@ class TestHuHu:
         email = faker.email()
         assert isinstance(email, str)
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestPlPl:
     """Test pl_PL internet provider methods"""
@@ -678,6 +698,11 @@ class TestPlPl:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in PlPlInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestNlNl:
@@ -710,6 +735,11 @@ class TestNlNl:
         validate_email(email)
         assert email.split("@")[0] == "fabienne"
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestArAa:
     """Test ar_AA internet provider methods"""
@@ -741,6 +771,11 @@ class TestArAa:
         validate_email(email)
         assert email.split("@")[0] == "asyl"
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestAzAz:
     """Test az_AZ internet provider methods"""
@@ -761,6 +796,11 @@ class TestAzAz:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in AzAzInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestPtBr:
@@ -793,6 +833,11 @@ class TestPtBr:
         validate_email(email)
         assert email.split("@")[0] == "andrecaua"
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestEnPh:
     """Test en_PH internet provider methods"""
@@ -804,17 +849,28 @@ class TestEnPh:
             domain = faker.domain_name()
             validate_domain(domain)
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestFilPh(TestEnPh):
     """Test fil_PH internet provider methods"""
 
-    pass
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestTlPh(TestFilPh):
     """Test tl_PH internet provider methods"""
 
-    pass
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestEnGb:
@@ -828,6 +884,11 @@ class TestEnGb:
         tld = faker.tld()
         assert tld in EnGbInternetProvider.tlds
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestEsEs:
     """Tests for the es_ES locale."""
@@ -835,6 +896,11 @@ class TestEsEs:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in EsEsInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestRoRo:
@@ -847,6 +913,11 @@ class TestRoRo:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in PlPlInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
 
 
 class TestRuRu:
@@ -885,6 +956,11 @@ class TestRuRu:
         validate_email(email)
         assert email.split("@")[0] == "sergekuznetsov"
 
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
 
 class TestThTh:
     """Test th_TH internet provider methods"""
@@ -892,3 +968,8 @@ class TestThTh:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in ThThInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
