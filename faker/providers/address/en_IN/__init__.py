@@ -535,7 +535,7 @@ class Provider(AddressProvider):
         if state_abbr in known_abbrs:
             codes = self.state_pincode
             if include_union_territories:
-                codes = codes | self.union_territories_pincode
+                codes.update(self.union_territories_pincode)
 
             pincode_range = self.random_element(codes[state_abbr])
 
