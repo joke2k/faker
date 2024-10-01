@@ -20,6 +20,7 @@ from faker.providers.person.et_EE import Provider as EtEEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
+from faker.providers.person.gj_IN import Provider as GjINProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
@@ -671,6 +672,68 @@ class TestGaIE(TestEnIE):
         self.fake = Faker("ga-ie")
         self.provider = GaIEProvider
         Faker.seed(0)
+
+
+class TestGjIN(unittest.TestCase):
+    """Tests person in the gj_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("gj_IN")
+        Faker.seed(0)
+
+    """Verify that gender specific names are set correctly"""
+
+    def test_first_name(self):
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in GjINProvider.first_names
+
+    def test_first_name_male(self):
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in GjINProvider.first_names_male
+
+    def test_first_name_female(self):
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in GjINProvider.first_names_female
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        self.assertIsInstance(last_name, str)
+        assert last_name in GjINProvider.last_names
+
+    def test_name(self):
+        name = self.fake.name().split()
+        assert all(isinstance(n, str) for n in name)
+        if len(name) == 3:
+            assert all(
+                [
+                    name[0] in GjINProvider.prefixes,
+                    name[1] in GjINProvider.first_names,
+                    name[2] in GjINProvider.last_names,
+                ]
+            )
+        else:
+            assert name[0] in GjINProvider.first_names
+            assert name[-1] in GjINProvider.last_names
+
+    """Verify that gender specific prefixes are set correctly"""
+
+    def test_prefix(self):
+        prefix = self.fake.prefix()
+        self.assertIsInstance(prefix, str)
+        assert prefix in GjINProvider.prefixes
+
+    def test_prefix_female(self):
+        prefix = self.fake.prefix_female()
+        self.assertIsInstance(prefix, str)
+        assert prefix in GjINProvider.prefixes_female
+
+    def test_prefix_male(self):
+        prefix = self.fake.prefix_male()
+        self.assertIsInstance(prefix, str)
+        assert prefix in GjINProvider.prefixes_male
 
 
 class TestHeIL(unittest.TestCase):
