@@ -11,3 +11,8 @@ Description of the root cause of the issue.
 Description of how the changes fix the issue.
 
 Fixes #...
+
+### Checklist
+
+- [ ] I have read the documentation about [CONTRIBUTING](https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst)
+- [ ] I have run `make lint`

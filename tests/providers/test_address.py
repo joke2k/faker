@@ -1865,16 +1865,57 @@ class TestEnIn:
     """Test en_IN address provider methods"""
 
     def test_city_name(self, faker, num_samples):
+        """Tests `city names` are fetched correctly"""
+
         for _ in range(num_samples):
             city_name = faker.city_name()
             assert isinstance(city_name, str)
             assert city_name in EnInAddressProvider.cities
 
     def test_state(self, faker, num_samples):
+        """Tests `states` are fetched correctly"""
+
         for _ in range(num_samples):
             state = faker.state()
             assert isinstance(state, str)
             assert state in EnInAddressProvider.states
+
+    def test_union_territories(self, faker, num_samples):
+        """Tests `union_territories` are fetched correctly"""
+
+        for _ in range(num_samples):
+            union_territory = faker.union_territory()
+            assert isinstance(union_territory, str)
+            assert (union_territory,) in EnInAddressProvider.union_territories
+
+    @pytest.mark.parametrize("pincodes", ["pincode_in_state", "zipcode_in_state", "postcode_in_state"])
+    def test_pincodes_in_state(self, faker, num_samples, pincodes):
+        """Test `pincodes` for state and union territories"""
+
+        for _ in range(num_samples):
+            include_ut = faker.random_element([True, False])
+            pincode = getattr(faker, pincodes)(include_union_territories=include_ut)
+            assert isinstance(pincode, int)
+            assert len(str(pincode)) == 6
+
+    @pytest.mark.parametrize(
+        "pincodes",
+        [
+            ("pincode_in_army"),
+            ("zipcode_in_army"),
+            ("postcode_in_army"),
+            ("postcode_in_military"),
+            ("zipcode_in_military"),
+            ("pincode_in_military"),
+        ],
+    )
+    def test_pincodes_in_military(self, faker, num_samples, pincodes):
+        """Test `pincodes` for Army"""
+
+        for _ in range(num_samples):
+            pincode = getattr(faker, pincodes)()
+            assert isinstance(pincode, int)
+            assert len(str(pincode)) == 6
 
 
 class TestSkSk:

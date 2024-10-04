@@ -1,4 +1,10 @@
-from .. import Provider as AddressProvider
+from typing import Dict, List, Optional, Tuple
+
+from typing_extensions import TypeAlias
+
+from faker.providers.address import Provider as AddressProvider
+
+Range: TypeAlias = Tuple[int, int]
 
 
 class Provider(AddressProvider):
@@ -391,6 +397,112 @@ class Provider(AddressProvider):
         "West Bengal",
     )
 
+    states_abbr: Tuple[str, ...] = (
+        "AP",
+        "AR",
+        "AS",
+        "BR",
+        "CG",
+        "GA",
+        "GJ",
+        "HR",
+        "HP",
+        "JH",
+        "KA",
+        "KL",
+        "MP",
+        "MH",
+        "MN",
+        "ML",
+        "MZ",
+        "NL",
+        "OD",
+        "PB",
+        "RJ",
+        "SK",
+        "TN",
+        "TG",
+        "TR",
+        "UK",
+        "UP",
+        "WB",
+    )
+
+    union_territories = (
+        ("Andaman and Nicobar Islands",),
+        ("Chandigarh",),
+        ("Dadra and Nagar Haveli, Dadra & Nagar Haveli",),
+        ("Daman and Diu",),
+        ("Delhi, National Capital Territory of Delhi",),
+        ("Jammu and Kashmir",),
+        ("Ladakh",),
+        ("Lakshadweep",),
+        ("Pondicherry",),
+        ("Puducherry",),
+    )
+
+    union_territories_abbr = (
+        "AN",
+        "CH",
+        "DN",
+        "DD",
+        "DL",
+        "JK",
+        "LA",
+        "LD",
+        "PY",
+    )
+
+    # https://en.wikipedia.org/wiki/Postal_Index_Number
+
+    # FIXME: Some states such as `BR/JH` / `UK/UP` have similar PIN code ranges
+    # FIXME: as mentioned in above link.
+
+    state_pincode: Dict[str, List[Range]] = {
+        "AP": [(510_000, 539_999)],
+        "AR": [(790_000, 792_999)],
+        "AS": [(780_000, 789_999)],
+        "BR": [(800_000, 859_999)],
+        "CG": [(490_000, 499_999)],
+        "GA": [(403_000, 403_999)],
+        "GJ": [(360_000, 399_999)],
+        "HR": [(120_000, 139_999)],
+        "HP": [(170_000, 179_999)],
+        "JH": [(800_000, 859_999)],
+        "KA": [(560_000, 599_999)],
+        "KL": [(670_000, 681_999), (683_000, 699_999)],
+        "MP": [(450_000, 489_999)],
+        "MH": [(400_000, 402_999), (404_000, 449_999)],
+        "MN": [(795_000, 795_999)],
+        "ML": [(793_000, 794_999)],
+        "MZ": [(796_000, 796_999)],
+        "NL": [(797_000, 798_999)],
+        "OD": [(750_000, 779_999)],
+        "PB": [(140_000, 159_999)],
+        "RJ": [(300_000, 349_999)],
+        "SK": [(737_000, 737_999)],
+        "TN": [(600_000, 669_999)],
+        "TG": [(500_000, 509_999)],
+        "TR": [(799_000, 799_999)],
+        "UK": [(200_000, 289_999)],
+        "UP": [(200_000, 289_999)],
+        "WB": [(700_000, 736_999), (738_000, 743_999), (745_000, 749_999)],
+    }
+
+    union_territories_pincode: Dict[str, List[Range]] = {
+        "AN": [(744_000, 744_999)],
+        "CH": [(160_000, 169_999)],
+        "DN": [(396_000, 396_999)],
+        "DD": [(396_000, 396_999)],
+        "DL": [(110_000, 119_999)],
+        "JK": [(180_000, 199_999)],
+        "LA": [(180_000, 199_999)],
+        "LD": [(682_000, 682_999)],
+        "PY": [(605_000, 605_999)],
+    }
+
+    army_pincode: Dict[str, Range] = {"APS": (900_000, 999_999)}
+
     def city_name(self) -> str:
         return self.random_element(self.cities)
 
@@ -398,3 +510,65 @@ class Provider(AddressProvider):
         return self.random_element(self.states)
 
     state = administrative_unit
+
+    def union_territory(self) -> str:
+        """Returns random union territory name"""
+
+        return self.random_element(self.union_territories)[0]
+
+    def pincode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+        """Random PIN Code within provided state abbreviation
+
+        :param state_abbr: State Abbr, defaults to None
+        :param include_union_territories: Include Union Territories ?, defaults to False
+        :raises ValueError: If incorrect state abbr
+        :return: PIN Code
+        """
+
+        known_abbrs = self.states_abbr
+        if include_union_territories:
+            known_abbrs += self.union_territories_abbr
+
+        if state_abbr is None:
+            state_abbr = self.random_element(known_abbrs)
+
+        if state_abbr in known_abbrs:
+            codes = self.state_pincode
+            if include_union_territories:
+                codes.update(self.union_territories_pincode)
+
+            pincode_range = self.random_element(codes[state_abbr])
+
+            return self.generator.random.randint(*pincode_range)
+
+        raise ValueError("State Abbreviation not found in list")
+
+    def pincode_in_military(self) -> int:
+        """Random PIN Code within Army Postal Service range"""
+
+        key: str = self.random_element(self.army_pincode.keys())
+
+        return self.generator.random.randint(*self.army_pincode[key])
+
+    # Aliases
+
+    def zipcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+        return self.pincode_in_state(state_abbr, include_union_territories)
+
+    def postcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+        return self.pincode_in_state(state_abbr, include_union_territories)
+
+    def pincode_in_army(self) -> int:
+        return self.pincode_in_military()
+
+    def zipcode_in_military(self) -> int:
+        return self.pincode_in_military()
+
+    def zipcode_in_army(self) -> int:
+        return self.pincode_in_military()
+
+    def postcode_in_military(self) -> int:
+        return self.pincode_in_military()
+
+    def postcode_in_army(self) -> int:
+        return self.pincode_in_military()
