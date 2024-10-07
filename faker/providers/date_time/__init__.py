@@ -36,15 +36,16 @@ def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]
 
 def maybe_format_as_string(func):
     """Format date as string if a pattern is provided."""
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         result: dtdate = func(*args, **kwargs)
-        pattern = kwargs.get('pattern')
+        pattern = kwargs.get("pattern")
         if pattern:
             return result.strftime(pattern)
         return result
-    return wrapper
 
+    return wrapper
 
 
 def change_year(current_date: dtdate, year_diff: int) -> dtdate:
@@ -2074,7 +2075,7 @@ class Provider(BaseProvider):
     @maybe_format_as_string
     def date_between(
         self,
-         start_date: DateParseType = "-30y",
+        start_date: DateParseType = "-30y",
         end_date: DateParseType = "today",
         pattern: Optional[str] = None,
     ) -> Union[dtdate, str]:
