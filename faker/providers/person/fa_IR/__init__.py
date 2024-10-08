@@ -128,6 +128,7 @@ class Provider(PersonProvider):
     )
 
     first_names_male = (
+        "شهریار",
         # top 50 male Names in Iran:
         # http://www.sabteahval.ir/Upload/Modules/Contents/asset100/name/p1391.htm
         "امیر علی",
