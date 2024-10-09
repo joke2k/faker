@@ -18,6 +18,7 @@ from faker.providers.color.hy_AM import Provider as HyAmColorProvider
 from faker.providers.color.id_ID import Provider as IdIdColorProvider
 from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 from faker.providers.color.vi_VN import Provider as ViVNColorProvider
+from faker.providers.color.ka_GE import Provider as KaGEColorProvider
 
 
 class TestColorProvider:
@@ -460,3 +461,19 @@ class TestViVn:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in ViVNColorProvider.safe_colors
+
+
+class TestKaGe:
+    """Test Ka_GE color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in KaGEColorProvider.all_colors.keys()
+
+    def test_safe_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            safe_color_name = faker.safe_color_name()
+            assert isinstance(safe_color_name, str)
+            assert safe_color_name in KaGEColorProvider.safe_colors

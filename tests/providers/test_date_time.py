@@ -29,6 +29,7 @@ from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.ja_JP import Provider as JaJpProvider
+from faker.providers.date_time.ka_GE import Provider as KaGeProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
@@ -1390,3 +1391,21 @@ class TestViVn(unittest.TestCase):
         month = self.fake.month_name()
         assert isinstance(month, str)
         assert month in ViVNProvider.MONTH_NAMES.values()
+
+
+class TestKaGe(unittest.TestCase):
+    """Test Ka_GE date_time provider methods"""
+
+    def setUp(self):
+        self.fake = Faker("Ka_GE")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in KaGeProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in KaGeProvider.MONTH_NAMES.values()
