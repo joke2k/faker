@@ -508,3 +508,26 @@ class TestViVn:
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+
+
+class TestUzUz:
+    """Test uz_UZ currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.uz_UZ import Provider as UzUzCurrencyProvider
+
+        cls.provider = UzUzCurrencyProvider
+        cls.currencies = cls.provider.currencies
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert isinstance(cur, tuple) and cur in self.currencies
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)

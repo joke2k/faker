@@ -40,6 +40,7 @@ from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.sl_SI import Provider as SlSiProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.uz_UZ import Provider as UzUzProvider
 from faker.providers.date_time.vi_VN import Provider as ViVNProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 from faker.providers.date_time.zh_TW import Provider as ZhTwProvider
@@ -1390,3 +1391,21 @@ class TestViVn(unittest.TestCase):
         month = self.fake.month_name()
         assert isinstance(month, str)
         assert month in ViVNProvider.MONTH_NAMES.values()
+
+
+class TestUzUz(unittest.TestCase):
+    """Tests date_time in the uz_UZ locale"""
+
+    def setUp(self):
+        self.fake = Faker("uz_UZ")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in UzUzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in UzUzProvider.MONTH_NAMES.values()
