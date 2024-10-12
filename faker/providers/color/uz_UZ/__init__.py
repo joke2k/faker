@@ -54,16 +54,16 @@ class Provider(ColorProvider):
     )
 
     safe_colors = (
-        "oq",
-        "qora",
-        "yashil",
-        "ko'k",
-        "qizil",
-        "sariq",
-        "pushti",
-        "olov",
-        "qaymoq",
-        "laym",
-        "kumush",
-        "kulrang",
+        "Oq",
+        "Qora",
+        "Yashil",
+        "Ko'k",
+        "Qizil",
+        "Sariq",
+        "Pushti",
+        "Olov",
+        "Qaymoq",
+        "Laym",
+        "Kumush",
+        "Kulrang",
     )
