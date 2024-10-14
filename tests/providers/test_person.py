@@ -1768,5 +1768,84 @@ class TestZhTW(unittest.TestCase):
         assert last_romanized_name in ZhTWProvider.last_romanized_names
 
 
+class TestZuZa(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("zu_ZA")
+        Faker.seed(0)
+
+    def test_last_name(self):
+        """
+        Test the generation of Zulu last names.
+        """
+        # There's no gender-specific last name in Zulu.
+        self.assertTrue(hasattr(ZuZAProvider, "last_names_male"))
+        self.assertTrue(hasattr(ZuZAProvider, "last_names_female"))
+
+        # All last names apply to all genders.
+        self.assertTrue(hasattr(ZuZAProvider, "last_names"))
+
+        # General last name.
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.last_names)
+
+        # Females last name.
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.last_names)
+
+        # Male last name.
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.last_names)
+
+    def test_first_name(self):
+        """
+        Test the generation of Zulu first names.
+        """
+        # General first name.
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.first_names)
+
+        # Female first name.
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.first_names)
+        self.assertIn(name, ZuZAProvider.first_names_female)
+
+        # Male first name.
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, ZuZAProvider.first_names)
+        self.assertIn(name, ZuZAProvider.first_names_male)
+
+    def test_full_name(self):
+        """
+        Test the generation of full Zulu names.
+        """
+        # Full name.
+        name = self.fake.name()
+        self.assertIsInstance(name, str)
+
+        full_name_parts = name.split()
+
+        if len(full_name_parts) == 2:
+            first_name = full_name_parts[0]
+            last_name = full_name_parts[1]
+            self.assertIn(first_name, ZuZAProvider.first_names)
+            self.assertIn(last_name, ZuZAProvider.last_names)
+        elif len(full_name_parts) == 3:
+            prefix = full_name_parts[0]
+            first_name = full_name_parts[1]
+            last_name = full_name_parts[2]
+
+            self.assertIn(prefix, ZuZAProvider.prefixes_female + ZuZAProvider.prefixes_male)
+            self.assertIn(first_name, ZuZAProvider.first_names)
+            self.assertIn(last_name, ZuZAProvider.last_names)
+        else:
+            raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
 if __name__ == "__main__":
     unittest.main()
