@@ -149,7 +149,7 @@ class TestTrTr:
 
 
 class TestRoRo:
-    """Test tr_TR job provider"""
+    """Test Ro_RO job provider"""
 
     def test_job(self, faker, num_samples):
         assert faker.job() in RoRoJobProvider.jobs
@@ -157,6 +157,16 @@ class TestRoRo:
 
 class TestViVn:
     """Test vi_VN job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            job = faker.job()
+            assert isinstance(job, str)
+            assert job in ViVNJobProvider.jobs
+
+
+class TestKaGe:
+    """Test ka_GE job provider"""
 
     def test_job(self, faker, num_samples):
         for _ in range(num_samples):
