@@ -67,7 +67,7 @@ class Provider(BaseProvider):
         :return: a random Greek social security number
         """
 
-        ssn = self.generator.date(pattern="%d%m%y") + self.numerify("####")
+        ssn = self.generator.date(pattern="%d%m%y") + self.numerify("#####")
         return ssn + str(calculate_luhn(ssn))
 
     # Valid format accd to ΥΑ 3021/19/53/2005 - FΕΚ 1440/Β'/18.10.2005
