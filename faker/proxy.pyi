@@ -2008,7 +2008,12 @@ class Faker:
         """
         ...
 
-    def fixed_width(self, data_columns: Optional[list] = ..., num_rows: int = ..., align: str = ...) -> str:
+    def fixed_width(
+        self,
+        data_columns: Optional[List[Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]]] = ...,
+        num_rows: int = ...,
+        align: str = ...,
+    ) -> str:
         """
         Generate random fixed width values.
 
