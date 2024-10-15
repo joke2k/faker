@@ -1375,24 +1375,6 @@ class TestJaJp(unittest.TestCase):
         assert month in JaJpProvider.TRADITIONAL_MONTH_NAMES.values()
 
 
-class TestViVn(unittest.TestCase):
-    """Tests date_time in the vi_VN locale"""
-
-    def setUp(self):
-        self.fake = Faker("vi_VN")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert isinstance(day, str)
-        assert day in ViVNProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert isinstance(month, str)
-        assert month in ViVNProvider.MONTH_NAMES.values()
-
-
 class TestKaGe(unittest.TestCase):
     """Test Ka_GE date_time provider methods"""
 
@@ -1409,3 +1391,21 @@ class TestKaGe(unittest.TestCase):
         month = self.fake.month_name()
         assert isinstance(month, str)
         assert month in KaGeProvider.MONTH_NAMES.values()
+
+
+class TestViVn(unittest.TestCase):
+    """Tests date_time in the vi_VN locale"""
+
+    def setUp(self):
+        self.fake = Faker("vi_VN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in ViVNProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in ViVNProvider.MONTH_NAMES.values()

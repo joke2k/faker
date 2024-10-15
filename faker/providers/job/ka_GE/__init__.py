@@ -1,5 +1,6 @@
 from .. import Provider as BaseProvider
 
+
 class Provider(BaseProvider):
     # Sourse: https://www.ganmarteba.ge/
     jobs = [
