@@ -160,7 +160,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python }}
-        allow-prereleases: true
     - name: Install dependencies
       run: |
         python -m pip install mypy
