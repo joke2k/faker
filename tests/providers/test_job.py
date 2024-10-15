@@ -8,6 +8,7 @@ from faker.providers.job.fr_FR import Provider as FrFrJobProvider
 from faker.providers.job.hu_HU import Provider as HuHuJobProvider
 from faker.providers.job.hy_AM import Provider as HyAmJobProvider
 from faker.providers.job.ja_JP import Provider as JaJpJobProvider
+from faker.providers.job.ka_GE import Provider as KaGeJobProvider
 from faker.providers.job.ko_KR import Provider as KoKrJobProvider
 from faker.providers.job.pt_BR import Provider as PtBrJobProvider
 from faker.providers.job.pt_PT import Provider as PtPtJobProvider
@@ -107,7 +108,7 @@ class TestKaGe:
         for _ in range(num_samples):
             job = faker.job()
             assert isinstance(job, str)
-            assert job in ViVNJobProvider.jobs
+            assert job in KaGeJobProvider.jobs
 
 
 class TestKoKr:
