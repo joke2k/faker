@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.5.0 - 2024-10-16](https://github.com/joke2k/faker/compare/v30.4.0...v30.5.0)
+
+* Add Providers for `ka_GE` locale. Thanks @onesch.
+
 ### [v30.4.0 - 2024-10-15](https://github.com/joke2k/faker/compare/v30.3.0...v30.4.0)
 
 * Add separate male/female names along with prefix/suffix for `hi_IN` locale. Thanks @wh0th3h3llam1.
