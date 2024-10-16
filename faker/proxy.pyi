@@ -2368,7 +2368,7 @@ class Faker:
         """
         ...
 
-    def passport_gender(self, seed: int = ...) -> str:
+    def passport_gender(self, seed: int = ...) -> Literal["M", "F", "X"]:
         """
         Generates a string representing the gender displayed on a passport
 
@@ -2384,7 +2384,7 @@ class Faker:
         """
         ...
 
-    def passport_owner(self, gender: str = ...) -> Tuple[str, str]:
+    def passport_owner(self, gender: Literal["M", "F", "X"] = ...) -> Tuple[str, str]:
         """
         Generate a given_name and surname for a passport owner
         The ``gender`` argument is the gender marker of a passport owner, which is a one character string
@@ -2433,7 +2433,7 @@ class Faker:
 
     def phone_number(self) -> str: ...
     def profile(
-        self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F"]] = ...
+        self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F", "X"]] = ...
     ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], datetime.date]]:
         """
         Generates a complete profile.
@@ -2442,8 +2442,8 @@ class Faker:
         ...
 
     def simple_profile(
-        self, sex: Optional[Literal["M", "F"]] = ...
-    ) -> Dict[str, Union[str, datetime.date, Literal["M", "F"]]]:
+        self, sex: Optional[Literal["M", "F", "X"]] = ...
+    ) -> Dict[str, Union[str, datetime.date, Literal["M", "F", "X"]]]:
         """
         Generates a basic profile with personal informations
         """
@@ -4182,7 +4182,7 @@ class Faker:
         """
         ...
 
-    def full_name(self, gender: Optional[Literal["M", "F"]] = ..., short: Optional[bool] = ...) -> str:
+    def full_name(self, gender: Optional[Literal["M", "F", "X"]] = ..., short: Optional[bool] = ...) -> str:
         """
         Generate Full Name
             - gender = 'M' or 'F' optional params
