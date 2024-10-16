@@ -22,6 +22,7 @@ from faker.providers.person.fr_BE import Provider as FrBEProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.gu_IN import Provider as GuINProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
+from faker.providers.person.hi_IN import Provider as HiINProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
@@ -758,6 +759,54 @@ class TestHeIL(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         assert last_name in HeILProvider.last_names
+
+
+class TestHiIN(unittest.TestCase):
+    """Tests person in the hi_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("hi_IN")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        """Verify that gender specific names are set correctly"""
+
+        name = self.fake.first_name_male()
+        assert name in HiINProvider.first_names_male
+
+        name = self.fake.first_name_female()
+        assert name in HiINProvider.first_names_female
+
+        name = self.fake.first_name()
+        assert name in HiINProvider.first_names_male
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in HiINProvider.last_names
+
+    def test_name(self):
+        name = self.fake.name().split()
+
+        assert all(isinstance(n, str) for n in name)
+
+        prefixes = HiINProvider.prefixes_male + HiINProvider.prefixes_female + HiINProvider.prefixes
+
+        # name should always be 2-3 words. If 3, first word should be a prefix.
+        if len(name) == 3:
+            assert all(
+                [
+                    name[0] in prefixes,
+                    name[1] in HiINProvider.first_names,
+                    name[2] in HiINProvider.last_names,
+                ]
+            )
+        else:
+            assert name[0] in HiINProvider.first_names
+            if name[-1].endswith(HiINProvider.suffixes):
+                assert name[-1][:-1] in HiINProvider.last_names
+                assert name[-1][-1] in HiINProvider.suffixes
+            else:
+                assert name[-1] in HiINProvider.last_names
 
 
 class TestHyAM(unittest.TestCase):

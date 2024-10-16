@@ -58,6 +58,13 @@ included in other parts of the code. If you add a generic type, please specify i
    * - ``typing.GenderType``
      - String variable that can only have values ``"F"`` (female) and ``"M"`` (male)
 
+Tests
+-----
+
+Please add tests for all new providers.
+
+When adding a new test class, please find its place in alphabetical order.
+
 .. _`tox.ini`: https://github.com/joke2k/faker/blob/master/tox.ini
 .. _`pep 8`: https://python.org/dev/peps/pep-0008
 .. _`pep 263`: https://python.org/dev/peps/pep-0263

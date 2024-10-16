@@ -151,6 +151,10 @@ class FactoryTestCase(unittest.TestCase):
                 def __init__(self, *args, **kwargs):
                     pass
 
+        # There's a cache based on the provider name, so when the provider changes behaviour we need
+        # a new name:
+        provider_path = f"test_lang_localized_provider_{with_default}"
+
         with patch.multiple(
             "faker.factory",
             import_module=MagicMock(return_value=DummyProviderModule()),
@@ -167,8 +171,8 @@ class FactoryTestCase(unittest.TestCase):
                 ("ar_EG", with_default),  # True if module defines a default locale
             ]
             for locale, expected_used in test_cases:
-                factory = Factory.create(providers=["dummy"], locale=locale)
-                assert factory.providers[0].__provider__ == "dummy"
+                factory = Factory.create(providers=[provider_path], locale=locale)
+                assert factory.providers[0].__provider__ == provider_path
                 from faker.config import DEFAULT_LOCALE
 
                 print(f"requested locale = {locale} , DEFAULT LOCALE {DEFAULT_LOCALE}")
