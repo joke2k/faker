@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.6.0 - 2024-10-16](https://github.com/joke2k/faker/compare/v30.5.0...v30.6.0)
+
+* Add passport provider for `ru_RU` locale. Thanks @Abdujabbar.
+
 ### [v30.5.0 - 2024-10-16](https://github.com/joke2k/faker/compare/v30.4.0...v30.5.0)
 
 * Add Providers for `ka_GE` locale. Thanks @onesch.
