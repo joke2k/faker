@@ -1,6 +1,10 @@
-import random
-from typing import Optional
+from typing import Dict, List, Optional, Tuple
+
+from typing_extensions import TypeAlias
+
 from faker.providers.address import Provider as AddressProvider
+
+Range: TypeAlias = Tuple[int, int]
 
 
 class Provider(AddressProvider):
@@ -393,7 +397,7 @@ class Provider(AddressProvider):
         "West Bengal",
     )
 
-    states_abbr = (
+    states_abbr: Tuple[str, ...] = (
         "AP",
         "AR",
         "AS",
@@ -454,7 +458,7 @@ class Provider(AddressProvider):
     # FIXME: Some states such as `BR/JH` / `UK/UP` have similar PIN code ranges
     # FIXME: as mentioned in above link.
 
-    state_pincode = {
+    state_pincode: Dict[str, List[Range]] = {
         "AP": [(510_000, 539_999)],
         "AR": [(790_000, 792_999)],
         "AS": [(780_000, 789_999)],
@@ -485,7 +489,7 @@ class Provider(AddressProvider):
         "WB": [(700_000, 736_999), (738_000, 743_999), (745_000, 749_999)],
     }
 
-    union_territories_pincode = {
+    union_territories_pincode: Dict[str, List[Range]] = {
         "AN": [(744_000, 744_999)],
         "CH": [(160_000, 169_999)],
         "DN": [(396_000, 396_999)],
@@ -497,7 +501,7 @@ class Provider(AddressProvider):
         "PY": [(605_000, 605_999)],
     }
 
-    army_pincode = {"APS": (900_000, 999_999)}
+    army_pincode: Dict[str, Range] = {"APS": (900_000, 999_999)}
 
     def city_name(self) -> str:
         return self.random_element(self.cities)
@@ -512,9 +516,7 @@ class Provider(AddressProvider):
 
         return self.random_element(self.union_territories)[0]
 
-    def pincode_in_state(
-        self, state_abbr: Optional[str] = None, include_union_territories=False
-    ) -> int:
+    def pincode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
         """Random PIN Code within provided state abbreviation
 
         :param state_abbr: State Abbr, defaults to None
@@ -533,7 +535,7 @@ class Provider(AddressProvider):
         if state_abbr in known_abbrs:
             codes = self.state_pincode
             if include_union_territories:
-                codes = codes | self.union_territories_pincode
+                codes.update(self.union_territories_pincode)
 
             pincode_range = self.random_element(codes[state_abbr])
 
@@ -544,20 +546,16 @@ class Provider(AddressProvider):
     def pincode_in_military(self) -> int:
         """Random PIN Code within Army Postal Service range"""
 
-        key = self.random_element(self.army_pincode.keys())
+        key: str = self.random_element(self.army_pincode.keys())
 
         return self.generator.random.randint(*self.army_pincode[key])
 
     # Aliases
 
-    def zipcode_in_state(
-        self, state_abbr: Optional[str] = None, include_union_territories=False
-    ) -> int:
+    def zipcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
         return self.pincode_in_state(state_abbr, include_union_territories)
 
-    def postcode_in_state(
-        self, state_abbr: Optional[str] = None, include_union_territories=False
-    ) -> int:
+    def postcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
         return self.pincode_in_state(state_abbr, include_union_territories)
 
     def pincode_in_army(self) -> int:

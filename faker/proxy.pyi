@@ -970,15 +970,17 @@ class Faker:
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-    ) -> datetime.date:
+        pattern: Optional[str] = ...,
+    ) -> Union[datetime.date, str]:
         """
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date: Defaults to 30 years ago
         :param end_date: Defaults to "today"
-        :example: Date('1999-02-02')
-        :return: Date
+        :param pattern: optional pattern to format the date as string
+        :example: Date('1999-02-02') or '1999-02-02'
+        :return: Date or string
         """
         ...
 
@@ -986,14 +988,16 @@ class Faker:
         self,
         date_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
         date_end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-    ) -> datetime.date:
+        pattern: Optional[str] = ...,
+    ) -> Union[datetime.date, str]:
         """
         Takes two Date objects and returns a random date between the two given dates.
         Accepts Date or datetime objects
 
         :param date_start: Date
         :param date_end: Date
-        :return: Date
+        :param pattern: optional pattern to format the date as string
+        :return: Date or string
         """
         ...
 
@@ -1006,8 +1010,12 @@ class Faker:
         ...
 
     def date_of_birth(
-        self, tzinfo: Optional[datetime.tzinfo] = ..., minimum_age: int = ..., maximum_age: int = ...
-    ) -> datetime.date:
+        self,
+        tzinfo: Optional[datetime.tzinfo] = ...,
+        minimum_age: int = ...,
+        maximum_age: int = ...,
+        pattern: Optional[str] = ...,
+    ) -> Union[datetime.date, str]:
         """
         Generate a random date of birth represented as a Date object,
         constrained by optional miminimum_age and maximum_age
@@ -1016,51 +1024,64 @@ class Faker:
         :param tzinfo: Defaults to None.
         :param minimum_age: Defaults to 0.
         :param maximum_age: Defaults to 115.
+        :param pattern: optional pattern to format the date as string
 
         :example: Date('1979-02-02')
         :return: Date
         """
         ...
 
-    def date_this_century(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_century(
+        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
+    ) -> Union[datetime.date, str]:
         """
         Gets a Date object for the current century.
 
         :param before_today: include days in current century before today
         :param after_today: include days in current century after today
+        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
-        :return: Date
+        :return: Date or string
         """
         ...
 
-    def date_this_decade(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_decade(
+        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
+    ) -> Union[datetime.date, str]:
         """
         Gets a Date object for the decade year.
 
         :param before_today: include days in current decade before today
         :param after_today: include days in current decade after today
+        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
-        :return: Date
+        :return: Date or string
         """
         ...
 
-    def date_this_month(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_month(
+        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
+    ) -> Union[datetime.date, str]:
         """
         Gets a Date object for the current month.
 
         :param before_today: include days in current month before today
         :param after_today: include days in current month after today
+        :param pattern: optional pattern to format the date as string
         :example: dtdate('2012-04-04')
-        :return: dtdate
+        :return: dtdate or string
         """
         ...
 
-    def date_this_year(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_year(
+        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
+    ) -> Union[datetime.date, str]:
         """
         Gets a Date object for the current year.
 
         :param before_today: include days in current year before today
         :param after_today: include days in current year after today
+        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
         :return: Date
         """
@@ -1194,7 +1215,8 @@ class Faker:
         self,
         end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
-    ) -> datetime.date:
+        pattern: Optional[str] = ...,
+    ) -> Union[datetime.date, str]:
         """
         Get a Date object based on a random date between 1 day from now and a
         given date.
@@ -1202,6 +1224,7 @@ class Faker:
 
         :param end_date: Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :param pattern: optional pattern to format the date as string
         :example: dtdate('2030-01-01')
         :return: dtdate
         """
@@ -1247,7 +1270,8 @@ class Faker:
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
-    ) -> datetime.date:
+        pattern: Optional[str] = ...,
+    ) -> Union[datetime.date, str]:
         """
         Get a Date object based on a random date between a given date and 1 day
         ago.
@@ -1255,8 +1279,9 @@ class Faker:
 
         :param start_date: Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
+        :param pattern: optional pattern to format the date as string
         :example: dtdate('1999-02-02')
-        :return: dtdate
+        :return: dtdate or string
         """
         ...
 
@@ -1983,7 +2008,12 @@ class Faker:
         """
         ...
 
-    def fixed_width(self, data_columns: Optional[list] = ..., num_rows: int = ..., align: str = ...) -> str:
+    def fixed_width(
+        self,
+        data_columns: Optional[List[Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]]] = ...,
+        num_rows: int = ...,
+        align: str = ...,
+    ) -> str:
         """
         Generate random fixed width values.
 
@@ -2338,7 +2368,7 @@ class Faker:
         """
         ...
 
-    def passport_gender(self, seed: int = ...) -> str:
+    def passport_gender(self, seed: int = ...) -> Literal["M", "F", "X"]:
         """
         Generates a string representing the gender displayed on a passport
 
@@ -2354,7 +2384,7 @@ class Faker:
         """
         ...
 
-    def passport_owner(self, gender: str = ...) -> Tuple[str, str]:
+    def passport_owner(self, gender: Literal["M", "F", "X"] = ...) -> Tuple[str, str]:
         """
         Generate a given_name and surname for a passport owner
         The ``gender`` argument is the gender marker of a passport owner, which is a one character string
@@ -2403,7 +2433,7 @@ class Faker:
 
     def phone_number(self) -> str: ...
     def profile(
-        self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F"]] = ...
+        self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F", "X"]] = ...
     ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], datetime.date]]:
         """
         Generates a complete profile.
@@ -2412,8 +2442,8 @@ class Faker:
         ...
 
     def simple_profile(
-        self, sex: Optional[Literal["M", "F"]] = ...
-    ) -> Dict[str, Union[str, datetime.date, Literal["M", "F"]]]:
+        self, sex: Optional[Literal["M", "F", "X"]] = ...
+    ) -> Dict[str, Union[str, datetime.date, Literal["M", "F", "X"]]]:
         """
         Generates a basic profile with personal informations
         """
@@ -2955,6 +2985,34 @@ class Faker:
     def province(self) -> str: ...
     def province_abbr(self) -> str: ...
     def county(self) -> str: ...
+    def pincode_in_army(self) -> int: ...
+    def pincode_in_military(self) -> int:
+        """
+        Random PIN Code within Army Postal Service range
+        """
+        ...
+
+    def pincode_in_state(self, state_abbr: Optional[str] = ..., include_union_territories: bool = ...) -> int:
+        """
+        Random PIN Code within provided state abbreviation
+
+        :param state_abbr: State Abbr, defaults to None
+        :param include_union_territories: Include Union Territories ?, defaults to False
+        :raises ValueError: If incorrect state abbr
+        :return: PIN Code
+        """
+        ...
+
+    def postcode_in_army(self) -> int: ...
+    def postcode_in_military(self) -> int: ...
+    def union_territory(self) -> str:
+        """
+        Returns random union territory name
+        """
+        ...
+
+    def zipcode_in_army(self) -> int: ...
+    def zipcode_in_military(self) -> int: ...
     def aadhaar_id(self) -> str:
         """
         Aadhaar is a 12 digit person identifier generated for residents of
@@ -4124,7 +4182,7 @@ class Faker:
         """
         ...
 
-    def full_name(self, gender: Optional[Literal["M", "F"]] = ..., short: Optional[bool] = ...) -> str:
+    def full_name(self, gender: Optional[Literal["M", "F", "X"]] = ..., short: Optional[bool] = ...) -> str:
         """
         Generate Full Name
             - gender = 'M' or 'F' optional params

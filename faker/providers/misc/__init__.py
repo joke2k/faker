@@ -11,6 +11,8 @@ import zipfile
 
 from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, Union
 
+from typing_extensions import TypeAlias
+
 from faker.exceptions import UnsupportedFeature
 
 from .. import BaseProvider
@@ -19,6 +21,10 @@ from ..python import TypesSpec
 localized = True
 
 csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)
+
+
+ColumnSpec: TypeAlias = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
+DataColumns: TypeAlias = List[ColumnSpec]
 
 
 class Provider(BaseProvider):
@@ -643,7 +649,7 @@ class Provider(BaseProvider):
         _dict = {self.generator.word(): _dict}
         return xmltodict.unparse(_dict)
 
-    def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(self, data_columns: Optional[DataColumns] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
 
@@ -683,7 +689,8 @@ class Provider(BaseProvider):
             (20, "name"),
             (3, "pyint", {"max_value": 20}),
         ]
-        data_columns = data_columns if data_columns else default_data_columns
+        if data_columns is None:
+            data_columns: DataColumns = default_data_columns  # type: ignore
         align_map = {
             "left": "<",
             "middle": "^",
@@ -694,7 +701,7 @@ class Provider(BaseProvider):
         for _ in range(num_rows):
             row = []
 
-            for width, definition, *arguments in data_columns:
+            for width, definition, *arguments in data_columns:  # type: ignore
                 kwargs = arguments[0] if arguments else {}
 
                 if not isinstance(kwargs, dict):
