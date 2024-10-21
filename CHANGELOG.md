@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v30.7.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.6.0...v30.7.0)
+
+* Add person provider for `gu_IN` locale. Thanks @debjeetsingha.
+* Add `datetime` provider for `gu_IN` locale. Thanks @wh0th3h3llam1.
+
 ### [v30.6.0 - 2024-10-16](https://github.com/joke2k/faker/compare/v30.5.0...v30.6.0)
 
 * Add passport provider for `ru_RU` locale. Thanks @Abdujabbar.
