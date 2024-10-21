@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.8.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.7.0...v30.8.0)
+
+* Update city names for `uk_UA`. Thanks @lexxai.
+
 ### [v30.7.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.6.0...v30.7.0)
 
 * Add person provider for `gu_IN` locale. Thanks @debjeetsingha.
