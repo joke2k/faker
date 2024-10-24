@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.8.1 - 2024-10-24](https://github.com/joke2k/faker/compare/v30.8.0...v30.8.1)
+
+* Fix `month_in_guj`.
+
 ### [v30.8.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.7.0...v30.8.0)
 
 * Update city names for `uk_UA`. Thanks @lexxai.
