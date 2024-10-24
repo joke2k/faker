@@ -289,7 +289,7 @@
 
 ### [v22.0.0 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.1...v22.0.0)
 
-* Remove dot from `file_name` when `extention` is the empty string. Thanks @gotofritz
+* Remove dot from `file_name` when `extension` is the empty string. Thanks @gotofritz
 * Allow extension in `file_path` to take a list of allowed extensions, or empty for "no extension". Thanks @gotofritz
 
 ### [v21.0.1 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.0...v21.0.1)
@@ -2097,7 +2097,7 @@
 * Localized providers
 * Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
 * Added ``pt_PT`` provider. Thanks João Delgado.
-* Fixed mispellings for ``en_US`` company provider. Thanks Greg Meece.
+* Fixed misspellings for ``en_US`` company provider. Thanks Greg Meece.
 * Added currency provider. Thanks Wiktor Ślęczka
 * Ensure choice_distribution always uses floats. Thanks Katy Lavallee.
 * Added ``uk_UA`` provider. Thanks Cyril Tarasenko.
