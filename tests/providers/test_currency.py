@@ -165,11 +165,64 @@ class TestDeAt:
         from faker.providers.currency.de_AT import Provider as DeAtCurrencyProvider
 
         cls.provider = DeAtCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
+        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
 
     def test_pricetag(self, faker, num_samples):
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.provider.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
+
+    def test_currency_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.currency_code()
+            assert code in self.currency_codes
+
+
+class TestDeCh:
+    """Test de_CH currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.de_CH import Provider as DeChCurrencyProvider
+
+        cls.provider = DeChCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
+        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.provider.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
+
+    def test_currency_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.currency_code()
+            assert code in self.currency_codes
 
 
 class TestDeDe:
@@ -182,11 +235,29 @@ class TestDeDe:
         from faker.providers.currency.de_DE import Provider as DeDeCurrencyProvider
 
         cls.provider = DeDeCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
+        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
 
     def test_pricetag(self, faker, num_samples):
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.provider.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
+
+    def test_currency_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.currency_code()
+            assert code in self.currency_codes
 
 
 class TestEnAu:

@@ -2,36 +2,80 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
-    formats = (
-        # source: https://de.wikipedia.org/wiki/Telefonnummer_(Schweiz)#Schreibweisen
-        "+41 2# ### ## ##",
-        "+41 3# ### ## ##",
-        "+41 4# ### ## ##",
-        "+41 5# ### ## ##",
-        "+41 6# ### ## ##",
-        "+41 7# ### ## ##",
-        "+41 8# ### ## ##",
-        "+41 9# ### ## ##",
-        "+41 (0)2# ### ## ##",
-        "+41 (0)3% ### ## ##",
-        "+41 (0)4% ### ## ##",
-        "+41 (0)5# ### ## ##",
-        "+41 (0)6# ### ## ##",
-        "+41 (0)7% ### ## ##",
-        "+41 (0)8# ### ## ##",
-        "+41 (0)9# ### ## ##",
-        "02# ### ## ##",
-        "03% ### ## ##",
-        "04% ### ## ##",
-        "05# ### ## ##",
-        "06# ### ## ##",
-        "07% ### ## ##",
-        "08# ### ## ##",
-        "09# ### ## ##",
-        # see: http://www.bakom.admin.ch/themen/telekom/00479/00607/index.html
-        "084# ### ###",
-        "0878 ### ###",
-        "0900 ### ###",
-        "0901 ### ###",
-        "0906 ### ###",
+    """Phone number provider for `de_CH` locale.
+
+    Sources:
+    - https://de.wikipedia.org/wiki/Telefonnummer_(Schweiz)
+
+    """
+
+    dialing_codes = (
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
     )
+
+    landline_codes = (
+        "21",
+        "22",
+        "24",
+        "26",
+        "27",
+        "31",
+        "32",
+        "33",
+        "34",
+        "43",
+        "41",
+        "44",
+        "52",
+        "55",
+        "56",
+        "61",
+        "62",
+        "71",
+        "81",
+        "91",
+    )
+
+    cellphone_formats = (
+        "+41 {{dialing_code}} ### ## ##",
+        "0{{dialing_code}} ### ## ##",
+    )
+
+    landline_formats = (
+        "+41 {{landline_code}} ### ## ##",
+        "0{{landline_code}} ### ## ##",
+    )
+
+    """
+        Get dialing code for cellphone numbers.
+    """
+
+    def dialing_code(self) -> str:
+        return self.random_element(self.dialing_codes)
+
+    """
+        Get dialing code for landlines.
+    """
+
+    def landline_code(self) -> str:
+        return self.random_element(self.landline_codes)
+
+    """
+        Get a landline phone number.
+    """
+
+    def phone_number(self) -> str:
+        pattern: str = self.random_element(self.landline_formats)
+        return self.numerify(self.generator.parse(pattern))
+
+    """
+        Get a cellphone number.
+    """
+
+    def cellphone_number(self) -> str:
+        pattern: str = self.random_element(self.cellphone_formats)
+        return self.numerify(self.generator.parse(pattern))
