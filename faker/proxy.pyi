@@ -1749,7 +1749,7 @@ class Faker:
     def isbn10(self, separator: str = ...) -> str: ...
     def isbn13(self, separator: str = ...) -> str: ...
     def job(self) -> str: ...
-    def job_female(self) -> str: 
+    def job_female(self) -> str:
         """
         Get a job title for a female person.
 
@@ -1757,6 +1757,7 @@ class Faker:
         :sample:
         """
         ...
+
     def job_male(self) -> str:
         """
         Get a job title for a male person.
@@ -1765,6 +1766,7 @@ class Faker:
         :sample:
         """
         ...
+
     def get_words_list(
         self, part_of_speech: Optional[str] = ..., ext_word_list: Optional[Sequence[str]] = ...
     ) -> List[str]:

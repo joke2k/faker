@@ -55,6 +55,7 @@ class TestDeAt:
             assert faker.job_female() in DeAtJobProvider.jobs_female
             assert faker.job_male() in DeAtJobProvider.jobs_male
 
+
 class TestDeDe:
     """Test de_DE job provider"""
 
