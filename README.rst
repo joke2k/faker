@@ -104,12 +104,13 @@ packaged in "providers".
 .. code:: python
 
     from faker import Faker
-    from faker.providers import internet
 
     fake = Faker()
-    fake.add_provider(internet)
 
     print(fake.ipv4_private())
+    print(fake.address())
+
+**Note:** The `add_provider`_ method is not necessary unless you are using external providers - the bundled providers are already available out of the box.
 
 
 Check the `extended docs`_ for a list of `bundled providers`_ and a list of
@@ -469,6 +470,7 @@ Credits
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
+.. _add_provider: https://faker.readthedocs.io/en/stable/index.html#how-to-create-a-provider
 
 .. |pypi| image:: https://img.shields.io/pypi/v/Faker.svg?style=flat-square&label=version
     :target: https://pypi.org/project/Faker/
