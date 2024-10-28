@@ -10,6 +10,9 @@ from faker.providers.color import RandomColor
 from faker.providers.color.az_AZ import Provider as AzAzColorProvider
 from faker.providers.color.bg_BG import Provider as BgBgColorProvider
 from faker.providers.color.cs_CZ import Provider as CsCzColorProvider
+from faker.providers.color.de_AT import Provider as DeAtColorProvider
+from faker.providers.color.de_CH import Provider as DeChColorProvider
+from faker.providers.color.de_DE import Provider as DeDeColorProvider
 from faker.providers.color.el_GR import Provider as ElGrColorProvider
 from faker.providers.color.es_ES import Provider as EsEsColorProvider
 from faker.providers.color.fa_IR import Provider as FaIrColorProvider
@@ -313,6 +316,37 @@ class TestAzAz:
             color_name = faker.color_name()
             assert isinstance(color_name, str)
             assert color_name in AzAzColorProvider.all_colors.keys()
+
+
+class TestDeAt:
+    """Test de_AT color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in DeAtColorProvider.all_colors.keys()
+
+
+class TestDeCh:
+    """Test de_CH color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in DeChColorProvider.all_colors.keys()
+            assert not "ß" in color_name
+
+
+class TestDeDe:
+    """Test de_DE color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in DeDeColorProvider.all_colors.keys()
 
 
 class TestHyAm:
