@@ -1,4 +1,6 @@
 from .. import Provider as BaseProvider
+from datetime import date
+from typing import Optional
 
 
 class Provider(BaseProvider):
@@ -15,3 +17,32 @@ class Provider(BaseProvider):
         """
 
         return self.bothify(self.random_element(self.vat_id_formats))
+
+    def __get_check_digit(self, ssn_without_checkdigit: str) -> int:
+        factors: list[int] = [3, 7, 9, 5, 8, 4, 2, 1, 6]
+        ssn_numbers: list[int] = [int(char) for char in ssn_without_checkdigit]
+
+        sum: int = 0
+        for index, factor in enumerate(factors):
+            sum += ssn_numbers[index] * factor
+
+        check_digit = sum % 11
+
+        return check_digit
+
+    def ssn(self, birthdate: Optional[date] = None) -> str:
+        """
+        Source: https://de.wikipedia.org/wiki/Sozialversicherungsnummer#Berechnung
+        :return: a random valid Austrian social security number
+        """
+        if not birthdate:
+            birthdate: date = self.generator.date_object()
+        format: str = f"%##{birthdate.strftime('%d%m%y')}"
+        ssn: str = self.numerify(format)
+        check_digit: int = self.__get_check_digit(ssn)
+
+        while check_digit > 9:
+            ssn = self.numerify(format)
+            check_digit = self.__get_check_digit(ssn)
+
+        return ssn[:3] + str(self.__get_check_digit(ssn)) + ssn[3:]

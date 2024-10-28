@@ -201,6 +201,22 @@ class TestDeAT(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^ATU\d{8}$", self.fake.vat_id())
 
+    def test_ssn(self):
+        for _ in range(100):
+            ssn: str = self.fake.ssn()
+            assert len(ssn) == 10
+            assert len(self.fake.ssn(self.fake.date_of_birth())) == 10
+
+    def test_ssn_checkdigit(self):
+        for _ in range(100):
+            ssn: str = self.fake.ssn()
+            ssn_digits: list[int] = [int(char) for char in ssn[:3] + ssn[4:]]
+            factors: list[int] = [3, 7, 9, 5, 8, 4, 2, 1, 6]
+            sum: int = 0
+            for index, digit in enumerate(ssn_digits):
+                sum += digit * factors[index]
+            assert sum % 11 == int(ssn[3])
+
 
 class TestElCY(unittest.TestCase):
     def setUp(self):
