@@ -4,6 +4,7 @@ from typing import Pattern
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
+from faker.providers.phone_number.de_AT import Provider as DeAtPhoneNumberProvider
 
 
 class TestPhoneNumber:
@@ -105,6 +106,27 @@ class TestCsCz:
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
+
+
+class TestDeAt:
+    """Test de_AT phone number provider methods"""
+
+    landline_pattern: Pattern = re.compile(r"(\+43( \(0\))?|\(?0)\s?(?P<area_code>[0-9]{1,4})\)?\s?\/?[0-9 ]+")
+    cellphone_pattern: Pattern = re.compile(r"(\+43( \(0\))?|0)\s?(?P<dialing_code>[0-9]{3})\s?\/?[0-9 ]+")
+
+    def test_phone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert self.landline_pattern.fullmatch(phone_number)
+
+    def test_cellphone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            cellphone_number = faker.cellphone_number()
+            assert self.cellphone_pattern.fullmatch(cellphone_number)
+            assert (
+                self.cellphone_pattern.match(cellphone_number).group("dialing_code")
+                in DeAtPhoneNumberProvider.dialing_codes
+            )
 
 
 class TestEnPh:
