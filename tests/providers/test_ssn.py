@@ -235,6 +235,7 @@ class TestElGr(unittest.TestCase):
     def test_ssn(self):
         for _ in range(100):
             ssn = self.fake.ssn()
+            assert len(ssn) == 11
             assert re.search(r"^\d{11}$", ssn)
             assert datetime.strptime(ssn[:6], "%d%m%y")
             assert luhn_checksum(ssn) == 0
