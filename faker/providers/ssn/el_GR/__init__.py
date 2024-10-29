@@ -60,7 +60,7 @@ class Provider(BaseProvider):
         return vat_id + str(tin_checksum(vat_id))
 
     # Uses Luhn checksum according to this
-    # https://dotnetadventures.wordpress.com/2012/12/13/c-%CE%AD%CE%BB%CE%B5%CE%B3%CF%87%CE%BF%CF%82-%CE%BF%CF%81%CE%B8%CF%8C%CF%84%CE%B7%CF%84%CE%B1%CF%82-%CE%B1-%CE%BC-%CE%BA-%CE%B1-includes-python-version/
+    # https://learn.microsoft.com/en-us/purview/sit-defn-greece-social-security-number
     def ssn(self) -> str:
         """
         Generates random Greek social security number (AMKA)
