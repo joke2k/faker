@@ -9,7 +9,7 @@ from datetime import datetime
 from datetime import time as dttime
 from datetime import timedelta
 from datetime import tzinfo as TzInfo
-from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union, overload
 
 from dateutil import relativedelta
 from dateutil.tz import gettz, tzlocal, tzutc
@@ -2072,6 +2072,22 @@ class Provider(BaseProvider):
         else:
             return (datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)).astimezone(tzinfo)
 
+    @overload
+    def date_between(
+        self,
+        start_date: DateParseType,
+        end_date: DateParseType,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_between(
+        self,
+        start_date: DateParseType,
+        end_date: DateParseType,
+        pattern: str,
+    ) -> dtdate: ...
+
     @maybe_format_as_string
     def date_between(
         self,
@@ -2107,6 +2123,22 @@ class Provider(BaseProvider):
         """
         return self.date_time_between(start_date="+1s", end_date=end_date, tzinfo=tzinfo)
 
+    @overload
+    def future_date(
+        self,
+        end_date: DateParseType,
+        tzinfo: Optional[TzInfo],
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def future_date(
+        self,
+        end_date: DateParseType,
+        tzinfo: Optional[TzInfo],
+        pattern: str,
+    ) -> str: ...
+
     @maybe_format_as_string
     def future_date(
         self,
@@ -2139,6 +2171,22 @@ class Provider(BaseProvider):
         :return: datetime
         """
         return self.date_time_between(start_date=start_date, end_date="-1s", tzinfo=tzinfo)
+
+    @overload
+    def past_date(
+        self,
+        start_date: DateParseType,
+        tzinfo: Optional[TzInfo],
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def past_date(
+        self,
+        start_date: DateParseType,
+        tzinfo: Optional[TzInfo],
+        pattern: str,
+    ) -> str: ...
 
     @maybe_format_as_string
     def past_date(
@@ -2202,6 +2250,22 @@ class Provider(BaseProvider):
                 " system. Please specify an earlier date.",
             )
         return pick
+
+    @overload
+    def date_between_dates(
+        self,
+        date_start: Optional[DateParseType],
+        date_end: Optional[DateParseType],
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_between_dates(
+        self,
+        date_start: Optional[DateParseType],
+        date_end: Optional[DateParseType],
+        pattern: str,
+    ) -> str: ...
 
     @maybe_format_as_string
     def date_between_dates(
@@ -2333,6 +2397,22 @@ class Provider(BaseProvider):
         else:
             return now
 
+    @overload
+    def date_this_century(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_this_century(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: str,
+    ) -> str: ...
+
     @maybe_format_as_string
     def date_this_century(
         self,
@@ -2361,6 +2441,22 @@ class Provider(BaseProvider):
             return self.date_between_dates(this_century_start, today)
         else:
             return today
+
+    @overload
+    def date_this_decade(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_this_decade(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: str,
+    ) -> str: ...
 
     @maybe_format_as_string
     def date_this_decade(
@@ -2391,6 +2487,22 @@ class Provider(BaseProvider):
         else:
             return today
 
+    @overload
+    def date_this_year(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_this_year(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: str,
+    ) -> str: ...
+
     @maybe_format_as_string
     def date_this_year(
         self,
@@ -2419,6 +2531,22 @@ class Provider(BaseProvider):
             return self.date_between_dates(this_year_start, today)
         else:
             return today
+
+    @overload
+    def date_this_month(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_this_month(
+        self,
+        before_today: bool,
+        after_today: bool,
+        pattern: str,
+    ) -> str: ...
 
     @maybe_format_as_string
     def date_this_month(
@@ -2523,6 +2651,24 @@ class Provider(BaseProvider):
         :return: dateutil.tz.tz.tzfile
         """
         return gettz(self.timezone(*args, **kwargs))  # type: ignore
+
+    @overload
+    def date_of_birth(
+        self,
+        tzinfo: Optional[TzInfo],
+        minimum_age: int,
+        maximum_age: int,
+        pattern: None,
+    ) -> dtdate: ...
+
+    @overload
+    def date_of_birth(
+        self,
+        tzinfo: Optional[TzInfo],
+        minimum_age: int,
+        maximum_age: int,
+        pattern: str,
+    ) -> str: ...
 
     @maybe_format_as_string
     def date_of_birth(
