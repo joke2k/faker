@@ -8,6 +8,7 @@ from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
+from faker.providers.person.de_AT import Provider as DeAtProvider
 from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
@@ -207,6 +208,69 @@ class TestCsCZ(unittest.TestCase):
                 last_name = name_parts[2]
         assert first_name in CsCZProvider.first_names_female
         assert last_name in CsCZProvider.last_names_female
+
+
+class TestDeAt(unittest.TestCase):
+    """Tests person in the de_AT locale"""
+
+    def setUp(self):
+        self.fake = Faker("de_AT")
+        Faker.seed(0)
+
+    def test_academic_prefix(self):
+        academic_prefix = self.fake.academic_prefix()
+        assert isinstance(academic_prefix, str)
+        assert academic_prefix in DeAtProvider.academic_prefixes
+
+    def test_academic_suffix(self):
+        academic_suffix = self.fake.academic_suffix()
+        assert isinstance(academic_suffix, str)
+        assert academic_suffix in DeAtProvider.academic_suffixes
+
+    def test_first_name(self):
+        first_name = self.fake.first_name()
+        assert isinstance(first_name, str)
+        assert first_name in DeAtProvider.first_names
+
+    def test_first_name_female(self):
+        name_female = self.fake.first_name_female()
+        assert isinstance(name_female, str)
+        assert name_female in DeAtProvider.first_names_female
+
+    def test_first_name_male(self):
+        name_male = self.fake.first_name_male()
+        assert isinstance(name_male, str)
+        assert name_male in DeAtProvider.first_names_male
+
+    def test_first_name_nonbinary(self):
+        name_nonbinary = self.fake.first_name_nonbinary()
+        assert isinstance(name_nonbinary, str)
+        assert name_nonbinary in DeAtProvider.first_names
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert isinstance(last_name, str)
+        assert last_name in DeAtProvider.last_names
+
+    def test_prefix(self):
+        prefix = self.fake.prefix()
+        assert isinstance(prefix, str)
+        assert prefix in DeAtProvider.prefixes
+
+    def test_prefix_female(self):
+        prefix_female = self.fake.prefix_female()
+        assert isinstance(prefix_female, str)
+        assert prefix_female in DeAtProvider.prefixes_female
+
+    def test_prefix_male(self):
+        prefix_male = self.fake.prefix_male()
+        assert isinstance(prefix_male, str)
+        assert prefix_male in DeAtProvider.prefixes_male
+
+    def test_prefix_nonbinary(self):
+        prefix_nonbinary = self.fake.prefix_nonbinary()
+        assert isinstance(prefix_nonbinary, str)
+        assert prefix_nonbinary in DeAtProvider.prefixes
 
 
 class TestEn(unittest.TestCase):
