@@ -218,6 +218,29 @@ class TestDeAT(unittest.TestCase):
             assert sum % 11 == int(ssn[3])
 
 
+class TestDeDe(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("de_DE")
+        self.rvnr_pattern: Pattern = re.compile(r"\d{8}[A-Z]\d{3}")
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^DE\d{9}$", self.fake.vat_id())
+
+    def test_rvnr(self):
+        for _ in range(100):
+            rvnr = self.fake.rvnr()
+            assert self.rvnr_pattern.fullmatch(rvnr)
+
+    def test_rvnr_birthdate(self):
+        for _ in range(100):
+            birthdate: datetime.date = self.fake.date_object()
+            rvnr = self.fake.rvnr(birthdate)
+            assert self.rvnr_pattern.fullmatch(rvnr)
+            assert rvnr[2:8] == birthdate.strftime("%d%m%y")
+
+
 class TestElCY(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("el_CY")
