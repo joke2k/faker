@@ -222,6 +222,7 @@ class TestDeDe(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("de_DE")
         self.rvnr_pattern: Pattern = re.compile(r"\d{8}[A-Z]\d{3}")
+        self.kvnr_pattern: Pattern = re.compile(r"[A-Z]\d{19}")
         Faker.seed(0)
 
     def test_vat_id(self):
@@ -239,6 +240,11 @@ class TestDeDe(unittest.TestCase):
             rvnr = self.fake.rvnr(birthdate)
             assert self.rvnr_pattern.fullmatch(rvnr)
             assert rvnr[2:8] == birthdate.strftime("%d%m%y")
+            
+    def test_kvnr(self):
+        for _ in range(100):
+            kvnr = self.fake.kvnr()
+            assert self.kvnr_pattern.fullmatch(kvnr)
 
 
 class TestElCY(unittest.TestCase):

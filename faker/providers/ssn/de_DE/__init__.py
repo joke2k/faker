@@ -2,15 +2,17 @@ from datetime import date
 from string import ascii_uppercase
 from typing import Optional
 
+from faker.utils.checksums import luhn_checksum
+
 from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):
     """
     A Faker provider for the German VAT ID and the pension insurance number
-    
+
     Sources:
-    
+
     - http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
     - https://de.wikipedia.org/wiki/Versicherungsnummer
     """
@@ -49,7 +51,7 @@ class Provider(BaseProvider):
     def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
-        
+
         :return: A random German VAT ID
         """
 
@@ -58,9 +60,9 @@ class Provider(BaseProvider):
     def rvnr(self, birthdate: Optional[date] = None):
         """
         Pension insurance number (German: "Rentenversicherungsnummer", abbr. "RVNR")
-        
+
         Source: https://de.wikipedia.org/wiki/Versicherungsnummer
-        
+
         :return: A valid German pension insurance number
         """
 
@@ -70,3 +72,31 @@ class Provider(BaseProvider):
         rvnr: str = self.bothify(format, letters=ascii_uppercase)
 
         return rvnr + self.__get_rvnr_checkdigit(rvnr)
+
+    def kvnr(self) -> str:
+        """
+        German health insurance number ("Krankenversichertennummer", abbr. "KVNR")
+
+        Source: https://de.wikipedia.org/wiki/Krankenversichertennummer
+
+        :return: a random health insurance number
+        """
+
+        letter_number: str = str(self.random_int(min=1, max=26))
+        if len(letter_number) == 1:
+            letter_number = "0" + letter_number
+
+        first_part_format: str = letter_number + "########"
+        first_part: str = self.numerify(first_part_format)
+        first_checkdigit: int = luhn_checksum(int(first_part[::-1]))
+        second_part_format: str = "#########"
+        second_part: str = self.numerify(second_part_format)
+
+        kvnr: str = first_part + str(first_checkdigit) + second_part
+        kvnr_checkdigit: int = luhn_checksum(int(kvnr[::-1]))
+        kvnr = kvnr + str(kvnr_checkdigit)
+
+        letter: str = ascii_uppercase[int(letter_number) - 1]
+        kvnr = letter + kvnr[2:]
+
+        return kvnr
