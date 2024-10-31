@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.8.2 - 2024-10-24](https://github.com/joke2k/faker/compare/v30.8.1...v30.8.2)
+
+* Revert "Add decorator to optionally format dates as string.".
+
 ### [v30.8.1 - 2024-10-24](https://github.com/joke2k/faker/compare/v30.8.0...v30.8.1)
 
 * Fix `month_in_guj`.
