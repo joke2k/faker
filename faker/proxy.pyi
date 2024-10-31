@@ -970,17 +970,15 @@ class Faker:
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-        pattern: Optional[str] = ...,
-    ) -> Union[datetime.date, str]:
+    ) -> datetime.date:
         """
         Get a Date object based on a random date between two given dates.
         Accepts date strings that can be recognized by strtotime().
 
         :param start_date: Defaults to 30 years ago
         :param end_date: Defaults to "today"
-        :param pattern: optional pattern to format the date as string
-        :example: Date('1999-02-02') or '1999-02-02'
-        :return: Date or string
+        :example: Date('1999-02-02')
+        :return: Date
         """
         ...
 
@@ -988,16 +986,14 @@ class Faker:
         self,
         date_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
         date_end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-        pattern: Optional[str] = ...,
-    ) -> Union[datetime.date, str]:
+    ) -> datetime.date:
         """
         Takes two Date objects and returns a random date between the two given dates.
         Accepts Date or datetime objects
 
         :param date_start: Date
         :param date_end: Date
-        :param pattern: optional pattern to format the date as string
-        :return: Date or string
+        :return: Date
         """
         ...
 
@@ -1010,12 +1006,8 @@ class Faker:
         ...
 
     def date_of_birth(
-        self,
-        tzinfo: Optional[datetime.tzinfo] = ...,
-        minimum_age: int = ...,
-        maximum_age: int = ...,
-        pattern: Optional[str] = ...,
-    ) -> Union[datetime.date, str]:
+        self, tzinfo: Optional[datetime.tzinfo] = ..., minimum_age: int = ..., maximum_age: int = ...
+    ) -> datetime.date:
         """
         Generate a random date of birth represented as a Date object,
         constrained by optional miminimum_age and maximum_age
@@ -1024,64 +1016,51 @@ class Faker:
         :param tzinfo: Defaults to None.
         :param minimum_age: Defaults to 0.
         :param maximum_age: Defaults to 115.
-        :param pattern: optional pattern to format the date as string
 
         :example: Date('1979-02-02')
         :return: Date
         """
         ...
 
-    def date_this_century(
-        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
-    ) -> Union[datetime.date, str]:
+    def date_this_century(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current century.
 
         :param before_today: include days in current century before today
         :param after_today: include days in current century after today
-        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
-        :return: Date or string
+        :return: Date
         """
         ...
 
-    def date_this_decade(
-        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
-    ) -> Union[datetime.date, str]:
+    def date_this_decade(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the decade year.
 
         :param before_today: include days in current decade before today
         :param after_today: include days in current decade after today
-        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
-        :return: Date or string
+        :return: Date
         """
         ...
 
-    def date_this_month(
-        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
-    ) -> Union[datetime.date, str]:
+    def date_this_month(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current month.
 
         :param before_today: include days in current month before today
         :param after_today: include days in current month after today
-        :param pattern: optional pattern to format the date as string
         :example: dtdate('2012-04-04')
-        :return: dtdate or string
+        :return: dtdate
         """
         ...
 
-    def date_this_year(
-        self, before_today: bool = ..., after_today: bool = ..., pattern: Optional[str] = ...
-    ) -> Union[datetime.date, str]:
+    def date_this_year(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
         """
         Gets a Date object for the current year.
 
         :param before_today: include days in current year before today
         :param after_today: include days in current year after today
-        :param pattern: optional pattern to format the date as string
         :example: Date('2012-04-04')
         :return: Date
         """
@@ -1215,8 +1194,7 @@ class Faker:
         self,
         end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
-        pattern: Optional[str] = ...,
-    ) -> Union[datetime.date, str]:
+    ) -> datetime.date:
         """
         Get a Date object based on a random date between 1 day from now and a
         given date.
@@ -1224,7 +1202,6 @@ class Faker:
 
         :param end_date: Defaults to "+30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :param pattern: optional pattern to format the date as string
         :example: dtdate('2030-01-01')
         :return: dtdate
         """
@@ -1270,8 +1247,7 @@ class Faker:
         self,
         start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
-        pattern: Optional[str] = ...,
-    ) -> Union[datetime.date, str]:
+    ) -> datetime.date:
         """
         Get a Date object based on a random date between a given date and 1 day
         ago.
@@ -1279,9 +1255,8 @@ class Faker:
 
         :param start_date: Defaults to "-30d"
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
-        :param pattern: optional pattern to format the date as string
         :example: dtdate('1999-02-02')
-        :return: dtdate or string
+        :return: dtdate
         """
         ...
 
