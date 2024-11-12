@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v32.1.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v32.0.0...v32.1.0)
+
+* Fix `ko_KR` road address. Thanks @semi-yu.
+
 ### [v32.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v31.0.0...v32.0.0)
 
 * Make pytest fixture session-scoped. Thanks @acolombier.
