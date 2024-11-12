@@ -182,7 +182,7 @@ class Faker:
         ...
 
     def random_choices(
-        self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
+        self, elements: Union[Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
     ) -> Sequence[T]:
         """
         Generate a list of objects randomly sampled from ``elements`` with replacement.
@@ -244,7 +244,7 @@ class Faker:
         """
         ...
 
-    def random_element(self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ...) -> T:
+    def random_element(self, elements: Union[Collection[T], OrderedDict[T, float]] = ...) -> T:
         """
         Generate a randomly sampled object from ``elements``.
 
@@ -265,7 +265,7 @@ class Faker:
 
     def random_elements(
         self,
-        elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ...,
+        elements: Union[Collection[T], OrderedDict[T, float]] = ...,
         length: Optional[int] = ...,
         unique: bool = ...,
         use_weighting: Optional[bool] = ...,
@@ -381,7 +381,7 @@ class Faker:
         ...
 
     def random_sample(
-        self, elements: Union[Collection[str], Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
+        self, elements: Union[Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
     ) -> Sequence[T]:
         """
         Generate a list of objects randomly sampled from ``elements`` without replacement.
