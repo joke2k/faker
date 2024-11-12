@@ -116,7 +116,7 @@ class Provider(PersonProvider):
         "Sevara",
         "Amina",
         "Zakiyaxon",
-        "Mumtoz"
+        "Mumtoz",
     )
 
     first_names_male = (
@@ -219,7 +219,7 @@ class Provider(PersonProvider):
         "Jasur",
         "Muhammadsolih",
         "Mahdi",
-        "Anvar"
+        "Anvar",
     )
 
     first_names = first_names_male + first_names_female
@@ -324,7 +324,7 @@ class Provider(PersonProvider):
         "Sevarova",
         "Aminova",
         "Zakiyaxonova",
-        "Mumtozova"
+        "Mumtozova",
     )
 
     last_names_male = (
@@ -427,7 +427,7 @@ class Provider(PersonProvider):
         "Mehrojov",
         "Muhammadsolihov",
         "Mahdiev",
-        "Anvarov"
+        "Anvarov",
     )
 
     last_names = last_names_female + last_names_male
