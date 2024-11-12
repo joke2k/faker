@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v31.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.10.0...v31.0.0)
+
+* Remove `Collection[str]` type from `ElementTypes`. Thanks @tvuotila.
+
 ### [v30.10.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.9.0...v30.10.0)
 
 * Add jobs for locale `de_AT`; added methods `job_female` and `job_male`. Thanks @ChristinaRau.
