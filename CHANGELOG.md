@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v32.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v31.0.0...v32.0.0)
+
+* Make pytest fixture session-scoped. Thanks @acolombier.
+
 ### [v31.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.10.0...v31.0.0)
 
 * Remove `Collection[str]` type from `ElementTypes`. Thanks @tvuotila.
