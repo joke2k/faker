@@ -2,6 +2,6 @@ from faker.factory import Factory
 from faker.generator import Generator
 from faker.proxy import Faker
 
-VERSION = "30.8.2"
+VERSION = "30.9.0"
 
 __all__ = ("Factory", "Generator", "Faker")
