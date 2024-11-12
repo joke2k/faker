@@ -20,7 +20,7 @@ def _session_faker(request):
     return Faker(locale=locale)
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def faker(request):
     """Fixture that returns a seeded and suitable ``Faker`` instance."""
     if "faker_locale" in request.fixturenames:
