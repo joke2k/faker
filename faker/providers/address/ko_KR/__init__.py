@@ -454,8 +454,12 @@ class Provider(AddressProvider):
         "{{building_name}} {{building_dong}}동 ###호",
     )
     road_formats = (
-        "{{road_name}}{{road_suffix}}",
-        "{{road_name}}{{road_number}}{{road_suffix}}",
+        "{{road_name}}{{road_suffix}} ###",
+        "{{road_name}}{{road_suffix}} 지하###",
+        "{{road_name}}{{road_suffix}} ###-##",
+        "{{road_name}}{{road_number}}{{road_suffix}} ###",
+        "{{road_name}}{{road_number}}{{road_suffix}} 지하###",
+        "{{road_name}}{{road_number}}{{road_suffix}} ###-##",
     )
     road_address_formats = (
         "{{metropolitan_city}} {{borough}} {{road}}",
