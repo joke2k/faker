@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v30.9.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.8.2...v30.9.0)
+
+* Added Providers for `uz_UZ` language. Thanks @laziest-coder.
+
 ### [v30.8.2 - 2024-10-31](https://github.com/joke2k/faker/compare/v30.8.1...v30.8.2)
 
 * Revert "Add decorator to optionally format dates as string.".
