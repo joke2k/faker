@@ -1305,6 +1305,21 @@ class TestKoKr:
             building_name = faker.building_name()
             assert isinstance(building_name, str)
 
+    def test_building_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number()
+            assert isinstance(building_number, (str, int))
+
+    def test_building_number_underground(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number_underground()
+            assert isinstance(building_number, str)
+
+    def test_building_number_segregated(self, faker, num_samples):
+        for _ in range(num_samples):
+            building_number = faker.building_number_segregated()
+            assert isinstance(building_number, str)
+
     def test_building_suffix(self, faker, num_samples):
         for _ in range(num_samples):
             building_suffix = faker.building_suffix()
@@ -1320,21 +1335,6 @@ class TestKoKr:
         for _ in range(num_samples):
             road_address = faker.road_address()
             assert isinstance(road_address, str)
-
-    def test_building_number(self, faker, num_samples):
-        for _ in range(num_samples):
-            building_number = faker.building_number()
-            assert isinstance(building_number, (str, int))
-
-    def test_building_number_underground(self, faker, num_samples):
-        for _ in range(num_samples):
-            building_number = faker.building_number_underground()
-            assert isinstance(building_number, str)
-
-    def test_building_number_segregated(self, faker, num_samples):
-        for _ in range(num_samples):
-            building_number = faker.building_number_segregated()
-            assert isinstance(building_number, str)
 
 
 class TestNeNp:
