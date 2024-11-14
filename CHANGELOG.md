@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v33.0.0 - 2024-11-14](https://github.com/joke2k/faker/compare/v32.1.0...v33.0.0)
+
+* Revert "Make pytest fixture session-scoped".
+
 ### [v32.1.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v32.0.0...v32.1.0)
 
 * Fix `ko_KR` road address. Thanks @semi-yu.
