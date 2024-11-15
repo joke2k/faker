@@ -1308,7 +1308,7 @@ class TestKoKr:
     def test_building_number(self, faker, num_samples):
         for _ in range(num_samples):
             building_number = faker.building_number()
-            assert isinstance(building_number, (str, int))
+            assert isinstance(building_number, str)
 
     def test_building_number_underground(self, faker, num_samples):
         for _ in range(num_samples):
