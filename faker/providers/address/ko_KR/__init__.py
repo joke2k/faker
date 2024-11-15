@@ -545,7 +545,7 @@ class Provider(AddressProvider):
         elif self.random_int() % 9 < 4:
             return self.building_number_segregated()
         else:
-            return self.generator.random.randint(1, 999)
+            return "%d" % self.generator.random.randint(1, 999)
 
     def building_number_underground(self) -> str:
         """
