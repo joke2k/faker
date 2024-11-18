@@ -13,3 +13,4 @@ isort
 mypy==0.910
 black==24.4.0
 doc8
+tox
