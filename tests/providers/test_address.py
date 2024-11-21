@@ -1309,16 +1309,21 @@ class TestKoKr:
         for _ in range(num_samples):
             building_number = faker.building_number()
             assert isinstance(building_number, str)
+            assert '#' not in building_number
 
     def test_building_number_underground(self, faker, num_samples):
         for _ in range(num_samples):
             building_number = faker.building_number_underground()
             assert isinstance(building_number, str)
+            assert '#' not in building_number
+            assert building_number[:2] == '지하'
 
     def test_building_number_segregated(self, faker, num_samples):
         for _ in range(num_samples):
             building_number = faker.building_number_segregated()
             assert isinstance(building_number, str)
+            assert '#' not in building_number
+            assert '-' in building_number
 
     def test_building_suffix(self, faker, num_samples):
         for _ in range(num_samples):
