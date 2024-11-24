@@ -27,6 +27,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 keywords = ["faker", "fixtures", "data", "test", "mock", "generator"]
+dependencies = ["python-dateutil>=2.9.0.post0", "typing-extensions>=4.12.2"]
 
 [project.urls]
 "Bug Tracker" = "https://github.com/joke2k/faker/issues"
@@ -49,7 +50,7 @@ faker = ["py.typed", "proxy.pyi"]
     "RELEASE_PROCESS.rst",
     "VERSION",
     "CITATION.cff",
-    "mypy.ini",
+    "pyproject.toml",
     "tox.ini",
 ]
 
@@ -66,5 +67,49 @@ faker = "faker.cli:execute_from_command_line"
 [project.entry-points.pytest11]
 faker = "faker.contrib.pytest.plugin"
 
+[project.optional-dependencies]
+image = ["pillow>=10.4.0"]
+xml = ["xmltodict>=0.14.2"]
+all = ["faker[image,xml]"]
+
+# CI deps
+
+tests = [
+    "coverage>=5.2",
+    "freezegun<0.4",
+    "pytest>=6.0.1",
+    "ukpostcodeparser>=1.1.1",
+    "validators>=0.13.0",
+    "sphinx>=2.4,<3.0",
+]
+lint = [
+    "flake8>=4.0.0",
+    "flake8-comprehensions>=3.15.0"
+]
+format = [
+    "isort>=5.13.2",
+    "black==24.4.0",
+    "doc8>=1.1.2",
+]
+typecheck = [
+    "mypy>=0.910",
+]
+docs = ["sphinx>=2.4,<3.0"]
+dev = ["tox>=4.23.2", "faker[all,tests,lint,docs,format,typecheck]"]
+
+
 [tool.setuptools.packages.find]
 exclude = ["docs", "tests", "tests.*"]
+
+[tool.mypy]
+disallow_subclassing_any = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+allow_redefinition = true
+pretty = true
+follow_imports = "silent"
+ignore_missing_imports = true
+show_error_codes = true
+show_column_numbers = true
