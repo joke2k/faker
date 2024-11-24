@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Faker"
+description = "Faker is a Python package that generates fake data for you."
+readme = "README.rst"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+dynamic = ["version"]
+authors = [{ name = "joke2k", email = "joke2k@gmail.com" }]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: MIT License",
+]
+keywords = ["faker", "fixtures", "data", "test", "mock", "generator"]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/joke2k/faker/issues"
+"Changes" = "https://github.com/joke2k/faker/blob/master/CHANGELOG.md"
+"Documentation" = "http://faker.rtfd.org/"
+"Source Code" = "https://github.com/joke2k/faker"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+faker = ["py.typed", "proxy.pyi"]
+
+[tool.setuptools.data-files]
+"" = [
+    "README.rst",
+    "LICENSE.txt",
+    "CONTRIBUTING.rst",
+    "CHANGELOG.md",
+    "RELEASE_PROCESS.rst",
+    "VERSION",
+    "CITATION.cff",
+    "mypy.ini",
+    "tox.ini",
+]
+
+[tool.setuptools.exclude-package-data]
+tests = ["*"]
+docs = ["*"]
+
+[tool.setuptools.dynamic]
+version = { file = "VERSION" }
+
+[project.scripts]
+faker = "faker.cli:execute_from_command_line"
+
+[project.entry-points.pytest11]
+faker = "faker.contrib.pytest.plugin"
+
+[tool.setuptools.packages.find]
+exclude = ["docs", "tests", "tests.*"]
