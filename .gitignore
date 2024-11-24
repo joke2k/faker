@@ -53,3 +53,6 @@ nosetests.xml
 *.ipr
 venv/
 .vscode
+
+# Files use by package managers
+uv.lock
