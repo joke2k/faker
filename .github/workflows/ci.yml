@@ -37,30 +37,6 @@ jobs:
         linters: flake8
         run: flake8 --extend-ignore=E203 faker tests
 
-  # checkmanifest:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Setup pip cache
-  #     uses: actions/cache@v4
-  #     id: pipcache
-  #     with:
-  #       path: ~/.cache/pip
-  #       key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
-  #       restore-keys: |
-  #         ${{ runner.os }}-pip-checkmanifest
-  #   - name: Set up Python
-  #     uses: actions/setup-python@v5
-  #     with:
-  #       python-version: '3.x'
-  #   - name: Install dependencies
-  #     run: |
-  #       python -m pip install tox
-  #   - name: Check manifest
-  #     run: tox
-  #     env:
-  #       TOXENV: checkmanifest
-
   isort:
     runs-on: ubuntu-latest
     steps:
