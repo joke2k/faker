@@ -510,6 +510,20 @@ class TestViVn:
             assert isinstance(pricetag, str)
 
 
+class TestUkUa(TestCurrencyProvider):
+    """Test uk_UA currency provider."""
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.uk_UA import Provider as UkUaCurrencyProvider
+
+        cls.provider = UkUaCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.cryptocurrencies = cls.provider.cryptocurrencies
+        cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
+        cls.cryptocurrency_codes, cls.cryptocurrency_names = tuple(zip(*cls.cryptocurrencies))
+
+
 class TestUzUz:
     """Test uz_UZ currency provider"""
 
