@@ -553,7 +553,7 @@ class Provider(AddressProvider):
 
         :example: 지하11
         """
-        return "지하%d" % (self.generator.random.randint(1,999))
+        return "지하%d" % (self.generator.random.randint(1, 999))
 
     def building_number_segregated(self) -> str:
         """
