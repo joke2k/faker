@@ -1,11 +1,11 @@
-from typing import Tuple
+from typing import Dict, Tuple
 
 from faker.typing import SexLiteral
 
 from ... import ElementsType
 from .. import Provider as BaseProvider
 
-GENDER_TO_GENERATOR: dict[SexLiteral, str] = {
+GENDER_TO_GENERATOR: Dict[SexLiteral, str] = {
     "F": "{{last_name_female}} {{first_name_female}} {{middle_name_female}}",
     "M": "{{last_name_male}} {{first_name_male}} {{middle_name_male}}",
     "X": "{{last_name_male}} {{first_name_male}} {{middle_name_male}}",

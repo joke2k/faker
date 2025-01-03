@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v33.1.3 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.1.2...v33.1.3)
+
+* Fix type annotation on Python 3.8.
+
 ### [v33.1.2 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.1.1...v33.1.2)
 
 * Fix `ru_RU` passport provider. Thanks @denisSurkov.
