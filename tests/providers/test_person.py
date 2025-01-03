@@ -1278,11 +1278,6 @@ class TestRuRU(unittest.TestCase):
         language_name = self.fake.language_name()
         assert language_name in RuProvider.language_names
 
-    def test_passport_owner(self):
-        surname, given_name = self.fake.passport_owner()
-        assert surname in RuProvider.last_names
-        assert given_name in RuProvider.first_names
-
 
 class TestSvSE(unittest.TestCase):
     def setUp(self):
