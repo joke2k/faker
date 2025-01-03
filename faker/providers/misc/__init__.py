@@ -20,7 +20,7 @@ from ..python import TypesSpec
 
 localized = True
 
-csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)
+csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)  # NOQA
 
 
 ColumnSpec: TypeAlias = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
