@@ -2630,3 +2630,15 @@ class TestZuZa:
         for _ in range(num_samples):
             address = faker.address()
             assert isinstance(address, str)
+
+    def test_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in ZuZaAddressProvider.provinces
+
+    def test_administrative_unit(self, faker, num_samples):
+        for _ in range(num_samples):
+            administrative_unit = faker.administrative_unit()
+            assert isinstance(administrative_unit, str)
+            assert administrative_unit in ZuZaAddressProvider.provinces

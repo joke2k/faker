@@ -163,6 +163,18 @@ class Provider(AddressProvider):
         "Burkina Faso",
     )
 
+    provinces = (
+        "iMpuma-Kapa",
+        "Freistata",
+        "eGoli",
+        "iKwaZulu-Natali",
+        "Limpopo",
+        "iMpumalanga",
+        "Bokone Bophirima",
+        "Noord-Kaap",
+        "Wes-Kaap",
+    )
+
     def secondary_address(self) -> str:
         return self.numerify(self.random_element(self.secondary_address_formats))
 
@@ -183,3 +195,9 @@ class Provider(AddressProvider):
 
     def section_number(self) -> str:
         return self.numerify(self.random_element(self.section_formats))
+
+    def province(self) -> str:
+        return self.random_element(self.provinces)
+
+    def administrative_unit(self) -> str:
+        return self.random_element(self.provinces)
