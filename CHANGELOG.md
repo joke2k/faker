@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v33.1.1 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.1.0...v33.1.1)
+
+* Fix address number output issue in `ko_KR` address provider. Thanks @semi-yu.
+
 ### [v33.1.0 - 2024-11-27](https://github.com/joke2k/faker/compare/v33.0.0...v33.1.0)
 
 * Add support for Python 3.13. Thanks @edgarrmondragon.
