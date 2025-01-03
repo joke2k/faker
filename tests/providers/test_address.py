@@ -56,6 +56,7 @@ from faker.providers.address.uk_UA import Provider as UkUaAddressProvider
 from faker.providers.address.vi_VN import Provider as ViVNAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
 from faker.providers.address.zh_TW import Provider as ZhTwAddressProvider
+from faker.providers.address.zu_ZA import Provider as ZuZaAddressProvider
 
 
 class TestBaseProvider:
@@ -2584,3 +2585,48 @@ class TestPlPl:
             postalcode = faker.postalcode()
             match = re.findall(r"^^\d{2}-\d{3}$$", postalcode)
             assert match
+
+
+class TestZuZa:
+    """Test zu_ZA address provider methods"""
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{4}", postcode)
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_name = faker.city_name()
+            assert isinstance(city_name, str)
+            assert city_name in ZuZaAddressProvider.cities
+
+    def test_city_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_suffix = faker.city_suffix()
+            assert isinstance(city_suffix, str)
+            assert city_suffix in ZuZaAddressProvider.city_suffixes
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in ZuZaAddressProvider.cities
+
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in ZuZaAddressProvider.countries
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+            assert street_name in ZuZaAddressProvider.street_names
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
