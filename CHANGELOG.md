@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v33.3.0 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.2.3...v33.3.0)
+
+* Add support for Zulu (`zu_ZA`) address provider and corresponding tests. Thanks @AliYmn.
+
 ### [v33.2.0 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.1.3...v33.2.0)
 
 * Add currency provider for `uk_UA`. Thanks @SaulTigh.
