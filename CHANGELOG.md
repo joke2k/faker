@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v33.3.1 - 2025-01-10](https://github.com/joke2k/faker/compare/v33.3.0...v33.3.1)
+
+* Fix `nl_BE` Bank Provider (BBAN, IBAN, SWIFT). Thanks @AliYmn.
+
+
 ### [v33.3.0 - 2025-01-03](https://github.com/joke2k/faker/compare/v33.2.3...v33.3.0)
 
 * Add support for Zulu (`zu_ZA`) address provider and corresponding tests. Thanks @AliYmn.
