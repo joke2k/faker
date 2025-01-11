@@ -461,18 +461,23 @@ class TestEnIn:
 
 
 class TestNlBe:
-    """Test nl_BE bank provider"""
-
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"\d{12}", faker.bban())
+            bban = faker.bban()
+            assert re.fullmatch(r"\d{12}", bban)
+            account_number = bban[:-2]
+            check_digits = int(bban[-2:])
+            assert (97 - (int(account_number) % 97)) == check_digits or check_digits == 97
 
     def test_iban(self, faker, num_samples):
         for _ in range(num_samples):
             iban = faker.iban()
-            assert is_valid_iban(iban)
             assert iban[:2] == NlBeBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{12}", iban[2:])
+            bban = iban[4:]
+            account_number = bban[:-2]
+            check_digits = int(bban[-2:])
+            assert (97 - (int(account_number) % 97)) == check_digits or check_digits == 97
 
     def test_swift8_use_dataset(self, faker, num_samples):
         for _ in range(num_samples):

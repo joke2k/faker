@@ -3751,6 +3751,22 @@ class Faker:
         """
         ...
 
+    def building_number_segregated(self) -> str:
+        """
+        :returns: A random building number distinguished with sub-building-number(가지 번호)
+
+        :example: 143-1
+        """
+        ...
+
+    def building_number_underground(self) -> str:
+        """
+        :returns: A random building number with undergrond entrances
+
+        :example: 지하11
+        """
+        ...
+
     def building_suffix(self) -> str:
         """
         :example: 아파트
