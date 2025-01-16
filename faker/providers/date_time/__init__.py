@@ -33,6 +33,28 @@ def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]
     return convert_timestamp_to_datetime(timestamp, tzinfo)
 
 
+def get_now_date_time(
+    start_date: Optional[DateParseType], end_date: Optional[DateParseType], tzinfo: Optional[TzInfo]
+) -> datetime:
+    if isinstance(start_date, datetime) and not isinstance(end_date, datetime):
+        now = start_date
+    elif isinstance(end_date, datetime) and not isinstance(start_date, datetime):
+        now = end_date
+    else:
+        now = datetime.now(tzinfo)
+    return now
+
+
+def get_now_date(start_date: Optional[DateParseType], end_date: Optional[DateParseType]) -> dtdate:
+    if isinstance(start_date, dtdate) and not isinstance(end_date, dtdate):
+        now = start_date
+    elif isinstance(end_date, dtdate) and not isinstance(start_date, dtdate):
+        now = end_date
+    else:
+        now = dtdate.today()
+    return now
+
+
 def change_year(current_date: dtdate, year_diff: int) -> dtdate:
     """
     Unless the current_date is February 29th, it is fine to just subtract years.
@@ -1830,17 +1852,18 @@ class Provider(BaseProvider):
 
         :example: 1061306726.6
         """
-        start_datetime = self._parse_start_datetime(start_datetime)
-        end_datetime = self._parse_end_datetime(end_datetime)
+        now = get_now_date_time(start_datetime, end_datetime, tzinfo=None)
+        start_datetime = self._parse_start_datetime(now, start_datetime)
+        end_datetime = self._parse_end_datetime(now, end_datetime)
         return float(self._rand_seconds(start_datetime, end_datetime))
 
     def time_delta(self, end_datetime: Optional[DateParseType] = None) -> timedelta:
         """
         Get a timedelta object
         """
-        start_datetime = self._parse_start_datetime("now")
-        end_datetime = self._parse_end_datetime(end_datetime)
-        seconds = end_datetime - start_datetime
+        now = datetime.now()
+        end = self._parse_end_datetime(now, end_datetime)
+        seconds = end - datetime_to_timestamp(now)
 
         ts = self._rand_seconds(*sorted([0, seconds]))
         return timedelta(seconds=ts)
@@ -1882,8 +1905,9 @@ class Provider(BaseProvider):
         # simply change that class method to use this magic number as a
         # default value when None is provided.
 
-        start_time = -62135596800 if start_datetime is None else self._parse_start_datetime(start_datetime)
-        end_datetime = self._parse_end_datetime(end_datetime)
+        now = get_now_date_time(start_datetime, end_datetime, tzinfo)
+        start_time = -62135596800 if start_datetime is None else self._parse_start_datetime(now, start_datetime)
+        end_datetime = self._parse_end_datetime(now, end_datetime)
 
         ts = self._rand_seconds(start_time, end_datetime)
         # NOTE: using datetime.fromtimestamp(ts) directly will raise
@@ -1948,18 +1972,18 @@ class Provider(BaseProvider):
         return self.date_time(end_datetime=end_datetime).time()
 
     @classmethod
-    def _parse_start_datetime(cls, value: Optional[DateParseType]) -> int:
+    def _parse_start_datetime(cls, now: datetime, value: Optional[DateParseType]) -> int:
         if value is None:
             return 0
 
-        return cls._parse_date_time(value)
+        return cls._parse_date_time(value, now)
 
     @classmethod
-    def _parse_end_datetime(cls, value: Optional[DateParseType]) -> int:
+    def _parse_end_datetime(cls, now: datetime, value: Optional[DateParseType]) -> int:
         if value is None:
-            return datetime_to_timestamp(datetime.now())
+            return datetime_to_timestamp(now)
 
-        return cls._parse_date_time(value)
+        return cls._parse_date_time(value, now)
 
     @classmethod
     def _parse_date_string(cls, value: str) -> Dict[str, float]:
@@ -1997,10 +2021,9 @@ class Provider(BaseProvider):
         raise ParseError(f"Invalid format for timedelta {value!r}")
 
     @classmethod
-    def _parse_date_time(cls, value: DateParseType, tzinfo: Optional[TzInfo] = None) -> int:
+    def _parse_date_time(cls, value: DateParseType, now: datetime, tzinfo: Optional[TzInfo] = None) -> int:
         if isinstance(value, (datetime, dtdate)):
             return datetime_to_timestamp(value)
-        now = datetime.now(tzinfo)
         if isinstance(value, timedelta):
             return datetime_to_timestamp(now + value)
         if isinstance(value, str):
@@ -2013,12 +2036,11 @@ class Provider(BaseProvider):
         raise ParseError(f"Invalid format for date {value!r}")
 
     @classmethod
-    def _parse_date(cls, value: DateParseType) -> dtdate:
+    def _parse_date(cls, value: DateParseType, today: dtdate) -> dtdate:
         if isinstance(value, datetime):
             return value.date()
         elif isinstance(value, dtdate):
             return value
-        today = dtdate.today()
         if isinstance(value, timedelta):
             return today + value
         if isinstance(value, str):
@@ -2046,8 +2068,9 @@ class Provider(BaseProvider):
         :example: datetime('1999-02-02 11:42:52')
         :return: datetime
         """
-        start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
-        end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
+        now = get_now_date_time(start_date, end_date, tzinfo)
+        start_date = self._parse_date_time(start_date, now, tzinfo=tzinfo)
+        end_date = self._parse_date_time(end_date, now, tzinfo=tzinfo)
         if end_date - start_date <= 1:
             ts = start_date + self.generator.random.random()
         else:
@@ -2067,9 +2090,9 @@ class Provider(BaseProvider):
         :example: Date('1999-02-02')
         :return: Date
         """
-
-        start_date = self._parse_date(start_date)
-        end_date = self._parse_date(end_date)
+        today = get_now_date(start_date, end_date)
+        start_date = self._parse_date(start_date, today)
+        end_date = self._parse_date(end_date, today)
         return self.date_between_dates(date_start=start_date, date_end=end_date)
 
     def future_datetime(self, end_date: DateParseType = "+30d", tzinfo: Optional[TzInfo] = None) -> datetime:
@@ -2141,13 +2164,17 @@ class Provider(BaseProvider):
         :example: datetime('1999-02-02 11:42:52')
         :return: datetime
         """
+        today = get_now_date(datetime_start, datetime_end)
+        now = datetime.combine(today, datetime.min.time(), tzinfo)
         datetime_start_ = (
             datetime_to_timestamp(datetime.now(tzinfo))
             if datetime_start is None
-            else self._parse_date_time(datetime_start)
+            else self._parse_date_time(datetime_start, now)
         )
         datetime_end_ = (
-            datetime_to_timestamp(datetime.now(tzinfo)) if datetime_end is None else self._parse_date_time(datetime_end)
+            datetime_to_timestamp(datetime.now(tzinfo))
+            if datetime_end is None
+            else self._parse_date_time(datetime_end, now)
         )
 
         timestamp = self._rand_seconds(datetime_start_, datetime_end_)
@@ -2398,8 +2425,9 @@ class Provider(BaseProvider):
         ``distrib`` is a callable that accepts ``<datetime>`` and returns ``<value>``
 
         """
-        start_date_ = self._parse_date_time(start_date, tzinfo=tzinfo)
-        end_date_ = self._parse_date_time(end_date, tzinfo=tzinfo)
+        now = get_now_date_time(start_date, end_date, tzinfo)
+        start_date_ = self._parse_date_time(start_date, now, tzinfo=tzinfo)
+        end_date_ = self._parse_date_time(end_date, now, tzinfo=tzinfo)
 
         if end_date_ < start_date_:
             raise ValueError("`end_date` must be greater than `start_date`.")
