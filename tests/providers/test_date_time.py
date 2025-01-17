@@ -127,31 +127,33 @@ class TestDateTime(unittest.TestCase):
         assert future_date > date.today()
 
     def test_parse_date_time(self):
-        timestamp = DatetimeProvider._parse_date_time("+30d")
-        now = DatetimeProvider._parse_date_time("now")
+        reference = datetime.now()
+        timestamp = DatetimeProvider._parse_date_time("+30d", reference)
+        now = DatetimeProvider._parse_date_time("now", reference)
         assert timestamp > now
         delta = timedelta(days=30)
-        from_delta = DatetimeProvider._parse_date_time(delta)
-        from_int = DatetimeProvider._parse_date_time(timestamp)
+        from_delta = DatetimeProvider._parse_date_time(delta, reference)
+        from_int = DatetimeProvider._parse_date_time(timestamp, reference)
 
         assert datetime.fromtimestamp(from_delta).date() == (datetime.fromtimestamp(timestamp).date())
 
         assert datetime.fromtimestamp(from_int).date() == (datetime.fromtimestamp(timestamp).date())
 
     def test_parse_date(self):
-        parsed = DatetimeProvider._parse_date("+30d")
-        now = DatetimeProvider._parse_date("now")
-        today = DatetimeProvider._parse_date("today")
+        reference = date.today()
+        parsed = DatetimeProvider._parse_date("+30d", reference)
+        now = DatetimeProvider._parse_date("now", reference)
+        today = DatetimeProvider._parse_date("today", reference)
         assert isinstance(parsed, date)
         assert isinstance(now, date)
         assert isinstance(today, date)
         assert today == date.today()
         assert now == today
         assert parsed == today + timedelta(days=30)
-        assert DatetimeProvider._parse_date(datetime.now()) == today
-        assert DatetimeProvider._parse_date(parsed) == parsed
-        assert DatetimeProvider._parse_date(30) == parsed
-        assert DatetimeProvider._parse_date(timedelta(days=30)) == parsed
+        assert DatetimeProvider._parse_date(datetime.now(), reference) == today
+        assert DatetimeProvider._parse_date(parsed, reference) == parsed
+        assert DatetimeProvider._parse_date(30, reference) == parsed
+        assert DatetimeProvider._parse_date(timedelta(days=30), reference) == parsed
 
     def test_timezone_conversion(self):
         from faker.providers.date_time import datetime_to_timestamp
@@ -589,6 +591,23 @@ class TestDateTime(unittest.TestCase):
         # 0 is an invalid year, so it should still raise a ValueError
         with self.assertRaises(ValueError):
             change_year(today, -today.year)
+
+    def test_relative_end_date(self):
+        a = []
+        b = []
+        fake = Faker()
+
+        fake.seed_instance(2595)
+        for _ in range(10):
+            a.append(fake.date_time_between(start_date="-3y", end_date=datetime(2025, 1, 14, 23, 59, 59, 0)))
+
+        time.sleep(2)
+
+        fake.seed_instance(2595)
+        for _ in range(10):
+            b.append(fake.date_time_between(start_date="-3y", end_date=datetime(2025, 1, 14, 23, 59, 59, 0)))
+
+        assert a == b
 
 
 class TestDeDe(unittest.TestCase):
