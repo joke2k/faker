@@ -1,3 +1,4 @@
+import logging
 import platform
 import re
 
@@ -19,20 +20,29 @@ from .. import BaseProvider, ElementsType
 
 localized = True
 
+log = logging.getLogger(__name__)
+
 
 def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
-    if isinstance(dt, datetime) and getattr(dt, "tzinfo", None) is not None:
-        dt = dt.astimezone(tzutc())
+    if dt == datetime.min:
+        return timegm(dt.timetuple())
+    if isinstance(dt, datetime):
+        try:
+            dt = dt.astimezone(tzutc())
+        except OSError:
+            pass
     return timegm(dt.timetuple())
 
 
 def convert_timestamp_to_datetime(timestamp: Union[int, float], tzinfo: TzInfo) -> datetime:
-    import datetime as dt
-
     if timestamp >= 0:
-        return dt.datetime.fromtimestamp(timestamp, tzinfo)
+        try:
+            return datetime.fromtimestamp(timestamp, tzinfo)
+        except OSError:
+            log.exception("OSError occurred while converting timestamp '%s' to datetime", timestamp)
+            raise
     else:
-        return dt.datetime(1970, 1, 1, tzinfo=tzinfo) + dt.timedelta(seconds=int(timestamp))
+        return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=int(timestamp))
 
 
 def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]) -> datetime:
@@ -1849,10 +1859,15 @@ class Provider(BaseProvider):
         If both are absolute, return the most recent one.
         If both are None, return now.
         """
+
         min_ = datetime_to_timestamp(datetime.min)
         now = datetime.now(tzinfo)
         if start_date is None and end_date is None:
             return now
+        if start_date is None and end_date is not None:
+            start_date = now
+        elif start_date is not None and end_date is None:
+            end_date = now
 
         start_int = cls._parse_date_time(start_date, now) if start_date is not None else min_
         end_int = cls._parse_date_time(end_date, now) if end_date is not None else min_
@@ -1965,7 +1980,14 @@ class Provider(BaseProvider):
 
         :example: 1061306726.6
         """
-        now = self._get_reference_date_time(start_datetime, end_datetime, tzinfo=None)
+        if start_datetime is not None and end_datetime is None:
+            if start_datetime == "now":
+                end_datetime = "+30d"
+            else:
+                end_datetime = datetime.now(tz=tzutc())
+        elif start_datetime is None and end_datetime is not None:
+            start_datetime = datetime(1970, 1, 1, tzinfo=tzutc())
+        now = self._get_reference_date_time(start_datetime, end_datetime, tzinfo=tzutc())
         start_datetime = self._parse_start_datetime(now, start_datetime)
         end_datetime = self._parse_end_datetime(now, end_datetime)
         return float(self._rand_seconds(start_datetime, end_datetime))
@@ -2220,7 +2242,7 @@ class Provider(BaseProvider):
             if tzinfo is None:
                 pick = convert_timestamp_to_datetime(timestamp, tzlocal())
                 try:
-                    pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+                    pick = pick.replace(tzinfo=None)
                 except OSError:
                     pass
             else:
