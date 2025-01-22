@@ -1,9 +1,12 @@
 ## Changelog
 
+### [v34.0.1 - 2025-01-22](https://github.com/joke2k/faker/compare/v33.3.1...v34.0.0)
+
+* Fix date parsing for "today".
+  
 ### [v34.0.0 - 2025-01-22](https://github.com/joke2k/faker/compare/v33.3.1...v34.0.0)
 
 * Account for `end_date` when calculating relative `date_time_between`. Thanks @Fashimpaur for the report.
-
 
 ### [v33.3.1 - 2025-01-10](https://github.com/joke2k/faker/compare/v33.3.0...v33.3.1)
 
