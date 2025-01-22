@@ -235,6 +235,9 @@ class TestDateTime(unittest.TestCase):
         delta = self.fake.time_delta(end_datetime="now")
         assert delta.seconds <= 0
 
+    def test_date_time_end(self):
+        self.fake.date_time(end_datetime="-1w")
+
     def test_date_time_between_dates(self):
         timestamp_start = random.randint(0, 2000000000)
         timestamp_end = timestamp_start + 1
