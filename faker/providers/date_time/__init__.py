@@ -2015,12 +2015,16 @@ class Provider(BaseProvider):
         :example: datetime('2005-08-16 20:39:21')
         :return: datetime
         """
+        start = datetime(1970, 1, 1, tzinfo=tzinfo)
+        end = self._parse_end_datetime(start, end_datetime)
         # NOTE: On windows, the lowest value you can get from windows is 86400
         #       on the first day. Known python issue:
         #       https://bugs.python.org/issue30684
-        start = datetime(1970, 1, 1, tzinfo=tzinfo)
-        end = self._parse_end_datetime(start, end_datetime)
-        return self.date_time_between(start.timestamp(), end, tzinfo)
+        try:
+            start_ts = start.timestamp()
+        except OSError:
+            start_ts = 86400
+        return self.date_time_between(start_ts, end, tzinfo)
 
     def date_time_ad(
         self,
