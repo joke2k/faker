@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v34.0.1 - 2025-01-22](https://github.com/joke2k/faker/compare/v33.3.1...v34.0.0)
+### [v34.0.2 - 2025-01-22](https://github.com/joke2k/faker/compare/v34.0.1...v34.0.2)
+
+* ffx `date_time` provider when `end_datetime` is set in the past.
+
+### [v34.0.1 - 2025-01-22](https://github.com/joke2k/faker/compare/v34.0.0...v34.0.1)
 
 * Fix date parsing for "today".
   
