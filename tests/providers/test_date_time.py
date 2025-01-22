@@ -443,6 +443,14 @@ class TestDateTime(unittest.TestCase):
         assert isinstance(random_date, date)
         self.assertBetween(random_date, _30_years_ago, _20_years_ago)
 
+    def test_date_between_end_today(self):
+        today = date.today()
+        _30_years_ago = change_year(today, -30)
+        random_date = self.fake.date_between(start_date="-30y", end_date="today")
+        assert isinstance(random_date, date)
+        self.assertBetween(random_date, _30_years_ago, today)
+
+
     def test_date_between_months(self):
         today = date.today()
         _2_months_ago = today - timedelta(days=2 * (365.24 / 12))
