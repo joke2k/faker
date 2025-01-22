@@ -1942,7 +1942,7 @@ class Provider(BaseProvider):
         if isinstance(value, timedelta):
             return datetime_to_timestamp(now + value)
         if isinstance(value, str):
-            if value == "now":
+            if value in ("today", "now"):
                 return datetime_to_timestamp(datetime.now(tzinfo))
             time_params = cls._parse_date_string(value)
             return datetime_to_timestamp(now + timedelta(**time_params))  # type: ignore
