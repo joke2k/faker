@@ -2,21 +2,9 @@ import string
 
 from datetime import datetime, timedelta
 
-from dateutil.tz import tzutc
-
 from .. import BaseProvider, ElementsType
 
-
-def datetime_max() -> datetime:
-    try:
-        max = datetime.max - timedelta(1.0)
-        datetime.fromtimestamp(max.timestamp(), tz=tzutc())
-        return max
-    except OSError:
-        return datetime.fromtimestamp(2177366400)
-
-
-_DT_ALMOST_MAX = datetime_max()
+_DT_ALMOST_MAX = datetime.max - timedelta(1.0)
 
 
 class Provider(BaseProvider):

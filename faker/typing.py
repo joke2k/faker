@@ -35,7 +35,7 @@ class CreditCard:
 
 BasicNumber = Union[float, int]
 CardType = TypeVar("CardType", "CreditCard", str)
-DateParseType = Union[date, datetime, timedelta, str, int, float]
+DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = Union[str, float, int, Sequence[int]]
 SexLiteral = Literal["M", "F", "X"]
 SeedType = Union[int, float, str, bytes, bytearray, None]
