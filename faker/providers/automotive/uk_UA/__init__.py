@@ -217,7 +217,7 @@ class Provider(AutomotiveProvider):
         - If ``region_name`` is ``Kyiv``, will use this region in build of license plates.
         - If ``temporary_plate`` is ``False`` (default), generate license plate AA0000AA format
         - If ``temporary_plate`` is ``True``, generate temporary plate format 01 AA0000
-        01 - 27 it's region number
+        - 01 - 27 it's region number
 
         :sample:
         :sample: region_name=None, temporary_plate=False
