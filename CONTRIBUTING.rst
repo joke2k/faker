@@ -13,6 +13,13 @@ Getting Started
 -  Fork the repository on GitHub
 -  Please only make changes or add data to locales you're familiar with.
 
+Adding Providers
+----------------
+
+We only accept providers that are useful for general use. If you want to add a
+domain-specific provider, you can package it independently, and we'll be happy to
+add it to our `community providers`_ page.
+
 Making Changes
 --------------
 
@@ -51,3 +58,5 @@ Additional Resources
 
 
 .. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
+.. _`community providers`: https://github.com/joke2k/faker/blob/master/docs/communityproviders.rst
+

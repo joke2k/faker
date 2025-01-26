@@ -503,3 +503,26 @@ class TestViVn:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
+
+
+class TestUzUz:
+    """Test uz_UZ phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:"  # Non-capturing group
+            r"\+998 \(\d{2}\) \d{3}-\d{2}-\d{2}|"  # Example: +998 (93) 123-45-67
+            r"\+998 \(\d{2}\) \d{3} \d{2} \d{2}|"  # Example: +998 (93) 123 45 67
+            r"\+998 \(\d{2}\) \d{3} \d{4}|"  # Example: +998 (93) 123 4567
+            r"\+998 \(\d{2}\) \d{3}-\d{4}|"  # Example: +998 (93) 123-4567
+            r"\+998 \d{2} \d{3}-\d{2}-\d{2}|"  # Example: +998 93 123-45-67
+            r"\+998 \d{2} \d{3} \d{2} \d{2}|"  # Example: +998 93 123 45 67
+            r"\+998 \d{2} \d{3} \d{4}|"  # Example: +998 93 123 4567
+            r"\+998 \d{2} \d{3}-\d{4}|"  # Example: +998 93 123-4567
+            r"\+998\d{9}"  # Example: +998881234567
+            r")"  # Closing non-capturing group
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)

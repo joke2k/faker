@@ -116,7 +116,10 @@ signatures_with_comments: List[Tuple[str, str, bool]] = []
 for mbr_funcs_and_vars, locale in all_members:
     for func_name, func_value in mbr_funcs_and_vars.funcs.items():
         sig = inspect.signature(func_value)
-        hints = get_type_hints(func_value)
+        try:
+            hints = get_type_hints(func_value)
+        except Exception as e:
+            raise TypeError(f"Can't parse {func_name}{sig}.") from e
         ret_annot_module = getattr(sig.return_annotation, "__module__", None)
         if sig.return_annotation not in [None, inspect.Signature.empty, prov_cls.__name__] and ret_annot_module not in [
             None,

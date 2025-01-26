@@ -4989,9 +4989,9 @@ class Provider(BaseProvider):
         {"neutral": "Änderungsschneider*in", "female": "Änderungsschneiderin", "male": "Änderungsschneider"},
     )
 
-    jobs: ElementsType[str] = [job["neutral"] for job in jobs_dict]
-    jobs_female: ElementsType[str] = [job["female"] for job in jobs_dict]
-    jobs_male: ElementsType[str] = [job["male"] for job in jobs_dict]
+    jobs: ElementsType[str] = [job["neutral"] for job in jobs_dict]  # type: ignore[index]
+    jobs_female: ElementsType[str] = [job["female"] for job in jobs_dict]  # type: ignore[index]
+    jobs_male: ElementsType[str] = [job["male"] for job in jobs_dict]  # type: ignore[index]
 
     def job(self) -> str:
         return self.random_element(self.jobs)

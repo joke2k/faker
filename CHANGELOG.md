@@ -1,5 +1,50 @@
 ## Changelog
 
+### [v33.1.0 - 2024-11-27](https://github.com/joke2k/faker/compare/v33.0.0...v33.1.0)
+
+* Add support for Python 3.13. Thanks @edgarrmondragon.
+
+### [v33.0.0 - 2024-11-14](https://github.com/joke2k/faker/compare/v32.1.0...v33.0.0)
+
+* Revert "Make pytest fixture session-scoped".
+
+### [v32.1.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v32.0.0...v32.1.0)
+
+* Fix `ko_KR` road address. Thanks @semi-yu.
+
+### [v32.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v31.0.0...v32.0.0)
+
+* Make pytest fixture session-scoped. Thanks @acolombier.
+
+### [v31.0.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.10.0...v31.0.0)
+
+* Remove `Collection[str]` type from `ElementTypes`. Thanks @tvuotila.
+
+### [v30.10.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.9.0...v30.10.0)
+
+* Add jobs for locale `de_AT`; added methods `job_female` and `job_male`. Thanks @ChristinaRau.
+
+### [v30.9.0 - 2024-11-12](https://github.com/joke2k/faker/compare/v30.8.2...v30.9.0)
+
+* Added Providers for `uz_UZ` language. Thanks @laziest-coder.
+
+### [v30.8.2 - 2024-10-31](https://github.com/joke2k/faker/compare/v30.8.1...v30.8.2)
+
+* Revert "Add decorator to optionally format dates as string.".
+
+### [v30.8.1 - 2024-10-24](https://github.com/joke2k/faker/compare/v30.8.0...v30.8.1)
+
+* Fix `month_in_guj`.
+
+### [v30.8.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.7.0...v30.8.0)
+
+* Update city names for `uk_UA`. Thanks @lexxai.
+
+### [v30.7.0 - 2024-10-21](https://github.com/joke2k/faker/compare/v30.6.0...v30.7.0)
+
+* Add person provider for `gu_IN` locale. Thanks @debjeetsingha.
+* Add `datetime` provider for `gu_IN` locale. Thanks @wh0th3h3llam1.
+
 ### [v30.6.0 - 2024-10-16](https://github.com/joke2k/faker/compare/v30.5.0...v30.6.0)
 
 * Add passport provider for `ru_RU` locale. Thanks @Abdujabbar.
@@ -280,7 +325,7 @@
 
 ### [v22.0.0 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.1...v22.0.0)
 
-* Remove dot from `file_name` when `extention` is the empty string. Thanks @gotofritz
+* Remove dot from `file_name` when `extension` is the empty string. Thanks @gotofritz
 * Allow extension in `file_path` to take a list of allowed extensions, or empty for "no extension". Thanks @gotofritz
 
 ### [v21.0.1 - 2023-12-29](https://github.com/joke2k/faker/compare/v21.0.0...v21.0.1)
@@ -2088,7 +2133,7 @@
 * Localized providers
 * Updated ``ko_KR`` provider. Thanks Lee Yeonjae.
 * Added ``pt_PT`` provider. Thanks João Delgado.
-* Fixed mispellings for ``en_US`` company provider. Thanks Greg Meece.
+* Fixed misspellings for ``en_US`` company provider. Thanks Greg Meece.
 * Added currency provider. Thanks Wiktor Ślęczka
 * Ensure choice_distribution always uses floats. Thanks Katy Lavallee.
 * Added ``uk_UA`` provider. Thanks Cyril Tarasenko.

@@ -42,6 +42,7 @@ from faker.providers.person.ta_IN import Provider as TaINProvider
 from faker.providers.person.th_TH import Provider as ThThProvider
 from faker.providers.person.uk_UA import Provider as UkUAProvider
 from faker.providers.person.uk_UA import translit as UkUATranslit
+from faker.providers.person.uz_UZ import Provider as UzUzProvider
 from faker.providers.person.vi_VN import Provider as ViVNProvider
 from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
@@ -2000,6 +2001,33 @@ class TestZuZa(unittest.TestCase):
             self.assertIn(last_name, ZuZAProvider.last_names)
         else:
             raise AssertionError("Invalid number of name parts. Expected 2 or 3.")
+
+
+class TestUzUz(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("uz_UZ")
+        Faker.seed(0)
+        self.provider = UzUzProvider
+
+    def test_male_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_male()
+            assert res in self.provider.first_names_male
+
+    def test_female_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_female()
+            assert res in self.provider.first_names_female
+
+    def test_male_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_male()
+            assert res in self.provider.last_names_male
+
+    def test_female_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_female()
+            assert res in self.provider.last_names_female
 
 
 if __name__ == "__main__":

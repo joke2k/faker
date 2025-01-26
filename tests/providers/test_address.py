@@ -1316,6 +1316,11 @@ class TestKoKr:
             building_dong = faker.building_dong()
             assert isinstance(building_dong, str)
 
+    def test_road_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            road_address = faker.road_address()
+            assert isinstance(road_address, str)
+
 
 class TestNeNp:
     """Test ne_NP address provider methods"""

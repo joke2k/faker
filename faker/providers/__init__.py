@@ -17,7 +17,7 @@ _re_qm = re.compile(r"\?")
 _re_cir = re.compile(r"\^")
 
 T = TypeVar("T")
-ElementsType = Union[Collection[str], Collection[T], OrderedDictType[T, float]]
+ElementsType = Union[Collection[T], OrderedDictType[T, float]]
 
 
 class BaseProvider:
@@ -533,7 +533,7 @@ class BaseProvider:
         """
         return self.random_elements(elements, length, unique=False)
 
-    def random_element(self, elements: ElementsType[T] = ("a", "b", "c")) -> T:
+    def random_element(self, elements: ElementsType[T] = ("a", "b", "c")) -> T:  # type: ignore[assignment]
         """Generate a randomly sampled object from ``elements``.
 
         For information on the ``elements`` argument, please refer to
