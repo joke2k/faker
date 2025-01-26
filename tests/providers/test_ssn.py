@@ -240,7 +240,7 @@ class TestDeDe(unittest.TestCase):
             rvnr = self.fake.rvnr(birthdate)
             assert self.rvnr_pattern.fullmatch(rvnr)
             assert rvnr[2:8] == birthdate.strftime("%d%m%y")
-            
+
     def test_kvnr(self):
         for _ in range(100):
             kvnr = self.fake.kvnr()

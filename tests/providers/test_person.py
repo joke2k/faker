@@ -9,6 +9,7 @@ from faker.providers.person.ar_AA import Provider as ArProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.de_AT import Provider as DeAtProvider
+from faker.providers.person.de_LI import Provider as DeLiProvider
 from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
@@ -271,6 +272,29 @@ class TestDeAt(unittest.TestCase):
         prefix_nonbinary = self.fake.prefix_nonbinary()
         assert isinstance(prefix_nonbinary, str)
         assert prefix_nonbinary in DeAtProvider.prefixes
+
+
+class TestDeLi(unittest.TestCase):
+    """Tests person in the de_LI locale"""
+
+    def setUp(self):
+        self.fake = Faker("de_LI")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        first_name = self.fake.first_name()
+        assert isinstance(first_name, str)
+        assert first_name in DeLiProvider.first_names
+
+    def test_first_name_female(self):
+        name_female = self.fake.first_name_female()
+        assert isinstance(name_female, str)
+        assert name_female in DeLiProvider.first_names_female
+
+    def test_first_name_male(self):
+        name_male = self.fake.first_name_male()
+        assert isinstance(name_male, str)
+        assert name_male in DeLiProvider.first_names_male
 
 
 class TestEn(unittest.TestCase):

@@ -1,6 +1,7 @@
-from .. import Provider as BaseProvider
 from datetime import date
 from typing import Optional
+
+from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):

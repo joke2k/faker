@@ -1,5 +1,5 @@
-from .. import Provider as BaseProvider
 from ... import ElementsType
+from .. import Provider as BaseProvider
 
 
 class Provider(BaseProvider):

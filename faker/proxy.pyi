@@ -2328,6 +2328,8 @@ class Faker:
         :value_types: type of dictionary values
 
         Note: this provider required xmltodict library installed
+
+        :sample:
         """
         ...
 
@@ -2441,6 +2443,8 @@ class Faker:
     def suffix_female(self) -> str: ...
     def suffix_male(self) -> str: ...
     def suffix_nonbinary(self) -> str: ...
+    def academic_prefix(self) -> str: ...
+    def academic_suffix(self) -> str: ...
     def basic_phone_number(self) -> str: ...
     def country_calling_code(self) -> str: ...
     def msisdn(self) -> str:
@@ -2630,6 +2634,22 @@ class Faker:
         Generate a random United States Taxpayer Identification Number of the specified type.
 
         If no type is specified, a US SSN is returned.
+        """
+        ...
+
+    def rvnr(self, birthdate: Optional[datetime.date] = None) -> str:
+        """
+        Generate a valid German pension insurance number (German: "Rentenversicherungsnummer", abbr. "RVNR")
+
+        :samples:
+        """
+        ...
+
+    def kvnr(self, birthdate: Optional[datetime.date] = None) -> str:
+        """
+        Generate a valid German health insurance number (German: "Krankenversichertennummer", abbr. "KVNR")
+
+        :samples:
         """
         ...
 

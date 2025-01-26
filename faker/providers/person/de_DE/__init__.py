@@ -2470,3 +2470,26 @@ class Provider(PersonProvider):
     )
 
     suffixes = ("B.Sc.", "B.A.", "B.Eng.", "MBA.")
+
+    # Source: https://de.wikipedia.org/wiki/Familienstand
+    civil_status_list = (
+        ("LD", "ledig"),
+        ("VH", "verheiratet"),
+        ("VW", "verwitwet"),
+        ("GS", "geschieden"),
+        ("EA", "Ehe aufgehoben"),
+        ("LP", "in eingetragener Lebenspartnerschaft"),
+        ("LV", "durch Tod aufgelöste Lebenspartnerschaft"),
+        ("LA", "aufgehobene Lebenspartnerschaft"),
+        ("LE", "durch Todeserklärung aufgelöste Lebenspartnerschaft"),
+        ("NB", "nicht bekannt"),
+    )
+
+    def civil_status(self) -> str:
+        return self.random_element(self.civil_status_list)
+
+    def civil_status_code(self) -> str:
+        return self.random_element(self.civil_status_list)[0]
+
+    def civil_status_name(self) -> str:
+        return self.random_element(self.civil_status_list)[1]

@@ -3,9 +3,9 @@ import re
 from typing import Pattern
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
-from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
 from faker.providers.phone_number.de_AT import Provider as DeAtPhoneNumberProvider
 from faker.providers.phone_number.de_CH import Provider as DeChPhoneNumberProvider
+from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
 
 
 class TestPhoneNumber:
