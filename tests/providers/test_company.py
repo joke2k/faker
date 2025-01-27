@@ -22,7 +22,7 @@ from faker.providers.company.pl_PL import company_vat_checksum, local_regon_chec
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
-from faker.providers.company.ru_RU import calculate_checksum
+from faker.providers.company.ru_RU import calculate_checksum, calculate_snils_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
 from faker.providers.company.vi_VN import Provider as ViVnCompanyProvider
@@ -363,6 +363,12 @@ class TestRuRu:
             bs_words = bs.split()
             assert isinstance(bs, str)
             assert bs_words[0] in RuRuCompanyProvider.bsWords[0]
+
+    def test_snils(self, faker, num_samples):
+        for _ in range(num_samples):
+            snils = faker.snils()
+            assert len(snils) == 11
+            assert snils[-2:] == calculate_snils_checksum(snils[:10])
 
 
 class TestItIt:
