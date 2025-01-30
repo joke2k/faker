@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v35.1.0 - 2025-01-30](https://github.com/joke2k/faker/compare/v35.0.0...v35.1.0)
+
+* Add phone numbers for `de_CH` and `it_CH`. Thanks @flo-ri-an.
+
 ### [v35.0.0 - 2025-01-23](https://github.com/joke2k/faker/compare/v34.0.2...v35.0.0)
 
 * Revert changes made in v34.x.
