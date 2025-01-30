@@ -1,4 +1,4 @@
-from .. import Provider as CurrencyProvider
+from ..de import Provider as CurrencyProvider
 
 
 class Provider(CurrencyProvider):
