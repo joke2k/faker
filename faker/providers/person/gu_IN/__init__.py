@@ -152,6 +152,6 @@ class Provider(PersonProvider):
 
     prefixes_female = ("શ્રીમતી", "કુમારી")
 
-    prefixes_male = ("શ્રી", "શ્રીમન")
+    prefixes_male = ("શ્રી", "શ્રી માન")
 
     prefixes = prefixes_female + prefixes_male
