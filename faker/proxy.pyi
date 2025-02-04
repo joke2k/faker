@@ -23,6 +23,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    overload,
 )
 from uuid import UUID
 
@@ -2335,6 +2336,14 @@ class Faker:
         """
         ...
 
+    @overload
+    def uuid4(self) -> str: ...
+    @overload
+    def uuid4(self, cast_to: None) -> UUID: ...
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], str]) -> str: ...
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], bytes]) -> bytes: ...
     def uuid4(
         self, cast_to: Union[Callable[[UUID], str], Callable[[UUID], bytes], None] = ...
     ) -> Union[bytes, str, UUID]:
