@@ -23,6 +23,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    overload,
 )
 from uuid import UUID
 
