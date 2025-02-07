@@ -90,9 +90,12 @@ def get_member_functions_and_variables(cls: object, include_mangled: bool = Fals
     return UniqueMemberFunctionsAndVariables(cls, funcs, vars)
 
 
-def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = False):
+def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = False, comment: Optional[str] = None):
     """Return the signatures for the given function, recursing as necessary to handle overloads."""
     signatures = []
+
+    if comment is None:
+        comment = inspect.getdoc(func_value)
 
     if not is_overload:
         try:
@@ -100,8 +103,12 @@ def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = F
         except Exception as e:
             raise TypeError(f"Can't parse overloads for {func_name}{sig}.") from e
 
-        for overload in overloads:
-            signatures.extend(get_signatures_for_func(overload, func_name, locale, is_overload=True))
+        if overloads:
+            for overload in overloads:
+                signatures.extend(
+                    get_signatures_for_func(overload, func_name, locale, is_overload=True, comment=comment)
+                )
+            return signatures
 
     sig = inspect.signature(func_value)
     try:
@@ -153,7 +160,6 @@ def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = F
         decorator += "@classmethod\n"
     elif list(sig.parameters)[0] != "self":
         decorator += "@staticmethod\n"
-    comment = inspect.getdoc(func_value)
     signatures.append(
         (
             f"{decorator}def {func_name}{sig_str}: ...",

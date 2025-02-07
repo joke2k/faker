@@ -37,7 +37,7 @@ extra_test = [
 extra_flake8 = ["flake8>=4.0.0", "flake8-comprehensions"]
 extra_check_manifest = ["check-manifest"]
 extra_isort = ["isort"]
-extra_mypy = ["mypy==0.910"]
+extra_mypy = ["mypy==1.14.1"]
 extra_black = ["black==24.4.0"]
 extra_doc8 = ["doc8"]
 extra_dev = list(
