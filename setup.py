@@ -24,6 +24,26 @@ try:
 except AttributeError:
     zip_safe = False
 
+extra_test = [
+    "coverage>=5.2",
+    "freezegun",
+    "pytest>=6.0.1",
+    "ukpostcodeparser>=1.1.1",
+    "validators>=0.13.0",
+    "sphinx>=2.4,<3.0",
+    "Pillow",
+    "xmltodict",
+]
+extra_flake8 = ["flake8>=4.0.0", "flake8-comprehensions"]
+extra_check_manifest = ["check-manifest"]
+extra_isort = ["isort"]
+extra_mypy = ["mypy==0.910"]
+extra_black = ["black==24.4.0"]
+extra_doc8 = ["doc8"]
+extra_dev = list(
+    set(extra_test + extra_flake8 + extra_check_manifest + extra_isort + extra_mypy + extra_black + extra_doc8)
+)
+
 setup(
     name="Faker",
     version=VERSION,
@@ -73,4 +93,14 @@ setup(
         "python-dateutil>=2.4",
         "typing_extensions",
     ],
+    extras_require={
+        "test": extra_test,
+        "flake8": extra_flake8,
+        "check-manifest": extra_check_manifest,
+        "isort": extra_isort,
+        "mypy": extra_mypy,
+        "black": extra_black,
+        "doc8": extra_doc8,
+        "dev": extra_dev,
+    },
 )

@@ -30,6 +30,7 @@ Making Changes
    the new branch with ``git checkout fix/master/my_contribution``.
    Please avoid working directly on the ``master`` branch.
 -  Make commits of logical units.
+-  Install the development requirements: ``python -m pip install -e .[dev]``
 -  Follow our `coding style`_. You can run ``make lint`` to format your code.
 -  Check for unnecessary whitespace with ``git diff --check`` before
    committing.

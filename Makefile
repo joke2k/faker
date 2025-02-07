@@ -8,13 +8,16 @@ mypy:
 	mypy --install-types --non-interactive --config mypy.ini faker
 
 black:
-	black --line-length 120 .
+	black .
 
 isort:
 	isort --atomic .
 
-generate-stubs: 
-	python3.10 generate_stubs.py
+generate-stubs:
+	python3.11 generate_stubs.py
+	black faker/proxy.pyi
+	isort faker/proxy.pyi
+
 
 lint: generate-stubs isort black mypy flake8
 
