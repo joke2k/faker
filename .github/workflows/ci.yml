@@ -162,12 +162,11 @@ jobs:
         python-version: ${{ matrix.python }}
     - name: Install dependencies
       run: |
-        python -m pip install mypy
-    - name: Static type checking with mypy
-      uses: liskin/gh-problem-matcher-wrap@v3
-      with:
-        linters: mypy
-        run: mypy --install-types --non-interactive --config mypy.ini faker
+        python -m pip install tox==3.27.1 setuptools
+    - name: Run tests
+      run: tox
+      env:
+        TOXENV: mypy
 
   test_ubuntu:
     runs-on: ubuntu-latest

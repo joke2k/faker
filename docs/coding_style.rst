@@ -5,7 +5,7 @@ We use the black code style with a line length of 120 characters and trailing co
 
 You can format the code with::
 
-    black --line-length 120
+    black .
 
 Please include `type hints`_ for every provider method you write. An overview of generic types is included below.
 
