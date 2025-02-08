@@ -8,14 +8,9 @@ Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
 import random
 import string
 
-from typing import Optional
+from typing import Literal, Optional
 
 from .. import Provider as BaseProvider
-
-try:
-    from typing import Literal  # type: ignore
-except ImportError:
-    from typing_extensions import Literal  # type: ignore
 
 
 ALPHABET = string.ascii_uppercase
