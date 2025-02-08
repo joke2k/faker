@@ -5,6 +5,7 @@ import re
 import sys
 import time
 import unittest
+import zoneinfo
 
 from datetime import date, datetime
 from datetime import time as datetime_time
@@ -167,10 +168,8 @@ class TestDateTime(unittest.TestCase):
         assert today == today_back
 
     def test_pytimezone(self):
-        import dateutil
-
         pytz = self.fake.pytimezone()
-        assert isinstance(pytz, dateutil.tz.tz.tzfile)
+        assert isinstance(pytz, zoneinfo.ZoneInfo)
 
     def test_pytimezone_usable(self):
         pytz = self.fake.pytimezone()

@@ -70,7 +70,6 @@ setup(
     zip_safe=zip_safe,
     python_requires=">=3.8",
     install_requires=[
-        "python-dateutil>=2.4",
         "typing_extensions",
     ],
 )
