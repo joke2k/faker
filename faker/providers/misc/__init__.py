@@ -9,7 +9,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union
 
 from typing_extensions import TypeAlias
 
@@ -280,14 +280,13 @@ class Provider(BaseProvider):
             raise AssertionError(
                 "`uncompressed_size` is smaller than the calculated minimum required size",
             )
+        mode: Literal["w|", "w|gz", "w|bz2", "w|xz"] = "w|"
         if compression in ["gzip", "gz"]:
-            mode = "w:gz"
+            mode = "w|gz"
         elif compression in ["bzip2", "bz2"]:
-            mode = "w:bz2"
+            mode = "w|bz2"
         elif compression in ["lzma", "xz"]:
-            mode = "w:xz"
-        else:
-            mode = "w"
+            mode = "w|xz"
 
         tar_buffer = io.BytesIO()
         remaining_size = uncompressed_size
