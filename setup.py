@@ -58,7 +58,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
@@ -88,10 +87,9 @@ setup(
     },
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     install_requires=[
         "python-dateutil>=2.4",
-        "typing_extensions",
     ],
     extras_require={
         "test": extra_test,
