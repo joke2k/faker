@@ -23,6 +23,12 @@ def _get_local_timezone():
     datetime.now().astimezone().tzinfo
 
 
+def _get_next_month_start(dt: Union[dtdate, datetime]):
+    if dt.month == 12:
+        return dt.replace(year=dt.year + 1, month=1)
+    return dt.replace(month=dt.month + 1)
+
+
 def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
     if isinstance(dt, datetime) and getattr(dt, "tzinfo", None) is not None:
         dt = dt.astimezone(timezone.utc)
@@ -2339,10 +2345,7 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        if this_month_start.month == 12:
-            next_month_start = this_month_start.replace(year=this_month_start.year + 1, month=1)
-        else:
-            next_month_start = this_month_start.replace(month=this_month_start.month + 1)
+        next_month_start = _get_next_month_start(this_month_start)
 
         if before_now and after_now:
             return self.date_time_between_dates(this_month_start, next_month_start, tzinfo)
@@ -2434,10 +2437,7 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_month_start = today.replace(day=1)
-        if this_month_start.month == 12:
-            next_month_start = this_month_start.replace(year=this_month_start.year + 1, month=1)
-        else:
-            next_month_start = this_month_start.replace(month=this_month_start.month + 1)
+        next_month_start = _get_next_month_start(this_month_start)
 
         if before_today and after_today:
             return self.date_between_dates(this_month_start, next_month_start)
