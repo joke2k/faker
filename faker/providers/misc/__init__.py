@@ -11,8 +11,6 @@ import zipfile
 
 from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union
 
-from typing_extensions import TypeAlias
-
 from faker.exceptions import UnsupportedFeature
 
 from .. import BaseProvider
@@ -23,8 +21,8 @@ localized = True
 csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)  # type: ignore
 
 
-ColumnSpec: TypeAlias = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
-DataColumns: TypeAlias = List[ColumnSpec]
+ColumnSpec = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
+DataColumns = List[ColumnSpec]
 
 
 class Provider(BaseProvider):
