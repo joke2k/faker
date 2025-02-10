@@ -1,10 +1,8 @@
 from typing import Dict, List, Optional, Tuple
 
-from typing_extensions import TypeAlias
-
 from faker.providers.address import Provider as AddressProvider
 
-Range: TypeAlias = Tuple[int, int]
+Range = Tuple[int, int]
 
 
 class Provider(AddressProvider):
