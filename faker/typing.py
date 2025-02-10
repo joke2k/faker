@@ -2,9 +2,7 @@ import dataclasses
 
 from collections import OrderedDict as OrderedDictType
 from datetime import date, datetime, timedelta
-from typing import Sequence, Union
-
-from typing import List, Literal, TypeVar
+from typing import List, Literal, Sequence, TypeVar, Union
 
 
 class CreditCard:

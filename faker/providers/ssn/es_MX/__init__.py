@@ -12,7 +12,6 @@ from typing import Literal, Optional
 
 from .. import Provider as BaseProvider
 
-
 ALPHABET = string.ascii_uppercase
 ALPHANUMERIC = string.digits + ALPHABET
 VOWELS = "AEIOU"
