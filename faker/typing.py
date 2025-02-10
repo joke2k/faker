@@ -1,4 +1,5 @@
 import dataclasses
+import sys
 
 from datetime import date, datetime, timedelta
 from typing import Sequence, Union
@@ -10,7 +11,10 @@ except ImportError:
 
     from typing_extensions import Literal, TypeVar  # type: ignore
 
-from collections import OrderedDict as OrderedDictType
+if sys.version_info >= (3, 9):
+    from collections import OrderedDict as OrderedDictType
+else:
+    from typing import OrderedDict as OrderedDictType
 
 
 class CreditCard:
