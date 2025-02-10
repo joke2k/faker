@@ -7,8 +7,7 @@ from datetime import MAXYEAR
 from datetime import date as dtdate
 from datetime import datetime
 from datetime import time as dttime
-from datetime import timedelta
-from datetime import timezone
+from datetime import timedelta, timezone
 from datetime import tzinfo as TzInfo
 from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
 
@@ -23,7 +22,7 @@ def _get_local_timezone():
     datetime.now().astimezone().tzinfo
 
 
-def _get_next_month_start(dt: Union[dtdate, datetime]):
+def _get_next_month_start(dt: Union[dtdate, datetime]) -> Union[dtdate, datetime]:
     if dt.month == 12:
         return dt.replace(year=dt.year + 1, month=1)
     return dt.replace(month=dt.month + 1)
