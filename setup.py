@@ -67,5 +67,6 @@ setup(
     },
     platforms=["any"],
     zip_safe=zip_safe,
+    install_requires=["tzdata"],
     python_requires=">=3.9",
 )
