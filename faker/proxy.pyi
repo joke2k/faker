@@ -23,6 +23,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    overload,
 )
 from uuid import UUID
 
@@ -2335,9 +2336,50 @@ class Faker:
         """
         ...
 
-    def uuid4(
-        self, cast_to: Union[Callable[[UUID], str], Callable[[UUID], bytes], None] = ...
-    ) -> Union[bytes, str, UUID]:
+    @overload
+    def uuid4(self) -> str:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: None) -> UUID:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], str]) -> str:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], bytes]) -> bytes:
         """
         Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
