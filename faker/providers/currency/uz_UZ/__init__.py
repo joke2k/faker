@@ -174,5 +174,5 @@ class Provider(CurrencyProvider):
 
     def pricetag(self) -> str:
         return (
-            self.numerify(self.random_element(self.price_formats)) + "\N{no-break space}\N{cyrillic small letter er}."
+            self.numerify(self.random_element(self.price_formats)) + "\N{NO-BREAK SPACE}\N{CYRILLIC SMALL LETTER ER}."
         )
