@@ -9,7 +9,7 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union, overload
 
 from faker.exceptions import UnsupportedFeature
 
@@ -101,6 +101,18 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+
+    @overload
+    def uuid4(self) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: None) -> uuid.UUID: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], str]) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], bytes]) -> bytes: ...
 
     def uuid4(
         self,
