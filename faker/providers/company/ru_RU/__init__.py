@@ -12,6 +12,11 @@ def calculate_checksum(value: str) -> str:
     return str((check_sum % 11) % 10)
 
 
+def calculate_snils_checksum(numbers: str) -> str:
+    checksum = sum(int(v) * (9 - i) for i, v in enumerate(numbers)) % 101
+    return "%02d" % (checksum if checksum < 100 else 0)
+
+
 class Provider(CompanyProvider):
     formats = (
         "{{company_prefix}} «{{last_name}}»",
@@ -1168,3 +1173,10 @@ class Provider(CompanyProvider):
         tail: str = "%03d" % self.random_int(min=1, max=999)
 
         return region + inspection + reason + tail
+
+    def snils(self) -> str:
+        """
+        Returns SNILS number (ru. СНИЛС).
+        """
+        numbers: str = "%09d" % self.random_int(min=1, max=999999999)
+        return numbers + calculate_snils_checksum(numbers)
