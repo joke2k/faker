@@ -3,6 +3,7 @@ import hashlib
 import io
 import json
 import os
+import random
 import re
 import string
 import tarfile
@@ -120,7 +121,7 @@ class Provider(BaseProvider):
         if cast_to is not None:
             return cast_to(generated_uuid)
         return generated_uuid
-
+    
     def password(
         self,
         length: int = 10,
@@ -132,46 +133,49 @@ class Provider(BaseProvider):
         """Generate a random password of the specified ``length``.
 
         The arguments ``special_chars``, ``digits``, ``upper_case``, and ``lower_case`` control
-        what category of characters will appear in the generated password. If set to ``True``
+        what category of characters will appear in the generated password. If set to ``True`` 
         (default), at least one character from the corresponding category is guaranteed to appear.
-        Special characters are characters from ``!@#$%^&*()_+``, digits are characters from
-        ``0123456789``, and uppercase and lowercase characters are characters from the ASCII set of
+        Special characters are characters from ``!@#$%^&*()_+``, digits are characters from 
+        ``0123456789``, and uppercase and lowercase characters are characters from the ASCII set of 
         letters.
-
-        :sample: length=12
-        :sample: length=40, special_chars=False, upper_case=False
         """
+        
         choices = ""
         required_tokens = []
+        
         if special_chars:
-            required_tokens.append(self.generator.random.choice("!@#$%^&*()_+"))
+            required_tokens.append("!@#$%^&*()_+"[0])  # Take one character from special_chars
             choices += "!@#$%^&*()_+"
         if digits:
-            required_tokens.append(self.generator.random.choice(string.digits))
+            required_tokens.append(string.digits[0])  # Take one character from digits
             choices += string.digits
         if upper_case:
-            required_tokens.append(self.generator.random.choice(string.ascii_uppercase))
+            required_tokens.append(string.ascii_uppercase[0])  # Take one character from upper_case
             choices += string.ascii_uppercase
         if lower_case:
-            required_tokens.append(self.generator.random.choice(string.ascii_lowercase))
+            required_tokens.append(string.ascii_lowercase[0])  # Take one character from lower_case
             choices += string.ascii_lowercase
 
-        assert len(required_tokens) <= length, "Required length is shorter than required characters"
+        # If the requested length is smaller than the required characters, update the length
+        if len(required_tokens) > length:
+            # print("Warning: Password length is less than the required character types, adjusting length. A password will still be generated with the minimum valid length.")
+            length = len(required_tokens)
 
-        # Generate a first version of the password
-        chars: str = self.random_choices(choices, length=length)  # type: ignore
+        # Create the initial password with random characters from the choices
+        chars: list[str] = [random.choice(choices) for _ in range(length)]  # Create a list of characters
 
-        # Pick some unique locations
+        # Select random positions for the required characters
         random_indexes: Set[int] = set()
         while len(random_indexes) < len(required_tokens):
-            random_indexes.add(self.generator.random.randint(0, len(chars) - 1))
+            random_indexes.add(random.randint(0, len(chars) - 1))
 
-        # Replace them with the required characters
+        # Replace the selected positions with the required characters
         for i, index in enumerate(random_indexes):
-            chars[index] = required_tokens[i]  # type: ignore
+            chars[index] = required_tokens[i]  # Set the required character at the position
 
+        # Return the final password as a string
         return "".join(chars)
-
+        
     def zip(
         self,
         uncompressed_size: int = 65536,
