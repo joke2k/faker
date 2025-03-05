@@ -759,3 +759,38 @@ class TestMiscProvider:
     def test_sha256(self, faker):
         assert isinstance(faker.sha256(), str)
         assert isinstance(faker.sha256(raw_output=True), bytes)
+    
+    def test_password_length():
+        pw = password(length=12)
+        assert len(pw) == 12, "Password length should be 12"
+    
+    def test_password_special_chars():
+        pw = password(special_chars=True, length=10)
+        assert any(c in "!@#$%^&*()_+" for c in pw), "Password should contain at least one special character"
+    
+    def test_password_digits():
+        pw = password(digits=True, length=10)
+        assert any(c in string.digits for c in pw), "Password should contain at least one digit"
+    
+    def test_password_upper_case():
+        pw = password(upper_case=True, length=10)
+        assert any(c in string.ascii_uppercase for c in pw), "Password should contain at least one uppercase letter"
+    
+    def test_password_lower_case():
+        pw = password(lower_case=True, length=10)
+        assert any(c in string.ascii_lowercase for c in pw), "Password should contain at least one lowercase letter"
+    
+    def test_password_no_special_chars():
+        pw = password(special_chars=False, length=10)
+        assert all(c not in "!@#$%^&*()_+" for c in pw), "Password should not contain special characters"
+    
+    def test_password_all_requirements():
+        pw = password(special_chars=True, digits=True, upper_case=True, lower_case=True, length=12)
+        assert any(c in "!@#$%^&*()_+" for c in pw), "Password should contain at least one special character"
+        assert any(c in string.digits for c in pw), "Password should contain at least one digit"
+        assert any(c in string.ascii_uppercase for c in pw), "Password should contain at least one uppercase letter"
+        assert any(c in string.ascii_lowercase for c in pw), "Password should contain at least one lowercase letter"
+    
+    def test_password_length_adjustment_for_required_characters():
+        pw = password(special_chars=True, digits=True, length=4)
+        assert len(pw) >= 6, "Password length should be at least 6 if multiple character types are required"
