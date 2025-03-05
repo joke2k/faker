@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v36.2.0 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.1.1...v36.2.0)
+
+* Add `snils` to `ru_RU` company provider. Thanks @Pandede.
+
 ### [v36.1.1 - 2025-02-13](https://github.com/joke2k/faker/compare/v36.1.0...v36.1.1)
 
 * Fix typing for `uuid` provider. Thanks @evenicoulddoit.
