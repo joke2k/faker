@@ -2214,6 +2214,7 @@ class Faker:
         :sample: raw_output=True
         """
         ...
+
     @overload
     def md5(self, raw_output: Literal[False]) -> str:
         """
@@ -2314,6 +2315,7 @@ class Faker:
         :sample: raw_output=True
         """
         ...
+
     @overload
     def sha256(self, raw_output: Literal[False]) -> str:
         """
@@ -4292,6 +4294,12 @@ class Faker:
     def kpp(self) -> str:
         """
         Returns tax registration reason code (ru. код причины постановки на учет, КПП).
+        """
+        ...
+
+    def snils(self) -> str:
+        """
+        Returns SNILS number (ru. СНИЛС).
         """
         ...
 

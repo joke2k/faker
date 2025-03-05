@@ -61,12 +61,10 @@ class Provider(BaseProvider):
         return os.urandom(length)
 
     @overload
-    def md5(self, raw_output: Literal[True]) -> bytes:
-        ...
+    def md5(self, raw_output: Literal[True]) -> bytes: ...
 
     @overload
-    def md5(self, raw_output: Literal[False]) -> str:
-        ...
+    def md5(self, raw_output: Literal[False]) -> str: ...
 
     def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
@@ -83,12 +81,10 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     @overload
-    def sha1(self, raw_output: Literal[True]) -> bytes:
-        ...
+    def sha1(self, raw_output: Literal[True]) -> bytes: ...
 
     @overload
-    def sha1(self, raw_output: Literal[False]) -> str:
-        ...
+    def sha1(self, raw_output: Literal[False]) -> str: ...
 
     def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA-1 hash.
@@ -105,12 +101,10 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     @overload
-    def sha256(self, raw_output: Literal[True]) -> bytes:
-        ...
+    def sha256(self, raw_output: Literal[True]) -> bytes: ...
 
     @overload
-    def sha256(self, raw_output: Literal[False]) -> str:
-        ...
+    def sha256(self, raw_output: Literal[False]) -> str: ...
 
     def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA-256 hash.
