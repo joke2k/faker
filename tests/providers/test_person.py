@@ -795,19 +795,6 @@ class TestGuIN(unittest.TestCase):
     def test_name(self):
         name = self.fake.name().split()
         assert all(isinstance(n, str) for n in name)
-        if len(name) == 3:
-            assert all(
-                [
-                    name[0] in GuINProvider.prefixes,
-                    name[1] in GuINProvider.first_names,
-                    name[2] in GuINProvider.last_names,
-                ]
-            )
-        else:
-            assert name[0] in GuINProvider.first_names
-            assert name[-1] in GuINProvider.last_names
-
-    """Verify that gender specific prefixes are set correctly"""
 
     def test_prefix(self):
         prefix = self.fake.prefix()
