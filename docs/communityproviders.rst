@@ -67,7 +67,7 @@ Here's a list of Providers written by the community:
 +---------------+---------------------------+----------------------------------+
 | Security      | Fake data related to      | `faker-security`_                |
 |               | security e.g. CVSS, CVE   |                                  |
-+-------------------------------------------------------------------------------
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
