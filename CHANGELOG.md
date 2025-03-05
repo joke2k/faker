@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v36.2.2 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.2.1...v36.2.2)
+
+* Fix male prefix in `gu_IN`. Thanks @Hitesh1122.
+
 ### [v36.2.1 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.2.0...v36.2.1)
 
 * Fix type annotations for hash methods. Thanks @samueljsb.
