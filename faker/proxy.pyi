@@ -2202,7 +2202,20 @@ class Faker:
         """
         ...
 
-    def md5(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def md5(self, raw_output: Literal[True]) -> bytes:
+        """
+        Generate a random MD5 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+    @overload
+    def md5(self, raw_output: Literal[False]) -> str:
         """
         Generate a random MD5 hash.
 
@@ -2263,7 +2276,8 @@ class Faker:
         """
         ...
 
-    def sha1(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def sha1(self, raw_output: Literal[True]) -> bytes:
         """
         Generate a random SHA-1 hash.
 
@@ -2275,7 +2289,33 @@ class Faker:
         """
         ...
 
-    def sha256(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def sha1(self, raw_output: Literal[False]) -> str:
+        """
+        Generate a random SHA-1 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-1 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def sha256(self, raw_output: Literal[True]) -> bytes:
+        """
+        Generate a random SHA-256 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-256 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+    @overload
+    def sha256(self, raw_output: Literal[False]) -> str:
         """
         Generate a random SHA-256 hash.
 
