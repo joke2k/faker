@@ -1,0 +1,14 @@
+black>=24.8.0
+check-manifest
+coverage>=5.2
+doc8>=1.1.1
+flake8-comprehensions
+flake8>=4.0.0
+isort>=5.13.2
+mypy-extensions>=1.0.0
+mypy>=1.15.0
+packaging>=24.2
+pytest>=6.0.1
+setuptools>=75.8.2
+twine>=6.1.0
+wheel>=0.45.1
