@@ -5,6 +5,7 @@ import re
 import sys
 import time
 import unittest
+import zoneinfo
 
 from datetime import date, datetime
 from datetime import time as datetime_time
@@ -26,9 +27,11 @@ from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
 from faker.providers.date_time.fr_FR import Provider as FrFrProvider
+from faker.providers.date_time.gu_IN import Provider as GuINProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.ja_JP import Provider as JaJpProvider
+from faker.providers.date_time.ka_GE import Provider as KaGeProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
@@ -40,6 +43,8 @@ from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.sl_SI import Provider as SlSiProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.uz_UZ import Provider as UzUzProvider
+from faker.providers.date_time.vi_VN import Provider as ViVNProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 from faker.providers.date_time.zh_TW import Provider as ZhTwProvider
 
@@ -163,10 +168,8 @@ class TestDateTime(unittest.TestCase):
         assert today == today_back
 
     def test_pytimezone(self):
-        import dateutil
-
         pytz = self.fake.pytimezone()
-        assert isinstance(pytz, dateutil.tz.tz.tzfile)
+        assert isinstance(pytz, zoneinfo.ZoneInfo)
 
     def test_pytimezone_usable(self):
         pytz = self.fake.pytimezone()
@@ -227,6 +230,9 @@ class TestDateTime(unittest.TestCase):
         assert delta.seconds >= 60
 
         delta = self.fake.time_delta(end_datetime="now")
+        assert delta.seconds <= 0
+
+        delta = self.fake.time_delta()
         assert delta.seconds <= 0
 
     def test_date_time_between_dates(self):
@@ -1301,6 +1307,35 @@ class TestFrCa(unittest.TestCase):
         assert day in FrFrProvider.MONTH_NAMES.values()
 
 
+class TestGuIN(unittest.TestCase):
+    """Test `gu_IN` (Gujarati) provider for date_time"""
+
+    def setUp(self):
+        self.fake = Faker("gu_IN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in GuINProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in GuINProvider.MONTH_NAMES.values()
+
+    def test_day_in_guj(self):
+        day = self.fake.day_of_week_in_guj()
+        assert day in GuINProvider.DAY_NAMES_IN_GUJARATI.values()
+
+    def test_month_in_guj(self):
+        """Test `month_in_guj` and `month_names_in_guj` methods"""
+
+        month = self.fake.month_name_in_guj()
+        assert month in GuINProvider.MONTH_NAMES_IN_GUJARATI.values()
+
+        month = self.fake.month_in_guj()
+        assert month in GuINProvider.MONTH_NAMES_IN_GUJARATI.values()
+
+
 class TestJaJp(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("ja_JP")
@@ -1317,3 +1352,57 @@ class TestJaJp(unittest.TestCase):
     def test_traditional_month(self):
         month = self.fake.traditional_month_name()
         assert month in JaJpProvider.TRADITIONAL_MONTH_NAMES.values()
+
+
+class TestKaGe(unittest.TestCase):
+    """Test Ka_GE date_time provider methods"""
+
+    def setUp(self):
+        self.fake = Faker("Ka_GE")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in KaGeProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in KaGeProvider.MONTH_NAMES.values()
+
+
+class TestViVn(unittest.TestCase):
+    """Tests date_time in the vi_VN locale"""
+
+    def setUp(self):
+        self.fake = Faker("vi_VN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in ViVNProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in ViVNProvider.MONTH_NAMES.values()
+
+
+class TestUzUz(unittest.TestCase):
+    """Tests date_time in the uz_UZ locale"""
+
+    def setUp(self):
+        self.fake = Faker("uz_UZ")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in UzUzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in UzUzProvider.MONTH_NAMES.values()

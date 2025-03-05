@@ -6,6 +6,7 @@ first names from Northern Ireland Statistics and Research Agency
  https://www.nisra.gov.uk/publications/baby-names-2016
 1996 series
 """
+
 from .. import Provider as PersonProvider
 
 

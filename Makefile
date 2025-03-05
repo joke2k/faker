@@ -14,7 +14,7 @@ isort:
 	isort --atomic .
 
 generate-stubs: 
-	python generate_stubs.py
+	python3.11 generate_stubs.py
 
 lint: generate-stubs isort black mypy flake8
 

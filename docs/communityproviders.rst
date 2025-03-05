@@ -65,6 +65,9 @@ Here's a list of Providers written by the community:
 | Faker         | Recognition models        |                                  |
 |               | using Faker.              |                                  |
 +---------------+---------------------------+----------------------------------+
+| Security      | Fake data related to      | `faker-security`_                |
+|               | security e.g. CVSS, CVE   |                                  |
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -96,3 +99,4 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
 .. _optional_faker: https://pypi.org/project/optional_faker
 .. _presidio-evaluator: https://pypi.org/project/presidio-evaluator
+.. _faker-security: https://pypi.org/project/faker-security/

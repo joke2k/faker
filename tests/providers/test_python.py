@@ -3,7 +3,8 @@ import sys
 import unittest
 import warnings
 
-from typing import Iterable, Optional, Union
+from collections import Counter
+from typing import Iterable, Optional, Type, Union
 from unittest.mock import patch
 
 import pytest
@@ -13,8 +14,20 @@ from faker import Faker
 
 @pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
 def test_pyobject(
-    object_type: Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]],
-):
+    object_type: Optional[
+        Union[
+            Type[bool],
+            Type[str],
+            Type[float],
+            Type[int],
+            Type[tuple],
+            Type[set],
+            Type[list],
+            Type[Iterable],
+            Type[dict],
+        ]
+    ],
+) -> None:
     random_object = Faker().pyobject(object_type=object_type)
     if object_type is None:
         assert random_object is None
@@ -299,6 +312,34 @@ class TestPyfloat(unittest.TestCase):
         self.fake.pyfloat(min_value=2.3, max_value=2.5)
 
 
+class TestPyDict(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        Faker.seed(0)
+
+    def test_pydict_with_default_nb_elements(self):
+        result = self.fake.pydict()
+
+        self.assertEqual(len(result), 10)
+
+    def test_pydict_with_valid_number_of_nb_elements(self):
+        result = self.fake.pydict(nb_elements=5)
+
+        self.assertEqual(len(result), 5)
+
+    def test_pydict_with_invalid_number_of_nb_elements(self):
+        nb_elements = 10000
+
+        words_list_count = len(self.fake.get_words_list())
+        warning_msg = (
+            f"Number of nb_elements is greater than the number of words in the list."
+            f" {words_list_count} words will be used."
+        )
+        with pytest.warns(RuntimeWarning, match=warning_msg):
+            result = self.fake.pydict(nb_elements=nb_elements)
+            self.assertEqual(len(result), words_list_count)
+
+
 class TestPydecimal(unittest.TestCase):
     def setUp(self):
         self.fake = Faker()
@@ -465,6 +506,39 @@ class TestPydecimal(unittest.TestCase):
         Faker.seed("2")
         result = self.fake.pydecimal(min_value=10**1000)
         self.assertGreater(result, 10**1000)
+
+    def test_min_value_and_max_value_have_different_signs_return_evenly_distributed_values(self):
+        result = []
+        boundary_value = 10
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=-boundary_value, max_value=boundary_value, right_digits=0))
+        self.assertEqual(len(Counter(result)), 2 * boundary_value + 1)
+
+    def test_min_value_and_max_value_negative_return_evenly_distributed_values(self):
+        result = []
+        min_value = -60
+        max_value = -50
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+        self.assertGreater(len(Counter(result)), max_value - min_value)
+
+    def test_min_value_and_max_value_positive_return_evenly_distributed_values(self):
+        result = []
+        min_value = 50
+        max_value = 60
+        for _ in range(1000):
+            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+        self.assertGreater(len(Counter(result)), max_value - min_value)
+
+    def test_min_value_float_returns_correct_digit_number(self):
+        Faker.seed("6")
+        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        self.assertEqual(decimal.Decimal("0.2"), result)
+
+    def test_max_value_float_returns_correct_digit_number(self):
+        Faker.seed("3")
+        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        self.assertEqual(decimal.Decimal("0.3"), result)
 
 
 class TestPystr(unittest.TestCase):

@@ -11,6 +11,12 @@ Please include `type hints`_ for every provider method you write. An overview of
 
 You can find our complete flake8 configuration in the tox.ini_ file.
 
+Use `is` instead of `==` when comparing a variable to `None`, `False`, or `True` (see https://www.flake8rules.com/rules/E711.html)::
+
+
+    if my_var is None:
+        ...  # do something
+
 
 Data Sets
 ---------
@@ -20,6 +26,9 @@ and/or origin of the data. If the source is a wiki, please also include the date
 
 We only accept new data if it's coming from statistical sources, such as census or government institutions.
 This includes names and their distribution.
+
+You may include multiple sources, but each name must come from a source. We will not accept names authored
+exclusively by contributors.
 
 
 Name Lists
@@ -48,6 +57,13 @@ included in other parts of the code. If you add a generic type, please specify i
      - Hue name, float value or integer range.
    * - ``typing.GenderType``
      - String variable that can only have values ``"F"`` (female) and ``"M"`` (male)
+
+Tests
+-----
+
+Please add tests for all new providers.
+
+When adding a new test class, please find its place in alphabetical order.
 
 .. _`tox.ini`: https://github.com/joke2k/faker/blob/master/tox.ini
 .. _`pep 8`: https://python.org/dev/peps/pep-0008

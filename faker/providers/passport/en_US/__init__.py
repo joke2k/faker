@@ -3,6 +3,8 @@ import random
 from datetime import date, timedelta
 from typing import Tuple
 
+from faker.typing import SexLiteral
+
 from .. import Provider as PassportProvider
 
 
@@ -64,7 +66,7 @@ class Provider(PassportProvider):
         expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
         return birth_date, issue_date_format, expiry_date_format
 
-    def passport_gender(self, seed: int = 0) -> str:
+    def passport_gender(self, seed: int = 0) -> SexLiteral:
         """Generates a string representing the gender displayed on a passport
 
         Sources:
@@ -75,7 +77,7 @@ class Provider(PassportProvider):
             random.seed(seed)
 
         genders = ["M", "F", "X"]
-        gender = random.choices(genders, weights=[0.493, 0.493, 0.014], k=1)[0]
+        gender: SexLiteral = random.choices(genders, weights=[0.493, 0.493, 0.014], k=1)[0]  # type: ignore
         return gender
 
     def passport_full(self) -> str:

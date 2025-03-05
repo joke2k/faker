@@ -3,6 +3,8 @@ import re
 from typing import Pattern
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
+from faker.providers.phone_number.de_AT import Provider as DeAtPhoneNumberProvider
+from faker.providers.phone_number.de_CH import Provider as DeChPhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
 
 
@@ -20,6 +22,50 @@ class TestPhoneNumber:
             assert isinstance(msisdn, str)
             assert len(msisdn) == 13
             assert msisdn.isdigit()
+
+
+class TestArAe:
+    """Test ar_AE phone number provider methods"""
+
+    cellphone_pattern: str = r"(?:\+|00)971\s?5[024568]\s?\d{3}\s?\d{4}|" r"05[024568]\s?\d{3}\s?\d{4}"
+    telephone_pattern: str = r"(?:\+|00)971\s?[1234679]\s?\d{3}\s?\d{4}|" r"0[1234679]\s?\d{3}\s?\d{4}"
+    toll_pattern: str = r"200\d{4}|" r"600\d{6}|" r"800\d{3,7}"
+    service_phone_pattern: str = r"9(?:9(?:9|8|7|6|1)|01|22)"
+
+    def test_cellphone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.cellphone_pattern)
+        for _ in range(num_samples):
+            cellphone = faker.cellphone_number()
+            assert pattern.fullmatch(cellphone)
+
+    def test_telephone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.telephone_pattern)
+        for _ in range(num_samples):
+            telephone = faker.telephone_number()
+            assert pattern.fullmatch(telephone)
+
+    def test_toll_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.toll_pattern)
+        for _ in range(num_samples):
+            toll = faker.toll_number()
+            assert pattern.fullmatch(toll)
+
+    def test_service_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.service_phone_pattern)
+        for _ in range(num_samples):
+            service = faker.service_phone_number()
+            assert pattern.fullmatch(service)
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            rf"{self.cellphone_pattern}|"
+            rf"{self.telephone_pattern}|"
+            rf"{self.toll_pattern}|"
+            rf"{self.service_phone_pattern}",
+        )
+        for _ in range(num_samples):
+            phone = faker.phone_number()
+            assert pattern.fullmatch(phone)
 
 
 class TestAzAz:
@@ -53,12 +99,22 @@ class TestAzAz:
             assert self.landline_patterns.fullmatch(landline_number)
 
 
-class TestJaJp:
-    """Test ja_JP phone number provider methods"""
-
+class TestFrCh:
     def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
+        )
         for _ in range(num_samples):
-            pattern: Pattern = re.compile(r"(?:0[789]0|\d{2})-\d{4}-\d{4}")
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
+class TestItCh:
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
+        )
+        for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
@@ -73,96 +129,43 @@ class TestCsCz:
             assert pattern.fullmatch(phone_number)
 
 
-class TestSkSk:
-    """Test sk_SK phone number provider methods"""
+class TestDeAt:
+    """Test de_AT phone number provider methods"""
+
+    landline_pattern: Pattern = re.compile(r"(\+43( \(0\))?|\(?0)\s?(?P<area_code>[0-9]{1,4})\)?\s?\/?[0-9 ]+")
+    cellphone_pattern: Pattern = re.compile(r"(\+43( \(0\))?|0)\s?(?P<dialing_code>[0-9]{3})\s?\/?[0-9 ]+")
 
     def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(^(00421|\+421)? ?[2] ?[0-9]{8}$)|"
-            r"(^(00421|\+421)? ?[3-5][0-9] ?[0-9]{3} ?[0-9]{4}$)|"
-            r"(^(00421|\+421)? ?[9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$)"
-        )
-
         for _ in range(num_samples):
             phone_number = faker.phone_number()
-            assert pattern.fullmatch(phone_number)
+            assert self.landline_pattern.fullmatch(phone_number)
+
+    def test_cellphone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            cellphone_number = faker.cellphone_number()
+            assert self.cellphone_pattern.fullmatch(cellphone_number)
+            assert (
+                self.cellphone_pattern.match(cellphone_number).group("dialing_code")
+                in DeAtPhoneNumberProvider.dialing_codes
+            )
 
 
-class TestPtBr:
-    """Test pt_BR phone number provider methods"""
+class TestDeCh:
+    """Test de_CH phone number provider methods"""
+
+    pattern: Pattern = re.compile(r"(\+41|0) ?(?P<dialing_code>\d{2}) \d{3} \d{2} \d{2}")
 
     def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(?:\+55 )?" r"(?:[1-8]1|84|\((?:0[1-8]1|084)\))" r" \d{4}[ -]\d{4}|" r"\d{4}?[ -]\d{3}[ -]\d{4}",
-        )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
-            assert pattern.fullmatch(phone_number)
+            assert self.pattern.fullmatch(phone_number)
+            assert self.pattern.match(phone_number).group("dialing_code") in DeChPhoneNumberProvider.landline_codes
 
-    def test_msisdn(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"55(?:[1-8]19|849)\d{8}")
+    def test_cellphone_number(self, faker, num_samples):
         for _ in range(num_samples):
-            msisdn = faker.msisdn()
-            assert pattern.fullmatch(msisdn)
-
-    def test_cellphone(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(?:\+55 )?" r"(?:\d{2}|\(0?\d{2}\))" r" 9 ?\d{4}[ -]\d{4}",
-        )
-        for _ in range(num_samples):
-            cellphone = faker.cellphone_number()
-            assert pattern.fullmatch(cellphone)
-
-    def test_service_phone(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"1(?:0|2|5|8|9)?(?:[0-9])")
-        for _ in range(num_samples):
-            service = faker.service_phone_number()
-            assert pattern.fullmatch(service)
-
-
-class TestHuHu:
-    """Test hu_HU phone number provider methods"""
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(?:" r"\+36 \d{2} |" r"\(06\)\d{2}/|" r"\(\d{2}\)/|" r"\d{2}/|" r"06-\d{1,2}/" r")\d{3}[- ]\d{4}",
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
-
-
-class TestThTh:
-    """Test th_TH phone number provider methods"""
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            # leading zero or internaional code
-            r"((\+66)|\+66[ -]?\(0\)|0)[ -]?"
-            # landline or mobile
-            r"([23457][ -]?(\d[ -]?){6}\d|[689][ -]?(\d[ -]?){7}\d)"
-            # extension
-            r"([ ]?(x|ext|ต่อ)[\.]?[ ]?\d{1,5})?",
-            re.IGNORECASE,
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
-
-
-class TestHyAm:
-    """Test hy_AM phone number provider methods"""
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(?:[23]\d{2}-|\([23]\d{2}\) |[23]\d{2}\.)\d{5}|" r"(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}",
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
+            cellphone_number = faker.cellphone_number()
+            assert self.pattern.fullmatch(cellphone_number)
+            assert self.pattern.match(cellphone_number).group("dialing_code") in DeChPhoneNumberProvider.dialing_codes
 
 
 class TestEnPh:
@@ -269,28 +272,25 @@ class TestEnPh:
                 assert non_area2_match.group(1) in self.non_area2_landline_area_codes
 
 
-class TestFilPh(TestEnPh):
-    """Test fil_PH phone number provider methods"""
+class TestEnUs:
+    """Test En_US phone provider methods"""
 
-    pass
-
-
-class TestTlPh(TestEnPh):
-    """Test tl_PH phone number provider methods"""
-
-    pass
-
-
-class TestTaIn:
-    """Test ta_IN phone number provider methods"""
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"\+91 \d{3} ?\d{7}|" r"0\d{2}(-)?\d{2}(?(1)| ?)\d{6}",
+    def test_basic_phone_number(self, faker, num_samples):
+        pattern_no_whitespaces: Pattern = re.compile(
+            r"\d{9}",
         )
+        pattern_dashes: Pattern = re.compile(r"\d{3}-\d{3}-\d{4}")
+        pattern_parens: Pattern = re.compile(r"\(\d{3}\)\d{3}-\d{4}")
+        patterns = [pattern_no_whitespaces, pattern_dashes, pattern_parens]
         for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert pattern.fullmatch(phone_number)
+            phone_number = faker.basic_phone_number()
+
+            pattern_is_found = False
+            for pattern in patterns:
+                if re.match(pattern, phone_number):
+                    pattern_is_found = True
+                    break
+            assert pattern_is_found
 
 
 class TestEsCo:
@@ -322,48 +322,10 @@ class TestEsEs:
             assert pattern.fullmatch(phone_number)
 
 
-class TestArAe:
-    """Test ar_AE phone number provider methods"""
+class TestFilPh(TestEnPh):
+    """Test fil_PH phone number provider methods"""
 
-    cellphone_pattern: str = r"(?:\+|00)971\s?5[024568]\s?\d{3}\s?\d{4}|" r"05[024568]\s?\d{3}\s?\d{4}"
-    telephone_pattern: str = r"(?:\+|00)971\s?[1234679]\s?\d{3}\s?\d{4}|" r"0[1234679]\s?\d{3}\s?\d{4}"
-    toll_pattern: str = r"200\d{4}|" r"600\d{6}|" r"800\d{3,7}"
-    service_phone_pattern: str = r"9(?:9(?:9|8|7|6|1)|01|22)"
-
-    def test_cellphone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(self.cellphone_pattern)
-        for _ in range(num_samples):
-            cellphone = faker.cellphone_number()
-            assert pattern.fullmatch(cellphone)
-
-    def test_telephone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(self.telephone_pattern)
-        for _ in range(num_samples):
-            telephone = faker.telephone_number()
-            assert pattern.fullmatch(telephone)
-
-    def test_toll_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(self.toll_pattern)
-        for _ in range(num_samples):
-            toll = faker.toll_number()
-            assert pattern.fullmatch(toll)
-
-    def test_service_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(self.service_phone_pattern)
-        for _ in range(num_samples):
-            service = faker.service_phone_number()
-            assert pattern.fullmatch(service)
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            rf"{self.cellphone_pattern}|"
-            rf"{self.telephone_pattern}|"
-            rf"{self.toll_pattern}|"
-            rf"{self.service_phone_pattern}",
-        )
-        for _ in range(num_samples):
-            phone = faker.phone_number()
-            assert pattern.fullmatch(phone)
+    pass
 
 
 class TestFrFr:
@@ -398,22 +360,189 @@ class TestFrFr:
             assert pattern_is_found
 
 
-class TestEnUs:
-    """Test En_US phone provider methods"""
+class TestHuHu:
+    """Test hu_HU phone number provider methods"""
 
-    def test_basic_phone_number(self, faker, num_samples):
-        pattern_no_whitespaces: Pattern = re.compile(
-            r"\d{9}",
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:" r"\+36 \d{2} |" r"\(06\)\d{2}/|" r"\(\d{2}\)/|" r"\d{2}/|" r"06-\d{1,2}/" r")\d{3}[- ]\d{4}",
         )
-        pattern_dashes: Pattern = re.compile(r"\d{3}-\d{3}-\d{4}")
-        pattern_parens: Pattern = re.compile(r"\(\d{3}\)\d{3}-\d{4}")
-        patterns = [pattern_no_whitespaces, pattern_dashes, pattern_parens]
         for _ in range(num_samples):
-            phone_number = faker.basic_phone_number()
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
 
-            pattern_is_found = False
-            for pattern in patterns:
-                if re.match(pattern, phone_number):
-                    pattern_is_found = True
-                    break
-            assert pattern_is_found
+
+class TestHyAm:
+    """Test hy_AM phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:[23]\d{2}-|\([23]\d{2}\) |[23]\d{2}\.)\d{5}|" r"(?:(?:10|9\d)-|\((?:10|9\d)\) |(?:10|9\d)\.)\d{6}",
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestJaJp:
+    """Test ja_JP phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            pattern: Pattern = re.compile(r"(?:0[789]0|\d{2})-\d{4}-\d{4}")
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
+class TestKaGe:
+    """Test ka_GE phone number provider methods"""
+
+    pattern = re.compile(
+        r"(?:"
+        r"\+995 \d{3} \d{3} \d{3}|"  # Example: +995 123 456 789
+        r"\+995 \(\d{3}\) \d{3} \d{3}|"  # Example: +995 (123) 456 789
+        r"\+995\d{9}|"  # Example: +995123456789
+        r"0 \d{3} \d{3} \d{3}|"  # Example: 0 123 456 789
+        r"\+995 32 \d{3} \d{2} \d{2}|"  # Example: +995 32 123 12 12
+        r"\+995 34\d \d{3} \d{3}|"  # Example: +995 34x 123 456
+        r"\+995 \(34\d\) \d{3} \d{3}|"  # Example: +995 (34x) 123 456
+        r"0 32 \d{3} \d{2} \d{2}|"  # Example: 0 32 123 12 12
+        r"0 34\d \d{3} \d{3}"  # Example: 0 34x 123 456
+        r")"
+    )
+
+    def test_phone_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert self.pattern.fullmatch(phone_number)
+
+
+class TestPtBr:
+    """Test pt_BR phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:\+55 )?" r"(?:[1-8]1|84|\((?:0[1-8]1|084)\))" r" \d{4}[ -]\d{4}|" r"\d{4}?[ -]\d{3}[ -]\d{4}",
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+    def test_msisdn(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"55(?:[1-8]19|849)\d{8}")
+        for _ in range(num_samples):
+            msisdn = faker.msisdn()
+            assert pattern.fullmatch(msisdn)
+
+    def test_cellphone(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:\+55 )?" r"(?:\d{2}|\(0?\d{2}\))" r" 9 ?\d{4}[ -]\d{4}",
+        )
+        for _ in range(num_samples):
+            cellphone = faker.cellphone_number()
+            assert pattern.fullmatch(cellphone)
+
+    def test_service_phone(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"1(?:0|2|5|8|9)?(?:[0-9])")
+        for _ in range(num_samples):
+            service = faker.service_phone_number()
+            assert pattern.fullmatch(service)
+
+
+class TestSkSk:
+    """Test sk_SK phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(^(00421|\+421)? ?[2] ?[0-9]{8}$)|"
+            r"(^(00421|\+421)? ?[3-5][0-9] ?[0-9]{3} ?[0-9]{4}$)|"
+            r"(^(00421|\+421)? ?[9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$)"
+        )
+
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
+class TestTaIn:
+    """Test ta_IN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"\+91 \d{3} ?\d{7}|" r"0\d{2}(-)?\d{2}(?(1)| ?)\d{6}",
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
+class TestThTh:
+    """Test th_TH phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            # leading zero or internaional code
+            r"((\+66)|\+66[ -]?\(0\)|0)[ -]?"
+            # landline or mobile
+            r"([23457][ -]?(\d[ -]?){6}\d|[689][ -]?(\d[ -]?){7}\d)"
+            # extension
+            r"([ ]?(x|ext|ต่อ)[\.]?[ ]?\d{1,5})?",
+            re.IGNORECASE,
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestTlPh(TestEnPh):
+    """Test tl_PH phone number provider methods"""
+
+    pass
+
+
+class TestViVn:
+    """Test vi_VN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:"  # Non-capturing group
+            r"\+84 \d{2} \d{7}|"  # Example: +84 12 3456789
+            r"\(0\d\) \d{4} \d{4}|"  # Example: (012) 3456 7890
+            r"0\d \d{4} \d{4}|"  # Example: 012 3456 7890
+            r"0\d \d{7}|"  # Example: 012 3456789
+            r"\+84-\d{2}-\d{6}|"  # Example: +84-12-345678
+            r"\+84-\d{2}-\d{3} \d{4}|"  # Example: +84-12-345 6789
+            r"\(0\d\)\d{3}-\d{4}"  # Example: (012)345-6789
+            r")"  # Closing non-capturing group
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestUzUz:
+    """Test uz_UZ phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:"  # Non-capturing group
+            r"\+998 \(\d{2}\) \d{3}-\d{2}-\d{2}|"  # Example: +998 (93) 123-45-67
+            r"\+998 \(\d{2}\) \d{3} \d{2} \d{2}|"  # Example: +998 (93) 123 45 67
+            r"\+998 \(\d{2}\) \d{3} \d{4}|"  # Example: +998 (93) 123 4567
+            r"\+998 \(\d{2}\) \d{3}-\d{4}|"  # Example: +998 (93) 123-4567
+            r"\+998 \d{2} \d{3}-\d{2}-\d{2}|"  # Example: +998 93 123-45-67
+            r"\+998 \d{2} \d{3} \d{2} \d{2}|"  # Example: +998 93 123 45 67
+            r"\+998 \d{2} \d{3} \d{4}|"  # Example: +998 93 123 4567
+            r"\+998 \d{2} \d{3}-\d{4}|"  # Example: +998 93 123-4567
+            r"\+998\d{9}"  # Example: +998881234567
+            r")"  # Closing non-capturing group
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)

@@ -1,3 +1,4 @@
+import functools
 import locale as pylocale
 import logging
 import sys
@@ -64,6 +65,7 @@ class Factory:
         return faker
 
     @classmethod
+    @functools.lru_cache(maxsize=None)
     def _find_provider_class(
         cls,
         provider_path: str,

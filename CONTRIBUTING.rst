@@ -11,14 +11,20 @@ Getting Started
 -  Clearly describe the issue including steps to reproduce when it is a bug.
 -  Make sure you fill in the earliest version that you know has the issue.
 -  Fork the repository on GitHub
+-  Please only make changes or add data to locales you're familiar with.
+
+Adding Providers
+----------------
+
+We only accept providers that are useful for general use. If you want to add a
+domain-specific provider, you can package it independently, and we'll be happy to
+add it to our `community providers`_ page.
 
 Making Changes
 --------------
 
 -  Create a topic branch from where you want to base your work.
 -  This is usually the master branch.
--  Only target release branches if you are certain your fix must be on
-   that branch.
 -  To quickly create a topic branch based on master;
    ``git branch fix/master/my_contribution master`` then checkout
    the new branch with ``git checkout fix/master/my_contribution``.
@@ -28,7 +34,7 @@ Making Changes
 -  Check for unnecessary whitespace with ``git diff --check`` before
    committing.
 -  Make sure you have added the necessary tests for your changes.
--  Run ``make lint`` in the repository directory and commit any changes it makes.
+-  Run ``make lint`` in the repository directory and commit any changes it makes. Note: requires Python 3.11.
 -  Run *all* the tests to assure nothing else was accidentally broken:
 
    .. code:: bash
@@ -39,6 +45,7 @@ Making Changes
 Submitting Changes
 ------------------
 
+-  Make sure there isn't already a Pull Request opened by somebody else.
 -  Push your changes to a topic branch in your fork of the repository.
 -  Submit a pull request to the repository.
 
@@ -51,3 +58,4 @@ Additional Resources
 
 
 .. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
+.. _`community providers`: https://github.com/joke2k/faker/blob/master/docs/communityproviders.rst

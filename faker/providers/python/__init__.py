@@ -7,6 +7,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
+from faker.typing import BasicNumber
+
 from ...exceptions import BaseFakerException
 from .. import BaseProvider, ElementsType
 
@@ -283,9 +285,9 @@ class Provider(BaseProvider):
         self,
         left_digits: Optional[int] = None,
         right_digits: Optional[int] = None,
-        positive: bool = False,
-        min_value: Optional[float] = None,
-        max_value: Optional[float] = None,
+        positive: Optional[bool] = None,
+        min_value: Optional[BasicNumber] = None,
+        max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
         if left_digits is not None and left_digits < 0:
             raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
@@ -318,7 +320,10 @@ class Provider(BaseProvider):
         elif max_value is not None and max_value <= 0:
             sign = "-"
         else:
-            sign = "+" if positive else self.random_element(("+", "-"))
+            if positive is None:
+                sign = self.random_element(("+", "-"))
+            else:
+                sign = "+" if positive else "-"
 
         if sign == "+":
             if max_value is not None:
@@ -330,7 +335,7 @@ class Provider(BaseProvider):
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
-                left_number = str(self.random_int(int(max(max_value or 0, 0)), int(abs(min_value))))
+                left_number = str(self.random_int(int(abs(min(max_value or 0, 0))), int(abs(min_value))))
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
                 if left_digits is None:
@@ -340,16 +345,16 @@ class Provider(BaseProvider):
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = "".join([str(self.random_digit()) for i in range(0, right_digits)])
+        right_number = "".join([str(self.random_digit()) for _ in range(0, right_digits)])
 
         result = Decimal(f"{sign}{left_number}.{right_number}")
 
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
         if max_value is not None and result > max_value:
-            result = Decimal(max_value)
+            result = Decimal(str(max_value))
         if min_value is not None and result < min_value:
-            result = Decimal(min_value)
+            result = Decimal(str(min_value))
 
         return result
 
@@ -464,8 +469,19 @@ class Provider(BaseProvider):
         :variable_nb_elements: is use variable number of elements for dictionary
         :value_types: type of dictionary values
         """
+
+        words_list_count = len(self.generator.get_words_list())
+
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
+
+        if nb_elements > words_list_count:
+            warnings.warn(
+                f"Number of nb_elements is greater than the number of words in the list."
+                f" {words_list_count} words will be used.",
+                RuntimeWarning,
+            )
+            nb_elements = words_list_count
 
         return dict(
             zip(

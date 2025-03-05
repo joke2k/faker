@@ -117,11 +117,16 @@ class Provider(BaseProvider):
     # sources
     # https://en.wikipedia.org/wiki/IOS_version_history
     ios_versions: ElementsType[str] = (
+        "1.1.5",
+        "2.2.1",
         "3.1.3",
+        "3.2.2",
         "4.2.1",
+        "4.3.5",
         "5.1.1",
         "6.1.6",
         "7.1.2",
+        "8.4.1",
         "9.3.5",
         "9.3.6",
         "10.3.3",
@@ -129,12 +134,15 @@ class Provider(BaseProvider):
         "11.4.1",
         "12.4.4",
         "12.4.8",
+        "12.5.7",
         "13.5.1",
+        "13.7",
         "14.2",
         "14.2.1",
         "14.8.1",
         "15.8.2",
         "16.7.6",
+        "16.7.7",
         "17.1",
         "17.1.1",
         "17.1.2",
@@ -143,6 +151,7 @@ class Provider(BaseProvider):
         "17.3",
         "17.3.1",
         "17.4",
+        "17.4.1",
     )
 
     def mac_processor(self) -> str:

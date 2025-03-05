@@ -1,20 +1,8 @@
 import dataclasses
-import sys
 
+from collections import OrderedDict as OrderedDictType
 from datetime import date, datetime, timedelta
-from typing import Sequence, Union
-
-try:
-    from typing import List, Literal, TypeVar  # type: ignore
-except ImportError:
-    from typing import List
-
-    from typing_extensions import Literal, TypeVar  # type: ignore
-
-if sys.version_info >= (3, 9):
-    from collections import OrderedDict as OrderedDictType
-else:
-    from typing import OrderedDict as OrderedDictType
+from typing import List, Literal, Sequence, TypeVar, Union
 
 
 class CreditCard:
@@ -33,10 +21,11 @@ class CreditCard:
         self.security_code_length = security_code_length
 
 
+BasicNumber = Union[float, int]
 CardType = TypeVar("CardType", "CreditCard", str)
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = Union[str, float, int, Sequence[int]]
-SexLiteral = Literal["M", "F"]
+SexLiteral = Literal["M", "F", "X"]
 SeedType = Union[int, float, str, bytes, bytearray, None]
 
 

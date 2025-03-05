@@ -2,6 +2,7 @@
 This module is responsible for generating the check digit and formatting
 SBN numbers.
 """
+
 from typing import Any, Optional
 
 

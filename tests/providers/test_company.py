@@ -7,6 +7,8 @@ from unittest.mock import patch
 import pytest
 
 from faker.providers.company.az_AZ import Provider as AzAzCompanyProvider
+from faker.providers.company.de_AT import Provider as DeAtCompanyProvider
+from faker.providers.company.de_CH import Provider as DeChCompanyProvider
 from faker.providers.company.el_GR import Provider as ElGrCompanyProvider
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.es_ES import Provider as EsEsCompanyProvider
@@ -22,9 +24,10 @@ from faker.providers.company.pl_PL import company_vat_checksum, local_regon_chec
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
-from faker.providers.company.ru_RU import calculate_checksum
+from faker.providers.company.ru_RU import calculate_checksum, calculate_snils_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
+from faker.providers.company.vi_VN import Provider as ViVnCompanyProvider
 from faker.utils.checksums import luhn_checksum
 
 
@@ -42,6 +45,36 @@ class TestAzAz:
             company = faker.large_company()
             assert isinstance(company, str)
             assert company in AzAzCompanyProvider.large_companies
+
+
+class TestDeAt:
+    """Test de_AT company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in DeAtCompanyProvider.company_suffixes
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+
+class TestDeCh:
+    """Test de_CH company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in DeChCompanyProvider.company_suffixes
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
 
 
 class TestFiFi:
@@ -363,6 +396,12 @@ class TestRuRu:
             assert isinstance(bs, str)
             assert bs_words[0] in RuRuCompanyProvider.bsWords[0]
 
+    def test_snils(self, faker, num_samples):
+        for _ in range(num_samples):
+            snils = faker.snils()
+            assert len(snils) == 11
+            assert snils[-2:] == calculate_snils_checksum(snils[:10])
+
 
 class TestItIt:
     """Test it_IT company provider methods"""
@@ -487,6 +526,21 @@ class TestEsEs:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in list(EsEsCompanyProvider.company_suffixes.keys())
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+
+class TestViVn:
+    """Test vi_VN company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ViVnCompanyProvider.company_suffixes
 
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):

@@ -23,23 +23,16 @@ class Provider(BaseProvider):
     word_connector = " "
     sentence_punctuation = "."
 
-    def words(
+    def get_words_list(
         self,
-        nb: int = 3,
         part_of_speech: Optional[str] = None,
         ext_word_list: Optional[Sequence[str]] = None,
-        unique: bool = False,
     ) -> List[str]:
-        """Generate a tuple of words.
+        """Get list of words.
 
-        The ``nb`` argument controls the number of words in the resulting list,
-        and if ``ext_word_list`` is provided, words from that list will be used
-        instead of those from the locale provider's built-in word list.
-
-        If ``unique`` is ``True``, this method will return a list containing
-        unique words. Under the hood, |random_sample| will be used for sampling
-        without replacement. If ``unique`` is ``False``, |random_choices| is
-        used instead, and the list returned may contain duplicates.
+        ``ext_word_list`` is a parameter that allows the user to provide a list
+        of words to be used instead of the built-in word list. If ``ext_word_list``
+        is provided, then the value of ``part_of_speech`` is ignored.
 
         ``part_of_speech`` is a parameter that defines to what part of speech
         the returned word belongs. If ``ext_word_list`` is not ``None``, then
@@ -47,16 +40,16 @@ class Provider(BaseProvider):
         not correspond to an existent part of speech according to the set locale,
         then an exception is raised.
 
-        .. warning::
-           Depending on the length of a locale provider's built-in word list or
-           on the length of ``ext_word_list`` if provided, a large ``nb`` can
-           exhaust said lists if ``unique`` is ``True``, raising an exception.
+        :sample: part_of_speech="abc", ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: part_of_speech="abc"
+        :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
 
-        :sample:
-        :sample: nb=5
-        :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
-        :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
+        .. warning::
+            Depending on the length of a locale provider's built-in word list or
+            on the length of ``ext_word_list`` if provided, a large ``nb`` can
+            exhaust said lists if ``unique`` is ``True``, raising an exception.
         """
+
         if ext_word_list is not None:
             word_list = ext_word_list
         elif part_of_speech:
@@ -66,6 +59,38 @@ class Provider(BaseProvider):
                 word_list = self.parts_of_speech[part_of_speech]  # type: ignore[attr-defined]
         else:
             word_list = self.word_list  # type: ignore[attr-defined]
+
+        return list(word_list)
+
+    def words(
+        self,
+        nb: int = 3,
+        ext_word_list: Optional[List[str]] = None,
+        part_of_speech: Optional[str] = None,
+        unique: bool = False,
+    ) -> List[str]:
+        """Generate a tuple of words.
+
+        The ``nb`` argument controls the number of words in the resulting list,
+        and if ``ext_word_list`` is provided, words from that list will be used
+        instead of those from the locale provider's built-in word list.
+
+        if ``word_list`` is not provided, the method will use a default value of None,
+        which will result in the method calling the ``get_words_list`` method to get the
+        word list. If ``word_list`` is provided, the method will use the provided list.
+
+        If ``unique`` is ``True``, this method will return a list containing
+        unique words. Under the hood, |random_sample| will be used for sampling
+        without replacement. If ``unique`` is ``False``, |random_choices| is
+        used instead, and the list returned may contain duplicates.
+
+        :sample:
+        :sample: nb=5
+        :sample: nb=5, ext_word_list=['abc', 'def', 'ghi', 'jkl']
+        :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
+        """
+
+        word_list = self.get_words_list(part_of_speech=part_of_speech, ext_word_list=ext_word_list)
 
         if unique:
             unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
@@ -82,7 +107,9 @@ class Provider(BaseProvider):
         :sample:
         :sample: ext_word_list=['abc', 'def', 'ghi', 'jkl']
         """
-        return self.words(1, part_of_speech, ext_word_list)[0]
+        word_list = self.get_words_list(part_of_speech, ext_word_list)
+
+        return self.words(1, word_list)[0]
 
     def sentence(
         self, nb_words: int = 6, variable_nb_words: bool = True, ext_word_list: Optional[Sequence[str]] = None
@@ -109,7 +136,8 @@ class Provider(BaseProvider):
         if variable_nb_words:
             nb_words = self.randomize_nb_elements(nb_words, min=1)
 
-        words = list(self.words(nb=nb_words, ext_word_list=ext_word_list))
+        word_list = self.get_words_list(ext_word_list=ext_word_list)
+        words = list(self.words(nb=nb_words, ext_word_list=word_list))
         words[0] = words[0].title()
 
         return self.word_connector.join(words) + self.sentence_punctuation

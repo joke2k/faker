@@ -213,7 +213,6 @@ class Provider(LoremProvider):
         "持つ",
         "持っていました",
         "あった",
-        "〜",
         "ない",
         "今",
         "今日",

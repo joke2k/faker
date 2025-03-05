@@ -6,7 +6,6 @@ were defined. The resulting behavior of the ``faker`` fixture will vary dependin
 on which fixtures are injected.
 """
 
-
 from random import Random
 
 import pytest

@@ -201,6 +201,51 @@ class TestDeAT(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^ATU\d{8}$", self.fake.vat_id())
 
+    def test_ssn(self):
+        for _ in range(100):
+            ssn: str = self.fake.ssn()
+            assert len(ssn) == 10
+            assert len(self.fake.ssn(self.fake.date_of_birth())) == 10
+
+    def test_ssn_checkdigit(self):
+        for _ in range(100):
+            ssn: str = self.fake.ssn()
+            ssn_digits: list[int] = [int(char) for char in ssn[:3] + ssn[4:]]
+            factors: list[int] = [3, 7, 9, 5, 8, 4, 2, 1, 6]
+            sum: int = 0
+            for index, digit in enumerate(ssn_digits):
+                sum += digit * factors[index]
+            assert sum % 11 == int(ssn[3])
+
+
+class TestDeDe(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("de_DE")
+        self.rvnr_pattern: Pattern = re.compile(r"\d{8}[A-Z]\d{3}")
+        self.kvnr_pattern: Pattern = re.compile(r"[A-Z]\d{19}")
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^DE\d{9}$", self.fake.vat_id())
+
+    def test_rvnr(self):
+        for _ in range(100):
+            rvnr = self.fake.rvnr()
+            assert self.rvnr_pattern.fullmatch(rvnr)
+
+    def test_rvnr_birthdate(self):
+        for _ in range(100):
+            birthdate: datetime.date = self.fake.date_object()
+            rvnr = self.fake.rvnr(birthdate)
+            assert self.rvnr_pattern.fullmatch(rvnr)
+            assert rvnr[2:8] == birthdate.strftime("%d%m%y")
+
+    def test_kvnr(self):
+        for _ in range(100):
+            kvnr = self.fake.kvnr()
+            assert self.kvnr_pattern.fullmatch(kvnr)
+
 
 class TestElCY(unittest.TestCase):
     def setUp(self):

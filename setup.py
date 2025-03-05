@@ -38,11 +38,11 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -67,8 +67,6 @@ setup(
     },
     platforms=["any"],
     zip_safe=zip_safe,
-    python_requires=">=3.8",
-    install_requires=[
-        "python-dateutil>=2.4",
-    ],
+    install_requires=["tzdata"],
+    python_requires=">=3.9",
 )

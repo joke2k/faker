@@ -138,7 +138,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python:
+        - "3.9"
+        - "3.10"
+        - "3.11"
+        - "3.12"
+        - "3.13"
 
     steps:
     - uses: actions/checkout@v4
@@ -168,7 +173,13 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
     strategy:
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "pypy-3.10"]
+        python:
+        - "3.9"
+        - "3.10"
+        - "3.11"
+        - "3.12"
+        - "3.13"
+        - "pypy-3.10"
 
     steps:
       - uses: actions/checkout@v4
@@ -185,7 +196,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
-        run: python -m pip install tox coveralls
+        run: python -m pip install tox
       - name: pytest
         uses: liskin/gh-problem-matcher-wrap@v3
         with:
@@ -196,20 +207,18 @@ jobs:
           COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_SERVICE_NAME: github
-      - name: Publish coverage
-        run: coveralls --service=github
-        env:
-          COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_SERVICE_NAME: github
-
+ 
   test_windows:
     runs-on: windows-latest
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
     strategy:
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python:
+        - "3.9"
+        - "3.10"
+        - "3.11"
+        - "3.12"
+        - "3.13"
         arch: ["x86", "x64"]
 
     steps:
@@ -227,17 +236,10 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
-        run: python -m pip install tox coveralls
+        run: python -m pip install tox
       - name: Run Tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
-      - name: Publish coverage
-        run: coveralls --service=github
-        env:
-          COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: run-ubuntu-${{ matrix.python }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_SERVICE_NAME: github
 
   test_alpine:
     runs-on: ubuntu-latest
@@ -256,7 +258,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.12'
     - name: Install dependencies
       run: |
         python -m pip install tox==3.27.1 setuptools
@@ -265,13 +267,3 @@ jobs:
       env:
         TOXENV: alpine
         TEST_ALPINE: 1
-
-  finish:
-    needs: [test_ubuntu, test_windows, test_alpine]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
-      uses: AndreMiras/coveralls-python-action@develop
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true

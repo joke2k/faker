@@ -18,7 +18,11 @@ from ..python import TypesSpec
 
 localized = True
 
-csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)
+csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)  # type: ignore
+
+
+ColumnSpec = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
+DataColumns = List[ColumnSpec]
 
 
 class Provider(BaseProvider):
@@ -121,6 +125,18 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+
+    @overload
+    def uuid4(self) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: None) -> uuid.UUID: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], str]) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], bytes]) -> bytes: ...
 
     def uuid4(
         self,
@@ -298,14 +314,13 @@ class Provider(BaseProvider):
             raise AssertionError(
                 "`uncompressed_size` is smaller than the calculated minimum required size",
             )
+        mode: Literal["w|", "w|gz", "w|bz2", "w|xz"] = "w|"
         if compression in ["gzip", "gz"]:
-            mode = "w:gz"
+            mode = "w|gz"
         elif compression in ["bzip2", "bz2"]:
-            mode = "w:bz2"
+            mode = "w|bz2"
         elif compression in ["lzma", "xz"]:
-            mode = "w:xz"
-        else:
-            mode = "w"
+            mode = "w|xz"
 
         tar_buffer = io.BytesIO()
         remaining_size = uncompressed_size
@@ -667,7 +682,7 @@ class Provider(BaseProvider):
         _dict = {self.generator.word(): _dict}
         return xmltodict.unparse(_dict)
 
-    def fixed_width(self, data_columns: Optional[list] = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(self, data_columns: Optional[DataColumns] = None, num_rows: int = 10, align: str = "left") -> str:
         """
         Generate random fixed width values.
 
@@ -707,7 +722,8 @@ class Provider(BaseProvider):
             (20, "name"),
             (3, "pyint", {"max_value": 20}),
         ]
-        data_columns = data_columns if data_columns else default_data_columns
+        if data_columns is None:
+            data_columns: DataColumns = default_data_columns  # type: ignore
         align_map = {
             "left": "<",
             "middle": "^",
@@ -718,7 +734,7 @@ class Provider(BaseProvider):
         for _ in range(num_rows):
             row = []
 
-            for width, definition, *arguments in data_columns:
+            for width, definition, *arguments in data_columns:  # type: ignore
                 kwargs = arguments[0] if arguments else {}
 
                 if not isinstance(kwargs, dict):

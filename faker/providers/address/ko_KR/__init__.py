@@ -454,8 +454,8 @@ class Provider(AddressProvider):
         "{{building_name}} {{building_dong}}동 ###호",
     )
     road_formats = (
-        "{{road_name}}{{road_suffix}}",
-        "{{road_name}}{{road_number}}{{road_suffix}}",
+        "{{road_name}}{{road_suffix}} {{building_number}}",
+        "{{road_name}}{{road_number}}{{road_suffix}} {{building_number}}",
     )
     road_address_formats = (
         "{{metropolitan_city}} {{borough}} {{road}}",
@@ -526,6 +526,44 @@ class Provider(AddressProvider):
         :example: 길
         """
         return self.random_element(self.road_suffixes)
+
+    def building_number(self) -> str:
+        """
+        :returns: A random building number
+
+        Generates building number(건물 번호). There are 3 types of building number with current ROK addressing system.
+            (1) 19: A typical format. Only marks one building.
+            (2) 지하11: The building entrance is underground.
+            (3) 132-1: Several buildings are distinguished with sub-building-number(가지 번호).
+
+        Generating probability is arbitrarily.
+
+        :example: 19, 지하11, 143-1
+        """
+        if self.random_int() % 9 < 1:
+            return self.building_number_underground()
+        elif self.random_int() % 9 < 4:
+            return self.building_number_segregated()
+        else:
+            return "%d" % self.generator.random.randint(1, 999)
+
+    def building_number_underground(self) -> str:
+        """
+        :returns: A random building number with undergrond entrances
+
+        :example: 지하11
+        """
+        return "지하%d" % (self.generator.random.randint(1, 999))
+
+    def building_number_segregated(self) -> str:
+        """
+        :returns: A random building number distinguished with sub-building-number(가지 번호)
+
+        :example: 143-1
+        """
+        main_building_number = self.generator.random.randint(1, 999)
+        sub_building_number = self.generator.random.randint(1, 99)
+        return "%d-%d" % (main_building_number, sub_building_number)
 
     def metropolitan_city(self) -> str:
         """
