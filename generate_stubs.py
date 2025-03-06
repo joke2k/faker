@@ -34,7 +34,7 @@ def get_module_and_member_to_import(cls: Type, locale: Optional[str] = None) -> 
             if imports[qualified_type[0][0]] is None or qualified_type[0][1] not in imports[qualified_type[0][0]]:
                 module, member = qualified_type[0]
         else:
-            unqualified_type = re.findall(r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", " " + str(cls) + " ")
+            unqualified_type = re.findall(r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", f" {cls} ")
             if len(unqualified_type) > 0 and unqualified_type[0] != "NoneType":
                 cls_str = str(cls).replace(".en_US", "").replace("faker.", ".")
                 if "<class '" in cls_str:

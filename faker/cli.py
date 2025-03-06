@@ -197,7 +197,7 @@ examples:
             choices=AVAILABLE_LOCALES,
             default=default_locale,
             metavar="LOCALE",
-            help="specify the language for a localized " "provider (e.g. de_DE)",
+            help="specify the language for a localized provider (e.g. de_DE)",
         )
         parser.add_argument(
             "-r",
@@ -210,7 +210,7 @@ examples:
             "-s",
             "--sep",
             default="\n",
-            help="use the specified separator after each " "output",
+            help="use the specified separator after each output",
         )
 
         parser.add_argument(
@@ -237,7 +237,7 @@ examples:
             "fake",
             action="store",
             nargs="?",
-            help="name of the fake to generate output for " "(e.g. profile)",
+            help="name of the fake to generate output for (e.g. profile)",
         )
 
         parser.add_argument(
