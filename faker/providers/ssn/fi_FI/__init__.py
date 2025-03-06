@@ -31,11 +31,7 @@ class Provider(SsnProvider):
         else:
             age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
-        hetu_date = "%02d%02d%s" % (
-            birthday.day,
-            birthday.month,
-            str(birthday.year)[-2:],
-        )
+        hetu_date = f"{birthday:%d%m%y}"
         range = (900, 999) if artificial is True else (2, 899)
         suffix = str(self.generator.random.randrange(*range)).zfill(3)
         checksum = _checksum(hetu_date + suffix)
