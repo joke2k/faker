@@ -61,6 +61,9 @@ class Provider(BaseProvider):
         return os.urandom(length)
 
     @overload
+    def md5(self) -> str: ...
+
+    @overload
     def md5(self, raw_output: Literal[True]) -> bytes: ...
 
     @overload
@@ -81,6 +84,9 @@ class Provider(BaseProvider):
         return res.hexdigest()
 
     @overload
+    def sha1(self) -> str: ...
+
+    @overload
     def sha1(self, raw_output: Literal[True]) -> bytes: ...
 
     @overload
@@ -99,6 +105,9 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+
+    @overload
+    def sha256(self) -> str: ...
 
     @overload
     def sha256(self, raw_output: Literal[True]) -> bytes: ...
