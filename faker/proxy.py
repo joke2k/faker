@@ -114,7 +114,7 @@ class Faker:
         :return: the appropriate attribute
         """
         if attr == "seed":
-            msg = "Calling `.seed()` on instances is deprecated. " "Use the class method `Faker.seed()` instead."
+            msg = "Calling `.seed()` on instances is deprecated. Use the class method `Faker.seed()` instead."
             raise TypeError(msg)
         else:
             return super().__getattribute__(attr)

@@ -91,7 +91,7 @@ class Provider(CreditCardProvider):
         """Generate a set of credit card details."""
         card = self._credit_card_type(card_type)
 
-        tpl = "{provider}\n" "{owner}\n" "{number} {expire_date}\n" "{security}: {security_nb}\n" "{issuer}"
+        tpl = "{provider}\n{owner}\n{number} {expire_date}\n{security}: {security_nb}\n{issuer}"
 
         tpl = tpl.format(
             provider=card.name,
