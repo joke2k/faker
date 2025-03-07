@@ -37,7 +37,7 @@ class Provider(BaseProvider):
         :return: a random valid Austrian social security number
         """
         _birthdate = birthdate or self.generator.date_object()
-        format: str = f"%##{_birthdate.strftime('%d%m%y')}"
+        format: str = f"%##{_birthdate:%d%m%y}"
         ssn: str = self.numerify(format)
         check_digit: int = self.__get_check_digit(ssn)
 

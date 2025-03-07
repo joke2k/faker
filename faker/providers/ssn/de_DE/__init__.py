@@ -66,7 +66,7 @@ class Provider(BaseProvider):
         :return: A valid German pension insurance number
         """
         _birthdate = birthdate or self.generator.date_object()
-        format: str = f"##{_birthdate.strftime('%d%m%y')}?##"
+        format: str = f"##{_birthdate:%d%m%y}?##"
         rvnr: str = self.bothify(format, letters=ascii_uppercase)
 
         return rvnr + self.__get_rvnr_checkdigit(rvnr)
