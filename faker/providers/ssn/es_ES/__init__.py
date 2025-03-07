@@ -53,18 +53,13 @@ class Provider(BaseProvider):
         cif = first_chr + doi_body
         return cif + self._calculate_control_cif(cif)
 
-    def doi(self) -> str:
-        """
-        https://es.wikipedia.org/wiki/Identificador_de_objeto_digital
-        :return: a random Spanish CIF or NIE or NIF
-        """
-
-        return random.choice([self.cif, self.nie, self.nif])()
-
     def nuss(self, company: bool = False) -> str:
         """
         :param company: flag to indicate if we should generate a company NUSS
         :return: a random Spanish Social Security Number (Número de la Seguridad Social)
+        
+        :sample:
+        :sample: company=True
         """
         nuss_body_length = 8
         if company:
