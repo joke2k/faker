@@ -18,6 +18,8 @@ class Provider(BaseProvider):
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: a random Spanish VAT ID
+
+        :sample:
         """
 
         return self.bothify(self.random_element(self.vat_id_formats))
@@ -26,6 +28,8 @@ class Provider(BaseProvider):
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identidad_de_extranjero
         :return: a random Spanish NIE
+
+        :sample:
         """
 
         first_chr = random.randrange(0, 3)
@@ -37,6 +41,8 @@ class Provider(BaseProvider):
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_fiscal
         :return: NIF
+
+        :sample:
         """
 
         nie_body = str(random.randrange(0, 100000000))  # generate a number of a maximum of 8 characters long
@@ -46,6 +52,8 @@ class Provider(BaseProvider):
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
         :return: a random Spanish CIF
+
+        :sample:
         """
 
         first_chr = random.choice("ABCDEFGHJNPQRSUVW")
