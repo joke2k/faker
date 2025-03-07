@@ -10,5 +10,6 @@ mypy>=1.15.0
 packaging>=24.2
 pytest>=6.0.1
 setuptools>=75.8.2
+tox>=4.24.1
 twine>=6.1.0
 wheel>=0.45.1
