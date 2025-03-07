@@ -1432,6 +1432,16 @@ class Faker:
         """
         ...
 
+    def doi(self) -> str:
+        """
+        Generate a valid Digital Object Identifier (DOI).
+        Format: 10.{4-9 digits}/{alphanumeric string}
+        Eg: 10.1000/xyz123
+
+        :sample:
+        """
+        ...
+
     def emoji(self) -> str:
         """
         :example: '😉'
@@ -3448,13 +3458,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
         :return: a random Spanish CIF
-        """
-        ...
 
-    def doi(self) -> str:
-        """
-        https://es.wikipedia.org/wiki/Identificador_de_objeto_digital
-        :return: a random Spanish CIF or NIE or NIF
+        :sample:
         """
         ...
 
@@ -3462,6 +3467,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identidad_de_extranjero
         :return: a random Spanish NIE
+
+        :sample:
         """
         ...
 
@@ -3469,6 +3476,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_fiscal
         :return: NIF
+
+        :sample:
         """
         ...
 
@@ -3476,6 +3485,9 @@ class Faker:
         """
         :param company: flag to indicate if we should generate a company NUSS
         :return: a random Spanish Social Security Number (Número de la Seguridad Social)
+
+        :sample:
+        :sample: company=True
         """
         ...
 

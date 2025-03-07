@@ -65,7 +65,7 @@ class Provider(BaseProvider):
         """
         :param company: flag to indicate if we should generate a company NUSS
         :return: a random Spanish Social Security Number (Número de la Seguridad Social)
-        
+
         :sample:
         :sample: company=True
         """
