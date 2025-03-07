@@ -1,9 +1,8 @@
 ## Changelog
 
-
 ### [v37.0.0 - 2025-03-07](https://github.com/joke2k/faker/compare/v36.2.3...v37.0.0)
 
-* Fix: `es_ES` `doi()` to use standard DOI format.Thanks @jasur-py.
+* Fix: `es_ES` `doi()` to use standard DOI format. Thanks @jasur-py.
 
 ### [v36.2.3 - 2025-03-07](https://github.com/joke2k/faker/compare/v36.2.2...v36.2.3)
 
