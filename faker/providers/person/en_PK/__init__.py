@@ -991,5 +991,5 @@ class Provider(PersonProvider):
         "Sabiq",
         "Saboor",
         "Zahaar",
-        "Jaabir"
+        "Jaabir",
     )
