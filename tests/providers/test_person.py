@@ -434,6 +434,7 @@ class TestEnPk(unittest.TestCase):
     def test_last_name(self):
         """Test if the last name is from the predefined list."""
         last_name = self.fake.last_name()
+        self.assertGreater(len(last_name), 1, "Last name should have more than 1 character.")
         self.assertIn(last_name, EnPKprovider.last_names)
 
     def test_full_name(self):
