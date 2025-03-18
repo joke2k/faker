@@ -115,7 +115,6 @@ class Provider(PersonProvider):
         "Zewad",
         "Zimran",
         "Zuwayhir",
-        "Name",
         "Adil",
         "Aaaqil",
         "Aaban",
@@ -155,7 +154,6 @@ class Provider(PersonProvider):
         "Aayan",
         "Aazim",
         "Abaan",
-        "Name",
         "Baahir",
         "Baaizeed",
         "Baaqee",
@@ -195,7 +193,6 @@ class Provider(PersonProvider):
         "Bazam",
         "Bilaal",
         "Bilal",
-        "Name",
         "Dawud",
         "Daamin",
         "Daanish",
@@ -210,7 +207,6 @@ class Provider(PersonProvider):
         "Damurah",
         "Daniel",
         "Danish",
-        "Name",
         "Eesaa",
         "Ehan",
         "Ehsaas",
@@ -220,7 +216,6 @@ class Provider(PersonProvider):
         "El-Amin",
         "Emran",
         "Eshan",
-        "Name",
         "Ghaalib",
         "Ghaazi",
         "Ghaffaar",
@@ -254,7 +249,6 @@ class Provider(PersonProvider):
         "Gulfam",
         "Gulshan",
         "Gulzar",
-        "Name",
         "Izaaz",
         "Ibaad",
         "Ibn",
@@ -282,7 +276,6 @@ class Provider(PersonProvider):
         "Ikrimah",
         "Ikrimah",
         "Ilan",
-        "Name",
         "Jafar",
         "Jaabir",
         "Jaabir",
@@ -311,7 +304,6 @@ class Provider(PersonProvider):
         "Jamal",
         "Jameel",
         "Jameel",
-        "Name",
         "Kaamil",
         "Kaamil",
         "Kaamil",
@@ -347,7 +339,6 @@ class Provider(PersonProvider):
         "Kazim",
         "Keyaan",
         "Khaalid",
-        "Name",
         "Laeeq",
         "Labeeb",
         "Labeeb",
@@ -375,7 +366,6 @@ class Provider(PersonProvider):
         "Lutf",
         "Lutfi",
         "Lutfi",
-        "Name",
         "Maawiya",
         "Mad",
         "Mamun",
@@ -415,7 +405,6 @@ class Provider(PersonProvider):
         "Majdy",
         "Majeed",
         "Makeen",
-        "Name",
         "Nail",
         "Naail",
         "Naadir",
@@ -455,7 +444,6 @@ class Provider(PersonProvider):
         "Najeeb",
         "Najeeb",
         "Najeeb",
-        "Name",
         "Obaid",
         "Omair",
         "Omar",
@@ -465,11 +453,9 @@ class Provider(PersonProvider):
         "Osama",
         "Ossama",
         "Owais",
-        "Name",
         "Parsa",
         "Parvez",
         "Pervaiz",
-        "Name",
         "Qaadir",
         "Qaadir",
         "Qaasim",
@@ -507,7 +493,6 @@ class Provider(PersonProvider):
         "Qutaybah",
         "Qutb",
         "Qutub",
-        "Name",
         "Raed",
         "Raid",
         "Raaghib",
@@ -545,7 +530,6 @@ class Provider(PersonProvider):
         "Rahat",
         "Raheel",
         "Raheem",
-        "Name",
         "Sad",
         "Sadan",
         "Said",
@@ -585,7 +569,6 @@ class Provider(PersonProvider):
         "Sadan",
         "Sadaqat",
         "Sadeed",
-        "Name",
         "Taahaa",
         "Taahir",
         "Taahir",
@@ -623,7 +606,6 @@ class Provider(PersonProvider):
         "Talib",
         "Tamam",
         "Tamanna",
-        "Name",
         "Ubaadah",
         "Ubaadah",
         "Ubaadah",
@@ -656,7 +638,6 @@ class Provider(PersonProvider):
         "Umar",
         "Umar",
         "Umar",
-        "Name",
         "Waail",
         "Waail",
         "Waahid",
@@ -676,7 +657,6 @@ class Provider(PersonProvider):
         "Waheed",
         "Wahhaab",
         "Wahhaaj",
-        "Name",
         "Yaaseen",
         "Yafi",
         "Yaghnam",
@@ -697,7 +677,6 @@ class Provider(PersonProvider):
         "Yathrib",
         "Yawar",
         "Yawer",
-        "Name",
         "Zaafir",
         "Zaahid",
         "Zaahid",
@@ -721,304 +700,296 @@ class Provider(PersonProvider):
     )
 
     last_names = (
-        "Lajlaj"
-        "Aarif"
-        "Urrab"
-        "Tabassum"
-        "Ubadah"
-        "Daniel"
-        "Umaarah"
-        "Omair"
-        "Jalil"
-        "Aatiq"
-        "Karaamat"
-        "Lut"
-        "Karam"
-        "Aasif"
-        "Aadam"
-        "Mahbeer"
-        "Saalim"
-        "Ubayd"
-        "Naail"
-        "Mahfuz"
-        "Ghazzal"
-        "Aamir"
-        "Ubaydullah"
-        "Umaarah"
-        "Rabiah"
-        "Maawiya"
-        "Yasir"
-        "Raaghib"
-        "Daamin"
-        "Rabb"
-        "Bashaar"
-        "Taanish"
-        "Yafir"
-        "Baaree"
-        "Talib"
-        "Rafi"
-        "Luqman"
-        "Qaasim"
-        "Ubaidah"
-        "Saajid"
-        "Yaman"
-        "Ubaadah"
-        "Baaqir"
-        "Sadan"
-        "Zarar"
-        "Saafir"
-        "Zafar"
-        "Mahmoud"
-        "Zayyir"
-        "Ubay"
-        "Fidvi"
-        "Mahfuj"
-        "Awmar"
-        "Yawer"
-        "Ayaan"
-        "Taimur"
-        "Rabbani"
-        "Ayyubi"
-        "Waahid"
-        "Ijli"
-        "Baleegh"
-        "Bilaal"
-        "Radi"
-        "Ali"
-        "Tadeen"
-        "Souma"
-        "Layth"
-        "Kashif"
-        "Labeeb"
-        "Talhah"
-        "Sabir"
-        "Dabir"
-        "Yaghnam"
-        "Zackariya"
-        "Ibrahim"
-        "Rafeek"
-        "Qadeer"
-        "Luqmaan"
-        "Jahdari"
-        "Qabeel"
-        "Kaamil"
-        "Ilan"
-        "Omeir"
-        "Ubaid"
-        "Majd"
-        "Aadil"
-        "Ghafoor"
-        "Zahrun"
-        "Tabassum"
-        "Lutf"
-        "Aamir"
-        "Iftikhaar"
-        "Naeem"
-        "Ghauth"
-        "Eshan"
-        "Raid"
-        "Qasif"
-        "Ihsaan"
-        "Bambad"
-        "Aaaqil"
-        "Nabeel"
-        "Jamaal"
-        "Awj"
-        "Wahhaaj"
-        "Nabih"
-        "Jalaal"
-        "Yahyaa"
-        "Aalam"
-        "Ghayoor"
-        "Aarif"
-        "Tahir"
-        "Batal"
-        "Talha"
-        "Uhban"
-        "Aryan"
-        "Najam"
-        "Darain"
-        "Qusay"
-        "Vahar"
-        "Aabid"
-        "Ihtiram"
-        "Umar"
-        "Mahbub"
-        "Qaim"
-        "Name"
-        "Saajid"
-        "Owais"
-        "Maheen"
-        "Raashid"
-        "Limazah"
-        "Zaafir"
-        "Wadood"
-        "Aariz"
-        "Aalam"
-        "Ihab"
-        "Umair"
-        "Zahri"
-        "Aazim"
-        "Jad"
-        "Omar"
-        "Majeed"
-        "Qaseem"
-        "Rafay"
-        "Ghanee"
-        "Gulshan"
-        "Babar"
-        "Baasim"
-        "Ghunayn"
-        "Jaabir"
-        "Nadeem"
-        "Lahiah"
-        "Sair"
-        "Saaqib"
-        "Esfandyar"
-        "Zaheer"
-        "Sabil"
-        "Qutaybah"
-        "Azban"
-        "Zafrul"
-        "Awani"
-        "Tajammul"
-        "Auraq"
-        "Man"
-        "Name"
-        "Tafazal"
-        "Raed"
-        "Baseer"
-        "Quadir"
-        "Dawud"
-        "Talal"
-        "Sabah"
-        "Baashir"
-        "Damurah"
-        "Ibraaheem"
-        "Faizan"
-        "Zaakir"
-        "Ghutayf"
-        "Ehsaas"
-        "Sadeed"
-        "Mad"
-        "Jabir"
-        "Mourib"
-        "Aamil"
-        "Sabeeh"
-        "Bizhan"
-        "Barr"
-        "Basaam"
-        "Ghasaan"
-        "Nail"
-        "Kasim"
-        "Taaj"
-        "Omran"
-        "Madiyan"
-        "Taheem"
-        "Saad"
-        "Kamal"
-        "Raatib"
-        "Taj"
-        "Yadid"
-        "Basheerah"
-        "Aasim"
-        "Zahur"
-        "Saabir"
-        "Kasam"
-        "Naeem"
-        "Tawkeel"
-        "Ghannam"
-        "Tahmaseb"
-        "Awadil"
-        "Liyaaqat"
-        "Tahaw-wur"
-        "Tamanna"
-        "Zafir"
-        "Ghauth"
-        "Ubay"
-        "Zaahid"
-        "Awamil"
-        "Talat"
-        "Maalik"
-        "Name"
-        "Qadar"
-        "Waajid"
-        "Aamirah"
-        "Ayamin"
-        "Kamran"
-        "Kaleem"
-        "Wadi"
-        "Zaahid"
-        "Umar"
-        "Bashaarat"
-        "Saal"
-        "Najeeb"
-        "Kachela"
-        "Sabur"
-        "Buraid"
-        "Rabee"
-        "Najeeb"
-        "Yar"
-        "Umar"
-        "Ossama"
-        "Tahawwur"
-        "Zaahir"
-        "Raashid"
-        "Name"
-        "Tali"
-        "Batool"
-        "Umair"
-        "Ihsaan"
-        "Name"
-        "Majd Udeen"
-        "Kaamil"
-        "Raheel"
-        "Abaan"
-        "Rabah"
-        "Jameel"
-        "Gohar"
-        "Aabid"
-        "Zuwayhir"
-        "Name"
-        "Sadan"
-        "Idris"
-        "Qais"
-        "Sadaqat"
-        "Barraq"
-        "Ejlaal"
-        "Luay"
-        "Jahdami"
-        "Wafeeq"
-        "Wafa"
-        "Rabar"
-        "Aasif"
-        "Dakhil"
-        "Jalaal"
-        "Gulfam"
-        "Saahir"
-        "Name"
-        "Maroof"
-        "Baasit"
-        "Kabeer"
-        "Jameel"
-        "Latif"
-        "Badr Udeen"
-        "Qahtan"
-        "Liyaqat"
-        "Jabr"
-        "Kaleema"
-        "Fazli"
-        "Name"
-        "Huzaifa"
-        "Man"
-        "Rohaan"
-        "Ubadah"
-        "Saburah"
-        "Saariyah"
-        "Kaysan"
-        "Raakin"
-        "Sabiq"
-        "Saboor"
-        "Zahaar"
-        "Jaabir"
+        "Lajlaj",
+        "Aarif",
+        "Urrab",
+        "Tabassum",
+        "Ubadah",
+        "Daniel",
+        "Umaarah",
+        "Omair",
+        "Jalil",
+        "Aatiq",
+        "Karaamat",
+        "Lut",
+        "Karam",
+        "Aasif",
+        "Aadam",
+        "Mahbeer",
+        "Saalim",
+        "Ubayd",
+        "Naail",
+        "Mahfuz",
+        "Ghazzal",
+        "Aamir",
+        "Ubaydullah",
+        "Umaarah",
+        "Rabiah",
+        "Maawiya",
+        "Yasir",
+        "Raaghib",
+        "Daamin",
+        "Rabb",
+        "Bashaar",
+        "Taanish",
+        "Yafir",
+        "Baaree",
+        "Talib",
+        "Rafi",
+        "Luqman",
+        "Qaasim",
+        "Ubaidah",
+        "Saajid",
+        "Yaman",
+        "Ubaadah",
+        "Baaqir",
+        "Sadan",
+        "Zarar",
+        "Saafir",
+        "Zafar",
+        "Mahmoud",
+        "Zayyir",
+        "Ubay",
+        "Fidvi",
+        "Mahfuj",
+        "Awmar",
+        "Yawer",
+        "Ayaan",
+        "Taimur",
+        "Rabbani",
+        "Ayyubi",
+        "Waahid",
+        "Ijli",
+        "Baleegh",
+        "Bilaal",
+        "Radi",
+        "Ali",
+        "Tadeen",
+        "Souma",
+        "Layth",
+        "Kashif",
+        "Labeeb",
+        "Talhah",
+        "Sabir",
+        "Dabir",
+        "Yaghnam",
+        "Zackariya",
+        "Ibrahim",
+        "Rafeek",
+        "Qadeer",
+        "Luqmaan",
+        "Jahdari",
+        "Qabeel",
+        "Kaamil",
+        "Ilan",
+        "Omeir",
+        "Ubaid",
+        "Majd",
+        "Aadil",
+        "Ghafoor",
+        "Zahrun",
+        "Tabassum",
+        "Lutf",
+        "Aamir",
+        "Iftikhaar",
+        "Naeem",
+        "Ghauth",
+        "Eshan",
+        "Raid",
+        "Qasif",
+        "Ihsaan",
+        "Bambad",
+        "Aaaqil",
+        "Nabeel",
+        "Jamaal",
+        "Awj",
+        "Wahhaaj",
+        "Nabih",
+        "Jalaal",
+        "Yahyaa",
+        "Aalam",
+        "Ghayoor",
+        "Aarif",
+        "Tahir",
+        "Batal",
+        "Talha",
+        "Uhban",
+        "Aryan",
+        "Najam",
+        "Darain",
+        "Qusay",
+        "Vahar",
+        "Aabid",
+        "Ihtiram",
+        "Umar",
+        "Mahbub",
+        "Qaim",
+        "Saajid",
+        "Owais",
+        "Maheen",
+        "Raashid",
+        "Limazah",
+        "Zaafir",
+        "Wadood",
+        "Aariz",
+        "Aalam",
+        "Ihab",
+        "Umair",
+        "Zahri",
+        "Aazim",
+        "Jad",
+        "Omar",
+        "Majeed",
+        "Qaseem",
+        "Rafay",
+        "Ghanee",
+        "Gulshan",
+        "Babar",
+        "Baasim",
+        "Ghunayn",
+        "Jaabir",
+        "Nadeem",
+        "Lahiah",
+        "Sair",
+        "Saaqib",
+        "Esfandyar",
+        "Zaheer",
+        "Sabil",
+        "Qutaybah",
+        "Azban",
+        "Zafrul",
+        "Awani",
+        "Tajammul",
+        "Auraq",
+        "Man",
+        "Tafazal",
+        "Raed",
+        "Baseer",
+        "Quadir",
+        "Dawud",
+        "Talal",
+        "Sabah",
+        "Baashir",
+        "Damurah",
+        "Ibraaheem",
+        "Faizan",
+        "Zaakir",
+        "Ghutayf",
+        "Ehsaas",
+        "Sadeed",
+        "Mad",
+        "Jabir",
+        "Mourib",
+        "Aamil",
+        "Sabeeh",
+        "Bizhan",
+        "Barr",
+        "Basaam",
+        "Ghasaan",
+        "Nail",
+        "Kasim",
+        "Taaj",
+        "Omran",
+        "Madiyan",
+        "Taheem",
+        "Saad",
+        "Kamal",
+        "Raatib",
+        "Taj",
+        "Yadid",
+        "Basheerah",
+        "Aasim",
+        "Zahur",
+        "Saabir",
+        "Kasam",
+        "Naeem",
+        "Tawkeel",
+        "Ghannam",
+        "Tahmaseb",
+        "Awadil",
+        "Liyaaqat",
+        "Tahaw-wur",
+        "Tamanna",
+        "Zafir",
+        "Ghauth",
+        "Ubay",
+        "Zaahid",
+        "Awamil",
+        "Talat",
+        "Maalik",
+        "Qadar",
+        "Waajid",
+        "Aamirah",
+        "Ayamin",
+        "Kamran",
+        "Kaleem",
+        "Wadi",
+        "Zaahid",
+        "Umar",
+        "Bashaarat",
+        "Saal",
+        "Najeeb",
+        "Kachela",
+        "Sabur",
+        "Buraid",
+        "Rabee",
+        "Najeeb",
+        "Yar",
+        "Umar",
+        "Ossama",
+        "Tahawwur",
+        "Zaahir",
+        "Raashid",
+        "Tali",
+        "Batool",
+        "Umair",
+        "Ihsaan",
+        "Majd Udeen",
+        "Kaamil",
+        "Raheel",
+        "Abaan",
+        "Rabah",
+        "Jameel",
+        "Gohar",
+        "Aabid",
+        "Zuwayhir",
+        "Sadan",
+        "Idris",
+        "Qais",
+        "Sadaqat",
+        "Barraq",
+        "Ejlaal",
+        "Luay",
+        "Jahdami",
+        "Wafeeq",
+        "Wafa",
+        "Rabar",
+        "Aasif",
+        "Dakhil",
+        "Jalaal",
+        "Gulfam",
+        "Saahir",
+        "Maroof",
+        "Baasit",
+        "Kabeer",
+        "Jameel",
+        "Latif",
+        "Badr Udeen",
+        "Qahtan",
+        "Liyaqat",
+        "Jabr",
+        "Kaleema",
+        "Fazli",
+        "Huzaifa",
+        "Man",
+        "Rohaan",
+        "Ubadah",
+        "Saburah",
+        "Saariyah",
+        "Kaysan",
+        "Raakin",
+        "Sabiq",
+        "Saboor",
+        "Zahaar",
+        "Jaabir",
     )
