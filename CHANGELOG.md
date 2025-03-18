@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.0.1 - 2025-03-18](https://github.com/joke2k/faker/compare/v37.0.0...v37.0.1)
+
+* Fix last names from `en_PK` provider. Thanks @bradenkwebb.
+
 ### [v37.0.0 - 2025-03-07](https://github.com/joke2k/faker/compare/v36.2.3...v37.0.0)
 
 * Fix: `es_ES` `doi()` to use standard DOI format. Thanks @jasur-py.
