@@ -86,7 +86,7 @@ class Provider(BankProvider):
     def _calculate_mod97(self, account_number: str) -> str:
         """Calculate the mod 97 check digits for a given account number."""
         remainder = int(account_number) % 97
-        return str(remainder).zfill(2) if remainder != 0 else 97
+        return str(remainder).zfill(2) if remainder != 0 else "97"
 
     def _calculate_iban_check_digits(self, bban: str) -> str:
         """Calculate the IBAN check digits using mod 97 algorithm."""
