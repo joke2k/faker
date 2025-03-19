@@ -391,6 +391,23 @@ class TestItIt:
             assert isinstance(pricetag, str)
 
 
+class TestNgNg:
+    """Test ng_NG currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.ng_NG import Provider as NgNgCurrencyProvider
+
+        cls.provider = NgNgCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
 class TestPlPl:
     """Test pl_PL currency provider"""
 
