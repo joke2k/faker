@@ -7,7 +7,8 @@ from datetime import MAXYEAR
 from datetime import date as dtdate
 from datetime import datetime
 from datetime import time as dttime
-from datetime import timedelta, timezone
+from datetime import timedelta
+from datetime import timezone as dttimezone
 from datetime import tzinfo as TzInfo
 from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
 
@@ -30,14 +31,14 @@ def _get_next_month_start(dt: Union[dtdate, datetime]) -> Union[dtdate, datetime
 
 def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
     if isinstance(dt, datetime) and getattr(dt, "tzinfo", None) is not None:
-        dt = dt.astimezone(timezone.utc)
+        dt = dt.astimezone(dttimezone.utc)
     return timegm(dt.timetuple())
 
 
 def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]) -> datetime:
     if tzinfo is None:
         pick = convert_timestamp_to_datetime(timestamp, _get_local_timezone())
-        return pick.astimezone(timezone.utc).replace(tzinfo=None)
+        return pick.astimezone(dttimezone.utc).replace(tzinfo=None)
     return convert_timestamp_to_datetime(timestamp, tzinfo)
 
 
@@ -2108,7 +2109,7 @@ class Provider(BaseProvider):
         if tzinfo is None:
             return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
         else:
-            return (datetime(1970, 1, 1, tzinfo=timezone.utc) + timedelta(seconds=ts)).astimezone(tzinfo)
+            return (datetime(1970, 1, 1, tzinfo=dttimezone.utc) + timedelta(seconds=ts)).astimezone(tzinfo)
 
     def date_between(self, start_date: DateParseType = "-30y", end_date: DateParseType = "today") -> dtdate:
         """
@@ -2212,7 +2213,7 @@ class Provider(BaseProvider):
             if tzinfo is None:
                 pick = convert_timestamp_to_datetime(timestamp, _get_local_timezone())
                 try:
-                    pick = pick.astimezone(timezone.utc).replace(tzinfo=None)
+                    pick = pick.astimezone(dttimezone.utc).replace(tzinfo=None)
                 except OSError:
                     pass
             else:
