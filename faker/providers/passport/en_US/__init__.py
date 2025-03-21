@@ -35,7 +35,7 @@ class Provider(PassportProvider):
 
         -https://travel.state.gov/content/travel/en/passports/passport-help/faqs.html
         """
-        birth_date = birthday.strftime("%d ") + birthday.strftime("%b ") + birthday.strftime("%Y")
+        birth_date = f"{birthday:%d %b %Y}"
         today = date.today()
         age = (today - birthday).days // 365
         if age < 16:
@@ -62,8 +62,8 @@ class Provider(PassportProvider):
             issue_date -= timedelta(days=1)
         expiry_date = issue_date.replace(year=issue_date.year + expiry_years)
 
-        issue_date_format = issue_date.strftime("%d ") + issue_date.strftime("%b ") + issue_date.strftime("%Y")
-        expiry_date_format = expiry_date.strftime("%d ") + expiry_date.strftime("%b ") + expiry_date.strftime("%Y")
+        issue_date_format = f"{issue_date:%d %b %Y}"
+        expiry_date_format = f"{expiry_date:%d %b %Y}"
         return birth_date, issue_date_format, expiry_date_format
 
     def passport_gender(self, seed: int = 0) -> SexLiteral:
