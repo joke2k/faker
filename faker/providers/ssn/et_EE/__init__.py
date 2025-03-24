@@ -56,7 +56,7 @@ class Provider(SsnProvider):
         else:
             ik = self.generator.random.choice(("7", "8"))
 
-        ik = f"{birthday:%y%m%d}{self.generator.random.randrange(999):03}"
+        ik += f"{birthday:%y%m%d}{self.generator.random.randrange(999):03}"
         return ik + str(checksum([int(ch) for ch in ik]))
 
     vat_id_formats = ("EE#########",)
