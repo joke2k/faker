@@ -294,6 +294,23 @@ class TestEnCa:
             assert isinstance(pricetag, str)
 
 
+class TestEnGH:
+    """Test en_GH currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.en_GH import Provider as EnGHCurrencyProvider
+
+        cls.provider = EnGHCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
 class TestEsEs:
     """Test es_ES currency provider"""
 
