@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.1.0 - 2025-03-24](https://github.com/joke2k/faker/compare/v37.0.2...v37.1.0)
+
+* Add `ng_NG` currency provider. Thanks @Theocode12.
+
 ### [v37.0.2 - 2025-03-19](https://github.com/joke2k/faker/compare/v37.0.1...v37.0.2)
 
 * Fix type annotiation
