@@ -60,18 +60,18 @@ class Provider(SsnProvider):
 
         while True:
             if 1900 <= birthday.year <= 1999:
-                suffix = str(self.generator.random.randrange(0, 49))
+                suffix = self.generator.random.randrange(0, 49)
             elif 1854 <= birthday.year <= 1899:
-                suffix = str(self.generator.random.randrange(50, 74))
+                suffix = self.generator.random.randrange(50, 74)
             elif 2000 <= birthday.year <= 2039:
-                suffix = str(self.generator.random.randrange(50, 99))
+                suffix = self.generator.random.randrange(50, 99)
             elif 1940 <= birthday.year <= 1999:
-                suffix = str(self.generator.random.randrange(90, 99))
+                suffix = self.generator.random.randrange(90, 99)
             if gender == "F":
                 gender_num = self.generator.random.choice((0, 2, 4, 6, 8))
             elif gender == "M":
                 gender_num = self.generator.random.choice((1, 3, 5, 7, 9))
-            pnr = birthday.strftime("%d%m%y") + suffix.zfill(2) + str(gender_num)
+            pnr = f"{birthday:%d%m%y}{suffix:02}{gender_num}"
             pnr_nums = [int(ch) for ch in pnr]
             k1 = checksum(Provider.scale1, pnr_nums)
             k2 = checksum(Provider.scale2, pnr_nums + [k1])
