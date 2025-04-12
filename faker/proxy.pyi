@@ -2633,7 +2633,7 @@ class Faker:
         self, sex: Optional[Literal["M", "F", "X"]] = ...
     ) -> Dict[str, Union[str, datetime.date, Literal["M", "F", "X"]]]:
         """
-        Generates a basic profile with personal informations
+        Generates a basic profile with personal information
         """
         ...
 

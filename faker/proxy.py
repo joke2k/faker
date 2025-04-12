@@ -322,6 +322,16 @@ class UniqueProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
+    def _make_hashable(self, value: Any) -> Any:
+        """Convert unhashable types (e.g., dict) to a hashable representation."""
+        if isinstance(value, dict):
+            return tuple(sorted((k, self._make_hashable(v)) for k, v in value.items()))
+        elif isinstance(value, list):
+            return tuple(self._make_hashable(v) for v in value)
+        elif isinstance(value, set):
+            return frozenset(self._make_hashable(v) for v in value)
+        return value
+
     def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
@@ -332,15 +342,17 @@ class UniqueProxy:
             # With use of a sentinel value rather than None, we leave
             # None open as a valid return value.
             retval = self._sentinel
+            hashable_retval = self._make_hashable(retval)
 
             for i in range(_UNIQUE_ATTEMPTS):
-                if retval not in generated:
+                if hashable_retval not in generated:
                     break
                 retval = function(*args, **kwargs)
+                hashable_retval = self._make_hashable(retval)
             else:
                 raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
 
-            generated.add(retval)
+            generated.add(hashable_retval)
 
             return retval
 
