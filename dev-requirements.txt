@@ -4,7 +4,7 @@ coverage>=5.2
 doc8>=1.1.1
 flake8-comprehensions
 flake8>=4.0.0
-freezegun>=15.1
+freezegun>=1.5.1
 isort>=5.13.2
 mypy-extensions>=1.0.0
 mypy>=1.15.0
