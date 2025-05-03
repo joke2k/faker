@@ -13,7 +13,9 @@ class Provider(AddressProvider):
     street_address_formats = ("{{street_name}} {{building_number}}",)
     address_formats = ("{{street_address}}\n{{postcode}} {{city}}",)
 
-    building_number_formats = ("###", "##", "#", "#/#")
+    # NOTE: Zero itself can be a valid building number in rare cases e.g., Wilhelm-Wisser-Str. 0, Heidhörn
+    # see: https://www.uniserv.com/wissen/magazin/article/besonderheiten-von-zustelladressen/
+    building_number_formats = ("#", "%#", "%##", "%###", "%/%", "%#/%#", "%-%", "%#-%#")
 
     street_suffixes_long = (
         "Gasse",
