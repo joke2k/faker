@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.2.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.0...v37.2.1)
+
+* Remove duplicate cities in `de_DE` address provider. Thanks @KarelZe.
+
 ### [v37.2.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.1...v37.2.0)
 
 * Add person provider for is_IS locale. Thanks @sergey-scat.
