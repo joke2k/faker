@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.2.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.1...v37.2.0)
+
+* Add person provider for is_IS locale. Thanks @sergey-scat.
+
 ### [v37.1.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.0...v37.1.1)
 
 * Fix type annotations for Python 3.14. Thanks @mgorny.
