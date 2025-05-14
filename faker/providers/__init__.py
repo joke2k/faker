@@ -646,6 +646,10 @@ class BaseProvider:
         """Generate a string with each placeholder in ``text`` replaced according to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
+        - Percent signs ('%') are replaced with a random non-zero digit (1 to 9).
+        - Dollar signs ('$') are replaced with a random digit above two (2 to 9).
+        - Exclamation marks ('!') are replaced with a random digit or an empty string.
+        - At symbols ('@') are replaced with a random non-zero digit or an empty string.
         - Question marks ('?') are replaced with a random character from ``letters``.
 
         By default, ``letters`` contains all ASCII letters, uppercase and lowercase.
@@ -657,6 +661,7 @@ class BaseProvider:
         :sample: letters='ABCDE'
         :sample: text='Product Number: ????-########'
         :sample: text='Product Number: ????-########', letters='ABCDE'
+        :sample: text='Order: ##??-$'
         """
         return self.lexify(self.numerify(text), letters=letters)
 
