@@ -984,23 +984,23 @@ class TestIsIS(unittest.TestCase):
     def test_last_name(self):
         last_name = self.fake.last_name()
         self.assertIsInstance(last_name, str)
-        assert last_name.endswith('son') or last_name.endswith('dóttir')
-        suffix = 'son' if last_name.endswith('son') else 'dóttir'
+        assert last_name.endswith("son") or last_name.endswith("dóttir")
+        suffix = "son" if last_name.endswith("son") else "dóttir"
         last_name_wo_suffix = last_name.rsplit(suffix, maxsplit=1)[0]
         assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
 
     def test_last_name_male(self):
         last_name = self.fake.last_name_male()
         self.assertIsInstance(last_name, str)
-        assert last_name.endswith('son')
-        last_name_wo_suffix = last_name.rsplit('son', maxsplit=1)[0]
+        assert last_name.endswith("son")
+        last_name_wo_suffix = last_name.rsplit("son", maxsplit=1)[0]
         assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
 
     def test_last_name_female(self):
         last_name = self.fake.last_name_female()
         self.assertIsInstance(last_name, str)
-        assert last_name.endswith('dóttir')
-        last_name_wo_suffix = last_name.rsplit('dóttir', maxsplit=1)[0]
+        assert last_name.endswith("dóttir")
+        last_name_wo_suffix = last_name.rsplit("dóttir", maxsplit=1)[0]
         assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
 
     def test_middle_name(self):

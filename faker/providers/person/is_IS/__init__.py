@@ -4,14 +4,11 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_male = (
-        "{{first_name_male}} {{last_name_male}}",
-        "{{first_name_male}} {{middle_name}} {{last_name_male}}"
-    )
+    formats_male = ("{{first_name_male}} {{last_name_male}}", "{{first_name_male}} {{middle_name}} {{last_name_male}}")
 
     formats_female = (
         "{{first_name_female}} {{last_name_female}}",
-        "{{first_name_female}} {{middle_name}} {{last_name_female}}"
+        "{{first_name_female}} {{middle_name}} {{last_name_female}}",
     )
 
     formats = formats_male + formats_female
@@ -1813,7 +1810,7 @@ class Provider(PersonProvider):
         "Örnólfur",
         "Örvar",
         "Össur",
-        "Öxar"
+        "Öxar",
     )
     # Icelandic female names
     first_names_female = (
@@ -3766,7 +3763,7 @@ class Provider(PersonProvider):
         "Ölveig",
         "Örbrún",
         "Örk",
-        "Ösp"
+        "Ösp",
     )
 
     first_names = first_names_male + first_names_female
@@ -3774,20 +3771,20 @@ class Provider(PersonProvider):
     # prepare a temp list of last names for further processing
     last_names_without_suffix = []
     for fnm in first_names_male:
-        if fnm.endswith('ur'):
+        if fnm.endswith("ur"):
             fnm = fnm[:-2]
-        if not fnm.endswith('s'):
-            fnm = fnm + 's'
+        if not fnm.endswith("s"):
+            fnm = fnm + "s"
         last_names_without_suffix.append(fnm)
     last_names_without_suffix = tuple(last_names_without_suffix)
 
     # Icelandic male last names
     def last_name_male(self) -> str:
-        return self.random_element(self.last_names_without_suffix) + 'son'
+        return self.random_element(self.last_names_without_suffix) + "son"
 
     # Icelandic female last names
     def last_name_female(self) -> str:
-        return self.random_element(self.last_names_without_suffix) + 'dóttir'
+        return self.random_element(self.last_names_without_suffix) + "dóttir"
 
     # Icelandic male and female last names
     def last_name(self) -> str:
@@ -3937,7 +3934,7 @@ class Provider(PersonProvider):
         "Önfjörð",
         "Örbekk",
         "Öxdal",
-        "Öxndal"
+        "Öxndal",
     )
 
     def middle_name(self) -> str:
