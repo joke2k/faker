@@ -1965,8 +1965,8 @@ class TestZhTW(unittest.TestCase):
         name = self.fake.romanized_name()
         assert name
         self.assertIsInstance(name, str)
-        last_romanized_name, first_romanized_name =  name.split(" ") # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
-        #first_romanized_name, last_romanized_name = name.split(" ")
+        last_romanized_name, first_romanized_name = name.split(" ")  # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
+        # first_romanized_name, last_romanized_name = name.split(" ")
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
 
