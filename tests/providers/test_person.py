@@ -1908,13 +1908,13 @@ class TestZhTW(unittest.TestCase):
         self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
-        # Females last name.
+        # Females last name. (no gender-specific)
         name = self.fake.last_name_female()
         assert name
         self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
-        # Male last name.
+        # Male last name. (no gender-specific)
         name = self.fake.last_name_male()
         assert name
         self.assertIsInstance(name, str)
@@ -1965,9 +1965,35 @@ class TestZhTW(unittest.TestCase):
         name = self.fake.romanized_name()
         assert name
         self.assertIsInstance(name, str)
-        first_romanized_name, last_romanized_name = name.split(" ")
+        last_romanized_name, first_romanized_name =  name.split(" ") # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
+        #first_romanized_name, last_romanized_name = name.split(" ")
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
+
+    def test_person(self):
+        name = self.fake.name()
+        assert name
+        assert isinstance(name, str)
+
+        first_name = self.fake.first_name()
+        assert first_name
+        assert isinstance(first_name, str)
+
+        last_name = self.fake.last_name()
+        assert last_name
+        assert isinstance(last_name, str)
+
+        romanized_name = self.fake.romanized_name()
+        assert romanized_name
+        assert isinstance(romanized_name, str)
+
+        first_romanized_name = self.fake.first_romanized_name()
+        assert first_romanized_name
+        assert isinstance(first_romanized_name, str)
+
+        last_romanized_name = self.fake.last_romanized_name()
+        assert last_romanized_name
+        assert isinstance(last_romanized_name, str)
 
 
 class TestZuZa(unittest.TestCase):
