@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.1.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.0...v37.1.1)
+
+* Fix type annotations for Python 3.14. Thanks @mgorny.
+
 ### [v37.1.0 - 2025-03-24](https://github.com/joke2k/faker/compare/v37.0.2...v37.1.0)
 
 * Add `ng_NG` currency provider. Thanks @Theocode12.
