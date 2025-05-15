@@ -1,4 +1,5 @@
 import re
+import string
 
 from typing import Pattern
 
@@ -38,6 +39,8 @@ class _SimpleAutomotiveTestMixin:
             checksum = (front_part_weight + rear_part_weight) % 11
             checksum_str = "X" if checksum == 10 else str(checksum)
             assert vin_number[8] == checksum_str
+            for char in vin_number[13:]:
+                assert char in string.digits
 
 
 class TestArBh(_SimpleAutomotiveTestMixin):
