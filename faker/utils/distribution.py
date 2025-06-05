@@ -10,7 +10,7 @@ from faker.generator import random as mod_random
 def random_sample(random: Optional[Random] = None) -> float:
     if random is None:
         random = mod_random
-    return random.uniform(0.0, 1.0)
+    return random.uniform(0, 1.0)
 
 
 def cumsum(it: Iterable[float]) -> Generator[float, None, None]:
