@@ -41,7 +41,7 @@ def choices_distribution_unique(
     choices = []
     items = list(a)
     probabilities = list(p)
-    for i in range(length):
+    for _ in range(length):
         cdf = tuple(cumsum(probabilities))
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
@@ -80,7 +80,7 @@ def choices_distribution(
         cdf = list(cumsum(p))  # type: ignore
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
-        for i in range(length):
+        for _ in range(length):
             uniform_sample = random_sample(random=random)
             idx = bisect.bisect_right(cdf2, uniform_sample)
             item = a[idx]
