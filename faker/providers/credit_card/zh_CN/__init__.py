@@ -1,7 +1,8 @@
 from collections import OrderedDict
-from faker.typing import CardType, CreditCard
 from typing import Optional
+
 from faker.providers.credit_card import Provider as CreditCardProvider
+from faker.typing import CardType, CreditCard
 
 
 class Provider(CreditCardProvider):
