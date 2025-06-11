@@ -1054,7 +1054,7 @@ class Provider(PersonProvider):
     )
 
     @property
-    def first_names(self):
+    def first_names(self):  # type: ignore[override]
         """Returns a list of weighted first names, male and female."""
         if not hasattr(self, "_first_names"):
             self._first_names = OrderedDict()
