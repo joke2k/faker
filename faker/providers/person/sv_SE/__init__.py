@@ -29,16 +29,16 @@ class Provider(PersonProvider):
     )
 
     formats_male = (
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}",
-        "{{first_name_female}} {{last_name}} {{last_name}}",
-        "{{first_name_female}} {{last_name}}-{{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}-{{last_name}}",
     )
 
     formats = formats_female + formats_male
