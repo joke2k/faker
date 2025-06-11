@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.4.0 - 2025-06-11](https://github.com/joke2k/faker/compare/v37.3.4...v37.4.0)
+
+* Implement `Zh_CN` credit card provider. Thanks @JohananOppongAmoateng.
+
 ### [v37.3.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.1...v37.3.0)
 
 * Update `zh_TW` Person Provider. Thanks @0x6r1an0y.
