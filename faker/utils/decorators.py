@@ -1,7 +1,7 @@
 from functools import wraps
 from typing import Callable, Dict, Tuple, TypeVar
 
-from ..utils import text
+from faker.utils import text
 
 T = TypeVar("T")
 
