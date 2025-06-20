@@ -21,4 +21,4 @@ class Provider(ISBNProvider):
                 ("9000000", "9999999", 5),
             ],
         },
-    } 
+    }
