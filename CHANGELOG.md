@@ -1,5 +1,80 @@
 ## Changelog
 
+### [v37.4.0 - 2025-06-11](https://github.com/joke2k/faker/compare/v37.3.4...v37.4.0)
+
+* Implement `Zh_CN` credit card provider. Thanks @JohananOppongAmoateng.
+
+### [v37.3.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.1...v37.3.0)
+
+* Update `zh_TW` Person Provider. Thanks @0x6r1an0y.
+
+### [v37.2.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.0...v37.2.1)
+
+* Remove duplicate cities in `de_DE` address provider. Thanks @KarelZe.
+
+### [v37.2.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.1...v37.2.0)
+
+* Add person provider for is_IS locale. Thanks @sergey-scat.
+
+### [v37.1.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.0...v37.1.1)
+
+* Fix type annotations for Python 3.14. Thanks @mgorny.
+
+### [v37.1.0 - 2025-03-24](https://github.com/joke2k/faker/compare/v37.0.2...v37.1.0)
+
+* Add `ng_NG` currency provider. Thanks @Theocode12.
+
+### [v37.0.2 - 2025-03-19](https://github.com/joke2k/faker/compare/v37.0.1...v37.0.2)
+
+* Fix type annotiation
+
+### [v37.0.1 - 2025-03-18](https://github.com/joke2k/faker/compare/v37.0.0...v37.0.1)
+
+* Fix last names from `en_PK` provider. Thanks @bradenkwebb.
+* fix Belgium IBAN incorrect checksum. Thanks @xeirzo.
+
+### [v37.0.0 - 2025-03-07](https://github.com/joke2k/faker/compare/v36.2.3...v37.0.0)
+
+* Fix: `es_ES` `doi()` to use standard DOI format. Thanks @jasur-py.
+
+### [v36.2.3 - 2025-03-07](https://github.com/joke2k/faker/compare/v36.2.2...v36.2.3)
+
+* Fix typing for hash methods. Thanks @lindycoder.
+
+### [v36.2.2 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.2.1...v36.2.2)
+
+* Fix male prefix in `gu_IN`. Thanks @Hitesh1122.
+
+### [v36.2.1 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.2.0...v36.2.1)
+
+* Fix type annotations for hash methods. Thanks @samueljsb.
+
+### [v36.2.0 - 2025-03-05](https://github.com/joke2k/faker/compare/v36.1.1...v36.2.0)
+
+* Add `snils` to `ru_RU` company provider. Thanks @Pandede.
+
+### [v36.1.1 - 2025-02-13](https://github.com/joke2k/faker/compare/v36.1.0...v36.1.1)
+
+* Fix typing for `uuid` provider. Thanks @evenicoulddoit.
+
+### [v36.1.0 - 2025-02-10](https://github.com/joke2k/faker/compare/v36.0.0...v36.1.0)
+
+* Drop `python-dateutil` dependency. Thanks @knyghty.
+* Add dependency on `tzdata`.
+
+### [v36.0.0 - 2025-02-10](https://github.com/joke2k/faker/compare/v35.2.1...v36.0.0)
+
+* Drop Python 3.8 support. Thanks @knyghty.
+
+### [v35.2.2 - 2025-02-10](https://github.com/joke2k/faker/compare/v35.2.1...v35.2.2)
+
+* Revert accidental deprecation of Python 3.8.
+
+### [v35.2.1 - 2025-02-10](https://github.com/joke2k/faker/compare/v35.2.0...v35.2.1)
+
+* Remove invalid word from `ja_JP` lorem provider. Thanks @kymckay
+* Fix typing for `tar` provider.
+
 ### [v35.2.0 - 2025-01-30](https://github.com/joke2k/faker/compare/v35.1.0...v35.2.0)
 
 * Add various German localization. Thanks @ChristinaRau.

@@ -666,9 +666,6 @@ class TestEsES(unittest.TestCase):
         for _ in range(100):
             assert is_cif(self.fake.cif())
 
-    def test_doi(self):
-        assert len(self.fake.doi()) == 9
-
     def test_nuss(self):
         for _ in range(50):
             nuss = self.fake.nuss()

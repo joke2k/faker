@@ -9,9 +9,8 @@ import tarfile
 import uuid
 import zipfile
 
-from typing import Any, Callable, Dict, List, Optional, Sequence, Set, Tuple, Type, Union
-
-from typing_extensions import TypeAlias
+from json import JSONEncoder
+from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union, overload
 
 from faker.exceptions import UnsupportedFeature
 
@@ -23,8 +22,8 @@ localized = True
 csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)  # type: ignore
 
 
-ColumnSpec: TypeAlias = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
-DataColumns: TypeAlias = List[ColumnSpec]
+ColumnSpec = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
+DataColumns = List[ColumnSpec]
 
 
 class Provider(BaseProvider):
@@ -62,6 +61,15 @@ class Provider(BaseProvider):
         # Generator is unseeded anyway, just use urandom
         return os.urandom(length)
 
+    @overload
+    def md5(self) -> str: ...
+
+    @overload
+    def md5(self, raw_output: Literal[True]) -> bytes: ...
+
+    @overload
+    def md5(self, raw_output: Literal[False]) -> str: ...
+
     def md5(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random MD5 hash.
 
@@ -75,6 +83,15 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+
+    @overload
+    def sha1(self) -> str: ...
+
+    @overload
+    def sha1(self, raw_output: Literal[True]) -> bytes: ...
+
+    @overload
+    def sha1(self, raw_output: Literal[False]) -> str: ...
 
     def sha1(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA-1 hash.
@@ -90,6 +107,15 @@ class Provider(BaseProvider):
             return res.digest()
         return res.hexdigest()
 
+    @overload
+    def sha256(self) -> str: ...
+
+    @overload
+    def sha256(self, raw_output: Literal[True]) -> bytes: ...
+
+    @overload
+    def sha256(self, raw_output: Literal[False]) -> str: ...
+
     def sha256(self, raw_output: bool = False) -> Union[bytes, str]:
         """Generate a random SHA-256 hash.
 
@@ -103,6 +129,18 @@ class Provider(BaseProvider):
         if raw_output:
             return res.digest()
         return res.hexdigest()
+
+    @overload
+    def uuid4(self) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: None) -> uuid.UUID: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], str]) -> str: ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[uuid.UUID], bytes]) -> bytes: ...
 
     def uuid4(
         self,
@@ -280,14 +318,13 @@ class Provider(BaseProvider):
             raise AssertionError(
                 "`uncompressed_size` is smaller than the calculated minimum required size",
             )
+        mode: Literal["w|", "w|gz", "w|bz2", "w|xz"] = "w|"
         if compression in ["gzip", "gz"]:
-            mode = "w:gz"
+            mode = "w|gz"
         elif compression in ["bzip2", "bz2"]:
-            mode = "w:bz2"
+            mode = "w|bz2"
         elif compression in ["lzma", "xz"]:
-            mode = "w:xz"
-        else:
-            mode = "w"
+            mode = "w|xz"
 
         tar_buffer = io.BytesIO()
         remaining_size = uncompressed_size
@@ -500,7 +537,7 @@ class Provider(BaseProvider):
         data_columns: Optional[List] = None,
         num_rows: int = 10,
         indent: Optional[int] = None,
-        cls: Optional[Type[json.JSONEncoder]] = None,
+        cls: Optional[Type[JSONEncoder]] = None,
     ) -> bytes:
         """
         Generate random JSON structure and return as bytes.
@@ -515,7 +552,7 @@ class Provider(BaseProvider):
         data_columns: Optional[List] = None,
         num_rows: int = 10,
         indent: Optional[int] = None,
-        cls: Optional[Type[json.JSONEncoder]] = None,
+        cls: Optional[Type[JSONEncoder]] = None,
     ) -> str:
         """
         Generate random JSON structure values.

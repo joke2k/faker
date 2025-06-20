@@ -149,9 +149,9 @@ class Provider(BaseProvider):
         max_value: Optional[Union[float, int]] = None,
     ) -> float:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
+            raise ValueError("A float number cannot have less than 0 digits in its integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its " "fractional part")
+            raise ValueError("A float number cannot have less than 0 digits in its fractional part")
         if left_digits == 0 and right_digits == 0:
             raise ValueError("A float number cannot have less than 0 digits in total")
         if min_value is not None and max_value is not None:
@@ -290,9 +290,9 @@ class Provider(BaseProvider):
         max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
+            raise ValueError("A decimal number cannot have less than 0 digits in its integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its " "fractional part")
+            raise ValueError("A decimal number cannot have less than 0 digits in its fractional part")
         if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
             raise ValueError("A decimal number cannot have 0 digits in total")
         if min_value is not None and max_value is not None and min_value > max_value:

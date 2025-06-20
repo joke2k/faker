@@ -1,5 +1,6 @@
 import platform
 import re
+import zoneinfo
 
 from calendar import timegm
 from datetime import MAXYEAR
@@ -7,11 +8,9 @@ from datetime import date as dtdate
 from datetime import datetime
 from datetime import time as dttime
 from datetime import timedelta
+from datetime import timezone as dttimezone
 from datetime import tzinfo as TzInfo
 from typing import Any, Callable, Dict, Iterator, Optional, Tuple, Union
-
-from dateutil import relativedelta
-from dateutil.tz import gettz, tzlocal, tzutc
 
 from faker.typing import Country, DateParseType
 
@@ -20,16 +19,26 @@ from .. import BaseProvider, ElementsType
 localized = True
 
 
+def _get_local_timezone():
+    datetime.now().astimezone().tzinfo
+
+
+def _get_next_month_start(dt: Union[dtdate, datetime]) -> Union[dtdate, datetime]:
+    if dt.month == 12:
+        return dt.replace(year=dt.year + 1, month=1)
+    return dt.replace(month=dt.month + 1)
+
+
 def datetime_to_timestamp(dt: Union[dtdate, datetime]) -> int:
     if isinstance(dt, datetime) and getattr(dt, "tzinfo", None) is not None:
-        dt = dt.astimezone(tzutc())
+        dt = dt.astimezone(dttimezone.utc)
     return timegm(dt.timetuple())
 
 
 def timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]) -> datetime:
     if tzinfo is None:
-        pick = convert_timestamp_to_datetime(timestamp, tzlocal())
-        return pick.astimezone(tzutc()).replace(tzinfo=None)
+        pick = convert_timestamp_to_datetime(timestamp, _get_local_timezone())
+        return pick.astimezone(dttimezone.utc).replace(tzinfo=None)
     return convert_timestamp_to_datetime(timestamp, tzinfo)
 
 
@@ -2100,7 +2109,7 @@ class Provider(BaseProvider):
         if tzinfo is None:
             return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
         else:
-            return (datetime(1970, 1, 1, tzinfo=tzutc()) + timedelta(seconds=ts)).astimezone(tzinfo)
+            return (datetime(1970, 1, 1, tzinfo=dttimezone.utc) + timedelta(seconds=ts)).astimezone(tzinfo)
 
     def date_between(self, start_date: DateParseType = "-30y", end_date: DateParseType = "today") -> dtdate:
         """
@@ -2202,9 +2211,9 @@ class Provider(BaseProvider):
         timestamp = self._rand_seconds(datetime_start_, datetime_end_)
         try:
             if tzinfo is None:
-                pick = convert_timestamp_to_datetime(timestamp, tzlocal())
+                pick = convert_timestamp_to_datetime(timestamp, _get_local_timezone())
                 try:
-                    pick = pick.astimezone(tzutc()).replace(tzinfo=None)
+                    pick = pick.astimezone(dttimezone.utc).replace(tzinfo=None)
                 except OSError:
                     pass
             else:
@@ -2336,8 +2345,8 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        next_month_start = _get_next_month_start(this_month_start)
 
-        next_month_start = this_month_start + relativedelta.relativedelta(months=1)
         if before_now and after_now:
             return self.date_time_between_dates(this_month_start, next_month_start, tzinfo)
         elif not before_now and after_now:
@@ -2428,8 +2437,8 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_month_start = today.replace(day=1)
+        next_month_start = _get_next_month_start(this_month_start)
 
-        next_month_start = this_month_start + relativedelta.relativedelta(months=1)
         if before_today and after_today:
             return self.date_between_dates(this_month_start, next_month_start)
         elif not before_today and after_today:
@@ -2540,7 +2549,7 @@ class Provider(BaseProvider):
 
         :sample:
         """
-        return gettz(self.timezone(*args, **kwargs))  # type: ignore
+        return zoneinfo.ZoneInfo(self.timezone(*args, **kwargs))  # type: ignore
 
     def date_of_birth(
         self,

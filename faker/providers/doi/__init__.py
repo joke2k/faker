@@ -12,6 +12,9 @@ class Provider(BaseProvider):
         Generate a valid Digital Object Identifier (DOI).
         Format: 10.{4-9 digits}/{alphanumeric string}
         Eg: 10.1000/xyz123
+        fix/brazilian-isbn-locale
+        :sample:
+        master
         """
         prefix = "10"
         registrant = str(self.generator.random.randint(1000, 99999999))

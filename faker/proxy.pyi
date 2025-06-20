@@ -23,6 +23,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    overload,
 )
 from uuid import UUID
 
@@ -1431,6 +1432,16 @@ class Faker:
         """
         ...
 
+    def doi(self) -> str:
+        """
+        Generate a valid Digital Object Identifier (DOI).
+        Format: 10.{4-9 digits}/{alphanumeric string}
+        Eg: 10.1000/xyz123
+
+        :sample:
+        """
+        ...
+
     def emoji(self) -> str:
         """
         :example: '😉'
@@ -2201,7 +2212,34 @@ class Faker:
         """
         ...
 
-    def md5(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def md5(self) -> str:
+        """
+        Generate a random MD5 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def md5(self, raw_output: Literal[True]) -> bytes:
+        """
+        Generate a random MD5 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the MD5 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def md5(self, raw_output: Literal[False]) -> str:
         """
         Generate a random MD5 hash.
 
@@ -2262,7 +2300,8 @@ class Faker:
         """
         ...
 
-    def sha1(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def sha1(self) -> str:
         """
         Generate a random SHA-1 hash.
 
@@ -2274,7 +2313,60 @@ class Faker:
         """
         ...
 
-    def sha256(self, raw_output: bool = ...) -> Union[bytes, str]:
+    @overload
+    def sha1(self, raw_output: Literal[True]) -> bytes:
+        """
+        Generate a random SHA-1 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-1 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def sha1(self, raw_output: Literal[False]) -> str:
+        """
+        Generate a random SHA-1 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-1 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def sha256(self) -> str:
+        """
+        Generate a random SHA-256 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-256 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def sha256(self, raw_output: Literal[True]) -> bytes:
+        """
+        Generate a random SHA-256 hash.
+
+        If ``raw_output`` is ``False`` (default), a hexadecimal string representation of the SHA-256 hash
+        will be returned. If ``True``, a ``bytes`` object representation will be returned instead.
+
+        :sample: raw_output=False
+        :sample: raw_output=True
+        """
+        ...
+
+    @overload
+    def sha256(self, raw_output: Literal[False]) -> str:
         """
         Generate a random SHA-256 hash.
 
@@ -2335,9 +2427,50 @@ class Faker:
         """
         ...
 
-    def uuid4(
-        self, cast_to: Union[Callable[[UUID], str], Callable[[UUID], bytes], None] = ...
-    ) -> Union[bytes, str, UUID]:
+    @overload
+    def uuid4(self) -> str:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: None) -> UUID:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], str]) -> str:
+        """
+        Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid4(self, cast_to: Callable[[UUID], bytes]) -> bytes:
         """
         Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
@@ -2500,7 +2633,7 @@ class Faker:
         self, sex: Optional[Literal["M", "F", "X"]] = ...
     ) -> Dict[str, Union[str, datetime.date, Literal["M", "F", "X"]]]:
         """
-        Generates a basic profile with personal informations
+        Generates a basic profile with personal information
         """
         ...
 
@@ -3325,13 +3458,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
         :return: a random Spanish CIF
-        """
-        ...
 
-    def doi(self) -> str:
-        """
-        https://es.wikipedia.org/wiki/Identificador_de_objeto_digital
-        :return: a random Spanish CIF or NIE or NIF
+        :sample:
         """
         ...
 
@@ -3339,6 +3467,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identidad_de_extranjero
         :return: a random Spanish NIE
+
+        :sample:
         """
         ...
 
@@ -3346,6 +3476,8 @@ class Faker:
         """
         https://es.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_fiscal
         :return: NIF
+
+        :sample:
         """
         ...
 
@@ -3353,6 +3485,9 @@ class Faker:
         """
         :param company: flag to indicate if we should generate a company NUSS
         :return: a random Spanish Social Security Number (Número de la Seguridad Social)
+
+        :sample:
+        :sample: company=True
         """
         ...
 
@@ -3667,6 +3802,7 @@ class Faker:
         """
         ...
 
+    def middle_name(self) -> str: ...
     def postcode_city_province(self) -> str: ...
     @staticmethod
     def is_leap_year(year: int) -> bool:
@@ -3950,7 +4086,6 @@ class Faker:
         ...
 
     def first_name_unisex(self) -> str: ...
-    def middle_name(self) -> str: ...
     def license_plate_regex_formats(self) -> List[str]:
         """
         Return a regex for matching license plates.
@@ -4210,6 +4345,12 @@ class Faker:
     def kpp(self) -> str:
         """
         Returns tax registration reason code (ru. код причины постановки на учет, КПП).
+        """
+        ...
+
+    def snils(self) -> str:
+        """
+        Returns SNILS number (ru. СНИЛС).
         """
         ...
 

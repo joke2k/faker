@@ -43,7 +43,7 @@ class Provider(BaseProvider):
                 reg_len = rule.registrant_length
                 break
         else:
-            raise Exception("Registrant/Publication not found in registrant " "rule list.")
+            raise Exception("Registrant/Publication not found in registrant rule list.")
         registrant, publication = reg_pub[:reg_len], reg_pub[reg_len:]
         return registrant, publication
 

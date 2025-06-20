@@ -3,7 +3,7 @@ import pathlib
 import re
 
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set, Tuple, Type, get_type_hints
+from typing import Any, Dict, List, Optional, Set, Tuple, Type, get_overloads, get_type_hints
 
 import faker.proxy
 
@@ -18,7 +18,7 @@ MODULES_TO_FULLY_QUALIFY = ["datetime"]
 imports: Dict[str, Optional[Set[str]]] = defaultdict(lambda: None)
 imports["collections"] = {"OrderedDict"}
 imports["json"] = {"encoder"}
-imports["typing"] = {"Callable", "Collection", "TypeVar"}
+imports["typing"] = {"Callable", "Collection", "TypeVar", "overload"}
 imports["uuid"] = {"UUID"}
 imports["enum"] = {"Enum"}
 imports["faker.typing"] = {"*"}
@@ -34,7 +34,7 @@ def get_module_and_member_to_import(cls: Type, locale: Optional[str] = None) -> 
             if imports[qualified_type[0][0]] is None or qualified_type[0][1] not in imports[qualified_type[0][0]]:
                 module, member = qualified_type[0]
         else:
-            unqualified_type = re.findall(r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", " " + str(cls) + " ")
+            unqualified_type = re.findall(r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", f" {cls} ")
             if len(unqualified_type) > 0 and unqualified_type[0] != "NoneType":
                 cls_str = str(cls).replace(".en_US", "").replace("faker.", ".")
                 if "<class '" in cls_str:
@@ -90,6 +90,86 @@ def get_member_functions_and_variables(cls: object, include_mangled: bool = Fals
     return UniqueMemberFunctionsAndVariables(cls, funcs, vars)
 
 
+def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = False, comment: Optional[str] = None):
+    """Return the signatures for the given function, recursing as necessary to handle overloads."""
+    signatures = []
+
+    if comment is None:
+        comment = inspect.getdoc(func_value)
+
+    if not is_overload:
+        try:
+            overloads = get_overloads(func_value)
+        except Exception as e:
+            raise TypeError(f"Can't parse overloads for {func_name}{sig}.") from e
+
+        if overloads:
+            for overload in overloads:
+                signatures.extend(
+                    get_signatures_for_func(overload, func_name, locale, is_overload=True, comment=comment)
+                )
+            return signatures
+
+    sig = inspect.signature(func_value)
+    try:
+        hints = get_type_hints(func_value)
+    except Exception as e:
+        raise TypeError(f"Can't parse {func_name}{sig}.") from e
+    ret_annot_module = getattr(sig.return_annotation, "__module__", None)
+    if sig.return_annotation not in [
+        None,
+        inspect.Signature.empty,
+        prov_cls.__name__,
+    ] and ret_annot_module not in [
+        None,
+        *BUILTIN_MODULES_TO_IGNORE,
+    ]:
+        module, member = get_module_and_member_to_import(sig.return_annotation, locale)
+        if module not in [None, "types"]:
+            if imports[module] is None:
+                imports[module] = set() if member is None else {member}
+            elif member is not None:
+                imports[module].add(member)
+
+    new_parms = []
+    for key, parm_val in sig.parameters.items():
+        new_parm = parm_val
+        annotation = hints.get(key, new_parm.annotation)
+        if parm_val.default is not inspect.Parameter.empty:
+            new_parm = parm_val.replace(default=...)
+        if annotation is not inspect.Parameter.empty and annotation.__module__ not in BUILTIN_MODULES_TO_IGNORE:
+            module, member = get_module_and_member_to_import(annotation, locale)
+            if module not in [None, "types"]:
+                if imports[module] is None:
+                    imports[module] = set() if member is None else {member}
+                elif member is not None:
+                    imports[module].add(member)
+        new_parms.append(new_parm)
+
+    sig = sig.replace(parameters=new_parms)
+    sig_str = str(sig).replace("Ellipsis", "...").replace("NoneType", "None").replace("~", "")
+    for module in imports.keys():
+        if module in MODULES_TO_FULLY_QUALIFY:
+            continue
+        sig_str = sig_str.replace(f"{module}.", "")
+
+    decorator = ""
+    if is_overload:
+        decorator += "@overload\n"
+    if list(sig.parameters)[0] == "cls":
+        decorator += "@classmethod\n"
+    elif list(sig.parameters)[0] != "self":
+        decorator += "@staticmethod\n"
+    signatures.append(
+        (
+            f"{decorator}def {func_name}{sig_str}: ...",
+            None if comment == "" else comment,
+            False,
+        )
+    )
+    return signatures
+
+
 classes_and_locales_to_use_for_stub: List[Tuple[object, str]] = []
 for locale in AVAILABLE_LOCALES:
     for provider in PROVIDERS:
@@ -115,54 +195,7 @@ signatures_with_comments: List[Tuple[str, str, bool]] = []
 
 for mbr_funcs_and_vars, locale in all_members:
     for func_name, func_value in mbr_funcs_and_vars.funcs.items():
-        sig = inspect.signature(func_value)
-        try:
-            hints = get_type_hints(func_value)
-        except Exception as e:
-            raise TypeError(f"Can't parse {func_name}{sig}.") from e
-        ret_annot_module = getattr(sig.return_annotation, "__module__", None)
-        if sig.return_annotation not in [None, inspect.Signature.empty, prov_cls.__name__] and ret_annot_module not in [
-            None,
-            *BUILTIN_MODULES_TO_IGNORE,
-        ]:
-            module, member = get_module_and_member_to_import(sig.return_annotation, locale)
-            if module is not None:
-                if imports[module] is None:
-                    imports[module] = set() if member is None else {member}
-                elif member is not None:
-                    imports[module].add(member)
-
-        new_parms = []
-        for key, parm_val in sig.parameters.items():
-            new_parm = parm_val
-            annotation = hints.get(key, new_parm.annotation)
-            if parm_val.default is not inspect.Parameter.empty:
-                new_parm = parm_val.replace(default=...)
-            if annotation is not inspect.Parameter.empty and annotation.__module__ not in BUILTIN_MODULES_TO_IGNORE:
-                module, member = get_module_and_member_to_import(annotation, locale)
-                if module is not None:
-                    if imports[module] is None:
-                        imports[module] = set() if member is None else {member}
-                    elif member is not None:
-                        imports[module].add(member)
-            new_parms.append(new_parm)
-
-        sig = sig.replace(parameters=new_parms)
-        sig_str = str(sig).replace("Ellipsis", "...").replace("NoneType", "None").replace("~", "")
-        for module in imports.keys():
-            if module in MODULES_TO_FULLY_QUALIFY:
-                continue
-            sig_str = sig_str.replace(f"{module}.", "")
-
-        decorator = ""
-        if list(sig.parameters)[0] == "cls":
-            decorator = "@classmethod\n"
-        elif list(sig.parameters)[0] != "self":
-            decorator = "@staticmethod\n"
-        comment = inspect.getdoc(func_value)
-        signatures_with_comments.append(
-            (f"{decorator}def {func_name}{sig_str}: ...", None if comment == "" else comment, False)
-        )
+        signatures_with_comments.extend(get_signatures_for_func(func_value, func_name, locale))
 
 signatures_with_comments_as_str = []
 for sig, comment, is_preceding_comment in signatures_with_comments:

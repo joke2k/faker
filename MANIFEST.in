@@ -19,5 +19,6 @@ exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
 exclude appveyor.yml readthedocs.yml
 exclude build-alpine.sh
 exclude build32bit.sh
+exclude dev-requirements.txt
 prune docs
 prune .circleci

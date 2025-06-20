@@ -27,11 +27,7 @@ class Provider(SsnProvider):
 
         age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
-        ssn_date = "%02d%02d%s" % (
-            birthday.day,
-            birthday.month,
-            str(birthday.year)[-2:],
-        )
+        ssn_date = f"{birthday:%d%m%y}"
         century = self._get_century_code(birthday.year)  # Century
         suffix = self.generator.random.randrange(111, 999)
         checksum = _checksum(f"{ssn_date}{century:01d}{suffix:03d}")

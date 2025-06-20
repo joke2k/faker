@@ -34,7 +34,7 @@ Making Changes
 -  Check for unnecessary whitespace with ``git diff --check`` before
    committing.
 -  Make sure you have added the necessary tests for your changes.
--  Run ``make lint`` in the repository directory and commit any changes it makes.
+-  Run ``make lint`` in the repository directory and commit any changes it makes. Note: requires Python 3.11.
 -  Run *all* the tests to assure nothing else was accidentally broken:
 
    .. code:: bash
@@ -59,4 +59,3 @@ Additional Resources
 
 .. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
 .. _`community providers`: https://github.com/joke2k/faker/blob/master/docs/communityproviders.rst
-
