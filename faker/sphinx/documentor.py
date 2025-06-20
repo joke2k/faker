@@ -35,7 +35,7 @@ def _get_provider_methods(provider_class):
         provider_module_name, obj_name = provider_class.rsplit(".", 1)
         provider_module = importlib.import_module(provider_module_name)
         provider = getattr(provider_module, obj_name, None)
-    except (ModuleNotFoundError, AttributeError):
+    except (ModuleNotFoundError, AttributeError, ValueError):
         return ""
     else:
         return ", ".join(
