@@ -71,3 +71,31 @@ class TestProvider:
         with pytest.raises(Exception):
             r = ("0000000", "0000001", 1)
             self.prov._registrant_publication("0000002", [r])
+
+
+class TestBrazilianISBN:
+    """Test Brazilian ISBN provider to ensure it generates ISBNs with group code 85"""
+
+    def test_brazilian_isbn10_group_code(self):
+        """Test that Brazilian ISBN-10 uses group code 85"""
+        from faker import Faker
+        fake = Faker('pt_BR')
+        
+        # Test multiple ISBNs to ensure consistency
+        for _ in range(10):
+            isbn10 = fake.isbn10()
+            # Remove hyphens and check the first two digits
+            isbn_clean = isbn10.replace('-', '')
+            assert isbn_clean.startswith('85'), f"ISBN {isbn10} should start with 85"
+
+    def test_brazilian_isbn13_group_code(self):
+        """Test that Brazilian ISBN-13 uses group code 85"""
+        from faker import Faker
+        fake = Faker('pt_BR')
+        
+        # Test multiple ISBNs to ensure consistency
+        for _ in range(10):
+            isbn13 = fake.isbn13()
+            # Remove hyphens and check that it starts with 97885
+            isbn_clean = isbn13.replace('-', '')
+            assert isbn_clean.startswith('97885'), f"ISBN {isbn13} should start with 97885"
