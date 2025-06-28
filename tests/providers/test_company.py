@@ -17,6 +17,7 @@ from faker.providers.company.hu_HU import Provider as HuHuCompanyProvider
 from faker.providers.company.hy_AM import Provider as HyAmCompanyProvider
 from faker.providers.company.it_IT import Provider as ItItCompanyProvider
 from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
+from faker.providers.company.ko_KR import Provider as KoKrCompanyProvider
 from faker.providers.company.nl_BE import Provider as NlBeCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
@@ -31,7 +32,6 @@ from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum, calculate_snils_checksum
 from faker.providers.company.th_TH import Provider as ThThCompanyProvider
 from faker.providers.company.tr_TR import Provider as TrTrCompanyProvider
-from faker.providers.company.ko_KR import Provider as KoKrCompanyProvider
 from faker.providers.company.vi_VN import Provider as ViVnCompanyProvider
 from faker.utils.checksums import luhn_checksum
 
