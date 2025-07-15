@@ -1,0 +1,19 @@
+def test_latam_plate_brasil():
+    from faker import Faker
+    fake = Faker()
+    plate = fake.latam_plate(pais='brasil')
+    assert isinstance(plate, str)
+    assert '-' in plate
+    assert len(plate) == 8
+
+def test_latam_plate_argentina():
+    from faker import Faker
+    fake = Faker()
+    plate = fake.latam_plate(pais='argentina')
+    assert ' ' in plate
+
+def test_latam_plate_chile():
+    from faker import Faker
+    fake = Faker()
+    plate = fake.latam_plate(pais='chile')
+    assert '-' in plate
