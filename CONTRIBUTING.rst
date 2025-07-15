@@ -43,6 +43,7 @@ Making Changes
        $ tox
 
 If you use AI tools to help prepare a report, you must:
+
 * *Disclose* which AI tools were used and specify what they were used for (analysis, writing the description,
   writing the exploit, etc).
 * *Verify* that the issue describes a real, reproducible vulnerability that otherwise meets these reporting guidelines.
