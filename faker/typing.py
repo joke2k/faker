@@ -2,6 +2,7 @@ import dataclasses
 
 from collections import OrderedDict as OrderedDictType
 from datetime import date, datetime, timedelta
+from decimal import Decimal
 from typing import List, Literal, Sequence, TypeVar, Union
 
 
@@ -21,7 +22,7 @@ class CreditCard:
         self.security_code_length = security_code_length
 
 
-BasicNumber = Union[float, int]
+BasicNumber = Union[float, int, Decimal]
 CardType = TypeVar("CardType", "CreditCard", str)
 DateParseType = Union[date, datetime, timedelta, str, int]
 HueType = Union[str, float, int, Sequence[int]]
