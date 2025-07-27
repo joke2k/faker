@@ -1,6 +1,6 @@
 # **FIREFOX** function
 
-Returns a Mozilla Firefox browser user agent string for Linux.
+Returns a Mozilla Firefox browser user agent string for differents OS.
 
 ```py
 from faker import Faker

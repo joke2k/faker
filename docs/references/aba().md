@@ -2,7 +2,7 @@
 
 Produces a valid ABA routing transit number.
 
-```py
+``` py
 from faker import Faker
 
 fake = Faker()

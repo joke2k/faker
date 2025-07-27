@@ -9,5 +9,5 @@ fake = Faker()
 
 print(fake.image())
 
-# result : [Erreur lors de l'exécution : `image` requires the `Pillow` python library.]
+# result : b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x01\x00\x00\x00\x01\x00...
 ```

@@ -1,12 +1,7 @@
 site_name: My Docs
-theme: material
 
-nav:
-  - Home: index.md
-
-  - References:
-    - name() : references/name.md
-
+plugins:
+  - search
 
 theme:
   name: material
@@ -31,7 +26,7 @@ theme:
     - content.code.annotate
     - navigation.tabs
     - navigation.tabs.sticky
-  
+
 markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -40,5 +35,223 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.superfences
   - admonition
   - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+
+  - Reference:
+      - aba(): references/aba().md
+      - address(): references/address().md
+      - am_pm(): references/am_pm().md
+      - android_platform_token(): references/android_platform_token().md
+      - bank_country(): references/bank_country().md
+      - bban(): references/bban().md
+      - binary(): references/binary().md
+      - boolean(): references/boolean().md
+      - bothify(): references/bothify().md
+      - bs(): references/bs().md
+      - building_number(): references/building_number().md
+      - catch_phrase(): references/catch_phrase().md
+      - century(): references/century().md
+      - chrome(): references/chrome().md
+      - city(): references/city().md
+      - city_suffix(): references/city_suffix().md
+      - color(): references/color().md
+      - color_hsl(): references/color_hsl().md
+      - color_hsv(): references/color_hsv().md
+      - color_name(): references/color_name().md
+      - color_rgb(): references/color_rgb().md
+      - color_rgb_float(): references/color_rgb_float().md
+      - company(): references/company().md
+      - company_suffix(): references/company_suffix().md
+      - coordinate(): references/coordinate().md
+      - credit_card_expire(): references/credit_card_expire().md
+      - credit_card_full(): references/credit_card_full().md
+      - credit_card_number(): references/credit_card_number().md
+      - credit_card_provider(): references/credit_card_provider().md
+      - credit_card_security_code(): references/credit_card_security_code().md
+      - csv(): references/csv().md
+      - currency_symbol(): references/currency_symbol().md
+      - date(): references/date().md
+      - date_between(): references/date_between().md
+      - date_between_dates(): references/date_between_dates().md
+      - date_object(): references/date_object().md
+      - date_of_birth(): references/date_of_birth().md
+      - date_this_century(): references/date_this_century().md
+      - date_this_decade(): references/date_this_decade().md
+      - date_this_month(): references/date_this_month().md
+      - date_this_year(): references/date_this_year().md
+      - date_time(): references/date_time().md
+      - date_time_ad(): references/date_time_ad().md
+      - date_time_between(): references/date_time_between().md
+      - date_time_between_dates(): references/date_time_between_dates().md
+      - date_time_this_century(): references/date_time_this_century().md
+      - date_time_this_decade(): references/date_time_this_decade().md
+      - date_time_this_month(): references/date_time_this_month().md
+      - date_time_this_year(): references/date_time_this_year().md
+      - day_of_month(): references/day_of_month().md
+      - day_of_week(): references/day_of_week().md
+      - del_arguments(): references/del_arguments().md
+      - dga(): references/dga().md
+      - doi(): references/doi().md
+      - domain_name(): references/domain_name().md
+      - dsv(): references/dsv().md
+      - ean(): references/ean().md
+      - ean13(): references/ean13().md
+      - ean8(): references/ean8().md
+      - ein(): references/ein().md
+      - emoji(): references/emoji().md
+      - enum(): references/enum().md
+      - file_extension(): references/file_extension().md
+      - file_name(): references/file_name().md
+      - file_path(): references/file_path().md
+      - firefox(): references/firefox().md
+      - fixed_width(): references/fixed_width().md
+      - format(): references/format().md
+      - future_date(): references/future_date().md
+      - future_datetime(): references/future_datetime().md
+      - get_arguments(): references/get_arguments().md
+      - get_providers(): references/get_providers().md
+      - get_words_list(): references/get_words_list().md
+      - hex_color(): references/hex_color().md
+      - hexify(): references/hexify().md
+      - hostname(): references/hostname().md
+      - http_method(): references/http_method().md
+      - http_status_code(): references/http_status_code().md
+      - iana_id(): references/iana_id().md
+      - iban(): references/iban().md
+      - image(): references/image().md
+      - image_url(): references/image_url().md
+      - internet_explorer(): references/internet_explorer().md
+      - invalid_ssn(): references/invalid_ssn().md
+      - ios_platform_token(): references/ios_platform_token().md
+      - ipv4(): references/ipv4().md
+      - ipv4_network_class(): references/ipv4_network_class().md
+      - ipv4_private(): references/ipv4_private().md
+      - ipv4_public(): references/ipv4_public().md
+      - ipv6(): references/ipv6().md
+      - iso8601(): references/iso8601().md
+      - itin(): references/itin().md
+      - json(): references/json().md
+      - json_bytes(): references/json_bytes().md
+      - language_code(): references/language_code().md
+      - language_name(): references/language_name().md
+      - lexify(): references/lexify().md
+      - license_plate(): references/license_plate().md
+      - linux_platform_token(): references/linux_platform_token().md
+      - linux_processor(): references/linux_processor().md
+      - local_latlng(): references/local_latlng().md
+      - locale(): references/locale().md
+      - localized_ean(): references/localized_ean().md
+      - localized_ean13(): references/localized_ean13().md
+      - localized_ean8(): references/localized_ean8().md
+      - location_on_land(): references/location_on_land().md
+      - mac_address(): references/mac_address().md
+      - mac_platform_token(): references/mac_platform_token().md
+      - mac_processor(): references/mac_processor().md
+      - md5(): references/md5().md
+      - military_apo(): references/military_apo().md
+      - military_dpo(): references/military_dpo().md
+      - military_ship(): references/military_ship().md
+      - military_state(): references/military_state().md
+      - mime_type(): references/mime_type().md
+      - month(): references/month().md
+      - month_name(): references/month_name().md
+      - msisdn(): references/msisdn().md
+      - name(): references/name().md
+      - nic_handle(): references/nic_handle().md
+      - nic_handles(): references/nic_handles().md
+      - null_boolean(): references/null_boolean().md
+      - numerify(): references/numerify().md
+      - opera(): references/opera().md
+      - paragraph(): references/paragraph().md
+      - paragraphs(): references/paragraphs().md
+      - parse(): references/parse().md
+      - passport_dates(): references/passport_dates().md
+      - passport_dob(): references/passport_dob().md
+      - passport_full(): references/passport_full().md
+      - passport_gender(): references/passport_gender().md
+      - passport_number(): references/passport_number().md
+      - passport_owner(): references/passport_owner().md
+      - password(): references/password().md
+      - past_date(): references/past_date().md
+      - past_datetime(): references/past_datetime().md
+      - port_number(): references/port_number().md
+      - postcode(): references/postcode().md
+      - postcode_in_state(): references/postcode_in_state().md
+      - profile(): references/profile().md
+      - psv(): references/psv().md
+      - pybool(): references/pybool().md
+      - pydict(): references/pydict().md
+      - pyobject(): references/pyobject().md
+      - pystr(): references/pystr().md
+      - pytimezone(): references/pytimezone().md
+      - random_choices(): references/random_choices().md
+      - random_digit(): references/random_digit().md
+      - random_digit_above_two(): references/random_digit_above_two().md
+      - random_digit_not_null(): references/random_digit_not_null().md
+      - random_digit_not_null_or_empty(): references/random_digit_not_null_or_empty().md
+      - random_digit_or_empty(): references/random_digit_or_empty().md
+      - random_element(): references/random_element().md
+      - random_elements(): references/random_elements().md
+      - random_int(): references/random_int().md
+      - random_letter(): references/random_letter().md
+      - random_letters(): references/random_letters().md
+      - random_lowercase_letter(): references/random_lowercase_letter().md
+      - random_number(): references/random_number().md
+      - random_sample(): references/random_sample().md
+      - random_uppercase_letter(): references/random_uppercase_letter().md
+      - randomize_nb_elements(): references/randomize_nb_elements().md
+      - rgb_color(): references/rgb_color().md
+      - rgb_css_color(): references/rgb_css_color().md
+      - ripe_id(): references/ripe_id().md
+      - safari(): references/safari().md
+      - safe_color_name(): references/safe_color_name().md
+      - safe_hex_color(): references/safe_hex_color().md
+      - seed_instance(): references/seed_instance().md
+      - seed_locale(): references/seed_locale().md
+      - sentence(): references/sentence().md
+      - sentences(): references/sentences().md
+      - set_arguments(): references/set_arguments().md
+      - set_formatter(): references/set_formatter().md
+      - sha1(): references/sha1().md
+      - sha256(): references/sha256().md
+      - simple_profile(): references/simple_profile().md
+      - slug(): references/slug().md
+      - ssn(): references/ssn().md
+      - state_abbr(): references/state_abbr().md
+      - street_address(): references/street_address().md
+      - street_name(): references/street_name().md
+      - street_suffix(): references/street_suffix().md
+      - swift(): references/swift().md
+      - swift11(): references/swift11().md
+      - swift8(): references/swift8().md
+      - tar(): references/tar().md
+      - text(): references/text().md
+      - texts(): references/texts().md
+      - time(): references/time().md
+      - time_delta(): references/time_delta().md
+      - time_object(): references/time_object().md
+      - time_series(): references/time_series().md
+      - timezone(): references/timezone().md
+      - tsv(): references/tsv().md
+      - unix_device(): references/unix_device().md
+      - unix_partition(): references/unix_partition().md
+      - unix_time(): references/unix_time().md
+      - upc_a(): references/upc_a().md
+      - upc_e(): references/upc_e().md
+      - uri(): references/uri().md
+      - url(): references/url().md
+      - user_agent(): references/user_agent().md
+      - uuid4(): references/uuid4().md
+      - vin(): references/vin().md
+      - windows_platform_token(): references/windows_platform_token().md
+      - word(): references/word().md
+      - words(): references/words().md
+      - xml(): references/xml().md
+      - year(): references/year().md
+      - zip(): references/zip().md

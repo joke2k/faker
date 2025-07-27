@@ -1,6 +1,6 @@
 # **INTERNET_EXPLORER** function
 
-Return a user agent string for Internet Explorer 8.0 on Windows 98.
+Return a user agent string for Internet Explorer.
 
 ```py
 from faker import Faker
