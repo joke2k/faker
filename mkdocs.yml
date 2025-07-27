@@ -1,0 +1,44 @@
+site_name: My Docs
+theme: material
+
+nav:
+  - Home: index.md
+
+  - References:
+    - name() : references/name.md
+
+
+theme:
+  name: material
+  palette:
+    - scheme: slate # Mode sombre
+      primary: blue # Couleur principale
+      accent: cyan # Couleur secondaire
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default # Mode clair (optionnel si tu veux laisser le choix)
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mod
+
+  features:
+    - palette.toggle # Active le switch de thème (facultatif)
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - navigation.tabs
+    - navigation.tabs.sticky
+  
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
