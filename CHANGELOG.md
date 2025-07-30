@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.5.1 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.0...v37.5.1)
+
+* Fix unnatural Korean company names in `ko_KR` locale. Thanks @r-4bb1t.
+
 ### [v37.5.0 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.3...v37.5.0)
 
 * Add Spanish lorem provider for `es_ES`, `es_AR` and `es_MX`. Thanks @Pandede.
