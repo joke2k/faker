@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.5.0 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.3...v37.5.0)
+
+* Add Spanish lorem provider for `es_ES`, `es_AR` and `es_MX`. Thanks @Pandede.
+
 ### [v37.4.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.2...v37.4.3)
 
 * Fix male names in `sv_SE` locale. Thanks @peterk.
