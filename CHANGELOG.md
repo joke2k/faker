@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.5.2 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.1...v37.5.2)
+
+* Fix Turkish Republic National Number (TCKN) provider. Thanks @fleizean.
+
 ### [v37.5.1 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.0...v37.5.1)
 
 * Fix unnatural Korean company names in `ko_KR` locale. Thanks @r-4bb1t.
