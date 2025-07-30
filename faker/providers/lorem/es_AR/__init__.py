@@ -5,5 +5,3 @@ class Provider(SpanishProvider):
     """Implement lorem provider for ``es_AR`` locale.
     Using the same as in ```es_ES```.
     """
-
-    pass
