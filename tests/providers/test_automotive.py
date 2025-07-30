@@ -396,3 +396,9 @@ class TestUkUa(_SimpleAutomotiveTestMixin):
 
     def test_region_code(self, faker):
         assert "14" == faker.plate_region_code(region_name="Lviv")
+
+
+class TestKoKr(_SimpleAutomotiveTestMixin):
+    license_plate_pattern: Pattern = re.compile(
+        r"^\d{2,3}[가나다라마거너더러머버서어저고노도로모보소오조구누두루무부수우주]\d{4}$"
+    )
