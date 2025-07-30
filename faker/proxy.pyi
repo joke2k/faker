@@ -83,10 +83,32 @@ class Faker:
         """
         ...
 
-    def country(self) -> str: ...
-    def country_code(self, representation: str = ...) -> str: ...
-    def current_country(self) -> str: ...
-    def current_country_code(self) -> str: ...
+    def country(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
+    def country_code(self, representation: str = ...) -> str:
+        """
+        :sample:
+        :sample: representation='alpha-2'
+        :sample: representation='alpha-3'
+        """
+        ...
+
+    def current_country(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
+    def current_country_code(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
     def hexify(self, text: str = ..., upper: bool = ...) -> str:
         """
         Generate a string with each circumflex ('^') in ``text``
@@ -809,7 +831,11 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a HSL color tuple in a human-friendly way.
+        Generate a HSL color tuple.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
@@ -817,13 +843,19 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a HSV color tuple in a human-friendly way.
+        Generate a HSV color tuple.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
     def color_name(self) -> str:
         """
         Generate a color name.
+
+        :sample:
         """
         ...
 
@@ -831,7 +863,11 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a RGB color tuple of integers in a human-friendly way.
+        Generate a RGB color tuple of integers.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
@@ -839,37 +875,51 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[float, float, float]:
         """
-        Generate a RGB color tuple of floats in a human-friendly way.
+        Generate a RGB color tuple of floats.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
     def hex_color(self) -> str:
         """
         Generate a color formatted as a hex triplet.
+
+        :sample:
         """
         ...
 
     def rgb_color(self) -> str:
         """
         Generate a color formatted as a comma-separated RGB value.
+
+        :sample:
         """
         ...
 
     def rgb_css_color(self) -> str:
         """
         Generate a color formatted as a CSS rgb() function.
+
+        :sample:
         """
         ...
 
     def safe_color_name(self) -> str:
         """
         Generate a web-safe color name.
+
+        :sample:
         """
         ...
 
     def safe_hex_color(self) -> str:
         """
         Generate a web-safe color formatted as a hex triplet.
+
+        :sample:
         """
         ...
 
