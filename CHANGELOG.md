@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.4.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.2...v37.4.3)
+
+* Fix male names in `sv_SE` locale. Thanks @peterk.
+
 ### [v37.4.2 - 2025-07-15](https://github.com/joke2k/faker/compare/v37.4.1...v37.4.2)
 
 * Fix the function for generating VIN, now the last 4 characters are digits. Thanks @nesb1.
