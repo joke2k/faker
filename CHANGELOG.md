@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.5.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.2...v37.5.3)
+
+* Allow `Decimal` type for `min_value` and `max_value` in `pydecimal`. Thanks @sshishov.
+
 ### [v37.5.2 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.1...v37.5.2)
 
 * Fix Turkish Republic National Number (TCKN) provider. Thanks @fleizean.
