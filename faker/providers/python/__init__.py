@@ -343,7 +343,12 @@ class Provider(BaseProvider):
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
-                left_number = str(self.random_int(int(abs(min(max_value or 0, 0))), int(abs(min_value))))  # type: ignore[arg-type,call-overload]
+                left_number = str(
+                    self.random_int(
+                        int(abs(min(max_value or 0, 0))),  # type: ignore[arg-type,call-overload]
+                        int(abs(min_value)),  # type: ignore[arg-type,call-overload]
+                    )
+                )
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))  # type: ignore[arg-type]
                 if left_digits is None:
