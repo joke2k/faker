@@ -176,28 +176,55 @@ class Provider(AddressProvider):
     )
 
     def secondary_address(self) -> str:
+        """
+        :sample:
+        """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
     def building_number(self) -> str:
+        """
+        :sample:
+        """
         return self.numerify(self.random_element(self.building_number_formats))
 
     def street_name(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.street_names)
 
     def street_suffix(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.street_suffixes)
 
     def city_name(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.cities)
 
     def city_name_suffix(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.city_suffixes)
 
     def section_number(self) -> str:
+        """
+        :sample:
+        """
         return self.numerify(self.random_element(self.section_formats))
 
     def province(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.provinces)
 
     def administrative_unit(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.provinces)

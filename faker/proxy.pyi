@@ -3868,7 +3868,12 @@ class Faker:
         ...
 
     def middle_name(self) -> str: ...
-    def postcode_city_province(self) -> str: ...
+    def postcode_city_province(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
     @staticmethod
     def is_leap_year(year: int) -> bool:
         """
