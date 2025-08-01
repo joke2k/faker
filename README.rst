@@ -88,6 +88,13 @@ to ``faker.Generator.format(method_name)``.
     # 'Wellington Koelpin II'
     # 'Ms. Karley Kiehn V'
 
+Web App
+-----------
+
+Try a GUI version of Faker using the Streamlit web app: `Launch App <https://faker-python.streamlit.app>`_
+
+
+
 Pytest fixtures
 ---------------
 
