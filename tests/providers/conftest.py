@@ -25,7 +25,7 @@ def _class_locale_faker(request):
 
 
 @pytest.fixture(autouse=True)
-def faker(_class_locale_faker, faker):
+def faker(_class_locale_faker):
     if not _class_locale_faker:
         return faker
     _class_locale_faker.seed_instance(DEFAULT_SEED)
