@@ -7,12 +7,12 @@ from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.ja_JP import Provider as JaJpAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
 from faker.providers.automotive.tr_TR import Provider as TrTrAutomotiveProvider
 from faker.providers.automotive.uk_UA import Provider as UkUaAutomotiveProvider
-from faker.providers.automotive.ja_JP import Provider as JaJpAutomotiveProvider
 
 
 class _SimpleAutomotiveTestMixin:
@@ -397,6 +397,7 @@ class TestUkUa(_SimpleAutomotiveTestMixin):
 
     def test_region_code(self, faker):
         assert "14" == faker.plate_region_code(region_name="Lviv")
+
 
 class TestJaJp(_SimpleAutomotiveTestMixin):
     """Test ja_JP automotive provider methods"""
