@@ -1,5 +1,6 @@
 from .. import Provider as AutomotiveProvider
 
+
 class Provider(AutomotiveProvider):
     """Implement automotive provider for ``ja_JP`` locale.
 
@@ -9,7 +10,18 @@ class Provider(AutomotiveProvider):
     """
 
     license_plate_area_names = (
-        "品川", "足立", "練馬", "横浜", "川崎", "名古屋", "大阪", "神戸", "福岡", "札幌", "尾張小牧", "伊勢志摩"
+        "品川",
+        "足立",
+        "練馬",
+        "横浜",
+        "川崎",
+        "名古屋",
+        "大阪",
+        "神戸",
+        "福岡",
+        "札幌",
+        "尾張小牧",
+        "伊勢志摩",
     )
 
     classification_numbers = (
@@ -18,19 +30,55 @@ class Provider(AutomotiveProvider):
     )
 
     license_plate_kana = (
-        "あ", "い", "う", "え", "か", "き", "く", "け","こ", "さ", "す", "せ","そ",
-        "た", "ち", "つ", "て", "と", "な", "に", "ぬ", "ね", "の", "は", "ひ", "ふ","ほ",
-        "ま", "み", "む", "め", "も", "や", "ゆ", "よ", "ら", "り", "る", "れ", "ろ",
-        "わ", "を"
+        "あ",
+        "い",
+        "う",
+        "え",
+        "か",
+        "き",
+        "く",
+        "け",
+        "こ",
+        "さ",
+        "す",
+        "せ",
+        "そ",
+        "た",
+        "ち",
+        "つ",
+        "て",
+        "と",
+        "な",
+        "に",
+        "ぬ",
+        "ね",
+        "の",
+        "は",
+        "ひ",
+        "ふ",
+        "ほ",
+        "ま",
+        "み",
+        "む",
+        "め",
+        "も",
+        "や",
+        "ゆ",
+        "よ",
+        "ら",
+        "り",
+        "る",
+        "れ",
+        "ろ",
+        "わ",
+        "を",
     )
 
     serial_number_formats = ("#", "##", "###", "####")
 
     MIDDLE_DOT = "・"
 
-    license_plate_formats = (
-        "{{area_name}} {{classification_number}} {{kana}} {{serial_number}}",
-    )
+    license_plate_formats = ("{{area_name}} {{classification_number}} {{kana}} {{serial_number}}",)
 
     def license_plate(self) -> str:
         """Generate a Japanese license plate."""
@@ -46,7 +94,7 @@ class Provider(AutomotiveProvider):
     def kana(self) -> str:
         return self.random_element(self.license_plate_kana)
 
-    def serial_number(self, delimiter: str | None = "-") -> str:
+    def serial_number(self, filling: str = "・", delimiter: str | None = "-") -> str:
         """
         Generate the vehicle’s serial number (the last four digits on a Japanese license plate).
         - For 4 digits: insert a hyphen between the second and third digits (e.g., 12-34).
@@ -56,7 +104,7 @@ class Provider(AutomotiveProvider):
         raw_digits = self.numerify(self.random_element(self.serial_number_formats))
         n = len(raw_digits)
 
-        if n == 4:
-            return f"{raw_digits[:2]}{delimiter}{raw_digits[2:]}"
-        else:
-            return f"{self.MIDDLE_DOT * (4 - n)}{raw_digits}"
+        v = f"{filling * (4 - n)}{raw_digits}"
+        if delimiter and n == 4:
+            v = f"{raw_digits[:2]}{delimiter}{raw_digits[2:]}"
+        return v
