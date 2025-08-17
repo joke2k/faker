@@ -7,6 +7,7 @@ class Provider(AutomotiveProvider):
     Sources:
 
     - https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E4%B8%80%E8%A6%A7
+    - http://nplate.cloudfree.jp/misc/m50_bango.html
     """
 
     license_plate_area_names = (
