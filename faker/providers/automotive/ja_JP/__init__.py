@@ -94,7 +94,7 @@ class Provider(AutomotiveProvider):
     def kana(self) -> str:
         return self.random_element(self.license_plate_kana)
 
-    def serial_number(self, filling: str = "・", delimiter: str | None = "-") -> str:
+    def serial_number(self, filling: str = "・", delimiter: str = "-") -> str:
         """
         Generate the vehicle’s serial number (the last four digits on a Japanese license plate).
         - For 4 digits: insert a hyphen between the second and third digits (e.g., 12-34).
@@ -104,7 +104,9 @@ class Provider(AutomotiveProvider):
         raw_digits = self.numerify(self.random_element(self.serial_number_formats))
         n = len(raw_digits)
 
-        v = f"{filling * (4 - n)}{raw_digits}"
         if delimiter and n == 4:
             v = f"{raw_digits[:2]}{delimiter}{raw_digits[2:]}"
-        return v
+            return v
+        else:
+            v = f"{filling * (4 - n)}{raw_digits}"
+            return f"{v[:2]} {v[2:]}"
