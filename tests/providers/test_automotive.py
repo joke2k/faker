@@ -188,6 +188,22 @@ class TestFrFr(_SimpleAutomotiveTestMixin):
 
     license_plate_pattern: Pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}")
 
+    def test_license_plate_new_format(self, faker, num_samples):
+        """Test that new format license plates follow AA-999-AA pattern."""
+        new_format_pattern = re.compile(r"[A-Z]{2}-\d{3}-[A-Z]{2}")
+        for _ in range(num_samples):
+            plate = faker.license_plate_new_format()
+            assert isinstance(plate, str)
+            assert new_format_pattern.match(plate), f"Plate {plate} doesn't match new format pattern"
+
+    def test_license_plate_old_format(self, faker, num_samples):
+        """Test that old format license plates follow 999-AAA-99 pattern."""
+        old_format_pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}")
+        for _ in range(num_samples):
+            plate = faker.license_plate_old_format()
+            assert isinstance(plate, str)
+            assert old_format_pattern.match(plate), f"Plate {plate} doesn't match old format pattern"
+
 
 class TestItIt(_SimpleAutomotiveTestMixin):
     """Test it_IT automotive provider methods"""
