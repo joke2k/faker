@@ -2154,25 +2154,47 @@ class Provider(AddressProvider):
     ]
 
     def city_prefix(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.city_prefixes)
 
     def city_name(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.city_names)
 
     def postcode(self) -> str:
-        """The code consists of five digits (01000-99999)"""
+        """
+        The code consists of five digits (01000-99999)
+
+        :sample:
+        """
         return f"{self.generator.random.randrange(1000, 99999):05}"
 
     def street_prefix(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.street_prefixes)
 
     def street_name(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.street_titles)
 
     def street_title(self) -> str:
+        """
+        :sample:
+        """
         prefix = self.street_prefix()
         street = self.street_name()
         return prefix + " " + street
 
     def region(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.region_names)

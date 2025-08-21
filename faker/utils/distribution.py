@@ -10,7 +10,7 @@ from faker.generator import random as mod_random
 def random_sample(random: Optional[Random] = None) -> float:
     if random is None:
         random = mod_random
-    return random.uniform(0.0, 1.0)
+    return random.uniform(0, 1.0)
 
 
 def cumsum(it: Iterable[float]) -> Generator[float, None, None]:
@@ -41,7 +41,7 @@ def choices_distribution_unique(
     choices = []
     items = list(a)
     probabilities = list(p)
-    for i in range(length):
+    for _ in range(length):
         cdf = tuple(cumsum(probabilities))
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
@@ -80,7 +80,7 @@ def choices_distribution(
         cdf = list(cumsum(p))  # type: ignore
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
-        for i in range(length):
+        for _ in range(length):
             uniform_sample = random_sample(random=random)
             idx = bisect.bisect_right(cdf2, uniform_sample)
             item = a[idx]

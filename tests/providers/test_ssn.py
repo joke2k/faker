@@ -1211,19 +1211,29 @@ class TestTrTr(unittest.TestCase):
     num_sample_runs = 10
 
     def setUp(self):
+        Faker.seed(0)
         self.fake = Faker("tr_TR")
         self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
-        Faker.seed(0)
 
-    def first_part_non_zero(self):
+    def test_first_part_non_zero(self):
         for sample in self.samples:
-            assert sample[0] != 0
+            self.assertNotEqual(sample[0], "0")
 
-    def compare_first_ten_and_last_part(self):
+    def test_eleventh_digit_matches_sum_mod_10(self):
         for sample in self.samples:
             first_ten_number = sample[:-1]
-            last_part = sample[-1]
-            assert sum(int(x) for x in f"{first_ten_number}") % 10 == last_part
+            last_part = int(sample[-1])
+            total_sum = sum(int(x) for x in first_ten_number)
+            self.assertEqual(total_sum % 10, last_part)
+
+    def test_tenth_digit_correct(self):
+        for sample in self.samples:
+            digits = [int(d) for d in sample]
+            odd_sum = sum(digits[i] for i in [0, 2, 4, 6, 8])
+            even_sum = sum(digits[i] for i in [1, 3, 5, 7])
+            tenth_digit = digits[9]
+            expected_tenth = ((odd_sum * 7) - even_sum) % 10
+            self.assertEqual(tenth_digit, expected_tenth)
 
 
 class TestEnIn(unittest.TestCase):

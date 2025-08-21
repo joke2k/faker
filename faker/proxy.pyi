@@ -45,6 +45,10 @@ class Faker:
         Generate a string with each placeholder in ``text`` replaced according to the following rules:
 
         - Number signs ('#') are replaced with a random digit (0 to 9).
+        - Percent signs ('%') are replaced with a random non-zero digit (1 to 9).
+        - Dollar signs ('$') are replaced with a random digit above two (2 to 9).
+        - Exclamation marks ('!') are replaced with a random digit or an empty string.
+        - At symbols ('@') are replaced with a random non-zero digit or an empty string.
         - Question marks ('?') are replaced with a random character from ``letters``.
 
         By default, ``letters`` contains all ASCII letters, uppercase and lowercase.
@@ -56,6 +60,7 @@ class Faker:
         :sample: letters='ABCDE'
         :sample: text='Product Number: ????-########'
         :sample: text='Product Number: ????-########', letters='ABCDE'
+        :sample: text='Order: ##??-$'
         """
         ...
 
@@ -78,10 +83,32 @@ class Faker:
         """
         ...
 
-    def country(self) -> str: ...
-    def country_code(self, representation: str = ...) -> str: ...
-    def current_country(self) -> str: ...
-    def current_country_code(self) -> str: ...
+    def country(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
+    def country_code(self, representation: str = ...) -> str:
+        """
+        :sample:
+        :sample: representation='alpha-2'
+        :sample: representation='alpha-3'
+        """
+        ...
+
+    def current_country(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
+    def current_country_code(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
     def hexify(self, text: str = ..., upper: bool = ...) -> str:
         """
         Generate a string with each circumflex ('^') in ``text``
@@ -804,7 +831,11 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a HSL color tuple in a human-friendly way.
+        Generate a HSL color tuple.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
@@ -812,13 +843,19 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a HSV color tuple in a human-friendly way.
+        Generate a HSV color tuple.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
     def color_name(self) -> str:
         """
         Generate a color name.
+
+        :sample:
         """
         ...
 
@@ -826,7 +863,11 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[int, int, int]:
         """
-        Generate a RGB color tuple of integers in a human-friendly way.
+        Generate a RGB color tuple of integers.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
@@ -834,37 +875,51 @@ class Faker:
         self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
     ) -> Tuple[float, float, float]:
         """
-        Generate a RGB color tuple of floats in a human-friendly way.
+        Generate a RGB color tuple of floats.
+
+        :sample:
+        :sample: hue='red', luminosity='dark'
+        :sample: hue=(100, 200), luminosity='random'
         """
         ...
 
     def hex_color(self) -> str:
         """
         Generate a color formatted as a hex triplet.
+
+        :sample:
         """
         ...
 
     def rgb_color(self) -> str:
         """
         Generate a color formatted as a comma-separated RGB value.
+
+        :sample:
         """
         ...
 
     def rgb_css_color(self) -> str:
         """
         Generate a color formatted as a CSS rgb() function.
+
+        :sample:
         """
         ...
 
     def safe_color_name(self) -> str:
         """
         Generate a web-safe color name.
+
+        :sample:
         """
         ...
 
     def safe_hex_color(self) -> str:
         """
         Generate a web-safe color formatted as a hex triplet.
+
+        :sample:
         """
         ...
 
@@ -1810,8 +1865,18 @@ class Faker:
         ...
 
     def user_name(self) -> str: ...
-    def isbn10(self, separator: str = ...) -> str: ...
-    def isbn13(self, separator: str = ...) -> str: ...
+    def isbn10(self, separator: str = ...) -> str:
+        """
+        :sample:
+        """
+        ...
+
+    def isbn13(self, separator: str = ...) -> str:
+        """
+        :sample:
+        """
+        ...
+
     def job(self) -> str: ...
     def job_female(self) -> str: ...
     def job_male(self) -> str: ...
@@ -2661,8 +2726,8 @@ class Faker:
         left_digits: Optional[int] = ...,
         right_digits: Optional[int] = ...,
         positive: Optional[bool] = ...,
-        min_value: Union[float, int, None] = ...,
-        max_value: Union[float, int, None] = ...,
+        min_value: Union[float, int, Decimal, None] = ...,
+        max_value: Union[float, int, Decimal, None] = ...,
     ) -> Decimal: ...
     def pydict(
         self,
@@ -3803,7 +3868,12 @@ class Faker:
         ...
 
     def middle_name(self) -> str: ...
-    def postcode_city_province(self) -> str: ...
+    def postcode_city_province(self) -> str:
+        """
+        :sample:
+        """
+        ...
+
     @staticmethod
     def is_leap_year(year: int) -> bool:
         """
@@ -4073,6 +4143,8 @@ class Faker:
         """
         ...
 
+    def brand_suffix(self) -> str: ...
+    def company_name_word(self) -> str: ...
     def license_plate_car(self) -> str:
         """
         Generate a license plate for cars.

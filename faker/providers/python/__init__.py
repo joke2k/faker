@@ -301,17 +301,25 @@ class Provider(BaseProvider):
             raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
             raise ValueError("Cannot combine positive=True with negative or zero min_value")
-        if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
+        if (
+            left_digits is not None
+            and max_value
+            and math.ceil(math.log10(abs(max_value))) > left_digits  # type: ignore[arg-type]
+        ):
             raise ValueError("Max value must fit within left digits")
-        if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
+        if (
+            left_digits is not None
+            and min_value
+            and math.ceil(math.log10(abs(min_value))) > left_digits  # type: ignore[arg-type]
+        ):
             raise ValueError("Min value must fit within left digits")
 
         # if either left or right digits are not specified we randomly choose a length
         max_random_digits = 100
         # Because if min_value is bigger than 10**100
         max_digits_from_value = max(
-            math.ceil(math.log10(abs(min_value or 1))),
-            math.ceil(math.log10(abs(max_value or 1))),
+            math.ceil(math.log10(abs(min_value or 1))),  # type: ignore[arg-type]
+            math.ceil(math.log10(abs(max_value or 1))),  # type: ignore[arg-type]
         )
         max_left_random_digits = max(max_random_digits, max_digits_from_value + 10)
 
@@ -335,9 +343,14 @@ class Provider(BaseProvider):
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
-                left_number = str(self.random_int(int(abs(min(max_value or 0, 0))), int(abs(min_value))))
+                left_number = str(
+                    self.random_int(
+                        int(abs(min(max_value or 0, 0))),  # type: ignore[arg-type,call-overload]
+                        int(abs(min_value)),  # type: ignore[arg-type,call-overload]
+                    )
+                )
             else:
-                min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
+                min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))  # type: ignore[arg-type]
                 if left_digits is None:
                     left_digits = self.random_int(min_left_digits, max_left_random_digits)
                 left_number = str(self._random_int_of_length(left_digits))
