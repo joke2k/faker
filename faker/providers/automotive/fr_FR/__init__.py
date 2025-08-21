@@ -18,7 +18,7 @@ class Provider(AutomotiveProvider):
 
     def license_plate_new_format(self) -> str:
         """Generate a French license plate in the new format (AA-999-AA) used since 2009.
-        
+
         Returns:
             A license plate in the format AA-999-AA (e.g., AB-123-CD)
         """
@@ -26,7 +26,7 @@ class Provider(AutomotiveProvider):
 
     def license_plate_old_format(self) -> str:
         """Generate a French license plate in the old format (999-AAA-99) used before 2009.
-        
+
         Returns:
             A license plate in the format 999-AAA-99 (e.g., 123-ABC-45)
         """
