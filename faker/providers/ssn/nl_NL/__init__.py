@@ -21,7 +21,10 @@ class Provider(SsnProvider):
 
         while True:
             # create an array of first 8 elements initialized randomly
-            digits = self.generator.random.sample(range(10), 8)
+            digits = self.generator.random.choices(range(10), 8)
+            # discard if not 8 or 9 digits long
+            if digits[0] == 0 and digits[1] == 0:
+                continue
             # sum those 8 digits according to (part of) the "11-proef"
             s = _checksum(digits)
             # determine the last digit to make it qualify the test
