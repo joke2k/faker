@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -40,7 +40,7 @@ jobs:
   checkmanifest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -64,7 +64,7 @@ jobs:
   isort:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -89,7 +89,7 @@ jobs:
   black:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -113,7 +113,7 @@ jobs:
   doc8:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -146,7 +146,7 @@ jobs:
         - "3.13"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -182,7 +182,7 @@ jobs:
         - "pypy-3.10"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup pip cache
         uses: actions/cache@v4
         id: pipcache
@@ -222,7 +222,7 @@ jobs:
         arch: ["x86", "x64"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup pip cache
         uses: actions/cache@v4
         id: pipcache
@@ -246,7 +246,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
