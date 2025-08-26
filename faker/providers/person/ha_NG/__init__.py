@@ -1,3 +1,8 @@
+# Data sources:
+# Hausa names: https://en.wikipedia.org/wiki/Hausa_names
+# Additional references:
+# - Journal of West African Languages (Hausa naming practices, 2016)
+
 from faker.providers.person import Provider as PersonProvider
 
 class Provider(PersonProvider):

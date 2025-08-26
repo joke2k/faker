@@ -1,3 +1,12 @@
+# Data sources:
+# Yoruba names: https://en.wikipedia.org/wiki/List_of_Yoruba_given_names
+# Igbo names: https://en.wikipedia.org/wiki/Igbo_names
+# Hausa names: https://en.wikipedia.org/wiki/Hausa_names
+# Nigerian English names: https://en.wikipedia.org/wiki/Nigerian_name
+# Additional references:
+# - Behind the Name (Igbo, Yoruba): https://www.behindthename.com
+# - Journal of West African Languages (Hausa naming practices, 2016)
+
 from faker.providers.person import Provider as PersonProvider
 
 class Provider(PersonProvider):

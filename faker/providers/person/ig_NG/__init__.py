@@ -1,3 +1,8 @@
+# Data sources:
+# Igbo names: https://en.wikipedia.org/wiki/Igbo_names
+# Additional references:
+# - Behind the Name (Igbo, Yoruba): https://www.behindthename.com
+# - Journal of West African Languages (Hausa naming practices, 2016)
 from faker.providers.person import Provider as PersonProvider
 
 class Provider(PersonProvider):
