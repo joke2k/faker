@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.6.0 - 2025-08-26](https://github.com/joke2k/faker/compare/v37.5.3...v37.6.0)
+
+* Add Automotive providers for `ko_KR` locale. Thanks @ydj515.
+
 ### [v37.5.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.2...v37.5.3)
 
 * Allow `Decimal` type for `min_value` and `max_value` in `pydecimal`. Thanks @sshishov.
