@@ -2101,6 +2101,35 @@ class TestUzUz(unittest.TestCase):
             res = self.fake.last_name_female()
             assert res in self.provider.last_names_female
 
+class TestEnKePerson:
+    """Test en_KE person provider"""
+
+    @classmethod
+    def setup_class(cls):
+        cls.fake = Faker('en_KE')
+        cls.fake.add_provider(KePersonProvider)
+
+    def test_last_name(self):
+        assert isinstance(self.fake.last_name(), str)
+
+    def test_first_name_male(self):
+        male_name = self.fake.first_name_male()
+        assert male_name in KePersonProvider.first_names_male
+
+    def test_first_name_female(self):
+        female_name = self.fake.first_name_female()
+        assert female_name in KePersonProvider.first_names_female
+
+    def test_prefixes(self):
+        prefix_m = self.fake.prefix_male()
+        prefix_f = self.fake.prefix_female()
+        assert prefix_m in KePersonProvider.prefixes_male
+        assert prefix_f in KePersonProvider.prefixes_female
+
+    def test_name_format(self):
+        name = self.fake.name()
+        assert isinstance(name, str)
+        assert len(name.split()) >= 2  # At least first and last name
 
 if __name__ == "__main__":
     unittest.main()
