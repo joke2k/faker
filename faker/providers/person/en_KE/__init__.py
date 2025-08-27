@@ -30,6 +30,7 @@ class Provider(PersonProvider):
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}",
         "{{first_name_female}} {{last_name}}", 
+        "{{first_name_female}} {{last_name}}", 
         "{{prefix_female}} {{first_name_female}} {{last_name}}",
         "{{prefix_female}} {{first_name_female}} {{last_name}}"
     )
@@ -38,6 +39,7 @@ class Provider(PersonProvider):
         "{{first_name_male}} {{last_name}}",
         "{{first_name_male}} {{last_name}}",
         "{{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}", 
         "{{first_name_male}} {{last_name}}", 
         "{{prefix_male}} {{first_name_male}} {{last_name}}",
         "{{prefix_male}} {{first_name_male}} {{last_name}}"
