@@ -23,8 +23,7 @@ def calculate_month(birth_date: datetime) -> int:
     """
     Calculates and returns a month number basing on PESEL standard.
     """
-    year = int(birth_date.strftime("%Y"))
-    month = int(birth_date.strftime("%m")) + ((int(year / 100) - 14) % 5) * 20
+    month = birth_date.month + ((birth_date.year // 100 - 14) % 5) * 20
 
     return month
 
@@ -43,17 +42,10 @@ class Provider(SsnProvider):
         """
         birth_date = self.generator.date_time()
 
-        year_without_century = int(birth_date.strftime("%y"))
-        month = calculate_month(birth_date)
-        day = int(birth_date.strftime("%d"))
-
         pesel_digits = [
-            int(year_without_century / 10),
-            year_without_century % 10,
-            int(month / 10),
-            month % 10,
-            int(day / 10),
-            day % 10,
+            *divmod(birth_date.year % 100, 10),
+            *divmod(calculate_month(birth_date), 10),
+            *divmod(birth_date.day, 10),
         ]
 
         for _ in range(4):

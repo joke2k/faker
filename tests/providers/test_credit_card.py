@@ -189,3 +189,32 @@ class TestUkUa:
             assert re.match("[A-Za-z]+", card_data[1])
             assert card_data[4] in UkUaBankProvider.banks
             assert card_data[0] == "ПРОСТІР"
+
+
+class TestZhCn:
+    mastercard_pattern: Pattern = re.compile(
+        r"(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}"
+    )
+    visa_pattern: Pattern = re.compile(r"4[0-9]{12}([0-9]{3}){0,2}")
+    unionpay_pattern: Pattern = re.compile(r"62[0-9]{14,17}")  # UnionPay typically starts with 62
+
+    def test_mastercard(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number("mastercard")
+            assert self.mastercard_pattern.fullmatch(number)
+
+    def test_visa(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number("visa")
+            assert self.visa_pattern.fullmatch(number)
+
+    def test_unionpay(self, faker, num_samples):
+        for _ in range(num_samples):
+            number = faker.credit_card_number("unionpay")
+            assert self.unionpay_pattern.fullmatch(number)
+
+    def test_credit_card_full(self, faker, num_samples):
+        for _ in range(num_samples):
+            card_data = faker.credit_card_full("unionpay").split("\n")
+            assert re.match(r"[\u4e00-\u9fff]+", card_data[1])  # Check if owner has Chinese characters
+            assert card_data[0] == "UnionPay"  # Ensure correct provider name

@@ -31,6 +31,7 @@ class Provider(SsnProvider):
         else:
             age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
         birthday = datetime.date.today() - age
+        # format %y requires year >= 1900 on Windows
         hetu_date = "%02d%02d%s" % (
             birthday.day,
             birthday.month,

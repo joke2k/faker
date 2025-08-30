@@ -1,5 +1,61 @@
 ## Changelog
 
+### [v37.6.0 - 2025-08-26](https://github.com/joke2k/faker/compare/v37.5.3...v37.6.0)
+
+* Add Automotive providers for `ko_KR` locale. Thanks @ydj515.
+
+### [v37.5.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.2...v37.5.3)
+
+* Allow `Decimal` type for `min_value` and `max_value` in `pydecimal`. Thanks @sshishov.
+
+### [v37.5.2 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.1...v37.5.2)
+
+* Fix Turkish Republic National Number (TCKN) provider. Thanks @fleizean.
+
+### [v37.5.1 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.0...v37.5.1)
+
+* Fix unnatural Korean company names in `ko_KR` locale. Thanks @r-4bb1t.
+
+### [v37.5.0 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.3...v37.5.0)
+
+* Add Spanish lorem provider for `es_ES`, `es_AR` and `es_MX`. Thanks @Pandede.
+
+### [v37.4.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.4.2...v37.4.3)
+
+* Fix male names in `sv_SE` locale. Thanks @peterk.
+
+### [v37.4.2 - 2025-07-15](https://github.com/joke2k/faker/compare/v37.4.1...v37.4.2)
+
+* Fix the function for generating VIN, now the last 4 characters are digits. Thanks @nesb1.
+
+### [v37.4.1 - 2025-07-15](https://github.com/joke2k/faker/compare/v37.4.0...v37.4.1)
+
+* Fix leading 0s in building numbers for `de_DE` locale. Thanks @KarelZe.
+
+### [v37.4.0 - 2025-06-11](https://github.com/joke2k/faker/compare/v37.3.4...v37.4.0)
+
+* Implement `Zh_CN` credit card provider. Thanks @JohananOppongAmoateng.
+
+### [v37.3.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.1...v37.3.0)
+
+* Update `zh_TW` Person Provider. Thanks @0x6r1an0y.
+
+### [v37.2.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.2.0...v37.2.1)
+
+* Remove duplicate cities in `de_DE` address provider. Thanks @KarelZe.
+
+### [v37.2.0 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.1...v37.2.0)
+
+* Add person provider for is_IS locale. Thanks @sergey-scat.
+
+### [v37.1.1 - 2025-05-14](https://github.com/joke2k/faker/compare/v37.1.0...v37.1.1)
+
+* Fix type annotations for Python 3.14. Thanks @mgorny.
+
+### [v37.1.0 - 2025-03-24](https://github.com/joke2k/faker/compare/v37.0.2...v37.1.0)
+
+* Add `ng_NG` currency provider. Thanks @Theocode12.
+
 ### [v37.0.2 - 2025-03-19](https://github.com/joke2k/faker/compare/v37.0.1...v37.0.2)
 
 * Fix type annotiation

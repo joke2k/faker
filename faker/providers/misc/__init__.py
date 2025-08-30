@@ -9,6 +9,7 @@ import tarfile
 import uuid
 import zipfile
 
+from json import JSONEncoder
 from typing import Any, Callable, Dict, List, Literal, Optional, Sequence, Set, Tuple, Type, Union, overload
 
 from faker.exceptions import UnsupportedFeature
@@ -536,7 +537,7 @@ class Provider(BaseProvider):
         data_columns: Optional[List] = None,
         num_rows: int = 10,
         indent: Optional[int] = None,
-        cls: Optional[Type[json.JSONEncoder]] = None,
+        cls: Optional[Type[JSONEncoder]] = None,
     ) -> bytes:
         """
         Generate random JSON structure and return as bytes.
@@ -551,7 +552,7 @@ class Provider(BaseProvider):
         data_columns: Optional[List] = None,
         num_rows: int = 10,
         indent: Optional[int] = None,
-        cls: Optional[Type[json.JSONEncoder]] = None,
+        cls: Optional[Type[JSONEncoder]] = None,
     ) -> str:
         """
         Generate random JSON structure values.

@@ -26,6 +26,7 @@ from faker.providers.person.gu_IN import Provider as GuINProvider
 from faker.providers.person.he_IL import Provider as HeILProvider
 from faker.providers.person.hi_IN import Provider as HiINProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
+from faker.providers.person.is_IS import Provider as IsISProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
@@ -958,6 +959,56 @@ class TestHyAM(unittest.TestCase):
         assert name in HyAmProvider.last_names
 
 
+class TestIsIS(unittest.TestCase):
+    """Tests person in the is_IS locale"""
+
+    def setUp(self):
+        self.fake = Faker("is_IS")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in IsISProvider.first_names
+
+    def test_first_name_male(self):
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in IsISProvider.first_names_male
+
+    def test_first_name_female(self):
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in IsISProvider.first_names_female
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        self.assertIsInstance(last_name, str)
+        assert last_name.endswith("son") or last_name.endswith("dóttir")
+        suffix = "son" if last_name.endswith("son") else "dóttir"
+        last_name_wo_suffix = last_name.rsplit(suffix, maxsplit=1)[0]
+        assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
+
+    def test_last_name_male(self):
+        last_name = self.fake.last_name_male()
+        self.assertIsInstance(last_name, str)
+        assert last_name.endswith("son")
+        last_name_wo_suffix = last_name.rsplit("son", maxsplit=1)[0]
+        assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
+
+    def test_last_name_female(self):
+        last_name = self.fake.last_name_female()
+        self.assertIsInstance(last_name, str)
+        assert last_name.endswith("dóttir")
+        last_name_wo_suffix = last_name.rsplit("dóttir", maxsplit=1)[0]
+        assert last_name_wo_suffix in IsISProvider.last_names_without_suffix
+
+    def test_middle_name(self):
+        middle_name = self.fake.middle_name()
+        self.assertIsInstance(middle_name, str)
+        assert middle_name in IsISProvider.middle_names
+
+
 class TestJaJP(unittest.TestCase):
     """Tests person in the ja_JP locale"""
 
@@ -1857,13 +1908,13 @@ class TestZhTW(unittest.TestCase):
         self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
-        # Females last name.
+        # Females last name. (no gender-specific)
         name = self.fake.last_name_female()
         assert name
         self.assertIsInstance(name, str)
         assert name in ZhTWProvider.last_names
 
-        # Male last name.
+        # Male last name. (no gender-specific)
         name = self.fake.last_name_male()
         assert name
         self.assertIsInstance(name, str)
@@ -1914,9 +1965,35 @@ class TestZhTW(unittest.TestCase):
         name = self.fake.romanized_name()
         assert name
         self.assertIsInstance(name, str)
-        first_romanized_name, last_romanized_name = name.split(" ")
+        last_romanized_name, first_romanized_name = name.split(" ")  # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
+        # first_romanized_name, last_romanized_name = name.split(" ")
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
+
+    def test_person(self):
+        name = self.fake.name()
+        assert name
+        assert isinstance(name, str)
+
+        first_name = self.fake.first_name()
+        assert first_name
+        assert isinstance(first_name, str)
+
+        last_name = self.fake.last_name()
+        assert last_name
+        assert isinstance(last_name, str)
+
+        romanized_name = self.fake.romanized_name()
+        assert romanized_name
+        assert isinstance(romanized_name, str)
+
+        first_romanized_name = self.fake.first_romanized_name()
+        assert first_romanized_name
+        assert isinstance(first_romanized_name, str)
+
+        last_romanized_name = self.fake.last_romanized_name()
+        assert last_romanized_name
+        assert isinstance(last_romanized_name, str)
 
 
 class TestZuZa(unittest.TestCase):

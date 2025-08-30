@@ -59,11 +59,17 @@ class Provider(BaseProvider):
         return registrant, publication
 
     def isbn13(self, separator: str = "-") -> str:
+        """
+        :sample:
+        """
         ean, group, registrant, publication = self._body()
         isbn = ISBN13(ean, group, registrant, publication)
         return isbn.format(separator)
 
     def isbn10(self, separator: str = "-") -> str:
+        """
+        :sample:
+        """
         ean, group, registrant, publication = self._body()
         isbn = ISBN10(ean, group, registrant, publication)
         return isbn.format(separator)

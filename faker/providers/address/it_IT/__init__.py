@@ -17619,23 +17619,41 @@ class Provider(AddressProvider):
     secondary_address_formats = ("Appartamento @#", "Piano #")
 
     def postcode_city_province(self) -> str:
+        """
+        :sample:
+        """
         cap = self.postcode()
         rand_city_prov: List[str] = self.random_element(self.cap_city_province[cap])
         return cap + ", " + rand_city_prov[0] + " (" + rand_city_prov[1] + ")"
 
     def city(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.cities)
 
     def city_prefix(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.city_prefixes)
 
     def secondary_address(self) -> str:
+        """
+        :sample:
+        """
         return self.numerify(self.random_element(self.secondary_address_formats))
 
     def administrative_unit(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.states)
 
     state = administrative_unit
 
     def state_abbr(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.states_abbr)
