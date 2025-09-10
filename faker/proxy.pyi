@@ -3819,6 +3819,22 @@ class Faker:
         """
         ...
 
+    def rcs_number(self, city: str = ..., letter: str = ..., siren: str = ...) -> str:
+        """
+        Generate a RCS number for french companies.
+        It is a concatenation of "RCS", a city name, a letter A (if sole proprietorships, or B other companies)
+        and the company SIREN
+
+        :param city: Force city name
+        :param letter: Force letter
+        :param siren: Force SIREN
+
+        :sample:
+        :sample: siren="123 456 789"
+        :sample: city="Lyon" letter="B" siren="123 456 789"
+        """
+        ...
+
     def siren(self) -> str:
         """
         Generates a siren number (9 digits). Formatted as '### ### ###'.

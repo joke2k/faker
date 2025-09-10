@@ -156,6 +156,14 @@ class TestFrFr:
         with pytest.raises(ValueError):
             faker.ape_code(version="naf-1984")
 
+    def test_rcs_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            rcs_number = faker.rcs_number()
+            assert isinstance(rcs_number, str)
+            assert re.fullmatch(r"RCS .+ [AB] \d{3} \d{3} \d{3}", rcs_number)
+            rcs_number = faker.rcs_number(city="nom de ville", letter="B", siren="test")
+            assert rcs_number == "RCS nom de ville B test"
+
 
 class TestHyAm:
     """Test hy_AM company provider methods"""
