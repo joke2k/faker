@@ -32,6 +32,4 @@ class Provider(BankProvider):
         "西安银行",
     )
 
-    def bank(self) -> str:
-        """Generate a bank name."""
-        return self.random_element(self.banks)
+
