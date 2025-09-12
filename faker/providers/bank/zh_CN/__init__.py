@@ -31,5 +31,3 @@ class Provider(BankProvider):
         "恒丰银行",
         "西安银行",
     )
-
-

@@ -63,8 +63,6 @@ class Provider(BankProvider):
         "XXX",
     ]
 
-
-
     def bban(self) -> str:
         """Generate a valid BBAN."""
         account_number = self._generate_account_number()

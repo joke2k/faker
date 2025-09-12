@@ -251,8 +251,6 @@ class Provider(BankProvider):
         902,
     )
 
-
-
     def clabe(self, bank_code: Optional[int] = None) -> str:
         """Generate a mexican bank account CLABE.
 

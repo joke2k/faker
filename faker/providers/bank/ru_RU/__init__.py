@@ -753,4 +753,3 @@ class Provider(BankProvider):
         organization: str = self.random_element(self.organization_codes)
         currency: str = self.random_element(self.currency_codes)
         return account + organization + currency + self.numerify("#" * 12)
-

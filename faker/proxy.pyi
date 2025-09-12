@@ -510,6 +510,12 @@ class Faker:
         """
         ...
 
+    def bank(self) -> str:
+        """
+        Generate a bank name.
+        """
+        ...
+
     def bank_country(self) -> str:
         """
         Generate the bank provider's ISO 3166-1 alpha-2 country code.
@@ -3023,12 +3029,6 @@ class Faker:
     def village_suffix(self) -> str:
         """
         :example: 'k.'
-        """
-        ...
-
-    def bank(self) -> str:
-        """
-        Generate a bank name.
         """
         ...
 

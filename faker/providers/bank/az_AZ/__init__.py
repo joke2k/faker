@@ -34,4 +34,3 @@ class Provider(BankProvider):
         "Yelo Bank",
         "Ziraat Bank Azərbaycan",
     )
-
