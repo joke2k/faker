@@ -47,6 +47,16 @@ class Provider(BaseProvider):
     def bank_country(self) -> str:
         """Generate the bank provider's ISO 3166-1 alpha-2 country code."""
         return self.country_code
+    
+    def bank(self) -> str:
+        """Generate a bank name."""
+        if not hasattr(self, 'banks'):
+            raise NotImplementedError(
+                f"The {self.__class__.__name__} provider does not have a 'banks' "
+                "attribute. Consider contributing to the project and "
+                " adding a 'banks' tuple to enable bank name generation."
+            )
+        return self.random_element(self.banks)
 
     def bban(self) -> str:
         """Generate a Basic Bank Account Number (BBAN)."""
