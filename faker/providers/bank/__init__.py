@@ -51,7 +51,7 @@ class Provider(BaseProvider):
     def bank(self) -> str:
         """Generate a bank name."""
         if not hasattr(self, "banks"):
-            raise NotImplementedError(
+            raise AttributeError(
                 f"The {self.__class__.__name__} provider does not have a 'banks' "
                 "attribute. Consider contributing to the project and "
                 " adding a 'banks' tuple to enable bank name generation."
