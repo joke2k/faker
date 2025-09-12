@@ -508,11 +508,11 @@ class TestBaseBankProvider:
     """Test base bank provider"""
 
     def test_bank_not_implemented_error(self, faker):
-        """Test that bank() raises NotImplementedError when no banks attribute exists"""
+        """Test that bank() raises AttributeError when no banks attribute exists"""
 
         provider = BankProvider(faker)
 
         assert not hasattr(provider, "banks")
 
-        with pytest.raises(NotImplementedError):
+        with pytest.raises(AttributeError):
             provider.bank()
