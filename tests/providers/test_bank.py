@@ -502,3 +502,17 @@ class TestZhCn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"[\u4e00-\u9fa5]{2,20}", faker.bank())
+
+
+class TestBaseBankProvider:
+    """Test base bank provider"""
+
+    def test_bank_not_implemented_error(self, faker):
+        """Test that bank() raises NotImplementedError when no banks attribute exists"""
+
+        provider = BankProvider(faker)
+
+        assert not hasattr(provider, "banks")
+
+        with pytest.raises(NotImplementedError):
+            provider.bank()
