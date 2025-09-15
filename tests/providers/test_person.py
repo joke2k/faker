@@ -344,8 +344,8 @@ class TestEnGB(unittest.TestCase):
         if len(names) == 2:
             return names[0]
         return names[1]
-    
-    
+
+
 class TestEnNG(unittest.TestCase):
     """Tests person in the en_NG (English - Nigeria) locale"""
 
@@ -391,7 +391,7 @@ class TestEnNG(unittest.TestCase):
 
         name = self.fake.last_name_male()
         self.assertIsInstance(name, str)
-        assert name in EnNgProvider.last_names    
+        assert name in EnNgProvider.last_names
 
 
 class TestEnIE(unittest.TestCase):
@@ -923,8 +923,7 @@ class TestHaNG(unittest.TestCase):
         name = self.fake.last_name_male()
         self.assertIsInstance(name, str)
         assert name in HaNgProvider.last_names
-        
-        
+
 
 class TestHeIL(unittest.TestCase):
     """Tests person in the he_IL locale."""
@@ -1057,8 +1056,8 @@ class TestHyAM(unittest.TestCase):
         name = self.fake.last_name_male()
         self.assertIsInstance(name, str)
         assert name in HyAmProvider.last_names
-        
-        
+
+
 class TestIgNG(unittest.TestCase):
     """Tests person in the ig_NG (Igbo - Nigeria) locale"""
 

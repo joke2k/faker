@@ -9,21 +9,54 @@
 
 from faker.providers.person import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     # Male first names
     first_names_male = [
-        "John", "Emmanuel", "Peter", "Samuel", "David", "Michael",
-        "Joseph", "Daniel", "James", "Paul", "Gabriel", "Joshua",
-        "Philip", "Andrew", "Stephen", "Benjamin", "Mark", "Nathaniel",
-        "Simon", "Cornelius",
+        "John",
+        "Emmanuel",
+        "Peter",
+        "Samuel",
+        "David",
+        "Michael",
+        "Joseph",
+        "Daniel",
+        "James",
+        "Paul",
+        "Gabriel",
+        "Joshua",
+        "Philip",
+        "Andrew",
+        "Stephen",
+        "Benjamin",
+        "Mark",
+        "Nathaniel",
+        "Simon",
+        "Cornelius",
     ]
 
     # Female first names
     first_names_female = [
-        "Mary", "Grace", "Joy", "Patience", "Elizabeth", "Victoria",
-        "Sarah", "Deborah", "Esther", "Blessing", "Charity", "Hope",
-        "Gloria", "Agnes", "Peace", "Comfort", "Juliet", "Ruth",
-        "Angela", "Faith",
+        "Mary",
+        "Grace",
+        "Joy",
+        "Patience",
+        "Elizabeth",
+        "Victoria",
+        "Sarah",
+        "Deborah",
+        "Esther",
+        "Blessing",
+        "Charity",
+        "Hope",
+        "Gloria",
+        "Agnes",
+        "Peace",
+        "Comfort",
+        "Juliet",
+        "Ruth",
+        "Angela",
+        "Faith",
     ]
 
     # Combined list
@@ -37,8 +70,24 @@ class Provider(PersonProvider):
 
     # Last names
     last_names = [
-        "Okonkwo", "Adeyemi", "Olawale", "Chukwu", "Eze",
-        "Obi", "Abiola", "Okafor", "Balogun", "Uche", "Ogunleye",
-        "Nnamani", "Adetokunbo", "Ojo", "Ekwueme", "Oshodi",
-        "Ibrahim", "Akinwale", "Obasanjo", "Oyekan",
+        "Okonkwo",
+        "Adeyemi",
+        "Olawale",
+        "Chukwu",
+        "Eze",
+        "Obi",
+        "Abiola",
+        "Okafor",
+        "Balogun",
+        "Uche",
+        "Ogunleye",
+        "Nnamani",
+        "Adetokunbo",
+        "Ojo",
+        "Ekwueme",
+        "Oshodi",
+        "Ibrahim",
+        "Akinwale",
+        "Obasanjo",
+        "Oyekan",
     ]

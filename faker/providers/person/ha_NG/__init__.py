@@ -5,21 +5,54 @@
 
 from faker.providers.person import Provider as PersonProvider
 
+
 class Provider(PersonProvider):
     # Male first names
     first_names_male = [
-        "Abdullahi", "Musa", "Sani", "Ibrahim", "Aliyu", "Bello",
-        "Kabiru", "Shehu", "Yusuf", "Haruna", "Ismail", "Usman",
-        "Nasiru", "Mahmud", "Umar", "Habibu", "Danjuma", "Tanimu",
-        "Shamsuddeen", "Ahmad",
+        "Abdullahi",
+        "Musa",
+        "Sani",
+        "Ibrahim",
+        "Aliyu",
+        "Bello",
+        "Kabiru",
+        "Shehu",
+        "Yusuf",
+        "Haruna",
+        "Ismail",
+        "Usman",
+        "Nasiru",
+        "Mahmud",
+        "Umar",
+        "Habibu",
+        "Danjuma",
+        "Tanimu",
+        "Shamsuddeen",
+        "Ahmad",
     ]
 
     # Female first names
     first_names_female = [
-        "Zainab", "Aisha", "Hauwa", "Fatima", "Hadiza", "Maryam",
-        "Sa’adatu", "Jamila", "Rabi", "Khadija", "Bilkisu", "Asma’u",
-        "Halima", "Safiya", "Sumayya", "Habiba", "Ruqayya", "Hafsat",
-        "Aminatu", "Gambo",
+        "Zainab",
+        "Aisha",
+        "Hauwa",
+        "Fatima",
+        "Hadiza",
+        "Maryam",
+        "Sa’adatu",
+        "Jamila",
+        "Rabi",
+        "Khadija",
+        "Bilkisu",
+        "Asma’u",
+        "Halima",
+        "Safiya",
+        "Sumayya",
+        "Habiba",
+        "Ruqayya",
+        "Hafsat",
+        "Aminatu",
+        "Gambo",
     ]
 
     # Combined list
@@ -33,8 +66,24 @@ class Provider(PersonProvider):
 
     # Last names
     last_names = [
-        "Abubakar", "Mohammed", "Yahaya", "Garba", "Danjuma",
-        "Buhari", "Zubairu", "Jibril", "Suleiman", "Lawal", "Tukur",
-        "Ali", "Shehu", "Mustapha", "Kabir", "Idris", "Sa’idu",
-        "Bappa", "Yusuf", "Isah",
+        "Abubakar",
+        "Mohammed",
+        "Yahaya",
+        "Garba",
+        "Danjuma",
+        "Buhari",
+        "Zubairu",
+        "Jibril",
+        "Suleiman",
+        "Lawal",
+        "Tukur",
+        "Ali",
+        "Shehu",
+        "Mustapha",
+        "Kabir",
+        "Idris",
+        "Sa’idu",
+        "Bappa",
+        "Yusuf",
+        "Isah",
     ]
