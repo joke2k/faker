@@ -113,5 +113,4 @@ class Provider(AutomotiveProvider):
             v = f"{raw_digits[:2]}{self.DELIMITER}{raw_digits[2:]}"
             return v
         else:
-            v = f"{self.MIDDLE_DOT * (4 - n)}{raw_digits}"
-            return f"{v[:2]} {v[2:]}"
+            return raw_digits.rjust(4, self.MIDDLE_DOT)
