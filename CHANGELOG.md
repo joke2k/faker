@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v37.7.0 - 2025-09-15](https://github.com/joke2k/faker/compare/v37.6.0...v37.7.0)
+
+* Add Nigerian name locales (`yo_NG`, `ha_NG`, `ig_NG`, `en_NG`). Thanks @ifeoluwaoladeji.
+
 ### [v37.6.0 - 2025-08-26](https://github.com/joke2k/faker/compare/v37.5.3...v37.6.0)
 
 * Add Automotive providers for `ko_KR` locale. Thanks @ydj515.
