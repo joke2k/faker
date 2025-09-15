@@ -7,7 +7,6 @@ from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
-from faker.providers.automotive.ja_JP import Provider as JaJpAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
@@ -194,6 +193,7 @@ class TestJaJp(_SimpleAutomotiveTestMixin):
         r"(?:あ|い|う|え|か|き|く|け|こ|さ|す|せ|そ|た|ち|つ|て|と|な|に|ぬ|ね|の|は|ひ|ふ|ほ|"
         r"ま|み|む|め|も|や|ゆ|よ|ら|り|る|れ|ろ|わ|を) "
         r"(?:\d{2}-\d{2}|・{1,3}\s\d{1,3})$"
+    )
 
 
 class TestKoKr(_SimpleAutomotiveTestMixin):

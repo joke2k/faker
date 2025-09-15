@@ -3905,6 +3905,17 @@ class Faker:
         """
         ...
 
+    def classification_number(self) -> str: ...
+    def kana(self) -> str: ...
+    def serial_number(self) -> str:
+        """
+        Generate the vehicle’s serial number (the last four digits on a Japanese license plate).
+        - For 4 digits: insert a hyphen between the second and third digits (e.g., 12-34).
+        - For 1 to 3 digits: pad the left side with middle dots (・) so the total width is four
+          characters (e.g., ・123, ・・12, ・・・1). Do not use a hyphen in these cases.
+        """
+        ...
+
     def jan(self, length: int = ...) -> str:
         """
         Generate a JAN barcode of the specified ``length``.

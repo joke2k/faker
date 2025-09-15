@@ -1,10 +1,12 @@
 from .. import Provider as AutomotiveProvider
 
+# flake8: noqa: E501
+
 
 class Provider(AutomotiveProvider):
     """Implement automotive provider for ``ja_JP`` locale.
 
-    Sources:
+    Sources (retrieved on 2025-09-15):
 
     - https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E3%83%8A%E3%83%B3%E3%83%90%E3%83%BC%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E4%B8%80%E8%A6%A7
     - http://nplate.cloudfree.jp/misc/m50_bango.html
@@ -100,7 +102,8 @@ class Provider(AutomotiveProvider):
         """
         Generate the vehicle’s serial number (the last four digits on a Japanese license plate).
         - For 4 digits: insert a hyphen between the second and third digits (e.g., 12-34).
-        - For 1 to 3 digits: pad the left side with middle dots (・) so the total width is four characters (e.g., ・123, ・・12, ・・・1). Do not use a hyphen in these cases.
+        - For 1 to 3 digits: pad the left side with middle dots (・) so the total width is four
+          characters (e.g., ・123, ・・12, ・・・1). Do not use a hyphen in these cases.
         """
 
         raw_digits = self.numerify(self.random_element(self.serial_number_formats))
