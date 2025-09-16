@@ -146,3 +146,22 @@ class Provider(CompanyProvider):
         code = self.siren().replace(" ", "") + sequential_number
         luhn_checksum = str(calculate_luhn(float(code)))
         return f"{code[:3]} {code[3:6]} {code[6:9]} {code[9:]}{luhn_checksum}"
+
+    def rcs_number(self, city: str = "", letter: str = "", siren: str = "") -> str:
+        """
+        Generate a RCS number for french companies.
+        It is a concatenation of "RCS", a city name, a letter A (if sole proprietorships, or B other companies)
+        and the company SIREN
+
+        :param city: Force city name
+        :param letter: Force letter
+        :param siren: Force SIREN
+
+        :sample:
+        :sample: siren="123 456 789"
+        :sample: city="Lyon" letter="B" siren="123 456 789"
+        """
+        city = city or self.generator.city()
+        letter = letter or self.random_element("AB")
+        siren = siren or self.siren()
+        return f"RCS {city} {letter} {siren}"
