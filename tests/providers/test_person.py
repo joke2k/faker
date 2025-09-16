@@ -52,6 +52,7 @@ from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
+from faker.providers.person.en_KE import Provider as EnKEProvider
 
 
 class TestAr(unittest.TestCase):
@@ -2248,6 +2249,67 @@ class TestUzUz(unittest.TestCase):
             res = self.fake.last_name_female()
             assert res in self.provider.last_names_female
 
+
+class TestEnKE(unittest.TestCase):
+    """Test en_KE person provider"""
+
+    def setUp(self):
+        self.fake = Faker("en_KE")
+        Faker.seed(0)
+        self.provider = EnKEProvider
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, self.provider.first_names)
+
+    def test_first_name_female(self):
+        # Female first name
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, self.provider.first_names)
+        self.assertIn(name, self.provider.first_names_female)
+
+    def test_first_name_male(self):
+        # Male first name
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, self.provider.first_names)
+        self.assertIn(name, self.provider.first_names_male)
+
+    def test_last_name(self):
+        # General last name
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, self.provider.last_names)
+
+    def test_prefixes(self):
+        # Test male prefixes
+        prefix_m = self.fake.prefix_male()
+        self.assertIn(prefix_m, self.provider.prefixes_male)
+        
+        # Test female prefixes
+        prefix_f = self.fake.prefix_female()
+        self.assertIn(prefix_f, self.provider.prefixes_female)
+
+    def test_name_formats(self):
+        # Test general name format
+        name = self.fake.name()
+        self.assertIsInstance(name, str)
+        self.assertGreaterEqual(len(name.split()), 2)
+        
+        # Test male name format
+        male_name = self.fake.name_male()
+        self.assertIsInstance(male_name, str)
+        self.assertGreaterEqual(len(male_name.split()), 2)
+        
+        # Test female name format
+        female_name = self.fake.name_female()
+        self.assertIsInstance(female_name, str)
+        self.assertGreaterEqual(len(female_name.split()), 2)
+        
+                 
 
 if __name__ == "__main__":
     unittest.main()
