@@ -251,15 +251,6 @@ class Provider(BankProvider):
         902,
     )
 
-    def bank(self) -> str:
-        """Generate a mexican bank name.
-
-        :return: A mexican bank name.
-
-        :sample:
-        """
-        return self.random_element(self.banks)
-
     def clabe(self, bank_code: Optional[int] = None) -> str:
         """Generate a mexican bank account CLABE.
 
