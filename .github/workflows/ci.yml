@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -25,7 +25,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-flake8
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -40,7 +40,7 @@ jobs:
   checkmanifest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -50,7 +50,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-checkmanifest
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -64,7 +64,7 @@ jobs:
   isort:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -74,7 +74,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-isort
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -89,7 +89,7 @@ jobs:
   black:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -99,7 +99,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-black
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -113,7 +113,7 @@ jobs:
   doc8:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -123,7 +123,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-pep8
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: Install dependencies
@@ -146,7 +146,7 @@ jobs:
         - "3.13"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -156,7 +156,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-typing
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python }}
     - name: Install dependencies
@@ -182,7 +182,7 @@ jobs:
         - "pypy-3.10"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup pip cache
         uses: actions/cache@v4
         id: pipcache
@@ -192,7 +192,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-test_ubuntu
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
@@ -222,7 +222,7 @@ jobs:
         arch: ["x86", "x64"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup pip cache
         uses: actions/cache@v4
         id: pipcache
@@ -232,7 +232,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-test_windows
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
       - name: Install Tox and any other packages
@@ -246,7 +246,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup pip cache
       uses: actions/cache@v4
       id: pipcache
@@ -256,7 +256,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-test_alpine
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.12'
     - name: Install dependencies
