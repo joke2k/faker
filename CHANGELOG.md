@@ -1,5 +1,17 @@
 ## Changelog
 
+### [v37.8.0 - 2025-09-15](https://github.com/joke2k/faker/compare/v37.7.0...v37.8.0)
+
+* Add Automotive providers for `ja_JP` locale. Thanks @ItoRino424.
+
+### [v37.7.0 - 2025-09-15](https://github.com/joke2k/faker/compare/v37.6.0...v37.7.0)
+
+* Add Nigerian name locales (`yo_NG`, `ha_NG`, `ig_NG`, `en_NG`). Thanks @ifeoluwaoladeji.
+
+### [v37.6.0 - 2025-08-26](https://github.com/joke2k/faker/compare/v37.5.3...v37.6.0)
+
+* Add Automotive providers for `ko_KR` locale. Thanks @ydj515.
+
 ### [v37.5.3 - 2025-07-30](https://github.com/joke2k/faker/compare/v37.5.2...v37.5.3)
 
 * Allow `Decimal` type for `min_value` and `max_value` in `pydecimal`. Thanks @sshishov.
