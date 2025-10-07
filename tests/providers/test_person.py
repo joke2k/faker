@@ -14,6 +14,7 @@ from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
 from faker.providers.person.en_IN import Provider as EnINProvider
+from faker.providers.person.en_KE import Provider as EnKEProvider
 from faker.providers.person.en_NG import Provider as EnNgProvider
 from faker.providers.person.en_PK import Provider as EnPKprovider
 from faker.providers.person.en_US import Provider as EnUSProvider
@@ -52,7 +53,6 @@ from faker.providers.person.yo_NG import Provider as YoNGProvider
 from faker.providers.person.zh_CN import Provider as ZhCNProvider
 from faker.providers.person.zh_TW import Provider as ZhTWProvider
 from faker.providers.person.zu_ZA import Provider as ZuZAProvider
-from faker.providers.person.en_KE import Provider as EnKEProvider
 
 
 class TestAr(unittest.TestCase):
@@ -2288,7 +2288,7 @@ class TestEnKE(unittest.TestCase):
         # Test male prefixes
         prefix_m = self.fake.prefix_male()
         self.assertIn(prefix_m, self.provider.prefixes_male)
-        
+
         # Test female prefixes
         prefix_f = self.fake.prefix_female()
         self.assertIn(prefix_f, self.provider.prefixes_female)
@@ -2298,18 +2298,17 @@ class TestEnKE(unittest.TestCase):
         name = self.fake.name()
         self.assertIsInstance(name, str)
         self.assertGreaterEqual(len(name.split()), 2)
-        
+
         # Test male name format
         male_name = self.fake.name_male()
         self.assertIsInstance(male_name, str)
         self.assertGreaterEqual(len(male_name.split()), 2)
-        
+
         # Test female name format
         female_name = self.fake.name_female()
         self.assertIsInstance(female_name, str)
         self.assertGreaterEqual(len(female_name.split()), 2)
-        
-                 
+
 
 if __name__ == "__main__":
     unittest.main()
