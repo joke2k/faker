@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 from faker.utils.checksums import calculate_luhn
 
@@ -373,7 +373,7 @@ class Provider(CompanyProvider):
         luhn_checksum = str(calculate_luhn(float(code)))
         return f"{code[:3]} {code[3:6]} {code[6:9]} {code[9:]}{luhn_checksum}"
 
-    def ape_code(self, version: str | None = "naf-2003") -> str:
+    def ape_code(self, version: Optional[str] = "naf-2003") -> str:
         """
         Generate an APE code (also known as NAF code).
         It identify french company main branch of activity.
