@@ -3764,8 +3764,26 @@ class Faker:
     def random_object_of_concern(self) -> str: ...
     def ape_code(self, version: str | None = ...) -> str:
         """
-        Generate an APE code (formerly known as NAF code).
-        It identify french company main branch of activity
+        Generate an APE code (also known as NAF code).
+        It identify french company main branch of activity.
+
+        It provide numbers from nomenclature `version` `naf-2003` (default)
+        or `naf-2025`.
+        To have it generate a truly random (and possibly invalid number) set
+        `version` to `None`
+
+
+        :param version: Set to ``"naf-2003"`` to return a valid NAF 2003 APE code.
+        Set to ``"naf-2025"`` to return a valid NAF 2025 APE code.
+        Set to ``None`` to return a truly random and possibly invalid number
+        Defaults to ``"naf-2003"``
+        :param letter: Force letter
+        :param siren: Force SIREN
+
+        :sample:
+        :sample: version="naf-2003"
+        :sample: version="naf-2025"
+        :sample: version=None
         """
         ...
 
