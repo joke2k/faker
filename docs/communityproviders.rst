@@ -68,8 +68,8 @@ Here's a list of Providers written by the community:
 | Security      | Fake data related to      | `faker-security`_                |
 |               | security e.g. CVSS, CVE   |                                  |
 +---------------+---------------------------+----------------------------------+
-| Scientific     | Fake author identifiers    | `faker_researcher_ids`_          |
-|               | for scientific databases   |                                  |
+| Scientific    | Fake author identifiers   | `faker_researcher_ids`_          |
+|               | for scientific databases  |                                  |
 |               | (Scopus, ORCID etc.)      |                                  |
 +---------------+---------------------------+----------------------------------+
 
