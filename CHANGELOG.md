@@ -1,6 +1,10 @@
 ## Changelog
 
 
+### [v37.10.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.9.0...v37.10.0)
+
+* Add French company APE code. Thanks @FabienMICHEL.
+
 ### [v37.9.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.8.0...v37.9.0)
 
 * Add names generation to `en_KE` locale. Thanks @titustum.
