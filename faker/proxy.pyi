@@ -3762,6 +3762,13 @@ class Faker:
     def random_good_service_adjective_chain(self) -> str: ...
     def random_noun_ish_good_trait(self) -> str: ...
     def random_object_of_concern(self) -> str: ...
+    def ape_code(self, version: str | None = ...) -> str:
+        """
+        Generate an APE code (formerly known as NAF code).
+        It identify french company main branch of activity
+        """
+        ...
+
     def catch_phrase_attribute(self) -> str:
         """
         Returns a random catch phrase attribute.
