@@ -328,6 +328,17 @@ class TestFilPh(TestEnPh):
     pass
 
 
+class TestFrDz:
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"0(?:55|66|77)\d \d{3} \d{3}"
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
 class TestFrFr:
     def test_phone_number(self, faker, num_samples):
         pattern_no_whitespaces: Pattern = re.compile(
