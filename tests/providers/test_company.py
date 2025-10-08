@@ -116,6 +116,20 @@ class TestFrFr:
             assert len(siret) == 17
             assert luhn_checksum(siret.replace(" ", "")) == 0
 
+    def test_company_vat(self, faker, num_samples):
+        for _ in range(num_samples):
+            vat_number = faker.company_vat()
+            assert isinstance(vat_number, str)
+            match = re.fullmatch(r"FR (?P<checksum>\d\d) (?P<siren>\d{3} \d{3} \d{3})", vat_number)
+            assert match
+            generated_checksum = int(match.group("checksum"))
+            siren = match.group("siren")
+            siren_int = int("".join(c for c in siren if c.isdigit()))
+            checksum = (12 + 3 * (siren_int % 97)) % 97
+            assert generated_checksum == checksum
+
+            vat_number = faker.company_vat(siren="123 456 789")
+            assert vat_number == "FR 32 123 456 789"
     APE_GENERIC_PATTERN = re.compile(r"^\d{2}\.\d{2}[A-Z]$")
     APE_2003_PATTERN = re.compile(r"^\d{2}\.\d{2}[A-FZ]$")
     APE_2025_PATTERN = re.compile(r"^\d{2}\.\d{2}[YGHJKL]$")
