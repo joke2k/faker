@@ -107,8 +107,7 @@ class Factory:
             if locale:
                 logger.debug(
                     "Provider `%s` does not feature localization. "
-                    "Specified locale `%s` is not utilized for this "
-                    "provider.",
+                    "Specified locale `%s` is not used for this provider.",
                     provider_module.__name__,
                     locale,
                 )

@@ -114,6 +114,7 @@ class BaseProvider:
             "ZA",
             "ZM",
             "ZW",
+            "KE",
         ),
         "eo": ("US",),
         "es": (
