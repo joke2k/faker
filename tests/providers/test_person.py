@@ -22,6 +22,7 @@ from faker.providers.person.es_CO import Provider as EsCOProvider
 from faker.providers.person.et_EE import Provider as EtEEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.fr_BE import Provider as FrBEProvider
+from faker.providers.person.fr_DZ import Provider as FrDZProvider
 from faker.providers.person.ga_IE import Provider as GaIEProvider
 from faker.providers.person.gu_IN import Provider as GuINProvider
 from faker.providers.person.ha_NG import Provider as HaNgProvider
@@ -813,6 +814,52 @@ class TestFrBE(unittest.TestCase):
         assert name in self.provider.last_names
 
         # Male last name.
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+
+class TestFrDZ(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        self.provider = FrDZProvider
+        Faker.seed(0)
+
+    def test_general_first_name(self):
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+    def test_female_first_name(self):
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+    def test_male_first_name(self):
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+    def test_general_last_name(self):
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+    def test_female_last_name(self):
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+    def test_male_last_name(self):
         name = self.fake.last_name_male()
         assert name
         self.assertIsInstance(name, str)
