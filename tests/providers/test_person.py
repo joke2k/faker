@@ -6,6 +6,7 @@ from unittest import mock
 
 from faker import Faker
 from faker.providers.person.ar_AA import Provider as ArProvider
+from faker.providers.person.ar_DZ import Provider as ArDZProvider
 from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.de_AT import Provider as DeAtProvider
@@ -108,6 +109,52 @@ class TestAr(unittest.TestCase):
         self.assertIsInstance(name, str)
         assert name in ArProvider.last_names
         assert name in ArProvider.last_names
+
+
+class TestArDZ(unittest.TestCase):
+
+    def setUp(self):
+        self.fake = Faker("ar_DZ")
+        self.provider = ArDZProvider
+        Faker.seed(0)
+
+    def test_general_first_name(self):
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+
+    def test_female_first_name(self):
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_female
+
+    def test_male_first_name(self):
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.first_names
+        assert name in self.provider.first_names_male
+
+    def test_general_last_name(self):
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+    def test_female_last_name(self):
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
+
+    def test_male_last_name(self):
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in self.provider.last_names
 
 
 class TestAzAz(unittest.TestCase):
