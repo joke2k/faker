@@ -10,6 +10,8 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
+    # Translated from: https://studentsoftheworld.info/penpals/stats_fr.php?Pays=ALG
+    # Last checked: 2025-09-28
     first_names_female: Tuple[str, ...] = (
         "آية",
         "أماني",
@@ -87,6 +89,8 @@ class Provider(PersonProvider):
         "يسرى",
     )
 
+    # Translated from: https://studentsoftheworld.info/penpals/stats_fr.php?Pays=ALG
+    # Last checked: 2025-09-28
     first_names_male: Tuple[str, ...] = (
         "آدم",
         "أسامة",
@@ -168,6 +172,8 @@ class Provider(PersonProvider):
 
     first_names = first_names_male + first_names_female
 
+    # Translated from: https://fr.geneawiki.com/wiki/Noms_de_famille_alg%C3%A9riens
+    # Last checked: 2025-09-28
     last_names: Tuple[str, ...] = (
         "أعراب",
         "إبراهيمي",
