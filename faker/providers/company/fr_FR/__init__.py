@@ -387,6 +387,7 @@ class Provider(CompanyProvider):
         siren_int = int("".join(c for c in siren if c.isdigit()))
         checksum = (12 + 3 * (siren_int % 97)) % 97
         return f"FR {checksum:02} {siren}"
+
     def ape_code(self, version: Optional[str] = "naf-2003") -> str:
         """
         Generate an APE code (also known as NAF code).

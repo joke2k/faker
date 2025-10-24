@@ -130,6 +130,7 @@ class TestFrFr:
 
             vat_number = faker.company_vat(siren="123 456 789")
             assert vat_number == "FR 32 123 456 789"
+
     APE_GENERIC_PATTERN = re.compile(r"^\d{2}\.\d{2}[A-Z]$")
     APE_2003_PATTERN = re.compile(r"^\d{2}\.\d{2}[A-FZ]$")
     APE_2025_PATTERN = re.compile(r"^\d{2}\.\d{2}[YGHJKL]$")
