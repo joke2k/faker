@@ -1,7 +1,10 @@
 ## Changelog
 
+### [v37.12.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.11.0...v37.12.0)
 
-### [v37.11.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.9.0...v37.10.0)
+* Add french VAT number. Thanks @fabien-michel.
+
+### [v37.11.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.9.0...v37.11.0)
 
 * Add French company APE code. Thanks @fabien-michel.
 
