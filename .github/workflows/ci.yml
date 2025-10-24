@@ -195,6 +195,8 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libjpeg-dev
       - name: Install Tox and any other packages
         run: python -m pip install tox
       - name: pytest
