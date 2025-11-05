@@ -1,5 +1,7 @@
 import ast
+import sys
 import traceback
+import types
 
 from collections import OrderedDict
 
@@ -43,24 +45,42 @@ class SampleCodeValidator(ast.NodeVisitor):
     passing the command string to `eval()` for execution. This can be done in code review.
     """
 
-    _whitelisted_nodes = (
-        # Code elements related to function calls and variable and attribute access
-        ast.Expression,
-        ast.Call,
-        ast.Attribute,
-        ast.Name,
-        ast.Load,
-        ast.keyword,
-        # Code elements representing whitelisted literals
-        ast.Num,
-        ast.Str,
-        ast.Bytes,
-        ast.List,
-        ast.Tuple,
-        ast.Set,
-        ast.Dict,
-        ast.NameConstant,
-    )
+    if sys.version_info >= (3, 14):
+        _whitelisted_nodes = (
+            # Code elements related to function calls and variable and attribute access
+            ast.Expression,
+            ast.Call,
+            ast.Attribute,
+            ast.Name,
+            ast.Load,
+            ast.keyword,
+            # Code elements representing whitelisted literals
+            ast.List,
+            ast.Tuple,
+            ast.Set,
+            ast.Dict,
+        )
+        _disallowed_constant_types = (types.EllipsisType,)
+    else:
+        _whitelisted_nodes = (
+            # Code elements related to function calls and variable and attribute access
+            ast.Expression,
+            ast.Call,
+            ast.Attribute,
+            ast.Name,
+            ast.Load,
+            ast.keyword,
+            # Code elements representing whitelisted literals
+            ast.Num,
+            ast.Str,
+            ast.Bytes,
+            ast.List,
+            ast.Tuple,
+            ast.Set,
+            ast.Dict,
+            ast.NameConstant,
+        )
+        _disallowed_constant_types = ()
 
     _max_function_call_count = 1
     _max_attribute_access_count = 1
@@ -85,7 +105,11 @@ class SampleCodeValidator(ast.NodeVisitor):
         return self._errors
 
     def _is_whitelisted(self, node):
-        return isinstance(node, self._whitelisted_nodes)
+        return isinstance(node, self._whitelisted_nodes) or (
+            isinstance(node, ast.Constant)
+            and self._disallowed_constant_types
+            and not isinstance(node.value, self._disallowed_constant_types)
+        )
 
     def _log_error(self, msg):
         self._errors.add(msg)
