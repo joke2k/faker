@@ -97,7 +97,6 @@ def test_pyfloat_right_or_left_digit_overflow():
             assert str(abs(result)) == "1.12345678901234"
 
 
-@pytest.mark.skipif(sys.version_info < (3, 10), reason="Only relevant for Python 3.10 and later.")
 @pytest.mark.parametrize(
     ("min_value", "max_value"),
     [
@@ -296,7 +295,6 @@ class TestPyfloat(unittest.TestCase):
         result = self.fake.pyfloat(positive=True, right_digits=0, max_value=1)
         self.assertGreater(result, 0)
 
-    @pytest.mark.skipif(sys.version_info < (3, 10), reason="Only relevant for Python 3.10 and later.")
     @pytest.mark.filterwarnings(
         # Convert the warning to an error for this test
         r"error:non-integer arguments to randrange\(\):DeprecationWarning"
