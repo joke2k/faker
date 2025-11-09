@@ -110,6 +110,81 @@ class TestEnPh(_SimpleAutomotiveTestMixin):
             assert int(protocol_plate) != 15 and 1 <= int(protocol_plate) <= 17
 
 
+
+class TestFilPh(TestEnPh):
+    """Test fil_PH automotive provider methods"""
+
+    pass
+
+
+class TestTlPh(TestEnPh):
+    """Test tl_PH automotive provider methods"""
+
+    pass
+
+
+class TestRuRu(_SimpleAutomotiveTestMixin):
+    """Test ru_RU automotive provider methods"""
+
+    _plate_letters = "".join(RuRuAutomotiveProvider.license_plate_letters)
+    license_plate_pattern: Pattern = re.compile(
+        r"(?:"
+        r"(?P<private_plate_prefix>[{0}]\d\d\d[{0}][{0}])|"
+        r"(?P<public_transport_plate_prefix>[{0}][{0}]\d\d\d)|"
+        r"(?P<trailer_plate_prefix>[{0}][{0}]\d\d\d\d)|"
+        r"(?P<police_plate_prefix>[{0}]\d\d\d\d)|"
+        r"(?P<military_plate_prefix>\d\d\d\d[{0}][{0}])|"
+        r"(?P<plate_number_special>00\dCD\d|00\dD\d\d\d|00\dT\d\d\d)"
+        r") (?P<plate_suffix>.*)".format(_plate_letters),
+    )
+
+    def perform_extra_checks(self, license_plate, match):
+        plate_suffix = match.group("plate_suffix")
+        assert plate_suffix in RuRuAutomotiveProvider.license_plate_suffix
+
+    def test_vehicle_category(self, faker, num_samples):
+        for _ in range(num_samples):
+            vehicle_category = faker.vehicle_category()
+            assert isinstance(vehicle_category, str)
+            assert vehicle_category in RuRuAutomotiveProvider.vehicle_categories
+
+
+class TestFrFr(_SimpleAutomotiveTestMixin):
+    """Test fr_FR automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}|[A-Z]{2}-\d{3}-[A-Z]{2}")
+
+    def test_license_plate_new_format(self, faker, num_samples):
+        """Test that new format license plates follow AA-999-AA pattern."""
+        new_format_pattern = re.compile(r"[A-Z]{2}-\d{3}-[A-Z]{2}")
+        for _ in range(num_samples):
+            plate = faker.license_plate_new_format()
+            assert isinstance(plate, str)
+            assert new_format_pattern.match(plate), f"Plate {plate} doesn't match new format pattern"
+
+    def test_license_plate_old_format(self, faker, num_samples):
+        """Test that old format license plates follow 999-AAA-99 pattern."""
+        old_format_pattern = re.compile(r"\d{3}-[A-Z]{3}-\d{2}")
+        for _ in range(num_samples):
+            plate = faker.license_plate_old_format()
+            assert isinstance(plate, str)
+            assert old_format_pattern.match(plate), f"Plate {plate} doesn't match old format pattern"
+
+
+class TestItIt(_SimpleAutomotiveTestMixin):
+    """Test it_IT automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2}\d{3}[A-Z]{2}")
+
+
+class TestNoNo(_SimpleAutomotiveTestMixin):
+    """Test no_NO automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2} \d{5}")
+
+
+
+
 class TestEsCo(_SimpleAutomotiveTestMixin):
     """Test es_CO automotive provider methods"""
 
