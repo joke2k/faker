@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v38.0.0 - 2025-11-11](https://github.com/joke2k/faker/compare/v37.12.0...v38.0.0)
+
+* Drop support for Python 3.9
+* Add support for Python 3.11
+
 ### [v37.12.0 - 2025-10-07](https://github.com/joke2k/faker/compare/v37.11.0...v37.12.0)
 
 * Add french VAT number. Thanks @fabien-michel.
