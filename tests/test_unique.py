@@ -75,3 +75,23 @@ class TestUniquenessClass:
 
         for i in range(10):
             fake.unique.pyset()
+
+    def test_unique_locale_access(self):
+        """Accessing locales through UniqueProxy with subscript notation
+        maintains global uniqueness across all locales."""
+
+        fake = Faker(["en_US", "fr_FR", "ja_JP"])
+        generated = set()
+
+        for i in range(5):
+            value = fake.unique["en_US"].random_int(min=1, max=10)
+            assert value not in generated
+            generated.add(value)
+
+        for i in range(5):
+            value = fake.unique["fr_FR"].random_int(min=1, max=10)
+            assert value not in generated
+            generated.add(value)
+
+        with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
+            fake.unique["ja_JP"].random_int(min=1, max=10)
