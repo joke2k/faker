@@ -305,6 +305,13 @@ class UniqueProxy:
     def clear(self) -> None:
         self._seen = {}
 
+    def __getitem__(self, locale: str) -> UniqueProxy:
+        locale_proxy = self._proxy[locale]
+        unique_proxy = UniqueProxy(locale_proxy)
+        unique_proxy._seen = self._seen
+        unique_proxy._sentinel = self._sentinel
+        return unique_proxy
+
     def __getattr__(self, name: str) -> Any:
         obj = getattr(self._proxy, name)
         if callable(obj):
