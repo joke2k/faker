@@ -85,6 +85,7 @@ In order to be included, your provider must satisfy these requirements:
 * it must not contain any malicious nor any kind of telemetry code.
 
 .. _repo: https://github.com/joke2k/faker/
+.. _faker_pk: https://pypi.org/project/faker-pk/
 .. _OSI-Approved: https://opensource.org/licenses/alphabetical
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
