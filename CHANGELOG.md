@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v38.2.0 - 2025-11-19](https://github.com/joke2k/faker/compare/v38.1.0...v38.2.0)
+
+* Add localized UniqueProxy. Thanks @azmeuk
+
 ### [v38.1.0 - 2025-11-19](https://github.com/joke2k/faker/compare/v38.0.0...v38.1.0)
 
 * Add `person` provider for `ar_DZ` locale. Thanks @othmane099.
