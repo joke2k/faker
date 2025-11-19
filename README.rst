@@ -357,7 +357,17 @@ that any generated values are unique for this specific instance.
    names = [fake.unique.first_name() for i in range(500)]
    assert len(set(names)) == len(names)
 
+On ``Faker`` instances with multiple locales, you can specify the locale to use for the unique values by using the subscript notation:
+
+.. code:: python
+
+   from faker import Faker
+   fake = Faker(['en_US', 'fr_FR'])
+   names = [fake.unique["en_US"].first_name() for i in range(500)]
+   assert len(set(names)) == len(names)
+
 Calling ``fake.unique.clear()`` clears the already seen values.
+
 Note, to avoid infinite loops, after a number of attempts to find a unique
 value, Faker will throw a ``UniquenessException``. Beware of the `birthday
 paradox <https://en.wikipedia.org/wiki/Birthday_problem>`_, collisions

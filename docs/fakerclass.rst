@@ -308,6 +308,15 @@ the returned values are unique for the lifetime of the ``Faker`` instance.
    numbers = set(fake.unique.random_int() for i in range(1000))
    assert len(numbers) == 1000
 
+On ``Faker`` instances with multiple locales, you can specify the locale to use for the unique values by using the subscript notation:
+
+.. code:: python
+
+   from faker import Faker
+   fake = Faker(['en_US', 'fr_FR'])
+   names = [fake.unique["en_US"].first_name() for i in range(500)]
+   assert len(set(names)) == 500
+
 To clear already seen values, simply call ``fake.unique.clear()``, which will
 allow previous values generated to be returned again.
 
