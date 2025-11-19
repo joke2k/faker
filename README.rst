@@ -357,7 +357,8 @@ that any generated values are unique for this specific instance.
    names = [fake.unique.first_name() for i in range(500)]
    assert len(set(names)) == len(names)
 
-On ``Faker`` instances with multiple locales, you can specify the locale to use for the unique values by using the subscript notation:
+On ``Faker`` instances with multiple locales, you can specify the locale to use
+for the unique values by using the subscript notation:
 
 .. code:: python
 

@@ -308,7 +308,8 @@ the returned values are unique for the lifetime of the ``Faker`` instance.
    numbers = set(fake.unique.random_int() for i in range(1000))
    assert len(numbers) == 1000
 
-On ``Faker`` instances with multiple locales, you can specify the locale to use for the unique values by using the subscript notation:
+On ``Faker`` instances with multiple locales, you can specify the locale to use
+for the unique values by using the subscript notation:
 
 .. code:: python
 
