@@ -403,8 +403,6 @@ class Provider(CompanyProvider):
         Set to ``"naf-2025"`` to return a valid NAF 2025 APE code.
         Set to ``None`` to return a truly random and possibly invalid number
         Defaults to ``"naf-2003"``
-        :param letter: Force letter
-        :param siren: Force SIREN
 
         :sample:
         :sample: version="naf-2003"
@@ -420,3 +418,22 @@ class Provider(CompanyProvider):
         if version == "naf-2025":
             return self.random_element(self.ape_codes_naf_2025)
         raise ValueError("Unsupported NAF version. Set version=None to a truly random number.")
+
+    def rcs_number(self, city: str = "", letter: str = "", siren: str = "") -> str:
+        """
+        Generate a RCS number for french companies.
+        It is a concatenation of "RCS", a city name, a letter A (if sole proprietorships, or B other companies)
+        and the company SIREN
+
+        :param city: Force city name
+        :param letter: Force letter
+        :param siren: Force SIREN
+
+        :sample:
+        :sample: siren="123 456 789"
+        :sample: city="Lyon" letter="B" siren="123 456 789"
+        """
+        city = city or self.generator.city()
+        letter = letter or self.random_element("AB")
+        siren = siren or self.siren()
+        return f"RCS {city} {letter} {siren}"
