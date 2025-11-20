@@ -10,6 +10,7 @@ from faker.providers.person.az_AZ import Provider as AzAzProvider
 from faker.providers.person.cs_CZ import Provider as CsCZProvider
 from faker.providers.person.de_AT import Provider as DeAtProvider
 from faker.providers.person.de_LI import Provider as DeLiProvider
+from faker.providers.person.efik_NG import Provider as EfikNgProvider
 from faker.providers.person.en import Provider as EnProvider
 from faker.providers.person.en_GB import Provider as EnGBProvider
 from faker.providers.person.en_IE import Provider as EnIEProvider
@@ -301,6 +302,52 @@ class TestDeLi(unittest.TestCase):
         assert isinstance(name_male, str)
         assert name_male in DeLiProvider.first_names_male
 
+class TestEfikNg(unittest.TestCase):
+    """Tests for the Efik_NG locale person provider"""
+
+    def setUp(self):
+        self.fake = Faker("efik_NG")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        # General first name
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        self.assertIn(name, EfikNgProvider.first_names)
+
+        # Female first name
+        name_female = self.fake.first_name_female()
+        self.assertIsInstance(name_female, str)
+        self.assertIn(name_female, EfikNgProvider.first_names)
+        self.assertIn(name_female, EfikNgProvider.first_names_female)
+
+        # Male first name
+        name_male = self.fake.first_name_male()
+        self.assertIsInstance(name_male, str)
+        self.assertIn(name_male, EfikNgProvider.first_names)
+        self.assertIn(name_male, EfikNgProvider.first_names_male)
+
+    def test_last_name(self):
+        # General last name
+        last = self.fake.last_name()
+        self.assertIsInstance(last, str)
+        self.assertIn(last, EfikNgProvider.last_names)
+
+        # Female last name
+        last_female = self.fake.last_name_female()
+        self.assertIsInstance(last_female, str)
+        self.assertIn(last_female, EfikNgProvider.last_names)
+
+        # Male last name
+        last_male = self.fake.last_name_male()
+        self.assertIsInstance(last_male, str)
+        self.assertIn(last_male, EfikNgProvider.last_names)
+
+    def test_full_name(self):
+        name = self.fake.name()
+        self.assertIsInstance(name, str)
+        self.assertTrue(any(fn in name for fn in EfikNgProvider.first_names))
+        self.assertTrue(any(ln in name for ln in EfikNgProvider.last_names))
 
 class TestEn(unittest.TestCase):
     """Tests person in the en locale"""

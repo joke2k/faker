@@ -52,6 +52,7 @@ class Provider(BaseProvider):
         "Ewe",
         "Greek",
         "English",
+        "Efik",
         "Esperanto",
         "Spanish",
         "Estonian",
