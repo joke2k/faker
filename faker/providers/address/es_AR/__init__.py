@@ -191,7 +191,9 @@ class Provider(AddressProvider):
         """
         :example: "23"
         """
-        return self.numerify(self.generator.parse(self.random_element(self.building_number_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.building_number_formats))
+        )
 
     def secondary_address(self) -> str:
         """
@@ -209,7 +211,9 @@ class Provider(AddressProvider):
         """
         :example: "1900"
         """
-        return self.numerify(self.generator.parse(self.random_element(self.postcode_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.postcode_formats))
+        )
 
     def address(self) -> str:
         """

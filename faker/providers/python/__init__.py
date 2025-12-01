@@ -36,7 +36,9 @@ class Provider(BaseProvider):
         "email",
     )
 
-    def _check_signature(self, value_types: Optional[TypesSpec], allowed_types: Optional[TypesSpec]) -> TypesSpec:
+    def _check_signature(
+        self, value_types: Optional[TypesSpec], allowed_types: Optional[TypesSpec]
+    ) -> TypesSpec:
         if value_types is not None and not isinstance(value_types, (list, tuple)):
             value_types = (value_types,)
             warnings.warn(
@@ -59,7 +61,9 @@ class Provider(BaseProvider):
 
     def pyobject(
         self,
-        object_type: Optional[Type[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]] = None,
+        object_type: Optional[
+            Type[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]
+        ] = None,
     ) -> Optional[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]:
         """
         Generates a random object passing the type desired.
@@ -89,7 +93,9 @@ class Provider(BaseProvider):
         elif object_type == dict:
             return self.pydict()
         else:
-            raise ValueError(f"Object type `{object_type}` is not supported by `pyobject` function")
+            raise ValueError(
+                f"Object type `{object_type}` is not supported by `pyobject` function"
+            )
 
     def pybool(self, truth_probability: int = 50) -> bool:
         """
@@ -100,7 +106,9 @@ class Provider(BaseProvider):
         :raises ValueError: If invalid `truth_probability` is provided.
         """
         if truth_probability < 0 or truth_probability > 100:
-            raise ValueError("Invalid `truth_probability` value: must be between `0` and `100` inclusive")
+            raise ValueError(
+                "Invalid `truth_probability` value: must be between `0` and `100` inclusive"
+            )
 
         return self.random_int(1, 100) <= truth_probability
 
@@ -123,7 +131,9 @@ class Provider(BaseProvider):
         if min_chars is None:
             chars = "".join(self.random_letters(length=max_chars))
         else:
-            assert max_chars >= min_chars, "Maximum length must be greater than or equal to minimum length"
+            assert (
+                max_chars >= min_chars
+            ), "Maximum length must be greater than or equal to minimum length"
             chars = "".join(
                 self.random_letters(
                     length=self.generator.random.randint(min_chars, max_chars),
@@ -149,9 +159,13 @@ class Provider(BaseProvider):
         max_value: Optional[Union[float, int]] = None,
     ) -> float:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its integer part")
+            raise ValueError(
+                "A float number cannot have less than 0 digits in its integer part"
+            )
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its fractional part")
+            raise ValueError(
+                "A float number cannot have less than 0 digits in its fractional part"
+            )
         if left_digits == 0 and right_digits == 0:
             raise ValueError("A float number cannot have less than 0 digits in total")
         if min_value is not None and max_value is not None:
@@ -160,15 +174,27 @@ class Provider(BaseProvider):
         if None not in (min_value, max_value) and min_value == max_value:
             raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
-            raise ValueError("Cannot combine positive=True with negative or zero min_value")
-        if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
+            raise ValueError(
+                "Cannot combine positive=True with negative or zero min_value"
+            )
+        if (
+            left_digits is not None
+            and max_value
+            and math.ceil(math.log10(abs(max_value))) > left_digits
+        ):
             raise ValueError("Max value must fit within left digits")
-        if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
+        if (
+            left_digits is not None
+            and min_value
+            and math.ceil(math.log10(abs(min_value))) > left_digits
+        ):
             raise ValueError("Min value must fit within left digits")
 
         # Make sure at least either left or right is set
         if left_digits is None and right_digits is None:
-            needed_left_digits = max(1, math.ceil(math.log10(max(abs(max_value or 1), abs(min_value or 1)))))
+            needed_left_digits = max(
+                1, math.ceil(math.log10(max(abs(max_value or 1), abs(min_value or 1))))
+            )
             right_digits = self.random_int(1, sys.float_info.dig - needed_left_digits)
 
         # If only one side is set, choose #digits for other side
@@ -193,12 +219,18 @@ class Provider(BaseProvider):
             # Make sure left_digits still respected
             if left_digits is not None:
                 if max_value is None:
-                    left_max_value = 10**left_digits  # minus smallest representable, adjusted later
+                    left_max_value = (
+                        10**left_digits
+                    )  # minus smallest representable, adjusted later
                 if min_value is None:
-                    left_min_value = -(10**left_digits)  # plus smallest representable, adjusted later
+                    left_min_value = -(
+                        10**left_digits
+                    )  # plus smallest representable, adjusted later
 
             if max_value is not None and max_value < 0:
-                left_max_value += 1  # as the random_int will be generated up to max_value - 1
+                left_max_value += (
+                    1  # as the random_int will be generated up to max_value - 1
+                )
             if min_value is not None and min_value < 0:
                 left_min_value += 1  # as we then append digits after the left_number
             left_number = self._safe_random_int(
@@ -224,8 +256,12 @@ class Provider(BaseProvider):
                 result += sys.float_info.epsilon
 
         if right_digits:
-            result = min(result, 10**left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
-            result = max(result, -(10**left_digits + float(f'0.{"0" * (right_digits - 1)}1')))
+            result = min(
+                result, 10**left_digits - float(f'0.{"0" * (right_digits - 1)}1')
+            )
+            result = max(
+                result, -(10**left_digits + float(f'0.{"0" * (right_digits - 1)}1'))
+            )
         else:
             result = min(result, 10**left_digits - 1)
             result = max(result, -(10**left_digits + 1))
@@ -236,14 +272,24 @@ class Provider(BaseProvider):
         # Ensure the variance is bound by the difference between the max and min
         if max_value is not None:
             if result > max_value:
-                result = result - (result - max_value + self.generator.random.uniform(0, max_value - min_value))
+                result = result - (
+                    result
+                    - max_value
+                    + self.generator.random.uniform(0, max_value - min_value)
+                )
         if min_value is not None:
             if result < min_value:
-                result = result + (min_value - result + self.generator.random.uniform(0, max_value - min_value))
+                result = result + (
+                    min_value
+                    - result
+                    + self.generator.random.uniform(0, max_value - min_value)
+                )
 
         return result
 
-    def _safe_random_int(self, min_value: float, max_value: float, positive: bool) -> int:
+    def _safe_random_int(
+        self, min_value: float, max_value: float, positive: bool
+    ) -> int:
         orig_min_value = min_value
         orig_max_value = max_value
 
@@ -290,17 +336,25 @@ class Provider(BaseProvider):
         max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its integer part")
+            raise ValueError(
+                "A decimal number cannot have less than 0 digits in its integer part"
+            )
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its fractional part")
-        if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
+            raise ValueError(
+                "A decimal number cannot have less than 0 digits in its fractional part"
+            )
+        if (left_digits is not None and left_digits == 0) and (
+            right_digits is not None and right_digits == 0
+        ):
             raise ValueError("A decimal number cannot have 0 digits in total")
         if min_value is not None and max_value is not None and min_value > max_value:
             raise ValueError("Min value cannot be greater than max value")
         if min_value is not None and max_value is not None and min_value == max_value:
             raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
-            raise ValueError("Cannot combine positive=True with negative or zero min_value")
+            raise ValueError(
+                "Cannot combine positive=True with negative or zero min_value"
+            )
         if (
             left_digits is not None
             and max_value
@@ -335,11 +389,15 @@ class Provider(BaseProvider):
 
         if sign == "+":
             if max_value is not None:
-                left_number = str(self.random_int(int(max(min_value or 0, 0)), int(max_value)))
+                left_number = str(
+                    self.random_int(int(max(min_value or 0, 0)), int(max_value))
+                )
             else:
                 min_left_digits = math.ceil(math.log10(max(min_value or 1, 1)))
                 if left_digits is None:
-                    left_digits = self.random_int(min_left_digits, max_left_random_digits)
+                    left_digits = self.random_int(
+                        min_left_digits, max_left_random_digits
+                    )
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
@@ -352,13 +410,17 @@ class Provider(BaseProvider):
             else:
                 min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))  # type: ignore[arg-type]
                 if left_digits is None:
-                    left_digits = self.random_int(min_left_digits, max_left_random_digits)
+                    left_digits = self.random_int(
+                        min_left_digits, max_left_random_digits
+                    )
                 left_number = str(self._random_int_of_length(left_digits))
 
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = "".join([str(self.random_digit()) for _ in range(0, right_digits)])
+        right_number = "".join(
+            [str(self.random_digit()) for _ in range(0, right_digits)]
+        )
 
         result = Decimal(f"{sign}{left_number}.{right_number}")
 
@@ -454,7 +516,11 @@ class Provider(BaseProvider):
         value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
         value_types: TypesNames = [
-            t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
+            (
+                t
+                if isinstance(t, str)
+                else getattr(t, "__name__", type(t).__name__).lower()
+            )
             for t in value_types
             # avoid recursion
             if t not in ["iterable", "list", "tuple", "dict", "set"]
@@ -517,7 +583,11 @@ class Provider(BaseProvider):
         value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
         value_types: TypesNames = [
-            t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
+            (
+                t
+                if isinstance(t, str)
+                else getattr(t, "__name__", type(t).__name__).lower()
+            )
             for t in value_types
             # avoid recursion
             if t != "struct"
@@ -569,6 +639,8 @@ class Provider(BaseProvider):
         members: List[TEnum] = list(cast(Iterable[TEnum], enum_cls))
 
         if len(members) < 1:
-            raise EmptyEnumException(f"The provided Enum: '{enum_cls.__name__}' has no members.")
+            raise EmptyEnumException(
+                f"The provided Enum: '{enum_cls.__name__}' has no members."
+            )
 
         return self.random_element(members)

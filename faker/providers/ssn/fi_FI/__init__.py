@@ -4,7 +4,9 @@ from .. import Provider as SsnProvider
 
 
 class Provider(SsnProvider):
-    def ssn(self, min_age: int = 0, max_age: int = 105, artificial: bool = False) -> str:
+    def ssn(
+        self, min_age: int = 0, max_age: int = 105, artificial: bool = False
+    ) -> str:
         """
         Returns 11 character Finnish personal identity code (Henkilötunnus,
         HETU, Swedish: Personbeteckning). This function assigns random
@@ -29,7 +31,9 @@ class Provider(SsnProvider):
         if min_age == max_age:
             age = datetime.timedelta(days=min_age * 365)
         else:
-            age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
+            age = datetime.timedelta(
+                days=self.generator.random.randrange(min_age * 365, max_age * 365)
+            )
         birthday = datetime.date.today() - age
         # format %y requires year >= 1900 on Windows
         hetu_date = "%02d%02d%s" % (
@@ -54,7 +58,9 @@ class Provider(SsnProvider):
         elif 1800 <= year < 1900:
             separator = "+"
         else:
-            raise ValueError("Finnish SSN do not support people born before the year 1800 or after the year 2999")
+            raise ValueError(
+                "Finnish SSN do not support people born before the year 1800 or after the year 2999"
+            )
         return separator
 
     vat_id_formats = ("FI########",)

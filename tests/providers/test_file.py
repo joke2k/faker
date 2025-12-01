@@ -36,7 +36,9 @@ class TestFile(unittest.TestCase):
             assert re.search(r"\/\w+\/\w+\/\w+\.\w+", file_path)
             file_path = self.fake.file_path(extension="pdf")
             assert re.search(r"\/\w+\/\w+\.pdf$", file_path)
-            file_path = self.fake.file_path(extension=["a", "bc", "def", "ghij", "klmno"])
+            file_path = self.fake.file_path(
+                extension=["a", "bc", "def", "ghij", "klmno"]
+            )
             assert re.search(r"\/\w+\/\w+\.(a|bc|def|ghij|klmno)$", file_path)
             file_path = self.fake.file_path(extension=None)
             assert re.search(r"\/\w+\/\w+\.\w+", file_path)
@@ -48,7 +50,9 @@ class TestFile(unittest.TestCase):
             assert re.search(r"\/\w+\/\w+\.(bmp|gif|jpeg|jpg|png|tiff)", file_path)
             file_path = self.fake.file_path(file_system_rule="windows")
             assert re.search(r"\\\w+\\\w+\.\w+", file_path)
-            file_path = self.fake.file_path(file_system_rule="windows", category="image", absolute=True)
+            file_path = self.fake.file_path(
+                file_system_rule="windows", category="image", absolute=True
+            )
             assert re.search(r"^[a-zA-Z]:\\\w+\\\w+\.\w+", file_path)
             assert re.search(r"\\\w+\\\w+\.(bmp|gif|jpeg|jpg|png|tiff)$", file_path)
 

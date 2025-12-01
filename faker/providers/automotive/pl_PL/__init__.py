@@ -36,4 +36,7 @@ class Provider(AutomotiveProvider):
            should not be part of the public API. User should refrain from using
            this method.
         """
-        return [plate.replace("?", "[A-Z]").replace("#", "[0-9]") for plate in self.license_formats]
+        return [
+            plate.replace("?", "[A-Z]").replace("#", "[0-9]")
+            for plate in self.license_formats
+        ]

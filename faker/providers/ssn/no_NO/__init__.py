@@ -30,7 +30,9 @@ class Provider(SsnProvider):
     scale1 = (3, 7, 6, 1, 8, 9, 4, 5, 2)
     scale2 = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
 
-    def ssn(self, dob: Optional[str] = None, gender: Optional[SexLiteral] = None) -> str:
+    def ssn(
+        self, dob: Optional[str] = None, gender: Optional[SexLiteral] = None
+    ) -> str:
         """
         Returns 11 character Norwegian personal identity code (Fødselsnummer).
 
@@ -51,7 +53,9 @@ class Provider(SsnProvider):
         if dob:
             birthday = datetime.datetime.strptime(dob, "%Y%m%d")
         else:
-            age = datetime.timedelta(days=self.generator.random.randrange(18 * 365, 90 * 365))
+            age = datetime.timedelta(
+                days=self.generator.random.randrange(18 * 365, 90 * 365)
+            )
             birthday = datetime.datetime.now() - age
         if not gender:
             gender = self.generator.random.choice(("F", "M"))

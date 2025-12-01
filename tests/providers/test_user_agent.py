@@ -13,11 +13,16 @@ class TestUserAgentProvider:
     """Test user agent provider methods"""
 
     num_samples = 1000
-    android_token_pattern: Pattern = re.compile(r"Android (?P<android_version>\d+(?:\.\d){0,2})")
-    ios_token_pattern: Pattern = re.compile(
-        r"^(?P<apple_device>.*?); CPU \1 OS " + r"(?P<ios_version>\d+(?:_\d){0,2}) like Mac OS X"
+    android_token_pattern: Pattern = re.compile(
+        r"Android (?P<android_version>\d+(?:\.\d){0,2})"
     )
-    mac_token_pattern: Pattern = re.compile(r"Macintosh; (?P<mac_processor>.*?) Mac OS X 10_([5-9]|1[0-2])_(\d)")
+    ios_token_pattern: Pattern = re.compile(
+        r"^(?P<apple_device>.*?); CPU \1 OS "
+        + r"(?P<ios_version>\d+(?:_\d){0,2}) like Mac OS X"
+    )
+    mac_token_pattern: Pattern = re.compile(
+        r"Macintosh; (?P<mac_processor>.*?) Mac OS X 10_([5-9]|1[0-2])_(\d)"
+    )
     one_day = dt.timedelta(1.0)
 
     def test_android_platform_token(self, faker, num_samples):
@@ -29,7 +34,9 @@ class TestUserAgentProvider:
         for _ in range(num_samples):
             match = self.ios_token_pattern.fullmatch(faker.ios_platform_token())
             assert match.group("apple_device") in UaProvider.apple_devices
-            assert match.group("ios_version").replace("_", ".") in UaProvider.ios_versions
+            assert (
+                match.group("ios_version").replace("_", ".") in UaProvider.ios_versions
+            )
 
     def test_mac_platform_token(self, faker, num_samples):
         for _ in range(num_samples):

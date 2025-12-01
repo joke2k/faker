@@ -60,7 +60,9 @@ class Provider(BaseProvider):
 
     def bban(self) -> str:
         """Generate a Basic Bank Account Number (BBAN)."""
-        temp = re.sub(r"\?", lambda x: self.random_element(ascii_uppercase), self.bban_format)
+        temp = re.sub(
+            r"\?", lambda x: self.random_element(ascii_uppercase), self.bban_format
+        )
         return self.numerify(temp)
 
     def iban(self) -> str:
@@ -150,7 +152,9 @@ class Provider(BaseProvider):
         if use_dataset and hasattr(self, "swift_location_codes"):
             location_code: str = self.random_element(self.swift_location_codes)  # type: ignore[attr-defined]
         else:
-            location_code = self.lexify("??", letters=string.ascii_uppercase + string.digits)
+            location_code = self.lexify(
+                "??", letters=string.ascii_uppercase + string.digits
+            )
 
         if length == 8:
             return bank_code + self.country_code + location_code
@@ -160,6 +164,8 @@ class Provider(BaseProvider):
         elif use_dataset and hasattr(self, "swift_branch_codes"):
             branch_code = self.random_element(self.swift_branch_codes)  # type: ignore[attr-defined]
         else:
-            branch_code = self.lexify("???", letters=string.ascii_uppercase + string.digits)
+            branch_code = self.lexify(
+                "???", letters=string.ascii_uppercase + string.digits
+            )
 
         return bank_code + self.country_code + location_code + branch_code

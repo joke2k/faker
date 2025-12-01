@@ -200,7 +200,9 @@ class Provider(MiscProvider):
         "Virgo",
         "Zodiac",
     )
-    random_object_names = gemstone_names + mountain_names + plant_names + space_object_names
+    random_object_names = (
+        gemstone_names + mountain_names + plant_names + space_object_names
+    )
 
     def gemstone_name(self) -> str:
         return self.random_element(self.gemstone_names)

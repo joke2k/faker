@@ -51,15 +51,24 @@ class Provider(AddressProvider):
     """
 
     metro_manila_postcodes = tuple(x for x in range(400, 1849))
-    luzon_province_postcodes = tuple(x for x in range(1850, 5000)) + tuple(x for x in range(5100, 5600))
+    luzon_province_postcodes = tuple(x for x in range(1850, 5000)) + tuple(
+        x for x in range(5100, 5600)
+    )
     visayas_province_postcodes = (
-        tuple(x for x in range(5000, 5100)) + tuple(x for x in range(5600, 5800)) + tuple(x for x in range(6000, 6900))
+        tuple(x for x in range(5000, 5100))
+        + tuple(x for x in range(5600, 5800))
+        + tuple(x for x in range(6000, 6900))
     )
     mindanao_province_postcodes = (
-        tuple(x for x in range(7000, 7600)) + tuple(x for x in range(8000, 8900)) + tuple(x for x in range(9000, 9900))
+        tuple(x for x in range(7000, 7600))
+        + tuple(x for x in range(8000, 8900))
+        + tuple(x for x in range(9000, 9900))
     )
     postcodes = (
-        metro_manila_postcodes + luzon_province_postcodes + visayas_province_postcodes + mindanao_province_postcodes
+        metro_manila_postcodes
+        + luzon_province_postcodes
+        + visayas_province_postcodes
+        + mindanao_province_postcodes
     )
     metro_manila_lgus = (
         "Caloocan",
@@ -1621,11 +1630,21 @@ class Provider(AddressProvider):
     )
     floor_numbers = OrderedDict(
         [(str(x), 0.08) for x in range(2, 5)]  # Floors 2 to 4, 24% of the time
-        + [(str(x), 0.32356832089420257 / x) for x in range(5, 13)]  # Floors 5 to 12, 33% of the time
-        + [(str(x), 0.30341265418486174 / (x - 1)) for x in range(14, 30)]  # Floors 14 to 29, 25% of the time
-        + [(str(x), 0.30096338222652870 / (x - 1)) for x in range(30, 50)]  # Floors 30 to 49, 16% of the time
-        + [(str(x), 0.04570476167856688 / (x - 1)) for x in range(50, 75)]  # Floors 50 to 74, 1.9% of the time
-        + [(str(x), 0.003415677066138734 / (x - 1)) for x in range(75, 100)]  # Floors 75 to 99, 0.1% of the time
+        + [
+            (str(x), 0.32356832089420257 / x) for x in range(5, 13)
+        ]  # Floors 5 to 12, 33% of the time
+        + [
+            (str(x), 0.30341265418486174 / (x - 1)) for x in range(14, 30)
+        ]  # Floors 14 to 29, 25% of the time
+        + [
+            (str(x), 0.30096338222652870 / (x - 1)) for x in range(30, 50)
+        ]  # Floors 30 to 49, 16% of the time
+        + [
+            (str(x), 0.04570476167856688 / (x - 1)) for x in range(50, 75)
+        ]  # Floors 50 to 74, 1.9% of the time
+        + [
+            (str(x), 0.003415677066138734 / (x - 1)) for x in range(75, 100)
+        ]  # Floors 75 to 99, 0.1% of the time
     )
 
     street_suffixes = OrderedDict(
@@ -1663,7 +1682,9 @@ class Provider(AddressProvider):
         "{{building_unit_number}} {{building_name}}, {{standalone_building_number}} {{street_name}}",
     )
 
-    metro_manila_address_formats = ("{{street_address}}, {{metro_manila_lgu}}, {{metro_manila_postcode}} Metro Manila",)
+    metro_manila_address_formats = (
+        "{{street_address}}, {{metro_manila_lgu}}, {{metro_manila_postcode}} Metro Manila",
+    )
     luzon_province_address_formats = (
         "{{street_address}}, {{province_lgu}}, {{luzon_province_postcode}} {{luzon_province}}",
     )
@@ -1754,7 +1775,9 @@ class Provider(AddressProvider):
         return f"{self.floor_number()}{self.random_int(1, 40):02d}"
 
     def building_unit_number(self) -> str:
-        return self.generator.parse(self.random_element(self.building_unit_number_formats))
+        return self.generator.parse(
+            self.random_element(self.building_unit_number_formats)
+        )
 
     def building_name(self) -> str:
         return self.generator.parse(self.random_element(self.building_name_formats))
@@ -1769,7 +1792,9 @@ class Provider(AddressProvider):
         return f"{self.random_int(1, 99):02d}"
 
     def subdivision_unit_number(self) -> str:
-        return self.generator.parse(self.random_element(self.subdivision_unit_number_formats))
+        return self.generator.parse(
+            self.random_element(self.subdivision_unit_number_formats)
+        )
 
     def subdivision_name(self) -> str:
         return self.generator.parse(self.random_element(self.subdivision_name_formats))

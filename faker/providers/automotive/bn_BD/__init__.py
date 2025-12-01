@@ -242,7 +242,9 @@ class Provider(AutomotiveProvider):
         Generate a 4 digits vehicle serial number.
         :example: '৫৪৩২'
         """
-        return translate_to_bengali_digits(self.numerify(self.random_element(self.vehicle_serial_number_formats)))
+        return translate_to_bengali_digits(
+            self.numerify(self.random_element(self.vehicle_serial_number_formats))
+        )
 
     def license_plate(self) -> str:
         """

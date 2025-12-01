@@ -25,7 +25,9 @@ class Faker:
 
     cache_pattern: Pattern = re.compile(r"^_cached_\w*_mapping$")
     generator_attrs = [
-        attr for attr in dir(Generator) if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
+        attr
+        for attr in dir(Generator)
+        if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
     ]
 
     def __init__(
@@ -129,7 +131,10 @@ class Faker:
         if len(self._factories) == 1:
             return getattr(self._factories[0], attr)
         elif attr in self.generator_attrs:
-            msg = "Proxying calls to `%s` is not implemented in multiple locale mode." % attr
+            msg = (
+                "Proxying calls to `%s` is not implemented in multiple locale mode."
+                % attr
+            )
             raise NotImplementedError(msg)
         elif self.cache_pattern.match(attr):
             msg = "Cached attribute `%s` does not exist" % attr
@@ -146,7 +151,9 @@ class Faker:
         result._factory_map = copy.deepcopy(self._factory_map)
         result._weights = copy.deepcopy(self._weights)
         result._unique_proxy = UniqueProxy(self)
-        result._unique_proxy._seen = {k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()}
+        result._unique_proxy._seen = {
+            k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()
+        }
         return result
 
     def __setstate__(self, state: Any) -> None:
@@ -188,7 +195,9 @@ class Faker:
     def _select_factory_choice(self, factories):
         return random.choice(factories)
 
-    def _map_provider_method(self, method_name: str) -> tuple[list[Factory], list[float] | None]:
+    def _map_provider_method(
+        self, method_name: str
+    ) -> tuple[list[Factory], list[float] | None]:
         """
         Creates a 2-tuple of factories and weights for the given provider method name
 
@@ -357,7 +366,9 @@ class UniqueProxy:
                 retval = function(*args, **kwargs)
                 hashable_retval = self._make_hashable(retval)
             else:
-                raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
+                raise UniquenessException(
+                    f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations."
+                )
 
             generated.add(hashable_retval)
 
@@ -379,7 +390,9 @@ class OptionalProxy:
         if callable(obj):
             return self._wrap(name, obj)
         else:
-            raise TypeError("Accessing non-functions through .optional is not supported.")
+            raise TypeError(
+                "Accessing non-functions through .optional is not supported."
+            )
 
     def __getstate__(self):
         # Copy the object's state from self.__dict__ which contains
@@ -391,11 +404,17 @@ class OptionalProxy:
     def __setstate__(self, state):
         self.__dict__.update(state)
 
-    def _wrap(self, name: str, function: Callable[..., RetType]) -> Callable[..., RetType | None]:
+    def _wrap(
+        self, name: str, function: Callable[..., RetType]
+    ) -> Callable[..., RetType | None]:
         @functools.wraps(function)
         def wrapper(*args: Any, prob: float = 0.5, **kwargs: Any) -> RetType | None:
             if not 0 < prob <= 1.0:
                 raise ValueError("prob must be between 0 and 1")
-            return function(*args, **kwargs) if self._proxy.boolean(chance_of_getting_true=int(prob * 100)) else None
+            return (
+                function(*args, **kwargs)
+                if self._proxy.boolean(chance_of_getting_true=int(prob * 100))
+                else None
+            )
 
         return wrapper

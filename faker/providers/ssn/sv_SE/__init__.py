@@ -36,7 +36,9 @@ class Provider(SsnProvider):
         http://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
         """
 
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(
+            days=self.generator.random.randrange(min_age * 365, max_age * 365)
+        )
         birthday = datetime.datetime.now() - age
         yr_fmt = "%Y" if long else "%y"
         pnr_date = f"{birthday:{yr_fmt}%m%d}"

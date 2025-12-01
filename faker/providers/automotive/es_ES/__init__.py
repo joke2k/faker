@@ -105,7 +105,11 @@ class Provider(AutomotiveProvider):
         as the prefix regardless of validity. If ``None``, then a valid prefix
         will be selected at random.
         """
-        province_prefix = province_prefix if province_prefix is not None else self.random_element(self.province_prefix)
+        province_prefix = (
+            province_prefix
+            if province_prefix is not None
+            else self.random_element(self.province_prefix)
+        )
         temp = re.sub(
             r"\?",
             lambda x: self.random_element(self.license_plate_old_format_suffix_letters),

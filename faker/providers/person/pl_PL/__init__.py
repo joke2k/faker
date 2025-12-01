@@ -10,9 +10,16 @@ def checksum_identity_card_number(characters: Sequence[Union[str, int]]) -> int:
     """
     weights_for_check_digit = [7, 3, 1, 0, 7, 3, 1, 7, 3]
     integer_characters = [
-        (ord(character) - 55) if isinstance(character, str) else character for character in characters
+        (ord(character) - 55) if isinstance(character, str) else character
+        for character in characters
     ]
-    check_digit = sum(weight * ch for weight, ch in zip(weights_for_check_digit, integer_characters)) % 10
+    check_digit = (
+        sum(
+            weight * ch
+            for weight, ch in zip(weights_for_check_digit, integer_characters)
+        )
+        % 10
+    )
     return check_digit
 
 
@@ -4119,7 +4126,9 @@ class Provider(PersonProvider):
         checksum_values = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7]
         return sum(int(a) * b for a, b in zip(pesel, checksum_values)) % 10
 
-    def pesel(self, date_of_birth: Optional[datetime] = None, sex: Optional[str] = None) -> str:
+    def pesel(
+        self, date_of_birth: Optional[datetime] = None, sex: Optional[str] = None
+    ) -> str:
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.

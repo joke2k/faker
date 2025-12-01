@@ -13,6 +13,7 @@ from faker.providers.person import Provider as PersonProvider
 class Provider(PersonProvider):
     # Male first names
     first_names_male = [
+        # Existing
         "John",
         "Emmanuel",
         "Peter",
@@ -33,10 +34,57 @@ class Provider(PersonProvider):
         "Nathaniel",
         "Simon",
         "Cornelius",
+        # Yoruba
+        "Oluwaseun",
+        "Oluwafemi",
+        "Ayodele",
+        "Adekunle",
+        "Adewale",
+        "Olamide",
+        "Babajide",
+        "Segun",
+        "Tunde",
+        "Fisayo",
+        "Bamidele",
+        "Dotun",
+        # Igbo
+        "Chukwuemeka",
+        "Chinedu",
+        "Ifeanyi",
+        "Chibuzor",
+        "Obinna",
+        "Emeka",
+        "Uchenna",
+        "Kelechi",
+        "Tobechi",
+        "Somtochukwu",
+        # Hausa
+        "Abubakar",
+        "Ibrahim",
+        "Suleiman",
+        "Muhammad",
+        "Nasir",
+        "Kabiru",
+        "Ismail",
+        "Shehu",
+        "Bashir",
+        "Umar",
+        # Other Nigerian / multi-ethnic
+        "Efe",
+        "Ovie",
+        "Tari",
+        "Boma",
+        "Tamuno",
+        "Sesan",
+        "Kunle",
+        "Ekene",
+        "Okechukwu",
+        "Ayo",
     ]
 
     # Female first names
     first_names_female = [
+        # Existing
         "Mary",
         "Grace",
         "Joy",
@@ -57,6 +105,45 @@ class Provider(PersonProvider):
         "Ruth",
         "Angela",
         "Faith",
+        # Yoruba
+        "Oluwatoyin",
+        "Oluwaseun",
+        "Adejoke",
+        "Aderonke",
+        "Opeyemi",
+        "Yetunde",
+        "Abike",
+        "Dupe",
+        "Morayo",
+        "Yewande",
+        # Igbo
+        "Chiamaka",
+        "Ngozi",
+        "Amarachi",
+        "Chidera",
+        "Oluchi",
+        "Chinonso",
+        "Adaugo",
+        "Chisom",
+        "Ifunanya",
+        "Nkechi",
+        # Hausa
+        "Zainab",
+        "Aisha",
+        "Hadiza",
+        "Fatima",
+        "Halima",
+        "Maimuna",
+        "Rukaiya",
+        "Bilqis",
+        "Jamila",
+        "Asma'u",
+        # Other Nigerian / multi-ethnic
+        "Ebiere",
+        "Tamunomi",
+        "Alero",
+        "Fadekemi",
+        "Omasan",
     ]
 
     # Combined list

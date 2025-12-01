@@ -68,7 +68,9 @@ class TestMiscProvider:
     num_samples = 10
 
     def test_uuid4_str(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")
+        pattern: Pattern = re.compile(
+            r"[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
+        )
         for _ in range(num_samples):
             assert pattern.fullmatch(faker.uuid4())
 
@@ -423,7 +425,9 @@ class TestMiscProvider:
     def test_dsv_data_columns(self, faker):
         num_rows = 10
         data_columns = ["{{name}}", "#??-####", "{{address}}", "{{phone_number}}"]
-        with patch.object(faker["en_US"].factories[0], "pystr_format") as mock_pystr_format:
+        with patch.object(
+            faker["en_US"].factories[0], "pystr_format"
+        ) as mock_pystr_format:
             mock_pystr_format.assert_not_called()
             faker.dsv(data_columns=data_columns, num_rows=num_rows)
 
@@ -584,7 +588,10 @@ class TestMiscProvider:
         }
         with pytest.raises(TypeError) as excinfo:
             json.loads(faker_with_foobar.json(**kwargs))
-        assert str(excinfo.value) == "Invalid data_columns type. Must be a dictionary or list"
+        assert (
+            str(excinfo.value)
+            == "Invalid data_columns type. Must be a dictionary or list"
+        )
 
     def test_json_list_format_invalid_arguments_type(self, faker_with_foobar):
         kwargs = {

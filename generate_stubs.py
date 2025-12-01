@@ -25,16 +25,23 @@ imports["faker.typing"] = {"*"}
 imports["faker.generator"] = {"Generator"}
 
 
-def get_module_and_member_to_import(cls: Type, locale: Optional[str] = None) -> Tuple[str, str]:
+def get_module_and_member_to_import(
+    cls: Type, locale: Optional[str] = None
+) -> Tuple[str, str]:
     cls_name = getattr(cls, "__name__", getattr(cls, "_name", str(cls)))
     module, member = cls.__module__, cls_name
     if cls_name is None:
         qualified_type = re.findall(r"([a-zA-Z_0-9]+)\.([a-zA-Z_0-9]+)", str(cls))
         if len(qualified_type) > 0:
-            if imports[qualified_type[0][0]] is None or qualified_type[0][1] not in imports[qualified_type[0][0]]:
+            if (
+                imports[qualified_type[0][0]] is None
+                or qualified_type[0][1] not in imports[qualified_type[0][0]]
+            ):
                 module, member = qualified_type[0]
         else:
-            unqualified_type = re.findall(r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", f" {cls} ")
+            unqualified_type = re.findall(
+                r"[^\.a-zA-Z0-9_]([A-Z][a-zA-Z0-9_]+)[^\.a-zA-Z0-9_]", f" {cls} "
+            )
             if len(unqualified_type) > 0 and unqualified_type[0] != "NoneType":
                 cls_str = str(cls).replace(".en_US", "").replace("faker.", ".")
                 if "<class '" in cls_str:
@@ -42,7 +49,10 @@ def get_module_and_member_to_import(cls: Type, locale: Optional[str] = None) -> 
                 if locale is not None:
                     cls_str = cls_str.replace("." + locale, "")
 
-                if imports[cls_str] is None or unqualified_type[0] not in imports[cls_str]:
+                if (
+                    imports[cls_str] is None
+                    or unqualified_type[0] not in imports[cls_str]
+                ):
                     module, member = cls_str, unqualified_type[0]
     if module in MODULES_TO_FULLY_QUALIFY:
         member = None
@@ -68,7 +78,9 @@ class UniqueMemberFunctionsAndVariables:
         seen_vars = seen_vars.union(self.vars.keys())
 
 
-def get_member_functions_and_variables(cls: object, include_mangled: bool = False) -> UniqueMemberFunctionsAndVariables:
+def get_member_functions_and_variables(
+    cls: object, include_mangled: bool = False
+) -> UniqueMemberFunctionsAndVariables:
     members = [
         (name, value)
         for (name, value) in inspect.getmembers(cls)
@@ -84,13 +96,22 @@ def get_member_functions_and_variables(cls: object, include_mangled: bool = Fals
             # I haven't implemented logic
             # for generating descriptor signatures yet
             continue
-        elif not include_mangled or type(value).__name__ not in GENERIC_MANGLE_TYPES_TO_IGNORE:
+        elif (
+            not include_mangled
+            or type(value).__name__ not in GENERIC_MANGLE_TYPES_TO_IGNORE
+        ):
             vars[name] = value
 
     return UniqueMemberFunctionsAndVariables(cls, funcs, vars)
 
 
-def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = False, comment: Optional[str] = None):
+def get_signatures_for_func(
+    func_value,
+    func_name,
+    locale,
+    is_overload: bool = False,
+    comment: Optional[str] = None,
+):
     """Return the signatures for the given function, recursing as necessary to handle overloads."""
     signatures = []
 
@@ -106,7 +127,9 @@ def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = F
         if overloads:
             for overload in overloads:
                 signatures.extend(
-                    get_signatures_for_func(overload, func_name, locale, is_overload=True, comment=comment)
+                    get_signatures_for_func(
+                        overload, func_name, locale, is_overload=True, comment=comment
+                    )
                 )
             return signatures
 
@@ -137,7 +160,10 @@ def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = F
         annotation = hints.get(key, new_parm.annotation)
         if parm_val.default is not inspect.Parameter.empty:
             new_parm = parm_val.replace(default=...)
-        if annotation is not inspect.Parameter.empty and annotation.__module__ not in BUILTIN_MODULES_TO_IGNORE:
+        if (
+            annotation is not inspect.Parameter.empty
+            and annotation.__module__ not in BUILTIN_MODULES_TO_IGNORE
+        ):
             module, member = get_module_and_member_to_import(annotation, locale)
             if module not in [None, "types"]:
                 if imports[module] is None:
@@ -147,7 +173,9 @@ def get_signatures_for_func(func_value, func_name, locale, is_overload: bool = F
         new_parms.append(new_parm)
 
     sig = sig.replace(parameters=new_parms)
-    sig_str = str(sig).replace("Ellipsis", "...").replace("NoneType", "None").replace("~", "")
+    sig_str = (
+        str(sig).replace("Ellipsis", "...").replace("NoneType", "None").replace("~", "")
+    )
     for module in imports.keys():
         if module in MODULES_TO_FULLY_QUALIFY:
             continue
@@ -179,7 +207,8 @@ for locale in AVAILABLE_LOCALES:
         classes_and_locales_to_use_for_stub.append((prov_cls, locale))
 
 all_members: List[Tuple[UniqueMemberFunctionsAndVariables, str]] = [
-    (get_member_functions_and_variables(cls), locale) for cls, locale in classes_and_locales_to_use_for_stub
+    (get_member_functions_and_variables(cls), locale)
+    for cls, locale in classes_and_locales_to_use_for_stub
 ] + [(get_member_functions_and_variables(Faker, include_mangled=True), None)]
 
 # Use the accumulated seen_funcs and seen_vars to remove all variables that have the same name as a function somewhere
@@ -195,7 +224,9 @@ signatures_with_comments: List[Tuple[str, str, bool]] = []
 
 for mbr_funcs_and_vars, locale in all_members:
     for func_name, func_value in mbr_funcs_and_vars.funcs.items():
-        signatures_with_comments.extend(get_signatures_for_func(func_value, func_name, locale))
+        signatures_with_comments.extend(
+            get_signatures_for_func(func_value, func_name, locale)
+        )
 
 signatures_with_comments_as_str = []
 for sig, comment, is_preceding_comment in signatures_with_comments:
@@ -204,7 +235,10 @@ for sig, comment, is_preceding_comment in signatures_with_comments:
     elif comment is not None:
         sig_without_final_ellipsis = sig.strip(" .")
         signatures_with_comments_as_str.append(
-            sig_without_final_ellipsis + '\n    """\n    ' + comment.replace("\n", "\n    ") + '\n    """\n    ...'
+            sig_without_final_ellipsis
+            + '\n    """\n    '
+            + comment.replace("\n", "\n    ")
+            + '\n    """\n    ...'
         )
     else:
         signatures_with_comments_as_str.append(sig)
@@ -217,7 +251,9 @@ def get_import_str(module: str, members: Optional[Set[str]]) -> str:
         return f"from {module} import {', '.join(members)}"
 
 
-imports_block = "\n".join([get_import_str(module, names) for module, names in imports.items()])
+imports_block = "\n".join(
+    [get_import_str(module, names) for module, names in imports.items()]
+)
 member_signatures_block = "    " + "\n    ".join(
     [sig.replace("\n", "\n    ") for sig in signatures_with_comments_as_str]
 )

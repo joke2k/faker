@@ -1002,12 +1002,16 @@ class Provider(BaseProvider):
         ("12.12278", "-61.62498", "Grenville", "GD", "America/Grenada"),
     )
 
-    def coordinate(self, center: Optional[float] = None, radius: Union[float, int] = 0.001) -> Decimal:
+    def coordinate(
+        self, center: Optional[float] = None, radius: Union[float, int] = 0.001
+    ) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
         """
         if center is None:
-            return Decimal(str(self.generator.random.randint(-180000000, 180000000) / 1000000)).quantize(
+            return Decimal(
+                str(self.generator.random.randint(-180000000, 180000000) / 1000000)
+            ).quantize(
                 Decimal(".000001"),
             )
         else:

@@ -10,7 +10,9 @@ class Provider(BaseProvider):
 
     vat_id_formats = ("SK##########",)
 
-    national_id_months = ["%.2d" % i for i in range(1, 13)] + ["%.2d" % i for i in range(51, 63)]
+    national_id_months = ["%.2d" % i for i in range(1, 13)] + [
+        "%.2d" % i for i in range(51, 63)
+    ]
 
     def vat_id(self) -> str:
         """

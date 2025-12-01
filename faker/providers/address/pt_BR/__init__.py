@@ -98,7 +98,9 @@ class Provider(AddressProvider):
         "{{street_name}}, {{building_number}}",
     )
 
-    address_formats = ("{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}",)
+    address_formats = (
+        "{{street_address}}\n{{bairro}}\n{{postcode}} {{city}} / {{estado_sigla}}",
+    )
 
     building_number_formats = ("%", "%#", "%#", "%#", "%##")
 

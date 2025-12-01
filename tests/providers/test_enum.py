@@ -30,8 +30,12 @@ class TestEnumProvider:
             assert actual in (_TestEnum.A, _TestEnum.B, _TestEnum.C)
 
     def test_enum_single(self, faker):
-        assert faker.enum(_TestEnumWithSingleElement) == _TestEnumWithSingleElement.Single
-        assert faker.enum(_TestEnumWithSingleElement) == _TestEnumWithSingleElement.Single
+        assert (
+            faker.enum(_TestEnumWithSingleElement) == _TestEnumWithSingleElement.Single
+        )
+        assert (
+            faker.enum(_TestEnumWithSingleElement) == _TestEnumWithSingleElement.Single
+        )
 
     def test_empty_enum_raises(self, faker):
         with pytest.raises(

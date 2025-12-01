@@ -40,22 +40,29 @@ class Provider(PassportProvider):
         age = (today - birthday).days // 365
         if age < 16:
             expiry_years = 5
-            issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
+            issue_date = self.generator.date_time_between(
+                today - timedelta(days=expiry_years * 365 - 1), today
+            )
             # Checks if age is less than 5 so issue date is not before birthdate
             if age < 5:
                 issue_date = self.generator.date_time_between(birthday, today)
         elif age >= 26:
             expiry_years = 10
-            issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
+            issue_date = self.generator.date_time_between(
+                today - timedelta(days=expiry_years * 365 - 1), today
+            )
         else:
             # In cases between age 16 and 26, the issue date is 5 years ago, but expiry may be in 10 or 5 years
             expiry_years = 5
             issue_date = self.generator.date_time_between(
-                today - timedelta(days=expiry_years * 365 - 1), birthday + timedelta(days=16 * 365 - 1)
+                today - timedelta(days=expiry_years * 365 - 1),
+                birthday + timedelta(days=16 * 365 - 1),
             )
             # all people over 21 must have been over 16 when they recieved passport or it will be expired otherwise
             if age >= 21:
-                issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
+                issue_date = self.generator.date_time_between(
+                    today - timedelta(days=expiry_years * 365 - 1), today
+                )
                 expiry_years = 10
 
         if issue_date.day == 29 and issue_date.month == 2:

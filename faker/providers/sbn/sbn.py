@@ -31,7 +31,9 @@ class SBN9(SBN):
                 instead of 1 to 10.
         """
         weights = range(1, 9)
-        body = "".join([part for part in [self.registrant, self.publication] if part is not None])
+        body = "".join(
+            [part for part in [self.registrant, self.publication] if part is not None]
+        )
         remainder = sum(int(b) * w for b, w in zip(body, weights)) % 11
         check_digit = "X" if remainder == 10 else str(remainder)
         return str(check_digit)

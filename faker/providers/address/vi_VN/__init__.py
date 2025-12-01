@@ -291,7 +291,8 @@ class Provider(AddressProvider):
         if state_abbr in self.provinces_abbr:
             postcode = str(
                 self.generator.random.randint(
-                    self.provinces_postcode[state_abbr][0], self.provinces_postcode[state_abbr][1]
+                    self.provinces_postcode[state_abbr][0],
+                    self.provinces_postcode[state_abbr][1],
                 )
             )
 

@@ -156,7 +156,9 @@ class Provider(PersonProvider):
 
     romanized_formats_male = ("{{first_romanized_name_male}} {{last_romanized_name}}",)
 
-    romanized_formats_female = ("{{first_romanized_name_female}} {{last_romanized_name}}",)
+    romanized_formats_female = (
+        "{{first_romanized_name_female}} {{last_romanized_name}}",
+    )
 
     romanized_formats = romanized_formats_male + romanized_formats_female
 

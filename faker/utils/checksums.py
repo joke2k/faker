@@ -10,7 +10,9 @@ def luhn_checksum(number: float) -> int:
     odd_digits = digits[-1::-2]
     even_digits = digits[-2::-2]
 
-    checksum = sum(odd_digits) + sum(sum(_digits_of(digit * 2)) for digit in even_digits)
+    checksum = sum(odd_digits) + sum(
+        sum(_digits_of(digit * 2)) for digit in even_digits
+    )
 
     return checksum % 10
 

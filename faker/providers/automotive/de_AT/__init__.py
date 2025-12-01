@@ -148,7 +148,14 @@ class Provider(AutomotiveProvider):
         "ZW",
     )
 
-    license_plate_suffix_for_one_starting_letter = ("-%# ???", "-%## ???", "-%## ??", "-%### ??", "-%### ?", "-%#### ?")
+    license_plate_suffix_for_one_starting_letter = (
+        "-%# ???",
+        "-%## ???",
+        "-%## ??",
+        "-%### ??",
+        "-%### ?",
+        "-%#### ?",
+    )
 
     license_plate_suffix_for_two_starting_letters = (
         "-% ???",

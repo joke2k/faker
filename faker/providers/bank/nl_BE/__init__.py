@@ -87,6 +87,8 @@ class Provider(BankProvider):
     def _calculate_iban_check_digits(self, bban: str) -> str:
         """Calculate the IBAN check digits using mod 97 algorithm."""
         raw_iban = f"{bban}{self.country_code}00"
-        numeric_iban = "".join(str(ord(char) - 55) if char.isalpha() else char for char in raw_iban)
+        numeric_iban = "".join(
+            str(ord(char) - 55) if char.isalpha() else char for char in raw_iban
+        )
         check_digits = 98 - (int(numeric_iban) % 97)
         return str(check_digits).zfill(2)

@@ -17,7 +17,10 @@ class Provider(SsnProvider):
 
         def _checksum(ssn_without_checksum):
             weights = [1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
-            weighted_sum = sum(int(digit) * weight for digit, weight in zip(ssn_without_checksum, weights))
+            weighted_sum = sum(
+                int(digit) * weight
+                for digit, weight in zip(ssn_without_checksum, weights)
+            )
             reminder = (1 - weighted_sum) % 11
             if reminder == 10:
                 return 0
@@ -25,7 +28,9 @@ class Provider(SsnProvider):
                 return reminder + 11
             return reminder
 
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(
+            days=self.generator.random.randrange(min_age * 365, max_age * 365)
+        )
         birthday = datetime.date.today() - age
         ssn_date = f"{birthday:%d%m%y}"
         century = self._get_century_code(birthday.year)  # Century
@@ -44,7 +49,9 @@ class Provider(SsnProvider):
         elif 1800 <= year < 1900:
             code = 0
         else:
-            raise ValueError("SSN do not support people born before the year 1800 or after the year 2999")
+            raise ValueError(
+                "SSN do not support people born before the year 1800 or after the year 2999"
+            )
         return code
 
     """

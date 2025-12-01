@@ -12,7 +12,9 @@ import pytest
 from faker import Faker
 
 
-@pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
+@pytest.mark.parametrize(
+    "object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict)
+)
 def test_pyobject(
     object_type: Optional[
         Union[
@@ -37,7 +39,10 @@ def test_pyobject(
 
 @pytest.mark.parametrize("object_type", (object, type, callable))
 def test_pyobject_with_unknown_object_type(object_type):
-    with pytest.raises(ValueError, match=f"Object type `{object_type}` is not supported by `pyobject` function"):
+    with pytest.raises(
+        ValueError,
+        match=f"Object type `{object_type}` is not supported by `pyobject` function",
+    ):
         assert Faker().pyobject(object_type=object_type)
 
 
@@ -51,13 +56,17 @@ def test_pyobject_with_unknown_object_type(object_type):
         ("0123", 1, "1"),
     ),
 )
-def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
+def test_pyfloat_right_and_left_digits_positive(
+    mock_random_number_source, right_digits, expected_decimal_part
+):
     # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
     def mock_random_number(self, digits=None, fix_len=False):
         return int(mock_random_number_source[: digits or 1])
 
     with patch("faker.providers.BaseProvider.random_number", mock_random_number):
-        result = Faker().pyfloat(left_digits=1, right_digits=right_digits, positive=True)
+        result = Faker().pyfloat(
+            left_digits=1, right_digits=right_digits, positive=True
+        )
         decimal_part = str(result).split(".")[1]
         assert decimal_part == expected_decimal_part
 
@@ -123,7 +132,9 @@ def test_float_min_and_max_value_does_not_crash(
     Float arguments to randrange are deprecated from Python 3.10. This is a regression
     test to check that `pydecimal` does not cause a crash on any code path.
     """
-    Faker().pydecimal(left_digits, right_digits, min_value=min_value, max_value=max_value)
+    Faker().pydecimal(
+        left_digits, right_digits, min_value=min_value, max_value=max_value
+    )
 
 
 class TestPyint(unittest.TestCase):
@@ -280,7 +291,9 @@ class TestPyfloat(unittest.TestCase):
         a negative min_value is provided.
         """
 
-        expected_message = "Cannot combine positive=True with negative or zero min_value"
+        expected_message = (
+            "Cannot combine positive=True with negative or zero min_value"
+        )
         with self.assertRaises(ValueError) as raises:
             self.fake.pyfloat(min_value=-100, positive=True)
 
@@ -376,7 +389,9 @@ class TestPydecimal(unittest.TestCase):
         result = self.fake.pydecimal(positive=True)
 
         self.assertGreater(result, 0)
-        abs_result = -result if result < 0 else result  # abs() result returns scientific notation
+        abs_result = (
+            -result if result < 0 else result
+        )  # abs() result returns scientific notation
         self.assertEqual(result, abs_result)
 
     def test_min_value(self):
@@ -465,7 +480,9 @@ class TestPydecimal(unittest.TestCase):
         a negative min_value is provided.
         """
 
-        expected_message = "Cannot combine positive=True with negative or zero min_value"
+        expected_message = (
+            "Cannot combine positive=True with negative or zero min_value"
+        )
         with self.assertRaises(ValueError) as raises:
             self.fake.pydecimal(min_value=-100, positive=True)
 
@@ -482,22 +499,30 @@ class TestPydecimal(unittest.TestCase):
 
     def test_min_value_zero_doesnt_return_negative(self):
         Faker.seed("1")
-        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=0, max_value=999)
+        result = self.fake.pydecimal(
+            left_digits=3, right_digits=2, min_value=0, max_value=999
+        )
         self.assertGreater(result, 0)
 
     def test_min_value_one_hundred_doesnt_return_negative(self):
         Faker.seed("1")
-        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=100, max_value=999)
+        result = self.fake.pydecimal(
+            left_digits=3, right_digits=2, min_value=100, max_value=999
+        )
         self.assertGreater(result, 100)
 
     def test_min_value_minus_one_doesnt_return_positive(self):
         Faker.seed("5")
-        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=0)
+        result = self.fake.pydecimal(
+            left_digits=3, right_digits=2, min_value=-999, max_value=0
+        )
         self.assertLess(result, 0)
 
     def test_min_value_minus_one_hundred_doesnt_return_positive(self):
         Faker.seed("5")
-        result = self.fake.pydecimal(left_digits=3, right_digits=2, min_value=-999, max_value=-100)
+        result = self.fake.pydecimal(
+            left_digits=3, right_digits=2, min_value=-999, max_value=-100
+        )
         self.assertLess(result, -100)
 
     def test_min_value_10_pow_1000_return_greater_number(self):
@@ -505,11 +530,17 @@ class TestPydecimal(unittest.TestCase):
         result = self.fake.pydecimal(min_value=10**1000)
         self.assertGreater(result, 10**1000)
 
-    def test_min_value_and_max_value_have_different_signs_return_evenly_distributed_values(self):
+    def test_min_value_and_max_value_have_different_signs_return_evenly_distributed_values(
+        self,
+    ):
         result = []
         boundary_value = 10
         for _ in range(1000):
-            result.append(self.fake.pydecimal(min_value=-boundary_value, max_value=boundary_value, right_digits=0))
+            result.append(
+                self.fake.pydecimal(
+                    min_value=-boundary_value, max_value=boundary_value, right_digits=0
+                )
+            )
         self.assertEqual(len(Counter(result)), 2 * boundary_value + 1)
 
     def test_min_value_and_max_value_negative_return_evenly_distributed_values(self):
@@ -517,7 +548,11 @@ class TestPydecimal(unittest.TestCase):
         min_value = -60
         max_value = -50
         for _ in range(1000):
-            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+            result.append(
+                self.fake.pydecimal(
+                    min_value=min_value, max_value=max_value, right_digits=0
+                )
+            )
         self.assertGreater(len(Counter(result)), max_value - min_value)
 
     def test_min_value_and_max_value_positive_return_evenly_distributed_values(self):
@@ -525,17 +560,25 @@ class TestPydecimal(unittest.TestCase):
         min_value = 50
         max_value = 60
         for _ in range(1000):
-            result.append(self.fake.pydecimal(min_value=min_value, max_value=max_value, right_digits=0))
+            result.append(
+                self.fake.pydecimal(
+                    min_value=min_value, max_value=max_value, right_digits=0
+                )
+            )
         self.assertGreater(len(Counter(result)), max_value - min_value)
 
     def test_min_value_float_returns_correct_digit_number(self):
         Faker.seed("6")
-        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        result = self.fake.pydecimal(
+            left_digits=1, right_digits=1, min_value=0.2, max_value=0.3
+        )
         self.assertEqual(decimal.Decimal("0.2"), result)
 
     def test_max_value_float_returns_correct_digit_number(self):
         Faker.seed("3")
-        result = self.fake.pydecimal(left_digits=1, right_digits=1, min_value=0.2, max_value=0.3)
+        result = self.fake.pydecimal(
+            left_digits=1, right_digits=1, min_value=0.2, max_value=0.3
+        )
         self.assertEqual(decimal.Decimal("0.3"), result)
 
 
@@ -582,7 +625,9 @@ class TestPystr(unittest.TestCase):
         assert len(some_string) == 24
 
     def test_prefix_and_suffix(self):
-        some_string = self.fake.pystr(min_chars=9, max_chars=20, prefix="START_", suffix="_END")
+        some_string = self.fake.pystr(
+            min_chars=9, max_chars=20, prefix="START_", suffix="_END"
+        )
         assert isinstance(some_string, str)
         assert some_string.startswith("START_")
         assert some_string.endswith("_END")
@@ -596,12 +641,18 @@ class TestPystrFormat(unittest.TestCase):
 
     def test_formatter_invocation(self):
         with patch.object(self.fake["en_US"].factories[0], "foo") as mock_foo:
-            with patch("faker.providers.BaseProvider.bothify", wraps=self.fake.bothify) as mock_bothify:
+            with patch(
+                "faker.providers.BaseProvider.bothify", wraps=self.fake.bothify
+            ) as mock_bothify:
                 mock_foo.return_value = "barbar"
-                value = self.fake.pystr_format("{{foo}}?#?{{foo}}?#?{{foo}}", letters="abcde")
+                value = self.fake.pystr_format(
+                    "{{foo}}?#?{{foo}}?#?{{foo}}", letters="abcde"
+                )
                 assert value.count("barbar") == 3
                 assert mock_foo.call_count == 3
-                mock_bothify.assert_called_once_with("barbar?#?barbar?#?barbar", letters="abcde")
+                mock_bothify.assert_called_once_with(
+                    "barbar?#?barbar?#?barbar", letters="abcde"
+                )
 
 
 class TestPython(unittest.TestCase):
@@ -654,7 +705,9 @@ class TestPython(unittest.TestCase):
         with pytest.raises(ValueError) as exception:
             self.factory.pybool(truth_probability=truth_probability)
 
-        message_expected = "Invalid `truth_probability` value: must be between `0` and `100` inclusive"
+        message_expected = (
+            "Invalid `truth_probability` value: must be between `0` and `100` inclusive"
+        )
         message_actual = str(exception.value)
         assert message_expected == message_actual
 
@@ -676,7 +729,9 @@ class TestPython(unittest.TestCase):
             return 1
 
         with patch("faker.providers.python.Provider.pyint", mock_pyint):
-            some_tuple = Faker().pytuple(nb_elements=3, variable_nb_elements=False, value_types=[int])
+            some_tuple = Faker().pytuple(
+                nb_elements=3, variable_nb_elements=False, value_types=[int]
+            )
             assert some_tuple == (1, 1, 1)
 
     def test_pylist(self):

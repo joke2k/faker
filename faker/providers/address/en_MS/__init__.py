@@ -427,7 +427,9 @@ class Provider(AddressProvider):
     def building_number(self) -> str:
         return self.bothify(self.random_element(self.building_number_formats))
 
-    street_address_formats: ElementsType[str] = ("{{building_prefix}}{{building_number}}, {{street_name}}",)
+    street_address_formats: ElementsType[str] = (
+        "{{building_prefix}}{{building_number}}, {{street_name}}",
+    )
 
     def city_state(self) -> str:
         """Return the complete city address with matching postcode and state
@@ -443,7 +445,9 @@ class Provider(AddressProvider):
 
     # https://en.wikipedia.org/wiki/Addresses_in_Malaysia
     # street number, street name, region, and town/city, state.
-    address_formats = OrderedDict((("{{street_address}}, {{city}}, {{city_state}}", 100.0),))
+    address_formats = OrderedDict(
+        (("{{street_address}}, {{city}}, {{city_state}}", 100.0),)
+    )
 
     def city_prefix(self) -> str:
         return self.random_element(self.city_prefixes)

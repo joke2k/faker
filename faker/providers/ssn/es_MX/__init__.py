@@ -128,7 +128,10 @@ def curp_checksum(characters: str) -> int:
     Calculate the checksum for the mexican CURP.
     """
     start = 18
-    return -sum((start - i) * CURP_CHARACTERS.index(n) for i, n in enumerate(characters)) % 10
+    return (
+        -sum((start - i) * CURP_CHARACTERS.index(n) for i, n in enumerate(characters))
+        % 10
+    )
 
 
 class Provider(BaseProvider):
@@ -217,11 +220,17 @@ class Provider(BaseProvider):
             name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
         else:
             name_initials = (
-                self.random_uppercase_letter() + self.random_uppercase_letter() + self.random_uppercase_letter()
+                self.random_uppercase_letter()
+                + self.random_uppercase_letter()
+                + self.random_uppercase_letter()
             )
 
         birth_date = birthday.strftime("%y%m%d")
-        disambiguation_code = random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC)
+        disambiguation_code = (
+            random.choice(ALPHANUMERIC)
+            + random.choice(ALPHANUMERIC)
+            + random.choice(ALPHANUMERIC)
+        )
 
         random_rfc = name_initials + birth_date + disambiguation_code
 

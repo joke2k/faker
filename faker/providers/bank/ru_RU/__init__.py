@@ -728,8 +728,12 @@ class Provider(BankProvider):
         See https://ru.wikipedia.org/wiki/Банковский_идентификационный_код.
         """
         region: str = self.random_element(self.region_codes)
-        department_code: str = self.numerify(self.random_element(self.department_code_formats))
-        credit_organization_code: str = self.numerify(self.random_element(self.credit_organization_code_formats))
+        department_code: str = self.numerify(
+            self.random_element(self.department_code_formats)
+        )
+        credit_organization_code: str = self.numerify(
+            self.random_element(self.credit_organization_code_formats)
+        )
         return "04" + region + department_code + credit_organization_code
 
     def correspondent_account(self) -> str:
@@ -739,7 +743,9 @@ class Provider(BankProvider):
         operations between financial institutions.
         See https://ru.wikipedia.org/wiki/Корреспондентский_счёт.
         """
-        credit_organization_code = self.numerify(self.random_element(self.credit_organization_code_formats))
+        credit_organization_code = self.numerify(
+            self.random_element(self.credit_organization_code_formats)
+        )
         return "301" + self.numerify("#" * 14) + credit_organization_code
 
     def checking_account(self) -> str:

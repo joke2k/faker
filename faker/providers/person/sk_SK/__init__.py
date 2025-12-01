@@ -2275,7 +2275,17 @@ class Provider(PersonProvider):
     last_names = last_names_male + last_names_female
 
     # Degrees from
-    degrees = ("JUDr.", "Ing.", "Bc.", "Mgr.", "MUDr.", "RNDr.", "Ing. arch.", "MVDr.", "PhDr.")
+    degrees = (
+        "JUDr.",
+        "Ing.",
+        "Bc.",
+        "Mgr.",
+        "MUDr.",
+        "RNDr.",
+        "Ing. arch.",
+        "MVDr.",
+        "PhDr.",
+    )
 
     prefixes_male = ("pán",) + degrees
 

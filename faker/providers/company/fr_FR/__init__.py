@@ -13,7 +13,9 @@ class Provider(CompanyProvider):
         "{{last_name}}",
     )
 
-    catch_phrase_formats = ("{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}",)
+    catch_phrase_formats = (
+        "{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}",
+    )
 
     nouns = (
         "la sécurité",
@@ -419,4 +421,6 @@ class Provider(CompanyProvider):
             return self.random_element(self.ape_codes_naf_2003)
         if version == "naf-2025":
             return self.random_element(self.ape_codes_naf_2025)
-        raise ValueError("Unsupported NAF version. Set version=None to a truly random number.")
+        raise ValueError(
+            "Unsupported NAF version. Set version=None to a truly random number."
+        )

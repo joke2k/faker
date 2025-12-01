@@ -380,16 +380,22 @@ class BaseProvider:
             raise ValueError("The digit parameter must be greater than or equal to 0.")
         if fix_len:
             if digits > 0:
-                return self.generator.random.randint(pow(10, digits - 1), pow(10, digits) - 1)
+                return self.generator.random.randint(
+                    pow(10, digits - 1), pow(10, digits) - 1
+                )
             else:
-                raise ValueError("A number of fixed length cannot have less than 1 digit in it.")
+                raise ValueError(
+                    "A number of fixed length cannot have less than 1 digit in it."
+                )
         else:
             return self.generator.random.randint(0, pow(10, digits) - 1)
 
     def random_letter(self) -> str:
         """Generate a random ASCII letter (a-z and A-Z)."""
 
-        return self.generator.random.choice(getattr(string, "letters", string.ascii_letters))
+        return self.generator.random.choice(
+            getattr(string, "letters", string.ascii_letters)
+        )
 
     def random_letters(self, length: int = 16) -> Sequence[str]:
         """Generate a list of random ASCII letters (a-z and A-Z) of the specified ``length``.
@@ -473,10 +479,14 @@ class BaseProvider:
                        ("d", 0.05),
                    ]), unique=True
         """
-        use_weighting = use_weighting if use_weighting is not None else self.__use_weighting__
+        use_weighting = (
+            use_weighting if use_weighting is not None else self.__use_weighting__
+        )
 
         if isinstance(elements, dict) and not isinstance(elements, OrderedDict):
-            raise ValueError("Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363).")
+            raise ValueError(
+                "Use OrderedDict only to avoid dependency on PYTHONHASHSEED (See #363)."
+            )
 
         fn = choices_distribution_unique if unique else choices_distribution
 
@@ -484,7 +494,9 @@ class BaseProvider:
             length = self.generator.random.randint(1, len(elements))
 
         if unique and length > len(elements):
-            raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
+            raise ValueError(
+                "Sample length cannot be longer than the number of unique elements to pick from."
+            )
 
         if isinstance(elements, dict):
             if not hasattr(elements, "_key_cache"):
@@ -717,7 +729,9 @@ class DynamicProvider(BaseProvider):
             generator = Generator()
         super().__init__(generator)
         if provider_name.startswith("__"):
-            raise ValueError("Provider name cannot start with __ as it would be ignored by Faker")
+            raise ValueError(
+                "Provider name cannot start with __ as it would be ignored by Faker"
+            )
 
         self.provider_name = provider_name
 
@@ -725,7 +739,9 @@ class DynamicProvider(BaseProvider):
         if elements:
             self.elements = elements
 
-        setattr(self, provider_name, self.get_random_value)  # Add a method for the provider_name value
+        setattr(
+            self, provider_name, self.get_random_value
+        )  # Add a method for the provider_name value
 
     def add_element(self, element: str) -> None:
         """Add new element."""
@@ -737,6 +753,10 @@ class DynamicProvider(BaseProvider):
         :param use_weighting: boolean option to use weighting. Defaults to True
         """
         if not self.elements or len(self.elements) == 0:
-            raise ValueError("Elements should be a list of values the provider samples from")
+            raise ValueError(
+                "Elements should be a list of values the provider samples from"
+            )
 
-        return self.random_elements(self.elements, length=1, use_weighting=use_weighting)[0]
+        return self.random_elements(
+            self.elements, length=1, use_weighting=use_weighting
+        )[0]

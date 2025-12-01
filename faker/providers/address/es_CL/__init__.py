@@ -616,7 +616,9 @@ class Provider(AddressProvider):
         return self.random_element(self.plant_street_names)
 
     def historic_people_street_name(self) -> str:
-        person_names: Tuple[str, ...] = self.random_element(self.historic_people_street_names)
+        person_names: Tuple[str, ...] = self.random_element(
+            self.historic_people_street_names
+        )
         return self.random_element(person_names)
 
     def street_prefix(self) -> str:
@@ -639,7 +641,9 @@ class Provider(AddressProvider):
 
     def highway_name(self) -> str:
         self.generator.set_arguments("big_kilometer", {"min": 1, "max": 1000})
-        return self.numerify(self.generator.parse(self.random_element(self.highway_names)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.highway_names))
+        )
 
     def postcode(self) -> str:
         return self.numerify("######0")

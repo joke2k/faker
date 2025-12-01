@@ -1292,7 +1292,9 @@ class Provider(AddressProvider):
         """
         :example: "2-3"
         """
-        return self.numerify(self.generator.parse(self.random_element(self.building_number_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.building_number_formats))
+        )
 
     def secondary_address(self) -> str:
         """
@@ -1304,13 +1306,20 @@ class Provider(AddressProvider):
         """
         :example: "Calle 1 # 2-3"
         """
-        return self.street_name() + " # " + self.building_number() + self.random_element(("", " Sur", " Este"))
+        return (
+            self.street_name()
+            + " # "
+            + self.building_number()
+            + self.random_element(("", " Sur", " Este"))
+        )
 
     def postcode(self) -> str:
         """
         :example: "11001"
         """
-        return self.numerify(self.generator.parse(self.random_element(self.postcode_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.postcode_formats))
+        )
 
     def address(self) -> str:
         """
@@ -1329,6 +1338,16 @@ class Provider(AddressProvider):
         )
         postcode = "\n" + department_code + self.numerify("####")
         municipality_name = "\n" + municipality[1]
-        department_name = ", " + self.departments[department_code] if not is_department_capital else ""
+        department_name = (
+            ", " + self.departments[department_code]
+            if not is_department_capital
+            else ""
+        )
 
-        return self.street_address() + secondary_address + postcode + municipality_name + department_name
+        return (
+            self.street_address()
+            + secondary_address
+            + postcode
+            + municipality_name
+            + department_name
+        )

@@ -390,7 +390,13 @@ class Provider(BaseProvider):
         "ZWD": "\u0024",
     }
 
-    price_formats: ElementsType[str] = ["#.##", "%#.##", "%##.##", "%,###.##", "%#,###.##"]
+    price_formats: ElementsType[str] = [
+        "#.##",
+        "%#.##",
+        "%##.##",
+        "%,###.##",
+        "%#,###.##",
+    ]
 
     def currency(self) -> Tuple[str, str]:
         return self.random_element(self.currencies)
@@ -422,4 +428,8 @@ class Provider(BaseProvider):
 
     def pricetag(self) -> str:
         currency: Tuple[str, str] = self.random_element(self.currencies)
-        return currency[0] + "\N{NO-BREAK SPACE}" + self.numerify(self.random_element(self.price_formats))
+        return (
+            currency[0]
+            + "\N{NO-BREAK SPACE}"
+            + self.numerify(self.random_element(self.price_formats))
+        )

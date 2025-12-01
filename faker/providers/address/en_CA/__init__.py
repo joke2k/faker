@@ -34,7 +34,15 @@ class Provider(AddressProvider):
         "Y",
     )
 
-    city_prefixes: ElementsType[str] = ("North", "East", "West", "South", "New", "Lake", "Port")
+    city_prefixes: ElementsType[str] = (
+        "North",
+        "East",
+        "West",
+        "South",
+        "New",
+        "Lake",
+        "Port",
+    )
 
     city_suffixes: ElementsType[str] = (
         "town",
@@ -352,7 +360,9 @@ class Provider(AddressProvider):
         "{{building_number}} {{street_name}}",
         "{{building_number}} {{street_name}} {{secondary_address}}",
     )
-    address_formats = ("{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",)
+    address_formats = (
+        "{{street_address}}\n{{city}}, {{province_abbr}} {{postalcode}}",
+    )
     secondary_address_formats = ("Apt. ###", "Suite ###")
 
     def administrative_unit(self) -> str:
@@ -403,7 +413,9 @@ class Provider(AddressProvider):
             postal_code_format: str = self.random_element(self.postal_code_formats)
             postal_code_format = postal_code_format.replace(
                 "?",
-                self.generator.random_element(self.provinces_postcode_prefixes[province_abbr]),
+                self.generator.random_element(
+                    self.provinces_postcode_prefixes[province_abbr]
+                ),
                 1,
             )
             return self._postcode_replace(postal_code_format)

@@ -29,7 +29,9 @@ class Generator:
         self.__config = dict(list(self.__config.items()) + list(config.items()))
         self.__random = random
 
-    def add_provider(self, provider: Union["BaseProvider", Type["BaseProvider"]]) -> None:
+    def add_provider(
+        self, provider: Union["BaseProvider", Type["BaseProvider"]]
+    ) -> None:
         if isinstance(provider, type):
             provider = provider(self)
 
@@ -48,7 +50,11 @@ class Generator:
 
     def provider(self, name: str) -> Optional["BaseProvider"]:
         try:
-            lst = [p for p in self.get_providers() if hasattr(p, "__provider__") and p.__provider__ == name.lower()]
+            lst = [
+                p
+                for p in self.get_providers()
+                if hasattr(p, "__provider__") and p.__provider__ == name.lower()
+            ]
             return lst[0]
         except IndexError:
             return None
@@ -104,7 +110,9 @@ class Generator:
         """
         setattr(self, name, formatter)
 
-    def set_arguments(self, group: str, argument: str, value: Optional[Any] = None) -> None:
+    def set_arguments(
+        self, group: str, argument: str, value: Optional[Any] = None
+    ) -> None:
         """
         Creates an argument group, with an individual argument or a dictionary
         of arguments. The argument groups is used to apply arguments to tokens,

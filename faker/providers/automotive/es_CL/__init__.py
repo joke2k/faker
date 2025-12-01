@@ -44,7 +44,11 @@ class Provider(AutomotiveProvider):
     def license_plate_new(self) -> str:
         format = "????-##"
 
-        temp = re.sub(r"\?", lambda x: self.random_element(self.license_plate_new_format_letters), format)
+        temp = re.sub(
+            r"\?",
+            lambda x: self.random_element(self.license_plate_new_format_letters),
+            format,
+        )
         return self.numerify(temp)
 
     def license_plate_police(self) -> str:
@@ -61,4 +65,6 @@ class Provider(AutomotiveProvider):
 
     def license_plate(self) -> str:
         """Generate a license plate."""
-        return self.numerify(self.generator.parse(self.random_element(self.license_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.license_formats))
+        )

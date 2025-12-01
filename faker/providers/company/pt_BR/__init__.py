@@ -28,7 +28,9 @@ class Provider(CompanyProvider):
         "{{last_name}}",
     )
 
-    catch_phrase_formats = ("{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}",)
+    catch_phrase_formats = (
+        "{{catch_phrase_noun}} {{catch_phrase_verb}} {{catch_phrase_attribute}}",
+    )
 
     nouns = (
         "a segurança",

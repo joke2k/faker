@@ -1580,7 +1580,10 @@ class Provider(AddressProvider):
         street = self.street_title()
         stem = street[:-2]
         result = street
-        if street not in self.street_titles_noflex and suffix not in self.street_suffixes_fem:
+        if (
+            street not in self.street_titles_noflex
+            and suffix not in self.street_suffixes_fem
+        ):
             if suffix in self.street_suffixes_masc:
                 if street in self.street_titles_irregular_masc.keys():
                     result = self.street_titles_irregular_masc[street]

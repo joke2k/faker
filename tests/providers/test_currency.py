@@ -18,7 +18,9 @@ class TestCurrencyProvider:
         cls.currencies = cls.provider.currencies
         cls.cryptocurrencies = cls.provider.cryptocurrencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
-        cls.cryptocurrency_codes, cls.cryptocurrency_names = tuple(zip(*cls.cryptocurrencies))
+        cls.cryptocurrency_codes, cls.cryptocurrency_names = tuple(
+            zip(*cls.cryptocurrencies)
+        )
 
     def test_currency(self, faker, num_samples):
         for _ in range(num_samples):
@@ -166,8 +168,12 @@ class TestDeAt:
 
         cls.provider = DeAtCurrencyProvider
         cls.currencies = cls.provider.currencies
-        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
-        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
+        cls.currency_names = [
+            currency_name for currency_code, currency_name in cls.currencies
+        ]
+        cls.currency_codes = [
+            currency_code for currency_code, currency_name in cls.currencies
+        ]
 
     def test_pricetag(self, faker, num_samples):
         for _ in range(num_samples):
@@ -201,8 +207,12 @@ class TestDeCh:
 
         cls.provider = DeChCurrencyProvider
         cls.currencies = cls.provider.currencies
-        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
-        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
+        cls.currency_names = [
+            currency_name for currency_code, currency_name in cls.currencies
+        ]
+        cls.currency_codes = [
+            currency_code for currency_code, currency_name in cls.currencies
+        ]
 
     def test_pricetag(self, faker, num_samples):
         for _ in range(num_samples):
@@ -236,8 +246,12 @@ class TestDeDe:
 
         cls.provider = DeDeCurrencyProvider
         cls.currencies = cls.provider.currencies
-        cls.currency_names = [currency_name for currency_code, currency_name in cls.currencies]
-        cls.currency_codes = [currency_code for currency_code, currency_name in cls.currencies]
+        cls.currency_names = [
+            currency_name for currency_code, currency_name in cls.currencies
+        ]
+        cls.currency_codes = [
+            currency_code for currency_code, currency_name in cls.currencies
+        ]
 
     def test_pricetag(self, faker, num_samples):
         for _ in range(num_samples):
@@ -609,7 +623,9 @@ class TestUkUa(TestCurrencyProvider):
         cls.currencies = cls.provider.currencies
         cls.cryptocurrencies = cls.provider.cryptocurrencies
         cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
-        cls.cryptocurrency_codes, cls.cryptocurrency_names = tuple(zip(*cls.cryptocurrencies))
+        cls.cryptocurrency_codes, cls.cryptocurrency_names = tuple(
+            zip(*cls.cryptocurrencies)
+        )
 
 
 class TestUzUz:

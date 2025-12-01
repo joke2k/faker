@@ -119,7 +119,9 @@ class TestBaseProvider:
     def test_current_country_errors(self):
         dt = providers.date_time
         countries_duplicated = [*dt.Provider.countries, *dt.Provider.countries]
-        with mock.patch.object(dt.Provider, "countries", countries_duplicated), pytest.raises(ValueError) as e:
+        with mock.patch.object(
+            dt.Provider, "countries", countries_duplicated
+        ), pytest.raises(ValueError) as e:
             Faker("en_US").current_country()
         assert "Ambiguous" in str(e)
         country_code = "faker.providers.address.Provider.current_country_code"
@@ -473,7 +475,9 @@ class TestEnBd:
 class TestEnCa:
     """Test en_CA address provider methods"""
 
-    valid_postcode_letter_re = r"[{}]".format("".join(EnCaAddressProvider.postal_code_letters))
+    valid_postcode_letter_re = r"[{}]".format(
+        "".join(EnCaAddressProvider.postal_code_letters)
+    )
     valid_postcode_re = r"{0}[0-9]{0} ?[0-9]{0}[0-9]".format(valid_postcode_letter_re)
 
     def test_postcode(self, faker, num_samples):
@@ -486,7 +490,10 @@ class TestEnCa:
         for _ in range(num_samples):
             for province_abbr in EnCaAddressProvider.provinces_abbr:
                 code = faker.postcode_in_province(province_abbr)
-                assert code[0] in EnCaAddressProvider.provinces_postcode_prefixes[province_abbr]
+                assert (
+                    code[0]
+                    in EnCaAddressProvider.provinces_postcode_prefixes[province_abbr]
+                )
                 with pytest.raises(Exception):
                     faker.postcode_in_province("XX")
 
@@ -550,7 +557,9 @@ class TestEnIe:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r"(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$", postcode)
+            assert re.fullmatch(
+                r"(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$", postcode
+            )
 
     def test_county(self, faker, num_samples):
         for _ in range(num_samples):
@@ -583,7 +592,9 @@ class TestEnUS:
 
     def test_state_abbr_states_only(self, faker, num_samples):
         for _ in range(num_samples):
-            state_abbr = faker.state_abbr(include_territories=False, include_freely_associated_states=False)
+            state_abbr = faker.state_abbr(
+                include_territories=False, include_freely_associated_states=False
+            )
             assert isinstance(state_abbr, str)
             assert state_abbr in EnUsAddressProvider.states_abbr
 
@@ -600,7 +611,10 @@ class TestEnUS:
         for _ in range(num_samples):
             state_abbr = faker.state_abbr(include_freely_associated_states=False)
             assert isinstance(state_abbr, str)
-            assert state_abbr in EnUsAddressProvider.states_abbr or state_abbr in EnUsAddressProvider.territories_abbr
+            assert (
+                state_abbr in EnUsAddressProvider.states_abbr
+                or state_abbr in EnUsAddressProvider.territories_abbr
+            )
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -708,14 +722,19 @@ class TestEsCo:
             assert department in EsCoAddressProvider.departments.values()
 
     def test_municipality_code(self, faker, num_samples):
-        municipality_codes = {municipality_code for municipality_code, _ in EsCoAddressProvider.municipalities}
+        municipality_codes = {
+            municipality_code
+            for municipality_code, _ in EsCoAddressProvider.municipalities
+        }
         for _ in range(num_samples):
             municipality_code = faker.municipality_code()
             assert isinstance(municipality_code, str)
             assert municipality_code in municipality_codes
 
     def test_municipality(self, faker, num_samples):
-        municipalities = {municipality for _, municipality in EsCoAddressProvider.municipalities}
+        municipalities = {
+            municipality for _, municipality in EsCoAddressProvider.municipalities
+        }
         for _ in range(num_samples):
             municipality = faker.municipality()
             city = faker.city()
@@ -854,7 +873,9 @@ class TestEsMx:
             assert state in states
 
     def test_state_abbr(self, faker, num_samples):
-        state_abbrs = [state_abbr for state_abbr, state_name in EsMxAddressProvider.states]
+        state_abbrs = [
+            state_abbr for state_abbr, state_name in EsMxAddressProvider.states
+        ]
         for _ in range(num_samples):
             state_abbr = faker.state_abbr()
             assert isinstance(state_abbr, str)
@@ -911,21 +932,27 @@ class TestFrFr:
             assert department in FrFrAddressProvider.departments
 
     def test_department_name(self, faker, num_samples):
-        department_names = [dept_name for dept_num, dept_name in FrFrAddressProvider.departments]
+        department_names = [
+            dept_name for dept_num, dept_name in FrFrAddressProvider.departments
+        ]
         for _ in range(num_samples):
             department_name = faker.department_name()
             assert isinstance(department_name, str)
             assert department_name in department_names
 
     def test_department_number(self, faker, num_samples):
-        department_numbers = [dept_num for dept_num, dept_name in FrFrAddressProvider.departments]
+        department_numbers = [
+            dept_num for dept_num, dept_name in FrFrAddressProvider.departments
+        ]
         for _ in range(num_samples):
             department_number = faker.department_number()
             assert isinstance(department_number, str)
             assert department_number in department_numbers
 
     def test_postcode(self, faker, num_samples):
-        department_numbers = [dept_num for dept_num, dept_name in FrFrAddressProvider.departments]
+        department_numbers = [
+            dept_num for dept_num, dept_name in FrFrAddressProvider.departments
+        ]
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
@@ -1151,7 +1178,10 @@ class TestItIt:
         for _ in range(num_samples):
             postcode_city_province = faker.postcode_city_province()
             assert isinstance(postcode_city_province, str)
-            match = re.fullmatch(r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)", postcode_city_province)
+            match = re.fullmatch(
+                r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)",
+                postcode_city_province,
+            )
             assert match
             assert match.group("cap") in ItItAddressProvider.postcode_formats
             assert match.group("city") in ItItAddressProvider.cities
@@ -1529,14 +1559,18 @@ class TestPtBr:
             assert estado in PtBrAddressProvider.estados
 
     def test_estado_nome(self, faker, num_samples):
-        state_names = [state_name for state_abbr, state_name in PtBrAddressProvider.estados]
+        state_names = [
+            state_name for state_abbr, state_name in PtBrAddressProvider.estados
+        ]
         for _ in range(num_samples):
             estado_nome = faker.estado_nome()
             assert isinstance(estado_nome, str)
             assert estado_nome in state_names
 
     def test_estado_sigla(self, faker, num_samples):
-        state_abbrs = [state_abbr for state_abbr, state_name in PtBrAddressProvider.estados]
+        state_abbrs = [
+            state_abbr for state_abbr, state_name in PtBrAddressProvider.estados
+        ]
         for _ in range(num_samples):
             estado_sigla = faker.estado_sigla()
             assert isinstance(estado_sigla, str)
@@ -1606,7 +1640,9 @@ class TestEnPh:
         cls.metro_manila_postcodes = EnPhAddressProvider.metro_manila_postcodes
         cls.luzon_province_postcodes = EnPhAddressProvider.luzon_province_postcodes
         cls.visayas_province_postcodes = EnPhAddressProvider.visayas_province_postcodes
-        cls.mindanao_province_postcodes = EnPhAddressProvider.mindanao_province_postcodes
+        cls.mindanao_province_postcodes = (
+            EnPhAddressProvider.mindanao_province_postcodes
+        )
         cls.postcodes = EnPhAddressProvider.postcodes
         cls.provinces = EnPhAddressProvider.provinces
         cls.province_lgus = EnPhAddressProvider.province_lgus
@@ -1622,11 +1658,17 @@ class TestEnPh:
 
     def test_visayas_province_postcode(self, faker, num_samples):
         for _ in range(num_samples):
-            assert int(faker.visayas_province_postcode()) in self.visayas_province_postcodes
+            assert (
+                int(faker.visayas_province_postcode())
+                in self.visayas_province_postcodes
+            )
 
     def test_mindanao_province_postcode(self, faker, num_samples):
         for _ in range(num_samples):
-            assert int(faker.mindanao_province_postcode()) in self.mindanao_province_postcodes
+            assert (
+                int(faker.mindanao_province_postcode())
+                in self.mindanao_province_postcodes
+            )
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1676,7 +1718,9 @@ class TestFilPh(TestEnPh):
         cls.metro_manila_postcodes = EnPhAddressProvider.metro_manila_postcodes
         cls.luzon_province_postcodes = EnPhAddressProvider.luzon_province_postcodes
         cls.visayas_province_postcodes = EnPhAddressProvider.visayas_province_postcodes
-        cls.mindanao_province_postcodes = EnPhAddressProvider.mindanao_province_postcodes
+        cls.mindanao_province_postcodes = (
+            EnPhAddressProvider.mindanao_province_postcodes
+        )
         cls.postcodes = EnPhAddressProvider.postcodes
         cls.provinces = EnPhAddressProvider.provinces
         cls.province_lgus = EnPhAddressProvider.province_lgus
@@ -1692,11 +1736,17 @@ class TestFilPh(TestEnPh):
 
     def test_visayas_province_postcode(self, faker, num_samples):
         for _ in range(num_samples):
-            assert int(faker.visayas_province_postcode()) in self.visayas_province_postcodes
+            assert (
+                int(faker.visayas_province_postcode())
+                in self.visayas_province_postcodes
+            )
 
     def test_mindanao_province_postcode(self, faker, num_samples):
         for _ in range(num_samples):
-            assert int(faker.mindanao_province_postcode()) in self.mindanao_province_postcodes
+            assert (
+                int(faker.mindanao_province_postcode())
+                in self.mindanao_province_postcodes
+            )
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
@@ -1768,7 +1818,8 @@ class TestRuRu:
             groupdict = match.groupdict()
             assert any(
                 [
-                    groupdict.get("region_republic") in RuRuAddressProvider.region_republics,
+                    groupdict.get("region_republic")
+                    in RuRuAddressProvider.region_republics,
                     groupdict.get("region_krai") in RuRuAddressProvider.region_krai,
                     groupdict.get("region_oblast") in RuRuAddressProvider.region_oblast,
                     groupdict.get("region_ao") in RuRuAddressProvider.region_ao,
@@ -1914,7 +1965,9 @@ class TestEnIn:
             assert isinstance(union_territory, str)
             assert (union_territory,) in EnInAddressProvider.union_territories
 
-    @pytest.mark.parametrize("pincodes", ["pincode_in_state", "zipcode_in_state", "postcode_in_state"])
+    @pytest.mark.parametrize(
+        "pincodes", ["pincode_in_state", "zipcode_in_state", "postcode_in_state"]
+    )
     def test_pincodes_in_state(self, faker, num_samples, pincodes):
         """Test `pincodes` for state and union territories"""
 
@@ -1998,13 +2051,17 @@ class TestDeCh:
         for _ in range(num_samples):
             canton_name = faker.canton_name()
             assert isinstance(canton_name, str)
-            assert any(canton_name == cantons[1] for cantons in DeChAddressProvider.cantons)
+            assert any(
+                canton_name == cantons[1] for cantons in DeChAddressProvider.cantons
+            )
 
     def test_canton_code(self, faker, num_samples):
         for _ in range(num_samples):
             canton_code = faker.canton_code()
             assert isinstance(canton_code, str)
-            assert any(canton_code == cantons[0] for cantons in DeChAddressProvider.cantons)
+            assert any(
+                canton_code == cantons[0] for cantons in DeChAddressProvider.cantons
+            )
 
     def test_canton(self, faker, num_samples):
         for _ in range(num_samples):
@@ -2078,7 +2135,9 @@ class TestRoRo:
             assert state in states
 
     def test_state_abbr(self, faker, num_samples):
-        state_abbrs = [state_abbr for state_abbr, state_name in RoRoAddressProvider.states]
+        state_abbrs = [
+            state_abbr for state_abbr, state_name in RoRoAddressProvider.states
+        ]
         for _ in range(num_samples):
             state_abbr = faker.state_abbr()
             assert isinstance(state_abbr, str)
@@ -2166,8 +2225,12 @@ class TestEnMs:
             for state_abbr in EnMsAddressProvider.states.keys():
                 code = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", code)
-                assert int(code) >= EnMsAddressProvider.states_postcode[state_abbr][0][0]
-                assert int(code) <= EnMsAddressProvider.states_postcode[state_abbr][-1][1]
+                assert (
+                    int(code) >= EnMsAddressProvider.states_postcode[state_abbr][0][0]
+                )
+                assert (
+                    int(code) <= EnMsAddressProvider.states_postcode[state_abbr][-1][1]
+                )
 
         with pytest.raises(KeyError):
             faker.postcode_in_state("XX")
@@ -2191,13 +2254,18 @@ class TestEnNz:
         for _ in range(num_samples):
             te_reo_first = faker.te_reo_first()
             assert isinstance(te_reo_first, str)
-            assert te_reo_first in [str(i).capitalize() for i in EnNzAddressProvider.te_reo_parts]
+            assert te_reo_first in [
+                str(i).capitalize() for i in EnNzAddressProvider.te_reo_parts
+            ]
 
     def test_reo_ending(self, faker, num_samples):
         for _ in range(num_samples):
             te_reo_ending = faker.te_reo_ending()
             assert isinstance(te_reo_ending, str)
-            assert te_reo_ending in EnNzAddressProvider.te_reo_parts or EnNzAddressProvider.te_reo_endings
+            assert (
+                te_reo_ending in EnNzAddressProvider.te_reo_parts
+                or EnNzAddressProvider.te_reo_endings
+            )
 
     def test_city_prefix(self, faker, num_samples):
         for _ in range(num_samples):
@@ -2233,13 +2301,17 @@ class TestFrCh:
         for _ in range(num_samples):
             canton_name = faker.canton_name()
             assert isinstance(canton_name, str)
-            assert any(canton_name == cantons[1] for cantons in FrChAddressProvider.cantons)
+            assert any(
+                canton_name == cantons[1] for cantons in FrChAddressProvider.cantons
+            )
 
     def test_canton_code(self, faker, num_samples):
         for _ in range(num_samples):
             canton_code = faker.canton_code()
             assert isinstance(canton_code, str)
-            assert any(canton_code == cantons[0] for cantons in FrChAddressProvider.cantons)
+            assert any(
+                canton_code == cantons[0] for cantons in FrChAddressProvider.cantons
+            )
 
     def test_canton(self, faker, num_samples):
         for _ in range(num_samples):
@@ -2261,7 +2333,10 @@ class TestHuHu:
         for _ in range(num_samples):
             street_address_with_county = faker.street_address_with_county()
             assert isinstance(street_address_with_county, str)
-            match = re.fullmatch(r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*", street_address_with_county)
+            match = re.fullmatch(
+                r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*",
+                street_address_with_county,
+            )
             assert match
 
     def test_city_prefix(self, faker, num_samples):
@@ -2512,8 +2587,14 @@ class TestViVn:
             for state_abbr in ViVNAddressProvider.provinces_abbr:
                 postcode = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{6}", postcode)
-                assert int(postcode) >= ViVNAddressProvider.provinces_postcode[state_abbr][0]
-                assert int(postcode) <= ViVNAddressProvider.provinces_postcode[state_abbr][1]
+                assert (
+                    int(postcode)
+                    >= ViVNAddressProvider.provinces_postcode[state_abbr][0]
+                )
+                assert (
+                    int(postcode)
+                    <= ViVNAddressProvider.provinces_postcode[state_abbr][1]
+                )
 
         with pytest.raises(ValueError):
             faker.postcode_in_state("XX")

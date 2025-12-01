@@ -125,7 +125,9 @@ class Provider(BaseProvider):
         :sample: raw_output=False
         :sample: raw_output=True
         """
-        res: hashlib._Hash = hashlib.sha256(str(self.generator.random.random()).encode())
+        res: hashlib._Hash = hashlib.sha256(
+            str(self.generator.random.random()).encode()
+        )
         if raw_output:
             return res.digest()
         return res.hexdigest()
@@ -144,7 +146,9 @@ class Provider(BaseProvider):
 
     def uuid4(
         self,
-        cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
+        cast_to: Optional[
+            Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]
+        ] = str,
     ) -> Union[bytes, str, uuid.UUID]:
         """Generate a random UUID4 object and cast it to another type if specified using a callable ``cast_to``.
 
@@ -156,7 +160,9 @@ class Provider(BaseProvider):
         :sample: cast_to=None
         """
         # Based on http://stackoverflow.com/q/41186818
-        generated_uuid: uuid.UUID = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
+        generated_uuid: uuid.UUID = uuid.UUID(
+            int=self.generator.random.getrandbits(128), version=4
+        )
         if cast_to is not None:
             return cast_to(generated_uuid)
         return generated_uuid
@@ -196,7 +202,9 @@ class Provider(BaseProvider):
             required_tokens.append(self.generator.random.choice(string.ascii_lowercase))
             choices += string.ascii_lowercase
 
-        assert len(required_tokens) <= length, "Required length is shorter than required characters"
+        assert (
+            len(required_tokens) <= length
+        ), "Required length is shorter than required characters"
 
         # Generate a first version of the password
         chars: str = self.random_choices(choices, length=length)  # type: ignore
@@ -263,13 +271,19 @@ class Provider(BaseProvider):
 
         zip_buffer = io.BytesIO()
         remaining_size = uncompressed_size
-        with zipfile.ZipFile(zip_buffer, mode="w", compression=compression_) as zip_handle:
+        with zipfile.ZipFile(
+            zip_buffer, mode="w", compression=compression_
+        ) as zip_handle:
             for file_number in range(1, num_files + 1):
                 filename = self.generator.pystr() + str(file_number)
 
-                max_allowed_size = remaining_size - (num_files - file_number) * min_file_size
+                max_allowed_size = (
+                    remaining_size - (num_files - file_number) * min_file_size
+                )
                 if file_number < num_files:
-                    file_size = self.generator.random.randint(min_file_size, max_allowed_size)
+                    file_size = self.generator.random.randint(
+                        min_file_size, max_allowed_size
+                    )
                     remaining_size = remaining_size - file_size
                 else:
                     file_size = remaining_size
@@ -333,9 +347,13 @@ class Provider(BaseProvider):
                 file_buffer = io.BytesIO()
                 filename = self.generator.pystr() + str(file_number)
 
-                max_allowed_size = remaining_size - (num_files - file_number) * min_file_size
+                max_allowed_size = (
+                    remaining_size - (num_files - file_number) * min_file_size
+                )
                 if file_number < num_files:
-                    file_size = self.generator.random.randint(min_file_size, max_allowed_size)
+                    file_size = self.generator.random.randint(
+                        min_file_size, max_allowed_size
+                    )
                     remaining_size = remaining_size - file_size
                 else:
                     file_size = remaining_size
@@ -377,13 +395,20 @@ class Provider(BaseProvider):
             import PIL.Image
             import PIL.ImageDraw
         except ImportError:
-            raise UnsupportedFeature("`image` requires the `Pillow` python library.", "image")
+            raise UnsupportedFeature(
+                "`image` requires the `Pillow` python library.", "image"
+            )
 
         (width, height) = size
-        image = PIL.Image.new("RGB", size, self.generator.color(hue=hue, luminosity=luminosity))
+        image = PIL.Image.new(
+            "RGB", size, self.generator.color(hue=hue, luminosity=luminosity)
+        )
         draw = PIL.ImageDraw.Draw(image)
         draw.polygon(
-            [(self.random_int(0, width), self.random_int(0, height)) for _ in range(self.random_int(3, 12))],
+            [
+                (self.random_int(0, width), self.random_int(0, height))
+                for _ in range(self.random_int(3, 12))
+            ],
             fill=self.generator.color(hue=hue, luminosity=luminosity),
             outline=self.generator.color(hue=hue, luminosity=luminosity),
         )
@@ -437,7 +462,9 @@ class Provider(BaseProvider):
             if not isinstance(header, (list, tuple)):
                 raise TypeError("`header` must be a tuple or a list")
             if len(header) != len(data_columns):
-                raise ValueError("`header` and `data_columns` must have matching lengths")
+                raise ValueError(
+                    "`header` and `data_columns` must have matching lengths"
+                )
 
         dsv_buffer = io.StringIO()
         writer = csv.writer(dsv_buffer, dialect=dialect, **fmtparams)
@@ -545,7 +572,9 @@ class Provider(BaseProvider):
         For more information on the different arguments of this method, refer to
         :meth:`json() <faker.providers.misc.Provider.json>` which is used under the hood.
         """
-        return self.json(data_columns=data_columns, num_rows=num_rows, indent=indent, cls=cls).encode()
+        return self.json(
+            data_columns=data_columns, num_rows=num_rows, indent=indent, cls=cls
+        ).encode()
 
     def json(
         self,
@@ -602,7 +631,9 @@ class Provider(BaseProvider):
             "name": "{{name}}",
             "residency": "{{address}}",
         }
-        data_columns: Union[List, Dict] = data_columns if data_columns else default_data_columns
+        data_columns: Union[List, Dict] = (
+            data_columns if data_columns else default_data_columns
+        )
 
         def process_list_structure(data: Sequence[Any]) -> Any:
             entry: Dict[str, Any] = {}
@@ -619,12 +650,16 @@ class Provider(BaseProvider):
                 if isinstance(definition, tuple):
                     entry[name] = process_list_structure(definition)
                 elif isinstance(definition, (list, set)):
-                    entry[name] = [process_list_structure([item]) for item in definition]
+                    entry[name] = [
+                        process_list_structure([item]) for item in definition
+                    ]
                 else:
                     entry[name] = self._value_format_selection(definition, **kwargs)
             return entry
 
-        def process_dict_structure(data: Union[int, float, bool, Dict[str, Any]]) -> Any:
+        def process_dict_structure(
+            data: Union[int, float, bool, Dict[str, Any]]
+        ) -> Any:
             entry: Dict[str, Any] = {}
 
             if isinstance(data, str):
@@ -633,7 +668,9 @@ class Provider(BaseProvider):
             if isinstance(data, dict):
                 for name, definition in data.items():
                     if isinstance(definition, (tuple, list, set)):
-                        entry[name] = [process_dict_structure(item) for item in definition]
+                        entry[name] = [
+                            process_dict_structure(item) for item in definition
+                        ]
                     elif isinstance(definition, (dict, int, float, bool)):
                         entry[name] = process_dict_structure(definition)
                     else:
@@ -652,7 +689,9 @@ class Provider(BaseProvider):
             raise TypeError("Invalid data_columns type. Must be a dictionary or list")
 
         if num_rows == 1:
-            return json.dumps(create_json_structure(data_columns), indent=indent, cls=cls)
+            return json.dumps(
+                create_json_structure(data_columns), indent=indent, cls=cls
+            )
 
         data = [create_json_structure(data_columns) for _ in range(num_rows)]
         return json.dumps(data, indent=indent, cls=cls)
@@ -676,7 +715,9 @@ class Provider(BaseProvider):
         try:
             import xmltodict
         except ImportError:
-            raise UnsupportedFeature("`xml` requires the `xmltodict` Python library.", "xml")
+            raise UnsupportedFeature(
+                "`xml` requires the `xmltodict` Python library.", "xml"
+            )
         _dict = self.generator.pydict(
             nb_elements=nb_elements,
             variable_nb_elements=variable_nb_elements,
@@ -686,7 +727,12 @@ class Provider(BaseProvider):
         _dict = {self.generator.word(): _dict}
         return xmltodict.unparse(_dict)
 
-    def fixed_width(self, data_columns: Optional[DataColumns] = None, num_rows: int = 10, align: str = "left") -> str:
+    def fixed_width(
+        self,
+        data_columns: Optional[DataColumns] = None,
+        num_rows: int = 10,
+        align: str = "left",
+    ) -> str:
         """
         Generate random fixed width values.
 
@@ -750,7 +796,9 @@ class Provider(BaseProvider):
             data.append("".join(row))
         return "\n".join(data)
 
-    def _value_format_selection(self, definition: str, **kwargs: Any) -> Union[int, str]:
+    def _value_format_selection(
+        self, definition: str, **kwargs: Any
+    ) -> Union[int, str]:
         """
         Formats the string in different ways depending on its contents.
 

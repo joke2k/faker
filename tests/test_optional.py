@@ -40,5 +40,8 @@ class TestOptionalClass:
 
         fake = Faker()
 
-        with pytest.raises(TypeError, match="Accessing non-functions through .optional is not supported."):
+        with pytest.raises(
+            TypeError,
+            match="Accessing non-functions through .optional is not supported.",
+        ):
             fake.optional.locales

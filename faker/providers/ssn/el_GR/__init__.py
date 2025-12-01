@@ -46,7 +46,9 @@ class Provider(BaseProvider):
 
         vat_id = "EL" if prefix else ""
         vat_id_starting_numbers = ("7", "8", "9", "0")
-        vat_id = vat_id + random.choice(vat_id_starting_numbers) + self.numerify("#######")
+        vat_id = (
+            vat_id + random.choice(vat_id_starting_numbers) + self.numerify("#######")
+        )
         return vat_id + str(tin_checksum(vat_id[2:] if prefix else vat_id))
 
     def tin(self) -> str:

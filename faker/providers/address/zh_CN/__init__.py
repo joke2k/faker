@@ -17,7 +17,9 @@ class Provider(AddressProvider):
     )
     street_address_formats = ("{{street_name}}{{building_number}}",)
 
-    address_formats = ("{{province}}{{city}}{{district}}{{street_address}} {{postcode}}",)
+    address_formats = (
+        "{{province}}{{city}}{{district}}{{street_address}} {{postcode}}",
+    )
 
     provinces = (
         "北京市",

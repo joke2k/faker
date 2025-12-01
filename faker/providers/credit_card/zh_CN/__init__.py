@@ -16,7 +16,10 @@ class Provider(CreditCardProvider):
         (
             ("unionpay", CreditCard("UnionPay", prefix_unionpay, security_code="CVN2")),
             ("visa", CreditCard("Visa", prefix_visa, security_code="CVV2")),
-            ("mastercard", CreditCard("Mastercard", prefix_mastercard, security_code="CVC2")),
+            (
+                "mastercard",
+                CreditCard("Mastercard", prefix_mastercard, security_code="CVC2"),
+            ),
         )
     )
 

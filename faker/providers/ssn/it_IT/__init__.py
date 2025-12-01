@@ -8005,7 +8005,14 @@ def checksum(value: str) -> str:
     Calculates the checksum char used for the 16th char.
     Author: Vincenzo Palazzo
     """
-    return chr(65 + sum(CHECKSUM_TABLE[index % 2][ALPHANUMERICS_DICT[char]] for index, char in enumerate(value)) % 26)
+    return chr(
+        65
+        + sum(
+            CHECKSUM_TABLE[index % 2][ALPHANUMERICS_DICT[char]]
+            for index, char in enumerate(value)
+        )
+        % 26
+    )
 
 
 class Provider(SsnProvider):
@@ -8021,7 +8028,9 @@ class Provider(SsnProvider):
         is_leap_year: bool = self.is_leap_year(int(year))
         month: str = self.random_element(MONTHS_LIST)
         max_day: int = self._get_max_day(is_leap_year=is_leap_year, month=month)
-        day: str = "%02d" % (self.random_int(min=1, max=max_day) + (40 if sex == 1 else 0))
+        day: str = "%02d" % (
+            self.random_int(min=1, max=max_day) + (40 if sex == 1 else 0)
+        )
         municipality: str = self.random_element(MUNICIPALITIES_LIST)
         code: str = f"{surname}{name}{year}{month}{day}{municipality}"
         return code + checksum(code)
@@ -8063,7 +8072,9 @@ class Provider(SsnProvider):
         name_consonants = self._get_consonants(name)
         cons_len = len(name_consonants)
         if cons_len >= 4:
-            name_part = "".join([name_consonants[0], name_consonants[1], name_consonants[3]])
+            name_part = "".join(
+                [name_consonants[0], name_consonants[1], name_consonants[3]]
+            )
         elif cons_len < 3:
             name_part = "".join(name_consonants + self._get_vowels(name))[:3]
         else:

@@ -82,7 +82,9 @@ class Provider(AutomotiveProvider):
     MIDDLE_DOT = "・"
     DELIMITER = "-"
 
-    license_plate_formats = ("{{area_name}} {{classification_number}} {{kana}} {{serial_number}}",)
+    license_plate_formats = (
+        "{{area_name}} {{classification_number}} {{kana}} {{serial_number}}",
+    )
 
     def license_plate(self) -> str:
         """Generate a Japanese license plate."""

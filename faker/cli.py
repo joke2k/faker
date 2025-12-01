@@ -104,7 +104,9 @@ def print_doc(
 
         while True:
             try:
-                formatters = doc.get_formatters(with_args=True, with_defaults=True, excludes=unsupported)
+                formatters = doc.get_formatters(
+                    with_args=True, with_defaults=True, excludes=unsupported
+                )
             except exceptions.UnsupportedFeature as e:
                 unsupported.append(e.name)
             else:
@@ -171,7 +173,9 @@ examples:
             formatter_class=formatter_class,
         )
 
-        parser.add_argument("--version", action="version", version=f"%(prog)s {VERSION}")
+        parser.add_argument(
+            "--version", action="version", version=f"%(prog)s {VERSION}"
+        )
 
         parser.add_argument(
             "-v",

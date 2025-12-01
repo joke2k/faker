@@ -123,13 +123,17 @@ class Provider(BaseProvider):
         "+63{{sun_mobile_number_prefix}}-###-####",
     )
     mobile_number_formats: Tuple[str, ...] = (
-        globe_mobile_number_formats + smart_mobile_number_formats + sun_mobile_number_formats
+        globe_mobile_number_formats
+        + smart_mobile_number_formats
+        + sun_mobile_number_formats
     )
 
-    bayantel_landline_identifiers: Tuple[str, ...] = tuple(str(x) for x in range(3000, 3500))
-    misc_landline_identifiers: Tuple[str, ...] = tuple(str(x) for x in range(5300, 5800)) + tuple(
-        str(x) for x in range(6000, 6700)
+    bayantel_landline_identifiers: Tuple[str, ...] = tuple(
+        str(x) for x in range(3000, 3500)
     )
+    misc_landline_identifiers: Tuple[str, ...] = tuple(
+        str(x) for x in range(5300, 5800)
+    ) + tuple(str(x) for x in range(6000, 6700))
     non_area2_landline_area_codes: Tuple[str, ...] = (
         "32",
         "33",
@@ -194,7 +198,9 @@ class Provider(BaseProvider):
         "0{{non_area2_landline_area_code}}-###-####",
         "+63{{non_area2_landline_area_code}}-###-####",
     )
-    landline_number_formats: Tuple[str, ...] = area2_landline_number_formats + non_area2_landline_number_formats
+    landline_number_formats: Tuple[str, ...] = (
+        area2_landline_number_formats + non_area2_landline_number_formats
+    )
 
     def _create_phone_number(self, formats: Sequence[str]) -> str:
         pattern: str = self.random_element(formats)

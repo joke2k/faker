@@ -75,7 +75,10 @@ def _std_strftime(dt_obj: datetime, fmt_char: str) -> str:
         # Unsupported directives may raise ValueError on Windows,
         # in that case just use the fmt_char
         warnings.warn(
-            (f"String format directive unknown/not support: %{fmt_char}" f"The system raises this ValueError: {err}"),
+            (
+                f"String format directive unknown/not support: %{fmt_char}"
+                f"The system raises this ValueError: {err}"
+            ),
             UserWarning,
         )
         str_ = fmt_char

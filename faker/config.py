@@ -8,6 +8,8 @@ META_PROVIDERS_MODULES = [
     "faker.providers",
 ]
 
-PROVIDERS = find_available_providers([import_module(path) for path in META_PROVIDERS_MODULES])
+PROVIDERS = find_available_providers(
+    [import_module(path) for path in META_PROVIDERS_MODULES]
+)
 
 AVAILABLE_LOCALES = find_available_locales(PROVIDERS)

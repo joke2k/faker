@@ -35,10 +35,14 @@ class TestSampleCodeValidator:
         validator = SampleCodeValidator("[OrderedDict, variable1]")
         assert not validator.errors
 
-        validator = SampleCodeValidator("[OrderedDict, OrderedDict, OrderedDict, OrderedDict]")
+        validator = SampleCodeValidator(
+            "[OrderedDict, OrderedDict, OrderedDict, OrderedDict]"
+        )
         assert not validator.errors
 
-        validator = SampleCodeValidator("[OrderedDict, OrderedDict, OrderedDict, OrderedDict, variable1]")
+        validator = SampleCodeValidator(
+            "[OrderedDict, OrderedDict, OrderedDict, OrderedDict, variable1]"
+        )
         assert not validator.errors
 
         validator = SampleCodeValidator("[OrderedDict, variable1, variable2]")
@@ -71,7 +75,9 @@ class TestSampleCodeValidator:
         validator = SampleCodeValidator("variable.method1(OrderedDict2())")
         assert validator.errors
 
-        validator = SampleCodeValidator("variable.method1(OrderedDict(), OrderedDict(), OrderedDict())")
+        validator = SampleCodeValidator(
+            "variable.method1(OrderedDict(), OrderedDict(), OrderedDict())"
+        )
         assert not validator.errors
 
         validator = SampleCodeValidator("variable.method1().method2(OrderedDict())")
