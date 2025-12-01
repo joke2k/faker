@@ -210,7 +210,9 @@ class Faker:
         ...
 
     def random_choices(
-        self, elements: Union[Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
+        self,
+        elements: Union[Collection[T], OrderedDict[T, float]] = ...,
+        length: Optional[int] = ...,
     ) -> Sequence[T]:
         """
         Generate a list of objects randomly sampled from ``elements`` with replacement.
@@ -272,7 +274,9 @@ class Faker:
         """
         ...
 
-    def random_element(self, elements: Union[Collection[T], OrderedDict[T, float]] = ...) -> T:
+    def random_element(
+        self, elements: Union[Collection[T], OrderedDict[T, float]] = ...
+    ) -> T:
         """
         Generate a randomly sampled object from ``elements``.
 
@@ -409,7 +413,9 @@ class Faker:
         ...
 
     def random_sample(
-        self, elements: Union[Collection[T], OrderedDict[T, float]] = ..., length: Optional[int] = ...
+        self,
+        elements: Union[Collection[T], OrderedDict[T, float]] = ...,
+        length: Optional[int] = ...,
     ) -> Sequence[T]:
         """
         Generate a list of objects randomly sampled from ``elements`` without replacement.
@@ -430,7 +436,12 @@ class Faker:
         ...
 
     def randomize_nb_elements(
-        self, number: int = ..., le: bool = ..., ge: bool = ..., min: Optional[int] = ..., max: Optional[int] = ...
+        self,
+        number: int = ...,
+        le: bool = ...,
+        ge: bool = ...,
+        min: Optional[int] = ...,
+        max: Optional[int] = ...,
     ) -> int:
         """
         Generate a random integer near ``number`` according to the following rules:
@@ -457,7 +468,11 @@ class Faker:
 
     def secondary_address(self) -> str: ...
     def state(self) -> str: ...
-    def state_abbr(self, include_territories: bool = ..., include_freely_associated_states: bool = ...) -> str:
+    def state_abbr(
+        self,
+        include_territories: bool = ...,
+        include_freely_associated_states: bool = ...,
+    ) -> str:
         """
         :returns: A random two-letter USPS postal code
 
@@ -534,7 +549,9 @@ class Faker:
         """
         ...
 
-    def swift(self, length: Optional[int] = ..., primary: bool = ..., use_dataset: bool = ...) -> str:
+    def swift(
+        self, length: Optional[int] = ..., primary: bool = ..., use_dataset: bool = ...
+    ) -> str:
         """
         Generate a SWIFT code.
 
@@ -597,7 +614,11 @@ class Faker:
         """
         ...
 
-    def ean(self, length: int = ..., prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...) -> str:
+    def ean(
+        self,
+        length: int = ...,
+        prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...,
+    ) -> str:
         """
         Generate an EAN barcode of the specified ``length``.
 
@@ -652,7 +673,9 @@ class Faker:
         """
         ...
 
-    def ean8(self, prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...) -> str:
+    def ean8(
+        self, prefixes: Tuple[Union[int, str, Tuple[Union[int, str], ...]], ...] = ...
+    ) -> str:
         """
         Generate an EAN-8 barcode.
 
@@ -704,7 +727,10 @@ class Faker:
         ...
 
     def upc_a(
-        self, upc_ae_mode: bool = ..., base: Optional[str] = ..., number_system_digit: Optional[int] = ...
+        self,
+        upc_ae_mode: bool = ...,
+        base: Optional[str] = ...,
+        number_system_digit: Optional[int] = ...,
     ) -> str:
         """
         Generate a 12-digit UPC-A barcode.
@@ -742,7 +768,12 @@ class Faker:
         """
         ...
 
-    def upc_e(self, base: Optional[str] = ..., number_system_digit: Optional[int] = ..., safe_mode: bool = ...) -> str:
+    def upc_e(
+        self,
+        base: Optional[str] = ...,
+        number_system_digit: Optional[int] = ...,
+        safe_mode: bool = ...,
+    ) -> str:
         """
         Generate an 8-digit UPC-E barcode.
 
@@ -834,7 +865,9 @@ class Faker:
         ...
 
     def color_hsl(
-        self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
+        self,
+        hue: Union[str, float, int, Sequence[int], None] = ...,
+        luminosity: Optional[str] = ...,
     ) -> Tuple[int, int, int]:
         """
         Generate a HSL color tuple.
@@ -846,7 +879,9 @@ class Faker:
         ...
 
     def color_hsv(
-        self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
+        self,
+        hue: Union[str, float, int, Sequence[int], None] = ...,
+        luminosity: Optional[str] = ...,
     ) -> Tuple[int, int, int]:
         """
         Generate a HSV color tuple.
@@ -866,7 +901,9 @@ class Faker:
         ...
 
     def color_rgb(
-        self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
+        self,
+        hue: Union[str, float, int, Sequence[int], None] = ...,
+        luminosity: Optional[str] = ...,
     ) -> Tuple[int, int, int]:
         """
         Generate a RGB color tuple of integers.
@@ -878,7 +915,9 @@ class Faker:
         ...
 
     def color_rgb_float(
-        self, hue: Union[str, float, int, Sequence[int], None] = ..., luminosity: Optional[str] = ...
+        self,
+        hue: Union[str, float, int, Sequence[int], None] = ...,
+        luminosity: Optional[str] = ...,
     ) -> Tuple[float, float, float]:
         """
         Generate a RGB color tuple of floats.
@@ -955,8 +994,12 @@ class Faker:
 
     def credit_card_expire(
         self,
-        start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-        end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
+        end: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         date_format: str = ...,
     ) -> str:
         """
@@ -1022,7 +1065,9 @@ class Faker:
     def date(
         self,
         pattern: str = ...,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> str:
         """
         Get a date string between January 1, 1970 and now.
@@ -1038,8 +1083,12 @@ class Faker:
 
     def date_between(
         self,
-        start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-        end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
+        end_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
     ) -> datetime.date:
         """
         Get a Date object based on a random date between two given dates.
@@ -1056,8 +1105,12 @@ class Faker:
 
     def date_between_dates(
         self,
-        date_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-        date_end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        date_start: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
+        date_end: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> datetime.date:
         """
         Get a random date between the two given dates.
@@ -1069,7 +1122,9 @@ class Faker:
         """
         ...
 
-    def date_object(self, end_datetime: Optional[datetime.datetime] = ...) -> datetime.date:
+    def date_object(
+        self, end_datetime: Optional[datetime.datetime] = ...
+    ) -> datetime.date:
         """
         Get a date object between January 1, 1970 and now
 
@@ -1081,7 +1136,10 @@ class Faker:
         ...
 
     def date_of_birth(
-        self, tzinfo: Optional[datetime.tzinfo] = ..., minimum_age: int = ..., maximum_age: int = ...
+        self,
+        tzinfo: Optional[datetime.tzinfo] = ...,
+        minimum_age: int = ...,
+        maximum_age: int = ...,
     ) -> datetime.date:
         """
         Generate a random date of birth represented as a Date object,
@@ -1097,7 +1155,9 @@ class Faker:
         """
         ...
 
-    def date_this_century(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_century(
+        self, before_today: bool = ..., after_today: bool = ...
+    ) -> datetime.date:
         """
         Gets a Date object for the current century.
 
@@ -1109,7 +1169,9 @@ class Faker:
         """
         ...
 
-    def date_this_decade(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_decade(
+        self, before_today: bool = ..., after_today: bool = ...
+    ) -> datetime.date:
         """
         Gets a Date object for the decade year.
 
@@ -1121,7 +1183,9 @@ class Faker:
         """
         ...
 
-    def date_this_month(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_month(
+        self, before_today: bool = ..., after_today: bool = ...
+    ) -> datetime.date:
         """
         Gets a Date object for the current month.
 
@@ -1133,7 +1197,9 @@ class Faker:
         """
         ...
 
-    def date_this_year(self, before_today: bool = ..., after_today: bool = ...) -> datetime.date:
+    def date_this_year(
+        self, before_today: bool = ..., after_today: bool = ...
+    ) -> datetime.date:
         """
         Gets a Date object for the current year.
 
@@ -1148,7 +1214,9 @@ class Faker:
     def date_time(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> datetime.datetime:
         """
         Get a datetime object for a date between January 1, 1970 and a specified end_datetime
@@ -1163,8 +1231,12 @@ class Faker:
     def date_time_ad(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-        start_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
+        start_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> datetime.datetime:
         """
         Get a datetime object for a date between January 1, 0001 and now
@@ -1180,8 +1252,12 @@ class Faker:
 
     def date_time_between(
         self,
-        start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-        end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
+        end_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
@@ -1198,8 +1274,12 @@ class Faker:
 
     def date_time_between_dates(
         self,
-        datetime_start: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-        datetime_end: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        datetime_start: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
+        datetime_end: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
@@ -1216,7 +1296,10 @@ class Faker:
         ...
 
     def date_time_this_century(
-        self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
+        self,
+        before_now: bool = ...,
+        after_now: bool = ...,
+        tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
         Gets a datetime object for the current century.
@@ -1231,7 +1314,10 @@ class Faker:
         ...
 
     def date_time_this_decade(
-        self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
+        self,
+        before_now: bool = ...,
+        after_now: bool = ...,
+        tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
         Gets a datetime object for the decade year.
@@ -1246,7 +1332,10 @@ class Faker:
         ...
 
     def date_time_this_month(
-        self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
+        self,
+        before_now: bool = ...,
+        after_now: bool = ...,
+        tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
         Gets a datetime object for the current month.
@@ -1261,7 +1350,10 @@ class Faker:
         ...
 
     def date_time_this_year(
-        self, before_now: bool = ..., after_now: bool = ..., tzinfo: Optional[datetime.tzinfo] = ...
+        self,
+        before_now: bool = ...,
+        after_now: bool = ...,
+        tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
         Gets a datetime object for the current year.
@@ -1288,7 +1380,10 @@ class Faker:
         ...
 
     def future_date(
-        self, end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...
+        self,
+        end_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
     ) -> datetime.date:
         """
         Get a Date object based on a random date between 1 day from now and a
@@ -1304,7 +1399,9 @@ class Faker:
 
     def future_datetime(
         self,
-        end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        end_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
@@ -1322,7 +1419,9 @@ class Faker:
     def iso8601(
         self,
         tzinfo: Optional[datetime.tzinfo] = ...,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
         sep: str = ...,
         timespec: str = ...,
     ) -> str:
@@ -1352,7 +1451,9 @@ class Faker:
 
     def past_date(
         self,
-        start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.date:
         """
@@ -1369,7 +1470,9 @@ class Faker:
 
     def past_datetime(
         self,
-        start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
     ) -> datetime.datetime:
         """
@@ -1398,7 +1501,9 @@ class Faker:
     def time(
         self,
         pattern: str = ...,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> str:
         """
         Get a time string (24h format by default)
@@ -1412,7 +1517,10 @@ class Faker:
         ...
 
     def time_delta(
-        self, end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...
+        self,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> datetime.timedelta:
         """
         Get a random timedelta object of duration between the current date and time and `end_datetime`
@@ -1425,7 +1533,10 @@ class Faker:
         ...
 
     def time_object(
-        self, end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...
+        self,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> datetime.time:
         """
         Get a time object
@@ -1439,8 +1550,12 @@ class Faker:
 
     def time_series(
         self,
-        start_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
-        end_date: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int] = ...,
+        start_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
+        end_date: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int
+        ] = ...,
         precision: Optional[float] = ...,
         distrib: Optional[Callable[[datetime.datetime], float]] = ...,
         tzinfo: Optional[datetime.tzinfo] = ...,
@@ -1471,8 +1586,12 @@ class Faker:
 
     def unix_time(
         self,
-        end_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
-        start_datetime: Union[datetime.date, datetime.datetime, datetime.timedelta, str, int, None] = ...,
+        end_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
+        start_datetime: Union[
+            datetime.date, datetime.datetime, datetime.timedelta, str, int, None
+        ] = ...,
     ) -> float:
         """
         Get a timestamp between January 1, 1970 and now, unless passed
@@ -1522,7 +1641,9 @@ class Faker:
         """
         ...
 
-    def file_name(self, category: Optional[str] = ..., extension: Optional[str] = ...) -> str:
+    def file_name(
+        self, category: Optional[str] = ..., extension: Optional[str] = ...
+    ) -> str:
         """
         Generate a random file name with extension.
 
@@ -1620,7 +1741,9 @@ class Faker:
         """
         ...
 
-    def coordinate(self, center: Optional[float] = ..., radius: Union[float, int] = ...) -> Decimal:
+    def coordinate(
+        self, center: Optional[float] = ..., radius: Union[float, int] = ...
+    ) -> Decimal:
         """
         Optionally center the coord and pick a point within radius.
         """
@@ -1628,7 +1751,9 @@ class Faker:
 
     def latitude(self) -> Decimal: ...
     def latlng(self) -> Tuple[Decimal, Decimal]: ...
-    def local_latlng(self, country_code: str = ..., coords_only: bool = ...) -> Optional[Tuple[str, ...]]:
+    def local_latlng(
+        self, country_code: str = ..., coords_only: bool = ...
+    ) -> Optional[Tuple[str, ...]]:
         """
         Returns a location known to exist on land in a country specified by `country_code`.
         Defaults to 'en_US'. See the `land_coords` list for available locations/countries.
@@ -1732,7 +1857,10 @@ class Faker:
         ...
 
     def image_url(
-        self, width: Optional[int] = ..., height: Optional[int] = ..., placeholder_url: Optional[str] = ...
+        self,
+        width: Optional[int] = ...,
+        height: Optional[int] = ...,
+        placeholder_url: Optional[str] = ...,
     ) -> str:
         """
         Returns URL to placeholder image
@@ -1747,7 +1875,12 @@ class Faker:
         """
         ...
 
-    def ipv4(self, network: bool = ..., address_class: Optional[str] = ..., private: Optional[str] = ...) -> str:
+    def ipv4(
+        self,
+        network: bool = ...,
+        address_class: Optional[str] = ...,
+        private: Optional[str] = ...,
+    ) -> str:
         """
         Returns a random IPv4 address or network with a valid CIDR.
 
@@ -1766,7 +1899,9 @@ class Faker:
         """
         ...
 
-    def ipv4_private(self, network: bool = ..., address_class: Optional[str] = ...) -> str:
+    def ipv4_private(
+        self, network: bool = ..., address_class: Optional[str] = ...
+    ) -> str:
         """
         Returns a private IPv4.
 
@@ -1776,7 +1911,9 @@ class Faker:
         """
         ...
 
-    def ipv4_public(self, network: bool = ..., address_class: Optional[str] = ...) -> str:
+    def ipv4_public(
+        self, network: bool = ..., address_class: Optional[str] = ...
+    ) -> str:
         """
         Returns a public IPv4 excluding private blocks.
 
@@ -1818,7 +1955,9 @@ class Faker:
         """
         ...
 
-    def port_number(self, is_system: bool = ..., is_user: bool = ..., is_dynamic: bool = ...) -> int:
+    def port_number(
+        self, is_system: bool = ..., is_user: bool = ..., is_dynamic: bool = ...
+    ) -> int:
         """
         Returns a network port number
         https://tools.ietf.org/html/rfc6335
@@ -1887,7 +2026,9 @@ class Faker:
     def job_female(self) -> str: ...
     def job_male(self) -> str: ...
     def get_words_list(
-        self, part_of_speech: Optional[str] = ..., ext_word_list: Optional[Sequence[str]] = ...
+        self,
+        part_of_speech: Optional[str] = ...,
+        ext_word_list: Optional[Sequence[str]] = ...,
     ) -> List[str]:
         """
         Get list of words.
@@ -1914,7 +2055,10 @@ class Faker:
         ...
 
     def paragraph(
-        self, nb_sentences: int = ..., variable_nb_sentences: bool = ..., ext_word_list: Optional[Sequence[str]] = ...
+        self,
+        nb_sentences: int = ...,
+        variable_nb_sentences: bool = ...,
+        ext_word_list: Optional[Sequence[str]] = ...,
     ) -> str:
         """
         Generate a paragraph.
@@ -1937,7 +2081,9 @@ class Faker:
         """
         ...
 
-    def paragraphs(self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> List[str]:
+    def paragraphs(
+        self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...
+    ) -> List[str]:
         """
         Generate a list of paragraphs.
 
@@ -1952,7 +2098,10 @@ class Faker:
         ...
 
     def sentence(
-        self, nb_words: int = ..., variable_nb_words: bool = ..., ext_word_list: Optional[Sequence[str]] = ...
+        self,
+        nb_words: int = ...,
+        variable_nb_words: bool = ...,
+        ext_word_list: Optional[Sequence[str]] = ...,
     ) -> str:
         """
         Generate a sentence.
@@ -1973,7 +2122,9 @@ class Faker:
         """
         ...
 
-    def sentences(self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> List[str]:
+    def sentences(
+        self, nb: int = ..., ext_word_list: Optional[Sequence[str]] = ...
+    ) -> List[str]:
         """
         Generate a list of sentences.
 
@@ -1988,7 +2139,9 @@ class Faker:
         """
         ...
 
-    def text(self, max_nb_chars: int = ..., ext_word_list: Optional[Sequence[str]] = ...) -> str:
+    def text(
+        self, max_nb_chars: int = ..., ext_word_list: Optional[Sequence[str]] = ...
+    ) -> str:
         """
         Generate a text string.
 
@@ -2006,7 +2159,10 @@ class Faker:
         ...
 
     def texts(
-        self, nb_texts: int = ..., max_nb_chars: int = ..., ext_word_list: Optional[Sequence[str]] = ...
+        self,
+        nb_texts: int = ...,
+        max_nb_chars: int = ...,
+        ext_word_list: Optional[Sequence[str]] = ...,
     ) -> List[str]:
         """
         Generate a list of text strings.
@@ -2023,7 +2179,11 @@ class Faker:
         """
         ...
 
-    def word(self, part_of_speech: Optional[str] = ..., ext_word_list: Optional[Sequence[str]] = ...) -> str:
+    def word(
+        self,
+        part_of_speech: Optional[str] = ...,
+        ext_word_list: Optional[Sequence[str]] = ...,
+    ) -> str:
         """
         Generate a word.
 
@@ -2147,7 +2307,9 @@ class Faker:
 
     def fixed_width(
         self,
-        data_columns: Optional[List[Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]]] = ...,
+        data_columns: Optional[
+            List[Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]]
+        ] = ...,
         num_rows: int = ...,
         align: str = ...,
     ) -> str:
@@ -2692,7 +2854,9 @@ class Faker:
 
     def phone_number(self) -> str: ...
     def profile(
-        self, fields: Optional[List[str]] = ..., sex: Optional[Literal["M", "F", "X"]] = ...
+        self,
+        fields: Optional[List[str]] = ...,
+        sex: Optional[Literal["M", "F", "X"]] = ...,
     ) -> Dict[str, Union[str, Tuple[Decimal, Decimal], List[str], datetime.date]]:
         """
         Generates a complete profile.
@@ -2759,7 +2923,9 @@ class Faker:
         min_value: Union[float, int, None] = ...,
         max_value: Union[float, int, None] = ...,
     ) -> float: ...
-    def pyint(self, min_value: int = ..., max_value: int = ..., step: int = ...) -> int: ...
+    def pyint(
+        self, min_value: int = ..., max_value: int = ..., step: int = ...
+    ) -> int: ...
     def pyiterable(
         self,
         nb_elements: int = ...,
@@ -2775,7 +2941,10 @@ class Faker:
         allowed_types: Union[List[Type], Tuple[Type, ...], None] = ...,
     ) -> List[Any]: ...
     def pyobject(
-        self, object_type: Optional[Type[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]] = ...
+        self,
+        object_type: Optional[
+            Type[Union[bool, str, float, int, tuple, set, list, Iterable, dict]]
+        ] = ...,
     ) -> Union[bool, str, float, int, tuple, set, list, Iterable, dict, None]:
         """
         Generates a random object passing the type desired.
@@ -2793,7 +2962,13 @@ class Faker:
         value_types: Union[List[Type], Tuple[Type, ...], None] = ...,
         allowed_types: Union[List[Type], Tuple[Type, ...], None] = ...,
     ) -> Set[Any]: ...
-    def pystr(self, min_chars: Optional[int] = ..., max_chars: int = ..., prefix: str = ..., suffix: str = ...) -> str:
+    def pystr(
+        self,
+        min_chars: Optional[int] = ...,
+        max_chars: int = ...,
+        prefix: str = ...,
+        suffix: str = ...,
+    ) -> str:
         """
         Generates a random string of upper and lowercase letters.
 
@@ -2880,7 +3055,13 @@ class Faker:
         """
         ...
 
-    def chrome(self, version_from: int = ..., version_to: int = ..., build_from: int = ..., build_to: int = ...) -> str:
+    def chrome(
+        self,
+        version_from: int = ...,
+        version_to: int = ...,
+        build_from: int = ...,
+        build_to: int = ...,
+    ) -> str:
         """
         Generate a Chrome web browser user agent string.
         """
@@ -3272,7 +3453,9 @@ class Faker:
         """
         ...
 
-    def pincode_in_state(self, state_abbr: Optional[str] = ..., include_union_territories: bool = ...) -> int:
+    def pincode_in_state(
+        self, state_abbr: Optional[str] = ..., include_union_territories: bool = ...
+    ) -> int:
         """
         Random PIN Code within provided state abbreviation
 
@@ -3377,7 +3560,9 @@ class Faker:
     def random_company_adjective(self) -> str: ...
     def random_company_noun_chain(self) -> str: ...
     def random_company_product(self) -> str: ...
-    def english_paragraph(self, nb_sentences: int = ..., variable_nb_sentences: bool = ...) -> str:
+    def english_paragraph(
+        self, nb_sentences: int = ..., variable_nb_sentences: bool = ...
+    ) -> str:
         """
         Generate a paragraph in English.
 
@@ -3394,7 +3579,9 @@ class Faker:
         """
         ...
 
-    def english_sentence(self, nb_words: int = ..., variable_nb_words: bool = ...) -> str:
+    def english_sentence(
+        self, nb_words: int = ..., variable_nb_words: bool = ...
+    ) -> str:
         """
         Generate a sentence in English.
 
@@ -4246,7 +4433,9 @@ class Faker:
         """
         ...
 
-    def pesel(self, date_of_birth: Optional[datetime.datetime] = ..., sex: Optional[str] = ...) -> str:
+    def pesel(
+        self, date_of_birth: Optional[datetime.datetime] = ..., sex: Optional[str] = ...
+    ) -> str:
         """
         Returns 11 characters of Universal Electronic System for Registration of the Population.
         Polish: Powszechny Elektroniczny System Ewidencji Ludności.
@@ -4546,7 +4735,11 @@ class Faker:
         """
         ...
 
-    def full_name(self, gender: Optional[Literal["M", "F", "X"]] = ..., short: Optional[bool] = ...) -> str:
+    def full_name(
+        self,
+        gender: Optional[Literal["M", "F", "X"]] = ...,
+        short: Optional[bool] = ...,
+    ) -> str:
         """
         Generate Full Name
             - gender = 'M' or 'F' optional params

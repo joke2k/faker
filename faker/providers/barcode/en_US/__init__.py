@@ -45,7 +45,9 @@ class Provider(BarcodeProvider):
         r"(?P<check_digit>\d)$",  # and finally a check digit.
     )
 
-    def ean13(self, prefixes: PrefixType = (), leading_zero: Optional[bool] = None) -> str:
+    def ean13(
+        self, prefixes: PrefixType = (), leading_zero: Optional[bool] = None
+    ) -> str:
         """Generate an EAN-13 barcode.
 
         If ``leading_zero`` is ``True``, the leftmost digit of the barcode will
@@ -97,7 +99,9 @@ class Provider(BarcodeProvider):
         m3 = self.upc_ae_pattern3.match(upc_a)
         if not any([m1, m2, m3]):
             raise ValueError("`upc_a` has an invalid value")
-        upc_e_template = "{number_system_digit}{mfr_code}{product_code}{extra}{check_digit}"
+        upc_e_template = (
+            "{number_system_digit}{mfr_code}{product_code}{extra}{check_digit}"
+        )
         if m1:
             upc_e = upc_e_template.format(**m1.groupdict())
         elif m2:
@@ -111,7 +115,9 @@ class Provider(BarcodeProvider):
             upc_e = upc_e_template.format(**groupdict)
         return upc_e
 
-    def _upc_ae(self, base: Optional[str] = None, number_system_digit: Optional[int] = None) -> str:
+    def _upc_ae(
+        self, base: Optional[str] = None, number_system_digit: Optional[int] = None
+    ) -> str:
         """Create a 12-digit UPC-A barcode that can be converted to UPC-E.
 
         The expected value of ``base`` is a 6-digit string. If any other value

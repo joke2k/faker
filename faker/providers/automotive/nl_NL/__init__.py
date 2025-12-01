@@ -63,7 +63,9 @@ class Provider(AutomotiveProvider):
         )
 
         # Replace @ with license_plate_prefix_letters_format_8
-        temp = re.sub(r"\@", self.random_element(self.license_plate_prefix_letters_format_8), temp)
+        temp = re.sub(
+            r"\@", self.random_element(self.license_plate_prefix_letters_format_8), temp
+        )
 
         return self.bothify(temp, letters=string.ascii_uppercase)
 

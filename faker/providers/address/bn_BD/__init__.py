@@ -507,7 +507,9 @@ class Provider(AddressProvider):
         """
         :example: '791' to '৭৯১'
         """
-        return translate_to_bengali_digits(self.numerify(self.random_element(self.building_number_formats)))
+        return translate_to_bengali_digits(
+            self.numerify(self.random_element(self.building_number_formats))
+        )
 
     def city_prefix(self) -> str:
         """
@@ -526,7 +528,9 @@ class Provider(AddressProvider):
         See
         https://bdpost.portal.gov.bd/site/page/6aaeabe4-479b-4e5a-a671-e9e5b994bf9a
         """
-        return translate_to_bengali_digits(self.numerify(self.random_element(self.postcode_formats)))
+        return translate_to_bengali_digits(
+            self.numerify(self.random_element(self.postcode_formats))
+        )
 
     def secondary_address(self) -> str:
         """

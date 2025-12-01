@@ -26,7 +26,9 @@ class Provider(BaseProvider):
         serial = self.random_int(min=0, max=9999)
 
         # The group number must be between 70 and 99 inclusively but not 89 or 93
-        group: int = self.random_element([x for x in range(70, 100) if x not in [89, 93]])
+        group: int = self.random_element(
+            [x for x in range(70, 100) if x not in [89, 93]]
+        )
 
         itin = f"{area:03d}-{group:02d}-{serial:04d}"
         return itin
@@ -196,7 +198,9 @@ class Provider(BaseProvider):
             group = self.random_int(0, 99)
             serial = self.random_int(0, 9999)
         else:
-            group = self.random_element([x for x in range(0, 100) if x not in itin_group_numbers])
+            group = self.random_element(
+                [x for x in range(0, 100) if x not in itin_group_numbers]
+            )
             serial = self.random_int(0, 9999)
 
         invalid_ssn = f"{area:03d}-{group:02d}-{serial:04d}"

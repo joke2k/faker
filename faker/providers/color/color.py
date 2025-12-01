@@ -136,7 +136,9 @@ class RandomColor:
     :meth:`color() <faker.providers.color.Provider.color>` method.
     """
 
-    def __init__(self, generator: Optional["Generator"] = None, seed: Optional[SeedType] = None) -> None:
+    def __init__(
+        self, generator: Optional["Generator"] = None, seed: Optional[SeedType] = None
+    ) -> None:
         self.colormap = COLOR_MAP
 
         # Option to specify a seed was not removed so this class
@@ -217,7 +219,9 @@ class RandomColor:
 
         return hue_
 
-    def pick_saturation(self, hue: int, hue_name: Optional[HueType], luminosity: Optional[str]) -> int:
+    def pick_saturation(
+        self, hue: int, hue_name: Optional[HueType], luminosity: Optional[str]
+    ) -> int:
         """Return a numerical saturation value."""
         if luminosity is None:
             luminosity = ""
@@ -297,7 +301,9 @@ class RandomColor:
             or len(color_input) != 2
             or any(not isinstance(c, (float, int)) for c in color_input)
         ):
-            raise TypeError("Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types.")
+            raise TypeError(
+                "Hue must be a valid string, numeric type, or a tuple/list of 2 numeric types."
+            )
 
         return color_input[0], color_input[1]
 

@@ -9,7 +9,9 @@ class Provider(AddressProvider):
     # http://www.nepalpost.gov.np/index.php/postal-codes-of-nepal
     postcode_formats = ("#####",)
 
-    address_formats = ("{{street_name}} {{building_prefix}} {{building_number}} \n{{city}}\n{{district}} {{postcode}}",)
+    address_formats = (
+        "{{street_name}} {{building_prefix}} {{building_number}} \n{{city}}\n{{district}} {{postcode}}",
+    )
 
     street_suffixes = (
         "मार्ग",

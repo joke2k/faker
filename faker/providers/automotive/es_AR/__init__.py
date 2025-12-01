@@ -67,7 +67,9 @@ class Provider(AutomotiveProvider):
         """Generate an old format license plate. Since 1995 to 2016"""
         format = "??###"
 
-        first_letter: str = self.random_element(self.license_plate_old_format_first_letter)
+        first_letter: str = self.random_element(
+            self.license_plate_old_format_first_letter
+        )
 
         return self.bothify(first_letter + format).upper()
 
@@ -84,4 +86,6 @@ class Provider(AutomotiveProvider):
 
     def license_plate(self) -> str:
         """Generate a license plate."""
-        return self.numerify(self.generator.parse(self.random_element(self.license_formats)))
+        return self.numerify(
+            self.generator.parse(self.random_element(self.license_formats))
+        )

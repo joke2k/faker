@@ -38,7 +38,9 @@ class Provider(PhoneNumberProvider):
         "922",
     )
 
-    formats = cellphone_formats + telephone_formats + services_phones_formats + toll_formats
+    formats = (
+        cellphone_formats + telephone_formats + services_phones_formats + toll_formats
+    )
 
     def cellphone_provider_code(self) -> str:
         return self.random_element(

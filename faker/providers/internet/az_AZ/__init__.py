@@ -14,9 +14,20 @@ class Provider(InternetProvider):
         "{{first_name}}_{{year}}",
     )
 
-    email_formats = ("{{user_name}}@{{free_email_domain}}", "{{user_name}}@{{domain_name}}")
+    email_formats = (
+        "{{user_name}}@{{free_email_domain}}",
+        "{{user_name}}@{{domain_name}}",
+    )
 
-    free_email_domains = ("gmail.com", "yahoo.com", "hotmail.com", "mail.ru", "yandex.ru", "box.az", "amail.az")
+    free_email_domains = (
+        "gmail.com",
+        "yahoo.com",
+        "hotmail.com",
+        "mail.ru",
+        "yandex.ru",
+        "box.az",
+        "amail.az",
+    )
 
     tlds = ("az", "com", "biz", "info", "net", "org", "edu")
 

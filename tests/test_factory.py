@@ -176,7 +176,9 @@ class FactoryTestCase(unittest.TestCase):
                 from faker.config import DEFAULT_LOCALE
 
                 print(f"requested locale = {locale} , DEFAULT LOCALE {DEFAULT_LOCALE}")
-                expected_locale = locale if expected_used else ("ar_EG" if with_default else "ko_KR")
+                expected_locale = (
+                    locale if expected_used else ("ar_EG" if with_default else "ko_KR")
+                )
                 assert factory.providers[0].__lang__ == expected_locale
 
     def test_lang_localized_provider_without_default(self):
@@ -322,13 +324,17 @@ class FactoryTestCase(unittest.TestCase):
         fake = Faker()
         fake.seed_instance(32167)
         assert any(fake.pyfloat(left_digits=0, positive=False) < 0 for _ in range(100))
-        assert any(fake.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100))
+        assert any(
+            fake.pydecimal(left_digits=0, positive=False) < 0 for _ in range(100)
+        )
 
     def test_arbitrary_digits_pydecimal(self):
         # tests for https://github.com/joke2k/faker/issues/1462
         fake = Faker()
         assert any(
-            len(str(fake.pydecimal(left_digits=sys.float_info.dig + i))) > sys.float_info.dig for i in range(100)
+            len(str(fake.pydecimal(left_digits=sys.float_info.dig + i)))
+            > sys.float_info.dig
+            for i in range(100)
         )
         assert any(len(str(fake.pydecimal())) > sys.float_info.dig for _ in range(100))
 

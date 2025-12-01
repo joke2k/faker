@@ -94,7 +94,18 @@ class Provider(PersonProvider):
         "Mai Bảo",
     )
 
-    last_names = ("Nguyễn", "Trần", "Lê", "Phạm", "Vũ", "Đặng", "Bùi", "Dương", "Mai", "Hoàng")
+    last_names = (
+        "Nguyễn",
+        "Trần",
+        "Lê",
+        "Phạm",
+        "Vũ",
+        "Đặng",
+        "Bùi",
+        "Dương",
+        "Mai",
+        "Hoàng",
+    )
 
     # Typically, Vietnamese will be addressed with their given name and a prefix
     # https://en.wikipedia.org/wiki/Vietnamese_name#Given_name

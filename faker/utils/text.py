@@ -23,6 +23,8 @@ def slugify(value: str, allow_dots: bool = False, allow_unicode: bool = False) -
         value = unicodedata.normalize("NFKC", value)
         value = pattern.sub("", value).strip().lower()
         return _re_spaces.sub("-", value)
-    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    value = (
+        unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    )
     value = pattern.sub("", value).strip().lower()
     return _re_spaces.sub("-", value)

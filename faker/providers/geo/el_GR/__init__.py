@@ -17,12 +17,17 @@ class Provider(GeoProvider):
 
     def local_latitude(self) -> Decimal:
         latitudes = [int(Decimal(t[0]) * 10000000) for t in self.poly]
-        return Decimal(str(self.generator.random.randint(min(latitudes), max(latitudes)) / 10000000)).quantize(
-            Decimal(".000001")
-        )
+        return Decimal(
+            str(
+                self.generator.random.randint(min(latitudes), max(latitudes)) / 10000000
+            )
+        ).quantize(Decimal(".000001"))
 
     def local_longitude(self) -> Decimal:
         longitudes = [int(Decimal(t[1]) * 10000000) for t in self.poly]
-        return Decimal(str(self.generator.random.randint(min(longitudes), max(longitudes)) / 10000000)).quantize(
-            Decimal(".000001")
-        )
+        return Decimal(
+            str(
+                self.generator.random.randint(min(longitudes), max(longitudes))
+                / 10000000
+            )
+        ).quantize(Decimal(".000001"))

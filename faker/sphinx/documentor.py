@@ -10,7 +10,10 @@ from faker.providers import BaseProvider
 
 if os.environ.get("READTHEDOCS", False):
     version = os.environ["READTHEDOCS_VERSION"]
-    HOME = Path("/home/docs/checkouts/readthedocs.org/user_builds/faker/checkouts") / version
+    HOME = (
+        Path("/home/docs/checkouts/readthedocs.org/user_builds/faker/checkouts")
+        / version
+    )
     DOCS_ROOT = HOME / "docs"
 else:
     DOCS_ROOT = Path(__file__).resolve().parents[2] / "docs"
@@ -26,7 +29,9 @@ PROVIDER_AUTODOC_TEMPLATE = """
 """
 
 BASE_PROVIDER_METHOD_NAMES = [
-    name for name, method in inspect.getmembers(BaseProvider, inspect.isfunction) if not name.startswith("_")
+    name
+    for name, method in inspect.getmembers(BaseProvider, inspect.isfunction)
+    if not name.startswith("_")
 ]
 
 

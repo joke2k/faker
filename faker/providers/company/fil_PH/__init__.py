@@ -81,7 +81,9 @@ class Provider(EnPhProvider):
         return self.random_element(self.good_service_adjectives)
 
     def random_good_service_adjective_chain(self) -> str:
-        adjectives: Sequence[str] = self.random_elements(self.good_service_adjectives, length=2, unique=True)
+        adjectives: Sequence[str] = self.random_elements(
+            self.good_service_adjectives, length=2, unique=True
+        )
         return " at ".join(adjectives)
 
     def random_object_of_concern(self) -> str:

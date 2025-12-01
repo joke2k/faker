@@ -3527,7 +3527,11 @@ class Provider(SsnProvider):
     ]
 
     def ssn(
-        self, min_age: int = 18, max_age: int = 90, gender: Optional[SexLiteral] = None, area_code: str = ""
+        self,
+        min_age: int = 18,
+        max_age: int = 90,
+        gender: Optional[SexLiteral] = None,
+        area_code: str = "",
     ) -> str:
         """
         Return 18 character chinese personal identity code

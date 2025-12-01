@@ -36,7 +36,9 @@ def choices_distribution_unique(
 
     assert p is not None
     assert len(a) == len(p)
-    assert len(a) >= length, "You can't request more unique samples than elements in the dataset."
+    assert (
+        len(a) >= length
+    ), "You can't request more unique samples than elements in the dataset."
 
     choices = []
     items = list(a)

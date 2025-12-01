@@ -514,7 +514,9 @@ class Provider(AddressProvider):
 
         return self.random_element(self.union_territories)[0]
 
-    def pincode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+    def pincode_in_state(
+        self, state_abbr: Optional[str] = None, include_union_territories: bool = False
+    ) -> int:
         """Random PIN Code within provided state abbreviation
 
         :param state_abbr: State Abbr, defaults to None
@@ -550,10 +552,14 @@ class Provider(AddressProvider):
 
     # Aliases
 
-    def zipcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+    def zipcode_in_state(
+        self, state_abbr: Optional[str] = None, include_union_territories: bool = False
+    ) -> int:
         return self.pincode_in_state(state_abbr, include_union_territories)
 
-    def postcode_in_state(self, state_abbr: Optional[str] = None, include_union_territories: bool = False) -> int:
+    def postcode_in_state(
+        self, state_abbr: Optional[str] = None, include_union_territories: bool = False
+    ) -> int:
         return self.pincode_in_state(state_abbr, include_union_territories)
 
     def pincode_in_army(self) -> int:

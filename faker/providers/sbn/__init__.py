@@ -29,7 +29,9 @@ class Provider(BaseProvider):
         return [registrant, publication]
 
     @staticmethod
-    def _registrant_publication(reg_pub: str, rules: List[RegistrantRule]) -> Tuple[str, str]:
+    def _registrant_publication(
+        reg_pub: str, rules: List[RegistrantRule]
+    ) -> Tuple[str, str]:
         """Separate the registration from the publication in a given
         string.
         :param reg_pub: A string of digits representing a registration

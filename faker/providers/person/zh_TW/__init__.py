@@ -900,7 +900,9 @@ class Provider(PersonProvider):
         (("{{last_romanized_name}} {{first_romanized_name_female}}", 1),)  # 漢人 Han
     )
 
-    romanized_formats_male = OrderedDict((("{{last_romanized_name}} {{first_romanized_name_male}}", 1),))  # 漢人 Han
+    romanized_formats_male = OrderedDict(
+        (("{{last_romanized_name}} {{first_romanized_name_male}}", 1),)
+    )  # 漢人 Han
 
     romanized_formats = romanized_formats_male.copy()
     romanized_formats.update(romanized_formats_female)

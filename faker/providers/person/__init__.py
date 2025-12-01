@@ -268,7 +268,11 @@ class Provider(BaseProvider):
     def prefix(self) -> str:
         if hasattr(self, "prefixes"):
             return self.random_element(self.prefixes)  # type: ignore[attr-defined]
-        if hasattr(self, "prefixes_male") and hasattr(self, "prefixes_female") and hasattr(self, "prefixes_nonbinary"):
+        if (
+            hasattr(self, "prefixes_male")
+            and hasattr(self, "prefixes_female")
+            and hasattr(self, "prefixes_nonbinary")
+        ):
             prefixes = add_ordereddicts(
                 self.prefixes_male,  # type: ignore[attr-defined]
                 self.prefixes_female,  # type: ignore[attr-defined]
@@ -298,7 +302,11 @@ class Provider(BaseProvider):
     def suffix(self) -> str:
         if hasattr(self, "suffixes"):
             return self.random_element(self.suffixes)  # type: ignore[attr-defined]
-        if hasattr(self, "suffixes_male") and hasattr(self, "suffixes_female") and hasattr(self, "suffixes_nonbinary"):
+        if (
+            hasattr(self, "suffixes_male")
+            and hasattr(self, "suffixes_female")
+            and hasattr(self, "suffixes_nonbinary")
+        ):
             suffixes = add_ordereddicts(
                 self.suffixes_male,  # type: ignore[attr-defined]
                 self.suffixes_female,  # type: ignore[attr-defined]

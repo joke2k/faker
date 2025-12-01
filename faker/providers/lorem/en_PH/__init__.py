@@ -37,7 +37,9 @@ class Provider(LoremProvider):
 
         return self.words(nb=nb, ext_word_list=word_list, unique=unique)
 
-    def english_sentence(self, nb_words: int = 6, variable_nb_words: bool = True) -> str:
+    def english_sentence(
+        self, nb_words: int = 6, variable_nb_words: bool = True
+    ) -> str:
         """Generate a sentence in English.
 
         :sample: nb_words=10
@@ -52,13 +54,17 @@ class Provider(LoremProvider):
         """
         return self.sentences(nb, self.english_word_list)
 
-    def english_paragraph(self, nb_sentences: int = 3, variable_nb_sentences: bool = True) -> str:
+    def english_paragraph(
+        self, nb_sentences: int = 3, variable_nb_sentences: bool = True
+    ) -> str:
         """Generate a paragraph in English.
 
         :sample: nb_sentences=5
         :sample: nb_sentences=5, variable_nb_sentences=False
         """
-        return self.paragraph(nb_sentences, variable_nb_sentences, self.english_word_list)
+        return self.paragraph(
+            nb_sentences, variable_nb_sentences, self.english_word_list
+        )
 
     def english_paragraphs(self, nb: int = 3) -> List[str]:
         """Generate a list of paragraphs in English.

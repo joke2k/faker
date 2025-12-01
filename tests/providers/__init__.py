@@ -48,7 +48,9 @@ class TestBaseProvider:
     def test_random_digit_not_null_or_empty(self, faker, num_samples):
         expected = set(range(1, 10))
         expected.add("")
-        samples = [faker.random_digit_not_null_or_empty() for _ in range(num_samples * 10)]
+        samples = [
+            faker.random_digit_not_null_or_empty() for _ in range(num_samples * 10)
+        ]
         assert set(samples) == expected
 
     def test_random_number(self, faker):
@@ -104,7 +106,11 @@ class TestBaseProvider:
             ("abcd", string.ascii_letters, r"abcd"),
             ("???", string.ascii_letters, r"[0-9a-zA-Z]{3}"),
             ("???", "aBcDeFgHiJ12345", r"[1-5aBcDeFgHiJ]{3}"),
-            ("??Xr^#7p??", "AbCdخあ5漢7Я", r"[AbCdخあ5漢7Я]{2}Xr\^#7p[AbCdخあ5漢7Я]{2}"),
+            (
+                "??Xr^#7p??",
+                "AbCdخあ5漢7Я",
+                r"[AbCdخあ5漢7Я]{2}Xr\^#7p[AbCdخあ5漢7Я]{2}",
+            ),
         ],
         ids=[
             "empty_string",

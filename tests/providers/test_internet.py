@@ -28,7 +28,8 @@ class TestInternetProvider:
 
     num_samples = 100
     ipv4_pattern: Pattern = re.compile(
-        r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}" r"(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+        r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}"
+        r"(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
     )
     ipv4_network_pattern: Pattern = re.compile(
         r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}"
@@ -271,8 +272,12 @@ class TestInternetProvider:
             11,  # Not a list or valid iterable
         ]
 
-        with patch("faker.providers.internet.choices_distribution", wraps=choices_distribution) as mock_choices_fn:
-            with patch("faker.generator.random.choice", wraps=random.choice) as mock_random_choice:
+        with patch(
+            "faker.providers.internet.choices_distribution", wraps=choices_distribution
+        ) as mock_choices_fn:
+            with patch(
+                "faker.generator.random.choice", wraps=random.choice
+            ) as mock_random_choice:
                 # If weights argument is valid, only `choices_distribution` should be called
                 provider._random_ipv4_address_from_subnets(subnets, valid_weights)
                 assert mock_choices_fn.call_count == 1
@@ -302,7 +307,9 @@ class TestInternetProvider:
             address = provider.ipv6(network=True)
             assert len(address) >= 4  # ::/8
             assert len(address) <= 39 + 4
-            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(address)
+            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(
+                address
+            )
 
     def test_mac_address(self, faker):
         provider = InternetProvider(faker)
@@ -353,7 +360,10 @@ class TestInternetProvider:
         assert faker.dga() != faker.dga()
 
         expected_domain = "cqphixmpdfpptskr.com"
-        assert faker.dga(day=1, month=1, year=1000, tld="com", length=16) == expected_domain
+        assert (
+            faker.dga(day=1, month=1, year=1000, tld="com", length=16)
+            == expected_domain
+        )
 
     def test_iana_id(self, faker, num_samples):
         for _ in range(num_samples):
@@ -561,7 +571,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_two_levels_after_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_two_levels_after_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         provider = ZhCnInternetProvider(faker)
 
         # If tld() returns cn, second level name should be selected from second_level_domains
@@ -580,7 +592,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_two_levels_after_non_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         # If tld() does not return cn, domain_word() will be called twice
         mock_domain_word.reset_mock()
         mock_tld.return_value = "net"
@@ -591,7 +605,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_more_than_two_levels_after_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_more_than_two_levels_after_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         provider = ZhCnInternetProvider(faker)
 
         mock_tld.return_value = "cn"
@@ -622,7 +638,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_more_than_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_more_than_two_levels_after_non_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         mock_tld.return_value = "net"
         mock_domain_word.return_value = "li"
         for levels in range(3, 10):

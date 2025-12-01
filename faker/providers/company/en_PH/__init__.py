@@ -137,7 +137,11 @@ class Provider(CompanyProvider):
         return self.random_element(self.company_adjectives)
 
     def random_company_noun_chain(self) -> str:
-        return " ".join(self.random_elements(self.company_nouns, length=self.random_int(1, 2), unique=True))
+        return " ".join(
+            self.random_elements(
+                self.company_nouns, length=self.random_int(1, 2), unique=True
+            )
+        )
 
     def random_company_product(self) -> str:
         return self.random_element(self.company_products)

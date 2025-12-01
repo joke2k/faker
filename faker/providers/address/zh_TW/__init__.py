@@ -6,7 +6,9 @@ class Provider(AddressProvider):
     building_number_formats = ("%號", "%#號", "%##號")
     postcode_formats = ("%####", "%##")
     section_formats = ("", "", "", "", "%段")
-    street_address_formats = ("{{street_name}}{{street_name_suffix}}{{section_number}}{{building_number}}",)
+    street_address_formats = (
+        "{{street_name}}{{street_name_suffix}}{{section_number}}{{building_number}}",
+    )
     address_formats = ("{{postcode}} {{city}}{{street_address}}{{secondary_address}}",)
     secondary_address_formats = ("#樓", "之#")
 

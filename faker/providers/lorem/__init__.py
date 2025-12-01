@@ -54,7 +54,9 @@ class Provider(BaseProvider):
             word_list = ext_word_list
         elif part_of_speech:
             if part_of_speech not in self.parts_of_speech:  # type: ignore[attr-defined]
-                raise ValueError(f"{part_of_speech} is not recognized as a part of speech.")
+                raise ValueError(
+                    f"{part_of_speech} is not recognized as a part of speech."
+                )
             else:
                 word_list = self.parts_of_speech[part_of_speech]  # type: ignore[attr-defined]
         else:
@@ -90,7 +92,9 @@ class Provider(BaseProvider):
         :sample: nb=4, ext_word_list=['abc', 'def', 'ghi', 'jkl'], unique=True
         """
 
-        word_list = self.get_words_list(part_of_speech=part_of_speech, ext_word_list=ext_word_list)
+        word_list = self.get_words_list(
+            part_of_speech=part_of_speech, ext_word_list=ext_word_list
+        )
 
         if unique:
             unique_samples = cast(List[str], self.random_sample(word_list, length=nb))
@@ -98,7 +102,11 @@ class Provider(BaseProvider):
         samples = cast(List[str], self.random_choices(word_list, length=nb))
         return samples
 
-    def word(self, part_of_speech: Optional[str] = None, ext_word_list: Optional[Sequence[str]] = None) -> str:
+    def word(
+        self,
+        part_of_speech: Optional[str] = None,
+        ext_word_list: Optional[Sequence[str]] = None,
+    ) -> str:
         """Generate a word.
 
         This method uses |words| under the hood with the ``nb`` argument set to
@@ -112,7 +120,10 @@ class Provider(BaseProvider):
         return self.words(1, word_list)[0]
 
     def sentence(
-        self, nb_words: int = 6, variable_nb_words: bool = True, ext_word_list: Optional[Sequence[str]] = None
+        self,
+        nb_words: int = 6,
+        variable_nb_words: bool = True,
+        ext_word_list: Optional[Sequence[str]] = None,
     ) -> str:
         """Generate a sentence.
 
@@ -142,7 +153,9 @@ class Provider(BaseProvider):
 
         return self.word_connector.join(words) + self.sentence_punctuation
 
-    def sentences(self, nb: int = 3, ext_word_list: Optional[Sequence[str]] = None) -> List[str]:
+    def sentences(
+        self, nb: int = 3, ext_word_list: Optional[Sequence[str]] = None
+    ) -> List[str]:
         """Generate a list of sentences.
 
         This method uses |sentence| under the hood to generate sentences, and
@@ -157,7 +170,10 @@ class Provider(BaseProvider):
         return [self.sentence(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
     def paragraph(
-        self, nb_sentences: int = 3, variable_nb_sentences: bool = True, ext_word_list: Optional[Sequence[str]] = None
+        self,
+        nb_sentences: int = 3,
+        variable_nb_sentences: bool = True,
+        ext_word_list: Optional[Sequence[str]] = None,
     ) -> str:
         """Generate a paragraph.
 
@@ -183,11 +199,15 @@ class Provider(BaseProvider):
         if variable_nb_sentences:
             nb_sentences = self.randomize_nb_elements(nb_sentences, min=1)
 
-        para = self.word_connector.join(self.sentences(nb_sentences, ext_word_list=ext_word_list))
+        para = self.word_connector.join(
+            self.sentences(nb_sentences, ext_word_list=ext_word_list)
+        )
 
         return para
 
-    def paragraphs(self, nb: int = 3, ext_word_list: Optional[Sequence[str]] = None) -> List[str]:
+    def paragraphs(
+        self, nb: int = 3, ext_word_list: Optional[Sequence[str]] = None
+    ) -> List[str]:
         """Generate a list of paragraphs.
 
         This method uses |paragraph| under the hood to generate paragraphs, and
@@ -200,7 +220,9 @@ class Provider(BaseProvider):
         """
         return [self.paragraph(ext_word_list=ext_word_list) for _ in range(0, nb)]
 
-    def text(self, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None) -> str:
+    def text(
+        self, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None
+    ) -> str:
         """Generate a text string.
 
         The ``max_nb_chars`` argument controls the approximate number of
@@ -225,7 +247,9 @@ class Provider(BaseProvider):
                 # determine how many words are needed to reach the $max_nb_chars
                 # once;
                 while size < max_nb_chars:
-                    word = (self.word_connector if size else "") + self.word(ext_word_list=ext_word_list)
+                    word = (self.word_connector if size else "") + self.word(
+                        ext_word_list=ext_word_list
+                    )
                     text.append(word)
                     size += len(word)
                 text.pop()
@@ -239,7 +263,9 @@ class Provider(BaseProvider):
                 # determine how many sentences are needed to reach the
                 # $max_nb_chars once
                 while size < max_nb_chars:
-                    sentence = (self.word_connector if size else "") + self.sentence(ext_word_list=ext_word_list)
+                    sentence = (self.word_connector if size else "") + self.sentence(
+                        ext_word_list=ext_word_list
+                    )
                     text.append(sentence)
                     size += len(sentence)
                 text.pop()
@@ -250,7 +276,9 @@ class Provider(BaseProvider):
                 # determine how many paragraphs are needed to reach the
                 # $max_nb_chars once
                 while size < max_nb_chars:
-                    paragraph = ("\n" if size else "") + self.paragraph(ext_word_list=ext_word_list)
+                    paragraph = ("\n" if size else "") + self.paragraph(
+                        ext_word_list=ext_word_list
+                    )
                     text.append(paragraph)
                     size += len(paragraph)
                 text.pop()
@@ -258,7 +286,10 @@ class Provider(BaseProvider):
         return "".join(text)
 
     def texts(
-        self, nb_texts: int = 3, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None
+        self,
+        nb_texts: int = 3,
+        max_nb_chars: int = 200,
+        ext_word_list: Optional[Sequence[str]] = None,
     ) -> List[str]:
         """Generate a list of text strings.
 

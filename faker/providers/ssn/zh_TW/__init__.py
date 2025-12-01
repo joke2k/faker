@@ -40,6 +40,8 @@ def checksum(s: str) -> int:
 
 class Provider(SsnProvider):
     def ssn(self) -> str:
-        ssn_without_last_char = self.numerify(self.random_uppercase_letter() + str(self.random_int(1, 2)) + "#######")
+        ssn_without_last_char = self.numerify(
+            self.random_uppercase_letter() + str(self.random_int(1, 2)) + "#######"
+        )
         last_char = str((10 - checksum(ssn_without_last_char) % 10) % 10)
         return ssn_without_last_char + last_char

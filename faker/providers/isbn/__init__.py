@@ -39,7 +39,9 @@ class Provider(BaseProvider):
         return [ean, reg_group, registrant, publication]
 
     @staticmethod
-    def _registrant_publication(reg_pub: str, rules: List[Tuple[str, str, int]]) -> Tuple[str, str]:
+    def _registrant_publication(
+        reg_pub: str, rules: List[Tuple[str, str, int]]
+    ) -> Tuple[str, str]:
         """Separate the registration from the publication in a given
         string.
 
@@ -54,7 +56,9 @@ class Provider(BaseProvider):
                 reg_len = rule[2]
                 break
         else:
-            raise Exception(f"Registrant/Publication '{reg_pub}' not found in registrant rule list.")
+            raise Exception(
+                f"Registrant/Publication '{reg_pub}' not found in registrant rule list."
+            )
         registrant, publication = reg_pub[:reg_len], reg_pub[reg_len:]
         return registrant, publication
 

@@ -11,13 +11,24 @@ from faker.sphinx.validator import SampleCodeValidator
 
 logger = logging.getLogger(__name__)
 _fake = Faker(AVAILABLE_LOCALES)
-_base_provider_method_pattern: Pattern = re.compile(r"^faker\.providers\.BaseProvider\.(?P<method>\w+)$")
-_standard_provider_method_pattern: Pattern = re.compile(r"^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$")
+_base_provider_method_pattern: Pattern = re.compile(
+    r"^faker\.providers\.BaseProvider\.(?P<method>\w+)$"
+)
+_standard_provider_method_pattern: Pattern = re.compile(
+    r"^faker\.providers\.\w+\.Provider\.(?P<method>\w+)$"
+)
 _locale_provider_method_pattern: Pattern = re.compile(
-    r"^faker\.providers\.\w+" r"\.(?P<locale>[a-z]{2,3}_[A-Z]{2})" r"\.Provider" r"\.(?P<method>\w+)$",
+    r"^faker\.providers\.\w+"
+    r"\.(?P<locale>[a-z]{2,3}_[A-Z]{2})"
+    r"\.Provider"
+    r"\.(?P<method>\w+)$",
 )
 _sample_line_pattern: Pattern = re.compile(
-    r"^:sample" r"(?: size=(?P<size>[1-9][0-9]*))?" r"(?: seed=(?P<seed>[0-9]+))?" r":" r"(?: ?(?P<kwargs>.*))?$",
+    r"^:sample"
+    r"(?: size=(?P<size>[1-9][0-9]*))?"
+    r"(?: seed=(?P<seed>[0-9]+))?"
+    r":"
+    r"(?: ?(?P<kwargs>.*))?$",
 )
 _command_template = "generator.{method}({kwargs})"
 _sample_output_template = (
@@ -184,7 +195,9 @@ class ProviderMethodDocstring:
         output = ""
         eval_scope = self._generate_eval_scope()
         for sample in self._samples:
-            command = _command_template.format(method=self._method, kwargs=sample.kwargs)
+            command = _command_template.format(
+                method=self._method, kwargs=sample.kwargs
+            )
             validator = SampleCodeValidator(command)
             if validator.errors:
                 msg = (
@@ -196,7 +209,12 @@ class ProviderMethodDocstring:
 
             try:
                 Faker.seed(sample.seed)
-                results = "\n".join([self._stringify_result(eval(command, eval_scope)) for _ in range(sample.size)])
+                results = "\n".join(
+                    [
+                        self._stringify_result(eval(command, eval_scope))
+                        for _ in range(sample.size)
+                    ]
+                )
             except Exception:
                 msg = f"Sample generation failed for method `{self._method}` with arguments `{sample.kwargs}`."
                 self._log_warning(msg)

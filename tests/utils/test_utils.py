@@ -38,7 +38,9 @@ class UtilsTestCase(unittest.TestCase):
         boundaries = []
         tolerance = 5
         for probability in p:
-            boundaries.append([100 * probability + tolerance, 100 * probability - tolerance])
+            boundaries.append(
+                [100 * probability + tolerance, 100 * probability - tolerance]
+            )
 
         assert boundaries[0][0] > a_pop > boundaries[0][1]
         assert boundaries[1][0] > b_pop > boundaries[1][1]

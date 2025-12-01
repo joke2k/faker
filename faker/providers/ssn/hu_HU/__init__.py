@@ -11,7 +11,9 @@ def zfix(d: int) -> str:
 
 
 class Provider(SsnProvider):
-    def ssn(self, dob: Optional[str] = None, gender: Optional[SexLiteral] = None) -> str:
+    def ssn(
+        self, dob: Optional[str] = None, gender: Optional[SexLiteral] = None
+    ) -> str:
         """
         Generates Hungarian SSN equivalent (személyazonosító szám or, colloquially, személyi szám)
 

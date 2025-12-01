@@ -1089,7 +1089,9 @@ class Provider(CompanyProvider):
         :example: 'Адаптивный и масштабируемый графический интерфейс'
         """
         noun: str = self.random_element(
-            self.catch_phrase_nouns_masc + self.catch_phrase_nouns_fem + self.catch_phrase_nouns_neu
+            self.catch_phrase_nouns_masc
+            + self.catch_phrase_nouns_fem
+            + self.catch_phrase_nouns_neu
         )
         adj_first: str = self.random_element(self.catch_phrase_adj[0])
         adj_second: str = self.random_element(self.catch_phrase_adj[1])

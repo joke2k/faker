@@ -77,7 +77,16 @@ class Provider(BankProvider):
         return super(self.__class__, self).swift8(use_dataset=use_dataset)
 
     def swift11(self, primary: bool = False, use_dataset: bool = True) -> str:
-        return super(self.__class__, self).swift11(primary=primary, use_dataset=use_dataset)
+        return super(self.__class__, self).swift11(
+            primary=primary, use_dataset=use_dataset
+        )
 
-    def swift(self, length: Optional[int] = None, primary: bool = False, use_dataset: bool = True) -> str:
-        return super(self.__class__, self).swift(length=length, primary=primary, use_dataset=use_dataset)
+    def swift(
+        self,
+        length: Optional[int] = None,
+        primary: bool = False,
+        use_dataset: bool = True,
+    ) -> str:
+        return super(self.__class__, self).swift(
+            length=length, primary=primary, use_dataset=use_dataset
+        )

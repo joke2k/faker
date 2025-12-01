@@ -475,7 +475,10 @@ class TestNlBe:
             assert iban[:2] == NlBeBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{12}", iban[2:])
             rearranged_iban = iban[4:] + iban[:4]
-            numeric_iban = "".join(str(ord(char) - 55) if char.isalpha() else char for char in rearranged_iban)
+            numeric_iban = "".join(
+                str(ord(char) - 55) if char.isalpha() else char
+                for char in rearranged_iban
+            )
             assert int(numeric_iban) % 97 == 1
 
     def test_swift8_use_dataset(self, faker, num_samples):

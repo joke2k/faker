@@ -229,10 +229,14 @@ class Provider(BaseProvider):
         :sample:
         :sample: category='application'
         """
-        category = category if category else self.random_element(list(self.mime_types.keys()))
+        category = (
+            category if category else self.random_element(list(self.mime_types.keys()))
+        )
         return self.random_element(self.mime_types[category])
 
-    def file_name(self, category: Optional[str] = None, extension: Optional[str] = None) -> str:
+    def file_name(
+        self, category: Optional[str] = None, extension: Optional[str] = None
+    ) -> str:
         """Generate a random file name with extension.
 
         If ``extension`` is ``None``, a random extension will be created

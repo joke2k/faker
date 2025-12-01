@@ -12,7 +12,14 @@ class Provider(BaseProvider):
         "{{last_name}}, {{last_name}} and {{last_name}}",
     )
 
-    company_suffixes: ElementsType[str] = ("Inc", "and Sons", "LLC", "Group", "PLC", "Ltd")
+    company_suffixes: ElementsType[str] = (
+        "Inc",
+        "and Sons",
+        "LLC",
+        "Group",
+        "PLC",
+        "Ltd",
+    )
 
     catch_phrase_words: Tuple[ElementsType[str], ...] = (
         (
@@ -522,7 +529,9 @@ class Provider(BaseProvider):
         """
         :example: 'Robust full-range hub'
         """
-        return " ".join([self.random_element(word_list) for word_list in self.catch_phrase_words])
+        return " ".join(
+            [self.random_element(word_list) for word_list in self.catch_phrase_words]
+        )
 
     def bs(self) -> str:
         """

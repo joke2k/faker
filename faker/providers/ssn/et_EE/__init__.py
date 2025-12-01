@@ -47,7 +47,9 @@ class Provider(SsnProvider):
 
         https://en.wikipedia.org/wiki/National_identification_number#Estonia
         """
-        age = datetime.timedelta(days=self.generator.random.randrange(min_age * 365, max_age * 365))
+        age = datetime.timedelta(
+            days=self.generator.random.randrange(min_age * 365, max_age * 365)
+        )
         birthday = datetime.date.today() - age
         if birthday.year < 2000:
             ik = self.generator.random.choice(("3", "4"))

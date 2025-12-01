@@ -529,12 +529,20 @@ class Provider(PersonProvider):
 
     formats = formats_male + formats_female
 
-    first_names_male = first_names_male_common + first_names_male_hinduism + first_names_male_islamic
-    first_names_female = first_names_female_common + first_names_female_hinduism + first_names_female_islamic
+    first_names_male = (
+        first_names_male_common + first_names_male_hinduism + first_names_male_islamic
+    )
+    first_names_female = (
+        first_names_female_common
+        + first_names_female_hinduism
+        + first_names_female_islamic
+    )
     first_names = first_names_male + first_names_female
 
     last_names_male = last_names_common + last_names_hinduism + last_names_islamic
-    last_names_female = last_names_common + last_names_hinduism + last_names_female_islamic
+    last_names_female = (
+        last_names_common + last_names_hinduism + last_names_female_islamic
+    )
     last_names = last_names_male + last_names_female
 
     def first_name_male_common(self) -> str:

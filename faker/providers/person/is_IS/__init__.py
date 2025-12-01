@@ -4,7 +4,10 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    formats_male = ("{{first_name_male}} {{last_name_male}}", "{{first_name_male}} {{middle_name}} {{last_name_male}}")
+    formats_male = (
+        "{{first_name_male}} {{last_name_male}}",
+        "{{first_name_male}} {{middle_name}} {{last_name_male}}",
+    )
 
     formats_female = (
         "{{first_name_female}} {{last_name_female}}",
@@ -3788,7 +3791,9 @@ class Provider(PersonProvider):
 
     # Icelandic male and female last names
     def last_name(self) -> str:
-        get_random_last_name = self.random_element((self.last_name_male, self.last_name_female))
+        get_random_last_name = self.random_element(
+            (self.last_name_male, self.last_name_female)
+        )
         return get_random_last_name()
 
     # Icelandic middle names

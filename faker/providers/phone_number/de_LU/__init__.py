@@ -34,4 +34,6 @@ class Provider(PhoneNumberProvider):
     prefixes = ("+352 ", "")
 
     def phone_number(self) -> str:
-        return self.random_element(self.prefixes) + self.numerify(self.random_element(self.formats))
+        return self.random_element(self.prefixes) + self.numerify(
+            self.random_element(self.formats)
+        )

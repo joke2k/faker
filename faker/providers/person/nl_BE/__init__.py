@@ -18,10 +18,16 @@ class Provider(PersonProvider):
     #
     # Below reflects these with an assumed 10% doubled name (for both genders).
     formats_male = OrderedDict(
-        (("{{first_name_male}} {{last_name}}", 90), ("{{first_name_male}} {{last_name}} {{last_name}}", 10))
+        (
+            ("{{first_name_male}} {{last_name}}", 90),
+            ("{{first_name_male}} {{last_name}} {{last_name}}", 10),
+        )
     )
     formats_female = OrderedDict(
-        (("{{first_name_female}} {{last_name}}", 90), ("{{first_name_female}} {{last_name}} {{last_name}}", 10))
+        (
+            ("{{first_name_female}} {{last_name}}", 90),
+            ("{{first_name_female}} {{last_name}} {{last_name}}", 10),
+        )
     )
     formats = OrderedDict(Counter(formats_male) + Counter(formats_female))
 

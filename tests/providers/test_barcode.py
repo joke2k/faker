@@ -71,7 +71,9 @@ class TestBarcodeProvider:
 
 @pytest.fixture(scope="class")
 def provider_class(request):
-    if hasattr(request.cls, "get_provider_class") and callable(request.cls.get_provider_class):
+    if hasattr(request.cls, "get_provider_class") and callable(
+        request.cls.get_provider_class
+    ):
         _provider_class = request.cls.get_provider_class()
         if isinstance(_provider_class, type):
             return _provider_class
@@ -96,8 +98,12 @@ class _LocaleCommonMixin:
             if all(a == b for a, b in zip(barcode_digits, map(int, prefix))):
                 return
         str_barc = "".join(str(x) for x in barcode_digits)
-        str_pref = ", ".join(map(lambda _prefix: "".join(str(x) for x in _prefix)), prefixes)
-        raise AssertionError(f"{str_barc} doesn't match any of the prefixes: {str_pref}")
+        str_pref = ", ".join(
+            map(lambda _prefix: "".join(str(x) for x in _prefix)), prefixes
+        )
+        raise AssertionError(
+            f"{str_barc} doesn't match any of the prefixes: {str_pref}"
+        )
 
     def test_localized_ean(self, faker, num_samples, provider):
         for _ in range(num_samples):
@@ -220,7 +226,9 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             assert int(upc_a[-1]) == int(upc_e[-1])
 
             # Create a new UPC-A barcode based on the UPC-E barcode
-            new_upc_a = faker.upc_a(upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0]))
+            new_upc_a = faker.upc_a(
+                upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0])
+            )
 
             # New UPC-A barcode must be the same as the original
             assert upc_a == new_upc_a
@@ -231,7 +239,9 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             assert self.upc_e_pattern.fullmatch(upc_e)
 
             # Create a new UPC-A barcode based on the UPC-E barcode
-            upc_a = faker.upc_a(upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0]))
+            upc_a = faker.upc_a(
+                upc_ae_mode=True, base=upc_e[1:-1], number_system_digit=int(upc_e[0])
+            )
 
             # Number system and check digits must be the same
             assert int(upc_a[0]) == int(upc_e[0])

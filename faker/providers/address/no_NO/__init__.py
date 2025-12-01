@@ -105,7 +105,9 @@ class Provider(AddressProvider):
 
     def building_number(self) -> str:
         suffix: str = self.random_element(self.building_number_suffixes)
-        return self.numerify(self.random_element(self.building_number_formats)).replace("?", suffix)
+        return self.numerify(self.random_element(self.building_number_formats)).replace(
+            "?", suffix
+        )
 
     def city_suffix(self) -> str:
         return self.random_element(self.city_suffixes)

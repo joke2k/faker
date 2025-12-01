@@ -1313,7 +1313,9 @@ class Provider(PersonProvider):
         """
         return self.random_element(self.middle_names_female)
 
-    def full_name(self, gender: Optional[SexLiteral] = None, short: Optional[bool] = False) -> str:
+    def full_name(
+        self, gender: Optional[SexLiteral] = None, short: Optional[bool] = False
+    ) -> str:
         """
         Generate Full Name
             - gender = 'M' or 'F' optional params

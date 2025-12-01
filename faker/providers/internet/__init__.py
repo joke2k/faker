@@ -299,7 +299,9 @@ class Provider(BaseProvider):
         hostname_prefix: str = self.random_element(self.hostname_prefixes)
         hostname_prefix_first_level: str = hostname_prefix + "-" + self.numerify("##")
         return (
-            hostname_prefix_first_level if levels < 1 else hostname_prefix_first_level + "." + self.domain_name(levels)
+            hostname_prefix_first_level
+            if levels < 1
+            else hostname_prefix_first_level + "." + self.domain_name(levels)
         )
 
     @lowercase
@@ -400,11 +402,15 @@ class Provider(BaseProvider):
         if schemes is None:
             schemes = ["http", "https"]
 
-        pattern: str = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        pattern: str = (
+            f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        )
 
         return self.generator.parse(pattern)
 
-    def _get_all_networks_and_weights(self, address_class: Optional[str] = None) -> Tuple[List[IPv4Network], List[int]]:
+    def _get_all_networks_and_weights(
+        self, address_class: Optional[str] = None
+    ) -> Tuple[List[IPv4Network], List[int]]:
         """
         Produces a 2-tuple of valid IPv4 networks and corresponding relative weights
 
@@ -447,7 +453,10 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         """
         # If `address_class` has an unexpected value, choose a valid value at random
-        if not address_class or address_class not in _IPv4Constants._network_classes.keys():
+        if (
+            not address_class
+            or address_class not in _IPv4Constants._network_classes.keys()
+        ):
             address_class = self.ipv4_network_class()
 
         # Return cached network and weight data if available for a specific address class
@@ -458,7 +467,11 @@ class Provider(BaseProvider):
 
         # Otherwise, compute for list of private networks (excluding special networks)
         supernet = _IPv4Constants._network_classes[address_class]
-        private_networks = [subnet for subnet in _IPv4Constants._private_networks if subnet.overlaps(supernet)]
+        private_networks = [
+            subnet
+            for subnet in _IPv4Constants._private_networks
+            if subnet.overlaps(supernet)
+        ]
         private_networks = self._exclude_ipv4_networks(
             private_networks,
             _IPv4Constants._excluded_networks,
@@ -630,10 +643,16 @@ class Provider(BaseProvider):
         elif private is False:
             return self.ipv4_public(address_class=address_class, network=network)
         else:
-            all_networks, weights = self._get_all_networks_and_weights(address_class=address_class)
-            return self._random_ipv4_address_from_subnets(all_networks, weights=weights, network=network)
+            all_networks, weights = self._get_all_networks_and_weights(
+                address_class=address_class
+            )
+            return self._random_ipv4_address_from_subnets(
+                all_networks, weights=weights, network=network
+            )
 
-    def ipv4_private(self, network: bool = False, address_class: Optional[str] = None) -> str:
+    def ipv4_private(
+        self, network: bool = False, address_class: Optional[str] = None
+    ) -> str:
         """
         Returns a private IPv4.
 
@@ -641,10 +660,16 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Private IPv4
         """
-        private_networks, weights = self._get_private_networks_and_weights(address_class=address_class)
-        return self._random_ipv4_address_from_subnets(private_networks, weights=weights, network=network)
+        private_networks, weights = self._get_private_networks_and_weights(
+            address_class=address_class
+        )
+        return self._random_ipv4_address_from_subnets(
+            private_networks, weights=weights, network=network
+        )
 
-    def ipv4_public(self, network: bool = False, address_class: Optional[str] = None) -> str:
+    def ipv4_public(
+        self, network: bool = False, address_class: Optional[str] = None
+    ) -> str:
         """
         Returns a public IPv4 excluding private blocks.
 
@@ -652,12 +677,20 @@ class Provider(BaseProvider):
         :param address_class: IPv4 address class (a, b, or c)
         :returns: Public IPv4
         """
-        public_networks, weights = self._get_public_networks_and_weights(address_class=address_class)
-        return self._random_ipv4_address_from_subnets(public_networks, weights=weights, network=network)
+        public_networks, weights = self._get_public_networks_and_weights(
+            address_class=address_class
+        )
+        return self._random_ipv4_address_from_subnets(
+            public_networks, weights=weights, network=network
+        )
 
     def ipv6(self, network: bool = False) -> str:
         """Produce a random IPv6 address or network with a valid CIDR"""
-        address = str(IPv6Address(self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)))
+        address = str(
+            IPv6Address(
+                self.generator.random.randint(2**IPV4LENGTH, (2**IPV6LENGTH) - 1)
+            )
+        )
         if network:
             address += "/" + str(self.generator.random.randint(0, IPV6LENGTH))
             address = str(IPv6Network(address, strict=False))
@@ -677,7 +710,9 @@ class Provider(BaseProvider):
             mac.insert(0, self.generator.random.randrange(0x00, 0xFE, 2))
         return ":".join("%02x" % x for x in mac)
 
-    def port_number(self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False) -> int:
+    def port_number(
+        self, is_system: bool = False, is_user: bool = False, is_dynamic: bool = False
+    ) -> int:
         """Returns a network port number
         https://tools.ietf.org/html/rfc6335
 
@@ -708,7 +743,9 @@ class Provider(BaseProvider):
     def uri_extension(self) -> str:
         return self.random_element(self.uri_extensions)
 
-    def uri(self, schemes: Optional[List[str]] = None, deep: Optional[int] = None) -> str:
+    def uri(
+        self, schemes: Optional[List[str]] = None, deep: Optional[int] = None
+    ) -> str:
         """
         :param schemes: a list of strings to use as schemes, one will chosen randomly.
             If None, it will generate http and https uris.
@@ -719,7 +756,9 @@ class Provider(BaseProvider):
         if schemes is None:
             schemes = ["http", "https"]
 
-        pattern: str = f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        pattern: str = (
+            f'{self.random_element(schemes) if schemes else ""}://{self.random_element(self.url_formats)}'
+        )
         path = self.uri_path(deep=deep)
         page = self.uri_page()
         extension = self.uri_extension()

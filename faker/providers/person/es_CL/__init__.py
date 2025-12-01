@@ -1058,7 +1058,9 @@ class Provider(PersonProvider):
         """Returns a list of weighted first names, male and female."""
         if not hasattr(self, "_first_names"):
             self._first_names = OrderedDict()
-            for a, b in zip_longest(self.first_names_male.items(), self.first_names_female.items()):
+            for a, b in zip_longest(
+                self.first_names_male.items(), self.first_names_female.items()
+            ):
                 if a is not None:
                     name, weight = a
                     self._first_names[name] = weight / 2

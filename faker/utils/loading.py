@@ -54,7 +54,9 @@ def find_available_providers(modules: List[ModuleType]) -> List[str]:
     for providers_mod in modules:
         if providers_mod.__package__:
             providers = [
-                ".".join([providers_mod.__package__, mod]) for mod in list_module(providers_mod) if mod != "__pycache__"
+                ".".join([providers_mod.__package__, mod])
+                for mod in list_module(providers_mod)
+                if mod != "__pycache__"
             ]
             available_providers.update(providers)
     return sorted(available_providers)

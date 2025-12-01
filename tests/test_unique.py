@@ -23,7 +23,9 @@ class TestUniquenessClass:
         # Those of you who are especially astute may realise
         # there are only 2 booleans, so the third boolean cannot
         # be unique.
-        with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
+        with pytest.raises(
+            UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."
+        ):
             for i in range(3):
                 _ = fake.unique.boolean()
 
@@ -58,7 +60,9 @@ class TestUniquenessClass:
 
         fake = Faker()
 
-        with pytest.raises(TypeError, match="Accessing non-functions through .unique is not supported."):
+        with pytest.raises(
+            TypeError, match="Accessing non-functions through .unique is not supported."
+        ):
             fake.unique.locales
 
     def test_complex_return_types_is_supported(self):
@@ -93,5 +97,7 @@ class TestUniquenessClass:
             assert value not in generated
             generated.add(value)
 
-        with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
+        with pytest.raises(
+            UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."
+        ):
             fake.unique["ja_JP"].random_int(min=1, max=10)

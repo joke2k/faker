@@ -45,7 +45,9 @@ class Provider(BaseProvider):
         :sample:
         """
 
-        nie_body = str(random.randrange(0, 100000000))  # generate a number of a maximum of 8 characters long
+        nie_body = str(
+            random.randrange(0, 100000000)
+        )  # generate a number of a maximum of 8 characters long
         return nie_body.zfill(8) + self._calculate_control_doi(nie_body)
 
     def cif(self) -> str:

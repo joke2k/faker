@@ -20,7 +20,10 @@ class Provider(CreditCardProvider):
     credit_card_types = OrderedDict(
         (
             ("visa", CreditCard("Visa", prefix_visa, security_code="CVV2")),
-            ("mastercard", CreditCard("Mastercard", prefix_mastercard, security_code="CVC2")),
+            (
+                "mastercard",
+                CreditCard("Mastercard", prefix_mastercard, security_code="CVC2"),
+            ),
             ("prostir", CreditCard("ПРОСТІР", prefix_prostir, security_code="CVC2")),
             ("maestro", CreditCard("Maestro", prefix_maestro, security_code="CVV")),
         )

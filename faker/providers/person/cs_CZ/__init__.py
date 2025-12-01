@@ -531,7 +531,17 @@ class Provider(PersonProvider):
     # https://cs.wikipedia.org/wiki/Akademick%C3%BD_titul
     # https://eprehledy.cz/ceske_tituly.php
 
-    degrees = ("JUDr.", "Ing.", "Bc.", "Mgr.", "MUDr.", "RNDr.", "Ing. arch.", "MVDr.", "PhDr.")
+    degrees = (
+        "JUDr.",
+        "Ing.",
+        "Bc.",
+        "Mgr.",
+        "MUDr.",
+        "RNDr.",
+        "Ing. arch.",
+        "MVDr.",
+        "PhDr.",
+    )
 
     prefixes_male = ("pan",) + degrees
 

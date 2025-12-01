@@ -21,11 +21,7 @@ from faker.providers.company.ko_KR import Provider as KoKrCompanyProvider
 from faker.providers.company.nl_BE import Provider as NlBeCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
-from faker.providers.company.pl_PL import (
-    company_vat_checksum,
-    local_regon_checksum,
-    regon_checksum,
-)
+from faker.providers.company.pl_PL import company_vat_checksum, local_regon_checksum, regon_checksum
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
@@ -120,7 +116,9 @@ class TestFrFr:
         for _ in range(num_samples):
             vat_number = faker.company_vat()
             assert isinstance(vat_number, str)
-            match = re.fullmatch(r"FR (?P<checksum>\d\d) (?P<siren>\d{3} \d{3} \d{3})", vat_number)
+            match = re.fullmatch(
+                r"FR (?P<checksum>\d\d) (?P<siren>\d{3} \d{3} \d{3})", vat_number
+            )
             assert match
             generated_checksum = int(match.group("checksum"))
             siren = match.group("siren")
@@ -140,19 +138,27 @@ class TestFrFr:
             # default version is "naf-2003"
             code = faker.ape_code()
             assert isinstance(code, str)
-            assert self.APE_2003_PATTERN.fullmatch(code), f"Invalid NAF 2003 APE code format: {code}"
+            assert self.APE_2003_PATTERN.fullmatch(
+                code
+            ), f"Invalid NAF 2003 APE code format: {code}"
             # version naf-2003
             code = faker.ape_code(version="naf-2003")
             assert isinstance(code, str)
-            assert self.APE_2003_PATTERN.fullmatch(code), f"Invalid NAF 2003 APE code format: {code}"
+            assert self.APE_2003_PATTERN.fullmatch(
+                code
+            ), f"Invalid NAF 2003 APE code format: {code}"
             # version naf-2025
             code = faker.ape_code(version="naf-2025")
             assert isinstance(code, str)
-            assert self.APE_2025_PATTERN.fullmatch(code), f"Invalid NAF 2025 APE code format: {code}"
+            assert self.APE_2025_PATTERN.fullmatch(
+                code
+            ), f"Invalid NAF 2025 APE code format: {code}"
             # Possibly invalid numbers
             code = faker.ape_code(version=None)
             assert isinstance(code, str)
-            assert self.APE_GENERIC_PATTERN.fullmatch(code), f"Invalid APE code format: {code}"
+            assert self.APE_GENERIC_PATTERN.fullmatch(
+                code
+            ), f"Invalid APE code format: {code}"
         with pytest.raises(ValueError):
             faker.ape_code(version="naf-1984")
 
@@ -205,7 +211,10 @@ class TestJaJp:
                 company.startswith(prefix) or company.endswith(prefix)
                 for prefix in JaJpCompanyProvider.company_prefixes
             )
-            assert any(category in company for category in JaJpCompanyProvider.company_categories)
+            assert any(
+                category in company
+                for category in JaJpCompanyProvider.company_categories
+            )
 
 
 class TestPtBr:
@@ -321,7 +330,9 @@ class TestEnPh:
         cls.company_types = EnPhCompanyProvider.company_types
         cls.company_suffixes = EnPhCompanyProvider.company_suffixes.keys()
         cls.company_products = EnPhCompanyProvider.company_products
-        cls.national_corporation_pattern: Pattern = re.compile(r"^National (.*?) Corporation of the Philippines$")
+        cls.national_corporation_pattern: Pattern = re.compile(
+            r"^National (.*?) Corporation of the Philippines$"
+        )
 
     def test_random_company_noun_chain(self, faker, num_samples):
         for _ in range(num_samples):
@@ -336,11 +347,19 @@ class TestEnPh:
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):
             company = faker.company()
-            if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
+            if (
+                company.split()[-1] in self.company_suffixes
+                and company.split()[-2] in self.company_types
+            ):
                 continue
             else:
-                national_corporation_match = self.national_corporation_pattern.fullmatch(company)
-                assert national_corporation_match and national_corporation_match.group(1) in self.company_products
+                national_corporation_match = (
+                    self.national_corporation_pattern.fullmatch(company)
+                )
+                assert (
+                    national_corporation_match
+                    and national_corporation_match.group(1) in self.company_products
+                )
 
 
 class TestFilPh(TestEnPh):
@@ -349,7 +368,10 @@ class TestFilPh(TestEnPh):
     def test_PH_random_good_service_adjective_chain(self, faker, num_samples):
         for _ in range(num_samples):
             adjectives = faker.random_good_service_adjective_chain().split(" at ")
-            assert all(adjective in FilPhCompanyProvider.good_service_adjectives for adjective in adjectives)
+            assert all(
+                adjective in FilPhCompanyProvider.good_service_adjectives
+                for adjective in adjectives
+            )
 
 
 class TestTlPh(TestFilPh):

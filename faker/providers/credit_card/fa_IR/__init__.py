@@ -81,7 +81,9 @@ class Provider(CreditCardProvider):
             ("tose", CreditCard("توسعه", prefix_tose, 16, security_code="CVV2")),
             (
                 "eghtesad_novin",
-                CreditCard("اقتصاد نوین", prefix_eghtesad_novin, 16, security_code="CVV2"),
+                CreditCard(
+                    "اقتصاد نوین", prefix_eghtesad_novin, 16, security_code="CVV2"
+                ),
             ),
             ("meli", CreditCard("ملی", prefix_meli, 16, security_code="CVV2")),
             (

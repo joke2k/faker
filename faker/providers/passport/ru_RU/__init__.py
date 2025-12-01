@@ -20,7 +20,9 @@ class Provider(BaseProvider):
 
     def passport_owner(self, gender: SexLiteral = "M") -> Tuple[str, str]:
         generator_string = GENDER_TO_GENERATOR[gender]
-        last_name, first_name, middle_name = self.generator.parse(generator_string).split()
+        last_name, first_name, middle_name = self.generator.parse(
+            generator_string
+        ).split()
 
         first_name_united_with_middle = first_name + " " + middle_name
         return last_name, first_name_united_with_middle

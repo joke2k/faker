@@ -41,7 +41,9 @@ class TestGenerator:
         fake = Faker("it_IT")
         with pytest.raises(AttributeError) as excinfo:
             fake.get_formatter("barFormatter")
-        assert str(excinfo.value) == "Unknown formatter 'barFormatter' with locale 'it_IT'"
+        assert (
+            str(excinfo.value) == "Unknown formatter 'barFormatter' with locale 'it_IT'"
+        )
 
     def test_format_calls_formatter_on_provider(self, generator):
         assert generator.format("foo_formatter") == "foobar"
@@ -59,7 +61,9 @@ class TestGenerator:
         assert generator.parse("fooBar#?") == "fooBar#?"
 
     def test_parse_with_valid_formatter_tokens(self, generator):
-        result = generator.parse('This is {{foo_formatter}} a text with "{{ foo_formatter }}"')
+        result = generator.parse(
+            'This is {{foo_formatter}} a text with "{{ foo_formatter }}"'
+        )
         assert result == 'This is foobar a text with "foobar"'
 
     def test_arguments_group_with_values(self, generator):
@@ -87,7 +91,9 @@ class TestGenerator:
 
     def test_parse_with_valid_formatter_arguments(self, generator):
         generator.set_arguments("format_name", {"param": "foo", "append": "bar"})
-        result = generator.parse('This is "{{foo_formatter_with_arguments:format_name}}"')
+        result = generator.parse(
+            'This is "{{foo_formatter_with_arguments:format_name}}"'
+        )
         generator.del_arguments("format_name")
         assert result == 'This is "bazfoobar"'
 

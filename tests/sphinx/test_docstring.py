@@ -293,7 +293,9 @@ class TestProviderMethodDocstring:
         assert output[4] == "...     fake.bothify(text='???###')"
         assert output[5] == "..."
         for i in range(6, 11):
-            assert output[i] == docstring._stringify_result(faker.bothify(text="???###"))
+            assert output[i] == docstring._stringify_result(
+                faker.bothify(text="???###")
+            )
 
         # 2nd sample generation
         faker.seed_instance(3210)
@@ -303,7 +305,9 @@ class TestProviderMethodDocstring:
         assert output[14] == "...     fake.bothify(letters='abcde')"
         assert output[15] == "..."
         for i in range(16, 21):
-            assert output[i] == docstring._stringify_result(faker.bothify(letters="abcde"))
+            assert output[i] == docstring._stringify_result(
+                faker.bothify(letters="abcde")
+            )
 
         # 3rd sample generation
         faker.seed_instance(1234)
@@ -313,7 +317,9 @@ class TestProviderMethodDocstring:
         assert output[24] == "...     fake.bothify(text='???###', letters='abcde')"
         assert output[25] == "..."
         for i in range(26, 46):
-            assert output[i] == docstring._stringify_result(faker.bothify(text="???###", letters="abcde"))
+            assert output[i] == docstring._stringify_result(
+                faker.bothify(text="???###", letters="abcde")
+            )
 
         calls = mock_warning.call_args_list
         assert len(calls) == 4
@@ -322,13 +328,19 @@ class TestProviderMethodDocstring:
         args, kwargs = calls[0]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == "The section `:sample 1234jdbvhjdbygdvbhxjhx` is malformed and will be discarded."
+        assert (
+            args[0]
+            == "The section `:sample 1234jdbvhjdbygdvbhxjhx` is malformed and will be discarded."
+        )
 
         # 2nd call to _log_warning
         args, kwargs = calls[1]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == "Sample generation failed for method `bothify` with arguments `invalid_arg='value'`."
+        assert (
+            args[0]
+            == "Sample generation failed for method `bothify` with arguments `invalid_arg='value'`."
+        )
 
         # 3rd call to _log_warning
         args, kwargs = calls[2]
@@ -343,4 +355,7 @@ class TestProviderMethodDocstring:
         args, kwargs = calls[3]
         assert len(args) == 1
         assert not kwargs
-        assert args[0] == "Sample generation failed for method `bothify` with arguments `abcd='abcd'`."
+        assert (
+            args[0]
+            == "Sample generation failed for method `bothify` with arguments `abcd='abcd'`."
+        )

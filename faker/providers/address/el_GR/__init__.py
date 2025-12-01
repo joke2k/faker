@@ -52,7 +52,9 @@ class Provider(AddressProvider):
         return self.generator.parse(pattern)
 
     def street_prefix(self) -> str:
-        return self.random_element(self.street_prefixes_short + self.street_prefixes_long)
+        return self.random_element(
+            self.street_prefixes_short + self.street_prefixes_long
+        )
 
     def street_prefix_short(self) -> str:
         return self.random_element(self.street_prefixes_short)

@@ -28,7 +28,9 @@ def calculate_check_sum(val: str) -> int:
 
 
 class Provider(SsnProvider):
-    def ssn(self, birthday: Optional[str] = None, gender: Optional[SexLiteral] = None) -> str:
+    def ssn(
+        self, birthday: Optional[str] = None, gender: Optional[SexLiteral] = None
+    ) -> str:
         """
         Ukrainian "Реєстраційний номер облікової картки платника податків"
         also known as "Ідентифікаційний номер фізичної особи".

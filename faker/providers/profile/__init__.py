@@ -14,7 +14,9 @@ class Provider(BaseProvider):
 
     """
 
-    def simple_profile(self, sex: Optional[SexLiteral] = None) -> Dict[str, Union[str, date, SexLiteral]]:
+    def simple_profile(
+        self, sex: Optional[SexLiteral] = None
+    ) -> Dict[str, Union[str, date, SexLiteral]]:
         """
         Generates a basic profile with personal information
         """
@@ -48,7 +50,11 @@ class Provider(BaseProvider):
             "ssn": self.generator.ssn(),
             "residence": self.generator.address(),
             "current_location": (self.generator.latitude(), self.generator.longitude()),
-            "blood_group": "".join(self.random_element(list(itertools.product(["A", "B", "AB", "O"], ["+", "-"])))),
+            "blood_group": "".join(
+                self.random_element(
+                    list(itertools.product(["A", "B", "AB", "O"], ["+", "-"]))
+                )
+            ),
             "website": [self.generator.url() for _ in range(1, self.random_int(2, 5))],
         }
 

@@ -197,9 +197,26 @@ class Provider(AutomotiveProvider):
         "TZ",
     )
 
-    vehicle_categories = ("A1", "A", "B1", "B", "C1", "C", "D1", "D", "BE", "C1E", "CE", "D1E", "DE", "T")
+    vehicle_categories = (
+        "A1",
+        "A",
+        "B1",
+        "B",
+        "C1",
+        "C",
+        "D1",
+        "D",
+        "BE",
+        "C1E",
+        "CE",
+        "D1E",
+        "DE",
+        "T",
+    )
 
-    def __get_random_region_code(self, region_name: Optional[str] = None) -> Tuple[str, str]:
+    def __get_random_region_code(
+        self, region_name: Optional[str] = None
+    ) -> Tuple[str, str]:
         try:
             if region_name is None:
                 region_name, _ = random.choice(list(self.license_region_data.items()))
@@ -210,7 +227,9 @@ class Provider(AutomotiveProvider):
             region_names = ", ".join(self.license_region_data.keys())
             raise KeyError(f"Keys name must be only {region_names}")
 
-    def license_plate(self, region_name: Optional[str] = None, temporary_plate: bool = False) -> str:
+    def license_plate(
+        self, region_name: Optional[str] = None, temporary_plate: bool = False
+    ) -> str:
         """Generate a license plate.
 
         - If ``region_name`` is ``None`` (default), its value will be set to a random.

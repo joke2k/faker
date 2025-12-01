@@ -175,10 +175,16 @@ class Provider(BaseProvider):
         build_to: int = 899,
     ) -> str:
         """Generate a Chrome web browser user agent string."""
-        saf: str = f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
+        saf: str = (
+            f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
+        )
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
-        tmplt: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) Chrome/{2}.0.{3}.0 Safari/{4}"
-        tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}"
+        tmplt: str = (
+            "({0}) AppleWebKit/{1} (KHTML, like Gecko) Chrome/{2}.0.{3}.0 Safari/{4}"
+        )
+        tmplt_ios: str = (
+            "({0}) AppleWebKit/{1} (KHTML, like Gecko) CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}"
+        )
         platforms: ElementsType[str] = (
             tmplt.format(
                 self.linux_platform_token(),
@@ -236,8 +242,12 @@ class Provider(BaseProvider):
         tmplt_lin: str = "({0}; rv:1.9.{1}.20) {2}"
         tmplt_mac: str = "({0}; rv:1.9.{1}.20) {2}"
         tmplt_and: str = "({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0"
-        tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}"
-        saf: str = f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
+        tmplt_ios: str = (
+            "({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}"
+        )
+        saf: str = (
+            f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
+        )
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
         bld2: str = self.lexify(self.numerify("#?####"), string.ascii_lowercase)
         platforms: ElementsType[str] = (
@@ -257,7 +267,9 @@ class Provider(BaseProvider):
                 self.generator.random.randint(2, 6),
                 self.generator.random.choice(ver),
             ),
-            tmplt_and.format(self.android_platform_token(), self.generator.random.randint(5, 68)),
+            tmplt_and.format(
+                self.android_platform_token(), self.generator.random.randint(5, 68)
+            ),
             tmplt_ios.format(
                 self.ios_platform_token(),
                 saf,
@@ -283,8 +295,12 @@ class Provider(BaseProvider):
             else f"{self.generator.random.randint(4, 5)}.0.{self.generator.random.randint(1, 5)}"
         )
 
-        tmplt_win: str = "(Windows; U; {0}) AppleWebKit/{1} (KHTML, like Gecko) Version/{2} Safari/{3}"
-        tmplt_mac: str = "({0} rv:{1}.0; {2}) AppleWebKit/{3} (KHTML, like Gecko) Version/{4} Safari/{5}"
+        tmplt_win: str = (
+            "(Windows; U; {0}) AppleWebKit/{1} (KHTML, like Gecko) Version/{2} Safari/{3}"
+        )
+        tmplt_mac: str = (
+            "({0} rv:{1}.0; {2}) AppleWebKit/{3} (KHTML, like Gecko) Version/{4} Safari/{5}"
+        )
         tmplt_ipod: str = (
             "(iPod; U; CPU iPhone OS {0}_{1} like Mac OS X; {2})"
             " AppleWebKit/{3} (KHTML, like Gecko) Version/{4}.0.5"
@@ -317,7 +333,9 @@ class Provider(BaseProvider):
     def opera(self) -> str:
         """Generate an Opera web browser user agent string."""
         token: str = (
-            self.linux_platform_token() if self.generator.random.getrandbits(1) else self.windows_platform_token()
+            self.linux_platform_token()
+            if self.generator.random.getrandbits(1)
+            else self.windows_platform_token()
         )
         locale: str = self.generator.locale().replace("_", "-")
         platform: str = (
@@ -357,4 +375,7 @@ class Provider(BaseProvider):
         """Generate an iOS platform token used in user agent strings."""
         apple_device: str = self.random_element(self.apple_devices)
         ios_version: str = self.random_element(self.ios_versions)
-        return f"{apple_device}; CPU {apple_device} " f'OS {ios_version.replace(".", "_")} like Mac OS X'
+        return (
+            f"{apple_device}; CPU {apple_device} "
+            f'OS {ios_version.replace(".", "_")} like Mac OS X'
+        )
