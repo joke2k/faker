@@ -110,4 +110,4 @@ In order to be included, your provider must satisfy these requirements:
 .. _presidio-evaluator: https://pypi.org/project/presidio-evaluator
 .. _faker-security: https://pypi.org/project/faker-security/
 .. _faker_researcher_ids: https://pypi.org/project/faker-researcher-ids/
-.. _faker-galactic_: https://pypi.org/project/faker-galactic/
+.. _faker-galactic: https://pypi.org/project/faker-galactic/
