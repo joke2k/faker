@@ -541,6 +541,12 @@ class TestEnGb:
             assert isinstance(county, str)
             assert county in EnGbAddressProvider.counties
 
+    def test_street_suffix_capitalised(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix = faker.street_suffix()
+            assert isinstance(street_suffix, str)
+            assert street_suffix[0].isupper()
+
 
 class TestEnIe:
     """Test en_IE address provider methods"""
