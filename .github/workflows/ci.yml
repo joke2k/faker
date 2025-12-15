@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -66,7 +66,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -91,7 +91,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -115,7 +115,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -148,7 +148,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -184,7 +184,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Setup pip cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -226,7 +226,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Setup pip cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -250,7 +250,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Setup pip cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pipcache
       with:
         path: ~/.cache/pip
