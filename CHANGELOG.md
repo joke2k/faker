@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v38.3.0 - 2025-12-17](https://github.com/joke2k/faker/compare/v38.2.0...v38.3.0)
+
+* Add french company RCS number. Thanks @fabien-michel.
+
 ### [v38.2.0 - 2025-11-19](https://github.com/joke2k/faker/compare/v38.1.0...v38.2.0)
 
-* Add localized UniqueProxy. Thanks @azmeuk
+* Add localized UniqueProxy. Thanks @azmeuk.
 
 ### [v38.1.0 - 2025-11-19](https://github.com/joke2k/faker/compare/v38.0.0...v38.1.0)
 
