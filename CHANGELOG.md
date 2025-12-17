@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v39.0.0 - 2025-12-17](https://github.com/joke2k/faker/compare/v38.3.0...v39.0.0)
+
+* Delete duplicates in Russian professions. Thanks @sergiusnick.
+
 ### [v38.3.0 - 2025-12-17](https://github.com/joke2k/faker/compare/v38.2.0...v38.3.0)
 
 * Add french company RCS number. Thanks @fabien-michel.
