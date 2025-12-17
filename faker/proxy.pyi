@@ -3777,8 +3777,6 @@ class Faker:
         Set to ``"naf-2025"`` to return a valid NAF 2025 APE code.
         Set to ``None`` to return a truly random and possibly invalid number
         Defaults to ``"naf-2003"``
-        :param letter: Force letter
-        :param siren: Force SIREN
 
         :sample:
         :sample: version="naf-2003"
