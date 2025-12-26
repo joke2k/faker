@@ -4,23 +4,31 @@ from .. import Provider as BaseProvider
 
 class Provider(BaseProvider):
     """
-    Faker provider for Afghan National Identifiers (Pashto)
+    Afghan National ID – Format: XXXX-XXX-XXX-XXX
+    Example: 2222-323-423-432
     """
 
-    # Afghan national ID format: 9 digits
-    afghan_id_formats = ("%########",)  # tuple with one format
+    afghan_id_formats = ("%#############",)  # 12 base digits
 
-    def afghan_id(self) -> str:
+    def afghan_id(self, separator: str = "-") -> str:
         """
-        Generates a random Afghan National ID.
+        Generates Afghan National ID.
 
-        Format: 9 digits + 1 checksum digit (Luhn)
+        Format:
+            2222-323-423-432
         """
-        # Generate first 9 digits
-        id_digits = self.numerify(self.random_element(self.afghan_id_formats))
 
-        # Compute Luhn checksum for last digit
-        checksum = checksums.calculate_luhn(id_digits)
+        # 12-digit base
+        base = self.numerify(self.random_element(self.afghan_id_formats))
 
-        # Return full Afghan ID
-        return f"{id_digits}{checksum}"
+        # Luhn checksum on the 13th digit
+        checksum = checksums.calculate_luhn(base)
+        full = f"{base}{checksum}"  # 13 digits total
+
+        # Enforce XXXX-XXX-XXX-XXX
+        return (
+            full[0:4] + separator +
+            full[4:7] + separator +
+            full[7:10] + separator +
+            full[10:13]
+        )
