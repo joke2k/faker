@@ -297,17 +297,39 @@ class Faker:
 
 
 class UniqueProxy:
-    def __init__(self, proxy: Faker):
+    def __init__(self, proxy: Faker, excluded_types: tuple[type, ...] = ()):
         self._proxy = proxy
         self._seen: dict = {}
         self._sentinel = object()
+        self._excluded_types = excluded_types
 
     def clear(self) -> None:
         self._seen = {}
 
+    def exclude_types(self, types: list[type]) -> UniqueProxy:
+        """Return new UniqueProxy excluding specified types from uniqueness checks.
+        
+        Args:
+            types: List of types to exclude from uniqueness enforcement
+            
+        Returns:
+            New UniqueProxy instance with excluded types configured
+            
+        Example:
+            >>> fake = Faker()
+            >>> # Bools won't enforce uniqueness, but other types will
+            >>> proxy = fake.unique.exclude_types([bool])
+            >>> proxy.pybool()  # Can return duplicates
+            >>> proxy.name()  # Still enforces uniqueness
+        """
+        new_proxy = UniqueProxy(self._proxy, tuple(types))
+        new_proxy._seen = self._seen
+        new_proxy._sentinel = self._sentinel
+        return new_proxy
+
     def __getitem__(self, locale: str) -> UniqueProxy:
         locale_proxy = self._proxy[locale]
-        unique_proxy = UniqueProxy(locale_proxy)
+        unique_proxy = UniqueProxy(locale_proxy, self._excluded_types)
         unique_proxy._seen = self._seen
         unique_proxy._sentinel = self._sentinel
         return unique_proxy
@@ -342,15 +364,31 @@ class UniqueProxy:
     def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
-            key = (name, args, tuple(sorted(kwargs.items())))
+            # If types are excluded, call function once to check return type
+            if self._excluded_types:
+                retval = function(*args, **kwargs)
+                # Skip uniqueness check if type is excluded
+                if isinstance(retval, self._excluded_types):
+                    return retval
+                # If not excluded, continue with normal uniqueness logic
+                # but we already have a value, so we'll use it if unique
+                hashable_retval = self._make_hashable(retval)
+                key = (name, args, tuple(sorted(kwargs.items())))
+                generated = self._seen.setdefault(key, {self._sentinel})
+                
+                # Check if this first value is unique
+                if hashable_retval not in generated:
+                    generated.add(hashable_retval)
+                    return retval
+                # Not unique, continue with normal loop below
+            else:
+                # No exclusions, use original logic
+                key = (name, args, tuple(sorted(kwargs.items())))
+                generated = self._seen.setdefault(key, {self._sentinel})
+                retval = self._sentinel
+                hashable_retval = self._make_hashable(retval)
 
-            generated = self._seen.setdefault(key, {self._sentinel})
-
-            # With use of a sentinel value rather than None, we leave
-            # None open as a valid return value.
-            retval = self._sentinel
-            hashable_retval = self._make_hashable(retval)
-
+            # Original uniqueness logic (with potential first attempt already done)
             for i in range(_UNIQUE_ATTEMPTS):
                 if hashable_retval not in generated:
                     break
