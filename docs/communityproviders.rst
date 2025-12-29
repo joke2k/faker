@@ -81,6 +81,10 @@ Here's a list of Providers written by the community:
 |               | for scientific databases  |                                  |
 |               | (Scopus, ORCID etc.)      |                                  |
 +---------------+---------------------------+----------------------------------+
+| Sci Fi        | Fake science fiction      | `faker-galactic`_                |
+|               | themed data from popular  |                                  |
+|               | sci-fi universes          |                                  |
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -118,3 +122,4 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker-ai-provider: https://pypi.org/project/faker-ai-provider/
 .. _faker-ecommerce-provider: https://pypi.org/project/faker-ecommerce-provider/
 .. _faker-healthcare-provider: https://pypi.org/project/faker-healthcare-provider/
+.. _faker-galactic: https://pypi.org/project/faker-galactic/

@@ -354,6 +354,49 @@ be raised.
         fake.unique.boolean()  # UniquenessException!
 
 
+For types with limited value sets (like booleans with only 2 values), you can use
+``exclude_types()`` to prevent uniqueness checks for specific types:
+
+
+.. code:: python
+
+   import faker
+
+   fake = faker.Faker()
+
+   # Exclude booleans from uniqueness checks
+   proxy = fake.unique.exclude_types([bool])
+
+   # This works fine - booleans can now repeat
+   for i in range(100):
+        proxy.pybool()  # No UniquenessException!
+
+   # Other types still enforce uniqueness
+   names = [proxy.first_name() for i in range(10)]
+   assert len(set(names)) == 10  # All unique
+
+
+The ``exclude_types()`` method returns a new proxy that shares the same seen values
+dictionary, ensuring consistency across different proxy instances:
+
+
+.. code:: python
+
+   from faker import Faker
+
+   fake = Faker()
+
+   # Get a unique name
+   name1 = fake.unique.first_name()
+
+   # Create proxy excluding bools
+   proxy = fake.unique.exclude_types([bool])
+
+   # This shares the same seen dictionary
+   name2 = proxy.first_name()
+   assert name1 != name2  # Still enforces uniqueness for names
+
+
 As a final caveat, only hashable arguments and return values can be used
 with the ``.unique`` attribute, as it is backed internally by a set for
 fast membership testing.
