@@ -72,6 +72,10 @@ Here's a list of Providers written by the community:
 |               | for scientific databases  |                                  |
 |               | (Scopus, ORCID etc.)      |                                  |
 +---------------+---------------------------+----------------------------------+
+| Sci Fi        | Fake science fiction      | `faker-galactic`_                |
+|               | themed data from popular  |                                  |
+|               | sci-fi universes          |                                  |
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -106,3 +110,4 @@ In order to be included, your provider must satisfy these requirements:
 .. _presidio-evaluator: https://pypi.org/project/presidio-evaluator
 .. _faker-security: https://pypi.org/project/faker-security/
 .. _faker_researcher_ids: https://pypi.org/project/faker-researcher-ids/
+.. _faker-galactic: https://pypi.org/project/faker-galactic/
