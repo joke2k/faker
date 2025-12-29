@@ -308,13 +308,13 @@ class UniqueProxy:
 
     def exclude_types(self, types: list[type]) -> UniqueProxy:
         """Return new UniqueProxy excluding specified types from uniqueness checks.
-        
+
         Args:
             types: List of types to exclude from uniqueness enforcement
-            
+
         Returns:
             New UniqueProxy instance with excluded types configured
-            
+
         Example:
             >>> fake = Faker()
             >>> # Bools won't enforce uniqueness, but other types will
@@ -375,7 +375,7 @@ class UniqueProxy:
                 hashable_retval = self._make_hashable(retval)
                 key = (name, args, tuple(sorted(kwargs.items())))
                 generated = self._seen.setdefault(key, {self._sentinel})
-                
+
                 # Check if this first value is unique
                 if hashable_retval not in generated:
                     generated.add(hashable_retval)
