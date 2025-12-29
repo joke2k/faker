@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v39.1.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v39.0.0...v39.0.1)
+
+* Add french female variants for jobs. Thanks @T0nio and Camille.
+
 ### [v39.0.0 - 2025-12-17](https://github.com/joke2k/faker/compare/v38.3.0...v39.0.0)
 
 * Delete duplicates in Russian professions. Thanks @sergiusnick.
