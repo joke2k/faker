@@ -1,6 +1,10 @@
 ## Changelog
 
-### [v40.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v39.0.1...v40.0.0)
+### [v40.1.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v40.0.0...v40.1.0)
+
+* Add selective uniqueness with `.exclude_types()`. Thanks @rodrigobnogueira.
+
+### [v40.0.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v39.0.1...v40.0.0)
 
 * Capitalize `en_GB` address street suffixes. Thanks @nspcc-cm.
 
