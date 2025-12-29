@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v39.0.1...v40.0.0)
+
+* Capitalize `en_GB` address street suffixes. Thanks @nspcc-cm.
+
 ### [v39.1.0 - 2025-12-29](https://github.com/joke2k/faker/compare/v39.0.0...v39.0.1)
 
 * Add french female variants for jobs. Thanks @T0nio and Camille.
