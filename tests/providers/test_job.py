@@ -5,6 +5,7 @@ from faker.providers.job.de_AT import Provider as DeAtJobProvider
 from faker.providers.job.de_DE import Provider as DeDeJobProvider
 from faker.providers.job.el_GR import Provider as ElGrJobProvider
 from faker.providers.job.es_ES import Provider as EsEsJobProvider
+from faker.providers.job.es_PE import Provider as EsPeJobProvider
 from faker.providers.job.fr_FR import Provider as FrFrJobProvider
 from faker.providers.job.hu_HU import Provider as HuHuJobProvider
 from faker.providers.job.hy_AM import Provider as HyAmJobProvider
@@ -185,3 +186,10 @@ class TestViVn:
             job = faker.job()
             assert isinstance(job, str)
             assert job in ViVNJobProvider.jobs
+
+class TestEsPe:
+    """Test es_PE job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in EsPeJobProvider.jobs

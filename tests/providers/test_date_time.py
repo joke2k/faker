@@ -26,6 +26,7 @@ from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
+from faker.providers.date_time.es_PE import Provider as EsPeProvider
 from faker.providers.date_time.fr_DZ import Provider as FrDzProvider
 from faker.providers.date_time.fr_FR import Provider as FrFrProvider
 from faker.providers.date_time.gu_IN import Provider as GuINProvider
@@ -1421,3 +1422,16 @@ class TestUzUz(unittest.TestCase):
         month = self.fake.month_name()
         assert isinstance(month, str)
         assert month in UzUzProvider.MONTH_NAMES.values()
+
+class TestEsPe:
+    def setUp(self):
+        self.fake = Faker("es_PE")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in EsPeProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in EsPeProvider.MONTH_NAMES.values()
