@@ -31,6 +31,10 @@ Here's a list of Providers written by the community:
 |               | fake-random data          |                                  |
 |               | generators.               |                                  |
 +---------------+---------------------------+----------------------------------+
+| Healthcare    | Multi-language medical    | `faker_healthcare`_              |
+|               | data: diseases, ICD-10,   |                                  |
+|               | medications, and more.    |                                  |
++---------------+---------------------------+----------------------------------+
 | Market Data   | Fake market data          |                                  |
 |               | identifiers (SEDOL, CUSIP,| `faker_marketdata`_              |
 |               | ISIN, etc.)               |                                  |
@@ -98,6 +102,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_education: https://pypi.org/project/faker_education/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
+.. _faker_healthcare: https://pypi.org/project/faker-healthcare-provider/
 .. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
