@@ -237,6 +237,11 @@ Examples:
     Josiah Maggio;
     Gayla Schmitt;
 
+    $ faker -i faker_credit_score credit_score_full
+    Experian/Fair Isaac Risk Model V2SM
+    Experian
+    801
+
 How to create a Provider
 ------------------------
 
