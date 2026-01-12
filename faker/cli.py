@@ -225,8 +225,7 @@ examples:
         parser.add_argument(
             "-i",
             "--include",
-            default=META_PROVIDERS_MODULES,
-            nargs="*",
+            action="append",
             help="list of additional custom providers to "
             "user, given as the import path of the module "
             "containing your Provider class (not the provider "
@@ -252,6 +251,8 @@ examples:
         )
 
         arguments = parser.parse_args(self.argv[1:])
+        if arguments.include is None:
+            arguments.include = META_PROVIDERS_MODULES
 
         if arguments.verbose:
             logging.basicConfig(level=logging.DEBUG)
