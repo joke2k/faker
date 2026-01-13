@@ -184,7 +184,7 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
-          [-i {package.containing.custom_provider otherpkg.containing.custom_provider}]
+          [-i package.containing.custom_provider]
           [fake] [fake argument [fake argument ...]]
 
 Where:
@@ -206,9 +206,9 @@ Where:
 -  ``-s SEP``: will generate the specified separator after each
    generated output
 
--  ``-i {my.custom_provider other.custom_provider}`` list of additional custom
-   providers to use. Note that is the import path of the package containing
-   your Provider class, not the custom Provider class itself.
+-  ``-i package.containing.custom_provider`` additional custom provider to use. Note this
+   is the import path of the package containing your Provider class, not the
+   custom Provider class itself. Can be repeated to add multiple providers.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
@@ -236,6 +236,11 @@ Examples:
     Willam Kertzmann;
     Josiah Maggio;
     Gayla Schmitt;
+
+    $ faker -i faker_credit_score credit_score_full
+    Experian/Fair Isaac Risk Model V2SM
+    Experian
+    801
 
 How to create a Provider
 ------------------------
