@@ -2549,7 +2549,16 @@ class Provider(BaseProvider):
 
         :sample:
         """
-        return zoneinfo.ZoneInfo(self.timezone(*args, **kwargs))  # type: ignore
+        try:
+            return zoneinfo.ZoneInfo(self.timezone(*args, **kwargs))  # type: ignore
+        except zoneinfo.ZoneInfoNotFoundError as exc:
+            msg = (
+                f"Timezone data not found: {exc}. "
+                "The 'tzdata' package provides timezone database files needed by Python's zoneinfo module. "
+                "While most systems have these files built-in, some minimal environments may not. "
+                f"Install faker with tzdata support: pip install 'faker[tzdata]'"
+            )
+            raise ImportError(msg) from exc
 
     def date_of_birth(
         self,
