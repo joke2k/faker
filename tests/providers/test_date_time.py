@@ -180,15 +180,15 @@ class TestDateTime(unittest.TestCase):
     def test_pytimezone_tzdata_missing_error(self):
         """Test that helpful error is raised when tzdata is needed but missing."""
         from unittest.mock import patch
-        
+
         # Mock ZoneInfo to raise ZoneInfoNotFoundError
         with patch("zoneinfo.ZoneInfo") as mock_zoneinfo:
             mock_zoneinfo.side_effect = zoneinfo.ZoneInfoNotFoundError("America/New_York")
-            
+
             # Should raise ImportError with helpful message
             with pytest.raises(ImportError) as exc_info:
                 self.fake.pytimezone()
-            
+
             error_msg = str(exc_info.value)
             # Verify error message contains helpful information
             assert "tzdata" in error_msg.lower()
