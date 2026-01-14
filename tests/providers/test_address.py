@@ -25,6 +25,7 @@ from faker.providers.address.en_PH import Provider as EnPhAddressProvider
 from faker.providers.address.en_US import Provider as EnUsAddressProvider
 from faker.providers.address.es_CO import Provider as EsCoAddressProvider
 from faker.providers.address.es_ES import Provider as EsEsAddressProvider
+from faker.providers.address.es_PE import Provider as EsPeAddressProvider
 from faker.providers.address.es_MX import Provider as EsMxAddressProvider
 from faker.providers.address.fa_IR import Provider as FaIrAddressProvider
 from faker.providers.address.fi_FI import Provider as FiFiAddressProvider
@@ -2648,3 +2649,59 @@ class TestZuZa:
             administrative_unit = faker.administrative_unit()
             assert isinstance(administrative_unit, str)
             assert administrative_unit in ZuZaAddressProvider.provinces
+            
+class TestEsPE:
+    """Unit tests for the es_PE provider."""
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{4}", postcode)
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_name = faker.city_name()
+            assert isinstance(city_name, str)
+            assert city_name in EsPeAddressProvider.cities
+
+    def test_city_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_suffix = faker.city_suffix()
+            assert isinstance(city_suffix, str)
+            assert city_suffix in EsPeAddressProvider.city_suffixes
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in EsPeAddressProvider.cities
+
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in EsPeAddressProvider.countries
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+            assert street_name in EsPeAddressProvider.street_names
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
+
+    def test_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in EsPeAddressProvider.provinces
+
+    def test_administrative_unit(self, faker, num_samples):
+        for _ in range(num_samples):
+            administrative_unit = faker.administrative_unit()
+            assert isinstance(administrative_unit, str)
+            assert administrative_unit in EsPeAddressProvider.provinces

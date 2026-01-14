@@ -12,6 +12,7 @@ from faker.providers.bank.en_IE import Provider as EnIeBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_AR import Provider as EsArBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
+from faker.providers.bank.es_PE import Provider as EsPeBankProvider
 from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
@@ -516,3 +517,17 @@ class TestBaseBankProvider:
 
         with pytest.raises(AttributeError):
             provider.bank()
+
+
+class TestEsPE:
+    def test_bank_methods(self):
+        """Test bank methods"""
+        bban = self.factory.bban()
+        self.assertIsInstance(bban, str)
+        self.assertEqual(len(bban), 20)
+        self.assertTrue(bban.isdigit())
+
+        # BIC is not localized, but should return a valid format
+        bic = self.factory.bic()
+        self.assertIsInstance(bic, str)
+        self.assertTrue(8 <= len(bic) <= 11)
