@@ -309,6 +309,15 @@ class TestPyfloat(unittest.TestCase):
     def test_float_min_and_max_value_with_same_whole(self):
         self.fake.pyfloat(min_value=2.3, max_value=2.5)
 
+    def test_pyfloat_positive_with_small_max_value(self):
+        def mock_random_number(self, digits=None, fix_len=False):
+            return 5
+
+        with patch("faker.providers.BaseProvider.random_number", mock_random_number):
+            result = self.fake.pyfloat(positive=True, max_value=0.1)
+            self.assertLessEqual(result, 0.1)
+            self.assertGreater(result, 0)
+
 
 class TestPyDict(unittest.TestCase):
     def setUp(self):
