@@ -14,7 +14,9 @@ class Provider(BaseProvider):
         Eg: 10.1000/xyz123
 
         :sample:
+        master
         """
+
         prefix = "10"
         registrant = str(self.generator.random.randint(1000, 99999999))
         suffix = self.generator.bothify("?#?#?##").lower()
