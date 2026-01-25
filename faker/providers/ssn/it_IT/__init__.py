@@ -5,6 +5,7 @@ import unicodedata
 from string import ascii_uppercase, digits
 
 from .. import Provider as SsnProvider
+from .. import ElementsType
 
 ALPHABET = ascii_uppercase
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
@@ -8025,6 +8026,24 @@ class Provider(SsnProvider):
         municipality: str = self.random_element(MUNICIPALITIES_LIST)
         code: str = f"{surname}{name}{year}{month}{day}{municipality}"
         return code + checksum(code)
+
+    cie_format: ElementsType[str] = (
+        #standard carta identitá elettronica (elettronic identity card )
+        #Format: 2 letters, 5 digits, 2 letters
+        "??#####??",
+    )
+
+    def cie(self) -> str: 
+        """
+        Generate a valid Italian Electronic Identity Card (CIE) number.
+        Format: 2 uppercase letters, 5 numbers, 2 uppercase letters 
+
+        sources: 
+        - https://www.cartaidentita.interno.gov.it/cose-la-carta/caratteristiche-del-documento/
+        """
+
+        format = self.random_element(self.cie_format)
+        return self.bothify(format).upper()
 
     vat_id_formats = ("IT###########",)
 
