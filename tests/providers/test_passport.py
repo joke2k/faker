@@ -24,17 +24,16 @@ class TestDeAt:
             passport_number = faker.passport_number()
             assert pattern.fullmatch(passport_number)
 
+
 @pytest.mark.parametrize("faker", ["it_IT"], indirect=True)
-class TestItIT: 
+class TestItIT:
     """Test it_IT passport provider methods"""
-    
+
     def test_passport_number(self, faker, num_samples):
         faker.add_provider(ItPassportProvider)
-            
-        pattern = re.compile(r'^[A-Z]{2}\d{7}$')
+
+        pattern = re.compile(r"^[A-Z]{2}\d{7}$")
 
         for _ in range(num_samples):
             passport_number = faker.passport_number()
             assert pattern.fullmatch(passport_number)
-
-

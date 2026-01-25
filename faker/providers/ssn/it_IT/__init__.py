@@ -8028,17 +8028,17 @@ class Provider(SsnProvider):
         return code + checksum(code)
 
     cie_format: ElementsType[str] = (
-        #standard carta identitá elettronica (elettronic identity card )
-        #Format: 2 letters, 5 digits, 2 letters
+        # standard carta identitá elettronica (elettronic identity card )
+        # Format: 2 letters, 5 digits, 2 letters
         "??#####??",
     )
 
-    def cie(self) -> str: 
+    def cie(self) -> str:
         """
         Generate a valid Italian Electronic Identity Card (CIE) number.
-        Format: 2 uppercase letters, 5 numbers, 2 uppercase letters 
+        Format: 2 uppercase letters, 5 numbers, 2 uppercase letters
 
-        sources: 
+        sources:
         - https://www.cartaidentita.interno.gov.it/cose-la-carta/caratteristiche-del-documento/
         """
 
