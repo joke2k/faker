@@ -11,13 +11,13 @@ class Provider(PassportProvider):
     - https://www.poliziadistato.it/statics/32/note_tecniche.pdf
     """
 
-    elettronic_passport_number_formats: ElementsType[str] = (
+    electronic_passport_number_formats: ElementsType[str] = (
         #standard passaporto elettronico (elettronic passport)
         #Format: 2 letters, 7 digits (e.g., YA1234567), used from 2010 on
         "??#######",
     )
 
-    def passport_number(self):
+    def passport_number(self) -> str:
         """
         Generate a valid Italian passport number
         
@@ -25,6 +25,6 @@ class Provider(PassportProvider):
         """
 
         #select the passport number format
-        format = self.random_element(self.elettronic_passport_number_formats)
+        format = self.random_element(self.electronic_passport_number_formats)
 
         return self.bothify(format).upper()
