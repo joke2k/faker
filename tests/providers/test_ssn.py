@@ -981,6 +981,13 @@ class TestItIT(unittest.TestCase):
         self.fake = Faker("it_IT")
         Faker.seed(0)
 
+    def test_cie(self):
+        pattern = re.compile(r"^[A-Z]{2}\d{5}[A-Z]{2}$")
+
+        for _ in range(100):
+            cie_code = self.fake.cie()
+            assert pattern.fullmatch(cie_code)
+
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^IT\d{11}$", self.fake.vat_id())
