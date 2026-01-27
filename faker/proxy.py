@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import functools
+import logging
 import re
 
 from collections import OrderedDict
@@ -19,10 +20,13 @@ _UNIQUE_ATTEMPTS = 1000
 
 RetType = TypeVar("RetType")
 
+logger = logging.getLogger(__name__)
+
 
 class Faker:
     """Proxy class capable of supporting multiple locales"""
 
+    cache_attr_name = "_cached_{method_name}_mapping"
     cache_pattern: Pattern = re.compile(r"^_cached_\w*_mapping$")
     generator_attrs = [
         attr for attr in dir(Generator) if not attr.startswith("__") and attr not in ["seed", "seed_instance", "random"]
@@ -39,8 +43,7 @@ class Faker:
     ) -> None:
         self._factory_map: OrderedDict[str, Generator | Faker] = OrderedDict()
         self._weights = None
-        self._unique_proxy = UniqueProxy(self)
-        self._optional_proxy = OptionalProxy(self)
+        self._last_used_factory_map: dict[str, Generator | Faker] = {}
 
         if isinstance(locale, str):
             locales = [locale.replace("-", "_")]
@@ -145,20 +148,27 @@ class Faker:
         result._factories = copy.deepcopy(self._factories)
         result._factory_map = copy.deepcopy(self._factory_map)
         result._weights = copy.deepcopy(self._weights)
-        result._unique_proxy = UniqueProxy(self)
-        result._unique_proxy._seen = {k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()}
+        result._last_used_factory_map = copy.deepcopy(self._last_used_factory_map)
+        result.unique._seen = {k: {result.unique._sentinel} for k in self.unique._seen.keys()}
+        result.preferred_unique._seen = {
+            k: {result.preferred_unique._sentinel} for k in self.preferred_unique._seen.keys()
+        }
         return result
 
     def __setstate__(self, state: Any) -> None:
         self.__dict__.update(state)
 
-    @property
+    @functools.cached_property
     def unique(self) -> UniqueProxy:
-        return self._unique_proxy
+        return UniqueProxy(self)
 
-    @property
+    @functools.cached_property
+    def preferred_unique(self) -> UniqueProxy:
+        return UniqueProxy(self, only_prefer_uniqueness=True)
+
+    @functools.cached_property
     def optional(self) -> OptionalProxy:
-        return self._optional_proxy
+        return OptionalProxy(self)
 
     def _select_factory(self, method_name: str) -> Factory:
         """
@@ -174,12 +184,16 @@ class Faker:
             msg = f"No generator object has attribute {method_name!r}"
             raise AttributeError(msg)
         elif len(factories) == 1:
+            self._last_used_factory_map[method_name] = factories[0]
             return factories[0]
 
         if weights:
             factory = self._select_factory_distribution(factories, weights)
         else:
             factory = self._select_factory_choice(factories)
+
+        self._last_used_factory_map[method_name] = factory
+
         return factory
 
     def _select_factory_distribution(self, factories, weights):
@@ -200,7 +214,7 @@ class Faker:
         """
 
         # Return cached mapping if it exists for given method
-        attr = f"_cached_{method_name}_mapping"
+        attr = self.cache_attr_name.format(method_name=method_name)
         if hasattr(self, attr):
             return getattr(self, attr)
 
@@ -297,11 +311,12 @@ class Faker:
 
 
 class UniqueProxy:
-    def __init__(self, proxy: Faker, excluded_types: tuple[type, ...] = ()):
+    def __init__(self, proxy: Faker, excluded_types: tuple[type, ...] = (), only_prefer_uniqueness: bool = False):
         self._proxy = proxy
         self._seen: dict = {}
         self._sentinel = object()
         self._excluded_types = excluded_types
+        self._only_prefer_uniqueness = only_prefer_uniqueness
 
     def clear(self) -> None:
         self._seen = {}
@@ -337,9 +352,12 @@ class UniqueProxy:
     def __getattr__(self, name: str) -> Any:
         obj = getattr(self._proxy, name)
         if callable(obj):
-            return self._wrap(name, obj)
-        else:
-            raise TypeError("Accessing non-functions through .unique is not supported.")
+            if name.startswith("current_"):
+                self._force_next_current_factory(name)
+                return obj
+            elif not name.startswith("__"):
+                return self._wrap(name, obj)
+        return obj
 
     def __getstate__(self):
         # Copy the object's state from self.__dict__ which contains
@@ -364,6 +382,9 @@ class UniqueProxy:
     def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
+            key = (name, args, tuple(sorted(kwargs.items())))
+            generated = self._seen.setdefault(key, {self._sentinel})
+
             # If types are excluded, call function once to check return type
             if self._excluded_types:
                 retval = function(*args, **kwargs)
@@ -373,8 +394,6 @@ class UniqueProxy:
                 # If not excluded, continue with normal uniqueness logic
                 # but we already have a value, so we'll use it if unique
                 hashable_retval = self._make_hashable(retval)
-                key = (name, args, tuple(sorted(kwargs.items())))
-                generated = self._seen.setdefault(key, {self._sentinel})
 
                 # Check if this first value is unique
                 if hashable_retval not in generated:
@@ -383,25 +402,52 @@ class UniqueProxy:
                 # Not unique, continue with normal loop below
             else:
                 # No exclusions, use original logic
-                key = (name, args, tuple(sorted(kwargs.items())))
-                generated = self._seen.setdefault(key, {self._sentinel})
                 retval = self._sentinel
                 hashable_retval = self._make_hashable(retval)
 
             # Original uniqueness logic (with potential first attempt already done)
-            for i in range(_UNIQUE_ATTEMPTS):
-                if hashable_retval not in generated:
+            for _ in range(_UNIQUE_ATTEMPTS):
+                if hashable_retval is None or hashable_retval not in generated:
                     break
                 retval = function(*args, **kwargs)
                 hashable_retval = self._make_hashable(retval)
             else:
-                raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
+                if self._only_prefer_uniqueness:
+                    logger.warning(
+                        f'There seem to be no more unique values for generator "{name}". '
+                        "Resetting store of generated values as uniqueness is not being enforced."
+                    )
+                    generated.clear()
+                else:
+                    raise UniquenessException(f"Got duplicated values after {_UNIQUE_ATTEMPTS:,} iterations.")
 
             generated.add(hashable_retval)
 
             return retval
 
         return wrapper
+
+    def _force_next_current_factory(self, name: str) -> None:
+        """Shrink and eventually rebuild list of cached factories for generator method.
+
+        Ensures that 'current_*' generators go through all possible provider options
+        to make them at least initially unique.
+        """
+        # No need to re-roll factory list if only one is present
+        if len(self._proxy.factories) == 1:
+            return
+
+        attr = self._proxy.cache_attr_name.format(method_name=name)
+        if last_used_factory := self._proxy._last_used_factory_map.get(name, None):
+            # Delete last used factory to force use of another
+            mapping, weights = getattr(self._proxy, attr)
+            last_index = mapping.index(last_used_factory)
+            del mapping[last_index]
+            if weights:
+                del weights[last_index]
+            # Reset provider mapping if no unique options left
+            if len(mapping) == 0:
+                delattr(self._proxy, attr)
 
 
 class OptionalProxy:
