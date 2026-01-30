@@ -47,7 +47,7 @@ class Factory:
         config["use_weighting"] = use_weighting
         providers = providers or PROVIDERS
 
-        providers += includes
+        providers = providers+includes
 
         faker = generator or Generator(**config)
 
