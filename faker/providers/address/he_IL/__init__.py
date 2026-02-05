@@ -862,8 +862,7 @@ class Provider(AddressProvider):
         "תאילנד",
         "תוניסיה",
         "תימן",
-      )
-
+    )
 
     def city_name(self) -> str:
         return self.random_element(self.city_names)
