@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.3.0 - 2026-02-06](https://github.com/joke2k/faker/compare/v40.2.0...v40.3.0)
+
+* Add major Greek banks to `el_GR` bank provider. Thanks @bon12-gr.
+
 ### [v40.2.0 - 2026-02-06](https://github.com/joke2k/faker/compare/v40.1.3...v40.2.0)
 
 * Update internet `pt_bR` provider (domains, tlds, slugify). Thanks @MorganaSilva.
