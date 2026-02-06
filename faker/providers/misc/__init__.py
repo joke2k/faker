@@ -379,7 +379,7 @@ class Provider(BaseProvider):
         except ImportError:
             raise UnsupportedFeature("`image` requires the `Pillow` python library.", "image")
 
-        (width, height) = size
+        width, height = size
         image = PIL.Image.new("RGB", size, self.generator.color(hue=hue, luminosity=luminosity))
         draw = PIL.ImageDraw.Draw(image)
         draw.polygon(
