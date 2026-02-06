@@ -13,12 +13,12 @@ class Provider(BankProvider):
     # Last verified: January 2026
     banks = (
         "Aegean Baltic Bank",
-        "Alpha Bank",        
+        "Alpha Bank",
         "Credia Bank",
         "Eurobank",
         "Optima Bank",
         "SNAPPI",
-        "Vivabank",   
+        "Vivabank",
         "Εθνική Τράπεζα",
         "Συνεταιριστική Τράπεζα Θεσσαλίας",
         "Συνεταιριστική Τράπεζα Καρδίτσας",

@@ -444,7 +444,7 @@ class TestElGr:
         for _ in range(num_samples):
             bank = faker.bank()
             assert bank in ElGrBankProvider.banks
-            
+
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.fullmatch(r"\d{23}", faker.bban())
