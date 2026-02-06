@@ -4335,12 +4335,6 @@ class Faker:
     def neighborhood(self) -> str: ...
     def cnpj(self) -> str: ...
     def company_id(self) -> str: ...
-    def nationality(self) -> str:
-        """
-        :example: 'Brasileira'
-        """
-        ...
-
     def cpf(self) -> str: ...
     def rg(self) -> str:
         """
@@ -4370,6 +4364,12 @@ class Faker:
     def place_name(self) -> str:
         """
         :example: "do Pombal"
+        """
+        ...
+
+    def nationality(self) -> str:
+        """
+        :example: 'Portuguesa'
         """
         ...
 
