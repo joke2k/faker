@@ -1,8 +1,12 @@
 ## Changelog
 
+### [v40.2.0 - 2026-02-06](https://github.com/joke2k/faker/compare/v40.1.3...v40.2.0)
+
+* Update internet `pt_bR` provider (domains, tlds, slugify). Thanks @MorganaSilva.
+
 ### [v40.1.3 - 2026-02-06](https://github.com/joke2k/faker/compare/v40.1.2...v40.1.3)
 
-* fix `pyfloat` `TypeError` when combining `positive=True` with `max_value`. Thanks @odrigobnogueira
+* fix `pyfloat` `TypeError` when combining `positive=True` with `max_value`. Thanks @odrigobnogueira.
  
 ### [v40.1.2 - 2026-01-13](https://github.com/joke2k/faker/compare/v40.1.1...v40.1.2)
 
