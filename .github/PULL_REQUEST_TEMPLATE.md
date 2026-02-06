@@ -12,6 +12,11 @@ Description of how the changes fix the issue.
 
 Fixes #...
 
+### AI Assistance Disclosure (REQUIRED)
+<!-- Please select exactly ONE of the following: -->
+- [ ] **No AI tools were used** in preparing this PR.
+- [ ] **If AI tools were used**, I have disclosed which ones, and fully reviewed and verified their output.
+
 ### Checklist
 
 - [ ] I have read the documentation about [CONTRIBUTING](https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst)
