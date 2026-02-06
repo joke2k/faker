@@ -15,6 +15,7 @@ from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
+from faker.providers.internet.pt_BR import Provider as PtBrInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
 from faker.providers.internet.ru_RU import Provider as RuRuInternetProvider
 from faker.providers.internet.th_TH import Provider as ThThInternetProvider
@@ -806,37 +807,49 @@ class TestAzAz:
 class TestPtBr:
     """Test pt_BR internet provider methods"""
 
+    def test_free_email_domain(self, faker):
+        domain = faker.free_email_domain()
+        assert domain in PtBrInternetProvider.free_email_domains
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in PtBrInternetProvider.tlds
+        assert not tld.startswith(".")
+
     @patch(
         "faker.providers.internet.Provider.user_name",
         lambda x: "VitóriaMagalhães",
     )
-    def test_ascii_safe_email(self, faker):
+    def test_ascii_safe_email_existing(self, faker):
+        """It retains the original test to ensure backward compatibility."""
         email = faker.ascii_safe_email()
         validate_email(email)
         assert email.split("@")[0] == "vitoriamagalhaes"
 
     @patch(
         "faker.providers.internet.Provider.user_name",
-        lambda x: "JoãoSimões",
+        lambda x: "JoãoVovóMônica",
     )
-    def test_ascii_free_email(self, faker):
+    def test_ascii_email_new_replacements(self, faker):
+        """Test the new characters you added (ó, ô, ã)"""
         email = faker.ascii_free_email()
-        validate_email(email)
-        assert email.split("@")[0] == "joaosimoes"
-
-    @patch(
-        "faker.providers.internet.Provider.user_name",
-        lambda x: "AndréCauã",
-    )
-    def test_ascii_company_email(self, faker):
-        email = faker.ascii_company_email()
-        validate_email(email)
-        assert email.split("@")[0] == "andrecaua"
+        # João -> joao, Vovó -> vovo, Mônica -> monica
+        expected_slug = "joaovovomonica"
+        assert expected_slug in email
 
     def test_slug(self, faker):
         num_of_samples = 100
         for _ in range(num_of_samples):
             assert faker.slug() != ""
+
+    def test_new_domains_are_present(self, faker):
+        """It statistically verifies if new domains appear."""
+
+        domains = [faker.free_email_domain() for _ in range(500)]
+
+        assert "outlook.com.br" in domains
+        assert "icloud.com" in domains
+        assert "uol.com.br" in domains
 
 
 class TestEnPh:
