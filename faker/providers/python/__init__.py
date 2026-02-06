@@ -231,15 +231,24 @@ class Provider(BaseProvider):
             result = max(result, -(10**left_digits + 1))
 
         # It's possible for the result to end up > than max_value or < than min_value
-        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value.
-        # Which can happen a lot depending on the difference of the values.
-        # Ensure the variance is bound by the difference between the max and min
-        if max_value is not None:
-            if result > max_value:
-                result = result - (result - max_value + self.generator.random.uniform(0, max_value - min_value))
-        if min_value is not None:
-            if result < min_value:
-                result = result + (min_value - result + self.generator.random.uniform(0, max_value - min_value))
+        # When this happens we introduce some variance so we're not always exactly at the boundary.
+        # When only one bound is set, use the exceeded amount as the variance bound.
+        # When positive=True without explicit min_value, treat min_value as 0.
+        effective_min = 0 if (positive and min_value is None) else min_value
+        if max_value is not None and result > max_value:
+            exceeded_by = result - max_value
+            if effective_min is not None:
+                variance_bound = max_value - effective_min
+            else:
+                variance_bound = exceeded_by
+            result = result - (exceeded_by + self.generator.random.uniform(0, variance_bound))
+        if effective_min is not None and result < effective_min:
+            below_by = effective_min - result
+            if max_value is not None:
+                variance_bound = max_value - effective_min
+            else:
+                variance_bound = below_by
+            result = result + (below_by + self.generator.random.uniform(0, variance_bound))
 
         return result
 
