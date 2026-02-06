@@ -1,8 +1,10 @@
 import re
-import pytest
-from faker.providers.passport.it_IT import Provider as ItPassportProvider
 
 from typing import Pattern
+
+import pytest
+
+from faker.providers.passport.it_IT import Provider as ItPassportProvider
 
 
 class TestPassport:

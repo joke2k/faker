@@ -4,8 +4,8 @@ import unicodedata
 
 from string import ascii_uppercase, digits
 
-from .. import Provider as SsnProvider
 from .. import ElementsType
+from .. import Provider as SsnProvider
 
 ALPHABET = ascii_uppercase
 ALPHANUMERICS = sorted(digits + ascii_uppercase)
