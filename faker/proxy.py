@@ -183,10 +183,10 @@ class Faker:
         return factory
 
     def _select_factory_distribution(self, factories, weights):
-        return choices_distribution(factories, weights, random, length=1)[0]
+        return choices_distribution(factories, weights, self.factories[0].random, length=1)[0]
 
     def _select_factory_choice(self, factories):
-        return random.choice(factories)
+        return self._factories[0].random.choice(factories)
 
     def _map_provider_method(self, method_name: str) -> tuple[list[Factory], list[float] | None]:
         """
