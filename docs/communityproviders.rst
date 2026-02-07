@@ -21,6 +21,9 @@ Here's a list of Providers written by the community:
 | Datasets      | Build providers based     | `faker-datasets`_                |
 |               | on datasets               |                                  |
 +---------------+---------------------------+----------------------------------+
+| Ecommerce     | Fake data for e-commerce  | `faker-ecommerce-provider`_      |
+|               | e.g. products, orders     |                                  |
++---------------+---------------------------+----------------------------------+
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -100,6 +103,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
+.. _faker-ecommerce-provider: https://pypi.org/project/faker-ecommerce-provider/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
 .. _faker_healthcare: https://pypi.org/project/faker-healthcare-provider/
