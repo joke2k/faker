@@ -7,6 +7,7 @@ from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.es_PE import Provider as EsPeAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
@@ -414,3 +415,14 @@ class TestZhTw(_SimpleAutomotiveTestMixin):
         r"([A-Z]{3}-\d{4})|"  # new format since 2014
         r"([A-Z]{3}-\d{3})",  # commercial cars since 2012
     )
+
+class TestEsPE:
+     def test_automotive_methods(self):
+        """Test automotive methods"""
+        # Test a few times to check for both modern and previous formats
+        for _ in range(10):
+            plate = self.factory.license_plate()
+            self.assertTrue(
+                re.match(r"^[A-Z]{3}-\d{3}$", plate) or re.match(r"^[A-Z]{2}-\d{4}$", plate),
+                f"Plate {plate} did not match expected formats.",
+            )

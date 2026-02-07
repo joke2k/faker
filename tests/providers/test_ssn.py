@@ -17,6 +17,8 @@ from validators.i18n.es import es_nif as is_nif
 from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.es_PE import checksum as pe_checksum
+from faker.providers.ssn.es_PE import Provider as pe_Provider
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
@@ -1451,3 +1453,36 @@ class TestUkUA(unittest.TestCase):
     def test_incorrect_gender(self):
         with pytest.raises(ValueError):
             self.fake.ssn(gender="f")
+
+class TestEsPe:
+    def test_ssn_methods(self):
+        """Test SSN (DNI and RUC) methods"""
+        # DNI
+        dni = self.factory.dni()
+        self.assertIsInstance(dni, str)
+        self.assertEqual(len(dni), 8)
+        self.assertTrue(dni.isdigit())
+
+        # ssn is an alias for dni
+        ssn = self.factory.ssn()
+        self.assertEqual(dni, ssn)
+
+        # RUC
+        ruc = self.factory.ruc()
+        self.assertIsInstance(ruc, str)
+        self.assertEqual(len(ruc), 11)
+        self.assertTrue(ruc.isdigit())
+        self.assertIn(ruc[:2], ["10", "20"])
+
+        # Validate RUC check digit
+        base_ruc = ruc[:-1]
+        check_digit = int(ruc[-1])
+        factors = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
+        total = sum(int(digit) * factor for digit, factor in zip(base_ruc, factors))
+        remainder = total % 11
+        expected_check_digit = 11 - remainder
+        if expected_check_digit == 10:
+            expected_check_digit = 0
+        elif expected_check_digit == 11:
+            expected_check_digit = 1
+        self.assertEqual(check_digit, expected_check_digit)
