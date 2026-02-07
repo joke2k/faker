@@ -92,6 +92,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
+.. _faker-ecommerce-provider: https://pypi.org/project/faker-ecommerce-provider/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
 .. _faker_marketdata: https://pypi.org/project/faker-marketdata/
