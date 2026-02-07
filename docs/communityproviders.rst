@@ -8,6 +8,10 @@ Here's a list of Providers written by the community:
 +---------------+---------------------------+----------------------------------+
 | Provider name | Description               | URL                              |
 +===============+===========================+==================================+
+| AI Provider   | Fake data for AI/ML       | `faker-ai-provider`_             |
+|               | models, companies, and    |                                  |
+|               | datasets.                 |                                  |
++---------------+---------------------------+----------------------------------+
 | Airtravel     | Airport names, airport    | `faker_airtravel`_               |
 |               | codes, and flights.       |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -91,6 +95,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _repo: https://github.com/joke2k/faker/
 .. _faker_pk: https://pypi.org/project/faker-pk/
 .. _OSI-Approved: https://opensource.org/licenses/alphabetical
+.. _faker-ai-provider: https://pypi.org/project/faker-ai-provider/
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
