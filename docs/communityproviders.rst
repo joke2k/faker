@@ -21,6 +21,9 @@ Here's a list of Providers written by the community:
 | Datasets      | Build providers based     | `faker-datasets`_                |
 |               | on datasets               |                                  |
 +---------------+---------------------------+----------------------------------+
+| Ecommerce     | Fake data for e-commerce  | `faker-ecommerce-provider`_      |
+|               | e.g. products, orders     |                                  |
++---------------+---------------------------+----------------------------------+
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
