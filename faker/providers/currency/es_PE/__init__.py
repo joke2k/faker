@@ -8,7 +8,6 @@ class Provider(CurrencyProvider):
     Source: Central Reserve Bank of Peru (BCRP) and local conventions.
     Accessed: 2026-02-07
     """
-
     price_formats = ["#,##", "%#,##", "%##,##", "%.###,##", "%#.###,##"]
 
     def pricetag(self) -> str:

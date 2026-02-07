@@ -6,6 +6,7 @@ from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.de_AT import Provider as DeAtPhoneNumberProvider
 from faker.providers.phone_number.de_CH import Provider as DeChPhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
+from faker.providers.phone_number.ee_PE import Provider as EsPePhoneNumberProvider
 
 
 class TestPhoneNumber:
@@ -555,3 +556,18 @@ class TestUzUz:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
+
+class TestEsPe:
+     def test_phone_number(self):
+        """Test phone number methods"""
+        for _ in range(10):
+            phone_number = self.factory.phone_number()
+            self.assertIsInstance(phone_number, str)
+            # Check for mobile: 9XX XXX XXX or landline (Lima): (1) XXX XXXX or (1) XXX-XXXX
+            # or landline (province): (XX) XXX XXXX or (XX) XXX-XXXX
+            self.assertTrue(
+                re.match(r"^9\d{2} \d{3} \d{3}$", phone_number)
+                or re.match(r"^\(1\) \d{3}[- ]?\d{4}$", phone_number)
+                or re.match(r"^\(\d{2}\) \d{3}[- ]?\d{4}$", phone_number),
+                f"Phone number {phone_number} did not match expected formats.",
+            )

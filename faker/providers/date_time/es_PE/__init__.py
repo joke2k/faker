@@ -9,5 +9,4 @@ class Provider(DateTimeProvider):
     Source: Spanish locale datasets and official naming conventions.
     Accessed: 2026-02-07
     """
-
     pass

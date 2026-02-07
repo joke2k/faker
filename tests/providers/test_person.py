@@ -20,6 +20,7 @@ from faker.providers.person.en_NG import Provider as EnNgProvider
 from faker.providers.person.en_PK import Provider as EnPKprovider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
+from faker.providers.person.es_PE import Provider as EsPEProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
 from faker.providers.person.et_EE import Provider as EtEEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
@@ -2402,6 +2403,32 @@ class TestEnKE(unittest.TestCase):
         female_name = self.fake.name_female()
         self.assertIsInstance(female_name, str)
         self.assertGreaterEqual(len(female_name.split()), 2)
+
+class TestEsPe:
+    def setUp(self):
+        self.fake = Faker("es_PE")
+        Faker.seed(0)
+        self.provider = EsPEProvider
+
+    def test_male_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_male()
+            assert res in self.provider.first_names_male
+
+    def test_female_first_names(self):
+        for _ in range(100):
+            res = self.fake.first_name_female()
+            assert res in self.provider.first_names_female
+
+    def test_male_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_male()
+            assert res in self.provider.last_names_male
+
+    def test_female_last_names(self):
+        for _ in range(100):
+            res = self.fake.last_name_female()
+            assert res in self.provider.last_names_female
 
 
 if __name__ == "__main__":

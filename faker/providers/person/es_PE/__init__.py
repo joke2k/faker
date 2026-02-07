@@ -4,13 +4,16 @@ from ..es import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    # Source: Instituto Nacional de Estadística e Informática (INEI),
-    # "Censos y registros estadísticos" — https://www.inei.gob.pe
-    # Source: Registro Nacional de Identidad y Estado Civil (RENIEC) — https://www.reniec.gob.pe
-    # Source: Supplemental verification from Wikipedia — "List of common Peruvian given names"
+    # The name format in Peru is the same as in Spain:
+    # First Name(s) + Paternal Last Name + Maternal Last Name.
+    #
+    # Sources:
+    # - Instituto Nacional de Estadística e Informática (INEI),
+    #   "Censos y registros estadísticos" — https://www.inei.gob.pe
+    # - Registro Nacional de Identidad y Estado Civil (RENIEC) — https://www.reniec.gob.pe
+    # - Supplemental verification from Wikipedia — "List of common Peruvian given names"
     # Accessed: 2026-02-07
-
-    # The name format in Peru is the same as in Spain: First Name(s) + Paternal Last Name + Maternal Last Name.
+>>>>>>> origin/feature/add-es_PE-locale
     # The formats from the es_ES provider are a good fit.
     formats_male: Tuple[str, ...] = (
         "{{first_name_male}} {{last_name}} {{last_name}}",

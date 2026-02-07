@@ -323,6 +323,35 @@ class TestEsEs:
             assert isinstance(pricetag, str)
 
 
+class TestEsPe:
+    """Test es_PE currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.es_PE import Provider as EsPeCurrencyProvider
+
+        cls.provider = EsPeCurrencyProvider
+        cls.currencies = cls.provider.currencies
+        cls.currency_codes, cls.currency_names = tuple(zip(*cls.currencies))
+
+    def test_currency(self, faker, num_samples):
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert cur in self.currencies
+
+    def test_currency_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert name in self.currency_names
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+
+
 class TestFaIr:
     """Test fa_IR currency provider"""
 
