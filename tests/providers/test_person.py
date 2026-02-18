@@ -697,8 +697,6 @@ class TestEsCO(unittest.TestCase):
         assert prefix in EsCOProvider.prefixes_male
 
 
-
-
 class TestEsMX(unittest.TestCase):
     """Tests person in the es_MX locale"""
 
