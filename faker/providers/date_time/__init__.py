@@ -20,7 +20,7 @@ localized = True
 
 
 def _get_local_timezone():
-    datetime.now().astimezone().tzinfo
+    return datetime.now().astimezone().tzinfo
 
 
 def _get_next_month_start(dt: Union[dtdate, datetime]) -> Union[dtdate, datetime]:
