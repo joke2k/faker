@@ -14,6 +14,7 @@ from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
+from faker.providers.internet.hu_HU import Provider as HuHuInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.pt_BR import Provider as PtBrInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
@@ -676,17 +677,26 @@ class TestHuHu:
     """Test hu_HU internet provider methods"""
 
     def test_internet(self, faker):
-        domain_name = faker.domain_name()
-        assert isinstance(domain_name, str)
+        free_email_domain = faker.free_email_domain()
+        assert free_email_domain in HuHuInternetProvider.free_email_domains
         tld = faker.tld()
-        assert isinstance(tld, str)
-        email = faker.email()
-        assert isinstance(email, str)
+        assert tld in HuHuInternetProvider.tlds
+        email = faker.free_email()
+        assert email.split("@")[1] in HuHuInternetProvider.free_email_domains
 
-    def test_slug(self, faker):
-        num_of_samples = 100
-        for _ in range(num_of_samples):
-            assert faker.slug() != ""
+    # fun fact: these two words contain all hungarian accented letters.
+    # "Winnie-the-pooh's mirror drill"
+    @patch(
+        "faker.providers.internet.Provider.user_name",
+        lambda x: "micimackó.tükörfúrógépe",
+    )
+    def test_ascii_free_email_accented_character_replacements(self, faker):
+        email = faker.ascii_free_email()
+        validate_email(email)
+        assert email.split("@")[0] == "micimacko.tukorfurogepe"
+
+    def test_slug_accented_character_replacements(self, faker):
+        assert faker.slug("micimackó.tükörfúrógépe") == "micimacko.tukorfurogepe"
 
 
 class TestPlPl:
