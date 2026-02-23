@@ -6,6 +6,11 @@ class Provider(InternetProvider):
         "gmail.com",
         "hotmail.com",
         "yahoo.com",
+        # Hungarian free email providers: https://madweb.hu/a-7-legjobb-ingyenesen-hasznalhato-e-mail-szolgaltatas/ under section Magyar e-mail szolgáltatók: aka Hungarian email providers:
+        "freemail.hu",
+        "citromail.hu",
+        "indamail.hu",
+        "mailbox.hu",
     )
 
     tlds = (
