@@ -964,6 +964,7 @@ class TestHeIl:
             assert isinstance(country, str)
             assert country in HeIlAddressProvider.countries
 
+
 class TestHiIn:
     """Test hi_IN address provider methods"""
 
