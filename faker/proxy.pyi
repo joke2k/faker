@@ -3913,6 +3913,16 @@ class Faker:
         """
         ...
 
+    def cie(self) -> str:
+        """
+        Generate a valid Italian Electronic Identity Card (CIE) number.
+        Format: 2 uppercase letters, 5 numbers, 2 uppercase letters
+
+        sources:
+        - https://www.cartaidentita.interno.gov.it/cose-la-carta/caratteristiche-del-documento/
+        """
+        ...
+
     @staticmethod
     def is_leap_year(year: int) -> bool:
         """
