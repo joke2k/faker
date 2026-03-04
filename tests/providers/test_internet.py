@@ -14,6 +14,7 @@ from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
+from faker.providers.internet.es_PE import Provider as EsPeInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.pt_BR import Provider as PtBrInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
@@ -981,6 +982,18 @@ class TestThTh:
     def test_tld(self, faker):
         tld = faker.tld()
         assert tld in ThThInternetProvider.tlds
+
+    def test_slug(self, faker):
+        num_of_samples = 100
+        for _ in range(num_of_samples):
+            assert faker.slug() != ""
+
+class TestEsPe:
+    """Test Es_Pe internet provider methods"""
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in EsPeInternetProvider.tlds
 
     def test_slug(self, faker):
         num_of_samples = 100
