@@ -4218,6 +4218,48 @@ class Faker:
         ...
 
     def first_name_unisex(self) -> str: ...
+    def street_name_adjective_feminine(self) -> str:
+        """
+        Randomly returns an adjective feminine street name
+        :example: 'Zielona'
+        """
+        ...
+
+    def street_name_universal(self) -> str:
+        """
+        Randomly returns a universal street name
+        :example: 'Wróblewskiego'
+        """
+        ...
+
+    def street_prefix_feminine(self) -> str:
+        """
+        Randomly returns a feminine street prefix
+        :example: 'aleja'
+        """
+        ...
+
+    def street_prefix_feminine_short(self) -> str:
+        """
+        Randomly returns an abbreviation of the feminine street prefix.
+        :example: 'al.'
+        """
+        ...
+
+    def street_prefix_masculine(self) -> str:
+        """
+        Randomly returns a masculine street prefix
+        :example: 'plac'
+        """
+        ...
+
+    def street_prefix_masculine_short(self) -> str:
+        """
+        Randomly returns an abbreviation of the masculine street prefix.
+        :example: 'pl.'
+        """
+        ...
+
     def license_plate_regex_formats(self) -> List[str]:
         """
         Return a regex for matching license plates.

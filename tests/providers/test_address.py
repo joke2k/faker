@@ -43,6 +43,7 @@ from faker.providers.address.ka_GE import Provider as KaGeAddressProvider
 from faker.providers.address.ko_KR import Provider as KoKrAddressProvider
 from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
+from faker.providers.address.pl_PL import Provider as PlPlAddressProvider
 from faker.providers.address.pt_BR import Provider as PtBrAddressProvider
 from faker.providers.address.pt_PT import Provider as PtPtAddressProvider
 from faker.providers.address.ro_RO import Provider as RoRoAddressProvider
@@ -2579,6 +2580,64 @@ class TestFrCa:
 
 class TestPlPl:
     """Test pl_PL address provider methods"""
+
+    def test_street_prefix_masculine(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.street_prefix_masculine()
+            assert prefix in PlPlAddressProvider.street_prefixes_masculine
+
+    def test_street_prefix_feminine(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.street_prefix_feminine()
+            assert prefix in PlPlAddressProvider.street_prefixes_feminine
+
+    def test_street_prefix_masculine_short(self, faker, num_samples):
+        expected_shorts = [p[:2] + "." for p in PlPlAddressProvider.street_prefixes_masculine]
+        for _ in range(num_samples):
+            prefix_short = faker.street_prefix_masculine_short()
+            assert prefix_short in expected_shorts
+
+    def test_street_prefix_feminine_short(self, faker, num_samples):
+        expected_shorts = [p[:2] + "." for p in PlPlAddressProvider.street_prefixes_feminine]
+        for _ in range(num_samples):
+            prefix_short = faker.street_prefix_feminine_short()
+            assert prefix_short in expected_shorts
+
+    def test_street_name_adjective_feminine(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.street_name_adjective_feminine()
+            assert name in PlPlAddressProvider.streets_adjective_feminine
+
+    def test_street_name_universal(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.street_name_universal()
+            assert name in PlPlAddressProvider.streets_universal
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.street_prefix()
+            assert prefix in PlPlAddressProvider.street_prefixes
+
+    def test_street_prefix_short(self, faker, num_samples):
+        expected = [p[:2] + "." for p in PlPlAddressProvider.street_prefixes]
+        for _ in range(num_samples):
+            prefix = faker.street_prefix_short()
+            assert prefix in expected
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            name = faker.street_name()
+            assert name in PlPlAddressProvider.streets
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert city in PlPlAddressProvider.cities
+
+    def test_administrative_unit(self, faker, num_samples):
+        for _ in range(num_samples):
+            region = faker.administrative_unit()
+            assert region in PlPlAddressProvider.regions
 
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
