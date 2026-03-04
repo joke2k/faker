@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.6.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.5.1...v40.6.0)
+
+* Add country names to `he_IL` locale. Thanks @Moo64c.
+
 ### [v40.5.1 - 2026-02-23](https://github.com/joke2k/faker/compare/v40.5.0...v40.5.1)
 
 * Fix `_get_local_timezone()` missing `return` statement. Thanks @bysiber.
