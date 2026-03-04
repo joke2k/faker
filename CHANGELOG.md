@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.8.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.7.0...v40.8.0)
+
+* Add free email domains to `hu_HU` locale. Thanks @majorzoltan80.
+
 ### [v40.7.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.6.0...v40.7.0)
 
 * Improve Polish address grammar: categorize street types and prefixes. Thanks @Francooo2221.
