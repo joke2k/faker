@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.7.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.6.0...v40.7.0)
+
+* Improve Polish address grammar: categorize street types and prefixes. Thanks @Francooo2221.
+
 ### [v40.6.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.5.1...v40.6.0)
 
 * Add country names to `he_IL` locale. Thanks @Moo64c.
