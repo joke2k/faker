@@ -696,7 +696,7 @@ class TestHuHu:
         assert email.split("@")[0] == "micimacko.tukorfurogepe"
 
     def test_slug_accented_character_replacements(self, faker):
-        assert faker.slug("micimackó.tükörfúrógépe") == "micimacko.tukorfurogepe"
+        assert faker.slug("micimackó.tükörfúrógépe") == "micimackotukorfurogepe"
 
 
 class TestPlPl:
