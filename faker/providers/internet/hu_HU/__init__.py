@@ -6,7 +6,8 @@ class Provider(InternetProvider):
         "gmail.com",
         "hotmail.com",
         "yahoo.com",
-        # Hungarian free email providers: https://madweb.hu/a-7-legjobb-ingyenesen-hasznalhato-e-mail-szolgaltatas/ under section Magyar e-mail szolgáltatók: aka Hungarian email providers:
+        # Hungarian free email providers (Magyar e-mail szolgáltatók):
+        # https://madweb.hu/a-7-legjobb-ingyenesen-hasznalhato-e-mail-szolgaltatas/
         "freemail.hu",
         "citromail.hu",
         "indamail.hu",
