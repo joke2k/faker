@@ -958,6 +958,12 @@ class TestHeIl:
             assert isinstance(street_title, str)
             assert street_title in HeIlAddressProvider.street_titles
 
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in HeIlAddressProvider.countries
+
 
 class TestHiIn:
     """Test hi_IN address provider methods"""
