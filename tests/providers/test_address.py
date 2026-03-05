@@ -1604,6 +1604,11 @@ class TestPtPt:
             assert isinstance(place_name, str)
             assert place_name in PtPtAddressProvider.places
 
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert re.fullmatch(r"[1-9]\d{3}-\d{3}", postcode)
+
 
 class TestEnPh:
     """Test en_PH address provider methods"""
