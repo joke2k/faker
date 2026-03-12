@@ -344,6 +344,18 @@ class FactoryTestCase(unittest.TestCase):
         with pytest.raises(ValueError):
             assert fake.pyfloat(min_value=9999, max_value=9999)
 
+    def test_includes_does_not_mutate_default_providers(self):
+        """Regression test for https://github.com/joke2k/faker/issues/2311.
+
+        Passing ``includes`` to ``Factory.create()`` must not permanently
+        append to the module-level ``PROVIDERS`` list.
+        """
+        from faker.config import PROVIDERS
+
+        original_length = len(PROVIDERS)
+        Factory.create(includes=["faker.providers.file"])
+        assert len(PROVIDERS) == original_length
+
     def test_instance_seed_chain(self):
         factory = Factory.create()
 

@@ -45,13 +45,11 @@ class Factory:
 
         config["locale"] = locale
         config["use_weighting"] = use_weighting
-        providers = providers or PROVIDERS
-
-        providers += includes
+        _providers = (providers or PROVIDERS) + includes
 
         faker = generator or Generator(**config)
 
-        for prov_name in providers:
+        for prov_name in _providers:
             if prov_name == "faker.providers":
                 continue
 
