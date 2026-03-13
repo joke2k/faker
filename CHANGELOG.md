@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.8.1 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.8.0...v40.8.1)
+
+* Fix mutable default providers. Thanks @Dhi13man.
+
 ### [v40.8.0 - 2026-03-04](https://github.com/joke2k/faker/compare/v40.7.0...v40.8.0)
 
 * Add free email domains to `hu_HU` locale. Thanks @majorzoltan80.
