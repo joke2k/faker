@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.9.0 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.8.1...v40.9.0)
+
+* Fix `pt_PT` `postalcode` format in address provider. Thanks @filipemattar.
+
 ### [v40.8.1 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.8.0...v40.8.1)
 
 * Fix mutable default providers. Thanks @Dhi13man.
