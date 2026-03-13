@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.11.0 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.10.0...v40.11.0)
+
+* Add major Swiss banks to `de_CH` bank provider. Thanks @raphael-s.
+
 ### [v40.10.0 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.9.0...v40.10.0)
 
 * Fix: mixed-gender names in `es_MX` locale. Thanks @rodrigobnogueira.
