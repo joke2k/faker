@@ -409,6 +409,11 @@ class TestDeCh:
             assert iban[:2] == DeChBankProvider.country_code
             assert re.fullmatch(r"\d{19}", iban[2:])
 
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            bank = faker.bank()
+            assert bank in DeChBankProvider.banks
+
 
 class TestFrCh(TestDeCh):
     """Test fr_CH bank provider"""
