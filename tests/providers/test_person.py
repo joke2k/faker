@@ -21,6 +21,7 @@ from faker.providers.person.en_PK import Provider as EnPKprovider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
+from faker.providers.person.es_MX import Provider as EsMXProvider
 from faker.providers.person.et_EE import Provider as EtEEProvider
 from faker.providers.person.fi_FI import Provider as FiProvider
 from faker.providers.person.fr_BE import Provider as FrBEProvider
@@ -694,6 +695,59 @@ class TestEsCO(unittest.TestCase):
         prefix = self.fake.prefix_male()
         self.assertIsInstance(prefix, str)
         assert prefix in EsCOProvider.prefixes_male
+
+
+class TestEsMX(unittest.TestCase):
+    """Tests person in the es_MX locale"""
+
+    def setUp(self):
+        self.fake = Faker("es_MX")
+        Faker.seed(0)
+
+    def test_first_names(self):
+        # General first name
+        name = self.fake.first_name()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.first_names
+
+        # Female first name
+        name = self.fake.first_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.first_names
+        assert name in EsMXProvider.first_names_female
+
+        # Male first name
+        name = self.fake.first_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.first_names
+        assert name in EsMXProvider.first_names_male
+
+    def test_last_names(self):
+        # General last name
+        name = self.fake.last_name()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.last_names
+
+        # Female last name
+        name = self.fake.last_name_female()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.last_names
+
+        # Male last name
+        name = self.fake.last_name_male()
+        self.assertIsInstance(name, str)
+        assert name in EsMXProvider.last_names
+
+    def test_prefixes(self):
+        # Female prefix
+        prefix = self.fake.prefix_female()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsMXProvider.prefixes_female
+
+        # Male prefix
+        prefix = self.fake.prefix_male()
+        self.assertIsInstance(prefix, str)
+        assert prefix in EsMXProvider.prefixes_male
 
 
 class TestEtEE(unittest.TestCase):
