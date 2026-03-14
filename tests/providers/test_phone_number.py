@@ -68,6 +68,33 @@ class TestArAe:
             assert pattern.fullmatch(phone)
 
 
+class TestArDz:
+    """Test ar_DZ phone number provider methods"""
+
+    cellphone_pattern: str = r"0[567]\d{2} \d{2} \d{2} \d{2}|" r"\+213 [567]\d{2} \d{2} \d{2} \d{2}"
+    telephone_pattern: str = (
+        r"0(?:2[13-79]|3[1-9]|4[13568-9]) \d{2} \d{2} \d{2}|" r"\+213 (?:2[13-79]|3[1-9]|4[13568-9]) \d{2} \d{2} \d{2}"
+    )
+
+    def test_cellphone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.cellphone_pattern)
+        for _ in range(num_samples):
+            cellphone = faker.cellphone_number()
+            assert pattern.fullmatch(cellphone), cellphone
+
+    def test_telephone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(self.telephone_pattern)
+        for _ in range(num_samples):
+            telephone = faker.telephone_number()
+            assert pattern.fullmatch(telephone), telephone
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(rf"{self.cellphone_pattern}|{self.telephone_pattern}")
+        for _ in range(num_samples):
+            phone = faker.phone_number()
+            assert pattern.fullmatch(phone), phone
+
+
 class TestAzAz:
     """Test az_AZ phone number provider methods"""
 
@@ -97,6 +124,12 @@ class TestAzAz:
             landline_number = faker.landline_number()
             assert isinstance(landline_number, str)
             assert self.landline_patterns.fullmatch(landline_number)
+
+
+class TestFrDz(TestArDz):
+    """Test fr_DZ phone number provider methods"""
+
+    pass
 
 
 class TestFrCh:
@@ -326,15 +359,6 @@ class TestFilPh(TestEnPh):
     """Test fil_PH phone number provider methods"""
 
     pass
-
-
-class TestFrDz:
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"0(?:55|66|77)\d \d{3} \d{3}")
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
 
 
 class TestFrFr:
