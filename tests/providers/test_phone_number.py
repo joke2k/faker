@@ -126,6 +126,12 @@ class TestAzAz:
             assert self.landline_patterns.fullmatch(landline_number)
 
 
+class TestFrDz(TestArDz):
+    """Test fr_DZ phone number provider methods"""
+
+    pass
+
+
 class TestFrCh:
     def test_phone_number(self, faker, num_samples):
         pattern: Pattern = re.compile(
@@ -353,15 +359,6 @@ class TestFilPh(TestEnPh):
     """Test fil_PH phone number provider methods"""
 
     pass
-
-
-class TestFrDz:
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"0(?:55|66|77)\d \d{3} \d{3}")
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
 
 
 class TestFrFr:

@@ -1,9 +1,3 @@
-from .. import Provider as PhoneNumberProvider
+from ..ar_DZ import Provider
 
-
-class Provider(PhoneNumberProvider):
-    formats = (
-        "055# ### ###",
-        "066# ### ###",
-        "077# ### ###",
-    )
+__all__ = ["Provider"]
