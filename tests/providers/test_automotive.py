@@ -7,6 +7,7 @@ from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.mk_MK import Provider as MkMKAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
@@ -414,3 +415,16 @@ class TestZhTw(_SimpleAutomotiveTestMixin):
         r"([A-Z]{3}-\d{4})|"  # new format since 2014
         r"([A-Z]{3}-\d{3})",  # commercial cars since 2012
     )
+
+
+class TestMkMk(_SimpleAutomotiveTestMixin):
+    """Test mk_MK automotive provider methods"""
+
+    # Format: XX NNNN YY  (2-letter region, 4 digits, 2 letters)
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2} \d{4} [A-BCDEFGHIJKLMNOPRSTUVZ]{2}")
+
+    def test_license_plate_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate()
+            prefix = plate.split()[0]
+            assert prefix in MkMKAutomotiveProvider.license_plate_prefixes

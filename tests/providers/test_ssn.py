@@ -27,6 +27,7 @@ from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksu
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
 from faker.providers.ssn.lv_LV import Provider as lv_Provider
+from faker.providers.ssn.mk_MK import Provider as MkMKSsnProvider
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
@@ -1451,3 +1452,23 @@ class TestUkUA(unittest.TestCase):
     def test_incorrect_gender(self):
         with pytest.raises(ValueError):
             self.fake.ssn(gender="f")
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests SSN (EMBG) in the mk_MK locale"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_ssn_format(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert re.match(r"^\d{13}$", ssn), f"EMBG {ssn!r} is not 13 digits"
+
+    def test_ssn_checksum(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            digits = [int(c) for c in ssn[:12]]
+            expected_check = MkMKSsnProvider._checksum(digits)
+            assert int(ssn[12]) == expected_check, f"Bad checksum in {ssn}"

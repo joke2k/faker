@@ -11,6 +11,7 @@ from faker.providers.job.hy_AM import Provider as HyAmJobProvider
 from faker.providers.job.ja_JP import Provider as JaJpJobProvider
 from faker.providers.job.ka_GE import Provider as KaGeJobProvider
 from faker.providers.job.ko_KR import Provider as KoKrJobProvider
+from faker.providers.job.mk_MK import Provider as MkMKJobProvider
 from faker.providers.job.pt_BR import Provider as PtBrJobProvider
 from faker.providers.job.pt_PT import Provider as PtPtJobProvider
 from faker.providers.job.ro_RO import Provider as RoRoJobProvider
@@ -185,3 +186,13 @@ class TestViVn:
             job = faker.job()
             assert isinstance(job, str)
             assert job in ViVNJobProvider.jobs
+
+
+class TestMkMk:
+    """Test mk_MK job provider methods"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            job = faker.job()
+            assert isinstance(job, str)
+            assert job in MkMKJobProvider.jobs

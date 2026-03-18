@@ -16,6 +16,7 @@ from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
 from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
+from faker.providers.bank.mk_MK import Provider as MkMKBankProvider
 from faker.providers.bank.nl_BE import Provider as NlBeBankProvider
 from faker.providers.bank.no_NO import Provider as NoNoBankProvider
 from faker.providers.bank.pl_PL import Provider as PlPlBankProvider
@@ -526,3 +527,20 @@ class TestBaseBankProvider:
 
         with pytest.raises(AttributeError):
             provider.bank()
+
+
+class TestMkMk:
+    """Test mk_MK bank provider methods"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            bank = faker.bank()
+            assert isinstance(bank, str)
+            assert bank in MkMKBankProvider.banks
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert isinstance(iban, str)
+            assert iban.startswith("MK")
+            assert len(iban) == 21  # MK(2) + check(2) + bban(17)

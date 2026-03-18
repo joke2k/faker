@@ -18,6 +18,7 @@ from faker.providers.company.hy_AM import Provider as HyAmCompanyProvider
 from faker.providers.company.it_IT import Provider as ItItCompanyProvider
 from faker.providers.company.ja_JP import Provider as JaJpCompanyProvider
 from faker.providers.company.ko_KR import Provider as KoKrCompanyProvider
+from faker.providers.company.mk_MK import Provider as MkMKCompanyProvider
 from faker.providers.company.nl_BE import Provider as NlBeCompanyProvider
 from faker.providers.company.nl_NL import Provider as NlNlCompanyProvider
 from faker.providers.company.pl_PL import Provider as PlPlCompanyProvider
@@ -620,3 +621,18 @@ class TestKoKr:
         for _ in range(num_samples):
             company = faker.company()
             assert isinstance(company, str)
+
+
+class TestMkMk:
+    """Test mk_MK company provider methods"""
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in MkMKCompanyProvider.company_suffixes

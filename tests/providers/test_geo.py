@@ -168,3 +168,21 @@ class TestEnIe(TestEnUS):
     def setUp(self):
         self.fake = Faker("en_IE")
         Faker.seed(0)
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests geo provider for mk_MK locale"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_local_latitude(self):
+        for _ in range(100):
+            lat = self.fake.local_latitude()
+            assert 40.85 <= float(lat) <= 42.37, f"Latitude {lat} out of MK bounds"
+
+    def test_local_longitude(self):
+        for _ in range(100):
+            lon = self.fake.local_longitude()
+            assert 20.45 <= float(lon) <= 23.03, f"Longitude {lon} out of MK bounds"
