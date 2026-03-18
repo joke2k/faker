@@ -15,6 +15,7 @@ from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.hu_HU import Provider as HuHuInternetProvider
+from faker.providers.internet.mk_MK import Provider as MkMKInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.pt_BR import Provider as PtBrInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
@@ -996,3 +997,23 @@ class TestThTh:
         num_of_samples = 100
         for _ in range(num_of_samples):
             assert faker.slug() != ""
+
+
+class TestMkMk:
+    """Test mk_MK internet provider methods"""
+
+    def test_free_email_domain(self, faker, num_samples):
+        for _ in range(num_samples):
+            domain = faker.free_email_domain()
+            assert domain in MkMKInternetProvider.free_email_domains
+
+    def test_tld(self, faker, num_samples):
+        for _ in range(num_samples):
+            tld = faker.tld()
+            assert tld in MkMKInternetProvider.tlds
+
+    def test_email(self, faker, num_samples):
+        for _ in range(num_samples):
+            email = faker.email()
+            assert isinstance(email, str)
+            assert "@" in email

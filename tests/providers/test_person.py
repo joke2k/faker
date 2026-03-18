@@ -35,6 +35,7 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ig_NG import Provider as IgNgProvider
 from faker.providers.person.is_IS import Provider as IsISProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
+from faker.providers.person.mk_MK import Provider as MkMKProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -1442,6 +1443,51 @@ class TestLvLV(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name in LvProvider.last_names_male
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests for mk_MK locale person provider"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names
+
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names_male
+
+    def test_last_name(self):
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names
+
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names_female
+
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names_male
+
+    def test_name(self):
+        name = self.fake.name()
+        assert name
+        self.assertIsInstance(name, str)
 
 
 class TestNeNP(unittest.TestCase):

@@ -4,6 +4,8 @@ from unittest.mock import patch
 
 import pytest
 
+from faker.providers.currency.mk_MK import Provider as MkMKCurrencyProvider
+
 
 class TestCurrencyProvider:
     """Test currency provider methods"""
@@ -633,3 +635,30 @@ class TestUzUz:
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+
+
+class TestMkMk:
+    """Test mk_MK currency provider methods"""
+
+    def test_currency(self, faker, num_samples):
+        codes = [c for c, _ in MkMKCurrencyProvider.currencies]
+        names = [n for _, n in MkMKCurrencyProvider.currencies]
+        for _ in range(num_samples):
+            cur = faker.currency()
+            assert isinstance(cur, tuple)
+            assert cur[0] in codes
+            assert cur[1] in names
+
+    def test_currency_name(self, faker, num_samples):
+        names = [n for _, n in MkMKCurrencyProvider.currencies]
+        for _ in range(num_samples):
+            name = faker.currency_name()
+            assert isinstance(name, str)
+            assert name in names
+
+    def test_currency_code(self, faker, num_samples):
+        codes = [c for c, _ in MkMKCurrencyProvider.currencies]
+        for _ in range(num_samples):
+            code = faker.currency_code()
+            assert isinstance(code, str)
+            assert code in codes
