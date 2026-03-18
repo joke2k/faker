@@ -6,10 +6,8 @@ import sys
 import time
 import unittest
 import zoneinfo
-
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, tzinfo
 from datetime import time as datetime_time
-from datetime import timedelta, tzinfo
 
 import freezegun
 import pytest
@@ -34,6 +32,7 @@ from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.ja_JP import Provider as JaJpProvider
 from faker.providers.date_time.ka_GE import Provider as KaGeProvider
+from faker.providers.date_time.mk_MK import Provider as MkMKProvider
 from faker.providers.date_time.mr_IN import Provider as MrINProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
@@ -1470,3 +1469,23 @@ class DatesOfBirth(unittest.TestCase):
 
             assert isinstance(dob, date)
             assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests date_time in the mk_MK locale"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_day(self):
+        for _ in range(50):
+            day = self.fake.day_of_week()
+            assert isinstance(day, str)
+            assert day in MkMKProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        for _ in range(50):
+            month = self.fake.month_name()
+            assert isinstance(month, str)
+            assert month in MkMKProvider.MONTH_NAMES.values()
