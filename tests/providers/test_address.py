@@ -31,6 +31,7 @@ from faker.providers.address.fa_IR import Provider as FaIrAddressProvider
 from faker.providers.address.fi_FI import Provider as FiFiAddressProvider
 from faker.providers.address.fr_CA import Provider as FrCaAddressProvider
 from faker.providers.address.fr_CH import Provider as FrChAddressProvider
+from faker.providers.address.fr_DZ import Provider as FrDzAddressProvider
 from faker.providers.address.fr_FR import Provider as FrFrAddressProvider
 from faker.providers.address.he_IL import Provider as HeIlAddressProvider
 from faker.providers.address.hi_IN import Provider as HiInAddressProvider
@@ -928,6 +929,45 @@ class TestFaIr:
             state = faker.state()
             assert isinstance(state, str)
             assert state in FaIrAddressProvider.states
+
+
+class TestFrDz:
+    """Test fr_DZ address provider methods"""
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in FrDzAddressProvider.cities
+
+    def test_administrative_unit(self, faker, num_samples):
+        for _ in range(num_samples):
+            admin_unit = faker.administrative_unit()
+            assert isinstance(admin_unit, str)
+            assert admin_unit in FrDzAddressProvider.wilayas
+
+    def test_wilaya(self, faker, num_samples):
+        for _ in range(num_samples):
+            wilaya = faker.wilaya()
+            assert isinstance(wilaya, str)
+            assert wilaya in FrDzAddressProvider.wilayas
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{5}", postcode)
+
+    def test_street_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.street_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in FrDzAddressProvider.street_prefixes
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
 
 
 class TestFrFr:
