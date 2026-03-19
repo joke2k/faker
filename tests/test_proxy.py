@@ -442,6 +442,39 @@ class TestFakerProxyClass:
         fake2 = copy.deepcopy(fake)
         assert fake.locales == fake2.locales
         assert fake.locales is not fake2.locales
+        assert fake2.factories[0] is fake2._factory_map["it_IT"]
+
+    def test_copy_rebinds_single_locale_proxies(self):
+        fake = Faker("en_US")
+        fake2 = copy.deepcopy(fake)
+
+        assert fake2.unique._proxy is fake2
+        assert fake2.optional._proxy is fake2
+        assert fake2.factories[0] is fake2._factory_map["en_US"]
+        assert fake2.optional.name(prob=1.0)
+
+    def test_copy_rebinds_multiple_locale_proxies(self):
+        fake = Faker(["en_US", "ja_JP"])
+        fake2 = copy.deepcopy(fake)
+
+        assert fake2.unique._proxy is fake2
+        assert fake2.optional._proxy is fake2
+        assert fake2.factories[0] is fake2["en_US"]
+        assert fake2.factories[1] is fake2["ja_JP"]
+        assert fake2.optional.name(prob=1.0)
+
+    def test_copy_unique_uses_copied_proxy_state(self):
+        source = Faker("en_US")
+        source.seed_instance(999)
+        clone_a = copy.deepcopy(source)
+        clone_b = copy.deepcopy(source)
+
+        clone_a.seed_instance(200)
+        clone_b.seed_instance(200)
+
+        assert clone_a.unique._proxy is clone_a
+        assert clone_b.unique._proxy is clone_b
+        assert clone_a.unique.name() == clone_b.unique.name()
 
     def test_pickle(self):
         fake = Faker()
