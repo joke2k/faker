@@ -1,3 +1,5 @@
-from ..ar_DZ import Provider
+from ..ar_DZ import Provider as ar_DZProvider
 
-__all__ = ["Provider"]
+
+class Provider(ar_DZProvider):
+    pass
