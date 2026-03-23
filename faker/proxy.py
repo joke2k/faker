@@ -141,12 +141,14 @@ class Faker:
     def __deepcopy__(self, memodict):
         cls = self.__class__
         result = cls.__new__(cls)
-        result._locales = copy.deepcopy(self._locales)
-        result._factories = copy.deepcopy(self._factories)
-        result._factory_map = copy.deepcopy(self._factory_map)
-        result._weights = copy.deepcopy(self._weights)
-        result._unique_proxy = UniqueProxy(self)
+        memodict[id(self)] = result
+        result._locales = copy.deepcopy(self._locales, memodict)
+        result._factory_map = copy.deepcopy(self._factory_map, memodict)
+        result._factories = list(result._factory_map.values())
+        result._weights = copy.deepcopy(self._weights, memodict)
+        result._unique_proxy = UniqueProxy(result)
         result._unique_proxy._seen = {k: {result._unique_proxy._sentinel} for k in self._unique_proxy._seen.keys()}
+        result._optional_proxy = OptionalProxy(result)
         return result
 
     def __setstate__(self, state: Any) -> None:
