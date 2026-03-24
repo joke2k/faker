@@ -41,6 +41,7 @@ from faker.providers.address.it_IT import Provider as ItItAddressProvider
 from faker.providers.address.ja_JP import Provider as JaJpAddressProvider
 from faker.providers.address.ka_GE import Provider as KaGeAddressProvider
 from faker.providers.address.ko_KR import Provider as KoKrAddressProvider
+from faker.providers.address.mk_MK import Provider as MkMKAddressProvider
 from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
 from faker.providers.address.pl_PL import Provider as PlPlAddressProvider
@@ -1382,6 +1383,34 @@ class TestNeNp:
             country = faker.country()
             assert isinstance(country, str)
             assert country in NeNpAddressProvider.countries
+
+
+class TestMkMk:
+    """Test mk_MK address provider methods"""
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in MkMKAddressProvider.cities
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street = faker.street_name()
+            assert isinstance(street, str)
+            assert street in MkMKAddressProvider.streets
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in MkMKAddressProvider.states
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
+            assert len(address) > 0
 
 
 class TestNoNo:

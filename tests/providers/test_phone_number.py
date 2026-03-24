@@ -555,3 +555,15 @@ class TestUzUz:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
+
+
+class TestMkMk:
+    """Test mk_MK phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        # Macedonian numbers start with +389, 02, 03x, or 07x
+        pattern: Pattern = re.compile(r"(\+389[\d\s\(\)]+|0[237]\d[\d\s]+)")
+        for _ in range(num_samples):
+            phone = faker.phone_number()
+            assert isinstance(phone, str)
+            assert pattern.match(phone), f"Unexpected phone format: {phone!r}"

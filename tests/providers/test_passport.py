@@ -39,3 +39,14 @@ class TestItIT:
         for _ in range(num_samples):
             passport_number = faker.passport_number()
             assert pattern.fullmatch(passport_number)
+
+
+class TestMkMk:
+    """Test mk_MK passport provider methods"""
+
+    def test_passport_number(self, faker, num_samples):
+        # Format: 1 uppercase letter + 7 digits
+        pattern = re.compile(r"^[A-Z]\d{7}$")
+        for _ in range(num_samples):
+            passport_number = faker.passport_number()
+            assert pattern.fullmatch(passport_number), f"Unexpected format: {passport_number!r}"
