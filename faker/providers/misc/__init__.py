@@ -6,6 +6,7 @@ import os
 import re
 import string
 import tarfile
+import time
 import uuid
 import zipfile
 
@@ -157,6 +158,129 @@ class Provider(BaseProvider):
         """
         # Based on http://stackoverflow.com/q/41186818
         generated_uuid: uuid.UUID = uuid.UUID(int=self.generator.random.getrandbits(128), version=4)
+        if cast_to is not None:
+            return cast_to(generated_uuid)
+        return generated_uuid
+
+    @overload
+    def uuid1(self) -> str: ...
+
+    @overload
+    def uuid1(self, cast_to: None) -> uuid.UUID: ...
+
+    @overload
+    def uuid1(self, cast_to: Callable[[uuid.UUID], str]) -> str: ...
+
+    @overload
+    def uuid1(self, cast_to: Callable[[uuid.UUID], bytes]) -> bytes: ...
+
+    def uuid1(
+        self,
+        cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
+    ) -> Union[bytes, str, uuid.UUID]:
+        """Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
+
+        Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
+        while the timestamp is derived from the current time with random perturbation for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        # Generate random node (48 bits) and clock_seq (14 bits) for seedability
+        node: int = self.generator.random.getrandbits(48)
+        clock_seq: int = self.generator.random.getrandbits(14)
+        # Use current time with random perturbation for the timestamp
+        # UUID1 timestamp is in 100-nanosecond intervals since 1582-10-15
+        nanoseconds = int(time.time() * 1e9)
+        # Add random perturbation to avoid collisions and ensure seedability affects the result
+        nanoseconds += self.generator.random.randint(0, 999999)
+        # Convert to UUID1 timestamp (100-ns intervals since 1582-10-15)
+        timestamp = nanoseconds // 100 + 0x01B21DD213814000
+
+        time_low = timestamp & 0xFFFFFFFF
+        time_mid = (timestamp >> 32) & 0xFFFF
+        time_hi_version = (timestamp >> 48) & 0x0FFF
+        time_hi_version |= 1 << 12  # version 1
+
+        clock_seq_low = clock_seq & 0xFF
+        clock_seq_hi_variant = (clock_seq >> 8) & 0x3F
+        clock_seq_hi_variant |= 0x80  # variant RFC 4122
+
+        generated_uuid = uuid.UUID(
+            fields=(time_low, time_mid, time_hi_version, clock_seq_hi_variant, clock_seq_low, node),
+        )
+        if cast_to is not None:
+            return cast_to(generated_uuid)
+        return generated_uuid
+
+    @overload
+    def uuid7(self) -> str: ...
+
+    @overload
+    def uuid7(self, cast_to: None) -> uuid.UUID: ...
+
+    @overload
+    def uuid7(self, cast_to: Callable[[uuid.UUID], str]) -> str: ...
+
+    @overload
+    def uuid7(self, cast_to: Callable[[uuid.UUID], bytes]) -> bytes: ...
+
+    def uuid7(
+        self,
+        cast_to: Optional[Union[Callable[[uuid.UUID], str], Callable[[uuid.UUID], bytes]]] = str,
+    ) -> Union[bytes, str, uuid.UUID]:
+        """Generate a random UUID7 (Unix Epoch time-based) object and cast it to another type using ``cast_to``.
+
+        UUID7 is defined in RFC 9562 and provides time-ordered UUIDs using a Unix epoch timestamp
+        with millisecond precision, combined with random bits for uniqueness.
+
+        The implementation uses the Faker random generator for all random components to ensure
+        seedability. The timestamp is derived from the current time with random perturbation.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        # RFC 9562 UUID version 7 layout:
+        #  0                   1                   2                   3
+        #  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+        # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        # |                         unix_ts_ms (48 bits)                  |
+        # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        # |  ver  |         rand_a (12 bits)        |var|   rand_b        |
+        # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        # |                         rand_b (64 bits total)                |
+        # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+        # 48-bit Unix timestamp in milliseconds
+        unix_ts_ms = int(time.time() * 1000) + self.generator.random.randint(0, 999)
+
+        # 12 bits of random data (rand_a)
+        rand_a = self.generator.random.getrandbits(12)
+
+        # 62 bits of random data (rand_b)
+        rand_b = self.generator.random.getrandbits(62)
+
+        # Assemble the 128-bit UUID
+        # Bits 0-47: unix_ts_ms
+        # Bits 48-51: version (0b0111 = 7)
+        # Bits 52-63: rand_a
+        # Bits 64-65: variant (0b10)
+        # Bits 66-127: rand_b
+        uuid_int = (unix_ts_ms & 0xFFFFFFFFFFFF) << 80
+        uuid_int |= 0x7 << 76  # version 7
+        uuid_int |= (rand_a & 0xFFF) << 64
+        uuid_int |= 0x2 << 62  # variant RFC 4122
+        uuid_int |= rand_b & 0x3FFFFFFFFFFFFFFF
+
+        generated_uuid = uuid.UUID(int=uuid_int)
         if cast_to is not None:
             return cast_to(generated_uuid)
         return generated_uuid
