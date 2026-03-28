@@ -49,6 +49,10 @@ class TestArDz(_SimpleAutomotiveTestMixin):
     license_plate_pattern: Pattern = re.compile(r"\d{5} [1-9]\d{2} (0[1-9]|[1-4]\d|5[0-8])")
 
 
+class TestFrDz(TestArDz):
+    """Test fr_DZ automotive provider methods"""
+
+
 class TestArBh(_SimpleAutomotiveTestMixin):
     """Test ar_BH automotive provider methods"""
 
