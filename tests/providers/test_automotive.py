@@ -43,6 +43,12 @@ class _SimpleAutomotiveTestMixin:
                 assert char in string.digits
 
 
+class TestArDz(_SimpleAutomotiveTestMixin):
+    """Test ar_DZ automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"\d{5} [1-9]\d{2} (0[1-9]|[1-4]\d|5[0-8])")
+
+
 class TestArBh(_SimpleAutomotiveTestMixin):
     """Test ar_BH automotive provider methods"""
 
