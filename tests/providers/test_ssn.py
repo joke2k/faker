@@ -1382,6 +1382,12 @@ class TestArDz(unittest.TestCase):
             assert f"{(0 if remainder == 0 else 10 - remainder):02d}" == ssn[16:]
 
 
+class TestFrDz(TestArDz):
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        Faker.seed(0)
+
+
 class TestAzAz(unittest.TestCase):
     num_sample_runs = 10
 
