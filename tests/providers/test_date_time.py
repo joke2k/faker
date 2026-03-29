@@ -18,6 +18,7 @@ from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
+from faker.providers.date_time.ar_DZ import Provider as DzProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.az_AZ import Provider as AzAzProvider
 from faker.providers.date_time.bn_BD import Provider as BnBdProvider
@@ -688,6 +689,15 @@ class TestAr(unittest.TestCase):
         assert (fake.month_name()) in (EgProvider.MONTH_NAMES.values())
         # Month name
         assert (fake.month_name()) not in (ArProvider.MONTH_NAMES.values())
+
+    def test_ar_dz(self):
+        fake = Faker("ar_DZ")
+        Faker.seed(0)
+
+        assert fake.am_pm() in ArProvider.AM_PM.values()
+        assert fake.century() in ArProvider.centuries
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
+        assert (fake.month_name()) in (DzProvider.MONTH_NAMES.values())
 
 
 class DatesOfBirth(unittest.TestCase):
