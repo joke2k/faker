@@ -357,6 +357,24 @@ class TestFrCa:
             assert isinstance(pricetag, str)
 
 
+class TestFrDz:
+    """Test fr_DZ currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.fr_DZ import Provider as FrDzCurrencyProvider
+
+        cls.provider = FrDzCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+            assert pricetag.endswith("\N{NO-BREAK SPACE}DA")
+
+
 class TestFrFr:
     """Test fr_FR currency provider"""
 
