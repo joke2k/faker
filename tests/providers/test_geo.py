@@ -170,6 +170,12 @@ class TestEnIe(TestEnUS):
         Faker.seed(0)
 
 
+class TestArDz(TestEnUS):
+    def setUp(self):
+        self.fake = Faker("ar_DZ")
+        Faker.seed(0)
+
+
 class TestFrDz(TestEnUS):
     def setUp(self):
         self.fake = Faker("fr_DZ")
