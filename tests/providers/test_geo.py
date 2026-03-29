@@ -168,3 +168,9 @@ class TestEnIe(TestEnUS):
     def setUp(self):
         self.fake = Faker("en_IE")
         Faker.seed(0)
+
+
+class TestFrDz(TestEnUS):
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        Faker.seed(0)
