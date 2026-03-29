@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
+from faker.providers.company.ar_DZ import Provider as ArDzCompanyProvider
 from faker.providers.company.az_AZ import Provider as AzAzCompanyProvider
 from faker.providers.company.de_AT import Provider as DeAtCompanyProvider
 from faker.providers.company.de_CH import Provider as DeChCompanyProvider
@@ -164,6 +165,27 @@ class TestFrFr:
             assert re.fullmatch(r"RCS .+ [AB] \d{3} \d{3} \d{3}", rcs_number)
             rcs_number = faker.rcs_number(city="nom de ville", letter="B", siren="test")
             assert rcs_number == "RCS nom de ville B test"
+
+
+class TestArDz:
+    """Test ar_DZ company provider methods"""
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ArDzCompanyProvider.company_suffixes
+
+    def test_catch_phrase(self, faker, num_samples):
+        for _ in range(num_samples):
+            catch_phrase = faker.catch_phrase()
+            assert isinstance(catch_phrase, str)
+            assert len(catch_phrase) > 0
 
 
 class TestFrDz:
