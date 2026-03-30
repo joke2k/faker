@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.12.0 - 2026-03-30](https://github.com/joke2k/faker/compare/v40.11.1...v40.12.0)
+
+* Add address providers for `ar_DZ` and `fr_DZ` locales (#2341). Thanks @othmane099.
+
 ### [v40.11.1 - 2026-03-23](https://github.com/joke2k/faker/compare/v40.11.0...v40.11.1)
 
 * Fix: rebind deepcopy proxies to copied Faker instances. Thanks @SunS1eep1ng.
