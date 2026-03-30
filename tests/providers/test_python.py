@@ -12,6 +12,7 @@ import pytest
 from faker import Faker
 
 
+@pytest.mark.parametrize("object_type", (None, bool, str, float, int, tuple, set, list, Iterable, dict))
 def test_pyobject(
     object_type: Optional[
         Union[
@@ -34,11 +35,22 @@ def test_pyobject(
         assert isinstance(random_object, object_type)
 
 
+@pytest.mark.parametrize("object_type", (object, type, callable))
 def test_pyobject_with_unknown_object_type(object_type):
     with pytest.raises(ValueError, match=f"Object type `{object_type}` is not supported by `pyobject` function"):
         assert Faker().pyobject(object_type=object_type)
 
 
+@pytest.mark.parametrize(
+    "mock_random_number_source, right_digits, expected_decimal_part",
+    (
+        ("1234567", 5, "12345"),
+        ("1234567", 0, "1"),  # This is kinda interesting - same as 1 digit
+        ("1234567", 1, "1"),
+        ("1234567", 2, "12"),
+        ("0123", 1, "1"),
+    ),
+)
 def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right_digits, expected_decimal_part):
     # Remove the randomness from the test by mocking the `BaseProvider.random_number` value
     def mock_random_number(self, digits=None, fix_len=False):
@@ -85,6 +97,22 @@ def test_pyfloat_right_or_left_digit_overflow():
             assert str(abs(result)) == "1.12345678901234"
 
 
+@pytest.mark.parametrize(
+    ("min_value", "max_value"),
+    [
+        (1.5, None),
+        (-1.5, None),
+        (None, -1.5),
+        (None, 1.5),
+        (-1.5, 1.5),
+    ],
+)
+@pytest.mark.parametrize(("left_digits"), [None, 5])
+@pytest.mark.parametrize(("right_digits"), [None, 5])
+@pytest.mark.filterwarnings(
+    # Convert the warning to an error for this test
+    r"error:non-integer arguments to randrange\(\):DeprecationWarning"
+)
 def test_float_min_and_max_value_does_not_crash(
     left_digits: Optional[int],
     right_digits: Optional[int],
