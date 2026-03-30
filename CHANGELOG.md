@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.11.1 - 2026-03-23](https://github.com/joke2k/faker/compare/v40.11.0...v40.11.1)
+
+* Fix: rebind deepcopy proxies to copied Faker instances. Thanks @SunS1eep1ng.
+
 ### [v40.11.0 - 2026-03-13](https://github.com/joke2k/faker/compare/v40.10.0...v40.11.0)
 
 * Add major Swiss banks to `de_CH` bank provider. Thanks @raphael-s.

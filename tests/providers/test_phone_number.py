@@ -8,22 +8,6 @@ from faker.providers.phone_number.de_CH import Provider as DeChPhoneNumberProvid
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
 
 
-class TestPhoneNumber:
-    """Test phone number provider methods"""
-
-    def test_country_calling_code(self, faker, num_samples):
-        for _ in range(num_samples):
-            cc = faker.country_calling_code()
-            assert cc in PhoneNumberProvider.country_calling_codes
-
-    def test_msisdn(self, faker, num_samples):
-        for _ in range(num_samples):
-            msisdn = faker.msisdn()
-            assert isinstance(msisdn, str)
-            assert len(msisdn) == 13
-            assert msisdn.isdigit()
-
-
 class TestArAe:
     """Test ar_AE phone number provider methods"""
 
@@ -124,32 +108,6 @@ class TestAzAz:
             landline_number = faker.landline_number()
             assert isinstance(landline_number, str)
             assert self.landline_patterns.fullmatch(landline_number)
-
-
-class TestFrDz(TestArDz):
-    """Test fr_DZ phone number provider methods"""
-
-    pass
-
-
-class TestFrCh:
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert pattern.fullmatch(phone_number)
-
-
-class TestItCh:
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert pattern.fullmatch(phone_number)
 
 
 class TestCsCz:
@@ -361,6 +319,21 @@ class TestFilPh(TestEnPh):
     pass
 
 
+class TestFrCh:
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
+class TestFrDz(TestArDz):
+    """Test fr_DZ phone number provider methods"""
+    pass
+
+
 class TestFrFr:
     def test_phone_number(self, faker, num_samples):
         pattern_no_whitespaces: Pattern = re.compile(
@@ -419,6 +392,16 @@ class TestHyAm:
             assert pattern.fullmatch(phone_number)
 
 
+class TestItCh:
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"((0041|\+41) ?)?((\(0\)|0)?\d{2})? ?[0-9]{3} ?[0-9]{2} ?[0-9]{2}|" r"0[89][0-9]{2} ?[0-9]{3} ?[0-9]{3}"
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
 class TestJaJp:
     """Test ja_JP phone number provider methods"""
 
@@ -451,6 +434,22 @@ class TestKaGe:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert self.pattern.fullmatch(phone_number)
+
+
+class TestPhoneNumber:
+    """Test phone number provider methods"""
+
+    def test_country_calling_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            cc = faker.country_calling_code()
+            assert cc in PhoneNumberProvider.country_calling_codes
+
+    def test_msisdn(self, faker, num_samples):
+        for _ in range(num_samples):
+            msisdn = faker.msisdn()
+            assert isinstance(msisdn, str)
+            assert len(msisdn) == 13
+            assert msisdn.isdigit()
 
 
 class TestPtBr:
@@ -537,27 +536,6 @@ class TestTlPh(TestEnPh):
     pass
 
 
-class TestViVn:
-    """Test vi_VN phone number provider methods"""
-
-    def test_phone_number(self, faker, num_samples):
-        pattern: Pattern = re.compile(
-            r"(?:"  # Non-capturing group
-            r"\+84 \d{2} \d{7}|"  # Example: +84 12 3456789
-            r"\(0\d\) \d{4} \d{4}|"  # Example: (012) 3456 7890
-            r"0\d \d{4} \d{4}|"  # Example: 012 3456 7890
-            r"0\d \d{7}|"  # Example: 012 3456789
-            r"\+84-\d{2}-\d{6}|"  # Example: +84-12-345678
-            r"\+84-\d{2}-\d{3} \d{4}|"  # Example: +84-12-345 6789
-            r"\(0\d\)\d{3}-\d{4}"  # Example: (012)345-6789
-            r")"  # Closing non-capturing group
-        )
-        for _ in range(num_samples):
-            phone_number = faker.phone_number()
-            assert isinstance(phone_number, str)
-            assert pattern.fullmatch(phone_number)
-
-
 class TestUzUz:
     """Test uz_UZ phone number provider methods"""
 
@@ -573,6 +551,27 @@ class TestUzUz:
             r"\+998 \d{2} \d{3} \d{4}|"  # Example: +998 93 123 4567
             r"\+998 \d{2} \d{3}-\d{4}|"  # Example: +998 93 123-4567
             r"\+998\d{9}"  # Example: +998881234567
+            r")"  # Closing non-capturing group
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
+class TestViVn:
+    """Test vi_VN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:"  # Non-capturing group
+            r"\+84 \d{2} \d{7}|"  # Example: +84 12 3456789
+            r"\(0\d\) \d{4} \d{4}|"  # Example: (012) 3456 7890
+            r"0\d \d{4} \d{4}|"  # Example: 012 3456 7890
+            r"0\d \d{7}|"  # Example: 012 3456789
+            r"\+84-\d{2}-\d{6}|"  # Example: +84-12-345678
+            r"\+84-\d{2}-\d{3} \d{4}|"  # Example: +84-12-345 6789
+            r"\(0\d\)\d{3}-\d{4}"  # Example: (012)345-6789
             r")"  # Closing non-capturing group
         )
         for _ in range(num_samples):
