@@ -22,14 +22,6 @@ from faker.providers.job.tr_TR import Provider as TrTrJobProvider
 from faker.providers.job.vi_VN import Provider as ViVNJobProvider
 
 
-class TestJobProvider:
-    """Test job provider methods"""
-
-    def test_job(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert faker.job() in JobProvider.jobs
-
-
 class TestArDz:
     """Test ar_DZ job provider"""
 
@@ -45,23 +37,7 @@ class TestArDz:
         for _ in range(num_samples):
             assert faker.job_female() in ArDzJobProvider.jobs_female
 
-
-class TestFrDz:
-    """Test fr_DZ job provider"""
-
-    def test_job(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert faker.job() in FrDzJobProvider.jobs
-
-    def test_job_male(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert faker.job_male() in FrDzJobProvider.jobs_male
-
-    def test_job_female(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert faker.job_female() in FrDzJobProvider.jobs_female
-
-
+            
 class TestAzAz:
     """Test az_AZ job provider"""
 
@@ -114,6 +90,22 @@ class TestEsEs:
             assert faker.job() in EsEsJobProvider.jobs
 
 
+class TestFrDz:
+    """Test fr_DZ job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in FrDzJobProvider.jobs
+
+    def test_job_male(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_male() in FrDzJobProvider.jobs_male
+
+    def test_job_female(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_female() in FrDzJobProvider.jobs_female
+
+            
 class TestFrFr:
     """Test fr_FR job provider"""
 
@@ -144,6 +136,14 @@ class TestJaJp:
     def test_job(self, faker, num_samples):
         for _ in range(num_samples):
             assert faker.job() in JaJpJobProvider.jobs
+
+
+class TestJobProvider:
+    """Test job provider methods"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in JobProvider.jobs
 
 
 class TestKaGe:
