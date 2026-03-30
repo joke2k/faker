@@ -24,6 +24,19 @@ class TestPhoneNumber:
             assert msisdn.isdigit()
 
 
+class TestAmEt:
+    """Test am_ET phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"(?:09\d{8}|07\d{8}|\+2519\d{8}|\+2517\d{8})",
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number)
+
+
 class TestArAe:
     """Test ar_AE phone number provider methods"""
 
