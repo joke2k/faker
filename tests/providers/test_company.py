@@ -38,6 +38,27 @@ from faker.providers.company.vi_VN import Provider as ViVnCompanyProvider
 from faker.utils.checksums import luhn_checksum
 
 
+class TestArDz:
+    """Test ar_DZ company provider methods"""
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ArDzCompanyProvider.company_suffixes
+
+    def test_catch_phrase(self, faker, num_samples):
+        for _ in range(num_samples):
+            catch_phrase = faker.catch_phrase()
+            assert isinstance(catch_phrase, str)
+            assert len(catch_phrase) > 0
+
+            
 class TestAzAz:
     """Test az_AZ company provider methods"""
 
@@ -84,6 +105,61 @@ class TestDeCh:
             assert isinstance(company, str)
 
 
+class TestElGr:
+    """Test el_GR company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in ElGrCompanyProvider.company_suffixes
+
+
+class TestEnPh:
+    """Test en_PH company provider methods"""
+
+    @classmethod
+    def setup_class(cls):
+        cls.company_types = EnPhCompanyProvider.company_types
+        cls.company_suffixes = EnPhCompanyProvider.company_suffixes.keys()
+        cls.company_products = EnPhCompanyProvider.company_products
+        cls.national_corporation_pattern: Pattern = re.compile(r"^National (.*?) Corporation of the Philippines$")
+
+    def test_random_company_noun_chain(self, faker, num_samples):
+        for _ in range(num_samples):
+            noun_list = faker.random_company_noun_chain().split()
+            assert 1 <= len(noun_list) <= 2
+
+    def test_random_company_acronym(self, faker, num_samples):
+        for _ in range(num_samples):
+            acronym = faker.random_company_acronym()
+            assert 2 <= len(acronym) <= 4
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
+                continue
+            else:
+                national_corporation_match = self.national_corporation_pattern.fullmatch(company)
+                assert national_corporation_match and national_corporation_match.group(1) in self.company_products
+
+
+class TestEsEs:
+    """Test esE_ES company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in list(EsEsCompanyProvider.company_suffixes.keys())
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+
 class TestFiFi:
     """Test fi_FI company provider methods"""
 
@@ -103,6 +179,36 @@ class TestFiFi:
             assert self._has_valid_checksum(company_id)
 
 
+class TestFilPh(TestEnPh):
+    """Test fil_PH company provider methods"""
+
+    def test_PH_random_good_service_adjective_chain(self, faker, num_samples):
+        for _ in range(num_samples):
+            adjectives = faker.random_good_service_adjective_chain().split(" at ")
+            assert all(adjective in FilPhCompanyProvider.good_service_adjectives for adjective in adjectives)
+
+
+class TestFrDz:
+    """Test fr_DZ company provider methods"""
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in FrDzCompanyProvider.company_suffixes
+
+    def test_catch_phrase(self, faker, num_samples):
+        for _ in range(num_samples):
+            catch_phrase = faker.catch_phrase()
+            assert isinstance(catch_phrase, str)
+            assert len(catch_phrase) > 0
+
+            
 class TestFrFr:
     """Test fr_FR company provider methods"""
 
@@ -167,46 +273,20 @@ class TestFrFr:
             assert rcs_number == "RCS nom de ville B test"
 
 
-class TestArDz:
-    """Test ar_DZ company provider methods"""
-
-    def test_company(self, faker, num_samples):
-        for _ in range(num_samples):
-            company = faker.company()
-            assert isinstance(company, str)
+class TestHuHu:
+    """Test hu_HU company provider methods"""
 
     def test_company_suffix(self, faker, num_samples):
         for _ in range(num_samples):
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
-            assert suffix in ArDzCompanyProvider.company_suffixes
-
-    def test_catch_phrase(self, faker, num_samples):
-        for _ in range(num_samples):
-            catch_phrase = faker.catch_phrase()
-            assert isinstance(catch_phrase, str)
-            assert len(catch_phrase) > 0
-
-
-class TestFrDz:
-    """Test fr_DZ company provider methods"""
+            assert suffix in HuHuCompanyProvider.company_suffixes
 
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):
             company = faker.company()
             assert isinstance(company, str)
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in FrDzCompanyProvider.company_suffixes
-
-    def test_catch_phrase(self, faker, num_samples):
-        for _ in range(num_samples):
-            catch_phrase = faker.catch_phrase()
-            assert isinstance(catch_phrase, str)
-            assert len(catch_phrase) > 0
+            assert company.split(" ")[-1] in HuHuCompanyProvider.company_suffixes
 
 
 class TestHyAm:
@@ -232,6 +312,36 @@ class TestHyAm:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in HyAmCompanyProvider.company_suffixes
+
+
+class TestItIt:
+    """Test it_IT company provider methods"""
+
+    vat_regex = re.compile(r"^IT\d{7}(0\d{2}|100|120|121|888|999)\d$", flags=re.ASCII)
+
+    def test_company_vat(self, faker, num_samples):
+        for _ in range(num_samples):
+            company_vat = faker.company_vat()
+            assert self.vat_regex.match(company_vat)
+
+    @pytest.mark.parametrize(
+        "value, expected",
+        (
+            (100, "100"),
+            (101, "120"),
+            (102, "121"),
+            (103, "888"),
+            (104, "999"),
+        ),
+    )
+    def test_company_vat_special_cases(self, faker, value, expected):
+        # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
+        fake = ItItCompanyProvider(generator=faker)
+
+        with patch.object(fake, "random_int", return_value=value, autospec=True):
+            company_vat = fake.company_vat()
+            assert self.vat_regex.match(company_vat)
+            assert company_vat[9:12] == expected
 
 
 class TestJaJp:
@@ -260,38 +370,57 @@ class TestJaJp:
             assert any(category in company for category in JaJpCompanyProvider.company_categories)
 
 
-class TestPtBr:
-    """Test pt_BR company provider methods"""
+class TestKoKr:
+    """Test ko_KR company provider methods"""
 
-    def test_company_id_checksum(self):
-        assert company_id_checksum([9, 4, 9, 5, 3, 4, 4, 1, 0, 0, 0, 1]) == [5, 1]
-        assert company_id_checksum([1, 6, 0, 0, 4, 6, 3, 9, 0, 0, 0, 1]) == [8, 5]
-
-    def test_company_id(self, faker, num_samples):
+    def test_company_name_word(self, faker, num_samples):
         for _ in range(num_samples):
-            company_id = faker.company_id()
-            assert re.fullmatch(r"\d{14}", company_id)
-
-    def test_cnpj(self, faker, num_samples):
-        for _ in range(num_samples):
-            cnpj = faker.cnpj()
-            assert re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/0001-\d{2}", cnpj)
-
-
-class TestHuHu:
-    """Test hu_HU company provider methods"""
+            word = faker.company_name_word()
+            assert isinstance(word, str)
+            assert word in KoKrCompanyProvider.company_name_words
 
     def test_company_suffix(self, faker, num_samples):
         for _ in range(num_samples):
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
-            assert suffix in HuHuCompanyProvider.company_suffixes
+            assert suffix in KoKrCompanyProvider.company_suffixes
 
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):
             company = faker.company()
             assert isinstance(company, str)
-            assert company.split(" ")[-1] in HuHuCompanyProvider.company_suffixes
+
+
+class TestNlBe:
+    """Test nl_BE company provider methods"""
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in NlBeCompanyProvider.company_suffixes
+
+
+class TestNlNl:
+    """Test nl_NL company provider methods"""
+
+    def test_company_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            prefix = faker.company_prefix()
+            assert isinstance(prefix, str)
+            assert prefix in NlNlCompanyProvider.company_prefixes
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in NlNlCompanyProvider.company_suffixes
+
+    def test_large_companies(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.large_company()
+            assert isinstance(company, str)
+            assert company in NlNlCompanyProvider.large_companies
 
 
 class TestPlPl:
@@ -343,71 +472,32 @@ class TestPlPl:
             assert suffix in PlPlCompanyProvider.company_suffixes
 
 
-class TestNlNl:
-    """Test nl_NL company provider methods"""
+class TestPtBr:
+    """Test pt_BR company provider methods"""
 
-    def test_company_prefix(self, faker, num_samples):
+    def test_company_id_checksum(self):
+        assert company_id_checksum([9, 4, 9, 5, 3, 4, 4, 1, 0, 0, 0, 1]) == [5, 1]
+        assert company_id_checksum([1, 6, 0, 0, 4, 6, 3, 9, 0, 0, 0, 1]) == [8, 5]
+
+    def test_company_id(self, faker, num_samples):
         for _ in range(num_samples):
-            prefix = faker.company_prefix()
-            assert isinstance(prefix, str)
-            assert prefix in NlNlCompanyProvider.company_prefixes
+            company_id = faker.company_id()
+            assert re.fullmatch(r"\d{14}", company_id)
+
+    def test_cnpj(self, faker, num_samples):
+        for _ in range(num_samples):
+            cnpj = faker.cnpj()
+            assert re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/0001-\d{2}", cnpj)
+
+
+class TestRoRo:
+    """Test ro_RO company provider methods"""
 
     def test_company_suffix(self, faker, num_samples):
         for _ in range(num_samples):
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
-            assert suffix in NlNlCompanyProvider.company_suffixes
-
-    def test_large_companies(self, faker, num_samples):
-        for _ in range(num_samples):
-            company = faker.large_company()
-            assert isinstance(company, str)
-            assert company in NlNlCompanyProvider.large_companies
-
-
-class TestEnPh:
-    """Test en_PH company provider methods"""
-
-    @classmethod
-    def setup_class(cls):
-        cls.company_types = EnPhCompanyProvider.company_types
-        cls.company_suffixes = EnPhCompanyProvider.company_suffixes.keys()
-        cls.company_products = EnPhCompanyProvider.company_products
-        cls.national_corporation_pattern: Pattern = re.compile(r"^National (.*?) Corporation of the Philippines$")
-
-    def test_random_company_noun_chain(self, faker, num_samples):
-        for _ in range(num_samples):
-            noun_list = faker.random_company_noun_chain().split()
-            assert 1 <= len(noun_list) <= 2
-
-    def test_random_company_acronym(self, faker, num_samples):
-        for _ in range(num_samples):
-            acronym = faker.random_company_acronym()
-            assert 2 <= len(acronym) <= 4
-
-    def test_company(self, faker, num_samples):
-        for _ in range(num_samples):
-            company = faker.company()
-            if company.split()[-1] in self.company_suffixes and company.split()[-2] in self.company_types:
-                continue
-            else:
-                national_corporation_match = self.national_corporation_pattern.fullmatch(company)
-                assert national_corporation_match and national_corporation_match.group(1) in self.company_products
-
-
-class TestFilPh(TestEnPh):
-    """Test fil_PH company provider methods"""
-
-    def test_PH_random_good_service_adjective_chain(self, faker, num_samples):
-        for _ in range(num_samples):
-            adjectives = faker.random_good_service_adjective_chain().split(" at ")
-            assert all(adjective in FilPhCompanyProvider.good_service_adjectives for adjective in adjectives)
-
-
-class TestTlPh(TestFilPh):
-    """Test tl_PH company provider methods"""
-
-    pass
+            assert suffix in RoRoCompanyProvider.company_suffixes
 
 
 class TestRuRu:
@@ -500,36 +590,6 @@ class TestRuRu:
             assert snils[-2:] == calculate_snils_checksum(snils[:10])
 
 
-class TestItIt:
-    """Test it_IT company provider methods"""
-
-    vat_regex = re.compile(r"^IT\d{7}(0\d{2}|100|120|121|888|999)\d$", flags=re.ASCII)
-
-    def test_company_vat(self, faker, num_samples):
-        for _ in range(num_samples):
-            company_vat = faker.company_vat()
-            assert self.vat_regex.match(company_vat)
-
-    @pytest.mark.parametrize(
-        "value, expected",
-        (
-            (100, "100"),
-            (101, "120"),
-            (102, "121"),
-            (103, "888"),
-            (104, "999"),
-        ),
-    )
-    def test_company_vat_special_cases(self, faker, value, expected):
-        # this test allows to get full code coverage for company_vat fixing the internal state of the random generator
-        fake = ItItCompanyProvider(generator=faker)
-
-        with patch.object(fake, "random_int", return_value=value, autospec=True):
-            company_vat = fake.company_vat()
-            assert self.vat_regex.match(company_vat)
-            assert company_vat[9:12] == expected
-
-
 class TestThTh:
     """Test th_TH company provider methods"""
 
@@ -569,6 +629,12 @@ class TestThTh:
             assert isinstance(company, str)
 
 
+class TestTlPh(TestFilPh):
+    """Test tl_PH company provider methods"""
+
+    pass
+
+
 class TestTrTr:
     """Test tr_TR company provider methods"""
 
@@ -585,51 +651,6 @@ class TestTrTr:
             assert company in TrTrCompanyProvider.large_companies
 
 
-class TestRoRo:
-    """Test ro_RO company provider methods"""
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in RoRoCompanyProvider.company_suffixes
-
-
-class TestElGr:
-    """Test el_GR company provider methods"""
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in ElGrCompanyProvider.company_suffixes
-
-
-class TestNlBe:
-    """Test nl_BE company provider methods"""
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in NlBeCompanyProvider.company_suffixes
-
-
-class TestEsEs:
-    """Test esE_ES company provider methods"""
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in list(EsEsCompanyProvider.company_suffixes.keys())
-
-    def test_company(self, faker, num_samples):
-        for _ in range(num_samples):
-            company = faker.company()
-            assert isinstance(company, str)
-
-
 class TestViVn:
     """Test vi_VN company provider methods"""
 
@@ -638,27 +659,6 @@ class TestViVn:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in ViVnCompanyProvider.company_suffixes
-
-    def test_company(self, faker, num_samples):
-        for _ in range(num_samples):
-            company = faker.company()
-            assert isinstance(company, str)
-
-
-class TestKoKr:
-    """Test ko_KR company provider methods"""
-
-    def test_company_name_word(self, faker, num_samples):
-        for _ in range(num_samples):
-            word = faker.company_name_word()
-            assert isinstance(word, str)
-            assert word in KoKrCompanyProvider.company_name_words
-
-    def test_company_suffix(self, faker, num_samples):
-        for _ in range(num_samples):
-            suffix = faker.company_suffix()
-            assert isinstance(suffix, str)
-            assert suffix in KoKrCompanyProvider.company_suffixes
 
     def test_company(self, faker, num_samples):
         for _ in range(num_samples):
