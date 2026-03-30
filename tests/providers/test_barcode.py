@@ -5,87 +5,6 @@ from typing import Pattern
 import pytest
 
 
-class TestBarcodeProvider:
-    """Test barcode provider methods"""
-
-    num_samples = 1000
-    ean8_pattern: Pattern = re.compile(r"\d{8}")
-    ean13_pattern: Pattern = re.compile(r"\d{13}")
-
-    def test_ean(self, faker, num_samples):
-        for _ in range(num_samples):
-            ean8 = faker.ean(8)
-            ean13 = faker.ean(13)
-            assert self.ean8_pattern.fullmatch(ean8)
-            assert self.ean13_pattern.fullmatch(ean13)
-
-            ean8_digits = [int(digit) for digit in ean8]
-            ean13_digits = [int(digit) for digit in ean13]
-            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
-            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-    def test_ean_bad_length(self, faker):
-        bad_lengths = [size for size in range(1, 15) if size not in (8, 13)]
-        for length in bad_lengths:
-            with pytest.raises(AssertionError):
-                faker.ean(length)
-
-    def test_ean8(self, faker, num_samples):
-        for _ in range(num_samples):
-            ean8 = faker.ean8()
-            assert self.ean8_pattern.fullmatch(ean8)
-
-            # Included check digit must be correct
-            ean8_digits = [int(digit) for digit in ean8]
-            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
-
-    def test_ean13(self, faker, num_samples):
-        for _ in range(num_samples):
-            ean13 = faker.ean13()
-            assert self.ean13_pattern.fullmatch(ean13)
-
-            # Included check digit must be correct
-            ean13_digits = [int(digit) for digit in ean13]
-            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-    def test_ean13_no_leading_zero(self, faker, num_samples):
-        for _ in range(num_samples):
-            ean13 = faker.ean13(leading_zero=False)
-            assert self.ean13_pattern.fullmatch(ean13)
-            assert ean13[0] != "0"
-
-            # Included check digit must be correct
-            ean13_digits = [int(digit) for digit in ean13]
-            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-    def test_ean13_leading_zero(self, faker, num_samples):
-        for _ in range(num_samples):
-            ean13 = faker.ean13(leading_zero=True)
-            assert self.ean13_pattern.fullmatch(ean13)
-            assert ean13[0] == "0"
-
-            # Included check digit must be correct
-            ean13_digits = [int(digit) for digit in ean13]
-            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-
-@pytest.fixture(scope="class")
-def provider_class(request):
-    if hasattr(request.cls, "get_provider_class") and callable(request.cls.get_provider_class):
-        _provider_class = request.cls.get_provider_class()
-        if isinstance(_provider_class, type):
-            return _provider_class
-    raise NotImplementedError(
-        f"Using the provider_class requires {request.cls.__name__}.get_provider_class() "
-        "to be present, which has to return the Provider class it uses."
-    )
-
-
-@pytest.fixture()
-def provider(faker, provider_class):
-    return provider_class(faker)
-
-
 class _LocaleCommonMixin:
     ean8_pattern: Pattern = re.compile(r"\d{8}")
     ean13_pattern: Pattern = re.compile(r"\d{13}")
@@ -244,16 +163,85 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             assert new_upc_e == upc_e
 
 
-class TestEnUs(_LocaleNorthAmericaMixin):
-    """Tests en_US barcode provider"""
+class TestBarcodeProvider:
+    """Test barcode provider methods"""
 
     num_samples = 1000
+    ean8_pattern: Pattern = re.compile(r"\d{8}")
+    ean13_pattern: Pattern = re.compile(r"\d{13}")
 
-    @staticmethod
-    def get_provider_class():
-        from faker.providers.barcode.en_US import Provider
+    def test_ean(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean8 = faker.ean(8)
+            ean13 = faker.ean(13)
+            assert self.ean8_pattern.fullmatch(ean8)
+            assert self.ean13_pattern.fullmatch(ean13)
 
-        return Provider
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+    def test_ean_bad_length(self, faker):
+        bad_lengths = [size for size in range(1, 15) if size not in (8, 13)]
+        for length in bad_lengths:
+            with pytest.raises(AssertionError):
+                faker.ean(length)
+
+    def test_ean8(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean8 = faker.ean8()
+            assert self.ean8_pattern.fullmatch(ean8)
+
+            # Included check digit must be correct
+            ean8_digits = [int(digit) for digit in ean8]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+
+    def test_ean13(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13()
+            assert self.ean13_pattern.fullmatch(ean13)
+
+            # Included check digit must be correct
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+    def test_ean13_no_leading_zero(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13(leading_zero=False)
+            assert self.ean13_pattern.fullmatch(ean13)
+            assert ean13[0] != "0"
+
+            # Included check digit must be correct
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+    def test_ean13_leading_zero(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13(leading_zero=True)
+            assert self.ean13_pattern.fullmatch(ean13)
+            assert ean13[0] == "0"
+
+            # Included check digit must be correct
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+
+@pytest.fixture(scope="class")
+def provider_class(request):
+    if hasattr(request.cls, "get_provider_class") and callable(request.cls.get_provider_class):
+        _provider_class = request.cls.get_provider_class()
+        if isinstance(_provider_class, type):
+            return _provider_class
+    raise NotImplementedError(
+        f"Using the provider_class requires {request.cls.__name__}.get_provider_class() "
+        "to be present, which has to return the Provider class it uses."
+    )
+
+
+@pytest.fixture()
+def provider(faker, provider_class):
+    return provider_class(faker)
 
 
 class TestEnCa(_LocaleNorthAmericaMixin):
@@ -266,6 +254,45 @@ class TestEnCa(_LocaleNorthAmericaMixin):
         from faker.providers.barcode.en_CA import Provider
 
         return Provider
+
+
+class TestEnUs(_LocaleNorthAmericaMixin):
+    """Tests en_US barcode provider"""
+
+    num_samples = 1000
+
+    @staticmethod
+    def get_provider_class():
+        from faker.providers.barcode.en_US import Provider
+
+        return Provider
+
+
+class TestEsEs(_LocaleCommonMixin):
+    """Tests es_ES barcode provider"""
+
+    num_samples = 1000
+
+    @staticmethod
+    def get_provider_class():
+        from faker.providers.barcode.es_ES import Provider
+
+        return Provider
+
+    def test_localized_ean(self, faker, num_samples, provider):
+        for _ in range(num_samples):
+            ean8 = faker.localized_ean(8)
+            ean13 = faker.localized_ean(13)
+            assert self.ean8_pattern.match(ean8)
+            assert self.ean13_pattern.match(ean13)
+
+            ean8_digits = [int(digit) for digit in ean8]
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
+            self.assert_prefix(ean8_digits, provider.local_prefixes)
+            self.assert_prefix(ean13_digits, provider.local_prefixes)
 
 
 class TestFrCa(_LocaleNorthAmericaMixin):
@@ -325,30 +352,3 @@ class TestJaJp(_LocaleCommonMixin):
             assert (sum(jan13_digits) + 2 * sum(jan13_digits[1::2])) % 10 == 0
 
             self.assert_prefix(jan13_digits, provider.local_prefixes)
-
-
-class TestEsEs(_LocaleCommonMixin):
-    """Tests es_ES barcode provider"""
-
-    num_samples = 1000
-
-    @staticmethod
-    def get_provider_class():
-        from faker.providers.barcode.es_ES import Provider
-
-        return Provider
-
-    def test_localized_ean(self, faker, num_samples, provider):
-        for _ in range(num_samples):
-            ean8 = faker.localized_ean(8)
-            ean13 = faker.localized_ean(13)
-            assert self.ean8_pattern.match(ean8)
-            assert self.ean13_pattern.match(ean13)
-
-            ean8_digits = [int(digit) for digit in ean8]
-            ean13_digits = [int(digit) for digit in ean13]
-            assert (sum(ean8_digits) + 2 * sum(ean8_digits[::2])) % 10 == 0
-            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
-
-            self.assert_prefix(ean8_digits, provider.local_prefixes)
-            self.assert_prefix(ean13_digits, provider.local_prefixes)

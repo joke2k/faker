@@ -20,14 +20,6 @@ from faker.providers.job.tr_TR import Provider as TrTrJobProvider
 from faker.providers.job.vi_VN import Provider as ViVNJobProvider
 
 
-class TestJobProvider:
-    """Test job provider methods"""
-
-    def test_job(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert faker.job() in JobProvider.jobs
-
-
 class TestAzAz:
     """Test az_AZ job provider"""
 
@@ -110,6 +102,14 @@ class TestJaJp:
     def test_job(self, faker, num_samples):
         for _ in range(num_samples):
             assert faker.job() in JaJpJobProvider.jobs
+
+
+class TestJobProvider:
+    """Test job provider methods"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in JobProvider.jobs
 
 
 class TestKaGe:
