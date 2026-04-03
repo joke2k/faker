@@ -3303,6 +3303,22 @@ class Faker:
         """
         ...
 
+    def gstin(self) -> str:
+        """
+        Goods and Services Tax Identification Number (GSTIN) is a 15 character
+        identifier used in India for GST registration.
+        Details: https://en.wikipedia.org/wiki/Goods_and_Services_Tax_(India)
+        """
+        ...
+
+    def pan(self) -> str:
+        """
+        Permanent Account Number (PAN) is a 10 character alphanumeric tax
+        identifier issued in India.
+        Details: https://en.wikipedia.org/wiki/Permanent_account_number
+        """
+        ...
+
     def building_prefix(self) -> str: ...
     def city_prefix_abbr(self) -> str: ...
     def city_state(self) -> str:
