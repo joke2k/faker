@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.13.0 - 2026-04-06](https://github.com/joke2k/faker/compare/v40.12.0...v40.13.0)
+
+* Fix: Ensure deterministic locale selection in multi-locale mode. Thanks @just6660 and @patakk.
+
 ### [v40.12.0 - 2026-03-30](https://github.com/joke2k/faker/compare/v40.11.1...v40.12.0)
 
 * Add address providers for `ar_DZ` and `fr_DZ` locales (#2341). Thanks @othmane099.
