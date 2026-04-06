@@ -11,7 +11,7 @@ from typing import Any, Callable, Pattern, Sequence, TypeVar
 from .config import DEFAULT_LOCALE
 from .exceptions import UniquenessException
 from .factory import Factory
-from .generator import Generator, random
+from .generator import Generator
 from .typing import SeedType
 from .utils.distribution import choices_distribution
 
