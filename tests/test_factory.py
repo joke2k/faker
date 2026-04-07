@@ -26,6 +26,21 @@ class FactoryTestCase(unittest.TestCase):
         print_doc("faker.providers.person.it_IT", output=output)
         assert output.getvalue()
 
+    def test_print_provider_handles_non_utf_output(self):
+        from faker.cli import print_provider
+
+        doc = MagicMock()
+        doc.max_name_len = len("fake.emoji()")
+        doc.get_provider_name.return_value = "faker.providers.emoji"
+
+        output = io.TextIOWrapper(io.BytesIO(), encoding="cp950")
+        print_provider(doc, MagicMock(), {"fake.emoji()": "👩"}, output=output)
+        output.flush()
+
+        rendered = output.buffer.getvalue().decode("cp950")
+        assert "fake.emoji()" in rendered
+        assert "\\U0001f469" in rendered
+
     def test_command(self):
         from faker.cli import Command
 
