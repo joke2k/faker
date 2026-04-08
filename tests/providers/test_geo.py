@@ -7,6 +7,12 @@ from faker import Faker
 from faker.providers.geo.pt_PT import Provider as PtPtProvider
 
 
+class TestArDz(TestEnUS):
+    def setUp(self):
+        self.fake = Faker("ar_DZ")
+        Faker.seed(0)
+        
+        
 class TestCsCz(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("cs_CZ")
@@ -99,6 +105,12 @@ class TestEnIe(TestEnUS):
         Faker.seed(0)
 
 
+class TestFrDz(TestEnUS):
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        Faker.seed(0)
+        
+        
 class TestGlobal(unittest.TestCase):
     """Tests geographic locations regardless of locale"""
 
