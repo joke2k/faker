@@ -1,10 +1,12 @@
 from faker.providers.job import Provider as JobProvider
+from faker.providers.job.ar_DZ import Provider as ArDzJobProvider
 from faker.providers.job.az_AZ import Provider as AzAzJobProvider
 from faker.providers.job.cs_CZ import Provider as CsCzJobProvider
 from faker.providers.job.de_AT import Provider as DeAtJobProvider
 from faker.providers.job.de_DE import Provider as DeDeJobProvider
 from faker.providers.job.el_GR import Provider as ElGrJobProvider
 from faker.providers.job.es_ES import Provider as EsEsJobProvider
+from faker.providers.job.fr_DZ import Provider as FrDzJobProvider
 from faker.providers.job.fr_FR import Provider as FrFrJobProvider
 from faker.providers.job.hu_HU import Provider as HuHuJobProvider
 from faker.providers.job.hy_AM import Provider as HyAmJobProvider
@@ -20,6 +22,22 @@ from faker.providers.job.tr_TR import Provider as TrTrJobProvider
 from faker.providers.job.vi_VN import Provider as ViVNJobProvider
 
 
+class TestArDz:
+    """Test ar_DZ job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in ArDzJobProvider.jobs
+
+    def test_job_male(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_male() in ArDzJobProvider.jobs_male
+
+    def test_job_female(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_female() in ArDzJobProvider.jobs_female
+
+            
 class TestAzAz:
     """Test az_AZ job provider"""
 
@@ -72,6 +90,22 @@ class TestEsEs:
             assert faker.job() in EsEsJobProvider.jobs
 
 
+class TestFrDz:
+    """Test fr_DZ job provider"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job() in FrDzJobProvider.jobs
+
+    def test_job_male(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_male() in FrDzJobProvider.jobs_male
+
+    def test_job_female(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_female() in FrDzJobProvider.jobs_female
+
+            
 class TestFrFr:
     """Test fr_FR job provider"""
 
