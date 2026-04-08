@@ -39,6 +39,31 @@ from faker.providers.ssn.zh_TW import checksum as tw_checksum
 from faker.utils.checksums import luhn_checksum
 
 
+class TestArDz(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ar_DZ")
+        Faker.seed(0)
+
+    def test_ssn(self):
+        pattern = re.compile(r"[12][01]\d{3}(0[1-9]|[1-4]\d|5[0-8])\d{2}\d{5}\d{2}\d{2}")
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert len(ssn) == 18
+            assert pattern.fullmatch(ssn) is not None
+
+    def test_ssn_control_key(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            base = ssn[:16]
+            total, alternate = 0, False
+            for i in range(len(base) - 1, -1, -1):
+                d = int(base[i]) * (2 if alternate else 1)
+                total += d - 9 if d > 9 else d
+                alternate = not alternate
+            remainder = total % 10
+            assert f"{(0 if remainder == 0 else 10 - remainder):02d}" == ssn[16:]
+            
+            
 class TestAzAz(unittest.TestCase):
     num_sample_runs = 10
 
@@ -849,6 +874,12 @@ class TestFrCH:
         ):
             result = fake.vat_id()
             assert result == expected
+
+
+class TestFrDz(TestArDz):
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        Faker.seed(0)
 
 
 class TestFrFR(unittest.TestCase):
