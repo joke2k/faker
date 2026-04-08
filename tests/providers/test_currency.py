@@ -5,6 +5,24 @@ from unittest.mock import patch
 import pytest
 
 
+class TestArDz:
+    """Test ar_DZ currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.ar_DZ import Provider as ArDzCurrencyProvider
+
+        cls.provider = ArDzCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+            assert pricetag.endswith("\N{NO-BREAK SPACE}دج")
+
+
 class TestAzAz:
     """Test az_AZ currency provider"""
 
@@ -340,6 +358,24 @@ class TestFrCa:
         for _ in range(num_samples):
             pricetag = faker.pricetag()
             assert isinstance(pricetag, str)
+
+
+class TestFrDz:
+    """Test fr_DZ currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.fr_DZ import Provider as FrDzCurrencyProvider
+
+        cls.provider = FrDzCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+            assert pricetag.endswith("\N{NO-BREAK SPACE}DA")
 
 
 class TestFrFr:
