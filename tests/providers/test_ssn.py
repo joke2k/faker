@@ -17,6 +17,7 @@ from validators.i18n.es import es_nif as is_nif
 from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.en_IN import calculate_gstin_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
@@ -210,6 +211,8 @@ class TestEnIn(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("en_IN")
         Faker.seed(0)
+        self.pan_pattern: Pattern = re.compile(r"^[A-Z]{5}[0-9]{4}[A-Z]$")
+        self.gstin_pattern: Pattern = re.compile(r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$")
         test_samples = 10
         self.aadhaar_ids = [self.fake.aadhaar_id() for _ in range(test_samples)]
 
@@ -224,6 +227,35 @@ class TestEnIn(unittest.TestCase):
     def test_valid_luhn(self):
         for aadhaar_id in self.aadhaar_ids:
             assert luhn_checksum(aadhaar_id) == 0
+
+    def test_pan(self):
+        for _ in range(100):
+            pan = self.fake.pan()
+            assert self.pan_pattern.search(pan)
+
+    def test_gstin(self):
+        for _ in range(100):
+            gstin = self.fake.gstin()
+            assert self.gstin_pattern.search(gstin)
+
+    def test_gstin_checksum(self):
+        for _ in range(100):
+            gstin = self.fake.gstin()
+            assert calculate_gstin_checksum(gstin[:-1]) == gstin[-1]
+
+    def test_seeded_pan_and_gstin_are_reproducible(self):
+        Faker.seed(42)
+        fake_one = Faker("en_IN")
+        pan_one = fake_one.pan()
+        gstin_one = fake_one.gstin()
+
+        Faker.seed(42)
+        fake_two = Faker("en_IN")
+        pan_two = fake_two.pan()
+        gstin_two = fake_two.gstin()
+
+        assert pan_one == pan_two
+        assert gstin_one == gstin_two
 
 
 class TestEnPh(unittest.TestCase):
