@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.14.1 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.0...v40.14.1)
+
+* Fix `UnicodeEncodeError` in CLI docs on non-UTF consoles (#2362). Thanks @RedZapdos123.
+
 ### [v40.14.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.13.0...v40.14.0)
 
 * Fix: update placekitten URL to placekittens (#2364). Thanks @reory.
