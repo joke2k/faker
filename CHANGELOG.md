@@ -1,5 +1,14 @@
 ## Changelog
 
+### [v40.15.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.1...v40.15.0)
+
+* Add job providers for `ar_DZ` and `fr_DZ` locales (#2352). Thanks @othmane099.
+* Add company providers for `ar_DZ` and `fr_DZ` locales (#2351). Thanks @othmane099.
+* Add geo providers for `ar_DZ` and `fr_DZ` locales (#2350). Thanks @othmane099.
+* Add currency providers for `ar_DZ` and `fr_DZ` locales (#2349). Thanks @othmane099.
+* Add `date_time` provider for `ar_DZ` locale (#2348). Thanks @othmane099.
+* Add ssn providers for `ar_DZ` and `fr_DZ` locales (#2347). Thanks @othmane099.
+
 ### [v40.14.1 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.0...v40.14.1)
 
 * Fix `UnicodeEncodeError` in CLI docs on non-UTF consoles (#2362). Thanks @RedZapdos123.
