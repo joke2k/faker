@@ -1,9 +1,5 @@
-from .. import Provider as PhoneNumberProvider
+from ..ar_DZ import Provider as ar_DZProvider
 
 
-class Provider(PhoneNumberProvider):
-    formats = (
-        "055# ### ###",
-        "066# ### ###",
-        "077# ### ###",
-    )
+class Provider(ar_DZProvider):
+    pass
