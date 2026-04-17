@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.14.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.13.0...v40.14.0)
+
+* Fix: update placekitten URL to placekittens (#2364). Thanks @reory.
+
 ### [v40.13.0 - 2026-04-06](https://github.com/joke2k/faker/compare/v40.12.0...v40.13.0)
 
 * Fix: Ensure deterministic locale selection in multi-locale mode. Thanks @just6660 and @patakk.
