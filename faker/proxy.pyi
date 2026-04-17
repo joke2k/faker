@@ -2961,6 +2961,9 @@ class Faker:
     def toll_number(self) -> str: ...
     def street_prefix(self) -> str: ...
     def wilaya(self) -> str: ...
+    def catch_phrase_attribute(self) -> str: ...
+    def catch_phrase_noun(self) -> str: ...
+    def catch_phrase_verb(self) -> str: ...
     def initials(self) -> str:
         """
         Generate an initial number for license plates.
@@ -3783,24 +3786,6 @@ class Faker:
         :sample: version="naf-2003"
         :sample: version="naf-2025"
         :sample: version=None
-        """
-        ...
-
-    def catch_phrase_attribute(self) -> str:
-        """
-        Returns a random catch phrase attribute.
-        """
-        ...
-
-    def catch_phrase_noun(self) -> str:
-        """
-        Returns a random catch phrase noun.
-        """
-        ...
-
-    def catch_phrase_verb(self) -> str:
-        """
-        Returns a random catch phrase verb.
         """
         ...
 

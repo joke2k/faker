@@ -37,7 +37,7 @@ class TestArDz:
         for _ in range(num_samples):
             assert faker.job_female() in ArDzJobProvider.jobs_female
 
-            
+
 class TestAzAz:
     """Test az_AZ job provider"""
 
@@ -105,7 +105,7 @@ class TestFrDz:
         for _ in range(num_samples):
             assert faker.job_female() in FrDzJobProvider.jobs_female
 
-            
+
 class TestFrFr:
     """Test fr_FR job provider"""
 

@@ -62,8 +62,8 @@ class TestArDz(unittest.TestCase):
                 alternate = not alternate
             remainder = total % 10
             assert f"{(0 if remainder == 0 else 10 - remainder):02d}" == ssn[16:]
-            
-            
+
+
 class TestAzAz(unittest.TestCase):
     num_sample_runs = 10
 

@@ -58,7 +58,7 @@ class TestArDz:
             assert isinstance(catch_phrase, str)
             assert len(catch_phrase) > 0
 
-            
+
 class TestAzAz:
     """Test az_AZ company provider methods"""
 
@@ -208,7 +208,7 @@ class TestFrDz:
             assert isinstance(catch_phrase, str)
             assert len(catch_phrase) > 0
 
-            
+
 class TestFrFr:
     """Test fr_FR company provider methods"""
 
