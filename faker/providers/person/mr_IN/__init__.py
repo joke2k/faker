@@ -18,6 +18,11 @@ class Provider(PersonProvider):
         "{{prefix}} {{first_name}} {{last_name}}",
     )
 
+    # Source references (accessed 2026-04-18):
+    # - https://www.behindthename.com/names/usage/marathi (given names)
+    # - https://en.wikipedia.org/wiki/Category:Marathi-language_surnames (surnames)
+    # Data is manually filtered for synthetic test-data suitability.
+
     first_names_female = (
         "अंजली",
         "अनिता",

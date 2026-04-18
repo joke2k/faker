@@ -29,6 +29,13 @@ class Provider(AddressProvider):
 
     postcode_formats = ("######",)
 
+    # Source references (accessed 2026-04-18):
+    # - https://en.wikipedia.org/wiki/List_of_cities_in_Maharashtra_by_population (cities)
+    # - https://www.india.gov.in/my-government/states-uts (states baseline)
+    # - https://github.com/unicode-org/cldr-json/blob/main/cldr-json/cldr-localenames-full/main/mr/territories.json
+    #   (Marathi territory/country names)
+    # Data is manually filtered and normalized for Faker synthetic generation.
+
     cities = (
         "अहमदनगर",
         "अकोला",
