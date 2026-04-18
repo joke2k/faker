@@ -672,6 +672,15 @@ class TestEnIn:
             assert isinstance(pincode, int)
             assert len(str(pincode)) == 6
 
+    def test_pincode_in_state_does_not_mutate_state_pincode(self, faker):
+        """Test `state_pincode` remains unchanged when union territories are included"""
+
+        state_pincode_before = EnInAddressProvider.state_pincode.copy()
+
+        faker.pincode_in_state(include_union_territories=True)
+
+        assert EnInAddressProvider.state_pincode == state_pincode_before
+
     @pytest.mark.parametrize(
         "pincodes",
         [
