@@ -6,16 +6,19 @@ class Provider(PersonProvider):
     formats_male = (
         "{{first_name_male}} {{last_name}}",
         "{{prefix_male}} {{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}{{suffix}}",
     )
 
     formats_female = (
         "{{first_name_female}} {{last_name}}",
         "{{prefix_female}} {{first_name_female}} {{last_name}}",
+        "{{first_name_female}} {{last_name}}{{suffix}}",
     )
 
     formats = (
         "{{first_name}} {{last_name}}",
         "{{prefix}} {{first_name}} {{last_name}}",
+        "{{first_name}} {{last_name}}{{suffix}}",
     )
 
     # Source references (accessed 2026-04-18):
@@ -153,3 +156,5 @@ class Provider(PersonProvider):
     prefixes_male = ("श्री",)
 
     prefixes = prefixes_female + prefixes_male
+
+    suffixes = ("जी",)

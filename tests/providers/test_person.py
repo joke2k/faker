@@ -1547,7 +1547,11 @@ class TestMrIN(unittest.TestCase):
             assert name[2] in MrINProvider.last_names
         else:
             assert name[0] in MrINProvider.first_names
-            assert name[1] in MrINProvider.last_names
+            if name[1].endswith(MrINProvider.suffixes):
+                assert name[1][:-1] in MrINProvider.last_names
+                assert name[1][-1] in MrINProvider.suffixes
+            else:
+                assert name[1] in MrINProvider.last_names
 
 
 class TestNeNP(unittest.TestCase):
