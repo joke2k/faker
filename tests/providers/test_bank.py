@@ -142,6 +142,12 @@ class TestElGr:
 class TestEnGb:
     """Test en_GB bank provider"""
 
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            bank = faker.bank()
+            assert isinstance(bank, str)
+            assert bank in EnGbBankProvider.banks
+
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.fullmatch(r"[A-Z]{4}\d{14}", faker.bban())
