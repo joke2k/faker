@@ -43,6 +43,7 @@ from faker.providers.address.it_IT import Provider as ItItAddressProvider
 from faker.providers.address.ja_JP import Provider as JaJpAddressProvider
 from faker.providers.address.ka_GE import Provider as KaGeAddressProvider
 from faker.providers.address.ko_KR import Provider as KoKrAddressProvider
+from faker.providers.address.mr_IN import Provider as MrInAddressProvider
 from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
 from faker.providers.address.pl_PL import Provider as PlPlAddressProvider
@@ -1974,6 +1975,28 @@ class TestKoKr:
         for _ in range(num_samples):
             road_address = faker.road_address()
             assert isinstance(road_address, str)
+
+
+class TestMrIn:
+    """Test mr_IN address provider methods"""
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_name = faker.city_name()
+            assert isinstance(city_name, str)
+            assert city_name in MrInAddressProvider.cities
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in MrInAddressProvider.states
+
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in MrInAddressProvider.countries
 
 
 class TestNeNp:
