@@ -476,6 +476,18 @@ class TestSkSk:
             assert pattern.fullmatch(phone_number)
 
 
+class TestMrIn:
+    """Test mr_IN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(
+            r"\+91 \d{10}|" r"\+91 \d{3} \d{7}|" r"0\d{2}-\d{8}|" r"0\d{10}|" r"0\d{4} \d{6}",
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
 class TestTaIn:
     """Test ta_IN phone number provider methods"""
 
