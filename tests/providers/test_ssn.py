@@ -23,6 +23,7 @@ from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
+from faker.providers.ssn.fr_FR import Provider as fr_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
@@ -893,10 +894,35 @@ class TestFrFR(unittest.TestCase):
 
     def test_ssn(self) -> None:
         for _ in range(100):
-            assert re.search(r"^\d{15}$", self.fake.ssn())
+            assert re.search(r"^\d{5}(?:\d{8}|2[AB]\d{6})\d{2}$", self.fake.ssn())
 
     def test_checksum(self) -> None:
         assert fr_calculate_checksum(2570533063999) == 3
+        assert fr_calculate_checksum("100012A004001") == 11
+        assert fr_calculate_checksum("100012B033001") == 41
+
+    def test_ssn_can_generate_corsican_department_codes(self) -> None:
+        with mock.patch.object(fr_Provider, "random_element", return_value=("2A", "004", "Corse-du-Sud", "Ajaccio")):
+            with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
+                assert self.fake.ssn() == "100012A00400111"
+
+        with mock.patch.object(fr_Provider, "random_element", return_value=("2B", "033", "Haute-Corse", "Bastia")):
+            with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
+                assert self.fake.ssn() == "100012B03300141"
+
+    def test_departments_and_municipalities_reference_data(self) -> None:
+        assert ("07", "186", "Ardèche", "Privas") in fr_Provider.departments_and_municipalities
+        assert ("17", "300", "Charente-Maritime", "La Rochelle") in fr_Provider.departments_and_municipalities
+        assert ("2A", "004", "Corse-du-Sud", "Ajaccio") in fr_Provider.departments_and_municipalities
+        assert ("2B", "033", "Haute-Corse", "Bastia") in fr_Provider.departments_and_municipalities
+        assert ("21", "231", "Côte-d'Or", "Dijon") in fr_Provider.departments_and_municipalities
+        assert ("22", "278", "Côtes-d'Armor", "Saint-Brieuc") in fr_Provider.departments_and_municipalities
+        assert ("36", "044", "Indre", "Châteauroux") in fr_Provider.departments_and_municipalities
+        assert ("43", "157", "Haute-Loire", "Le Puy-en-Velay") in fr_Provider.departments_and_municipalities
+        assert ("72", "181", "Sarthe", "Le Mans") in fr_Provider.departments_and_municipalities
+        assert ("85", "191", "Vendée", "La Roche-sur-Yon") in fr_Provider.departments_and_municipalities
+        assert ("90", "010", "Territoire de Belfort", "Belfort") in fr_Provider.departments_and_municipalities
+        assert ("974", "11", "La Réunion", "Saint-Denis") in fr_Provider.departments_and_municipalities
 
 
 class TestHrHR(unittest.TestCase):
