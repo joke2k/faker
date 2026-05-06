@@ -894,6 +894,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_ssn(self) -> None:
         for _ in range(100):
+            # 5 birth digits, then either 8 numeric locality digits or Corsica's 2A/2B + 6 digits, then checksum.
             assert re.search(r"^\d{5}(?:\d{8}|2[AB]\d{6})\d{2}$", self.fake.ssn())
 
     def test_checksum(self) -> None:
