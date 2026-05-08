@@ -135,7 +135,7 @@ class Provider(BaseProvider):
         Creates a French SSN (numéro de sécurité sociale) with checksum. Can include letters A or B for Corsica.
         https://fr.wikipedia.org/wiki/Num%C3%A9ro_de_s%C3%A9curit%C3%A9_sociale_en_France#Signification_des_chiffres_du_NIR
         https://www.comptavoo.com/Numero-Securite-sociale,348.html
-        :returns: a French SSN
+        :return: a French SSN
         """
         gender_id = self.random_int(min=1, max=2)
         year_of_birth = self.random_int(min=0, max=99)

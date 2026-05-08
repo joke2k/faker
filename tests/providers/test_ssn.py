@@ -898,7 +898,7 @@ class TestFrFR(unittest.TestCase):
             assert re.search(r"^\d{5}(?:\d{8}|2[AB]\d{6})\d{2}$", self.fake.ssn())
 
     def test_checksum(self) -> None:
-        assert fr_calculate_checksum(2570533063999) == 3
+        assert fr_calculate_checksum("2570533063999") == 3
         assert fr_calculate_checksum("100012A004001") == 11
         assert fr_calculate_checksum("100012B033001") == 41
 
