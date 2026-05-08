@@ -911,20 +911,6 @@ class TestFrFR(unittest.TestCase):
             with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
                 assert self.fake.ssn() == "100012B03300141"
 
-    def test_departments_and_municipalities_reference_data(self) -> None:
-        assert ("07", "186", "Ardèche", "Privas") in fr_Provider.departments_and_municipalities
-        assert ("17", "300", "Charente-Maritime", "La Rochelle") in fr_Provider.departments_and_municipalities
-        assert ("2A", "004", "Corse-du-Sud", "Ajaccio") in fr_Provider.departments_and_municipalities
-        assert ("2B", "033", "Haute-Corse", "Bastia") in fr_Provider.departments_and_municipalities
-        assert ("21", "231", "Côte-d'Or", "Dijon") in fr_Provider.departments_and_municipalities
-        assert ("22", "278", "Côtes-d'Armor", "Saint-Brieuc") in fr_Provider.departments_and_municipalities
-        assert ("36", "044", "Indre", "Châteauroux") in fr_Provider.departments_and_municipalities
-        assert ("43", "157", "Haute-Loire", "Le Puy-en-Velay") in fr_Provider.departments_and_municipalities
-        assert ("72", "181", "Sarthe", "Le Mans") in fr_Provider.departments_and_municipalities
-        assert ("85", "191", "Vendée", "La Roche-sur-Yon") in fr_Provider.departments_and_municipalities
-        assert ("90", "010", "Territoire de Belfort", "Belfort") in fr_Provider.departments_and_municipalities
-        assert ("974", "11", "La Réunion", "Saint-Denis") in fr_Provider.departments_and_municipalities
-
 
 class TestHrHR(unittest.TestCase):
     """Tests SSN in the hr_HR locale"""

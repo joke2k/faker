@@ -1,11 +1,11 @@
-from typing import Tuple, Union
+from typing import Tuple
 
 from .. import Provider as BaseProvider
 
 
-def calculate_checksum(ssn_without_checksum: Union[int, str]) -> int:
+def calculate_checksum(ssn_without_checksum: str) -> int:
     # For Corsican birthplaces, the NIR checksum is computed with 2A -> 19 and 2B -> 18.
-    normalized_ssn = str(ssn_without_checksum).replace("2A", "19").replace("2B", "18")
+    normalized_ssn = ssn_without_checksum.replace("2A", "19").replace("2B", "18")
     return 97 - (int(normalized_ssn) % 97)
 
 
@@ -132,10 +132,10 @@ class Provider(BaseProvider):
 
     def ssn(self) -> str:
         """
-        Creates a French numéro de sécurité sociale
+        Creates a French SSN (numéro de sécurité sociale) with checksum. Can include letters A or B for Corsica.
         https://fr.wikipedia.org/wiki/Num%C3%A9ro_de_s%C3%A9curit%C3%A9_sociale_en_France#Signification_des_chiffres_du_NIR
         https://www.comptavoo.com/Numero-Securite-sociale,348.html
-        :return: a French SSN
+        :returns: a French SSN
         """
         gender_id = self.random_int(min=1, max=2)
         year_of_birth = self.random_int(min=0, max=99)
