@@ -1,6 +1,11 @@
 ## Changelog
 
-### [v40.17.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.16.0...v40.17x.0)
+### [v40.18.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.17.0...v40.18.0)
+
+* Add automotive providers for `ar_DZ` and `fr_DZ` locales. Thanks @othmane099.
+* Add `phone_number` provider for `ar_DZ` and `fr_DZ` locales. Thanks @othmane099.
+
+### [v40.17.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.16.0...v40.17.0)
 
 * Add `am_ET` `phone_number` provider for Ethiopia. Thanks @jasur-py.
 
