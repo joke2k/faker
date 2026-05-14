@@ -1,5 +1,30 @@
 ## Changelog
 
+### [v40.15.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.1...v40.15.0)
+
+* Add job providers for `ar_DZ` and `fr_DZ` locales (#2352). Thanks @othmane099.
+* Add company providers for `ar_DZ` and `fr_DZ` locales (#2351). Thanks @othmane099.
+* Add geo providers for `ar_DZ` and `fr_DZ` locales (#2350). Thanks @othmane099.
+* Add currency providers for `ar_DZ` and `fr_DZ` locales (#2349). Thanks @othmane099.
+* Add `date_time` provider for `ar_DZ` locale (#2348). Thanks @othmane099.
+* Add ssn providers for `ar_DZ` and `fr_DZ` locales (#2347). Thanks @othmane099.
+
+### [v40.14.1 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.0...v40.14.1)
+
+* Fix `UnicodeEncodeError` in CLI docs on non-UTF consoles (#2362). Thanks @RedZapdos123.
+
+### [v40.14.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.13.0...v40.14.0)
+
+* Fix: update placekitten URL to placekittens (#2364). Thanks @reory.
+
+### [v40.13.0 - 2026-04-06](https://github.com/joke2k/faker/compare/v40.12.0...v40.13.0)
+
+* Fix: Ensure deterministic locale selection in multi-locale mode. Thanks @just6660 and @patakk.
+
+### [v40.12.0 - 2026-03-30](https://github.com/joke2k/faker/compare/v40.11.1...v40.12.0)
+
+* Add address providers for `ar_DZ` and `fr_DZ` locales (#2341). Thanks @othmane099.
+
 ### [v40.11.1 - 2026-03-23](https://github.com/joke2k/faker/compare/v40.11.0...v40.11.1)
 
 * Fix: rebind deepcopy proxies to copied Faker instances. Thanks @SunS1eep1ng.

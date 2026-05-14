@@ -2,18 +2,7 @@ import re
 
 from typing import Pattern
 
-import pytest
-
 from faker.providers.passport.it_IT import Provider as ItPassportProvider
-
-
-class TestPassport:
-    """Test passport provider methods"""
-
-    def test_passport_number(self, faker, num_samples):
-        for _ in range(num_samples):
-            passport_number = faker.passport_number()
-            assert isinstance(passport_number, str)
 
 
 class TestDeAt:
@@ -27,7 +16,6 @@ class TestDeAt:
             assert pattern.fullmatch(passport_number)
 
 
-@pytest.mark.parametrize("faker", ["it_IT"], indirect=True)
 class TestItIT:
     """Test it_IT passport provider methods"""
 
@@ -39,3 +27,12 @@ class TestItIT:
         for _ in range(num_samples):
             passport_number = faker.passport_number()
             assert pattern.fullmatch(passport_number)
+
+
+class TestPassport:
+    """Test passport provider methods"""
+
+    def test_passport_number(self, faker, num_samples):
+        for _ in range(num_samples):
+            passport_number = faker.passport_number()
+            assert isinstance(passport_number, str)

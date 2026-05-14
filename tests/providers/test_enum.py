@@ -5,18 +5,18 @@ import pytest
 from faker.providers.python import EmptyEnumException
 
 
+class _TestEnum(Enum):
+    A = auto
+    B = auto
+    C = auto
+
+
 class _TestEnumWithNoElements(Enum):
     pass
 
 
 class _TestEnumWithSingleElement(Enum):
     Single = auto
-
-
-class _TestEnum(Enum):
-    A = auto
-    B = auto
-    C = auto
 
 
 class TestEnumProvider:

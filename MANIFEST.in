@@ -21,4 +21,5 @@ exclude build-alpine.sh
 exclude build32bit.sh
 exclude dev-requirements.txt
 prune docs
+prune scripts
 prune .circleci

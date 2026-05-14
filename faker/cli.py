@@ -20,6 +20,19 @@ __author__ = "joke2k"
 T = TypeVar("T")
 
 
+def _encode_for_output(value: str, output: TextIO) -> str:
+    encoding = getattr(output, "encoding", None)
+    if encoding is None:
+        return value
+
+    try:
+        value.encode(encoding)
+    except UnicodeEncodeError:
+        return value.encode(encoding, errors="backslashreplace").decode(encoding)
+
+    return value
+
+
 def print_provider(
     doc: Documentor,
     provider: BaseProvider,
@@ -33,7 +46,7 @@ def print_provider(
         excludes = []
 
     print(file=output)
-    print(f"### {doc.get_provider_name(provider)}", file=output)
+    print(_encode_for_output(f"### {doc.get_provider_name(provider)}", output), file=output)
     print(file=output)
 
     margin = max(30, doc.max_name_len + 2)
@@ -56,7 +69,8 @@ def print_provider(
         except UnicodeEncodeError:
             raise Exception(f"error on {signature!r} with value {example!r}")
         for left, right in itertools.zip_longest(signature_lines, lines, fillvalue=""):
-            print(f"\t{left:<{margin}}  {right}", file=output)
+            line = f"\t{left:<{margin}}  {right}"
+            print(_encode_for_output(line, output), file=output)
 
 
 def print_doc(

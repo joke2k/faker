@@ -213,7 +213,7 @@ class Provider(BaseProvider):
     image_placeholder_services: ElementsType[str] = (
         "https://picsum.photos/{width}/{height}",
         "https://dummyimage.com/{width}x{height}",
-        "https://placekitten.com/{width}/{height}",
+        "https://placekittens.com/{width}/{height}",
     )
 
     replacements: Tuple[Tuple[str, str], ...] = ()
