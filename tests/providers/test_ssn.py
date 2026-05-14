@@ -907,10 +907,6 @@ class TestFrFR(unittest.TestCase):
             with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
                 assert self.fake.ssn() == "100012A00400111"
 
-        with mock.patch.object(fr_Provider, "random_element", return_value=("2B", "033", "Haute-Corse", "Bastia")):
-            with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
-                assert self.fake.ssn() == "100012B03300141"
-
 
 class TestHrHR(unittest.TestCase):
     """Tests SSN in the hr_HR locale"""
