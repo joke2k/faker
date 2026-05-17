@@ -436,11 +436,11 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Iterable[Any]:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
             nb_elements=nb_elements,
             variable_nb_elements=variable_nb_elements,
-            value_types=value_types,
+            value_types=_value_types,
             allowed_types=allowed_types,
         )
 
@@ -460,22 +460,22 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Iterator:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types: TypesNames = [
+        _value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
-            for t in value_types
+            for t in _value_types
             # avoid recursion
             if t not in ["iterable", "list", "tuple", "dict", "set"]
         ]
-        if not value_types:
-            value_types = self.default_value_types  # type: ignore
+        if not _value_types:
+            _value_types = self.default_value_types  # type: ignore
 
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         for _ in range(nb_elements):
-            yield self._random_type(value_types)
+            yield self._random_type(_value_types)
 
     def pydict(
         self,
@@ -523,39 +523,39 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Tuple[List, Dict, Dict]:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types: TypesNames = [
+        _value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
-            for t in value_types
+            for t in _value_types
             # avoid recursion
             if t != "struct"
         ]
-        if not value_types:
-            value_types = self.default_value_types  # type: ignore
+        if not _value_types:
+            _value_types = self.default_value_types  # type: ignore
 
         types = []
         d = {}
         nd = {}
         for i in range(count):
-            d[self.generator.word()] = self._random_type(value_types)
-            types.append(self._random_type(value_types))
+            d[self.generator.word()] = self._random_type(_value_types)
+            types.append(self._random_type(_value_types))
             nd[self.generator.word()] = {
-                i: self._random_type(value_types),
+                i: self._random_type(_value_types),
                 i
                 + 1: [
-                    self._random_type(value_types),
-                    self._random_type(value_types),
-                    self._random_type(value_types),
+                    self._random_type(_value_types),
+                    self._random_type(_value_types),
+                    self._random_type(_value_types),
                 ],
                 i
                 + 2: {
-                    i: self._random_type(value_types),
-                    i + 1: self._random_type(value_types),
+                    i: self._random_type(_value_types),
+                    i + 1: self._random_type(_value_types),
                     i
                     + 2: [
-                        self._random_type(value_types),
-                        self._random_type(value_types),
+                        self._random_type(_value_types),
+                        self._random_type(_value_types),
                     ],
                 },
             }

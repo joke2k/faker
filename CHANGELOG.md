@@ -1,5 +1,13 @@
 ## Changelog
 
+### [v40.17.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.16.0...v40.17x.0)
+
+* Add `am_ET` `phone_number` provider for Ethiopia. Thanks @jasur-py.
+
+### [v40.16.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.15.0...v40.16.0)
+
+* Fix duplicate phone number prefix `145` in `zh_CN` locale. Thanks @r266-tec.
+
 ### [v40.15.0 - 2026-04-17](https://github.com/joke2k/faker/compare/v40.14.1...v40.15.0)
 
 * Add job providers for `ar_DZ` and `fr_DZ` locales (#2352). Thanks @othmane099.

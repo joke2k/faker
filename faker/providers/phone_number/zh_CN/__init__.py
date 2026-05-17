@@ -27,7 +27,6 @@ class Provider(PhoneNumberProvider):
         156,
         185,
         186,
-        145,
         133,
         153,
         180,
