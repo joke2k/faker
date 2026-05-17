@@ -1,11 +1,11 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 from .. import Provider as BaseProvider
 
 
-def calculate_checksum(ssn_without_checksum: str) -> int:
+def calculate_checksum(ssn_without_checksum: Union[int, str]) -> int:
     # For Corsican birthplaces, the NIR checksum is computed with 2A -> 19 and 2B -> 18.
-    normalized_ssn = ssn_without_checksum.replace("2A", "19").replace("2B", "18")
+    normalized_ssn = str(ssn_without_checksum).replace("2A", "19").replace("2B", "18")
     return 97 - (int(normalized_ssn) % 97)
 
 
