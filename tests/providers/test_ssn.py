@@ -899,6 +899,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_checksum(self) -> None:
         assert fr_calculate_checksum("2570533063999") == 3
+        assert fr_calculate_checksum(2570533063999) == 3
         assert fr_calculate_checksum("100012A004001") == 11
         assert fr_calculate_checksum("100012B033001") == 41
 
