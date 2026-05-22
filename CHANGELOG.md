@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.19.0 - 2026-05-22](https://github.com/joke2k/faker/compare/v40.18.0...v40.19.0)
+
+* Add `uuid1` and `uuid7` providers to `misc` provider (#2344). Thanks @Krishnachaitanyakc.
+
 ### [v40.18.0 - 2026-05-14](https://github.com/joke2k/faker/compare/v40.17.0...v40.18.0)
 
 * Add automotive providers for `ar_DZ` and `fr_DZ` locales. Thanks @othmane099.
