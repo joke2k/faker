@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.19.1 - 2026-05-22](https://github.com/joke2k/faker/compare/v40.19.0...v40.19.1)
+
+* Fix shared state mutation in `en_IN` `pincode_in_state` (#2369). Thanks @RedZapdos123.
+
 ### [v40.19.0 - 2026-05-22](https://github.com/joke2k/faker/compare/v40.18.0...v40.19.0)
 
 * Add `uuid1` and `uuid7` providers to `misc` provider (#2344). Thanks @Krishnachaitanyakc.
