@@ -2554,6 +2554,142 @@ class Faker:
         """
         ...
 
+    @overload
+    def uuid1(self) -> str:
+        """
+        Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
+
+        Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
+        while the timestamp is derived from the current time with random perturbation for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid1(self, cast_to: None) -> UUID:
+        """
+        Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
+
+        Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
+        while the timestamp is derived from the current time with random perturbation for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid1(self, cast_to: Callable[[UUID], str]) -> str:
+        """
+        Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
+
+        Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
+        while the timestamp is derived from the current time with random perturbation for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid1(self, cast_to: Callable[[UUID], bytes]) -> bytes:
+        """
+        Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
+
+        Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
+        while the timestamp is derived from the current time with random perturbation for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid7(self) -> str:
+        """
+        Generate a random UUID7 (Unix Epoch time-based) object and cast it to another type using ``cast_to``.
+
+        UUID7 is defined in RFC 9562 and provides time-ordered UUIDs using a Unix epoch timestamp
+        with millisecond precision, combined with random bits for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid7(self, cast_to: None) -> UUID:
+        """
+        Generate a random UUID7 (Unix Epoch time-based) object and cast it to another type using ``cast_to``.
+
+        UUID7 is defined in RFC 9562 and provides time-ordered UUIDs using a Unix epoch timestamp
+        with millisecond precision, combined with random bits for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid7(self, cast_to: Callable[[UUID], str]) -> str:
+        """
+        Generate a random UUID7 (Unix Epoch time-based) object and cast it to another type using ``cast_to``.
+
+        UUID7 is defined in RFC 9562 and provides time-ordered UUIDs using a Unix epoch timestamp
+        with millisecond precision, combined with random bits for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
+    @overload
+    def uuid7(self, cast_to: Callable[[UUID], bytes]) -> bytes:
+        """
+        Generate a random UUID7 (Unix Epoch time-based) object and cast it to another type using ``cast_to``.
+
+        UUID7 is defined in RFC 9562 and provides time-ordered UUIDs using a Unix epoch timestamp
+        with millisecond precision, combined with random bits for uniqueness.
+
+        By default, ``cast_to`` is set to ``str``.
+
+        May be called with ``cast_to=None`` to return a full-fledged ``UUID``.
+
+        :sample:
+        :sample: cast_to=None
+        """
+        ...
+
     def xml(
         self,
         nb_elements: int = ...,
