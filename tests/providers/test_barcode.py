@@ -206,6 +206,31 @@ class TestBarcodeProvider:
             ean13_digits = [int(digit) for digit in ean13]
             assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
 
+    def test_ean13_is_thirteen_digit_string(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13()
+            assert isinstance(ean13, str)
+            assert len(ean13) == 13
+            assert ean13.isdigit()
+
+    def test_ean13_check_digit_standard_weights(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13()
+            first_twelve = [int(d) for d in ean13[:12]]
+            weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
+            weighted_sum = sum(x * y for x, y in zip(first_twelve, weights))
+            expected_check = (10 - weighted_sum % 10) % 10
+            assert int(ean13[-1]) == expected_check
+
+    def test_ean13_empty_prefixes(self, faker, num_samples):
+        for _ in range(num_samples):
+            ean13 = faker.ean13(prefixes=())
+            assert self.ean13_pattern.fullmatch(ean13)
+
+            # Included check digit must be correct
+            ean13_digits = [int(digit) for digit in ean13]
+            assert (sum(ean13_digits) + 2 * sum(ean13_digits[1::2])) % 10 == 0
+
     def test_ean13_no_leading_zero(self, faker, num_samples):
         for _ in range(num_samples):
             ean13 = faker.ean13(leading_zero=False)
