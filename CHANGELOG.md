@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v40.20.0 - 2026-06-01](https://github.com/joke2k/faker/compare/v40.19.1...v40.20.0)
+
+* Add `pan` and `gstin` generators to `en_IN` SSN provider (#2357). Thanks @RedZapdos123.
+* Improve barcode provider test coverage (#2382). Thanks @lphuc2250gma.
+* Bump liskin/gh-problem-matcher-wrap from 3 to 4 (#2381). Thanks @dependabot[bot].
+
 ### [v40.19.1 - 2026-05-22](https://github.com/joke2k/faker/compare/v40.19.0...v40.19.1)
 
 * Fix shared state mutation in `en_IN` `pincode_in_state` (#2369). Thanks @RedZapdos123.
