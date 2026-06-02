@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.21.0 - 2026-06-02](https://github.com/joke2k/faker/compare/v40.20.0...v40.21.0)
+
+* Add banks list for `en_GB` locale (#2363). Thanks @osolomientsev.
+
 ### [v40.20.0 - 2026-06-01](https://github.com/joke2k/faker/compare/v40.19.1...v40.20.0)
 
 * Add `pan` and `gstin` generators to `en_IN` SSN provider (#2357). Thanks @RedZapdos123.
