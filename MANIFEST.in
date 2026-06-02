@@ -7,7 +7,7 @@ include VERSION
 include CITATION.cff
 include mypy.ini
 include tox.ini
-recursive-exclude faker *.pyi
+include faker/proxy.pyi
 recursive-include tests *.json
 recursive-include tests *.py
 recursive-exclude faker/sphinx *.py
@@ -19,5 +19,7 @@ exclude ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md
 exclude appveyor.yml readthedocs.yml
 exclude build-alpine.sh
 exclude build32bit.sh
+exclude dev-requirements.txt
 prune docs
+prune scripts
 prune .circleci

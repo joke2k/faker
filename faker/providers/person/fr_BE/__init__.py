@@ -3,6 +3,7 @@
 Last names and male and female first names for locale 'fr_BE' (French-speaking Belgium).
 Source: Statbel (Directorate-general Statistics - Statistics Belgium), https://statbel.fgov.be/en/about-statbel, 2022.
 """
+
 from collections import Counter, OrderedDict
 
 from .. import Provider as PersonProvider

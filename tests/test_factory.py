@@ -26,6 +26,21 @@ class FactoryTestCase(unittest.TestCase):
         print_doc("faker.providers.person.it_IT", output=output)
         assert output.getvalue()
 
+    def test_print_provider_handles_non_utf_output(self):
+        from faker.cli import print_provider
+
+        doc = MagicMock()
+        doc.max_name_len = len("fake.emoji()")
+        doc.get_provider_name.return_value = "faker.providers.emoji"
+
+        output = io.TextIOWrapper(io.BytesIO(), encoding="cp950")
+        print_provider(doc, MagicMock(), {"fake.emoji()": "👩"}, output=output)
+        output.flush()
+
+        rendered = output.buffer.getvalue().decode("cp950")
+        assert "fake.emoji()" in rendered
+        assert "\\U0001f469" in rendered
+
     def test_command(self):
         from faker.cli import Command
 
@@ -151,6 +166,10 @@ class FactoryTestCase(unittest.TestCase):
                 def __init__(self, *args, **kwargs):
                     pass
 
+        # There's a cache based on the provider name, so when the provider changes behaviour we need
+        # a new name:
+        provider_path = f"test_lang_localized_provider_{with_default}"
+
         with patch.multiple(
             "faker.factory",
             import_module=MagicMock(return_value=DummyProviderModule()),
@@ -167,8 +186,8 @@ class FactoryTestCase(unittest.TestCase):
                 ("ar_EG", with_default),  # True if module defines a default locale
             ]
             for locale, expected_used in test_cases:
-                factory = Factory.create(providers=["dummy"], locale=locale)
-                assert factory.providers[0].__provider__ == "dummy"
+                factory = Factory.create(providers=[provider_path], locale=locale)
+                assert factory.providers[0].__provider__ == provider_path
                 from faker.config import DEFAULT_LOCALE
 
                 print(f"requested locale = {locale} , DEFAULT LOCALE {DEFAULT_LOCALE}")
@@ -339,6 +358,18 @@ class FactoryTestCase(unittest.TestCase):
         fake = Faker()
         with pytest.raises(ValueError):
             assert fake.pyfloat(min_value=9999, max_value=9999)
+
+    def test_includes_does_not_mutate_default_providers(self):
+        """Regression test for https://github.com/joke2k/faker/issues/2311.
+
+        Passing ``includes`` to ``Factory.create()`` must not permanently
+        append to the module-level ``PROVIDERS`` list.
+        """
+        from faker.config import PROVIDERS
+
+        original_length = len(PROVIDERS)
+        Factory.create(includes=["faker.providers.file"])
+        assert len(PROVIDERS) == original_length
 
     def test_instance_seed_chain(self):
         factory = Factory.create()

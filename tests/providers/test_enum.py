@@ -5,18 +5,18 @@ import pytest
 from faker.providers.python import EmptyEnumException
 
 
+class _TestEnum(Enum):
+    A = auto
+    B = auto
+    C = auto
+
+
 class _TestEnumWithNoElements(Enum):
     pass
 
 
 class _TestEnumWithSingleElement(Enum):
     Single = auto
-
-
-class _TestEnum(Enum):
-    A = auto
-    B = auto
-    C = auto
 
 
 class TestEnumProvider:
@@ -45,6 +45,6 @@ class TestEnumProvider:
             faker.enum(None)
 
     def test_incorrect_type_raises(self, faker):
-        not_an_enum_type = type("NotAnEnumType")
+        not_an_enum_type = str
         with pytest.raises(TypeError):
             faker.enum(not_an_enum_type)

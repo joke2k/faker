@@ -643,4 +643,7 @@ class Provider(AddressProvider):
         )
 
     def zipcode(self) -> str:
+        """
+        :example: '101-1212'
+        """
         return self.postcode()

@@ -1,17 +1,17 @@
 from typing import List
 
 
-def luhn_checksum(number: float) -> int:
-    def digits_of(n: float) -> List[int]:
-        return [int(d) for d in str(n)]
+def _digits_of(number: float) -> List[int]:
+    return [int(digit) for digit in str(number)]
 
-    digits = digits_of(number)
+
+def luhn_checksum(number: float) -> int:
+    digits = _digits_of(number)
     odd_digits = digits[-1::-2]
     even_digits = digits[-2::-2]
-    checksum = 0
-    checksum += sum(odd_digits)
-    for d in even_digits:
-        checksum += sum(digits_of(d * 2))
+
+    checksum = sum(odd_digits) + sum(sum(_digits_of(digit * 2)) for digit in even_digits)
+
     return checksum % 10
 
 

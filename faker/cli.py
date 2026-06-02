@@ -20,6 +20,19 @@ __author__ = "joke2k"
 T = TypeVar("T")
 
 
+def _encode_for_output(value: str, output: TextIO) -> str:
+    encoding = getattr(output, "encoding", None)
+    if encoding is None:
+        return value
+
+    try:
+        value.encode(encoding)
+    except UnicodeEncodeError:
+        return value.encode(encoding, errors="backslashreplace").decode(encoding)
+
+    return value
+
+
 def print_provider(
     doc: Documentor,
     provider: BaseProvider,
@@ -33,7 +46,7 @@ def print_provider(
         excludes = []
 
     print(file=output)
-    print(f"### {doc.get_provider_name(provider)}", file=output)
+    print(_encode_for_output(f"### {doc.get_provider_name(provider)}", output), file=output)
     print(file=output)
 
     margin = max(30, doc.max_name_len + 2)
@@ -56,7 +69,8 @@ def print_provider(
         except UnicodeEncodeError:
             raise Exception(f"error on {signature!r} with value {example!r}")
         for left, right in itertools.zip_longest(signature_lines, lines, fillvalue=""):
-            print(f"\t{left:<{margin}}  {right}", file=output)
+            line = f"\t{left:<{margin}}  {right}"
+            print(_encode_for_output(line, output), file=output)
 
 
 def print_doc(
@@ -197,7 +211,7 @@ examples:
             choices=AVAILABLE_LOCALES,
             default=default_locale,
             metavar="LOCALE",
-            help="specify the language for a localized " "provider (e.g. de_DE)",
+            help="specify the language for a localized provider (e.g. de_DE)",
         )
         parser.add_argument(
             "-r",
@@ -210,7 +224,7 @@ examples:
             "-s",
             "--sep",
             default="\n",
-            help="use the specified separator after each " "output",
+            help="use the specified separator after each output",
         )
 
         parser.add_argument(
@@ -225,8 +239,7 @@ examples:
         parser.add_argument(
             "-i",
             "--include",
-            default=META_PROVIDERS_MODULES,
-            nargs="*",
+            action="append",
             help="list of additional custom providers to "
             "user, given as the import path of the module "
             "containing your Provider class (not the provider "
@@ -237,7 +250,7 @@ examples:
             "fake",
             action="store",
             nargs="?",
-            help="name of the fake to generate output for " "(e.g. profile)",
+            help="name of the fake to generate output for (e.g. profile)",
         )
 
         parser.add_argument(
@@ -252,6 +265,8 @@ examples:
         )
 
         arguments = parser.parse_args(self.argv[1:])
+        if arguments.include is None:
+            arguments.include = META_PROVIDERS_MODULES
 
         if arguments.verbose:
             logging.basicConfig(level=logging.DEBUG)

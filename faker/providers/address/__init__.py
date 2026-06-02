@@ -73,9 +73,17 @@ class Provider(BaseProvider):
         return self.generator.parse(pattern)
 
     def country(self) -> str:
+        """
+        :sample:
+        """
         return self.random_element(self.countries)
 
     def country_code(self, representation: str = ALPHA_2) -> str:
+        """
+        :sample:
+        :sample: representation='alpha-2'
+        :sample: representation='alpha-3'
+        """
         if representation == self.ALPHA_2:
             return self.random_element(self.alpha_2_country_codes)
         elif representation == self.ALPHA_3:
@@ -84,12 +92,18 @@ class Provider(BaseProvider):
             raise ValueError("`representation` must be one of `alpha-2` or `alpha-3`.")
 
     def current_country_code(self) -> str:
+        """
+        :sample:
+        """
         try:
             return self.__lang__.split("_")[1]  # type: ignore
         except IndexError:
             raise AttributeError("Country code cannot be determined from locale")
 
     def current_country(self) -> str:
+        """
+        :sample:
+        """
         current_country_code = self.current_country_code()
         current_country = [
             country.name for country in date_time.Provider.countries if country.alpha_2_code == current_country_code

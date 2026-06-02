@@ -27,7 +27,7 @@ class Provider(AddressProvider):
 
     building_number_formats = ("S/N", "%", "%#", "%#", "%#", "%##")
 
-    postcode_formats = ("####-###",)
+    postcode_formats = ("%###-###",)
 
     cities = (
         "Abrantes",

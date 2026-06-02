@@ -2,11 +2,14 @@ from .. import Provider as CompanyProvider
 
 
 class Provider(CompanyProvider):
+    """
+    Provider for company names for ko_KR locale
+    """
+
     formats = (
-        "{{company_suffix}} {{last_name}}{{last_name}}{{last_name}}",
-        "{{company_suffix}} {{last_name}}",
-        "{{last_name}}{{last_name}}",
-        "{{last_name}}{{last_name}}{{last_name}}",
+        "{{company_suffix}} {{company_name_word}}{{brand_suffix}}",
+        "{{company_suffix}} {{company_name_word}}{{company_name_word}}{{brand_suffix}}",
+        "{{company_suffix}} {{company_name_word}}",
     )
 
     catch_phrase_words = (
@@ -370,3 +373,98 @@ class Provider(CompanyProvider):
     )
 
     company_suffixes = ("(주)", "주식회사", "(유)", "유한회사")
+
+    company_name_words = (
+        "가람",
+        "가야",
+        "가온",
+        "겨레",
+        "고구려",
+        "고려",
+        "국민",
+        "글로벌",
+        "글로벌",
+        "나루",
+        "네오",
+        "넥스트",
+        "다올",
+        "라온",
+        "마루",
+        "마음",
+        "모두",
+        "미래",
+        "발해",
+        "백제",
+        "보람",
+        "브레인",
+        "비전",
+        "스타",
+        "시너지",
+        "신라",
+        "씨앤씨",
+        "아름",
+        "에코",
+        "우리",
+        "원더",
+        "월드",
+        "윈드",
+        "유니온",
+        "이노",
+        "인포",
+        "제나",
+        "조선",
+        "종합",
+        "중앙",
+        "첨단",
+        "코리아",
+        "코어",
+        "푸른",
+        "하나",
+        "한가람",
+        "한강",
+        "한빛",
+    )
+
+    brand_suffixes = (
+        "개발",
+        "개발공사",
+        "그룹",
+        "금고",
+        "기술",
+        "기획",
+        "네트워크",
+        "네트웍스",
+        "랩스",
+        "바이오",
+        "반도체",
+        "보안",
+        "뷰티",
+        "상사",
+        "센터",
+        "소프트",
+        "솔루션",
+        "시스템",
+        "시스템즈",
+        "신문",
+        "에너지",
+        "에이아이",
+        "엔지니어링",
+        "연구소",
+        "유통",
+        "은행",
+        "자동차",
+        "전자",
+        "정보통신",
+        "제조",
+        "출판",
+        "코스메틱",
+        "테크",
+        "플랫폼",
+        "항공",
+    )
+
+    def company_name_word(self) -> str:
+        return self.random_element(self.company_name_words)
+
+    def brand_suffix(self) -> str:
+        return self.random_element(self.brand_suffixes)

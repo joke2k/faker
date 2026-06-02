@@ -7,6 +7,8 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, Tuple, Type, TypeVar, Union, cast, no_type_check
 
+from faker.typing import BasicNumber
+
 from ...exceptions import BaseFakerException
 from .. import BaseProvider, ElementsType
 
@@ -147,9 +149,9 @@ class Provider(BaseProvider):
         max_value: Optional[Union[float, int]] = None,
     ) -> float:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its " "integer part")
+            raise ValueError("A float number cannot have less than 0 digits in its integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A float number cannot have less than 0 digits in its " "fractional part")
+            raise ValueError("A float number cannot have less than 0 digits in its fractional part")
         if left_digits == 0 and right_digits == 0:
             raise ValueError("A float number cannot have less than 0 digits in total")
         if min_value is not None and max_value is not None:
@@ -229,15 +231,24 @@ class Provider(BaseProvider):
             result = max(result, -(10**left_digits + 1))
 
         # It's possible for the result to end up > than max_value or < than min_value
-        # When this happens we introduce some variance so we're not always the exactly the min_value or max_value.
-        # Which can happen a lot depending on the difference of the values.
-        # Ensure the variance is bound by the difference between the max and min
-        if max_value is not None:
-            if result > max_value:
-                result = result - (result - max_value + self.generator.random.uniform(0, max_value - min_value))
-        if min_value is not None:
-            if result < min_value:
-                result = result + (min_value - result + self.generator.random.uniform(0, max_value - min_value))
+        # When this happens we introduce some variance so we're not always exactly at the boundary.
+        # When only one bound is set, use the exceeded amount as the variance bound.
+        # When positive=True without explicit min_value, treat min_value as 0.
+        effective_min = 0 if (positive and min_value is None) else min_value
+        if max_value is not None and result > max_value:
+            exceeded_by = result - max_value
+            if effective_min is not None:
+                variance_bound = max_value - effective_min
+            else:
+                variance_bound = exceeded_by
+            result = result - (exceeded_by + self.generator.random.uniform(0, variance_bound))
+        if effective_min is not None and result < effective_min:
+            below_by = effective_min - result
+            if max_value is not None:
+                variance_bound = max_value - effective_min
+            else:
+                variance_bound = below_by
+            result = result + (below_by + self.generator.random.uniform(0, variance_bound))
 
         return result
 
@@ -283,14 +294,14 @@ class Provider(BaseProvider):
         self,
         left_digits: Optional[int] = None,
         right_digits: Optional[int] = None,
-        positive: bool = False,
-        min_value: Optional[float] = None,
-        max_value: Optional[float] = None,
+        positive: Optional[bool] = None,
+        min_value: Optional[BasicNumber] = None,
+        max_value: Optional[BasicNumber] = None,
     ) -> Decimal:
         if left_digits is not None and left_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its " "integer part")
+            raise ValueError("A decimal number cannot have less than 0 digits in its integer part")
         if right_digits is not None and right_digits < 0:
-            raise ValueError("A decimal number cannot have less than 0 digits in its " "fractional part")
+            raise ValueError("A decimal number cannot have less than 0 digits in its fractional part")
         if (left_digits is not None and left_digits == 0) and (right_digits is not None and right_digits == 0):
             raise ValueError("A decimal number cannot have 0 digits in total")
         if min_value is not None and max_value is not None and min_value > max_value:
@@ -299,17 +310,25 @@ class Provider(BaseProvider):
             raise ValueError("Min and max value cannot be the same")
         if positive and min_value is not None and min_value <= 0:
             raise ValueError("Cannot combine positive=True with negative or zero min_value")
-        if left_digits is not None and max_value and math.ceil(math.log10(abs(max_value))) > left_digits:
+        if (
+            left_digits is not None
+            and max_value
+            and math.ceil(math.log10(abs(max_value))) > left_digits  # type: ignore[arg-type]
+        ):
             raise ValueError("Max value must fit within left digits")
-        if left_digits is not None and min_value and math.ceil(math.log10(abs(min_value))) > left_digits:
+        if (
+            left_digits is not None
+            and min_value
+            and math.ceil(math.log10(abs(min_value))) > left_digits  # type: ignore[arg-type]
+        ):
             raise ValueError("Min value must fit within left digits")
 
         # if either left or right digits are not specified we randomly choose a length
         max_random_digits = 100
         # Because if min_value is bigger than 10**100
         max_digits_from_value = max(
-            math.ceil(math.log10(abs(min_value or 1))),
-            math.ceil(math.log10(abs(max_value or 1))),
+            math.ceil(math.log10(abs(min_value or 1))),  # type: ignore[arg-type]
+            math.ceil(math.log10(abs(max_value or 1))),  # type: ignore[arg-type]
         )
         max_left_random_digits = max(max_random_digits, max_digits_from_value + 10)
 
@@ -318,7 +337,10 @@ class Provider(BaseProvider):
         elif max_value is not None and max_value <= 0:
             sign = "-"
         else:
-            sign = "+" if positive else self.random_element(("+", "-"))
+            if positive is None:
+                sign = self.random_element(("+", "-"))
+            else:
+                sign = "+" if positive else "-"
 
         if sign == "+":
             if max_value is not None:
@@ -330,9 +352,14 @@ class Provider(BaseProvider):
                 left_number = str(self._random_int_of_length(left_digits))
         else:
             if min_value is not None:
-                left_number = str(self.random_int(int(max(max_value or 0, 0)), int(abs(min_value))))
+                left_number = str(
+                    self.random_int(
+                        int(abs(min(max_value or 0, 0))),  # type: ignore[arg-type,call-overload]
+                        int(abs(min_value)),  # type: ignore[arg-type,call-overload]
+                    )
+                )
             else:
-                min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))
+                min_left_digits = math.ceil(math.log10(abs(min(max_value or 1, 1))))  # type: ignore[arg-type]
                 if left_digits is None:
                     left_digits = self.random_int(min_left_digits, max_left_random_digits)
                 left_number = str(self._random_int_of_length(left_digits))
@@ -340,16 +367,16 @@ class Provider(BaseProvider):
         if right_digits is None:
             right_digits = self.random_int(0, max_random_digits)
 
-        right_number = "".join([str(self.random_digit()) for i in range(0, right_digits)])
+        right_number = "".join([str(self.random_digit()) for _ in range(0, right_digits)])
 
         result = Decimal(f"{sign}{left_number}.{right_number}")
 
         # Because the random result might have the same number of decimals as max_value the random number
         # might be above max_value or below min_value
         if max_value is not None and result > max_value:
-            result = Decimal(max_value)
+            result = Decimal(str(max_value))
         if min_value is not None and result < min_value:
-            result = Decimal(min_value)
+            result = Decimal(str(min_value))
 
         return result
 
@@ -409,11 +436,11 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Iterable[Any]:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
         return self.random_element([self.pylist, self.pytuple, self.pyset])(
             nb_elements=nb_elements,
             variable_nb_elements=variable_nb_elements,
-            value_types=value_types,
+            value_types=_value_types,
             allowed_types=allowed_types,
         )
 
@@ -433,22 +460,22 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Iterator:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types: TypesNames = [
+        _value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
-            for t in value_types
+            for t in _value_types
             # avoid recursion
             if t not in ["iterable", "list", "tuple", "dict", "set"]
         ]
-        if not value_types:
-            value_types = self.default_value_types  # type: ignore
+        if not _value_types:
+            _value_types = self.default_value_types  # type: ignore
 
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
 
         for _ in range(nb_elements):
-            yield self._random_type(value_types)
+            yield self._random_type(_value_types)
 
     def pydict(
         self,
@@ -464,8 +491,19 @@ class Provider(BaseProvider):
         :variable_nb_elements: is use variable number of elements for dictionary
         :value_types: type of dictionary values
         """
+
+        words_list_count = len(self.generator.get_words_list())
+
         if variable_nb_elements:
             nb_elements = self.randomize_nb_elements(nb_elements, min=1)
+
+        if nb_elements > words_list_count:
+            warnings.warn(
+                f"Number of nb_elements is greater than the number of words in the list."
+                f" {words_list_count} words will be used.",
+                RuntimeWarning,
+            )
+            nb_elements = words_list_count
 
         return dict(
             zip(
@@ -485,39 +523,39 @@ class Provider(BaseProvider):
         value_types: Optional[TypesSpec] = None,
         allowed_types: Optional[TypesSpec] = None,
     ) -> Tuple[List, Dict, Dict]:
-        value_types: TypesSpec = self._check_signature(value_types, allowed_types)
+        _value_types: TypesSpec = self._check_signature(value_types, allowed_types)
 
-        value_types: TypesNames = [
+        _value_types: TypesNames = [
             t if isinstance(t, str) else getattr(t, "__name__", type(t).__name__).lower()
-            for t in value_types
+            for t in _value_types
             # avoid recursion
             if t != "struct"
         ]
-        if not value_types:
-            value_types = self.default_value_types  # type: ignore
+        if not _value_types:
+            _value_types = self.default_value_types  # type: ignore
 
         types = []
         d = {}
         nd = {}
         for i in range(count):
-            d[self.generator.word()] = self._random_type(value_types)
-            types.append(self._random_type(value_types))
+            d[self.generator.word()] = self._random_type(_value_types)
+            types.append(self._random_type(_value_types))
             nd[self.generator.word()] = {
-                i: self._random_type(value_types),
+                i: self._random_type(_value_types),
                 i
                 + 1: [
-                    self._random_type(value_types),
-                    self._random_type(value_types),
-                    self._random_type(value_types),
+                    self._random_type(_value_types),
+                    self._random_type(_value_types),
+                    self._random_type(_value_types),
                 ],
                 i
                 + 2: {
-                    i: self._random_type(value_types),
-                    i + 1: self._random_type(value_types),
+                    i: self._random_type(_value_types),
+                    i + 1: self._random_type(_value_types),
                     i
                     + 2: [
-                        self._random_type(value_types),
-                        self._random_type(value_types),
+                        self._random_type(_value_types),
+                        self._random_type(_value_types),
                     ],
                 },
             }

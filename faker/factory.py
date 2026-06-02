@@ -1,3 +1,4 @@
+import functools
 import locale as pylocale
 import logging
 import sys
@@ -44,13 +45,11 @@ class Factory:
 
         config["locale"] = locale
         config["use_weighting"] = use_weighting
-        providers = providers or PROVIDERS
-
-        providers += includes
+        _providers = (providers or PROVIDERS) + includes
 
         faker = generator or Generator(**config)
 
-        for prov_name in providers:
+        for prov_name in _providers:
             if prov_name == "faker.providers":
                 continue
 
@@ -64,6 +63,7 @@ class Factory:
         return faker
 
     @classmethod
+    @functools.lru_cache(maxsize=None)
     def _find_provider_class(
         cls,
         provider_path: str,
@@ -105,8 +105,7 @@ class Factory:
             if locale:
                 logger.debug(
                     "Provider `%s` does not feature localization. "
-                    "Specified locale `%s` is not utilized for this "
-                    "provider.",
+                    "Specified locale `%s` is not used for this provider.",
                     provider_module.__name__,
                     locale,
                 )

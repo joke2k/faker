@@ -1210,7 +1210,6 @@ class Provider(LoremProvider):
         "lipiec",
         "bohater",
         "prasa",
-        "penis",
         "Czechy",
         "80",
         "fakt",

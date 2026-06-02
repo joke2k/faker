@@ -23,7 +23,7 @@ Compatibility
 -------------
 
 Starting from version ``4.0.0``, ``Faker`` dropped support for Python 2 and from version ``5.0.0``
-only supports Python 3.7 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
+only supports Python 3.8 and above. If you still need Python 2 compatibility, please install version ``3.0.1`` in the
 meantime, and please consider updating your codebase to support Python 3 so you can enjoy the
 latest features ``Faker`` has to offer. Please see the `extended docs`_ for more details, especially
 if you are upgrading from version ``2.0.4`` and below as there might be breaking changes.
@@ -184,7 +184,7 @@ When installed, you can invoke faker from the command-line:
     faker [-h] [--version] [-o output]
           [-l {bg_BG,cs_CZ,...,zh_CN,zh_TW}]
           [-r REPEAT] [-s SEP]
-          [-i {package.containing.custom_provider otherpkg.containing.custom_provider}]
+          [-i package.containing.custom_provider]
           [fake] [fake argument [fake argument ...]]
 
 Where:
@@ -206,9 +206,9 @@ Where:
 -  ``-s SEP``: will generate the specified separator after each
    generated output
 
--  ``-i {my.custom_provider other.custom_provider}`` list of additional custom
-   providers to use. Note that is the import path of the package containing
-   your Provider class, not the custom Provider class itself.
+-  ``-i package.containing.custom_provider`` additional custom provider to use. Note this
+   is the import path of the package containing your Provider class, not the
+   custom Provider class itself. Can be repeated to add multiple providers.
 
 -  ``fake``: is the name of the fake to generate an output for, such as
    ``name``, ``address``, or ``text``
@@ -236,6 +236,11 @@ Examples:
     Willam Kertzmann;
     Josiah Maggio;
     Gayla Schmitt;
+
+    $ faker -i faker_credit_score credit_score_full
+    Experian/Fair Isaac Risk Model V2SM
+    Experian
+    801
 
 How to create a Provider
 ------------------------
@@ -357,7 +362,18 @@ that any generated values are unique for this specific instance.
    names = [fake.unique.first_name() for i in range(500)]
    assert len(set(names)) == len(names)
 
+On ``Faker`` instances with multiple locales, you can specify the locale to use
+for the unique values by using the subscript notation:
+
+.. code:: python
+
+   from faker import Faker
+   fake = Faker(['en_US', 'fr_FR'])
+   names = [fake.unique["en_US"].first_name() for i in range(500)]
+   assert len(set(names)) == len(names)
+
 Calling ``fake.unique.clear()`` clears the already seen values.
+
 Note, to avoid infinite loops, after a number of attempts to find a unique
 value, Faker will throw a ``UniquenessException``. Beware of the `birthday
 paradox <https://en.wikipedia.org/wiki/Birthday_problem>`_, collisions

@@ -5,6 +5,7 @@ import re
 import sys
 import time
 import unittest
+import zoneinfo
 
 from datetime import date, datetime
 from datetime import time as datetime_time
@@ -17,6 +18,7 @@ from faker import Faker
 from faker.providers.date_time import Provider as DatetimeProvider
 from faker.providers.date_time import change_year
 from faker.providers.date_time.ar_AA import Provider as ArProvider
+from faker.providers.date_time.ar_DZ import Provider as DzProvider
 from faker.providers.date_time.ar_EG import Provider as EgProvider
 from faker.providers.date_time.az_AZ import Provider as AzAzProvider
 from faker.providers.date_time.bn_BD import Provider as BnBdProvider
@@ -25,10 +27,13 @@ from faker.providers.date_time.de_AT import Provider as DeAtProvider
 from faker.providers.date_time.de_DE import Provider as DeDeProvider
 from faker.providers.date_time.el_GR import Provider as ElGrProvider
 from faker.providers.date_time.es_ES import Provider as EsEsProvider
+from faker.providers.date_time.fr_DZ import Provider as FrDzProvider
 from faker.providers.date_time.fr_FR import Provider as FrFrProvider
+from faker.providers.date_time.gu_IN import Provider as GuINProvider
 from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.ja_JP import Provider as JaJpProvider
+from faker.providers.date_time.ka_GE import Provider as KaGeProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
@@ -40,6 +45,8 @@ from faker.providers.date_time.sk_SK import Provider as SkSkProvider
 from faker.providers.date_time.sl_SI import Provider as SlSiProvider
 from faker.providers.date_time.ta_IN import Provider as TaInProvider
 from faker.providers.date_time.tr_TR import Provider as TrTrProvider
+from faker.providers.date_time.uz_UZ import Provider as UzUzProvider
+from faker.providers.date_time.vi_VN import Provider as ViVNProvider
 from faker.providers.date_time.zh_CN import Provider as ZhCnProvider
 from faker.providers.date_time.zh_TW import Provider as ZhTwProvider
 
@@ -69,18 +76,87 @@ class UTC(tzinfo):
 utc = UTC()
 
 
-class TestKoKR(unittest.TestCase):
+class TestAr(unittest.TestCase):
+    def test_ar_aa(self):
+        fake = Faker("ar")
+        Faker.seed(0)
+
+        # AM/PM
+        assert fake.am_pm() in ArProvider.AM_PM.values()
+        # Day of week
+        assert fake.century() in ArProvider.centuries
+        # Month name
+        assert (fake.month_name()) in (ArProvider.MONTH_NAMES.values())
+        # Day of week
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
+
+    def test_ar_dz(self):
+        fake = Faker("ar_DZ")
+        Faker.seed(0)
+
+        assert fake.am_pm() in ArProvider.AM_PM.values()
+        assert fake.century() in ArProvider.centuries
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
+        assert (fake.month_name()) in (DzProvider.MONTH_NAMES.values())
+
+    def test_ar_eg(self):
+        fake = Faker("ar_EG")
+        Faker.seed(0)
+
+        # AM/PM
+        assert fake.am_pm() in ArProvider.AM_PM.values()
+        # Day of week
+        assert fake.century() in ArProvider.centuries
+        # Day of week
+        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
+        # Month name
+        assert (fake.month_name()) in (EgProvider.MONTH_NAMES.values())
+        # Month name
+        assert (fake.month_name()) not in (ArProvider.MONTH_NAMES.values())
+
+
+class TestAzAz(unittest.TestCase):
+    """Test az_AZ date_time provider methods"""
+
     def setUp(self):
-        self.fake = Faker("ko_KR")
+        self.fake = Faker("az_AZ")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, str)
+        assert day in AzAzProvider.DAY_NAMES.values()
 
     def test_month(self):
-        month = self.fake.month()
-        assert isinstance(month, str)
+        month = self.fake.month_name()
+        assert month in AzAzProvider.MONTH_NAMES.values()
+
+
+class TestBnBd(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("bn_BD")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in BnBdProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in BnBdProvider.MONTH_NAMES.values()
+
+
+class TestCsCz(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("cs_CZ")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in CsCzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in CsCzProvider.MONTH_NAMES.values()
 
 
 class TestDateTime(unittest.TestCase):
@@ -163,15 +239,33 @@ class TestDateTime(unittest.TestCase):
         assert today == today_back
 
     def test_pytimezone(self):
-        import dateutil
-
         pytz = self.fake.pytimezone()
-        assert isinstance(pytz, dateutil.tz.tz.tzfile)
+        assert isinstance(pytz, zoneinfo.ZoneInfo)
 
     def test_pytimezone_usable(self):
         pytz = self.fake.pytimezone()
         date = datetime(2000, 1, 1, tzinfo=pytz)
         assert date.tzinfo == pytz
+
+    def test_pytimezone_tzdata_missing_error(self):
+        """Test that helpful error is raised when tzdata is needed but missing."""
+        from unittest.mock import patch
+
+        # Mock ZoneInfo to raise ZoneInfoNotFoundError
+        with patch("zoneinfo.ZoneInfo") as mock_zoneinfo:
+            mock_zoneinfo.side_effect = zoneinfo.ZoneInfoNotFoundError("America/New_York")
+
+            # Should raise ImportError with helpful message
+            with pytest.raises(ImportError) as exc_info:
+                self.fake.pytimezone()
+
+            error_msg = str(exc_info.value)
+            # Verify error message contains helpful information
+            assert "tzdata" in error_msg.lower()
+            assert "faker[tzdata]" in error_msg
+            assert "pip install" in error_msg.lower()
+            # Verify it explains what tzdata is
+            assert "timezone" in error_msg.lower()
 
     def test_datetimes_with_and_without_tzinfo(self):
         assert self.fake.date_time().tzinfo is None
@@ -227,6 +321,9 @@ class TestDateTime(unittest.TestCase):
         assert delta.seconds >= 60
 
         delta = self.fake.time_delta(end_datetime="now")
+        assert delta.seconds <= 0
+
+        delta = self.fake.time_delta()
         assert delta.seconds <= 0
 
     def test_date_time_between_dates(self):
@@ -587,6 +684,20 @@ class TestDateTime(unittest.TestCase):
             change_year(today, -today.year)
 
 
+class TestDeAt(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("de_AT")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in DeAtProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in DeAtProvider.MONTH_NAMES.values()
+
+
 class TestDeDe(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("de_DE")
@@ -601,165 +712,32 @@ class TestDeDe(unittest.TestCase):
         assert month in DeDeProvider.MONTH_NAMES.values()
 
 
-class TestPlPL(unittest.TestCase):
+class TestElGr(unittest.TestCase):
     def setUp(self):
-        self.fake = Faker("pl_PL")
+        self.fake = Faker("el-GR")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert day in PlProvider.DAY_NAMES.values()
+        assert day in ElGrProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert month in PlProvider.MONTH_NAMES.values()
+        assert month in ElGrProvider.MONTH_NAMES.values()
 
 
-class TestHyAm(unittest.TestCase):
-    """Tests date_time in the hy_AM locale"""
-
+class TestEsEs(unittest.TestCase):
     def setUp(self):
-        self.fake = Faker("hy_AM")
+        self.fake = Faker("es_ES")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert isinstance(day, str)
-        assert day in HyAmProvider.DAY_NAMES.values()
+        assert day in EsEsProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert isinstance(month, str)
-        assert month in HyAmProvider.MONTH_NAMES.values()
-
-
-class TestAr(unittest.TestCase):
-    def test_ar_aa(self):
-        fake = Faker("ar")
-        Faker.seed(0)
-
-        # AM/PM
-        assert fake.am_pm() in ArProvider.AM_PM.values()
-        # Day of week
-        assert fake.century() in ArProvider.centuries
-        # Month name
-        assert (fake.month_name()) in (ArProvider.MONTH_NAMES.values())
-        # Day of week
-        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
-
-    def test_ar_eg(self):
-        fake = Faker("ar_EG")
-        Faker.seed(0)
-
-        # AM/PM
-        assert fake.am_pm() in ArProvider.AM_PM.values()
-        # Day of week
-        assert fake.century() in ArProvider.centuries
-        # Day of week
-        assert (fake.day_of_week()) in (ArProvider.DAY_NAMES.values())
-        # Month name
-        assert (fake.month_name()) in (EgProvider.MONTH_NAMES.values())
-        # Month name
-        assert (fake.month_name()) not in (ArProvider.MONTH_NAMES.values())
-
-
-class DatesOfBirth(unittest.TestCase):
-    """
-    Test Dates of Birth
-    """
-
-    def setUp(self):
-        self.fake = Faker()
-        Faker.seed(0)
-
-    def test_date_of_birth(self):
-        dob = self.fake.date_of_birth()
-        assert isinstance(dob, date)
-
-    @freezegun.freeze_time("2020-02-29")
-    def test_date_of_birth_on_leap_day(self):
-        """
-        Freeze the date to a leap day to verify that the date_of_birth method  does not
-        raise an error
-        """
-        dob = self.fake.date_of_birth()
-        assert isinstance(dob, date)
-
-    def test_value_errors(self):
-        with self.assertRaises(ValueError):
-            self.fake.date_of_birth(minimum_age=-1)
-
-        with self.assertRaises(ValueError):
-            self.fake.date_of_birth(maximum_age=-1)
-
-        with self.assertRaises(ValueError):
-            self.fake.date_of_birth(minimum_age=-2, maximum_age=-1)
-
-        with self.assertRaises(ValueError):
-            self.fake.date_of_birth(minimum_age=5, maximum_age=4)
-
-    def test_type_errors(self):
-        with self.assertRaises(TypeError):
-            self.fake.date_of_birth(minimum_age=0.5)
-
-        with self.assertRaises(TypeError):
-            self.fake.date_of_birth(maximum_age="hello")
-
-    def test_bad_age_range(self):
-        with self.assertRaises(ValueError):
-            self.fake.date_of_birth(minimum_age=5, maximum_age=0)
-
-    def test_acceptable_age_range_five_years(self):
-        for _ in range(100):
-            now = datetime.now(utc).date()
-
-            days_since_now = now - now
-            days_since_six_years_ago = now - change_year(now, -6)
-
-            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=5)
-            days_since_dob = now - dob
-
-            assert isinstance(dob, date)
-            assert days_since_six_years_ago > days_since_dob >= days_since_now
-
-    def test_acceptable_age_range_eighteen_years(self):
-        for _ in range(100):
-            now = datetime.now(utc).date()
-
-            days_since_now = now - now
-            days_since_nineteen_years_ago = now - change_year(now, -19)
-
-            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=18)
-            days_since_dob = now - dob
-
-            assert isinstance(dob, date)
-            assert days_since_nineteen_years_ago > days_since_dob >= days_since_now
-
-    def test_identical_age_range(self):
-        for _ in range(100):
-            now = datetime.now(utc).date()
-
-            days_since_five_years_ago = now - change_year(now, -5)
-            days_since_six_years_ago = now - change_year(now, -6)
-
-            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=5, maximum_age=5)
-            days_since_dob = now - dob
-
-            assert isinstance(dob, date)
-            assert days_since_six_years_ago > days_since_dob >= days_since_five_years_ago
-
-    def test_distant_age_range(self):
-        for _ in range(100):
-            now = datetime.now(utc).date()
-
-            days_since_one_hundred_years_ago = now - change_year(now, -100)
-            days_since_one_hundred_eleven_years_ago = now - change_year(now, -111)
-
-            dob = self.fake.date_of_birth(minimum_age=100, maximum_age=110)
-            days_since_dob = now - dob
-
-            assert isinstance(dob, date)
-            assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago
+        assert month in EsEsProvider.MONTH_NAMES.values()
 
 
 class TestFilPh(unittest.TestCase):
@@ -788,28 +766,242 @@ class TestFilPh(unittest.TestCase):
             assert self.fake.month_name() in self.month_names
 
 
-class TestTlPh(TestFilPh):
-    def setup_faker(self):
-        self.fake = Faker("tl_PH")
+class TestFrCa(unittest.TestCase):
+    # Both fr_FR and fr_CA share the same date format so we use the same test suite
+    def setUp(self):
+        self.fake = Faker("fr-CA")
         Faker.seed(0)
 
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
 
-class TestTaIN(unittest.TestCase):
-    """Tests date_time in the ta_IN locale"""
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()
+
+
+class TestFrDz(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("fr_DZ")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrDzProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrDzProvider.MONTH_NAMES.values()
+
+
+class TestFrFr(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("fr-FR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in FrFrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        day = self.fake.month_name()
+        assert day in FrFrProvider.MONTH_NAMES.values()
+
+
+class TestGuIN(unittest.TestCase):
+    """Test `gu_IN` (Gujarati) provider for date_time"""
 
     def setUp(self):
-        self.fake = Faker("ta_IN")
+        self.fake = Faker("gu_IN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in GuINProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in GuINProvider.MONTH_NAMES.values()
+
+    def test_day_in_guj(self):
+        day = self.fake.day_of_week_in_guj()
+        assert day in GuINProvider.DAY_NAMES_IN_GUJARATI.values()
+
+    def test_month_in_guj(self):
+        """Test `month_in_guj` and `month_names_in_guj` methods"""
+
+        month = self.fake.month_name_in_guj()
+        assert month in GuINProvider.MONTH_NAMES_IN_GUJARATI.values()
+
+        month = self.fake.month_in_guj()
+        assert month in GuINProvider.MONTH_NAMES_IN_GUJARATI.values()
+
+
+class TestHyAm(unittest.TestCase):
+    """Tests date_time in the hy_AM locale"""
+
+    def setUp(self):
+        self.fake = Faker("hy_AM")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
         assert isinstance(day, str)
-        assert day in TaInProvider.DAY_NAMES.values()
+        assert day in HyAmProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
         assert isinstance(month, str)
-        assert month in TaInProvider.MONTH_NAMES.values()
+        assert month in HyAmProvider.MONTH_NAMES.values()
+
+
+class TestItIt(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("it_IT")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in ItItProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in ItItProvider.MONTH_NAMES.values()
+
+
+class TestJaJp(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ja_JP")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in JaJpProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in JaJpProvider.MONTH_NAMES.values()
+
+    def test_traditional_month(self):
+        month = self.fake.traditional_month_name()
+        assert month in JaJpProvider.TRADITIONAL_MONTH_NAMES.values()
+
+
+class TestKaGe(unittest.TestCase):
+    """Test Ka_GE date_time provider methods"""
+
+    def setUp(self):
+        self.fake = Faker("Ka_GE")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in KaGeProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in KaGeProvider.MONTH_NAMES.values()
+
+
+class TestKoKR(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ko_KR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+
+    def test_month(self):
+        month = self.fake.month()
+        assert isinstance(month, str)
+
+
+class TestNlNl(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("nl_NL")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in NlProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in NlProvider.MONTH_NAMES.values()
+
+
+class TestNoNo(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("no-NO")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in NoNoProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in NoNoProvider.MONTH_NAMES.values()
+
+
+class TestPlPL(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("pl_PL")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PlProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PlProvider.MONTH_NAMES.values()
+
+
+class TestPtBr(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("pt_BR")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PtBrProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PtBrProvider.MONTH_NAMES.values()
+
+
+class TestPtPt(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("pt_PT")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in PtPtProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in PtPtProvider.MONTH_NAMES.values()
+
+
+class TestRoRo(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("ro_RO")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert day in RoRoProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert month in RoRoProvider.MONTH_NAMES.values()
 
 
 class TestRuRu(unittest.TestCase):
@@ -838,78 +1030,6 @@ class TestRuRu(unittest.TestCase):
             assert re.match(r"[А-Яа-я]", timezone)
 
 
-class TestAzAz(unittest.TestCase):
-    """Test az_AZ date_time provider methods"""
-
-    def setUp(self):
-        self.fake = Faker("az_AZ")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in AzAzProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in AzAzProvider.MONTH_NAMES.values()
-
-
-class TestCsCz(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("cs_CZ")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in CsCzProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in CsCzProvider.MONTH_NAMES.values()
-
-
-class TestDeAt(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("de_AT")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in DeAtProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in DeAtProvider.MONTH_NAMES.values()
-
-
-class TestEsEs(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("es_ES")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in EsEsProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in EsEsProvider.MONTH_NAMES.values()
-
-
-class TestItIt(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("it_IT")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in ItItProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in ItItProvider.MONTH_NAMES.values()
-
-
 class TestSkSk(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("sk_SK")
@@ -936,6 +1056,24 @@ class TestSlSi(unittest.TestCase):
     def test_month(self):
         month = self.fake.month_name()
         assert month in SlSiProvider.MONTH_NAMES.values()
+
+
+class TestTaIN(unittest.TestCase):
+    """Tests date_time in the ta_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("ta_IN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in TaInProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in TaInProvider.MONTH_NAMES.values()
 
 
 class TestThTh(unittest.TestCase):
@@ -1120,6 +1258,12 @@ class TestThTh(unittest.TestCase):
         assert date[0] not in "0123456789"
 
 
+class TestTlPh(TestFilPh):
+    def setup_faker(self):
+        self.fake = Faker("tl_PH")
+        Faker.seed(0)
+
+
 class TestTrTr(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("tr_TR")
@@ -1134,88 +1278,40 @@ class TestTrTr(unittest.TestCase):
         assert month in TrTrProvider.MONTH_NAMES.values()
 
 
-class TestPtBr(unittest.TestCase):
+class TestUzUz(unittest.TestCase):
+    """Tests date_time in the uz_UZ locale"""
+
     def setUp(self):
-        self.fake = Faker("pt_BR")
+        self.fake = Faker("uz_UZ")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert day in PtBrProvider.DAY_NAMES.values()
+        assert isinstance(day, str)
+        assert day in UzUzProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert month in PtBrProvider.MONTH_NAMES.values()
+        assert isinstance(month, str)
+        assert month in UzUzProvider.MONTH_NAMES.values()
 
 
-class TestPtPt(unittest.TestCase):
+class TestViVn(unittest.TestCase):
+    """Tests date_time in the vi_VN locale"""
+
     def setUp(self):
-        self.fake = Faker("pt_PT")
+        self.fake = Faker("vi_VN")
         Faker.seed(0)
 
     def test_day(self):
         day = self.fake.day_of_week()
-        assert day in PtPtProvider.DAY_NAMES.values()
+        assert isinstance(day, str)
+        assert day in ViVNProvider.DAY_NAMES.values()
 
     def test_month(self):
         month = self.fake.month_name()
-        assert month in PtPtProvider.MONTH_NAMES.values()
-
-
-class TestRoRo(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("ro_RO")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in RoRoProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in RoRoProvider.MONTH_NAMES.values()
-
-
-class TestBnBd(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("bn_BD")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in BnBdProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in BnBdProvider.MONTH_NAMES.values()
-
-
-class TestNlNl(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("nl_NL")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in NlProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in NlProvider.MONTH_NAMES.values()
-
-
-class TestElGr(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("el-GR")
-        Faker.seed(0)
-
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in ElGrProvider.DAY_NAMES.values()
-
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in ElGrProvider.MONTH_NAMES.values()
+        assert isinstance(month, str)
+        assert month in ViVNProvider.MONTH_NAMES.values()
 
 
 class TestZhCn(unittest.TestCase):
@@ -1258,62 +1354,100 @@ class TestZhTw(unittest.TestCase):
         assert 1 <= len(year) <= 3
 
 
-class TestNoNo(unittest.TestCase):
+class DatesOfBirth(unittest.TestCase):
+    """
+    Test Dates of Birth
+    """
+
     def setUp(self):
-        self.fake = Faker("no-NO")
+        self.fake = Faker()
         Faker.seed(0)
 
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in NoNoProvider.DAY_NAMES.values()
+    def test_date_of_birth(self):
+        dob = self.fake.date_of_birth()
+        assert isinstance(dob, date)
 
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in NoNoProvider.MONTH_NAMES.values()
+    @freezegun.freeze_time("2020-02-29")
+    def test_date_of_birth_on_leap_day(self):
+        """
+        Freeze the date to a leap day to verify that the date_of_birth method  does not
+        raise an error
+        """
+        dob = self.fake.date_of_birth()
+        assert isinstance(dob, date)
 
+    def test_value_errors(self):
+        with self.assertRaises(ValueError):
+            self.fake.date_of_birth(minimum_age=-1)
 
-class TestFrFr(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("fr-FR")
-        Faker.seed(0)
+        with self.assertRaises(ValueError):
+            self.fake.date_of_birth(maximum_age=-1)
 
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in FrFrProvider.DAY_NAMES.values()
+        with self.assertRaises(ValueError):
+            self.fake.date_of_birth(minimum_age=-2, maximum_age=-1)
 
-    def test_month(self):
-        day = self.fake.month_name()
-        assert day in FrFrProvider.MONTH_NAMES.values()
+        with self.assertRaises(ValueError):
+            self.fake.date_of_birth(minimum_age=5, maximum_age=4)
 
+    def test_type_errors(self):
+        with self.assertRaises(TypeError):
+            self.fake.date_of_birth(minimum_age=0.5)
 
-class TestFrCa(unittest.TestCase):
-    # Both fr_FR and fr_CA share the same date format so we use the same test suite
-    def setUp(self):
-        self.fake = Faker("fr-CA")
-        Faker.seed(0)
+        with self.assertRaises(TypeError):
+            self.fake.date_of_birth(maximum_age="hello")
 
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in FrFrProvider.DAY_NAMES.values()
+    def test_bad_age_range(self):
+        with self.assertRaises(ValueError):
+            self.fake.date_of_birth(minimum_age=5, maximum_age=0)
 
-    def test_month(self):
-        day = self.fake.month_name()
-        assert day in FrFrProvider.MONTH_NAMES.values()
+    def test_acceptable_age_range_five_years(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
 
+            days_since_now = now - now
+            days_since_six_years_ago = now - change_year(now, -6)
 
-class TestJaJp(unittest.TestCase):
-    def setUp(self):
-        self.fake = Faker("ja_JP")
-        Faker.seed(0)
+            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=5)
+            days_since_dob = now - dob
 
-    def test_day(self):
-        day = self.fake.day_of_week()
-        assert day in JaJpProvider.DAY_NAMES.values()
+            assert isinstance(dob, date)
+            assert days_since_six_years_ago > days_since_dob >= days_since_now
 
-    def test_month(self):
-        month = self.fake.month_name()
-        assert month in JaJpProvider.MONTH_NAMES.values()
+    def test_acceptable_age_range_eighteen_years(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
 
-    def test_traditional_month(self):
-        month = self.fake.traditional_month_name()
-        assert month in JaJpProvider.TRADITIONAL_MONTH_NAMES.values()
+            days_since_now = now - now
+            days_since_nineteen_years_ago = now - change_year(now, -19)
+
+            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=0, maximum_age=18)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_nineteen_years_ago > days_since_dob >= days_since_now
+
+    def test_identical_age_range(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_five_years_ago = now - change_year(now, -5)
+            days_since_six_years_ago = now - change_year(now, -6)
+
+            dob = self.fake.date_of_birth(tzinfo=utc, minimum_age=5, maximum_age=5)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_six_years_ago > days_since_dob >= days_since_five_years_ago
+
+    def test_distant_age_range(self):
+        for _ in range(100):
+            now = datetime.now(utc).date()
+
+            days_since_one_hundred_years_ago = now - change_year(now, -100)
+            days_since_one_hundred_eleven_years_ago = now - change_year(now, -111)
+
+            dob = self.fake.date_of_birth(minimum_age=100, maximum_age=110)
+            days_since_dob = now - dob
+
+            assert isinstance(dob, date)
+            assert days_since_one_hundred_eleven_years_ago > days_since_dob >= days_since_one_hundred_years_ago

@@ -437,11 +437,81 @@ class TestFakerProxyClass:
         attributes = dir(fake)
         assert attributes == expected
 
+    def test_select_factory_distribution_uses_instance_random(self):
+        from faker.utils.distribution import choices_distribution
+
+        locale = OrderedDict([("de_DE", 3), ("en_US", 2), ("ja_JP", 5)])
+        fake = Faker(locale)
+        fake.seed_instance(12345)
+
+        instance_random = fake._factories[0].random
+        with patch("faker.proxy.choices_distribution", wraps=choices_distribution) as mock_dist:
+            fake.name()
+            mock_dist.assert_called_once()
+            args = mock_dist.call_args[0]
+            assert args[2] is instance_random
+
+    def test_seed_instance_deterministic_multi_locale_no_weights(self):
+        fake = Faker(["en_US", "ja_JP", "de_DE"])
+        fake.seed_instance(12345)
+        first_run = [fake.name() for _ in range(20)]
+
+        fake2 = Faker(["en_US", "ja_JP", "de_DE"])
+        fake2.seed_instance(12345)
+        second_run = [fake2.name() for _ in range(20)]
+
+        assert first_run == second_run
+
+    def test_seed_instance_deterministic_multi_locale_with_weights(self):
+        locale = OrderedDict([("de_DE", 3), ("en_US", 2), ("ja_JP", 5)])
+        fake = Faker(locale)
+        fake.seed_instance(12345)
+        first_run = [fake.name() for _ in range(20)]
+
+        fake2 = Faker(locale)
+        fake2.seed_instance(12345)
+        second_run = [fake2.name() for _ in range(20)]
+
+        assert first_run == second_run
+
     def test_copy(self):
         fake = Faker("it_IT")
         fake2 = copy.deepcopy(fake)
         assert fake.locales == fake2.locales
         assert fake.locales is not fake2.locales
+        assert fake2.factories[0] is fake2._factory_map["it_IT"]
+
+    def test_copy_rebinds_single_locale_proxies(self):
+        fake = Faker("en_US")
+        fake2 = copy.deepcopy(fake)
+
+        assert fake2.unique._proxy is fake2
+        assert fake2.optional._proxy is fake2
+        assert fake2.factories[0] is fake2._factory_map["en_US"]
+        assert fake2.optional.name(prob=1.0)
+
+    def test_copy_rebinds_multiple_locale_proxies(self):
+        fake = Faker(["en_US", "ja_JP"])
+        fake2 = copy.deepcopy(fake)
+
+        assert fake2.unique._proxy is fake2
+        assert fake2.optional._proxy is fake2
+        assert fake2.factories[0] is fake2["en_US"]
+        assert fake2.factories[1] is fake2["ja_JP"]
+        assert fake2.optional.name(prob=1.0)
+
+    def test_copy_unique_uses_copied_proxy_state(self):
+        source = Faker("en_US")
+        source.seed_instance(999)
+        clone_a = copy.deepcopy(source)
+        clone_b = copy.deepcopy(source)
+
+        clone_a.seed_instance(200)
+        clone_b.seed_instance(200)
+
+        assert clone_a.unique._proxy is clone_a
+        assert clone_b.unique._proxy is clone_b
+        assert clone_a.unique.name() == clone_b.unique.name()
 
     def test_pickle(self):
         fake = Faker()

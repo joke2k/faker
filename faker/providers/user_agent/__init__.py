@@ -117,11 +117,16 @@ class Provider(BaseProvider):
     # sources
     # https://en.wikipedia.org/wiki/IOS_version_history
     ios_versions: ElementsType[str] = (
+        "1.1.5",
+        "2.2.1",
         "3.1.3",
+        "3.2.2",
         "4.2.1",
+        "4.3.5",
         "5.1.1",
         "6.1.6",
         "7.1.2",
+        "8.4.1",
         "9.3.5",
         "9.3.6",
         "10.3.3",
@@ -129,12 +134,15 @@ class Provider(BaseProvider):
         "11.4.1",
         "12.4.4",
         "12.4.8",
+        "12.5.7",
         "13.5.1",
+        "13.7",
         "14.2",
         "14.2.1",
         "14.8.1",
         "15.8.2",
         "16.7.6",
+        "16.7.7",
         "17.1",
         "17.1.1",
         "17.1.2",
@@ -143,6 +151,7 @@ class Provider(BaseProvider):
         "17.3",
         "17.3.1",
         "17.4",
+        "17.4.1",
     )
 
     def mac_processor(self) -> str:
@@ -168,8 +177,8 @@ class Provider(BaseProvider):
         """Generate a Chrome web browser user agent string."""
         saf: str = f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
-        tmplt: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko)" " Chrome/{2}.0.{3}.0 Safari/{4}"
-        tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko)" " CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}"
+        tmplt: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) Chrome/{2}.0.{3}.0 Safari/{4}"
+        tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) CriOS/{2}.0.{3}.0 Mobile/{4} Safari/{1}"
         platforms: ElementsType[str] = (
             tmplt.format(
                 self.linux_platform_token(),
@@ -193,7 +202,7 @@ class Provider(BaseProvider):
                 saf,
             ),
             tmplt.format(
-                "Linux; {}".format(self.android_platform_token()),
+                f"Linux; {self.android_platform_token()}",
                 saf,
                 self.generator.random.randint(version_from, version_to),
                 self.generator.random.randint(build_from, build_to),
@@ -228,7 +237,7 @@ class Provider(BaseProvider):
         tmplt_mac: str = "({0}; rv:1.9.{1}.20) {2}"
         tmplt_and: str = "({0}; Mobile; rv:{1}.0) Gecko/{1}.0 Firefox/{1}.0"
         tmplt_ios: str = "({0}) AppleWebKit/{1} (KHTML, like Gecko) FxiOS/{2}.{3}.0 Mobile/{4} Safari/{1}"
-        saf: str = "{}.{}".format(self.generator.random.randint(531, 536), self.generator.random.randint(0, 2))
+        saf: str = f"{self.generator.random.randint(531, 536)}.{self.generator.random.randint(0, 2)}"
         bld: str = self.lexify(self.numerify("##?###"), string.ascii_uppercase)
         bld2: str = self.lexify(self.numerify("#?####"), string.ascii_lowercase)
         platforms: ElementsType[str] = (
@@ -274,8 +283,8 @@ class Provider(BaseProvider):
             else f"{self.generator.random.randint(4, 5)}.0.{self.generator.random.randint(1, 5)}"
         )
 
-        tmplt_win: str = "(Windows; U; {0}) AppleWebKit/{1} (KHTML, like Gecko)" " Version/{2} Safari/{3}"
-        tmplt_mac: str = "({0} rv:{1}.0; {2}) AppleWebKit/{3} (KHTML, like Gecko)" " Version/{4} Safari/{5}"
+        tmplt_win: str = "(Windows; U; {0}) AppleWebKit/{1} (KHTML, like Gecko) Version/{2} Safari/{3}"
+        tmplt_mac: str = "({0} rv:{1}.0; {2}) AppleWebKit/{3} (KHTML, like Gecko) Version/{4} Safari/{5}"
         tmplt_ipod: str = (
             "(iPod; U; CPU iPhone OS {0}_{1} like Mac OS X; {2})"
             " AppleWebKit/{3} (KHTML, like Gecko) Version/{4}.0.5"

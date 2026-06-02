@@ -6,6 +6,12 @@ class Provider(InternetProvider):
         "gmail.com",
         "hotmail.com",
         "yahoo.com",
+        # Hungarian free email providers (Magyar e-mail szolgáltatók):
+        # https://madweb.hu/a-7-legjobb-ingyenesen-hasznalhato-e-mail-szolgaltatas/
+        "freemail.hu",
+        "citromail.hu",
+        "indamail.hu",
+        "mailbox.hu",
     )
 
     tlds = (
@@ -24,7 +30,7 @@ class Provider(InternetProvider):
         ("á", "a"),
         ("é", "e"),
         ("í", "i"),
-        ("ó", "i"),
+        ("ó", "o"),
         ("ő", "o"),
         ("ú", "u"),
         ("ű", "u"),

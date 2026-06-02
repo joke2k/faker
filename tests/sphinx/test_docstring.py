@@ -1,4 +1,3 @@
-# coding=utf-8
 import inspect
 
 from unittest import mock

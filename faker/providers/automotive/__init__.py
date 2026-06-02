@@ -55,7 +55,7 @@ class Provider(BaseProvider):
         """Generate vin number."""
         vin_chars = "1234567890ABCDEFGHJKLMNPRSTUVWXYZ"  # I, O, Q are restricted
         front_part = self.bothify("????????", letters=vin_chars)
-        rear_part = self.bothify("????????", letters=vin_chars)
+        rear_part = self.bothify("????####", letters=vin_chars)
         front_part_weight = calculate_vin_str_weight(front_part, [8, 7, 6, 5, 4, 3, 2, 10])
         rear_part_weight = calculate_vin_str_weight(rear_part, [9, 8, 7, 6, 5, 4, 3, 2])
         checksum = (front_part_weight + rear_part_weight) % 11

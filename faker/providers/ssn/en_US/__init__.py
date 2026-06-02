@@ -231,5 +231,5 @@ class Provider(BaseProvider):
 
         else:
             raise ValueError(
-                "taxpayer_identification_number_type must be one of 'SSN', 'EIN', 'ITIN'," " or 'INVALID_SSN'."
+                "taxpayer_identification_number_type must be one of 'SSN', 'EIN', 'ITIN', or 'INVALID_SSN'."
             )

@@ -7,7 +7,7 @@ class Provider(CompanyProvider):
         "{{last_name}} {{last_name}} {{company_suffix}}",
         "{{last_name}}",
     )
-
+    company_prefixes = ("S.C.", "S.S.I.", "A.D.")
     company_suffixes = (
         "SRL",
         "SA",

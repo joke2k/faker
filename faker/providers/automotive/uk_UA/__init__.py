@@ -18,20 +18,20 @@ class Provider(AutomotiveProvider):
         "Kyiv_reg": (("AI", "KI", "TI", "ME"), "10"),
         "Zhytomyr": (("AM", "KM", "TM", "MV"), "06"),
         "Zakarpattia": (("AO", "KO", "MT", "MO"), "07"),
-        "Zaporizhia": (("AR", "KR", "TR", "MR"), "08"),
+        "Zaporizhzhia": (("AR", "KR", "TR", "MR"), "08"),
         "IvanoFrankivsk": (("AT", "KT", "TO", "XS"), "09"),
         "Kirovohrad": (("BA", "NA", "XA", "EA"), "12"),
         "Luhansk": (("BB", "NV", "EE", "EV"), "13"),
         "Lviv": (("BS", "NS", "SS", "ES"), "14"),
         "Mykolaiv": (("BE", "NE", "XE", "XN"), "15"),
-        "Odessa": (("BN", "NN", "OO", "EN"), "16"),
+        "Odesa": (("BN", "NN", "OO", "EN"), "16"),
         "Poltava": (("BI", "NI", "XI", "EI"), "17"),
         "Rivne": (("BK", "NK", "XK", "EK"), "18"),
         "Sumy": (("BM", "NM", "XM", "EM"), "19"),
         "Ternopil": (("BO", "NO", "XO", "EO"), "20"),
         "Kharkiv": (("AX", "KX", "XX", "EX"), "21"),
         "Kherson": (("BT", "NT", "XT", "ET"), "22"),
-        "Khmelnytsky": (("BX", "NX", "OX", "RX"), "23"),
+        "Khmelnytskyi": (("BX", "NX", "OX", "RX"), "23"),
         "Cherkasy": (("SA", "IA", "OA", "RA"), "24"),
         "Chernihiv": (("SV", "IV", "OV", "RV"), "25"),
         "Chernivtsi": (("SE", "IE", "OE", "RE"), "26"),
@@ -217,7 +217,7 @@ class Provider(AutomotiveProvider):
         - If ``region_name`` is ``Kyiv``, will use this region in build of license plates.
         - If ``temporary_plate`` is ``False`` (default), generate license plate AA0000AA format
         - If ``temporary_plate`` is ``True``, generate temporary plate format 01 AA0000
-        01 - 27 it's region number
+        - 01 - 27 it's region number
 
         :sample:
         :sample: region_name=None, temporary_plate=False

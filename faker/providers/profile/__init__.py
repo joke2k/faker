@@ -16,7 +16,7 @@ class Provider(BaseProvider):
 
     def simple_profile(self, sex: Optional[SexLiteral] = None) -> Dict[str, Union[str, date, SexLiteral]]:
         """
-        Generates a basic profile with personal informations
+        Generates a basic profile with personal information
         """
         sex_ = self.random_element(["F", "M"]) if sex is None else sex
         if sex_ == "F":

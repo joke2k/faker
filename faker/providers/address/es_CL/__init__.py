@@ -631,7 +631,7 @@ class Provider(AddressProvider):
         region_index = int(commune_code[0:2]) - 1
         region_name = tuple(self.regions.values())[region_index]
 
-        return "{:s}, {:s}".format(commune_name, region_name)
+        return f"{commune_name:s}, {region_name:s}"
 
     def road_name(self) -> str:
         self.generator.set_arguments("kilometer", {"min": 1, "max": 35})

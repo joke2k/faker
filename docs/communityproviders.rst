@@ -8,6 +8,10 @@ Here's a list of Providers written by the community:
 +---------------+---------------------------+----------------------------------+
 | Provider name | Description               | URL                              |
 +===============+===========================+==================================+
+| AI Provider   | Fake data for AI/ML       | `faker-ai-provider`_             |
+|               | models, companies, and    |                                  |
+|               | datasets.                 |                                  |
++---------------+---------------------------+----------------------------------+
 | Airtravel     | Airport names, airport    | `faker_airtravel`_               |
 |               | codes, and flights.       |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -21,6 +25,9 @@ Here's a list of Providers written by the community:
 | Datasets      | Build providers based     | `faker-datasets`_                |
 |               | on datasets               |                                  |
 +---------------+---------------------------+----------------------------------+
+| Ecommerce     | Fake data for e-commerce  | `faker-ecommerce-provider`_      |
+|               | e.g. products, orders     |                                  |
++---------------+---------------------------+----------------------------------+
 | Education     | Public school name and    | `faker_education`_               |
 |               | info for testing purposes |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -30,6 +37,10 @@ Here's a list of Providers written by the community:
 | Geoscience    | Earth sciences-related    | `faker_geoscience`_              |
 |               | fake-random data          |                                  |
 |               | generators.               |                                  |
++---------------+---------------------------+----------------------------------+
+| Healthcare    | Multi-language medical    | `faker_healthcare`_              |
+|               | data: diseases, ICD-10,   |                                  |
+|               | medications, and more.    |                                  |
 +---------------+---------------------------+----------------------------------+
 | Market Data   | Fake market data          |                                  |
 |               | identifiers (SEDOL, CUSIP,| `faker_marketdata`_              |
@@ -65,6 +76,17 @@ Here's a list of Providers written by the community:
 | Faker         | Recognition models        |                                  |
 |               | using Faker.              |                                  |
 +---------------+---------------------------+----------------------------------+
+| Security      | Fake data related to      | `faker-security`_                |
+|               | security e.g. CVSS, CVE   |                                  |
++---------------+---------------------------+----------------------------------+
+| Scientific    | Fake author identifiers   | `faker_researcher_ids`_          |
+|               | for scientific databases  |                                  |
+|               | (Scopus, ORCID etc.)      |                                  |
++---------------+---------------------------+----------------------------------+
+| Sci Fi        | Fake science fiction      | `faker-galactic`_                |
+|               | themed data from popular  |                                  |
+|               | sci-fi universes          |                                  |
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -78,14 +100,18 @@ In order to be included, your provider must satisfy these requirements:
 * it must not contain any malicious nor any kind of telemetry code.
 
 .. _repo: https://github.com/joke2k/faker/
+.. _faker_pk: https://pypi.org/project/faker-pk/
 .. _OSI-Approved: https://opensource.org/licenses/alphabetical
+.. _faker-ai-provider: https://pypi.org/project/faker-ai-provider/
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
 .. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
+.. _faker-ecommerce-provider: https://pypi.org/project/faker-ecommerce-provider/
 .. _faker-file: https://pypi.org/project/faker-file/
 .. _faker_geoscience: https://pypi.org/project/faker-geoscience/
+.. _faker_healthcare: https://pypi.org/project/faker-healthcare-provider/
 .. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
@@ -96,3 +122,6 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_wifi_essid: https://pypi.org/project/faker-wifi-essid/
 .. _optional_faker: https://pypi.org/project/optional_faker
 .. _presidio-evaluator: https://pypi.org/project/presidio-evaluator
+.. _faker-security: https://pypi.org/project/faker-security/
+.. _faker_researcher_ids: https://pypi.org/project/faker-researcher-ids/
+.. _faker-galactic: https://pypi.org/project/faker-galactic/

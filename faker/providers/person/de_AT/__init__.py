@@ -1569,3 +1569,46 @@ class Provider(PersonProvider):
     )
 
     prefixes = ("Dr.", "Mag.", "Ing.", "Dipl.-Ing.", "Prof.", "Univ.Prof.")
+
+    # source:
+    # https://www.bmbwf.gv.at/dam/jcr:68a61bdd-4fd4-416b-bfb2-4fbb44255574/AKADEMISCHE%20GRADE%202022_M%C3%A4rz%202022.pdf
+    academic_prefixes = (
+        "DI",
+        "DI (FH)",
+        "Dipl.-Ing.",
+        "Dipl.-Ing. (FH)",
+        "Dr. med. univ.",
+        "Dr. med. dent.",
+        "Mag.",
+        "Mag. (FH)",
+    )
+
+    academic_suffixes = (
+        "BA",
+        "B.A.",
+        "BEd",
+        "BSc",
+        "B.Sc.",
+        "Bakk.",
+        "MA",
+        "M.A.",
+        "MBA",
+        "MEd",
+        "MSc",
+        "M.Sc.",
+        "PhD",
+    )
+
+    """
+    :return: Academic prefix
+    """
+
+    def academic_prefix(self) -> str:
+        return self.random_element(self.academic_prefixes)
+
+    """
+    :return: Academic suffix
+    """
+
+    def academic_suffix(self) -> str:
+        return self.random_element(self.academic_suffixes)

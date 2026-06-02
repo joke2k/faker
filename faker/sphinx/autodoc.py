@@ -1,4 +1,3 @@
-# coding=utf-8
 from faker.sphinx.docstring import ProviderMethodDocstring
 from faker.sphinx.documentor import write_provider_docs
 

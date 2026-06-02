@@ -35,7 +35,7 @@ class Provider(CreditCardProvider):
         :sample: card_type="mastercard"
         """
         card = self._credit_card_type(card_type)
-        tpl = "{provider}\n" "{owner}\n" "{number} {expire_date}\n" "{security}: {security_nb}\n" "{issuer}"
+        tpl = "{provider}\n{owner}\n{number} {expire_date}\n{security}: {security_nb}\n{issuer}"
         tpl = tpl.format(
             provider=card.name,
             owner=translit(

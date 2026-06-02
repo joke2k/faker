@@ -249,6 +249,18 @@ class Provider(AddressProvider):
         "Vorarlberg",
     )
 
+    municipality_key_formats = (
+        "1####",
+        "2####",
+        "3####",
+        "4####",
+        "5####",
+        "6####",
+        "7####",
+        "8####",
+        "9####",
+    )
+
     def street_suffix_short(self) -> str:
         return self.random_element(self.street_suffixes_short)
 

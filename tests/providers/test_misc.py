@@ -91,6 +91,36 @@ class TestMiscProvider:
             new_uuids = [faker.uuid4() for _ in range(100)]
             assert new_uuids == expected_uuids
 
+    def test_uuid1_str(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.uuid1())
+
+    def test_uuid1_int(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert isinstance(faker.uuid1(cast_to=int), int)
+
+    def test_uuid1_uuid_object(self, faker, num_samples):
+        for _ in range(num_samples):
+            uuid1 = faker.uuid1(cast_to=None)
+            assert isinstance(uuid1, uuid.UUID)
+            assert uuid1.version == 1
+
+    def test_uuid7_str(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.uuid7())
+
+    def test_uuid7_int(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert isinstance(faker.uuid7(cast_to=int), int)
+
+    def test_uuid7_uuid_object(self, faker, num_samples):
+        for _ in range(num_samples):
+            uuid7 = faker.uuid7(cast_to=None)
+            assert isinstance(uuid7, uuid.UUID)
+            assert uuid7.version == 7
+
     def test_zip_invalid_file(self, faker):
         with pytest.raises(ValueError):
             faker.zip(num_files="1")
