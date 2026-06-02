@@ -9,7 +9,7 @@ from .. import Provider as BankProvider
 class Provider(BankProvider):
     """Implement bank provider for ``pt_BR`` locale."""
 
-    bban_format: str = "BR#########################??"
+    bban_format: str = "#########################??"  # BRXX + 23 digits + 2 alhpanumber
     country_code: str = "BR"
 
     banks = (
