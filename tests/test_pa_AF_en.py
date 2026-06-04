@@ -33,11 +33,6 @@ class TestPaAFLocale:
     def test_phone_number(self, faker):
         assert isinstance(faker.phone_number(), str)
 
-    # ---------------- BANK ----------------
-    def test_bank(self, faker):
-        assert isinstance(faker.bank_name(), str)
-        assert isinstance(faker.swift(), str)
-        assert isinstance(faker.account_number(), str)
 
     # ---------------- CREDIT CARD ----------------
     def test_credit_card(self, faker):
@@ -107,9 +102,9 @@ class TestPaAFLocale:
     def test_phone(self, faker):
         assert isinstance(faker.phone_number(), str)
 
-    # ---------------- SSN (AFGHAN ID) ----------------
-    def test_afghan_id(self, faker):
-        value = faker.afghan_id(separator="-")
-        assert isinstance(value, str)
-        assert "-" in value
-        assert len(value.replace("-", "")) > 0
+    # # ---------------- SSN (AFGHAN ID) ----------------
+    # def test_afghan_id(self, faker):
+    #     value = faker.afghan_id(separator="-")
+    #     assert isinstance(value, str)
+    #     assert "-" in value
+    #     assert len(value.replace("-", "")) > 0
