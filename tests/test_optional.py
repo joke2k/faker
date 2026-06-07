@@ -6,11 +6,7 @@ from faker import Faker
 class TestOptionalClass:
     def test_optional(self) -> None:
         fake = Faker()
-        Faker.seed(0)
-
-        # 100 draws make it astronomically unlikely to miss any of the three
-        # outcomes (True, False, None) even under worst-case probability splits.
-        # 10 draws had a ~12% empirical failure rate (see GH-2366).
+        # 100 draws; 10 drew ~12% failure rate (GH-2366)
         values = {fake.optional.boolean() for _ in range(100)}
         assert values == {True, False, None}
 
