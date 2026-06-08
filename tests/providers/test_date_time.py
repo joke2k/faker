@@ -34,6 +34,7 @@ from faker.providers.date_time.hy_AM import Provider as HyAmProvider
 from faker.providers.date_time.it_IT import Provider as ItItProvider
 from faker.providers.date_time.ja_JP import Provider as JaJpProvider
 from faker.providers.date_time.ka_GE import Provider as KaGeProvider
+from faker.providers.date_time.mr_IN import Provider as MrINProvider
 from faker.providers.date_time.nl_NL import Provider as NlProvider
 from faker.providers.date_time.no_NO import Provider as NoNoProvider
 from faker.providers.date_time.pl_PL import Provider as PlProvider
@@ -836,6 +837,24 @@ class TestGuIN(unittest.TestCase):
 
         month = self.fake.month_in_guj()
         assert month in GuINProvider.MONTH_NAMES_IN_GUJARATI.values()
+
+
+class TestMrIN(unittest.TestCase):
+    """Tests date_time in the mr_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("mr_IN")
+        Faker.seed(0)
+
+    def test_day(self):
+        day = self.fake.day_of_week()
+        assert isinstance(day, str)
+        assert day in MrINProvider.DAY_NAMES.values()
+
+    def test_month(self):
+        month = self.fake.month_name()
+        assert isinstance(month, str)
+        assert month in MrINProvider.MONTH_NAMES.values()
 
 
 class TestHyAm(unittest.TestCase):

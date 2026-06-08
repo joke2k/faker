@@ -35,6 +35,7 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ig_NG import Provider as IgNgProvider
 from faker.providers.person.is_IS import Provider as IsISProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
+from faker.providers.person.mr_IN import Provider as MrINProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
 from faker.providers.person.or_IN import Provider as OrINProvider
@@ -1502,6 +1503,55 @@ class TestLvLV(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name in LvProvider.last_names_male
+
+
+class TestMrIN(unittest.TestCase):
+    """Tests person in the mr_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("mr_IN")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        name = self.fake.first_name()
+        assert name in MrINProvider.first_names
+
+        name = self.fake.first_name_male()
+        assert name in MrINProvider.first_names_male
+
+        name = self.fake.first_name_female()
+        assert name in MrINProvider.first_names_female
+
+    def test_last_name(self):
+        last_name = self.fake.last_name()
+        assert last_name in MrINProvider.last_names
+
+    def test_prefix(self):
+        prefix = self.fake.prefix()
+        assert prefix in MrINProvider.prefixes
+
+        prefix = self.fake.prefix_male()
+        assert prefix in MrINProvider.prefixes_male
+
+        prefix = self.fake.prefix_female()
+        assert prefix in MrINProvider.prefixes_female
+
+    def test_name(self):
+        name = self.fake.name().split()
+        assert all(isinstance(n, str) for n in name)
+
+        prefixes = MrINProvider.prefixes
+        if len(name) == 3:
+            assert name[0] in prefixes
+            assert name[1] in MrINProvider.first_names
+            assert name[2] in MrINProvider.last_names
+        else:
+            assert name[0] in MrINProvider.first_names
+            if name[1].endswith(MrINProvider.suffixes):
+                assert name[1][:-1] in MrINProvider.last_names
+                assert name[1][-1] in MrINProvider.suffixes
+            else:
+                assert name[1] in MrINProvider.last_names
 
 
 class TestNeNP(unittest.TestCase):
