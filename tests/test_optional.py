@@ -6,8 +6,9 @@ from faker import Faker
 class TestOptionalClass:
     def test_optional(self) -> None:
         fake = Faker()
-
-        assert {fake.optional.boolean() for _ in range(10)} == {True, False, None}
+        # 100 draws; 10 drew ~12% failure rate (GH-2366)
+        values = {fake.optional.boolean() for _ in range(100)}
+        assert values == {True, False, None}
 
     def test_optional_probability(self) -> None:
         """The probability is configurable."""
