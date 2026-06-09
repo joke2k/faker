@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.22.0 - 2026-06-09](https://github.com/joke2k/faker/compare/v40.21.0...v40.22.0)
+
+* Add `mr_IN` `person`, `address`, and `phone_number` providers (#2367). Thanks @RedZapdos123.
+* Fix flaky `test_optional` by using seed and larger sample size (#2376). Thanks @tejasae-afk.
+
 ### [v40.21.0 - 2026-06-02](https://github.com/joke2k/faker/compare/v40.20.0...v40.21.0)
 
 * Add banks list for `en_GB` locale (#2363). Thanks @osolomientsev.
