@@ -24,6 +24,7 @@ from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
+from faker.providers.ssn.fr_FR import Provider as fr_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
@@ -925,10 +926,19 @@ class TestFrFR(unittest.TestCase):
 
     def test_ssn(self) -> None:
         for _ in range(100):
-            assert re.search(r"^\d{15}$", self.fake.ssn())
+            # 5 birth digits, then either 8 numeric locality digits or Corsica's 2A/2B + 6 digits, then checksum.
+            assert re.search(r"^\d{5}(?:\d{8}|2[AB]\d{6})\d{2}$", self.fake.ssn())
 
     def test_checksum(self) -> None:
+        assert fr_calculate_checksum("2570533063999") == 3
         assert fr_calculate_checksum(2570533063999) == 3
+        assert fr_calculate_checksum("100012A004001") == 11
+        assert fr_calculate_checksum("100012B033001") == 41
+
+    def test_ssn_can_generate_corsican_department_codes(self) -> None:
+        with mock.patch.object(fr_Provider, "random_element", return_value=("2A", "004", "Corse-du-Sud", "Ajaccio")):
+            with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
+                assert self.fake.ssn() == "100012A00400111"
 
 
 class TestHrHR(unittest.TestCase):
