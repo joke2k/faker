@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.23.0 - 2026-06-10](https://github.com/joke2k/faker/compare/v40.22.0...v40.23.0)
+
+* Add French social security numbers with Corsican codes (#2373). Thanks @dancergraham.
+* Fix typos in docstrings and comments (#2387). Thanks @Labib-Bin-Salam.
+
 ### [v40.22.0 - 2026-06-09](https://github.com/joke2k/faker/compare/v40.21.0...v40.22.0)
 
 * Add `mr_IN` `person`, `address`, and `phone_number` providers (#2367). Thanks @RedZapdos123.
