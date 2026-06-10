@@ -2069,7 +2069,7 @@ class Faker:
         """
         Generate a random binary blob of ``length`` bytes.
 
-        If this faker instance has been seeded, performance will be signficiantly reduced, to conform
+        If this faker instance has been seeded, performance will be significantly reduced, to conform
         to the seeding.
 
         :sample: length=64
@@ -2771,7 +2771,7 @@ class Faker:
 
     def passport_full(self) -> str:
         """
-        Generates a formatted sting with US Passport information
+        Generates a formatted string with US Passport information
         """
         ...
 
