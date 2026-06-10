@@ -63,7 +63,7 @@ def print_provider(
             )
         except UnicodeDecodeError:
             # The example is actually made of bytes.
-            # We could coerce to bytes, but that would fail anyway when we wiil
+            # We could coerce to bytes, but that would fail anyway when we will
             # try to `print` the line.
             lines = ["<bytes>"]
         except UnicodeEncodeError:

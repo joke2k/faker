@@ -584,7 +584,7 @@ class Provider(BaseProvider):
                 :returns: Flat list of IPv4 networks after exclusion.
                           If exclude fails because networks do not
                           overlap, a single element list with the
-                          orignal network is returned. If it overlaps,
+                          original network is returned. If it overlaps,
                           even partially, the network is excluded.
                 """
                 try:

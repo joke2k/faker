@@ -53,7 +53,7 @@ class Provider(PassportProvider):
             issue_date = self.generator.date_time_between(
                 today - timedelta(days=expiry_years * 365 - 1), birthday + timedelta(days=16 * 365 - 1)
             )
-            # all people over 21 must have been over 16 when they recieved passport or it will be expired otherwise
+            # all people over 21 must have been over 16 when they received passport or it will be expired otherwise
             if age >= 21:
                 issue_date = self.generator.date_time_between(today - timedelta(days=expiry_years * 365 - 1), today)
                 expiry_years = 10
@@ -81,7 +81,7 @@ class Provider(PassportProvider):
         return gender
 
     def passport_full(self) -> str:
-        """Generates a formatted sting with US Passport information"""
+        """Generates a formatted string with US Passport information"""
         dob = self.passport_dob()
         birth_date, issue_date, expiry_date = self.passport_dates(dob)
         gender_g = self.passport_gender()

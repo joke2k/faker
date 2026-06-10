@@ -27,7 +27,7 @@ class Provider(AutomotiveProvider):
         # Colarado
         "###-???",
         "???-###",
-        # Conneticut
+        # Connecticut
         "###-???",
         # Delaware
         "######",
@@ -113,7 +113,7 @@ class Provider(AutomotiveProvider):
         "###-????",
         # North Dakota
         "### ???",
-        # Nothern Mariana Islands
+        # Northern Mariana Islands
         "??? ###",
         # Ohio
         "??? ####",

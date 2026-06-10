@@ -49,7 +49,7 @@ class Provider(BaseProvider):
     def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
 
-        If this faker instance has been seeded, performance will be signficiantly reduced, to conform
+        If this faker instance has been seeded, performance will be significantly reduced, to conform
         to the seeding.
 
         :sample: length=64
