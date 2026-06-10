@@ -3,7 +3,7 @@ from faker.providers import BaseProvider
 
 class Provider(BaseProvider):
     """
-    Afghan automotive license plate provider for pa_AF locale.
+    Afghan automotive license plate provider for en_AF locale.
     Generates custom Afghan-style license plates.
     """
 

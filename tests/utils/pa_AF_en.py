@@ -1,6 +1,6 @@
 from faker import Faker
 
-fake = Faker("pa_AF_en")
+fake = Faker("en_AF")
 
 def test_pa_AF_en_person():
     assert fake.name()

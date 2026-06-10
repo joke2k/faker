@@ -7,7 +7,7 @@ from .. import Provider as PassportProvider
 
 
 class Provider(PassportProvider):
-    """Implement passport provider for ``pa_AF`` locale in English."""
+    """Implement passport provider for ``en_AF`` locale in English."""
 
     # Afghan passport number formats
     passport_number_formats = (
