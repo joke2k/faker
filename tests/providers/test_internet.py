@@ -1,10 +1,12 @@
 import re
+
 from ipaddress import ip_address, ip_network
 from itertools import cycle
 from typing import Pattern
 from unittest.mock import PropertyMock, patch
 
 import pytest
+
 from validators import domain as validate_domain
 from validators import email as validate_email
 
@@ -164,9 +166,7 @@ class TestHuHu:
         assert email.split("@")[0] == "micimacko.tukorfurogepe"
 
     def test_slug_accented_character_replacements(self, faker):
-        assert (
-            faker.slug("micimackó.tükörfúrógépe") == "micimackotukorfurogepe"
-        )
+        assert faker.slug("micimackó.tükörfúrógépe") == "micimackotukorfurogepe"
 
 
 class TestInternetProvider:
@@ -228,9 +228,7 @@ class TestInternetProvider:
         assert f"https://dummyimage.com/{my_width}x{my_height}" == url
         url = faker.image_url()
         assert "https://dummyimage.com/" in url
-        url = faker.image_url(
-            placeholder_url="https://example.com/{width}/height"
-        )
+        url = faker.image_url(placeholder_url="https://example.com/{width}/height")
         assert url.startswith("https://example.com/")
 
     def test_hostname(self, faker):
@@ -269,9 +267,7 @@ class TestInternetProvider:
         from faker.providers.internet import _IPv4Constants
 
         # The extra [None] here is to test code path involving whole IPv4 pool
-        for address_class in list(_IPv4Constants._network_classes.keys()) + [
-            None
-        ]:
+        for address_class in list(_IPv4Constants._network_classes.keys()) + [None]:
             if address_class is None:
                 networks_attr = "_cached_all_networks"
             else:
@@ -300,9 +296,7 @@ class TestInternetProvider:
                     new_callable=PropertyMock,
                 ) as mock_weights_cache:
                     # Keep test fast by patching the cache attributes to return something simple
-                    mock_networks_cache.return_value = [
-                        ip_network("10.0.0.0/24")
-                    ]
+                    mock_networks_cache.return_value = [ip_network("10.0.0.0/24")]
                     mock_weights_cache.return_value = [10]
                     for _ in range(100):
                         provider.ipv4(address_class=address_class)
@@ -374,9 +368,7 @@ class TestInternetProvider:
                     new_callable=PropertyMock,
                 ) as mock_weights_cache:
                     # Keep test fast by patching the cache attributes to return something simple
-                    mock_networks_cache.return_value = [
-                        ip_network("10.0.0.0/24")
-                    ]
+                    mock_networks_cache.return_value = [ip_network("10.0.0.0/24")]
                     mock_weights_cache.return_value = [10]
                     for _ in range(100):
                         provider.ipv4_public(address_class=address_class)
@@ -440,9 +432,7 @@ class TestInternetProvider:
                 "faker.generator.random.choice", wraps=random.choice
             ) as mock_random_choice:
                 # If weights argument is valid, only `choices_distribution` should be called
-                provider._random_ipv4_address_from_subnets(
-                    subnets, valid_weights
-                )
+                provider._random_ipv4_address_from_subnets(subnets, valid_weights)
                 assert mock_choices_fn.call_count == 1
                 assert mock_random_choice.call_count == 0
 
@@ -453,9 +443,7 @@ class TestInternetProvider:
                     mock_random_choice.reset_mock()
                     mock_choices_fn.reset_mock()
 
-                    provider._random_ipv4_address_from_subnets(
-                        subnets, invalid_weights
-                    )
+                    provider._random_ipv4_address_from_subnets(subnets, invalid_weights)
                     assert mock_choices_fn.call_count == 0
                     assert mock_random_choice.call_count == 1
 
@@ -466,17 +454,15 @@ class TestInternetProvider:
             address = provider.ipv6()
             assert len(address) >= 3  # ::1
             assert len(address) <= 39
-            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$").search(
-                address
-            )
+            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4}$").search(address)
 
         for _ in range(num_samples):
             address = provider.ipv6(network=True)
             assert len(address) >= 4  # ::/8
             assert len(address) <= 39 + 4
-            assert re.compile(
-                r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$"
-            ).search(address)
+            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(
+                address
+            )
 
     def test_mac_address(self, faker):
         provider = InternetProvider(faker)
@@ -782,10 +768,7 @@ class TestRuRu:
     """Test ru_RU internet provider methods"""
 
     def test_free_email_domain(self, faker):
-        assert (
-            faker.free_email_domain()
-            in RuRuInternetProvider.free_email_domains
-        )
+        assert faker.free_email_domain() in RuRuInternetProvider.free_email_domains
 
     def test_tld(self, faker):
         assert faker.tld() in RuRuInternetProvider.tlds
@@ -979,9 +962,7 @@ class TestZhCn:
                 # But every level henceforth should return the mocked value
                 assert domain_parts[-1] == "cn"
                 assert domain_parts[-2] in provider.second_level_domains
-                assert all(
-                    domain_part == "li" for domain_part in domain_parts[:-2]
-                )
+                assert all(domain_part == "li" for domain_part in domain_parts[:-2])
 
                 # tld() method should only be called once, domain_word() will be called for each
                 # level after tld except the second, and recursive calls to domain_name() will be
@@ -1011,9 +992,7 @@ class TestZhCn:
                 # Same assertions as levels=2 for non cn tld and
                 # every level henceforth should return the mocked value
                 assert domain_parts[-1] == "net"
-                assert all(
-                    domain_part == "li" for domain_part in domain_parts[:-1]
-                )
+                assert all(domain_part == "li" for domain_part in domain_parts[:-1])
 
                 # tld() method should only be called once, domain_word() will be called for each
                 # level after tld, and recursive calls to domain_name() will be made for each

@@ -37,7 +37,9 @@ class TestMkMk:
         pattern = re.compile(r"^[A-Z]\d{7}$")
         for _ in range(num_samples):
             passport_number = faker.passport_number()
-            assert pattern.fullmatch(passport_number), f"Unexpected format: {passport_number!r}"
+            assert pattern.fullmatch(
+                passport_number
+            ), f"Unexpected format: {passport_number!r}"
 
 
 class TestPassport:

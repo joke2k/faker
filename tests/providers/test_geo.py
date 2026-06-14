@@ -43,7 +43,9 @@ class TestArDz(unittest.TestCase):
         loc = self.fake.location_on_land()
         assert isinstance(loc, tuple)
         assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
         assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
@@ -54,7 +56,9 @@ class TestArDz(unittest.TestCase):
         loc = self.fake.location_on_land(coords_only=True)
         assert isinstance(loc, tuple)
         assert len(loc) == 2
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
 
 
@@ -67,7 +71,9 @@ class TestCsCz(unittest.TestCase):
         loc = self.fake.location_on_land()
         assert isinstance(loc, tuple)
         assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
         assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
@@ -129,7 +135,9 @@ class TestEnUS(unittest.TestCase):
         loc = self.fake.location_on_land()
         assert isinstance(loc, tuple)
         assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
         assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
@@ -140,7 +148,9 @@ class TestEnUS(unittest.TestCase):
         loc = self.fake.location_on_land(coords_only=True)
         assert isinstance(loc, tuple)
         assert len(loc) == 2
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
 
 
@@ -185,7 +195,9 @@ class TestPlPl(unittest.TestCase):
         loc = self.fake.location_on_land()
         assert isinstance(loc, tuple)
         assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
         assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
@@ -213,7 +225,9 @@ class TestSkSk(unittest.TestCase):
         loc = self.fake.location_on_land()
         assert isinstance(loc, tuple)
         assert len(loc) == 5
-        assert Decimal(loc[0])  # Should be able to cast first two elements of tuple to Decimal
+        assert Decimal(
+            loc[0]
+        )  # Should be able to cast first two elements of tuple to Decimal
         assert Decimal(loc[1])
         assert isinstance(loc[2], str)  # Place is a string
         assert isinstance(loc[3], str)  # Country code is a string
