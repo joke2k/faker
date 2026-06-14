@@ -2,7 +2,13 @@ from .. import Provider as PersonProvider
 
 
 class Provider(PersonProvider):
-    """Person provider for mk_MK locale (Macedonian)."""
+    """Person provider for mk_MK locale (Macedonian).
+
+    Sources:
+
+    - https://www.stat.gov.mk/Iminja_Preziminja.aspx (State Statistical Office of North Macedonia)
+    - https://www.behindthename.com/names/usage/macedonian
+    """
 
     first_names_male = (
         "Александар",
