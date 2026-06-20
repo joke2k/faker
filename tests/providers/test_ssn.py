@@ -36,6 +36,7 @@ from faker.providers.ssn.pl_PL import checksum as pl_checksum
 from faker.providers.ssn.pt_BR import checksum as pt_checksum
 from faker.providers.ssn.ro_RO import ssn_checksum as ro_ssn_checksum
 from faker.providers.ssn.ro_RO import vat_checksum as ro_vat_checksum
+from faker.providers.ssn.sr_BA import calculate_checksum as sr_ba_calculate_checksum
 from faker.providers.ssn.uk_UA import Provider as uk_Provider
 from faker.providers.ssn.zh_TW import checksum as tw_checksum
 from faker.utils.checksums import luhn_checksum
@@ -1264,6 +1265,26 @@ class TestSkSK(unittest.TestCase):
             assert birth_number[6] == "/"
             assert int(birth_number.replace("/", "")) % 11 == 0
 
+
+class TestSrBA(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("sr_BA")
+        Faker.seed(0)
+
+    def test_ssn(self):
+        for _ in range(200):
+            ssn = self.fake.ssn()
+            assert re.search(r"^\d{13}$", ssn)
+
+            day = int(ssn[0:2])
+            month = int(ssn[2:4])
+            registration_area = int(ssn[7:9])
+            checksum = int(ssn[-1])
+
+            assert 1 <= day <= 31
+            assert 1 <= month <= 12
+            assert 10 <= registration_area <= 19
+            assert sr_ba_calculate_checksum(ssn[:-1]) == checksum
 
 class TestSvSE(unittest.TestCase):
     def setUp(self):
