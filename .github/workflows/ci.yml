@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -40,7 +40,7 @@ jobs:
   checkmanifest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -64,7 +64,7 @@ jobs:
   test_class_order:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
@@ -75,7 +75,7 @@ jobs:
   isort:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -100,7 +100,7 @@ jobs:
   black:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -124,7 +124,7 @@ jobs:
   doc8:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -157,7 +157,7 @@ jobs:
         - "3.14"
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
@@ -193,7 +193,7 @@ jobs:
         - "pypy-3.11"
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pip cache
         uses: actions/cache@v5
         id: pipcache
@@ -235,7 +235,7 @@ jobs:
         arch: ["x86", "x64"]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pip cache
         uses: actions/cache@v5
         id: pipcache
@@ -259,7 +259,7 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing, test_class_order]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
       uses: actions/cache@v5
       id: pipcache
