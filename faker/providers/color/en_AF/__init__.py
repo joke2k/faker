@@ -1,5 +1,7 @@
 from collections import OrderedDict
+
 from .. import Provider as ColorProvider
+
 
 class Provider(ColorProvider):
     """Implement color provider in English."""
@@ -148,5 +150,6 @@ class Provider(ColorProvider):
     ))
 
     safe_colors = (
-        "black", "maroon", "green", "navy", "olive", "purple", "teal", "lime", "blue", "silver", "gray", "yellow", "fuchsia", "aqua", "white",
+        "black", "maroon", "green", "navy", "olive", "purple", "teal", "lime", "blue", "silver", "gray", "yellow",
+        "fuchsia", "aqua", "white",
     )

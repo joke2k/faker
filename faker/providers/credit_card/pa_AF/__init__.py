@@ -1,6 +1,8 @@
 from collections import OrderedDict
+
 from faker.typing import CreditCard
 from .. import Provider as CreditCardProvider
+
 
 class Provider(CreditCardProvider):
     """Implement credit card provider for Pashto Afghanistan locale.

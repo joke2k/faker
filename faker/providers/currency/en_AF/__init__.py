@@ -8,4 +8,4 @@ class Provider(CurrencyProvider):
 
     def pricetag(self) -> str:
         price = self.numerify(self.random_element(self.price_formats))
-        return f"AFN {price}"  # Common English-style format used in Afghanistan
+        return f"AFN {price}"

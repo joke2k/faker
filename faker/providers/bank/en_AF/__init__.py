@@ -1,6 +1,6 @@
+import random
 
 from .. import Provider as BankProvider
-import random
 
 
 class Provider(BankProvider):
@@ -28,6 +28,7 @@ class Provider(BankProvider):
         "Bank-e-Millie Afghan",
         "Ghazanfar Bank",
     )
+
     def bank_name(self):
         return random.choice(self.banks)
 

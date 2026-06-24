@@ -1,5 +1,7 @@
 import random
+
 from .. import Provider as CompanyProvider
+
 
 class Provider(CompanyProvider):
     """Afghanistan companies in English."""

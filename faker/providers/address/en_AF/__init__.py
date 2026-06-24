@@ -1,5 +1,6 @@
-from faker.providers import BaseProvider
 import random
+
+from faker.providers import BaseProvider
 
 
 class Provider(BaseProvider):
@@ -14,40 +15,40 @@ class Provider(BaseProvider):
     ]
 
     cities = {
-        "Badakhshan": ["Fayzabad"],
-        "Badghis": ["Qala-e Naw"],
-        "Baghlan": ["Pul-e Khumri"],
-        "Balkh": ["Mazar-e Sharif"],
-        "Bamyan": ["Bamyan"],
-        "Daykundi": ["Nili"],
-        "Farah": ["Farah"],
-        "Faryab": ["Maymana"],
-        "Ghor": ["Chaghcharan"],
-        "Ghazni": ["Ghazni"],
-        "Helmand": ["Lashkargah"],
-        "Herat": ["Herat"],
-        "Jowzjan": ["Sheberghan"],
-        "Kabul": ["Kabul"],
-        "Kapisa": ["Mahmud Raqi"],
-        "Kandahar": ["Kandahar"],
-        "Kunduz": ["Kunduz"],
-        "Kunar": ["Asadabad"],
-        "Khost": ["Khost"],
-        "Laghman": ["Mihtarlam"],
-        "Logar": ["Pul-e Alam"],
-        "Maidan Wardak": ["Maidan Shar"],
-        "Nimroz": ["Zaranj"],
-        "Nangarhar": ["Jalalabad"],
-        "Nuristan": ["Parun"],
-        "Uruzgan": ["Tarin Kot"],
-        "Paktia": ["Gardez"],
-        "Paktika": ["Sharan"],
-        "Panjshir": ["Bazarak"],
-        "Parwan": ["Charikar"],
-        "Samangan": ["Aybak"],
-        "Sar-e Pol": ["Sar-e Pol"],
-        "Takhar": ["Taloqan"],
-        "Zabul": ["Qalat"]
+        "Badakhshan": "Fayzabad",
+        "Badghis": "Qala-e Naw",
+        "Baghlan": "Pul-e Khumri",
+        "Balkh": "Mazar-e Sharif",
+        "Bamyan": "Bamyan",
+        "Daykundi": "Nili",
+        "Farah": "Farah",
+        "Faryab": "Maymana",
+        "Ghor": "Chaghcharan",
+        "Ghazni": "Ghazni",
+        "Helmand": "Lashkargah",
+        "Herat": "Herat",
+        "Jowzjan": "Sheberghan",
+        "Kabul": "Kabul",
+        "Kapisa": "Mahmud Raqi",
+        "Kandahar": "Kandahar",
+        "Kunduz": "Kunduz",
+        "Kunar": "Asadabad",
+        "Khost": "Khost",
+        "Laghman": "Mihtarlam",
+        "Logar": "Pul-e Alam",
+        "Maidan Wardak": "Maidan Shar",
+        "Nimroz": "Zaranj",
+        "Nangarhar": "Jalalabad",
+        "Nuristan": "Parun",
+        "Uruzgan": "Tarin Kot",
+        "Paktia": "Gardez",
+        "Paktika": "Sharan",
+        "Panjshir": "Bazarak",
+        "Parwan": "Charikar",
+        "Samangan": "Aybak",
+        "Sar-e Pol": "Sar-e Pol",
+        "Takhar": "Taloqan",
+        "Zabul": "Qalat",
     }
 
     # Districts for all provinces (English transliterations)
@@ -157,7 +158,7 @@ class Provider(BaseProvider):
     def city(self, province=None):
         if province is None:
             province = self.province()
-        return random.choice(self.cities.get(province, [province]))
+        return self.cities.get(province, province)
 
     def district(self, province=None):
         if province is None:

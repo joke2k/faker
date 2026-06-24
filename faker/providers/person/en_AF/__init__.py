@@ -1,5 +1,7 @@
-from faker.providers.person import Provider as PersonProvider
 import random
+
+from faker.providers.person import Provider as PersonProvider
+
 """
 Afghanistan Pashto (English Transliteration) Locale for Faker
 
@@ -10,10 +12,9 @@ prefixes, and suffixes.
 
 
 class Provider(PersonProvider):
-
-    prefixes_male = [ 'Mir', 'Sardar', 'Malik', 'Khan', 'Haji', 'Mullah', 'Ustad', 'Mawlawi', 'Sheikh', 'Amir',
-        'Sultan', 'Shah', 'Padshah', 'Wazir', 'Mufti', 'Qazi', 'Hafiz', 'Maulvi', 'Al-Haj', 'Sayyid',
-        'Mirza', 'Baba', 'Pir', 'Ghazi', 'Sahib', 'Jan', 'Agha', 'Dost', 'Aziz', 'Karim']
+    prefixes_male = ['Mir', 'Sardar', 'Malik', 'Khan', 'Haji', 'Mullah', 'Ustad', 'Mawlawi', 'Sheikh', 'Amir',
+                     'Sultan', 'Shah', 'Padshah', 'Wazir', 'Mufti', 'Qazi', 'Hafiz', 'Maulvi', 'Al-Haj', 'Sayyid',
+                     'Mirza', 'Baba', 'Pir', 'Ghazi', 'Sahib', 'Jan', 'Agha', 'Dost', 'Aziz', 'Karim']
     prefixes_female = [
         "Peghla",  # Miss (used for unmarried young women)
         "Mairman",  # Mrs./Madam (formal title for a married or adult woman)
@@ -27,9 +28,9 @@ class Provider(PersonProvider):
         "Muhtarama"  # 'Respected' (feminine form); used in highly formal contexts
     ]
 
-    suffixes = [ 'zai', 'khel', 'wal', 'dost', 'ullah', 'uddin', 'bakhsh', 'yar', 'jan', 'dad',
-        'pur', 'zada', 'i', 'ian', 'far', 'niaz', 'mand', 'yar', 'baz', 'war',
-        'dil', 'gul', 'noor', 'bahar', 'shah', 'khan', 'malik', 'sardar', 'wazir', 'amir']
+    suffixes = ['zai', 'khel', 'wal', 'dost', 'ullah', 'uddin', 'bakhsh', 'yar', 'jan', 'dad',
+                'pur', 'zada', 'i', 'ian', 'far', 'niaz', 'mand', 'yar', 'baz', 'war',
+                'dil', 'gul', 'noor', 'bahar', 'shah', 'khan', 'malik', 'sardar', 'wazir', 'amir']
 
     pashto_male_first_names = [
         'Ahmad', 'Mohammad', 'Abdullah', 'Noorullah', 'Khalid', 'Rahim', 'Farid', 'Nasir', 'Jamal', 'Tariq',
@@ -131,7 +132,8 @@ class Provider(PersonProvider):
         'Tajuddin', 'Usman', 'Vakil', 'Waris', 'Yasin', 'Zabih', 'Aslam', 'Bismillah', 'Chiragh', 'Dilawar',
         'Eid', 'Farooz', 'Ghaus', 'Hafizullah', 'Inayatullah', 'Jahan', 'Khalid', 'Lal', 'Matin', 'Nazar',
         'Obaidullah', 'Pacha', 'Qais', 'Rahim', 'Sami', 'Tahir', 'Ubaid', 'Vakil', 'Wali', 'Yar',
-        'Zaman', 'Aminullah', 'Baz', 'Chinar', 'Dilawar', 'Ehsanullah', 'Fazal', 'Gulzar', 'Haji', 'Ilyas','Abasin', 'Abdul',
+        'Zaman', 'Aminullah', 'Baz', 'Chinar', 'Dilawar', 'Ehsanullah', 'Fazal', 'Gulzar', 'Haji', 'Ilyas', 'Abasin',
+        'Abdul',
         'Ahmed', 'Aimal', 'Ali', 'Alam', 'Alamzeb', 'Amail', 'Amu', 'Andam', 'Angar', 'Armaghan', 'Arman', 'Arsalan',
         'Aryan', 'Asfand', 'Asfandyar', 'Atal', 'Atsak', 'Aurang', 'Awalmir', 'Azlan', 'Azmaray', 'Babak', 'Babrak',
         'Bacha', 'Badam', 'Bahram', 'Bahramand', 'Bahrawar', 'Bakht', 'Bakht Rawan', 'Bakht Awar', 'Balach', 'Balay',
@@ -465,7 +467,6 @@ class Provider(PersonProvider):
         'Ostad', 'Parsi', 'Qavami', 'Ranjbar', 'Salami', 'Tavassoli', 'Vaziri', 'Wafadar', 'Yazdan', 'Zarghami'
     ]
 
-
     # ================ Email section =====================
     domains = [
         "gmail.com", "yahoo.com", "outlook.com", "afghanmail.com", "mail.com"
@@ -488,7 +489,7 @@ class Provider(PersonProvider):
         """Full email address"""
         return f"{self.username(gender)}@{random.choice(self.domains)}"
 
-# =================End of the email section ==============
+    # =================End of the email section ==============
 
     # ---------- BASIC PARTS ----------
 
@@ -520,6 +521,3 @@ class Provider(PersonProvider):
         suffix = random.choice(self.suffixes)
 
         return f"{prefix} {first} {last} {suffix}"
-
-
-
