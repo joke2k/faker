@@ -6,30 +6,30 @@ class Provider(DateTimeProvider):
 
     # Pashto day names (starting from Saturday)
     day_names = (
-        "پيلنۍ",   # Saturday
-        "يونۍ",    # Sunday
-        "دونۍ",    # Monday
-        "منځنۍ",   # Tuesday
+        "پيلنۍ",  # Saturday
+        "يونۍ",  # Sunday
+        "دونۍ",  # Monday
+        "منځنۍ",  # Tuesday
         "څلورنۍ",  # Wednesday
         "پينځنۍ",  # Thursday
-        "جمعه",    # Friday
+        "جمعه",  # Friday
     )
 
     # Pashto month names (approximate mapping to Gregorian)
     month_names = (
         "",
-        "وری",      # ~ January
-        "غويی",     # ~ February
+        "وری",  # ~ January
+        "غويی",  # ~ February
         "غبرګولی",  # ~ March
-        "چنګاښ",    # ~ April
-        "زمری",     # ~ May
-        "وږی",      # ~ June
-        "تله",      # ~ July
-        "لړم",      # ~ August
-        "لیندۍ",    # ~ September
-        "مرغومی",   # ~ October
-        "سلواغه",   # ~ November
-        "کب",       # ~ December
+        "چنګاښ",  # ~ April
+        "زمری",  # ~ May
+        "وږی",  # ~ June
+        "تله",  # ~ July
+        "لړم",  # ~ August
+        "لیندۍ",  # ~ September
+        "مرغومی",  # ~ October
+        "سلواغه",  # ~ November
+        "کب",  # ~ December
     )
 
     def day_of_week(self) -> str:

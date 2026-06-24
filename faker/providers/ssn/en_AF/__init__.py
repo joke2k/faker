@@ -27,8 +27,8 @@ class Provider(BaseProvider):
 
         # Enforce XXXX-XXX-XXX-XXX
         return (
-            full[0:4] + separator +
-            full[4:7] + separator +
-            full[7:10] + separator +
-            full[10:13]
+                full[0:4] + separator +
+                full[4:7] + separator +
+                full[7:10] + separator +
+                full[10:13]
         )

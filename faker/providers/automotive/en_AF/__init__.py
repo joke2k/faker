@@ -1,5 +1,7 @@
 import random
+
 from faker.providers import BaseProvider
+
 
 class Provider(BaseProvider):
     """
@@ -17,10 +19,10 @@ class Provider(BaseProvider):
 
     # Your custom license plate formats
     license_formats = (
-        "{} ####",      # e.g., BD 1234
-        "{} ### ##",    # e.g., BG 123 45
-        "{} ## ###",    # e.g., BL 12 345
-        "{} #### ##",   # e.g., BM 1234 56
+        "{} ####",  # e.g., BD 1234
+        "{} ### ##",  # e.g., BG 123 45
+        "{} ## ###",  # e.g., BL 12 345
+        "{} #### ##",  # e.g., BM 1234 56
     )
 
     def license_plate(self):

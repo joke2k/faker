@@ -1,6 +1,6 @@
 import random
 from datetime import date, timedelta
-from typing import Tuple, Optional
+from typing import Tuple
 
 from faker.typing import SexLiteral
 from .. import Provider as PassportProvider
@@ -70,7 +70,7 @@ class Provider(PassportProvider):
             'Tawfiq', 'Umar', 'Vedat', 'Wahab', 'Yahya', 'Zalmai', 'Aimal', 'Babar', 'Chinar', 'Dil',
             'Emal', 'Farhad', 'Gulbuddin', 'Haji', 'Irfan',
 
-         ],
+        ],
         "F": [
 
             'Mariam', 'Fatima', 'Zahra', 'Laila', 'Nadia', 'Sabrina', 'Soraya', 'Parwin', 'Shukria', 'Fereshta',
@@ -109,7 +109,7 @@ class Provider(PassportProvider):
             'Aqila', 'Bushra', 'Chinar', 'Dilruba', 'Eshal', 'Faryal', 'Gulnar', 'Hena', 'Inayat', 'Jawhara',
             'Kawish', 'Lamar', 'Munira', 'Nasreen', 'Omaid', 'Parisa', 'Qudsia',
 
-         ]
+        ]
     }
 
     # Afghan last names in English transliteration
@@ -151,7 +151,7 @@ class Provider(PassportProvider):
         'Bahram', 'Chaman', 'Dost', 'Ebad', 'Fateh', 'Ghausuddin', 'Hidayat', 'Ishaq', 'Jawad', 'Kamal',
         'Lutf', 'Miran', 'Nur', 'Obaid', 'Parwiz', 'Qudrat',
 
-     ]
+    ]
 
     def passport_owner(self, gender: SexLiteral = "M") -> Tuple[str, str]:
         first_name = random.choice(self.first_names.get(gender, self.first_names["M"]))
