@@ -254,6 +254,16 @@ class Provider(BaseProvider):
                     text.append(paragraph)
                     size += len(paragraph)
                 text.pop()
+                size = sum(len(part) for part in text)
+            # Fill remaining space with sentences so the output length
+            # approaches max_nb_chars instead of being bounded by the
+            # coarse paragraph granularity.
+            while size < max_nb_chars:
+                sentence = (" " if size else "") + self.sentence(ext_word_list=ext_word_list)
+                text.append(sentence)
+                size += len(sentence)
+            if size > max_nb_chars:
+                size -= len(text.pop())
 
         return "".join(text)
 
