@@ -473,15 +473,15 @@ Credits
 
 .. _FZaninotto: https://github.com/fzaninotto
 .. _PHP Faker: https://github.com/fzaninotto/Faker
-.. _Perl Faker: http://search.cpan.org/~jasonk/Data-Faker-0.07/
+.. _Perl Faker: https://metacpan.org/dist/Data-Faker
 .. _Ruby Faker: https://github.com/stympy/faker
 .. _Distribute: https://pypi.org/project/distribute/
-.. _Buildout: http://www.buildout.org/
+.. _Buildout: https://www.buildout.org/
 .. _modern-package-template: https://pypi.org/project/modern-package-template/
 .. _extended docs: https://faker.readthedocs.io/en/stable/
 .. _bundled providers: https://faker.readthedocs.io/en/stable/providers.html
 .. _community providers: https://faker.readthedocs.io/en/stable/communityproviders.html
-.. _pytest fixture docs: https://faker.readthedocs.io/en/master/pytest-fixtures.html
+.. _pytest fixture docs: https://faker.readthedocs.io/en/stable/pytest-fixtures.html
 .. _LICENSE: https://github.com/joke2k/faker/blob/master/LICENSE.txt
 .. _CONTRIBUTING: https://github.com/joke2k/faker/blob/master/CONTRIBUTING.rst
 .. _Factory Boy: https://github.com/FactoryBoy/factory_boy
