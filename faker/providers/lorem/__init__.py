@@ -259,7 +259,7 @@ class Provider(BaseProvider):
             # approaches max_nb_chars instead of being bounded by the
             # coarse paragraph granularity.
             while size < max_nb_chars:
-                sentence = (" " if size else "") + self.sentence(ext_word_list=ext_word_list)
+                sentence = (self.word_connector if size else "") + self.sentence(ext_word_list=ext_word_list)
                 text.append(sentence)
                 size += len(sentence)
             if size > max_nb_chars:
