@@ -1,10 +1,14 @@
+import string
+
 from typing import List
 
 from .. import Provider as CompanyProvider
 
+COMPANY_ID_ALPHABET = string.digits + string.ascii_uppercase
 
-def company_id_checksum(digits: List[int]) -> List[int]:
-    digits = list(digits)
+
+def company_id_checksum(values: List[int]) -> List[int]:
+    digits = list(values)
     weights = 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2
 
     dv = sum(w * d for w, d in zip(weights[1:], digits))
@@ -100,12 +104,18 @@ class Provider(CompanyProvider):
         catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
         return catch_phrase
 
-    def company_id(self) -> str:
-        digits: List[int] = list(self.random_sample(range(10), 8))
-        digits += [0, 0, 0, 1]
-        digits += company_id_checksum(digits)
-        return "".join(str(d) for d in digits)
+    def _company_id_base(self, use_alphanumeric: bool) -> str:
+        if use_alphanumeric:
+            return "".join(self.random_choices(COMPANY_ID_ALPHABET, length=12))
+        digits = self.random_sample(range(10), 8)
+        return "".join(str(d) for d in digits) + "0001"
 
-    def cnpj(self) -> str:
-        digits = self.company_id()
+    def company_id(self, use_alphanumeric: bool = False) -> str:
+        base = self._company_id_base(use_alphanumeric)
+        values = [ord(c) - 48 for c in base]
+        check = company_id_checksum(values)
+        return base + "".join(str(d) for d in check)
+
+    def cnpj(self, use_alphanumeric: bool = False) -> str:
+        digits = self.company_id(use_alphanumeric)
         return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
