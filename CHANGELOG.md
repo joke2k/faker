@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.25.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.24.1...v40.25.0)
+
+* Update outdated Korean locale names (#2385). Thanks @ydj515.
+
 ### [v40.24.1 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.24.0...v40.24.1)
 
 * Fix: prevent infinite recursion in `_safe_random_int` when both bounds collapse to the same integer (#2396). Thanks @gaoflow.
