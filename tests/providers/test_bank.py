@@ -245,11 +245,19 @@ class TestEsEs:
             assert re.fullmatch(r"\d{20}", faker.bban())
 
     def test_iban(self, faker, num_samples):
+        def _ccc_control_digit(number):
+            check = sum(int(n) * 2**i for i, n in enumerate(number)) % 11
+            return str(check if check < 2 else 11 - check)
+
         for _ in range(num_samples):
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == EsEsBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{20}", iban[2:])
+            # the BBAN must carry valid Spanish CCC control digits
+            bban = iban[4:]
+            bank_branch, control, account = bban[:8], bban[8:10], bban[10:]
+            assert control == _ccc_control_digit("00" + bank_branch) + _ccc_control_digit(account)
 
 
 class TestEsMx:
