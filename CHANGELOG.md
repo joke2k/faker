@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.27.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.26.0...v40.27.0)
+
+* Add `sr_BA` SSN provider (#2391). Thanks @AleksaMCode.
+
 ### [v40.26.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.25.0...v40.26.0)
 
 * Update providers job, phone_number, bank and ssn for pt_BR (#2386). Thanks @dclobato.
