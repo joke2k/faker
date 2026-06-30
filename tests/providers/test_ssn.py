@@ -141,7 +141,14 @@ class TestDeDe(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^DE\d{9}$", self.fake.vat_id())
+            vat_id = self.fake.vat_id()
+            assert re.fullmatch(r"DE[1-9]\d{8}", vat_id)
+            # the last digit is an ISO 7064 Mod 11,10 check digit over the first 8
+            product = 10
+            for digit in vat_id[2:10]:
+                digit_sum = (int(digit) + product) % 10 or 10
+                product = (2 * digit_sum) % 11
+            assert vat_id[10] == str((11 - product) % 10)
 
     def test_rvnr(self):
         for _ in range(100):

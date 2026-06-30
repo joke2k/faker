@@ -48,14 +48,26 @@ class Provider(BaseProvider):
         # get the check digit by summing up the digit sums and calculating the modulo of 10
         return str(sum(digit_sums) % 10)
 
+    def __get_vat_checkdigit(self, digits: str) -> str:
+        # ISO 7064 Mod 11,10 check digit for the German USt-IdNr.
+        product = 10
+        for digit in digits:
+            digit_sum = (int(digit) + product) % 10
+            if digit_sum == 0:
+                digit_sum = 10
+            product = (2 * digit_sum) % 11
+        return str((11 - product) % 10)
+
     def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
 
-        :return: A random German VAT ID
+        :return: A random German VAT ID with a valid ISO 7064 Mod 11,10 check digit
         """
-
-        return self.bothify(self.random_element(self.vat_id_formats))
+        # The USt-IdNr is 9 digits: the first must be non-zero and the last is
+        # an ISO 7064 Mod 11,10 check digit over the preceding 8 digits.
+        base = str(self.random_digit_not_null()) + self.numerify("#######")
+        return "DE" + base + self.__get_vat_checkdigit(base)
 
     def rvnr(self, birthdate: Optional[date] = None) -> str:
         """
