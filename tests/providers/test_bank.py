@@ -64,13 +64,21 @@ class TestBaseBankProvider:
     """Test base bank provider"""
 
     def test_bank_not_implemented_error(self, faker):
-        """Test that bank() raises AttributeError when no banks attribute exists"""
+        """Test that bank() raises NotImplementedError when no banks attribute exists.
+
+        Raising NotImplementedError (instead of AttributeError) ensures that
+        hasattr(faker, 'bank') correctly returns True (the method exists) while
+        still clearly communicating that this locale has not implemented bank
+        name generation. Previously AttributeError was raised, which caused
+        hasattr() to return False-positive True yet crash on the call.
+        See: https://github.com/joke2k/faker/issues/2377
+        """
 
         provider = BankProvider(faker)
 
         assert not hasattr(provider, "banks")
 
-        with pytest.raises(AttributeError):
+        with pytest.raises(NotImplementedError):
             provider.bank()
 
 
