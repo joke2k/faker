@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.26.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.25.0...v40.26.0)
+
+* Update providers job, phone_number, bank and ssn for pt_BR (#2386). Thanks @dclobato.
+* Update phone number test regex for pt_BR. Thanks @fcurella.
+
 ### [v40.25.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.24.1...v40.25.0)
 
 * Update outdated Korean locale names (#2385). Thanks @ydj515.
