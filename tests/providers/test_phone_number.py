@@ -471,14 +471,14 @@ class TestPtBr:
 
     def test_phone_number(self, faker, num_samples):
         pattern: Pattern = re.compile(
-            r"(?:\+55 )?" r"(?:[1-8]1|84|\((?:0[1-8]1|084)\))" r" \d{4}[ -]\d{4}|" r"\d{4}?[ -]\d{3}[ -]\d{4}",
+            r"(?:\+55 )?\d{2} \d{4}[ -]\d{4}|" r"0\d{3}[ -]\d{3}[ -]\d{4}",
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
     def test_msisdn(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"55(?:[1-8]19|849)\d{8}")
+        pattern: Pattern = re.compile(r"55\d{2}9\d{8}")
         for _ in range(num_samples):
             msisdn = faker.msisdn()
             assert pattern.fullmatch(msisdn)
