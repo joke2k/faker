@@ -6,6 +6,7 @@ from .. import Provider as BankProvider
 # standard identifier for international transfers of funds to bank accounts
 # held in Brazil.
 
+
 class Provider(BankProvider):
     """Implement bank provider for ``pt_BR`` locale."""
 
@@ -463,5 +464,5 @@ class Provider(BankProvider):
         "ZERO Instituição de Pagamento S/A",
         "ZIPDIN Soluções DIGITAIS Sociedade de Crédito Direto S/A",
         "ÁGORA Corretora de Títulos e Valores Mobiliários S/A",
-        "ÓTIMO Sociedade de Crédito Direto S/A"
+        "ÓTIMO Sociedade de Crédito Direto S/A",
     )

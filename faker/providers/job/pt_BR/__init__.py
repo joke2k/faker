@@ -2416,7 +2416,8 @@ class Provider(BaseProvider):
         "Operador de máquina de produtos farmacêuticos",
         "Drageador (medicamentos)",
         "Operador de máquina de fabricação de cosméticos",
-        "Operador de máquina de fabricação de produtos de higiene e limpeza (sabão, sabonete, detergente, absorvente, fraldas cotonetes e outros)",
+        "Operador de máquina de fabricação de produtos de higiene e limpeza"
+        " (sabão, sabonete, detergente, absorvente, fraldas cotonetes e outros)",
         "Pirotécnico",
         "Trabalhador da fabricação de munição e explosivos",
         "Cilindrista (petroquímica e afins)",

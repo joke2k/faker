@@ -5,6 +5,7 @@ from .. import Provider as PhoneNumberProvider
 # The numbering plan adopted in Brazil follows the recommendations of the
 # International Telecommunication Union (ITU), especially Recommendation E.164.
 
+
 class Provider(PhoneNumberProvider):
     formats = (
         "+55 11 ####-####",
@@ -144,7 +145,7 @@ class Provider(PhoneNumberProvider):
         "0300 ### ####",
         "0500 ### ####",
         "0800 ### ####",
-        "0900 ### ####"
+        "0900 ### ####",
     )
 
     cellphone_formats = (
@@ -281,7 +282,7 @@ class Provider(PhoneNumberProvider):
         "96 9####-####",
         "97 9####-####",
         "98 9####-####",
-        "99 9####-####"
+        "99 9####-####",
     )
 
     msisdn_formats = (
@@ -351,7 +352,7 @@ class Provider(PhoneNumberProvider):
         "55969########",
         "55979########",
         "55989########",
-        "55999########"
+        "55999########",
     )
 
     services_phones_formats = (
