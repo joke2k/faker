@@ -1291,6 +1291,7 @@ class TestSrBA(unittest.TestCase):
             assert 10 <= registration_area <= 19
             assert sr_ba_calculate_checksum(ssn[:-1]) == checksum
 
+
 class TestSvSE(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("sv_SE")
