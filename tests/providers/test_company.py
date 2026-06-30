@@ -482,7 +482,6 @@ class TestPtBr:
         assert company_id_checksum([ord(c) - 48 for c in "12ABC34501DE"]) == [3, 5]
 
     def test_company_id(self, faker, num_samples):
-        # https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view
         for _ in range(num_samples):
             company_id = faker.company_id()
             assert re.fullmatch(r"\d{8}0001\d{2}", company_id)

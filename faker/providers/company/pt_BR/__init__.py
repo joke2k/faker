@@ -117,5 +117,8 @@ class Provider(CompanyProvider):
         return base + "".join(str(d) for d in check)
 
     def cnpj(self, use_alphanumeric: bool = False) -> str:
+        """
+        source: https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view
+        """
         digits = self.company_id(use_alphanumeric)
         return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
