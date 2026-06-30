@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.24.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.23.1...v40.24.0)
+
+* Add mk_MK (Macedonian) locale (#2339). Thanks @acikabubo.
+* CI: run PR checks against PR code instead of base branch. Thanks @fcurella.
+
 ### [v40.23.1 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.23.0...v40.23.1)
 
 * Fix: raise `NotImplementedError` in `bank()` for locales without banks data (#2378). Thanks @koushik717.
