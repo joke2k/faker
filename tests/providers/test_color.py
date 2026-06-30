@@ -20,6 +20,7 @@ from faker.providers.color.he_IL import Provider as HeILColorProvider
 from faker.providers.color.hy_AM import Provider as HyAmColorProvider
 from faker.providers.color.id_ID import Provider as IdIdColorProvider
 from faker.providers.color.ka_GE import Provider as KaGEColorProvider
+from faker.providers.color.mk_MK import Provider as MkMKColorProvider
 from faker.providers.color.sk_SK import Provider as SkSkColorProvider
 from faker.providers.color.uz_UZ import Provider as UzUzColorProvider
 from faker.providers.color.vi_VN import Provider as ViVNColorProvider
@@ -57,10 +58,15 @@ class TestColorProvider:
     num_samples = 10000
 
     def test_safe_hex_color(self, faker, num_samples):
-        assert all(re.fullmatch(r"#(?:([0-9a-f])\1){3}", faker.safe_hex_color()) for _ in range(num_samples))
+        assert all(
+            re.fullmatch(r"#(?:([0-9a-f])\1){3}", faker.safe_hex_color())
+            for _ in range(num_samples)
+        )
 
     def test_hex_color(self, faker, num_samples):
-        assert all(re.fullmatch(r"#[0-9a-f]{6}", faker.hex_color()) for _ in range(num_samples))
+        assert all(
+            re.fullmatch(r"#[0-9a-f]{6}", faker.hex_color()) for _ in range(num_samples)
+        )
 
     def test_rgb_color(self, faker, num_samples):
         for _ in range(num_samples):
@@ -276,13 +282,22 @@ class TestRandomColor:
     num_samples = 1000
     seed = 4761
     hsv_color_pattern: Pattern = re.compile(
-        r"hsv\(" r"(?P<h>\d|[1-9]\d|[1-3]\d{2}), " r"(?P<s>\d|[1-9]\d|100), " r"(?P<v>\d|[1-9]\d|100)\)",
+        r"hsv\("
+        r"(?P<h>\d|[1-9]\d|[1-3]\d{2}), "
+        r"(?P<s>\d|[1-9]\d|100), "
+        r"(?P<v>\d|[1-9]\d|100)\)",
     )
     hsl_color_pattern: Pattern = re.compile(
-        r"hsl\(" r"(?P<h>\d|[1-9]\d|[1-3]\d{2}), " r"(?P<s>\d|[1-9]\d|[1-3]\d{2}), " r"(?P<l>\d|[1-9]\d|[1-3]\d{2})\)",
+        r"hsl\("
+        r"(?P<h>\d|[1-9]\d|[1-3]\d{2}), "
+        r"(?P<s>\d|[1-9]\d|[1-3]\d{2}), "
+        r"(?P<l>\d|[1-9]\d|[1-3]\d{2})\)",
     )
     rgb_color_pattern: Pattern = re.compile(
-        r"rgb\(" r"(?P<r>\d|[1-9]\d|[1-3]\d{2}), " r"(?P<g>\d|[1-9]\d|[1-3]\d{2}), " r"(?P<b>\d|[1-9]\d|[1-3]\d{2})\)",
+        r"rgb\("
+        r"(?P<r>\d|[1-9]\d|[1-3]\d{2}), "
+        r"(?P<g>\d|[1-9]\d|[1-3]\d{2}), "
+        r"(?P<b>\d|[1-9]\d|[1-3]\d{2})\)",
     )
     hex_color_pattern: Pattern = re.compile(r"#[0-9a-f]{6}")
 
@@ -368,7 +383,10 @@ class TestRandomColor:
     def test_hue_integer(self):
         # HSV format is used, because whatever hue value supplied must be present in the output
         for hue in range(360):
-            colors = [self.random_color.generate(hue=hue, color_format="hsv") for _ in range(10)]
+            colors = [
+                self.random_color.generate(hue=hue, color_format="hsv")
+                for _ in range(10)
+            ]
             for color in colors:
                 match = self.hsv_color_pattern.fullmatch(color)
                 assert match
@@ -422,16 +440,22 @@ class TestRandomColor:
 
     def test_hue_tuple_beyond_limits(self, num_samples):
         baseline_random_color = RandomColor(seed=self.seed)
-        expected = [baseline_random_color.generate(hue=[0, 360]) for _ in range(num_samples)]
+        expected = [
+            baseline_random_color.generate(hue=[0, 360]) for _ in range(num_samples)
+        ]
 
         # Using a tuple with values not between 0 and 360 should yield the same results
         # as using a tuple with clamped values for a given seed
-        colors = [self.random_color.generate(hue=[-100, 4500]) for _ in range(num_samples)]
+        colors = [
+            self.random_color.generate(hue=[-100, 4500]) for _ in range(num_samples)
+        ]
         assert colors == expected
 
     def test_hue_tuple_inverted_values(self, num_samples):
         baseline_random_color = RandomColor(seed=self.seed)
-        expected = [baseline_random_color.generate(hue=[45, 75]) for _ in range(num_samples)]
+        expected = [
+            baseline_random_color.generate(hue=[45, 75]) for _ in range(num_samples)
+        ]
 
         # Using a tuple with inverted values should yield the same results
         # as using the correctly ordered tuple for a given seed
@@ -473,7 +497,10 @@ class TestRandomColor:
         baseline_random_color = RandomColor(seed=self.seed)
         expected = [baseline_random_color.generate() for _ in range(num_samples)]
 
-        colors = [self.random_color.generate(luminosity="invalid_value") for _ in range(num_samples)]
+        colors = [
+            self.random_color.generate(luminosity="invalid_value")
+            for _ in range(num_samples)
+        ]
         assert colors == expected
 
     def test_bad_color_map(self):
@@ -512,6 +539,22 @@ class TestUzUz:
             safe_color_name = faker.safe_color_name()
             assert isinstance(safe_color_name, str)
             assert safe_color_name in UzUzColorProvider.safe_colors
+
+
+class TestMkMk:
+    """Test mk_MK color provider methods"""
+
+    def test_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            color_name = faker.color_name()
+            assert isinstance(color_name, str)
+            assert color_name in MkMKColorProvider.all_colors.keys()
+
+    def test_safe_color_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            safe_color_name = faker.safe_color_name()
+            assert isinstance(safe_color_name, str)
+            assert safe_color_name in MkMKColorProvider.safe_colors
 
 
 class TestViVn:

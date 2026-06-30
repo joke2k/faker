@@ -35,6 +35,7 @@ from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ig_NG import Provider as IgNgProvider
 from faker.providers.person.is_IS import Provider as IsISProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
+from faker.providers.person.mk_MK import Provider as MkMKProvider
 from faker.providers.person.mr_IN import Provider as MrINProvider
 from faker.providers.person.ne_NP import Provider as NeProvider
 from faker.providers.person.nl_BE import Provider as NlBEProvider
@@ -364,7 +365,9 @@ class TestEn(unittest.TestCase):
         # Traditional suffix -- provider does not offer a nonbinary suffix at this time
         suffix = self.fake.suffix()
         self.assertIsInstance(suffix, str)
-        assert suffix in EnProvider.suffixes_male or suffix in EnProvider.suffixes_female
+        assert (
+            suffix in EnProvider.suffixes_male or suffix in EnProvider.suffixes_female
+        )
 
 
 class TestEnGB(unittest.TestCase):
@@ -597,7 +600,9 @@ class TestEnPk(unittest.TestCase):
     def test_last_name(self):
         """Test if the last name is from the predefined list."""
         last_name = self.fake.last_name()
-        self.assertGreater(len(last_name), 1, "Last name should have more than 1 character.")
+        self.assertGreater(
+            len(last_name), 1, "Last name should have more than 1 character."
+        )
         self.assertIn(last_name, EnPKprovider.last_names)
 
     def test_full_name(self):
@@ -611,7 +616,9 @@ class TestEnPk(unittest.TestCase):
         """Test if the generated name format is as expected."""
         name = self.fake.name()
         name_parts = name.split()
-        self.assertGreaterEqual(len(name_parts), 2, "Full name should have at least a first and last name.")
+        self.assertGreaterEqual(
+            len(name_parts), 2, "Full name should have at least a first and last name."
+        )
         if len(name_parts) == 2:
             self.assertIn(name_parts[0], EnPKprovider.first_names)
             self.assertIn(name_parts[-1], EnPKprovider.last_names)
@@ -1187,7 +1194,11 @@ class TestHiIN(unittest.TestCase):
 
         assert all(isinstance(n, str) for n in name)
 
-        prefixes = HiINProvider.prefixes_male + HiINProvider.prefixes_female + HiINProvider.prefixes
+        prefixes = (
+            HiINProvider.prefixes_male
+            + HiINProvider.prefixes_female
+            + HiINProvider.prefixes
+        )
 
         # name should always be 2-3 words. If 3, first word should be a prefix.
         if len(name) == 3:
@@ -1503,6 +1514,51 @@ class TestLvLV(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name in LvProvider.last_names_male
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests for mk_MK locale person provider"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        name = self.fake.first_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names
+
+        name = self.fake.first_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names_female
+
+        name = self.fake.first_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.first_names_male
+
+    def test_last_name(self):
+        name = self.fake.last_name()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names
+
+        name = self.fake.last_name_female()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names_female
+
+        name = self.fake.last_name_male()
+        assert name
+        self.assertIsInstance(name, str)
+        assert name in MkMKProvider.last_names_male
+
+    def test_name(self):
+        name = self.fake.name()
+        assert name
+        self.assertIsInstance(name, str)
 
 
 class TestMrIN(unittest.TestCase):
@@ -2067,9 +2123,13 @@ class TestUkUa(unittest.TestCase):
         assert self.translit("Демʼян") == "Demian"
         assert self.translit("Марʼяна") == "Mariana"
         assert (
-            self.translit("абвгґдеєжзиіїйклмнопрстуфхцчшщьюяєʼ'-") == "abvhgdeiezhzyiiiklmnoprstufkhtschshshchiuiaie'-"
+            self.translit("абвгґдеєжзиіїйклмнопрстуфхцчшщьюяєʼ'-")
+            == "abvhgdeiezhzyiiiklmnoprstufkhtschshshchiuiaie'-"
         )
-        assert self.translit("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ") == "ABVHGDEYeZhZYIYiYKLMNOPRSTUFKhTsChShShchYuYa"
+        assert (
+            self.translit("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ")
+            == "ABVHGDEYeZhZYIYiYKLMNOPRSTUFKhTsChShShchYuYa"
+        )
 
     def test_full_name_male(self):
         for _ in range(10):
@@ -2232,7 +2292,9 @@ class TestYoNG(unittest.TestCase):
             first_name = full_name_parts[1]
             last_name = full_name_parts[2]
 
-            self.assertIn(prefix, YoNGProvider.prefixes_female + YoNGProvider.prefixes_male)
+            self.assertIn(
+                prefix, YoNGProvider.prefixes_female + YoNGProvider.prefixes_male
+            )
             self.assertIn(first_name, YoNGProvider.first_names)
             self.assertIn(last_name, YoNGProvider.last_names)
         else:
@@ -2310,7 +2372,9 @@ class TestZhCN(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name[0] in ZhCNProvider.last_names or name[:2] in ZhCNProvider.last_names
-        assert name[1:] in ZhCNProvider.first_names or name[2:] in ZhCNProvider.first_names
+        assert (
+            name[1:] in ZhCNProvider.first_names or name[2:] in ZhCNProvider.first_names
+        )
 
         # Full romanized name
         name = self.fake.romanized_name()
@@ -2392,13 +2456,17 @@ class TestZhTW(unittest.TestCase):
         assert name
         self.assertIsInstance(name, str)
         assert name[0] in ZhTWProvider.last_names or name[:2] in ZhTWProvider.last_names
-        assert name[1:] in ZhTWProvider.first_names or name[2:] in ZhTWProvider.first_names
+        assert (
+            name[1:] in ZhTWProvider.first_names or name[2:] in ZhTWProvider.first_names
+        )
 
         # Full romanized name
         name = self.fake.romanized_name()
         assert name
         self.assertIsInstance(name, str)
-        last_romanized_name, first_romanized_name = name.split(" ")  # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
+        last_romanized_name, first_romanized_name = name.split(
+            " "
+        )  # 'WANG SHU-FEN' or 'SHU-FEN, WANG' are both okay.
         # first_romanized_name, last_romanized_name = name.split(" ")
         assert first_romanized_name in ZhTWProvider.first_romanized_names
         assert last_romanized_name in ZhTWProvider.last_romanized_names
@@ -2501,7 +2569,9 @@ class TestZuZa(unittest.TestCase):
             first_name = full_name_parts[1]
             last_name = full_name_parts[2]
 
-            self.assertIn(prefix, ZuZAProvider.prefixes_female + ZuZAProvider.prefixes_male)
+            self.assertIn(
+                prefix, ZuZAProvider.prefixes_female + ZuZAProvider.prefixes_male
+            )
             self.assertIn(first_name, ZuZAProvider.first_names)
             self.assertIn(last_name, ZuZAProvider.last_names)
         else:

@@ -29,6 +29,7 @@ from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksu
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
 from faker.providers.ssn.lv_LV import Provider as lv_Provider
+from faker.providers.ssn.mk_MK import Provider as MkMKSsnProvider
 from faker.providers.ssn.no_NO import Provider as no_Provider
 from faker.providers.ssn.no_NO import checksum as no_checksum
 from faker.providers.ssn.pl_PL import calculate_month as pl_calculate_mouth
@@ -47,7 +48,9 @@ class TestArDz(unittest.TestCase):
         Faker.seed(0)
 
     def test_ssn(self):
-        pattern = re.compile(r"[12][01]\d{3}(0[1-9]|[1-4]\d|5[0-8])\d{2}\d{5}\d{2}\d{2}")
+        pattern = re.compile(
+            r"[12][01]\d{3}(0[1-9]|[1-4]\d|5[0-8])\d{2}\d{5}\d{2}\d{2}"
+        )
         for _ in range(100):
             ssn = self.fake.ssn()
             assert len(ssn) == 18
@@ -182,7 +185,10 @@ class TestElGr(unittest.TestCase):
             vat_id = self.fake.vat_id(prefix=prefix)
             assert re.search(r"^(EL)?\d{9}$", vat_id)
             assert vat_id[2 if prefix else 0] in ("7", "8", "9", "0")
-            assert str(gr_tin_checksum(vat_id[2:-1] if prefix else vat_id[:-1])) == vat_id[-1]
+            assert (
+                str(gr_tin_checksum(vat_id[2:-1] if prefix else vat_id[:-1]))
+                == vat_id[-1]
+            )
 
     def test_tin(self):
         for _ in range(100):
@@ -238,7 +244,9 @@ class TestEnIn(unittest.TestCase):
         self.fake = Faker("en_IN")
         Faker.seed(0)
         self.pan_pattern: Pattern = re.compile(r"^[A-Z]{5}[0-9]{4}[A-Z]$")
-        self.gstin_pattern: Pattern = re.compile(r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$")
+        self.gstin_pattern: Pattern = re.compile(
+            r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$"
+        )
         test_samples = 10
         self.aadhaar_ids = [self.fake.aadhaar_id() for _ in range(test_samples)]
 
@@ -485,7 +493,11 @@ class TestEnUS(unittest.TestCase):
             [area, group, serial] = itin.split("-")
 
             assert 900 <= int(area) <= 999
-            assert 70 <= int(group) <= 88 or 90 <= int(group) <= 92 or 94 <= int(group) <= 99
+            assert (
+                70 <= int(group) <= 88
+                or 90 <= int(group) <= 92
+                or 94 <= int(group) <= 99
+            )
             assert 0 <= int(serial) <= 9999
 
     def test_ein(self):
@@ -647,7 +659,9 @@ class TestEsCO(unittest.TestCase):
 
     def test_natural_person_nit_with_check_digit(self):
         for _ in range(100):
-            natural_person_nit, check_digit = self.fake.natural_person_nit_with_check_digit().split("-")
+            natural_person_nit, check_digit = (
+                self.fake.natural_person_nit_with_check_digit().split("-")
+            )
             assert self._NATURAL_PERSON_NIT_REGEX.fullmatch(natural_person_nit)
             assert self._CHECK_DIGIT_REGEX.fullmatch(check_digit)
             assert nit_check_digit(natural_person_nit) == check_digit
@@ -658,7 +672,9 @@ class TestEsCO(unittest.TestCase):
 
     def test_legal_person_nit_with_check_digit(self):
         for _ in range(100):
-            legal_person_nit, check_digit = self.fake.legal_person_nit_with_check_digit().split("-")
+            legal_person_nit, check_digit = (
+                self.fake.legal_person_nit_with_check_digit().split("-")
+            )
             assert self._LEGAL_PERSON_NIT_REGEX.fullmatch(legal_person_nit)
             assert self._CHECK_DIGIT_REGEX.fullmatch(check_digit)
             assert nit_check_digit(legal_person_nit) == check_digit
@@ -689,7 +705,9 @@ class TestEsES(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^ES\w\d{8}$|^ES\d{8}\w$|^ES\w\d{7}\w$", self.fake.vat_id())
+            assert re.search(
+                r"^ES\w\d{8}$|^ES\d{8}\w$|^ES\w\d{7}\w$", self.fake.vat_id()
+            )
 
     def test_nie(self):
         for _ in range(100):
@@ -936,7 +954,11 @@ class TestFrFR(unittest.TestCase):
         assert fr_calculate_checksum("100012B033001") == 41
 
     def test_ssn_can_generate_corsican_department_codes(self) -> None:
-        with mock.patch.object(fr_Provider, "random_element", return_value=("2A", "004", "Corse-du-Sud", "Ajaccio")):
+        with mock.patch.object(
+            fr_Provider,
+            "random_element",
+            return_value=("2A", "004", "Corse-du-Sud", "Ajaccio"),
+        ):
             with mock.patch.object(fr_Provider, "random_int", side_effect=[1, 0, 1, 1]):
                 assert self.fake.ssn() == "100012A00400111"
 
@@ -1016,7 +1038,9 @@ class TestItIT(unittest.TestCase):
 
     def test_ssn(self):
         for _ in range(100):
-            assert re.search(r"^[A-Z]{6}\d{2}[ABCDEHLMPRST][0-7]\d[A-Z]\d{3}[A-Z]$", self.fake.ssn())
+            assert re.search(
+                r"^[A-Z]{6}\d{2}[ABCDEHLMPRST][0-7]\d[A-Z]\d{3}[A-Z]$", self.fake.ssn()
+            )
 
     def test_checksum(self) -> None:
         assert it_checksum("MDDMRA80L41H501") == "R"
@@ -1283,7 +1307,9 @@ class TestSvSE(unittest.TestCase):
             return False
 
         mult_factors = cycle([2, 1])
-        final_sum = sum(self.partial_sum(int(char), mf) for char, mf in zip(ssn[:9], mult_factors))
+        final_sum = sum(
+            self.partial_sum(int(char), mf) for char, mf in zip(ssn[:9], mult_factors)
+        )
         chksum = -final_sum % 10
         return chksum == int(ssn[-1])
 
@@ -1297,7 +1323,9 @@ class TestSvSE(unittest.TestCase):
             return False
 
         try:
-            if date_str != datetime.strptime(date_str, f"{year_fmt}%m%d").strftime(f"{year_fmt}%m%d"):
+            if date_str != datetime.strptime(date_str, f"{year_fmt}%m%d").strftime(
+                f"{year_fmt}%m%d"
+            ):
                 raise ValueError
             return True
         except ValueError:
@@ -1524,3 +1552,23 @@ class TestZhTW(unittest.TestCase):
     def test_checksum(self):
         for sample in self.samples:
             assert tw_checksum(sample) % 10 == 0
+
+
+class TestMkMk(unittest.TestCase):
+    """Tests SSN (EMBG) in the mk_MK locale"""
+
+    def setUp(self):
+        self.fake = Faker("mk_MK")
+        Faker.seed(0)
+
+    def test_ssn_format(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            assert re.match(r"^\d{13}$", ssn), f"EMBG {ssn!r} is not 13 digits"
+
+    def test_ssn_checksum(self):
+        for _ in range(100):
+            ssn = self.fake.ssn()
+            digits = [int(c) for c in ssn[:12]]
+            expected_check = MkMKSsnProvider._checksum(digits)
+            assert int(ssn[12]) == expected_check, f"Bad checksum in {ssn}"

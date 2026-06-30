@@ -15,6 +15,7 @@ from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.hu_HU import Provider as HuHuInternetProvider
+from faker.providers.internet.mk_MK import Provider as MkMKInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
 from faker.providers.internet.pt_BR import Provider as PtBrInternetProvider
 from faker.providers.internet.ro_RO import Provider as RoRoInternetProvider
@@ -173,7 +174,8 @@ class TestInternetProvider:
 
     num_samples = 100
     ipv4_pattern: Pattern = re.compile(
-        r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}" r"(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+        r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}"
+        r"(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
     )
     ipv4_network_pattern: Pattern = re.compile(
         r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}"
@@ -282,7 +284,10 @@ class TestInternetProvider:
 
             # Then, test cache access on subsequent calls
             with patch.object(
-                InternetProvider, networks_attr, create=True, new_callable=PropertyMock
+                InternetProvider,
+                networks_attr,
+                create=True,
+                new_callable=PropertyMock,
             ) as mock_networks_cache:
                 with patch.object(
                     InternetProvider,
@@ -351,7 +356,10 @@ class TestInternetProvider:
 
             # Then, test cache access on subsequent calls
             with patch.object(
-                InternetProvider, networks_attr, create=True, new_callable=PropertyMock
+                InternetProvider,
+                networks_attr,
+                create=True,
+                new_callable=PropertyMock,
             ) as mock_networks_cache:
                 with patch.object(
                     InternetProvider,
@@ -416,8 +424,13 @@ class TestInternetProvider:
             11,  # Not a list or valid iterable
         ]
 
-        with patch("faker.providers.internet.choices_distribution", wraps=choices_distribution) as mock_choices_fn:
-            with patch("faker.generator.random.choice", wraps=random.choice) as mock_random_choice:
+        with patch(
+            "faker.providers.internet.choices_distribution",
+            wraps=choices_distribution,
+        ) as mock_choices_fn:
+            with patch(
+                "faker.generator.random.choice", wraps=random.choice
+            ) as mock_random_choice:
                 # If weights argument is valid, only `choices_distribution` should be called
                 provider._random_ipv4_address_from_subnets(subnets, valid_weights)
                 assert mock_choices_fn.call_count == 1
@@ -447,7 +460,9 @@ class TestInternetProvider:
             address = provider.ipv6(network=True)
             assert len(address) >= 4  # ::/8
             assert len(address) <= 39 + 4
-            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(address)
+            assert re.compile(r"^([0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}/\d{1,3}$").search(
+                address
+            )
 
     def test_mac_address(self, faker):
         provider = InternetProvider(faker)
@@ -498,7 +513,10 @@ class TestInternetProvider:
         assert faker.dga() != faker.dga()
 
         expected_domain = "cqphixmpdfpptskr.com"
-        assert faker.dga(day=1, month=1, year=1000, tld="com", length=16) == expected_domain
+        assert (
+            faker.dga(day=1, month=1, year=1000, tld="com", length=16)
+            == expected_domain
+        )
 
     def test_iana_id(self, faker, num_samples):
         for _ in range(num_samples):
@@ -888,7 +906,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_two_levels_after_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_two_levels_after_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         provider = ZhCnInternetProvider(faker)
 
         # If tld() returns cn, second level name should be selected from second_level_domains
@@ -907,7 +927,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_two_levels_after_non_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         # If tld() does not return cn, domain_word() will be called twice
         mock_domain_word.reset_mock()
         mock_tld.return_value = "net"
@@ -918,7 +940,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_more_than_two_levels_after_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_more_than_two_levels_after_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         provider = ZhCnInternetProvider(faker)
 
         mock_tld.return_value = "cn"
@@ -949,7 +973,9 @@ class TestZhCn:
 
     @patch("faker.providers.internet.zh_CN.Provider.domain_word")
     @patch("faker.providers.internet.Provider.tld")
-    def test_domain_name_more_than_two_levels_after_non_cn_tld(self, mock_tld, mock_domain_word, faker):
+    def test_domain_name_more_than_two_levels_after_non_cn_tld(
+        self, mock_tld, mock_domain_word, faker
+    ):
         mock_tld.return_value = "net"
         mock_domain_word.return_value = "li"
         for levels in range(3, 10):
@@ -996,3 +1022,23 @@ class TestZhTw:
         num_of_samples = 100
         for _ in range(num_of_samples):
             assert faker.slug() != ""
+
+
+class TestMkMk:
+    """Test mk_MK internet provider methods"""
+
+    def test_free_email_domain(self, faker, num_samples):
+        for _ in range(num_samples):
+            domain = faker.free_email_domain()
+            assert domain in MkMKInternetProvider.free_email_domains
+
+    def test_tld(self, faker, num_samples):
+        for _ in range(num_samples):
+            tld = faker.tld()
+            assert tld in MkMKInternetProvider.tlds
+
+    def test_email(self, faker, num_samples):
+        for _ in range(num_samples):
+            email = faker.email()
+            assert isinstance(email, str)
+            assert "@" in email
