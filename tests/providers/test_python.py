@@ -519,6 +519,27 @@ class TestPyfloat(unittest.TestCase):
             self.assertLessEqual(result, 0.1)
             self.assertGreater(result, 0)
 
+    def test_pyfloat_min_neg_one_max_zero(self):
+        """
+        pyfloat(min_value=-1, max_value=0) previously caused an infinite
+        RecursionError inside _safe_random_int when both adjusted bounds
+        collapsed to the same integer (0).  Regression test.
+        """
+        for _ in range(20):
+            result = self.fake.pyfloat(min_value=-1, max_value=0)
+            self.assertGreaterEqual(result, -1)
+            self.assertLessEqual(result, 0)
+
+    def test_pyfloat_min_neg_max_zero_general(self):
+        """
+        Any range where both int-truncated bounds coincide (e.g. (-0.9, 0.1))
+        should not raise RecursionError.
+        """
+        for _ in range(20):
+            result = self.fake.pyfloat(min_value=-0.9, max_value=0.1)
+            self.assertGreaterEqual(result, -0.9)
+            self.assertLessEqual(result, 0.1)
+
 
 class TestPyint(unittest.TestCase):
     def setUp(self):

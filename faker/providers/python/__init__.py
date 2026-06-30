@@ -264,7 +264,13 @@ class Provider(BaseProvider):
             min_value = max(min_value, 0)
 
         if min_value == max_value:
-            return self._safe_random_int(orig_min_value, orig_max_value, positive)
+            # Only retry if at least one bound was randomly chosen (None originally);
+            # when both bounds were explicitly supplied and still collapse to the same
+            # integer after adjustment, retrying would recurse infinitely with the same
+            # inputs.  Return the collapsed value directly in that case.
+            if orig_min_value is None or orig_max_value is None:
+                return self._safe_random_int(orig_min_value, orig_max_value, positive)
+            return int(min_value)
         else:
             min_value = int(min_value)
             max_value = int(max_value - 1)
