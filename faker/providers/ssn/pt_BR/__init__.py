@@ -29,6 +29,8 @@ class Provider(SsnProvider):
     There are two methods Provider.ssn and Provider.cpf
     The snn returns a valid number with numbers only
     The cpf return a valid number formatted with brazilian mask. eg nnn.nnn.nnn-nn
+    The CIN (Carteira de Identidade Nacional) was created by Law 14.534/2023 and is a unique
+       and sufficient number for citizen identification.
     """
 
     def ssn(self) -> str:
@@ -43,6 +45,9 @@ class Provider(SsnProvider):
     def cpf(self) -> str:
         c = self.ssn()
         return c[:3] + "." + c[3:6] + "." + c[6:9] + "-" + c[9:]
+
+    def cin(self) -> str:
+        return self.cpf()
 
     def rg(self) -> str:
         """
