@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -40,9 +40,9 @@ jobs:
   checkmanifest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -64,7 +64,7 @@ jobs:
   test_class_order:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set up Python
       uses: actions/setup-python@v6
       with:
@@ -75,9 +75,9 @@ jobs:
   isort:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -100,9 +100,9 @@ jobs:
   black:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -124,9 +124,9 @@ jobs:
   doc8:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -157,9 +157,9 @@ jobs:
         - "3.14"
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -193,9 +193,9 @@ jobs:
         - "pypy-3.11"
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pip cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -235,9 +235,9 @@ jobs:
         arch: ["x86", "x64"]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pip cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -259,9 +259,9 @@ jobs:
     needs: [flake8, isort, black, doc8, checkmanifest, typing, test_class_order]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip

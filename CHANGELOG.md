@@ -1,5 +1,12 @@
 ## Changelog
 
+### [v40.23.1 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.23.0...v40.23.1)
+
+* Fix: raise `NotImplementedError` in `bank()` for locales without banks data (#2378). Thanks @koushik717.
+* Fix outdated links in README credits section (#2394). Thanks @TejasAmle.
+* Bump actions/cache from 5 to 6 (#2400). Thanks @dependabot[bot].
+* Bump actions/checkout from 6 to 7 (#2392). Thanks @dependabot[bot].
+
 ### [v40.23.0 - 2026-06-10](https://github.com/joke2k/faker/compare/v40.22.0...v40.23.0)
 
 * Add French social security numbers with Corsican codes (#2373). Thanks @dancergraham.
