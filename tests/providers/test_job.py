@@ -165,6 +165,16 @@ class TestKoKr:
             assert faker.job() in KoKrJobProvider.jobs
 
 
+class TestMkMk:
+    """Test mk_MK job provider methods"""
+
+    def test_job(self, faker, num_samples):
+        for _ in range(num_samples):
+            job = faker.job()
+            assert isinstance(job, str)
+            assert job in MkMKJobProvider.jobs
+
+
 class TestPtBr:
     """Test pt_BR job provider"""
 
@@ -220,13 +230,3 @@ class TestViVn:
             job = faker.job()
             assert isinstance(job, str)
             assert job in ViVNJobProvider.jobs
-
-
-class TestMkMk:
-    """Test mk_MK job provider methods"""
-
-    def test_job(self, faker, num_samples):
-        for _ in range(num_samples):
-            job = faker.job()
-            assert isinstance(job, str)
-            assert job in MkMKJobProvider.jobs

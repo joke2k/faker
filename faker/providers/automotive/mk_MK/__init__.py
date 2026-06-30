@@ -60,7 +60,7 @@ class Provider(AutomotiveProvider):
     def license_plate(self) -> str:
         prefix = self.random_element(self.license_plate_prefixes)
         number = self.numerify("####")
-        suffix = self.random_element(
+        suffix = self.random_element(self.license_plate_suffix_letters) + self.random_element(
             self.license_plate_suffix_letters
-        ) + self.random_element(self.license_plate_suffix_letters)
+        )
         return f"{prefix} {number} {suffix}"
