@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.28.0 - 2026-07-01](https://github.com/joke2k/faker/compare/v40.27.0...v40.28.0)
+
+* Add `es_MX` automotive license plate provider (#2393). Thanks @r1cksync.
+
 ### [v40.27.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.26.0...v40.27.0)
 
 * Add `sr_BA` SSN provider (#2391). Thanks @AleksaMCode.
