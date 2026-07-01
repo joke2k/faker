@@ -353,6 +353,22 @@ class TestItCh(TestDeCh):
     pass
 
 
+class TestMkMk:
+    """Test mk_MK bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            bban = faker.bban()
+            assert re.fullmatch(r"\d{3}[A-Z]{10}\d{2}", bban)
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == "MK"
+            assert re.fullmatch(r"\d{2}\d{3}[A-Z]{10}\d{2}", iban[2:])
+
+
 class TestNlBe:
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
