@@ -409,6 +409,14 @@ class TestNoNo:
             assert iban[:2] == NoNoBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{11}", iban[2:])
 
+    def test_iban_stdnum(self, faker, num_samples):
+        try:
+            from stdnum import iban as iban_validator
+        except ImportError:
+            pytest.skip("stdnum not available")
+        for _ in range(num_samples):
+            iban_validator.validate(faker.iban())
+
 
 class TestPlPl:
     """Test pl_PL bank provider"""
