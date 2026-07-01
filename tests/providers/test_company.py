@@ -479,16 +479,31 @@ class TestPtBr:
     def test_company_id_checksum(self):
         assert company_id_checksum([9, 4, 9, 5, 3, 4, 4, 1, 0, 0, 0, 1]) == [5, 1]
         assert company_id_checksum([1, 6, 0, 0, 4, 6, 3, 9, 0, 0, 0, 1]) == [8, 5]
+        assert company_id_checksum([ord(c) - 48 for c in "12ABC34501DE"]) == [3, 5]
 
     def test_company_id(self, faker, num_samples):
         for _ in range(num_samples):
             company_id = faker.company_id()
-            assert re.fullmatch(r"\d{14}", company_id)
+            assert re.fullmatch(r"\d{8}0001\d{2}", company_id)
+            values = [ord(c) - 48 for c in company_id[:12]]
+            assert company_id[12:] == "".join(str(d) for d in company_id_checksum(values))
+
+    def test_company_id_alphanumeric(self, faker, num_samples):
+        for _ in range(num_samples):
+            company_id = faker.company_id(use_alphanumeric=True)
+            assert re.fullmatch(r"[0-9A-Z]{12}\d{2}", company_id)
+            values = [ord(c) - 48 for c in company_id[:12]]
+            assert company_id[12:] == "".join(str(d) for d in company_id_checksum(values))
 
     def test_cnpj(self, faker, num_samples):
         for _ in range(num_samples):
             cnpj = faker.cnpj()
             assert re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/0001-\d{2}", cnpj)
+
+    def test_cnpj_alphanumeric(self, faker, num_samples):
+        for _ in range(num_samples):
+            cnpj = faker.cnpj(use_alphanumeric=True)
+            assert re.fullmatch(r"[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}", cnpj)
 
 
 class TestRoRo:
