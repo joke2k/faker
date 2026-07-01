@@ -174,14 +174,14 @@ class TestEnIe:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"\d{23}", faker.bban())
+            assert re.fullmatch(r"[A-Z]{4}\d{14}", faker.bban())
 
     def test_iban(self, faker, num_samples):
         for _ in range(num_samples):
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == EnIeBankProvider.country_code
-            assert re.fullmatch(r"\d{2}\d{23}", iban[2:])
+            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{14}", iban[2:])
 
 
 class TestEnIn:
