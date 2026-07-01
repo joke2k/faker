@@ -1,6 +1,6 @@
 from typing import List, Optional, Tuple
 
-from .. import Provider as BankProvider
+from ..en_GB import Provider as BankProvider
 
 
 def get_clabe_control_digit(clabe: str) -> int:
