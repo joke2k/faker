@@ -468,6 +468,17 @@ class TestRuRu:
         for _ in range(num_samples):
             assert re.match(r"\D{3,41}", faker.bank())
 
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"\d{14}[A-Z]{15}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert iban[:2] == "RU"
+            assert re.fullmatch(r"\d{2}\d{14}[A-Z]{15}", iban[2:])
+
 
 class TestSkSk:
     """Test sk_SK bank provider"""
