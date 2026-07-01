@@ -3852,6 +3852,68 @@ class Faker:
 
     def random_name_complements(self) -> str: ...
     def city_adjective(self) -> str: ...
+    def license_plate_by_state(self, state_abbr: Optional[str] = ...) -> str:
+        """
+        Generate a license plate prefixed with a federal entity code.
+
+        If a value for ``state_abbr`` is provided it is used as the prefix
+        regardless of validity. If ``None`` a valid ISO 3166-2 code is chosen
+        at random. The result has the form ``"<state_abbr> <plate>"`` where
+        ``<plate>`` follows the unified national layout.
+        """
+        ...
+
+    def license_plate_cdmx(self) -> str:
+        """
+        Generate a Mexico City (CDMX) plate using the ``A12-ABC`` format.
+        """
+        ...
+
+    def license_plate_state(self) -> str:
+        """
+        Return the official name of a random federal entity.
+        """
+        ...
+
+    def license_plate_state_abbr(self) -> str:
+        """
+        Return the ISO 3166-2 code of a random federal entity.
+        """
+        ...
+
+    def motorcycle_license_plate_cdmx(self) -> str:
+        """
+        Generate a Mexico City motorcycle plate using the ``1234 A`` format.
+        """
+        ...
+
+    def motorcycle_license_plate_national(self) -> str:
+        """
+        Generate a motorcycle plate using the national format ``A123B``.
+        """
+        ...
+
+    def public_transport_license_plate(self) -> str:
+        """
+        Generate a Mexican public transport (taxi) license plate.
+
+        The layout is chosen at random following the weights declared in
+        :attr:`public_transport_license_formats`.
+        """
+        ...
+
+    def public_transport_license_plate_lettered(self) -> str:
+        """
+        Generate a taxi plate using the ``D-123-ABC`` format.
+        """
+        ...
+
+    def public_transport_license_plate_numbered(self) -> str:
+        """
+        Generate a taxi plate using the ``12-34-ABC`` format.
+        """
+        ...
+
     def clabe(self, bank_code: Optional[int] = ...) -> str:
         """
         Generate a mexican bank account CLABE.
