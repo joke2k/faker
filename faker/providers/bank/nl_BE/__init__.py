@@ -1,6 +1,5 @@
 from .. import Provider as BankProvider
 
-
 # Belgian bank codes (3-digit identifiers) known to be valid
 # in the National Bank of Belgium registry.
 _VALID_BANK_CODES = (
