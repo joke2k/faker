@@ -6,6 +6,7 @@ from typing import Pattern
 from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
+from faker.providers.automotive.en_IN import Provider as EnInAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.es_MX import Provider as EsMxAutomotiveProvider
 from faker.providers.automotive.mk_MK import Provider as MkMKAutomotiveProvider
@@ -71,6 +72,19 @@ class TestDeAt(_SimpleAutomotiveTestMixin):
     def perform_extra_checks(self, license_plate, match):
         assert match.group("prefix") in DeAtAutomotiveProvider.license_plate_prefix
         assert len(license_plate) in (8, 9)
+
+
+class TestEnIn(_SimpleAutomotiveTestMixin):
+    """Test en_IN automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(
+        r"(?:[A-Z]{2} \d{2} [A-HJ-NP-Z]{1,3} \d{4})|(?:\d{2} BH \d{4} [A-HJ-NP-Z]{2})"
+    )
+
+    def perform_extra_checks(self, license_plate, match):
+        # Standard plates begin with a valid state/UT code; BH-series plates begin with digits.
+        if license_plate[:2].isalpha():
+            assert license_plate[:2] in EnInAutomotiveProvider.license_plate_state_codes
 
 
 class TestDeCh(_SimpleAutomotiveTestMixin):
