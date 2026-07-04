@@ -260,6 +260,21 @@ class TestEsEs:
             assert iban[:2] == EsEsBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{20}", iban[2:])
 
+    def test_bban_control_digits(self, faker, num_samples):
+        # Independently verify the two Spanish CCC control digits inside the BBAN.
+        weights = (1, 2, 4, 8, 5, 10, 9, 7, 3, 6)
+
+        def control_digit(digits):
+            total = sum(int(digit) * weight for digit, weight in zip(digits, weights))
+            control = 11 - (total % 11)
+            return {10: 1, 11: 0}.get(control, control)
+
+        for _ in range(num_samples):
+            bban = faker.bban()
+            entity_and_office, account = bban[:8], bban[10:]
+            assert int(bban[8]) == control_digit(f"00{entity_and_office}")
+            assert int(bban[9]) == control_digit(account)
+
 
 class TestEsMx:
     """Test es_MX bank provider"""
