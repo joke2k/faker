@@ -1,11 +1,18 @@
+import string
+
 from typing import List
 
 from .. import Provider as CompanyProvider
 
+# Characters allowed in the base of an alphanumeric CNPJ (digits and A-Z).
+CNPJ_ALPHANUMERIC_CHARS = string.digits + string.ascii_uppercase
+
+_CNPJ_WEIGHTS = (6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2)
+
 
 def company_id_checksum(digits: List[int]) -> List[int]:
     digits = list(digits)
-    weights = 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2
+    weights = _CNPJ_WEIGHTS
 
     dv = sum(w * d for w, d in zip(weights[1:], digits))
     dv = (11 - dv) % 11
@@ -18,6 +25,25 @@ def company_id_checksum(digits: List[int]) -> List[int]:
     digits.append(dv2)
 
     return digits[-2:]
+
+
+def alphanumeric_company_id_checksum(base: str) -> str:
+    """Return the two numeric check digits for a 12-character CNPJ base.
+
+    Supports the alphanumeric CNPJ (Serpro): each base character contributes
+    the value ``ord(char) - ord("0")``, so digits keep their value and letters
+    map ``A`` -> 17 ... ``Z`` -> 42. The check digits themselves stay numeric.
+    """
+    values = [ord(char) - ord("0") for char in base]
+
+    dv1 = (11 - sum(w * v for w, v in zip(_CNPJ_WEIGHTS[1:], values))) % 11
+    dv1 = 0 if dv1 >= 10 else dv1
+    values.append(dv1)
+
+    dv2 = (11 - sum(w * v for w, v in zip(_CNPJ_WEIGHTS, values))) % 11
+    dv2 = 0 if dv2 >= 10 else dv2
+
+    return f"{dv1}{dv2}"
 
 
 class Provider(CompanyProvider):
@@ -100,12 +126,26 @@ class Provider(CompanyProvider):
         catch_phrase = catch_phrase[0].upper() + catch_phrase[1:]
         return catch_phrase
 
-    def company_id(self) -> str:
+    def company_id(self, alphanumeric: bool = False) -> str:
+        """Generate a Brazilian CNPJ as a 14-character string (no punctuation).
+
+        When ``alphanumeric`` is ``True`` the 12-character base may contain
+        letters (the new Serpro format); the two check digits stay numeric.
+        """
+        if alphanumeric:
+            base = "".join(self.random_element(CNPJ_ALPHANUMERIC_CHARS) for _ in range(12))
+            return base + alphanumeric_company_id_checksum(base)
+
         digits: List[int] = list(self.random_sample(range(10), 8))
         digits += [0, 0, 0, 1]
         digits += company_id_checksum(digits)
         return "".join(str(d) for d in digits)
 
-    def cnpj(self) -> str:
-        digits = self.company_id()
-        return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+    def cnpj(self, alphanumeric: bool = False) -> str:
+        """Generate a formatted Brazilian CNPJ (e.g. ``12.345.678/0001-95``).
+
+        Pass ``alphanumeric=True`` for the new alphanumeric format, e.g.
+        ``12.ABC.345/01DE-35``.
+        """
+        company_id = self.company_id(alphanumeric=alphanumeric)
+        return f"{company_id[:2]}.{company_id[2:5]}.{company_id[5:8]}/{company_id[8:12]}-{company_id[12:]}"

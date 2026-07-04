@@ -29,7 +29,7 @@ from faker.providers.company.pl_PL import (
     local_regon_checksum,
     regon_checksum,
 )
-from faker.providers.company.pt_BR import company_id_checksum
+from faker.providers.company.pt_BR import alphanumeric_company_id_checksum, company_id_checksum
 from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
 from faker.providers.company.ru_RU import calculate_checksum, calculate_snils_checksum
@@ -489,6 +489,23 @@ class TestPtBr:
         for _ in range(num_samples):
             cnpj = faker.cnpj()
             assert re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/0001-\d{2}", cnpj)
+
+    def test_alphanumeric_company_id_checksum(self):
+        # Example from the Serpro reference: base "12ABC34501DE" -> check digits "35".
+        assert alphanumeric_company_id_checksum("12ABC34501DE") == "35"
+
+    def test_company_id_alphanumeric(self, faker, num_samples):
+        for _ in range(num_samples):
+            company_id = faker.company_id(alphanumeric=True)
+            assert re.fullmatch(r"[0-9A-Z]{12}\d{2}", company_id)
+            assert company_id[12:] == alphanumeric_company_id_checksum(company_id[:12])
+
+    def test_cnpj_alphanumeric(self, faker, num_samples):
+        for _ in range(num_samples):
+            cnpj = faker.cnpj(alphanumeric=True)
+            assert re.fullmatch(r"[0-9A-Z]{2}\.[0-9A-Z]{3}\.[0-9A-Z]{3}/[0-9A-Z]{4}-\d{2}", cnpj)
+            raw = cnpj.replace(".", "").replace("/", "").replace("-", "")
+            assert raw[12:] == alphanumeric_company_id_checksum(raw[:12])
 
 
 class TestRoRo:
