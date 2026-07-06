@@ -52,6 +52,10 @@ Here's a list of Providers written by the community:
 | Music         | Music genres, subgenres,  | `faker_music`_                   |
 |               | and instruments.          |                                  |
 +---------------+---------------------------+----------------------------------+
+| Observability | Fake logs, correlated     | `faker-observability-provider`_  |
+|               | OpenTelemetry-style       |                                  |
+|               | traces, and k8s metadata. |                                  |
++---------------+---------------------------+----------------------------------+
 | Posts         | Fake posts in markdown    | `mdgen`_                         |
 |               | format                    |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -115,6 +119,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_marketdata: https://pypi.org/project/faker-marketdata/
 .. _faker_microservice: https://pypi.org/project/faker-microservice/
 .. _faker_music: https://pypi.org/project/faker_music/
+.. _faker-observability-provider: https://pypi.org/project/faker-observability-provider/
 .. _mdgen: https://pypi.org/project/mdgen/
 .. _faker_pyspark: https://pypi.org/project/faker-pyspark/
 .. _faker_vehicle: https://pypi.org/project/faker-vehicle/
