@@ -9,6 +9,7 @@ from faker.providers.bank.de_CH import Provider as DeChBankProvider
 from faker.providers.bank.el_GR import Provider as ElGrBankProvider
 from faker.providers.bank.en_GB import Provider as EnGbBankProvider
 from faker.providers.bank.en_IE import Provider as EnIeBankProvider
+from faker.providers.bank.en_IN import Provider as EnInBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_AR import Provider as EsArBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
@@ -190,6 +191,13 @@ class TestEnIn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
+
+    def test_ifsc(self, faker, num_samples):
+        regex = re.compile(r"^[A-Z]{4}0[A-Z0-9]{6}$")
+        for _ in range(num_samples):
+            ifsc = faker.ifsc()
+            assert regex.fullmatch(ifsc) is not None
+            assert ifsc[:4] in EnInBankProvider.ifsc_bank_codes
 
 
 class TestEnPh:
