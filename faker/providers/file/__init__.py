@@ -317,11 +317,11 @@ class Provider(BaseProvider):
             raise TypeError("Specified file system is invalid.")
 
         root = fs_rule["root"]
-        seperator = fs_rule["separator"]
+        separator = fs_rule["separator"]
 
         path: str = self.file_name(category, extension)
         for _ in range(0, depth):
-            path = f"{self.generator.word()}{seperator}{path}"
+            path = f"{self.generator.word()}{separator}{path}"
 
         return root + path if absolute else path
 
