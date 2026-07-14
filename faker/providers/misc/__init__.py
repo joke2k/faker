@@ -6,7 +6,6 @@ import os
 import re
 import string
 import tarfile
-import time
 import uuid
 import zipfile
 
@@ -25,6 +24,13 @@ csv.register_dialect("faker-csv", csv.excel, quoting=csv.QUOTE_ALL)  # type: ign
 
 ColumnSpec = Union[Tuple[int, str], Tuple[int, str, Dict[str, Any]]]
 DataColumns = List[ColumnSpec]
+
+# Upper bound for the seeded timestamps used by ``uuid1``/``uuid7``: 2035-01-01 UTC.
+# Drawing the timestamp from this fixed range (rather than the wall clock) keeps the
+# generated UUIDs reproducible under a fixed seed while still spanning plausible dates.
+_MAX_UNIX_TIME_S = 2051222400
+_MAX_UNIX_TIME_MS = _MAX_UNIX_TIME_S * 1_000
+_MAX_UNIX_TIME_NS = _MAX_UNIX_TIME_S * 1_000_000_000
 
 
 class Provider(BaseProvider):
@@ -181,7 +187,7 @@ class Provider(BaseProvider):
         """Generate a random UUID1 (time-based) object and cast it to another type using a callable ``cast_to``.
 
         Uses the Faker random generator for the clock sequence and node fields to ensure seedability,
-        while the timestamp is derived from the current time with random perturbation for uniqueness.
+        while the timestamp is drawn from the seeded generator so the result is reproducible.
 
         By default, ``cast_to`` is set to ``str``.
 
@@ -193,11 +199,9 @@ class Provider(BaseProvider):
         # Generate random node (48 bits) and clock_seq (14 bits) for seedability
         node: int = self.generator.random.getrandbits(48)
         clock_seq: int = self.generator.random.getrandbits(14)
-        # Use current time with random perturbation for the timestamp
-        # UUID1 timestamp is in 100-nanosecond intervals since 1582-10-15
-        nanoseconds = int(time.time() * 1e9)
-        # Add random perturbation to avoid collisions and ensure seedability affects the result
-        nanoseconds += self.generator.random.randint(0, 999999)
+        # Draw the timestamp from the seeded generator so the result is reproducible under a
+        # fixed seed. UUID1 timestamps are 100-nanosecond intervals since 1582-10-15.
+        nanoseconds = self.generator.random.randint(0, _MAX_UNIX_TIME_NS)
         # Convert to UUID1 timestamp (100-ns intervals since 1582-10-15)
         timestamp = nanoseconds // 100 + 0x01B21DD213814000
 
@@ -239,7 +243,7 @@ class Provider(BaseProvider):
         with millisecond precision, combined with random bits for uniqueness.
 
         The implementation uses the Faker random generator for all random components to ensure
-        seedability. The timestamp is derived from the current time with random perturbation.
+        seedability. The timestamp is also drawn from the seeded generator so results are reproducible.
 
         By default, ``cast_to`` is set to ``str``.
 
@@ -259,8 +263,9 @@ class Provider(BaseProvider):
         # |                         rand_b (64 bits total)                |
         # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-        # 48-bit Unix timestamp in milliseconds
-        unix_ts_ms = int(time.time() * 1000) + self.generator.random.randint(0, 999)
+        # 48-bit Unix timestamp in milliseconds, drawn from the seeded generator so the result
+        # is reproducible under a fixed seed.
+        unix_ts_ms = self.generator.random.randint(0, _MAX_UNIX_TIME_MS)
 
         # 12 bits of random data (rand_a)
         rand_a = self.generator.random.getrandbits(12)

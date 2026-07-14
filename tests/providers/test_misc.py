@@ -106,6 +106,15 @@ class TestMiscProvider:
             assert isinstance(uuid1, uuid.UUID)
             assert uuid1.version == 1
 
+    def test_uuid1_seedability(self, faker, num_samples):
+        for _ in range(num_samples):
+            random_seed = faker.random_int()
+            faker.seed_instance(random_seed)
+            expected_uuids = [faker.uuid1() for _ in range(100)]
+            faker.seed_instance(random_seed)
+            new_uuids = [faker.uuid1() for _ in range(100)]
+            assert new_uuids == expected_uuids
+
     def test_uuid7_str(self, faker, num_samples):
         pattern: Pattern = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")
         for _ in range(num_samples):
@@ -120,6 +129,15 @@ class TestMiscProvider:
             uuid7 = faker.uuid7(cast_to=None)
             assert isinstance(uuid7, uuid.UUID)
             assert uuid7.version == 7
+
+    def test_uuid7_seedability(self, faker, num_samples):
+        for _ in range(num_samples):
+            random_seed = faker.random_int()
+            faker.seed_instance(random_seed)
+            expected_uuids = [faker.uuid7() for _ in range(100)]
+            faker.seed_instance(random_seed)
+            new_uuids = [faker.uuid7() for _ in range(100)]
+            assert new_uuids == expected_uuids
 
     def test_zip_invalid_file(self, faker):
         with pytest.raises(ValueError):
