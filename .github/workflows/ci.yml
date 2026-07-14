@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -77,7 +77,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -102,7 +102,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -126,7 +126,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -159,7 +159,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip
@@ -195,7 +195,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Setup pip cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -237,7 +237,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Setup pip cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -261,7 +261,7 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Setup pip cache
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       id: pipcache
       with:
         path: ~/.cache/pip

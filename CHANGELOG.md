@@ -1,5 +1,46 @@
 ## Changelog
 
+### [v40.29.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.28.1...v40.29.0)
+
+* Fix: generate valid Spanish CCC control digits in `es_ES` `iban()` (#2404). Thanks @CedricConday.
+
+### [v40.28.1 - 2026-07-01](https://github.com/joke2k/faker/compare/v40.28.0...v40.28.1)
+
+* Fix: compute valid ISO 7064 Mod 11,10 check digit for `de_DE` `vat_id` (#2403). Thanks @CedricConday.
+
+### [v40.28.0 - 2026-07-01](https://github.com/joke2k/faker/compare/v40.27.0...v40.28.0)
+
+* Add `es_MX` automotive license plate provider (#2393). Thanks @r1cksync.
+
+### [v40.27.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.26.0...v40.27.0)
+
+* Add `sr_BA` SSN provider (#2391). Thanks @AleksaMCode.
+
+### [v40.26.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.25.0...v40.26.0)
+
+* Update providers job, phone_number, bank and ssn for pt_BR (#2386). Thanks @dclobato.
+* Update phone number test regex for pt_BR. Thanks @fcurella.
+
+### [v40.25.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.24.1...v40.25.0)
+
+* Update outdated Korean locale names (#2385). Thanks @ydj515.
+
+### [v40.24.1 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.24.0...v40.24.1)
+
+* Fix: prevent infinite recursion in `_safe_random_int` when both bounds collapse to the same integer (#2396). Thanks @gaoflow.
+
+### [v40.24.0 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.23.1...v40.24.0)
+
+* Add mk_MK (Macedonian) locale (#2339). Thanks @acikabubo.
+* CI: run PR checks against PR code instead of base branch. Thanks @fcurella.
+
+### [v40.23.1 - 2026-06-30](https://github.com/joke2k/faker/compare/v40.23.0...v40.23.1)
+
+* Fix: raise `NotImplementedError` in `bank()` for locales without banks data (#2378). Thanks @koushik717.
+* Fix outdated links in README credits section (#2394). Thanks @TejasAmle.
+* Bump actions/cache from 5 to 6 (#2400). Thanks @dependabot[bot].
+* Bump actions/checkout from 6 to 7 (#2392). Thanks @dependabot[bot].
+
 ### [v40.23.0 - 2026-06-10](https://github.com/joke2k/faker/compare/v40.22.0...v40.23.0)
 
 * Add French social security numbers with Corsican codes (#2373). Thanks @dancergraham.

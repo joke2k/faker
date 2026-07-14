@@ -13,6 +13,7 @@ from faker.providers.lorem.es_ES import Provider as EsEsLoremProvider
 from faker.providers.lorem.es_MX import Provider as EsMxLoremProvider
 from faker.providers.lorem.fa_IR import Provider as FaIrLoremProvider
 from faker.providers.lorem.it_IT import Provider as ItItLoremProvider
+from faker.providers.lorem.mk_MK import Provider as MkMKLoremProvider
 from faker.providers.lorem.nl_BE import Provider as NlBeLoremProvider
 from faker.providers.lorem.uk_UA import Provider as UkUaLoremProvider
 from faker.providers.lorem.vi_VN import Provider as ViVNLoremProvider
@@ -874,6 +875,25 @@ class TestLoremProvider:
     def test_get_words_list_part_of_speech_ignored(self, faker):
         words = faker.get_words_list(part_of_speech="ignored part of speech", ext_word_list=self.custom_word_list)
         assert all(word in self.custom_word_list for word in words)
+
+
+class TestMkMk:
+    """Test mk_MK lorem provider methods"""
+
+    def test_word(self, faker, num_samples):
+        word_list = [w.lower() for w in MkMKLoremProvider.word_list]
+        for _ in range(num_samples):
+            word = faker.word()
+            assert isinstance(word, str)
+            assert word.lower() in word_list
+
+    def test_sentence(self, faker, num_samples):
+        word_list = [w.lower() for w in MkMKLoremProvider.word_list]
+        for _ in range(num_samples):
+            sentence = faker.sentence()
+            assert isinstance(sentence, str)
+            words = sentence.replace(".", "").split()
+            assert all(w.lower() in word_list for w in words)
 
 
 class TestNlBe:

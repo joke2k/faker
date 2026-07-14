@@ -43,6 +43,7 @@ from faker.providers.address.it_IT import Provider as ItItAddressProvider
 from faker.providers.address.ja_JP import Provider as JaJpAddressProvider
 from faker.providers.address.ka_GE import Provider as KaGeAddressProvider
 from faker.providers.address.ko_KR import Provider as KoKrAddressProvider
+from faker.providers.address.mk_MK import Provider as MkMKAddressProvider
 from faker.providers.address.mr_IN import Provider as MrInAddressProvider
 from faker.providers.address.ne_NP import Provider as NeNpAddressProvider
 from faker.providers.address.no_NO import Provider as NoNoAddressProvider
@@ -190,7 +191,13 @@ class TestBaseProvider:
 
     def test_administrative_unit_all_locales(self):
         for faker in self._fakers_for_locales():
-            if faker.current_country_code() not in ["IL", "GE", "TW", "UA", "NZ"]:
+            if faker.current_country_code() not in [
+                "IL",
+                "GE",
+                "TW",
+                "UA",
+                "NZ",
+            ]:
                 try:
                     assert isinstance(faker.administrative_unit(), str)
                 except Exception as e:
@@ -203,11 +210,17 @@ class TestBaseProvider:
     def test_current_country_errors(self):
         dt = providers.date_time
         countries_duplicated = [*dt.Provider.countries, *dt.Provider.countries]
-        with mock.patch.object(dt.Provider, "countries", countries_duplicated), pytest.raises(ValueError) as e:
+        with (
+            mock.patch.object(dt.Provider, "countries", countries_duplicated),
+            pytest.raises(ValueError) as e,
+        ):
             Faker("en_US").current_country()
         assert "Ambiguous" in str(e)
         country_code = "faker.providers.address.Provider.current_country_code"
-        with pytest.raises(ValueError), mock.patch(country_code, lambda self: "en_ZZ"):
+        with (
+            pytest.raises(ValueError),
+            mock.patch(country_code, lambda self: "en_ZZ"),
+        ):
             Faker("en_US").current_country()
 
 
@@ -627,7 +640,10 @@ class TestEnIe:
         for _ in range(num_samples):
             postcode = faker.postcode()
             assert isinstance(postcode, str)
-            assert re.fullmatch(r"(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$", postcode)
+            assert re.fullmatch(
+                r"(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W)[ -]?[0-9AC-FHKNPRTV-Y]{4}$",
+                postcode,
+            )
 
     def test_county(self, faker, num_samples):
         for _ in range(num_samples):
@@ -663,7 +679,10 @@ class TestEnIn:
             assert isinstance(union_territory, str)
             assert (union_territory,) in EnInAddressProvider.union_territories
 
-    @pytest.mark.parametrize("pincodes", ["pincode_in_state", "zipcode_in_state", "postcode_in_state"])
+    @pytest.mark.parametrize(
+        "pincodes",
+        ["pincode_in_state", "zipcode_in_state", "postcode_in_state"],
+    )
     def test_pincodes_in_state(self, faker, num_samples, pincodes):
         """Test `pincodes` for state and union territories"""
 
@@ -923,7 +942,10 @@ class TestEnUS:
 
     def test_state_abbr_states_only(self, faker, num_samples):
         for _ in range(num_samples):
-            state_abbr = faker.state_abbr(include_territories=False, include_freely_associated_states=False)
+            state_abbr = faker.state_abbr(
+                include_territories=False,
+                include_freely_associated_states=False,
+            )
             assert isinstance(state_abbr, str)
             assert state_abbr in EnUsAddressProvider.states_abbr
 
@@ -1543,7 +1565,10 @@ class TestHuHu:
         for _ in range(num_samples):
             street_address_with_county = faker.street_address_with_county()
             assert isinstance(street_address_with_county, str)
-            match = re.fullmatch(r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*", street_address_with_county)
+            match = re.fullmatch(
+                r".* \d*.\n.* [A-Za-zÀ-ȕ]*\nH-\d{4} [A-Za-zÀ-ȕ]*",
+                street_address_with_county,
+            )
             assert match
 
     def test_city_prefix(self, faker, num_samples):
@@ -1778,7 +1803,10 @@ class TestItIt:
         for _ in range(num_samples):
             postcode_city_province = faker.postcode_city_province()
             assert isinstance(postcode_city_province, str)
-            match = re.fullmatch(r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)", postcode_city_province)
+            match = re.fullmatch(
+                r"(?P<cap>\d{5}), (?P<city>.*) \((?P<province>[A-Z]{2})\)",
+                postcode_city_province,
+            )
             assert match
             assert match.group("cap") in ItItAddressProvider.postcode_formats
             assert match.group("city") in ItItAddressProvider.cities
@@ -2034,6 +2062,34 @@ class TestNeNp:
             country = faker.country()
             assert isinstance(country, str)
             assert country in NeNpAddressProvider.countries
+
+
+class TestMkMk:
+    """Test mk_MK address provider methods"""
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city_name()
+            assert isinstance(city, str)
+            assert city in MkMKAddressProvider.cities
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street = faker.street_name()
+            assert isinstance(street, str)
+            assert street in MkMKAddressProvider.streets
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in MkMKAddressProvider.states
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
+            assert len(address) > 0
 
 
 class TestNoNo:

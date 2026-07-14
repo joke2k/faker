@@ -471,14 +471,14 @@ class TestPtBr:
 
     def test_phone_number(self, faker, num_samples):
         pattern: Pattern = re.compile(
-            r"(?:\+55 )?" r"(?:[1-8]1|84|\((?:0[1-8]1|084)\))" r" \d{4}[ -]\d{4}|" r"\d{4}?[ -]\d{3}[ -]\d{4}",
+            r"(?:\+55 )?\d{2} \d{4}[ -]\d{4}|" r"0\d{3}[ -]\d{3}[ -]\d{4}",
         )
         for _ in range(num_samples):
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
     def test_msisdn(self, faker, num_samples):
-        pattern: Pattern = re.compile(r"55(?:[1-8]19|849)\d{8}")
+        pattern: Pattern = re.compile(r"55\d{2}9\d{8}")
         for _ in range(num_samples):
             msisdn = faker.msisdn()
             assert pattern.fullmatch(msisdn)
@@ -583,6 +583,18 @@ class TestUzUz:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
+
+
+class TestMkMk:
+    """Test mk_MK phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        # Macedonian numbers start with +389, 02, 03x, or 07x
+        pattern: Pattern = re.compile(r"(\+389[\d\s\(\)]+|0[237]\d[\d\s]+)")
+        for _ in range(num_samples):
+            phone = faker.phone_number()
+            assert isinstance(phone, str)
+            assert pattern.match(phone), f"Unexpected phone format: {phone!r}"
 
 
 class TestViVn:

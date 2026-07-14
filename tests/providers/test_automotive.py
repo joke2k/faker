@@ -7,6 +7,8 @@ from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
+from faker.providers.automotive.es_MX import Provider as EsMxAutomotiveProvider
+from faker.providers.automotive.mk_MK import Provider as MkMKAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
 from faker.providers.automotive.sk_SK import Provider as SkSkAutomotiveProvider
@@ -154,6 +156,130 @@ class TestEsEs:
             plate = faker.license_plate()
             assert isinstance(plate, str)
             assert self.new_format_pattern.match(plate) or self.old_format_pattern.match(plate)
+
+
+class TestEsMx:
+    """Test es_MX automotive provider methods"""
+
+    # Letters allowed in Mexican serials (``I``, ``O`` and ``Q`` excluded).
+    letters = EsMxAutomotiveProvider.license_plate_letters
+
+    unified_pattern: Pattern = re.compile(rf"[{letters}]{{3}}-\d{{3}}-[{letters}]")
+    old_pattern: Pattern = re.compile(rf"[{letters}]{{3}}-\d{{2}}-\d{{2}}")
+    cdmx_pattern: Pattern = re.compile(rf"[{letters}]\d{{2}}-[{letters}]{{3}}")
+    moto_national_pattern: Pattern = re.compile(rf"[{letters}]\d{{3}}[{letters}]")
+    moto_cdmx_pattern: Pattern = re.compile(rf"\d{{4}} [{letters}]")
+    taxi_lettered_pattern: Pattern = re.compile(rf"[{letters}]-\d{{3}}-[{letters}]{{3}}")
+    taxi_numbered_pattern: Pattern = re.compile(rf"\d{{2}}-\d{{2}}-[{letters}]{{3}}")
+
+    def test_plate_unified_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_unified()
+            assert isinstance(plate, str)
+            assert self.unified_pattern.fullmatch(plate)
+
+    def test_plate_old_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_old()
+            assert isinstance(plate, str)
+            assert self.old_pattern.fullmatch(plate)
+
+    def test_plate_cdmx_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_cdmx()
+            assert isinstance(plate, str)
+            assert self.cdmx_pattern.fullmatch(plate)
+
+    def test_serial_letters_exclude_ioq(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate()
+            for forbidden in ("I", "O", "Q"):
+                # Only the letter positions matter; digits never contain these.
+                assert forbidden not in re.sub(r"[\d-]", "", plate)
+
+    def test_state_abbr_are_unique(self, faker):
+        abbreviations = EsMxAutomotiveProvider.license_plate_state_abbrs
+        # All 32 federal entities are represented exactly once.
+        assert len(abbreviations) == 32
+        assert len(set(abbreviations)) == 32
+        assert tuple(EsMxAutomotiveProvider.license_plate_states.keys()) == abbreviations
+
+    def test_state_names_are_complete(self, faker):
+        states = EsMxAutomotiveProvider.license_plate_states
+        assert len(states) == 32
+        # Every code maps to a non-empty official name.
+        for abbr, name in states.items():
+            assert isinstance(abbr, str) and abbr
+            assert isinstance(name, str) and name
+
+    def test_license_plate_state_abbr_method(self, faker, num_samples):
+        for _ in range(num_samples):
+            abbr = faker.license_plate_state_abbr()
+            assert abbr in EsMxAutomotiveProvider.license_plate_state_abbrs
+
+    def test_license_plate_state_method(self, faker, num_samples):
+        names = set(EsMxAutomotiveProvider.license_plate_states.values())
+        for _ in range(num_samples):
+            assert faker.license_plate_state() in names
+
+    def test_plate_by_state_random(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_by_state()
+            abbr, _, serial = plate.partition(" ")
+            assert abbr in EsMxAutomotiveProvider.license_plate_state_abbrs
+            assert self.unified_pattern.fullmatch(serial)
+
+    def test_plate_by_state_explicit(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate_by_state(state_abbr="JAL")
+            assert plate.startswith("JAL ")
+            assert self.unified_pattern.fullmatch(plate.split(" ", 1)[1])
+
+    def test_motorcycle_plate_national_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.motorcycle_license_plate_national()
+            assert isinstance(plate, str)
+            assert self.moto_national_pattern.fullmatch(plate)
+
+    def test_motorcycle_plate_cdmx_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.motorcycle_license_plate_cdmx()
+            assert isinstance(plate, str)
+            assert self.moto_cdmx_pattern.fullmatch(plate)
+
+    def test_motorcycle_plate_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.motorcycle_license_plate()
+            assert isinstance(plate, str)
+            assert self.moto_national_pattern.fullmatch(plate) or self.moto_cdmx_pattern.fullmatch(plate)
+
+    def test_public_transport_plate_lettered_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.public_transport_license_plate_lettered()
+            assert isinstance(plate, str)
+            assert self.taxi_lettered_pattern.fullmatch(plate)
+
+    def test_public_transport_plate_numbered_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.public_transport_license_plate_numbered()
+            assert isinstance(plate, str)
+            assert self.taxi_numbered_pattern.fullmatch(plate)
+
+    def test_public_transport_plate_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.public_transport_license_plate()
+            assert isinstance(plate, str)
+            assert self.taxi_lettered_pattern.fullmatch(plate) or self.taxi_numbered_pattern.fullmatch(plate)
+
+    def test_plate_format(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate()
+            assert isinstance(plate, str)
+            assert (
+                self.unified_pattern.fullmatch(plate)
+                or self.old_pattern.fullmatch(plate)
+                or self.cdmx_pattern.fullmatch(plate)
+            )
 
 
 class TestFiFi(_SimpleAutomotiveTestMixin):
@@ -424,3 +550,16 @@ class TestZhTw(_SimpleAutomotiveTestMixin):
         r"([A-Z]{3}-\d{4})|"  # new format since 2014
         r"([A-Z]{3}-\d{3})",  # commercial cars since 2012
     )
+
+
+class TestMkMk(_SimpleAutomotiveTestMixin):
+    """Test mk_MK automotive provider methods"""
+
+    # Format: XX NNNN YY  (2-letter region, 4 digits, 2 letters)
+    license_plate_pattern: Pattern = re.compile(r"[A-Z]{2} \d{4} [A-BCDEFGHIJKLMNOPRSTUVZ]{2}")
+
+    def test_license_plate_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            plate = faker.license_plate()
+            prefix = plate.split()[0]
+            assert prefix in MkMKAutomotiveProvider.license_plate_prefixes

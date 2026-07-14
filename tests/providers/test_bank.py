@@ -16,6 +16,7 @@ from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
 from faker.providers.bank.fi_FI import Provider as FiFiBankProvider
 from faker.providers.bank.fr_FR import Provider as FrFrBankProvider
+from faker.providers.bank.mk_MK import Provider as MkMKBankProvider
 from faker.providers.bank.nl_BE import Provider as NlBeBankProvider
 from faker.providers.bank.no_NO import Provider as NoNoBankProvider
 from faker.providers.bank.pl_PL import Provider as PlPlBankProvider
@@ -64,13 +65,21 @@ class TestBaseBankProvider:
     """Test base bank provider"""
 
     def test_bank_not_implemented_error(self, faker):
-        """Test that bank() raises AttributeError when no banks attribute exists"""
+        """Test that bank() raises NotImplementedError when no banks attribute exists.
+
+        Raising NotImplementedError (instead of AttributeError) ensures that
+        hasattr(faker, 'bank') correctly returns True (the method exists) while
+        still clearly communicating that this locale has not implemented bank
+        name generation. Previously AttributeError was raised, which caused
+        hasattr() to return False-positive True yet crash on the call.
+        See: https://github.com/joke2k/faker/issues/2377
+        """
 
         provider = BankProvider(faker)
 
         assert not hasattr(provider, "banks")
 
-        with pytest.raises(AttributeError):
+        with pytest.raises(NotImplementedError):
             provider.bank()
 
 
@@ -245,11 +254,19 @@ class TestEsEs:
             assert re.fullmatch(r"\d{20}", faker.bban())
 
     def test_iban(self, faker, num_samples):
+        def _ccc_control_digit(number):
+            check = sum(int(n) * 2**i for i, n in enumerate(number)) % 11
+            return str(check if check < 2 else 11 - check)
+
         for _ in range(num_samples):
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == EsEsBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{20}", iban[2:])
+            # the BBAN must carry valid Spanish CCC control digits
+            bban = iban[4:]
+            bank_branch, control, account = bban[:8], bban[8:10], bban[10:]
+            assert control == _ccc_control_digit("00" + bank_branch) + _ccc_control_digit(account)
 
 
 class TestEsMx:
@@ -532,3 +549,20 @@ class TestZhCn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"[\u4e00-\u9fa5]{2,20}", faker.bank())
+
+
+class TestMkMk:
+    """Test mk_MK bank provider methods"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            bank = faker.bank()
+            assert isinstance(bank, str)
+            assert bank in MkMKBankProvider.banks
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert isinstance(iban, str)
+            assert iban.startswith("MK")
+            assert len(iban) == 21  # MK(2) + check(2) + bban(17)
