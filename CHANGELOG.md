@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.30.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.29.0...v40.30.0)
+
+* Fix: generate valid Belgian bank codes in `nl_BE` `iban()` (#2412). Thanks @CedricConday.
+
 ### [v40.29.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.28.1...v40.29.0)
 
 * Fix: generate valid Spanish CCC control digits in `es_ES` `iban()` (#2404). Thanks @CedricConday.
