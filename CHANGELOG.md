@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.31.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.30.0...v40.31.0)
+
+* Fix: correct BBAN length so `pt_BR` `iban()` generates valid Brazilian IBANs (#2410). Thanks @CedricConday.
+
 ### [v40.30.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.29.0...v40.30.0)
 
 * Fix: generate valid Belgian bank codes in `nl_BE` `iban()` (#2412). Thanks @CedricConday.
