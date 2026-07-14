@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.29.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.28.1...v40.29.0)
+
+* Fix: generate valid Spanish CCC control digits in `es_ES` `iban()` (#2404). Thanks @CedricConday.
+
 ### [v40.28.1 - 2026-07-01](https://github.com/joke2k/faker/compare/v40.28.0...v40.28.1)
 
 * Fix: compute valid ISO 7064 Mod 11,10 check digit for `de_DE` `vat_id` (#2403). Thanks @CedricConday.
