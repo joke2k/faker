@@ -388,6 +388,14 @@ class TestNlBe:
             numeric_iban = "".join(str(ord(char) - 55) if char.isalpha() else char for char in rearranged_iban)
             assert int(numeric_iban) % 97 == 1
 
+    def test_iban_stdnum(self, faker, num_samples):
+        try:
+            from stdnum import iban as iban_validator
+        except ImportError:
+            pytest.skip("stdnum not available")
+        for _ in range(num_samples):
+            iban_validator.validate(faker.iban())
+
     def test_swift8_use_dataset(self, faker, num_samples):
         for _ in range(num_samples):
             code = faker.swift8(use_dataset=True)
