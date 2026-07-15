@@ -288,6 +288,19 @@ class TestPydecimal(unittest.TestCase):
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
 
+    def test_positive_and_max_value_incompatible(self):
+        """
+        An exception should be raised if positive=True is set together with a
+        negative or zero max_value, instead of silently returning a negative
+        value.
+        """
+
+        expected_message = "Cannot combine positive=True with negative or zero max_value"
+        for max_value in (-3, 0):
+            with self.assertRaises(ValueError) as raises:
+                self.fake.pydecimal(max_value=max_value, positive=True)
+            self.assertEqual(str(raises.exception), expected_message)
+
     def test_positive_doesnt_return_zero(self):
         """
         Choose the right_digits and max_value so it's guaranteed to return zero,
