@@ -1,5 +1,3 @@
-import re
-
 from .. import Provider as BankProvider
 
 
