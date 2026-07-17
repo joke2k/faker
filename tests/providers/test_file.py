@@ -51,6 +51,18 @@ class TestFile(unittest.TestCase):
             file_path = self.fake.file_path(file_system_rule="windows", category="image", absolute=True)
             assert re.search(r"^[a-zA-Z]:\\\w+\\\w+\.\w+", file_path)
             assert re.search(r"\\\w+\\\w+\.(bmp|gif|jpeg|jpg|png|tiff)$", file_path)
+            file_path = self.fake.file_path(depth=3, allowed_path_traversal_elements=[".", ".."])
+            assert re.search(r"\/[\w.]+\/[\w.]+\/[\w.]+\.\w+", file_path)
+            assert file_path.startswith("/")
+            file_path = self.fake.file_path(depth=3, allowed_path_traversal_elements=None)
+            assert re.search(r"\/\w+\/\w+\/\w+\.\w+", file_path)
+            file_path = self.fake.file_path(depth=3, allowed_path_traversal_elements=[".."])
+            assert re.search(r"\/[\w.]+\/[\w.]+\/[\w.]+\.\w+", file_path)
+            assert file_path.startswith("/")
+            file_path = self.fake.file_path(
+                depth=3, file_system_rule="windows", allowed_path_traversal_elements=[".", ".."]
+            )
+            assert re.search(r"^[a-zA-Z]:\\[\w.]+\\[\w.]+\\[\w.]+\.\w+", file_path)
 
     def test_unix_device(self):
         reg_device = re.compile(r"^/dev/(vd|sd|xvd)[a-z]$")

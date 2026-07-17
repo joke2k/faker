@@ -1549,6 +1549,7 @@ class Faker:
         extension: Union[str, Sequence[str], None] = ...,
         absolute: Optional[bool] = ...,
         file_system_rule: Literal["linux", "windows"] = ...,
+        allowed_path_traversal_elements: Optional[Sequence[str]] = ...,
     ) -> str:
         """
         Generate an pathname to a file.
@@ -1570,6 +1571,11 @@ class Faker:
         if ``file_system`` is set (default="linux"), the generated path uses
         specified file system path standard, the list of valid file systems include:
         ``'windows'``, ``'linux'``.
+        If ``allowed_path_traversal_elements`` is set, it should be a sequence
+        of path-traversal segments (e.g. ``['.', '..']``) that may be randomly
+        included as directory components. This is useful for generating test
+        cases for directory traversal attack detection. Default is ``None``,
+        meaning no traversal elements are included.
 
         :sample: size=10
         :sample: depth=3
@@ -1579,6 +1585,7 @@ class Faker:
         :sample: extension=''
         :sample: extension=["a", "bc", "def"]
         :sample: depth=5, category='video', extension='abcdef', file_system='windows'
+        :sample: depth=3, allowed_path_traversal_elements=['.', '..']
         """
         ...
 

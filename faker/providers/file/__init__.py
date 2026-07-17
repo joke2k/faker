@@ -275,6 +275,7 @@ class Provider(BaseProvider):
         extension: Optional[Union[str, Sequence[str]]] = None,
         absolute: Optional[bool] = True,
         file_system_rule: Literal["linux", "windows"] = "linux",
+        allowed_path_traversal_elements: Optional[Sequence[str]] = None,
     ) -> str:
         """Generate an pathname to a file.
 
@@ -295,6 +296,11 @@ class Provider(BaseProvider):
         if ``file_system`` is set (default="linux"), the generated path uses
         specified file system path standard, the list of valid file systems include:
         ``'windows'``, ``'linux'``.
+        If ``allowed_path_traversal_elements`` is set, it should be a sequence
+        of path-traversal segments (e.g. ``['.', '..']``) that may be randomly
+        included as directory components. This is useful for generating test
+        cases for directory traversal attack detection. Default is ``None``,
+        meaning no traversal elements are included.
 
         :sample: size=10
         :sample: depth=3
@@ -304,6 +310,7 @@ class Provider(BaseProvider):
         :sample: extension=''
         :sample: extension=["a", "bc", "def"]
         :sample: depth=5, category='video', extension='abcdef', file_system='windows'
+        :sample: depth=3, allowed_path_traversal_elements=['.', '..']
         """
 
         if extension is not None and not isinstance(extension, str):
@@ -321,7 +328,11 @@ class Provider(BaseProvider):
 
         path: str = self.file_name(category, extension)
         for _ in range(0, depth):
-            path = f"{self.generator.word()}{separator}{path}"
+            if allowed_path_traversal_elements:
+                segment = self.random_element(list(allowed_path_traversal_elements) + [self.generator.word()])
+            else:
+                segment = self.generator.word()
+            path = f"{segment}{separator}{path}"
 
         return root + path if absolute else path
 
