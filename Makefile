@@ -2,13 +2,13 @@ test:
 	tox -e py
 
 flake8:
-	flake8 --extend-ignore=E203 faker tests
+	flake8 --extend-ignore=E203 faker tests scripts
 
 mypy:
 	mypy --install-types --non-interactive --config mypy.ini faker
 
 black:
-	black --line-length 120 .
+	black --line-length 120 faker tests scripts
 
 isort:
 	isort --atomic .
