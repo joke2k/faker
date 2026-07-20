@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.32.0 - 2026-07-20](https://github.com/joke2k/faker/compare/v40.31.0...v40.32.0)
+
+* Add `allowed_path_traversal_elements` option to `file_path()` (#2397). Thanks @Ayushmann13479.
+* Fix Windows `file_path` depth=3 test regex. Thanks @fcurella.
+
 ### [v40.31.0 - 2026-07-14](https://github.com/joke2k/faker/compare/v40.30.0...v40.31.0)
 
 * Fix: correct BBAN length so `pt_BR` `iban()` generates valid Brazilian IBANs (#2410). Thanks @CedricConday.
