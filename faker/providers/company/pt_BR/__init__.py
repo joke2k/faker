@@ -118,7 +118,7 @@ class Provider(CompanyProvider):
 
     def cnpj(self, use_alphanumeric: bool = False) -> str:
         """
-        source: https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view
+        source: https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view  # noqa: E501
         """
         digits = self.company_id(use_alphanumeric)
         return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
