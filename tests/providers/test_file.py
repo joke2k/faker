@@ -62,7 +62,7 @@ class TestFile(unittest.TestCase):
             file_path = self.fake.file_path(
                 depth=3, file_system_rule="windows", allowed_path_traversal_elements=[".", ".."]
             )
-            assert re.search(r"^[a-zA-Z]:\\[\w.]+\\[\w.]+\\[\w.]+\.\w+", file_path)
+            assert re.search(r"^[a-zA-Z]:\\[\w.]+\\[\w.]+\\[\w.]+\\[\w.]+\.\w+", file_path)
 
     def test_unix_device(self):
         reg_device = re.compile(r"^/dev/(vd|sd|xvd)[a-z]$")
