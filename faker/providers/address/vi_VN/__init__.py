@@ -44,6 +44,16 @@ class Provider(AddressProvider):
         "Phố",
         "phố",
     )
+    street_suffixes = (
+        "Đường",
+        "Ngõ",
+        "Hẻm",
+        "Làng",
+        "Khu",
+        "Tổ",
+        "Số",
+        "Dãy",
+    )
     streets = (
         "Nguyễn Trãi",
         "Nguyễn Huệ",
@@ -174,6 +184,14 @@ class Provider(AddressProvider):
         "Thành phố",
         "thành phố",
         "TP.",
+    )
+    city_suffixes = (
+        "Thành phố",
+        "Quận",
+        "Huyện",
+        "Thị xã",
+        "Xã",
+        "Phường",
     )
     city_formats = ("{{city_prefix}} {{city_name}}",)
     provinces = (
@@ -349,6 +367,10 @@ class Provider(AddressProvider):
             return f"{postcode:05d}"
 
         raise ValueError("Province Abbreviation not found in list")
+
+    def postcode(self) -> str:
+        """Returns a random postcode from an allocated province range."""
+        return self.postcode_in_state()
 
     def vi_building_number_format(self) -> str:
         return self.random_element(self.vi_building_number_formats)

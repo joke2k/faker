@@ -2736,6 +2736,18 @@ class TestViVn:
             assert isinstance(city_prefix, str)
             assert city_prefix in ViVNAddressProvider.city_prefixes
 
+    def test_city_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_suffix = faker.city_suffix()
+            assert isinstance(city_suffix, str)
+            assert city_suffix in ViVNAddressProvider.city_suffixes
+
+    def test_street_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix = faker.street_suffix()
+            assert isinstance(street_suffix, str)
+            assert street_suffix in ViVNAddressProvider.street_suffixes
+
     def test_city(self, faker, num_samples):
         expected_cities = {
             f"{prefix} {name}" for prefix in ViVNAddressProvider.city_prefixes for name in ViVNAddressProvider.cities
@@ -2776,6 +2788,11 @@ class TestViVn:
             postcode = faker.postcode()
             assert isinstance(postcode, str)
             assert re.fullmatch(r"\d{5}", postcode)
+            assert any(
+                start <= int(postcode) <= end
+                for postcode_ranges in ViVNAddressProvider.provinces_postcode.values()
+                for start, end in postcode_ranges
+            )
 
     def test_postcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
