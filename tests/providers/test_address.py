@@ -2687,8 +2687,7 @@ class TestViVn:
 
     def test_building_number(self, faker, num_samples):
         building_number_pattern = re.compile(
-            r"(?:Số )?(?:[1-9]|[1-9]\d{1,2}|[1-9]/\d{2}|"
-            r"[1-9]/[1-9]\d/[1-9]\d{2}|[1-9]\d/[1-9]\d{2})"
+            r"(?:Số )?(?:[1-9]|[1-9]\d{1,2}|[1-9]/\d{2}|" r"[1-9]/[1-9]\d/[1-9]\d{2}|[1-9]\d/[1-9]\d{2})"
         )
 
         for _ in range(num_samples):
@@ -2739,9 +2738,7 @@ class TestViVn:
 
     def test_city(self, faker, num_samples):
         expected_cities = {
-            f"{prefix} {name}"
-            for prefix in ViVNAddressProvider.city_prefixes
-            for name in ViVNAddressProvider.cities
+            f"{prefix} {name}" for prefix in ViVNAddressProvider.city_prefixes for name in ViVNAddressProvider.cities
         }
 
         for _ in range(num_samples):
@@ -2786,10 +2783,7 @@ class TestViVn:
                 postcode = faker.postcode_in_state(state_abbr)
                 assert re.fullmatch(r"\d{5}", postcode)
                 assert any(
-                    start <= int(postcode) <= end
-                    for start, end in ViVNAddressProvider.provinces_postcode[
-                        state_abbr
-                    ]
+                    start <= int(postcode) <= end for start, end in ViVNAddressProvider.provinces_postcode[state_abbr]
                 )
 
         with pytest.raises(ValueError):

@@ -354,9 +354,7 @@ class Provider(AddressProvider):
         return self.random_element(self.vi_building_number_formats)
 
     def building_number(self) -> str:
-        pattern = self.generator.parse(
-            self.random_element(self.building_number_formats)
-        )
+        pattern = self.generator.parse(self.random_element(self.building_number_formats))
         return self.numerify(pattern)
 
     def sub_street_prefix(self) -> str:
@@ -374,9 +372,7 @@ class Provider(AddressProvider):
 
     def numbered_street(self) -> str:
         """Returns a random street number with at most three digits."""
-        pattern = self.generator.parse(
-            self.random_element(self.numbered_street_formats)
-        )
+        pattern = self.generator.parse(self.random_element(self.numbered_street_formats))
         return self.numerify(pattern)
 
     def street_name(self) -> str:
