@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.33.1 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.33.0...v40.33.1)
+
+* Make `uuid1()` and `uuid7()` reproducible under a fixed seed (#2427). Thanks @vidigoat.
+
 ### [v40.33.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.32.0...v40.33.0)
 
 * Add alphanumeric CNPJ support for `pt_BR` via flag (#2402). Thanks @moohbr.
