@@ -11,6 +11,7 @@ class Provider(BankProvider):
     - http://cbr.ru/credit/coreports/ko17012020.zip
     """
 
+    bban_format = "##############???????????????"
     country_code = "RU"
 
     region_codes = (
