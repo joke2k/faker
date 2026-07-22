@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.35.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.34.0...v40.35.0)
+
+* Fix: add correct `bban_format` so `ru_RU` `iban()` generates valid Russian IBANs (#2416). Thanks @CedricConday.
+
 ### [v40.34.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.33.2...v40.34.0)
 
 * Fix: correct BBAN length so `da_DK` `iban()` generates valid Danish IBANs (#2409). Thanks @CedricConday.
