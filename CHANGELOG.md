@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.33.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.32.0...v40.33.0)
+
+* Add alphanumeric CNPJ support for `pt_BR` via flag (#2402). Thanks @moohbr.
+
 ### [v40.32.0 - 2026-07-20](https://github.com/joke2k/faker/compare/v40.31.0...v40.32.0)
 
 * Add `allowed_path_traversal_elements` option to `file_path()` (#2397). Thanks @Ayushmann13479.
