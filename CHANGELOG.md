@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.34.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.33.2...v40.34.0)
+
+* Fix: correct BBAN length so `da_DK` `iban()` generates valid Danish IBANs (#2409). Thanks @CedricConday.
+
 ### [v40.33.2 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.33.1...v40.33.2)
 
 * Validate `positive=True` against a non-positive `max_value` in `pydecimal` (#2428). Thanks @Sreekant13.
