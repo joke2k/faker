@@ -1244,6 +1244,17 @@ class TestRoRO(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^\d{13}$", self.fake.ssn())
 
+    def test_ssn_birth_date_is_valid(self):
+        # The CNP encodes a birth date as S YY MM DD; those digits must form a
+        # real calendar date. The century (needed for leap years) follows the
+        # gender digit S.
+        centuries = {1: 1900, 2: 1900, 3: 1800, 4: 1800, 5: 2000, 6: 2000}
+        for _ in range(1000):
+            ssn = self.fake.ssn()
+            gender, year, month, day = int(ssn[0]), int(ssn[1:3]), int(ssn[3:5]), int(ssn[5:7])
+            # datetime raises ValueError on an impossible date (e.g. 09-31, 02-30).
+            datetime(centuries.get(gender, 1900) + year, month, day)
+
     def test_vat_checksum(self):
         assert ro_vat_checksum("1") == 9
         assert ro_vat_checksum("41") == 8
