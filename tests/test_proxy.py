@@ -427,8 +427,7 @@ class TestFakerProxyClass:
                 "_locales",
                 "_factory_map",
                 "_weights",
-                "_unique_proxy",
-                "_optional_proxy",
+                "_last_used_factory_map",
             ]
         )
         for factory in fake.factories:

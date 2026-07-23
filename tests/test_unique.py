@@ -1,7 +1,12 @@
+import logging
+
 import pytest
 
 from faker import Faker
+from faker.config import AVAILABLE_LOCALES, DEFAULT_LOCALE
 from faker.exceptions import UniquenessException
+
+LOGGER = logging.getLogger(__name__)
 
 
 class TestUniquenessClass:
@@ -52,14 +57,13 @@ class TestUniquenessClass:
         # this would throw a sanity exception
         fake.unique.random_int(min=2, max=10)
 
-    def test_functions_only(self):
+    def test_accessing_non_function(self):
         """Accessing non-functions through the `.unique` attribute
-        will throw a TypeError."""
+        is allowed."""
 
         fake = Faker()
 
-        with pytest.raises(TypeError, match="Accessing non-functions through .unique is not supported."):
-            fake.unique.locales
+        assert fake.unique.locales == [DEFAULT_LOCALE]
 
     def test_complex_return_types_is_supported(self):
         """The unique decorator supports complex return types
@@ -95,3 +99,42 @@ class TestUniquenessClass:
 
         with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
             fake.unique["ja_JP"].random_int(min=1, max=10)
+
+    def test_preferred_uniqueness(self, caplog):
+        fake = Faker()
+
+        with caplog.at_level(logging.WARNING):
+            for i in range(3):
+                _ = fake.preferred_unique.boolean()
+        assert (
+            'There seem to be no more unique values for generator "boolean". '
+            "Resetting store of generated values as uniqueness is not being enforced."
+        ) in caplog.text
+
+    def test_current_values_exempt_from_unique_check(self):
+        fake = Faker()
+
+        country_first_attempt = fake.unique.current_country()
+        assert country_first_attempt == fake.unique.current_country()
+
+    def test_initial_current_values_with_multiple_locales_are_unique(self):
+        fake = Faker(AVAILABLE_LOCALES)
+
+        all_country_codes_with_locales = {Faker(locale).current_country_code() for locale in AVAILABLE_LOCALES}
+        generated_country_codes = {fake.unique.current_country_code() for _ in range(len(AVAILABLE_LOCALES))}
+
+        assert all_country_codes_with_locales == generated_country_codes
+
+    def test_current_values_start_repeating_after_locales_exhausted(self):
+        fake = Faker({"en_US": 1, "fr_FR": 2}, use_weighting=True)
+
+        locale_count = len(fake.locales)
+        generated_countries = {fake.unique.current_country() for _ in range(locale_count)}
+        assert len(generated_countries) == locale_count
+        assert fake.unique.current_country() in generated_countries
+
+    def test_none_values_exempt_from_unique_check(self):
+        fake = Faker()
+
+        for _ in range(2):
+            assert fake.unique.seed_locale("en_US", 0) is None
