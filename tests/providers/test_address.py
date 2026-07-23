@@ -2685,17 +2685,97 @@ class TestUkUa:
 class TestViVn:
     """Test vi_VN address provider methods"""
 
+    def test_building_number(self, faker, num_samples):
+        building_number_pattern = re.compile(
+            r"(?:Số )?(?:[1-9]|[1-9]\d{1,2}|[1-9]/\d{2}|" r"[1-9]/[1-9]\d/[1-9]\d{2}|[1-9]\d/[1-9]\d{2})"
+        )
+
+        for _ in range(num_samples):
+            building_number = faker.building_number()
+            assert building_number_pattern.fullmatch(building_number)
+
+    def test_sub_street(self, faker, num_samples):
+        prefixes = "|".join(map(re.escape, ViVNAddressProvider.sub_street_prefixes))
+        sub_street_pattern = re.compile(rf"(?:{prefixes}) [1-9]\d")
+
+        for _ in range(num_samples):
+            sub_street = faker.sub_street()
+            assert isinstance(sub_street, str)
+            assert sub_street_pattern.fullmatch(sub_street)
+
+    def test_street(self, faker, num_samples):
+        expected_streets = set(ViVNAddressProvider.streets)
+        numbered_streets = {f"số {number}" for number in range(1, 100)}
+        numbered_streets.update(str(number) for number in range(10, 100))
+        expected_streets.update(
+            f"{prefix} {name}"
+            for prefix in ViVNAddressProvider.street_prefixes
+            for name in (*ViVNAddressProvider.streets, *numbered_streets)
+        )
+
+        for _ in range(num_samples):
+            street = faker.street()
+            assert isinstance(street, str)
+            assert street in expected_streets
+
+    def test_commune(self, faker, num_samples):
+        expected_communes = {
+            f"{prefix} {name}"
+            for prefix in ViVNAddressProvider.commune_prefixes
+            for name in ViVNAddressProvider.communes
+        }
+
+        for _ in range(num_samples):
+            commune = faker.commune()
+            assert isinstance(commune, str)
+            assert commune in expected_communes
+
     def test_city_prefix(self, faker, num_samples):
         for _ in range(num_samples):
             city_prefix = faker.city_prefix()
             assert isinstance(city_prefix, str)
             assert city_prefix in ViVNAddressProvider.city_prefixes
 
+    def test_city_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_suffix = faker.city_suffix()
+            assert isinstance(city_suffix, str)
+            assert city_suffix in ViVNAddressProvider.city_suffixes
+
+    def test_street_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_suffix = faker.street_suffix()
+            assert isinstance(street_suffix, str)
+            assert street_suffix in ViVNAddressProvider.street_suffixes
+
+    def test_city(self, faker, num_samples):
+        expected_cities = {
+            f"{prefix} {name}" for prefix in ViVNAddressProvider.city_prefixes for name in ViVNAddressProvider.cities
+        }
+
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in expected_cities
+
+    def test_province(self, faker, num_samples):
+        expected_provinces = set(ViVNAddressProvider.provinces)
+        expected_provinces.update(
+            f"{prefix} {name}"
+            for prefix in ViVNAddressProvider.province_prefixes
+            for name in ViVNAddressProvider.provinces
+        )
+
+        for _ in range(num_samples):
+            province = faker.province()
+            assert isinstance(province, str)
+            assert province in expected_provinces
+
     def test_state(self, faker, num_samples):
         for _ in range(num_samples):
             state = faker.state()
             assert isinstance(state, str)
-            assert state in ViVNAddressProvider.provinces
+            assert state in ViVNAddressProvider.provinces + ViVNAddressProvider.cities
 
     def test_state_abbr(self, faker, num_samples):
         for _ in range(num_samples):
@@ -2706,16 +2786,22 @@ class TestViVn:
     def test_postcode(self, faker, num_samples):
         for _ in range(num_samples):
             postcode = faker.postcode()
-            assert isinstance(postcode, str) and len(postcode) == 6
-            assert 100000 <= int(postcode) <= 999999
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{5}", postcode)
+            assert any(
+                start <= int(postcode) <= end
+                for postcode_ranges in ViVNAddressProvider.provinces_postcode.values()
+                for start, end in postcode_ranges
+            )
 
     def test_postcode_in_state(self, faker, num_samples):
         for _ in range(num_samples):
             for state_abbr in ViVNAddressProvider.provinces_abbr:
                 postcode = faker.postcode_in_state(state_abbr)
-                assert re.fullmatch(r"\d{6}", postcode)
-                assert int(postcode) >= ViVNAddressProvider.provinces_postcode[state_abbr][0]
-                assert int(postcode) <= ViVNAddressProvider.provinces_postcode[state_abbr][1]
+                assert re.fullmatch(r"\d{5}", postcode)
+                assert any(
+                    start <= int(postcode) <= end for start, end in ViVNAddressProvider.provinces_postcode[state_abbr]
+                )
 
         with pytest.raises(ValueError):
             faker.postcode_in_state("XX")
