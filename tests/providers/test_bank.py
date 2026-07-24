@@ -584,14 +584,14 @@ class TestUkUa:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"\d{27}", faker.bban())
+            assert re.fullmatch(r"\d{6}[A-Z]{19}", faker.bban())
 
     def test_iban(self, faker, num_samples):
         for _ in range(num_samples):
             iban = faker.iban()
             assert is_valid_iban(iban)
             assert iban[:2] == UkUaBankProvider.country_code
-            assert re.fullmatch(r"\d{2}\d{27}", iban[2:])
+            assert re.fullmatch(r"\d{2}\d{6}[A-Z]{19}", iban[2:])
 
 
 class TestZhCn:
