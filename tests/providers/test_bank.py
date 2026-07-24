@@ -208,6 +208,11 @@ class TestEnIn:
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
 
+    def test_ifsc(self, faker, num_samples):
+        pattern = re.compile(r"^[A-Z]{4}0[A-Z0-9]{6}$")
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.ifsc())
+
 
 class TestEnPh:
     """Test en_PH bank provider"""
@@ -283,7 +288,9 @@ class TestEsEs:
             # the BBAN must carry valid Spanish CCC control digits
             bban = iban[4:]
             bank_branch, control, account = bban[:8], bban[8:10], bban[10:]
-            assert control == _ccc_control_digit("00" + bank_branch) + _ccc_control_digit(account)
+            assert control == _ccc_control_digit(
+                "00" + bank_branch
+            ) + _ccc_control_digit(account)
 
 
 class TestEsMx:
@@ -402,7 +409,10 @@ class TestNlBe:
             assert iban[:2] == NlBeBankProvider.country_code
             assert re.fullmatch(r"\d{2}\d{12}", iban[2:])
             rearranged_iban = iban[4:] + iban[:4]
-            numeric_iban = "".join(str(ord(char) - 55) if char.isalpha() else char for char in rearranged_iban)
+            numeric_iban = "".join(
+                str(ord(char) - 55) if char.isalpha() else char
+                for char in rearranged_iban
+            )
             assert int(numeric_iban) % 97 == 1
 
     def test_iban_stdnum(self, faker, num_samples):

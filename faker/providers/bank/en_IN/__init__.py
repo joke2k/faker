@@ -45,3 +45,15 @@ class Provider(BankProvider):
     def bank(self) -> str:
         """Generate a bank name."""
         return self.random_element(self.banks)
+
+    def ifsc(self) -> str:
+        """Generate a structurally valid IFSC code.
+
+        Format: 4 letters (bank code) + 0 + 6 alphanumeric characters (branch code)
+        Example: HDFC0001234
+        """
+        bank_code = "".join(self.random_letters(length=4)).upper()
+        branch_code = self.bothify(
+            "######", letters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        )
+        return f"{bank_code}0{branch_code}"
