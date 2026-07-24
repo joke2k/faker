@@ -53,5 +53,7 @@ class Provider(BankProvider):
         Example: HDFC0001234
         """
         bank_code = "".join(self.random_letters(length=4)).upper()
-        branch_code = self.bothify("######", letters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        branch_code = self.bothify(
+            "######", letters="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        )
         return f"{bank_code}0{branch_code}"
