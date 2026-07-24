@@ -9,7 +9,7 @@ class Provider(BankProvider):
     https://ubanks.com.ua/adr/
     """
 
-    bban_format = "#" * 27
+    bban_format = "######???????????????????"
     country_code = "UA"
     banks = (
         "izibank",
