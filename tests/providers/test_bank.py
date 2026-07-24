@@ -208,6 +208,11 @@ class TestEnIn:
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
 
+    def test_ifsc(self, faker, num_samples):
+        pattern = re.compile(r"^[A-Z]{4}0[A-Z0-9]{6}$")
+        for _ in range(num_samples):
+            assert pattern.fullmatch(faker.ifsc())
+
 
 class TestEnPh:
     """Test en_PH bank provider"""
