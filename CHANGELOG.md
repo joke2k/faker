@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.36.0 - 2026-07-24](https://github.com/joke2k/faker/compare/v40.35.0...v40.36.0)
+
+* Fix: correct `uk_UA` `bban_format` to 6 digits + 19 letters so `iban()` generates valid Ukrainian IBANs (#2417). Thanks @CedricConday.
+
 ### [v40.35.0 - 2026-07-22](https://github.com/joke2k/faker/compare/v40.34.0...v40.35.0)
 
 * Fix: add correct `bban_format` so `ru_RU` `iban()` generates valid Russian IBANs (#2416). Thanks @CedricConday.
