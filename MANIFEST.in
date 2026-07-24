@@ -24,3 +24,4 @@ exclude dev-requirements.txt
 prune docs
 prune scripts
 prune .circleci
+prune .agents
