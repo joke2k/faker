@@ -19,6 +19,28 @@ from faker.providers.lorem.uk_UA import Provider as UkUaLoremProvider
 from faker.providers.lorem.vi_VN import Provider as ViVNLoremProvider
 
 
+class TestTextBounds:
+    """Tests for the boundary behavior of text(max_nb_chars=N)"""
+
+    def test_text_respects_upper_bound(self, faker, num_samples):
+        for max_nb_chars in (5, 24, 25, 99, 100, 200):
+            for _ in range(num_samples):
+                text = faker.text(max_nb_chars=max_nb_chars)
+                assert isinstance(text, str)
+                assert len(text) <= max_nb_chars
+
+    def test_text_minimum_length_raises(self, faker):
+        for bad_value in (0, 1, 4):
+            with pytest.raises(ValueError):
+                faker.text(max_nb_chars=bad_value)
+
+    def test_text_ext_word_list_only(self, faker, num_samples):
+        word_list = ["abc", "def", "ghi", "jkl"]
+        for _ in range(num_samples):
+            text = faker.text(max_nb_chars=20, ext_word_list=word_list)
+            words = text.lower().replace(".", "").split()
+            assert all(word in word_list for word in words)
+
 class TestAzAz:
     """Test az_AZ lorem provider"""
 
