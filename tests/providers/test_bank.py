@@ -2,6 +2,8 @@ import re
 
 import pytest
 
+from stdnum import iban as iban_validator
+
 from faker.providers.bank import Provider as BankProvider
 from faker.providers.bank.az_AZ import Provider as AzAzBankProvider
 from faker.providers.bank.cs_CZ import Provider as CsCZBankProvider
@@ -410,10 +412,6 @@ class TestNoNo:
             assert re.fullmatch(r"\d{2}\d{11}", iban[2:])
 
     def test_iban_stdnum(self, faker, num_samples):
-        try:
-            from stdnum import iban as iban_validator
-        except ImportError:
-            pytest.skip("stdnum not available")
         for _ in range(num_samples):
             iban_validator.validate(faker.iban())
 
