@@ -70,6 +70,7 @@ setup(
     install_requires=['tzdata; platform_system=="Windows"'],
     extras_require={
         "tzdata": ["tzdata"],
+        "image": ["pillow"],
     },
     python_requires=">=3.10",
 )
