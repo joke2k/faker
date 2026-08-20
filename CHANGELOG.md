@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.37.0 - 2026-08-20](https://github.com/joke2k/faker/compare/v40.36.0...v40.37.0)
+
+* Fix: generate structurally valid Irish IBANs for `en_IE` (#2411). Thanks @CedricConday.
+* Add Pillow as an optional dependency (#2442). Thanks @suliuzh.
+
 ### [v40.36.0 - 2026-07-24](https://github.com/joke2k/faker/compare/v40.35.0...v40.36.0)
 
 * Fix: correct `uk_UA` `bban_format` to 6 digits + 19 letters so `iban()` generates valid Ukrainian IBANs (#2417). Thanks @CedricConday.
