@@ -11,6 +11,7 @@ from faker.providers.company.az_AZ import Provider as AzAzCompanyProvider
 from faker.providers.company.de_AT import Provider as DeAtCompanyProvider
 from faker.providers.company.de_CH import Provider as DeChCompanyProvider
 from faker.providers.company.el_GR import Provider as ElGrCompanyProvider
+from faker.providers.company.en_IN import Provider as EnInCompanyProvider
 from faker.providers.company.en_PH import Provider as EnPhCompanyProvider
 from faker.providers.company.es_ES import Provider as EsEsCompanyProvider
 from faker.providers.company.fil_PH import Provider as FilPhCompanyProvider
@@ -114,6 +115,38 @@ class TestElGr:
             suffix = faker.company_suffix()
             assert isinstance(suffix, str)
             assert suffix in ElGrCompanyProvider.company_suffixes
+
+
+class TestEnIn:
+    """Test en_IN company provider methods"""
+
+    cin_pattern: Pattern = re.compile(r"^[LU]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}$")
+
+    def test_company(self, faker, num_samples):
+        for _ in range(num_samples):
+            company = faker.company()
+            assert isinstance(company, str)
+            assert company
+
+    def test_company_suffix(self, faker, num_samples):
+        for _ in range(num_samples):
+            suffix = faker.company_suffix()
+            assert isinstance(suffix, str)
+            assert suffix in EnInCompanyProvider.company_suffixes
+
+    def test_company_sector(self, faker, num_samples):
+        for _ in range(num_samples):
+            sector = faker.company_sector()
+            assert isinstance(sector, str)
+            assert sector in EnInCompanyProvider.company_sectors
+
+    def test_cin(self, faker, num_samples):
+        for _ in range(num_samples):
+            cin = faker.cin()
+            assert isinstance(cin, str)
+            assert self.cin_pattern.fullmatch(cin)
+            assert cin[6:8] in EnInCompanyProvider.cin_states
+            assert cin[12:15] in EnInCompanyProvider.cin_classifications
 
 
 class TestEnPh:
