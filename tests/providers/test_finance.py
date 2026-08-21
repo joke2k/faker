@@ -331,12 +331,12 @@ class TestFinanceProvider:
                 assert start <= expiration_date <= end
                 assert expiration_date.weekday() == 4
 
-    def test_option_chain_explicit_weekly_cadence_matches_default(self, faker, num_samples):
+    def test_option_chain_explicit_weekly_cadence_matches_default(self, faker):
         chain = faker.option_chain(symbol="AAPL", cadence="weekly")
         for expiration_date in chain["AAPL"]:
             assert expiration_date.weekday() == 4
 
-    def test_option_chain_contracts_match_stock_option_shape(self, faker, num_samples):
+    def test_option_chain_contracts_match_stock_option_shape(self, faker):
         chain = faker.option_chain(symbol="AAPL")
         for expiration_date, contracts in chain["AAPL"].items():
             for contract in contracts:
@@ -351,7 +351,7 @@ class TestFinanceProvider:
                 )
                 assert contract["premium"] >= intrinsic - 1e-6
 
-    def test_option_chain_strike_ladder_has_multiple_strikes(self, faker, num_samples):
+    def test_option_chain_strike_ladder_has_multiple_strikes(self, faker):
         chain = faker.option_chain(symbol="AAPL")
         for contracts in chain["AAPL"].values():
             strikes = {contract["strike_price"] for contract in contracts}
