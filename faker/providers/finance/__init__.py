@@ -181,8 +181,9 @@ class Provider(BaseProvider):
         """Generate a future expiration date snapped to the weekly Friday cadence.
 
         ``quote_date`` is the as-of date the expiration is generated relative
-        to (defaults to today). Uses |date_between| under the hood, via
-        :meth:`self.generator.date_between() <faker.providers.date_time.Provider.date_between>`.
+        to (defaults to today). Uses
+        :meth:`self.generator.date_between() <faker.providers.date_time.Provider.date_between>`
+        under the hood.
         """
         if quote_date is None:
             quote_date = date.today()
