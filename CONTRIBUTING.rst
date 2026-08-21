@@ -77,7 +77,7 @@ Submitting Changes
 
 -  Make sure there isn't already a Pull Request opened by somebody else.
 -  Push your changes to a topic branch in your fork of the repository.
--  Submit a pull request to the repository.
+-  Submit a pull request to the repository. Follow the `Pull Request template`_.
 
 Additional Resources
 ====================
@@ -87,5 +87,6 @@ Additional Resources
    documentation <https://help.github.com/articles/about-pull-requests>`__
 
 
-.. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
 .. _`community providers`: https://github.com/joke2k/faker/blob/master/docs/communityproviders.rst
+.. _`coding style`: https://github.com/joke2k/faker/blob/master/docs/coding_style.rst
+.. _`Pull Request template`: https://github.com/joke2k/faker/blob/master/.github/PULL_REQUEST_TEMPLATE.md
