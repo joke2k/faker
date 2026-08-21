@@ -29,6 +29,7 @@ from faker.providers.company.pl_PL import (
     local_regon_checksum,
     regon_checksum,
 )
+from faker.providers.company.pt_BR import Provider as PtBrCompanyProvider
 from faker.providers.company.pt_BR import company_id_checksum
 from faker.providers.company.ro_RO import Provider as RoRoCompanyProvider
 from faker.providers.company.ru_RU import Provider as RuRuCompanyProvider
@@ -487,6 +488,17 @@ class TestPtBr:
             assert re.fullmatch(r"\d{8}0001\d{2}", company_id)
             values = [ord(c) - 48 for c in company_id[:12]]
             assert company_id[12:] == "".join(str(d) for d in company_id_checksum(values))
+
+    def test_numeric_company_id_allows_repeated_digits(self, faker):
+        provider = PtBrCompanyProvider(generator=faker)
+        repeated_digits = [1, 8, 7, 8, 1, 2, 0, 3]
+
+        with patch.object(provider, "random_choices", return_value=repeated_digits) as random_choices:
+            company_id = provider.company_id()
+
+        random_choices.assert_called_once_with(range(10), length=8)
+        assert company_id[:12] == "187812030001"
+        assert company_id[12:] == "28"
 
     def test_company_id_alphanumeric(self, faker, num_samples):
         for _ in range(num_samples):
