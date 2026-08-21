@@ -190,9 +190,7 @@ class TestFinanceProvider:
     def test_stock_option_premium_meets_intrinsic_value(self, faker, num_samples):
         for _ in range(num_samples):
             option = faker.stock_option()
-            intrinsic = _intrinsic_value(
-                option["option_type"], option["underlying_price"], option["strike_price"]
-            )
+            intrinsic = _intrinsic_value(option["option_type"], option["underlying_price"], option["strike_price"])
             assert option["premium"] >= intrinsic - 1e-6
 
     def test_stock_option_strike_price_band(self, faker, num_samples):
@@ -224,9 +222,7 @@ class TestFinanceProvider:
         otm_total = otm_exercised = 0
         for _ in range(num_samples):
             option = faker.stock_option()
-            in_the_money = _in_the_money(
-                option["option_type"], option["underlying_price"], option["strike_price"]
-            )
+            in_the_money = _in_the_money(option["option_type"], option["underlying_price"], option["strike_price"])
             if in_the_money:
                 itm_total += 1
                 itm_exercised += option["exercised"]
