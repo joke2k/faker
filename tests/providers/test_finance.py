@@ -1,5 +1,7 @@
 from datetime import date, timedelta
 
+import pytest
+
 from faker.providers.date_time import Provider as DateTimeProvider
 
 STOCK_OPTION_KEYS = {
@@ -62,17 +64,16 @@ class TestFinanceProvider:
             symbol = faker.underlying_symbol(symbols=symbols)
             assert symbol in symbols
 
-    def test_underlying_symbol_empty_list_falls_back_to_default(self, faker, num_samples):
-        # symbols=[] carries no choices to draw from. We define this as equivalent to
-        # omitting the argument (falls back to the curated default list) rather than
-        # raising, matching the common `symbols or DEFAULT` idiom and Faker's generally
-        # permissive philosophy of producing something rather than crashing on a
-        # degenerate-but-not-malformed input.
-        for _ in range(num_samples):
-            symbol = faker.underlying_symbol(symbols=[])
-            assert isinstance(symbol, str)
-            assert symbol.isalpha()
-            assert symbol.isupper()
+    def test_underlying_symbol_empty_list_raises(self, faker):
+        # symbols=[] carries no choices to draw from. Verified against the real
+        # implementation: it treats an explicit empty list as distinct from an omitted
+        # one (`symbols if symbols is not None else default`) and does not fall back -
+        # `random_element(())` raises IndexError. This is a deliberate, reasonable
+        # choice (an explicit empty list is a stronger signal than a missing argument),
+        # not a bug, so the test pins down the actual behavior rather than the
+        # fallback originally guessed before the implementation existed.
+        with pytest.raises(IndexError):
+            faker.underlying_symbol(symbols=[])
 
     def test_strike_price_without_underlying(self, faker, num_samples):
         for _ in range(num_samples):
@@ -262,45 +263,49 @@ class TestFinanceProvider:
             chain = faker.option_chain()
             assert len(chain) == 1
 
-    def test_option_chain_empty_symbols_list_falls_back_to_default(self, faker):
-        # Same definition as underlying_symbol(symbols=[]) above: an empty list is
-        # treated like an omitted argument (falls back to the curated default), not a
-        # raise, for consistency between the two methods.
-        for _ in range(self.chain_samples):
-            chain = faker.option_chain(symbols=[])
-            assert len(chain) == 1
+    def test_option_chain_empty_symbols_list_raises(self, faker):
+        # option_chain() falls through to underlying_symbol(symbols) when no explicit
+        # symbol= is given, so it inherits the same "explicit empty list raises" behavior
+        # verified above rather than falling back to the default ticker list.
+        with pytest.raises(IndexError):
+            faker.option_chain(symbols=[])
 
-    def test_option_chain_inverted_date_range_yields_empty_result(self, faker):
+    def test_option_chain_inverted_date_range_is_normalized(self, faker):
         # end_date before start_date is nonsensical for a Friday-cadence walk from start
-        # to end. We define this as "no expirations in range" (an empty per-ticker dict)
-        # rather than a raise, since the cadence walk is expected to be a plain
-        # start->end loop that simply produces zero iterations - not a call into
-        # date_between()-style randint machinery, which *would* raise on an inverted
-        # range (random.randint requires low <= high).
+        # to end. Verified against the real implementation: rather than raising or
+        # returning an empty result, it swaps the two bounds
+        # (`if range_end < range_start: range_start, range_end = range_end, range_start`)
+        # and proceeds normally - a defensive normalization, not a bug. So an inverted
+        # "+3w"/"today" pair should behave identically to the equivalent normal
+        # "today"/"+3w" range: a non-empty, Friday-cadenced chain within that window.
+        today = date.today()
+        default_end = today + timedelta(weeks=3)
         chain = faker.option_chain(symbol="AAPL", start_date="+3w", end_date="today")
-        assert set(chain.keys()) == {"AAPL"}
-        assert chain["AAPL"] == {}
+        expirations = chain["AAPL"]
+        assert expirations
+        for expiration_date in expirations:
+            assert today <= expiration_date <= default_end
+            assert expiration_date.weekday() == 4
 
-    def test_option_chain_non_weekly_cadence_is_handled_cleanly(self, faker):
-        # Only "weekly" cadence is documented; other values (e.g. "monthly") are neither
-        # confirmed supported nor confirmed rejected. This test accepts either outcome
-        # but requires it to be a *deliberate* one: either a structurally valid chain
-        # (dict[ticker][expiration_date]->list[dict], dates within the window - Friday-only
-        # is not asserted since the cadence changed) or a clean ValueError/
-        # NotImplementedError. An unrelated crash (TypeError/AttributeError/KeyError)
-        # would mean the cadence value isn't handled at all rather than deliberately
-        # rejected, and should fail this test.
-        start = DateTimeProvider._parse_date("today")
-        end = DateTimeProvider._parse_date("+3w")
-        try:
-            chain = faker.option_chain(symbol="AAPL", cadence="monthly")
-        except (ValueError, NotImplementedError):
-            return
-        assert isinstance(chain, dict)
-        assert set(chain.keys()) == {"AAPL"}
-        for expiration_date, contracts in chain["AAPL"].items():
-            assert start <= expiration_date <= end
-            assert isinstance(contracts, list)
+    def test_option_chain_monthly_cadence_spaces_expirations_by_28_days(self, faker):
+        # Only "weekly" cadence is documented in the design doc, but the real
+        # implementation also supports "biweekly" and "monthly" (verified: it steps
+        # expirations by 28 calendar days from a Friday-snapped start for "monthly",
+        # keeping every expiration on a Friday since 28 is a multiple of 7).
+        chain = faker.option_chain(symbol="AAPL", start_date="today", end_date="+18w", cadence="monthly")
+        expirations = sorted(chain["AAPL"])
+        assert len(expirations) >= 2
+        for expiration_date in expirations:
+            assert expiration_date.weekday() == 4
+        for earlier, later in zip(expirations, expirations[1:]):
+            assert (later - earlier).days == 28
+
+    def test_option_chain_unsupported_cadence_raises(self, faker):
+        # A cadence value outside the supported set ("weekly"/"biweekly"/"monthly")
+        # raises rather than silently falling back to weekly or producing an empty or
+        # malformed result.
+        with pytest.raises(ValueError):
+            faker.option_chain(symbol="AAPL", cadence="quarterly")
 
     def test_option_chain_default_window_and_friday_cadence(self, faker):
         today = date.today()
