@@ -62,6 +62,18 @@ class TestFinanceProvider:
             symbol = faker.underlying_symbol(symbols=symbols)
             assert symbol in symbols
 
+    def test_underlying_symbol_empty_list_falls_back_to_default(self, faker, num_samples):
+        # symbols=[] carries no choices to draw from. We define this as equivalent to
+        # omitting the argument (falls back to the curated default list) rather than
+        # raising, matching the common `symbols or DEFAULT` idiom and Faker's generally
+        # permissive philosophy of producing something rather than crashing on a
+        # degenerate-but-not-malformed input.
+        for _ in range(num_samples):
+            symbol = faker.underlying_symbol(symbols=[])
+            assert isinstance(symbol, str)
+            assert symbol.isalpha()
+            assert symbol.isupper()
+
     def test_strike_price_without_underlying(self, faker, num_samples):
         for _ in range(num_samples):
             strike = faker.strike_price()
@@ -111,6 +123,29 @@ class TestFinanceProvider:
             assert isinstance(premium, float)
             intrinsic = _intrinsic_value("PUT", underlying_price, strike)
             assert premium >= intrinsic - 1e-6
+
+    def test_option_premium_at_the_money_is_time_value_only(self, faker, num_samples):
+        # At the money (strike == underlying_price), intrinsic value is 0 for both CALL
+        # and PUT by definition (max(0, 0)), so the entire premium is the time-value
+        # component. This pins down that boundary case explicitly rather than relying on
+        # it showing up by chance in the randomized strike/underlying sampling used by
+        # the general premium invariant tests above.
+        for _ in range(num_samples):
+            underlying_price = faker.pyfloat(min_value=10, max_value=500, right_digits=2)
+            strike_price = underlying_price
+            expiration = faker.date_between(start_date="+1d", end_date="+90d")
+            option_type = faker.option_type()
+            premium = faker.option_premium(
+                strike_price=strike_price,
+                underlying_price=underlying_price,
+                expiration_date=expiration,
+                option_type=option_type,
+            )
+            intrinsic = _intrinsic_value(option_type, underlying_price, strike_price)
+            assert intrinsic == 0.0
+            time_value = premium - intrinsic
+            assert time_value == premium
+            assert time_value >= -1e-6
 
     def test_expiration_date_default_cadence_is_friday(self, faker, num_samples):
         for _ in range(num_samples):
@@ -226,6 +261,46 @@ class TestFinanceProvider:
         for _ in range(self.chain_samples):
             chain = faker.option_chain()
             assert len(chain) == 1
+
+    def test_option_chain_empty_symbols_list_falls_back_to_default(self, faker):
+        # Same definition as underlying_symbol(symbols=[]) above: an empty list is
+        # treated like an omitted argument (falls back to the curated default), not a
+        # raise, for consistency between the two methods.
+        for _ in range(self.chain_samples):
+            chain = faker.option_chain(symbols=[])
+            assert len(chain) == 1
+
+    def test_option_chain_inverted_date_range_yields_empty_result(self, faker):
+        # end_date before start_date is nonsensical for a Friday-cadence walk from start
+        # to end. We define this as "no expirations in range" (an empty per-ticker dict)
+        # rather than a raise, since the cadence walk is expected to be a plain
+        # start->end loop that simply produces zero iterations - not a call into
+        # date_between()-style randint machinery, which *would* raise on an inverted
+        # range (random.randint requires low <= high).
+        chain = faker.option_chain(symbol="AAPL", start_date="+3w", end_date="today")
+        assert set(chain.keys()) == {"AAPL"}
+        assert chain["AAPL"] == {}
+
+    def test_option_chain_non_weekly_cadence_is_handled_cleanly(self, faker):
+        # Only "weekly" cadence is documented; other values (e.g. "monthly") are neither
+        # confirmed supported nor confirmed rejected. This test accepts either outcome
+        # but requires it to be a *deliberate* one: either a structurally valid chain
+        # (dict[ticker][expiration_date]->list[dict], dates within the window - Friday-only
+        # is not asserted since the cadence changed) or a clean ValueError/
+        # NotImplementedError. An unrelated crash (TypeError/AttributeError/KeyError)
+        # would mean the cadence value isn't handled at all rather than deliberately
+        # rejected, and should fail this test.
+        start = DateTimeProvider._parse_date("today")
+        end = DateTimeProvider._parse_date("+3w")
+        try:
+            chain = faker.option_chain(symbol="AAPL", cadence="monthly")
+        except (ValueError, NotImplementedError):
+            return
+        assert isinstance(chain, dict)
+        assert set(chain.keys()) == {"AAPL"}
+        for expiration_date, contracts in chain["AAPL"].items():
+            assert start <= expiration_date <= end
+            assert isinstance(contracts, list)
 
     def test_option_chain_default_window_and_friday_cadence(self, faker):
         today = date.today()
