@@ -82,6 +82,7 @@ class UtilsTestCase(unittest.TestCase):
                     "faker.providers.doi",
                     "faker.providers.emoji",
                     "faker.providers.file",
+                    "faker.providers.finance",
                     "faker.providers.geo",
                     "faker.providers.internet",
                     "faker.providers.isbn",
