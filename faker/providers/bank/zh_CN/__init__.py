@@ -1,12 +1,17 @@
-from ..en_GB import Provider as BankProvider
+from typing import Tuple
+
+from .. import NonIbanProvider as BankProvider
 
 
 class Provider(BankProvider):
     """Implement bank provider for ``zh_CN`` locale.
     Source: https://zh.wikipedia.org/wiki/中国大陆银行列表
+
+    China is not part of the IBAN system, so ``bban()`` and ``iban()`` raise.
     """
 
-    banks = (
+    country_code = "CN"
+    banks: Tuple[str, ...] = (
         "中国人民银行",
         "国家开发银行",
         "中国进出口银行",

@@ -163,3 +163,26 @@ class Provider(BaseProvider):
             branch_code = self.lexify("???", letters=string.ascii_uppercase + string.digits)
 
         return bank_code + self.country_code + location_code + branch_code
+
+
+class NonIbanProvider(Provider):
+    """Base bank provider for locales whose country is outside the IBAN system.
+
+    The BBAN/IBAN machinery in the default bank provider is driven by ``country_code`` and
+    ``bban_format``, both of which default to their British values. A locale
+    that inherits the default therefore hands back a British account number,
+    which is worse than no answer at all. Locales in countries that never
+    adopted IBAN inherit from this class instead, so ``bban()`` and ``iban()``
+    raise and only the methods that do apply locally remain available.
+
+    Subclasses are expected to set ``country_code`` to their own ISO 3166-1
+    alpha-2 code so that ``bank_country()`` and ``swift()`` stay correct.
+    """
+
+    def bban(self) -> str:
+        """Raise, as the locale's country is not part of the IBAN system."""
+        raise NotImplementedError(f"{self.country_code} is not part of the IBAN system, so it has no BBAN.")
+
+    def iban(self) -> str:
+        """Raise, as the locale's country is not part of the IBAN system."""
+        raise NotImplementedError(f"{self.country_code} is not part of the IBAN system, so it has no IBAN.")

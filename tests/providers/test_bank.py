@@ -191,16 +191,16 @@ class TestEnIn:
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
 
-    def test_bban(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert re.fullmatch(r"[A-Z]{4}\d{14}", faker.bban())
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
 
-    def test_iban(self, faker, num_samples):
-        for _ in range(num_samples):
-            iban = faker.iban()
-            assert is_valid_iban(iban)
-            assert iban[:2] == "GB"
-            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{14}", iban[2:])
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "IN"
 
 
 class TestEnPh:
@@ -312,16 +312,16 @@ class TestEsMx:
             assert is_valid_clabe(clabe)
             assert int(clabe[:3].lstrip("0")) == bank_code
 
-    def test_bban(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert re.fullmatch(r"[A-Z]{4}\d{14}", faker.bban())
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
 
-    def test_iban(self, faker, num_samples):
-        for _ in range(num_samples):
-            iban = faker.iban()
-            assert is_valid_iban(iban)
-            assert iban[:2] == "GB"
-            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{14}", iban[2:])
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "MX"
 
 
 class TestFaIr:
@@ -564,16 +564,16 @@ class TestZhCn:
         for _ in range(num_samples):
             assert re.match(r"[\u4e00-\u9fa5]{2,20}", faker.bank())
 
-    def test_bban(self, faker, num_samples):
-        for _ in range(num_samples):
-            assert re.fullmatch(r"[A-Z]{4}\d{14}", faker.bban())
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
 
-    def test_iban(self, faker, num_samples):
-        for _ in range(num_samples):
-            iban = faker.iban()
-            assert is_valid_iban(iban)
-            assert iban[:2] == "GB"
-            assert re.fullmatch(r"\d{2}[A-Z]{4}\d{14}", iban[2:])
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "CN"
 
 
 class TestMkMk:
