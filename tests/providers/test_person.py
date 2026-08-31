@@ -45,6 +45,7 @@ from faker.providers.person.pl_PL import checksum_identity_card_number as pl_che
 from faker.providers.person.pt_PT import Provider as PtPtProvider
 from faker.providers.person.ru_RU import Provider as RuProvider
 from faker.providers.person.ru_RU import translit
+from faker.providers.person.si_LK import Provider as SiLKProvider
 from faker.providers.person.sk_SK import Provider as SkSKProvider
 from faker.providers.person.sv_SE import Provider as SvSEProvider
 from faker.providers.person.sw import Provider as SwProvider
@@ -1868,6 +1869,32 @@ class TestRuRU(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in RuProvider.language_names
+
+
+class TestSiLK(unittest.TestCase):
+    """Tests person in the si_LK locale (Sinhala, Sri Lanka)"""
+
+    def setUp(self):
+        self.fake = Faker("si_LK")
+        Faker.seed(0)
+
+    def test_gender_first_names(self):
+        """simple test to verify that we are pulling gender specific names"""
+        name = self.fake.first_name_female()
+        assert name in SiLKProvider.first_names_female
+        name = self.fake.first_name_male()
+        assert name in SiLKProvider.first_names_male
+        name = self.fake.first_name()
+        assert name in SiLKProvider.first_names
+
+    def test_last_names(self):
+        name = self.fake.last_name()
+        assert name in SiLKProvider.last_names
+
+    def test_full_name(self):
+        first, last = self.fake.name().rsplit(" ", 1)
+        assert first in SiLKProvider.first_names
+        assert last in SiLKProvider.last_names
 
 
 class TestSkSK(unittest.TestCase):
