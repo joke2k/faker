@@ -7,6 +7,7 @@ Getting Started
 ---------------
 
 -  Make sure you have a `GitHub account <https://github.com/signup/free>`__
+-  Look if an Issue or a Pull Request addressing your problem already exists.
 -  Submit a ticket for your issue, assuming one does not already exist.
 -  Clearly describe the issue including steps to reproduce when it is a bug.
 -  Make sure you fill in the earliest version that you know has the issue.
