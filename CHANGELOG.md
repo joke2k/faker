@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.38.0 - 2026-09-01](https://github.com/joke2k/faker/compare/v40.37.0...v40.38.0)
+
+* Add `si_LK` (Sinhala, Sri Lanka) person provider (#2430). Thanks @RavinduPabasara.
+
 ### [v40.37.0 - 2026-08-20](https://github.com/joke2k/faker/compare/v40.36.0...v40.37.0)
 
 * Fix: generate structurally valid Irish IBANs for `en_IE` (#2411). Thanks @CedricConday.
