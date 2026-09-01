@@ -321,6 +321,116 @@ class Provider(AddressProvider):
         "Nouvelle-Calédonie",
     )
 
+    admin2_in_admin1 = {
+        "Auvergne-Rhône-Alpes": [
+            "Ain",
+            "Allier",
+            "Ardèche",
+            "Cantal",
+            "Drôme",
+            "Isère",
+            "Loire",
+            "Haute-Loire",
+            "Puy-de-Dôme",
+            "Rhône",
+            "Savoie",
+            "Haute-Savoie",
+        ],
+        "Bourgogne-Franche-Comté": [
+            "Côte-d'Or",
+            "Doubs",
+            "Jura",
+            "Nièvre",
+            "Haute-Saône",
+            "Saône-et-Loire",
+            "Yonne",
+            "Territoire de Belfort",
+        ],
+        "Bretagne": ["Côtes-d'Armor", "Finistère", "Ille-et-Vilaine", "Morbihan"],
+        "Centre-Val de Loire": [
+            "Cher",
+            "Eure-et-Loir",
+            "Indre",
+            "Indre-et-Loire",
+            "Loir-et-Cher",
+            "Loiret",
+        ],
+        "Corse": ["Corse-du-Sud", "Haute-Corse"],
+        "Grand Est": [
+            "Ardennes",
+            "Aube",
+            "Marne",
+            "Haute-Marne",
+            "Meurthe-et-Moselle",
+            "Meuse",
+            "Moselle",
+            "Bas-Rhin",
+            "Haut-Rhin",
+            "Vosges",
+        ],
+        "Guadeloupe": ["Guadeloupe"],
+        "Guyane": ["Guyane"],
+        "Hauts-de-France": ["Aisne", "Nord", "Oise", "Pas-de-Calais", "Somme"],
+        "Île-de-France": [
+            "Paris",
+            "Seine-et-Marne",
+            "Yvelines",
+            "Essonne",
+            "Hauts-de-Seine",
+            "Seine-Saint-Denis",
+            "Val-de-Marne",
+            "Val-d'Oise",
+        ],
+        "La Réunion": ["La Réunion"],
+        "Martinique": ["Martinique"],
+        "Mayotte": ["Mayotte"],
+        "Normandie": ["Calvados", "Eure", "Manche", "Orne", "Seine-Maritime"],
+        "Nouvelle-Aquitaine": [
+            "Charente",
+            "Charente-Maritime",
+            "Corrèze",
+            "Creuse",
+            "Dordogne",
+            "Gironde",
+            "Landes",
+            "Lot-et-Garonne",
+            "Pyrénées-Atlantiques",
+            "Deux-Sèvres",
+            "Vienne",
+            "Haute-Vienne",
+        ],
+        "Occitanie": [
+            "Ariège",
+            "Aude",
+            "Aveyron",
+            "Gard",
+            "Haute-Garonne",
+            "Gers",
+            "Hérault",
+            "Lot",
+            "Lozère",
+            "Hautes-Pyrénées",
+            "Pyrénées-Orientales",
+            "Tarn",
+            "Tarn-et-Garonne",
+        ],
+        "Pays de la Loire": [
+            "Loire-Atlantique",
+            "Maine-et-Loire",
+            "Mayenne",
+            "Sarthe",
+            "Vendée",
+        ],
+        "Provence-Alpes-Côte d'Azur": [
+            "Alpes-de-Haute-Provence",
+            "Hautes-Alpes",
+            "Alpes-Maritimes",
+            "Bouches-du-Rhône",
+            "Var",
+            "Vaucluse",
+        ],
+    }
+
     departments = (
         ("01", "Ain"),
         ("02", "Aisne"),
@@ -444,6 +554,21 @@ class Provider(AddressProvider):
         return self.random_element(self.regions)
 
     region = administrative_unit
+    admin1 = administrative_unit
+    # admin2 might need to be checked:
+    admin2 = department_name
+
+    def admin2_from_admin1(self, admin1: str) -> str:
+        return self.random_element(self.admin2_in_admin1[admin1])
+
+    def admin2_with_admin1(self) -> str:
+        admin1 = self.admin1()
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
+
+    def admin2_w_admin1(self, admin1: str) -> str:
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
 
     def department(self) -> Tuple[str, str]:
         """

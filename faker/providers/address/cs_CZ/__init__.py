@@ -988,6 +988,108 @@ class Provider(AddressProvider):
         "Zlínský kraj",
     )
 
+    admin2_in_admin1 = {
+        "Jihočeský kraj": [
+            "Okres České Budějovice",
+            "Okres Český Krumlov",
+            "Okres Jindřichův Hradec",
+            "Okres Písek",
+            "Okres Prachatice",
+            "Okres Strakonice",
+            "Okres Tábor",
+        ],
+        "Jihomoravský kraj": [
+            "Okres Blansko",
+            "Okres Brno-město",
+            "Okres Brno-venkov",
+            "Okres Břeclav",
+            "Okres Hodonín",
+            "Okres Vyškov",
+            "Okres Znojmo",
+        ],
+        "Karlovarský kraj": ["Okres Cheb", "Okres Karlovy Vary", "Okres Sokolov"],
+        "Královéhradecký kraj": [
+            "Okres Hradec Králové",
+            "Okres Jičín",
+            "Okres Náchod",
+            "Okres Rychnov nad Kněžnou",
+            "Okres Trutnov",
+        ],
+        "Liberecký kraj": [
+            "Okres Česká Lípa",
+            "Okres Jablonec nad Nisou",
+            "Okres Liberec",
+            "Okres Semily",
+        ],
+        "Moravskoslezský kraj": [
+            "Okres Bruntál",
+            "Okres Frýdek-Místek",
+            "Okres Karviná",
+            "Okres Nový Jičín",
+            "Okres Opava",
+            "Okres Ostrava-město",
+        ],
+        "Olomoucký kraj": [
+            "Okres Jeseník",
+            "Okres Olomouc",
+            "Okres Prostějov",
+            "Okres Přerov",
+            "Okres Šumperk",
+        ],
+        "Pardubický kraj": [
+            "Okres Chrudim",
+            "Okres Pardubice",
+            "Okres Svitavy",
+            "Okres Ústí nad Orlicí",
+        ],
+        "Plzeňský kraj": [
+            "Okres Domažlice",
+            "Okres Klatovy",
+            "Okres Plzeň-jih",
+            "Okres Plzeň-město",
+            "Okres Plzeň-sever",
+            "Okres Rokycany",
+            "Okres Tachov",
+        ],
+        "Praha, Hlavní město": [],
+        "Středočeský kraj": [
+            "Okres Benešov",
+            "Okres Beroun",
+            "Okres Kladno",
+            "Okres Kolín",
+            "Okres Kutná Hora",
+            "Okres Mělník",
+            "Okres Mladá Boleslav",
+            "Okres Nymburk",
+            "Okres Praha-východ",
+            "Okres Praha-západ",
+            "Okres Příbram",
+            "Okres Rakovník",
+        ],
+        "Ústecký kraj": [
+            "Okres Děčín",
+            "Okres Chomutov",
+            "Okres Litoměřice",
+            "Okres Louny",
+            "Okres Most",
+            "Okres Teplice",
+            "Okres Ústí nad Labem",
+        ],
+        "Kraj Vysočina": [
+            "Okres Havlíčkův Brod",
+            "Okres Jihlava",
+            "Okres Pelhřimov",
+            "Okres Třebíč",
+            "Okres Žďár nad Sázavou",
+        ],
+        "Zlínský kraj": [
+            "Okres Kroměříž",
+            "Okres Uherské Hradiště",
+            "Okres Vsetín",
+            "Okres Zlín",
+        ],
+    }
+
     countries = (
         "Afghánistán",
         "Albánie",
@@ -1197,6 +1299,28 @@ class Provider(AddressProvider):
         return self.random_element(self.states)
 
     state = administrative_unit
+    admin1 = state
+
+    def admin2(self) -> str:
+        return self.random_element(
+            tuple(
+                admin2
+                for admin2s in self.admin2_in_admin1.values()
+                for admin2 in admin2s
+            )
+        )
+
+    def admin2_from_admin1(self, admin1: str) -> str:
+        return self.random_element(self.admin2_in_admin1[admin1])
+
+    def admin2_with_admin1(self) -> str:
+        admin1 = self.admin1()
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
+
+    def admin2_w_admin1(self, admin1: str) -> str:
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
 
     def city_with_postcode(self) -> str:
         return self.postcode() + " " + self.random_element(self.cities)

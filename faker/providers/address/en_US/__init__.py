@@ -2,7 +2,7 @@ from collections import OrderedDict
 from typing import Optional, Tuple
 
 from ..en import Provider as AddressProvider
-
+from .counties import ALL_COUNTIES, COUNTIES_BY_STATE
 
 class Provider(AddressProvider):
     city_prefixes = ("North", "East", "West", "South", "New", "Lake", "Port")
@@ -446,6 +446,21 @@ class Provider(AddressProvider):
         "MH",
         "PW",
     )
+    
+
+    counties = ALL_COUNTIES
+    counties_by_state = COUNTIES_BY_STATE
+
+    def county(self) -> str:
+        return self.random_element(self.counties)
+
+    def county_by_state(self, state: str) -> str:
+        return self.random_element(self.counties_by_state[state])
+
+    def county_with_state(self) -> str:
+        state = self.random_element(list(self.counties_by_state))
+        county = self.random_element(self.counties_by_state[state])
+        return f"{county}, {state}"
 
     known_usps_abbr = states_abbr + territories_abbr + freely_associated_states_abbr
 
