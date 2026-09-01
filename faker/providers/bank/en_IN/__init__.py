@@ -1,12 +1,17 @@
-from .. import Provider as BankProvider
+from typing import Tuple
+
+from .. import NonIbanProvider as BankProvider
 
 
 class Provider(BankProvider):
     """Implement bank provider for ``en_IN`` locale.
     Source: https://en.wikipedia.org/wiki/List_of_banks_in_India
+
+    India is not part of the IBAN system, so ``bban()`` and ``iban()`` raise.
     """
 
-    banks = (
+    country_code = "IN"
+    banks: Tuple[str, ...] = (
         "Bank of Baroda",
         "Bank of India",
         "Bank of Maharashtra",

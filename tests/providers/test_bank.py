@@ -208,6 +208,17 @@ class TestEnIn:
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
 
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
+
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "IN"
+
 
 class TestEnPh:
     """Test en_PH bank provider"""
@@ -325,6 +336,17 @@ class TestEsMx:
             clabe = faker.clabe(bank_code=bank_code)
             assert is_valid_clabe(clabe)
             assert int(clabe[:3].lstrip("0")) == bank_code
+
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
+
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "MX"
 
 
 class TestFaIr:
@@ -600,6 +622,17 @@ class TestZhCn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"[\u4e00-\u9fa5]{2,20}", faker.bank())
+
+    def test_bban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.bban()
+
+    def test_iban_not_supported(self, faker):
+        with pytest.raises(NotImplementedError):
+            faker.iban()
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "CN"
 
 
 class TestMkMk:

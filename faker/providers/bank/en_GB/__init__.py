@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .. import Provider as BankProvider
 
 
@@ -12,7 +14,7 @@ class Provider(BankProvider):
 
     bban_format = "????##############"
     country_code = "GB"
-    banks = (
+    banks: Tuple[str, ...] = (
         "Al Rayan Bank",
         "Aldermore Bank",
         "Atom Bank",

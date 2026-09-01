@@ -1,6 +1,6 @@
 from typing import List, Optional, Tuple
 
-from .. import Provider as BankProvider
+from .. import NonIbanProvider as BankProvider
 
 
 def get_clabe_control_digit(clabe: str) -> int:
@@ -31,8 +31,13 @@ def is_valid_clabe(clabe: str) -> bool:
 
 
 class Provider(BankProvider):
-    """Bank provider for ``es_MX`` locale."""
+    """Bank provider for ``es_MX`` locale.
 
+    Mexico is not part of the IBAN system and uses CLABE instead, so
+    ``bban()`` and ``iban()`` raise and ``clabe()`` is the local equivalent.
+    """
+
+    country_code = "MX"
     banks: Tuple[str, ...] = (
         "ABC Capital, S.A. I.B.M.",
         "Acciones y Valores Banamex, S.A. de C.V., Casa de Bolsa",
