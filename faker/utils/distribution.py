@@ -47,6 +47,7 @@ def choices_distribution_unique(
         cdf2 = [i / normal for i in cdf]
         uniform_sample = random_sample(random=random)
         idx = bisect.bisect_right(cdf2, uniform_sample)
+        idx = min(idx, len(items) - 1)
         item = items[idx]
         choices.append(item)
         probabilities.pop(idx)
@@ -83,6 +84,7 @@ def choices_distribution(
         for _ in range(length):
             uniform_sample = random_sample(random=random)
             idx = bisect.bisect_right(cdf2, uniform_sample)
+            idx = min(idx, len(a) - 1)
             item = a[idx]
             choices.append(item)
         return choices
