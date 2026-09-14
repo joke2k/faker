@@ -203,11 +203,16 @@ class Provider(BaseProvider):
     def text(self, max_nb_chars: int = 200, ext_word_list: Optional[Sequence[str]] = None) -> str:
         """Generate a text string.
 
-        The ``max_nb_chars`` argument controls the approximate number of
-        characters the text string will have, and depending on its value, this
-        method may use either |words|, |sentences|, or |paragraphs| for text
-        generation. The ``ext_word_list`` argument works in exactly the same way
-        it would in any of those methods.
+        The ``max_nb_chars`` argument is an upper bound, not a target: the
+        result will never be longer than ``max_nb_chars``, but it can be
+        substantially shorter. This is because the text is built from whole
+        words, sentences, or paragraphs (depending on the value of
+        ``max_nb_chars``), and the last complete unit that would push the
+        length past the limit is dropped. For example, ``max_nb_chars=200``
+        regularly produces strings of 100-190 characters. Values below 5
+        raise a ``ValueError``. The ``ext_word_list`` argument works in
+        exactly the same way it would in |words|, |sentences|, or
+        |paragraphs|.
 
         :sample: max_nb_chars=20
         :sample: max_nb_chars=80
