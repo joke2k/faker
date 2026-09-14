@@ -1,6 +1,5 @@
 """This module provides address-related functionalities for Vietnamese addresses."""
 
-from collections import OrderedDict
 from typing import Optional, Tuple
 
 from .. import Provider as AddressProvider
@@ -11,21 +10,40 @@ class Provider(AddressProvider):
     Sources:
 
     # https://vi.wikipedia.org/wiki/B%E1%BA%A3n_m%E1%BA%ABu:K%C3%BD_hi%E1%BB%87u_quy_%C6%B0%E1%BB%9Bc_c%C3%A1c_t%E1%BB%89nh_th%C3%A0nh_Vi%E1%BB%87t_Nam
+    # administrative units: https://github.com/thanglequoc/vietnamese-provinces-database
+    # postcode: https://mst.gov.vn/van-ban-phap-luat/25175.htm
     """
 
-    city_prefixes = ("Thành phố", "Quận", "Huyện", "Thị xã")
-
-    city_suffixes = (
-        "Thành phố",
-        "Quận",
-        "Huyện",
-        "Thị xã",
-        "Xã",
-        "Phường",
+    # Building
+    vi_building_number_formats = (
+        "%",
+        "%#",
+        "%##",
+        "%/%#",
+        "%/%#/%##",
+        "%#/%##",
+    )
+    building_number_formats = (
+        "Số {{vi_building_number_format}}",
+        "{{vi_building_number_format}}",
     )
 
-    building_number_formats = ("###", "##", "#")
+    # Sub-street
+    sub_street_prefixes = (
+        "Ngõ",
+        "Hẻm",
+        "Khu",
+        "Khóm",
+    )
+    sub_street_formats = ("{{sub_street_prefix}} %#",)
 
+    # Street
+    street_prefixes = (
+        "Đường",
+        "đường",
+        "Phố",
+        "phố",
+    )
     street_suffixes = (
         "Đường",
         "Ngõ",
@@ -36,225 +54,284 @@ class Provider(AddressProvider):
         "Số",
         "Dãy",
     )
-
-    postcode_formats = ("######",)
-
-    provinces = (
-        "An Giang",
-        "Bà Rịa – Vũng Tàu",
-        "Bạc Liêu",
-        "Bắc Kạn",
-        "Bắc Giang",
-        "Bắc Ninh",
-        "Bến Tre",
-        "Bình Dương",
-        "Bình Định",
-        "Bình Phước",
-        "Bình Thuận",
-        "Cà Mau",
-        "Cao Bằng",
-        "Cần Thơ",
-        "Đà Nẵng",
-        "Đắk Lắk",
-        "Đắk Nông",
-        "Điện Biên",
-        "Đồng Nai",
-        "Đồng Tháp",
-        "Gia Lai",
-        "Hà Giang",
-        "Hà Nam",
-        "Hà Nội",
-        "Hà Tĩnh",
-        "Hải Dương",
-        "Hải Phòng",
-        "Hậu Giang",
+    streets = (
+        "Nguyễn Trãi",
+        "Nguyễn Huệ",
+        "Nguyễn Du",
+        "Nguyễn Đình Chiểu",
+        "Nguyễn Thị Minh Khai",
+        "Nguyễn Văn Cừ",
+        "Nguyễn Chí Thanh",
+        "Nguyễn Hữu Cảnh",
+        "Nguyễn Tất Thành",
+        "Nguyễn Văn Linh",
+        "Trần Hưng Đạo",
+        "Trần Phú",
+        "Trần Quang Khải",
+        "Trần Quốc Toản",
+        "Trần Bình Trọng",
+        "Trần Não",
+        "Lê Lợi",
+        "Lê Lai",
+        "Lê Duẩn",
+        "Lê Thánh Tôn",
+        "Lê Văn Sỹ",
+        "Lê Văn Việt",
+        "Lê Đức Thọ",
+        "Lê Quang Định",
+        "Lý Thường Kiệt",
+        "Lý Tự Trọng",
+        "Lý Chính Thắng",
+        "Hai Bà Trưng",
+        "Bà Triệu",
+        "Điện Biên Phủ",
+        "Cách Mạng Tháng Tám",
+        "Nam Kỳ Khởi Nghĩa",
+        "Xô Viết Nghệ Tĩnh",
+        "Hoàng Văn Thụ",
+        "Hoàng Diệu",
+        "Hoàng Hoa Thám",
+        "Phan Đình Phùng",
+        "Phan Chu Trinh",
+        "Phan Văn Trị",
+        "Phan Xích Long",
+        "Võ Văn Tần",
+        "Võ Thị Sáu",
+        "Võ Văn Kiệt",
+        "Đinh Tiên Hoàng",
+        "Đinh Bộ Lĩnh",
+        "Tôn Đức Thắng",
+        "Pasteur",
+        "Alexandre de Rhodes",
+        "Hùng Vương",
+        "Quang Trung",
+        "Ngô Quyền",
+        "Đồng Khởi",
+        "Bạch Đằng",
+        "Kinh Dương Vương",
+        "Phạm Văn Đồng",
+        "Phạm Ngũ Lão",
+        "Phạm Hùng",
+        "Phạm Thế Hiển",
+        "Huỳnh Tấn Phát",
+        "Huỳnh Văn Bánh",
+        "Cộng Hòa",
+        "Trường Chinh",
+        "Giải Phóng",
+        "Thống Nhất",
+        "Độc Lập",
         "Hòa Bình",
-        "Thành phố Hồ Chí Minh",
-        "Hưng Yên",
-        "Khánh Hòa",
-        "Kiên Giang",
-        "Kon Tum",
-        "Lai Châu",
-        "Lạng Sơn",
-        "Lào Cai",
-        "Lâm Đồng",
-        "Long An",
-        "Nam Định",
-        "Nghệ An",
-        "Ninh Bình",
-        "Ninh Thuận",
-        "Phú Thọ",
-        "Phú Yên",
-        "Quảng Bình",
-        "Quảng Nam",
-        "Quảng Ngãi",
-        "Quảng Ninh",
-        "Quảng Trị",
-        "Sóc Trăng",
-        "Sơn La",
-        "Tây Ninh",
-        "Thái Bình",
-        "Thái Nguyên",
-        "Thanh Hóa",
-        "Thừa Thiên Huế",
-        "Tiền Giang",
-        "Trà Vinh",
-        "Tuyên Quang",
-        "Vĩnh Long",
-        "Vĩnh Phúc",
-        "Yên Bái",
+        "Dân Chủ",
+        "Tự Do",
+        "30 Tháng 4",
+        "2 Tháng 9",
+        "3 Tháng 2",
     )
+    numbered_street_formats = (
+        "số %",
+        "%#",
+        "số %#",
+    )
+    street_formats = (
+        "{{street_prefix}} {{numbered_street}}",
+        "{{street_prefix}} {{street_name}}",
+        "{{street_name}}",
+    )
+    street_address_formats = (
+        "{{building_number}} {{street}}",
+        "{{building_number}} {{sub_street}} {{street}}",
+    )
+
+    # Commune level: communes, wards
+    communes = (
+        "Tân An",
+        "An Bình",
+        "Hòa Bình",
+        "Long Bình",
+        "An Hải",
+        "An Khê",
+        "An Nhơn",
+        "An Phú",
+        "Bình Minh",
+        "Bình Thuận",
+        "Diên Hồng",
+        "Đông Hải",
+        "Đông Hòa",
+        "Hoàng Mai",
+        "Hòa Thành",
+        "Tân Phú Đông",
+        "Tuy Phước Đông",
+        "Dương Minh Châu",
+    )
+    commune_prefixes = (
+        "Phường",
+        "phường",
+        "Xã",
+        "xã",
+    )
+    commune_formats = ("{{commune_prefix}} {{commune_name}}",)
+
+    # Provincial level: cities, provinces
+    cities = (
+        "Hà Nội",
+        "Hải Phòng",
+        "Huế",
+        "Đà Nẵng",
+        "Hồ Chí Minh",
+        "Cần Thơ",
+    )
+    city_prefixes = (
+        "Thành phố",
+        "thành phố",
+        "TP.",
+    )
+    city_suffixes = (
+        "Thành phố",
+        "Quận",
+        "Huyện",
+        "Thị xã",
+        "Xã",
+        "Phường",
+    )
+    city_formats = ("{{city_prefix}} {{city_name}}",)
+    provinces = (
+        "Cao Bằng",
+        "Tuyên Quang",
+        "Điện Biên",
+        "Lai Châu",
+        "Sơn La",
+        "Lào Cai",
+        "Thái Nguyên",
+        "Lạng Sơn",
+        "Quảng Ninh",
+        "Bắc Ninh",
+        "Phú Thọ",
+        "Hưng Yên",
+        "Ninh Bình",
+        "Thanh Hóa",
+        "Nghệ An",
+        "Hà Tĩnh",
+        "Quảng Trị",
+        "Quảng Ngãi",
+        "Gia Lai",
+        "Đắk Lắk",
+        "Khánh Hòa",
+        "Lâm Đồng",
+        "Đồng Nai",
+        "Tây Ninh",
+        "Đồng Tháp",
+        "Vĩnh Long",
+        "An Giang",
+        "Cà Mau",
+    )
+    province_prefixes = (
+        "Tỉnh",
+        "tỉnh",
+    )
+    province_formats = (
+        "{{province_prefix}} {{province_name}}",
+        "{{province_name}}",
+    )
+
+    # Address
+    address_formats = (
+        "{{street_address}}, {{commune}}, {{province}}",
+        "{{street_address}} {{commune}} {{province}}",
+        "{{street_address}} {{commune}} {{province}} {{postcode}}",
+        "{{street_address}}, {{commune}}, {{city}}",
+        "{{street_address}} {{commune}} {{city}}",
+        "{{street_address}} {{commune}} {{city}} {{postcode}}",
+    )
+
+    postcode_formats = ("#####",)
 
     provinces_abbr = (
         "AG",
-        "BV",
-        "BL",
-        "BK",
-        "BG",
         "BN",
-        "BT",
-        "BD",
-        "BĐ",
-        "BP",
-        "BTh",
         "CM",
         "CB",
         "CT",
         "ĐNa",
         "ĐL",
-        "ĐNo",
         "ĐB",
         "ĐN",
         "ĐT",
         "GL",
-        "HG",
-        "HNa",
         "HN",
         "HT",
-        "HD",
         "HP",
-        "HGi",
-        "HB",
         "SG",
+        "HUE",
         "HY",
         "KH",
-        "KG",
-        "KT",
         "LC",
         "LS",
         "LCa",
         "LĐ",
-        "LA",
-        "NĐ",
         "NA",
         "NB",
-        "NT",
         "PT",
-        "PY",
-        "QB",
-        "QNa",
         "QNg",
         "QN",
         "QT",
-        "ST",
         "SL",
         "TN",
-        "TB",
         "TNg",
         "TH",
-        "TTH",
-        "TG",
-        "TV",
         "TQ",
         "VL",
-        "VP",
-        "YB",
     )
 
     provinces_postcode = {
-        "AG": (88000, 88999),
-        "BV": (79000, 79999),
-        "BL": (96000, 96999),
-        "BK": (26000, 26999),
-        "BG": (23000, 23999),
-        "BN": (22000, 22999),
-        "BT": (93000, 93999),
-        "BD": (82000, 82999),
-        "BĐ": (59000, 59999),
-        "BP": (83000, 83999),
-        "BTh": (80000, 80999),
-        "CM": (97000, 97999),
-        "CB": (27000, 27999),
-        "CT": (92000, 92999),
-        "ĐNa": (55000, 55999),
-        "ĐL": (63000, 63999),
-        "ĐNo": (64000, 64999),
-        "ĐB": (38000, 38999),
-        "ĐN": (81000, 81999),
-        "ĐT": (87000, 87999),
-        "GL": (60000, 60999),
-        "HG": (31000, 31999),
-        "HNa": (40000, 40999),
-        "HN": (10000, 15999),
-        "HT": (48000, 48999),
-        "HD": (17000, 17999),
-        "HP": (18000, 18999),
-        "HGi": (91000, 91999),
-        "HB": (35000, 35999),
-        "SG": (70000, 76999),
-        "HY": (16000, 16999),
-        "KH": (65000, 65999),
-        "KG": (92000, 92999),
-        "KT": (58000, 58999),
-        "LC": (39000, 39999),
-        "LS": (24000, 24999),
-        "LCa": (33000, 33999),
-        "LĐ": (67000, 67999),
-        "LA": (85000, 85999),
-        "NĐ": (42000, 42999),
-        "NA": (46000, 47999),
-        "NB": (43000, 43999),
-        "NT": (66000, 66999),
-        "PT": (29000, 29999),
-        "PY": (62000, 62999),
-        "QB": (51000, 51999),
-        "QNa": (56000, 56999),
-        "QNg": (57000, 57999),
-        "QN": (20000, 20999),
-        "QT": (52000, 52999),
-        "ST": (95000, 95999),
-        "SL": (36000, 36999),
-        "TN": (84000, 84999),
-        "TB": (41000, 41999),
-        "TNg": (25000, 25999),
-        "TH": (44000, 45999),
-        "TTH": (53000, 53999),
-        "TG": (86000, 86999),
-        "TV": (94000, 94999),
-        "TQ": (30000, 30999),
-        "VL": (89000, 89999),
-        "VP": (28000, 28999),
-        "YB": (32000, 32999),
+        "AG": ((90000, 90999), (91000, 91999), (92000, 92999)),
+        "BN": ((16000, 16999), (26000, 26999)),
+        "CM": ((97000, 97999), (98000, 98999)),
+        "CB": ((21000, 21999),),
+        "CT": ((94000, 94999), (95000, 95999), (96000, 96999)),
+        "ĐNa": ((50000, 50999), (51000, 51999), (52000, 52999)),
+        "ĐL": ((56000, 56999), (63000, 63999), (64000, 64999)),
+        "ĐB": ((32000, 32999),),
+        "ĐN": ((67000, 67999), (76000, 76999)),
+        "ĐT": ((81000, 81999), (84000, 84999)),
+        "GL": ((55000, 55999), (61000, 61999), (62000, 62999)),
+        "HN": (
+            (10000, 10999),
+            (11000, 11999),
+            (12000, 12999),
+            (13000, 13999),
+            (14000, 14999),
+        ),
+        "HT": ((45000, 45999), (46000, 46999)),
+        "HP": ((3000, 3999), (4000, 4999), (5000, 5999)),
+        "SG": (
+            (70000, 70999),
+            (71000, 71999),
+            (72000, 72999),
+            (73000, 73999),
+            (74000, 74999),
+            (75000, 75999),
+            (78000, 78999),
+        ),
+        "HUE": ((49000, 49999),),
+        "HY": ((6000, 6999), (17000, 17999)),
+        "KH": ((57000, 57999), (59000, 59999)),
+        "LC": ((30000, 30999),),
+        "LS": ((25000, 25999),),
+        "LCa": ((31000, 31999), (33000, 33999)),
+        "LĐ": ((65000, 65999), (66000, 66999), (77000, 77999)),
+        "NA": ((43000, 43999), (44000, 44999)),
+        "NB": ((7000, 7999), (8000, 8999), (18000, 18999)),
+        "PT": ((15000, 15999), (35000, 35999), (36000, 36999)),
+        "QNg": ((53000, 53999), (54000, 54999), (60000, 60999)),
+        "QN": ((1000, 1999), (2000, 2999)),
+        "QT": ((47000, 47999), (48000, 48999)),
+        "SL": ((34000, 34999),),
+        "TN": ((80000, 80999), (82000, 82999), (83000, 83999)),
+        "TNg": ((23000, 23999), (24000, 24999)),
+        "TH": ((40000, 40999), (41000, 41999), (42000, 42999)),
+        "TQ": ((20000, 20999), (22000, 22999)),
+        "VL": ((85000, 85999), (86000, 86999), (87000, 87999)),
     }
-
-    address_formats = OrderedDict(
-        (
-            ("{{street_address}}\n{{city}}, {{postcode}}", 25.0),
-            ("{{city}}\n{{street_address}}, {{postcode}}", 1.0),
-        )
-    )
-
-    city_formats = (
-        "{{city_prefix}} {{first_name}}{{city_suffix}}",
-        "{{first_name}}{{city_suffix}}",
-    )
-
-    street_name_formats = (
-        "{{first_name}} {{street_suffix}}",
-        "{{last_name}} {{street_suffix}}",
-    )
-
-    street_address_formats = ("{{building_number}} {{street_name}}",)
 
     def city_prefix(self) -> str:
         """Returns a random city prefix."""
@@ -262,7 +339,7 @@ class Provider(AddressProvider):
 
     def administrative_unit(self) -> str:
         """Returns a random administrative unit (province)."""
-        return self.random_element(self.provinces)
+        return self.random_element(self.provinces + self.cities)
 
     state = administrative_unit
 
@@ -273,10 +350,6 @@ class Provider(AddressProvider):
         """
         abbreviations: Tuple[str, ...] = self.provinces_abbr
         return self.random_element(abbreviations)
-
-    def postcode(self) -> str:
-        """Returns a random postcode."""
-        return f"{self.generator.random.randint(100000, 999999):06d}"
 
     def postcode_in_state(self, state_abbr: Optional[str] = None) -> str:
         """
@@ -289,19 +362,67 @@ class Provider(AddressProvider):
             state_abbr = self.random_element(self.provinces_abbr)
 
         if state_abbr in self.provinces_abbr:
-            postcode = str(
-                self.generator.random.randint(
-                    self.provinces_postcode[state_abbr][0], self.provinces_postcode[state_abbr][1]
-                )
-            )
-
-            # zero left pad up until desired length (length is 6)
-            target_postcode_len = 6
-            current_postcode_len = len(postcode)
-            if current_postcode_len < target_postcode_len:
-                pad = target_postcode_len - current_postcode_len
-                postcode = f"{'0' * pad}{postcode}"
-
-            return postcode
+            postcode_range = self.random_element(self.provinces_postcode[state_abbr])
+            postcode = self.generator.random.randint(*postcode_range)
+            return f"{postcode:05d}"
 
         raise ValueError("Province Abbreviation not found in list")
+
+    def postcode(self) -> str:
+        """Returns a random postcode from an allocated province range."""
+        return self.postcode_in_state()
+
+    def vi_building_number_format(self) -> str:
+        return self.random_element(self.vi_building_number_formats)
+
+    def building_number(self) -> str:
+        pattern = self.generator.parse(self.random_element(self.building_number_formats))
+        return self.numerify(pattern)
+
+    def sub_street_prefix(self) -> str:
+        return self.random_element(self.sub_street_prefixes)
+
+    def sub_street(self) -> str:
+        pattern = self.random_element(self.sub_street_formats)
+        return self.bothify(self.generator.parse(pattern))
+
+    def street_prefix(self) -> str:
+        """
+        :example: 'đường'
+        """
+        return self.random_element(self.street_prefixes)
+
+    def numbered_street(self) -> str:
+        """Returns a random street number with at most three digits."""
+        pattern = self.generator.parse(self.random_element(self.numbered_street_formats))
+        return self.numerify(pattern)
+
+    def street_name(self) -> str:
+        return self.random_element(self.streets)
+
+    def street(self) -> str:
+        pattern = self.random_element(self.street_formats)
+        return self.generator.parse(pattern)
+
+    def commune_name(self) -> str:
+        return self.random_element(self.communes)
+
+    def commune_prefix(self):
+        return self.random_element(self.commune_prefixes)
+
+    def commune(self) -> str:
+        pattern: str = self.random_element(self.commune_formats)
+        return self.generator.parse(pattern)
+
+    def city_name(self) -> str:
+        return self.random_element(self.cities)
+
+    def province_prefix(self) -> str:
+        return self.random_element(self.province_prefixes)
+
+    def province_name(self) -> str:
+        return self.random_element(self.provinces)
+
+    def province(self):
+        pattern: str = self.random_element(self.province_formats)
+        return self.generator.parse(pattern)
