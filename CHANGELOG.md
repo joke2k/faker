@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.39.0 - 2026-09-14](https://github.com/joke2k/faker/compare/v40.38.0...v40.39.0)
+
+* Fix: compute Norwegian MOD11 check digit so `no_NO` `iban()` passes stdnum validation (#2415). Thanks @CedricConday.
+
 ### [v40.38.0 - 2026-09-01](https://github.com/joke2k/faker/compare/v40.37.0...v40.38.0)
 
 * Add `si_LK` (Sinhala, Sri Lanka) person provider (#2430). Thanks @RavinduPabasara.
