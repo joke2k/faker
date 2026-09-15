@@ -4796,6 +4796,104 @@ class Provider(AddressProvider):
         "Košický kraj",
     )
 
+    admin2_in_admin1 = {
+        "Banskobystrický kraj": [
+            "Okres Banská Bystrica",
+            "Okres Brezno",
+            "Okres Banská Štiavnica",
+            "Okres Detva",
+            "Okres Krupina",
+            "Okres Lučenec",
+            "Okres Poltár",
+            "Okres Revúca",
+            "Okres Rimavská Sobota",
+            "Okres Veľký Krtíš",
+            "Okres Žarnovica",
+            "Okres Žiar nad Hronom",
+            "Okres Zvolen",
+        ],
+        "Bratislavský kraj": [
+            "Okres Bratislava I",
+            "Okres Bratislava II",
+            "Okres Bratislava III",
+            "Okres Bratislava IV",
+            "Okres Bratislava V",
+            "Okres Malacky",
+            "Okres Pezinok",
+            "Okres Senec",
+        ],
+        "Košický kraj": [
+            "Okres Gelnica",
+            "Okres Košice I",
+            "Okres Košice II",
+            "Okres Košice III",
+            "Okres Košice IV",
+            "Okres Košice-okolie",
+            "Okres Michalovce",
+            "Okres Rožňava",
+            "Okres Spišská Nová Ves",
+            "Okres Sobrance",
+            "Okres Trebišov",
+        ],
+        "Nitriansky kraj": [
+            "Okres Komárno",
+            "Okres Levice",
+            "Okres Nitra",
+            "Okres Nové Zámky",
+            "Okres Šaľa",
+            "Okres Topoľčany",
+            "Okres Zlaté Moravce",
+        ],
+        "Prešovský kraj": [
+            "Okres Bardejov",
+            "Okres Humenné",
+            "Okres Kežmarok",
+            "Okres Levoča",
+            "Okres Medzilaborce",
+            "Okres Prešov",
+            "Okres Poprad",
+            "Okres Sabinov",
+            "Okres Svidník",
+            "Okres Stará Ľubovňa",
+            "Okres Stropkov",
+            "Okres Snina",
+            "Okres Vranov nad Topľou",
+        ],
+        "Trenčiansky kraj": [
+            "Okres Bánovce nad Bebravou",
+            "Okres Ilava",
+            "Okres Myjava",
+            "Okres Nové Mesto nad Váhom",
+            "Okres Považská Bystrica",
+            "Okres Prievidza",
+            "Okres Partizánske",
+            "Okres Púchov",
+            "Okres Trenčín",
+        ],
+        "Trnavský kraj": [
+            "Okres Dunajská Streda",
+            "Okres Galanta",
+            "Okres Hlohovec",
+            "Okres Piešťany",
+            "Okres Senica",
+            "Okres Skalica",
+            "Okres Trnava",
+        ],
+        "Žilinský kraj": [
+            "Okres Bytča",
+            "Okres Čadca",
+            "Okres Dolný Kubín",
+            "Okres Kysucké Nové Mesto",
+            "Okres Liptovský Mikuláš",
+            "Okres Martin",
+            "Okres Námestovo",
+            "Okres Ružomberok",
+            "Okres Turčianske Teplice",
+            "Okres Tvrdošín",
+            "Okres Žilina",
+        ],
+    }
+
     countries = (
         "Afganistan",
         "Afghanistanská islamská republika",
@@ -5261,6 +5359,28 @@ class Provider(AddressProvider):
         return self.random_element(self.states)
 
     state = administrative_unit
+    admin1 = administrative_unit
+
+    def admin2(self) -> str:
+        return self.random_element(
+            tuple(
+                admin2
+                for admin2s in self.admin2_in_admin1.values()
+                for admin2 in admin2s
+            )
+        )
+
+    def admin2_from_admin1(self, admin1: str) -> str:
+        return self.random_element(self.admin2_in_admin1[admin1])
+
+    def admin2_with_admin1(self) -> str:
+        admin1 = self.admin1()
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
+
+    def admin2_w_admin1(self, admin1: str) -> str:
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
 
     def city_with_postcode(self) -> str:
         return self.postcode() + " " + self.random_element(self.cities)
