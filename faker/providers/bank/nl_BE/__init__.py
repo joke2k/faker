@@ -12,6 +12,26 @@ class Provider(BankProvider):
     bban_format = "############"
     country_code = "BE"
 
+    def bban(self) -> str:
+        """Generate a Basic Bank Account Number (BBAN).
+
+        Belgian BBAN format: PPPP NNNN NNNN NN
+        - PPPP: Bank code (4 digits)
+        - NNNN NNNN NN: Account number with 2 national check digits (Mod 97-10)
+
+        :sample:
+        """
+        # Generate 10 random digits (4 bank code + 6 account number)
+        bban_without_check = self.numerify("##########")
+
+        # Calculate national check digits using Mod 97-10 algorithm
+        remainder = 0
+        for digit in bban_without_check:
+            remainder = (remainder * 10 + int(digit)) % 97
+        check_digits = str((98 - remainder) % 97).zfill(2)
+
+        return bban_without_check + check_digits
+
     banks = (
         "Argenta Spaarbank",
         "AXA Bank",
