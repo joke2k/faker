@@ -26,6 +26,22 @@ class FactoryTestCase(unittest.TestCase):
         print_doc("faker.providers.person.it_IT", output=output)
         assert output.getvalue()
 
+    def test_documentor_skips_unimplemented_formatters(self):
+        import warnings
+
+        from faker.documentor import Documentor
+        from faker.providers.bank import Provider as BankProvider
+
+        faker = Faker("bn_BD")
+        doc = Documentor(faker)
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            formatters = doc.get_provider_formatters(BankProvider(faker))
+
+        assert any("banks" in str(warning.message) for warning in caught)
+        assert "fake.bank()" not in formatters
+        assert any("bank_country" in signature for signature in formatters)
+
     def test_print_provider_handles_non_utf_output(self):
         from faker.cli import print_provider
 
