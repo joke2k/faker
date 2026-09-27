@@ -1,4 +1,5 @@
 import re
+from unittest.mock import patch
 
 import pytest
 
@@ -456,6 +457,12 @@ class TestNoNo:
     def test_iban_stdnum(self, faker, num_samples):
         for _ in range(num_samples):
             iban_validator.validate(faker.iban())
+
+    def test_iban_postgiro(self, faker):
+        with patch.object(NoNoBankProvider, "numerify", return_value="0000564993"):
+            iban = faker.iban()
+        assert iban[4:8] == "0000"
+        iban_validator.validate(iban)
 
 
 class TestPlPl:
