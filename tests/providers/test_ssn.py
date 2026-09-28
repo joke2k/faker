@@ -228,6 +228,15 @@ class TestEnCA(unittest.TestCase):
             assert sin.replace(" ", "").isdigit()
             assert ca_checksum(sin) == int(sin[-1])
 
+    def test_ssn_leading_digit_is_a_personal_series(self):
+        # The leading digit says which series the SIN was issued in. 1-7 are the
+        # provincial series; 8 is reserved for business numbers and 0 for CRA
+        # individual tax numbers, so neither may lead a personal SIN. The
+        # checksum assertions above cannot see this, because the check digit is
+        # derived from whatever digits were drawn.
+        for _ in range(1000):
+            assert self.fake.ssn()[0] in "1234567"
+
 
 class TestEnGB(unittest.TestCase):
     def setUp(self):
