@@ -1,3 +1,5 @@
+import calendar
+
 from .. import Provider as BaseProvider
 
 
@@ -71,7 +73,9 @@ class Provider(BaseProvider):
         gender = self.random_int(min=1, max=8)
         year = self.random_int(min=0, max=99)
         month = self.random_int(min=1, max=12)
-        day = self.random_int(min=1, max=31)
+        # Clamp the day to a real date; the century (for leap years) follows the gender digit per the CNP spec.
+        century = {1: 1900, 2: 1900, 3: 1800, 4: 1800, 5: 2000, 6: 2000}.get(gender, 1900)
+        day = self.random_int(min=1, max=calendar.monthrange(century + year, month)[1])
         county = int(
             self.random_element(
                 [
