@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v40.40.0 - 2026-09-28](https://github.com/joke2k/faker/compare/v40.39.0...v40.40.0)
+
+* Fix: generate valid CNP birth dates in `ro_RO` `ssn()` (#2431). Thanks @chuenchen309.
+* Add boundary tests for `text(max_nb_chars)` (#2439). Thanks @saimoon504.
+* Clarify in the docs that `text()` `max_nb_chars` is an upper bound (#2438). Thanks @saimoon504.
+
 ### [v40.39.0 - 2026-09-14](https://github.com/joke2k/faker/compare/v40.38.0...v40.39.0)
 
 * Fix: compute Norwegian MOD11 check digit so `no_NO` `iban()` passes stdnum validation (#2415). Thanks @CedricConday.
