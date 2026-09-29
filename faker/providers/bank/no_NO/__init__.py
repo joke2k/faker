@@ -1,3 +1,5 @@
+from faker.utils.checksums import calculate_luhn
+
 from .. import Provider as BankProvider
 
 #: Weights applied to the first ten BBAN digits to derive the MOD11 check digit.
@@ -11,9 +13,12 @@ class Provider(BankProvider):
     country_code = "NO"
 
     def bban(self) -> str:
-        """Generate a valid BBAN with correct MOD11 check digit."""
+        """Generate a valid BBAN with correct MOD11 or Postgiro Luhn check digit."""
         while True:
             first_10 = self.numerify("##########")
+            if first_10.startswith("0000"):
+                check = calculate_luhn(int(first_10[4:]))
+                return first_10 + str(check)
             check = sum(w * int(d) for w, d in zip(MOD11_WEIGHTS, first_10)) % 11
             # A remainder of 10 has no single-digit representation, so that
             # draw is discarded and another one taken.
