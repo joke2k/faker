@@ -20,8 +20,15 @@ class Provider(SsnProvider):
             return s
 
         while True:
-            # create an array of first 8 elements initialized randomly
-            digits = self.generator.random.sample(range(10), 8)
+            # Draw the first 8 digits independently (with replacement), since
+            # a BSN has no requirement that they be distinct. An 8-digit BSN
+            # is written with one leading zero to reach 9 digits, so a second
+            # leading zero would represent a number shorter than any real
+            # BSN and has to be excluded.
+            first_digit = self.generator.random.randint(0, 9)
+            second_digit_choices = range(1, 10) if first_digit == 0 else range(0, 10)
+            digits = [first_digit, self.generator.random.choice(second_digit_choices)]
+            digits += self.generator.random.choices(range(10), k=6)
             # sum those 8 digits according to (part of) the "11-proef"
             s = _checksum(digits)
             # determine the last digit to make it qualify the test

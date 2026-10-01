@@ -1112,6 +1112,31 @@ class TestNlNL(unittest.TestCase):
         for _ in range(100):
             assert re.search(r"^NL\d{9}B\d{2}$", self.fake.vat_id())
 
+    @staticmethod
+    def _passes_elfproef(bsn):
+        factors = (9, 8, 7, 6, 5, 4, 3, 2, -1)
+        digits = [int(digit) for digit in bsn]
+        return sum(digit * factor for digit, factor in zip(digits, factors)) % 11 == 0
+
+    def test_ssn(self):
+        for _ in range(1000):
+            bsn = self.fake.ssn()
+            assert re.search(r"^\d{9}$", bsn)
+            assert self._passes_elfproef(bsn)
+            # A BSN with only 8 significant digits is written with a single
+            # leading zero to reach 9 digits, so a second leading zero would
+            # represent a number shorter than any real BSN.
+            assert not bsn.startswith("00")
+
+    def test_ssn_first_eight_digits_are_not_forced_unique(self):
+        # Regression test for the first eight digits of ssn() being drawn
+        # with random.sample(), which never repeats a digit among those
+        # eight and shrinks the space of valid BSNs from roughly 90 million
+        # down to about 1.6 million. They must be drawn independently, since
+        # a real BSN has no such uniqueness requirement.
+        has_repeated_digit = any(len(set(self.fake.ssn()[:8])) < 8 for _ in range(1000))
+        assert has_repeated_digit
+
 
 class TestNoNO(unittest.TestCase):
     def setUp(self):
