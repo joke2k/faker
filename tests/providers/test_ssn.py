@@ -9,6 +9,7 @@ from unittest import mock
 
 import freezegun
 import pytest
+from stdnum.bg import vat as bg_vat
 
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
@@ -89,6 +90,12 @@ class TestBgBG(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^BG\d{9,10}$", self.fake.vat_id())
+
+    def test_vat_id_checksum(self):
+        for _ in range(200):
+            vat_id = self.fake.vat_id()
+            assert re.search(r"^BG\d{9,10}$", vat_id)
+            assert bg_vat.validate(vat_id) == vat_id[2:]
 
 
 class TestCsCZ(unittest.TestCase):
