@@ -3,6 +3,11 @@ import pytest
 
 class TestPaAFLocale:
 
+    """Tests for the en_AF locale."""
+
+    @pytest.fixture(autouse=True)
+    def faker_locale(self):
+        return "en_AF"
     # ---------------- PERSON ----------------
     def test_person(self, faker):
         value = faker.name()

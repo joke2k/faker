@@ -1,9 +1,9 @@
 import random
 
-from faker.providers import BaseProvider
+from faker.providers.address import Provider as AddressProvider
 
 
-class Provider(BaseProvider):
+class Provider(AddressProvider):
     """Afghan complete address provider in English."""
 
     provinces = [
@@ -151,6 +151,36 @@ class Provider(BaseProvider):
         "Company Road", "Wazir Akbar Khan Street", "Shir Shah Suri Road",
         "Macrorayan Street", "District Block Road"
     ]
+
+    # Faker's standard address contract, wired to the Afghan data above.
+    # Without these, street_name()/street_address()/postcode()/state() do not
+    # exist on this locale at all.
+    city_formats = ("{{city}}",)
+    street_name_formats = ("{{street}}",)
+    street_address_formats = ("{{street}} {{building_number}}",)
+    building_number_formats = ("#", "##", "###")
+    postcode_formats = ("#####",)
+
+    def street_name(self) -> str:
+        """Faker's standard name for :meth:`street`."""
+        return self.street()
+
+    def street_address(self) -> str:
+        return f"{self.street()} {self.building_number()}"
+
+    def postcode(self) -> str:
+        """Faker's standard name for :meth:`postalcode`."""
+        return self.postalcode()
+
+    def state(self) -> str:
+        """Afghanistan's first-level divisions are provinces."""
+        return self.province()
+
+    def administrative_unit(self) -> str:
+        return self.province()
+
+    def current_country_code(self) -> str:
+        return "AF"
 
     def province(self):
         return random.choice(self.provinces)
