@@ -86,6 +86,17 @@ class TestBaseBankProvider:
         with pytest.raises(NotImplementedError):
             provider.bank()
 
+    def test_iban(self, faker, num_samples):
+        """The base provider is GB-shaped and is what locales without their own
+        bank provider fall back to, so its IBANs must match the GB registry
+        entry: 22 characters in total.
+        """
+        provider = BankProvider(faker)
+        for _ in range(num_samples):
+            iban = provider.iban()
+            assert len(iban) == 22  # GB(2) + check(2) + bban(18)
+            assert is_valid_iban(iban)
+
 
 class TestCsCz:
     """Test cs_CZ bank provider"""
@@ -334,7 +345,14 @@ class TestFaIr:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"IR\d{24}", faker.bban())
+            assert re.fullmatch(r"\d{22}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert iban.startswith("IR")
+            assert len(iban) == 26  # IR(2) + check(2) + bban(22)
+            assert is_valid_iban(iban)
 
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
@@ -622,4 +640,5 @@ class TestMkMk:
             iban = faker.iban()
             assert isinstance(iban, str)
             assert iban.startswith("MK")
-            assert len(iban) == 21  # MK(2) + check(2) + bban(17)
+            assert len(iban) == 19  # MK(2) + check(2) + bban(15)
+            assert is_valid_iban(iban)
