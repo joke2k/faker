@@ -11,7 +11,7 @@ class Provider(BankProvider):
     - https://en.wikipedia.org/wiki/List_of_banks_in_North_Macedonia
     """
 
-    bban_format = "###????????????##"
+    bban_format = "###??????????##"
     country_code = "MK"
 
     banks = (

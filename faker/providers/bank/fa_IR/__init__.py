@@ -4,7 +4,7 @@ from .. import Provider as BankProvider
 class Provider(BankProvider):
     """Implement bank provider for ``fa_IR`` locale."""
 
-    bban_format = "IR########################"
+    bban_format = "######################"
     country_code = "IR"
     swift_bank_codes = (
         "BEGN",
