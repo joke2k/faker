@@ -71,3 +71,16 @@ class TestProvider:
         with pytest.raises(Exception):
             r = ("0000000", "0000001", 1)
             self.prov._registrant_publication("0000002", [r])
+
+
+class TestEsEsISBN:
+    def test_isbn13_never_has_empty_segments(self):
+        import faker
+
+        fake = faker.Faker("es_ES")
+        faker.Faker.seed(0)
+        for _ in range(2000):
+            code = fake.isbn13()
+            parts = code.split("-")
+            assert len(parts) == 5
+            assert all(parts), f"empty segment in {code}"
