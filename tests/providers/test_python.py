@@ -62,6 +62,20 @@ def test_pyfloat_right_and_left_digits_positive(mock_random_number_source, right
         assert decimal_part == expected_decimal_part
 
 
+@pytest.mark.parametrize("left_digits", (1, 2))
+@pytest.mark.parametrize("max_value", (None, 1))
+def test_positive_pyfloat_without_fractional_digits(left_digits, max_value):
+    with patch("faker.providers.BaseProvider.random_number", return_value=0):
+        result = Faker().pyfloat(
+            left_digits=left_digits,
+            right_digits=0,
+            positive=True,
+            max_value=max_value,
+        )
+    assert isinstance(result, float)
+    assert result == 1.0
+
+
 def test_pyfloat_right_or_left_digit_overflow():
     max_float_digits = sys.float_info.dig
     faker = Faker()
