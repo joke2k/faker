@@ -289,11 +289,12 @@ class Provider(BaseProvider):
         """
         Produce a hostname with specified number of subdomain levels.
 
-        >>> hostname()
+        >>> fake = Faker()
+        >>> fake.hostname()
         db-01.nichols-phillips.com
-        >>> hostname(0)
+        >>> fake.hostname(0)
         laptop-56
-        >>> hostname(2)
+        >>> fake.hostname(2)
         web-12.williamson-hopkins.jackson.com
         """
         hostname_prefix: str = self.random_element(self.hostname_prefixes)
@@ -308,9 +309,10 @@ class Provider(BaseProvider):
         Produce an Internet domain name with the specified number of
         subdomain levels.
 
-        >>> domain_name()
+        >>> fake = Faker()
+        >>> fake.domain_name()
         nichols-phillips.com
-        >>> domain_name(2)
+        >>> fake.domain_name(2)
         williamson-hopkins.jackson.com
         """
         if levels < 1:
