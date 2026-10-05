@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.41.0 - 2026-10-05](https://github.com/joke2k/faker/compare/v40.40.0...v40.41.0)
+
+* Fix: update `vi_VN` address formats, administrative units, and postcodes (#2433). Thanks @hmtrii.
+
 ### [v40.40.0 - 2026-09-28](https://github.com/joke2k/faker/compare/v40.39.0...v40.40.0)
 
 * Fix: generate valid CNP birth dates in `ro_RO` `ssn()` (#2431). Thanks @chuenchen309.
