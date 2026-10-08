@@ -596,6 +596,23 @@ class TestDateTime(unittest.TestCase):
         series = list(self.fake.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo))
         assert series[0][0] == start
 
+    def test_time_series_nonpositive_precision(self):
+        for precision in (0, -1, -0.5, "-1d", timedelta(0), timedelta(seconds=-1)):
+            with self.subTest(precision=precision):
+                series = self.fake.time_series(0, 10, precision=precision, tzinfo=utc)
+                with pytest.raises(ValueError, match="`precision` must be greater than zero"):
+                    next(series)
+
+    def test_time_series_fractional_precision(self):
+        series = list(self.fake.time_series(0, 1, precision=0.25, tzinfo=utc, distrib=lambda dt: dt.microsecond))
+        assert [value for _, value in series] == [0, 250000, 500000, 750000]
+        assert [dt for dt, _ in series] == [
+            datetime(1970, 1, 1, tzinfo=utc) + timedelta(seconds=step / 4) for step in range(4)
+        ]
+
+    def test_time_series_equal_bounds(self):
+        assert list(self.fake.time_series(0, 0, tzinfo=utc)) == []
+
     def test_unix_time(self):
         from faker.providers.date_time import datetime_to_timestamp
 
