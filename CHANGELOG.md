@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
+
+* Add `es_CO` bank provider (#2453). Thanks @saratobonr.
+* Add `es_CO` internet provider (#2455). Thanks @saratobonr.
+
 ### [v40.42.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.41.0...v40.42.0)
 
 * Fix: generate `fa_IR` and `mk_MK` IBANs with the correct BBAN length (#2451). Thanks @anandghegde.
