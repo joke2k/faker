@@ -249,6 +249,120 @@ class Provider(AddressProvider):
         "Vorarlberg",
     )
 
+    # https://statoids.com/yat.html (using HASC codes)
+    admin2_in_admin1 = {
+        "Burgenland": [
+            "Bezirk Eisenstadt",
+            "Bezirk Rust",
+            "Bezirk Eisenstadt Umgebung",
+            "Bezirk Güssing",
+            "Bezirk Jennersdorf",
+            "Bezirk Mattersburg",
+            "Bezirk Neusiedl am See",
+            "Bezirk Oberpullendorf",
+            "Bezirk Oberwart",
+        ],
+        "Kärnten": [
+            "Bezirk Klagenfurt",
+            "Bezirk Villach",
+            "Bezirk Hermagor",
+            "Bezirk Klagenfurt Land",
+            "Bezirk Sankt Veit an der Glan",
+            "Bezirk Spittal an der Drau",
+            "Bezirk Villach Land",
+            "Bezirk Völkermarkt",
+            "Bezirk Wolfsberg",
+            "Bezirk Feldkirchen",
+        ],
+        "Niederösterreich": [
+            "Bezirk Krems an der Donau Stadt",
+            "Bezirk Sankt Pölten",
+            "Bezirk Waidhofen an der Ybbs",
+            "Bezirk Wiener Neustadt",
+            "Bezirk Amstetten",
+            "Bezirk Baden",
+            "Bezirk Bruck an der Leitha",
+            "Bezirk Gänserndorf",
+            "Bezirk Gmünd",
+            "Bezirk Hollabrunn",
+            "Bezirk Horn",
+            "Bezirk Korneuburg",
+            "Bezirk Krems an der Donau Land",
+            "Bezirk Lilienfeld",
+            "Bezirk Melk",
+            "Bezirk Mistelbach",
+            "Bezirk Mödling",
+            "Bezirk Neunkirchen",
+            "Bezirk Sankt Pölten Land",
+            "Bezirk Scheibbs",
+            "Bezirk Tulln",
+            "Bezirk Waidhofen an der Thaya",
+            "Bezirk Wiener Neustadt Land",
+            "Bezirk Wien Umgebung",
+            "Bezirk Zwettl",
+        ],
+        "Oberösterreich": [
+            "Bezirk Linz",
+            "Bezirk Steyr",
+            "Bezirk Wels",
+            "Bezirk Braunau am Inn",
+            "Bezirk Eferding",
+            "Bezirk Freistadt",
+            "Bezirk Gmunden",
+            "Bezirk Grieskirchen",
+            "Bezirk Kirchdorf an der Krems",
+            "Bezirk Linz Land",
+            "Bezirk Perg",
+            "Bezirk Ried im Innkreis",
+            "Bezirk Rohrbach im Mühlkreis",
+            "Bezirk Schärding",
+            "Bezirk Steyr Land",
+            "Bezirk Urfahr Umgebung",
+            "Bezirk Vöcklabruck",
+            "Bezirk Wels Land",
+        ],
+        "Salzburg": [
+            "Bezirk Salzburg",
+            "Bezirk Hallein",
+            "Bezirk Salzburg Umgebung",
+            "Bezirk Sankt Johann im Pongau",
+            "Bezirk Tamsweg",
+            "Bezirk Zell am See",
+        ],
+        "Steiermark": [
+            "Bezirk Graz",
+            "Bezirk Deutschlandsberg",
+            "Bezirk Graz Umgebung",
+            "Bezirk Leibnitz",
+            "Bezirk Leoben",
+            "Bezirk Liezen",
+            "Bezirk Murau",
+            "Bezirk Voitsberg",
+            "Bezirk Weiz",
+            "Bezirk Murtal",
+            "Bezirk Bruck-Mürzzuschlag",
+            "Bezirk Hartberg-Fürstenfeld",
+            "Bezirk Südoststeiermark",
+        ],
+        "Tirol": [
+            "Bezirk Innsbruck",
+            "Bezirk Imst",
+            "Bezirk Innsbruck Land",
+            "Bezirk Kitzbühel",
+            "Bezirk Kufstein",
+            "Bezirk Landeck",
+            "Bezirk Lienz",
+            "Bezirk Reutte",
+            "Bezirk Schwaz",
+        ],
+        "Vorarlberg": [
+            "Bezirk Bludenz",
+            "Bezirk Bregenz",
+            "Bezirk Dornbirn",
+            "Bezirk Feldkirch",
+        ],
+        "Wien": ["Bezirk Wien"],
+    }
     municipality_key_formats = (
         "1####",
         "2####",
@@ -274,6 +388,28 @@ class Provider(AddressProvider):
         return self.random_element(self.states)
 
     state = administrative_unit
+    admin1 = administrative_unit
+
+    def admin2(self) -> str:
+        return self.random_element(
+            tuple(
+                admin2
+                for admin2s in self.admin2_in_admin1.values()
+                for admin2 in admin2s
+            )
+        )
+
+    def admin2_from_admin1(self, admin1: str) -> str:
+        return self.random_element(self.admin2_in_admin1[admin1])
+
+    def admin2_with_admin1(self) -> str:
+        admin1 = self.admin1()
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
+
+    def admin2_w_admin1(self, admin1: str) -> str:
+        admin2 = self.admin2_from_admin1(admin1)
+        return f"{admin2} {admin1}"
 
     def city_with_postcode(self) -> str:
         pattern: str = self.random_element(self.city_with_postcode_formats)
