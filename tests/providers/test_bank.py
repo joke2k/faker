@@ -334,7 +334,13 @@ class TestFaIr:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"IR\d{24}", faker.bban())
+            assert re.fullmatch(r"0\d{21}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert re.fullmatch(r"IR\d{2}0\d{21}", iban)
 
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
@@ -621,5 +627,12 @@ class TestMkMk:
         for _ in range(num_samples):
             iban = faker.iban()
             assert isinstance(iban, str)
-            assert iban.startswith("MK")
-            assert len(iban) == 21  # MK(2) + check(2) + bban(17)
+            assert is_valid_iban(iban)
+            assert re.fullmatch(r"MK\d{17}", iban)
+
+    def test_bban_national_check_digits(self, faker, num_samples):
+        for _ in range(num_samples):
+            bban = faker.bban()
+            assert re.fullmatch(r"\d{15}", bban)
+            # ISO 7064 MOD 97-10 over bank code + account
+            assert int(bban) % 97 == 1

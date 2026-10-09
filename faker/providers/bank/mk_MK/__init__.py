@@ -11,7 +11,7 @@ class Provider(BankProvider):
     - https://en.wikipedia.org/wiki/List_of_banks_in_North_Macedonia
     """
 
-    bban_format = "###????????????##"
+    bban_format = "###############"
     country_code = "MK"
 
     banks = (
@@ -30,3 +30,8 @@ class Provider(BankProvider):
         "Универзална инвестициона банка",
         "ТТК банка",
     )
+
+    def bban(self) -> str:
+        # The 2 national check digits are ISO 7064 MOD 97-10 over bank code + account.
+        number = self.numerify("#############")
+        return number + f"{98 - int(number) * 100 % 97:02}"
