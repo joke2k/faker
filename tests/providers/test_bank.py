@@ -14,6 +14,7 @@ from faker.providers.bank.en_GB import Provider as EnGbBankProvider
 from faker.providers.bank.en_IE import Provider as EnIeBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_AR import Provider as EsArBankProvider
+from faker.providers.bank.es_CO import Provider as EsCoBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
 from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
@@ -263,6 +264,28 @@ class TestEsAr:
             assert is_valid_iban(iban)
             assert iban[:2] == EsArBankProvider.country_code
             assert re.fullmatch(r"\d{2}[A-Z]{4}\d{20}", iban[2:])
+
+
+class TestEsCo:
+    """Test es_CO bank provider"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.bank() in EsCoBankProvider.banks
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in EsCoBankProvider.swift_bank_codes
+            assert code[4:6] == EsCoBankProvider.country_code
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in EsCoBankProvider.swift_bank_codes
+            assert code[4:6] == EsCoBankProvider.country_code
 
 
 class TestEsEs:
