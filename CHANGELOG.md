@@ -1,5 +1,11 @@
 ## Changelog
 
+### [v40.42.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.41.0...v40.42.0)
+
+* Fix: generate `fa_IR` and `mk_MK` IBANs with the correct BBAN length (#2451). Thanks @anandghegde.
+* Catch `NotImplementedError` when documenting unimplemented formatters (#2461). Thanks @ekanshul.
+* Catch `NotImplementedError` in `Documentor.get_provider_formatters` (#2462). Thanks @kdmadeit.
+
 ### [v40.41.0 - 2026-10-05](https://github.com/joke2k/faker/compare/v40.40.0...v40.41.0)
 
 * Fix: update `vi_VN` address formats, administrative units, and postcodes (#2433). Thanks @hmtrii.
