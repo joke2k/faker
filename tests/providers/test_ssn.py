@@ -9,8 +9,8 @@ from unittest import mock
 
 import freezegun
 import pytest
-from stdnum.bg import vat as bg_vat
 
+from stdnum.bg import vat as bg_vat
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
