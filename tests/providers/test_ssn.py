@@ -228,6 +228,21 @@ class TestEnCA(unittest.TestCase):
             assert sin.replace(" ", "").isdigit()
             assert ca_checksum(sin) == int(sin[-1])
 
+    def test_ssn_covers_every_digit_and_stays_valid(self):
+        # Regression (#2487): the first eight positions were drawn with
+        # ``random.sample(range(9), 8)``, so the digit 9 never appeared in them.
+        # A real SIN may carry a 9 in any position; every generated SIN must
+        # also remain checksum-valid.
+        Faker.seed(0)
+        seen_first_eight = set()
+        for _ in range(500):
+            sin = self.fake.ssn()
+            assert ca_checksum(sin) == int(sin[-1])
+            seen_first_eight.update(int(c) for c in sin.replace(" ", "")[:8])
+        # The old code could only ever yield {0..8} here.
+        assert 9 in seen_first_eight
+        assert seen_first_eight == set(range(10))
+
 
 class TestEnGB(unittest.TestCase):
     def setUp(self):
