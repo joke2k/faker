@@ -6,6 +6,7 @@ from stdnum import iban as iban_validator
 
 from faker.providers.bank import Provider as BankProvider
 from faker.providers.bank.az_AZ import Provider as AzAzBankProvider
+from faker.providers.bank.bn_BD import Provider as BnBdBankProvider
 from faker.providers.bank.cs_CZ import Provider as CsCZBankProvider
 from faker.providers.bank.da_DK import Provider as DaDkBankProvider
 from faker.providers.bank.de_CH import Provider as DeChBankProvider
@@ -64,6 +65,39 @@ class TestAzAz:
         for _ in range(num_samples):
             bank = faker.bank()
             assert bank in AzAzBankProvider.banks
+
+
+class TestBnBd:
+    """Test bn_BD bank provider"""
+
+    def test_bban(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert re.fullmatch(r"[A-Z]{4}\d{9}", faker.bban())
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in BnBdBankProvider.swift_bank_codes
+            assert code[4:6] == BnBdBankProvider.country_code
+            assert code[6:8] in BnBdBankProvider.swift_location_codes
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in BnBdBankProvider.swift_bank_codes
+            assert code[4:6] == BnBdBankProvider.country_code
+            assert code[6:8] in BnBdBankProvider.swift_location_codes
+
+    def test_swift11_is_primary(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(primary=True, use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in BnBdBankProvider.swift_bank_codes
+            assert code[4:6] == BnBdBankProvider.country_code
+            assert code[6:8] in BnBdBankProvider.swift_location_codes
+            assert code[8:11] == "XXX"
 
 
 class TestBaseBankProvider:
