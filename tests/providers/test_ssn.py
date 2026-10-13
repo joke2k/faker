@@ -10,6 +10,7 @@ from unittest import mock
 import freezegun
 import pytest
 
+from stdnum.ar import cuit as ar_cuit
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -18,6 +19,7 @@ from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.en_IN import calculate_gstin_checksum
+from faker.providers.ssn.es_AR import cuit_check_digit, cuit_with_check_digit
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
@@ -615,6 +617,51 @@ class TestEnUS(unittest.TestCase):
     def test_wrong_tin_type_case(self):
         with self.assertRaises(ValueError):
             self.fake.ssn(taxpayer_identification_number_type="ssn")
+
+
+class TestEsAR(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_AR")
+        Faker.seed(0)
+
+    def test_dni(self):
+        for _ in range(100):
+            assert re.fullmatch(r"[1-9]\d{6,7}", self.fake.dni())
+
+    def test_cuil(self):
+        for _ in range(100):
+            cuil = self.fake.cuil()
+            assert re.fullmatch(r"(20|23|27)-\d{8}-\d", cuil)
+            assert ar_cuit.is_valid(cuil)
+
+    def test_company_cuit(self):
+        for _ in range(100):
+            cuit = self.fake.company_cuit()
+            assert re.fullmatch(r"(30|33)-\d{8}-\d", cuit)
+            assert ar_cuit.is_valid(cuit)
+
+    def test_cuit(self):
+        prefixes = set()
+        for _ in range(100):
+            cuit = self.fake.cuit()
+            assert re.fullmatch(r"(20|23|27|30|33)-\d{8}-\d", cuit)
+            assert ar_cuit.is_valid(cuit)
+            prefixes.add(cuit[0])
+        assert prefixes == {"2", "3"}
+
+    def test_ssn_and_vat_id(self):
+        assert ar_cuit.is_valid(self.fake.ssn())
+        assert ar_cuit.is_valid(self.fake.vat_id())
+
+    def test_cuit_check_digit(self):
+        assert cuit_check_digit("2017254359") == 7
+        assert cuit_check_digit("3050001091") == 2
+        assert cuit_check_digit("2010000005") == 10
+
+    def test_check_digit_10_uses_fallback_prefix(self):
+        assert cuit_with_check_digit("20", 10000005, "23") == "23-10000005-9"
+        assert cuit_with_check_digit("27", 10000002, "23") == "23-10000002-4"
+        assert cuit_with_check_digit("30", 10000008, "33") == "33-10000008-9"
 
 
 class TestEsCL(unittest.TestCase):
