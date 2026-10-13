@@ -3700,6 +3700,34 @@ class Faker:
         """
         ...
 
+    def company_cuit(self) -> str:
+        """
+        :return: a random CUIT (Clave Única de Identificación Tributaria) of a company
+        :example: '30-71234567-1'
+        """
+        ...
+
+    def cuil(self) -> str:
+        """
+        :return: a random CUIL (Código Único de Identificación Laboral) of a person
+        :example: '20-34567890-6'
+        """
+        ...
+
+    def cuit(self) -> str:
+        """
+        :return: a random CUIT of a person or a company. A person's CUIT is the same number as their CUIL.
+        :example: '20-34567890-6'
+        """
+        ...
+
+    def dni(self) -> str:
+        """
+        :return: a random DNI (Documento Nacional de Identidad) number
+        :example: '34567890'
+        """
+        ...
+
     def cif(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
