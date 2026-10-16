@@ -722,6 +722,15 @@ class TestEsES(unittest.TestCase):
             assert isinstance(nuss, str)
             assert 11 == len(nuss)
 
+    def test_doi_methods_are_seeded(self):
+        # nie/nif/cif/nuss must honour Faker.seed() like every other method
+        def sample():
+            Faker.seed(1234)
+            fake = Faker("es_ES")
+            return [fake.nie(), fake.nif(), fake.cif(), fake.nuss(), fake.nuss(company=True)]
+
+        assert sample() == sample()
+
 
 class TestEsCA(TestEsES):
     def setUp(self):
