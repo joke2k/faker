@@ -36,4 +36,21 @@ class Provider(BaseProvider):
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random British VAT ID
         """
-        return self.bothify(self.random_element(self.vat_id_formats))
+        pattern = self.random_element(self.vat_id_formats)
+
+        if pattern == "GBGD###":
+            return f"GBGD{self.random_int(min=0, max=499):03d}"
+
+        if pattern == "GBHA###":
+            return f"GBHA{self.random_int(min=500, max=999):03d}"
+
+        body = self.numerify("#######")
+        total = sum(int(digit) * weight for digit, weight in zip(body, range(8, 1, -1)))
+        check_digits = (-total) % 97
+
+        number = f"GB{body[:3]} {body[3:]} {check_digits:02d}"
+
+        if pattern == "GB### #### ## ###":
+            number += " " + self.numerify("###")
+
+        return number

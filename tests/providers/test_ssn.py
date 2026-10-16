@@ -10,6 +10,7 @@ from unittest import mock
 import freezegun
 import pytest
 
+from stdnum.gb import vat as gb_vat
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -17,6 +18,7 @@ from validators.i18n.es import es_nif as is_nif
 from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.en_GB import Provider as en_GB_Provider
 from faker.providers.ssn.en_IN import calculate_gstin_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
@@ -240,6 +242,40 @@ class TestEnGB(unittest.TestCase):
                 r"^GB\d{3} \d{4} \d{2}(?: \d{3})?$|^GB(?:GD|HA)\d{3}$",
                 self.fake.vat_id(),
             )
+
+    def test_vat_id_is_valid(self):
+        for _ in range(100):
+            num = self.fake.vat_id()
+            assert gb_vat.is_valid(num), f"Invalid VAT ID: {num}"
+
+    def test_vat_id_each_format(self):
+        cases = (
+            ("GB### #### ##", r"GB\d{3} \d{4} \d{2}"),
+            ("GB### #### ## ###", r"GB\d{3} \d{4} \d{2} \d{3}"),
+            ("GBGD###", r"GBGD\d{3}"),
+            ("GBHA###", r"GBHA\d{3}"),
+        )
+        for pattern, regex in cases:
+            with self.subTest(pattern=pattern):
+                with mock.patch.object(en_GB_Provider, "vat_id_formats", (pattern,)):
+                    for _ in range(100):
+                        number = self.fake.vat_id()
+                        assert re.fullmatch(regex, number)
+                        assert gb_vat.is_valid(number), number
+
+    def test_vat_id_check_digits(self):
+        cases = (
+            ("9807806", "GB980 7806 84"),
+            ("0000001", "GB000 0001 95"),
+            ("0009908", "GB000 9908 00"),
+        )
+        for body, expected in cases:
+            with self.subTest(body=body):
+                with mock.patch.object(en_GB_Provider, "vat_id_formats", ("GB### #### ##",)):
+                    with mock.patch.object(en_GB_Provider, "numerify", return_value=body):
+                        number = self.fake.vat_id()
+                assert number == expected
+                assert gb_vat.is_valid(number)
 
 
 class TestEnIn(unittest.TestCase):
