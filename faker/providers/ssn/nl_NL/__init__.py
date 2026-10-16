@@ -41,5 +41,14 @@ class Provider(SsnProvider):
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
         :return: A random Dutch VAT ID
+
+        The 9 digits of a Dutch "BTW-nummer" must be divisible by 97,
+        so generate eight random digits and solve for the ninth.
         """
-        return self.bothify(self.random_element(self.vat_id_formats))
+        while True:
+            base = self.random_int(min=10_000_000, max=99_999_999)
+            for check_digit in range(10):
+                digits = f"{base}{check_digit}"
+                if int(digits) % 97 == 0:
+                    suffix = self.random_int(min=10, max=99)
+                    return f"NL{digits}B{suffix}"
