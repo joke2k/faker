@@ -1,5 +1,4 @@
 import datetime
-import random
 
 from typing import Tuple
 
@@ -57,7 +56,7 @@ class Provider(SsnProvider):
         (In Swedish) https://sv.wikipedia.org/wiki/Organisationsnummer
         """
         first_digits = list(self.ORG_ID_DIGIT_1)
-        random.shuffle(first_digits)
+        self.generator.random.shuffle(first_digits)
         onr_one = str(first_digits.pop())
         onr_one += str(self.generator.random.randrange(0, 9)).zfill(1)
         onr_one += str(self.generator.random.randrange(20, 99))
