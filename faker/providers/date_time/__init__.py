@@ -2607,10 +2607,12 @@ class Provider(BaseProvider):
         return dob if dob != start_date else dob + timedelta(days=1)
 
 
-def convert_timestamp_to_datetime(timestamp: Union[int, float], tzinfo: TzInfo) -> datetime:
+def convert_timestamp_to_datetime(timestamp: Union[int, float], tzinfo: Optional[TzInfo]) -> datetime:
     import datetime as dt
 
     if timestamp >= 0:
         return dt.datetime.fromtimestamp(timestamp, tzinfo)
     else:
-        return (dt.datetime(1970, 1, 1, tzinfo=dt.timezone.utc) + dt.timedelta(seconds=timestamp)).astimezone(tzinfo)
+        converted = dt.datetime(1970, 1, 1, tzinfo=dt.timezone.utc) + dt.timedelta(seconds=timestamp)
+        converted = converted.astimezone(tzinfo)
+        return converted.replace(tzinfo=None) if tzinfo is None else converted
