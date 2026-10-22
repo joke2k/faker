@@ -1,5 +1,9 @@
 ## Changelog
 
+### Unreleased
+
+* Fix fractional seconds and timezone offsets in pre-epoch `time_series()` timestamps (#2497).
+
 ### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
 
 * Add `es_CO` bank provider (#2453). Thanks @saratobonr.

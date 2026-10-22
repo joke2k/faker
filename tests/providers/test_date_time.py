@@ -78,6 +78,21 @@ class UTC(tzinfo):
 utc = UTC()
 
 
+@pytest.mark.parametrize("offset", [None, 0, 5.5, -4])
+@pytest.mark.parametrize("start,end", [(-2, 0), (-1, 1), (0, 2)])
+def test_time_series_preserves_timestamp_and_precision(offset, start, end):
+    from datetime import timezone
+
+    tz = None if offset is None else timezone(timedelta(hours=offset))
+    fake = Faker()
+    timestamps = [
+        (dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt).timestamp()
+        for dt, _ in fake.time_series(start, end, precision=0.5, tzinfo=tz)
+    ]
+
+    assert timestamps == [start + step * 0.5 for step in range(4)]
+
+
 class TestAr(unittest.TestCase):
     def test_ar_aa(self):
         fake = Faker("ar")

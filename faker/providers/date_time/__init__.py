@@ -2613,4 +2613,4 @@ def convert_timestamp_to_datetime(timestamp: Union[int, float], tzinfo: TzInfo) 
     if timestamp >= 0:
         return dt.datetime.fromtimestamp(timestamp, tzinfo)
     else:
-        return dt.datetime(1970, 1, 1, tzinfo=tzinfo) + dt.timedelta(seconds=int(timestamp))
+        return (dt.datetime(1970, 1, 1, tzinfo=dt.timezone.utc) + dt.timedelta(seconds=timestamp)).astimezone(tzinfo)
