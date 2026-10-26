@@ -4,6 +4,8 @@ from typing import Pattern
 
 import pytest
 
+from faker import Faker
+
 
 class _LocaleCommonMixin:
     ean8_pattern: Pattern = re.compile(r"\d{8}")
@@ -116,6 +118,32 @@ class _LocaleNorthAmericaMixin(_LocaleCommonMixin):
             # What will be the same are their number system and check digits
             assert upc_e_safe[0] == upc_e_unsafe[0]
             assert upc_e_safe[-1] == upc_e_unsafe[-1]
+
+    def test_upc_e_unsafe_mode_without_base(self, faker, num_samples):
+        # ``base`` is optional in both modes: any value that is not a 6-digit
+        # string is replaced by a random 6-digit base. Unsafe mode must join
+        # that effective base with the number system and check digits, so the
+        # result is always an 8-digit UPC-E barcode.
+        for _ in range(num_samples):
+            for base in (None, "", "abc", "12345"):
+                upc_e = faker.upc_e(base=base, safe_mode=False)
+                assert self.upc_e_pattern.fullmatch(upc_e)
+                assert len(upc_e) == 8
+                assert upc_e.isdigit()
+
+    def test_upc_e_unsafe_mode_seeded(self):
+        # Regression test: unsafe mode used to concatenate the caller's raw
+        # ``base`` argument, so omitting ``base`` yielded a 2-character string
+        # (and an invalid base such as ``"abc"`` yielded a non-numeric one).
+        Faker.seed(0)
+        fake = Faker("en_US")
+        assert fake.upc_e(safe_mode=False) == "16604872"
+
+        # Without an explicit base the random base is reused, so unsafe mode
+        # must agree with safe mode, which never sees the caller's argument.
+        Faker.seed(0)
+        fake = Faker("en_US")
+        assert fake.upc_e() == "16604872"
 
     def test_upc_a2e_bad_values(self, faker, provider):
         # Invalid data type

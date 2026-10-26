@@ -1,7 +1,7 @@
 import re
 
 from itertools import product
-from typing import Dict, Optional, Pattern
+from typing import Dict, List, Optional, Pattern
 
 from .. import PrefixType
 from .. import Provider as BarcodeProvider
@@ -111,6 +111,16 @@ class Provider(BarcodeProvider):
             upc_e = upc_e_template.format(**groupdict)
         return upc_e
 
+    def _upc_e_base(self, base: Optional[str] = None) -> List[int]:
+        """Return the six digits of a UPC-E base as a list of integers.
+
+        The expected value of ``base`` is a 6-digit string. If any other value
+        is provided, a random 6-digit base will be returned instead.
+        """
+        if isinstance(base, str) and self.upc_e_base_pattern.match(base):
+            return [int(x) for x in base]
+        return [self.random_int(0, 9) for _ in range(6)]
+
     def _upc_ae(self, base: Optional[str] = None, number_system_digit: Optional[int] = None) -> str:
         """Create a 12-digit UPC-A barcode that can be converted to UPC-E.
 
@@ -124,11 +134,7 @@ class Provider(BarcodeProvider):
         Please also view notes on |EnUsBarcodeProvider.upc_a| and
         |EnUsBarcodeProvider.upc_e| for more details.
         """
-        base_ = (
-            [int(x) for x in base]
-            if isinstance(base, str) and self.upc_e_base_pattern.match(base)
-            else [self.random_int(0, 9) for _ in range(6)]
-        )
+        base_ = self._upc_e_base(base)
         if number_system_digit not in [0, 1]:
             number_system_digit = self.random_int(0, 1)
 
@@ -224,11 +230,13 @@ class Provider(BarcodeProvider):
         ``120003`` or ``120004`` are used, the resulting UPC-E barcode will
         always use the base ``120000``.
 
-        If ``safe_mode`` is ``False``, then the ``number_system_digit``,
-        ``base``, and the computed check digit will just be concatenated
-        together to produce the UPC-E barcode, and attempting to convert the
-        barcode to UPC-A and back again to UPC-E will exhibit the behavior
-        described above.
+        If ``safe_mode`` is ``False``, then the ``number_system_digit``, the
+        six digits of ``base``, and the computed check digit will just be
+        concatenated together to produce the UPC-E barcode, and attempting to
+        convert the barcode to UPC-A and back again to UPC-E will exhibit the
+        behavior described above. As in safe mode, a ``base`` that is not a
+        6-digit string is replaced by a random 6-digit base, so the result is
+        always an 8-digit barcode.
 
         :sample:
         :sample: base='123456'
@@ -240,10 +248,13 @@ class Provider(BarcodeProvider):
         :sample: base='120000', number_system_digit=0, safe_mode=False
         :sample: base='120003', number_system_digit=0, safe_mode=False
         :sample: base='120004', number_system_digit=0, safe_mode=False
+        :sample: safe_mode=False
         """
+        base_ = self._upc_e_base(base)
+        upc_ae = self._upc_ae(
+            base="".join(str(x) for x in base_),
+            number_system_digit=number_system_digit,
+        )
         if safe_mode is not False:
-            upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
             return self._convert_upc_a2e(upc_ae)
-        else:
-            upc_ae = self._upc_ae(base=base, number_system_digit=number_system_digit)
-            return upc_ae[0] + "".join(str(x) for x in base or "") + upc_ae[-1]
+        return upc_ae[0] + "".join(str(x) for x in base_) + upc_ae[-1]
