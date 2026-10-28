@@ -596,6 +596,24 @@ class TestDateTime(unittest.TestCase):
         series = list(self.fake.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo))
         assert series[0][0] == start
 
+    def test_time_series_non_positive_precision(self):
+        for precision in (
+            0,
+            -1,
+            -0.5,
+            "-1d",
+            timedelta(0),
+            timedelta(seconds=-1),
+        ):
+            with pytest.raises(ValueError):
+                list(self.fake.time_series(0, 10, precision=precision))
+
+        with pytest.raises(ValueError):
+            list(self.fake.time_series("+1d", "+1d", precision=0))
+
+    def test_time_series_equal_bounds_default_precision(self):
+        assert list(self.fake.time_series("+1d", "+1d")) == []
+
     def test_unix_time(self):
         from faker.providers.date_time import datetime_to_timestamp
 
