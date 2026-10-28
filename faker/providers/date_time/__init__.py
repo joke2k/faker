@@ -756,7 +756,7 @@ class Provider(BaseProvider):
             capital="Jerusalem",
         ),
         Country(
-            timezones=["Asia/Calcutta"],
+            timezones=["Asia/Kolkata"],
             alpha_2_code="IN",
             alpha_3_code="IND",
             continent="Asia",
@@ -836,7 +836,7 @@ class Provider(BaseProvider):
             capital="Bishkek",
         ),
         Country(
-            timezones=["Pacific/Tarawa", "Pacific/Enderbury", "Pacific/Kiritimati"],
+            timezones=["Pacific/Tarawa", "Pacific/Kanton", "Pacific/Kiritimati"],
             alpha_2_code="KI",
             alpha_3_code="KIR",
             continent="Oceania",
@@ -964,7 +964,7 @@ class Provider(BaseProvider):
             capital="Bamako",
         ),
         Country(
-            timezones=["Asia/Rangoon"],
+            timezones=["Asia/Yangon"],
             alpha_2_code="MM",
             alpha_3_code="MMR",
             continent="Asia",
@@ -1101,7 +1101,7 @@ class Provider(BaseProvider):
             capital="Oslo",
         ),
         Country(
-            timezones=["Asia/Katmandu"],
+            timezones=["Asia/Kathmandu"],
             alpha_2_code="NP",
             alpha_3_code="NPL",
             continent="Asia",
@@ -1540,7 +1540,7 @@ class Provider(BaseProvider):
             capital="Caracas",
         ),
         Country(
-            timezones=["Asia/Saigon"],
+            timezones=["Asia/Ho_Chi_Minh"],
             alpha_2_code="VN",
             alpha_3_code="VNM",
             continent="Asia",
