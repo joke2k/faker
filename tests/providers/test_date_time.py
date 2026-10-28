@@ -526,6 +526,15 @@ class TestDateTime(unittest.TestCase):
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
+    def test_date_time_between_equal_bounds(self):
+        bound = datetime(2024, 1, 1)
+        result = self.fake.date_time_between(start_date=bound, end_date=bound)
+        assert result == bound
+
+        bound_tz = datetime(2024, 1, 1, tzinfo=utc)
+        result_tz = self.fake.date_time_between(start_date=bound_tz, end_date=bound_tz, tzinfo=utc)
+        assert result_tz == bound_tz
+
     def test_date_between(self):
         today = date.today()
         _30_years_ago = change_year(today, -30)
