@@ -71,3 +71,44 @@ class TestProvider:
         with pytest.raises(Exception):
             r = ("0000000", "0000001", 1)
             self.prov._registrant_publication("0000002", [r])
+
+
+class TestEsEs:
+    """Tests es_ES isbn provider"""
+
+    num_samples = 1000
+
+    def test_isbn13_valid(self, faker, num_samples):
+        try:
+            from stdnum import isbn as isbn_validator
+        except ImportError:
+            isbn_validator = None
+
+        for _ in range(num_samples):
+            isbn = faker.isbn13()
+            assert "--" not in isbn
+            parts = isbn.split("-")
+            assert len(parts) == 5
+            assert parts[0] == "978"
+            assert parts[1] == "84"
+            assert all(len(part) > 0 for part in parts)
+            assert len(isbn.replace("-", "")) == 13
+            if isbn_validator is not None:
+                assert isbn_validator.is_valid(isbn)
+
+    def test_isbn10_valid(self, faker, num_samples):
+        try:
+            from stdnum import isbn as isbn_validator
+        except ImportError:
+            isbn_validator = None
+
+        for _ in range(num_samples):
+            isbn = faker.isbn10()
+            assert "--" not in isbn
+            parts = isbn.split("-")
+            assert len(parts) == 4
+            assert parts[0] == "84"
+            assert all(len(part) > 0 for part in parts)
+            assert len(isbn.replace("-", "")) == 10
+            if isbn_validator is not None:
+                assert isbn_validator.is_valid(isbn)
