@@ -1155,7 +1155,10 @@ class TestNlNL(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^NL\d{9}B\d{2}$", self.fake.vat_id())
+            vat_id = self.fake.vat_id()
+            assert re.search(r"^NL\d{9}B\d{2}$", vat_id)
+            # Dutch BTW-nummers require the 9 digits to be divisible by 97
+            assert int(vat_id[2:11]) % 97 == 0
 
 
 class TestNoNO(unittest.TestCase):
