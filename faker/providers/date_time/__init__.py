@@ -2479,6 +2479,8 @@ class Provider(BaseProvider):
             raise ValueError("`end_date` must be greater than `start_date`.")
 
         precision_ = self._parse_timedelta((end_date_ - start_date_) / 30 if precision is None else precision)
+        if precision is not None and precision_ <= 0:
+            raise ValueError("`precision` must be greater than 0.")
         if distrib is None:
 
             def distrib(dt):
