@@ -78,6 +78,40 @@ class UTC(tzinfo):
 utc = UTC()
 
 
+@pytest.mark.parametrize("offset", [None, 0, 5.5, -4])
+@pytest.mark.parametrize("start,end", [(-2, 0), (-1, 1), (0, 2)])
+def test_time_series_preserves_timestamp_and_precision(offset, start, end):
+    from datetime import timezone
+
+    tz = None if offset is None else timezone(timedelta(hours=offset))
+    fake = Faker()
+    timestamps = [
+        (dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt).timestamp()
+        for dt, _ in fake.time_series(start, end, precision=0.5, tzinfo=tz)
+    ]
+
+    assert timestamps == [start + step * 0.5 for step in range(4)]
+
+
+@pytest.mark.skipif(not hasattr(time, "tzset"), reason="requires time.tzset")
+@pytest.mark.parametrize("local_timezone", ["UTC0", "CST-8", "EST5EDT"])
+def test_convert_timestamp_to_datetime_local_timezone(monkeypatch, local_timezone):
+    from faker.providers.date_time import convert_timestamp_to_datetime
+
+    with monkeypatch.context() as context:
+        context.setenv("TZ", local_timezone)
+        time.tzset()
+        try:
+            for timestamp in [-86400.5, -1, -0.5, 0, 0.5, 1]:
+                expected = datetime.fromtimestamp(timestamp)
+                actual = convert_timestamp_to_datetime(timestamp, None)
+                assert actual.tzinfo is None
+                assert actual == expected
+        finally:
+            context.undo()
+            time.tzset()
+
+
 class TestAr(unittest.TestCase):
     def test_ar_aa(self):
         fake = Faker("ar")
