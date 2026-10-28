@@ -1220,6 +1220,33 @@ class TestPtBR(unittest.TestCase):
             else:
                 assert re.search(r"^\d{9}$", to_test)
 
+    def test_pt_BR_ssn_allows_repeated_digits(self):
+        # Regression test for the nine base digits being drawn with
+        # random.sample(), which never repeated a digit among them and shrank
+        # the CPF space from 10 ** 9 down to about 0.36 % of it. They must be
+        # drawn independently, since a real CPF has no uniqueness requirement.
+        has_repeated_digit = any(len(set(self.fake.ssn()[:9])) < 9 for _ in range(1000))
+        assert has_repeated_digit
+
+    def test_pt_BR_ssn_checksum_stays_valid(self):
+        for _ in range(1000):
+            digits = [int(c) for c in self.fake.ssn()]
+            assert pt_checksum(digits[:9]) == digits[9]
+            assert pt_checksum(digits[:10]) == digits[10]
+
+    def test_pt_BR_rg_uses_full_digit_range_and_repeats(self):
+        # Regression test for the eight base digits being drawn with
+        # random.sample(range(0, 9), 8), which both excluded the digit 9 and
+        # forced the eight digits to be distinct.
+        base_digits = set()
+        has_repeated_digit = False
+        for _ in range(1000):
+            base = self.fake.rg()[:8]
+            base_digits.update(base)
+            has_repeated_digit = has_repeated_digit or len(set(base)) < 8
+        assert base_digits == set("0123456789")
+        assert has_repeated_digit
+
 
 class TestRoRO(unittest.TestCase):
     """Tests SSN in the ro_RO locale"""
