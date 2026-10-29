@@ -2202,10 +2202,12 @@ class Provider(BaseProvider):
         datetime_start_ = (
             datetime_to_timestamp(datetime.now(tzinfo))
             if datetime_start is None
-            else self._parse_date_time(datetime_start)
+            else self._parse_date_time(datetime_start, tzinfo=tzinfo)
         )
         datetime_end_ = (
-            datetime_to_timestamp(datetime.now(tzinfo)) if datetime_end is None else self._parse_date_time(datetime_end)
+            datetime_to_timestamp(datetime.now(tzinfo))
+            if datetime_end is None
+            else self._parse_date_time(datetime_end, tzinfo=tzinfo)
         )
 
         timestamp = self._rand_seconds(datetime_start_, datetime_end_)
