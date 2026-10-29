@@ -477,6 +477,18 @@ class TestInternetProvider:
         multicast_address = provider.mac_address(multicast=True)
         assert int(multicast_address[0:2], base=16) % 2 == 1
 
+    @pytest.mark.parametrize("multicast, first_octet", [(False, "fe"), (True, "ff")])
+    @pytest.mark.parametrize("highest", [False, True])
+    def test_mac_address_boundaries(self, faker, multicast, first_octet, highest):
+        # Select an endpoint of each range without relying on a random seed.
+        with patch.object(faker.random, "_randbelow", side_effect=lambda n: n - 1 if highest else 0):
+            address = faker.mac_address(multicast=multicast)
+
+        if highest:
+            assert address == ":".join([first_octet] + ["ff"] * 5)
+        else:
+            assert address == ":".join(["01" if multicast else "00"] + ["00"] * 5)
+
     def test_port_number(self, faker, num_samples):
         for _ in range(num_samples):
             assert 0 <= faker.port_number() <= 65535
