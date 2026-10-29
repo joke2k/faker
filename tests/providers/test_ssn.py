@@ -230,6 +230,24 @@ class TestEnCA(unittest.TestCase):
             assert sin.replace(" ", "").isdigit()
             assert ca_checksum(sin) == int(sin[-1])
 
+    def test_ssn_covers_every_digit_and_stays_valid(self):
+        # Regression (#2487): the non-leading positions excluded the digit 9
+        # and were forced distinct (drawn without replacement from range(9)),
+        # so a 9 could never appear and digits never repeated. A real SIN may
+        # carry a 9 and repeat digits; every generated SIN must stay
+        # checksum-valid. (The leading digit stays in the 1-7 series per
+        # #2467 -- test_ssn_leading_digit_is_a_personal_series covers that.)
+        Faker.seed(0)
+        seen = set()
+        for _ in range(500):
+            sin = self.fake.ssn()
+            assert ca_checksum(sin) == int(sin[-1])
+            seen.update(int(c) for c in sin.replace(" ", "")[:8])
+        # The 9 and every other digit are now reachable in the non-leading
+        # positions; the old code could only ever yield {0..8} distinct.
+        assert 9 in seen
+        assert seen == set(range(10))
+
     def test_ssn_leading_digit_is_a_personal_series(self):
         # The leading digit says which series the SIN was issued in. 1-7 are the
         # provincial series; 8 is reserved for business numbers and 0 for CRA
