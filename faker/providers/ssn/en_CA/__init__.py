@@ -47,13 +47,17 @@ class Provider(SsnProvider):
     # valid nine-digit Canadian SIN (Social Insurance Number) in the
     # format '### ### ###'.
     def ssn(self) -> str:
-        # Create an array of 8 elements initialized randomly. Each position may
-        # be any digit 0-9 and digits may repeat, as in a real SIN: drawing with
-        # ``choices(range(10), ...)`` rather than ``sample(range(9), 8)``, which
-        # excluded the digit 9 entirely and could never place it in these eight
-        # positions. The checksum construction below does not require the source
-        # digits to be distinct or to omit 9.
-        digits = self.generator.random.choices(range(10), k=8)
+        # Create an array of 8 elements initialized randomly. The leading
+        # digit identifies the series a SIN was issued in: 1-7 are the
+        # provincial series, 8 is reserved for business numbers and 0 for CRA
+        # individual tax numbers, so neither can lead a personal SIN (#2467).
+        first_digit = self.generator.random.randint(1, 7)
+        # The remaining positions may be any digit 0-9 and may repeat, as in
+        # a real SIN: ``choices(range(10), ...)`` rather than drawing without
+        # replacement from ``range(9)``, which excluded the digit 9 entirely
+        # and forced every position distinct (#2487). The checksum below does
+        # not require the source digits to be distinct or to omit 9.
+        digits = [first_digit] + self.generator.random.choices(range(10), k=7)
 
         # The final step of the validation requires that all of the
         # digits sum to a multiple of 10. First, sum the first 8 and

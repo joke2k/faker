@@ -1,5 +1,12 @@
 ## Changelog
 
+### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
+
+* Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.
+* Fix: keep `en_CA` SINs out of the 0 and 8 series (#2467). Thanks @feiiiiii5.
+* Fix: use Luhn check digit for `no_NO` Postgiro (0000) BBANs (#2468). Thanks @DYNOSuprovo.
+* Fix: `en_GB` VAT ID generation (#2469). Thanks @orilucky.
+
 ### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
 
 * Add `es_CO` bank provider (#2453). Thanks @saratobonr.
