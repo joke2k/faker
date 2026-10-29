@@ -2103,7 +2103,9 @@ class Provider(BaseProvider):
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
         if end_date - start_date <= 1:
-            ts = start_date + self.generator.random.random()
+            # A zero-width interval has no room for randomness, and a
+            # one-second window takes a fraction of that second.
+            ts = start_date + ((end_date - start_date) * self.generator.random.random())
         else:
             ts = self._rand_seconds(start_date, end_date)
         if tzinfo is None:
