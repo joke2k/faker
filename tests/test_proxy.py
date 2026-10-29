@@ -358,6 +358,15 @@ class TestFakerProxyClass:
         with pytest.raises(AttributeError):
             fake.obviously_invalid_provider_method_a23f()
 
+    def test_multiple_locale_factory_selection_unsupported_method_weighted(self):
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        with pytest.raises(AttributeError):
+            fake.obviously_invalid_provider_method_a23f()
+
+    def test_multiple_locale_weighted_unsupported_method_hasattr(self):
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        assert not hasattr(fake, "obviously_invalid_provider_method_a23f")
+
     @patch("random.Random.choice")
     @patch("random.Random.choices")
     def test_weighting_disabled_single_choice(self, mock_choices_fn, mock_choice_fn):
