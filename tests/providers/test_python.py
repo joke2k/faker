@@ -501,6 +501,13 @@ class TestPyfloat(unittest.TestCase):
         message = str(raises.exception)
         self.assertEqual(message, expected_message)
 
+    def test_positive_and_max_value_incompatible(self):
+        expected_message = "Cannot combine positive=True with negative or zero max_value"
+        for max_value in (0, -0.5, -1, -3):
+            with self.subTest(max_value=max_value):
+                with self.assertRaisesRegex(ValueError, expected_message):
+                    self.fake.pyfloat(max_value=max_value, positive=True)
+
     def test_positive_doesnt_return_zero(self):
         """
         Choose the right_digits and max_value so it's guaranteed to return zero,
