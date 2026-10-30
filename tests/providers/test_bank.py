@@ -1,5 +1,7 @@
 import re
 
+from unittest.mock import patch
+
 import pytest
 
 from stdnum import iban as iban_validator
@@ -14,6 +16,7 @@ from faker.providers.bank.en_GB import Provider as EnGbBankProvider
 from faker.providers.bank.en_IE import Provider as EnIeBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_AR import Provider as EsArBankProvider
+from faker.providers.bank.es_CO import Provider as EsCoBankProvider
 from faker.providers.bank.es_ES import Provider as EsEsBankProvider
 from faker.providers.bank.es_MX import Provider as EsMxBankProvider
 from faker.providers.bank.es_MX import is_valid_clabe
@@ -265,6 +268,28 @@ class TestEsAr:
             assert re.fullmatch(r"\d{2}[A-Z]{4}\d{20}", iban[2:])
 
 
+class TestEsCo:
+    """Test es_CO bank provider"""
+
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.bank() in EsCoBankProvider.banks
+
+    def test_swift8_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift8(use_dataset=True)
+            assert len(code) == 8
+            assert code[:4] in EsCoBankProvider.swift_bank_codes
+            assert code[4:6] == EsCoBankProvider.country_code
+
+    def test_swift11_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            code = faker.swift11(use_dataset=True)
+            assert len(code) == 11
+            assert code[:4] in EsCoBankProvider.swift_bank_codes
+            assert code[4:6] == EsCoBankProvider.country_code
+
+
 class TestEsEs:
     """Test es_ES bank provider"""
 
@@ -334,7 +359,13 @@ class TestFaIr:
 
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"IR\d{24}", faker.bban())
+            assert re.fullmatch(r"0\d{21}", faker.bban())
+
+    def test_iban(self, faker, num_samples):
+        for _ in range(num_samples):
+            iban = faker.iban()
+            assert is_valid_iban(iban)
+            assert re.fullmatch(r"IR\d{2}0\d{21}", iban)
 
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
@@ -456,6 +487,12 @@ class TestNoNo:
     def test_iban_stdnum(self, faker, num_samples):
         for _ in range(num_samples):
             iban_validator.validate(faker.iban())
+
+    def test_iban_postgiro(self, faker):
+        with patch.object(NoNoBankProvider, "numerify", return_value="0000564993"):
+            iban = faker.iban()
+        assert iban[4:8] == "0000"
+        iban_validator.validate(iban)
 
 
 class TestPlPl:
@@ -621,5 +658,12 @@ class TestMkMk:
         for _ in range(num_samples):
             iban = faker.iban()
             assert isinstance(iban, str)
-            assert iban.startswith("MK")
-            assert len(iban) == 21  # MK(2) + check(2) + bban(17)
+            assert is_valid_iban(iban)
+            assert re.fullmatch(r"MK\d{17}", iban)
+
+    def test_bban_national_check_digits(self, faker, num_samples):
+        for _ in range(num_samples):
+            bban = faker.bban()
+            assert re.fullmatch(r"\d{15}", bban)
+            # ISO 7064 MOD 97-10 over bank code + account
+            assert int(bban) % 97 == 1

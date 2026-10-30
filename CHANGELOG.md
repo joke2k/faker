@@ -1,5 +1,27 @@
 ## Changelog
 
+### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
+
+* Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.
+* Fix: keep `en_CA` SINs out of the 0 and 8 series (#2467). Thanks @feiiiiii5.
+* Fix: use Luhn check digit for `no_NO` Postgiro (0000) BBANs (#2468). Thanks @DYNOSuprovo.
+* Fix: `en_GB` VAT ID generation (#2469). Thanks @orilucky.
+
+### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
+
+* Add `es_CO` bank provider (#2453). Thanks @saratobonr.
+* Add `es_CO` internet provider (#2455). Thanks @saratobonr.
+
+### [v40.42.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.41.0...v40.42.0)
+
+* Fix: generate `fa_IR` and `mk_MK` IBANs with the correct BBAN length (#2451). Thanks @anandghegde.
+* Catch `NotImplementedError` when documenting unimplemented formatters (#2461). Thanks @ekanshul.
+* Catch `NotImplementedError` in `Documentor.get_provider_formatters` (#2462). Thanks @kdmadeit.
+
+### [v40.41.0 - 2026-10-05](https://github.com/joke2k/faker/compare/v40.40.0...v40.41.0)
+
+* Fix: update `vi_VN` address formats, administrative units, and postcodes (#2433). Thanks @hmtrii.
+
 ### [v40.40.0 - 2026-09-28](https://github.com/joke2k/faker/compare/v40.39.0...v40.40.0)
 
 * Fix: generate valid CNP birth dates in `ro_RO` `ssn()` (#2431). Thanks @chuenchen309.

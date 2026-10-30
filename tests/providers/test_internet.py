@@ -13,6 +13,7 @@ from validators import email as validate_email
 from faker.providers.internet import Provider as InternetProvider
 from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
+from faker.providers.internet.es_CO import Provider as EsCoInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.hu_HU import Provider as HuHuInternetProvider
 from faker.providers.internet.mk_MK import Provider as MkMKInternetProvider
@@ -119,6 +120,14 @@ class TestEnPh:
         num_of_samples = 100
         for _ in range(num_of_samples):
             assert faker.slug() != ""
+
+
+class TestEsCo:
+    """Tests for the es_CO locale."""
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in EsCoInternetProvider.tlds
 
 
 class TestEsEs:

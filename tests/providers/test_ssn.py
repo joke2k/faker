@@ -11,6 +11,7 @@ import freezegun
 import pytest
 
 from stdnum.bg import vat as bg_vat
+from stdnum.gb import vat as gb_vat
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -18,6 +19,7 @@ from validators.i18n.es import es_nif as is_nif
 from faker import Factory, Faker
 from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
+from faker.providers.ssn.en_GB import Provider as en_GB_Provider
 from faker.providers.ssn.en_IN import calculate_gstin_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
@@ -235,6 +237,15 @@ class TestEnCA(unittest.TestCase):
             assert sin.replace(" ", "").isdigit()
             assert ca_checksum(sin) == int(sin[-1])
 
+    def test_ssn_leading_digit_is_a_personal_series(self):
+        # The leading digit says which series the SIN was issued in. 1-7 are the
+        # provincial series; 8 is reserved for business numbers and 0 for CRA
+        # individual tax numbers, so neither may lead a personal SIN. The
+        # checksum assertions above cannot see this, because the check digit is
+        # derived from whatever digits were drawn.
+        for _ in range(1000):
+            assert self.fake.ssn()[0] in "1234567"
+
 
 class TestEnGB(unittest.TestCase):
     def setUp(self):
@@ -247,6 +258,40 @@ class TestEnGB(unittest.TestCase):
                 r"^GB\d{3} \d{4} \d{2}(?: \d{3})?$|^GB(?:GD|HA)\d{3}$",
                 self.fake.vat_id(),
             )
+
+    def test_vat_id_is_valid(self):
+        for _ in range(100):
+            num = self.fake.vat_id()
+            assert gb_vat.is_valid(num), f"Invalid VAT ID: {num}"
+
+    def test_vat_id_each_format(self):
+        cases = (
+            ("GB### #### ##", r"GB\d{3} \d{4} \d{2}"),
+            ("GB### #### ## ###", r"GB\d{3} \d{4} \d{2} \d{3}"),
+            ("GBGD###", r"GBGD\d{3}"),
+            ("GBHA###", r"GBHA\d{3}"),
+        )
+        for pattern, regex in cases:
+            with self.subTest(pattern=pattern):
+                with mock.patch.object(en_GB_Provider, "vat_id_formats", (pattern,)):
+                    for _ in range(100):
+                        number = self.fake.vat_id()
+                        assert re.fullmatch(regex, number)
+                        assert gb_vat.is_valid(number), number
+
+    def test_vat_id_check_digits(self):
+        cases = (
+            ("9807806", "GB980 7806 84"),
+            ("0000001", "GB000 0001 95"),
+            ("0009908", "GB000 9908 00"),
+        )
+        for body, expected in cases:
+            with self.subTest(body=body):
+                with mock.patch.object(en_GB_Provider, "vat_id_formats", ("GB### #### ##",)):
+                    with mock.patch.object(en_GB_Provider, "numerify", return_value=body):
+                        number = self.fake.vat_id()
+                assert number == expected
+                assert gb_vat.is_valid(number)
 
 
 class TestEnIn(unittest.TestCase):
@@ -1226,6 +1271,33 @@ class TestPtBR(unittest.TestCase):
                 assert re.search(r"^\d{8}X", to_test)
             else:
                 assert re.search(r"^\d{9}$", to_test)
+
+    def test_pt_BR_ssn_allows_repeated_digits(self):
+        # Regression test for the nine base digits being drawn with
+        # random.sample(), which never repeated a digit among them and shrank
+        # the CPF space from 10 ** 9 down to about 0.36 % of it. They must be
+        # drawn independently, since a real CPF has no uniqueness requirement.
+        has_repeated_digit = any(len(set(self.fake.ssn()[:9])) < 9 for _ in range(1000))
+        assert has_repeated_digit
+
+    def test_pt_BR_ssn_checksum_stays_valid(self):
+        for _ in range(1000):
+            digits = [int(c) for c in self.fake.ssn()]
+            assert pt_checksum(digits[:9]) == digits[9]
+            assert pt_checksum(digits[:10]) == digits[10]
+
+    def test_pt_BR_rg_uses_full_digit_range_and_repeats(self):
+        # Regression test for the eight base digits being drawn with
+        # random.sample(range(0, 9), 8), which both excluded the digit 9 and
+        # forced the eight digits to be distinct.
+        base_digits = set()
+        has_repeated_digit = False
+        for _ in range(1000):
+            base = self.fake.rg()[:8]
+            base_digits.update(base)
+            has_repeated_digit = has_repeated_digit or len(set(base)) < 8
+        assert base_digits == set("0123456789")
+        assert has_repeated_digit
 
 
 class TestRoRO(unittest.TestCase):
