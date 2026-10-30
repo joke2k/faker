@@ -213,8 +213,16 @@ class Faker:
                 for factory, weight in zip(self.factories, self._weights)
                 if hasattr(factory, method_name)
             ]
-            factories, weights = zip(*value)
-            mapping = list(factories), list(weights)
+            if value:
+                factories, weights = zip(*value)
+                mapping = list(factories), list(weights)
+            else:
+                # No factory supports the method: return an empty mapping so
+                # the caller raises the intended AttributeError instead of
+                # crashing on the empty "zip(*value)" unpack. The empty
+                # mapping is deliberately not cached, so providers attached
+                # after this lookup are still picked up by a later lookup.
+                return [], None
         else:
             value = [factory for factory in self.factories if hasattr(factory, method_name)]  # type: ignore
             mapping = value, None  # type: ignore
