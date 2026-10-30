@@ -219,8 +219,10 @@ class Faker:
             else:
                 # No factory supports the method: return an empty mapping so
                 # the caller raises the intended AttributeError instead of
-                # crashing on the empty "zip(*value)" unpack.
-                mapping = [], None
+                # crashing on the empty "zip(*value)" unpack. The empty
+                # mapping is deliberately not cached, so providers attached
+                # after this lookup are still picked up by a later lookup.
+                return [], None
         else:
             value = [factory for factory in self.factories if hasattr(factory, method_name)]  # type: ignore
             mapping = value, None  # type: ignore
