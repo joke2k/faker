@@ -6,6 +6,7 @@ from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.de_AT import Provider as DeAtPhoneNumberProvider
 from faker.providers.phone_number.de_CH import Provider as DeChPhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
+from faker.providers.phone_number.zh_CN import Provider as ZhCnPhoneNumberProvider
 
 
 class TestAmEt:
@@ -616,3 +617,26 @@ class TestViVn:
             phone_number = faker.phone_number()
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
+
+
+class TestZhCn:
+    """Test zh_CN phone number provider methods"""
+
+    num_samples = 1000
+
+    def test_phone_number(self, faker, num_samples):
+        prefixes = {str(prefix) for prefix in ZhCnPhoneNumberProvider.phonenumber_prefixes}
+        seen = set()
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert re.fullmatch(r"1\d{10}", phone_number)
+            assert phone_number[:3] in prefixes
+            seen.add(phone_number[:3])
+        # Prefixes assigned since 2017, such as 166, 198 and 199, and the 5G
+        # prefixes 190, 192, 196 and 197 (2019) are generated too.
+        assert seen & {"166", "190", "192", "196", "197", "198", "199"}
+
+    def test_phonenumber_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.phonenumber_prefix() in ZhCnPhoneNumberProvider.phonenumber_prefixes
