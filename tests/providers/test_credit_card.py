@@ -5,6 +5,7 @@ from typing import Pattern
 from faker.providers.bank.ru_RU import Provider as RuRuBankProvider
 from faker.providers.bank.uk_UA import Provider as UkUaBankProvider
 from faker.providers.credit_card import Provider as CreditCardProvider
+from faker.providers.person.zh_CN import Provider as ZhCnPersonProvider
 
 
 class TestCreditCardProvider:
@@ -218,3 +219,12 @@ class TestZhCn:
             card_data = faker.credit_card_full("unionpay").split("\n")
             assert re.match(r"[\u4e00-\u9fff]+", card_data[1])  # Check if owner has Chinese characters
             assert card_data[0] == "UnionPay"  # Ensure correct provider name
+
+    def test_credit_card_full_owner_name_order(self, faker, num_samples):
+        # Chinese names put the family name first, e.g. 王伟 rather than 伟王
+        for _ in range(num_samples):
+            owner = faker.credit_card_full("unionpay").split("\n")[1]
+            assert any(
+                owner.startswith(last_name) and owner[len(last_name) :] in ZhCnPersonProvider.first_names
+                for last_name in ZhCnPersonProvider.last_names
+            ), owner
