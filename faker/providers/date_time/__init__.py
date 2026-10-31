@@ -2103,7 +2103,15 @@ class Provider(BaseProvider):
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
         if end_date - start_date <= 1:
-            ts = start_date + self.generator.random.random()
+            if end_date == start_date:
+                # A zero-width interval has a single point in range. The
+                # draw is still consumed so seeded sequences are unchanged.
+                self.generator.random.random()
+                ts = start_date
+            else:
+                # A one-second window takes a fraction of that second;
+                # reversed bounds keep their previous behavior.
+                ts = start_date + self.generator.random.random()
         else:
             ts = self._rand_seconds(start_date, end_date)
         if tzinfo is None:
