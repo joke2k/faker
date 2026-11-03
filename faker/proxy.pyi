@@ -3974,6 +3974,24 @@ class Faker:
         """
         ...
 
+    def cedula(self, cedula_type: Optional[str] = ...) -> str:
+        """
+        Generate a Venezuelan identity card number.
+
+        :param cedula_type: The type of identity card, either 'V' (Venezuelan) or 'E' (foreigner).
+        :example: 'V-12345678'
+        """
+        ...
+
+    def rif(self, rif_type: Optional[str] = ...) -> str:
+        """
+        Generate a Venezuelan RIF with its check digit.
+
+        :param rif_type: The RIF type, one of 'V', 'E', 'J', 'P', or 'G'.
+        :example: 'J-40123456-9'
+        """
+        ...
+
     def first_name_est(self) -> str: ...
     def first_name_female_est(self) -> str: ...
     def first_name_female_rus(self) -> str: ...
