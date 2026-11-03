@@ -11,6 +11,8 @@ import freezegun
 import pytest
 
 from stdnum.gb import vat as gb_vat
+from stdnum.ve.rif import calc_check_digit as ve_rif_stdnum_check_digit
+from stdnum.ve.rif import is_valid as ve_rif_is_valid
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -24,6 +26,7 @@ from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
+from faker.providers.ssn.es_VE import rif_check_digit as ve_rif_check_digit
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.fr_FR import Provider as fr_Provider
@@ -828,6 +831,72 @@ class TestEsMX:
     def test_elector_code_unsupported_gender(self):
         with pytest.raises(ValueError, match="Gender must be"):
             self.fake.elector_code("Z")
+
+
+class TestEsVE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_VE")
+        Faker.seed(0)
+
+    def test_cedula(self):
+        for cedula_type, minimum, maximum in (
+            ("V", 1_000_000, 35_999_999),
+            ("E", 80_000_000, 99_999_999),
+        ):
+            for _ in range(100):
+                cedula_type_result, number = self.fake.cedula(cedula_type=cedula_type).split("-")
+                assert cedula_type_result == cedula_type
+                assert minimum <= int(number) <= maximum
+
+    def test_cedula_invalid_type(self):
+        with pytest.raises(ValueError):
+            self.fake.cedula(cedula_type="X")
+
+    def test_ssn(self):
+        for _ in range(100):
+            cedula_type, number = self.fake.ssn().split("-")
+            assert cedula_type in ("V", "E")
+            if cedula_type == "V":
+                assert 1_000_000 <= int(number) <= 35_999_999
+            else:
+                assert 80_000_000 <= int(number) <= 99_999_999
+
+    def test_rif(self):
+        rif_pattern = re.compile(r"^[VEJPG]-\d{8}-\d$")
+        for rif_type in ("V", "E", "J", "P", "G"):
+            for _ in range(100):
+                rif = self.fake.rif(rif_type=rif_type)
+                assert rif_pattern.fullmatch(rif)
+                assert rif.startswith(f"{rif_type}-")
+                assert ve_rif_is_valid(rif), rif
+
+    def test_rif_without_type(self):
+        rif_pattern = re.compile(r"^[VEJPG]-\d{8}-\d$")
+        for _ in range(1000):
+            rif = self.fake.rif()
+            assert rif_pattern.fullmatch(rif)
+            assert ve_rif_is_valid(rif), rif
+
+    def test_rif_invalid_type(self):
+        with pytest.raises(ValueError):
+            self.fake.rif(rif_type="X")
+
+    def test_vat_id(self):
+        for _ in range(100):
+            vat_id = self.fake.vat_id()
+            assert re.fullmatch(r"^J-\d{8}-\d$", vat_id)
+            assert ve_rif_is_valid(vat_id), vat_id
+
+    def test_rif_check_digit(self):
+        assert ve_rif_check_digit("J", "40123456") == "9"
+        for letter in ("V", "E", "J", "P", "G"):
+            for digits in ("00000000", "12345678", "99999999"):
+                assert ve_rif_check_digit(letter, digits) == ve_rif_stdnum_check_digit(f"{letter}{digits}")
+        with pytest.raises(ValueError):
+            ve_rif_check_digit("X", "40123456")
+        for digits in ("1234567", "1234567A"):
+            with pytest.raises(ValueError):
+                ve_rif_check_digit("J", digits)
 
 
 class TestEtEE(unittest.TestCase):
