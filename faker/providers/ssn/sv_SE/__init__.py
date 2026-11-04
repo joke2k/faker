@@ -11,9 +11,9 @@ from .. import Provider as SsnProvider
 class Provider(SsnProvider):
     @staticmethod
     def _org_to_vat(org_id: str) -> str:
-        org_id = org_id.replace("-", "")
-        if len(org_id) == 10:
-            org_id = "16" + org_id
+        # A Swedish VAT number is "SE", the 10-digit organisation number and
+        # "01": drop the "16" prefix of the 12-digit form.
+        org_id = org_id.replace("-", "")[-10:]
         return f"SE{org_id}01"
 
     def ssn(
