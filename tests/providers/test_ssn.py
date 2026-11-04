@@ -11,6 +11,7 @@ import freezegun
 import pytest
 
 from stdnum.gb import vat as gb_vat
+from stdnum.kr import rrn as kr_rrn
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -30,6 +31,7 @@ from faker.providers.ssn.fr_FR import Provider as fr_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
 from faker.providers.ssn.it_IT import checksum as it_checksum
+from faker.providers.ssn.ko_KR import checksum as ko_checksum
 from faker.providers.ssn.lv_LV import Provider as lv_Provider
 from faker.providers.ssn.mk_MK import Provider as MkMKSsnProvider
 from faker.providers.ssn.no_NO import Provider as no_Provider
@@ -1085,6 +1087,33 @@ class TestItIT(unittest.TestCase):
         ssn = generator.ssn()
         self.assertEqual(len(ssn), 16)
         self.assertEqual(ssn[:3], "FOA")
+
+
+class TestKoKR(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.fake = Faker("ko_KR")
+        Faker.seed(0)
+        self.samples = [self.fake.ssn() for _ in range(self.num_sample_runs)]
+
+    def test_checksum(self):
+        assert ko_checksum("971013901990") == 2
+
+    def test_ssn_format(self):
+        for sample in self.samples:
+            assert re.fullmatch(r"\d{6}-\d{7}", sample)
+
+    def test_ssn_is_valid(self):
+        for sample in self.samples:
+            kr_rrn.validate(sample)
+
+    def test_ssn_century_digit(self):
+        assert {sample[7] for sample in self.samples} == {"1", "2", "3", "4"}
+
+        this_year = datetime.now().year
+        for sample in self.samples:
+            assert this_year - 116 <= kr_rrn.get_birth_date(sample).year <= this_year
 
 
 class TestLvLV(unittest.TestCase):
