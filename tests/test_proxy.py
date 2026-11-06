@@ -517,3 +517,25 @@ class TestFakerProxyClass:
         fake = Faker()
         pickled = pickle.dumps(fake)
         pickle.loads(pickled)
+
+    def test_multiple_locale_weighted_hasattr_missing_method(self):
+        """hasattr() should return False for missing methods in weighted
+        multi-locale mode, not raise ValueError. Regression for #2508."""
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        assert hasattr(fake, "nonexistent_method_xyz") is False
+
+
+    def test_multiple_locale_weighted_getattr_missing_method(self):
+        """getattr() with a default should return the default for missing
+        methods in weighted multi-locale mode. Regression for #2508."""
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        result = getattr(fake, "nonexistent_method_xyz", "default_value")
+        assert result == "default_value"
+
+
+    def test_multiple_locale_weighted_missing_method_raises_attribute_error(self):
+        """Direct attribute access for a missing method should raise AttributeError
+        (not ValueError) in weighted multi-locale mode. Regression for #2508."""
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        with pytest.raises(AttributeError):
+            _ = fake.nonexistent_method_xyz

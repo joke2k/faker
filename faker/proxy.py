@@ -213,8 +213,11 @@ class Faker:
                 for factory, weight in zip(self.factories, self._weights)
                 if hasattr(factory, method_name)
             ]
-            factories, weights = zip(*value)
-            mapping = list(factories), list(weights)
+            if not value:
+                mapping = [], []
+            else:
+                factories, weights = zip(*value)
+                mapping = list(factories), list(weights)
         else:
             value = [factory for factory in self.factories if hasattr(factory, method_name)]  # type: ignore
             mapping = value, None  # type: ignore
