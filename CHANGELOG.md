@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.49.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.48.0...v40.49.0)
+
+* Fix: respect zero fractional digits for positive `pyfloat` fallback (#2473). Thanks @FanWu-ai.
+
 ### [v40.48.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.47.0...v40.48.0)
 
 * Fix: generate valid `bg_BG` VAT check digits (#2471). Thanks @feiiiiii5.
