@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.46.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.45.0...v40.46.0)
+
+* Fix: allow repeated digits in numeric `pt_BR` CNPJ roots (#2446). Thanks @liuyaohui666.
+
 ### [v40.45.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.44.0...v40.45.0)
 
 * Update the base currency list to current ISO 4217 (#2489). Thanks @yu2971512385-ui.
