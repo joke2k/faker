@@ -31,7 +31,6 @@ class Provider(BaseProvider):
     Faker provider for Indian Identifiers
     """
 
-    aadhaar_id_formats = ("%##########",)
     pan_type_chars = tuple("CPHFATBLJG")
     gstin_entity_code_chars = tuple("123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
@@ -43,8 +42,8 @@ class Provider(BaseProvider):
         Official Website: https://uidai.gov.in/my-aadhaar/about-your-aadhaar.html
         """
 
-        aadhaar_digits = self.numerify(self.random_element(self.aadhaar_id_formats))
-        checksum = checksums.calculate_luhn(int(aadhaar_digits))
+        aadhaar_digits = str(self.random_int(2, 9)) + self.numerify("##########")
+        checksum = checksums.calculate_verhoeff(aadhaar_digits)
 
         aadhaar_number = f"{aadhaar_digits}{checksum}"
 
