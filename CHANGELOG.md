@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.52.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.51.0...v40.52.0)
+
+* Fix: generate valid `it_IT` VAT IDs in `vat_id()` (#2482). Thanks @divya0792.
+
 ### [v40.51.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.50.0...v40.51.0)
 
 * Fix: reject non-positive precision in `time_series` (#2484). Thanks @yuefdev.
