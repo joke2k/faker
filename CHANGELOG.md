@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.45.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.44.0...v40.45.0)
+
+* Update the base currency list to current ISO 4217 (#2489). Thanks @yu2971512385-ui.
+
 ### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
 
 * Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.
