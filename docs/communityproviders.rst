@@ -22,6 +22,10 @@ Here's a list of Providers written by the community:
 | Credit Score  | Fake credit score data    | `faker_credit_score`_            |
 |               | for testing purposes      |                                  |
 +---------------+---------------------------+----------------------------------+
+| CTI           | Cyber threat intelligence | `faker-cti`_                     |
+|               | data: STIX 2.1 objects,   |                                  |
+|               | MITRE ATT&CK, TLP, CVE.   |                                  |
++---------------+---------------------------+----------------------------------+
 | Datasets      | Build providers based     | `faker-datasets`_                |
 |               | on datasets               |                                  |
 +---------------+---------------------------+----------------------------------+
@@ -110,6 +114,7 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker_airtravel: https://pypi.org/project/faker_airtravel/
 .. _faker_biology: https://pypi.org/project/faker_biology/
 .. _faker_credit_score: https://pypi.org/project/faker-credit-score/
+.. _faker-cti: https://pypi.org/project/faker-cti/
 .. _faker-datasets: https://pypi.org/project/faker-datasets/
 .. _faker_education: https://pypi.org/project/faker_education/
 .. _faker-ecommerce-provider: https://pypi.org/project/faker-ecommerce-provider/
