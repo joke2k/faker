@@ -110,11 +110,13 @@ class TestCsCZ(unittest.TestCase):
             assert re.search(r"^CZ\d{8,10}$", self.fake.vat_id())
 
     def test_birth_number(self):
-        for _ in range(100):
+        for _ in range(2000):
             birth_number = self.fake.birth_number()
             assert len(birth_number) in [10, 11]
             assert birth_number[6] == "/"
             assert int(birth_number.replace("/", "")) % 11 == 0
+            month = int(birth_number[2:4])
+            datetime(2000 + int(birth_number[:2]), month - 50 if month > 50 else month, int(birth_number[4:6]))
 
 
 class TestDeAT(unittest.TestCase):
@@ -1367,11 +1369,13 @@ class TestSkSK(unittest.TestCase):
             assert re.search(r"^SK\d{10}$", self.fake.vat_id())
 
     def test_birth_number(self):
-        for _ in range(100):
+        for _ in range(2000):
             birth_number = self.fake.birth_number()
             assert len(birth_number) in [10, 11]
             assert birth_number[6] == "/"
             assert int(birth_number.replace("/", "")) % 11 == 0
+            month = int(birth_number[2:4])
+            datetime(2000 + int(birth_number[:2]), month - 50 if month > 50 else month, int(birth_number[4:6]))
 
 
 class TestSrBA(unittest.TestCase):
