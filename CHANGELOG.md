@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.51.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.50.0...v40.51.0)
+
+* Fix: reject non-positive precision in `time_series` (#2484). Thanks @yuefdev.
+
 ### [v40.50.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.49.0...v40.50.0)
 
 * Fix: avoid random offsets for equal parsed `date_time_between` bounds (#2479). Thanks @FanWu-ai.
