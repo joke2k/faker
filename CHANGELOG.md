@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.47.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.46.0...v40.47.0)
+
+* Fix: pass `tzinfo` through when resolving relative `date_time_between_dates` bounds (#2470). Thanks @feiiiiii5.
+
 ### [v40.46.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.45.0...v40.46.0)
 
 * Fix: allow repeated digits in numeric `pt_BR` CNPJ roots (#2446). Thanks @liuyaohui666.
