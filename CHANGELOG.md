@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.50.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.49.0...v40.50.0)
+
+* Fix: avoid random offsets for equal parsed `date_time_between` bounds (#2479). Thanks @FanWu-ai.
+* Docs: add `faker-cti` to community providers (#2492). Thanks @mariot.
+
 ### [v40.49.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.48.0...v40.49.0)
 
 * Fix: respect zero fractional digits for positive `pyfloat` fallback (#2473). Thanks @FanWu-ai.
