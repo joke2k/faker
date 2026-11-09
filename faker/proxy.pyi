@@ -3212,7 +3212,10 @@ class Faker:
     def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
-        :return: A random Bulgarian VAT ID
+        :return: A random Bulgarian VAT ID with a valid check digit: 9
+        digits for legal entities or 10 digits for physical persons,
+        mirroring the check digit algorithms of ``stdnum.bg.vat``
+        (python-stdnum), which accepts either length.
         """
         ...
 

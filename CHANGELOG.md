@@ -1,5 +1,28 @@
 ## Changelog
 
+### [v40.48.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.47.0...v40.48.0)
+
+* Fix: generate valid `bg_BG` VAT check digits (#2471). Thanks @feiiiiii5.
+
+### [v40.47.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.46.0...v40.47.0)
+
+* Fix: pass `tzinfo` through when resolving relative `date_time_between_dates` bounds (#2470). Thanks @feiiiiii5.
+
+### [v40.46.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.45.0...v40.46.0)
+
+* Fix: allow repeated digits in numeric `pt_BR` CNPJ roots (#2446). Thanks @liuyaohui666.
+
+### [v40.45.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.44.0...v40.45.0)
+
+* Update the base currency list to current ISO 4217 (#2489). Thanks @yu2971512385-ui.
+
+### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
+
+* Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.
+* Fix: keep `en_CA` SINs out of the 0 and 8 series (#2467). Thanks @feiiiiii5.
+* Fix: use Luhn check digit for `no_NO` Postgiro (0000) BBANs (#2468). Thanks @DYNOSuprovo.
+* Fix: `en_GB` VAT ID generation (#2469). Thanks @orilucky.
+
 ### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
 
 * Add `es_CO` bank provider (#2453). Thanks @saratobonr.

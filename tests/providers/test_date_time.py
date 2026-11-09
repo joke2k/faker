@@ -358,6 +358,27 @@ class TestDateTime(unittest.TestCase):
         assert datetime_start <= random_date
         assert datetime_end >= random_date
 
+    @pytest.mark.skipif(platform.system() == "Windows", reason="Windows does not support setting the local timezone")
+    def test_date_time_between_dates_with_tzinfo_and_relative_bounds(self):
+        # Relative bounds are resolved against ``datetime.now(tzinfo)``, so the result must
+        # land inside the requested window whatever the machine timezone is. A machine east
+        # of ``tzinfo`` inverts the window, a machine west of it widens it. The window is
+        # deliberately tiny so the assertion cannot pass by chance.
+        # Do not freeze the clock here: freezegun ignores ``TZ``, which is the whole point.
+        for local_tz in ("America/New_York", "Asia/Tokyo"):
+            os.environ["TZ"] = local_tz
+            time.tzset()
+            try:
+                for _ in range(5):
+                    before = datetime.now(utc)
+                    random_date = self.fake.date_time_between_dates("-1m", "now", tzinfo=utc)
+                    after = datetime.now(utc)
+
+                    assert before - timedelta(minutes=1) <= random_date <= after
+            finally:
+                del os.environ["TZ"]
+                time.tzset()
+
     def test_past_datetime_within_second(self):
         # Should not raise a ``ValueError``
         self.fake.past_datetime(start_date="+1s")

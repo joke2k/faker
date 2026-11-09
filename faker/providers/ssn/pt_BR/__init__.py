@@ -34,7 +34,11 @@ class Provider(SsnProvider):
     """
 
     def ssn(self) -> str:
-        digits = self.generator.random.sample(range(10), 9)
+        # Draw the nine base digits independently (with replacement). A CPF has
+        # no requirement that its digits be distinct, so sampling without
+        # replacement wrongly excluded every number with a repeated digit and
+        # shrank the space from 10 ** 9 to 10 P 9 (about 0.36 % of it).
+        digits = self.generator.random.choices(range(10), k=9)
 
         dv = checksum(digits)
         digits.append(dv)
@@ -55,7 +59,11 @@ class Provider(SsnProvider):
         Check:  https://www.ngmatematica.com/2014/02/como-determinar-o-digito-verificador-do.html
         """
 
-        digits = self.generator.random.sample(range(0, 9), 8)
+        # Draw the eight base digits independently (with replacement) from the
+        # full 0-9 range. ``sample(range(0, 9), 8)`` both excluded the digit 9
+        # entirely and forced the eight digits to be distinct, neither of which
+        # is a property of a real RG number.
+        digits = self.generator.random.choices(range(10), k=8)
         checksum = sum(i * digits[i - 2] for i in range(2, 10))
         last_digit = 11 - (checksum % 11)
 

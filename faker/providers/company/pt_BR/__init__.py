@@ -107,7 +107,7 @@ class Provider(CompanyProvider):
     def _company_id_base(self, use_alphanumeric: bool) -> str:
         if use_alphanumeric:
             return "".join(self.random_choices(COMPANY_ID_ALPHABET, length=12))
-        digits = self.random_sample(range(10), 8)
+        digits = self.random_choices(range(10), length=8)
         return "".join(str(d) for d in digits) + "0001"
 
     def company_id(self, use_alphanumeric: bool = False) -> str:

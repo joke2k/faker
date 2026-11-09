@@ -143,6 +143,53 @@ class TestCurrencyProvider:
             assert isinstance(pricetag, str)
 
 
+class TestBaseCurrencyData:
+    """The locale-independent currency table has to track ISO 4217.
+
+    Kept apart from TestCurrencyProvider because the localised providers
+    subclass it, and their tables are maintained by speakers of those locales.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency import Provider as CurrencyProvider
+
+        cls.provider = CurrencyProvider
+        cls.currency_codes = tuple(code for code, _ in cls.provider.currencies)
+
+    def test_currencies_are_current_iso_4217(self):
+        # Codes ISO 4217 has withdrawn, against the code that took over. A
+        # generator handing out a withdrawn code makes fixtures that no
+        # validating system will accept, so neither side of this mapping may
+        # drift back in.
+        superseded = {
+            "ANG": "XCG",  # Caribbean guilder, 2025-03-31
+            "BYR": "BYN",  # Belarusian ruble redenominated, 2016-07-01
+            "MRO": "MRU",  # Mauritanian ouguiya redenominated, 2018-01-01
+            "SLL": "SLE",  # Sierra Leonean leone redenominated, 2022-04-01
+            "STD": "STN",  # São Tomé and Príncipe dobra redenominated, 2018-01-01
+            "VEF": "VES",  # Venezuelan bolívar redenominated, 2018-08-20
+            "ZWD": "ZWG",  # Zimbabwe Gold, 2024-04-05
+        }
+        # Withdrawn with no successor code: the country adopted the euro.
+        retired = {
+            "BGN": "Bulgaria adopted the euro on 2026-01-01",
+            "HRK": "Croatia adopted the euro on 2023-01-01",
+            "LTL": "Lithuania adopted the euro on 2015-01-01",
+        }
+        for old, new in superseded.items():
+            assert old not in self.currency_codes, f"{old} was replaced by {new}"
+            assert new in self.currency_codes, f"{new} replaced {old}"
+        for old, why in retired.items():
+            assert old not in self.currency_codes, f"{old}: {why}"
+
+    def test_every_currency_has_a_symbol(self):
+        # currency_symbol() falls back to the generic currency sign, so a
+        # missing entry is silent; catch it here instead.
+        for code in self.currency_codes:
+            assert code in self.provider.currency_symbols, f"no symbol for {code}"
+
+
 class TestDeAt:
     """Test de_AT currency provider"""
 
