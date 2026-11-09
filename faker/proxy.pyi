@@ -1454,7 +1454,7 @@ class Faker:
         :param start_date: A ``DateParseType``. Defaults to ``"-30d"``
         :param end_date: A ``DateParseType``. Defaults to ``"now"``
         :param precision: A float representing the time interval between data points.
-        Defaults to 1/30th of the time
+        Defaults to 1/30th of the time. Must be greater than zero for a non-empty interval.
         :param distrib: A callable that accepts a datetime object and returns a value.
         Defaults to a uniform distribution
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
