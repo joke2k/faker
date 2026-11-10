@@ -14,7 +14,7 @@ class Provider(BankProvider):
     bban_format: str = "????#########"
     country_code = "BD"
     swift_location_codes = ("DH",)
-    swift_branch_codes = (
+    swift_bank_codes = (
         "ABBL",
         "AGBK",
         "ALAR",
