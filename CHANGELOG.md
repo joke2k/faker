@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.53.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.52.0...v40.53.0)
+
+* Fix: allow the digit 9 in the first eight positions of an `en_CA` SIN (#2488). Thanks @Sreekant13.
+
 ### [v40.52.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.51.0...v40.52.0)
 
 * Fix: generate valid `it_IT` VAT IDs in `vat_id()` (#2482). Thanks @divya0792.
