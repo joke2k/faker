@@ -43,7 +43,7 @@ from faker.providers.ssn.ro_RO import vat_checksum as ro_vat_checksum
 from faker.providers.ssn.sr_BA import calculate_checksum as sr_ba_calculate_checksum
 from faker.providers.ssn.uk_UA import Provider as uk_Provider
 from faker.providers.ssn.zh_TW import checksum as tw_checksum
-from faker.utils.checksums import luhn_checksum
+from faker.utils.checksums import calculate_verhoeff, luhn_checksum
 
 
 class TestArDz(unittest.TestCase):
@@ -329,9 +329,13 @@ class TestEnIn(unittest.TestCase):
         for aadhar_id in self.aadhaar_ids:
             assert aadhar_id[0] != "0"
 
-    def test_valid_luhn(self):
+    def test_valid_verhoeff(self):
         for aadhaar_id in self.aadhaar_ids:
-            assert luhn_checksum(aadhaar_id) == 0
+            assert calculate_verhoeff(aadhaar_id[:-1]) == int(aadhaar_id[-1])
+
+    def test_first_digit_not_one(self):
+        for aadhaar_id in self.aadhaar_ids:
+            assert aadhaar_id[0] != "1"
 
     def test_pan(self):
         for _ in range(100):
