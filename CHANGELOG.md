@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.54.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.53.0...v40.54.0)
+
+* Fix: `bn_BD` `swift_bank_codes` and `swift11` length (#2490). Thanks @feiiiiii5.
+
 ### [v40.53.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.52.0...v40.53.0)
 
 * Fix: allow the digit 9 in the first eight positions of an `en_CA` SIN (#2488). Thanks @Sreekant13.
