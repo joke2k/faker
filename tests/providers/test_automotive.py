@@ -6,6 +6,7 @@ from typing import Pattern
 from faker.providers.automotive import calculate_vin_str_weight
 from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
+from faker.providers.automotive.en_IN import Provider as EnInAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.es_MX import Provider as EsMxAutomotiveProvider
 from faker.providers.automotive.mk_MK import Provider as MkMKAutomotiveProvider
@@ -95,6 +96,39 @@ class TestElGr(_SimpleAutomotiveTestMixin):
     """Test el_GR automotive provider methods"""
 
     license_plate_pattern = re.compile(r"^(?P<prefix>[A-Z]{2,3}) \d{4}$")
+
+
+class TestEnIn(_SimpleAutomotiveTestMixin):
+    """Test en_IN automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(
+        r"^(?:(?P<state>[A-Z]{2}) \d{2}(?: [A-Z]{1,2})? \d{4}|\d{2} BH \d{4} (?P<bh_series>[A-Z]{2}))$"
+    )
+
+    def perform_extra_checks(self, license_plate, match):
+        state = match.group("state")
+        if state:
+            assert state in EnInAutomotiveProvider.state_codes
+        bh_series = match.group("bh_series")
+        if bh_series:
+            assert "I" not in bh_series and "O" not in bh_series
+
+    def test_standard_license_plate(self, faker, num_samples):
+        pattern = re.compile(r"^(?P<state>[A-Z]{2}) \d{2}(?: [A-Z]{1,2})? \d{4}$")
+        for _ in range(num_samples):
+            plate = faker.standard_license_plate()
+            match = pattern.match(plate)
+            assert match is not None
+            assert match.group("state") in EnInAutomotiveProvider.state_codes
+
+    def test_bharat_series_license_plate(self, faker, num_samples):
+        pattern = re.compile(r"^\d{2} BH \d{4} (?P<series>[A-Z]{2})$")
+        for _ in range(num_samples):
+            plate = faker.bharat_series_license_plate()
+            match = pattern.match(plate)
+            assert match is not None
+            series = match.group("series")
+            assert "I" not in series and "O" not in series
 
 
 class TestEnPh(_SimpleAutomotiveTestMixin):
