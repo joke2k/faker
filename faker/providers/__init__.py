@@ -487,10 +487,7 @@ class BaseProvider:
             raise ValueError("Sample length cannot be longer than the number of unique elements to pick from.")
 
         if isinstance(elements, dict):
-            if not hasattr(elements, "_key_cache"):
-                elements._key_cache = tuple(elements.keys())  # type: ignore
-
-            choices = elements._key_cache  # type: ignore[attr-defined, union-attr]
+            choices: Collection[T] = tuple(elements.keys())
             probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:
