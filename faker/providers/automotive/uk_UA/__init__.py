@@ -1,5 +1,3 @@
-import random
-
 from typing import Optional, Tuple
 
 from .. import Provider as AutomotiveProvider
@@ -202,10 +200,10 @@ class Provider(AutomotiveProvider):
     def __get_random_region_code(self, region_name: Optional[str] = None) -> Tuple[str, str]:
         try:
             if region_name is None:
-                region_name, _ = random.choice(list(self.license_region_data.items()))
+                region_name, _ = self.generator.random.choice(list(self.license_region_data.items()))
 
             prefix, region_number = self.license_region_data[region_name]
-            return random.choice(prefix), region_number
+            return self.generator.random.choice(prefix), region_number
         except KeyError:
             region_names = ", ".join(self.license_region_data.keys())
             raise KeyError(f"Keys name must be only {region_names}")
@@ -275,7 +273,7 @@ class Provider(AutomotiveProvider):
 
         :sample:
         """
-        level = random.choice(("CDP", "DP", "S"))
+        level = self.generator.random.choice(("CDP", "DP", "S"))
         country_code = self.random_number(3, fix_len=True)
         car_number = self.random_number(3, fix_len=True)
         if level == "CDP":

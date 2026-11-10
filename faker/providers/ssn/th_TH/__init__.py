@@ -1,5 +1,3 @@
-from random import randint
-
 from .. import Provider as BaseProvider
 
 
@@ -17,15 +15,15 @@ class Provider(BaseProvider):
         """
         Thai national ID
         """
-        category = randint(1, 8)
-        province = randint(10, 96)
+        category = self.generator.random.randint(1, 8)
+        province = self.generator.random.randint(10, 96)
         amphoe = 0
         if province == 10:  # Bangkok
-            amphoe = randint(1, 50)  # Bangkok has district number up to 50
+            amphoe = self.generator.random.randint(1, 50)  # Bangkok has district number up to 50
         else:
-            amphoe = randint(1, 20)  # Provinces outside Bangkok has 20 or less
-        birth_book = randint(1, 99999)
-        birth_sheet = randint(1, 99)
+            amphoe = self.generator.random.randint(1, 20)  # Provinces outside Bangkok has 20 or less
+        birth_book = self.generator.random.randint(1, 99999)
+        birth_sheet = self.generator.random.randint(1, 99)
 
         digits = f"{category:01d}{province:02d}{amphoe:02d}{birth_book:05d}{birth_sheet:02d}"
         checksum = (

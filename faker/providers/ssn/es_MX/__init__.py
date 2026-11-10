@@ -5,7 +5,6 @@ This module adds a provider for mexican SSN, along with Unique Population
 Registry Code (CURP) and Federal Taxpayer Registry ID (RFC).
 """
 
-import random
 import string
 
 from typing import Literal, Optional
@@ -164,17 +163,17 @@ class Provider(BaseProvider):
         """
         birthday = self.generator.date_of_birth()
 
-        first_surname = random.choice(ALPHABET) + random.choice(VOWELS)
-        second_surname = random.choice(ALPHABET)
-        given_name = random.choice(ALPHABET)
+        first_surname = self.generator.random.choice(ALPHABET) + self.generator.random.choice(VOWELS)
+        second_surname = self.generator.random.choice(ALPHABET)
+        given_name = self.generator.random.choice(ALPHABET)
         name_initials = first_surname + second_surname + given_name
 
         birth_date = birthday.strftime("%y%m%d")
-        gender = random.choice("HM")
-        state = random.choice(STATES_RENAPO)
-        first_surname_inside = random.choice(CONSONANTS)
-        second_surname_inside = random.choice(CONSONANTS)
-        given_name_inside = random.choice(ALPHABET)
+        gender = self.generator.random.choice("HM")
+        state = self.generator.random.choice(STATES_RENAPO)
+        first_surname_inside = self.generator.random.choice(CONSONANTS)
+        second_surname_inside = self.generator.random.choice(CONSONANTS)
+        given_name_inside = self.generator.random.choice(ALPHABET)
 
         # This character is assigned to avoid duplicity
         # It's normally '0' for those born < 2000
@@ -210,9 +209,9 @@ class Provider(BaseProvider):
         birthday = self.generator.date_of_birth()
 
         if natural:
-            first_surname = random.choice(ALPHABET) + random.choice(VOWELS)
-            second_surname = random.choice(ALPHABET)
-            given_name = random.choice(ALPHABET)
+            first_surname = self.generator.random.choice(ALPHABET) + self.generator.random.choice(VOWELS)
+            second_surname = self.generator.random.choice(ALPHABET)
+            given_name = self.generator.random.choice(ALPHABET)
             name_initials = first_surname + second_surname + given_name
             name_initials = FORBIDDEN_WORDS.get(name_initials, name_initials)
         else:
@@ -221,7 +220,11 @@ class Provider(BaseProvider):
             )
 
         birth_date = birthday.strftime("%y%m%d")
-        disambiguation_code = random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC) + random.choice(ALPHANUMERIC)
+        disambiguation_code = (
+            self.generator.random.choice(ALPHANUMERIC)
+            + self.generator.random.choice(ALPHANUMERIC)
+            + self.generator.random.choice(ALPHANUMERIC)
+        )
 
         random_rfc = name_initials + birth_date + disambiguation_code
 
@@ -242,14 +245,14 @@ class Provider(BaseProvider):
         if gender and gender not in ("H", "M"):
             raise ValueError("Gender must be 'H' or 'M'")
 
-        gender = gender or random.choice(["H", "M"])
+        gender = gender or self.generator.random.choice(["H", "M"])
 
-        consonants = "".join(random.choices(CONSONANTS, k=6))
+        consonants = "".join(self.generator.random.choices(CONSONANTS, k=6))
 
         birthday = self.generator.date_of_birth()
         birth_date = birthday.strftime("%y%m%d")
 
-        entity = random.randint(1, 33)
-        disambiguation_code = "".join(random.choices(string.digits, k=3))
+        entity = self.generator.random.randint(1, 33)
+        disambiguation_code = "".join(self.generator.random.choices(string.digits, k=3))
 
         return f"{consonants}{birth_date}{entity:02d}{gender}{disambiguation_code}"

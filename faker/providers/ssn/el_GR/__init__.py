@@ -1,5 +1,3 @@
-import random
-
 from faker.utils.checksums import calculate_luhn
 
 from .. import Provider as BaseProvider
@@ -46,7 +44,7 @@ class Provider(BaseProvider):
 
         vat_id = "EL" if prefix else ""
         vat_id_starting_numbers = ("7", "8", "9", "0")
-        vat_id = vat_id + random.choice(vat_id_starting_numbers) + self.numerify("#######")
+        vat_id = vat_id + self.generator.random.choice(vat_id_starting_numbers) + self.numerify("#######")
         return vat_id + str(tin_checksum(vat_id[2:] if prefix else vat_id))
 
     def tin(self) -> str:
@@ -56,7 +54,7 @@ class Provider(BaseProvider):
         """
 
         vat_id_starting_numbers = ("1", "2", "3", "4")
-        vat_id = random.choice(vat_id_starting_numbers) + self.numerify("#######")
+        vat_id = self.generator.random.choice(vat_id_starting_numbers) + self.numerify("#######")
         return vat_id + str(tin_checksum(vat_id))
 
     # Uses Luhn checksum according to this
