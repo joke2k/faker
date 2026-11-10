@@ -186,7 +186,7 @@ class TestElCY(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^CY\d{9}\w$", self.fake.vat_id())
+            assert re.search(r"^CY\d{9}[A-Z]$", self.fake.vat_id())
 
 
 class TestElGr(unittest.TestCase):
@@ -310,6 +310,16 @@ class TestEnGB(unittest.TestCase):
                         number = self.fake.vat_id()
                 assert number == expected
                 assert gb_vat.is_valid(number)
+
+
+class TestEnIE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("en_IE")
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(100):
+            assert re.search(r"^IE\d[A-Z\d]\d{5}[A-Z]{1,2}$", self.fake.vat_id())
 
 
 class TestEnIn(unittest.TestCase):
@@ -768,7 +778,7 @@ class TestEsES(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^ES\w\d{8}$|^ES\d{8}\w$|^ES\w\d{7}\w$", self.fake.vat_id())
+            assert re.search(r"^ES[A-Z]\d{8}$|^ES\d{8}[A-Z]$|^ES[A-Z]\d{7}[A-Z]$", self.fake.vat_id())
 
     def test_nie(self):
         for _ in range(100):
@@ -1001,7 +1011,7 @@ class TestFrFR(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^FR[\w\d]{2} \d{9}$", self.fake.vat_id())
+            assert re.search(r"^FR[A-Z\d]{2} \d{9}$", self.fake.vat_id())
 
     def test_ssn(self) -> None:
         for _ in range(100):

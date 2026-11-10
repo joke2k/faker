@@ -1,3 +1,5 @@
+from string import ascii_uppercase
+
 from .. import Provider as BaseProvider
 
 
@@ -13,4 +15,4 @@ class Provider(BaseProvider):
         Returns a random generated Cypriot Tax ID
         """
 
-        return self.bothify(self.random_element(self.vat_id_formats))
+        return self.bothify(self.random_element(self.vat_id_formats), letters=ascii_uppercase)

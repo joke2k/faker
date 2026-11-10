@@ -1,5 +1,7 @@
 import random
 
+from string import ascii_uppercase
+
 from .. import Provider as BaseProvider
 
 
@@ -22,7 +24,7 @@ class Provider(BaseProvider):
         :sample:
         """
 
-        return self.bothify(self.random_element(self.vat_id_formats))
+        return self.bothify(self.random_element(self.vat_id_formats), letters=ascii_uppercase)
 
     def nie(self) -> str:
         """

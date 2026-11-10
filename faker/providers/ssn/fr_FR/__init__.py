@@ -1,3 +1,4 @@
+from string import ascii_uppercase
 from typing import Tuple, Union
 
 from .. import Provider as BaseProvider
@@ -161,4 +162,4 @@ class Provider(BaseProvider):
         :return: a random French VAT ID
         """
 
-        return self.bothify(self.random_element(self.vat_id_formats))
+        return self.bothify(self.random_element(self.vat_id_formats), letters=ascii_uppercase)
