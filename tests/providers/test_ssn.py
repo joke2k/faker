@@ -23,6 +23,7 @@ from faker.providers.ssn.en_GB import Provider as en_GB_Provider
 from faker.providers.ssn.en_IN import calculate_gstin_checksum
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
+from faker.providers.ssn.es_MX import STATES_RENAPO as mx_states_renapo
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
 from faker.providers.ssn.et_EE import checksum as et_checksum
@@ -799,6 +800,13 @@ class TestEsCA(TestEsES):
         Faker.seed(0)
 
 
+# Birth state codes in a CURP, from RENAPO's catalogue of federal entities
+# (positions 12-13); "NE" is for people born abroad.
+MX_CURP_STATES = set(
+    "AS BC BS CC CL CM CS CH DF DG GT GR HG JC MC MN MS NT NL OC PL QT QR SP SL SR TC TS TL VZ YN ZS NE".split()
+)
+
+
 class TestEsMX:
     def setup_method(self):
         self.fake = Faker("es_MX")
@@ -818,7 +826,12 @@ class TestEsMX:
 
             assert len(curp) == 18
             assert re.search(r"^[A-Z]{4}\d{6}[A-Z]{6}[0A]\d$", curp)
+            assert curp[11:13] in MX_CURP_STATES
             assert mx_curp_checksum(curp[:-1]) == int(curp[-1])
+
+    def test_curp_states(self):
+        # RENAPO's catalogue of birth state codes: Querétaro is "QT", not "QO"
+        assert set(mx_states_renapo) == MX_CURP_STATES
 
     def test_rfc_natural(self):
         for _ in range(100):

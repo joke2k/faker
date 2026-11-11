@@ -40,7 +40,7 @@ STATES_RENAPO = [
     "NL",
     "OC",
     "PL",
-    "QO",
+    "QT",
     "QR",
     "SP",
     "SL",
