@@ -230,3 +230,27 @@ class TestViVn:
             job = faker.job()
             assert isinstance(job, str)
             assert job in ViVNJobProvider.jobs
+
+
+class TestJobSeniority:
+    """Test job_seniority() on the base provider"""
+
+    def test_job_seniority_returns_string(self, faker, num_samples):
+        for _ in range(num_samples):
+            seniority = faker.job_seniority()
+            assert isinstance(seniority, str)
+
+    def test_job_seniority_in_list(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.job_seniority() in JobProvider.seniority_levels
+
+    def test_job_seniority_seeded(self, faker):
+        from faker import Faker
+
+        f1 = Faker()
+        f2 = Faker()
+        Faker.seed(12345)
+        r1 = f1.job_seniority()
+        Faker.seed(12345)
+        r2 = f2.job_seniority()
+        assert r1 == r2
