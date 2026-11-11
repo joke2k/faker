@@ -1511,15 +1511,18 @@ class TestSvSE(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             vat_id = self.fake.vat_id()
-            assert re.search(r"SE\d{12}", vat_id)
+            # "SE" + 10-digit organisation number + "01"
+            assert re.fullmatch(r"SE\d{10}01", vat_id)
             assert int(vat_id[2]) in (1, 2, 3, 5, 6, 7, 8, 9)
-            assert int(vat_id[6:8]) >= 20
+            assert int(vat_id[4:6]) >= 20
+            assert self.ssn_checksum(vat_id[2:12]) is True
 
     def test_org_and_vat_id(self):
-        for _ in range(100):
-            oid, vid = self.fake.org_and_vat_id()
-            assert oid.replace("-", "")[-10:] == vid[4:-2]
-            assert re.search(r"SE\d{12}", vid)
+        for long in (False, True):
+            for _ in range(100):
+                oid, vid = self.fake.org_and_vat_id(long=long)
+                assert oid.replace("-", "")[-10:] == vid[2:-2]
+                assert re.fullmatch(r"SE\d{10}01", vid)
 
 
 class TestThTH(unittest.TestCase):
