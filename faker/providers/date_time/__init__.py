@@ -2376,12 +2376,12 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_century_start = dtdate(today.year - (today.year % 100), 1, 1)
-        next_century_start = dtdate(this_century_start.year + 100, 1, 1)
+        this_century_end = datetime(this_century_start.year + 100, 1, 1) - timedelta(seconds=1)
 
         if before_today and after_today:
-            return self.date_between_dates(this_century_start, next_century_start)
+            return self.date_between_dates(this_century_start, this_century_end)
         elif not before_today and after_today:
-            return self.date_between_dates(today, next_century_start)
+            return self.date_between_dates(today, this_century_end)
         elif not after_today and before_today:
             return self.date_between_dates(this_century_start, today)
         else:
@@ -2399,12 +2399,12 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_decade_start = dtdate(today.year - (today.year % 10), 1, 1)
-        next_decade_start = dtdate(this_decade_start.year + 10, 1, 1)
+        this_decade_end = datetime(this_decade_start.year + 10, 1, 1) - timedelta(seconds=1)
 
         if before_today and after_today:
-            return self.date_between_dates(this_decade_start, next_decade_start)
+            return self.date_between_dates(this_decade_start, this_decade_end)
         elif not before_today and after_today:
-            return self.date_between_dates(today, next_decade_start)
+            return self.date_between_dates(today, this_decade_end)
         elif not after_today and before_today:
             return self.date_between_dates(this_decade_start, today)
         else:
@@ -2422,12 +2422,12 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_year_start = today.replace(month=1, day=1)
-        next_year_start = dtdate(today.year + 1, 1, 1)
+        this_year_end = datetime(today.year + 1, 1, 1) - timedelta(seconds=1)
 
         if before_today and after_today:
-            return self.date_between_dates(this_year_start, next_year_start)
+            return self.date_between_dates(this_year_start, this_year_end)
         elif not before_today and after_today:
-            return self.date_between_dates(today, next_year_start)
+            return self.date_between_dates(today, this_year_end)
         elif not after_today and before_today:
             return self.date_between_dates(this_year_start, today)
         else:
@@ -2445,12 +2445,14 @@ class Provider(BaseProvider):
         """
         today = dtdate.today()
         this_month_start = today.replace(day=1)
-        next_month_start = _get_next_month_start(this_month_start)
+        this_month_end = datetime.combine(_get_next_month_start(this_month_start), datetime.min.time()) - timedelta(
+            seconds=1
+        )
 
         if before_today and after_today:
-            return self.date_between_dates(this_month_start, next_month_start)
+            return self.date_between_dates(this_month_start, this_month_end)
         elif not before_today and after_today:
-            return self.date_between_dates(today, next_month_start)
+            return self.date_between_dates(today, this_month_end)
         elif not after_today and before_today:
             return self.date_between_dates(this_month_start, today)
         else:

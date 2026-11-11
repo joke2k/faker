@@ -164,6 +164,58 @@ class TestCsCz(unittest.TestCase):
 @pytest.mark.parametrize(
     "period,period_start,next_period_start",
     [
+        ("month", date(2026, 11, 1), date(2026, 12, 1)),
+        ("year", date(2026, 1, 1), date(2027, 1, 1)),
+        ("decade", date(2020, 1, 1), date(2030, 1, 1)),
+        pytest.param(
+            "century",
+            date(2000, 1, 1),
+            date(2100, 1, 1),
+            marks=pytest.mark.skipif(not is64bit(), reason="requires 64bit"),
+        ),
+    ],
+)
+class TestCurrentDatePeriodBounds:
+    def test_last_day_remains_reachable(self, period, period_start, next_period_start):
+        fake = Faker()
+        fake.seed_instance(0)
+
+        with freezegun.freeze_time(next_period_start - timedelta(days=2)):
+            result = getattr(fake, f"date_this_{period}")(before_today=False, after_today=True)
+
+        assert result == next_period_start - timedelta(days=1)
+
+    @pytest.mark.parametrize("before_today,after_today", [(True, False), (False, True), (True, True), (False, False)])
+    def test_last_day_of_period(self, period, period_start, next_period_start, before_today, after_today):
+        today = next_period_start - timedelta(days=1)
+        fake = Faker()
+        fake.seed_instance(105502)
+
+        with freezegun.freeze_time(today):
+            result = getattr(fake, f"date_this_{period}")(before_today=before_today, after_today=after_today)
+
+        assert isinstance(result, date)
+        assert period_start <= result < next_period_start
+        if not before_today:
+            assert result >= today
+        if not after_today:
+            assert result <= today
+
+    @pytest.mark.parametrize("before_today", [False, True])
+    def test_inclusive_upper_bound(self, period, period_start, next_period_start, before_today, monkeypatch):
+        fake = Faker()
+        monkeypatch.setattr(fake.random, "randint", lambda start, end: end)
+        monkeypatch.setattr(fake.random, "uniform", lambda start, end: end)
+
+        with freezegun.freeze_time(next_period_start - timedelta(days=1)):
+            result = getattr(fake, f"date_this_{period}")(before_today=before_today, after_today=True)
+
+        assert period_start <= result < next_period_start
+
+
+@pytest.mark.parametrize(
+    "period,period_start,next_period_start",
+    [
         ("month", datetime(2026, 11, 1), datetime(2026, 12, 1)),
         ("year", datetime(2026, 1, 1), datetime(2027, 1, 1)),
         ("decade", datetime(2020, 1, 1), datetime(2030, 1, 1)),
