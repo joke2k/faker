@@ -2262,12 +2262,14 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_century_start = datetime(now.year - (now.year % 100), 1, 1, tzinfo=tzinfo)
-        next_century_start = datetime(min(this_century_start.year + 100, MAXYEAR), 1, 1, tzinfo=tzinfo)
+        this_century_end = datetime(min(this_century_start.year + 100, MAXYEAR), 1, 1, tzinfo=tzinfo) - timedelta(
+            seconds=1
+        )
 
         if before_now and after_now:
-            return self.date_time_between_dates(this_century_start, next_century_start, tzinfo)
+            return self.date_time_between_dates(this_century_start, this_century_end, tzinfo)
         elif not before_now and after_now:
-            return self.date_time_between_dates(now, next_century_start, tzinfo)
+            return self.date_time_between_dates(now, this_century_end, tzinfo)
         elif not after_now and before_now:
             return self.date_time_between_dates(this_century_start, now, tzinfo)
         else:
@@ -2291,12 +2293,14 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_decade_start = datetime(now.year - (now.year % 10), 1, 1, tzinfo=tzinfo)
-        next_decade_start = datetime(min(this_decade_start.year + 10, MAXYEAR), 1, 1, tzinfo=tzinfo)
+        this_decade_end = datetime(min(this_decade_start.year + 10, MAXYEAR), 1, 1, tzinfo=tzinfo) - timedelta(
+            seconds=1
+        )
 
         if before_now and after_now:
-            return self.date_time_between_dates(this_decade_start, next_decade_start, tzinfo)
+            return self.date_time_between_dates(this_decade_start, this_decade_end, tzinfo)
         elif not before_now and after_now:
-            return self.date_time_between_dates(now, next_decade_start, tzinfo)
+            return self.date_time_between_dates(now, this_decade_end, tzinfo)
         elif not after_now and before_now:
             return self.date_time_between_dates(this_decade_start, now, tzinfo)
         else:
@@ -2320,12 +2324,12 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_year_start = now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_year_start = datetime(now.year + 1, 1, 1, tzinfo=tzinfo)
+        this_year_end = datetime(now.year + 1, 1, 1, tzinfo=tzinfo) - timedelta(seconds=1)
 
         if before_now and after_now:
-            return self.date_time_between_dates(this_year_start, next_year_start, tzinfo)
+            return self.date_time_between_dates(this_year_start, this_year_end, tzinfo)
         elif not before_now and after_now:
-            return self.date_time_between_dates(now, next_year_start, tzinfo)
+            return self.date_time_between_dates(now, this_year_end, tzinfo)
         elif not after_now and before_now:
             return self.date_time_between_dates(this_year_start, now, tzinfo)
         else:
@@ -2349,12 +2353,12 @@ class Provider(BaseProvider):
         """
         now = datetime.now(tzinfo)
         this_month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        next_month_start = _get_next_month_start(this_month_start)
+        this_month_end = _get_next_month_start(this_month_start) - timedelta(seconds=1)
 
         if before_now and after_now:
-            return self.date_time_between_dates(this_month_start, next_month_start, tzinfo)
+            return self.date_time_between_dates(this_month_start, this_month_end, tzinfo)
         elif not before_now and after_now:
-            return self.date_time_between_dates(now, next_month_start, tzinfo)
+            return self.date_time_between_dates(now, this_month_end, tzinfo)
         elif not after_now and before_now:
             return self.date_time_between_dates(this_month_start, now, tzinfo)
         else:
