@@ -406,6 +406,25 @@ class TestHyAm:
             assert pattern.fullmatch(phone_number)
 
 
+class TestIdId:
+    """Test id_ID phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        # After the +62 country code the trunk prefix 0 is dropped,
+        # so the next digit is never 0. Domestic numbers keep the 0.
+        pattern: Pattern = re.compile(
+            r"\+62-[1-9]\d{1,2}-\d{3}-\d{4}|"  # Example: +62-21-123-4567
+            r"\+62 \([1-9]\d{1,2}\) \d{3}[ -]\d{4}|"  # Example: +62 (274) 123 4567
+            r"\(0[1-9]\d{1,2}\) \d{3}[ -]\d{4}|"  # Example: (021) 123-4567
+            r"08\d \d{3} \d{4}|"  # Example: 081 234 5678
+            r"08\d{8}"  # Example: 0812345678
+        )
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert isinstance(phone_number, str)
+            assert pattern.fullmatch(phone_number), f"Unexpected phone format: {phone_number!r}"
+
+
 class TestItCh:
     def test_phone_number(self, faker, num_samples):
         pattern: Pattern = re.compile(
