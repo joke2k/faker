@@ -30,6 +30,7 @@ from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.fr_FR import Provider as fr_Provider
 from faker.providers.ssn.fr_FR import calculate_checksum as fr_calculate_checksum
 from faker.providers.ssn.hr_HR import checksum as hr_checksum
+from faker.providers.ssn.id_ID import Provider as id_Provider
 from faker.providers.ssn.it_IT import checksum as it_checksum
 from faker.providers.ssn.lv_LV import Provider as lv_Provider
 from faker.providers.ssn.mk_MK import Provider as MkMKSsnProvider
@@ -1079,6 +1080,50 @@ class TestHuHU(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^HU\d{8}$", self.fake.vat_id())
+
+
+class TestIdID(unittest.TestCase):
+    num_sample_runs = 1000
+
+    def setUp(self):
+        self.fake = Faker("id_ID")
+        Faker.seed(0)
+        self.nik_pattern: Pattern = re.compile(r"^\d{16}$")
+
+    def _birth_date(self, nik: str, female: bool) -> Tuple[int, int, int]:
+        day = int(nik[6:8]) - (40 if female else 0)
+        month = int(nik[8:10])
+        year = int(nik[10:12])
+        return day, month, year
+
+    def test_ssn(self):
+        for _ in range(self.num_sample_runs):
+            nik = self.fake.ssn()
+            assert self.nik_pattern.match(nik)
+            assert nik[:2] in id_Provider.province_codes
+            assert nik[2:4] != "00"
+            assert nik[4:6] != "00"
+            assert nik[12:] != "0000"
+
+    def test_ssn_gender(self):
+        for _ in range(self.num_sample_runs):
+            male = self.fake.ssn(gender="M")
+            female = self.fake.ssn(gender="F")
+            assert 1 <= int(male[6:8]) <= 31
+            assert 41 <= int(female[6:8]) <= 71
+
+    @freezegun.freeze_time("2026-06-15")
+    def test_ssn_birth_date(self):
+        for _ in range(self.num_sample_runs):
+            for gender in ("M", "F"):
+                nik = self.fake.ssn(min_age=20, max_age=30, gender=gender)
+                day, month, year = self._birth_date(nik, female=gender == "F")
+                birth_date = datetime(1900 + year if year > 26 else 2000 + year, month, day)
+                assert datetime(1995, 6, 15) <= birth_date <= datetime(2006, 6, 15)
+
+    def test_ssn_invalid_gender(self):
+        with pytest.raises(ValueError):
+            self.fake.ssn(gender="X")
 
 
 class TestItIT(unittest.TestCase):
