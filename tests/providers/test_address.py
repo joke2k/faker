@@ -1789,6 +1789,12 @@ class TestIdId:
             assert isinstance(country, str)
             assert country in IdIdAddressProvider.countries
 
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"[1-9]\d{4}", postcode)
+
 
 class TestItIt:
     """Test it_IT address provider methods"""
