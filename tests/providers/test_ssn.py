@@ -12,6 +12,7 @@ import pytest
 
 from stdnum.bg import vat as bg_vat
 from stdnum.gb import vat as gb_vat
+from stdnum.mt import vat as mt_vat
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -1150,6 +1151,18 @@ class TestLvLV(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^LV\d{11}$", self.fake.vat_id())
+
+
+class TestMtMT(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("mt_MT")
+        Faker.seed(0)
+
+    def test_vat_id(self):
+        for _ in range(200):
+            vat_id = self.fake.vat_id()
+            assert re.search(r"^MT[1-9]\d{7}$", vat_id)
+            assert mt_vat.is_valid(vat_id)
 
 
 class TestNlBE(unittest.TestCase):
