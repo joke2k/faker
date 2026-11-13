@@ -6,7 +6,8 @@ class Provider(AddressProvider):
 
     city_formats = ("{{city_name}}",)
 
-    postcode_formats = ("#####",)
+    # Indonesian postal codes run from 10110 to 99976, so they never start with 0
+    postcode_formats = ("%####",)
 
     street_name_formats = (
         "{{street_prefix_short}} {{street}}",
