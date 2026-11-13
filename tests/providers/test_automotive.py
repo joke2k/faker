@@ -8,6 +8,7 @@ from faker.providers.automotive.de_AT import Provider as DeAtAutomotiveProvider
 from faker.providers.automotive.de_DE import Provider as DeDeAutomotiveProvider
 from faker.providers.automotive.es_ES import Provider as EsEsAutomotiveProvider
 from faker.providers.automotive.es_MX import Provider as EsMxAutomotiveProvider
+from faker.providers.automotive.id_ID import Provider as IdIdAutomotiveProvider
 from faker.providers.automotive.mk_MK import Provider as MkMKAutomotiveProvider
 from faker.providers.automotive.ro_RO import Provider as RoRoAutomotiveProvider
 from faker.providers.automotive.ru_RU import Provider as RuRuAutomotiveProvider
@@ -312,6 +313,15 @@ class TestHuHu(_SimpleAutomotiveTestMixin):
     """Test hu_HU automotive provider methods"""
 
     license_plate_pattern: Pattern = re.compile(r"[A-Z]{3}-\d{3}")
+
+
+class TestIdId(_SimpleAutomotiveTestMixin):
+    """Test id_ID automotive provider methods"""
+
+    license_plate_pattern: Pattern = re.compile(r"(?P<prefix>[A-Z]{1,2}) [1-9]\d{0,3} [A-Z]{1,3}")
+
+    def perform_extra_checks(self, license_plate, match):
+        assert match.group("prefix") in IdIdAutomotiveProvider.license_plate_prefixes
 
 
 class TestItIt(_SimpleAutomotiveTestMixin):
