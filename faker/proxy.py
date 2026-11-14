@@ -357,7 +357,7 @@ class UniqueProxy:
         """Convert unhashable types (e.g., dict) to a hashable representation."""
         if isinstance(value, dict):
             return tuple(sorted((k, self._make_hashable(v)) for k, v in value.items()))
-        elif isinstance(value, list):
+        elif isinstance(value, (list, tuple)):
             return tuple(self._make_hashable(v) for v in value)
         elif isinstance(value, set):
             return frozenset(self._make_hashable(v) for v in value)
@@ -366,6 +366,7 @@ class UniqueProxy:
     def _wrap(self, name: str, function: Callable) -> Callable:
         @functools.wraps(function)
         def wrapper(*args, **kwargs):
+            key = (name, self._make_hashable(args), self._make_hashable(kwargs))
             # If types are excluded, call function once to check return type
             if self._excluded_types:
                 retval = function(*args, **kwargs)
@@ -375,7 +376,6 @@ class UniqueProxy:
                 # If not excluded, continue with normal uniqueness logic
                 # but we already have a value, so we'll use it if unique
                 hashable_retval = self._make_hashable(retval)
-                key = (name, args, tuple(sorted(kwargs.items())))
                 generated = self._seen.setdefault(key, {self._sentinel})
 
                 # Check if this first value is unique
@@ -385,7 +385,6 @@ class UniqueProxy:
                 # Not unique, continue with normal loop below
             else:
                 # No exclusions, use original logic
-                key = (name, args, tuple(sorted(kwargs.items())))
                 generated = self._seen.setdefault(key, {self._sentinel})
                 retval = self._sentinel
                 hashable_retval = self._make_hashable(retval)
