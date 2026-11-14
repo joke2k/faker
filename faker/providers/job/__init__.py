@@ -646,6 +646,18 @@ class Provider(BaseProvider):
         "Youth worker",
     )
 
+    seniority_levels: ElementsType[str] = (
+        "Associate",
+        "Junior",
+        "Mid-Level",
+        "Senior",
+        "Lead",
+        "Principal",
+        "Staff",
+        "Distinguished",
+        "Fellow",
+    )
+
     def job(self) -> str:
         return self.random_element(self.jobs)
 
@@ -658,3 +670,6 @@ class Provider(BaseProvider):
         if hasattr(self, "jobs_male"):
             return self.random_element(self.jobs_male)  # type: ignore[attr-defined]
         return self.job()
+
+    def job_seniority(self) -> str:
+        return self.random_element(self.seniority_levels)
