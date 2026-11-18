@@ -119,5 +119,5 @@ class Provider(BaseProvider):
                 sum_ = 0
             return str(sum_)
         else:  # K, L, M  # pragma: no cover
-            # Old format that is no longer used, here for full compatability
+            # Old format that is no longer used, here for full compatibility
             return cls._calculate_control_doi(cif)  # pragma: no cover

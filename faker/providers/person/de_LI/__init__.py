@@ -67,7 +67,7 @@ class Provider(PersonProvider):
     # Source:
     # https://www.baby-vornamen.de/Namensthemen/Charts/Beliebteste-Vornamen-Liechtenstein-182.php#Jahrescharts-Liechtenstein
     # Took the 30 most common baby names per year (1996 to 2022) and weighted them by number of
-    # occurences (how often the name appeared in one of the year lists)
+    # occurrences (how often the name appeared in one of the year lists)
     first_names_male = OrderedDict(
         (
             ("Aaron", 0.00817),
