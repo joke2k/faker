@@ -1608,6 +1608,11 @@ class TestZhCN(unittest.TestCase):
             ssn = self.fake.ssn()
             assert len(ssn) == 18
 
+    @freezegun.freeze_time("2025-03-01")
+    def test_zh_CN_ssn_exact_age(self):
+        ssn = self.fake.ssn(min_age=18, max_age=18)
+        assert "20060301" < ssn[6:14] <= "20070301"
+
     def test_zh_CN_ssn_invalid_gender_passed(self):
         with pytest.raises(ValueError):
             self.fake.ssn(gender="X")

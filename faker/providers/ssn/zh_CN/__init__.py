@@ -1,5 +1,3 @@
-import datetime
-
 from typing import List, Optional
 
 from ....typing import SexLiteral
@@ -3539,8 +3537,7 @@ class Provider(SsnProvider):
         def checksum(s):
             return str((1 - 2 * int(s, 13)) % 11).replace("10", "X")
 
-        age = datetime.timedelta(days=self.random_int(min_age * 365, max_age * 365))
-        birthday = datetime.date.today() - age
+        birthday = self.generator.date_of_birth(minimum_age=min_age, maximum_age=max_age)
         birthday_str = birthday.strftime("%Y%m%d")
 
         if area_code not in self.area_codes:
