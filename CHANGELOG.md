@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.57.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.56.0...v40.57.0)
+
+* Fix: use the seeded generator in `passport`, `es_MX`, `sv_SE`, `el_GR`, `th_TH` and `uk_UA` providers (#2496). Thanks @vidigoat.
+
 ### [v40.56.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.55.0...v40.56.0)
 
 * Fix: route `es_ES` `nie`, `nif`, `cif` and `nuss` through the seeded generator (#2494). Thanks @simpleqt.
