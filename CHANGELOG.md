@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.62.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.61.0...v40.62.0)
+
+* Use `randbytes` for seeded `binary()` (#2542). Thanks @patrick-immometrica.
+* Don't copy list and str elements on every `random_elements` call (#2541). Thanks @patrick-immometrica.
+
 ### [v40.61.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.60.0...v40.61.0)
 
 * Add current mobile prefixes to `zh_CN` phone numbers (#2513). Thanks @DU8866-nice.
