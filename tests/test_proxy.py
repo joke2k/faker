@@ -10,6 +10,7 @@ import pytest
 from faker import Faker
 from faker.config import DEFAULT_LOCALE
 from faker.generator import Generator
+from faker.providers import BaseProvider
 
 
 class TestFakerProxyClass:
@@ -368,8 +369,6 @@ class TestFakerProxyClass:
         assert not hasattr(fake, "obviously_invalid_provider_method_a23f")
 
     def test_multiple_locale_weighted_empty_mapping_not_cached(self):
-        from faker.providers import BaseProvider
-
         class Greeting(BaseProvider):
             def special_hello(self):
                 return "hello"
