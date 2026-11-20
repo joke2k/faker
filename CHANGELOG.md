@@ -1,5 +1,10 @@
 ## Changelog
 
+### [v40.58.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.57.0...v40.58.0)
+
+* Fix unique `random_elements` on `OrderedDict` with zero or unused weights (#2501). Thanks @ekanshul.
+* Fix typo in release process docs and comments (#2545). Thanks @ninglinLiu.
+
 ### [v40.57.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.56.0...v40.57.0)
 
 * Fix: use the seeded generator in `passport`, `es_MX`, `sv_SE`, `el_GR`, `th_TH` and `uk_UA` providers (#2496). Thanks @vidigoat.
