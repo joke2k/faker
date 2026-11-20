@@ -496,11 +496,12 @@ class BaseProvider:
             if unique:
                 # shortcut
                 return self.generator.random.sample(elements, length)
-            choices = elements
+            # a list or str is drawn from as is, copying it costs O(n) on every call
+            choices = elements if isinstance(elements, (tuple, list, str)) else tuple(elements)
             probabilities = None
 
         return fn(
-            tuple(choices),
+            choices,
             probabilities,
             self.generator.random,
             length=length,
