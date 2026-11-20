@@ -71,3 +71,43 @@ def test_no_invalid_formats(locale):
                         )
     # group errors reporting all the ones from the same locale
     assert not errors, "Errors:\n - " + "\n - ".join(errors)
+
+
+# a run of letters (no digits, no underscore)
+find_word = re.compile(r"[^\W\d_]+")
+latin_letter = re.compile(r"[A-Za-z]")
+cyrillic_letter = re.compile(r"[Ѐ-ӿ]")
+
+
+def _strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            yield from _strings(key)
+            yield from _strings(item)
+    elif isinstance(value, (list, tuple, set, frozenset)):
+        for item in value:
+            yield from _strings(item)
+
+
+@pytest.mark.parametrize("locale", locales)
+def test_no_mixed_latin_and_cyrillic_words(locale):
+    """
+    Latin and Cyrillic have letters that look the same (a/а, e/е, o/о, c/с, i/і, ...).
+    A word that mixes both scripts looks right but compares, sorts and searches wrong,
+    so no word in the provider data may contain letters from both scripts.
+    """
+    errors = []
+    for provider in PROVIDERS:
+        if provider == "faker.providers":
+            continue
+        prov_cls, _, _ = Factory._find_provider_class(provider, locale)
+        for attribute, value in vars(prov_cls).items():
+            if attribute.startswith("__"):
+                continue
+            for string in _strings(value):
+                for word in find_word.findall(string):
+                    if latin_letter.search(word) and cyrillic_letter.search(word):
+                        errors.append(f"{prov_cls.__module__}.{attribute}: {word!r}")
+    assert not errors, "Words mixing Latin and Cyrillic letters:\n - " + "\n - ".join(sorted(set(errors)))
