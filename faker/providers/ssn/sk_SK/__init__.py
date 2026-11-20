@@ -1,5 +1,3 @@
-from math import ceil
-
 from .. import Provider as BaseProvider
 
 
@@ -9,8 +7,6 @@ class Provider(BaseProvider):
     """
 
     vat_id_formats = ("SK##########",)
-
-    national_id_months = ["%.2d" % i for i in range(1, 13)] + ["%.2d" % i for i in range(51, 63)]
 
     def vat_id(self) -> str:
         """
@@ -27,16 +23,12 @@ class Provider(BaseProvider):
         """
         birthdate = self.generator.date_of_birth()
         year = f"{birthdate:%y}"
-        month: str = self.random_element(self.national_id_months)
+        month = "%.2d" % (birthdate.month + self.random_element((0, 50)))
         day = f"{birthdate:%d}"
         if birthdate.year > 1953:
-            sn = self.random_number(4, True)
+            sn = self.random_int(11, 9999)
         else:
-            sn = self.random_number(3, True)
-        number = int(f"{year}{month}{day}{sn}")
-        birth_number = str(ceil(number / 11) * 11)
-        if year == "00":
-            birth_number = "00" + birth_number
-        elif year[0] == "0":
-            birth_number = "0" + birth_number
+            sn = self.random_int(11, 999)
+        number = f"{year}{month}{day}{sn:0{4 if birthdate.year > 1953 else 3}d}"
+        birth_number = str(int(number) // 11 * 11).zfill(len(number))
         return f"{birth_number[:6]}/{birth_number[6::]}"
