@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.55.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.54.0...v40.55.0)
+
+* Add `es_AR` ssn provider with DNI, CUIL and CUIT (#2491). Thanks @eOrrego.
+
 ### [v40.54.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.53.0...v40.54.0)
 
 * Fix: `bn_BD` `swift_bank_codes` and `swift11` length (#2490). Thanks @feiiiiii5.
