@@ -76,6 +76,27 @@ class TestUniquenessClass:
         for i in range(10):
             fake.unique.pyset()
 
+    def test_unhashable_arguments(self):
+        """Lists, sets and dicts can be passed as arguments."""
+
+        fake = Faker()
+
+        assert {fake.unique.random_element([1, 2, 3]) for _ in range(3)} == {1, 2, 3}
+        with pytest.raises(UniquenessException):
+            fake.unique.random_element([1, 2, 3])
+
+        assert {fake.unique.random_element(elements={"a", "b"}) for _ in range(2)} == {"a", "b"}
+        with pytest.raises(UniquenessException):
+            fake.unique.random_element(elements={"a", "b"})
+
+        fake.unique.json(data_columns={"id": "pyint"}, num_rows=1)
+
+    def test_tuple_return_with_unhashable_items(self):
+        fake = Faker()
+
+        for i in range(10):
+            fake.unique.pystruct()
+
     def test_unique_locale_access(self):
         """Accessing locales through UniqueProxy with subscript notation
         maintains global uniqueness across all locales."""
