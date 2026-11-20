@@ -1454,7 +1454,7 @@ class Faker:
         :param start_date: A ``DateParseType``. Defaults to ``"-30d"``
         :param end_date: A ``DateParseType``. Defaults to ``"now"``
         :param precision: A float representing the time interval between data points.
-        Defaults to 1/30th of the time
+        Defaults to 1/30th of the time. Must be greater than zero for a non-empty interval.
         :param distrib: A callable that accepts a datetime object and returns a value.
         Defaults to a uniform distribution
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -2080,9 +2080,6 @@ class Faker:
     def binary(self, length: int = ...) -> bytes:
         """
         Generate a random binary blob of ``length`` bytes.
-
-        If this faker instance has been seeded, performance will be significantly reduced, to conform
-        to the seeding.
 
         :sample: length=64
         """
@@ -3212,7 +3209,10 @@ class Faker:
     def vat_id(self) -> str:
         """
         http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
-        :return: A random Bulgarian VAT ID
+        :return: A random Bulgarian VAT ID with a valid check digit: 9
+        digits for legal entities or 10 digits for physical persons,
+        mirroring the check digit algorithms of ``stdnum.bg.vat``
+        (python-stdnum), which accepts either length.
         """
         ...
 
@@ -3700,6 +3700,34 @@ class Faker:
         """
         ...
 
+    def company_cuit(self) -> str:
+        """
+        :return: a random CUIT (Clave Única de Identificación Tributaria) of a company
+        :example: '30-71234567-1'
+        """
+        ...
+
+    def cuil(self) -> str:
+        """
+        :return: a random CUIL (Código Único de Identificación Laboral) of a person
+        :example: '20-34567890-6'
+        """
+        ...
+
+    def cuit(self) -> str:
+        """
+        :return: a random CUIT of a person or a company. A person's CUIT is the same number as their CUIL.
+        :example: '20-34567890-6'
+        """
+        ...
+
+    def dni(self) -> str:
+        """
+        :return: a random DNI (Documento Nacional de Identidad) number
+        :example: '34567890'
+        """
+        ...
+
     def cif(self) -> str:
         """
         https://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
@@ -3971,6 +3999,24 @@ class Faker:
             Otherwise return the RFC of a legal person.
         :type natural: bool
         :return: a random Mexican RFC
+        """
+        ...
+
+    def cedula(self, cedula_type: Optional[str] = ...) -> str:
+        """
+        Generate a Venezuelan identity card number.
+
+        :param cedula_type: The type of identity card, either 'V' (Venezuelan) or 'E' (foreigner).
+        :example: 'V-12345678'
+        """
+        ...
+
+    def rif(self, rif_type: Optional[str] = ...) -> str:
+        """
+        Generate a Venezuelan RIF with its check digit.
+
+        :param rif_type: The RIF type, one of 'V', 'E', 'J', 'P', or 'G'.
+        :example: 'J-40123456-9'
         """
         ...
 

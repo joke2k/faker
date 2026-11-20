@@ -358,6 +358,27 @@ class TestDateTime(unittest.TestCase):
         assert datetime_start <= random_date
         assert datetime_end >= random_date
 
+    @pytest.mark.skipif(platform.system() == "Windows", reason="Windows does not support setting the local timezone")
+    def test_date_time_between_dates_with_tzinfo_and_relative_bounds(self):
+        # Relative bounds are resolved against ``datetime.now(tzinfo)``, so the result must
+        # land inside the requested window whatever the machine timezone is. A machine east
+        # of ``tzinfo`` inverts the window, a machine west of it widens it. The window is
+        # deliberately tiny so the assertion cannot pass by chance.
+        # Do not freeze the clock here: freezegun ignores ``TZ``, which is the whole point.
+        for local_tz in ("America/New_York", "Asia/Tokyo"):
+            os.environ["TZ"] = local_tz
+            time.tzset()
+            try:
+                for _ in range(5):
+                    before = datetime.now(utc)
+                    random_date = self.fake.date_time_between_dates("-1m", "now", tzinfo=utc)
+                    after = datetime.now(utc)
+
+                    assert before - timedelta(minutes=1) <= random_date <= after
+            finally:
+                del os.environ["TZ"]
+                time.tzset()
+
     def test_past_datetime_within_second(self):
         # Should not raise a ``ValueError``
         self.fake.past_datetime(start_date="+1s")
@@ -526,6 +547,28 @@ class TestDateTime(unittest.TestCase):
         assert isinstance(random_datetime, datetime)
         self.assertBetween(random_datetime, _30_years_ago, _20_years_ago)
 
+    def test_date_time_between_equal_bounds(self):
+        for tz in (None, utc, zoneinfo.ZoneInfo("Asia/Tokyo")):
+            with self.subTest(tz=tz):
+                bound = datetime(2024, 1, 1, tzinfo=tz)
+                assert self.fake.date_time_between(bound, bound, tzinfo=tz) == bound
+
+    def test_date_time_between_equal_timestamp_bounds(self):
+        for timestamp in (-1, 0, 1704067200):
+            with self.subTest(timestamp=timestamp):
+                expected = datetime(1970, 1, 1) + timedelta(seconds=timestamp)
+                assert self.fake.date_time_between(timestamp, timestamp) == expected
+
+    @freezegun.freeze_time("2024-01-01 12:00:00")
+    def test_date_time_between_equal_relative_bounds(self):
+        assert self.fake.date_time_between("now", "now") == datetime(2024, 1, 1, 12)
+
+    def test_date_time_between_one_second_bounds(self):
+        start = datetime(2024, 1, 1)
+        end = start + timedelta(seconds=1)
+        for _ in range(10):
+            assert start <= self.fake.date_time_between(start, end) <= end
+
     def test_date_between(self):
         today = date.today()
         _30_years_ago = change_year(today, -30)
@@ -595,6 +638,23 @@ class TestDateTime(unittest.TestCase):
 
         series = list(self.fake.time_series(start_date=start, end_date=end, tzinfo=start.tzinfo))
         assert series[0][0] == start
+
+    def test_time_series_nonpositive_precision(self):
+        for precision in (0, -1, -0.5, "-1d", timedelta(0), timedelta(seconds=-1)):
+            with self.subTest(precision=precision):
+                series = self.fake.time_series(0, 10, precision=precision, tzinfo=utc)
+                with pytest.raises(ValueError, match="`precision` must be greater than zero"):
+                    next(series)
+
+    def test_time_series_fractional_precision(self):
+        series = list(self.fake.time_series(0, 1, precision=0.25, tzinfo=utc, distrib=lambda dt: dt.microsecond))
+        assert [value for _, value in series] == [0, 250000, 500000, 750000]
+        assert [dt for dt, _ in series] == [
+            datetime(1970, 1, 1, tzinfo=utc) + timedelta(seconds=step / 4) for step in range(4)
+        ]
+
+    def test_time_series_equal_bounds(self):
+        assert list(self.fake.time_series(0, 0, tzinfo=utc)) == []
 
     def test_unix_time(self):
         from faker.providers.date_time import datetime_to_timestamp

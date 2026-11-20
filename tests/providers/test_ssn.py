@@ -10,8 +10,12 @@ from unittest import mock
 import freezegun
 import pytest
 
+from stdnum.ar import cuit as ar_cuit
+from stdnum.bg import vat as bg_vat
 from stdnum.gb import vat as gb_vat
 from stdnum.kr import rrn as kr_rrn
+from stdnum.ve.rif import calc_check_digit as ve_rif_stdnum_check_digit
+from stdnum.ve.rif import is_valid as ve_rif_is_valid
 from validators.i18n.es import es_cif as is_cif
 from validators.i18n.es import es_nie as is_nie
 from validators.i18n.es import es_nif as is_nif
@@ -21,10 +25,12 @@ from faker.providers.ssn.el_GR import tin_checksum as gr_tin_checksum
 from faker.providers.ssn.en_CA import checksum as ca_checksum
 from faker.providers.ssn.en_GB import Provider as en_GB_Provider
 from faker.providers.ssn.en_IN import calculate_gstin_checksum
+from faker.providers.ssn.es_AR import cuit_check_digit, cuit_with_check_digit
 from faker.providers.ssn.es_CL import rut_check_digit as cl_rut_checksum
 from faker.providers.ssn.es_CO import nit_check_digit
 from faker.providers.ssn.es_MX import curp_checksum as mx_curp_checksum
 from faker.providers.ssn.es_MX import ssn_checksum as mx_ssn_checksum
+from faker.providers.ssn.es_VE import rif_check_digit as ve_rif_check_digit
 from faker.providers.ssn.et_EE import checksum as et_checksum
 from faker.providers.ssn.fi_FI import Provider as fi_Provider
 from faker.providers.ssn.fr_FR import Provider as fr_Provider
@@ -93,6 +99,12 @@ class TestBgBG(unittest.TestCase):
     def test_vat_id(self):
         for _ in range(100):
             assert re.search(r"^BG\d{9,10}$", self.fake.vat_id())
+
+    def test_vat_id_checksum(self):
+        for _ in range(200):
+            vat_id = self.fake.vat_id()
+            assert re.search(r"^BG\d{9,10}$", vat_id)
+            assert bg_vat.validate(vat_id) == vat_id[2:]
 
 
 class TestCsCZ(unittest.TestCase):
@@ -231,6 +243,24 @@ class TestEnCA(unittest.TestCase):
             assert len(sin) == 11
             assert sin.replace(" ", "").isdigit()
             assert ca_checksum(sin) == int(sin[-1])
+
+    def test_ssn_covers_every_digit_and_stays_valid(self):
+        # Regression (#2487): the non-leading positions excluded the digit 9
+        # and were forced distinct (drawn without replacement from range(9)),
+        # so a 9 could never appear and digits never repeated. A real SIN may
+        # carry a 9 and repeat digits; every generated SIN must stay
+        # checksum-valid. (The leading digit stays in the 1-7 series per
+        # #2467 -- test_ssn_leading_digit_is_a_personal_series covers that.)
+        Faker.seed(0)
+        seen = set()
+        for _ in range(500):
+            sin = self.fake.ssn()
+            assert ca_checksum(sin) == int(sin[-1])
+            seen.update(int(c) for c in sin.replace(" ", "")[:8])
+        # The 9 and every other digit are now reachable in the non-leading
+        # positions; the old code could only ever yield {0..8} distinct.
+        assert 9 in seen
+        assert seen == set(range(10))
 
     def test_ssn_leading_digit_is_a_personal_series(self):
         # The leading digit says which series the SIN was issued in. 1-7 are the
@@ -664,6 +694,51 @@ class TestEnUS(unittest.TestCase):
             self.fake.ssn(taxpayer_identification_number_type="ssn")
 
 
+class TestEsAR(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_AR")
+        Faker.seed(0)
+
+    def test_dni(self):
+        for _ in range(100):
+            assert re.fullmatch(r"[1-9]\d{6,7}", self.fake.dni())
+
+    def test_cuil(self):
+        for _ in range(100):
+            cuil = self.fake.cuil()
+            assert re.fullmatch(r"(20|23|27)-\d{8}-\d", cuil)
+            assert ar_cuit.is_valid(cuil)
+
+    def test_company_cuit(self):
+        for _ in range(100):
+            cuit = self.fake.company_cuit()
+            assert re.fullmatch(r"(30|33)-\d{8}-\d", cuit)
+            assert ar_cuit.is_valid(cuit)
+
+    def test_cuit(self):
+        prefixes = set()
+        for _ in range(100):
+            cuit = self.fake.cuit()
+            assert re.fullmatch(r"(20|23|27|30|33)-\d{8}-\d", cuit)
+            assert ar_cuit.is_valid(cuit)
+            prefixes.add(cuit[0])
+        assert prefixes == {"2", "3"}
+
+    def test_ssn_and_vat_id(self):
+        assert ar_cuit.is_valid(self.fake.ssn())
+        assert ar_cuit.is_valid(self.fake.vat_id())
+
+    def test_cuit_check_digit(self):
+        assert cuit_check_digit("2017254359") == 7
+        assert cuit_check_digit("3050001091") == 2
+        assert cuit_check_digit("2010000005") == 10
+
+    def test_check_digit_10_uses_fallback_prefix(self):
+        assert cuit_with_check_digit("20", 10000005, "23") == "23-10000005-9"
+        assert cuit_with_check_digit("27", 10000002, "23") == "23-10000002-4"
+        assert cuit_with_check_digit("30", 10000008, "33") == "33-10000008-9"
+
+
 class TestEsCL(unittest.TestCase):
     def setUp(self):
         self.fake = Faker("es_CL")
@@ -769,6 +844,15 @@ class TestEsES(unittest.TestCase):
             assert isinstance(nuss, str)
             assert 11 == len(nuss)
 
+    def test_doi_methods_are_seeded(self):
+        # nie/nif/cif/nuss must honour Faker.seed() like every other method
+        def sample():
+            Faker.seed(1234)
+            fake = Faker("es_ES")
+            return [fake.nie(), fake.nif(), fake.cif(), fake.nuss(), fake.nuss(company=True)]
+
+        assert sample() == sample()
+
 
 class TestEsCA(TestEsES):
     def setUp(self):
@@ -830,6 +914,72 @@ class TestEsMX:
     def test_elector_code_unsupported_gender(self):
         with pytest.raises(ValueError, match="Gender must be"):
             self.fake.elector_code("Z")
+
+
+class TestEsVE(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker("es_VE")
+        Faker.seed(0)
+
+    def test_cedula(self):
+        for cedula_type, minimum, maximum in (
+            ("V", 1_000_000, 35_999_999),
+            ("E", 80_000_000, 99_999_999),
+        ):
+            for _ in range(100):
+                cedula_type_result, number = self.fake.cedula(cedula_type=cedula_type).split("-")
+                assert cedula_type_result == cedula_type
+                assert minimum <= int(number) <= maximum
+
+    def test_cedula_invalid_type(self):
+        with pytest.raises(ValueError):
+            self.fake.cedula(cedula_type="X")
+
+    def test_ssn(self):
+        for _ in range(100):
+            cedula_type, number = self.fake.ssn().split("-")
+            assert cedula_type in ("V", "E")
+            if cedula_type == "V":
+                assert 1_000_000 <= int(number) <= 35_999_999
+            else:
+                assert 80_000_000 <= int(number) <= 99_999_999
+
+    def test_rif(self):
+        rif_pattern = re.compile(r"^[VEJPG]-\d{8}-\d$")
+        for rif_type in ("V", "E", "J", "P", "G"):
+            for _ in range(100):
+                rif = self.fake.rif(rif_type=rif_type)
+                assert rif_pattern.fullmatch(rif)
+                assert rif.startswith(f"{rif_type}-")
+                assert ve_rif_is_valid(rif), rif
+
+    def test_rif_without_type(self):
+        rif_pattern = re.compile(r"^[VEJPG]-\d{8}-\d$")
+        for _ in range(1000):
+            rif = self.fake.rif()
+            assert rif_pattern.fullmatch(rif)
+            assert ve_rif_is_valid(rif), rif
+
+    def test_rif_invalid_type(self):
+        with pytest.raises(ValueError):
+            self.fake.rif(rif_type="X")
+
+    def test_vat_id(self):
+        for _ in range(100):
+            vat_id = self.fake.vat_id()
+            assert re.fullmatch(r"^J-\d{8}-\d$", vat_id)
+            assert ve_rif_is_valid(vat_id), vat_id
+
+    def test_rif_check_digit(self):
+        assert ve_rif_check_digit("J", "40123456") == "9"
+        for letter in ("V", "E", "J", "P", "G"):
+            for digits in ("00000000", "12345678", "99999999"):
+                assert ve_rif_check_digit(letter, digits) == ve_rif_stdnum_check_digit(f"{letter}{digits}")
+        with pytest.raises(ValueError):
+            ve_rif_check_digit("X", "40123456")
+        for digits in ("1234567", "1234567A"):
+            with pytest.raises(ValueError):
+                ve_rif_check_digit("J", digits)
 
 
 class TestEtEE(unittest.TestCase):
@@ -1072,7 +1222,13 @@ class TestItIT(unittest.TestCase):
 
     def test_vat_id(self):
         for _ in range(100):
-            assert re.search(r"^IT\d{11}$", self.fake.vat_id())
+            vat_id = self.fake.vat_id()
+            assert re.search(r"^IT\d{11}$", vat_id)
+            # the last digit is a Luhn check digit over the first ten digits
+            assert luhn_checksum(int(vat_id[2:])) == 0
+            # digits 8-10 identify a valid VAT office
+            office = int(vat_id[9:12])
+            assert 1 <= office <= 100 or office in (120, 121, 888, 999)
 
     def test_ssn(self):
         for _ in range(100):

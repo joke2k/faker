@@ -1,5 +1,84 @@
 ## Changelog
 
+### [v40.63.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.62.0...v40.63.0)
+
+* Add `es_VE` SSN provider with cédula and RIF (#2514). Thanks @josephgedaly.
+
+### [v40.62.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.61.0...v40.62.0)
+
+* Use `randbytes` for seeded `binary()` (#2542). Thanks @patrick-immometrica.
+* Don't copy list and str elements on every `random_elements` call (#2541). Thanks @patrick-immometrica.
+
+### [v40.61.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.60.0...v40.61.0)
+
+* Add current mobile prefixes to `zh_CN` phone numbers (#2513). Thanks @DU8866-nice.
+
+### [v40.60.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.59.0...v40.60.0)
+
+* Reject nonpositive `max_value` for positive `pyfloat` (#2510). Thanks @Jesse-njx.
+
+### [v40.59.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.58.0...v40.59.0)
+
+* Use the current IANA names for five country timezones (#2503). Thanks @yu2971512385-ui.
+
+### [v40.58.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.57.0...v40.58.0)
+
+* Fix unique `random_elements` on `OrderedDict` with zero or unused weights (#2501). Thanks @ekanshul.
+* Fix typo in release process docs and comments (#2545). Thanks @ninglinLiu.
+
+### [v40.57.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.56.0...v40.57.0)
+
+* Fix: use the seeded generator in `passport`, `es_MX`, `sv_SE`, `el_GR`, `th_TH` and `uk_UA` providers (#2496). Thanks @vidigoat.
+
+### [v40.56.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.55.0...v40.56.0)
+
+* Fix: route `es_ES` `nie`, `nif`, `cif` and `nuss` through the seeded generator (#2494). Thanks @simpleqt.
+
+### [v40.55.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.54.0...v40.55.0)
+
+* Add `es_AR` ssn provider with DNI, CUIL and CUIT (#2491). Thanks @eOrrego.
+
+### [v40.54.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.53.0...v40.54.0)
+
+* Fix: `bn_BD` `swift_bank_codes` and `swift11` length (#2490). Thanks @feiiiiii5.
+
+### [v40.53.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.52.0...v40.53.0)
+
+* Fix: allow the digit 9 in the first eight positions of an `en_CA` SIN (#2488). Thanks @Sreekant13.
+
+### [v40.52.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.51.0...v40.52.0)
+
+* Fix: generate valid `it_IT` VAT IDs in `vat_id()` (#2482). Thanks @divya0792.
+
+### [v40.51.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.50.0...v40.51.0)
+
+* Fix: reject non-positive precision in `time_series` (#2484). Thanks @yuefdev.
+
+### [v40.50.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.49.0...v40.50.0)
+
+* Fix: avoid random offsets for equal parsed `date_time_between` bounds (#2479). Thanks @FanWu-ai.
+* Docs: add `faker-cti` to community providers (#2492). Thanks @mariot.
+
+### [v40.49.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.48.0...v40.49.0)
+
+* Fix: respect zero fractional digits for positive `pyfloat` fallback (#2473). Thanks @FanWu-ai.
+
+### [v40.48.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.47.0...v40.48.0)
+
+* Fix: generate valid `bg_BG` VAT check digits (#2471). Thanks @feiiiiii5.
+
+### [v40.47.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.46.0...v40.47.0)
+
+* Fix: pass `tzinfo` through when resolving relative `date_time_between_dates` bounds (#2470). Thanks @feiiiiii5.
+
+### [v40.46.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.45.0...v40.46.0)
+
+* Fix: allow repeated digits in numeric `pt_BR` CNPJ roots (#2446). Thanks @liuyaohui666.
+
+### [v40.45.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.44.0...v40.45.0)
+
+* Update the base currency list to current ISO 4217 (#2489). Thanks @yu2971512385-ui.
+
 ### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
 
 * Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.

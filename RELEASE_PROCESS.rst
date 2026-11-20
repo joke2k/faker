@@ -4,7 +4,7 @@ Release Process
 This project releases automatically every time a PR is squash-merged.
 
 The changelog is updated with a new entry containing the message commit, and the
-library version number is incremented according the the labels on the PR:
+library version number is incremented according to the labels on the PR:
 
 * ``bump-version:major``: Increments the MAJOR version
 * ``bump-version:minor``: Increments the MINOR version
