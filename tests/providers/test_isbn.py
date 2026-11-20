@@ -71,3 +71,20 @@ class TestProvider:
         with pytest.raises(Exception):
             r = ("0000000", "0000001", 1)
             self.prov._registrant_publication("0000002", [r])
+
+
+class TestEsEsISBN:
+    def test_es_es_isbn_valid_structure(self):
+        from faker import Faker
+
+        fake = Faker("es_ES")
+        fake.seed_instance(12345)
+        for _ in range(100):
+            val13 = fake.isbn13()
+            val10 = fake.isbn10()
+            assert "--" not in val13
+            assert "--" not in val10
+            assert val13.startswith("978-84-")
+            assert val10.startswith("84-")
+            assert len(val13) == 17
+            assert len(val10) == 13

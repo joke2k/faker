@@ -50,7 +50,7 @@ class Provider(BaseProvider):
         :returns: A (registrant, publication) tuple of strings.
         """
         for rule in rules:
-            if rule[0] <= reg_pub[:-1] <= rule[1]:
+            if rule[2] > 0 and rule[0] <= reg_pub[:-1] <= rule[1]:
                 reg_len = rule[2]
                 break
         else:
