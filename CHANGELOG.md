@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.63.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.62.0...v40.63.0)
+
+* Add `es_VE` SSN provider with cédula and RIF (#2514). Thanks @josephgedaly.
+
 ### [v40.62.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.61.0...v40.62.0)
 
 * Use `randbytes` for seeded `binary()` (#2542). Thanks @patrick-immometrica.
