@@ -34,9 +34,12 @@ def choices_distribution_unique(
     if random is None:
         random = mod_random
 
-    assert p is not None
-    assert len(a) == len(p)
     assert len(a) >= length, "You can't request more unique samples than elements in the dataset."
+
+    if p is None:
+        return random.sample(a, length)
+
+    assert len(a) == len(p)
 
     choices = []
     items = list(a)
@@ -44,6 +47,8 @@ def choices_distribution_unique(
     for _ in range(length):
         cdf = tuple(cumsum(probabilities))
         normal = cdf[-1]
+        if normal <= 0:
+            raise ValueError("Total of weights must be greater than zero")
         cdf2 = [i / normal for i in cdf]
         uniform_sample = random_sample(random=random)
         idx = bisect.bisect_right(cdf2, uniform_sample)

@@ -233,6 +233,21 @@ class TestBaseProvider:
         for _ in range(num_samples):
             assert faker.random_element(choices) in choices
 
+    def test_random_elements_unique_zero_remaining_weights(self, faker):
+        with pytest.raises(ValueError, match="Total of weights must be greater than zero"):
+            faker.random_elements(OrderedDict([("a", 0), ("b", 1)]), length=2, unique=True)
+
+        assert faker.random_elements(OrderedDict([("a", 0), ("b", 1)]), length=1, unique=True) == ["b"]
+
+    def test_random_elements_unique_without_weighting(self, faker):
+        sample = faker.random_elements(
+            OrderedDict([("a", 1), ("b", 1)]),
+            length=2,
+            unique=True,
+            use_weighting=False,
+        )
+        assert sorted(sample) == ["a", "b"]
+
     def test_random_sample(self, faker):
         # Too many items requested
         with pytest.raises(ValueError):
