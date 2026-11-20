@@ -161,6 +161,108 @@ class TestCsCz(unittest.TestCase):
         assert month in CsCzProvider.MONTH_NAMES.values()
 
 
+@pytest.mark.parametrize(
+    "period,period_start,next_period_start",
+    [
+        ("month", date(2026, 11, 1), date(2026, 12, 1)),
+        ("year", date(2026, 1, 1), date(2027, 1, 1)),
+        ("decade", date(2020, 1, 1), date(2030, 1, 1)),
+        pytest.param(
+            "century",
+            date(2000, 1, 1),
+            date(2100, 1, 1),
+            marks=pytest.mark.skipif(not is64bit(), reason="requires 64bit"),
+        ),
+    ],
+)
+class TestCurrentDatePeriodBounds:
+    def test_last_day_remains_reachable(self, period, period_start, next_period_start):
+        fake = Faker()
+        fake.seed_instance(0)
+
+        with freezegun.freeze_time(next_period_start - timedelta(days=2)):
+            result = getattr(fake, f"date_this_{period}")(before_today=False, after_today=True)
+
+        assert result == next_period_start - timedelta(days=1)
+
+    @pytest.mark.parametrize("before_today,after_today", [(True, False), (False, True), (True, True), (False, False)])
+    def test_last_day_of_period(self, period, period_start, next_period_start, before_today, after_today):
+        today = next_period_start - timedelta(days=1)
+        fake = Faker()
+        fake.seed_instance(105502)
+
+        with freezegun.freeze_time(today):
+            result = getattr(fake, f"date_this_{period}")(before_today=before_today, after_today=after_today)
+
+        assert isinstance(result, date)
+        assert period_start <= result < next_period_start
+        if not before_today:
+            assert result >= today
+        if not after_today:
+            assert result <= today
+
+    @pytest.mark.parametrize("before_today", [False, True])
+    def test_inclusive_upper_bound(self, period, period_start, next_period_start, before_today, monkeypatch):
+        fake = Faker()
+        monkeypatch.setattr(fake.random, "randint", lambda start, end: end)
+        monkeypatch.setattr(fake.random, "uniform", lambda start, end: end)
+
+        with freezegun.freeze_time(next_period_start - timedelta(days=1)):
+            result = getattr(fake, f"date_this_{period}")(before_today=before_today, after_today=True)
+
+        assert period_start <= result < next_period_start
+
+
+@pytest.mark.parametrize(
+    "period,period_start,next_period_start",
+    [
+        ("month", datetime(2026, 11, 1), datetime(2026, 12, 1)),
+        ("year", datetime(2026, 1, 1), datetime(2027, 1, 1)),
+        ("decade", datetime(2020, 1, 1), datetime(2030, 1, 1)),
+        pytest.param(
+            "century",
+            datetime(2000, 1, 1),
+            datetime(2100, 1, 1),
+            marks=pytest.mark.skipif(not is64bit(), reason="requires 64bit"),
+        ),
+    ],
+)
+@pytest.mark.parametrize("tz", [None, utc, zoneinfo.ZoneInfo("Asia/Tokyo")])
+class TestCurrentPeriodBounds:
+    @pytest.mark.parametrize("before_now,after_now", [(True, False), (False, True), (True, True), (False, False)])
+    def test_last_second_of_period(self, period, period_start, next_period_start, tz, before_now, after_now):
+        period_start = period_start.replace(tzinfo=tz)
+        next_period_start = next_period_start.replace(tzinfo=tz)
+        now = next_period_start - timedelta(seconds=1)
+        fake = Faker()
+        fake.seed_instance(0)
+
+        with freezegun.freeze_time(now):
+            result = getattr(fake, f"date_time_this_{period}")(before_now=before_now, after_now=after_now, tzinfo=tz)
+
+        assert period_start <= result < next_period_start
+        assert result.tzinfo == tz
+        if not before_now:
+            assert result >= now
+        if not after_now:
+            assert result <= now
+
+    @pytest.mark.parametrize("before_now", [False, True])
+    def test_inclusive_upper_bound(self, period, period_start, next_period_start, tz, before_now, monkeypatch):
+        period_start = period_start.replace(tzinfo=tz)
+        next_period_start = next_period_start.replace(tzinfo=tz)
+        fake = Faker()
+        # Select the inclusive endpoint on either platform's random number generator.
+        monkeypatch.setattr(fake.random, "randint", lambda start, end: end)
+        monkeypatch.setattr(fake.random, "uniform", lambda start, end: end)
+
+        with freezegun.freeze_time(next_period_start - timedelta(seconds=1)):
+            result = getattr(fake, f"date_time_this_{period}")(before_now=before_now, after_now=True, tzinfo=tz)
+
+        assert period_start <= result < next_period_start
+        assert result.tzinfo == tz
+
+
 class TestDateTime(unittest.TestCase):
     def setUp(self):
         self.fake = Faker()
