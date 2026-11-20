@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.60.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.59.0...v40.60.0)
+
+* Reject nonpositive `max_value` for positive `pyfloat` (#2510). Thanks @Jesse-njx.
+
 ### [v40.59.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.58.0...v40.59.0)
 
 * Use the current IANA names for five country timezones (#2503). Thanks @yu2971512385-ui.
