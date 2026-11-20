@@ -1950,6 +1950,13 @@ class TestKoKr:
             assert isinstance(postcode, str)
             assert re.fullmatch(r"\d{5}", postcode)
 
+    def test_postcode_prefix(self, faker, num_samples):
+        unassigned = {"00", "09", "19", "20", "60"}
+        for _ in range(num_samples):
+            prefix = faker.postcode()[:2]
+            assert "01" <= prefix <= "63"
+            assert prefix not in unassigned
+
     def test_city(self, faker, num_samples):
         for _ in range(num_samples):
             city = faker.city()

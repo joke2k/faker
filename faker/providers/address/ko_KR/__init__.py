@@ -25,7 +25,7 @@ class Provider(AddressProvider):
         - Old postal code (6-digit, OLD and dead)
         - New postal code (5-digit, New)
 
-    :meth:`old_postal_code` and :meth:`postcode` generate old 6-digit code
+    :meth:`old_postal_code` generates old 6-digit code and :meth:`postcode`
     and :meth:`postal_code` generate newer 5-digit code.
 
     Reference:
@@ -47,7 +47,11 @@ class Provider(AddressProvider):
     road_suffixes = ("로", "길", "거리", "가")
     town_suffixes = ("동", "읍", "면", "리", "마을")
     postcode_formats = ("###-###",)
-    new_postal_code_formats = ("#####",)
+    # The first two digits name the province or metropolitan city, from 01
+    # (Seoul) to 63 (Jeju); 09, 19, 20 and 60 are not assigned to any area.
+    new_postal_code_formats = tuple(
+        f"{prefix:02d}###" for prefix in (*range(1, 9), *range(10, 19), *range(21, 60), *range(61, 64))
+    )
     metropolitan_cities = (
         "서울특별시",
         "부산광역시",
