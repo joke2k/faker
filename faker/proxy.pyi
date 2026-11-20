@@ -2081,9 +2081,6 @@ class Faker:
         """
         Generate a random binary blob of ``length`` bytes.
 
-        If this faker instance has been seeded, performance will be significantly reduced, to conform
-        to the seeding.
-
         :sample: length=64
         """
         ...
