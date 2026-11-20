@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.56.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.55.0...v40.56.0)
+
+* Fix: route `es_ES` `nie`, `nif`, `cif` and `nuss` through the seeded generator (#2494). Thanks @simpleqt.
+
 ### [v40.55.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.54.0...v40.55.0)
 
 * Add `es_AR` ssn provider with DNI, CUIL and CUIT (#2491). Thanks @eOrrego.
