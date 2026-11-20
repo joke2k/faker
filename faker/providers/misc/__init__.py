@@ -55,15 +55,11 @@ class Provider(BaseProvider):
     def binary(self, length: int = (1 * 1024 * 1024)) -> bytes:
         """Generate a random binary blob of ``length`` bytes.
 
-        If this faker instance has been seeded, performance will be significantly reduced, to conform
-        to the seeding.
-
         :sample: length=64
         """
         # If the generator has already been seeded, urandom can't be used
         if self.generator._is_seeded:
-            blob = [self.generator.random.randrange(256) for _ in range(length)]
-            return bytes(blob)
+            return self.generator.random.randbytes(length)
 
         # Generator is unseeded anyway, just use urandom
         return os.urandom(length)
