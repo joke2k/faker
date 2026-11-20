@@ -315,6 +315,10 @@ class TestEnIn(unittest.TestCase):
         for aadhaar_id in self.aadhaar_ids:
             assert calculate_verhoeff(aadhaar_id[:-1]) == int(aadhaar_id[-1])
 
+    def test_calculate_verhoeff_known_values(self):
+        assert calculate_verhoeff("236") == 3
+        assert calculate_verhoeff("23456789012") == 4
+
     def test_first_digit_not_one(self):
         for aadhaar_id in self.aadhaar_ids:
             assert aadhaar_id[0] != "1"
