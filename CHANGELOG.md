@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v40.61.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.60.0...v40.61.0)
+
+* Add current mobile prefixes to `zh_CN` phone numbers (#2513). Thanks @DU8866-nice.
+
 ### [v40.60.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.59.0...v40.60.0)
 
 * Reject nonpositive `max_value` for positive `pyfloat` (#2510). Thanks @Jesse-njx.
