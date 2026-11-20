@@ -29,7 +29,7 @@ Task Progress:
    - Exclude commits that are just linting code.
    - Exclude commits whose subjects start with `:lipstick:` or `💄`.
    - Increment the **MINOR** number.
-   - Thank the original author by their GitHub username (link to their GitHub profile), not their first name.
+   - Thank the original author by their GitHub username as a plain `@username` (no link), not their first name. Look up the username from the PR (e.g. `gh pr view <number> --json author`), since the commit author name may differ.
    - Use existing entries as examples.
 3. **Wait for confirmation before committing or pushing.**
 4. Commit the change with the message `📝 Update CHANGELOG.md`.

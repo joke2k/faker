@@ -398,3 +398,40 @@ class FactoryTestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()  # pragma: no cover
+
+
+@pytest.mark.parametrize(
+    ("locale", "method"),
+    [
+        ("en_US", "passport_gender"),
+        ("en_US", "passport_full"),
+        ("es_MX", "curp"),
+        ("es_MX", "rfc"),
+        ("es_MX", "elector_code"),
+        ("sv_SE", "org_id"),
+        ("sv_SE", "vat_id"),
+        ("el_GR", "vat_id"),
+        ("el_GR", "tin"),
+        ("th_TH", "ssn"),
+        ("th_TH", "vat_id"),
+        ("uk_UA", "ssn"),
+        ("uk_UA", "license_plate"),
+        ("uk_UA", "diplomatic_license_plate"),
+    ],
+)
+def test_localized_providers_are_reproducible_with_seed(locale, method):
+    fake = Faker(locale)
+    fake.seed_instance(4321)
+    expected = [getattr(fake, method)() for _ in range(20)]
+    fake.seed_instance(4321)
+    assert [getattr(fake, method)() for _ in range(20)] == expected
+
+
+def test_passport_gender_seed_does_not_reseed_global_random():
+    import random as stdlib_random
+
+    stdlib_random.seed(0)
+    expected = stdlib_random.random()
+    stdlib_random.seed(0)
+    Faker("en_US").passport_gender(seed=5)
+    assert stdlib_random.random() == expected

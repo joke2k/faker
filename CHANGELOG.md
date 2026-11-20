@@ -1,8 +1,60 @@
 ## Changelog
 
-### Unreleased
+### [v40.56.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.55.0...v40.56.0)
 
-* Fix fractional seconds and timezone offsets in pre-epoch `time_series()` timestamps (#2497).
+* Fix: route `es_ES` `nie`, `nif`, `cif` and `nuss` through the seeded generator (#2494). Thanks @simpleqt.
+
+### [v40.55.0 - 2026-11-20](https://github.com/joke2k/faker/compare/v40.54.0...v40.55.0)
+
+* Add `es_AR` ssn provider with DNI, CUIL and CUIT (#2491). Thanks @eOrrego.
+
+### [v40.54.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.53.0...v40.54.0)
+
+* Fix: `bn_BD` `swift_bank_codes` and `swift11` length (#2490). Thanks @feiiiiii5.
+
+### [v40.53.0 - 2026-11-10](https://github.com/joke2k/faker/compare/v40.52.0...v40.53.0)
+
+* Fix: allow the digit 9 in the first eight positions of an `en_CA` SIN (#2488). Thanks @Sreekant13.
+
+### [v40.52.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.51.0...v40.52.0)
+
+* Fix: generate valid `it_IT` VAT IDs in `vat_id()` (#2482). Thanks @divya0792.
+
+### [v40.51.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.50.0...v40.51.0)
+
+* Fix: reject non-positive precision in `time_series` (#2484). Thanks @yuefdev.
+
+### [v40.50.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.49.0...v40.50.0)
+
+* Fix: avoid random offsets for equal parsed `date_time_between` bounds (#2479). Thanks @FanWu-ai.
+* Docs: add `faker-cti` to community providers (#2492). Thanks @mariot.
+
+### [v40.49.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.48.0...v40.49.0)
+
+* Fix: respect zero fractional digits for positive `pyfloat` fallback (#2473). Thanks @FanWu-ai.
+
+### [v40.48.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.47.0...v40.48.0)
+
+* Fix: generate valid `bg_BG` VAT check digits (#2471). Thanks @feiiiiii5.
+
+### [v40.47.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.46.0...v40.47.0)
+
+* Fix: pass `tzinfo` through when resolving relative `date_time_between_dates` bounds (#2470). Thanks @feiiiiii5.
+
+### [v40.46.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.45.0...v40.46.0)
+
+* Fix: allow repeated digits in numeric `pt_BR` CNPJ roots (#2446). Thanks @liuyaohui666.
+
+### [v40.45.0 - 2026-11-09](https://github.com/joke2k/faker/compare/v40.44.0...v40.45.0)
+
+* Update the base currency list to current ISO 4217 (#2489). Thanks @yu2971512385-ui.
+
+### [v40.44.0 - 2026-10-28](https://github.com/joke2k/faker/compare/v40.43.0...v40.44.0)
+
+* Fix: allow repeated digits in `pt_BR` CPF and RG generators (#2457). Thanks @Sreekant13.
+* Fix: keep `en_CA` SINs out of the 0 and 8 series (#2467). Thanks @feiiiiii5.
+* Fix: use Luhn check digit for `no_NO` Postgiro (0000) BBANs (#2468). Thanks @DYNOSuprovo.
+* Fix: `en_GB` VAT ID generation (#2469). Thanks @orilucky.
 
 ### [v40.43.0 - 2026-10-09](https://github.com/joke2k/faker/compare/v40.42.0...v40.43.0)
 

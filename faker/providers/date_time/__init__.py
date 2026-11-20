@@ -2102,7 +2102,9 @@ class Provider(BaseProvider):
         """
         start_date = self._parse_date_time(start_date, tzinfo=tzinfo)
         end_date = self._parse_date_time(end_date, tzinfo=tzinfo)
-        if end_date - start_date <= 1:
+        if end_date == start_date:
+            ts: float = start_date
+        elif end_date - start_date <= 1:
             ts = start_date + self.generator.random.random()
         else:
             ts = self._rand_seconds(start_date, end_date)
@@ -2202,10 +2204,12 @@ class Provider(BaseProvider):
         datetime_start_ = (
             datetime_to_timestamp(datetime.now(tzinfo))
             if datetime_start is None
-            else self._parse_date_time(datetime_start)
+            else self._parse_date_time(datetime_start, tzinfo=tzinfo)
         )
         datetime_end_ = (
-            datetime_to_timestamp(datetime.now(tzinfo)) if datetime_end is None else self._parse_date_time(datetime_end)
+            datetime_to_timestamp(datetime.now(tzinfo))
+            if datetime_end is None
+            else self._parse_date_time(datetime_end, tzinfo=tzinfo)
         )
 
         timestamp = self._rand_seconds(datetime_start_, datetime_end_)
@@ -2465,7 +2469,7 @@ class Provider(BaseProvider):
         :param start_date: A ``DateParseType``. Defaults to ``"-30d"``
         :param end_date: A ``DateParseType``. Defaults to ``"now"``
         :param precision: A float representing the time interval between data points.
-        Defaults to 1/30th of the time
+        Defaults to 1/30th of the time. Must be greater than zero for a non-empty interval.
         :param distrib: A callable that accepts a datetime object and returns a value.
         Defaults to a uniform distribution
         :param tzinfo: timezone, instance of datetime.tzinfo subclass
@@ -2479,6 +2483,8 @@ class Provider(BaseProvider):
             raise ValueError("`end_date` must be greater than `start_date`.")
 
         precision_ = self._parse_timedelta((end_date_ - start_date_) / 30 if precision is None else precision)
+        if precision_ <= 0 and start_date_ < end_date_:
+            raise ValueError("`precision` must be greater than zero.")
         if distrib is None:
 
             def distrib(dt):

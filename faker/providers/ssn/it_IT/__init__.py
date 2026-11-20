@@ -4,6 +4,8 @@ import unicodedata
 
 from string import ascii_uppercase, digits
 
+from faker.utils.checksums import calculate_luhn
+
 from .. import ElementsType
 from .. import Provider as SsnProvider
 
@@ -8045,14 +8047,39 @@ class Provider(SsnProvider):
         format = self.random_element(self.cie_format)
         return self.bothify(format).upper()
 
-    vat_id_formats = ("IT###########",)
+    def _random_vat_office(self) -> int:
+        """
+        Returns a random code identifying the VAT office needed to build a valid VAT ID.
+
+        See https://it.wikipedia.org/wiki/Partita_IVA#Tabella_degli_Uffici_IVA
+        """
+        val = self.random_int(1, 104)
+
+        # handle special cases
+        if val == 101:
+            return 120
+        elif val == 102:
+            return 121
+        elif val == 103:
+            return 888
+        elif val == 104:
+            return 999
+        # else: between 1 and 100 are all valid
+        return val
 
     def vat_id(self) -> str:
         """
-        http://ec.europa.eu/taxation_customs/vies/faq.html#item_11
+        Returns a random Italian VAT ID (Partita IVA).
+
+        The ID consists of 7 random digits, a 3-digit VAT office code and a
+        Luhn check digit, mirroring ``company_vat`` from the it_IT company
+        provider, so generated values pass checksum validation.
+
+        https://en.wikipedia.org/wiki/VAT_identification_number#Italy
         :return: A random Italian VAT ID
         """
-        return self.bothify(self.random_element(self.vat_id_formats))
+        code = self.bothify("#######") + str(self._random_vat_office()).zfill(3)
+        return f"IT{code}{calculate_luhn(int(code))}"
 
     def _get_name_letters(self, sex: int) -> str:
         """

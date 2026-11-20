@@ -221,7 +221,7 @@ class Provider(BaseProvider):
             if right_digits:
                 result = float("0." + "0" * (right_digits - 1) + "1")
             else:
-                result += sys.float_info.epsilon
+                result = 1.0
 
         if right_digits:
             result = min(result, 10**left_digits - float(f'0.{"0" * (right_digits - 1)}1'))
