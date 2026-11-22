@@ -173,6 +173,16 @@ class TestDeCh:
             assert self.pattern.match(cellphone_number).group("dialing_code") in DeChPhoneNumberProvider.dialing_codes
 
 
+class TestEnIn:
+    """Test en_IN phone number provider methods"""
+
+    def test_phone_number(self, faker, num_samples):
+        pattern: Pattern = re.compile(r"\+91[6-9]\d{9}|[6-9]\d{9}|0[1-8]\d{9}")
+        for _ in range(num_samples):
+            phone_number = faker.phone_number()
+            assert pattern.fullmatch(phone_number)
+
+
 class TestEnPh:
     """Test en_PH phone number provider methods"""
 
