@@ -6,6 +6,31 @@ class Provider(BankProvider):
     Source: https://en.wikipedia.org/wiki/List_of_banks_in_India
     """
 
+    country_code = "IN"
+
+    # Bank codes used by Indian banks in their SWIFT (BIC) and IFSC codes.
+    swift_bank_codes = (
+        "BARB",  # Bank of Baroda
+        "BKID",  # Bank of India
+        "CBIN",  # Central Bank of India
+        "CNRB",  # Canara Bank
+        "FDRL",  # Federal Bank
+        "HDFC",  # HDFC Bank
+        "IBKL",  # IDBI Bank
+        "ICIC",  # ICICI Bank
+        "IDIB",  # Indian Bank
+        "INDB",  # IndusInd Bank
+        "IOBA",  # Indian Overseas Bank
+        "KKBK",  # Kotak Mahindra Bank
+        "MAHB",  # Bank of Maharashtra
+        "PUNB",  # Punjab National Bank
+        "SBIN",  # State Bank of India
+        "UBIN",  # Union Bank of India
+        "UCBA",  # UCO Bank
+        "UTIB",  # Axis Bank
+        "YESB",  # Yes Bank
+    )
+
     banks = (
         "Bank of Baroda",
         "Bank of India",

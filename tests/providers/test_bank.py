@@ -15,6 +15,7 @@ from faker.providers.bank.de_CH import Provider as DeChBankProvider
 from faker.providers.bank.el_GR import Provider as ElGrBankProvider
 from faker.providers.bank.en_GB import Provider as EnGbBankProvider
 from faker.providers.bank.en_IE import Provider as EnIeBankProvider
+from faker.providers.bank.en_IN import Provider as EnInBankProvider
 from faker.providers.bank.en_PH import Provider as EnPhBankProvider
 from faker.providers.bank.es_AR import Provider as EsArBankProvider
 from faker.providers.bank.es_CO import Provider as EsCoBankProvider
@@ -246,6 +247,19 @@ class TestEnIn:
     def test_bank(self, faker, num_samples):
         for _ in range(num_samples):
             assert re.match(r"\D{7,25}", faker.bank())
+
+    def test_bank_country(self, faker):
+        assert faker.bank_country() == "IN"
+
+    def test_swift_uses_country_code(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.swift()[4:6] == "IN"
+
+    def test_swift_use_dataset(self, faker, num_samples):
+        for _ in range(num_samples):
+            swift = faker.swift(use_dataset=True)
+            assert swift[:4] in EnInBankProvider.swift_bank_codes
+            assert swift[4:6] == "IN"
 
 
 class TestEnPh:
