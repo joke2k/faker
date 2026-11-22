@@ -346,6 +346,30 @@ class TestEnCa:
             assert isinstance(pricetag, str)
 
 
+class TestEnIn:
+    """Test en_IN currency provider"""
+
+    num_samples = 100
+
+    @classmethod
+    def setup_class(cls):
+        from faker.providers.currency.en_IN import Provider as EnInCurrencyProvider
+
+        cls.provider = EnInCurrencyProvider
+
+    def test_pricetag(self, faker, num_samples):
+        pattern = re.compile(r"^\N{INDIAN RUPEE SIGN}(\d{1,2},)?(\d{1,2},)?\d{1,3}\.\d{2}$")
+        for _ in range(num_samples):
+            pricetag = faker.pricetag()
+            assert isinstance(pricetag, str)
+            assert pattern.fullmatch(pricetag)
+
+    def test_pricetag_uses_indian_grouping(self, faker):
+        with patch.object(self.provider, "random_element", return_value="%#,##,###.##"):
+            pricetag = faker.pricetag()
+        assert re.fullmatch(r"\N{INDIAN RUPEE SIGN}[1-9]\d,\d{2},\d{3}\.\d{2}", pricetag)
+
+
 class TestEsEs:
     """Test es_ES currency provider"""
 
