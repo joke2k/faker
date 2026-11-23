@@ -34,6 +34,7 @@ from faker.providers.person.hi_IN import Provider as HiINProvider
 from faker.providers.person.hy_AM import Provider as HyAmProvider
 from faker.providers.person.ig_NG import Provider as IgNgProvider
 from faker.providers.person.is_IS import Provider as IsISProvider
+from faker.providers.person.kn_IN import Provider as KnINProvider
 from faker.providers.person.lv_LV import Provider as LvProvider
 from faker.providers.person.mk_MK import Provider as MkMKProvider
 from faker.providers.person.mr_IN import Provider as MrINProvider
@@ -1550,6 +1551,56 @@ class TestMkMk(unittest.TestCase):
         name = self.fake.name()
         assert name
         self.assertIsInstance(name, str)
+
+
+class TestKnIN(unittest.TestCase):
+    """Tests person in the kn_IN locale"""
+
+    def setUp(self):
+        self.fake = Faker("kn_IN")
+        Faker.seed(0)
+
+    def test_first_name(self):
+        for _ in range(100):
+            assert self.fake.first_name() in KnINProvider.first_names
+            assert self.fake.first_name_male() in KnINProvider.first_names_male
+            assert self.fake.first_name_female() in KnINProvider.first_names_female
+
+    def test_last_name(self):
+        for _ in range(100):
+            assert self.fake.last_name() in KnINProvider.last_names
+
+    def test_prefix(self):
+        assert self.fake.prefix() in KnINProvider.prefixes
+        assert self.fake.prefix_male() in KnINProvider.prefixes_male
+        assert self.fake.prefix_female() in KnINProvider.prefixes_female
+
+    def test_name(self):
+        for _ in range(100):
+            name = self.fake.name().split()
+            if len(name) == 3:
+                assert name[0] in KnINProvider.prefixes
+                name = name[1:]
+            assert len(name) == 2
+            assert name[0] in KnINProvider.first_names
+            assert name[1] in KnINProvider.last_names
+
+    def test_name_male_and_female(self):
+        for _ in range(100):
+            male = self.fake.name_male().split()
+            assert male[-2] in KnINProvider.first_names_male
+            if len(male) == 3:
+                assert male[0] in KnINProvider.prefixes_male
+
+            female = self.fake.name_female().split()
+            assert female[-2] in KnINProvider.first_names_female
+            if len(female) == 3:
+                assert female[0] in KnINProvider.prefixes_female
+
+    def test_names_use_kannada_script(self):
+        # Kannada Unicode block: U+0C80 - U+0CFF
+        for name in KnINProvider.first_names + KnINProvider.last_names:
+            assert all("\u0c80" <= ch <= "\u0cff" for ch in name), name
 
 
 class TestMrIN(unittest.TestCase):
