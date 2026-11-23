@@ -42,6 +42,7 @@ from faker.providers.address.id_ID import Provider as IdIdAddressProvider
 from faker.providers.address.it_IT import Provider as ItItAddressProvider
 from faker.providers.address.ja_JP import Provider as JaJpAddressProvider
 from faker.providers.address.ka_GE import Provider as KaGeAddressProvider
+from faker.providers.address.kn_IN import Provider as KnInAddressProvider
 from faker.providers.address.ko_KR import Provider as KoKrAddressProvider
 from faker.providers.address.mk_MK import Provider as MkMKAddressProvider
 from faker.providers.address.mr_IN import Provider as MrInAddressProvider
@@ -2012,6 +2013,56 @@ class TestKoKr:
         for _ in range(num_samples):
             road_address = faker.road_address()
             assert isinstance(road_address, str)
+
+
+class TestKnIn:
+    """Test kn_IN address provider methods"""
+
+    def test_city_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            city_name = faker.city_name()
+            assert isinstance(city_name, str)
+            assert city_name in KnInAddressProvider.cities
+            assert faker.city() in KnInAddressProvider.cities
+
+    def test_state(self, faker, num_samples):
+        for _ in range(num_samples):
+            state = faker.state()
+            assert isinstance(state, str)
+            assert state in KnInAddressProvider.states
+            assert faker.administrative_unit() in KnInAddressProvider.states
+
+    def test_country(self, faker, num_samples):
+        for _ in range(num_samples):
+            country = faker.country()
+            assert isinstance(country, str)
+            assert country in KnInAddressProvider.countries
+
+    def test_postcode(self, faker, num_samples):
+        # Karnataka PIN codes are in the 560000-591999 range
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert re.fullmatch(r"\d{6}", postcode)
+            assert 560000 <= int(postcode) <= 591999
+
+    def test_street_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_address = faker.street_address()
+            assert isinstance(street_address, str)
+            assert "#" not in street_address
+            assert "%" not in street_address
+            assert street_address.endswith(KnInAddressProvider.street_suffixes)
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            street, city_line = address.split("\n")
+            city, rest = city_line.split(" - ")
+            assert city in KnInAddressProvider.cities
+            postcode = rest.split(", ")[0]
+            assert 560000 <= int(postcode) <= 591999
+            if ", " in rest:
+                assert rest.split(", ")[1] == "ಕರ್ನಾಟಕ"
 
 
 class TestMrIn:
