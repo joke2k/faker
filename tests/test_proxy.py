@@ -517,3 +517,18 @@ class TestFakerProxyClass:
         fake = Faker()
         pickled = pickle.dumps(fake)
         pickle.loads(pickled)
+
+
+class TestWeightedUnsupportedMethod:
+    def test_missing_method_raises_attribute_error_with_weights(self):
+        fake = Faker({"en_US": 1, "ja_JP": 1})
+        # duck-typed probes must see False, not a ValueError from zip(*[])
+        assert not hasattr(fake, "some_missing_method")
+        with pytest.raises(AttributeError, match="No generator object"):
+            fake.some_missing_method()
+
+    def test_missing_method_raises_attribute_error_without_weights(self):
+        fake = Faker(["en_US", "ja_JP"])
+        assert not hasattr(fake, "some_missing_method")
+        with pytest.raises(AttributeError, match="No generator object"):
+            fake.some_missing_method()
