@@ -6,6 +6,7 @@ import pytest
 
 from stdnum import iban as iban_validator
 
+from faker import Faker
 from faker.providers.bank import Provider as BankProvider
 from faker.providers.bank.az_AZ import Provider as AzAzBankProvider
 from faker.providers.bank.bn_BD import Provider as BnBdBankProvider
@@ -122,6 +123,29 @@ class TestBaseBankProvider:
 
         with pytest.raises(NotImplementedError):
             provider.bank()
+
+    def test_iban(self, faker, num_samples):
+        """The base provider is GB-shaped, so its IBANs must match the GB
+        registry entry: 22 characters (BBAN = 4 letters + 14 digits).
+
+        Locales whose bank provider does not override ``bban_format``
+        (``en_IN``, ``es_MX``, ``zh_CN``) inherit this format.
+        """
+        provider = BankProvider(faker)
+        for _ in range(num_samples):
+            iban = provider.iban()
+            assert len(iban) == 22  # GB(2) + check(2) + bban(18)
+            assert re.fullmatch(r"GB\d{2}[A-Z]{4}\d{14}", iban)
+            assert is_valid_iban(iban)
+
+    @pytest.mark.parametrize("locale", ["en_IN", "es_MX", "zh_CN"])
+    def test_iban_locales_inheriting_base_bban_format(self, locale, num_samples):
+        fake = Faker(locale)
+        for _ in range(num_samples):
+            iban = fake.iban()
+            assert len(iban) == 22
+            assert re.fullmatch(r"GB\d{2}[A-Z]{4}\d{14}", iban)
+            assert is_valid_iban(iban)
 
 
 class TestCsCz:

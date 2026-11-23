@@ -28,7 +28,7 @@ class Provider(BaseProvider):
     """
 
     ALPHA: Dict[str, str] = {c: str(ord(c) % 55) for c in string.ascii_uppercase}
-    bban_format: str = "????#############"
+    bban_format: str = "????##############"
     country_code: str = "GB"
 
     def aba(self) -> str:
