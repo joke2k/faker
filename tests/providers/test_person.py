@@ -20,6 +20,7 @@ from faker.providers.person.en_NG import Provider as EnNgProvider
 from faker.providers.person.en_PK import Provider as EnPKprovider
 from faker.providers.person.en_US import Provider as EnUSProvider
 from faker.providers.person.es import Provider as EsProvider
+from faker.providers.person.es_AR import Provider as EsARProvider
 from faker.providers.person.es_CO import Provider as EsCOProvider
 from faker.providers.person.es_MX import Provider as EsMXProvider
 from faker.providers.person.et_EE import Provider as EtEEProvider
@@ -705,6 +706,24 @@ class TestEs(unittest.TestCase):
     def test_language_name(self):
         language_name = self.fake.language_name()
         assert language_name in EsProvider.language_names
+
+
+class TestEsAR(unittest.TestCase):
+    """Tests person in the es_AR locale"""
+
+    def setUp(self):
+        self.fake = Faker("es_AR")
+        Faker.seed(0)
+
+    def test_name_female(self):
+        for _ in range(100):
+            name = self.fake.name_female()
+            assert any(first_name in name for first_name in EsARProvider.first_names_female)
+
+    def test_name_male(self):
+        for _ in range(100):
+            name = self.fake.name_male()
+            assert any(first_name in name for first_name in EsARProvider.first_names_male)
 
 
 class TestEsCO(unittest.TestCase):

@@ -12,18 +12,18 @@ class Provider(PersonProvider):
         "{{prefix}} {{first_name}} {{last_name}}",
     )
     formats_female = (
-        "{{first_names_female}} {{last_name}} {{last_name}}",
-        "{{first_names_female}} {{first_names_female}} {{last_name}}",
-        "{{first_names_female}} {{first_names_female}} {{last_name}} {{last_name}}",
-        "{{first_names_female}} {{last_name}}",
-        "{{prefix}} {{first_names_female}} {{last_name}}",
+        "{{first_name_female}} {{last_name}} {{last_name}}",
+        "{{first_name_female}} {{first_name_female}} {{last_name}}",
+        "{{first_name_female}} {{first_name_female}} {{last_name}} {{last_name}}",
+        "{{first_name_female}} {{last_name}}",
+        "{{prefix}} {{first_name_female}} {{last_name}}",
     )
     formats_male = (
-        "{{first_names_male}} {{last_name}} {{last_name}}",
-        "{{first_names_male}} {{first_names_male}} {{last_name}}",
-        "{{first_names_male}} {{first_names_male}} {{last_name}} {{last_name}}",
-        "{{first_names_male}} {{last_name}}",
-        "{{prefix}} {{first_names_male}} {{last_name}}",
+        "{{first_name_male}} {{last_name}} {{last_name}}",
+        "{{first_name_male}} {{first_name_male}} {{last_name}}",
+        "{{first_name_male}} {{first_name_male}} {{last_name}} {{last_name}}",
+        "{{first_name_male}} {{last_name}}",
+        "{{prefix}} {{first_name_male}} {{last_name}}",
     )
 
     """
