@@ -15,6 +15,7 @@ class Provider(AddressProvider):
     Sources:
     - https://tr.wikipedia.org/wiki/T%C3%BCrkiye%27nin_illeri
     - https://tr.wikipedia.org/wiki/T%C3%BCrkiye%27nin_il%C3%A7eleri
+    - https://www.harita.gov.tr/il-ve-ilce-yuzolcumleri (Harita Genel Müdürlüğü)
     """
 
     city_formats = ("{{city_name}}",)
@@ -266,7 +267,7 @@ class Provider(AddressProvider):
             "Gaziosmanpaşa",
             "Güngören",
             "Kadıköy",
-            "Kağıthane",
+            "Kâğıthane",
             "Kartal",
             "Küçükçekmece",
             "Maltepe",
