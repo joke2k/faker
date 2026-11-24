@@ -644,16 +644,23 @@ class TestTlPh(TestEnPh):
 class TestTrTr:
     """Test tr_TR bank provider"""
 
+    def test_bank(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.bank() in TrTrBankProvider.banks
+
     def test_bban(self, faker, num_samples):
         for _ in range(num_samples):
-            assert re.fullmatch(r"\d{22}", faker.bban())
+            bban = faker.bban()
+            assert re.fullmatch(r"\d{5}0\d{16}", bban)
+            assert bban[:5] in TrTrBankProvider.bank_codes
 
     def test_iban(self, faker, num_samples):
         for _ in range(num_samples):
             iban = faker.iban()
             assert is_valid_iban(iban)
+            assert iban_validator.is_valid(iban)
             assert iban[:2] == TrTrBankProvider.country_code
-            assert re.fullmatch(r"\d{2}\d{22}", iban[2:])
+            assert re.fullmatch(r"\d{2}\d{5}0\d{16}", iban[2:])
 
 
 class TestUkUa:
