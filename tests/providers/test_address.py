@@ -57,6 +57,7 @@ from faker.providers.address.sl_SI import Provider as SlSiAddressProvider
 from faker.providers.address.sv_SE import Provider as SvSeAddressProvider
 from faker.providers.address.ta_IN import Provider as TaInAddressProvider
 from faker.providers.address.th_TH import Provider as ThThAddressProvider
+from faker.providers.address.tr_TR import Provider as TrTrAddressProvider
 from faker.providers.address.uk_UA import Provider as UkUaAddressProvider
 from faker.providers.address.vi_VN import Provider as ViVNAddressProvider
 from faker.providers.address.zh_CN import Provider as ZhCnAddressProvider
@@ -2634,6 +2635,70 @@ class TestTlPh(TestEnPh):
     """Test tl_PH address provider methods"""
 
     pass
+
+
+class TestTrTr:
+    """Test tr_TR address provider methods"""
+
+    def test_provinces(self):
+        assert len(TrTrAddressProvider.provinces) == 81
+        assert list(TrTrAddressProvider.provinces) == [f"{code:02d}" for code in range(1, 82)]
+
+    def test_districts_belong_to_known_provinces(self):
+        for plate_code, districts in TrTrAddressProvider.districts.items():
+            assert plate_code in TrTrAddressProvider.provinces
+            assert len(districts) == len(set(districts))
+
+    def test_city(self, faker, num_samples):
+        for _ in range(num_samples):
+            city = faker.city()
+            assert isinstance(city, str)
+            assert city in TrTrAddressProvider.cities
+
+    def test_administrative_unit(self, faker, num_samples):
+        for _ in range(num_samples):
+            province = faker.administrative_unit()
+            assert isinstance(province, str)
+            assert province in TrTrAddressProvider.cities
+            assert faker.province() in TrTrAddressProvider.cities
+
+    def test_district(self, faker, num_samples):
+        all_districts = {d for districts in TrTrAddressProvider.districts.values() for d in districts}
+        for _ in range(num_samples):
+            district = faker.district()
+            assert isinstance(district, str)
+            assert district in all_districts
+
+    def test_street_name(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_name = faker.street_name()
+            assert isinstance(street_name, str)
+            stem, suffix = street_name.rsplit(" ", 1)
+            assert stem in TrTrAddressProvider.streets
+            assert suffix in TrTrAddressProvider.street_suffixes
+
+    def test_street_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            street_address = faker.street_address()
+            assert isinstance(street_address, str)
+            assert re.fullmatch(r".+ No: [1-9]\d*(/[1-9])?( Daire: [1-9]\d?)?", street_address)
+
+    def test_postcode(self, faker, num_samples):
+        for _ in range(num_samples):
+            postcode = faker.postcode()
+            assert isinstance(postcode, str)
+            assert re.fullmatch(r"\d{5}", postcode)
+            assert postcode[:2] in TrTrAddressProvider.provinces
+
+    def test_address(self, faker, num_samples):
+        for _ in range(num_samples):
+            address = faker.address()
+            assert isinstance(address, str)
+            match = re.fullmatch(r".+ Mahallesi, .+ No: .+, (\d{2})\d{3} (.+)/(.+)", address)
+            assert match
+            plate_code, district, province = match.groups()
+            assert TrTrAddressProvider.provinces[plate_code] == province
+            assert district in TrTrAddressProvider.districts[plate_code]
 
 
 class TestUkUa:
