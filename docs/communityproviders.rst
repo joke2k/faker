@@ -95,6 +95,12 @@ Here's a list of Providers written by the community:
 |               | themed data from popular  |                                  |
 |               | sci-fi universes          |                                  |
 +---------------+---------------------------+----------------------------------+
+| Vedic         | Fake data for Vedic       | `faker-vedic-astrology`_         |
+| Astrology     | (sidereal) astrology      |                                  |
+|               | birth charts: planets,    |                                  |
+|               | houses, signs,            |                                  |
+|               | nakshatras, retrograde    |                                  |
++---------------+---------------------------+----------------------------------+
 
 If you want to add your own provider to this list, please submit a Pull Request to our `repo`_.
 
@@ -135,3 +141,4 @@ In order to be included, your provider must satisfy these requirements:
 .. _faker-security: https://pypi.org/project/faker-security/
 .. _faker_researcher_ids: https://pypi.org/project/faker-researcher-ids/
 .. _faker-galactic: https://pypi.org/project/faker-galactic/
+.. _faker-vedic-astrology: https://pypi.org/project/faker-vedic-astrology-birth-chart/
