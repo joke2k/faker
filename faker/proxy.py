@@ -306,7 +306,7 @@ class UniqueProxy:
         self._excluded_types = excluded_types
 
     def clear(self) -> None:
-        self._seen = {}
+        self._seen.clear()
 
     def exclude_types(self, types: list[type]) -> UniqueProxy:
         """Return new UniqueProxy excluding specified types from uniqueness checks.

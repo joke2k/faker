@@ -95,3 +95,25 @@ class TestUniquenessClass:
 
         with pytest.raises(UniquenessException, match=r"Got duplicated values after [\d,]+ iterations."):
             fake.unique["ja_JP"].random_int(min=1, max=10)
+
+    def test_unique_locale_clear(self):
+        """Clearing either the root UniqueProxy or a locale-scoped UniqueProxy
+        clears the shared seen state and keeps them synchronized."""
+
+        fake = Faker(["en_US", "fr_FR"])
+
+        # Clearing via a locale-scoped proxy clears the shared state
+        assert fake.unique["en_US"].random_int(min=1, max=1) == 1
+        fake.unique["en_US"].clear()
+        assert fake.unique["en_US"].random_int(min=1, max=1) == 1
+
+        # Shared state remains synchronized across locales after clear()
+        with pytest.raises(UniquenessException):
+            fake.unique["fr_FR"].random_int(min=1, max=1)
+
+        # Clearing via the root proxy also clears held locale-scoped proxies
+        en_unique = fake.unique["en_US"]
+        fake.unique.clear()
+        assert en_unique.random_int(min=1, max=1) == 1
+        with pytest.raises(UniquenessException):
+            fake.unique.random_int(min=1, max=1)

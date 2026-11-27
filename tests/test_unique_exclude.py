@@ -94,3 +94,22 @@ class TestSelectiveUniqueness:
         # Should work with locale selection
         for _ in range(10):
             proxy["en_US"].pybool()
+
+    def test_exclude_types_clear_preserves_shared_seen(self):
+        """Clearing either the root proxy or an exclude_types() proxy clears
+        the shared seen dictionary and keeps both proxies synchronized."""
+        proxy = self.fake.unique.exclude_types([bool])
+
+        assert proxy.random_int(min=1, max=1) == 1
+        self.fake.unique.clear()
+
+        # Clearing root proxy also clears derived proxy and keeps state shared
+        assert proxy.random_int(min=1, max=1) == 1
+        with pytest.raises(UniquenessException):
+            self.fake.unique.random_int(min=1, max=1)
+
+        # Clearing derived proxy also clears root proxy and keeps state shared
+        proxy.clear()
+        assert self.fake.unique.random_int(min=1, max=1) == 1
+        with pytest.raises(UniquenessException):
+            proxy.random_int(min=1, max=1)
