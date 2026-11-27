@@ -45,6 +45,26 @@ class UtilsTestCase(unittest.TestCase):
         assert boundaries[2][0] > c_pop > boundaries[2][1]
         assert boundaries[3][0] > d_pop > boundaries[3][1]
 
+    def test_choice_distribution_cum_weights(self):
+        a = ("a", "b", "c", "d")
+        p = (0.5, 0.2, 0.2, 0.1)
+        cum = (0.5, 0.7, 0.9, 1.0)
+
+        random.seed(1234)
+        from_weights = choices_distribution(a, p, length=500)
+        random.seed(1234)
+        from_cum = choices_distribution(a, None, length=500, cum_weights=cum)
+        assert from_cum == from_weights
+
+        with self.assertRaises(TypeError):
+            choices_distribution(a, p, length=1, cum_weights=cum)
+
+        class _MinimalRandom:
+            def uniform(self, low, high):
+                return 0.6
+
+        assert choices_distribution(a, None, random=_MinimalRandom(), length=1, cum_weights=cum) == ["b"]
+
     def test_choices_distribution_unique(self):
         a = ("a", "b", "c", "d")
         p = (0.25, 0.25, 0.25, 0.25)

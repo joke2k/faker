@@ -2,6 +2,7 @@ import re
 import string
 
 from collections import OrderedDict
+from itertools import accumulate
 from typing import Any, Collection, List, Optional, Sequence, TypeVar, Union
 
 from ..generator import Generator
@@ -491,6 +492,16 @@ class BaseProvider:
                 elements._key_cache = tuple(elements.keys())  # type: ignore
 
             choices = elements._key_cache  # type: ignore[attr-defined, union-attr]
+            if not unique and use_weighting:
+                if not hasattr(elements, "_cum_weights_cache"):
+                    elements._cum_weights_cache = tuple(accumulate(elements.values()))  # type: ignore
+                return choices_distribution(
+                    choices,
+                    None,
+                    self.generator.random,
+                    length=length,
+                    cum_weights=elements._cum_weights_cache,  # type: ignore[attr-defined, union-attr]
+                )
             probabilities = tuple(elements.values()) if use_weighting else None
         else:
             if unique:

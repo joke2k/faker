@@ -64,25 +64,37 @@ def choices_distribution(
     p: Optional[Sequence[float]],
     random: Optional[Random] = None,
     length: int = 1,
+    *,
+    cum_weights: Optional[Sequence[float]] = None,
 ) -> Sequence[T]:
     if random is None:
         random = mod_random
 
+    if p is not None and cum_weights is not None:
+        raise TypeError("Cannot specify both weights and cum_weights")
+
     if p is not None:
         assert len(a) == len(p)
+    elif cum_weights is not None:
+        assert len(a) == len(cum_weights)
 
     if hasattr(random, "choices"):
-        if length == 1 and p is None:
+        if length == 1 and p is None and cum_weights is None:
             return [random.choice(a)]
+        elif cum_weights is not None:
+            return random.choices(a, cum_weights=cum_weights, k=length)
         else:
             return random.choices(a, weights=p, k=length)
     else:
         choices = []
 
-        if p is None:
-            p = itertools.repeat(1, len(a))  # type: ignore
+        if cum_weights is not None:
+            cdf = list(cum_weights)
+        else:
+            if p is None:
+                p = itertools.repeat(1, len(a))  # type: ignore
 
-        cdf = list(cumsum(p))  # type: ignore
+            cdf = list(cumsum(p))  # type: ignore
         normal = cdf[-1]
         cdf2 = [i / normal for i in cdf]
         for _ in range(length):
