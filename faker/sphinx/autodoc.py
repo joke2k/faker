@@ -3,7 +3,7 @@ from faker.sphinx.documentor import write_provider_docs
 
 
 def _create_source_files(app):
-    write_provider_docs()
+    write_provider_docs(app.srcdir)
 
 
 def _process_docstring(app, what, name, obj, options, lines):
