@@ -248,6 +248,25 @@ class TestBaseProvider:
         )
         assert sorted(sample) == ["a", "b"]
 
+    def test_random_elements_weighted_precomputed_cum_weights_parity(self, faker):
+        table = OrderedDict([("a", 0.5), ("b", 0.25), ("c", 0.15), ("d", 0.10)])
+        keys = tuple(table.keys())
+        weights = tuple(table.values())
+
+        faker.seed_instance(42)
+        actual = [faker.random_element(table) for _ in range(1000)]
+
+        faker.seed_instance(42)
+        expected = [faker.random.choices(keys, weights=weights, k=1)[0] for _ in range(1000)]
+
+        assert actual == expected
+        assert hasattr(table, "_cum_weights_cache")
+        assert table._cum_weights_cache == (0.5, 0.75, 0.9, 1.0)
+
+        # Unweighted and unique draws still work on the same cached table
+        assert sorted(faker.random_elements(table, length=4, unique=True)) == ["a", "b", "c", "d"]
+        assert faker.random_elements(table, length=2, use_weighting=False)[0] in keys
+
     def test_random_sample(self, faker):
         # Too many items requested
         with pytest.raises(ValueError):
