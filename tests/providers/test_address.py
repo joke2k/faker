@@ -1783,6 +1783,22 @@ class TestIdId:
             assert isinstance(state_abbr, str)
             assert state_abbr in IdIdAddressProvider.states_abbr
 
+    def test_states_and_abbreviations(self):
+        # 38 provinces since Papua Barat Daya was formed in 2022
+        assert len(IdIdAddressProvider.states) == 38
+        assert len(set(IdIdAddressProvider.states)) == 38
+        assert len(IdIdAddressProvider.states_abbr) == 38
+        assert len(set(IdIdAddressProvider.states_abbr)) == 38
+
+        # ISO 3166-2:ID codes, in the same order as the province names
+        abbr = dict(zip(IdIdAddressProvider.states, IdIdAddressProvider.states_abbr))
+        assert abbr["Sulawesi Utara"] == "SA"
+        assert abbr["Sumatera Utara"] == "SU"
+        assert abbr["Papua Barat Daya"] == "PD"
+        assert abbr["Papua Pegunungan"] == "PE"
+        assert abbr["Papua Selatan"] == "PS"
+        assert abbr["Papua Tengah"] == "PT"
+
     def test_country(self, faker, num_samples):
         for _ in range(num_samples):
             country = faker.country()
