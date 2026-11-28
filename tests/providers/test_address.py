@@ -917,6 +917,20 @@ class TestEnPh:
             assert int(postcode) in self.postcodes
             assert province in self.provinces or province == "Metro Manila"
 
+    def test_mindanao_province(self, faker, num_samples):
+        for _ in range(num_samples):
+            assert faker.mindanao_province() in EnPhAddressProvider.mindanao_provinces
+
+    def test_current_mindanao_provinces(self):
+        provinces = EnPhAddressProvider.mindanao_provinces
+        # Davao de Oro was renamed from Compostela Valley in 2019 (RA 11297).
+        assert "Davao de Oro" in provinces
+        assert "Compostela Valley" not in provinces
+        # Maguindanao was split into two provinces in 2022 (RA 11550).
+        assert "Maguindanao del Norte" in provinces
+        assert "Maguindanao del Sur" in provinces
+        assert "Maguindanao" not in provinces
+
 
 class TestEnUS:
     """Test en_US address provider methods"""
